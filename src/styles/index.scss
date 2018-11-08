@@ -1,3 +1,7 @@
-@import './layout/_Block';
-@import './layout/_HomePageLayout';
-@import './search/_AdvancedSearch';
+@import "./layout/_Block";
+@import "./layout/_HomePageLayout";
+@import "./search/_AdvancedSearch";
+
+section#layout {
+  padding-top: 2.5rem;
+}

@@ -15,4 +15,6 @@ export default {
   database_fields: `${prefix}/configure/uniprotkb/databasefields`,
   // All result fields except database cross reference fields
   results_fields: `${prefix}/configure/uniprotkb/resultfields`,
+  // UniProtKB search
+  uniprot_kb_search: `${prefix}/uniprotkb/search`,
 };

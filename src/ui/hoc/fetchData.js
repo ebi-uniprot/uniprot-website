@@ -1,5 +1,10 @@
 import axios from 'axios';
 
 export default function fetchData(url) {
-  return axios.get(url);
+  const headers = {
+    Accept: 'application/json',
+  };
+  return axios.get(url, {
+    headers,
+  });
 }

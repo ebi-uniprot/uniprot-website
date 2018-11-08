@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { v1 } from 'uuid';
+import { withRouter } from 'react-router';
 import AdvancedSearchField from './AdvancedSearchField';
 import withData from '../hoc/withData';
 import apiUrls from '../apiUrls';
@@ -64,7 +65,11 @@ class AdvancedSearch extends Component<Props, State> {
 
   submitQuery() {
     const { fields } = this.state;
-    console.log(createQueryString(fields));
+    const { setQuery, history } = this.props;
+    const query = createQueryString(fields);
+    setQuery(query).then((d) => {
+      history.push('/results');
+    });
   }
 
   render() {
@@ -114,4 +119,4 @@ class AdvancedSearch extends Component<Props, State> {
   }
 }
 
-export default withData(() => apiUrls.advanced_search_terms)(AdvancedSearch);
+export default withRouter(withData(() => apiUrls.advanced_search_terms)(AdvancedSearch));

@@ -12,29 +12,30 @@ const UniProtHeader = () => (
     <ul className="header__navigation">
       <li>
         <Link to="/">BLAST</Link>
-        {' '}
       </li>
       <li>
         <Link to="/">Aligh</Link>
-        {' '}
       </li>
       <li>
         <Link to="/">Peptide search</Link>
-        {' '}
       </li>
       <li>
         <Link to="/">Retrieve/ID Mapping</Link>
-        {' '}
       </li>
       <li>
         <Link to="/">API</Link>
-        {' '}
       </li>
       <li>
         <Link to="/">Help</Link>
-        {' '}
       </li>
     </ul>
+    <div>
+      <input type="text" />
+      <button type="button" className="button">
+        Search
+      </button>
+    </div>
+    <Link to="/advanced-search">Advanced search</Link>
   </Header>
 );
 

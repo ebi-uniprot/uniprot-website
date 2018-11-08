@@ -31,3 +31,6 @@ section#layout[data-layout="home-page"] {
     display: flex; }
     .advanced-search .advanced-search__field .advanced-search__inputs label {
       width: 100%; }
+
+section#layout {
+  padding-top: 2.5rem; }

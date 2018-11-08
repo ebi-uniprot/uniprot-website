@@ -4,14 +4,9 @@ import { Tile } from 'franklin-sites';
 
 import Block from '../layout/Block';
 import HomePageLayout from '../layout/HomePageLayout';
-import AdvancedSearch from '../search/AdvancedSearch';
 
 const HomePage = () => (
   <HomePageLayout>
-    <Block columns="1">
-      <AdvancedSearch />
-    </Block>
-
     <Block columns="4">
       <Tile title="UniProtKB" />
       <Tile
