@@ -1,5 +1,5 @@
 import React from 'react';
-import '@babel/polyfill';
+import 'core-js/stable';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Search } from '../SearchContainer';

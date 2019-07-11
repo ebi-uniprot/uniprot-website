@@ -1,6 +1,9 @@
 import { ActionType } from 'typesafe-actions';
 import * as resultsActions from './resultsActions';
-import resultsInitialState, { ResultsState } from './resultsInitialState';
+import resultsInitialState, {
+  ResultsState,
+  ViewMode,
+} from './resultsInitialState';
 
 export type ResultAction = ActionType<typeof resultsActions>;
 const resultsReducers = (
@@ -33,6 +36,13 @@ const resultsReducers = (
         results: [],
         isFetching: false,
         isFetched: {},
+      };
+    }
+    case resultsActions.SWITCH_VIEW_MODE: {
+      return {
+        ...state,
+        viewMode:
+          state.viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD,
       };
     }
     default:

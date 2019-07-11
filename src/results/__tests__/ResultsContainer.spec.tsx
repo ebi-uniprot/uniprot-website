@@ -1,131 +1,167 @@
 import React from 'react';
-import '@babel/polyfill';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import { Results } from '../ResultsContainer';
-import { Namespace } from '../../search/types/searchTypes';
+import axios from 'axios';
+import 'core-js/stable';
+import { Router } from 'react-router-dom';
+import {
+  render,
+  cleanup,
+  waitForElement,
+  fireEvent,
+} from '@testing-library/react';
+import ResultsContainer from '../ResultsContainer';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducer from '../../state/rootReducer';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import searchInitialState from '../../search/state/searchInitialState';
+import resultsInitialState, { ViewMode } from '../state/resultsInitialState';
+import { createMemoryHistory } from 'history';
 
-configure({ adapter: new Adapter() });
+jest.mock('axios');
 
-let wrapper;
-let props;
-
-const facetString = 'f1:v1,f2:v2';
-const facetArray = [{ name: 'f1', value: 'v1' }, { name: 'f2', value: 'v2' }];
+axios.get.mockResolvedValue({
+  headers: {
+    'x-totalrecords': 1,
+  },
+  data: {
+    facets: [
+      {
+        label: 'Status',
+        name: 'reviewed',
+        allowMultipleSelection: false,
+        values: [
+          {
+            label: 'Unreviewed (TrEMBL)',
+            value: 'false',
+            count: 68526,
+          },
+          {
+            label: 'Reviewed (Swiss-Prot)',
+            value: 'true',
+            count: 4631,
+          },
+        ],
+      },
+    ],
+    results: [
+      {
+        entryType: 'Swiss-Prot',
+        primaryAccession: 'O00311',
+        uniProtId: 'CDC7_HUMAN',
+        proteinDescription: {
+          recommendedName: {
+            fullName: {
+              value: 'Full protein name',
+            },
+          },
+        },
+      },
+    ],
+  },
+});
 
 describe('Results component', () => {
-  beforeEach(() => {
-    props = {
-      columns: [],
-      results: [],
-      isFetching: false,
-      namespace: Namespace.uniprotkb,
-      dispatchFetchBatchOfResultsIfNeeded: jest.fn(),
-      dispatchClearResults: jest.fn(),
-      dispatchReset: jest.fn(),
-      location: {
-        search: '',
-      },
-      history: {
-        push: jest.fn(),
-        replace: jest.fn(),
-      },
+  afterEach(cleanup);
+
+  const renderWithRedux = (
+    ui,
+    {
+      route = '/uniprotkb?query=blah',
+      history = createMemoryHistory({ initialEntries: [route] }),
+      initialState,
+      store = createStore(rootReducer, initialState, applyMiddleware(thunk)),
+    } = {}
+  ) => {
+    return {
+      ...render(
+        <Provider store={store}>
+          <Router history={history}>{ui}</Router>
+        </Provider>
+      ),
+      store,
+      history,
     };
-    wrapper = shallow(<Results {...props} />);
-  });
+  };
 
   test('should call to get results', () => {
-    expect(props.dispatchFetchBatchOfResultsIfNeeded).toHaveBeenCalled();
+    renderWithRedux(<ResultsContainer />);
+    expect(axios.get).toHaveBeenCalled();
   });
 
-  test('should update if query changes', () => {
-    wrapper.setProps({ location: { search: 'query=cdc8' } });
-    expect(props.dispatchFetchBatchOfResultsIfNeeded).toHaveBeenCalledTimes(2);
-  });
-
-  test('should get the facets as a string', () => {
-    expect(wrapper.instance().facetsAsString(facetArray)).toBe(
-      `&facets=${facetString}`
+  test('should select a facet', async () => {
+    const { getByText, history } = renderWithRedux(<ResultsContainer />);
+    const unreviewedButton = await waitForElement(() =>
+      getByText('Unreviewed (TrEMBL) (68,526)')
+    );
+    fireEvent.click(unreviewedButton);
+    expect(history.location.search).toEqual(
+      '?query=blah&facets=reviewed:false'
     );
   });
 
-  test('should get the facets as an array', () => {
-    expect(wrapper.instance().facetsAsArray(facetString)).toEqual(facetArray);
+  test('should deselect a facet', async () => {
+    const { getByText, history } = renderWithRedux(<ResultsContainer />);
+    let unreviewedButton = await waitForElement(() =>
+      getByText('Unreviewed (TrEMBL) (68,526)')
+    );
+    fireEvent.click(unreviewedButton);
+    unreviewedButton = await waitForElement(() =>
+      getByText('Unreviewed (TrEMBL) (68,526)')
+    );
+    fireEvent.click(unreviewedButton);
+    expect(history.location.search).toEqual('?query=blah');
   });
 
-  test('should add facet', () => {
-    wrapper.instance().addFacet('blah', 'blah');
-    expect(props.history.push).toHaveBeenCalledWith({
-      pathname: '/uniprotkb',
-      search: 'query=&facets=blah:blah',
-    });
+  test('should toggle card view to table', async () => {
+    const { container, getByTestId, getByText } = renderWithRedux(
+      <ResultsContainer />
+    );
+    let toggle = await waitForElement(() => getByTestId('table-card-toggle'));
+    expect(container.querySelector('div')).toBeNull;
+    fireEvent.click(toggle);
+    const table = await waitForElement(() => getByText('Entry'));
+    expect(table).toBeTruthy;
   });
 
-  test('should remove a facet', () => {
-    wrapper.setProps({
-      location: { search: 'query=cdc8&facets=blah:blah,blah2:blah2' },
-    });
-    wrapper.instance().removeFacet('blah', 'blah');
-    expect(props.history.push).toHaveBeenCalledWith({
-      pathname: '/uniprotkb',
-      search: 'query=cdc8&facets=blah2:blah2',
-    });
+  test('should handle selection', async () => {
+    const state = {
+      query: searchInitialState,
+      results: { ...resultsInitialState, viewMode: ViewMode.TABLE },
+    };
+    const { container, debug, getByText } = renderWithRedux(
+      <ResultsContainer />,
+      { initialState: state }
+    );
+    let checkbox = await waitForElement(() =>
+      container.querySelector('input[type=checkbox]')
+    );
+    // As the checkbox selection currently has no effect on the
+    // UI we can't test much at the moment
+    expect(checkbox.checked).toBeFalsy;
+    fireEvent.click(checkbox); //de-select
+    expect(checkbox.checked).toBeTruthy;
   });
 
-  test('should remove last facet', () => {
-    wrapper.setProps({ location: { search: 'query=cdc8&facets=blah:blah' } });
-    wrapper.instance().removeFacet('blah', 'blah');
-    expect(props.history.push).toHaveBeenCalledWith({
-      pathname: '/uniprotkb',
-      search: 'query=cdc8',
+  test('should set sorting', async () => {
+    const state = {
+      query: searchInitialState,
+      results: { ...resultsInitialState, viewMode: ViewMode.TABLE },
+    };
+    const { getByText, history } = renderWithRedux(<ResultsContainer />, {
+      initialState: state,
     });
-  });
-
-  test('should sort column', () => {
-    wrapper.setProps({ location: { search: 'query=cdc8&sort=accession' } });
-    wrapper.instance().updateColumnSort('name');
-    expect(props.history.push).toHaveBeenCalledWith({
-      pathname: '/uniprotkb',
-      search: 'query=cdc8&sort=name',
-    });
-  });
-
-  test('should set different sort direction', () => {
-    wrapper.setProps({
-      location: { search: 'query=cdc8&sort=accession' },
-    });
-    wrapper.instance().updateColumnSort('accession');
-    expect(props.history.push).toHaveBeenCalledWith({
-      pathname: '/uniprotkb',
-      search: 'query=cdc8&sort=accession&dir=ascend',
-    });
-  });
-
-  test('should update sort direction', () => {
-    wrapper.setProps({
-      location: { search: 'query=cdc8&sort=accession&dir=ascend' },
-    });
-    wrapper.instance().updateColumnSort('accession');
-    expect(props.history.push).toHaveBeenCalledWith({
-      pathname: '/uniprotkb',
-      search: 'query=cdc8&sort=accession&dir=descend',
-    });
-  });
-
-  test('should handle row selection', () => {
-    wrapper.instance().handleRowSelect('2');
-    wrapper.instance().handleRowSelect('6');
-    expect(wrapper.state().selectedRows).toEqual({ 2: true, 6: true });
-  });
-
-  test('should handle row deselection', () => {
-    wrapper.instance().handleRowSelect('2');
-    wrapper.instance().handleRowSelect('2');
-    expect(wrapper.state().selectedRows).toEqual({});
-  });
-
-  test('should dispatch reset on unmount', () => {
-    wrapper.unmount();
-    expect(props.dispatchReset).toBeCalled();
+    let columnHeader = await waitForElement(() => getByText('Entry'));
+    fireEvent.click(columnHeader);
+    expect(history.location.search).toBe('?query=blah&sort=accession');
+    columnHeader = await waitForElement(() => getByText('Entry'));
+    fireEvent.click(columnHeader);
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=ascend'
+    );
+    columnHeader = await waitForElement(() => getByText('Entry'));
+    fireEvent.click(columnHeader);
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=descend'
+    );
   });
 });

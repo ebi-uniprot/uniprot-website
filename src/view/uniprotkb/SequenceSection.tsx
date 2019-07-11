@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../model/utils/utils';
 import EntrySection from '../../model/types/EntrySection';
@@ -16,7 +16,7 @@ const SequenceSection: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <div id={EntrySection.Sequence}>
       <Card title={EntrySection.Sequence}>
         <SequenceView data={data} accession={primaryAccession} />
         <FeaturesView
@@ -26,7 +26,7 @@ const SequenceSection: FC<{
         <KeywordView keywords={data.keywordData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

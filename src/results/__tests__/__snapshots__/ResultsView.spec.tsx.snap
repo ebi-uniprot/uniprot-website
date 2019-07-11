@@ -1,0 +1,267 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsView component should render cards 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ResultsView
+    handleEntrySelection={[MockFunction]}
+    handleHeaderClick={[MockFunction]}
+    handleLoadMoreRows={[MockFunction]}
+    results={
+      Array [
+        Object {
+          "accession": "1234",
+        },
+        Object {
+          "accession": "5678",
+        },
+      ]
+    }
+    selectedEntries={Object {}}
+    sort={
+      Object {
+        "column": "accession",
+        "direction": "descend",
+      }
+    }
+    sortColumn={null}
+    sortDirection={null}
+    tableColumns={
+      Array [
+        "accession",
+      ]
+    }
+    totalNumberResults={2}
+    viewMode={1}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "data": Array [
+        Object {
+          "accession": "1234",
+        },
+        Object {
+          "accession": "5678",
+        },
+      ],
+      "dataRenderer": [Function],
+      "hasMoreData": false,
+      "idKey": "primaryAccession",
+      "onLoadMoreItems": [MockFunction],
+      "onSelect": [MockFunction],
+      "selectable": true,
+      "selected": Object {},
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "data": Array [
+          Object {
+            "accession": "1234",
+          },
+          Object {
+            "accession": "5678",
+          },
+        ],
+        "dataRenderer": [Function],
+        "hasMoreData": false,
+        "idKey": "primaryAccession",
+        "onLoadMoreItems": [MockFunction],
+        "onSelect": [MockFunction],
+        "selectable": true,
+        "selected": Object {},
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Map {},
+}
+`;
+
+exports[`ResultsView component should render table 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ResultsView
+    handleEntrySelection={[MockFunction]}
+    handleHeaderClick={[MockFunction]}
+    handleLoadMoreRows={[MockFunction]}
+    results={
+      Array [
+        Object {
+          "accession": "1234",
+        },
+        Object {
+          "accession": "5678",
+        },
+      ]
+    }
+    selectedEntries={Object {}}
+    sort={
+      Object {
+        "column": "accession",
+        "direction": "descend",
+      }
+    }
+    sortColumn={null}
+    sortDirection={null}
+    tableColumns={
+      Array [
+        "accession",
+      ]
+    }
+    totalNumberResults={2}
+    viewMode={0}
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "columns": Array [
+        Object {
+          "label": "Entry",
+          "name": "accession",
+          "render": [Function],
+          "sortable": true,
+          "sorted": null,
+        },
+      ],
+      "data": Array [
+        Object {
+          "accession": "1234",
+        },
+        Object {
+          "accession": "5678",
+        },
+      ],
+      "hasMoreData": false,
+      "idKey": "primaryAccession",
+      "onHeaderClick": [MockFunction],
+      "onLoadMoreItems": [MockFunction],
+      "onSelect": [MockFunction],
+      "selectable": true,
+      "selected": Object {},
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "columns": Array [
+          Object {
+            "label": "Entry",
+            "name": "accession",
+            "render": [Function],
+            "sortable": true,
+            "sorted": null,
+          },
+        ],
+        "data": Array [
+          Object {
+            "accession": "1234",
+          },
+          Object {
+            "accession": "5678",
+          },
+        ],
+        "hasMoreData": false,
+        "idKey": "primaryAccession",
+        "onHeaderClick": [MockFunction],
+        "onLoadMoreItems": [MockFunction],
+        "onSelect": [MockFunction],
+        "selectable": true,
+        "selected": Object {},
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Map {},
+}
+`;

@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../model/utils/utils';
 import EntrySection from '../../model/types/EntrySection';
@@ -19,7 +19,7 @@ const ProteinProcessingSection: FC<{
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
   return (
-    <Fragment>
+    <div id={EntrySection.ProteinProcessing}>
       <Card title={EntrySection.ProteinProcessing}>
         <FeaturesView features={featuresData} sequence={sequence} />
         <FreeTextView
@@ -29,7 +29,7 @@ const ProteinProcessingSection: FC<{
         <KeywordView keywords={keywordData} />
         <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

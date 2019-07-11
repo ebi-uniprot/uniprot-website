@@ -8,6 +8,8 @@ import {
   DownloadIcon,
   BasketIcon,
   StatisticsIcon,
+  TableIcon,
+  ListIcon,
   Loader,
 } from 'franklin-sites';
 import * as resultsActions from './state/resultsActions';
@@ -15,47 +17,53 @@ import * as searchActions from '../search/state/searchActions';
 import { default as queryStringModule } from 'query-string';
 import { Clause, Namespace } from '../search/types/searchTypes';
 import SideBarLayout from '../layout/SideBarLayout';
-import ResultsTable from './ResultsTable';
+import ResultsView from './ResultsView';
 import { getAPIQueryUrl } from './utils/utils';
 import infoMappings from '../info/InfoMappings';
 import { RootState, RootAction } from '../state/state-types';
 import {
   SortDirection,
   SortableColumn,
-  SelectedRows,
+  SelectedEntries,
   SelectedFacet,
 } from './types/resultsTypes';
+import { ViewMode } from './state/resultsInitialState';
 
 interface ResultsProps extends RouteComponentProps {
   namespace: Namespace;
   dispatchFetchBatchOfResultsIfNeeded: (url: string | undefined) => void;
   dispatchReset: () => void;
   dispatchClearResults: () => void;
+  dispatchSwitchViewMode: () => void;
   clauses?: Clause[];
-  columns: string[];
+  tableColumns: string[];
+  cardColumns: string[];
   results: any[];
   facets: any[];
   isFetching: boolean;
   nextUrl: string;
   totalNumberResults: number;
+  viewMode: ViewMode;
 }
 
 type ResultsContainerState = {
-  selectedRows: SelectedRows;
+  selectedEntries: SelectedEntries;
 };
 
 export class Results extends Component<ResultsProps, ResultsContainerState> {
   constructor(props: ResultsProps) {
     super(props);
-    this.state = { selectedRows: {} };
+    this.state = { selectedEntries: {} };
   }
 
-  componentDidMount() {
+  updateData() {
     const {
       location: { search: queryParamFromUrl },
-      columns,
+      tableColumns,
+      cardColumns,
       dispatchFetchBatchOfResultsIfNeeded,
       dispatchClearResults,
+      viewMode,
     } = this.props;
     const {
       query,
@@ -63,36 +71,23 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
       sortColumn,
       sortDirection,
     } = this.getURLParams(queryParamFromUrl);
+    const columns = viewMode === ViewMode.CARD ? cardColumns : tableColumns;
     dispatchClearResults();
     dispatchFetchBatchOfResultsIfNeeded(
       getAPIQueryUrl(query, columns, selectedFacets, sortColumn, sortDirection)
     );
   }
 
+  componentDidMount() {
+    this.updateData();
+  }
+
   componentDidUpdate(prevProps: ResultsProps) {
     const {
       location: { search: queryParamFromUrl },
-      columns,
-      dispatchFetchBatchOfResultsIfNeeded,
-      dispatchClearResults,
     } = this.props;
     if (prevProps.location.search !== queryParamFromUrl) {
-      const {
-        query,
-        selectedFacets,
-        sortColumn,
-        sortDirection,
-      } = this.getURLParams(queryParamFromUrl);
-      dispatchClearResults();
-      dispatchFetchBatchOfResultsIfNeeded(
-        getAPIQueryUrl(
-          query,
-          columns,
-          selectedFacets,
-          sortColumn,
-          sortDirection
-        )
-      );
+      this.updateData();
     }
   }
 
@@ -145,14 +140,14 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
     });
   };
 
-  handleRowSelect = (rowId: string): void => {
-    const { selectedRows: prevSelectedRows } = this.state;
-    if (rowId in prevSelectedRows) {
-      const { [rowId]: value, ...selectedRows } = prevSelectedRows;
-      this.setState({ selectedRows });
+  handleEntrySelection = (rowId: string): void => {
+    const { selectedEntries: prevSelectedEntries } = this.state;
+    if (rowId in prevSelectedEntries) {
+      const { [rowId]: value, ...selectedEntries } = prevSelectedEntries;
+      this.setState({ selectedEntries: selectedEntries });
     } else {
-      prevSelectedRows[rowId] = true;
-      this.setState({ selectedRows: prevSelectedRows });
+      prevSelectedEntries[rowId] = true;
+      this.setState({ selectedEntries: prevSelectedEntries });
     }
   };
 
@@ -248,13 +243,15 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
       results,
       facets,
       isFetching,
-      columns,
       dispatchFetchBatchOfResultsIfNeeded,
       namespace,
       nextUrl,
       totalNumberResults,
+      viewMode,
+      tableColumns,
+      dispatchSwitchViewMode,
     } = this.props;
-    const { selectedRows } = this.state;
+    const { selectedEntries } = this.state;
     const { selectedFacets, sortColumn, sortDirection } = this.getURLParams(
       queryParamFromUrl
     );
@@ -266,7 +263,11 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
       <Fragment>
         <SideBarLayout
           title={
-            <PageIntro title={name} links={links}>
+            <PageIntro
+              title={name}
+              links={links}
+              resultsCount={totalNumberResults}
+            >
               {info}
             </PageIntro>
           }
@@ -279,8 +280,8 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
             />
           }
           content={
-            results.length ? (
-              <Fragment>
+            <Fragment>
+              {results.length > 0 && (
                 <div className="button-group">
                   <button className="button link-button disabled">Blast</button>
                   <button className="button link-button disabled">Align</button>
@@ -297,28 +298,47 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                     Statistics
                   </button>
                   <button className="button link-button">Map to</button>
+                  <button
+                    className="button link-button large-icon"
+                    onClick={() => dispatchSwitchViewMode()}
+                    data-testid="table-card-toggle"
+                  >
+                    <span
+                      className={
+                        viewMode === ViewMode.CARD
+                          ? 'link-button-icon__active'
+                          : ''
+                      }
+                    >
+                      <TableIcon />
+                    </span>
+                    <span
+                      className={
+                        viewMode === ViewMode.TABLE
+                          ? 'link-button-icon__active'
+                          : ''
+                      }
+                    >
+                      <ListIcon />
+                    </span>
+                  </button>
                 </div>
-                <ResultsTable
-                  results={results}
-                  columnNames={columns}
-                  handleRowSelect={this.handleRowSelect}
-                  selectedRows={selectedRows}
-                  handleHeaderClick={this.updateColumnSort}
-                  sortColumn={sortColumn}
-                  sortDirection={sortDirection}
-                  handleLoadMoreRows={() =>
-                    dispatchFetchBatchOfResultsIfNeeded(nextUrl)
-                  }
-                  totalNumberResults={totalNumberResults}
-                />
-              </Fragment>
-            ) : (
-              // This loading indicator is temporary. UX will decide at some
-              // future date what site-wide indicator will be used.
-              <div style={{ fontSize: '2rem', paddingLeft: '2rem' }}>
-                Loading...
-              </div>
-            )
+              )}
+              <ResultsView
+                results={results}
+                handleEntrySelection={this.handleEntrySelection}
+                selectedEntries={selectedEntries}
+                handleHeaderClick={this.updateColumnSort}
+                sortColumn={sortColumn}
+                sortDirection={sortDirection}
+                handleLoadMoreRows={() =>
+                  dispatchFetchBatchOfResultsIfNeeded(nextUrl)
+                }
+                totalNumberResults={totalNumberResults}
+                tableColumns={tableColumns}
+                viewMode={viewMode}
+              />
+            </Fragment>
           }
         />
       </Fragment>
@@ -326,15 +346,19 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
-  namespace: state.query.namespace,
-  columns: state.results.columns,
-  results: state.results.results,
-  facets: state.results.facets,
-  isFetching: state.results.isFetching,
-  nextUrl: state.results.nextUrl,
-  totalNumberResults: state.results.totalNumberResults,
-});
+const mapStateToProps = (state: RootState) => {
+  return {
+    namespace: state.query.namespace,
+    tableColumns: state.results.tableColumns,
+    cardColumns: state.results.cardColumns,
+    results: state.results.results,
+    facets: state.results.facets,
+    isFetching: state.results.isFetching,
+    nextUrl: state.results.nextUrl,
+    totalNumberResults: state.results.totalNumberResults,
+    viewMode: state.results.viewMode,
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
@@ -343,6 +367,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
         resultsActions.fetchBatchOfResultsIfNeeded(url),
       dispatchReset: () => searchActions.reset(),
       dispatchClearResults: () => resultsActions.clearResults(),
+      dispatchSwitchViewMode: () => resultsActions.switchViewMode(),
     },
     dispatch
   );

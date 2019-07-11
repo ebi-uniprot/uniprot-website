@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import FeaturesView from '../uniprotkb/components/FeaturesView';
 import DiseaseInvolvementView from '../uniprotkb/components/DiseaseInvolvementView';
@@ -18,7 +18,7 @@ const PathologyAndBiotechSection: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <div id={EntrySection.PathologyAndBioTech}>
       <Card title={EntrySection.PathologyAndBioTech}>
         <DiseaseInvolvementView
           comments={data.commentsData.get(Comment.DISEASE)}
@@ -28,7 +28,7 @@ const PathologyAndBiotechSection: FC<{
         <KeywordView keywords={data.keywordData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

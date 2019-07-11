@@ -80,17 +80,6 @@ const UniProtKBEntryConfig: {
     ),
   },
   {
-    name: EntrySection.FamilyAndDomains,
-    sectionContent: (data: UniProtkbUIModel) => (
-      <FamilyAndDomainsSection
-        data={data[EntrySection.FamilyAndDomains]}
-        primaryAccession={data.primaryAccession}
-        sequence={data[EntrySection.Sequence].sequence.value}
-        key={EntrySection.Expression}
-      />
-    ),
-  },
-  {
     name: EntrySection.Interaction,
     sectionContent: (data: UniProtkbUIModel) => (
       <InteractionSection
@@ -108,6 +97,17 @@ const UniProtKBEntryConfig: {
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         key={EntrySection.Structure}
+      />
+    ),
+  },
+  {
+    name: EntrySection.FamilyAndDomains,
+    sectionContent: (data: UniProtkbUIModel) => (
+      <FamilyAndDomainsSection
+        data={data[EntrySection.FamilyAndDomains]}
+        primaryAccession={data.primaryAccession}
+        sequence={data[EntrySection.Sequence].sequence.value}
+        key={EntrySection.Expression}
       />
     ),
   },

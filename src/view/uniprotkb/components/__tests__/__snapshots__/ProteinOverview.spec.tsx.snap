@@ -10,7 +10,6 @@ exports[`ProteinOverview component should render 1`] = `
     >
       <h3
         class="card__title"
-        id="[object Object]"
       >
          
         <small>

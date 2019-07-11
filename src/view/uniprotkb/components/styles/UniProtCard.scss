@@ -1,0 +1,21 @@
+.uniprot-card {
+  &__status {
+    display: inline-flex;
+    align-self: center;
+    margin-right: 0.2rem;
+  }
+
+  &__status svg {
+    width: 2rem;
+    height: 2rem;
+    top: 0.35em;
+    position: relative;
+  }
+
+  &__comment {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 12vh;
+    text-overflow: ellipsis;
+  }
+}

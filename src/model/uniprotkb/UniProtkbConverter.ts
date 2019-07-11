@@ -27,6 +27,11 @@ import { convertFamilyAndDomains } from './sections/FamilyAndDomainsConverter';
 import { UIModel } from './SectionConverter';
 import { convertStructure } from './sections/StructureConverter';
 
+export enum EntryType {
+  SWISSPROT = 'Swiss-Prot',
+  TREMBL = 'TrEMBL',
+}
+
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
@@ -34,6 +39,7 @@ export type UniProtkbAPIModel = {
   primaryAccession: string;
   uniProtId: string;
   proteinExistence: string;
+  entryType: EntryType;
   comments?: FreeTextData &
     CatalyticActivityData &
     DiseaseCommentData &
@@ -48,6 +54,7 @@ export type UniProtkbUIModel = {
   primaryAccession: string;
   uniProtId: string;
   proteinExistence: string;
+  entryType: EntryType;
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
@@ -65,6 +72,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     primaryAccession: data.primaryAccession,
     uniProtId: data.uniProtId,
     proteinExistence: data.proteinExistence,
+    entryType: data.entryType,
     [EntrySection.Function]: convertFunction(data),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(data),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(data),

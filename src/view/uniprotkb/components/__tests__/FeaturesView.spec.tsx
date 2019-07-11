@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from 'react-testing-library';
+import { render, cleanup } from '@testing-library/react';
 import FeaturesView from '../FeaturesView';
 import FeaturesUIDataJson from '../__mocks__/FeaturesUIData.json';
 

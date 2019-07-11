@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import ProtvistaStructure from 'protvista-structure';
 import { loadWebComponent } from '../../utils/utils';
@@ -19,14 +19,14 @@ const StructureSection: FC<{
   }
   loadWebComponent('protvista-structure', ProtvistaStructure);
   return (
-    <Fragment>
+    <div id={EntrySection.Structure}>
       <Card title={EntrySection.Structure}>
         <protvista-structure accession={primaryAccession} />
         <FeaturesView features={data.featuresData} sequence={sequence} />
         {/* TODO: filter out PDB */}
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

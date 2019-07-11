@@ -1,6 +1,6 @@
 import React from 'react';
-import { render } from 'react-testing-library';
 import XRefView, { getPropertyString } from '../XRefView';
+import { render } from '@testing-library/react';
 import xrefUIData from '../__mocks__/XrefUIData.json';
 import EntrySectionType from '../../../../model/types/EntrySection';
 import { XrefUIModel } from '../../../../model/utils/XrefUtils';

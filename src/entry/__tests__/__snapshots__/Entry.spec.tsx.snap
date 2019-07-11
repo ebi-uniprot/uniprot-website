@@ -70,15 +70,6 @@ exports[`Entry should render 1`] = `
             </a>
           </li>
           <li
-            class=""
-          >
-            <a
-              href="#Family & Domains"
-            >
-              Family & Domains
-            </a>
-          </li>
-          <li
             class="in-page-nav--disabled"
           >
             <a
@@ -94,6 +85,15 @@ exports[`Entry should render 1`] = `
               href="#Structure"
             >
               Structure
+            </a>
+          </li>
+          <li
+            class=""
+          >
+            <a
+              href="#Family & Domains"
+            >
+              Family & Domains
             </a>
           </li>
           <li
@@ -153,7 +153,6 @@ exports[`Entry should render 1`] = `
         >
           <h3
             class="card__title"
-            id="[object Object]"
           >
             uniprot id 
             <small>
@@ -223,747 +222,759 @@ exports[`Entry should render 1`] = `
         </div>
       </div>
       <div
-        class="card "
+        id="Names & Taxonomy"
       >
         <div
-          class="card__header"
+          class="card "
         >
-          <h3
-            class="card__title"
-            id="Names & Taxonomy"
-          >
-            Names & Taxonomy
-          </h3>
-        </div>
-        <div
-          class="card__content"
-        >
-          <h4>
-            Protein names
-          </h4>
           <div
-            class="info-list"
+            class="card__header"
           >
-            <div
-              class="info-list__item"
+            <h3
+              class="card__title"
             >
-              <div
-                class="info-list__item__title"
-              >
-                Recommended name
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                rec full Name 
-                <span
-                  class="evidence-tag evidence-tag--unreviewed"
-                >
-                  <svg
-                    height="10"
-                    viewBox="0 0 512 512"
-                    width="10"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                      id="Shape"
-                    />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    Manual assertion according to rules
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                EC number
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                1.2.3.4 
-                <span
-                  class="evidence-tag evidence-tag--unreviewed"
-                >
-                  <svg
-                    height="10"
-                    viewBox="0 0 512 512"
-                    width="10"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                      id="Shape"
-                    />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    Manual assertion according to rules
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Short names
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                recommended short name 
-                <span
-                  class="evidence-tag evidence-tag--unreviewed"
-                >
-                  <svg
-                    height="10"
-                    viewBox="0 0 512 512"
-                    width="10"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                      id="Shape"
-                    />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    Manual assertion according to rules
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Alternative names
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                <ul
-                  class="no-bullet"
-                >
-                  <li>
-                    a full alt Name 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                     (short alt name1 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                    ) 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Cleaved into 1 chains
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                <ul
-                  class="no-bullet"
-                >
-                  <li>
-                    containsrec full Name 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                     (containsrecommended short name 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                    )  
-                    <strong>
-                      Alternative names: 
-                    </strong>
-                    containsa full alt Name 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                     (containsshort alt name1 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                    ) 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Submission names
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                <ul
-                  class="no-bullet"
-                >
-                  <li>
-                    sub full Name 
-                    <span
-                      class="evidence-tag evidence-tag--unreviewed"
-                    >
-                      <svg
-                        height="10"
-                        viewBox="0 0 512 512"
-                        width="10"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                          id="Shape"
-                        />
-                      </svg>
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        Manual assertion according to rules
-                      </span>
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Biotech name
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                biotech 
-                <span
-                  class="evidence-tag evidence-tag--unreviewed"
-                >
-                  <svg
-                    height="10"
-                    viewBox="0 0 512 512"
-                    width="10"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
-                      id="Shape"
-                    />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    Manual assertion according to rules
-                  </span>
-                </span>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                CD Antigen Name
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                undefined 
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                INN Name
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                undefined 
-              </div>
-            </div>
+              Names & Taxonomy
+            </h3>
           </div>
-          <h4>
-            Gene names
-          </h4>
           <div
-            class="info-list"
+            class="card__content"
           >
+            <h4>
+              Protein names
+            </h4>
             <div
-              class="info-list__item"
+              class="info-list"
             >
               <div
-                class="info-list__item__title"
+                class="info-list__item"
               >
-                Name
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                some Gene
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Alternative names
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                some Synsome orf
-              </div>
-            </div>
-          </div>
-          <h4>
-            Organism names
-          </h4>
-          <div
-            class="info-list"
-          >
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Organism
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                <a
-                  href="/taxonomy/9606"
+                <div
+                  class="info-list__item__title"
                 >
-                  scientific name (common name)
-                </a>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Taxonomic identifier
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                9606 
-                <a
-                  class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
-                  target="_blank"
+                  Recommended name
+                </div>
+                <div
+                  class="info-list__item__content"
                 >
-                  NCBI
-                  <svg
-                    viewBox="0 0 576 512"
-                    width="12.5"
-                    xmlns="http://www.w3.org/2000/svg"
+                  rec full Name 
+                  <span
+                    class="evidence-tag evidence-tag--unreviewed"
                   >
-                    <path
-                      d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Taxonomic lineage
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                lineage 1
-              </div>
-            </div>
-          </div>
-          <h4>
-            Proteome
-          </h4>
-        </div>
-      </div>
-      <div
-        class="card "
-      >
-        <div
-          class="card__header"
-        >
-          <h3
-            class="card__title"
-            id="Protein Processing"
-          >
-            Protein Processing
-          </h3>
-        </div>
-        <div
-          class="card__content"
-        >
-          <h4>
-            Features
-          </h4>
-          <protvista-manager
-            attributes="highlight displaystart displayend"
-          >
-            <protvista-navigation
-              length="10"
-            />
-            <protvista-track
-              layout="non-overlapping"
-              length="10"
-            />
-            <protvista-sequence
-              height="20"
-              length="10"
-              sequence="SAPSQDFMRF"
-            />
-            <protvista-datatable />
-          </protvista-manager>
-        </div>
-      </div>
-      <div
-        class="card "
-      >
-        <div
-          class="card__header"
-        >
-          <h3
-            class="card__title"
-            id="Family & Domains"
-          >
-            Family & Domains
-          </h3>
-        </div>
-        <div
-          class="card__content"
-        >
-          <h4>
-            Keywords
-          </h4>
-          <div
-            class="info-list"
-          >
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Domain
+                    <svg
+                      height="10"
+                      viewBox="0 0 512 512"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                        id="Shape"
+                      />
+                    </svg>
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      Manual assertion according to rules
+                    </span>
+                  </span>
+                </div>
               </div>
               <div
-                class="info-list__item__content"
+                class="info-list__item"
               >
-                <a
-                  href="/keywords/KW-11111"
+                <div
+                  class="info-list__item__title"
                 >
-                  keyword value
-                </a>
+                  EC number
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  1.2.3.4 
+                  <span
+                    class="evidence-tag evidence-tag--unreviewed"
+                  >
+                    <svg
+                      height="10"
+                      viewBox="0 0 512 512"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                        id="Shape"
+                      />
+                    </svg>
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      Manual assertion according to rules
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Short names
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  recommended short name 
+                  <span
+                    class="evidence-tag evidence-tag--unreviewed"
+                  >
+                    <svg
+                      height="10"
+                      viewBox="0 0 512 512"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                        id="Shape"
+                      />
+                    </svg>
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      Manual assertion according to rules
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Alternative names
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  <ul
+                    class="no-bullet"
+                  >
+                    <li>
+                      a full alt Name 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                       (short alt name1 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                      ) 
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Cleaved into 1 chains
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  <ul
+                    class="no-bullet"
+                  >
+                    <li>
+                      containsrec full Name 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                       (containsrecommended short name 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                      )  
+                      <strong>
+                        Alternative names: 
+                      </strong>
+                      containsa full alt Name 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                       (containsshort alt name1 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                      ) 
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Submission names
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  <ul
+                    class="no-bullet"
+                  >
+                    <li>
+                      sub full Name 
+                      <span
+                        class="evidence-tag evidence-tag--unreviewed"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 512 512"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                            id="Shape"
+                          />
+                        </svg>
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          Manual assertion according to rules
+                        </span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Biotech name
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  biotech 
+                  <span
+                    class="evidence-tag evidence-tag--unreviewed"
+                  >
+                    <svg
+                      height="10"
+                      viewBox="0 0 512 512"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M0 252.118V48C0 21.49 21.49 0 48 0h204.118a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882L293.823 497.941c-18.745 18.745-49.137 18.745-67.882 0L14.059 286.059A48 48 0 0 1 0 252.118zM112 64c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48z"
+                        id="Shape"
+                      />
+                    </svg>
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      Manual assertion according to rules
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  CD Antigen Name
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  undefined 
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  INN Name
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  undefined 
+                </div>
               </div>
             </div>
+            <h4>
+              Gene names
+            </h4>
+            <div
+              class="info-list"
+            >
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Name
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  some Gene
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Alternative names
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  some Synsome orf
+                </div>
+              </div>
+            </div>
+            <h4>
+              Organism names
+            </h4>
+            <div
+              class="info-list"
+            >
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Organism
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  <a
+                    href="/taxonomy/9606"
+                  >
+                    scientific name (common name)
+                  </a>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Taxonomic identifier
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  9606 
+                  <a
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
+                    target="_blank"
+                  >
+                    NCBI
+                    <svg
+                      viewBox="0 0 576 512"
+                      width="12.5"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Taxonomic lineage
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  lineage 1
+                </div>
+              </div>
+            </div>
+            <h4>
+              Proteome
+            </h4>
           </div>
         </div>
       </div>
       <div
-        class="card "
+        id="Protein Processing"
       >
         <div
-          class="card__header"
+          class="card "
         >
-          <h3
-            class="card__title"
-            id="Sequence"
+          <div
+            class="card__header"
           >
-            Sequence
-          </h3>
+            <h3
+              class="card__title"
+            >
+              Protein Processing
+            </h3>
+          </div>
+          <div
+            class="card__content"
+          >
+            <h4>
+              Features
+            </h4>
+            <protvista-manager
+              attributes="highlight displaystart displayend"
+            >
+              <protvista-navigation
+                length="10"
+              />
+              <protvista-track
+                layout="non-overlapping"
+                length="10"
+              />
+              <protvista-sequence
+                height="20"
+                length="10"
+                sequence="SAPSQDFMRF"
+              />
+              <protvista-datatable />
+            </protvista-manager>
+          </div>
         </div>
+      </div>
+      <div
+        id="Family & Domains"
+      >
         <div
-          class="card__content"
+          class="card "
         >
           <div
-            class="info-list"
+            class="card__header"
           >
-            <div
-              class="info-list__item"
+            <h3
+              class="card__title"
             >
-              <div
-                class="info-list__item__title"
-              >
-                Sequence status
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                Fragment
-              </div>
-            </div>
+              Family & Domains
+            </h3>
           </div>
-          <p>
-            This entry describes 
-            <strong>
-              1
-            </strong>
-             isoforms produced by 
-            <strong>
-              Alternative initiation
-            </strong>
-            .
-          </p>
-          <p>
-            value1
-          </p>
-          <hr />
-          <h4>
-            isoID1
-          </h4>
           <div
-            class="info-list"
+            class="card__content"
           >
+            <h4>
+              Keywords
+            </h4>
             <div
-              class="info-list__item"
+              class="info-list"
             >
               <div
-                class="info-list__item__title"
+                class="info-list__item"
               >
-                Name
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                name
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Synonyms
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                syn value
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Note
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                value1
-              </div>
-            </div>
-          </div>
-          <button
-            class="button secondary"
-            type="button"
-          >
-            Load sequence
-          </button>
-          <h4>
-            Genome annotation databases
-          </h4>
-          <div
-            class="info-list"
-          >
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__item__title"
-              >
-                Ensembl
-              </div>
-              <div
-                class="info-list__item__content"
-              >
-                <ul
-                  class="no-bullet"
+                <div
+                  class="info-list__item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/id/id value"
-                      target="_blank"
-                    >
-                      id value
-                      <svg
-                        viewBox="0 0 576 512"
-                        width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
+                  Domain
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  <a
+                    href="/keywords/KW-11111"
+                  >
+                    keyword value
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        id="Sequence"
+      >
+        <div
+          class="card "
+        >
+          <div
+            class="card__header"
+          >
+            <h3
+              class="card__title"
+            >
+              Sequence
+            </h3>
+          </div>
+          <div
+            class="card__content"
+          >
+            <div
+              class="info-list"
+            >
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Sequence status
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  Fragment
+                </div>
+              </div>
+            </div>
+            <p>
+              This entry describes 
+              <strong>
+                1
+              </strong>
+               isoforms produced by 
+              <strong>
+                Alternative initiation
+              </strong>
+              .
+            </p>
+            <p>
+              value1
+            </p>
+            <hr />
+            <h4>
+              isoID1
+            </h4>
+            <div
+              class="info-list"
+            >
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Name
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  name
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Synonyms
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  syn value
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Note
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  value1
+                </div>
+              </div>
+            </div>
+            <button
+              class="button secondary"
+              type="button"
+            >
+              Load sequence
+            </button>
+            <h4>
+              Genome annotation databases
+            </h4>
+            <div
+              class="info-list"
+            >
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__item__title"
+                >
+                  Ensembl
+                </div>
+                <div
+                  class="info-list__item__content"
+                >
+                  <ul
+                    class="no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ensembl.org/id/id value"
+                        target="_blank"
                       >
-                        <path
-                          d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"
-                        />
-                      </svg>
-                    </a>
-                      description value
-                  </li>
-                </ul>
+                        id value
+                        <svg
+                          viewBox="0 0 576 512"
+                          width="12.5"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M576 24v127.984c0 21.461-25.96 31.98-40.971 16.971l-35.707-35.709-243.523 243.523c-9.373 9.373-24.568 9.373-33.941 0l-22.627-22.627c-9.373-9.373-9.373-24.569 0-33.941L442.756 76.676l-35.703-35.705C391.982 25.9 402.656 0 424.024 0H552c13.255 0 24 10.745 24 24zM407.029 270.794l-16 16A23.999 23.999 0 0 0 384 303.765V448H64V128h264a24.003 24.003 0 0 0 16.97-7.029l16-16C376.089 89.851 365.381 64 344 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V287.764c0-21.382-25.852-32.09-40.971-16.97z"
+                          />
+                        </svg>
+                      </a>
+                        description value
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

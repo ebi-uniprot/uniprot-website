@@ -29,4 +29,4 @@ export const getApiSortDirection = (direction: SortDirection) => {
 };
 
 export type SelectedFacet = { name: string; value: string };
-export type SelectedRows = { [key: string]: boolean };
+export type SelectedEntries = { [key: string]: boolean };

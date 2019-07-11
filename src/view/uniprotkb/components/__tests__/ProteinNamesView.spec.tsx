@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import { EntryProteinNames } from '../ProteinNamesView';
 import ProteinNamesUIData from '../__mocks__/ProteinNamesUIData.json';
 

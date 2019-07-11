@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { EntryProteinNames } from './components/ProteinNamesView';
 import { hasContent } from '../../model/utils/utils';
@@ -17,7 +17,7 @@ const NamesAndTaxonomySection: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <div id={EntrySection.NamesAndTaxonomy}>
       <Card title={EntrySection.NamesAndTaxonomy}>
         <h4>Protein names</h4>
         <EntryProteinNames proteinNames={data.proteinNamesData} />
@@ -29,7 +29,7 @@ const NamesAndTaxonomySection: FC<{
         <ProteomesEntryView data={data.proteomesData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

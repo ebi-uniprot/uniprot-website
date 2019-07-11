@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../model/utils/utils';
 import EntrySection from '../../model/types/EntrySection';
@@ -16,7 +16,7 @@ const ExpressionSection: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <div id={EntrySection.Expression}>
       <Card title={EntrySection.Expression}>
         <FreeTextView
           comments={data.commentsData.get(Comment.TISSUE_SPECIFICITY)}
@@ -29,7 +29,7 @@ const ExpressionSection: FC<{
         <KeywordView keywords={data.keywordData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

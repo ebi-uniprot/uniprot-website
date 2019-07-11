@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../model/utils/utils';
 import EntrySection from '../../model/types/EntrySection';
@@ -14,12 +14,12 @@ const SubcellularLocationSection: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <div id={EntrySection.SubCellularLocation}>
       <Card title={EntrySection.SubCellularLocation}>
         <FeaturesView features={data.featuresData} sequence={sequence} />
         <KeywordView keywords={data.keywordData} />
       </Card>
-    </Fragment>
+    </div>
   );
 };
 

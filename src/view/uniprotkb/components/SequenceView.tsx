@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import 'regenerator-runtime/runtime';
 import { InfoList, Sequence } from 'franklin-sites';
 import Comment from '../../../model/types/Comment';
 import apiUrls from '../../../utils/apiUrls';

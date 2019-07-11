@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime';
 import { Dispatch, Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { action } from 'typesafe-actions';

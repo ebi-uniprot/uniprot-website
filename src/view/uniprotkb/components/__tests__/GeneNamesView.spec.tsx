@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-testing-library';
+import { render } from '@testing-library/react';
 import GeneNamesView from '../GeneNamesView';
 import GeneNamesUIDataJson from '../__mocks__/GeneNamesUIData.json';
 
