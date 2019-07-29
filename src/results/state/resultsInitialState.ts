@@ -11,9 +11,11 @@ export type ResultsState = {
   cardColumns: string[];
   facets: Facet[];
   nextUrl: string;
-  isFetching: boolean;
-  isFetched: { [url: string]: boolean };
-  results: UniProtkbAPIModel[];
+  results: {
+    data: UniProtkbAPIModel[];
+    isFetching: boolean;
+    isFetched: { [url: string]: boolean };
+  };
   totalNumberResults: number;
   viewMode: ViewMode;
 };
@@ -30,10 +32,12 @@ const resultsInitialState = {
     'cc:function',
     'sequence',
   ],
-  results: [],
+  results: {
+    data: [],
+    isFetching: false,
+    isFetched: {},
+  },
   facets: [],
-  isFetching: false,
-  isFetched: {},
   nextUrl: '',
   totalNumberResults: 0,
   viewMode: ViewMode.CARD,

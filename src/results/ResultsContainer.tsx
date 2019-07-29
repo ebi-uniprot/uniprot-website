@@ -31,12 +31,11 @@ import { ViewMode } from './state/resultsInitialState';
 import { UniProtkbAPIModel } from '../model/uniprotkb/UniProtkbConverter';
 
 export type Facet = {
-  label: string,
-            name: string,
-            allowMultipleSelection: boolean,
-            values: {label: string, value: string, count: number}[
-            ]
-}
+  label: string;
+  name: string;
+  allowMultipleSelection: boolean;
+  values: { label: string; value: string; count: number }[];
+};
 
 type ResultsProps = {
   namespace: Namespace;
@@ -53,7 +52,7 @@ type ResultsProps = {
   nextUrl: string;
   totalNumberResults: number;
   viewMode: ViewMode;
-} & RouteComponentProps
+} & RouteComponentProps;
 
 type ResultsContainerState = {
   selectedEntries: SelectedEntries;
@@ -223,7 +222,7 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
 
     this.setURLParams(query, selectedFacets, column, updatedDirection);
   };
-  
+
   updateData() {
     const {
       location: { search: queryParamFromUrl },
@@ -264,7 +263,7 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
     const { selectedFacets, sortColumn, sortDirection } = this.getURLParams(
       queryParamFromUrl
     );
-    if (isFetching && results.length === 0) {
+    if (isFetching && !results.length) {
       return <Loader />;
     }
     const { name, links, info } = infoMappings[namespace];
@@ -292,21 +291,27 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
             <Fragment>
               {results.length > 0 && (
               <div className="button-group">
-                <button type="button" className="button link-button disabled">Blast</button>
-                <button type="button" className="button link-button disabled">Align</button>
+                <button type="button" className="button link-button disabled">
+                    Blast
+                </button>
+                <button type="button" className="button link-button disabled">
+                    Align
+                </button>
                 <button type="button" className="button link-button">
                   <DownloadIcon />
                     Download
                 </button>
                 <button type="button" className="button link-button disabled">
                   <BasketIcon />
-                  Add
+                    Add
                 </button>
                 <button type="button" className="button link-button">
                   <StatisticsIcon />
                     Statistics
                 </button>
-                <button type="button" className="button link-button">Map to</button>
+                <button type="button" className="button link-button">
+                    Map to
+                </button>
                 <button
                   type="button"
                   className="button link-button large-icon"
@@ -361,9 +366,9 @@ const mapStateToProps = (state: RootState) => {
     namespace: state.query.namespace,
     tableColumns: state.results.tableColumns,
     cardColumns: state.results.cardColumns,
-    results: state.results.results,
+    results: state.results.results.data,
     facets: state.results.facets,
-    isFetching: state.results.isFetching,
+    isFetching: state.results.results.isFetching,
     nextUrl: state.results.nextUrl,
     totalNumberResults: state.results.totalNumberResults,
     viewMode: state.results.viewMode,

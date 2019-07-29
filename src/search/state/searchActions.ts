@@ -81,17 +81,17 @@ export const removeClause = (clauseId: string) =>
     clauseId,
   });
 
+export const updateClauses = (clauses: Clause[]) =>
+  action(UPDATE_CLAUSES, {
+    clauses,
+  });
+
 export const requestSearchTerms = () => action(REQUEST_SEARCH_TERMS);
 
 export const receiveSearchTerms = (data: SearchTermType[]) =>
   action(RECEIVE_SEARCH_TERMS, {
     data,
     receivedAt: Date.now(),
-  });
-
-export const updateClauses = (clauses: Clause[]) =>
-  action(UPDATE_CLAUSES, {
-    clauses,
   });
 
 export const fetchSearchTerms = () => async (dispatch: Dispatch) => {

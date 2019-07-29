@@ -14,28 +14,32 @@ const resultsReducers = (
     case resultsActions.REQUEST_BATCH_OF_RESULTS:
       return {
         ...state,
-        isFetching: true,
+        results: { ...state.results, isFetching: true },
       };
     case resultsActions.RECEIVE_BATCH_OF_RESULTS:
       return {
         ...state,
-        results: [...state.results, ...action.payload.data.results],
         facets: action.payload.data.facets,
         lastUpdated: action.payload.receivedAt,
         totalNumberResults: action.payload.totalNumberResults,
-        isFetching: false,
-        isFetched: {
-          ...state.isFetched,
-          [action.payload.url]: true,
+        results: {
+          data: [...state.results.data, ...action.payload.data.results],
+          isFetching: false,
+          isFetched: {
+            ...state.results.isFetched,
+            [action.payload.url]: true,
+          },
         },
         nextUrl: action.payload.nextUrl || '',
       };
     case resultsActions.CLEAR_RESULTS: {
       return {
         ...state,
-        results: [],
-        isFetching: false,
-        isFetched: {},
+        results: {
+          data: [],
+          isFetching: false,
+          isFetched: {},
+        },
       };
     }
     case resultsActions.SWITCH_VIEW_MODE: {

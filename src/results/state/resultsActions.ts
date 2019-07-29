@@ -7,12 +7,14 @@ import { RootState } from '../../state/state-types';
 import 'regenerator-runtime/runtime';
 import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
+import apiUrls from '../../utils/apiUrls';
 
 export const REQUEST_BATCH_OF_RESULTS = 'REQUEST_BATCH_OF_RESULTS';
 export const RECEIVE_BATCH_OF_RESULTS = 'RECEIVE_BATCH_OF_RESULTS';
 export const UPDATE_COLUMN_SORT = 'UPDATE_COLUMN_SORT';
 export const CLEAR_RESULTS = 'CLEAR_RESULTS';
 export const SWITCH_VIEW_MODE = 'SWITCH_VIEW_MODE';
+export const RECEIVE_RESULTS_FIELDS = 'RECEIVE_RESULTS_FIELDS';
 
 export const receiveBatchOfResults = (
   url: string,
@@ -75,7 +77,7 @@ export const fetchBatchOfResults = (url: string) => async (
 };
 
 export const shouldFetchBatchOfResults = (url: string, state: RootState) => {
-  const { isFetching, isFetched } = state.results;
+  const { isFetching, isFetched } = state.results.results;
   return !isFetching && !isFetched[url];
 };
 
@@ -83,9 +85,39 @@ export const fetchBatchOfResultsIfNeeded = (url: string | undefined) => (
   dispatch: ThunkDispatch<RootState, void, Action>,
   getState: () => RootState
 ) => {
+  console.log(url)
   if (url && shouldFetchBatchOfResults(url, getState())) {
     dispatch(fetchBatchOfResults(url));
   }
 };
 
 export const switchViewMode = () => action(SWITCH_VIEW_MODE);
+
+export const requestResultsFields = () => action(RECEIVE_RESULTS_FIELDS);
+
+export const receiveResultsFields = (data: ResultsFieldType[]) =>
+  action(RECEIVE_RESULTS_FIELDS, {
+    data,
+    receivedAt: Date.now(),
+  });
+
+export const fetchResultsFields = () => async (dispatch: Dispatch) => {
+  dispatch(requestResultsFields());
+  return fetchData(apiUrls.resultsFields).then(response =>
+    dispatch(receiveResultsFields(response.data))
+  );
+};
+
+export const shouldFetchResultsFields = (state: RootState) => {
+  const { resultsFields } = state.query;
+  return !resultsFields.isFetching && !resultsFields.data.length;
+};
+
+export const fetchSearchTermsIfNeeded = () => (
+  dispatch: ThunkDispatch<RootState, void, Action>,
+  getState: () => RootState
+) => {
+  if (shouldFetchResultsFields(getState())) {
+    dispatch(fetchResultsFields());
+  }
+};
