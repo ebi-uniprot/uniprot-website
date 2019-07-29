@@ -6,6 +6,7 @@ import BaseLayout from './layout/BaseLayout';
 import ResultsPage from './pages/ResultsPage';
 import EntryPage from './pages/EntryPage';
 import AdvancedSearchPage from './pages/AdvancedSearchPage';
+import CustomiseTablePage from './pages/CustomiseTablePage';
 
 declare const BASE_URL: string;
 
@@ -35,6 +36,14 @@ const App = () => (
           render={() => (
             <BaseLayout>
               <ResultsPage />
+            </BaseLayout>
+          )}
+        />
+        <Route
+          path="/customise"
+          render={() => (
+            <BaseLayout>
+              <CustomiseTablePage />
             </BaseLayout>
           )}
         />
