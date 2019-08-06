@@ -49,6 +49,16 @@ const resultsReducers = (
           state.viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD,
       };
     }
+    case resultsActions.REQUEST_FIELDS:
+      return {
+        ...state,
+        fields: { ...state.fields, isFetching: true },
+      };
+    case resultsActions.RECEIVE_FIELDS:
+      return {
+        ...state,
+        fields: { data: action.payload.data, isFetching: false },
+      };
     default:
       return state;
   }

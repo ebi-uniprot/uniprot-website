@@ -2,42 +2,54 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Loader, Accordion } from 'franklin-sites';
+import { Loader, AccordionSearch } from 'franklin-sites';
 import { RootState, RootAction } from '../state/state-types';
-import * as searchActions from '../search/state/searchActions';
+import * as resultsActions from './state/resultsActions';
+import fieldsData from '../data/fields.json';
 
 const CustomiseTable = ({
   tableColumns,
-  dispatchFetchSearchTermsIfNeeded,
-  searchTerms,
+  dispatchFetchFieldsIfNeeded,
+  fieldsData: outOfDateFields,
 }) => {
+  dispatchFetchFieldsIfNeeded();
   useEffect(() => {
-    dispatchFetchSearchTermsIfNeeded();
+    dispatchFetchFieldsIfNeeded();
   });
 
-  if (!searchTerms || !searchTerms.length) {
+  if (!fieldsData || !fieldsData.length) {
     return <Loader />;
   }
 
+  const accordionData = fieldsData.map(({groupName, fields, isDatabase}) => ({
+    title: groupName,
+    id: groupName,
+    isDatabase,
+    items: fields.map(({label, name }) => ({
+      content: label,
+      id: name,
+      isDatabase
+    }))
+}))
+
+  const accordionDataFields = accordionData.filter(({ isDatabase }) => !isDatabase);
+  // const linkFields = fields.filter(({ isDatabase }) => isDatabase);
+
   return (
-    <ul>
-      {tableColumns.map(tableColumn => (
-        <li>{tableColumn}</li>
-      ))}
-    </ul>
+    <AccordionSearch accordionData={accordionDataFields} />
   );
 };
 
 const mapStateToProps = (state: RootState) => ({
   tableColumns: state.results.tableColumns,
-  searchTerms: state.query.searchTerms.data,
+  fieldsData: state.results.fields.data,
+  isFetching: state.results.fields.isFetching,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      dispatchFetchSearchTermsIfNeeded: () =>
-        searchActions.fetchSearchTermsIfNeeded(),
+      dispatchFetchFieldsIfNeeded: () => resultsActions.fetchFieldsIfNeeded(),
     },
     dispatch
   );

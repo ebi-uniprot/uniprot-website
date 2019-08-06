@@ -18,6 +18,10 @@ export type ResultsState = {
   };
   totalNumberResults: number;
   viewMode: ViewMode;
+  fields: {
+    data: any;
+    isFetching: boolean;
+  };
 };
 
 const resultsInitialState = {
@@ -41,6 +45,10 @@ const resultsInitialState = {
   nextUrl: '',
   totalNumberResults: 0,
   viewMode: ViewMode.CARD,
+  fields: {
+    data: [],
+    isFetching: false,
+  },
 };
 
 export default resultsInitialState;

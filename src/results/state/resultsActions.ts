@@ -14,7 +14,8 @@ export const RECEIVE_BATCH_OF_RESULTS = 'RECEIVE_BATCH_OF_RESULTS';
 export const UPDATE_COLUMN_SORT = 'UPDATE_COLUMN_SORT';
 export const CLEAR_RESULTS = 'CLEAR_RESULTS';
 export const SWITCH_VIEW_MODE = 'SWITCH_VIEW_MODE';
-export const RECEIVE_RESULTS_FIELDS = 'RECEIVE_RESULTS_FIELDS';
+export const RECEIVE_FIELDS = 'RECEIVE_FIELDS';
+export const REQUEST_FIELDS = 'REQUEST_FIELDS';
 
 export const receiveBatchOfResults = (
   url: string,
@@ -85,7 +86,6 @@ export const fetchBatchOfResultsIfNeeded = (url: string | undefined) => (
   dispatch: ThunkDispatch<RootState, void, Action>,
   getState: () => RootState
 ) => {
-  console.log(url)
   if (url && shouldFetchBatchOfResults(url, getState())) {
     dispatch(fetchBatchOfResults(url));
   }
@@ -93,31 +93,33 @@ export const fetchBatchOfResultsIfNeeded = (url: string | undefined) => (
 
 export const switchViewMode = () => action(SWITCH_VIEW_MODE);
 
-export const requestResultsFields = () => action(RECEIVE_RESULTS_FIELDS);
+export const requestFields = () => action(REQUEST_FIELDS);
 
-export const receiveResultsFields = (data: ResultsFieldType[]) =>
-  action(RECEIVE_RESULTS_FIELDS, {
+export const receiveFields = (data: FieldType[]) =>
+  action(RECEIVE_FIELDS, {
     data,
     receivedAt: Date.now(),
   });
 
-export const fetchResultsFields = () => async (dispatch: Dispatch) => {
-  dispatch(requestResultsFields());
+export const fetchFields = () => async (dispatch: Dispatch) => {
+  dispatch(requestFields());
   return fetchData(apiUrls.resultsFields).then(response =>
-    dispatch(receiveResultsFields(response.data))
+    dispatch(receiveFields(response.data))
   );
 };
 
-export const shouldFetchResultsFields = (state: RootState) => {
-  const { resultsFields } = state.query;
-  return !resultsFields.isFetching && !resultsFields.data.length;
+export const shouldFetchFields = (state: RootState) => {
+  const { fields } = state.results;
+  console.log(fields);
+  return !fields.isFetching && !fields.data.length;
 };
 
-export const fetchSearchTermsIfNeeded = () => (
+export const fetchFieldsIfNeeded = () => (
   dispatch: ThunkDispatch<RootState, void, Action>,
   getState: () => RootState
 ) => {
-  if (shouldFetchResultsFields(getState())) {
-    dispatch(fetchResultsFields());
+  console.log(23);
+  if (shouldFetchFields(getState())) {
+    dispatch(fetchFields());
   }
 };
