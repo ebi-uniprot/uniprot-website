@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Loader, AccordionSearch } from 'franklin-sites';
+import { Loader, AccordionSearch, Tabs } from 'franklin-sites';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import fieldsData from '../data/fields.json';
@@ -21,23 +21,37 @@ const CustomiseTable = ({
     return <Loader />;
   }
 
-  const accordionData = fieldsData.map(({groupName, fields, isDatabase}) => ({
+  const accordionData = fieldsData.map(({ groupName, fields, isDatabase }) => ({
     title: groupName,
     id: groupName,
     isDatabase,
-    items: fields.map(({label, name }) => ({
+    items: fields.map(({ label, name }) => ({
       content: label,
       id: name,
-      isDatabase
-    }))
-}))
+      isDatabase,
+    })),
+  }));
 
-  const accordionDataFields = accordionData.filter(({ isDatabase }) => !isDatabase);
-  // const linkFields = fields.filter(({ isDatabase }) => isDatabase);
-
-  return (
-    <AccordionSearch accordionData={accordionDataFields} />
+  const accordionDataFields = accordionData.filter(
+    ({ isDatabase }) => !isDatabase
   );
+  const accordionDataLinks = accordionData.filter(
+    ({ isDatabase }) => isDatabase
+  );
+
+  const tabData = [
+    {
+      title: 'Fields',
+      id: 'fields',
+      content: <AccordionSearch accordionData={accordionDataFields} />,
+    },
+    {
+      title: 'Links',
+      id: 'links',
+      content: <AccordionSearch accordionData={accordionDataLinks} />,
+    },
+  ];
+  return <Tabs tabData={tabData} />;
 };
 
 const mapStateToProps = (state: RootState) => ({
