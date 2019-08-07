@@ -110,7 +110,6 @@ export const fetchFields = () => async (dispatch: Dispatch) => {
 
 export const shouldFetchFields = (state: RootState) => {
   const { fields } = state.results;
-  console.log(fields);
   return !fields.isFetching && !fields.data.length;
 };
 
@@ -118,7 +117,6 @@ export const fetchFieldsIfNeeded = () => (
   dispatch: ThunkDispatch<RootState, void, Action>,
   getState: () => RootState
 ) => {
-  console.log(23);
   if (shouldFetchFields(getState())) {
     dispatch(fetchFields());
   }
