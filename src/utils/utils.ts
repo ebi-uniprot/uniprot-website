@@ -25,8 +25,3 @@ export const loadWebComponent = (name: string, className: Function) => {
 
 export const flattenArrays = (arrays: any[][]) =>
   [].concat(...(arrays as any[]));
-
-export const removeItemFromArray = (array, item) =>
-  array.filter(arrayItem => item !== arrayItem);
-
-export const addItemToArray = (array, item) => [...array, item];
