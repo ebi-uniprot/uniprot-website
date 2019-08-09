@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useRef } from 'react';
+import idx from 'idx';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -10,13 +11,12 @@ import { serializableDeepAreEqual } from '../utils/utils';
 
 const prepareFieldData = (fieldsData) => fieldsData.map(
   ({ groupName, fields, isDatabase }) => ({
-    title: groupName,
     id: groupName,
+    title: groupName,
     isDatabase,
     items: fields.map(({ label, name }) => ({
-      content: label,
       id: name,
-      isDatabase,
+      label,
     })),
   }));
 
@@ -42,22 +42,55 @@ const getTitle = (tabId, tabSelected) => {
   );
 };
 
+const findFieldDataForColumns = (columns, accordionData) => {
+  const selected = [];
+  Object.keys(accordionData).forEach((tabId) => {
+    accordionData[tabId].forEach(({ id: accordionId, items }) => {
+      items.forEach(({ id: itemId, label }) => {
+        if (columns.includes(itemId)) {
+          selected.push({ tabId, accordionId, itemId, label })
+        }
+      })
+    })
+  })
+  return selected;
+}
+
+const findFieldStringForItem = (tabId, accordionId, itemId, accordionData) => {
+  const foundAccordion = accordionData[tabId].find(accordion => accordion.id === accordionId )
+  if (foundAccordion) {
+    const foundItem = foundAccordion.items.find(item => item.id === itemId);
+    if (foundItem) {
+      return foundItem.label;
+    }
+  }
+}
+
 const CustomiseTable = ({
   tableColumns,
   dispatchFetchFieldsIfNeeded,
   fieldsData: outOfDateFields,
 }) => {
   const [selected, setSelected] = useState([]);
+  const accordionData = useRef({});
+
+  useEffect(() => {
+    console.log('in tableColumns useEffect')
+    accordionData.current = getFieldsLinks(prepareFieldData(fieldsData));
+    setSelected(findFieldDataForColumns(tableColumns, accordionData.current));
+  }, [tableColumns])
+
   dispatchFetchFieldsIfNeeded();
 
   if (!fieldsData || !fieldsData.length) {
     return <Loader />;
   }
 
-  const accordionData = getFieldsLinks(prepareFieldData(fieldsData));
+  
   
   const onSelect = (tabId, accordionId, itemId) => {
-    const selectedItem = { tabId, accordionId, itemId }
+    const label = findFieldStringForItem(tabId, accordionId, itemId, accordionData.current);
+    const selectedItem = { tabId, accordionId, itemId, label }
     const index = selected.findIndex(item => serializableDeepAreEqual(selectedItem, item));
     if (index >= 0) {
       setSelected([...selected.slice(0, index), ...selected.slice(index + 1)]);
@@ -74,7 +107,7 @@ const CustomiseTable = ({
       key: tabId,
       content: (
         <AccordionSearch
-          accordionData={accordionData[tabId]}
+          accordionData={accordionData.current[tabId]}
           onSelect={(accordionId, itemId) => {
             onSelect(tabId, accordionId, itemId);
           }}
@@ -83,16 +116,9 @@ const CustomiseTable = ({
       ),
     }
   });
-
   return (
     <Fragment>
-      TableColumns: 
-      {' '}
-      {tableColumns.join(' | ')}
-      <br />
-      Selected Fields: 
-      {' '}
-      {selected.map(({itemId}) => itemId).join(' | ')}
+      {selected.map(({ label }) => label).join(' | ')}
       <br />
       <Tabs tabData={tabData} />
     </Fragment>
