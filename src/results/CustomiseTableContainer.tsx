@@ -4,13 +4,21 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { DndProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
-import update from 'immutability-helper'
 import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import fieldsData from '../data/fields.json';
 import { serializableDeepAreEqual } from '../utils/utils';
 import DraggableField from './DraggableField';
+
+const moveItemInList = (list, origin, target) => {
+if (target < origin) {
+    return [...list.slice(0, target), list[origin], ...list.slice(target,origin), ...list.slice(origin + 1)]
+} if (target > origin) {
+    return [...list.slice(0, origin), ...list.slice(origin+1, target+1), list[origin], ...list.slice(target + 1)];
+} // else target === origin
+  return list
+}
 
 const prepareFieldData = (fieldsData) => fieldsData.map(
   ({ groupName, fields, isDatabase }) => ({
@@ -120,40 +128,23 @@ const CustomiseTable = ({
     }
   });
 
-  const moveDraggableField = (dragIndex: number, hoverIndex: number) => {
-    console.log('------------------------')
-    console.log('dragIndex', dragIndex, 'hoverIndex', hoverIndex);
-    const dragSelected = selected[dragIndex]
-    console.log(selected);
-    const t = update(selected, {
-      $splice: [[dragIndex, 1], [hoverIndex, 0, dragSelected]],
-    });
-    console.log(t);
-    setSelected(t)
-    console.log('------------------------')
-    // Delete one element at dragIndex
-    // Add dragCard at hoverIndex
-    // if (hoverIndex > dragIndex) {
-      // setSelected([...])  
-    // }
-    // setSelected(selected.slice().splice(dragIndex, 1).splice(hoverIndex, 0, dragSelected));
+  const moveDraggableField = (originIndex: number, targetIndex: number) => {
+    setSelected(moveItemInList(selected, originIndex, targetIndex));
   }
 
   return (
     <Fragment>
       <DndProvider backend={HTML5Backend}>
         <div style={{ width: 400 }}>
-          {selected.map((selectedField, i) => {
-            console.log(selectedField.itemId);
-            return (
-              <DraggableField
-                key={selectedField.itemId}
-                index={i}
-                id={selectedField.itemId}
-                text={selectedField.label}
-                moveDraggableField={moveDraggableField}
-              />
-        )})}
+          {selected.map((selectedField, i) => (
+            <DraggableField
+              key={selectedField.itemId}
+              index={i}
+              id={selectedField.itemId}
+              text={selectedField.label}
+              moveDraggableField={moveDraggableField}
+            />
+        ))}
         </div> 
       </DndProvider>
       <Tabs tabData={tabData} />
