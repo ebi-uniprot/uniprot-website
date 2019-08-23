@@ -2,26 +2,21 @@ import React, { useEffect, useState, Fragment, useRef } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { DndProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend';
-import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
+import {
+  Loader,
+  AccordionSearch,
+  Tabs,
+  Bubble,
+  TimesIcon,
+} from 'franklin-sites';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import fieldsData from '../data/fields.json';
-import { serializableDeepAreEqual } from '../utils/utils';
-import DraggableField from './DraggableField';
+import { serializableDeepAreEqual, moveItemInList } from '../utils/utils';
+import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
-const moveItemInList = (list, origin, target) => {
-if (target < origin) {
-    return [...list.slice(0, target), list[origin], ...list.slice(target,origin), ...list.slice(origin + 1)]
-} if (target > origin) {
-    return [...list.slice(0, origin), ...list.slice(origin+1, target+1), list[origin], ...list.slice(target + 1)];
-} // else target === origin
-  return list
-}
-
-const prepareFieldData = (fieldsData) => fieldsData.map(
-  ({ groupName, fields, isDatabase }) => ({
+const prepareFieldData = fieldsData =>
+  fieldsData.map(({ groupName, fields, isDatabase }) => ({
     id: groupName,
     title: groupName,
     isDatabase,
@@ -31,65 +26,68 @@ const prepareFieldData = (fieldsData) => fieldsData.map(
     })),
   }));
 
-const getFieldsLinks = (accordionData) => ({
+const getFieldsLinks = accordionData => ({
   data: accordionData.filter(({ isDatabase }) => !isDatabase),
   links: accordionData.filter(({ isDatabase }) => isDatabase),
-})
+});
 
-const getTitle = (tabId, tabSelected) => {
+const getTabTitle = (tabId, tabSelected) => {
   return (
-    <span>
-      {`${tabId} `}
+    <Fragment>
+      {tabId}
       <span
         style={{
-          position: 'relative',
-          top: -4,
+          position: 'relative', // TODO remove span?
+          top: '-0.25rem',
+          left: '0.5rem',
           visibility: tabSelected.length ? 'visible' : 'hidden',
         }}
       >
         <Bubble size="small" value={tabSelected.length} />
       </span>
-    </span>
+    </Fragment>
   );
 };
 
 const findFieldDataForColumns = (columns, accordionData) => {
   const selected = [];
-  Object.keys(accordionData).forEach((tabId) => {
+  Object.keys(accordionData).forEach(tabId => {
     accordionData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         if (columns.includes(itemId)) {
-          selected.push({ tabId, accordionId, itemId, label })
+          selected.push({ tabId, accordionId, itemId, label });
         }
-      })
-    })
-  })
+      });
+    });
+  });
   return selected;
-}
+};
 
 const findFieldStringForItem = (tabId, accordionId, itemId, accordionData) => {
-  const foundAccordion = accordionData[tabId].find(accordion => accordion.id === accordionId )
+  const foundAccordion = accordionData[tabId].find(
+    accordion => accordion.id === accordionId
+  );
   if (foundAccordion) {
     const foundItem = foundAccordion.items.find(item => item.id === itemId);
     if (foundItem) {
       return foundItem.label;
     }
   }
-}
+};
 
 const CustomiseTable = ({
   tableColumns,
   dispatchFetchFieldsIfNeeded,
   fieldsData: outOfDateFields,
 }) => {
-  const [selected, setSelected] = useState([]);
+  const [selectedColumns, setSelectedColumns] = useState([]);
   const accordionData = useRef({});
-
   useEffect(() => {
-    console.log('in tableColumns useEffect')
     accordionData.current = getFieldsLinks(prepareFieldData(fieldsData));
-    setSelected(findFieldDataForColumns(tableColumns, accordionData.current));
-  }, [tableColumns])
+    setSelectedColumns(
+      findFieldDataForColumns(tableColumns, accordionData.current)
+    );
+  }, [tableColumns]);
 
   dispatchFetchFieldsIfNeeded();
 
@@ -97,56 +95,63 @@ const CustomiseTable = ({
     return <Loader />;
   }
 
-  
-  
-  const onSelect = (tabId, accordionId, itemId) => {
-    const label = findFieldStringForItem(tabId, accordionId, itemId, accordionData.current);
-    const selectedItem = { tabId, accordionId, itemId, label }
-    const index = selected.findIndex(item => serializableDeepAreEqual(selectedItem, item));
+  const handleSelect = (tabId, accordionId, itemId) => {
+    // TODO the label should be with the selected to save having to retrieve it whenever it is selected
+    const label = findFieldStringForItem(
+      tabId,
+      accordionId,
+      itemId,
+      accordionData.current
+    );
+    const selectedItem = { tabId, accordionId, itemId, label };
+    const index = selectedColumns.findIndex(item =>
+      serializableDeepAreEqual(selectedItem, item)
+    );
     if (index >= 0) {
-      setSelected([...selected.slice(0, index), ...selected.slice(index + 1)]);
+      // Remove column
+      setSelectedColumns([
+        ...selectedColumns.slice(0, index),
+        ...selectedColumns.slice(index + 1),
+      ]);
     } else {
-      setSelected([...selected,  selectedItem]);
+      // Append to end
+      setSelectedColumns([...selectedColumns, selectedItem]);
     }
   };
 
+  const handleDragDrop = (srcIndex, destIndex) => {
+    setSelectedColumns(moveItemInList(selectedColumns, srcIndex, destIndex));
+  };
+
+  const handleRemove = column => {
+    console.log(column);
+  };
+
   const tabData = ['data', 'links'].map(tabId => {
-    const tabSelected = selected.filter(item => item.tabId === tabId);
+    const tabSelected = selectedColumns.filter(item => item.tabId === tabId);
     return {
-      title: getTitle(tabId, tabSelected),
+      title: getTabTitle(tabId, tabSelected),
       id: tabId,
       key: tabId,
       content: (
         <AccordionSearch
           accordionData={accordionData.current[tabId]}
           onSelect={(accordionId, itemId) => {
-            onSelect(tabId, accordionId, itemId);
+            handleSelect(tabId, accordionId, itemId);
           }}
           selected={tabSelected}
         />
       ),
-    }
+    };
   });
-
-  const moveDraggableField = (originIndex: number, targetIndex: number) => {
-    setSelected(moveItemInList(selected, originIndex, targetIndex));
-  }
 
   return (
     <Fragment>
-      <DndProvider backend={HTML5Backend}>
-        <div style={{ width: 400 }}>
-          {selected.map((selectedField, i) => (
-            <DraggableField
-              key={selectedField.itemId}
-              index={i}
-              id={selectedField.itemId}
-              text={selectedField.label}
-              moveDraggableField={moveDraggableField}
-            />
-        ))}
-        </div> 
-      </DndProvider>
+      <ColumnSelectDragDrop
+        columns={selectedColumns}
+        onDragDrop={handleDragDrop}
+        onRemove={handleRemove}
+      />
       <Tabs tabData={tabData} />
     </Fragment>
   );

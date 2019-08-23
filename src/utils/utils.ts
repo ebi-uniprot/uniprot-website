@@ -25,3 +25,14 @@ export const loadWebComponent = (name: string, className: Function) => {
 
 export const flattenArrays = (arrays: any[][]) =>
   [].concat(...(arrays as any[]));
+
+export const moveItemInList = (
+  list: any[],
+  srcIndex: number,
+  destIndex: number
+) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(srcIndex, 1);
+  result.splice(destIndex, 0, removed);
+  return result;
+};
