@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment, useRef } from 'react';
 import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import { serializableDeepAreEqual, moveItemInList } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
+import { getBEMClassName } from '../utils/utils';
 import fieldsData from '../data/fields.json';
 
 const prepareFieldData = fieldsData =>
@@ -25,12 +26,11 @@ const getTabTitle = (tabId, tabSelected) => {
     <Fragment>
       {tabId}
       <span
-        style={{
-          position: 'relative', // TODO remove span?
-          top: '-0.25rem',
-          left: '0.5rem',
-          visibility: tabSelected.length ? 'visible' : 'hidden',
-        }}
+        className={getBEMClassName({
+          b: 'column-select',
+          e: ['tab', 'title'],
+          m: tabSelected.length ? 'visible' : 'hidden',
+        })}
       >
         <Bubble size="small" value={tabSelected.length} />
       </span>

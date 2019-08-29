@@ -1,20 +1,8 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TimesIcon } from 'franklin-sites';
+import { getBEMClassName } from '../utils/utils';
 import './styles/ColumnSelectDragDrop.scss';
-
-const getItemStyle = (isDragging, draggableStyle) => {
-  if (isDragging) {
-    return { ...draggableStyle, background: 'teal' };
-  }
-  return draggableStyle;
-};
-
-const getListStyle = isDraggingOver => {
-  if (isDraggingOver) {
-    return { background: 'lightblue' };
-  }
-};
 
 const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
   <DragDropContext
@@ -32,8 +20,11 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
       {(provided, snapshot) => (
         <div
           ref={provided.innerRef}
-          className="column-select-drag-drop__list"
-          style={getListStyle(snapshot.isDraggingOver)}
+          className={getBEMClassName({
+            b: 'column-select-drag-drop',
+            e: 'list',
+            m: snapshot.isDraggingOver && 'dragging-over',
+          })}
           {...provided.droppableProps}
         >
           {columns.map((column, index) => (
@@ -47,19 +38,28 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className="column-select-drag-drop__list__item"
-                  style={getItemStyle(
-                    snapshot.isDragging,
-                    provided.draggableProps.style
-                  )}
+                  className={getBEMClassName({
+                    b: 'column-select-drag-drop',
+                    e: ['list', 'item'],
+                    m: snapshot.isDragging && 'dragging',
+                  })}
+                  style={provided.draggableProps.style}
                 >
                   {column.label}
                   <button
                     type="button"
-                    className="column-select-drag-drop__list__item__button"
+                    className={getBEMClassName({
+                      b: 'column-select-drag-drop',
+                      e: ['list', 'item', 'button'],
+                    })}
                     onClick={() => onRemove(column)}
                   >
-                    <TimesIcon className="column-select-drag-drop__list__item__button__icon" />
+                    <TimesIcon 
+                      className={getBEMClassName({
+                        b: 'column-select-drag-drop',
+                        e: ['list', 'item', 'button', 'icon'],
+                      })}
+                      />
                   </button>
                 </div>
               )}

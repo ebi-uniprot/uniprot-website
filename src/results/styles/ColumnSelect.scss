@@ -1,4 +1,15 @@
-.column-select-drag-drop {
+.column-select {
+
+  &__tab__title {
+    margin-left: '0.5rem'
+    &--visible {
+      display: visible;
+    }
+    &--hidden {
+      display: hidden;
+    }
+  }
+
   &__list {
     background: white;
     display: flex;
@@ -7,10 +18,6 @@
     white-space: nowrap;
     margin: 1rem;
     border: 1px solid grey;
-
-    &--dragging-over {
-      background: lightblue;
-    }
 
     &__item {
       user-select: none;
@@ -22,10 +29,6 @@
       &:focus {
         outline: none;
       }
-
-      &--dragging {
-        background: teal;
-      }      
 
       &__button {
         background-color: transparent;
