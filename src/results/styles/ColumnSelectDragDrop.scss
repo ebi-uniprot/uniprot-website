@@ -5,14 +5,19 @@
     padding: 4px;
     overflow: auto;
     white-space: nowrap;
+    margin: 1rem;
+    border: 1px solid grey;
 
     &__item {
       user-select: none;
       color: black;
       padding: 8px;
       margin: 0px 4px 0px 0px;
-      border: 1px solid black;
       background: white;
+      font-size: 0.875rem;
+      &:focus {
+        outline: none;
+      }
 
       &__button {
         background-color: transparent;
