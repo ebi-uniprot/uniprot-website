@@ -4,6 +4,7 @@ import { serializableDeepAreEqual, moveItemInList } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import { getBEMClassName } from '../utils/utils';
 import fieldsData from '../data/fields.json';
+import './styles/ColumnSelect.scss';
 
 const prepareFieldData = fieldsData =>
   fieldsData.map(({ groupName, fields, isDatabase }) => ({

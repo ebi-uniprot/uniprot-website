@@ -1,51 +1,11 @@
 .column-select {
-
   &__tab__title {
-    margin-left: '0.5rem'
+    margin-left: 0.5rem;
     &--visible {
       display: visible;
     }
     &--hidden {
       display: hidden;
-    }
-  }
-
-  &__list {
-    background: white;
-    display: flex;
-    padding: 4px;
-    overflow: auto;
-    white-space: nowrap;
-    margin: 1rem;
-    border: 1px solid grey;
-
-    &__item {
-      user-select: none;
-      color: black;
-      padding: 8px;
-      margin: 0px 4px 0px 0px;
-      background: white;
-      font-size: 0.875rem;
-      &:focus {
-        outline: none;
-      }
-
-      &__button {
-        background-color: transparent;
-        margin-left: 0.25rem;
-        cursor: pointer;
-        &:focus {
-          outline: none;
-        }
-
-        &__icon {
-          fill: black !important;
-          width: 0.9rem;
-          height: 0.9rem;
-          position: relative;
-          top: 0.125rem;
-        }
-      }
     }
   }
 }
