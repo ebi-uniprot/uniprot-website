@@ -1,8 +1,8 @@
 import React, { useEffect, useState, Fragment, useRef } from 'react';
 import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
-import { serializableDeepAreEqual, moveItemInList } from '../utils/utils';
+import { serializableDeepAreEqual, moveItemInList , getBEMClassName } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-import { getBEMClassName } from '../utils/utils';
+
 import fieldsData from '../data/fields.json';
 import './styles/ColumnSelect.scss';
 
@@ -129,6 +129,7 @@ const ColumnSelect = ({
             handleSelect(tabId, accordionId, itemId);
           }}
           selected={tabSelected}
+          columns
         />
       ),
     };

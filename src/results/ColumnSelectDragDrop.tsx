@@ -1,6 +1,6 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { TimesIcon } from 'franklin-sites';
+import { CloseIcon } from 'franklin-sites';
 import { getBEMClassName } from '../utils/utils';
 import './styles/ColumnSelectDragDrop.scss';
 
@@ -54,12 +54,12 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
                     })}
                     onClick={() => onRemove(column)}
                   >
-                    <TimesIcon 
+                    <CloseIcon
                       className={getBEMClassName({
                         b: 'column-select-drag-drop',
                         e: ['list', 'item', 'button', 'icon'],
                       })}
-                      />
+                    />
                   </button>
                 </div>
               )}
