@@ -1,5 +1,6 @@
 import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
+import defaultTableColumns from '../../data/defaultTableColumns.json';
 
 export enum ViewMode {
   TABLE,
@@ -25,8 +26,7 @@ export type ResultsState = {
 };
 
 const resultsInitialState = {
-  // tableColumns: ['accession', 'id', 'protein_name', 'gene_names', 'organism'],
-  tableColumns: ["accession", "id", "gene_names", "organism", "protein_name", "date_create", "date_mod", "date_seq_mod", "version", "cc:developmental_stage", "cc:induction", "cc:tissue_specificity", "ft:coiled", "ft:compbias", "ft:domain", "ft:motif", "cc:domain", "protein_families", "ft:repeat", "ft:region", "cc:similarity", "ft:zn_fing", "absorption", "ft:act_site", "ft:binding", "ft:ca_bind", "cc:catalytic_activity", "cc:cofactor", "ft:dna_bind", "ec", "cc:enzyme_regulation", "cc:function", "kinetics", "ft:metal", "ft:np_bind", "cc:pathway", "ph_dependence", "redox_potential", "ft:site", "temp_dependence", "dr:pdbsum", "dr:pdb", "dr:evolutionarytrace", "dr:genomernai"],
+  tableColumns: defaultTableColumns,
   cardColumns: [
     'accession',
     'id',

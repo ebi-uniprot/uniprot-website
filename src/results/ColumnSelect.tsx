@@ -45,6 +45,7 @@ const getTabTitle = (tabId, tabSelected) => {
 };
 
 const findFieldDataForColumns = (columns, accordionData) => {
+  console.log(columns, accordionData);
   const selected = [];
   Object.keys(accordionData).forEach(tabId => {
     accordionData[tabId].forEach(({ id: accordionId, items }) => {
@@ -87,6 +88,7 @@ const ColumnSelect = ({
   tableColumns,
   fetchFieldsIfNeeded,
   fieldsData: outOfDateFields,
+  defaultTableColumns,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState([]);
   const accordionData = useRef({});
@@ -130,6 +132,12 @@ const ColumnSelect = ({
     setSelectedColumns(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
+  const resetToDefault = () => {
+    setSelectedColumns(
+      findFieldDataForColumns(defaultTableColumns, accordionData.current)
+    );
+  };
+
   const tabData = ['data', 'links'].map(tabId => {
     const tabSelected = selectedColumns.filter(item => item.tabId === tabId);
     return {
@@ -158,6 +166,14 @@ const ColumnSelect = ({
           handleSelect(tabId, accordionId, itemId)
         }
       />
+      <button
+        className="button"
+        type="button"
+        tabIndex={0}
+        onClick={resetToDefault}
+      >
+        Reset to default
+      </button>
       <Tabs tabData={tabData} />
     </Fragment>
   );
