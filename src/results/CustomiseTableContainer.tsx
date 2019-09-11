@@ -10,19 +10,19 @@ import defaultTableColumns from '../data/defaultTableColumns.json';
 const CustomiseTable = ({
   tableColumns,
   fetchFieldsIfNeeded,
-  fieldsData: outOfDateFields,
+  apiFieldsData,
 }) => (
   <ColumnSelect
     tableColumns={tableColumns}
     fetchFieldsIfNeeded={fetchFieldsIfNeeded}
-    fieldsData={outOfDateFields}
+    apiFieldsData={apiFieldsData}
     defaultTableColumns={defaultTableColumns}
   />
 );
 
 const mapStateToProps = (state: RootState) => ({
   tableColumns: state.results.tableColumns,
-  fieldsData: state.results.fields.data,
+  apiFieldsData: state.results.fields.data,
   isFetching: state.results.fields.isFetching,
 });
 

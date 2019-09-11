@@ -1,31 +1,13 @@
 import React, { useEffect, useState, Fragment, useRef } from 'react';
 import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import {
-  serializableDeepAreEqual,
   moveItemInList,
   removeItemFromList,
   getBEMClassName,
 } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-
 import fieldsData from '../data/fields.json';
 import './styles/ColumnSelect.scss';
-
-const prepareFieldData = fieldsData =>
-  fieldsData.map(({ groupName, fields, isDatabase }) => ({
-    id: groupName,
-    title: groupName,
-    isDatabase,
-    items: fields.map(({ label, name }) => ({
-      id: name,
-      label,
-    })),
-  }));
-
-const getFieldsLinks = accordionData => ({
-  data: accordionData.filter(({ isDatabase }) => !isDatabase),
-  links: accordionData.filter(({ isDatabase }) => isDatabase),
-});
 
 const getTabTitle = (tabId, tabSelected) => {
   return (
@@ -44,11 +26,10 @@ const getTabTitle = (tabId, tabSelected) => {
   );
 };
 
-const findFieldDataForColumns = (columns, accordionData) => {
-  console.log(columns, accordionData);
+const findFieldDataForColumns = (columns, fieldsData) => {
   const selected = [];
-  Object.keys(accordionData).forEach(tabId => {
-    accordionData[tabId].forEach(({ id: accordionId, items }) => {
+  Object.keys(fieldsData).forEach(tabId => {
+    fieldsData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         if (columns.includes(itemId)) {
           selected.push({ tabId, accordionId, itemId, label });
@@ -59,8 +40,8 @@ const findFieldDataForColumns = (columns, accordionData) => {
   return selected;
 };
 
-const findFieldStringForItem = (tabId, accordionId, itemId, accordionData) => {
-  const foundAccordion = accordionData[tabId].find(
+const findFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
+  const foundAccordion = fieldsData[tabId].find(
     accordion => accordion.id === accordionId
   );
   if (foundAccordion) {
@@ -87,19 +68,16 @@ const findIndexInSelectedColumns = (
 const ColumnSelect = ({
   tableColumns,
   fetchFieldsIfNeeded,
-  fieldsData: outOfDateFields,
+  apiFieldsData,
   defaultTableColumns,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState([]);
   const accordionData = useRef({});
   useEffect(() => {
-    accordionData.current = getFieldsLinks(prepareFieldData(fieldsData));
-    setSelectedColumns(
-      findFieldDataForColumns(tableColumns, accordionData.current)
-    );
+    setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
   }, [tableColumns]);
 
-  if (!fieldsData || !fieldsData.length) {
+  if (!apiFieldsData || !apiFieldsData.length) {
     fetchFieldsIfNeeded();
     return <Loader />;
   }
@@ -110,7 +88,7 @@ const ColumnSelect = ({
       tabId,
       accordionId,
       itemId,
-      accordionData.current
+      fieldsData
     );
     const index = findIndexInSelectedColumns(
       selectedColumns,
@@ -134,7 +112,7 @@ const ColumnSelect = ({
 
   const resetToDefault = () => {
     setSelectedColumns(
-      findFieldDataForColumns(defaultTableColumns, accordionData.current)
+      findFieldDataForColumns(defaultTableColumns, fieldsData)
     );
   };
 
@@ -146,7 +124,7 @@ const ColumnSelect = ({
       key: tabId,
       content: (
         <AccordionSearch
-          accordionData={accordionData.current[tabId]}
+          accordionData={fieldsData[tabId]}
           onSelect={(accordionId, itemId) => {
             handleSelect(tabId, accordionId, itemId);
           }}
