@@ -1,6 +1,11 @@
 import React, { useEffect, useState, Fragment, useRef } from 'react';
 import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
-import { serializableDeepAreEqual, moveItemInList , getBEMClassName } from '../utils/utils';
+import {
+  serializableDeepAreEqual,
+  moveItemInList,
+  removeItemFromList,
+  getBEMClassName,
+} from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
 import fieldsData from '../data/fields.json';
@@ -65,6 +70,19 @@ const findFieldStringForItem = (tabId, accordionId, itemId, accordionData) => {
   }
 };
 
+const findIndexInSelectedColumns = (
+  selectedColumns,
+  tabId,
+  accordionId,
+  itemId
+) =>
+  selectedColumns.findIndex(
+    item =>
+      item.tabId === tabId &&
+      item.accordionId === accordionId &&
+      item.itemId === itemId
+  );
+
 const ColumnSelect = ({
   tableColumns,
   fetchFieldsIfNeeded,
@@ -92,28 +110,24 @@ const ColumnSelect = ({
       itemId,
       accordionData.current
     );
-    const selectedItem = { tabId, accordionId, itemId, label };
-    const index = selectedColumns.findIndex(item =>
-      serializableDeepAreEqual(selectedItem, item)
+    const index = findIndexInSelectedColumns(
+      selectedColumns,
+      tabId,
+      accordionId,
+      itemId
     );
     if (index >= 0) {
-      // Remove column
-      setSelectedColumns([
-        ...selectedColumns.slice(0, index),
-        ...selectedColumns.slice(index + 1),
-      ]);
+      setSelectedColumns(removeItemFromList(selectedColumns, index));
     } else {
-      // Append to end
-      setSelectedColumns([...selectedColumns, selectedItem]);
+      setSelectedColumns([
+        ...selectedColumns,
+        { tabId, accordionId, itemId, label },
+      ]);
     }
   };
 
   const handleDragDrop = (srcIndex, destIndex) => {
     setSelectedColumns(moveItemInList(selectedColumns, srcIndex, destIndex));
-  };
-
-  const handleRemove = column => {
-    console.log(column);
   };
 
   const tabData = ['data', 'links'].map(tabId => {
@@ -140,7 +154,9 @@ const ColumnSelect = ({
       <ColumnSelectDragDrop
         columns={selectedColumns}
         onDragDrop={handleDragDrop}
-        onRemove={handleRemove}
+        onRemove={({ tabId, accordionId, itemId }) =>
+          handleSelect(tabId, accordionId, itemId)
+        }
       />
       <Tabs tabData={tabData} />
     </Fragment>
