@@ -23,7 +23,6 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
           className={getBEMClassName({
             b: 'column-select-drag-drop',
             e: 'list',
-            m: snapshot.isDraggingOver && 'dragging-over',
           })}
           {...provided.droppableProps}
         >
@@ -38,11 +37,11 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={getBEMClassName({
+                  className={`button ${getBEMClassName({
                     b: 'column-select-drag-drop',
                     e: ['list', 'item'],
                     m: snapshot.isDragging && 'dragging',
-                  })}
+                  })}`}
                   style={provided.draggableProps.style}
                 >
                   {column.label}

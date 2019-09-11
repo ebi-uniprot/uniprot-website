@@ -1,31 +1,31 @@
+@import '../../../node_modules/franklin-sites/src/styles/colours';
+
 .column-select-drag-drop {
   &__list {
-    background: white;
+    background: $colour-seashell-grey;
     display: flex;
-    padding: 4px;
+    padding: 0.5rem;
     overflow: auto;
     white-space: nowrap;
     margin: 1rem 0rem;
-    border: 1px solid grey;
-
-    &--dragging-over {
-      background: lightblue;
-    }
 
     &__item {
       user-select: none;
+      padding: 0.5rem;
+      margin: 0 0.25rem 0 0;
       color: black;
-      padding: 8px;
-      margin: 0px 4px 0px 0px;
-      background: white;
-      font-size: 0.875rem;
+      background: $colour-light-blue;
       &:focus {
         outline: none;
       }
-
+      &:hover {
+        color: black;
+        background: $colour-medium-blue;
+      }
       &--dragging {
-        background: teal;
-      }      
+        color: black;
+        background: $colour-medium-blue;
+      }
 
       &__button {
         background-color: transparent;
@@ -40,7 +40,8 @@
           width: 0.9rem;
           height: 0.9rem;
           position: relative;
-          top: 0.125rem;
+          top: 0.085rem;
+          left: 0.35rem;
         }
       }
     }
