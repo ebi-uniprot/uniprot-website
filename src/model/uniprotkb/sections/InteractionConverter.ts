@@ -1,10 +1,11 @@
 import Comment from '../../types/Comment';
 import EntrySection from '../../types/EntrySection';
-import { APIModel, convertSection } from '../SectionConverter';
+import { convertSection } from '../SectionConverter';
+import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
-const commentsCategories = [Comment.SUBUNIT];
+const commentsCategories = [Comment.INTERACTION, Comment.SUBUNIT];
 
-export const convertInteraction = (data: APIModel) => {
+export const convertInteraction = (data: UniProtkbAPIModel) => {
   return convertSection(
     data,
     commentsCategories,

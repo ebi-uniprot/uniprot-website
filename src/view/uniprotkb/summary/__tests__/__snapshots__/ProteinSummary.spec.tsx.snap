@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProteinSummary component it renders without crashing 1`] = `
+<DocumentFragment>
+  <div
+    class="card "
+  >
+    <div
+      class="card__header"
+    >
+      <h3
+        class="card__title"
+      >
+        <div
+          class="uniprot-title"
+        >
+          <span
+            class="uniprot-title__status icon--reviewed"
+          >
+            <svg
+              height="512"
+              viewBox="0 0 426 512"
+              width="426"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                id="Shape"
+              />
+            </svg>
+          </span>
+          <a
+            href="/uniprotkb/P21802"
+          >
+            P21802
+          </a>
+           · uniprot id
+        </div>
+      </h3>
+    </div>
+    <div
+      class="card__content"
+    >
+      <div
+        class="info-list"
+      >
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            Name
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            rec full Name
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            EC number
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            <div>
+              1.2.3.4
+            </div>
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            Organism
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            <span>
+              scientific name (common name)  (synonyms 1)
+            </span>
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            Gene
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            <span>
+              <strong>
+                some Gene
+              </strong>
+               
+              <div>
+                some Syn, some orf
+              </div>
+            </span>
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            Evidence
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            1: Evidence at protein level
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            Annotation score
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              2
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="protein-highlights"
+      >
+        <h4>
+          Protein Highlights
+        </h4>
+        <div
+          class="protein-highlights__item"
+        >
+          <a
+            href="/uniprotkb/P21802#Sequence"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              1
+            </span>
+            isoforms
+          </a>
+        </div>
+        <div
+          class="protein-highlights__item"
+        >
+          <a
+            href="/uniprotkb/P21802#Interaction"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              1
+            </span>
+            interactions
+          </a>
+        </div>
+        <div
+          class="protein-highlights__item"
+        >
+          <a
+            href="/uniprotkb/P21802#Pathology & BioTech"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              1
+            </span>
+            disease
+          </a>
+        </div>
+        <div
+          class="protein-highlights__item"
+        >
+          <a
+            href="/uniprotkb/P21802#Subcellular Location"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              1
+            </span>
+            subcellular location
+          </a>
+        </div>
+        <div
+          class="protein-highlights__item"
+        >
+          <a
+            href="/uniprotkb/P21802#null"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              7
+            </span>
+            reviewed publications
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

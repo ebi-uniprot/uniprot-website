@@ -35,11 +35,10 @@ const resultsReducers = (
     case resultsActions.CLEAR_RESULTS: {
       return {
         ...state,
-        results: {
-          data: [],
-          isFetching: false,
-          isFetched: {},
-        },
+        results: [],
+        summaryAccession: null,
+        isFetching: false,
+        isFetched: {},
       };
     }
     case resultsActions.SWITCH_VIEW_MODE: {
@@ -59,6 +58,12 @@ const resultsReducers = (
         ...state,
         fields: { data: action.payload.data, isFetching: false },
       };
+    case resultsActions.UPDATE_SUMMARY_ACCESSION: {
+      return {
+        ...state,
+        summaryAccession: action.payload.accession,
+      };
+    }
     default:
       return state;
   }

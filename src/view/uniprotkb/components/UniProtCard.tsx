@@ -1,22 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import idx from 'idx';
-import { SwissProtIcon, TremblIcon, Bubble, InfoList } from 'franklin-sites';
-import {
-  UniProtkbAPIModel,
-  EntryType,
-} from '../../../model/uniprotkb/UniProtkbConverter';
-import './styles/UniProtCard.scss';
+import { Bubble, InfoList } from 'franklin-sites';
+import { UniProtkbAPIModel } from '../../../model/uniprotkb/UniProtkbConverter';
 import { getKeywordsForCategories } from '../../../model/utils/KeywordsUtil';
 import KeywordCategory from '../../../model/types/KeywordCategory';
 import convertGeneNames from '../../../model/uniprotkb/GeneNamesConverter';
 import GeneNamesView from './GeneNamesView';
 import { KeywordList } from './KeywordView';
+import UniProtTitle from './UniProtTitle';
 
-const UniProtCard: FC<{ data: UniProtkbAPIModel }> = ({
-  data,
-}): JSX.Element => {
+const UniProtCard: FC<{
+  data: UniProtkbAPIModel;
+}> = ({ data }): JSX.Element => {
   const recommendedName = idx(
     data,
     (_): string => _.proteinDescription.recommendedName.fullName.value
@@ -63,22 +59,13 @@ const UniProtCard: FC<{ data: UniProtkbAPIModel }> = ({
 
   return (
     <div className="uniprot-card">
-      <h5>
-        {data.entryType === EntryType.SWISSPROT ? (
-          <span className="uniprot-card__status icon--reviewed">
-            <SwissProtIcon />
-          </span>
-        ) : (
-          <span className="uniprot-card__status icon--unreviewed">
-            <TremblIcon />
-          </span>
-        )}
-        <Link to={`/uniprotkb/${data.primaryAccession}`}>
-          {data.primaryAccession}
-        </Link>
-        {' '}
-        {data.uniProtId}
-      </h5>
+      <h4>
+        <UniProtTitle
+          primaryAccession={data.primaryAccession}
+          entryType={data.entryType}
+          uniProtId={data.uniProtId}
+        />
+      </h4>
       <p>
         {recommendedName && `${recommendedName} · `}
         <a href="#">{organismName}</a>

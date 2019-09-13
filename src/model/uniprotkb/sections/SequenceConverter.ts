@@ -1,19 +1,18 @@
 import { FeatureData } from '../../../view/uniprotkb/components/FeaturesView';
 import {
   getKeywordsForCategories,
-  Keyword,
   KeywordUIModel,
 } from '../../utils/KeywordsUtil';
 import KeywordCategory from '../../types/KeywordCategory';
 import FeatureType from '../../types/FeatureType';
-import { getXrefsForSection, Xref, XrefUIModel } from '../../utils/XrefUtils';
+import { getXrefsForSection, XrefUIModel } from '../../utils/XrefUtils';
 import EntrySection from '../../types/EntrySection';
 import {
   AlternativeProducts,
   SequenceData,
 } from '../../../view/uniprotkb/components/SequenceView';
 import Comment from '../../types/Comment';
-import { ProteinNamesData } from './NamesAndTaxonomyConverter';
+import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
 export enum Flag {
   PRECURSOR = 'Precursor',
@@ -22,20 +21,6 @@ export enum Flag {
   FRAGMENT_PRECURSOR = 'Fragment,Precursor',
   FRAGMENTS_PRECURSOR = 'Fragments,Precursor',
 }
-
-type SequenceAPIModel = {
-  primaryAccession: string;
-  keywords?: Keyword[];
-  features?: FeatureData;
-  comments?: AlternativeProducts[];
-  databaseCrossReferences?: Xref[];
-  proteinDescription?: ProteinNamesData;
-  sequence: SequenceData;
-  entryAudit?: {
-    lastSequenceUpdateDate: string;
-    sequenceVersion: string;
-  };
-};
 
 export type SequenceUIModel = {
   sequence: SequenceData;
@@ -59,7 +44,7 @@ const sequenceFeatures = [
   FeatureType.NON_TER,
 ];
 
-export const convertSequence = (data: SequenceAPIModel) => {
+export const convertSequence = (data: UniProtkbAPIModel) => {
   const sequenceData: SequenceUIModel = {
     sequence: data.sequence,
     keywordData: [],
@@ -89,16 +74,15 @@ export const convertSequence = (data: SequenceAPIModel) => {
 
   // Add the last update
   if (data.entryAudit) {
-    sequenceData.lastUpdateDate = `${data.entryAudit.lastSequenceUpdateDate} v${
-      data.entryAudit.sequenceVersion
-    }`;
+    sequenceData.lastUpdateDate = `${data.entryAudit.lastSequenceUpdateDate} v${data.entryAudit.sequenceVersion}`;
   }
 
   // Trembl entries only have a canonical sequence
   if (data.comments) {
-    sequenceData.alternativeProducts = data.comments.find(
+    const alternativeProducts = data.comments.find(
       comment => comment.commentType === Comment.ALTERNATIVE_PRODUCTS
     );
+    sequenceData.alternativeProducts = (alternativeProducts as unknown) as AlternativeProducts;
   }
 
   if (data.keywords) {

@@ -26,6 +26,7 @@ import convertInteraction from './sections/InteractionConverter';
 import convertFamilyAndDomains from './sections/FamilyAndDomainsConverter';
 import { UIModel } from './SectionConverter';
 import convertStructure from './sections/StructureConverter';
+import { InteractionComment } from '../../view/uniprotkb/components/InteractionView';
 
 export enum EntryType {
   SWISSPROT = 'Swiss-Prot',
@@ -43,12 +44,35 @@ export type UniProtkbAPIModel = {
   comments?: FreeTextData &
     CatalyticActivityData &
     DiseaseCommentData &
+    InteractionComment[] &
     AlternativeProducts[];
   keywords?: Keyword[];
   features?: FeatureData;
   databaseCrossReferences?: Xref[];
   sequence: SequenceData;
   annotationScore: number;
+  entryAudit?: {
+    lastSequenceUpdateDate: string;
+    sequenceVersion: string;
+  };
+  references?: {
+    citation: {
+      citationType?: string;
+      authors?: string[];
+      citationXrefs?: Xref[];
+      title?: string;
+      publicationDate?: number;
+      journal?: string;
+      firstPage?: number;
+      lastPage?: number;
+      volume?: number;
+    };
+    referencePositions?: string[];
+    referenceComments?: {
+      value: string;
+      type: string;
+    };
+  }[];
 };
 
 export type UniProtkbUIModel = {

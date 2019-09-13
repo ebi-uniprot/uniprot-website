@@ -2,7 +2,8 @@ import Comment from '../../types/Comment';
 import KeywordCategory from '../../types/KeywordCategory';
 import FeatureType from '../../types/FeatureType';
 import EntrySection from '../../types/EntrySection';
-import { convertSection, APIModel } from '../SectionConverter';
+import { convertSection } from '../SectionConverter';
+import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
 const keywordsCategories = [
   KeywordCategory.MOLECULAR_FUNCTION,
@@ -33,7 +34,7 @@ const commentsCategories = [
   Comment.MISCELLANEOUS,
 ];
 
-const convertFunction = (data: APIModel) => {
+const convertFunction = (data: UniProtkbAPIModel) => {
   return convertSection(
     data,
     commentsCategories,

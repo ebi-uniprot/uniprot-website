@@ -1,0 +1,13 @@
+.uniprot-title {
+  position: relative;
+  &__status {
+    display: inline-flex;
+    align-self: center;
+    svg {
+      width: 2rem;
+      height: 2rem;
+      top: 0.125em;
+      position: relative;
+    }
+  }
+}

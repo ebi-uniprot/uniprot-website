@@ -23,6 +23,7 @@ export type ResultsState = {
     data: any;
     isFetching: boolean;
   };
+  summaryAccession: string | null;
 };
 
 const resultsInitialState = {
@@ -50,6 +51,7 @@ const resultsInitialState = {
     data: [],
     isFetching: false,
   },
+  summaryAccession: null,
 };
 
 export default resultsInitialState;

@@ -2,7 +2,8 @@ import FeatureType from '../../types/FeatureType';
 import KeywordCategory from '../../types/KeywordCategory';
 import EntrySection from '../../types/EntrySection';
 import Comment from '../../types/Comment';
-import { APIModel, convertSection } from '../SectionConverter';
+import { convertSection } from '../SectionConverter';
+import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
 const keywordsCategories = [KeywordCategory.PTM];
 
@@ -22,7 +23,7 @@ const featuresCategories = [
 
 const proteinProcessingComments = [Comment.PTM];
 
-const convertProteinProcessing = (data: APIModel) => {
+const convertProteinProcessing = (data: UniProtkbAPIModel) => {
   return convertSection(
     data,
     proteinProcessingComments,

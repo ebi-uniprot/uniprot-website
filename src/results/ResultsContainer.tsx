@@ -43,6 +43,7 @@ type ResultsProps = {
   dispatchReset: () => void;
   dispatchClearResults: () => void;
   dispatchSwitchViewMode: () => void;
+  dispatchUpdateSummaryAccession: (accession: string) => void;
   clauses?: Clause[];
   tableColumns: string[];
   cardColumns: string[];
@@ -52,6 +53,7 @@ type ResultsProps = {
   nextUrl: string;
   totalNumberResults: number;
   viewMode: ViewMode;
+  summaryAccession: string | null;
 } & RouteComponentProps;
 
 type ResultsContainerState = {
@@ -252,12 +254,14 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
       facets,
       isFetching,
       dispatchFetchBatchOfResultsIfNeeded,
+      dispatchUpdateSummaryAccession,
       namespace,
       nextUrl,
       totalNumberResults,
       viewMode,
       tableColumns,
       dispatchSwitchViewMode,
+      summaryAccession,
     } = this.props;
     const { selectedEntries } = this.state;
     const { selectedFacets, sortColumn, sortDirection } = this.getURLParams(
@@ -341,6 +345,8 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                 handleEntrySelection={this.handleEntrySelection}
                 selectedEntries={selectedEntries}
                 handleHeaderClick={this.updateColumnSort}
+                handleCardClick={dispatchUpdateSummaryAccession}
+                summaryAccession={summaryAccession}
                 sortColumn={sortColumn}
                 sortDirection={sortDirection}
                 handleLoadMoreRows={() =>
@@ -369,6 +375,7 @@ const mapStateToProps = (state: RootState) => {
     nextUrl: state.results.nextUrl,
     totalNumberResults: state.results.totalNumberResults,
     viewMode: state.results.viewMode,
+    summaryAccession: state.results.summaryAccession,
   };
 };
 
@@ -380,6 +387,8 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       dispatchReset: () => searchActions.reset(),
       dispatchClearResults: () => resultsActions.clearResults(),
       dispatchSwitchViewMode: () => resultsActions.switchViewMode(),
+      dispatchUpdateSummaryAccession: (accession: string) =>
+        resultsActions.updateSummaryAccession(accession),
     },
     dispatch
   );

@@ -1,8 +1,6 @@
-import { getXrefsForSection, Xref, XrefUIModel } from '../utils/XrefUtils';
+import { getXrefsForSection, XrefUIModel } from '../utils/XrefUtils';
 import { FreeTextData } from '../../view/uniprotkb/components/FreeTextView';
-import { CatalyticActivityData } from '../../view/uniprotkb/components/CatalyticActivityView';
 import {
-  Keyword,
   getKeywordsForCategories,
   KeywordUIModel,
 } from '../utils/KeywordsUtil';
@@ -11,16 +9,7 @@ import EntrySection from '../types/EntrySection';
 import Comment from '../types/Comment';
 import KeywordCategory from '../types/KeywordCategory';
 import FeatureType from '../types/FeatureType';
-import { DiseaseCommentData } from '../../view/uniprotkb/components/DiseaseInvolvementView';
-
-export type APIModel = {
-  primaryAccession: string;
-  comments?: FreeTextData & CatalyticActivityData & DiseaseCommentData;
-  keywords?: Keyword[];
-  features?: FeatureData;
-  databaseCrossReferences?: Xref[];
-  sequence: { value: string };
-};
+import { UniProtkbAPIModel } from './UniProtkbConverter';
 
 export type UIModel = {
   commentsData: Map<Comment, FreeTextData>;
@@ -30,7 +19,7 @@ export type UIModel = {
 };
 
 export const convertSection = (
-  data: APIModel,
+  data: UniProtkbAPIModel,
   sectionComments?: Comment[],
   sectionKeywords?: KeywordCategory[],
   sectionFeatures?: FeatureType[],

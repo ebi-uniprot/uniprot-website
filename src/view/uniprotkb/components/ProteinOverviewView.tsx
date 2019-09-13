@@ -1,34 +1,33 @@
-import React, { Fragment, FC } from 'react';
-import {
-  Card,
-  InfoList,
-  SwissProtIcon,
-  TremblIcon,
-  Bubble,
-} from 'franklin-sites';
+import React, { FC } from 'react';
+import { InfoList, Bubble } from 'franklin-sites';
+import idx from 'idx';
 import OrganismView from './OrganismView';
 import GeneNamesView from './GeneNamesView';
-import { NamesAndTaxonomyUIModel } from '../../../model/uniprotkb/sections/NamesAndTaxonomyConverter';
-import { EntryType } from '../../../model/uniprotkb/UniProtkbConverter';
-import './styles/ProteinOverviewView.scss';
+import { UniProtkbUIModel } from '../../../model/uniprotkb/UniProtkbConverter';
+import EntrySection from '../../../model/types/EntrySection';
 
 export const ProteinOverview: FC<{
-  data: NamesAndTaxonomyUIModel;
-  proteinExistence: string;
-  primaryAccession: string;
-  uniProtId: string;
-  entryType: EntryType;
-  annotationScore: number;
-}> = ({
-  data,
-  proteinExistence,
-  primaryAccession,
-  uniProtId,
-  entryType,
-  annotationScore,
-}) => {
-  const { proteinNamesData, geneNamesData, organismData } = data;
+  transformedData: UniProtkbUIModel;
+}> = ({ transformedData }) => {
+  const { proteinExistence, annotationScore } = transformedData;
+  const { proteinNamesData, geneNamesData, organismData } = transformedData[
+    EntrySection.NamesAndTaxonomy
+  ];
+  const proteinName = idx(
+    proteinNamesData,
+    _ => _.recommendedName.fullName.value
+  );
+  const ECnumbers = idx(proteinNamesData, _ => _.recommendedName.ecNumbers);
   const infoListData = [
+    {
+      title: 'Name',
+      content: proteinName,
+    },
+    {
+      title: 'EC number',
+      content:
+        ECnumbers && ECnumbers.map(ec => <div key={ec.value}>{ec.value}</div>),
+    },
     {
       title: 'Organism',
       content: organismData && <OrganismView data={organismData} />,
@@ -47,35 +46,7 @@ export const ProteinOverview: FC<{
     },
   ];
 
-  return (
-    <Card
-      className="protein-overview"
-      title={(
-        <Fragment>
-          {entryType === EntryType.SWISSPROT ? (
-            <span className="protein-overview__status icon--reviewed">
-              <SwissProtIcon />
-            </span>
-          ) : (
-            <span className="protein-overview__status icon--unreviewed">
-              <TremblIcon />
-            </span>
-          )}
-          {primaryAccession}
-          {` · `}
-          <small>
-            {`${proteinNamesData && uniProtId}`}
-            {` · `}
-            {proteinNamesData &&
-              proteinNamesData.recommendedName &&
-              proteinNamesData.recommendedName.fullName.value}
-          </small>
-        </Fragment>
-)}
-    >
-      <InfoList infoData={infoListData} />
-    </Card>
-  );
+  return <InfoList infoData={infoListData} />;
 };
 
 export default ProteinOverview;

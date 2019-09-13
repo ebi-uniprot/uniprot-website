@@ -3,7 +3,7 @@ enum EntrySection {
   FamilyAndDomains = 'Family & Domains',
   Expression = 'Expression',
   Interaction = 'Interaction',
-  Miscellaneous = 'Miscellaneous',
+  // Miscellaneous = 'Miscellaneous',
   NamesAndTaxonomy = 'Names & Taxonomy',
   PathologyAndBioTech = 'Pathology & BioTech',
   ProteinProcessing = 'Protein Processing',

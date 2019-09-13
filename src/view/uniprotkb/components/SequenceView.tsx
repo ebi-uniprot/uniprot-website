@@ -18,7 +18,7 @@ type Isoform = {
 };
 
 export type AlternativeProducts = {
-  commentType: Comment.ALTERNATIVE_PRODUCTS;
+  commentType: Comment;
   isoforms: Isoform[];
   note: { texts: { value: string }[] };
   events: string[];

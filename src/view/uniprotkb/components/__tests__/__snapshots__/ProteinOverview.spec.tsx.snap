@@ -3,73 +3,38 @@
 exports[`ProteinOverview component should render 1`] = `
 <DocumentFragment>
   <div
-    class="card "
+    class="info-list"
   >
     <div
-      class="card__header"
-    >
-      <h3
-        class="card__title"
-      >
-        <span
-          class="protein-overview__status icon--unreviewed"
-        >
-          <svg
-            height="512"
-            viewBox="0 0 400 512"
-            width="400"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-              id="Shape"
-            />
-          </svg>
-        </span>
-        P05067 · 
-        <small>
-          undefined · 
-        </small>
-      </h3>
-    </div>
-    <div
-      class="card__content"
+      class="info-list__item"
     >
       <div
-        class="info-list"
+        class="info-list__item__title"
       >
-        <div
-          class="info-list__item"
+        Evidence
+      </div>
+      <div
+        class="info-list__item__content"
+      >
+        IT exists
+      </div>
+    </div>
+    <div
+      class="info-list__item"
+    >
+      <div
+        class="info-list__item__title"
+      >
+        Annotation score
+      </div>
+      <div
+        class="info-list__item__content"
+      >
+        <span
+          class="bubble--medium colour-uniprot-blue"
         >
-          <div
-            class="info-list__item__title"
-          >
-            Evidence
-          </div>
-          <div
-            class="info-list__item__content"
-          >
-            Exists
-          </div>
-        </div>
-        <div
-          class="info-list__item"
-        >
-          <div
-            class="info-list__item__title"
-          >
-            Annotation score
-          </div>
-          <div
-            class="info-list__item__content"
-          >
-            <span
-              class="bubble--medium colour-uniprot-blue"
-            >
-              12.3
-            </span>
-          </div>
-        </div>
+          12.4
+        </span>
       </div>
     </div>
   </div>

@@ -16,6 +16,7 @@ export const CLEAR_RESULTS = 'CLEAR_RESULTS';
 export const SWITCH_VIEW_MODE = 'SWITCH_VIEW_MODE';
 export const RECEIVE_FIELDS = 'RECEIVE_FIELDS';
 export const REQUEST_FIELDS = 'REQUEST_FIELDS';
+export const UPDATE_SUMMARY_ACCESSION = 'UPDATE_SUMMARY_ACCESSION';
 
 export const receiveBatchOfResults = (
   url: string,
@@ -30,7 +31,6 @@ export const receiveBatchOfResults = (
     totalNumberResults,
     receivedAt: Date.now(),
   });
-
 export const requestBatchOfResults = (url: string) =>
   action(REQUEST_BATCH_OF_RESULTS, { url });
 
@@ -58,7 +58,7 @@ type Response = {
   };
 };
 
-export const fetchBatchOfResults = (url: string) => async (
+export const fetchBatchOfResults = (url: string, state: RootState) => async (
   dispatch: Dispatch
 ) => {
   dispatch(requestBatchOfResults(url));
@@ -72,6 +72,14 @@ export const fetchBatchOfResults = (url: string) => async (
         response.headers['x-totalrecords']
       )
     );
+    if (response.data.results.length > 0 && !state.results.summaryAccession) {
+      const firstAccession = response.data.results[0].primaryAccession;
+      if (firstAccession) {
+        dispatch(
+          action(UPDATE_SUMMARY_ACCESSION, { accession: firstAccession })
+        );
+      }
+    }
   });
   // .catch(error => console.error(error)); // the console creates a tslint ...
   // ... error but we want to catch this in the future
@@ -87,9 +95,12 @@ export const fetchBatchOfResultsIfNeeded = (url: string | undefined) => (
   getState: () => RootState
 ) => {
   if (url && shouldFetchBatchOfResults(url, getState())) {
-    dispatch(fetchBatchOfResults(url));
+    dispatch(fetchBatchOfResults(url, getState()));
   }
 };
+
+export const updateSummaryAccession = (accession: string) =>
+  action(UPDATE_SUMMARY_ACCESSION, { accession });
 
 export const switchViewMode = () => action(SWITCH_VIEW_MODE);
 

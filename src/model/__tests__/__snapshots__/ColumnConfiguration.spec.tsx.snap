@@ -22,7 +22,6 @@ ShallowWrapper {
     "nodeType": "class",
     "props": Object {
       "children": "P21802 (Swiss-Prot)",
-      "replace": false,
       "to": "/uniprotkb/P21802",
     },
     "ref": null,
@@ -36,7 +35,6 @@ ShallowWrapper {
       "nodeType": "class",
       "props": Object {
         "children": "P21802 (Swiss-Prot)",
-        "replace": false,
         "to": "/uniprotkb/P21802",
       },
       "ref": null,

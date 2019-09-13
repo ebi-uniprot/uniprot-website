@@ -1,10 +1,11 @@
 import FeatureType from '../../types/FeatureType';
-import { APIModel, convertSection } from '../SectionConverter';
+import { convertSection } from '../SectionConverter';
 import EntrySection from '../../types/EntrySection';
+import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
 const featuresCategories = [FeatureType.HELIX, FeatureType.STRAND];
 
-const convertStructure = (data: APIModel) => {
+const convertStructure = (data: UniProtkbAPIModel) => {
   return convertSection(
     data,
     undefined,

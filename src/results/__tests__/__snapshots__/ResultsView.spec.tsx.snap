@@ -46,53 +46,217 @@ ShallowWrapper {
   Symbol(enzyme.__node__): Object {
     "instance": null,
     "key": undefined,
-    "nodeType": "function",
+    "nodeType": "host",
     "props": Object {
-      "data": Array [
-        Object {
-          "accession": "1234",
-        },
-        Object {
-          "accession": "5678",
-        },
+      "children": Array [
+        <div
+          className="datalist__column"
+        >
+          <Unknown
+            data={
+              Array [
+                Object {
+                  "accession": "1234",
+                },
+                Object {
+                  "accession": "5678",
+                },
+              ]
+            }
+            dataRenderer={[Function]}
+            hasMoreData={false}
+            idKey="primaryAccession"
+            onLoadMoreItems={[MockFunction]}
+            onSelect={[MockFunction]}
+            selectable={true}
+            selected={Object {}}
+          />
+        </div>,
+        <div
+          className="datalist__column"
+        />,
       ],
-      "dataRenderer": [Function],
-      "hasMoreData": false,
-      "idKey": "primaryAccession",
-      "onLoadMoreItems": [MockFunction],
-      "onSelect": [MockFunction],
-      "selectable": true,
-      "selected": Object {},
+      "className": "datalist",
     },
     "ref": null,
-    "rendered": null,
-    "type": [Function],
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <Unknown
+            data={
+              Array [
+                Object {
+                  "accession": "1234",
+                },
+                Object {
+                  "accession": "5678",
+                },
+              ]
+            }
+            dataRenderer={[Function]}
+            hasMoreData={false}
+            idKey="primaryAccession"
+            onLoadMoreItems={[MockFunction]}
+            onSelect={[MockFunction]}
+            selectable={true}
+            selected={Object {}}
+          />,
+          "className": "datalist__column",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "data": Array [
+              Object {
+                "accession": "1234",
+              },
+              Object {
+                "accession": "5678",
+              },
+            ],
+            "dataRenderer": [Function],
+            "hasMoreData": false,
+            "idKey": "primaryAccession",
+            "onCardClick": undefined,
+            "onLoadMoreItems": [MockFunction],
+            "onSelect": [MockFunction],
+            "selectable": true,
+            "selected": Object {},
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": undefined,
+          "className": "datalist__column",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
+    ],
+    "type": "div",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
       "instance": null,
       "key": undefined,
-      "nodeType": "function",
+      "nodeType": "host",
       "props": Object {
-        "data": Array [
-          Object {
-            "accession": "1234",
-          },
-          Object {
-            "accession": "5678",
-          },
+        "children": Array [
+          <div
+            className="datalist__column"
+          >
+            <Unknown
+              data={
+                Array [
+                  Object {
+                    "accession": "1234",
+                  },
+                  Object {
+                    "accession": "5678",
+                  },
+                ]
+              }
+              dataRenderer={[Function]}
+              hasMoreData={false}
+              idKey="primaryAccession"
+              onLoadMoreItems={[MockFunction]}
+              onSelect={[MockFunction]}
+              selectable={true}
+              selected={Object {}}
+            />
+          </div>,
+          <div
+            className="datalist__column"
+          />,
         ],
-        "dataRenderer": [Function],
-        "hasMoreData": false,
-        "idKey": "primaryAccession",
-        "onLoadMoreItems": [MockFunction],
-        "onSelect": [MockFunction],
-        "selectable": true,
-        "selected": Object {},
+        "className": "datalist",
       },
       "ref": null,
-      "rendered": null,
-      "type": [Function],
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Unknown
+              data={
+                Array [
+                  Object {
+                    "accession": "1234",
+                  },
+                  Object {
+                    "accession": "5678",
+                  },
+                ]
+              }
+              dataRenderer={[Function]}
+              hasMoreData={false}
+              idKey="primaryAccession"
+              onLoadMoreItems={[MockFunction]}
+              onSelect={[MockFunction]}
+              selectable={true}
+              selected={Object {}}
+            />,
+            "className": "datalist__column",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "data": Array [
+                Object {
+                  "accession": "1234",
+                },
+                Object {
+                  "accession": "5678",
+                },
+              ],
+              "dataRenderer": [Function],
+              "hasMoreData": false,
+              "idKey": "primaryAccession",
+              "onCardClick": undefined,
+              "onLoadMoreItems": [MockFunction],
+              "onSelect": [MockFunction],
+              "selectable": true,
+              "selected": Object {},
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": undefined,
+            "className": "datalist__column",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
+      ],
+      "type": "div",
     },
   ],
   Symbol(enzyme.__options__): Object {
