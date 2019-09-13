@@ -11,7 +11,7 @@ const GeneNamesView: React.FC<GeneNamesDataProps> = ({
   name,
   alternativeNames,
 }) => {
-  if (!name) {
+  if (!name && !alternativeNames) {
     return null;
   }
   const props = { name, alternativeNames };

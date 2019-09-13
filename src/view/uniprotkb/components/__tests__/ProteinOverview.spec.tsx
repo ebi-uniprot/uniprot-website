@@ -11,6 +11,7 @@ describe('ProteinOverview component', () => {
         primaryAccession="P05067"
         proteinExistence="Exists"
         uniProtId="Some nameu"
+        annotationScore={12.345}
       />
     );
     expect(asFragment()).toMatchSnapshot();

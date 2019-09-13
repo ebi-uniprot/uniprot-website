@@ -17,7 +17,7 @@ export const KeywordItem: React.FC<KeywordItempProps> = ({ id, value }) => {
   if (!id || !value) {
     return null;
   }
-  return <Link to={`/keywords/${id}`}>{value}</Link>;
+  return <Link to={`/keywords/${id}`}>{` #${value}`}</Link>;
 };
 
 export const KeywordList: React.FC<KeywordListProps> = ({ keywords }) => {
@@ -32,7 +32,7 @@ export const KeywordList: React.FC<KeywordListProps> = ({ keywords }) => {
     return (
       <Fragment key={v1()}>
         <KeywordItem id={id} value={value} />
-        {index < keywords.length - 1 && ', '}
+        {index < keywords.length - 1 && ' '}
       </Fragment>
     );
   });

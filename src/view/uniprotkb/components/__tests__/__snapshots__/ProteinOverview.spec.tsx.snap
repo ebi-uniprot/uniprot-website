@@ -11,9 +11,24 @@ exports[`ProteinOverview component should render 1`] = `
       <h3
         class="card__title"
       >
-         
+        <span
+          class="protein-overview__status icon--unreviewed"
+        >
+          <svg
+            height="512"
+            viewBox="0 0 400 512"
+            width="400"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+              id="Shape"
+            />
+          </svg>
+        </span>
+        P05067 · 
         <small>
-          P05067 - 
+          undefined · 
         </small>
       </h3>
     </div>
@@ -35,6 +50,24 @@ exports[`ProteinOverview component should render 1`] = `
             class="info-list__item__content"
           >
             Exists
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__item__title"
+          >
+            Annotation score
+          </div>
+          <div
+            class="info-list__item__content"
+          >
+            <span
+              class="bubble--medium colour-uniprot-blue"
+            >
+              12.3
+            </span>
           </div>
         </div>
       </div>

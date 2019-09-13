@@ -139,7 +139,7 @@ const XRefCategoryInfoList: React.FC<XRefCategoryInfoListProps> = ({
       ),
     })
   );
-  return <InfoList infoData={infoData} />;
+  return <InfoList infoData={infoData} columns />;
 };
 
 const XRefView: React.FC<XRefProps> = ({

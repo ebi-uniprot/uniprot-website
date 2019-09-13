@@ -48,6 +48,7 @@ export type UniProtkbAPIModel = {
   features?: FeatureData;
   databaseCrossReferences?: Xref[];
   sequence: SequenceData;
+  annotationScore: number;
 };
 
 export type UniProtkbUIModel = {
@@ -55,6 +56,7 @@ export type UniProtkbUIModel = {
   uniProtId: string;
   proteinExistence: string;
   entryType: EntryType;
+  annotationScore: number;
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
@@ -73,6 +75,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     uniProtId: data.uniProtId,
     proteinExistence: data.proteinExistence,
     entryType: data.entryType,
+    annotationScore: data.annotationScore,
     [EntrySection.Function]: convertFunction(data),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(data),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(data),

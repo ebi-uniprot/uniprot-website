@@ -48,6 +48,7 @@ axios.get.mockResolvedValue({
         entryType: 'Swiss-Prot',
         primaryAccession: 'O00311',
         uniProtId: 'CDC7_HUMAN',
+        annotationScore: 12.45,
         proteinDescription: {
           recommendedName: {
             fullName: {
