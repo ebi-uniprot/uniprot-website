@@ -46,7 +46,6 @@
     "franklin-sites": "0.0.8",
     "idx": "^2.5.2",
     "litemol": "^2.4.2",
-    "mem": "^5.1.1",
     "npm-run-all": "^4.1.2",
     "path": "^0.12.7",
     "prop-types": "^15.6.2",
