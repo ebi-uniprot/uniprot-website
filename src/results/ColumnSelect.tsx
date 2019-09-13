@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useRef } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import {
   moveItemInList,
@@ -9,7 +9,32 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import fieldsData from '../data/fields.json';
 import './styles/ColumnSelect.scss';
 
-const getTabTitle = (tabId, tabSelected) => {
+enum Tab {
+  data = 'Data',
+  links = 'Links',
+}
+
+type SelectedColumn = {
+  tabId: Tab;
+  accordionId: string;
+  itemId: string;
+  label: string;
+};
+
+type FieldDatum = {
+  id: string;
+  title: string;
+  items: {
+    id: string;
+    label: string;
+  }[];
+};
+
+type FieldData = {
+  [tab in Tab]: FieldDatum[];
+};
+
+const getTabTitle = (tabId: Tab, tabSelected) => {
   return (
     <Fragment>
       {tabId}
@@ -27,7 +52,7 @@ const getTabTitle = (tabId, tabSelected) => {
 };
 
 const findFieldDataForColumns = (columns, fieldsData) => {
-  const selected = [];
+  const selected: SelectedColumn[] = [];
   Object.keys(fieldsData).forEach(tabId => {
     fieldsData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
@@ -71,8 +96,9 @@ const ColumnSelect = ({
   apiFieldsData,
   defaultTableColumns,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState([]);
-  const accordionData = useRef({});
+  const [selectedColumns, setSelectedColumns] = useState<
+    SelectedColumn[] | null
+  >([]);
   useEffect(() => {
     setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
   }, [tableColumns]);
@@ -116,7 +142,7 @@ const ColumnSelect = ({
     );
   };
 
-  const tabData = ['data', 'links'].map(tabId => {
+  const tabData = [Tab.data, Tab.links].map(tabId => {
     const tabSelected = selectedColumns.filter(item => item.tabId === tabId);
     return {
       title: getTabTitle(tabId, tabSelected),

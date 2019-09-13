@@ -3,7 +3,6 @@
     {
       "id": "Date of",
       "title": "Date of",
-      "isDatabase": false,
       "items": [
         {
           "id": "date_create",
@@ -26,7 +25,6 @@
     {
       "id": "Expression",
       "title": "Expression",
-      "isDatabase": false,
       "items": [
         {
           "id": "cc:developmental_stage",
@@ -45,7 +43,6 @@
     {
       "id": "Family & Domains",
       "title": "Family & Domains",
-      "isDatabase": false,
       "items": [
         {
           "id": "ft:coiled",
@@ -92,7 +89,6 @@
     {
       "id": "Function",
       "title": "Function",
-      "isDatabase": false,
       "items": [
         {
           "id": "absorption",
@@ -171,7 +167,6 @@
     {
       "id": "Gene Ontology (GO)",
       "title": "Gene Ontology (GO)",
-      "isDatabase": false,
       "items": [
         {
           "id": "go_p",
@@ -198,7 +193,6 @@
     {
       "id": "Interaction",
       "title": "Interaction",
-      "isDatabase": false,
       "items": [
         {
           "id": "cc:interaction",
@@ -213,7 +207,6 @@
     {
       "id": "Miscellaneous",
       "title": "Miscellaneous",
-      "isDatabase": false,
       "items": [
         {
           "id": "score",
@@ -264,7 +257,6 @@
     {
       "id": "Names & Taxonomy",
       "title": "Names & Taxonomy",
-      "isDatabase": false,
       "items": [
         {
           "id": "accession",
@@ -323,7 +315,6 @@
     {
       "id": "PTM / Processing",
       "title": "PTM / Processing",
-      "isDatabase": false,
       "items": [
         {
           "id": "ft:chain",
@@ -378,7 +369,6 @@
     {
       "id": "Pathology & Biotech",
       "title": "Pathology & Biotech",
-      "isDatabase": false,
       "items": [
         {
           "id": "cc:allergen",
@@ -413,7 +403,6 @@
     {
       "id": "Publications",
       "title": "Publications",
-      "isDatabase": false,
       "items": [
         {
           "id": "mapped_pm_id",
@@ -428,7 +417,6 @@
     {
       "id": "Sequences",
       "title": "Sequences",
-      "isDatabase": false,
       "items": [
         {
           "id": "cc:alternative_products",
@@ -511,7 +499,6 @@
     {
       "id": "Structure",
       "title": "Structure",
-      "isDatabase": false,
       "items": [
         {
           "id": "3d",
@@ -534,7 +521,6 @@
     {
       "id": "Subcellular location",
       "title": "Subcellular location",
-      "isDatabase": false,
       "items": [
         {
           "id": "ft:intramem",
@@ -557,7 +543,6 @@
     {
       "id": "Taxonomic identifier",
       "title": "Taxonomic identifier",
-      "isDatabase": false,
       "items": [
         {
           "id": "tax_id",
@@ -568,7 +553,6 @@
     {
       "id": "Taxonomic lineage",
       "title": "Taxonomic lineage",
-      "isDatabase": false,
       "items": [
         {
           "id": "tl:all",
@@ -701,7 +685,6 @@
     {
       "id": "2D gel",
       "title": "2D gel",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:compluyeast-2dpage",
@@ -736,7 +719,6 @@
     {
       "id": "3D structure",
       "title": "3D structure",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:pdb",
@@ -755,7 +737,6 @@
     {
       "id": "Chemistry",
       "title": "Chemistry",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:bindingdb",
@@ -782,7 +763,6 @@
     {
       "id": "Enzyme and pathway",
       "title": "Enzyme and pathway",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:biocyc",
@@ -821,7 +801,6 @@
     {
       "id": "Family and domain",
       "title": "Family and domain",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:disprot",
@@ -888,7 +867,6 @@
     {
       "id": "Gene expression",
       "title": "Gene expression",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:bgee",
@@ -915,7 +893,6 @@
     {
       "id": "Genome annotation",
       "title": "Genome annotation",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:ensembl",
@@ -978,7 +955,6 @@
     {
       "id": "Ontologies",
       "title": "Ontologies",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:go",
@@ -989,7 +965,6 @@
     {
       "id": "Organism-specific",
       "title": "Organism-specific",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:arachnoserver",
@@ -1148,7 +1123,6 @@
     {
       "id": "Other",
       "title": "Other",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:chitars",
@@ -1183,7 +1157,6 @@
     {
       "id": "PTM",
       "title": "PTM",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:carbonyldb",
@@ -1218,7 +1191,6 @@
     {
       "id": "Phylogenomic",
       "title": "Phylogenomic",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:eggnog",
@@ -1261,7 +1233,6 @@
     {
       "id": "Polymorphism and mutation",
       "title": "Polymorphism and mutation",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:biomuta",
@@ -1280,7 +1251,6 @@
     {
       "id": "Protein family/group",
       "title": "Protein family/group",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:allergome",
@@ -1335,7 +1305,6 @@
     {
       "id": "Protein-protein interaction",
       "title": "Protein-protein interaction",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:biogrid",
@@ -1374,13 +1343,11 @@
     {
       "id": "Proteomes",
       "title": "Proteomes",
-      "isDatabase": true,
       "items": []
     },
     {
       "id": "Proteomic",
       "title": "Proteomic",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:cptac",
@@ -1431,7 +1398,6 @@
     {
       "id": "Protocols and materials",
       "title": "Protocols and materials",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:dnasu",
@@ -1446,7 +1412,6 @@
     {
       "id": "Sequence",
       "title": "Sequence",
-      "isDatabase": true,
       "items": [
         {
           "id": "dr:embl",

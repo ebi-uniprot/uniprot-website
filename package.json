@@ -43,7 +43,7 @@
     "d3": "^5.9.2",
     "eslint": "5.3.0",
     "eslint-config-prettier": "^6.0.0",
-    "franklin-sites": "0.0.3-dev.48",
+    "franklin-sites": "0.0.8",
     "idx": "^2.5.2",
     "litemol": "^2.4.2",
     "mem": "^5.1.1",
