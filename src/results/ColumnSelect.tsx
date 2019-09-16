@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import { Loader, AccordionSearch, Tabs, Bubble } from 'franklin-sites';
+import { AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import {
   moveItemInList,
   removeItemFromList,
@@ -10,8 +10,8 @@ import fieldsData from '../data/fields.json';
 import './styles/ColumnSelect.scss';
 
 enum Tab {
-  data = 'Data',
-  links = 'Links',
+  data = 'data',
+  links = 'links',
 }
 
 type SelectedColumn = {
@@ -34,7 +34,7 @@ type FieldData = {
   [tab in Tab]: FieldDatum[];
 };
 
-const getTabTitle = (tabId: Tab, tabSelected) => {
+const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => {
   return (
     <Fragment>
       {tabId}
@@ -42,10 +42,10 @@ const getTabTitle = (tabId: Tab, tabSelected) => {
         className={getBEMClassName({
           b: 'column-select',
           e: ['tab', 'title'],
-          m: tabSelected.length ? 'visible' : 'hidden',
+          m: selectedColumns.length ? 'visible' : 'hidden',
         })}
       >
-        <Bubble size="small" value={tabSelected.length} />
+        <Bubble size="small" value={selectedColumns.length} />
       </span>
     </Fragment>
   );
@@ -96,19 +96,17 @@ const ColumnSelect = ({
   apiFieldsData,
   defaultTableColumns,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState<
-    SelectedColumn[] | null
-  >([]);
+  const [selectedColumns, setSelectedColumns] = useState<SelectedColumn[]>([]);
   useEffect(() => {
     setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
   }, [tableColumns]);
 
-  if (!apiFieldsData || !apiFieldsData.length) {
-    fetchFieldsIfNeeded();
-    return <Loader />;
-  }
+  // if (!apiFieldsData || !apiFieldsData.length) {
+  //   fetchFieldsIfNeeded();
+  //   return <Loader />;
+  // }
 
-  const handleSelect = (tabId, accordionId, itemId) => {
+  const handleSelect = (tabId: Tab, accordionId, itemId) => {
     // TODO the label should be with the selected to save having to retrieve it whenever it is selected
     const label = findFieldStringForItem(
       tabId,
@@ -143,9 +141,11 @@ const ColumnSelect = ({
   };
 
   const tabData = [Tab.data, Tab.links].map(tabId => {
-    const tabSelected = selectedColumns.filter(item => item.tabId === tabId);
+    const selectedColumnsInTab = selectedColumns.filter(
+      item => item.tabId === tabId
+    );
     return {
-      title: getTabTitle(tabId, tabSelected),
+      title: getTabTitle(tabId, selectedColumnsInTab),
       id: tabId,
       key: tabId,
       content: (
@@ -154,13 +154,12 @@ const ColumnSelect = ({
           onSelect={(accordionId, itemId) => {
             handleSelect(tabId, accordionId, itemId);
           }}
-          selected={tabSelected}
+          selected={selectedColumnsInTab}
           columns
         />
       ),
     };
   });
-
   return (
     <Fragment>
       <ColumnSelectDragDrop
