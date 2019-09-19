@@ -254,6 +254,7 @@ enum ColumnId {
   mappedPmId = 'mapped_pm_id',
   mass = 'mass',
   matchedText = 'matched_text',
+  mnemonic = 'mnemonic',
   organism = 'organism',
   organismHost = 'organism_host',
   organismId = 'organism_id',

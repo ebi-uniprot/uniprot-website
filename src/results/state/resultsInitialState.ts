@@ -1,6 +1,6 @@
 import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
-import defaultTableColumns from '../../data/defaultTableColumns.json';
+import ColumnId from '../../model/types/columnIdTypes';
 
 export enum ViewMode {
   TABLE,
@@ -8,8 +8,8 @@ export enum ViewMode {
 }
 
 export type ResultsState = {
-  tableColumns: string[];
-  cardColumns: string[];
+  tableColumns: ColumnId[];
+  cardColumns: ColumnId[];
   facets: Facet[];
   nextUrl: string;
   results: {
@@ -26,17 +26,25 @@ export type ResultsState = {
   summaryAccession: string | null;
 };
 
+export const defaultTableColumns = [
+  ColumnId.accession,
+  ColumnId.id,
+  ColumnId.proteinName,
+  ColumnId.geneNames,
+  ColumnId.organism,
+];
+
 const resultsInitialState = {
   tableColumns: defaultTableColumns,
   cardColumns: [
-    'accession',
-    'id',
-    'protein_name',
-    'gene_names',
-    'organism',
-    'keyword',
-    'cc:function',
-    'sequence',
+    ColumnId.accession,
+    ColumnId.id,
+    ColumnId.proteinName,
+    ColumnId.geneNames,
+    ColumnId.organism,
+    ColumnId.keyword,
+    ColumnId.ccFunction,
+    ColumnId.sequence,
   ],
   results: {
     data: [],

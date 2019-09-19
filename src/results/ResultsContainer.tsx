@@ -274,7 +274,7 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
     return (
       <Fragment>
         <SideBarLayout
-          title={(
+          title={
             <PageIntro
               title={name}
               links={links}
@@ -282,63 +282,63 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
             >
               {info}
             </PageIntro>
-)}
-          sidebar={(
+          }
+          sidebar={
             <Facets
               data={facets}
               selectedFacets={selectedFacets}
               addFacet={this.addFacet}
               removeFacet={this.removeFacet}
             />
-)}
-          content={(
+          }
+          content={
             <Fragment>
               {results.length > 0 && (
-              <div className="button-group">
-                <button type="button" className="button link-button disabled">
+                <div className="button-group">
+                  <button type="button" className="button link-button disabled">
                     Blast
-                </button>
-                <button type="button" className="button link-button disabled">
+                  </button>
+                  <button type="button" className="button link-button disabled">
                     Align
-                </button>
-                <button type="button" className="button link-button">
-                  <DownloadIcon />
+                  </button>
+                  <button type="button" className="button link-button">
+                    <DownloadIcon />
                     Download
-                </button>
-                <button type="button" className="button link-button disabled">
-                  <BasketIcon />
+                  </button>
+                  <button type="button" className="button link-button disabled">
+                    <BasketIcon />
                     Add
-                </button>
-                <button type="button" className="button link-button">
-                  <StatisticsIcon />
+                  </button>
+                  <button type="button" className="button link-button">
+                    <StatisticsIcon />
                     Statistics
-                </button>
-                <button
-                  type="button"
-                  className="button link-button large-icon"
-                  onClick={() => dispatchSwitchViewMode()}
-                  data-testid="table-card-toggle"
-                >
-                  <span
-                    className={
+                  </button>
+                  <button
+                    type="button"
+                    className="button link-button large-icon"
+                    onClick={() => dispatchSwitchViewMode()}
+                    data-testid="table-card-toggle"
+                  >
+                    <span
+                      className={
                         viewMode === ViewMode.CARD
                           ? 'link-button-icon__active'
                           : ''
                       }
-                  >
-                    <TableIcon />
-                  </span>
-                  <span
-                    className={
+                    >
+                      <TableIcon />
+                    </span>
+                    <span
+                      className={
                         viewMode === ViewMode.TABLE
                           ? 'link-button-icon__active'
                           : ''
                       }
-                  >
-                    <ListIcon />
-                  </span>
-                </button>
-              </div>
+                    >
+                      <ListIcon />
+                    </span>
+                  </button>
+                </div>
               )}
               <ResultsView
                 results={results}
@@ -357,7 +357,7 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                 viewMode={viewMode}
               />
             </Fragment>
-)}
+          }
         />
       </Fragment>
     );

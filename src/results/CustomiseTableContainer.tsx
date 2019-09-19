@@ -5,7 +5,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import ColumnSelect from './ColumnSelect';
-import defaultTableColumns from '../data/defaultTableColumns.json';
+import defaultTableColumns from './state/resultsInitialState';
 
 const CustomiseTable = ({
   tableColumns,
