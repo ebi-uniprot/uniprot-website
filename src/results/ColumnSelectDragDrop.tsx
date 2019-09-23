@@ -17,7 +17,7 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
       direction="horizontal"
       className="column-select-drag-drop"
     >
-      {(provided, snapshot) => (
+      {provided => (
         <div
           ref={provided.innerRef}
           className={getBEMClassName({

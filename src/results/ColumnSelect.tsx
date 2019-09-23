@@ -6,7 +6,6 @@ import {
   getBEMClassName,
 } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-import fieldsData from '../data/fields.json';
 import './styles/ColumnSelect.scss';
 
 enum Tab {
@@ -92,8 +91,7 @@ const findIndexInSelectedColumns = (
 
 const ColumnSelect = ({
   tableColumns,
-  fetchFieldsIfNeeded,
-  apiFieldsData,
+  fieldsData,
   defaultTableColumns,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState<SelectedColumn[]>([]);
@@ -101,29 +99,19 @@ const ColumnSelect = ({
     setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
   }, [tableColumns]);
 
-  // if (!apiFieldsData || !apiFieldsData.length) {
+  // if (!fieldsData || !fieldsData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
 
   let allIds = [];
-  console.log(fieldsData);
   [(Tab.data, Tab.links)].forEach(tabId => {
-    console.log(fieldsData[tabId]);
     fieldsData[tabId].forEach(({ items }) => {
       allIds = [...allIds, ...items.map(({ id }) => id)];
     });
   });
-  console.log(JSON.stringify(allIds));
 
   const handleSelect = (tabId: Tab, accordionId, itemId) => {
-    // TODO the label should be with the selected to save having to retrieve it whenever it is selected
-    const label = findFieldStringForItem(
-      tabId,
-      accordionId,
-      itemId,
-      fieldsData
-    );
     const index = findIndexInSelectedColumns(
       selectedColumns,
       tabId,
@@ -133,6 +121,13 @@ const ColumnSelect = ({
     if (index >= 0) {
       setSelectedColumns(removeItemFromList(selectedColumns, index));
     } else {
+      // TODO the label should be with the selected to save having to retrieve it whenever it is selected
+      const label = findFieldStringForItem(
+        tabId,
+        accordionId,
+        itemId,
+        fieldsData
+      );
       setSelectedColumns([
         ...selectedColumns,
         { tabId, accordionId, itemId, label },
