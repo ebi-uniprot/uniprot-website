@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useRef, useState, Fragment } from 'react';
 import { AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import {
   moveItemInList,
@@ -6,7 +6,9 @@ import {
   getBEMClassName,
 } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
+import ColumnId from '../model/types/columnIdTypes';
 import './styles/ColumnSelect.scss';
+
 
 enum Tab {
   data = 'data',
@@ -19,6 +21,12 @@ type SelectedColumn = {
   itemId: string;
   label: string;
 };
+
+const entryField = {
+  tabId: "data",
+  accordionId: "Names & Taxonomy",
+  itemId: ColumnId.accession,
+}
 
 type FieldDatum = {
   id: string;
@@ -65,11 +73,9 @@ const findFieldDataForColumns = (columns, fieldsData) => {
 };
 
 const findFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
-  const foundAccordion = fieldsData[tabId].find(
-    accordion => accordion.id === accordionId
-  );
+  const foundAccordion = fieldsData[tabId].find(({id}) => id === accordionId);
   if (foundAccordion) {
-    const foundItem = foundAccordion.items.find(item => item.id === itemId);
+    const foundItem = foundAccordion.items.find(({id}) => id === itemId);
     if (foundItem) {
       return foundItem.label;
     }
@@ -89,21 +95,37 @@ const findIndexInSelectedColumns = (
       item.itemId === itemId
   );
 
+const removeFieldFromFieldsData = ({tabId, accordionId, itemId}, fieldsData) => {
+  console.log('removeFieldFromFieldsData')
+  return {
+  ...fieldsData,
+  [tabId]: fieldsData[tabId].map(group => group.id === accordionId ? {...group, items: group.items.filter(({ id }) => id !== itemId)} : group)
+}}
+
 const ColumnSelect = ({
   tableColumns,
-  fieldsData,
+  fieldsData: fieldsDataProp,
   defaultTableColumns,
+  onChange,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState<SelectedColumn[]>([]);
+  
+  const fieldsData = removeFieldFromFieldsData(entryField, fieldsDataProp);
   useEffect(() => {
-    setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
+      setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
   }, [tableColumns]);
+
+  if (!fieldsData) {
+    return null; 
+  }
 
   // if (!fieldsData || !fieldsData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
-
+  
+  console.log(fieldsData)
+  console.log(selectedColumns)
   let allIds = [];
   [(Tab.data, Tab.links)].forEach(tabId => {
     fieldsData[tabId].forEach(({ items }) => {
