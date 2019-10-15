@@ -9,7 +9,6 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import ColumnId from '../model/types/columnIdTypes';
 import './styles/ColumnSelect.scss';
 
-
 enum Tab {
   data = 'data',
   links = 'links',
@@ -22,11 +21,17 @@ type SelectedColumn = {
   label: string;
 };
 
+type FieldKeys = {
+  tabId: Tab;
+  accordionId: string;
+  itemId: ColumnId;
+};
+
 const entryField = {
-  tabId: "data",
-  accordionId: "Names & Taxonomy",
+  tabId: 'data',
+  accordionId: 'Names & Taxonomy',
   itemId: ColumnId.accession,
-}
+};
 
 type FieldDatum = {
   id: string;
@@ -73,9 +78,9 @@ const findFieldDataForColumns = (columns, fieldsData) => {
 };
 
 const findFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
-  const foundAccordion = fieldsData[tabId].find(({id}) => id === accordionId);
+  const foundAccordion = fieldsData[tabId].find(({ id }) => id === accordionId);
   if (foundAccordion) {
-    const foundItem = foundAccordion.items.find(({id}) => id === itemId);
+    const foundItem = foundAccordion.items.find(({ id }) => id === itemId);
     if (foundItem) {
       return foundItem.label;
     }
@@ -95,12 +100,37 @@ const findIndexInSelectedColumns = (
       item.itemId === itemId
   );
 
-const removeFieldFromFieldsData = ({tabId, accordionId, itemId}, fieldsData) => {
-  console.log('removeFieldFromFieldsData')
+const getTableColumnToFieldKeysMapping = fieldsData => {
+  console.log(fieldsData);
+  const map = new Map<ColumnId, FieldKeys>();
+  Object.keys(fieldsData).forEach(tabId => {
+    fieldsData[tabId].forEach(({ id: accordionId, items }) => {
+      items.forEach(({ id: itemId }) => {
+        map.set(itemId, {
+          tabId,
+          accordionId,
+          itemId,
+        });
+      });
+    });
+  });
+  return map;
+};
+
+const removeFieldFromFieldsData = (
+  { tabId, accordionId, itemId },
+  fieldsData
+) => {
+  console.log('removeFieldFromFieldsData');
   return {
-  ...fieldsData,
-  [tabId]: fieldsData[tabId].map(group => group.id === accordionId ? {...group, items: group.items.filter(({ id }) => id !== itemId)} : group)
-}}
+    ...fieldsData,
+    [tabId]: fieldsData[tabId].map(group =>
+      group.id === accordionId
+        ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
+        : group
+    ),
+  };
+};
 
 const ColumnSelect = ({
   tableColumns,
@@ -109,23 +139,29 @@ const ColumnSelect = ({
   onChange,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState<SelectedColumn[]>([]);
-  
+
+  // useEffect(() => {
+  //   const fieldsData = removeFieldFromFieldsData(entryField, fieldsDataProp);
+  // }, [])
   const fieldsData = removeFieldFromFieldsData(entryField, fieldsDataProp);
   useEffect(() => {
-      setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
-  }, [tableColumns]);
+    setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
+  }, [fieldsData, tableColumns]);
 
   if (!fieldsData) {
-    return null; 
+    return null;
   }
+
+  const t = getTableColumnToFieldKeysMapping(fieldsData);
+  console.log(t);
 
   // if (!fieldsData || !fieldsData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
-  
-  console.log(fieldsData)
-  console.log(selectedColumns)
+
+  console.log(fieldsData);
+  console.log(selectedColumns);
   let allIds = [];
   [(Tab.data, Tab.links)].forEach(tabId => {
     fieldsData[tabId].forEach(({ items }) => {
