@@ -7,7 +7,7 @@ import * as resultsActions from './state/resultsActions';
 import ColumnSelect from './ColumnSelect';
 import defaultTableColumns from './state/resultsInitialState';
 import fieldsData from '../data/fields.json';
-import ColumnId from './types/columnIdTypes';
+import ColumnId from '../model/types/columnIdTypes';
 
 type CustomiseTableProps = {
   tableColumns: ColumnId[];
@@ -31,23 +31,45 @@ type CustomiseTableProps = {
   summaryAccession: string | null;
 } & RouteComponentProps;
 
-const CustomiseTable = ({
-  tableColumns,
-  fetchFieldsIfNeeded,
-  fieldsData,
-}) => (
-  <ColumnSelect
-    tableColumns={tableColumns}
-    fetchFieldsIfNeeded={fetchFieldsIfNeeded}
-    fieldsData={fieldsData}
-    defaultTableColumns={defaultTableColumns}
-  />
-);
+const entryField = {
+  tabId: 'data',
+  accordionId: 'Names & Taxonomy',
+  itemId: ColumnId.accession,
+};
 
+export const removeFieldFromFieldsData = (
+  { tabId, accordionId, itemId },
+  fieldsData
+) => ({
+  ...fieldsData,
+  [tabId]: fieldsData[tabId].map(group =>
+    group.id === accordionId
+      ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
+      : group
+  ),
+});
+
+const CustomiseTable = ({ tableColumns, fetchFieldsIfNeeded, fieldsData }) => {
+  const handleChange = columns => {
+    console.log(columns);
+  };
+
+  return (
+    <ColumnSelect
+      tableColumns={tableColumns.filter(
+        tableColumn => tableColumn !== entryField.itemId
+      )}
+      fetchFieldsIfNeeded={fetchFieldsIfNeeded}
+      fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
+      defaultTableColumns={defaultTableColumns}
+      onChange={handleChange}
+    />
+  );
+};
 const mapStateToProps = (state: RootState) => ({
   tableColumns: state.results.tableColumns,
   // fieldsData: state.results.fields.data,
-  fieldsData: fieldsData,
+  fieldsData,
   isFetching: state.results.fields.isFetching,
 });
 

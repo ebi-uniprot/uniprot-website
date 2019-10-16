@@ -13,7 +13,7 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     ''
   );
 
-const getAPIQueryUrl = (
+export const getAPIQueryUrl = (
   queryString: string,
   columns: string[],
   selectedFacets: SelectedFacet[],
@@ -28,5 +28,3 @@ const getAPIQueryUrl = (
     getApiSortDirection(SortDirection[sortDirection])
   );
 };
-
-export { getAPIQueryUrl };

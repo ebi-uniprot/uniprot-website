@@ -27,12 +27,6 @@ type FieldKeys = {
   itemId: ColumnId;
 };
 
-const entryField = {
-  tabId: 'data',
-  accordionId: 'Names & Taxonomy',
-  itemId: ColumnId.accession,
-};
-
 type FieldDatum = {
   id: string;
   title: string;
@@ -100,50 +94,14 @@ const findIndexInSelectedColumns = (
       item.itemId === itemId
   );
 
-const getTableColumnToFieldKeysMapping = fieldsData => {
-  console.log(fieldsData);
-  const map = new Map<ColumnId, FieldKeys>();
-  Object.keys(fieldsData).forEach(tabId => {
-    fieldsData[tabId].forEach(({ id: accordionId, items }) => {
-      items.forEach(({ id: itemId }) => {
-        map.set(itemId, {
-          tabId,
-          accordionId,
-          itemId,
-        });
-      });
-    });
-  });
-  return map;
-};
-
-const removeFieldFromFieldsData = (
-  { tabId, accordionId, itemId },
-  fieldsData
-) => {
-  console.log('removeFieldFromFieldsData');
-  return {
-    ...fieldsData,
-    [tabId]: fieldsData[tabId].map(group =>
-      group.id === accordionId
-        ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
-        : group
-    ),
-  };
-};
-
 const ColumnSelect = ({
   tableColumns,
-  fieldsData: fieldsDataProp,
+  fieldsData,
   defaultTableColumns,
   onChange,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState<SelectedColumn[]>([]);
 
-  // useEffect(() => {
-  //   const fieldsData = removeFieldFromFieldsData(entryField, fieldsDataProp);
-  // }, [])
-  const fieldsData = removeFieldFromFieldsData(entryField, fieldsDataProp);
   useEffect(() => {
     setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
   }, [fieldsData, tableColumns]);
@@ -152,16 +110,11 @@ const ColumnSelect = ({
     return null;
   }
 
-  const t = getTableColumnToFieldKeysMapping(fieldsData);
-  console.log(t);
-
   // if (!fieldsData || !fieldsData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
 
-  console.log(fieldsData);
-  console.log(selectedColumns);
   let allIds = [];
   [(Tab.data, Tab.links)].forEach(tabId => {
     fieldsData[tabId].forEach(({ items }) => {
