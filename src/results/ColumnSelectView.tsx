@@ -9,6 +9,22 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import ColumnId from '../model/types/columnIdTypes';
 import './styles/ColumnSelect.scss';
 
+const CustomiseTableView = ({
+  tableColumns,
+  fetchFieldsIfNeeded,
+  fieldsData,
+}) => (
+  <ColumnSelect
+    tableColumns={tableColumns.filter(
+      tableColumn => tableColumn !== entryField.itemId
+    )}
+    fetchFieldsIfNeeded={fetchFieldsIfNeeded}
+    fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
+    defaultTableColumns={defaultTableColumns}
+    onChange={handleChange}
+  />
+);
+
 enum Tab {
   data = 'data',
   links = 'links',
@@ -57,7 +73,7 @@ const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => {
   );
 };
 
-const findFieldDataForColumns = (columns, fieldsData) => {
+const getFieldDataForColumns = (columns, fieldsData) => {
   const selected: SelectedColumn[] = [];
   Object.keys(fieldsData).forEach(tabId => {
     fieldsData[tabId].forEach(({ id: accordionId, items }) => {
@@ -71,7 +87,7 @@ const findFieldDataForColumns = (columns, fieldsData) => {
   return selected;
 };
 
-const findFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
+const getFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
   const foundAccordion = fieldsData[tabId].find(({ id }) => id === accordionId);
   if (foundAccordion) {
     const foundItem = foundAccordion.items.find(({ id }) => id === itemId);
@@ -81,7 +97,7 @@ const findFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
   }
 };
 
-const findIndexInSelectedColumns = (
+const getIndexInSelectedColumns = (
   selectedColumns,
   tabId,
   accordionId,
@@ -94,26 +110,25 @@ const findIndexInSelectedColumns = (
       item.itemId === itemId
   );
 
-const ColumnSelect = ({
+const ColumnSelectView = ({
   tableColumns,
   fieldsData,
   defaultTableColumns,
   onChange,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState<SelectedColumn[]>([]);
-
-  useEffect(() => {
-    setSelectedColumns(findFieldDataForColumns(tableColumns, fieldsData));
-  }, [fieldsData, tableColumns]);
-
   if (!fieldsData) {
-    return null;
+    return <div>loading</div>;
   }
 
   // if (!fieldsData || !fieldsData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
+
+  const fieldDataForSelectedColumns = getFieldDataForColumns(
+    tableColumns,
+    fieldsData
+  );
 
   let allIds = [];
   [(Tab.data, Tab.links)].forEach(tabId => {
@@ -123,37 +138,32 @@ const ColumnSelect = ({
   });
 
   const handleSelect = (tabId: Tab, accordionId, itemId) => {
-    const index = findIndexInSelectedColumns(
-      selectedColumns,
+    const index = getIndexInSelectedColumns(
+      fieldDataForSelectedColumns,
       tabId,
       accordionId,
       itemId
     );
     if (index >= 0) {
-      setSelectedColumns(removeItemFromList(selectedColumns, index));
+      onChange(removeItemFromList(selectedColumns, index));
     } else {
       // TODO the label should be with the selected to save having to retrieve it whenever it is selected
-      const label = findFieldStringForItem(
+      const label = getFieldStringForItem(
         tabId,
         accordionId,
         itemId,
         fieldsData
       );
-      setSelectedColumns([
-        ...selectedColumns,
-        { tabId, accordionId, itemId, label },
-      ]);
+      onChange([...selectedColumns, { tabId, accordionId, itemId, label }]);
     }
   };
 
   const handleDragDrop = (srcIndex: number, destIndex: number) => {
-    setSelectedColumns(moveItemInList(selectedColumns, srcIndex, destIndex));
+    onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
   const resetToDefault = () => {
-    setSelectedColumns(
-      findFieldDataForColumns(defaultTableColumns, fieldsData)
-    );
+    onChange(getFieldDataForColumns(defaultTableColumns, fieldsData));
   };
 
   const tabData = [Tab.data, Tab.links].map(tabId => {
@@ -198,4 +208,4 @@ const ColumnSelect = ({
   );
 };
 
-export default ColumnSelect;
+export default ColumnSelectView;

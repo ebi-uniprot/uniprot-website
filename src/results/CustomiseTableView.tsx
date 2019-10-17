@@ -8,7 +8,11 @@ const CustomiseTableView = ({
   onCancel,
 }) => (
   <form onSubmit={onSubmit}>
-    <ColumnSelectContainer onColumnSelect={handleColumnSelect} />;
+    <ColumnSelectContainer
+      onColumnSelect={onColumnSelect}
+      selectedColumns={selectedColumns}
+    />
+    ;
     <div className="button-group">
       <button className="button secondary" type="button">
         Cancel
