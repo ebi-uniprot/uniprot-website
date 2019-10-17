@@ -1,6 +1,6 @@
 import React from 'react';
-import CustomiseTablePageContainer from '../results/CustomiseTableContainer';
+import CustomiseTableContainer from '../results/CustomiseTableContainer';
 
-const CustomiseTablePage = () => <CustomiseTablePageContainer />;
+const CustomiseTablePage = () => <CustomiseTableContainer />;
 
 export default CustomiseTablePage;
