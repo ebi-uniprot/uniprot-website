@@ -9,22 +9,6 @@ import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import ColumnId from '../model/types/columnIdTypes';
 import './styles/ColumnSelect.scss';
 
-const CustomiseTableView = ({
-  tableColumns,
-  fetchFieldsIfNeeded,
-  fieldsData,
-}) => (
-  <ColumnSelect
-    tableColumns={tableColumns.filter(
-      tableColumn => tableColumn !== entryField.itemId
-    )}
-    fetchFieldsIfNeeded={fetchFieldsIfNeeded}
-    fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
-    defaultTableColumns={defaultTableColumns}
-    onChange={handleChange}
-  />
-);
-
 enum Tab {
   data = 'data',
   links = 'links',
@@ -87,87 +71,37 @@ const getFieldDataForColumns = (columns, fieldsData) => {
   return selected;
 };
 
-const getFieldStringForItem = (tabId, accordionId, itemId, fieldsData) => {
-  const foundAccordion = fieldsData[tabId].find(({ id }) => id === accordionId);
-  if (foundAccordion) {
-    const foundItem = foundAccordion.items.find(({ id }) => id === itemId);
-    if (foundItem) {
-      return foundItem.label;
-    }
-  }
-};
-
-const getIndexInSelectedColumns = (
-  selectedColumns,
-  tabId,
-  accordionId,
-  itemId
-) =>
-  selectedColumns.findIndex(
-    item =>
-      item.tabId === tabId &&
-      item.accordionId === accordionId &&
-      item.itemId === itemId
-  );
-
 const ColumnSelectView = ({
-  tableColumns,
+  selectedColumns,
   fieldsData,
-  defaultTableColumns,
   onChange,
+  onReset,
 }) => {
-  if (!fieldsData) {
-    return <div>loading</div>;
-  }
-
   // if (!fieldsData || !fieldsData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
 
   const fieldDataForSelectedColumns = getFieldDataForColumns(
-    tableColumns,
+    selectedColumns,
     fieldsData
   );
 
-  let allIds = [];
-  [(Tab.data, Tab.links)].forEach(tabId => {
-    fieldsData[tabId].forEach(({ items }) => {
-      allIds = [...allIds, ...items.map(({ id }) => id)];
-    });
-  });
-
-  const handleSelect = (tabId: Tab, accordionId, itemId) => {
-    const index = getIndexInSelectedColumns(
-      fieldDataForSelectedColumns,
-      tabId,
-      accordionId,
-      itemId
+  const handleSelect = itemId => {
+    const index = selectedColumns.indexOf(itemId);
+    onChange(
+      index >= 0
+        ? removeItemFromList(selectedColumns, index)
+        : [...selectedColumns, itemId]
     );
-    if (index >= 0) {
-      onChange(removeItemFromList(selectedColumns, index));
-    } else {
-      // TODO the label should be with the selected to save having to retrieve it whenever it is selected
-      const label = getFieldStringForItem(
-        tabId,
-        accordionId,
-        itemId,
-        fieldsData
-      );
-      onChange([...selectedColumns, { tabId, accordionId, itemId, label }]);
-    }
   };
 
   const handleDragDrop = (srcIndex: number, destIndex: number) => {
     onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
-  const resetToDefault = () => {
-    onChange(getFieldDataForColumns(defaultTableColumns, fieldsData));
-  };
-
   const tabData = [Tab.data, Tab.links].map(tabId => {
-    const selectedColumnsInTab = selectedColumns.filter(
+    const selectedColumnsInTab = fieldDataForSelectedColumns.filter(
       item => item.tabId === tabId
     );
     return {
@@ -177,9 +111,7 @@ const ColumnSelectView = ({
       content: (
         <AccordionSearch
           accordionData={fieldsData[tabId]}
-          onSelect={(accordionId, itemId) => {
-            handleSelect(tabId, accordionId, itemId);
-          }}
+          onSelect={(_, itemId) => handleSelect(itemId)}
           selected={selectedColumnsInTab}
           columns
         />
@@ -187,24 +119,17 @@ const ColumnSelectView = ({
     };
   });
   return (
-    <Fragment>
+    <div className='column-select'>
       <ColumnSelectDragDrop
-        columns={selectedColumns}
+        columns={fieldDataForSelectedColumns}
         onDragDrop={handleDragDrop}
-        onRemove={({ tabId, accordionId, itemId }) =>
-          handleSelect(tabId, accordionId, itemId)
-        }
+        onRemove={handleSelect}
       />
-      <button
-        className="button"
-        type="button"
-        tabIndex={0}
-        onClick={resetToDefault}
-      >
+      <button className="button secondary" type="button" tabIndex={0} onClick={onReset}>
         Reset to default
       </button>
       <Tabs tabData={tabData} />
-    </Fragment>
+    </div>
   );
 };
 

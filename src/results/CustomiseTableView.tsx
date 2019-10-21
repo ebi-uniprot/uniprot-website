@@ -1,5 +1,6 @@
 import React from 'react';
 import ColumnSelectContainer from './ColumnSelectContainer';
+import './styles/CustomiseTableView.scss';
 
 const CustomiseTableView = ({
   onColumnSelect,
@@ -7,17 +8,16 @@ const CustomiseTableView = ({
   onSubmit,
   onCancel,
 }) => (
-  <form onSubmit={onSubmit}>
+  <form onSubmit={onSubmit} className='customise-table'>
     <ColumnSelectContainer
       onColumnSelect={onColumnSelect}
       selectedColumns={selectedColumns}
     />
-    ;
-    <div className="button-group">
-      <button className="button secondary" type="button">
+    <div className="button-group customise-table--cancel-submit-buttons">
+      <button className="button secondary" type="button" onClick={onCancel}>
         Cancel
       </button>
-      <button className="button" type="submit" onClick={onCancel}>
+      <button className="button" type="submit">
         Save
       </button>
     </div>

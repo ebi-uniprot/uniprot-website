@@ -6,8 +6,13 @@ import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import CustomiseTableView from './CustomiseTableView';
 
-const CustomiseTable = ({ columns }) => {
-  const [selectedColumns, setSelectedColumns] = useState(columns);
+const CustomiseTable = ({ tableColumns }) => {
+  const [selectedColumns, setSelectedColumns] = useState(tableColumns);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(selectedColumns);
+  }
 
   const handleCancel = () => {
     console.log('cancel');
@@ -17,7 +22,7 @@ const CustomiseTable = ({ columns }) => {
     <CustomiseTableView
       onColumnSelect={cols => setSelectedColumns(cols)}
       selectedColumns={selectedColumns}
-      onSubmit={saveColumns} // dispatch submit update columns
+      onSubmit={handleSubmit}
       onCancel={handleCancel}
     />
   );
@@ -27,19 +32,19 @@ const mapStateToProps = (state: RootState) => ({
   tableColumns: state.results.tableColumns,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    {
-      // dispatchFetchBatchOfResultsIfNeeded: (url: string | undefined) =>
-      //   resultsActions.fetchBatchOfResultsIfNeeded(url),
-    },
-    dispatch
-  );
+// const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
+//   bindActionCreators(
+//     {
+//       dispatchFetchBatchOfResultsIfNeeded: (url: string | undefined) =>
+//         resultsActions.fetchBatchOfResultsIfNeeded(url),
+//     },
+//     dispatch
+//   );
 
 const CustomiseTableContainer = withRouter(
   connect(
     mapStateToProps,
-    mapDispatchToProps
+    // mapDispatchToProps
   )(CustomiseTable)
 );
 

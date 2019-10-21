@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -9,26 +9,26 @@ import defaultTableColumns from './state/resultsInitialState';
 import fieldsData from '../data/fields.json';
 import ColumnId from '../model/types/columnIdTypes';
 
-type CustomiseTableProps = {
-  tableColumns: ColumnId[];
-  // fetchFieldsIfNeeded: () => void;
-  // fieldsData: ;
-  dispatchFetchBatchOfResultsIfNeeded: (url: string | undefined) => void;
-  dispatchReset: () => void;
-  dispatchClearResults: () => void;
-  dispatchSwitchViewMode: () => void;
-  dispatchUpdateSummaryAccession: (accession: string) => void;
-  clauses?: Clause[];
-  tableColumns: string[];
-  cardColumns: string[];
-  results: UniProtkbAPIModel[];
-  facets: Facet[];
-  isFetching: boolean;
-  nextUrl: string;
-  totalNumberResults: number;
-  viewMode: ViewMode;
-  summaryAccession: string | null;
-} & RouteComponentProps;
+// type CustomiseTableProps = {
+//   tableColumns: ColumnId[];
+//   // fetchFieldsIfNeeded: () => void;
+//   // fieldsData: ;
+//   dispatchFetchBatchOfResultsIfNeeded: (url: string | undefined) => void;
+//   dispatchReset: () => void;
+//   dispatchClearResults: () => void;
+//   dispatchSwitchViewMode: () => void;
+//   dispatchUpdateSummaryAccession: (accession: string) => void;
+//   clauses?: Clause[];
+//   tableColumns: string[];
+//   cardColumns: string[];
+//   results: UniProtkbAPIModel[];
+//   facets: Facet[];
+//   isFetching: boolean;
+//   nextUrl: string;
+//   totalNumberResults: number;
+//   viewMode: ViewMode;
+//   summaryAccession: string | null;
+// } & RouteComponentProps;
 
 const entryField = {
   tabId: 'data',
@@ -53,17 +53,25 @@ const ColumnSelection = ({
   fetchFieldsIfNeeded,
   fieldsData,
   onColumnSelect,
-  selectedColumns,
+  selectedColumns: initialSelectedColumns,
 }) => {
+  const [selectedColumns, setSelectedColumns] = useState(initialSelectedColumns);
+
   const handleChange = columns => {
     console.log(columns);
+    setSelectedColumns(columns);
+  };
+  const handleReset = () => {
+    console.log('reset');
+    setSelectedColumns(defaultTableColumns);
   };
 
   return (
     <ColumnSelectView
-      tableColumns={tableColumns.filter(col => col !== entryField.itemId)}
-      fetchFieldsIfNeeded={fetchFieldsIfNeeded}
+      selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
       fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
+      onChange={handleChange}
+      onReset={handleReset}
     />
   );
 };
@@ -87,7 +95,7 @@ const ColumnSelectionContainer = withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(CustomiseTable)
+  )(ColumnSelection)
 );
 
 export default ColumnSelectionContainer;

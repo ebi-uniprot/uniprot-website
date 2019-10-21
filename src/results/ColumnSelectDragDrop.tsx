@@ -26,12 +26,8 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
           })}
           {...provided.droppableProps}
         >
-          {columns.map((column, index) => (
-            <Draggable
-              key={column.itemId}
-              draggableId={column.itemId}
-              index={index}
-            >
+          {columns.map(({ itemId, label }, index) => (
+            <Draggable key={itemId} draggableId={itemId} index={index}>
               {(provided, snapshot) => (
                 <div
                   ref={provided.innerRef}
@@ -44,14 +40,14 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
                   })}`}
                   style={provided.draggableProps.style}
                 >
-                  {column.label}
+                  {label}
                   <button
                     type="button"
                     className={getBEMClassName({
                       b: 'column-select-drag-drop',
                       e: ['list', 'item', 'button'],
                     })}
-                    onClick={() => onRemove(column)}
+                    onClick={() => onRemove(itemId)}
                   >
                     <CloseIcon
                       className={getBEMClassName({
