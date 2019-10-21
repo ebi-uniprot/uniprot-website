@@ -5,7 +5,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import ColumnSelectView from './ColumnSelectView';
-import defaultTableColumns from './state/resultsInitialState';
+import { defaultTableColumns } from './state/resultsInitialState';
 import fieldsData from '../data/fields.json';
 import ColumnId from '../model/types/columnIdTypes';
 
@@ -55,17 +55,17 @@ const ColumnSelection = ({
   onColumnSelect,
   selectedColumns: initialSelectedColumns,
 }) => {
+
   const [selectedColumns, setSelectedColumns] = useState(initialSelectedColumns);
 
   const handleChange = columns => {
-    console.log(columns);
+    console.log('handleChange!!!!!', columns);
     setSelectedColumns(columns);
   };
   const handleReset = () => {
-    console.log('reset');
     setSelectedColumns(defaultTableColumns);
   };
-
+  console.log('selectedColumns', selectedColumns)
   return (
     <ColumnSelectView
       selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}

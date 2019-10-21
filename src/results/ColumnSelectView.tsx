@@ -58,12 +58,13 @@ const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => {
 };
 
 const getFieldDataForColumns = (columns, fieldsData) => {
-  const selected: SelectedColumn[] = [];
+  const selected: SelectedColumn[] = new Array(columns.length);
   Object.keys(fieldsData).forEach(tabId => {
     fieldsData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
-        if (columns.includes(itemId)) {
-          selected.push({ tabId, accordionId, itemId, label });
+        const index = columns.indexOf(itemId);
+        if (index >= 0) {
+          selected[index] = { tabId, accordionId, itemId, label };
         }
       });
     });
@@ -99,6 +100,10 @@ const ColumnSelectView = ({
   const handleDragDrop = (srcIndex: number, destIndex: number) => {
     onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
+
+  console.log('selectedColumns in ColumnSelectView', selectedColumns)
+  console.log('selectedColumns in fieldDataForSelectedColumns', fieldDataForSelectedColumns)
+  
 
   const tabData = [Tab.data, Tab.links].map(tabId => {
     const selectedColumnsInTab = fieldDataForSelectedColumns.filter(

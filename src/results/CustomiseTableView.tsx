@@ -1,6 +1,6 @@
 import React from 'react';
 import ColumnSelectContainer from './ColumnSelectContainer';
-import './styles/CustomiseTableView.scss';
+import './styles/CustomiseTable.scss';
 
 const CustomiseTableView = ({
   onColumnSelect,
