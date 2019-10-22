@@ -1,7 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CloseIcon } from 'franklin-sites';
-import { getBEMClassName } from '../utils/utils';
+import { getBEMClassName as bem } from '../utils/utils';
 import './styles/ColumnSelectDragDrop.scss';
 
 const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
@@ -20,7 +20,7 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
       {provided => (
         <div
           ref={provided.innerRef}
-          className={getBEMClassName({
+          className={bem({
             b: 'column-select-drag-drop',
             e: 'list',
           })}
@@ -33,7 +33,7 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
                   ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  className={`button ${getBEMClassName({
+                  className={`button ${bem({
                     b: 'column-select-drag-drop',
                     e: ['list', 'item'],
                     m: snapshot.isDragging && 'dragging',
@@ -43,14 +43,14 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
                   {label}
                   <button
                     type="button"
-                    className={getBEMClassName({
+                    className={bem({
                       b: 'column-select-drag-drop',
                       e: ['list', 'item', 'button'],
                     })}
                     onClick={() => onRemove(itemId)}
                   >
                     <CloseIcon
-                      className={getBEMClassName({
+                      className={bem({
                         b: 'column-select-drag-drop',
                         e: ['list', 'item', 'button', 'icon'],
                       })}

@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState, Fragment } from 'react';
+import React from 'react';
 import { AccordionSearch, Tabs, Bubble } from 'franklin-sites';
 import {
   moveItemInList,
   removeItemFromList,
-  getBEMClassName,
+  getBEMClassName as bem,
 } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import ColumnId from '../model/types/columnIdTypes';
@@ -42,14 +42,14 @@ type FieldData = {
 
 const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => (
   <div
-    className={getBEMClassName({
+    className={bem({
       b: 'column-select',
       e: 'tab-title',
     })}
   >
     {tabId}
     <span
-      className={getBEMClassName({
+      className={bem({
         b: 'column-select',
         e: ['tab-title', 'count'],
         m: selectedColumns.length ? 'visible' : 'hidden',
