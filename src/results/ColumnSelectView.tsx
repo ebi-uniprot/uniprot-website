@@ -40,22 +40,25 @@ type FieldData = {
   [tab in Tab]: FieldDatum[];
 };
 
-const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => {
-  return (
-    <Fragment>
-      {tabId}
-      <span
-        className={getBEMClassName({
-          b: 'column-select',
-          e: ['tab', 'title'],
-          m: selectedColumns.length ? 'visible' : 'hidden',
-        })}
-      >
-        <Bubble size="small" value={selectedColumns.length} />
-      </span>
-    </Fragment>
-  );
-};
+const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => (
+  <div
+    className={getBEMClassName({
+      b: 'column-select',
+      e: 'tab-title',
+    })}
+  >
+    {tabId}
+    <span
+      className={getBEMClassName({
+        b: 'column-select',
+        e: ['tab-title', 'count'],
+        m: selectedColumns.length ? 'visible' : 'hidden',
+      })}
+    >
+      <Bubble size="small" value={selectedColumns.length} />
+    </span>
+  </div>
+);
 
 const getFieldDataForColumns = (columns, fieldsData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
@@ -101,10 +104,6 @@ const ColumnSelectView = ({
     onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
-  console.log('selectedColumns in ColumnSelectView', selectedColumns)
-  console.log('selectedColumns in fieldDataForSelectedColumns', fieldDataForSelectedColumns)
-  
-
   const tabData = [Tab.data, Tab.links].map(tabId => {
     const selectedColumnsInTab = fieldDataForSelectedColumns.filter(
       item => item.tabId === tabId
@@ -124,13 +123,18 @@ const ColumnSelectView = ({
     };
   });
   return (
-    <div className='column-select'>
+    <div className="column-select">
       <ColumnSelectDragDrop
         columns={fieldDataForSelectedColumns}
         onDragDrop={handleDragDrop}
         onRemove={handleSelect}
       />
-      <button className="button secondary" type="button" tabIndex={0} onClick={onReset}>
+      <button
+        className="button secondary"
+        type="button"
+        tabIndex={0}
+        onClick={onReset}
+      >
         Reset to default
       </button>
       <Tabs tabData={tabData} />

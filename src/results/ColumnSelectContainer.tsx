@@ -55,17 +55,15 @@ const ColumnSelection = ({
   onColumnSelect,
   selectedColumns: initialSelectedColumns,
 }) => {
-
   const [selectedColumns, setSelectedColumns] = useState(initialSelectedColumns);
 
   const handleChange = columns => {
-    console.log('handleChange!!!!!', columns);
     setSelectedColumns(columns);
   };
+  
   const handleReset = () => {
     setSelectedColumns(defaultTableColumns);
   };
-  console.log('selectedColumns', selectedColumns)
   return (
     <ColumnSelectView
       selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}

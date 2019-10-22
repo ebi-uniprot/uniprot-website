@@ -7,7 +7,6 @@ import './styles/ColumnSelectDragDrop.scss';
 const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
   <DragDropContext
     onDragEnd={result => {
-      console.log(result);
       if (result.destination) {
         onDragDrop(result.source.index, result.destination.index);
       }

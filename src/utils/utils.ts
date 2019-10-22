@@ -48,8 +48,8 @@ export const getBEMClassName = ({
   m: modifiers = null,
 }: {
   b: string;
-  e: string | string[] | null;
-  m: string | string[] | null;
+  e?: string | string[] | null;
+  m?: string | string[] | null;
 }) => {
   let className = b;
   if (elements) {
