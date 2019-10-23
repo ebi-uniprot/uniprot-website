@@ -64,6 +64,12 @@ const resultsReducers = (
         summaryAccession: action.payload.accession,
       };
     }
+    case resultsActions.UPDATE_TABLE_COLUMNS: {
+      return {
+        ...state,
+        tableColumns: action.payload.tableColumns,
+      };
+    }
     default:
       return state;
   }

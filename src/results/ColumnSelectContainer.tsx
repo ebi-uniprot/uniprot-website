@@ -52,29 +52,19 @@ const ColumnSelection = ({
   tableColumns,
   fetchFieldsIfNeeded,
   fieldsData,
-  onColumnSelect,
-  selectedColumns: initialSelectedColumns,
-}) => {
-  const [selectedColumns, setSelectedColumns] = useState(initialSelectedColumns);
+  selectedColumns,
+  onChange,
+}) => (
+  <ColumnSelectView
+    selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
+    fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
+    onChange={cols => onChange([entryField.itemId, ...cols])}
+    onReset={() => onChange(defaultTableColumns)}
+  />
+);
 
-  const handleChange = columns => {
-    setSelectedColumns(columns);
-  };
-  
-  const handleReset = () => {
-    setSelectedColumns(defaultTableColumns);
-  };
-  return (
-    <ColumnSelectView
-      selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
-      fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
-      onChange={handleChange}
-      onReset={handleReset}
-    />
-  );
-};
-
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState, ownProps) => ({
+  ...ownProps,
   tableColumns: state.results.tableColumns,
   // fieldsData: state.results.fields.data,
   fieldsData,

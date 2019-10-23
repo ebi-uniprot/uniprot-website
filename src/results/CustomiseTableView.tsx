@@ -3,14 +3,14 @@ import ColumnSelectContainer from './ColumnSelectContainer';
 import './styles/CustomiseTable.scss';
 
 const CustomiseTableView = ({
-  onColumnSelect,
+  onChange,
   selectedColumns,
   onSubmit,
   onCancel,
 }) => (
-  <form onSubmit={onSubmit} className='customise-table'>
+  <form onSubmit={onSubmit} className="customise-table">
     <ColumnSelectContainer
-      onColumnSelect={onColumnSelect}
+      onChange={onChange}
       selectedColumns={selectedColumns}
     />
     <div className="button-group customise-table--cancel-submit-buttons">

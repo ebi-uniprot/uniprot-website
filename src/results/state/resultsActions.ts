@@ -8,6 +8,7 @@ import 'regenerator-runtime/runtime';
 import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
 import apiUrls from '../../utils/apiUrls';
+import ColumnId from '../../model/types/columnIdTypes';
 
 export const REQUEST_BATCH_OF_RESULTS = 'REQUEST_BATCH_OF_RESULTS';
 export const RECEIVE_BATCH_OF_RESULTS = 'RECEIVE_BATCH_OF_RESULTS';
@@ -17,6 +18,7 @@ export const SWITCH_VIEW_MODE = 'SWITCH_VIEW_MODE';
 export const RECEIVE_FIELDS = 'RECEIVE_FIELDS';
 export const REQUEST_FIELDS = 'REQUEST_FIELDS';
 export const UPDATE_SUMMARY_ACCESSION = 'UPDATE_SUMMARY_ACCESSION';
+export const UPDATE_TABLE_COLUMNS = 'UPDATE_TABLE_COLUMNS';
 
 export const receiveBatchOfResults = (
   url: string,
@@ -132,3 +134,8 @@ export const fetchFieldsIfNeeded = () => (
     dispatch(fetchFields());
   }
 };
+
+export const updateTableColumns = (tableColumns: ColumnId[]) =>
+  action(UPDATE_TABLE_COLUMNS, {
+    tableColumns,
+  });
