@@ -40,6 +40,7 @@
   "dependencies": {
     "@geneontology/ribbon": "^1.9.32",
     "@types/react": "^16.9.2",
+    "@types/react-beautiful-dnd": "^11.0.3",
     "@types/react-router-dom": "^4.3.5",
     "axios": "^0.18.0",
     "axios-mock-adapter": "^1.15.0",
