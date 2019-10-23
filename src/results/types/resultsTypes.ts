@@ -42,3 +42,14 @@ export type FieldDatum = {
 export type FieldData = {
   [tab in ColumnSelectTab]: FieldDatum[];
 };
+
+export type ReceivedField = {
+  name: ColumnId;
+  label: string;
+};
+
+export type ReceivedFieldData = {
+  groupName: string;
+  isDatabase: boolean;
+  fields: ReceivedField[];
+}[];

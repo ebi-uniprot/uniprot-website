@@ -9,6 +9,13 @@ import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
 import apiUrls from '../../utils/apiUrls';
 import ColumnId from '../../model/types/columnIdTypes';
+import {
+  ColumnSelectTab,
+  FieldData,
+  FieldDatum,
+  ReceivedFieldData,
+  ReceivedField,
+} from '../types/resultsTypes';
 
 export const REQUEST_BATCH_OF_RESULTS = 'REQUEST_BATCH_OF_RESULTS';
 export const RECEIVE_BATCH_OF_RESULTS = 'RECEIVE_BATCH_OF_RESULTS';
@@ -108,9 +115,38 @@ export const switchViewMode = () => action(SWITCH_VIEW_MODE);
 
 export const requestFields = () => action(REQUEST_FIELDS);
 
-export const receiveFields = (data: FieldType[]) =>
+export const prepareFields = (fields: ReceivedField[]) =>
+  fields.map(({ label, name }) => ({ id: name, label }));
+
+export const prepareFieldData = (fieldData: ReceivedFieldData) => {
+  const dataTab: FieldDatum[] = [];
+  const linksTab: FieldDatum[] = [];
+  const linksAdded = {};
+  fieldData.forEach(({ groupName, fields, isDatabase }) => {
+    const group = {
+      id: groupName,
+      title: groupName,
+      items: prepareFields(fields),
+    };
+    if (isDatabase) {
+      if (!linksAdded[groupName]) {
+        linksTab.push(group);
+        linksAdded[groupName] = true;
+      }
+      
+    } else {
+      dataTab.push(group);
+    }
+  });
+  return {
+    [ColumnSelectTab.data]: dataTab,
+    [ColumnSelectTab.links]: linksTab,
+  };
+};
+
+export const receiveFields = (data: ReceivedFieldData) =>
   action(RECEIVE_FIELDS, {
-    data,
+    data: prepareFieldData(data),
     receivedAt: Date.now(),
   });
 
@@ -123,7 +159,7 @@ export const fetchFields = () => async (dispatch: Dispatch) => {
 
 export const shouldFetchFields = (state: RootState) => {
   const { fields } = state.results;
-  return !fields.isFetching && !fields.data.length;
+  return !fields.isFetching && !fields.data.data && !fields.data.data;
 };
 
 export const fetchFieldsIfNeeded = () => (

@@ -22,7 +22,6 @@ const CustomiseTable = ({ tableColumns, updateTableColumns }) => {
   return (
     <CustomiseTableView
       onChange={cols => {
-        console.log(cols);
         setSelectedColumns(cols);
       }}
       selectedColumns={selectedColumns}

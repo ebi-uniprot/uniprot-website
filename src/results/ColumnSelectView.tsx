@@ -37,7 +37,8 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
 const getFieldDataForColumns = (columns: ColumnId[], fieldData: FieldData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
   [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
-    fieldData[tabId].forEach(({ id: accordionId, items }) => {
+    console.log(fieldData, fieldData[tabId]);
+    Object.values(fieldData[tabId]).forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         const index = columns.indexOf(itemId);
         if (index >= 0) {
@@ -62,11 +63,6 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
   onChange,
   onReset,
 }) => {
-  // if (!fieldData || !fieldData.length) {
-  //   fetchFieldsIfNeeded();
-  //   return <Loader />;
-  // }
-
   const handleSelect = (itemId: ColumnId) => {
     const index = selectedColumns.indexOf(itemId);
     onChange(
@@ -95,7 +91,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
       key: tabId,
       content: (
         <AccordionSearch
-          accordionData={fieldData[tabId]}
+          accordionData={Object.values(fieldData[tabId])}
           onSelect={(_accordionId: string, itemId: ColumnId) =>
             handleSelect(itemId)
           }
