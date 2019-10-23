@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
@@ -6,29 +6,15 @@ import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import ColumnSelectView from './ColumnSelectView';
 import { defaultTableColumns } from './state/resultsInitialState';
-import fieldsData from '../data/fields.json';
+import fieldData from '../data/fields.json';
 import ColumnId from '../model/types/columnIdTypes';
 
-// type CustomiseTableProps = {
-//   tableColumns: ColumnId[];
-//   // fetchFieldsIfNeeded: () => void;
-//   // fieldsData: ;
-//   dispatchFetchBatchOfResultsIfNeeded: (url: string | undefined) => void;
-//   dispatchReset: () => void;
-//   dispatchClearResults: () => void;
-//   dispatchSwitchViewMode: () => void;
-//   dispatchUpdateSummaryAccession: (accession: string) => void;
-//   clauses?: Clause[];
-//   tableColumns: string[];
-//   cardColumns: string[];
-//   results: UniProtkbAPIModel[];
-//   facets: Facet[];
-//   isFetching: boolean;
-//   nextUrl: string;
-//   totalNumberResults: number;
-//   viewMode: ViewMode;
-//   summaryAccession: string | null;
-// } & RouteComponentProps;
+type ColumnSelectionProps = {
+  selectedColumns: ColumnId[];
+  fetchFieldsIfNeeded: () => void;
+  fieldData: any;
+  onChange: () => void;
+} & RouteComponentProps;
 
 const entryField = {
   tabId: 'data',
@@ -38,36 +24,35 @@ const entryField = {
 
 export const removeFieldFromFieldsData = (
   { tabId, accordionId, itemId },
-  fieldsData
+  fieldData
 ) => ({
-  ...fieldsData,
-  [tabId]: fieldsData[tabId].map(group =>
+  ...fieldData,
+  [tabId]: fieldData[tabId].map(group =>
     group.id === accordionId
       ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
       : group
   ),
 });
 
-const ColumnSelection = ({
-  tableColumns,
+const ColumnSelection:React.FC<ColumnSelectionProps> = ({
   fetchFieldsIfNeeded,
-  fieldsData,
+  fieldData,
   selectedColumns,
   onChange,
 }) => (
   <ColumnSelectView
     selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
-    fieldsData={removeFieldFromFieldsData(entryField, fieldsData)}
+    fieldData={removeFieldFromFieldsData(entryField, fieldData)}
     onChange={cols => onChange([entryField.itemId, ...cols])}
     onReset={() => onChange(defaultTableColumns)}
   />
 );
 
-const mapStateToProps = (state: RootState, ownProps) => ({
-  ...ownProps,
+const mapStateToProps = (state: RootState, ownProps: {onChange: () => void;}) => ({
+  onChange: ownProps.onChange,
   tableColumns: state.results.tableColumns,
-  // fieldsData: state.results.fields.data,
-  fieldsData,
+  // fieldData: state.results.fields.data,
+  fieldData,
   isFetching: state.results.fields.isFetching,
 });
 

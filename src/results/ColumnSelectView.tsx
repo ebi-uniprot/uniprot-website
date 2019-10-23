@@ -7,40 +7,14 @@ import {
 } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import ColumnId from '../model/types/columnIdTypes';
+import {
+  ColumnSelectTab,
+  FieldData,
+  SelectedColumn,
+} from './types/resultsTypes';
 import './styles/ColumnSelect.scss';
 
-enum Tab {
-  data = 'data',
-  links = 'links',
-}
-
-type SelectedColumn = {
-  tabId: Tab;
-  accordionId: string;
-  itemId: string;
-  label: string;
-};
-
-type FieldKeys = {
-  tabId: Tab;
-  accordionId: string;
-  itemId: ColumnId;
-};
-
-type FieldDatum = {
-  id: string;
-  title: string;
-  items: {
-    id: string;
-    label: string;
-  }[];
-};
-
-type FieldData = {
-  [tab in Tab]: FieldDatum[];
-};
-
-const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => (
+const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
   <div
     className={bem({
       b: 'column-select',
@@ -52,18 +26,18 @@ const getTabTitle = (tabId: Tab, selectedColumns: SelectedColumn[]) => (
       className={bem({
         b: 'column-select',
         e: ['tab-title', 'count'],
-        m: selectedColumns.length ? 'visible' : 'hidden',
+        m: columns.length ? 'visible' : 'hidden',
       })}
     >
-      <Bubble size="small" value={selectedColumns.length} />
+      <Bubble size="small" value={columns.length} />
     </span>
   </div>
 );
 
-const getFieldDataForColumns = (columns, fieldsData) => {
+const getFieldDataForColumns = (columns: ColumnId[], fieldData: FieldData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
-  Object.keys(fieldsData).forEach(tabId => {
-    fieldsData[tabId].forEach(({ id: accordionId, items }) => {
+  [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
+    fieldData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         const index = columns.indexOf(itemId);
         if (index >= 0) {
@@ -75,23 +49,25 @@ const getFieldDataForColumns = (columns, fieldsData) => {
   return selected;
 };
 
-const ColumnSelectView = ({
+type ColumnSelectViewProps = {
+  selectedColumns: ColumnId[];
+  fieldData: FieldData;
+  onChange: (columnId: ColumnId[]) => null;
+  onReset: () => null;
+};
+
+const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
   selectedColumns,
-  fieldsData,
+  fieldData,
   onChange,
   onReset,
 }) => {
-  // if (!fieldsData || !fieldsData.length) {
+  // if (!fieldData || !fieldData.length) {
   //   fetchFieldsIfNeeded();
   //   return <Loader />;
   // }
 
-  const fieldDataForSelectedColumns = getFieldDataForColumns(
-    selectedColumns,
-    fieldsData
-  );
-
-  const handleSelect = itemId => {
+  const handleSelect = (itemId: ColumnId) => {
     const index = selectedColumns.indexOf(itemId);
     onChange(
       index >= 0
@@ -104,7 +80,12 @@ const ColumnSelectView = ({
     onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
-  const tabData = [Tab.data, Tab.links].map(tabId => {
+  const fieldDataForSelectedColumns = getFieldDataForColumns(
+    selectedColumns,
+    fieldData
+  );
+
+  const tabData = [ColumnSelectTab.data, ColumnSelectTab.links].map(tabId => {
     const selectedColumnsInTab = fieldDataForSelectedColumns.filter(
       item => item.tabId === tabId
     );
@@ -114,8 +95,10 @@ const ColumnSelectView = ({
       key: tabId,
       content: (
         <AccordionSearch
-          accordionData={fieldsData[tabId]}
-          onSelect={(_, itemId) => handleSelect(itemId)}
+          accordionData={fieldData[tabId]}
+          onSelect={(_accordionId: string, itemId: ColumnId) =>
+            handleSelect(itemId)
+          }
           selected={selectedColumnsInTab}
           columns
         />
