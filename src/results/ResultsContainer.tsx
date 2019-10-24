@@ -10,6 +10,7 @@ import {
   StatisticsIcon,
   TableIcon,
   ListIcon,
+  EditIcon,
   Loader,
 } from 'franklin-sites';
 import queryStringModule from 'query-string';
@@ -26,7 +27,7 @@ import {
   SelectedEntries,
   SelectedFacet,
 } from './types/resultsTypes';
-import {SortableColumn, Column} from '../model/types/ColumnTypes';
+import { SortableColumn, Column } from '../model/types/ColumnTypes';
 import { ViewMode } from './state/resultsInitialState';
 import { UniProtkbAPIModel } from '../model/uniprotkb/UniProtkbConverter';
 
@@ -336,6 +337,12 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                       <ListIcon />
                     </span>
                   </button>
+                  {viewMode === ViewMode.TABLE && (
+                    <button type="button" className="button link-button">
+                      <EditIcon />
+                      Customise data
+                    </button>
+                  )}
                 </div>
               )}
               <ResultsView
