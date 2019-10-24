@@ -14,12 +14,12 @@ type ColumnSelectionProps = {
   selectedColumns: ColumnId[];
   fetchFieldsIfNeeded: () => void;
   isFetching: boolean;
-  fieldData: any;
-  onChange: () => void;
+  fieldData: FieldData;
+  onChange: (columndIds: ColumnId[]) => null;
 } & RouteComponentProps;
 
 const entryField = {
-  tabId: 'data',
+  tabId: ColumnSelectTab.data,
   accordionId: 'Names & Taxonomy',
   itemId: ColumnId.accession,
 };
@@ -55,7 +55,7 @@ const ColumnSelection: React.FC<ColumnSelectionProps> = ({
     fetchFieldsIfNeeded();
     return <Loader />;
   }
-  console.log(entryField, fieldData);
+
   return (
     <ColumnSelectView
       selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
@@ -68,7 +68,7 @@ const ColumnSelection: React.FC<ColumnSelectionProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: { onChange: () => void }
+  ownProps: { onChange: (columndIds: ColumnId[]) => null }
 ) => ({
   onChange: ownProps.onChange,
   tableColumns: state.results.tableColumns,
