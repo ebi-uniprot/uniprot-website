@@ -23,10 +23,10 @@ import infoMappings from '../info/InfoMappings';
 import { RootState, RootAction } from '../state/state-types';
 import {
   SortDirection,
-  SortableColumn,
   SelectedEntries,
   SelectedFacet,
 } from './types/resultsTypes';
+import {SortableColumn, Column} from '../model/types/ColumnTypes';
 import { ViewMode } from './state/resultsInitialState';
 import { UniProtkbAPIModel } from '../model/uniprotkb/UniProtkbConverter';
 
@@ -45,7 +45,7 @@ type ResultsProps = {
   dispatchSwitchViewMode: () => void;
   dispatchUpdateSummaryAccession: (accession: string) => void;
   clauses?: Clause[];
-  tableColumns: string[];
+  tableColumns: Column[];
   cardColumns: string[];
   results: UniProtkbAPIModel[];
   facets: Facet[];
@@ -99,14 +99,12 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
     if (facets && typeof facets === 'string') {
       selectedFacets = this.facetsAsArray(facets);
     }
-
-    const sortColumn = sort as keyof typeof SortableColumn;
     const sortDirection = dir as keyof typeof SortDirection;
 
     return {
       query: query && typeof query === 'string' ? query : '',
       selectedFacets,
-      sortColumn: sortColumn && SortableColumn[sortColumn],
+      sortColumn: sort as SortableColumn,
       sortDirection: sortDirection && SortDirection[sortDirection],
     };
   };

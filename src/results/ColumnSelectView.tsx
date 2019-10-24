@@ -6,7 +6,7 @@ import {
   getBEMClassName as bem,
 } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-import ColumnId from '../model/types/columnIdTypes';
+import { Column } from '../model/types/ColumnTypes';
 import {
   ColumnSelectTab,
   FieldData,
@@ -34,7 +34,7 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
   </div>
 );
 
-const getFieldDataForColumns = (columns: ColumnId[], fieldData: FieldData) => {
+const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
   [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
     Object.values(fieldData[tabId]).forEach(({ id: accordionId, items }) => {
@@ -50,9 +50,9 @@ const getFieldDataForColumns = (columns: ColumnId[], fieldData: FieldData) => {
 };
 
 type ColumnSelectViewProps = {
-  selectedColumns: ColumnId[];
+  selectedColumns: Column[];
   fieldData: FieldData;
-  onChange: (columnId: ColumnId[]) => void;
+  onChange: (columnId: Column[]) => void;
   onReset: () => void;
 };
 
@@ -62,7 +62,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
   onChange,
   onReset,
 }) => {
-  const handleSelect = (itemId: ColumnId) => {
+  const handleSelect = (itemId: Column) => {
     const index = selectedColumns.indexOf(itemId);
     onChange(
       index >= 0
@@ -91,7 +91,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
       content: (
         <AccordionSearch
           accordionData={Object.values(fieldData[tabId])}
-          onSelect={(_accordionId: string, itemId: ColumnId) =>
+          onSelect={(_accordionId: string, itemId: Column) =>
             handleSelect(itemId)
           }
           selected={selectedColumnsInTab}

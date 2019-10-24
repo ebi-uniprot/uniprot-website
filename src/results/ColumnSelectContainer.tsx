@@ -7,21 +7,21 @@ import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import ColumnSelectView from './ColumnSelectView';
 import { defaultTableColumns } from './state/resultsInitialState';
-import ColumnId from '../model/types/columnIdTypes';
+import { Column } from '../model/types/ColumnTypes';
 import { ColumnSelectTab, FieldData } from './types/resultsTypes';
 
 type ColumnSelectionProps = {
-  selectedColumns: ColumnId[];
+  selectedColumns: Column[];
   fetchFieldsIfNeeded: () => void;
   isFetching: boolean;
   fieldData: FieldData;
-  onChange: (columndIds: ColumnId[]) => void;
+  onChange: (columndIds: Column[]) => void;
 } & RouteComponentProps;
 
 const entryField = {
   tabId: ColumnSelectTab.data,
   accordionId: 'Names & Taxonomy',
-  itemId: ColumnId.accession,
+  itemId: Column.accession,
 };
 
 export const removeFieldFromFieldsData = (
@@ -29,7 +29,7 @@ export const removeFieldFromFieldsData = (
     tabId,
     accordionId,
     itemId,
-  }: { tabId: ColumnSelectTab; accordionId: string; itemId: ColumnId },
+  }: { tabId: ColumnSelectTab; accordionId: string; itemId: Column },
   fieldData: FieldData
 ) => ({
   ...fieldData,
@@ -68,7 +68,7 @@ const ColumnSelection: React.FC<ColumnSelectionProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: { onChange: (columndIds: ColumnId[]) => void }
+  ownProps: { onChange: (columndIds: Column[]) => void }
 ) => ({
   onChange: ownProps.onChange,
   tableColumns: state.results.tableColumns,

@@ -1,9 +1,7 @@
 import urlJoin from 'url-join';
 import queryString from 'query-string';
-import {
-  SortableColumn,
-  SortDirectionApi,
-} from '../results/types/resultsTypes';
+import { SortDirectionApi } from '../results/types/resultsTypes';
+import { SortableColumn } from '../model/types/ColumnTypes';
 
 export const joinUrl = (...args: string[]) => urlJoin(args);
 

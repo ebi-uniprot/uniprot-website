@@ -1,10 +1,10 @@
 import { getQueryUrl } from '../../utils/apiUrls';
 import {
   SortDirection,
-  SortableColumn,
   SelectedFacet,
   getApiSortDirection,
 } from '../types/resultsTypes';
+import { SortableColumn } from '../../model/types/ColumnTypes';
 
 export const createFacetsQueryString = (facets: SelectedFacet[]) =>
   facets.reduce(

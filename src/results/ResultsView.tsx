@@ -8,19 +8,19 @@ import UniProtCard from '../view/uniprotkb/components/UniProtCard';
 import { UniProtkbAPIModel } from '../model/uniprotkb/UniProtkbConverter';
 import { ViewMode } from './state/resultsInitialState';
 import ProteinSummary from '../view/uniprotkb/summary/ProteinSummary';
-import ColumnId from '../model/types/columnIdTypes';
+import { SortableColumn, Column } from '../model/types/ColumnTypes';
 
 type ResultsTableProps = {
   results: UniProtkbAPIModel[];
-  tableColumns: ColumnId[];
+  tableColumns: (Column | SortableColumn)[];
   selectedEntries: SelectedEntries;
   handleEntrySelection: (rowId: string) => void;
-  handleHeaderClick: (column: ColumnId) => void;
+  handleHeaderClick: (column: SortableColumn) => void;
   handleCardClick: (accession: string) => void;
   handleLoadMoreRows: () => void;
   summaryAccession: string | null;
   totalNumberResults: number;
-  sortColumn: ColumnId;
+  sortColumn: SortableColumn;
   sortDirection: SortDirection;
   viewMode: ViewMode;
 };

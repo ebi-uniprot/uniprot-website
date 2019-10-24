@@ -8,10 +8,9 @@ import 'regenerator-runtime/runtime';
 import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
 import apiUrls from '../../utils/apiUrls';
-import ColumnId from '../../model/types/columnIdTypes';
+import { Column } from '../../model/types/ColumnTypes';
 import {
   ColumnSelectTab,
-  FieldData,
   FieldDatum,
   ReceivedFieldData,
   ReceivedField,
@@ -121,7 +120,8 @@ export const prepareFields = (fields: ReceivedField[]) =>
 export const prepareFieldData = (fieldData: ReceivedFieldData) => {
   const dataTab: FieldDatum[] = [];
   const linksTab: FieldDatum[] = [];
-  const linksAdded = {};
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const linksAdded: any = {};
   fieldData.forEach(({ groupName, fields, isDatabase }) => {
     const group = {
       id: groupName,
@@ -133,7 +133,6 @@ export const prepareFieldData = (fieldData: ReceivedFieldData) => {
         linksTab.push(group);
         linksAdded[groupName] = true;
       }
-      
     } else {
       dataTab.push(group);
     }
@@ -159,7 +158,7 @@ export const fetchFields = () => async (dispatch: Dispatch) => {
 
 export const shouldFetchFields = (state: RootState) => {
   const { fields } = state.results;
-  return !fields.isFetching && !fields.data.data && !fields.data.data;
+  return !fields.isFetching && (!fields.data.data || !fields.data.links);
 };
 
 export const fetchFieldsIfNeeded = () => (
@@ -171,7 +170,7 @@ export const fetchFieldsIfNeeded = () => (
   }
 };
 
-export const updateTableColumns = (tableColumns: ColumnId[]) =>
+export const updateTableColumns = (tableColumns: Column[]) =>
   action(UPDATE_TABLE_COLUMNS, {
     tableColumns,
   });

@@ -7,10 +7,10 @@ import OrganismView from '../view/uniprotkb/components/OrganismView';
 import GeneNamesView from '../view/uniprotkb/components/GeneNamesView';
 import convertGeneNames from './uniprotkb/GeneNamesConverter';
 import { UniProtkbAPIModel } from './uniprotkb/UniProtkbConverter';
-import ColumnId from './types/columnIdTypes';
+import { Column } from './types/ColumnTypes';
 
 export const ColumnConfiguration = new Map<
-  ColumnId,
+  Column,
   {
     label: string;
     sortable: boolean;
@@ -26,7 +26,7 @@ export const ColumnConfiguration = new Map<
 // length = 'length',
 // mass = 'mass',
 
-ColumnConfiguration.set(ColumnId.accession, {
+ColumnConfiguration.set(Column.accession, {
   label: 'Entry',
   sortable: true,
   render: (data: { primaryAccession: string; entryType: string }) => (
@@ -37,7 +37,7 @@ ColumnConfiguration.set(ColumnId.accession, {
   ),
 });
 
-ColumnConfiguration.set(ColumnId.id, {
+ColumnConfiguration.set(Column.id, {
   label: 'Entry Name',
   sortable: true,
   render: (data: { uniProtId: string }) => (
@@ -45,7 +45,7 @@ ColumnConfiguration.set(ColumnId.id, {
   ),
 });
 
-ColumnConfiguration.set(ColumnId.proteinName, {
+ColumnConfiguration.set(Column.proteinName, {
   label: 'Protein names',
   sortable: true,
   render: data =>
@@ -54,14 +54,14 @@ ColumnConfiguration.set(ColumnId.proteinName, {
     ),
 });
 
-ColumnConfiguration.set(ColumnId.geneNames, {
+ColumnConfiguration.set(Column.geneNames, {
   label: 'Gene Names',
   sortable: true,
   render: data =>
     data.genes && <GeneNamesView {...convertGeneNames(data.genes)} />,
 });
 
-ColumnConfiguration.set(ColumnId.organism, {
+ColumnConfiguration.set(Column.organism, {
   label: 'Organism',
   sortable: true,
   render: data => data.organism && <OrganismView data={data.organism} />,

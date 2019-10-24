@@ -35,7 +35,11 @@ const resultsReducers = (
     case resultsActions.CLEAR_RESULTS: {
       return {
         ...state,
-        results: [],
+        results: {
+          data: [],
+          isFetching: false,
+          isFetched: {},
+        },
         summaryAccession: null,
         isFetching: false,
         isFetched: {},

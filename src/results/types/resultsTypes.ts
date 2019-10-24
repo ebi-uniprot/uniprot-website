@@ -1,4 +1,4 @@
-import ColumnId from '../../model/types/columnIdTypes';
+import { Column } from '../../model/types/ColumnTypes';
 
 export enum SortDirection {
   ascend = 'ascend',
@@ -26,7 +26,7 @@ export enum ColumnSelectTab {
 export type SelectedColumn = {
   tabId: ColumnSelectTab;
   accordionId: string;
-  itemId: ColumnId;
+  itemId: Column;
   label: string;
 };
 
@@ -34,7 +34,7 @@ export type FieldDatum = {
   id: string;
   title: string;
   items: {
-    id: ColumnId;
+    id: Column;
     label: string;
   }[];
 };
@@ -44,7 +44,7 @@ export type FieldData = {
 };
 
 export type ReceivedField = {
-  name: ColumnId;
+  name: Column;
   label: string;
 };
 

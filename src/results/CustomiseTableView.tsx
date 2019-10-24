@@ -1,11 +1,11 @@
 import React from 'react';
 import ColumnSelectContainer from './ColumnSelectContainer';
-import ColumnId from '../model/types/columnIdTypes';
+import { Column } from '../model/types/ColumnTypes';
 import './styles/CustomiseTable.scss';
 
 type CustomiseTableViewProps = {
-  onChange: (columndIds: ColumnId[]) => void;
-  selectedColumns: ColumnId[];
+  onChange: (columndIds: Column[]) => void;
+  selectedColumns: Column[];
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
 };

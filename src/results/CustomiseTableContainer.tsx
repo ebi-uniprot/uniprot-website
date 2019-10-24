@@ -5,11 +5,11 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import CustomiseTableView from './CustomiseTableView';
-import ColumnId from '../model/types/columnIdTypes';
+import { Column } from '../model/types/ColumnTypes';
 
 type CustomiseTableProps = {
-  tableColumns: ColumnId[];
-  updateTableColumns: (columnIds: ColumnId[]) => void;
+  tableColumns: Column[];
+  updateTableColumns: (columnIds: Column[]) => void;
 } & RouteComponentProps;
 
 const CustomiseTable: React.FC<CustomiseTableProps> = ({
@@ -30,7 +30,7 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
 
   return (
     <CustomiseTableView
-      onChange={(columnIds: ColumnId[]) => {
+      onChange={(columnIds: Column[]) => {
         setSelectedColumns(columnIds);
       }}
       selectedColumns={selectedColumns}
@@ -47,7 +47,7 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      updateTableColumns: (tableColumns: ColumnId[]) =>
+      updateTableColumns: (tableColumns: Column[]) =>
         resultsActions.updateTableColumns(tableColumns),
     },
     dispatch

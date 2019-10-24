@@ -1,6 +1,7 @@
 import { UniProtkbAPIModel } from '../../model/uniprotkb/UniProtkbConverter';
 import { Facet } from '../ResultsContainer';
-import ColumnId from '../../model/types/columnIdTypes';
+import { Column } from '../../model/types/ColumnTypes';
+import { FieldData, ColumnSelectTab } from '../types/resultsTypes';
 
 export enum ViewMode {
   TABLE,
@@ -8,8 +9,8 @@ export enum ViewMode {
 }
 
 export type ResultsState = {
-  tableColumns: ColumnId[];
-  cardColumns: ColumnId[];
+  tableColumns: Column[];
+  cardColumns: Column[];
   facets: Facet[];
   nextUrl: string;
   results: {
@@ -20,31 +21,31 @@ export type ResultsState = {
   totalNumberResults: number;
   viewMode: ViewMode;
   fields: {
-    data: any;
+    data: FieldData;
     isFetching: boolean;
   };
   summaryAccession: string | null;
 };
 
 export const defaultTableColumns = [
-  ColumnId.accession,
-  ColumnId.id,
-  ColumnId.proteinName,
-  ColumnId.geneNames,
-  ColumnId.organism,
+  Column.accession,
+  Column.id,
+  Column.proteinName,
+  Column.geneNames,
+  Column.organism,
 ];
 
 const resultsInitialState = {
   tableColumns: defaultTableColumns,
   cardColumns: [
-    ColumnId.accession,
-    ColumnId.id,
-    ColumnId.proteinName,
-    ColumnId.geneNames,
-    ColumnId.organism,
-    ColumnId.keyword,
-    ColumnId.ccFunction,
-    ColumnId.sequence,
+    Column.accession,
+    Column.id,
+    Column.proteinName,
+    Column.geneNames,
+    Column.organism,
+    Column.keyword,
+    Column.ccFunction,
+    Column.sequence,
   ],
   results: {
     data: [],
@@ -56,7 +57,10 @@ const resultsInitialState = {
   totalNumberResults: 0,
   viewMode: ViewMode.CARD,
   fields: {
-    data: [],
+    data: {
+      [ColumnSelectTab.data]: [],
+      [ColumnSelectTab.links]: [],
+    },
     isFetching: false,
   },
   summaryAccession: null,
