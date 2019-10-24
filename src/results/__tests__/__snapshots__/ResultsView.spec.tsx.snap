@@ -342,7 +342,7 @@ ShallowWrapper {
           "name": "accession",
           "render": [Function],
           "sortable": true,
-          "sorted": null,
+          "sorted": false,
         },
       ],
       "data": Array [
@@ -377,7 +377,7 @@ ShallowWrapper {
             "name": "accession",
             "render": [Function],
             "sortable": true,
-            "sorted": null,
+            "sorted": false,
           },
         ],
         "data": Array [

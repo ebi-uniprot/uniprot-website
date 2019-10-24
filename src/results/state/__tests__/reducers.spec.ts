@@ -4,11 +4,11 @@ import { requestBatchOfResults } from '../resultsActions';
 describe('Results reducer', () => {
   test('should set flag for getting results', () => {
     const state = {
-      isFetching: false,
+      results: { isFetching: false },
     };
     const action = requestBatchOfResults('http://some-url');
     expect(resultsReducers(state, action)).toEqual({
-      isFetching: true,
+      results: { isFetching: true },
     });
   });
 });
