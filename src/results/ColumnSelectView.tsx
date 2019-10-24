@@ -52,8 +52,8 @@ const getFieldDataForColumns = (columns: ColumnId[], fieldData: FieldData) => {
 type ColumnSelectViewProps = {
   selectedColumns: ColumnId[];
   fieldData: FieldData;
-  onChange: (columnId: ColumnId[]) => null;
-  onReset: () => null;
+  onChange: (columnId: ColumnId[]) => void;
+  onReset: () => void;
 };
 
 const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({

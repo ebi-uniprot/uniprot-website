@@ -15,7 +15,7 @@ type ColumnSelectionProps = {
   fetchFieldsIfNeeded: () => void;
   isFetching: boolean;
   fieldData: FieldData;
-  onChange: (columndIds: ColumnId[]) => null;
+  onChange: (columndIds: ColumnId[]) => void;
 } & RouteComponentProps;
 
 const entryField = {
@@ -68,7 +68,7 @@ const ColumnSelection: React.FC<ColumnSelectionProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: { onChange: (columndIds: ColumnId[]) => null }
+  ownProps: { onChange: (columndIds: ColumnId[]) => void }
 ) => ({
   onChange: ownProps.onChange,
   tableColumns: state.results.tableColumns,

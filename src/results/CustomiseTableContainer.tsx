@@ -18,7 +18,7 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
 }) => {
   const [selectedColumns, setSelectedColumns] = useState(tableColumns);
 
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateTableColumns(selectedColumns);
   };
