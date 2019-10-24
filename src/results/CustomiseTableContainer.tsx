@@ -5,24 +5,33 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import CustomiseTableView from './CustomiseTableView';
-import ColumnId from '../../model/types/columnIdTypes';
+import ColumnId from '../model/types/columnIdTypes';
 
-const CustomiseTable = ({ tableColumns, updateTableColumns }) => {
+type CustomiseTableProps = {
+  tableColumns: ColumnId[];
+  updateTableColumns: (columnIds: ColumnId[]) => void;
+} & RouteComponentProps;
+
+const CustomiseTable: React.FC<CustomiseTableProps> = ({
+  tableColumns,
+  updateTableColumns,
+}) => {
   const [selectedColumns, setSelectedColumns] = useState(tableColumns);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     updateTableColumns(selectedColumns);
   };
 
   const handleCancel = () => {
+    // eslint-disable-next-line no-console
     console.log('cancel');
   };
 
   return (
     <CustomiseTableView
-      onChange={cols => {
-        setSelectedColumns(cols);
+      onChange={(columnIds: ColumnId[]) => {
+        setSelectedColumns(columnIds);
       }}
       selectedColumns={selectedColumns}
       onSubmit={handleSubmit}

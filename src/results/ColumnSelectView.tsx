@@ -37,7 +37,6 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
 const getFieldDataForColumns = (columns: ColumnId[], fieldData: FieldData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
   [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
-    console.log(fieldData, fieldData[tabId]);
     Object.values(fieldData[tabId]).forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         const index = columns.indexOf(itemId);
