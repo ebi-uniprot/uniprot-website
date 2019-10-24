@@ -2,9 +2,21 @@ import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CloseIcon } from 'franklin-sites';
 import { getBEMClassName as bem } from '../utils/utils';
+import { SelectedColumn } from './types/resultsTypes';
+import ColumnId from '../model/types/columnIdTypes';
 import './styles/ColumnSelectDragDrop.scss';
 
-const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
+type ColumnSelectDragDropProps = {
+  columns: SelectedColumn[];
+  onDragDrop: (srcIndex: number, destIndex: number) => void;
+  onRemove: (columnId: ColumnId) => void;
+};
+
+const ColumnSelectDragDrop: React.FC<ColumnSelectDragDropProps> = ({
+  columns,
+  onDragDrop,
+  onRemove,
+}) => (
   <DragDropContext
     onDragEnd={result => {
       if (result.destination) {
@@ -12,33 +24,29 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
       }
     }}
   >
-    <Droppable
-      droppableId="droppable"
-      direction="horizontal"
-      className="column-select-drag-drop"
-    >
-      {provided => (
+    <Droppable droppableId="droppable" direction="horizontal">
+      {droppableProvided => (
         <div
-          ref={provided.innerRef}
+          ref={droppableProvided.innerRef}
           className={bem({
             b: 'column-select-drag-drop',
             e: 'list',
           })}
-          {...provided.droppableProps}
+          {...droppableProvided.droppableProps}
         >
           {columns.map(({ itemId, label }, index) => (
             <Draggable key={itemId} draggableId={itemId} index={index}>
-              {(provided, snapshot) => (
+              {(draggableProvided, snapshot) => (
                 <div
-                  ref={provided.innerRef}
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
+                  ref={draggableProvided.innerRef}
+                  {...draggableProvided.draggableProps}
+                  {...draggableProvided.dragHandleProps}
                   className={`button ${bem({
                     b: 'column-select-drag-drop',
                     e: ['list', 'item'],
                     m: snapshot.isDragging && 'dragging',
                   })}`}
-                  style={provided.draggableProps.style}
+                  style={draggableProvided.draggableProps.style}
                 >
                   {label}
                   <button
@@ -60,7 +68,7 @@ const ColumnSelectDragDrop = ({ columns, onDragDrop, onRemove }) => (
               )}
             </Draggable>
           ))}
-          {provided.placeholder}
+          {droppableProvided.placeholder}
         </div>
       )}
     </Droppable>

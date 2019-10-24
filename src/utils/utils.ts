@@ -49,9 +49,9 @@ export const getBEMClassName = ({
 }: {
   b: string;
   e?: string | string[] | null;
-  m?: string | string[] | null;
+  m?: (string | boolean) | (string | boolean)[] | null;
 }) => {
-  let className = b;
+  let className: string = b;
   if (elements) {
     const e = Array.isArray(elements) ? elements.join('__') : elements;
     className = `${b}__${e}`;
@@ -59,7 +59,7 @@ export const getBEMClassName = ({
   if (modifiers) {
     if (Array.isArray(modifiers)) {
       className = modifiers.reduce(
-        (accum, modifier) =>
+        (accum: string, modifier: string | boolean) =>
           modifier ? `${accum} ${className}--${modifier}` : accum,
         className
       );
