@@ -158,7 +158,10 @@ export const fetchFields = () => async (dispatch: Dispatch) => {
 
 export const shouldFetchFields = (state: RootState) => {
   const { fields } = state.results;
-  return !fields.isFetching && (!fields.data.data || !fields.data.links);
+  return (
+    !fields.isFetching &&
+    (!fields.data.data.length || !fields.data.links.length)
+  );
 };
 
 export const fetchFieldsIfNeeded = () => (

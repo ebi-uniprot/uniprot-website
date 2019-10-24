@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 import {
   Facets,
   PageIntro,
@@ -337,12 +337,17 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                       <ListIcon />
                     </span>
                   </button>
-                  {viewMode === ViewMode.TABLE && (
-                    <button type="button" className="button link-button">
+                  <Link to="/customise">
+                    <button
+                      type="button"
+                      className={`button link-button ${
+                        viewMode === ViewMode.CARD ? 'disabled' : ''
+                      }`}
+                    >
                       <EditIcon />
                       Customise data
                     </button>
-                  )}
+                  </Link>
                 </div>
               )}
               <ResultsView
