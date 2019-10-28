@@ -10,7 +10,7 @@ import { defaultTableColumns } from './state/resultsInitialState';
 import { Column } from '../model/types/ColumnTypes';
 import { ColumnSelectTab, FieldData } from './types/resultsTypes';
 
-type ColumnSelectionProps = {
+type ColumnSelectProps = {
   selectedColumns: Column[];
   fetchFieldsIfNeeded: () => void;
   isFetching: boolean;
@@ -40,7 +40,7 @@ export const removeFieldFromFieldsData = (
   ),
 });
 
-const ColumnSelection: React.FC<ColumnSelectionProps> = ({
+const ColumnSelect: React.FC<ColumnSelectProps> = ({
   fetchFieldsIfNeeded,
   isFetching,
   fieldData,
@@ -84,11 +84,11 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
     dispatch
   );
 
-const ColumnSelectionContainer = withRouter(
+const ColumnSelectContainer = withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ColumnSelection)
+  )(ColumnSelect)
 );
 
-export default ColumnSelectionContainer;
+export default ColumnSelectContainer;
