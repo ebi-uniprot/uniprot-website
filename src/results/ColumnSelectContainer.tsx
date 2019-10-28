@@ -52,7 +52,6 @@ const ColumnSelection: React.FC<ColumnSelectionProps> = ({
     !fieldData[ColumnSelectTab.data].length ||
     !fieldData[ColumnSelectTab.links].length
   ) {
-    console.log('here');
     fetchFieldsIfNeeded();
     return <Loader />;
   }
@@ -61,7 +60,7 @@ const ColumnSelection: React.FC<ColumnSelectionProps> = ({
     <ColumnSelectView
       selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
       fieldData={removeFieldFromFieldsData(entryField, fieldData)}
-      onChange={cols => onChange([entryField.itemId, ...cols])}
+      onChange={(cols: Column[]) => onChange([entryField.itemId, ...cols])}
       onReset={() => onChange(defaultTableColumns)}
     />
   );

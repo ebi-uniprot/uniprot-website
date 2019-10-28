@@ -40,7 +40,7 @@ const App = () => (
           )}
         />
         <Route
-          path="/customise"
+          path="/customise-table"
           render={() => (
             <BaseLayout>
               <CustomiseTablePage />

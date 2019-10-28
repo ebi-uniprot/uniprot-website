@@ -15,17 +15,18 @@ type CustomiseTableProps = {
 const CustomiseTable: React.FC<CustomiseTableProps> = ({
   tableColumns,
   updateTableColumns,
+  history,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState(tableColumns);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateTableColumns(selectedColumns);
+    history.goBack();
   };
 
   const handleCancel = () => {
-    // eslint-disable-next-line no-console
-    console.log('cancel');
+    history.goBack();
   };
 
   return (

@@ -337,7 +337,7 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                       <ListIcon />
                     </span>
                   </button>
-                  <Link to="/customise">
+                  <Link to="/customise-table">
                     <button
                       type="button"
                       className={`button link-button ${
