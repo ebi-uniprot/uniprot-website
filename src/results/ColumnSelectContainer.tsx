@@ -49,7 +49,10 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
 }) => {
   if (
     isFetching ||
+    !fieldData ||
+    !fieldData[ColumnSelectTab.data] ||
     !fieldData[ColumnSelectTab.data].length ||
+    !fieldData[ColumnSelectTab.links] ||
     !fieldData[ColumnSelectTab.links].length
   ) {
     fetchFieldsIfNeeded();
