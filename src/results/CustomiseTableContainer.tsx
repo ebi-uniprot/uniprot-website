@@ -19,6 +19,10 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
 }) => {
   const [selectedColumns, setSelectedColumns] = useState(tableColumns);
 
+  const handleChange = (columnIds: Column[]) => {
+    setSelectedColumns(columnIds);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateTableColumns(selectedColumns);
@@ -31,10 +35,8 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
 
   return (
     <CustomiseTableView
-      onChange={(columnIds: Column[]) => {
-        setSelectedColumns(columnIds);
-      }}
       selectedColumns={selectedColumns}
+      onChange={handleChange}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
     />
