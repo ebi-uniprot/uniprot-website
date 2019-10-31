@@ -1,11 +1,8 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, fireEvent } from '@testing-library/react';
 import EvidenceField from '../EvidenceField';
 
-configure({ adapter: new Adapter() });
-
-let wrapper;
+let rendered;
 let props;
 
 describe('EvidenceField component', () => {
@@ -30,17 +27,20 @@ describe('EvidenceField component', () => {
       ],
     };
 
-    wrapper = shallow(<EvidenceField {...props} />);
+    rendered = render(<EvidenceField {...props} />);
   });
 
   test('should change evidence', () => {
-    wrapper
-      .find('#evidence_select')
-      .simulate('change', { target: { value: props.data[0].items[0].code } });
+    const { getByTestId } = rendered;
+    const evidenceSelect = getByTestId('evidence-select');
+    fireEvent.change(evidenceSelect, {
+      target: { value: props.data[0].items[0].code },
+    });
     expect(props.handleChange).toBeCalled();
   });
 
   test('should render', () => {
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = rendered;
+    expect(asFragment()).toMatchSnapshot();
   });
 });

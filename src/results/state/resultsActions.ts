@@ -71,7 +71,7 @@ export const fetchBatchOfResults = (url: string, state: RootState) => async (
 ) => {
   dispatch(requestBatchOfResults(url));
   fetchData(url).then((response: Response) => {
-    const nextUrl = getNextUrlFromResponse(idx(response, _ => _.headers.link));
+    const nextUrl = getNextUrlFromResponse(idx(response, o => o.headers.link));
     dispatch(
       receiveBatchOfResults(
         url,

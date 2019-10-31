@@ -2,9 +2,7 @@
 
 exports[`UniProtCard component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="uniprot-card"
-  >
+  <div>
     <h4>
       <div
         class="uniprot-title"
@@ -39,39 +37,39 @@ exports[`UniProtCard component should render 1`] = `
       >
         scientific name
       </a>
-       · 10 amino-acids · 
+       · Gene: some Gene · 10 amino-acids · 
       <span
-        class="bubble--small colour-uniprot-blue"
+        title="Annotation Score"
       >
-        2
+        <span
+          class="doughnut-chart--small colour-light-grey"
+        >
+          <span
+            class="doughnut-chart--small__left-wrap"
+          >
+            <span
+              class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+              style="transform: rotate(0deg);"
+            />
+          </span>
+          <span
+            class="doughnut-chart--small__right-wrap"
+          >
+            <span
+              class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+              style="transform: rotate(72deg);"
+            />
+          </span>
+          <span
+            class="doughnut-chart--small__inner-circle"
+          >
+            1/5
+          </span>
+        </span>
       </span>
     </p>
-    <div
-      class="info-list"
-    >
-      <div
-        class="info-list__item"
-      >
-        <div
-          class="info-list__item__title"
-        >
-          Gene
-        </div>
-        <div
-          class="info-list__item__content"
-        >
-          <span>
-            <strong>
-              some Gene
-            </strong>
-             
-            <div>
-              some Syn, some orf
-            </div>
-          </span>
-        </div>
-      </div>
-    </div>
+    <p />
+    <p />
   </div>
 </DocumentFragment>
 `;

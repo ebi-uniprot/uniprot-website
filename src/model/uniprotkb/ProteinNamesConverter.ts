@@ -13,17 +13,17 @@ const convertProteinNames = (data: ProteinNamesData) => {
     }
   }
   const alternativeNames: string[] = [];
-  const ecNumbers = idx(data, _ => _.recommendedName.ecNumbers);
+  const ecNumbers = idx(data, o => o.recommendedName.ecNumbers);
   if (ecNumbers && ecNumbers.length > 0) {
     alternativeNames.push(...ecNumbers.map(ec => ec.value));
   }
-  const submissionNames = idx(data, _ => _.submissionNames);
+  const submissionNames = idx(data, o => o.submissionNames);
   if (submissionNames && submissionNames.length > 0) {
     alternativeNames.push(
       ...submissionNames.map(submissionName => submissionName.fullName.value)
     );
   }
-  const alternativeNameArray = idx(data, _ => _.alternativeNames);
+  const alternativeNameArray = idx(data, o => o.alternativeNames);
   if (alternativeNameArray && alternativeNameArray.length > 0) {
     alternativeNames.push(
       ...alternativeNameArray.map(altName => altName.fullName.value)

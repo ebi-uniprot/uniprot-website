@@ -1,479 +1,118 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ClauseList component should render 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ClauseList
-    clauses={
-      Array [
-        Object {
-          "id": 0,
-          "logicOperator": "AND",
-          "queryInput": Object {},
-          "searchTerm": Object {
-            "dataType": "string",
-            "example": "a4_human, P05067, cdc7 human",
-            "id": "id_all",
-            "itemType": "single",
-            "label": "All",
-            "term": "All",
-          },
-        },
-      ]
-    }
-    evidences={
-      Object {
-        "annotation": Object {
-          "data": Array [],
-          "isFetching": false,
-        },
-        "go": Object {
-          "data": Array [],
-          "isFetching": false,
-        },
-      }
-    }
-    handleRemoveClause={[MockFunction]}
-    searchTerms={
-      Object {
-        "data": Array [],
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "function",
-    "props": Object {
-      "children": Array [
+<DocumentFragment>
+  <div
+    class="advanced-search__clause"
+  >
+    <select
+      class="advanced-search__logic"
+      data-testid="advanced-search-logic-select"
+    >
+      <option
+        value="AND"
+      >
+        AND
+      </option>
+      <option
+        value="OR"
+      >
+        OR
+      </option>
+      <option
+        value="NOT"
+      >
+        NOT
+      </option>
+    </select>
+    <div
+      class="dropdown-container"
+    >
+      <button
+        class="button dropdown"
+        type="button"
+      >
+        All
+      </button>
+      <div
+        class="dropdown-menu"
+      >
         <div
-          className="advanced-search__clause"
+          class="autocomplete-container"
         >
-          <LogicalOperator
-            handleChange={[Function]}
-            value="AND"
-          />
-          <e
-            autocomplete={true}
-            autocompleteFilter={true}
-            autocompletePlaceholder="Search for field"
-            data={
-              Object {
-                "data": Array [],
-              }
-            }
-            onSelect={[Function]}
-            value={
-              Object {
-                "dataType": "string",
-                "example": "a4_human, P05067, cdc7 human",
-                "id": "id_all",
-                "itemType": "single",
-                "label": "All",
-                "term": "All",
-              }
-            }
-          />
-          <Field
-            field={
-              Object {
-                "dataType": "string",
-                "example": "a4_human, P05067, cdc7 human",
-                "id": "id_all",
-                "itemType": "single",
-                "label": "All",
-                "term": "All",
-              }
-            }
-            handleInputChange={[Function]}
-            handleRangeInputChange={[Function]}
-            queryInput={Object {}}
-          />
-          <button
-            className="button-remove"
-            onClick={[Function]}
-            type="button"
+          <form
+            data-testid="autocomplete-form"
           >
-            Remove
-          </button>
-        </div>,
-      ],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": "clause_0",
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <LogicalOperator
-              handleChange={[Function]}
-              value="AND"
-            />,
-            <e
-              autocomplete={true}
-              autocompleteFilter={true}
-              autocompletePlaceholder="Search for field"
-              data={
-                Object {
-                  "data": Array [],
-                }
-              }
-              onSelect={[Function]}
-              value={
-                Object {
-                  "dataType": "string",
-                  "example": "a4_human, P05067, cdc7 human",
-                  "id": "id_all",
-                  "itemType": "single",
-                  "label": "All",
-                  "term": "All",
-                }
-              }
-            />,
-            <Field
-              field={
-                Object {
-                  "dataType": "string",
-                  "example": "a4_human, P05067, cdc7 human",
-                  "id": "id_all",
-                  "itemType": "single",
-                  "label": "All",
-                  "term": "All",
-                }
-              }
-              handleInputChange={[Function]}
-              handleRangeInputChange={[Function]}
-              queryInput={Object {}}
-            />,
-            undefined,
-            <button
-              className="button-remove"
-              onClick={[Function]}
-              type="button"
+            <span
+              class="search-input"
             >
-              Remove
-            </button>,
-          ],
-          "className": "advanced-search__clause",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "handleChange": [Function],
-              "value": "AND",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "autocomplete": true,
-              "autocompleteFilter": true,
-              "autocompletePlaceholder": "Search for field",
-              "data": Object {
-                "data": Array [],
-              },
-              "onSelect": [Function],
-              "value": Object {
-                "dataType": "string",
-                "example": "a4_human, P05067, cdc7 human",
-                "id": "id_all",
-                "itemType": "single",
-                "label": "All",
-                "term": "All",
-              },
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "field": Object {
-                "dataType": "string",
-                "example": "a4_human, P05067, cdc7 human",
-                "id": "id_all",
-                "itemType": "single",
-                "label": "All",
-                "term": "All",
-              },
-              "handleInputChange": [Function],
-              "handleRangeInputChange": [Function],
-              "queryInput": Object {},
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          undefined,
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Remove",
-              "className": "button-remove",
-              "onClick": [Function],
-              "type": "button",
-            },
-            "ref": null,
-            "rendered": "Remove",
-            "type": "button",
-          },
-        ],
-        "type": "div",
-      },
-    ],
-    "type": Symbol(react.fragment),
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "children": Array [
-          <div
-            className="advanced-search__clause"
-          >
-            <LogicalOperator
-              handleChange={[Function]}
-              value="AND"
-            />
-            <e
-              autocomplete={true}
-              autocompleteFilter={true}
-              autocompletePlaceholder="Search for field"
-              data={
-                Object {
-                  "data": Array [],
-                }
-              }
-              onSelect={[Function]}
-              value={
-                Object {
-                  "dataType": "string",
-                  "example": "a4_human, P05067, cdc7 human",
-                  "id": "id_all",
-                  "itemType": "single",
-                  "label": "All",
-                  "term": "All",
-                }
-              }
-            />
-            <Field
-              field={
-                Object {
-                  "dataType": "string",
-                  "example": "a4_human, P05067, cdc7 human",
-                  "id": "id_all",
-                  "itemType": "single",
-                  "label": "All",
-                  "term": "All",
-                }
-              }
-              handleInputChange={[Function]}
-              handleRangeInputChange={[Function]}
-              queryInput={Object {}}
-            />
-            <button
-              className="button-remove"
-              onClick={[Function]}
-              type="button"
-            >
-              Remove
-            </button>
-          </div>,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": "clause_0",
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <LogicalOperator
-                handleChange={[Function]}
-                value="AND"
-              />,
-              <e
-                autocomplete={true}
-                autocompleteFilter={true}
-                autocompletePlaceholder="Search for field"
-                data={
-                  Object {
-                    "data": Array [],
-                  }
-                }
-                onSelect={[Function]}
-                value={
-                  Object {
-                    "dataType": "string",
-                    "example": "a4_human, P05067, cdc7 human",
-                    "id": "id_all",
-                    "itemType": "single",
-                    "label": "All",
-                    "term": "All",
-                  }
-                }
-              />,
-              <Field
-                field={
-                  Object {
-                    "dataType": "string",
-                    "example": "a4_human, P05067, cdc7 human",
-                    "id": "id_all",
-                    "itemType": "single",
-                    "label": "All",
-                    "term": "All",
-                  }
-                }
-                handleInputChange={[Function]}
-                handleRangeInputChange={[Function]}
-                queryInput={Object {}}
-              />,
-              undefined,
-              <button
-                className="button-remove"
-                onClick={[Function]}
-                type="button"
+              <input
+                data-testid="search-input"
+                placeholder="Search for field"
+                type="text"
+                value=""
+              />
+              <span
+                class="search-input__suffix"
+                data-testid="search-input-suffix"
+                role="presentation"
               >
-                Remove
-              </button>,
-            ],
-            "className": "advanced-search__clause",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "handleChange": [Function],
-                "value": "AND",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "class",
-              "props": Object {
-                "autocomplete": true,
-                "autocompleteFilter": true,
-                "autocompletePlaceholder": "Search for field",
-                "data": Object {
-                  "data": Array [],
-                },
-                "onSelect": [Function],
-                "value": Object {
-                  "dataType": "string",
-                  "example": "a4_human, P05067, cdc7 human",
-                  "id": "id_all",
-                  "itemType": "single",
-                  "label": "All",
-                  "term": "All",
-                },
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "function",
-              "props": Object {
-                "field": Object {
-                  "dataType": "string",
-                  "example": "a4_human, P05067, cdc7 human",
-                  "id": "id_all",
-                  "itemType": "single",
-                  "label": "All",
-                  "term": "All",
-                },
-                "handleInputChange": [Function],
-                "handleRangeInputChange": [Function],
-                "queryInput": Object {},
-              },
-              "ref": null,
-              "rendered": null,
-              "type": [Function],
-            },
-            undefined,
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Remove",
-                "className": "button-remove",
-                "onClick": [Function],
-                "type": "button",
-              },
-              "ref": null,
-              "rendered": "Remove",
-              "type": "button",
-            },
-          ],
-          "type": "div",
-        },
-      ],
-      "type": Symbol(react.fragment),
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
+                <svg
+                  height="14"
+                  viewBox="0 0 512 512"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                  />
+                </svg>
+              </span>
+            </span>
+          </form>
+          <div
+            class="autocomplete-menu"
+          >
+            <div
+              class="dropdown-menu__panel"
+            />
+          </div>
+        </div>
+        <div
+          class="dropdown-menu__panel"
+        >
+          <ul
+            class=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="advanced-search__inputs"
+    >
+      <div
+        class="advanced-search__inputs"
+      >
+        <label
+          for="input_All"
+        >
+          All
+          <input
+            id="input_All"
+            placeholder="a4_human, P05067, cdc7 human"
+            type="text"
+            value=""
+          />
+        </label>
+      </div>
+    </div>
+    <button
+      class="button-remove"
+      data-testid="clause-list-button-remove"
+      type="button"
+    >
+      Remove
+    </button>
+  </div>
+</DocumentFragment>
 `;

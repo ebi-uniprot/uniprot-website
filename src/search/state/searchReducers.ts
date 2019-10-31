@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import * as searchActions from './searchActions';
-import { createEmptyClause } from '../utils/clause';
+import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
 import createQueryString from '../utils/QueryStringGenerator';
 import searchInitialState, { SearchState } from './searchInitialState';
 import { Clause } from '../types/searchTypes';
@@ -122,6 +122,11 @@ const searchReducers = (
       return {
         ...state,
         queryString: createQueryString(state.clauses),
+      };
+    case searchActions.SET_PRE_SELECTED_CLAUSES:
+      return {
+        ...state,
+        clauses: createPreSelectedClauses(),
       };
     case searchActions.ADD_CLAUSE:
       return {

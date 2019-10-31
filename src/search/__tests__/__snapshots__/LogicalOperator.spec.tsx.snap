@@ -1,182 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LogicalOperator component should render 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <LogicalOperator
-    handleChange={[MockFunction]}
-    value="AND"
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <option
-          value="AND"
-        >
-          AND
-        </option>,
-        <option
-          value="OR"
-        >
-          OR
-        </option>,
-        <option
-          value="NOT"
-        >
-          NOT
-        </option>,
-      ],
-      "className": "advanced-search__logic",
-      "onChange": [Function],
-      "value": "AND",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": "AND",
-        "nodeType": "host",
-        "props": Object {
-          "children": "AND",
-          "value": "AND",
-        },
-        "ref": null,
-        "rendered": "AND",
-        "type": "option",
-      },
-      Object {
-        "instance": null,
-        "key": "OR",
-        "nodeType": "host",
-        "props": Object {
-          "children": "OR",
-          "value": "OR",
-        },
-        "ref": null,
-        "rendered": "OR",
-        "type": "option",
-      },
-      Object {
-        "instance": null,
-        "key": "NOT",
-        "nodeType": "host",
-        "props": Object {
-          "children": "NOT",
-          "value": "NOT",
-        },
-        "ref": null,
-        "rendered": "NOT",
-        "type": "option",
-      },
-    ],
-    "type": "select",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <option
-            value="AND"
-          >
-            AND
-          </option>,
-          <option
-            value="OR"
-          >
-            OR
-          </option>,
-          <option
-            value="NOT"
-          >
-            NOT
-          </option>,
-        ],
-        "className": "advanced-search__logic",
-        "onChange": [Function],
-        "value": "AND",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": "AND",
-          "nodeType": "host",
-          "props": Object {
-            "children": "AND",
-            "value": "AND",
-          },
-          "ref": null,
-          "rendered": "AND",
-          "type": "option",
-        },
-        Object {
-          "instance": null,
-          "key": "OR",
-          "nodeType": "host",
-          "props": Object {
-            "children": "OR",
-            "value": "OR",
-          },
-          "ref": null,
-          "rendered": "OR",
-          "type": "option",
-        },
-        Object {
-          "instance": null,
-          "key": "NOT",
-          "nodeType": "host",
-          "props": Object {
-            "children": "NOT",
-            "value": "NOT",
-          },
-          "ref": null,
-          "rendered": "NOT",
-          "type": "option",
-        },
-      ],
-      "type": "select",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
+<DocumentFragment>
+  <select
+    class="advanced-search__logic"
+    data-testid="advanced-search-logic-select"
+  >
+    <option
+      value="AND"
+    >
+      AND
+    </option>
+    <option
+      value="OR"
+    >
+      OR
+    </option>
+    <option
+      value="NOT"
+    >
+      NOT
+    </option>
+  </select>
+</DocumentFragment>
 `;

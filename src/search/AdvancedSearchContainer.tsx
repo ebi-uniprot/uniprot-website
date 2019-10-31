@@ -38,6 +38,7 @@ type Props = {
   ) => void;
   handleLogicChange: (clauseId: string, value: Operator) => void;
   handleRemoveClause: (clauseId: string) => void;
+  dispatchSetPreSelectedClauses: () => void;
 } & RouteComponentProps;
 
 type State = {
@@ -120,6 +121,8 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       dispatchUpdateClauses: clauses => searchActions.updateClauses(clauses),
       dispatchUpdateQueryString: queryString =>
         searchActions.updateQueryString(queryString),
+      dispatchSetPreSelectedClauses: () =>
+        searchActions.setPreSelectedClauses(),
     },
     dispatch
   );

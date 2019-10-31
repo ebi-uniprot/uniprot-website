@@ -17,7 +17,7 @@ import {
   expectedDatabaseCategoryToNames,
   expectedDatabaseNameToCategory,
   expectedEntrySectionToDatabaseCategoryOrder,
-} from '../__fixtures__/database';
+} from '../../__mockData__/database';
 
 const databaseInfo: DatabaseInfo = databaseInfoJson;
 

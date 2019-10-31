@@ -100,6 +100,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
           <button
             type="button"
             className="button-remove"
+            data-testid="clause-list-button-remove"
             onClick={() => handleRemoveClause(clause.id)}
           >
             Remove

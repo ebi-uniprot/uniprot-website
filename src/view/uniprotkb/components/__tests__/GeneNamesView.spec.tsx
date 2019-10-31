@@ -5,7 +5,9 @@ import GeneNamesUIDataJson from '../__mocks__/GeneNamesUIData.json';
 
 describe('GeneNames', () => {
   test('should render gene_names', () => {
-    const { asFragment } = render(<GeneNamesView {...GeneNamesUIDataJson} />);
+    const { asFragment } = render(
+      <GeneNamesView geneNamesData={GeneNamesUIDataJson} />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });

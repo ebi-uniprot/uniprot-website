@@ -1,11 +1,8 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, fireEvent } from '@testing-library/react';
 import LogicalOperator from '../LogicalOperator';
 
-configure({ adapter: new Adapter() });
-
-let wrapper;
+let rendered;
 let props;
 
 describe('LogicalOperator component', () => {
@@ -14,16 +11,20 @@ describe('LogicalOperator component', () => {
       value: 'AND',
       handleChange: jest.fn(),
     };
-
-    wrapper = shallow(<LogicalOperator {...props} />);
+    rendered = render(<LogicalOperator {...props} />);
   });
 
   test('should change evidence', () => {
-    wrapper.find('.advanced-search__logic').simulate('change', { target: { value: 'OR' } });
+    const { getByTestId } = rendered;
+    const select = getByTestId('advanced-search-logic-select');
+    fireEvent.change(select, {
+      target: { value: 'OR' },
+    });
     expect(props.handleChange).toBeCalled();
   });
 
   test('should render', () => {
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = rendered;
+    expect(asFragment()).toMatchSnapshot();
   });
 });

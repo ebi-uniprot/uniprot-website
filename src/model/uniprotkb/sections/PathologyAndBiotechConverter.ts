@@ -1,4 +1,4 @@
-import Comment from '../../types/Comment';
+import { CommentType } from '../../types/CommentTypes';
 import KeywordCategory from '../../types/KeywordCategory';
 import FeatureType from '../../types/FeatureType';
 import { convertSection } from '../SectionConverter';
@@ -9,7 +9,7 @@ const keywordsCategories = [KeywordCategory.DISEASE];
 
 const featuresCategories = [FeatureType.MUTAGEN];
 
-const commentsCategories = [Comment.DISEASE];
+const commentsCategories = [CommentType.DISEASE];
 
 const convertPathologyAndBiotech = (data: UniProtkbAPIModel) => {
   return convertSection(

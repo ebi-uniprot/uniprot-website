@@ -1,4 +1,4 @@
-import Comment from '../../types/Comment';
+import { CommentType } from '../../types/CommentTypes';
 import KeywordCategory from '../../types/KeywordCategory';
 import FeatureType from '../../types/FeatureType';
 import EntrySection from '../../types/EntrySection';
@@ -28,10 +28,10 @@ const featuresCategories = [
 ];
 
 const commentsCategories = [
-  Comment.FUNCTION,
-  Comment.CATALYTIC_ACTIVITY,
-  Comment.PATHWAY,
-  Comment.MISCELLANEOUS,
+  CommentType.FUNCTION,
+  CommentType.CATALYTIC_ACTIVITY,
+  CommentType.PATHWAY,
+  CommentType.MISCELLANEOUS,
 ];
 
 const convertFunction = (data: UniProtkbAPIModel) => {

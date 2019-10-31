@@ -1,9 +1,7 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render } from '@testing-library/react';
 import Field from '../Field';
 
-configure({ adapter: new Adapter() });
 const handleInputChange = jest.fn();
 const handleRangeInputChange = jest.fn();
 
@@ -16,16 +14,17 @@ describe('Clause component', () => {
       dataType: 'string',
       description: 'Search by UniProtKB Accession',
       example: 'P12345',
+      id: 'id',
     };
-    const component = shallow(
+    const { asFragment } = render(
       <Field
         field={field}
         handleInputChange={handleInputChange}
         handleRangeInputChange={handleRangeInputChange}
         queryInput={{}}
-      />,
+      />
     );
-    expect(component.debug()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render a `string` field with range', () => {
@@ -37,24 +36,25 @@ describe('Clause component', () => {
       hasRange: true,
       description: 'Search by UniProtKB Accession',
       example: 'P12345',
+      id: 'id',
     };
-    const component = shallow(
+    const { asFragment } = render(
       <Field
         field={field}
         handleInputChange={handleInputChange}
         handleRangeInputChange={handleRangeInputChange}
         queryInput={{}}
-      />,
+      />
     );
-    expect(component.debug()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render an `enum` field', () => {
     const field = {
       dataType: 'enum',
     };
-    const component = shallow(<Field field={field} />);
-    expect(component.debug()).toMatchSnapshot();
+    const { asFragment } = render(<Field field={field} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render an `integer` field', () => {
@@ -65,16 +65,17 @@ describe('Clause component', () => {
       dataType: 'integer',
       description: 'Search by feature sites',
       example: 'translocation',
+      id: 'id',
     };
-    const component = shallow(
+    const { asFragment } = render(
       <Field
         field={field}
         handleInputChange={handleInputChange}
         handleRangeInputChange={handleRangeInputChange}
         queryInput={{}}
-      />,
+      />
     );
-    expect(component.debug()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render an `integer` `range` field', () => {
@@ -86,16 +87,17 @@ describe('Clause component', () => {
       hasRange: true,
       description: 'Search by feature sites',
       example: 'translocation',
+      id: 'id',
     };
-    const component = shallow(
+    const { asFragment } = render(
       <Field
         field={field}
         handleInputChange={handleInputChange}
         handleRangeInputChange={handleRangeInputChange}
         queryInput={{}}
-      />,
+      />
     );
-    expect(component.debug()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render `date` field', () => {
@@ -107,16 +109,17 @@ describe('Clause component', () => {
       hasRange: true,
       description: 'Search by Date of creation',
       example: '[2018-03-04 TO 2018-03-08]',
+      id: 'id',
     };
-    const component = shallow(
+    const { asFragment } = render(
       <Field
         field={field}
         handleInputChange={handleInputChange}
         handleRangeInputChange={handleRangeInputChange}
         queryInput={{}}
-      />,
+      />
     );
-    expect(component.debug()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should not return anything', () => {
@@ -124,14 +127,14 @@ describe('Clause component', () => {
       label: 'I dont exist',
       dataType: 'whatever',
     };
-    const component = shallow(
+    const { asFragment } = render(
       <Field
         field={field}
         handleInputChange={handleInputChange}
         handleRangeInputChange={handleRangeInputChange}
         queryInput={{}}
-      />,
+      />
     );
-    expect(component.debug()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
 });

@@ -9,16 +9,35 @@ export enum Operator {
   NOT = 'NOT',
 }
 
+export enum itemType {
+  comment = 'comment',
+  database = 'database',
+  feature = 'feature',
+  goterm = 'goterm',
+  group = 'group',
+  groupDisplay = 'groupDisplay',
+  single = 'single',
+}
+
+export enum dataType {
+  empty = '',
+  date = 'date',
+  enum = 'enum',
+  integer = 'integer',
+  string = 'string',
+}
+
 export type SearchTermType = {
   id: string;
   label: string;
   term?: string;
   example?: string;
-  itemType: string;
-  dataType: string;
+  itemType: itemType;
+  dataType: dataType;
   hasRange?: boolean;
   hasEvidence?: boolean;
   valuePrefix?: string;
+  termSuffix?: boolean;
   autoComplete?: string;
   description?: string;
   options?: {

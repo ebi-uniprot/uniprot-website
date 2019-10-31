@@ -69,3 +69,26 @@ export const getBEMClassName = ({
   }
   return className;
 };
+
+export const truncateStringWithEllipsis = (
+  string: string,
+  maxLength: number
+) => {
+  if (string.length <= maxLength) {
+    return string;
+  }
+  return `${string.slice(0, maxLength - 3)}...`;
+};
+
+export const groupBy = (list: any[], keyGetter: Function) => {
+  const map = new Map();
+  list.forEach(item => {
+    const key = keyGetter(item);
+    if (!map.has(key)) {
+      map.set(key, [item]);
+    } else {
+      map.get(key).push(item);
+    }
+  });
+  return map;
+};

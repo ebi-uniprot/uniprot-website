@@ -6,13 +6,13 @@ type TextFieldProps = {
   type: string;
   value?: string;
   handleChange: (value: string) => void;
-}
+};
 
 const TextField = ({
   field,
   type,
   handleChange,
-  value = ''
+  value = '',
 }: TextFieldProps) => (
   <div className="advanced-search__inputs" key={field.term}>
     <label htmlFor={`input_${field.term}`}>

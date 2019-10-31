@@ -7,9 +7,9 @@ import {
 } from '../../../data/database';
 import {
   XrefUIModel,
-  Xref,
   XrefsGoupedByDatabase,
 } from '../../../model/utils/XrefUtils';
+import { Xref } from '../../../model/types/CommentTypes';
 import { Property, PropertyKey } from '../../../model/types/modelTypes';
 
 type XRefProps = {
@@ -94,23 +94,14 @@ const XRefItem: React.FC<XRefItemProps> = ({ xRefEntry, primaryAccession }) => {
   }
   let isoformLink;
   if (isoformId) {
-    isoformLink = (
-      <a href={`#${isoformId}`}>
-[
-        {isoformId}
-]
-      </a>
-);
+    isoformLink = <a href={`#${isoformId}`}>[{isoformId}]</a>;
   }
   return (
     <Fragment>
       <XRefExternalLink url={info.uriLink} accession={primaryAccession} id={id}>
         {id}
-      </XRefExternalLink>
-      {' '}
-      {properties} 
-      {' '}
-      {isoformLink}
+      </XRefExternalLink>{' '}
+      {properties} {isoformLink}
     </Fragment>
   );
 };
@@ -119,26 +110,22 @@ const XRefCategoryInfoList: React.FC<XRefCategoryInfoListProps> = ({
   databases,
   primaryAccession,
 }): JSX.Element => {
-  const infoData = databases.sort().map(
-    (database): { title: string; content: JSX.Element } => ({
-      title: database.database,
-      content: (
-        <ExpandableList descriptionString={`${database.database} links`}>
-          {database.xrefs.map(
-            (xref): { id: string; content: JSX.Element } => ({
-              id: v1(),
-              content: (
-                <XRefItem
-                  xRefEntry={xref}
-                  primaryAccession={primaryAccession}
-                />
-              ),
-            })
-          )}
-        </ExpandableList>
-      ),
-    })
-  );
+  const infoData = databases.sort().map((database): {
+    title: string;
+    content: JSX.Element;
+  } => ({
+    title: database.database,
+    content: (
+      <ExpandableList descriptionString={`${database.database} links`}>
+        {database.xrefs.map((xref): { id: string; content: JSX.Element } => ({
+          id: v1(),
+          content: (
+            <XRefItem xRefEntry={xref} primaryAccession={primaryAccession} />
+          ),
+        }))}
+      </ExpandableList>
+    ),
+  }));
   return <InfoList infoData={infoData} columns />;
 };
 

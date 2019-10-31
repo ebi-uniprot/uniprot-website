@@ -2,8 +2,10 @@
 
 exports[`Organism should render organism 1`] = `
 <DocumentFragment>
-  <span>
+  <a
+    href="/taxonomy/12344"
+  >
     Cheeky monkey (Really cheeky little monkey)  (Monkey 1,Monkey 2)
-  </span>
+  </a>
 </DocumentFragment>
 `;

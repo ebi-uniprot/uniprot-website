@@ -3,10 +3,17 @@ import { Operator } from './types/searchTypes';
 
 const operators: Operator[] = [Operator.AND, Operator.OR, Operator.NOT];
 
-const LogicalOperator = ({ value, handleChange }: { value: Operator; handleChange: Function }) => (
+const LogicalOperator = ({
+  value,
+  handleChange,
+}: {
+  value: Operator;
+  handleChange: Function;
+}) => (
   <select
     className="advanced-search__logic"
     value={value}
+    data-testid="advanced-search-logic-select"
     onChange={e => handleChange(e.target.value)}
   >
     {operators.map(op => (

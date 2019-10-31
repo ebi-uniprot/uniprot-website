@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800px" height="273px" viewBox="0 0 800 273" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Tablet</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Tablet" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" stroke="#979797" stroke-width="2" fill="#D8D8D8" x="1" y="1" width="798" height="270"></rect>
+        <path d="M0,273 L800,1" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+        <path d="M0,1 L801,272" id="Line-2" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+    </g>
+</svg>

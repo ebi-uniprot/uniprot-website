@@ -1,28 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import 'regenerator-runtime/runtime';
-import { InfoList, Sequence } from 'franklin-sites';
+import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
 import idx from 'idx';
-import Comment from '../../../model/types/Comment';
+import { Isoform, SequenceCaution } from '../../../model/types/CommentTypes';
 import apiUrls from '../../../utils/apiUrls';
 import fetchData from '../../../utils/fetchData';
 import { formatLargeNumber } from '../../../utils/utils';
 import { SequenceUIModel } from '../../../model/uniprotkb/sections/SequenceConverter';
-
-type Isoform = {
-  name: { value: string };
-  isoformSequenceStatus: string;
-  isoformIds: string[];
-  synonyms: { value: string }[];
-  note: { texts: { value: string }[] };
-  sequenceIds: string[];
-};
-
-export type AlternativeProducts = {
-  commentType: Comment;
-  isoforms: Isoform[];
-  note: { texts: { value: string }[] };
-  events: string[];
-};
+import UniProtEvidenceTag from '../../../components/UniProtEvidenceTag';
 
 export type SequenceData = {
   value: string;
@@ -105,7 +90,7 @@ export const IsoformInfo: React.FC<{ isoformData: Isoform }> = ({
     },
     {
       title: 'Synonyms',
-      content: (idx(isoformData, _ => _.synonyms) || [])
+      content: (idx(isoformData, o => o.synonyms) || [])
         .map(syn => syn.value)
         .join(', '),
     },
@@ -125,16 +110,37 @@ export const IsoformInfo: React.FC<{ isoformData: Isoform }> = ({
       <h4 id={name}>{name}</h4>
       {isoformData.isoformSequenceStatus === 'Displayed' && (
         <p>
-          This isoform has been chosen as the 
-          {' '}
-          <strong>canonical</strong>
-          {' '}
-          sequence. All positional information in this entry refers to it. This
-          is also the sequence that appears in the downloadable versions of the
-          entry.
+          This isoform has been chosen as the
+          <strong>canonical</strong> sequence. All positional information in
+          this entry refers to it. This is also the sequence that appears in the
+          downloadable versions of the entry.
         </p>
       )}
       <InfoList infoData={infoListData} />
+    </Fragment>
+  );
+};
+
+export const SequenceCautionView: React.FC<{ data: SequenceCaution[] }> = ({
+  data,
+}) => {
+  return (
+    <Fragment>
+      {data.map(cautionData => (
+        <section className="text-block" key={cautionData.sequence}>
+          {`The sequence `}
+          <ExternalLink
+            url={`//www.ebi.ac.uk/ena/data/view/${cautionData.sequence}`}
+          >
+            {cautionData.sequence}
+          </ExternalLink>
+          {` differs from that shown. Reason: ${cautionData.sequenceCautionType} `}
+          {cautionData.note}
+          {cautionData.evidences && (
+            <UniProtEvidenceTag evidences={cautionData.evidences} />
+          )}
+        </section>
+      ))}
     </Fragment>
   );
 };
@@ -176,21 +182,16 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
   if (data.alternativeProducts.isoforms && data.alternativeProducts.events) {
     isoformCountNode = (
       <p>
-        This entry describes
-        {' '}
+        {`This entry describes `}
         <strong>{data.alternativeProducts.isoforms.length}</strong>
-        {' '}
-isoforms
-        produced by
-        {' '}
-        <strong>{data.alternativeProducts.events.join(' & ')}</strong>
-.
+        {` isoforms produced by `}
+        <strong>{data.alternativeProducts.events.join(' & ')}</strong>.
       </p>
     );
   }
 
   let notesNode;
-  const texts = idx(data.alternativeProducts, _ => _.note.texts);
+  const texts = idx(data.alternativeProducts, o => o.note.texts);
   if (texts) {
     notesNode = <p>{texts.map(text => text.value).join(' ')}</p>;
   }

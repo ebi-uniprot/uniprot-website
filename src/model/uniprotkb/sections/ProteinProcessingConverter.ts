@@ -1,7 +1,7 @@
 import FeatureType from '../../types/FeatureType';
 import KeywordCategory from '../../types/KeywordCategory';
 import EntrySection from '../../types/EntrySection';
-import Comment from '../../types/Comment';
+import { CommentType } from '../../types/CommentTypes';
 import { convertSection } from '../SectionConverter';
 import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
@@ -21,7 +21,7 @@ const featuresCategories = [
   FeatureType.CROSSLNK,
 ];
 
-const proteinProcessingComments = [Comment.PTM];
+const proteinProcessingComments = [CommentType.PTM];
 
 const convertProteinProcessing = (data: UniProtkbAPIModel) => {
   return convertSection(

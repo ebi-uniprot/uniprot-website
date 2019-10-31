@@ -1,10 +1,10 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { MemoryRouter as Router } from 'react-router-dom';
 import ResultsView from '../ResultsView';
 import { ViewMode } from '../state/resultsInitialState';
+import { render } from '@testing-library/react';
 
-configure({ adapter: new Adapter() });
+import data from '../../__mockData__/results.json';
 
 describe('ResultsView component', () => {
   test('should render table', () => {
@@ -12,7 +12,7 @@ describe('ResultsView component', () => {
       viewMode: ViewMode.TABLE,
       tableColumns: ['accession'],
       selectedEntries: {},
-      results: [{ accession: '1234' }, { accession: '5678' }],
+      results: data.results,
       sort: { column: 'accession', direction: 'descend' },
       handleEntrySelection: jest.fn(),
       handleHeaderClick: jest.fn(),
@@ -21,8 +21,12 @@ describe('ResultsView component', () => {
       sortColumn: null,
       sortDirection: null,
     };
-    const wrapper = shallow(<ResultsView {...props} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Router>
+        <ResultsView {...props} />
+      </Router>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render cards', () => {
@@ -30,7 +34,7 @@ describe('ResultsView component', () => {
       viewMode: ViewMode.CARD,
       tableColumns: ['accession'],
       selectedEntries: {},
-      results: [{ accession: '1234' }, { accession: '5678' }],
+      results: data.results,
       sort: { column: 'accession', direction: 'descend' },
       handleEntrySelection: jest.fn(),
       handleHeaderClick: jest.fn(),
@@ -39,7 +43,11 @@ describe('ResultsView component', () => {
       sortColumn: null,
       sortDirection: null,
     };
-    const wrapper = shallow(<ResultsView {...props} />);
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = render(
+      <Router>
+        <ResultsView {...props} />
+      </Router>
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

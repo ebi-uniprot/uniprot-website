@@ -1,5 +1,21 @@
 // Grid Definition
 // ---------------
-section#layout[data-layout="home-page"] {
-  grid-template-areas: repeat(auto-fill, 100%);
+section#layout[data-layout='home-page'] {
+  // grid-template-areas: repeat(auto-fill, 100%);
 }
+
+/* 
+section#layout-content {
+  display: grid;
+  grid-template-columns: auto 64rem auto;
+  grid-template-areas:
+      "hero-header hero-header hero-header"
+      ". block ."
+      ". block ."
+      ". block ."
+      ". hero-container ."
+      ". block ."
+      ". hero-container ."
+      ". block .";
+}
+*/

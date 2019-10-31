@@ -1,4 +1,4 @@
-@import "../../styles/settings";
+@import '../../styles/settings';
 
 // Layout Blocks
 // -------------
@@ -7,23 +7,25 @@
   display: grid;
   grid-area: block;
 
-  & > div {
-    margin: 0 $gutter-size;
-  }
+  & > *:first-child {
+    grid-column-start: 2;
+  } 
 
   &--1-col {
-    grid-template-columns: repeat(1, 100%);
+    grid-template-columns: auto 64rem auto;
   }
 
   &--2-col {
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: auto repeat(2, 32rem) auto;
   }
 
   &--3-col {
-    grid-template-columns: repeat(3, calc(100% / 3));
+    // grid-template-columns: auto repeat(3, calc(100% / 3)) auto;
+    grid-template-columns: auto repeat(3, 16rem) auto;
   }
 
   &--4-col {
-    grid-template-columns: repeat(4, 25%);
+    // grid-template-columns: repeat(4, 25%);
+    grid-template-columns: auto repeat(4, 16rem) auto;
   }
 }

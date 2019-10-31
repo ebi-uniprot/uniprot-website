@@ -84,6 +84,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
             for="Isoform-Polar"
           >
             <input
+              data-testid="sequence-highlight-checkbox"
               id="Isoform-Polar"
               type="checkbox"
             />
@@ -93,6 +94,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
             for="Isoform-Hydrophobic"
           >
             <input
+              data-testid="sequence-highlight-checkbox"
               id="Isoform-Hydrophobic"
               type="checkbox"
             />
@@ -195,7 +197,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
     P05067-1
   </h4>
   <p>
-    This isoform has been chosen as the 
+    This isoform has been chosen as the
     <strong>
       canonical
     </strong>
@@ -329,6 +331,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
             for="P05067-Polar"
           >
             <input
+              data-testid="sequence-highlight-checkbox"
               id="P05067-Polar"
               type="checkbox"
             />
@@ -338,6 +341,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
             for="P05067-Hydrophobic"
           >
             <input
+              data-testid="sequence-highlight-checkbox"
               id="P05067-Hydrophobic"
               type="checkbox"
             />

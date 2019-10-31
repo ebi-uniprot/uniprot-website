@@ -1,11 +1,9 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, fireEvent } from '@testing-library/react';
 import RangeField from '../RangeField';
 
-configure({ adapter: new Adapter() });
 let props;
-let wrapper;
+let rendered;
 
 describe('Range field', () => {
   beforeEach(() => {
@@ -25,16 +23,21 @@ describe('Range field', () => {
       },
       handleChange: jest.fn(),
     };
-    wrapper = shallow(<RangeField {...props} />);
+    rendered = render(<RangeField {...props} />);
   });
 
   test('should render a range field', () => {
-    expect(wrapper).toMatchSnapshot();
+    const { asFragment } = rendered;
+    expect(asFragment()).toMatchSnapshot();
   });
 
   test('should handle from/to change', () => {
-    wrapper.find(`#from_input_${props.field.id}`).simulate('change', { target: { value: 'val1' } });
-    wrapper.find(`#to_input_${props.field.id}`).simulate('change', { target: { value: 'val1' } });
+    const { queryAllByTestId } = rendered;
+    const fromNodes = queryAllByTestId('range-field-from-input');
+    const toNodes = queryAllByTestId('range-field-to-input');
+    const index = 0;
+    fireEvent.change(fromNodes[index], { target: { value: 'val1' } });
+    fireEvent.change(toNodes[index], { target: { value: 'val1' } });
     expect(props.handleChange).toHaveBeenCalledTimes(2);
   });
 });

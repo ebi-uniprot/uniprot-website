@@ -1,431 +1,3328 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsView component should render cards 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ResultsView
-    handleEntrySelection={[MockFunction]}
-    handleHeaderClick={[MockFunction]}
-    handleLoadMoreRows={[MockFunction]}
-    results={
-      Array [
-        Object {
-          "accession": "1234",
-        },
-        Object {
-          "accession": "5678",
-        },
-      ]
-    }
-    selectedEntries={Object {}}
-    sort={
-      Object {
-        "column": "accession",
-        "direction": "descend",
-      }
-    }
-    sortColumn={null}
-    sortDirection={null}
-    tableColumns={
-      Array [
-        "accession",
-      ]
-    }
-    totalNumberResults={2}
-    viewMode={1}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
+<DocumentFragment>
+  <div
+    class="datalist"
+  >
+    <div
+      class="datalist__column"
+    >
+      <div
+        class="data-loader__wrapper"
+      >
         <div
-          className="datalist__column"
+          class="data-loader__scroll-container"
         >
-          <Unknown
-            data={
-              Array [
-                Object {
-                  "accession": "1234",
-                },
-                Object {
-                  "accession": "5678",
-                },
-              ]
-            }
-            dataRenderer={[Function]}
-            hasMoreData={false}
-            idKey="primaryAccession"
-            onLoadMoreItems={[MockFunction]}
-            onSelect={[MockFunction]}
-            selectable={true}
-            selected={Object {}}
-          />
-        </div>,
-        <div
-          className="datalist__column"
-        />,
-      ],
-      "className": "datalist",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <Unknown
-            data={
-              Array [
-                Object {
-                  "accession": "1234",
-                },
-                Object {
-                  "accession": "5678",
-                },
-              ]
-            }
-            dataRenderer={[Function]}
-            hasMoreData={false}
-            idKey="primaryAccession"
-            onLoadMoreItems={[MockFunction]}
-            onSelect={[MockFunction]}
-            selectable={true}
-            selected={Object {}}
-          />,
-          "className": "datalist__column",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "data": Array [
-              Object {
-                "accession": "1234",
-              },
-              Object {
-                "accession": "5678",
-              },
-            ],
-            "dataRenderer": [Function],
-            "hasMoreData": false,
-            "idKey": "primaryAccession",
-            "onCardClick": undefined,
-            "onLoadMoreItems": [MockFunction],
-            "onSelect": [MockFunction],
-            "selectable": true,
-            "selected": Object {},
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": undefined,
-          "className": "datalist__column",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": "div",
-      },
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
           <div
-            className="datalist__column"
+            class="card "
           >
-            <Unknown
-              data={
-                Array [
-                  Object {
-                    "accession": "1234",
-                  },
-                  Object {
-                    "accession": "5678",
-                  },
-                ]
-              }
-              dataRenderer={[Function]}
-              hasMoreData={false}
-              idKey="primaryAccession"
-              onLoadMoreItems={[MockFunction]}
-              onSelect={[MockFunction]}
-              selectable={true}
-              selected={Object {}}
-            />
-          </div>,
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/O00311"
+                    >
+                      O00311
+                    </a>
+                     · CDC7_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  Cell division cycle 7-related protein kinase · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: CDC7 · 574 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Seems to phosphorylate critical substrates that regulate the G1/S phase transition and/or DNA replication. Can phosphorylates MCM2 and MCM3
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
           <div
-            className="datalist__column"
-          />,
-        ],
-        "className": "datalist",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <Unknown
-              data={
-                Array [
-                  Object {
-                    "accession": "1234",
-                  },
-                  Object {
-                    "accession": "5678",
-                  },
-                ]
-              }
-              dataRenderer={[Function]}
-              hasMoreData={false}
-              idKey="primaryAccession"
-              onLoadMoreItems={[MockFunction]}
-              onSelect={[MockFunction]}
-              selectable={true}
-              selected={Object {}}
-            />,
-            "className": "datalist__column",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "function",
-            "props": Object {
-              "data": Array [
-                Object {
-                  "accession": "1234",
-                },
-                Object {
-                  "accession": "5678",
-                },
-              ],
-              "dataRenderer": [Function],
-              "hasMoreData": false,
-              "idKey": "primaryAccession",
-              "onCardClick": undefined,
-              "onLoadMoreItems": [MockFunction],
-              "onSelect": [MockFunction],
-              "selectable": true,
-              "selected": Object {},
-            },
-            "ref": null,
-            "rendered": null,
-            "type": [Function],
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": undefined,
-            "className": "datalist__column",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "div",
-        },
-      ],
-      "type": "div",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q9Z0H0"
+                    >
+                      Q9Z0H0
+                    </a>
+                     · CDC7_MOUSE
+                  </div>
+                </h4>
+                <p>
+                  Cell division cycle 7-related protein kinase · 
+                  <a
+                    href="#"
+                  >
+                    Mus musculus
+                  </a>
+                   · Gene: Cdc7 · 564 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Seems to phosphorylate critical substrates that regulate the G1/S phase transition and/or DNA replication. Can phosphorylates MCM2 and MCM3
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P06243"
+                    >
+                      P06243
+                    </a>
+                     · CDC7_YEAST
+                  </div>
+                </h4>
+                <p>
+                  Cell division control protein 7 · 
+                  <a
+                    href="#"
+                  >
+                    Saccharomyces cerevisiae (strain ATCC 204508 / S288c)
+                  </a>
+                   · Gene: CDC7 · 507 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commit...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0469"
+                  >
+                     #Meiosis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0498"
+                  >
+                     #Mitosis
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P41892"
+                    >
+                      P41892
+                    </a>
+                     · CDC7_SCHPO
+                  </div>
+                </h4>
+                <p>
+                  Cell division control protein 7 · 
+                  <a
+                    href="#"
+                  >
+                    Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                  </a>
+                   · Gene: cdc7 · 1062 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Protein kinase essential for cell division. Plays a key role in initiation of septum formation and cytokinesis
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q54DK3"
+                    >
+                      Q54DK3
+                    </a>
+                     · CDC7_DICDI
+                  </div>
+                </h4>
+                <p>
+                  Probable serine/threonine-protein kinase cdc7 · 
+                  <a
+                    href="#"
+                  >
+                    Dictyostelium discoideum
+                  </a>
+                   · Gene: cdc7 · 1061 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(36deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        3/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p />
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P50582"
+                    >
+                      P50582
+                    </a>
+                     · HSK1_SCHPO
+                  </div>
+                </h4>
+                <p>
+                  Cell cycle serine/threonine-protein kinase hsk1 · 
+                  <a
+                    href="#"
+                  >
+                    Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                  </a>
+                   · Gene: hsk1 · 507 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Required for G1/S transition. Plays a role in DNA replication checkpoint signaling through regulating rad3 and cds1. Involved in the maintenance of...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q8NEY8"
+                    >
+                      Q8NEY8
+                    </a>
+                     · PPHLN_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  Periphilin-1 · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: PPHLN1 · 458 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Component of the HUSH complex, a multiprotein complex that mediates epigenetic repression. The HUSH complex is recruited to genomic loci rich in H3...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0678"
+                  >
+                     #Repressor
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0417"
+                  >
+                     #Keratinization
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0804"
+                  >
+                     #Transcription
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0805"
+                  >
+                     #Transcription regulation
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--unreviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 400 512"
+                        width="400"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/X2JCT3"
+                    >
+                      X2JCT3
+                    </a>
+                     · X2JCT3_DROME
+                  </div>
+                </h4>
+                <p>
+                  <a
+                    href="#"
+                  >
+                    Drosophila melanogaster
+                  </a>
+                   · Gene: Cdc7 · 699 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p />
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--unreviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 400 512"
+                        width="400"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q9W3Y1"
+                    >
+                      Q9W3Y1
+                    </a>
+                     · Q9W3Y1_DROME
+                  </div>
+                </h4>
+                <p>
+                  <a
+                    href="#"
+                  >
+                    Drosophila melanogaster
+                  </a>
+                   · Gene: Cdc7 · 700 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p />
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q8NFT6"
+                    >
+                      Q8NFT6
+                    </a>
+                     · DBF4B_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  Protein DBF4 homolog B · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: DBF4B · 615 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role in DNA replication and cell proliferation. Required ...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P32325"
+                    >
+                      P32325
+                    </a>
+                     · DBF4_YEAST
+                  </div>
+                </h4>
+                <p>
+                  DDK kinase regulatory subunit DBF4 · 
+                  <a
+                    href="#"
+                  >
+                    Saccharomyces cerevisiae (strain ATCC 204508 / S288c)
+                  </a>
+                   · Gene: DBF4 · 704 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Regulatory subunit of the CDC7-DBF4 kinase, also called DBF4-dependent kinase (DDK), which is involved in cell cycle regulation of premitotic and p...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0159"
+                  >
+                     #Chromosome partition
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0469"
+                  >
+                     #Meiosis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0498"
+                  >
+                     #Mitosis
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q9UBU7"
+                    >
+                      Q9UBU7
+                    </a>
+                     · DBF4A_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  Protein DBF4 homolog A · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: DBF4 · 674 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role in DNA replication and cell proliferation. Required ...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P49736"
+                    >
+                      P49736
+                    </a>
+                     · MCM2_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  DNA replication licensing factor MCM2 · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: MCM2 · 904 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replicatio...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0347"
+                  >
+                     #Helicase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0209"
+                  >
+                     #Deafness
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0225"
+                  >
+                     #Disease mutation
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-1010"
+                  >
+                     #Non-syndromic deafness
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q9BW66"
+                    >
+                      Q9BW66
+                    </a>
+                     · CINP_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  Cyclin-dependent kinase 2-interacting protein · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: CINP · 212 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Interacts with the components of the replication complex and 2 kinases, CDK2 and CDC7, thereby providing a functional and physical link between CDK...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0227"
+                  >
+                     #DNA damage
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0234"
+                  >
+                     #DNA repair
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q9QZ41"
+                    >
+                      Q9QZ41
+                    </a>
+                     · DBF4A_MOUSE
+                  </div>
+                </h4>
+                <p>
+                  Protein DBF4 homolog A · 
+                  <a
+                    href="#"
+                  >
+                    Mus musculus
+                  </a>
+                   · Gene: Dbf4 · 663 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role DNA in replication and cell proliferation. Required ...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q8SR83"
+                    >
+                      Q8SR83
+                    </a>
+                     · CDC72_ENCCU
+                  </div>
+                </h4>
+                <p>
+                  Probable cell division control protein 7 homolog 2 · 
+                  <a
+                    href="#"
+                  >
+                    Encephalitozoon cuniculi (strain GB-M1)
+                  </a>
+                   · Gene: CDC7-2 · 351 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(36deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        3/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commit...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0469"
+                  >
+                     #Meiosis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0498"
+                  >
+                     #Mitosis
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P97310"
+                    >
+                      P97310
+                    </a>
+                     · MCM2_MOUSE
+                  </div>
+                </h4>
+                <p>
+                  DNA replication licensing factor MCM2 · 
+                  <a
+                    href="#"
+                  >
+                    Mus musculus
+                  </a>
+                   · Gene: Mcm2 · 904 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replicatio...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0347"
+                  >
+                     #Helicase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q8SR85"
+                    >
+                      Q8SR85
+                    </a>
+                     · CDC71_ENCCU
+                  </div>
+                </h4>
+                <p>
+                  Probable cell division control protein 7 homolog 1 · 
+                  <a
+                    href="#"
+                  >
+                    Encephalitozoon cuniculi (strain GB-M1)
+                  </a>
+                   · Gene: CDC7-1 · 351 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(36deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        3/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commit...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0469"
+                  >
+                     #Meiosis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0498"
+                  >
+                     #Mitosis
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P55861"
+                    >
+                      P55861
+                    </a>
+                     · MCM2_XENLA
+                  </div>
+                </h4>
+                <p>
+                  DNA replication licensing factor mcm2 · 
+                  <a
+                    href="#"
+                  >
+                    Xenopus laevis
+                  </a>
+                   · Gene: mcm2 · 886 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replicatio...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0347"
+                  >
+                     #Helicase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P87027"
+                    >
+                      P87027
+                    </a>
+                     · SPG1_SCHPO
+                  </div>
+                </h4>
+                <p>
+                  Septum-promoting GTP-binding protein 1 · 
+                  <a
+                    href="#"
+                  >
+                    Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                  </a>
+                   · Gene: spg1 · 198 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  GTP-binding protein essential for the induction of septum formation at G2 and pre-START stages of mitosis. Acts via the cdc7 protein kinase pathway
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0498"
+                  >
+                     #Mitosis
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q5XK83"
+                    >
+                      Q5XK83
+                    </a>
+                     · MCM4A_XENLA
+                  </div>
+                </h4>
+                <p>
+                  DNA replication licensing factor mcm4-A · 
+                  <a
+                    href="#"
+                  >
+                    Xenopus laevis
+                  </a>
+                   · Gene: mcm4-a · 858 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replicatio...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0347"
+                  >
+                     #Helicase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/Q9UQY9"
+                    >
+                      Q9UQY9
+                    </a>
+                     · SPO4_SCHPO
+                  </div>
+                </h4>
+                <p>
+                  Cell cycle protein kinase spo4 · 
+                  <a
+                    href="#"
+                  >
+                    Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                  </a>
+                   · Gene: spo4 · 429 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Required for the initiation of meiosis II and progression through anaphase II
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0418"
+                  >
+                     #Kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0723"
+                  >
+                     #Serine/threonine-protein kinase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0808"
+                  >
+                     #Transferase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0132"
+                  >
+                     #Cell division
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0469"
+                  >
+                     #Meiosis
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0749"
+                  >
+                     #Sporulation
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/O74473"
+                    >
+                      O74473
+                    </a>
+                     · CDC11_SCHPO
+                  </div>
+                </h4>
+                <p>
+                  Septation initiation network scaffold protein cdc11 · 
+                  <a
+                    href="#"
+                  >
+                    Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                  </a>
+                   · Gene: cdc11 · 1045 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Essential for the onset of septum formation. Involved in the organization of astral microtubules during mitosis. Acts as a bridge between sid4 and ...
+                </p>
+                <p />
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P30664"
+                    >
+                      P30664
+                    </a>
+                     · MCM4B_XENLA
+                  </div>
+                </h4>
+                <p>
+                  DNA replication licensing factor mcm4-B · 
+                  <a
+                    href="#"
+                  >
+                    Xenopus laevis
+                  </a>
+                   · Gene: mcm4-b · 863 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replicatio...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0347"
+                  >
+                     #Helicase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="card "
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="card__content__checkbox"
+              >
+                <input
+                  type="checkbox"
+                />
+              </div>
+              <div>
+                <h4>
+                  <div
+                    class="uniprot-title"
+                  >
+                    <span
+                      class="uniprot-title__status icon--reviewed"
+                    >
+                      <svg
+                        height="512"
+                        viewBox="0 0 426 512"
+                        width="426"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+                          id="Shape"
+                        />
+                      </svg>
+                    </span>
+                    <a
+                      href="/uniprotkb/P33991"
+                    >
+                      P33991
+                    </a>
+                     · MCM4_HUMAN
+                  </div>
+                </h4>
+                <p>
+                  DNA replication licensing factor MCM4 · 
+                  <a
+                    href="#"
+                  >
+                    Homo sapiens
+                  </a>
+                   · Gene: MCM4 · 863 amino-acids · 
+                  <span
+                    title="Annotation Score"
+                  >
+                    <span
+                      class="doughnut-chart--small colour-light-grey"
+                    >
+                      <span
+                        class="doughnut-chart--small__left-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__right-wrap"
+                      >
+                        <span
+                          class="doughnut-chart--small__right-wrap__loader colour-uniprot-blue"
+                          style="transform: rotate(180deg);"
+                        />
+                      </span>
+                      <span
+                        class="doughnut-chart--small__inner-circle"
+                      >
+                        5/5
+                      </span>
+                    </span>
+                  </span>
+                </p>
+                <p>
+                  Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replicatio...
+                </p>
+                <p>
+                  <a
+                    href="/keywords/KW-0238"
+                  >
+                     #DNA-binding
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0347"
+                  >
+                     #Helicase
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0378"
+                  >
+                     #Hydrolase
+                  </a>
+                   · 
+                  <a
+                    href="/keywords/KW-0131"
+                  >
+                     #Cell cycle
+                  </a>
+                   
+                  <a
+                    href="/keywords/KW-0235"
+                  >
+                     #DNA replication
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="datalist__column"
+    />
+  </div>
+</DocumentFragment>
 `;
 
 exports[`ResultsView component should render table 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ResultsView
-    handleEntrySelection={[MockFunction]}
-    handleHeaderClick={[MockFunction]}
-    handleLoadMoreRows={[MockFunction]}
-    results={
-      Array [
-        Object {
-          "accession": "1234",
-        },
-        Object {
-          "accession": "5678",
-        },
-      ]
-    }
-    selectedEntries={Object {}}
-    sort={
-      Object {
-        "column": "accession",
-        "direction": "descend",
-      }
-    }
-    sortColumn={null}
-    sortDirection={null}
-    tableColumns={
-      Array [
-        "accession",
-      ]
-    }
-    totalNumberResults={2}
-    viewMode={0}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "function",
-    "props": Object {
-      "columns": Array [
-        Object {
-          "label": "Entry",
-          "name": "accession",
-          "render": [Function],
-          "sortable": true,
-          "sorted": false,
-        },
-      ],
-      "data": Array [
-        Object {
-          "accession": "1234",
-        },
-        Object {
-          "accession": "5678",
-        },
-      ],
-      "hasMoreData": false,
-      "idKey": "primaryAccession",
-      "onHeaderClick": [MockFunction],
-      "onLoadMoreItems": [MockFunction],
-      "onSelect": [MockFunction],
-      "selectable": true,
-      "selected": Object {},
-    },
-    "ref": null,
-    "rendered": null,
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "function",
-      "props": Object {
-        "columns": Array [
-          Object {
-            "label": "Entry",
-            "name": "accession",
-            "render": [Function],
-            "sortable": true,
-            "sorted": false,
-          },
-        ],
-        "data": Array [
-          Object {
-            "accession": "1234",
-          },
-          Object {
-            "accession": "5678",
-          },
-        ],
-        "hasMoreData": false,
-        "idKey": "primaryAccession",
-        "onHeaderClick": [MockFunction],
-        "onLoadMoreItems": [MockFunction],
-        "onSelect": [MockFunction],
-        "selectable": true,
-        "selected": Object {},
-      },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
+<DocumentFragment>
+  <div
+    class="data-loader__wrapper"
+  >
+    <div
+      class="data-loader__scroll-container"
+    >
+      <table
+        class="data-table__table"
+      >
+        <thead
+          class="data-table__table__header"
+        >
+          <tr
+            class="data-table__table__header__row"
+          >
+            <th
+              class="data-table__table__header__row__cell"
+            >
+               
+            </th>
+            <th
+              class="data-table__table__header__row__cell data-table__table__header__row__cell--sortable"
+            >
+              Entry
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="data-table__table__body"
+        >
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/O00311"
+              >
+                O00311 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q9Z0H0"
+              >
+                Q9Z0H0 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/P06243"
+              >
+                P06243 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/P41892"
+              >
+                P41892 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/Q54DK3"
+              >
+                Q54DK3 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/P50582"
+              >
+                P50582 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/Q8NEY8"
+              >
+                Q8NEY8 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/X2JCT3"
+              >
+                X2JCT3 (TrEMBL)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/Q9W3Y1"
+              >
+                Q9W3Y1 (TrEMBL)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q8NFT6"
+              >
+                Q8NFT6 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/P32325"
+              >
+                P32325 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q9UBU7"
+              >
+                Q9UBU7 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/P49736"
+              >
+                P49736 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q9BW66"
+              >
+                Q9BW66 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/Q9QZ41"
+              >
+                Q9QZ41 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q8SR83"
+              >
+                Q8SR83 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/P97310"
+              >
+                P97310 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q8SR85"
+              >
+                Q8SR85 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/P55861"
+              >
+                P55861 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/P87027"
+              >
+                P87027 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/Q5XK83"
+              >
+                Q5XK83 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/Q9UQY9"
+              >
+                Q9UQY9 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/O74473"
+              >
+                O74473 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell data-table__table__body__cell--odd "
+            >
+              <a
+                href="/uniprotkb/P30664"
+              >
+                P30664 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__table__body__cell "
+            >
+              <a
+                href="/uniprotkb/P33991"
+              >
+                P33991 (Swiss-Prot)
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
 `;

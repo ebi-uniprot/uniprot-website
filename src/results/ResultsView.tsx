@@ -5,7 +5,9 @@ import '../styles/alert.scss';
 import '../styles/ResultsView.scss';
 import { SelectedEntries, SortDirection } from './types/resultsTypes';
 import UniProtCard from '../view/uniprotkb/components/UniProtCard';
-import { UniProtkbAPIModel } from '../model/uniprotkb/UniProtkbConverter';
+import uniProtKbConverter, {
+  UniProtkbAPIModel,
+} from '../model/uniprotkb/UniProtkbConverter';
 import { ViewMode } from './state/resultsInitialState';
 import ProteinSummary from '../view/uniprotkb/summary/ProteinSummary';
 import { SortableColumn, Column } from '../model/types/ColumnTypes';
@@ -39,27 +41,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   viewMode,
   summaryAccession,
 }) => {
-  const columns = tableColumns.map(columnName => {
-    const columnConfig = ColumnConfiguration.get(columnName);
-    if (columnConfig) {
-      return {
-        label: columnConfig.label,
-        name: columnName,
-        render: (row: UniProtkbAPIModel) => columnConfig.render(row),
-        sortable: columnConfig.sortable,
-        sorted: columnName === sortColumn && sortDirection,
-      };
-    }
-    return {
-      label: columnName,
-      name: columnName,
-      render: () => (
-        <div className="warning">{`${columnName} has no config`}</div>
-      ),
-      sortable: false,
-      sorted: false,
-    };
-  });
   const hasMoreData = totalNumberResults > results.length;
   if (viewMode === ViewMode.CARD) {
     return (
@@ -85,6 +66,28 @@ const ResultsView: React.FC<ResultsTableProps> = ({
       </div>
     );
   } // viewMode === ViewMode.TABLE
+  const columns = tableColumns.map(columnName => {
+    const columnConfig = ColumnConfiguration.get(columnName);
+    if (columnConfig) {
+      return {
+        label: columnConfig.label,
+        name: columnName,
+        render: (row: UniProtkbAPIModel) =>
+          columnConfig.render(uniProtKbConverter(row)),
+        sortable: columnConfig.sortable,
+        sorted: columnName === sortColumn && sortDirection,
+      };
+    }
+    return {
+      label: columnName,
+      name: columnName,
+      render: () => (
+        <div className="warning">{`${columnName} has no config`}</div>
+      ),
+      sortable: false,
+      sorted: false,
+    };
+  });
   return (
     <DataTable
       idKey="primaryAccession"

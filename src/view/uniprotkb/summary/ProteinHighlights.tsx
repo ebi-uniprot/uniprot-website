@@ -3,11 +3,13 @@ import { Bubble } from 'franklin-sites';
 import { HashLink as Link } from 'react-router-hash-link';
 import { UniProtkbAPIModel } from '../../../model/uniprotkb/UniProtkbConverter';
 import FeatureType from '../../../model/types/FeatureType';
-import Comment from '../../../model/types/Comment';
-import { InteractionComment } from '../components/InteractionView';
+import {
+  CommentType,
+  InteractionComment,
+  DiseaseComment,
+  AlternativeProducts,
+} from '../../../model/types/CommentTypes';
 import { FeatureData } from '../components/FeaturesView';
-import { AlternativeProducts } from '../components/SequenceView';
-import { DiseaseCommentData } from '../components/DiseaseInvolvementView';
 import './ProteinHighlights.scss';
 import EntrySection from '../../../model/types/EntrySection';
 
@@ -80,32 +82,32 @@ const ProteinHighlights: FC<{ data: UniProtkbAPIModel }> = ({ data }) => {
 
   if (data.comments) {
     // isoforms
-    const isoformsComments = (data.comments.find(
-      comment => comment.commentType === Comment.ALTERNATIVE_PRODUCTS
-    ) as unknown) as AlternativeProducts;
+    const isoformsComments = data.comments.find(
+      comment => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
+    ) as AlternativeProducts;
     highlightsMap.set(
       highlightSection.isoforms,
       isoformsComments ? isoformsComments.isoforms.length : 0
     );
 
     // interactions
-    const interactionComments = (data.comments.find(
-      comment => comment.commentType === Comment.INTERACTION
-    ) as unknown) as InteractionComment;
+    const interactionComments = data.comments.find(
+      comment => comment.commentType === CommentType.INTERACTION
+    ) as InteractionComment;
     highlightsMap.set(
       highlightSection.interactions,
       interactionComments ? interactionComments.interactions.length : 0
     );
 
     // diseases
-    const diseaseComments = (data.comments.filter(
-      comment => comment.commentType === Comment.DISEASE
-    ) as unknown) as DiseaseCommentData;
+    const diseaseComments = data.comments.filter(
+      comment => comment.commentType === CommentType.DISEASE
+    ) as DiseaseComment[];
     highlightsMap.set(highlightSection.disease, diseaseComments.length);
 
     // subcellular location
     const subcellComments = data.comments.filter(
-      comment => comment.commentType === Comment.SUBCELLULAR_LOCATION
+      comment => comment.commentType === CommentType.SUBCELLULAR_LOCATION
     );
     highlightsMap.set(highlightSection.subcell, subcellComments.length);
   }

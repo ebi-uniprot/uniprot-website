@@ -1,8 +1,7 @@
 import { ValueWithEvidence } from '../../types/modelTypes';
 import { Flag } from './SequenceConverter';
-import convertGeneNames from '../GeneNamesConverter';
 import { UniProtkbAPIModel } from '../UniProtkbConverter';
-import { Xref } from '../../utils/XrefUtils';
+import { Xref } from '../../types/CommentTypes';
 import { convertSection, UIModel } from '../SectionConverter';
 import EntrySection from '../../types/EntrySection';
 
@@ -29,11 +28,12 @@ export type ProteinNamesData = ProteinDescription & {
 };
 
 export type GeneNamesData = {
-  geneName: {
+  geneName?: {
     value: string;
   };
   synonyms?: [{ value: string }];
   orfNames?: [{ value: string }];
+  orderedLocusNames?: [{ value: string }];
 }[];
 
 export type OrganismData = {
@@ -46,9 +46,10 @@ export type OrganismData = {
 
 export type NamesAndTaxonomyUIModel = {
   proteinNamesData?: ProteinNamesData;
-  geneNamesData?: { name: string; alternativeNames: string[] };
-  organismData?: {};
+  geneNamesData?: GeneNamesData;
+  organismData?: OrganismData;
   proteomesData?: Xref[];
+  organismHosts?: OrganismData[];
 } & UIModel;
 
 export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
@@ -64,10 +65,13 @@ export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
     namesAndTaxonomyData.proteinNamesData = data.proteinDescription;
   }
   if (data.genes) {
-    namesAndTaxonomyData.geneNamesData = convertGeneNames(data.genes);
+    namesAndTaxonomyData.geneNamesData = data.genes;
   }
   if (data.organism) {
     namesAndTaxonomyData.organismData = data.organism;
+  }
+  if (data.organismHosts) {
+    namesAndTaxonomyData.organismHosts = data.organismHosts;
   }
   if (data.databaseCrossReferences) {
     namesAndTaxonomyData.proteomesData = data.databaseCrossReferences.filter(

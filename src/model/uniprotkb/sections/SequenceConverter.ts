@@ -7,11 +7,12 @@ import KeywordCategory from '../../types/KeywordCategory';
 import FeatureType from '../../types/FeatureType';
 import { getXrefsForSection, XrefUIModel } from '../../utils/XrefUtils';
 import EntrySection from '../../types/EntrySection';
+import { SequenceData } from '../../../view/uniprotkb/components/SequenceView';
 import {
+  CommentType,
   AlternativeProducts,
-  SequenceData,
-} from '../../../view/uniprotkb/components/SequenceView';
-import Comment from '../../types/Comment';
+  SequenceCaution,
+} from '../../types/CommentTypes';
 import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
 export enum Flag {
@@ -28,6 +29,7 @@ export type SequenceUIModel = {
   processing?: string;
   keywordData: KeywordUIModel[];
   alternativeProducts?: AlternativeProducts;
+  sequenceCaution?: SequenceCaution[];
   featuresData: FeatureData;
   xrefData: XrefUIModel[];
   lastUpdateDate?: string;
@@ -42,6 +44,7 @@ const sequenceFeatures = [
   FeatureType.CONFLICT,
   FeatureType.NON_CONS,
   FeatureType.NON_TER,
+  FeatureType.VAR_SEQ,
 ];
 
 export const convertSequence = (data: UniProtkbAPIModel) => {
@@ -80,9 +83,13 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
   // Trembl entries only have a canonical sequence
   if (data.comments) {
     const alternativeProducts = data.comments.find(
-      comment => comment.commentType === Comment.ALTERNATIVE_PRODUCTS
+      comment => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
     );
-    sequenceData.alternativeProducts = (alternativeProducts as unknown) as AlternativeProducts;
+    sequenceData.alternativeProducts = alternativeProducts as AlternativeProducts;
+    const sequenceCaution = data.comments.filter(
+      comment => comment.commentType === CommentType.SEQUENCE_CAUTION
+    );
+    sequenceData.sequenceCaution = sequenceCaution as SequenceCaution[];
   }
 
   if (data.keywords) {

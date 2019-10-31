@@ -34,7 +34,7 @@ const GoRibbon: FC<{ primaryAccession: string }> = ({ primaryAccession }) => (
         dataReceived: any;
       }) => (
         <div className="GoRibbon__container">
-          {dataReceived ? (
+          {dataReceived && (
             <Ribbon
               entities={entities}
               config={config}
@@ -44,12 +44,14 @@ const GoRibbon: FC<{ primaryAccession: string }> = ({ primaryAccession }) => (
               binaryColor={false}
               oddEvenColor
             />
-          ) : null}
-          {dataError}
-          {!dataReceived && !dataError && (
-            <div style={{ fontSize: '2rem', paddingLeft: '2rem' }}>
-              Loading...
+          )}
+          {!dataReceived && dataError && (
+            <div className="GoRibbon__container__message">
+              Cannot load Go Ribbon visualisation due to server error
             </div>
+          )}
+          {!dataReceived && !dataError && (
+            <div className="GoRibbon__container__message">Loading...</div>
           )}
         </div>
       )}

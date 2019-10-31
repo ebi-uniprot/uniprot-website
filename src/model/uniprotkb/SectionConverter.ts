@@ -1,18 +1,17 @@
 import { getXrefsForSection, XrefUIModel } from '../utils/XrefUtils';
-import { FreeTextData } from '../../view/uniprotkb/components/FreeTextView';
+import Comment, { CommentType } from '../types/CommentTypes';
 import {
   getKeywordsForCategories,
   KeywordUIModel,
 } from '../utils/KeywordsUtil';
 import { FeatureData } from '../../view/uniprotkb/components/FeaturesView';
 import EntrySection from '../types/EntrySection';
-import Comment from '../types/Comment';
 import KeywordCategory from '../types/KeywordCategory';
 import FeatureType from '../types/FeatureType';
 import { UniProtkbAPIModel } from './UniProtkbConverter';
 
 export type UIModel = {
-  commentsData: Map<Comment, FreeTextData>;
+  commentsData: Map<CommentType, Comment[]>;
   keywordData: KeywordUIModel[];
   featuresData: FeatureData;
   xrefData: XrefUIModel[];
@@ -20,7 +19,7 @@ export type UIModel = {
 
 export const convertSection = (
   data: UniProtkbAPIModel,
-  sectionComments?: Comment[],
+  sectionComments?: CommentType[],
   sectionKeywords?: KeywordCategory[],
   sectionFeatures?: FeatureType[],
   section?: EntrySection

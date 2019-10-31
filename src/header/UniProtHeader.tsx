@@ -5,7 +5,7 @@ import SearchContainer from '../search/SearchContainer';
 
 import Logo from '../svg/uniprot-rgb.svg';
 
-const links = [
+const tools = [
   {
     label: 'BLAST',
     path: '/',
@@ -15,16 +15,49 @@ const links = [
     path: '/',
   },
   {
-    label: 'Advanced search',
+    label: 'Peptide Search',
+    path: '/',
+  },
+  {
+    label: 'Retrieve/ID Mapping',
+    path: '/',
+  },
+];
+
+const links = [
+  {
+    label: 'Query Builder',
     path: '/advancedSearch',
   },
   {
-    label: 'Tools',
-    path: '/',
+    label: 'API',
+    links: [
+      {
+        label: 'Programmatic access',
+        path: '/',
+      },
+    ],
   },
   {
     label: 'Help',
-    path: '/',
+    links: [
+      {
+        label: 'Help',
+        path: '/',
+      },
+      {
+        label: 'Contact',
+        path: '/',
+      },
+      {
+        label: 'About UniProt',
+        path: '/',
+      },
+      {
+        label: 'Cite us',
+        path: '/',
+      },
+    ],
   },
 ];
 
@@ -32,7 +65,11 @@ const UniProtHeader = ({ isHomePage = false, isSearchPage = false }) => {
   const shouldShowSearch = !isSearchPage && !isHomePage;
   return (
     <Header
-      links={links}
+      links={
+        isHomePage
+          ? [...tools, ...links]
+          : [{ label: 'Tools', links: tools }, ...links]
+      }
       isNegative={isHomePage}
       search={shouldShowSearch && <SearchContainer />}
       logo={<Logo width={120} height={50} />}

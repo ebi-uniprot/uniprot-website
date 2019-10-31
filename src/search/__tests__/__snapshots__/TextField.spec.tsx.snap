@@ -1,178 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Range field should render a text field 1`] = `
-ShallowWrapper {
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <TextField
-    field={
-      Object {
-        "description": "Search by UniProtKB Accession",
-        "example": "P12345",
-        "itemType": "single",
-        "label": "UniProtKB AC",
-        "term": "accession",
-      }
-    }
-    handleChange={[MockFunction]}
-    queryInput={Object {}}
-    type="string"
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "checkPropTypes": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateError": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": "accession",
-    "nodeType": "host",
-    "props": Object {
-      "children": <label
-        htmlFor="input_accession"
-      >
-        UniProtKB AC
-        <input
-          id="input_accession"
-          onChange={[Function]}
-          placeholder="P12345"
-          type="string"
-          value=""
-        />
-      </label>,
-      "className": "advanced-search__inputs",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          "UniProtKB AC",
-          <input
-            id="input_accession"
-            onChange={[Function]}
-            placeholder="P12345"
-            type="string"
-            value=""
-          />,
-        ],
-        "htmlFor": "input_accession",
-      },
-      "ref": null,
-      "rendered": Array [
-        "UniProtKB AC",
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "id": "input_accession",
-            "onChange": [Function],
-            "placeholder": "P12345",
-            "type": "string",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "input",
-        },
-      ],
-      "type": "label",
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": "accession",
-      "nodeType": "host",
-      "props": Object {
-        "children": <label
-          htmlFor="input_accession"
-        >
-          UniProtKB AC
-          <input
-            id="input_accession"
-            onChange={[Function]}
-            placeholder="P12345"
-            type="string"
-            value=""
-          />
-        </label>,
-        "className": "advanced-search__inputs",
-      },
-      "ref": null,
-      "rendered": Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            "UniProtKB AC",
-            <input
-              id="input_accession"
-              onChange={[Function]}
-              placeholder="P12345"
-              type="string"
-              value=""
-            />,
-          ],
-          "htmlFor": "input_accession",
-        },
-        "ref": null,
-        "rendered": Array [
-          "UniProtKB AC",
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "id": "input_accession",
-              "onChange": [Function],
-              "placeholder": "P12345",
-              "type": "string",
-              "value": "",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": "input",
-          },
-        ],
-        "type": "label",
-      },
-      "type": "div",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-        "legacyContextMode": "parent",
-        "lifecycles": Object {
-          "componentDidUpdate": Object {
-            "onSetState": true,
-          },
-          "getChildContext": Object {
-            "calledByRenderer": false,
-          },
-          "getDerivedStateFromError": true,
-          "getDerivedStateFromProps": Object {
-            "hasShouldComponentUpdateBug": false,
-          },
-          "getSnapshotBeforeUpdate": true,
-          "setState": Object {
-            "skipsComponentDidUpdateOnNullish": true,
-          },
-        },
-      },
-    },
-    Symbol(enzyme.__providerValues__): undefined,
-  },
-  Symbol(enzyme.__providerValues__): Map {},
-}
+exports[`Range field should render 1`] = `
+<DocumentFragment>
+  <div
+    class="advanced-search__inputs"
+  >
+    <label
+      for="input_accession"
+    >
+      UniProtKB AC
+      <input
+        id="input_accession"
+        placeholder="P12345"
+        type="text"
+        value="Some term"
+      />
+    </label>
+  </div>
+</DocumentFragment>
 `;

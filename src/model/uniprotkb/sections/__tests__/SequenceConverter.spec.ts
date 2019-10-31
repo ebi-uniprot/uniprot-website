@@ -66,6 +66,22 @@ describe('Sequence data converter', () => {
           ],
         },
       },
+      sequenceCaution: [
+        {
+          commentType: 'SEQUENCE CAUTION',
+          evidences: [
+            {
+              evidenceCode: 'ECO:0000256',
+              id: 'PIRNR001361',
+              source: 'PIRNR',
+            },
+          ],
+          note: 'Text note',
+          positions: ['position'],
+          sequence: 'sequence',
+          sequenceCautionType: 'Erroneous initiation',
+        },
+      ],
       featuresData: [],
       keywordData: [],
       lastUpdateDate: '2017-01-21 v5',

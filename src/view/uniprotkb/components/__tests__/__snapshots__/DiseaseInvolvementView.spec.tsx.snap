@@ -8,7 +8,9 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
   <h4>
     Alzheimers (AD)
   </h4>
-  <p />
+  <span
+    class="text-block"
+  />
   <div
     class="info-list"
   >

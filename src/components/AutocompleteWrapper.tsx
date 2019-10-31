@@ -24,6 +24,7 @@ type Suggestions = {
 
 type State = {
   data: SelectValue[];
+  previousTextInputValue: string;
 };
 
 type SelectValue = {
@@ -32,6 +33,8 @@ type SelectValue = {
   pathLabel: string;
   apiId: string;
 };
+
+const minCharsToShowDropdown = 3;
 
 class AutocompleteWrapper extends Component<Props, State> {
   static prepareData(suggestions: Suggestion[]) {
@@ -49,19 +52,54 @@ class AutocompleteWrapper extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = { data: [] };
+    this.state = { data: [], previousTextInputValue: '' };
     this.id = v1();
   }
 
   handleChange = (textInputValue: string) => {
-    const { url } = this.props;
-    const suggesterUrl = getSuggesterUrl(url, textInputValue);
-    this.fetchOptions(suggesterUrl);
     this.handleSelect(textInputValue);
+    const { previousTextInputValue } = this.state;
+    const trimmedTextInputValue = textInputValue.trim();
+    // If there aren't enough characters then reset the state's data
+    // and don't fetch suggestions.
+    if (trimmedTextInputValue.trim().length < minCharsToShowDropdown) {
+      this.setState({
+        data: [],
+        previousTextInputValue: trimmedTextInputValue,
+      });
+    }
+    // If the previous text input and the current text input are
+    // subsets of each other then don't reset the state's data. The
+    // point of this check is to prevent the dropdown disappearing
+    // and reappearing between successive suggester requests.
+    // Fetch new suggestions after previousTextInputValue has been
+    // set. Use the callback to prevent race conditions.
+    else if (
+      trimmedTextInputValue.includes(previousTextInputValue) ||
+      previousTextInputValue.includes(trimmedTextInputValue)
+    ) {
+      this.setState({ previousTextInputValue: trimmedTextInputValue }, () =>
+        this.fetchOptions(trimmedTextInputValue)
+      );
+    }
+    // This is a "new" or "unrelated" text input so erase the old data
+    // and then fetch the new suggestions after the state has been set.
+    // Use the callback to prevent race conditions.
+    else {
+      this.setState(
+        {
+          data: [],
+          previousTextInputValue: trimmedTextInputValue,
+        },
+        () => this.fetchOptions(trimmedTextInputValue)
+      );
+    }
   };
 
-  fetchOptions = (url: string) => {
-    fetchData(url)
+  fetchOptions = (textInputValue: string) => {
+    const { url } = this.props;
+    const suggesterUrl = getSuggesterUrl(url, textInputValue);
+    fetchData(suggesterUrl)
       .then(data => AutocompleteWrapper.prepareData(data.data.suggestions))
       .then(data => this.setState({ data }))
       // eslint-disable-next-line no-console
@@ -90,6 +128,7 @@ class AutocompleteWrapper extends Component<Props, State> {
           onChange={this.handleChange}
           filter={false}
           value={value}
+          minCharsToShowDropdown={minCharsToShowDropdown}
         />
       </label>
     );

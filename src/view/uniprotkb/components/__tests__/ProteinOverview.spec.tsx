@@ -11,7 +11,6 @@ describe('ProteinOverview component', () => {
       annotationScore: 12.4,
     };
     transformedData[EntrySection.NamesAndTaxonomy] = ProteinNamesUIDataJson;
-
     const { asFragment } = render(
       <ProteinOverview transformedData={transformedData} />
     );

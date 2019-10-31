@@ -1,7 +1,7 @@
 import KeywordCategory from '../../types/KeywordCategory';
 import FeatureType from '../../types/FeatureType';
 import EntrySection from '../../types/EntrySection';
-import Comment from '../../types/Comment';
+import { CommentType } from '../../types/CommentTypes';
 import { convertSection } from '../SectionConverter';
 import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
@@ -15,7 +15,7 @@ const featuresCategories = [
   FeatureType.COMPBIAS,
 ];
 
-const familyAndDomainsComments = [Comment.DOMAIN, Comment.SIMILARITY];
+const familyAndDomainsComments = [CommentType.DOMAIN, CommentType.SIMILARITY];
 
 const convertFamilyAndDomains = (data: UniProtkbAPIModel) => {
   return convertSection(

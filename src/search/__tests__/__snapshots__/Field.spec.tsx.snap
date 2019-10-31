@@ -1,50 +1,174 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Clause component should not return anything 1`] = `""`;
+exports[`Clause component should not return anything 1`] = `<DocumentFragment />`;
 
 exports[`Clause component should render \`date\` field 1`] = `
-"<div className=\\"advanced-search__inputs\\">
-  <RangeField type=\\"date\\" field={{...}} handleChange={[Function: mockConstructor]} rangeFrom={[undefined]} rangeTo={[undefined]} />
-</div>"
+<DocumentFragment>
+  <div
+    class="advanced-search__inputs"
+  >
+    <label
+      for="from_input_id"
+    >
+      From
+      <input
+        data-testid="range-field-from-input"
+        id="from_input_id"
+        placeholder="0"
+        type="date"
+        value=""
+      />
+    </label>
+    <label
+      for="to_input_id"
+    >
+      To
+      <input
+        data-testid="range-field-to-input"
+        id="to_input_id"
+        placeholder="100"
+        type="date"
+        value=""
+      />
+    </label>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`Clause component should render a \`string\` field with range 1`] = `
-"<div className=\\"advanced-search__inputs\\">
-  <TextField field={{...}} handleChange={[Function: mockConstructor]} type=\\"text\\" value={[undefined]} />
-  <RangeField field={{...}} handleChange={[Function: mockConstructor]} type=\\"text\\" rangeFrom={[undefined]} rangeTo={[undefined]} />
-</div>"
+<DocumentFragment>
+  <div
+    class="advanced-search__inputs"
+  >
+    <div
+      class="advanced-search__inputs"
+    >
+      <label
+        for="input_accession"
+      >
+        UniProtKB AC
+        <input
+          id="input_accession"
+          placeholder="P12345"
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+    <label
+      for="from_input_id"
+    >
+      From
+      <input
+        data-testid="range-field-from-input"
+        id="from_input_id"
+        placeholder="0"
+        type="text"
+        value=""
+      />
+    </label>
+    <label
+      for="to_input_id"
+    >
+      To
+      <input
+        data-testid="range-field-to-input"
+        id="to_input_id"
+        placeholder="100"
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`Clause component should render a \`text\` field 1`] = `
-"<div className=\\"advanced-search__inputs\\">
-  <TextField field={{...}} handleChange={[Function: mockConstructor]} type=\\"text\\" value={[undefined]} />
-</div>"
+<DocumentFragment>
+  <div
+    class="advanced-search__inputs"
+  >
+    <div
+      class="advanced-search__inputs"
+    >
+      <label
+        for="input_accession"
+      >
+        UniProtKB AC
+        <input
+          id="input_accession"
+          placeholder="P12345"
+          type="text"
+          value=""
+        />
+      </label>
+    </div>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`Clause component should render an \`enum\` field 1`] = `
-"<div className=\\"advanced-search__inputs\\">
-  <EnumField field={{...}} handleChange={[undefined]} value=\\"\\" />
-</div>"
+<DocumentFragment>
+  <div
+    class="advanced-search__inputs"
+  >
+    <label
+      for="select_undefined"
+    >
+      <select
+        data-testid="enum-field-select"
+        id="select_undefined"
+      />
+    </label>
+  </div>
+</DocumentFragment>
 `;
 
 exports[`Clause component should render an \`integer\` \`range\` field 1`] = `
-"<Fragment>
-  <label htmlFor=\\"from_input_undefined\\">
+<DocumentFragment>
+  <label
+    for="from_input_id"
+  >
     From
-    <input id=\\"from_input_undefined\\" type=\\"number\\" onChange={[Function: onChange]} placeholder=\\"0\\" value=\\"\\" />
+    <input
+      data-testid="range-field-from-input"
+      id="from_input_id"
+      placeholder="0"
+      type="number"
+      value=""
+    />
   </label>
-  <label htmlFor=\\"to_input_undefined\\">
+  <label
+    for="to_input_id"
+  >
     To
-    <input id=\\"to_input_undefined\\" type=\\"number\\" onChange={[Function: onChange]} placeholder=\\"100\\" value=\\"\\" />
+    <input
+      data-testid="range-field-to-input"
+      id="to_input_id"
+      placeholder="100"
+      type="number"
+      value=""
+    />
   </label>
-</Fragment>"
+</DocumentFragment>
 `;
 
 exports[`Clause component should render an \`integer\` field 1`] = `
-"<div className=\\"advanced-search__inputs\\">
-  <label htmlFor=\\"input_sites\\">
-    Any
-    <input id=\\"input_sites\\" type=\\"number\\" value=\\"\\" onChange={[Function: onChange]} placeholder=\\"translocation\\" />
-  </label>
-</div>"
+<DocumentFragment>
+  <div
+    class="advanced-search__inputs"
+  >
+    <label
+      for="input_sites"
+    >
+      Any
+      <input
+        id="input_sites"
+        placeholder="translocation"
+        type="number"
+        value=""
+      />
+    </label>
+  </div>
+</DocumentFragment>
 `;

@@ -4,6 +4,7 @@ import {
   removeProperty,
   formatLargeNumber,
   flattenArrays,
+  truncateStringWithEllipsis,
 } from '../utils';
 
 test('serializableDeepCopy returns a copy that is not a reference ', () => {
@@ -40,4 +41,12 @@ test('formatLargeNumber', () => {
 test('flattenArrays', () => {
   const arrays = [[1, 2, 3], ['ab'], [4, '5']];
   expect(flattenArrays(arrays)).toEqual([1, 2, 3, 'ab', 4, '5']);
+});
+
+test('truncateStringWithEllipsis to return truncated string with ellipsis appended', () => {
+  expect(truncateStringWithEllipsis('foo bar baz', 10)).toEqual('foo bar...');
+});
+
+test('truncateStringWithEllipsis to return string if less than maxLength', () => {
+  expect(truncateStringWithEllipsis('foo bar baz', 11)).toEqual('foo bar baz');
 });

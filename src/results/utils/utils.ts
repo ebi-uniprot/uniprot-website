@@ -7,9 +7,21 @@ import {
 import { SortableColumn } from '../../model/types/ColumnTypes';
 
 export const createFacetsQueryString = (facets: SelectedFacet[]) =>
+  /**
+   * Add double quotes to facet values which contain
+   * spaces as otherwise the backend doesn't escape special characters
+   * such as '.' or '-'.
+   * Single word values shouldn't have double quotes as they can be boolean.
+   * Range queries (/^\[.*]$/) should not have double quotes either.
+   * */
+
   facets.reduce(
     (queryAccumulator, facet) =>
-      `${queryAccumulator} AND (${facet.name}:${facet.value})`,
+      `${queryAccumulator} AND (${facet.name}:${
+        facet.value.indexOf(' ') >= 0 && !facet.value.match(/^\[.*\]$/)
+          ? `"${facet.value}"`
+          : facet.value
+      })`,
     ''
   );
 

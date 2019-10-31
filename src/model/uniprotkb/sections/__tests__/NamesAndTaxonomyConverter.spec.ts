@@ -5,10 +5,56 @@ describe('Names and taxonomy data converter', () => {
   test('should convert the data', () => {
     const convertedData = convertNamesAndTaxonomy(modelData);
     expect(convertedData).toEqual({
-      geneNamesData: {
-        alternativeNames: ['some Syn', 'some orf'],
-        name: 'some Gene',
-      },
+      geneNamesData: [
+        {
+          geneName: {
+            value: 'some Gene',
+            evidences: [
+              {
+                evidenceCode: 'ECO:0000256',
+                source: 'PIRNR',
+                id: 'PIRNR001360',
+              },
+            ],
+          },
+          synonyms: [
+            {
+              value: 'some Syn',
+              evidences: [
+                {
+                  evidenceCode: 'ECO:0000256',
+                  source: 'PIRNR',
+                  id: 'PIRNR001361',
+                },
+              ],
+            },
+          ],
+          orderedLocusNames: [
+            {
+              value: 'some locus',
+              evidences: [
+                {
+                  evidenceCode: 'ECO:0000256',
+                  source: 'PIRNR',
+                  id: 'PIRNR001362',
+                },
+              ],
+            },
+          ],
+          orfNames: [
+            {
+              value: 'some orf',
+              evidences: [
+                {
+                  evidenceCode: 'ECO:0000269',
+                  source: 'PubMed',
+                  id: '11389730',
+                },
+              ],
+            },
+          ],
+        },
+      ],
       organismData: {
         commonName: 'common name',
         evidences: [
@@ -414,6 +460,14 @@ describe('Names and taxonomy data converter', () => {
           },
         ],
       },
+      organismHosts: [
+        {
+          commonName: 'common name',
+          scientificName: 'scientific name',
+          synonyms: ['synonyms 1'],
+          taxonId: 9606,
+        },
+      ],
       proteomesData: [],
       commentsData: new Map(),
       keywordData: [],

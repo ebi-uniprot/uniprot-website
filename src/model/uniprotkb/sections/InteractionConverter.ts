@@ -1,9 +1,9 @@
-import Comment from '../../types/Comment';
+import { CommentType } from '../../types/CommentTypes';
 import EntrySection from '../../types/EntrySection';
 import { convertSection } from '../SectionConverter';
 import { UniProtkbAPIModel } from '../UniProtkbConverter';
 
-const commentsCategories = [Comment.INTERACTION, Comment.SUBUNIT];
+const commentsCategories = [CommentType.INTERACTION, CommentType.SUBUNIT];
 
 export const convertInteraction = (data: UniProtkbAPIModel) => {
   return convertSection(

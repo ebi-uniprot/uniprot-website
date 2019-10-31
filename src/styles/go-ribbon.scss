@@ -9,6 +9,11 @@
     overflow-y: hidden;
     position: relative;
     padding-bottom: 1rem;
+
+    &__message {
+      margin-left: 1rem;
+      font-weight: bold;
+    }
   }
 }
 .ontology-ribbon {

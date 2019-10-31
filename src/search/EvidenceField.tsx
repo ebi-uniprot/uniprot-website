@@ -22,6 +22,7 @@ const EvidenceField: React.FC<EvidenceFieldProps> = ({
         Evidence
         <select
           id="evidence_select"
+          data-testid="evidence-select"
           value={value}
           onChange={e => handleChange(e.target.value)}
         >

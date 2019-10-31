@@ -1,35 +1,35 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, fireEvent } from '@testing-library/react';
 import TextField from '../TextField';
 
-configure({ adapter: new Adapter() });
-let props;
-let wrapper;
-
 describe('Range field', () => {
-  beforeEach(() => {
-    props = {
-      field: {
-        label: 'UniProtKB AC',
-        itemType: 'single',
-        term: 'accession',
-        description: 'Search by UniProtKB Accession',
-        example: 'P12345',
-      },
-      type: 'string',
-      queryInput: {},
-      handleChange: jest.fn(),
-    };
-    wrapper = shallow(<TextField {...props} />);
-  });
+  const props = {
+    field: {
+      label: 'UniProtKB AC',
+      itemType: 'single',
+      term: 'accession',
+      description: 'Search by UniProtKB Accession',
+      example: 'P12345',
+    },
+    type: 'text',
+    queryInput: {},
+    handleChange: jest.fn(),
+  };
 
   test('should render a text field', () => {
-    expect(wrapper).toMatchSnapshot();
+    const updatedValue = 'Some term';
+    const { getByPlaceholderText, rerender } = render(<TextField {...props} />);
+    const inputElt = getByPlaceholderText('P12345');
+    expect(inputElt.value).toBe('');
+    fireEvent.change(inputElt, { target: { value: updatedValue } });
+    expect(props.handleChange).toBeCalled();
+    props.value = updatedValue;
+    rerender(<TextField {...props} />);
+    expect(inputElt.value).toBe(updatedValue);
   });
 
-  test('should handle change', () => {
-    wrapper.find(`#input_${props.field.term}`).simulate('change', { target: { value: 'val1' } });
-    expect(props.handleChange).toHaveBeenCalled();
+  test('should render', () => {
+    const { asFragment } = render(<TextField {...props} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });

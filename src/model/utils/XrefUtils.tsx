@@ -5,14 +5,7 @@ import {
 } from '../../data/database';
 import EntrySection from '../types/EntrySection';
 import { DatabaseCategory } from '../types/DatabaseTypes';
-import { Property } from '../types/modelTypes';
-
-export type Xref = {
-  databaseType?: string;
-  id?: string;
-  properties?: [Property];
-  isoformId?: string;
-};
+import { Xref } from '../types/CommentTypes';
 
 export type XrefsGoupedByDatabase = {
   database: string;

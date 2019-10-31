@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { Card } from 'franklin-sites';
-import { EntryProteinNames } from './components/ProteinNamesView';
+import ProteinNamesView from './components/ProteinNamesView';
 import hasContent from '../../model/utils/utils';
 import EntrySection from '../../model/types/EntrySection';
 import { NamesAndTaxonomyUIModel } from '../../model/uniprotkb/sections/NamesAndTaxonomyConverter';
-import { GeneNamesListView } from './components/GeneNamesView';
-import { OrganismEntryView } from './components/OrganismView';
-import ProteomesEntryView from './components/ProteomesView';
+import GeneNamesView from './components/GeneNamesView';
+import { OrganismListView } from './components/OrganismView';
+import ProteomesListView from './components/ProteomesView';
 import XRefView from './components/XRefView';
 
 const NamesAndTaxonomySection: FC<{
@@ -20,13 +20,17 @@ const NamesAndTaxonomySection: FC<{
     <div id={EntrySection.NamesAndTaxonomy}>
       <Card title={EntrySection.NamesAndTaxonomy}>
         <h4>Protein names</h4>
-        <EntryProteinNames proteinNames={data.proteinNamesData} />
-        <h4>Gene names</h4>
-        <GeneNamesListView {...data.geneNamesData} />
+        <ProteinNamesView proteinNames={data.proteinNamesData} />
+        {data.geneNamesData && (
+          <Fragment>
+            <h4>Gene names</h4>
+            <GeneNamesView geneNamesData={data.geneNamesData} />
+          </Fragment>
+        )}
         <h4>Organism names</h4>
-        <OrganismEntryView data={data.organismData} />
+        <OrganismListView data={data.organismData} hosts={data.organismHosts} />
         <h4>Proteome</h4>
-        <ProteomesEntryView data={data.proteomesData} />
+        <ProteomesListView data={data.proteomesData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
     </div>

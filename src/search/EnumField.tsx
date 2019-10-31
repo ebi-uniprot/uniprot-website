@@ -10,7 +10,7 @@ type EnumFieldProps = {
 const EnumField: React.FC<EnumFieldProps> = ({
   field,
   handleChange,
-  value
+  value,
 }) => (
   <Fragment>
     <label htmlFor={`select_${field.term}`}>
@@ -18,6 +18,7 @@ const EnumField: React.FC<EnumFieldProps> = ({
       <select
         onChange={e => handleChange(e.target.value)}
         id={`select_${field.term}`}
+        data-testid="enum-field-select"
         value={value}
       >
         {field.values &&

@@ -1,9 +1,29 @@
 import React, { Fragment } from 'react';
 import { InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import { Xref } from '../../../model/utils/XrefUtils';
+import { Xref } from '../../../model/types/CommentTypes';
+import { Property } from '../../../model/types/modelTypes';
 
-const ProteomesEntryView: React.FC<{ data?: Xref[] }> = ({ data }) => {
+const ProteomesId: React.FC<{ id?: string }> = ({ id }) => (
+  <Link to={`/proteomes/${id}`}>{id}</Link>
+);
+
+const ProteomesComponents: React.FC<{ components?: Property[] }> = ({
+  components,
+}) => (
+  <Fragment>
+    {components &&
+      components
+        .filter(component => component.value)
+        .map(component => component.value)
+        .join(', ')}
+  </Fragment>
+);
+
+const ProteomesView: React.FC<{ data?: Xref[]; isCompact?: boolean }> = ({
+  data,
+  isCompact = false,
+}) => {
   if (!data) {
     return null;
   }
@@ -12,24 +32,15 @@ const ProteomesEntryView: React.FC<{ data?: Xref[] }> = ({ data }) => {
       {data.map(proteome => (
         <InfoList
           key={proteome.id}
+          isCompact={isCompact}
           infoData={[
             {
               title: 'Identifier',
-              content: (
-                <Link to={`/proteomes/${proteome.id}`}>{proteome.id}</Link>
-              ),
+              content: <ProteomesId id={proteome.id} />,
             },
             {
               title: 'Component',
-              content:
-                proteome.properties &&
-                proteome.properties.reduce(
-                  (accumulator, component) =>
-                    !accumulator && component.value
-                      ? component.value
-                      : `${accumulator}, ${component.value}`,
-                  ''
-                ),
+              content: <ProteomesComponents components={proteome.properties} />,
             },
           ]}
         />
@@ -38,4 +49,4 @@ const ProteomesEntryView: React.FC<{ data?: Xref[] }> = ({ data }) => {
   );
 };
 
-export default ProteomesEntryView;
+export default ProteomesView;

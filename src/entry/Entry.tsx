@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, memo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Card, InPageNav, DownloadIcon, Loader } from 'franklin-sites';
 import useDataApi from '../utils/useDataApi';
@@ -17,6 +17,11 @@ type MatchParams = {
 };
 
 type EntryProps = RouteComponentProps<MatchParams>;
+
+function arePropsEqual(prevProps: EntryProps, nextProps: EntryProps) {
+  // Do NOT re-render the page, as long as the 'accession' value is the same.
+  return prevProps.match.params.accession === nextProps.match.params.accession;
+}
 
 const Entry: React.FC<EntryProps> = ({ match }) => {
   const url = apiUrls.entry(match.params.accession);
@@ -85,4 +90,4 @@ const Entry: React.FC<EntryProps> = ({ match }) => {
   );
 };
 
-export default withRouter(Entry);
+export default withRouter(memo(Entry, arePropsEqual));

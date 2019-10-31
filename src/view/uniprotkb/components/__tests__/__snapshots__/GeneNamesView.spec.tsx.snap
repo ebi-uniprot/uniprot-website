@@ -2,14 +2,65 @@
 
 exports[`GeneNames should render gene_names 1`] = `
 <DocumentFragment>
-  <span>
-    <strong>
-      Gene name
-    </strong>
-     
-    <div>
-      name 2, name 3, name 4
+  <div
+    class="info-list"
+  >
+    <div
+      class="info-list__item"
+    >
+      <div
+        class="info-list__item__title"
+      >
+        Name
+      </div>
+      <div
+        class="info-list__item__content"
+      >
+        some Gene
+      </div>
     </div>
-  </span>
+    <div
+      class="info-list__item"
+    >
+      <div
+        class="info-list__item__title"
+      >
+        Synonyms
+      </div>
+      <div
+        class="info-list__item__content"
+      >
+        some Syn
+      </div>
+    </div>
+    <div
+      class="info-list__item"
+    >
+      <div
+        class="info-list__item__title"
+      >
+        ORF names
+      </div>
+      <div
+        class="info-list__item__content"
+      >
+        some orf
+      </div>
+    </div>
+    <div
+      class="info-list__item"
+    >
+      <div
+        class="info-list__item__title"
+      >
+        Ordered locus names
+      </div>
+      <div
+        class="info-list__item__content"
+      >
+        some locus
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;

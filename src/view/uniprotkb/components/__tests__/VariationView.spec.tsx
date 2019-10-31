@@ -8,13 +8,10 @@ jest.mock('axios');
 const resp = { data: { sequence: 'ABCDEFG', features: [{}, {}] } };
 afterEach(cleanup);
 
-// The warning about `act()` should disappear after update to 16.9
-// https://github.com/testing-library/react-testing-library/issues/281
-
 describe('VariationView component', () => {
-  test('it renders without crashing', () => {
+  test('it renders without crashing', async () => {
     axios.get.mockResolvedValue(resp);
-    act(() => {
+    await act(async () => {
       const { asFragment } = render(
         <VariationView primaryAccession="P05067" />
       );
