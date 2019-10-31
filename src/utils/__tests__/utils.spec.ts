@@ -5,6 +5,7 @@ import {
   formatLargeNumber,
   flattenArrays,
   truncateStringWithEllipsis,
+  getBEMClassName,
 } from '../utils';
 
 test('serializableDeepCopy returns a copy that is not a reference ', () => {
@@ -49,4 +50,59 @@ test('truncateStringWithEllipsis to return truncated string with ellipsis append
 
 test('truncateStringWithEllipsis to return string if less than maxLength', () => {
   expect(truncateStringWithEllipsis('foo bar baz', 11)).toEqual('foo bar baz');
+});
+
+describe('getBEMClassName', () => {
+  test('block and element', () => {
+    expect(
+      getBEMClassName({
+        b: 'block',
+        e: 'element',
+      })
+    ).toEqual('block__element');
+  });
+
+  test('block and array of elements', () => {
+    expect(
+      getBEMClassName({
+        b: 'block',
+        e: ['element_1', 'element_2'],
+      })
+    ).toEqual('block__element_1__element_2');
+  });
+
+  test('block, element and conditioned modifier', () => {
+    expect(
+      getBEMClassName({
+        b: 'block',
+        e: 'element_1',
+        m: true && 'modifier_1',
+      })
+    ).toEqual('block__element_1 block__element_1--modifier_1');
+  });
+
+  test('block, element and array of mixed conditioned modifiers', () => {
+    expect(
+      getBEMClassName({
+        b: 'block',
+        e: 'element_1',
+        m: [
+          true && 'modifier_1',
+          false && 'modifier_2',
+          true ? 'modifier_3a' : 'modifier_3b',
+        ],
+      })
+    ).toEqual(
+      'block__element_1 block__element_1--modifier_1 block__element_1--modifier_3a'
+    );
+  });
+
+  test('block and array of a single modifier', () => {
+    expect(
+      getBEMClassName({
+        b: 'block',
+        m: [true && 'modifier_1'],
+      })
+    ).toEqual('block block--modifier_1');
+  });
 });
