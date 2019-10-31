@@ -37,7 +37,7 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
 const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
   [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
-    Object.values(fieldData[tabId]).forEach(({ id: accordionId, items }) => {
+    fieldData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         const index = columns.indexOf(itemId);
         if (index >= 0) {
@@ -72,7 +72,6 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
   };
 
   const handleDragDrop = (srcIndex: number, destIndex: number) => {
-    console.log(srcIndex, destIndex);
     onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
@@ -113,6 +112,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
         type="button"
         tabIndex={0}
         onClick={onReset}
+        data-testid="column-select-reset-button"
       >
         Reset to default
       </button>

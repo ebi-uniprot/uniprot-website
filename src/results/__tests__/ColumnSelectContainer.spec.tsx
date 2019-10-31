@@ -9,6 +9,7 @@ import ColumnSelectContainer, {
 import initialState from '../../state/initialState';
 import renderWithRedux from '../../__testHelpers__/renderWithRedux';
 import mockResultFieldsApi from '../../__mockData__/ResultFieldsData';
+import structuredResultFieldsData from '../../__mockData__/StructuredResultFieldsData.json';
 import { ColumnSelectTab } from '../types/resultsTypes';
 import { Column } from '../../model/types/ColumnTypes';
 
@@ -37,50 +38,14 @@ describe('ColumnSelectContainer component', () => {
   });
 
   test('removeFieldFromFieldsData should remove field', () => {
-    type FieldDatum = {
-      id: string;
-      title: string;
-      items: {
-        id: Column;
-        label: string;
-      }[];
-    };
-
     const entryField = {
       tabId: ColumnSelectTab.data,
       accordionId: 'Names & Taxonomy',
       itemId: Column.accession,
     };
-
-    const fieldsData = {
-      [ColumnSelectTab.data]: [
-        {
-          id: 'Names & Taxonomy',
-          title: 'title',
-          items: [
-            {
-              id: Column.accession,
-              label: 'accession-label',
-            },
-            {
-              id: Column.ccAllergen,
-              label: 'ccAllergen-label',
-            },
-          ],
-        },
-      ],
-      [ColumnSelectTab.links]: {
-        id: 'Sequence',
-        title: 'title',
-        items: [
-          {
-            id: Column.drAbcd,
-            label: 'drAbcd-label',
-          },
-        ],
-      },
-    };
-    expect(removeFieldFromFieldsData(entryField, fieldsData)).toEqual({
+    expect(
+      removeFieldFromFieldsData(entryField, structuredResultFieldsData)
+    ).toEqual({
       [ColumnSelectTab.data]: [
         {
           id: 'Names & Taxonomy',
@@ -93,16 +58,18 @@ describe('ColumnSelectContainer component', () => {
           ],
         },
       ],
-      [ColumnSelectTab.links]: {
-        id: 'Sequence',
-        title: 'title',
-        items: [
-          {
-            id: Column.drAbcd,
-            label: 'drAbcd-label',
-          },
-        ],
-      },
+      [ColumnSelectTab.links]: [
+        {
+          id: 'Sequence',
+          title: 'title',
+          items: [
+            {
+              id: Column.drAbcd,
+              label: 'drAbcd-label',
+            },
+          ],
+        },
+      ],
     });
   });
 });

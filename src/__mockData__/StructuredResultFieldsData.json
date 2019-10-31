@@ -1,0 +1,23 @@
+{
+    "data": [{
+        "id": "Names & Taxonomy",
+        "title": "title",
+        "items": [{
+                "id": "accession",
+                "label": "accession-label"
+            },
+            {
+                "id": "cc:allergen",
+                "label": "ccAllergen-label"
+            }
+        ]
+    }],
+    "links": [{
+        "id": "Sequence",
+        "title": "title",
+        "items": [{
+            "id": "dr:abcd",
+            "label": "drAbcd-label"
+        }]
+    }]
+}

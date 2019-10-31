@@ -1,0 +1,371 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColumnSelectView component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="column-select"
+  >
+    <div
+      class="column-select-drag-drop__list"
+      data-react-beautiful-dnd-droppable="0"
+    >
+      <div
+        aria-roledescription="Draggable item. Press space bar to lift"
+        class="button column-select-drag-drop__list__item"
+        data-react-beautiful-dnd-drag-handle="0"
+        data-react-beautiful-dnd-draggable="0"
+        draggable="false"
+        tabindex="0"
+      >
+        accession-label
+        <button
+          class="column-select-drag-drop__list__item__button"
+          data-testid="column-select-dnd-remove-button"
+          type="button"
+        >
+          <svg
+            class="column-select-drag-drop__list__item__button__icon"
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        aria-roledescription="Draggable item. Press space bar to lift"
+        class="button column-select-drag-drop__list__item"
+        data-react-beautiful-dnd-drag-handle="0"
+        data-react-beautiful-dnd-draggable="0"
+        draggable="false"
+        tabindex="0"
+      >
+        ccAllergen-label
+        <button
+          class="column-select-drag-drop__list__item__button"
+          data-testid="column-select-dnd-remove-button"
+          type="button"
+        >
+          <svg
+            class="column-select-drag-drop__list__item__button__icon"
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button
+      class="button secondary"
+      data-testid="column-select-reset-button"
+      tabindex="0"
+      type="button"
+    >
+      Reset to default
+    </button>
+    <div
+      class="tabs"
+    >
+      <div
+        class="tabs__header"
+      >
+        <div
+          class="tabs__header__item tabs__header__item--active"
+          data-testid="tab-title"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="column-select__tab-title"
+          >
+            data
+            <span
+              class="column-select__tab-title__count column-select__tab-title__count--visible"
+            >
+              <span
+                class="bubble--small colour-uniprot-blue"
+              >
+                2
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="tabs__header__item "
+          data-testid="tab-title"
+          role="button"
+          tabindex="0"
+        >
+          <div
+            class="column-select__tab-title"
+          >
+            links
+            <span
+              class="column-select__tab-title__count column-select__tab-title__count--hidden"
+            >
+              <span
+                class="bubble--small colour-uniprot-blue"
+              >
+                0
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class="tabs__content tabs__content--active"
+        data-testid="tab-content"
+      >
+        <div
+          style="width: 18rem;"
+        >
+          <span
+            class="search-input"
+          >
+            <input
+              data-testid="search-input"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <span
+              class="search-input__suffix"
+              data-testid="search-input-suffix"
+              role="presentation"
+            >
+              <svg
+                height="14"
+                viewBox="0 0 512 512"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div
+          class="accordion-group accordion-search"
+        >
+          <div
+            class="accordion"
+          >
+            <div
+              class="accordion__title"
+              data-testid="accordion-title"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="accordion__title__text"
+              >
+                title
+              </div>
+              <div
+                class="accordion__title__side"
+              >
+                <span
+                  class="accordion__title__side__count"
+                >
+                  <span
+                    class="bubble--small colour-uniprot-blue"
+                  >
+                    2
+                  </span>
+                </span>
+                <svg
+                  class="accordion__title__side__chevron"
+                  height="16"
+                  viewBox="0 0 512 311"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>
+                    chevron-down
+                  </title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    id="Page-1"
+                  >
+                    <g
+                      fill="#000"
+                      fill-rule="nonzero"
+                      id="chevron-down"
+                    >
+                      <path
+                        d="M236.162 302.145L8.985 74.967c-10.957-10.956-10.957-28.72 0-39.675L35.48 8.795C46.42-2.143 64.146-2.164 75.11 8.748L256 188.791 436.89 8.748c10.963-10.912 28.69-10.89 39.628.047l26.496 26.497c10.957 10.956 10.957 28.72 0 39.675L275.838 302.145c-10.956 10.956-28.72 10.956-39.676 0z"
+                        id="Shape"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div
+              class="accordion__content accordion__content--hide-content"
+              data-testid="accordion-content"
+            >
+              <ul
+                class="no-bullet accordion-search__list accordion-search__list--columns"
+              >
+                <li
+                  class="accordion-search__list__item"
+                  data-testid="accordion-search-list-item"
+                >
+                  <label
+                    for="checkbox-accession"
+                  >
+                    <input
+                      checked=""
+                      class="accordion-search__list__item-checkbox"
+                      id="checkbox-accession"
+                      type="checkbox"
+                    />
+                    accession-label
+                  </label>
+                </li>
+                <li
+                  class="accordion-search__list__item"
+                  data-testid="accordion-search-list-item"
+                >
+                  <label
+                    for="checkbox-cc:allergen"
+                  >
+                    <input
+                      checked=""
+                      class="accordion-search__list__item-checkbox"
+                      id="checkbox-cc:allergen"
+                      type="checkbox"
+                    />
+                    ccAllergen-label
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="tabs__content "
+        data-testid="tab-content"
+      >
+        <div
+          style="width: 18rem;"
+        >
+          <span
+            class="search-input"
+          >
+            <input
+              data-testid="search-input"
+              placeholder=""
+              type="text"
+              value=""
+            />
+            <span
+              class="search-input__suffix"
+              data-testid="search-input-suffix"
+              role="presentation"
+            >
+              <svg
+                height="14"
+                viewBox="0 0 512 512"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+        <div
+          class="accordion-group accordion-search"
+        >
+          <div
+            class="accordion"
+          >
+            <div
+              class="accordion__title"
+              data-testid="accordion-title"
+              role="button"
+              tabindex="0"
+            >
+              <div
+                class="accordion__title__text"
+              >
+                title
+              </div>
+              <div
+                class="accordion__title__side"
+              >
+                <svg
+                  class="accordion__title__side__chevron"
+                  height="16"
+                  viewBox="0 0 512 311"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>
+                    chevron-down
+                  </title>
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                    id="Page-1"
+                  >
+                    <g
+                      fill="#000"
+                      fill-rule="nonzero"
+                      id="chevron-down"
+                    >
+                      <path
+                        d="M236.162 302.145L8.985 74.967c-10.957-10.956-10.957-28.72 0-39.675L35.48 8.795C46.42-2.143 64.146-2.164 75.11 8.748L256 188.791 436.89 8.748c10.963-10.912 28.69-10.89 39.628.047l26.496 26.497c10.957 10.956 10.957 28.72 0 39.675L275.838 302.145c-10.956 10.956-28.72 10.956-39.676 0z"
+                        id="Shape"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <div
+              class="accordion__content accordion__content--hide-content"
+              data-testid="accordion-content"
+            >
+              <ul
+                class="no-bullet accordion-search__list accordion-search__list--columns"
+              >
+                <li
+                  class="accordion-search__list__item"
+                  data-testid="accordion-search-list-item"
+                >
+                  <label
+                    for="checkbox-dr:abcd"
+                  >
+                    <input
+                      class="accordion-search__list__item-checkbox"
+                      id="checkbox-dr:abcd"
+                      type="checkbox"
+                    />
+                    drAbcd-label
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
