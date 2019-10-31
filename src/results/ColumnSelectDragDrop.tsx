@@ -51,6 +51,7 @@ const ColumnSelectDragDrop: React.FC<ColumnSelectDragDropProps> = ({
                   {label}
                   <button
                     type="button"
+                    data-testid="column-select-dnd-remove-button"
                     className={bem({
                       b: 'column-select-drag-drop',
                       e: ['list', 'item', 'button'],

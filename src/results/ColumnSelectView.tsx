@@ -72,6 +72,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
   };
 
   const handleDragDrop = (srcIndex: number, destIndex: number) => {
+    console.log(srcIndex, destIndex);
     onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
   };
 
