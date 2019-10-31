@@ -18,7 +18,7 @@ type ColumnSelectProps = {
   onChange: (columndIds: Column[]) => void;
 } & RouteComponentProps;
 
-const entryField = {
+export const entryField = {
   tabId: ColumnSelectTab.data,
   accordionId: 'Names & Taxonomy',
   itemId: Column.accession,
@@ -71,10 +71,12 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: { onChange: (columndIds: Column[]) => void }
+  ownProps: {
+    onChange: (columndIds: Column[]) => void;
+    selectedColumns: Column[];
+  }
 ) => ({
   onChange: ownProps.onChange,
-  tableColumns: state.results.tableColumns,
   fieldData: state.results.fields.data,
   isFetching: state.results.fields.isFetching,
 });
