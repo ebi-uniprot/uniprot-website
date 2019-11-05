@@ -239,12 +239,12 @@ exports[`ColumnSelectView component should render 1`] = `
                   data-testid="accordion-search-list-item"
                 >
                   <label
-                    for="checkbox-cc:allergen"
+                    for="checkbox-cc_allergen"
                   >
                     <input
                       checked=""
                       class="accordion-search__list__item-checkbox"
-                      id="checkbox-cc:allergen"
+                      id="checkbox-cc_allergen"
                       type="checkbox"
                     />
                     ccAllergen-label
@@ -350,11 +350,11 @@ exports[`ColumnSelectView component should render 1`] = `
                   data-testid="accordion-search-list-item"
                 >
                   <label
-                    for="checkbox-dr:abcd"
+                    for="checkbox-dr_abcd"
                   >
                     <input
                       class="accordion-search__list__item-checkbox"
-                      id="checkbox-dr:abcd"
+                      id="checkbox-dr_abcd"
                       type="checkbox"
                     />
                     drAbcd-label

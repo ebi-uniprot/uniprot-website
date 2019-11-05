@@ -7,7 +7,7 @@
                 "label": "accession-label"
             },
             {
-                "id": "cc:allergen",
+                "id": "cc_allergen",
                 "label": "ccAllergen-label"
             }
         ]
@@ -16,7 +16,7 @@
         "id": "Sequence",
         "title": "title",
         "items": [{
-            "id": "dr:abcd",
+            "id": "dr_abcd",
             "label": "drAbcd-label"
         }]
     }]
