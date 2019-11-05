@@ -4,6 +4,7 @@ exports[`CustomiseTableView component should render 1`] = `
 <DocumentFragment>
   <form
     class="customise-table"
+    data-testid="customise-table-form"
   >
     <div
       class="loader-container"
@@ -77,7 +78,6 @@ exports[`CustomiseTableView component should render 1`] = `
       </button>
       <button
         class="button"
-        data-testid="customise-table-submit-button"
         type="submit"
       >
         Save

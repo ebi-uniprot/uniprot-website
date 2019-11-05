@@ -27,8 +27,8 @@ describe('CustomiseTableView component', () => {
 
   test('should call onSubmit when submit button is clicked', () => {
     const { getByTestId } = renderedWithRedux;
-    const button = getByTestId('customise-table-submit-button');
-    fireEvent.click(button);
+    const form = getByTestId('customise-table-form');
+    fireEvent.submit(form);
     expect(props.onSubmit).toHaveBeenCalled();
   });
 

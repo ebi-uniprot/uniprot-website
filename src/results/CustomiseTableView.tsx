@@ -16,7 +16,11 @@ const CustomiseTableView: React.FC<CustomiseTableViewProps> = ({
   onSubmit,
   onCancel,
 }) => (
-  <form onSubmit={onSubmit} className="customise-table">
+  <form
+    onSubmit={onSubmit}
+    className="customise-table"
+    data-testid="customise-table-form"
+  >
     <ColumnSelectContainer
       onChange={onChange}
       selectedColumns={selectedColumns}
@@ -30,11 +34,7 @@ const CustomiseTableView: React.FC<CustomiseTableViewProps> = ({
       >
         Cancel
       </button>
-      <button
-        className="button"
-        type="submit"
-        data-testid="customise-table-submit-button"
-      >
+      <button className="button" type="submit">
         Save
       </button>
     </div>
