@@ -306,14 +306,6 @@ export enum Column {
   version = 'version',
 }
 
-//   accession = 'accession',
-//   annotationScore = 'annotation_score',
-//   gene = 'gene',
-//   length = 'length',
-//   mass = 'mass',
-//   mnemonic = 'mnemonic',
-//   name = 'name',
-//   organism = 'organism',
 export type SortableColumn =
   | Column.accession
   | Column.score

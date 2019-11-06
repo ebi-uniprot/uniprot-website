@@ -62,6 +62,8 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
   return (
     <ColumnSelectView
       selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
+      // remove the entry field from the choices as this MUST ALWAYS BE PRESENT
+      // in the url fields parameter when making the search request
       fieldData={removeFieldFromFieldsData(entryField, fieldData)}
       onChange={(cols: Column[]) => onChange([entryField.itemId, ...cols])}
       onReset={() => onChange(defaultTableColumns)}

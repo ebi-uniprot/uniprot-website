@@ -34,6 +34,9 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
   </div>
 );
 
+// Searches through the result field structure to find the associated information:
+//  tabId, accordionId, itemId, label
+// for each column which is an enum string
 const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
   const selected: SelectedColumn[] = new Array(columns.length);
   [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
