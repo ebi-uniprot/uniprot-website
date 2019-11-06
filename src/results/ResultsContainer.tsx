@@ -337,17 +337,14 @@ export class Results extends Component<ResultsProps, ResultsContainerState> {
                       <ListIcon />
                     </span>
                   </button>
-                  <Link to="/customise-table">
-                    <button
-                      type="button"
-                      className={`button link-button ${
-                        viewMode === ViewMode.CARD ? 'disabled' : ''
-                      }`}
-                    >
-                      <EditIcon />
-                      Customise data
-                    </button>
-                  </Link>
+                  {viewMode === ViewMode.TABLE && (
+                    <Link to="/customise-table">
+                      <button type="button" className="button link-button">
+                        <EditIcon />
+                        Customise data
+                      </button>
+                    </Link>
+                  )}
                 </div>
               )}
               <ResultsView
