@@ -1,18 +1,14 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { html, TemplateResult } from 'lit-html';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaManager from 'protvista-manager';
-import ProtvistaDatatable from 'protvista-datatable';
 import ProtvistaSequence from 'protvista-sequence';
 import ProtvistaNavigation from 'protvista-navigation';
 import { loadWebComponent } from '../../../utils/utils';
 import { Evidence } from '../../../model/types/modelTypes';
 import FeatureType from '../../../model/types/FeatureType';
-import {
-  UniProtProtvistaEvidenceTag,
-  UniProtEvidenceTagContent,
-} from '../../../components/UniProtEvidenceTag';
-import { EvidenceData } from '../../../model/types/EvidenceCodes';
+import { UniProtProtvistaEvidenceTag } from '../../../components/UniProtEvidenceTag';
+import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 
 enum LocationModifier {
   EXACT = 'EXACT',
@@ -37,7 +33,7 @@ export type FeatureData = {
   evidences?: Evidence[];
 }[];
 
-type ProtvistaFeature = {
+export type ProtvistaFeature = {
   type: string;
   description: string;
   evidences: Evidence[];
@@ -52,7 +48,7 @@ type FeatureProps = {
   features: FeatureData;
 };
 
-type ProcessedDatum = {
+export type ProcessedFeature = {
   accession: string | undefined;
   start: number;
   end: number;
@@ -63,9 +59,9 @@ type ProcessedDatum = {
   evidences: Evidence[] | undefined;
 };
 
-const processData = (data: FeatureData): ProcessedDatum[] =>
+const processData = (data: FeatureData): ProcessedFeature[] =>
   data.map(
-    (feature): ProcessedDatum => {
+    (feature): ProcessedFeature => {
       return {
         accession: feature.featureId,
         start: feature.location.start.value,
@@ -85,45 +81,34 @@ const FeaturesView: React.FC<FeatureProps> = ({
 }): JSX.Element | null => {
   loadWebComponent('protvista-track', ProtvistaTrack);
   loadWebComponent('protvista-manager', ProtvistaManager);
-  loadWebComponent('protvista-datatable', ProtvistaDatatable);
   loadWebComponent('protvista-sequence', ProtvistaSequence);
   loadWebComponent('protvista-navigation', ProtvistaNavigation);
 
   const processedData = processData(features);
-  const [showEvidenceTagData, setShowEvidenceTagData] = useState(false);
-  const [selectedEvidenceData, setSelectedEvidenceData] = useState();
-  const [selectedReferences, setSelectedReferences] = useState();
 
-  const evidenceTagCallback = (
-    evidenceData: EvidenceData,
-    references: Evidence[] | undefined
-  ) => {
-    setSelectedEvidenceData(evidenceData);
-    setSelectedReferences(references);
-    setShowEvidenceTagData(true);
-  };
-
-  const columns = {
-    type: {
-      label: 'Type',
-      resolver: (d: ProtvistaFeature): string => d.type,
-    },
-    positions: {
-      label: 'Positions',
-      resolver: (d: ProtvistaFeature): string =>
-        `${d.startModifier === LocationModifier.UNKNOWN ? '?' : d.start}-${
-          d.endModifier === LocationModifier.UNKNOWN ? '?' : d.end
-        }`,
-    },
-    description: {
-      label: 'Description',
-      resolver: (d: ProtvistaFeature): TemplateResult =>
-        html`
-          ${d.description}
-          ${d.evidences &&
-            UniProtProtvistaEvidenceTag(d.evidences, evidenceTagCallback)}
-        `,
-    },
+  const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
+    return {
+      type: {
+        label: 'Type',
+        resolver: (d: ProtvistaFeature): string => d.type,
+      },
+      positions: {
+        label: 'Positions',
+        resolver: (d: ProtvistaFeature): string =>
+          `${d.startModifier === LocationModifier.UNKNOWN ? '?' : d.start}-${
+            d.endModifier === LocationModifier.UNKNOWN ? '?' : d.end
+          }`,
+      },
+      description: {
+        label: 'Description',
+        resolver: (d: ProtvistaFeature): TemplateResult =>
+          html`
+            ${d.description}
+            ${d.evidences &&
+              UniProtProtvistaEvidenceTag(d.evidences, evidenceTagCallback)}
+          `,
+      },
+    };
   };
 
   const setTrackData = useCallback(
@@ -134,18 +119,6 @@ const FeaturesView: React.FC<FeatureProps> = ({
       }
     },
     [processedData]
-  );
-
-  const setTableData = useCallback(
-    (node): void => {
-      if (node) {
-        // eslint-disable-next-line no-param-reassign
-        node.data = processedData;
-        // eslint-disable-next-line no-param-reassign
-        node.columns = columns;
-      }
-    },
-    [processedData, columns]
   );
 
   if (processedData.length <= 0) {
@@ -171,19 +144,11 @@ const FeaturesView: React.FC<FeatureProps> = ({
             />
           </Fragment>
         )}
-        <protvista-datatable ref={setTableData} />
+        <FeaturesTableView
+          data={processedData}
+          getColumnConfig={getColumnConfig}
+        />
       </protvista-manager>
-      <div
-        className={`evidence-tag-content ${showEvidenceTagData &&
-          'evidence-tag-content--visible'}`}
-      >
-        {selectedEvidenceData && selectedReferences && (
-          <UniProtEvidenceTagContent
-            evidenceData={selectedEvidenceData}
-            references={selectedReferences}
-          />
-        )}
-      </div>
     </Fragment>
   );
 };

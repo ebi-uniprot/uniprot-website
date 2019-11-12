@@ -21,9 +21,9 @@ exports[`FeaturesView component it renders without crashing 1`] = `
       sequence="ASDASDASASDASDASDSASD"
     />
     <protvista-datatable />
+    <div
+      class="evidence-tag-content false"
+    />
   </protvista-manager>
-  <div
-    class="evidence-tag-content false"
-  />
 </DocumentFragment>
 `;

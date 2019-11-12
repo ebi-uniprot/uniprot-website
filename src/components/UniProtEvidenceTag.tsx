@@ -69,6 +69,9 @@ export const UniProtProtvistaEvidenceTag = (
     (evidence: Evidence) => evidence.evidenceCode
   );
   const evidenceTags = Array.from(evidenceMap.keys()).map(evidenceCode => {
+    if (!evidenceCode) {
+      return html``;
+    }
     const evidenceData = getEvidenceCodeData(evidenceCode);
     if (!evidenceData) {
       // Unlike React, lit-html always expects an html template, not null.

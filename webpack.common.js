@@ -55,7 +55,10 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        exclude: [path.resolve(__dirname, 'node_modules/litemol/dist/fonts')],
+        exclude: [
+          path.resolve(__dirname, 'node_modules/litemol/dist/fonts'),
+          path.resolve(__dirname, 'node_modules/protvista-datatable'),
+        ],
         use: [
           {
             loader: 'babel-loader',
@@ -80,6 +83,11 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.svg$/,
+        include: [path.resolve(__dirname, 'node_modules/protvista-datatable')],
+        loader: 'svg-inline-loader',
       },
       {
         test: /\.(jpe?g|png|gif|ico)$/i,

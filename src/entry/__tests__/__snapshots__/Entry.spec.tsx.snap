@@ -958,10 +958,10 @@ exports[`Entry should render 1`] = `
                 sequence="SAPSQDFMRF"
               />
               <protvista-datatable />
+              <div
+                class="evidence-tag-content false"
+              />
             </protvista-manager>
-            <div
-              class="evidence-tag-content false"
-            />
           </div>
         </div>
       </div>

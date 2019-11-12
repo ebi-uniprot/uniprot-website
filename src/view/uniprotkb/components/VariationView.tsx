@@ -5,34 +5,37 @@ import ProtvistaNavigation from 'protvista-navigation';
 import ProtvistaVariation from 'protvista-variation';
 import ProtvistaVariationAdapter from 'protvista-variation-adapter';
 import ProtvistaFilter, { ProtvistaCheckbox } from 'protvista-filter';
+import { html } from 'lit-html';
 import { loadWebComponent } from '../../../utils/utils';
 import useDataApi from '../../../utils/useDataApi';
 import apiUrls, { joinUrl } from '../../../utils/apiUrls';
 import FeatureType from '../../../model/types/FeatureType';
 import './styles/VariationView.scss';
+import { UniProtProtvistaEvidenceTag } from '../../../components/UniProtEvidenceTag';
 import { Evidence } from '../../../model/types/modelTypes';
+import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 
-type Variant = {
+export type ProtvistaVariant = {
   begin: number;
   end: number;
   type: FeatureType.VARIANT;
   wildType: string;
   alternativeSequence: string;
-  description?: string;
-  consequenceType: string;
-  cytogeneticBand?: string;
-  genomicLocation?: string;
   polyphenPrediction?: string;
   polyphenScore?: number;
   siftPrediction?: string;
   siftScore?: number;
+  description?: string;
+  consequenceType: string;
+  cytogeneticBand?: string;
+  genomicLocation?: string;
   somaticStatus?: number;
   sourceType: string;
   association?: {
     description: string;
     disease: boolean;
     name: string;
-    evidences: Evidence[];
+    evidences: { code: string; source: { name: string; id: string } }[];
   }[];
   xrefs: {
     alternativeUrl?: string;
@@ -46,17 +49,112 @@ interface ChangeEvent extends Event {
   detail?: { type: string; value: string[] };
 }
 
+loadWebComponent('protvista-variation', ProtvistaVariation);
+loadWebComponent('protvista-navigation', ProtvistaNavigation);
+loadWebComponent('protvista-sequence', ProtvistaSequence);
+loadWebComponent('protvista-manager', ProtvistaManager);
+loadWebComponent('protvista-filter', ProtvistaFilter);
+loadWebComponent('protvista-checkbox', ProtvistaCheckbox);
+loadWebComponent('protvista-variation-adapter', ProtvistaVariationAdapter);
+
+const formatVariantDescription = (description: string) => {
+  /* eslint-disable no-useless-escape */
+  const pattern = /\[(\w+)\]: ([^\[]+)/g;
+  const match = description.match(pattern);
+  return match;
+};
+
+const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
+  return {
+    positions: {
+      label: 'Position(s)',
+      resolver: (d: ProtvistaVariant) =>
+        d.begin === d.end ? d.begin : `${d.begin}-${d.end}`,
+    },
+    change: {
+      label: 'Change',
+      resolver: (d: ProtvistaVariant) =>
+        `${d.wildType}>${d.alternativeSequence}`,
+    },
+    consequence: {
+      label: 'Consequence',
+      child: true,
+      resolver: (d: ProtvistaVariant) => d.consequenceType,
+    },
+    sift: {
+      label: 'SIFT prediction',
+      child: true,
+      resolver: (d: ProtvistaVariant) =>
+        d.siftPrediction ? `${d.siftPrediction} (${d.siftScore})` : '',
+    },
+    polyphen: {
+      label: 'Polyphen prediction',
+      child: true,
+      resolver: (d: ProtvistaVariant) =>
+        d.polyphenPrediction
+          ? `${d.polyphenPrediction} (${d.polyphenScore})`
+          : '',
+    },
+    description: {
+      label: 'Description',
+      resolver: (d: ProtvistaVariant) => {
+        if (!d.description) {
+          return '';
+        }
+        const formatedDescription = formatVariantDescription(d.description);
+        return formatedDescription
+          ? formatedDescription.map(
+              descriptionLine =>
+                html`
+                  <p>${descriptionLine}</p>
+                `
+            )
+          : '';
+      },
+    },
+    somaticStatus: {
+      label: 'Somatic',
+      child: true,
+      resolver: (d: ProtvistaVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
+    },
+    hasDisease: {
+      label: 'Disease association',
+      resolver: (d: ProtvistaVariant) =>
+        d.association && d.association.length > 0 ? 'Y' : 'N',
+    },
+    association: {
+      label: 'Disease association',
+      child: true,
+      resolver: (d: ProtvistaVariant) => {
+        if (!d.association) {
+          return '';
+        }
+        return d.association.map(association => {
+          return html`
+            <p>
+              ${association.name}
+              ${association.evidences &&
+                UniProtProtvistaEvidenceTag(
+                  association.evidences.map(evidence => {
+                    return ({
+                      evidenceCode: evidence.code,
+                      source: evidence.source.name,
+                      id: evidence.source.id,
+                    } as unknown) as Evidence;
+                  }),
+                  evidenceTagCallback
+                )}
+            </p>
+          `;
+        });
+      },
+    },
+  };
+};
+
 const VariationView: FC<{ primaryAccession: string }> = ({
   primaryAccession,
 }) => {
-  loadWebComponent('protvista-variation', ProtvistaVariation);
-  loadWebComponent('protvista-navigation', ProtvistaNavigation);
-  loadWebComponent('protvista-sequence', ProtvistaSequence);
-  loadWebComponent('protvista-manager', ProtvistaManager);
-  loadWebComponent('protvista-filter', ProtvistaFilter);
-  loadWebComponent('protvista-checkbox', ProtvistaCheckbox);
-  loadWebComponent('protvista-variation-adapter', ProtvistaVariationAdapter);
-
   const data = useDataApi(joinUrl(apiUrls.variation, primaryAccession));
 
   const setTrackData = useCallback(
@@ -71,36 +169,31 @@ const VariationView: FC<{ primaryAccession: string }> = ({
     [data]
   );
 
-  const addTooltipEventListener = useCallback(node => {
-    if (node !== null) {
-      // eslint-disable-next-line no-console
-      node.addEventListener('change', (e: ChangeEvent) => console.log(e));
-    }
-  }, []);
-
   if (!data.sequence) {
     return null;
   }
 
   return (
-    <div className="variation-view">
+    <div>
       <h4>Variants</h4>
-      <protvista-manager
-        attributes="highlight displaystart displayend activefilters filters"
-        ref={addTooltipEventListener}
-      >
-        <protvista-navigation length={data.sequence.length} />
-        <protvista-sequence
-          length={data.sequence.length}
-          sequence={data.sequence}
-          height="20"
+      <protvista-manager attributes="highlight displaystart displayend activefilters filters">
+        <div className="variation-view">
+          <protvista-navigation length={data.sequence.length} />
+          <protvista-sequence
+            length={data.sequence.length}
+            sequence={data.sequence}
+            height="20"
+          />
+          <protvista-filter />
+          <protvista-variation length={data.sequence.length}>
+            <protvista-variation-adapter ref={setTrackData} />
+          </protvista-variation>
+        </div>
+        <FeaturesTableView
+          data={data.features}
+          getColumnConfig={getColumnConfig}
         />
-        <protvista-filter />
-        <protvista-variation length={data.sequence.length}>
-          <protvista-variation-adapter ref={setTrackData} />
-        </protvista-variation>
       </protvista-manager>
-      <protvista-tooltip />
     </div>
   );
 };
