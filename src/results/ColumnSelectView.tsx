@@ -1,10 +1,6 @@
 import React from 'react';
 import { AccordionSearch, Tabs, Bubble } from 'franklin-sites';
-import {
-  moveItemInList,
-  removeItemFromList,
-  getBEMClassName as bem,
-} from '../utils/utils';
+import { getBEMClassName as bem } from '../utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import { Column } from '../model/types/ColumnTypes';
 import {
@@ -62,22 +58,10 @@ type ColumnSelectViewProps = {
 const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
   selectedColumns,
   fieldData,
-  onChange,
+  onDragDrop,
+  onSelect,
   onReset,
 }) => {
-  const handleSelect = (itemId: Column) => {
-    const index = selectedColumns.indexOf(itemId);
-    onChange(
-      index >= 0
-        ? removeItemFromList(selectedColumns, index)
-        : [...selectedColumns, itemId]
-    );
-  };
-
-  const handleDragDrop = (srcIndex: number, destIndex: number) => {
-    onChange(moveItemInList(selectedColumns, srcIndex, destIndex));
-  };
-
   const fieldDataForSelectedColumns = getFieldDataForColumns(
     selectedColumns,
     fieldData
@@ -94,9 +78,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
       content: (
         <AccordionSearch
           accordionData={Object.values(fieldData[tabId])}
-          onSelect={(_accordionId: string, itemId: Column) =>
-            handleSelect(itemId)
-          }
+          onSelect={(_accordionId: string, itemId: Column) => onSelect(itemId)}
           selected={selectedColumnsInTab}
           columns
         />
@@ -107,8 +89,8 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
     <div className="column-select">
       <ColumnSelectDragDrop
         columns={fieldDataForSelectedColumns}
-        onDragDrop={handleDragDrop}
-        onRemove={handleSelect}
+        onDragDrop={onDragDrop}
+        onRemove={onSelect}
       />
       <button
         className="button secondary"

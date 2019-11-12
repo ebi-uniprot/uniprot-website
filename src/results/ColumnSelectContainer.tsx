@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
+import { moveItemInList, removeItemFromList } from '../utils/utils';
 import { RootState, RootAction } from '../state/state-types';
 import * as resultsActions from './state/resultsActions';
 import ColumnSelectView from './ColumnSelectView';
@@ -59,14 +60,39 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
     return <Loader />;
   }
 
+  const selectedColumnsWithoutEntry = selectedColumns.filter(
+    col => col !== entryField.itemId
+  );
+
+  const handleChange = (columns: Column[]) => {
+    console.log(columns);
+    onChange([entryField.itemId, ...columns]);
+  };
+
+  const handleSelect = (itemId: Column) => {
+    const index = selectedColumnsWithoutEntry.indexOf(itemId);
+    handleChange(
+      index >= 0
+        ? removeItemFromList(selectedColumnsWithoutEntry, index)
+        : [...selectedColumnsWithoutEntry, itemId]
+    );
+  };
+
+  const handleDragDrop = (srcIndex: number, destIndex: number) => {
+    handleChange(
+      moveItemInList(selectedColumnsWithoutEntry, srcIndex, destIndex)
+    );
+  };
+
   return (
     <ColumnSelectView
-      selectedColumns={selectedColumns.filter(col => col !== entryField.itemId)}
+      selectedColumns={selectedColumnsWithoutEntry}
       // remove the entry field from the choices as this MUST ALWAYS BE PRESENT
       // in the url fields parameter when making the search request
       fieldData={removeFieldFromFieldsData(entryField, fieldData)}
-      onChange={(cols: Column[]) => onChange([entryField.itemId, ...cols])}
       onReset={() => onChange(defaultTableColumns)}
+      onSelect={handleSelect}
+      onDragDrop={handleDragDrop}
     />
   );
 };
