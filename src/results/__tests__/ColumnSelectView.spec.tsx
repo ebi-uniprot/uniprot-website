@@ -4,13 +4,22 @@ import ColumnSelectView from '../ColumnSelectView';
 import { Column } from '../../model/types/ColumnTypes';
 import structuredResultFieldsData from '../../__mockData__/StructuredResultFieldsData.json';
 
+/*
+  selectedColumns: Column[];
+  fieldData: FieldData;
+  onSelect: (columnId: Column) => void;
+  onDragDrop: (srcIndex: number, destIndex: number) => void;
+  onReset: () => void;
+*/
 describe('ColumnSelectView component', () => {
-  let props, rendered;
+  let props;
+  let rendered;
   beforeEach(() => {
     props = {
-      selectedColumns: [Column.accession, Column.ccAllergen],
+      selectedColumns: [Column.ccAllergen, Column.proteinExistence],
       fieldData: structuredResultFieldsData,
-      onChange: jest.fn(),
+      onSelect: jest.fn(),
+      onDragDrop: jest.fn(),
       onReset: jest.fn(),
     };
     rendered = render(<ColumnSelectView {...props} />);
@@ -21,13 +30,12 @@ describe('ColumnSelectView component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should call onChange when an item is selected in the accordion', () => {
+  test('should call onSelect when an item is selected in the accordion', () => {
     const { queryAllByTestId } = rendered;
     const content = queryAllByTestId('accordion-content');
     const listItemCheckbox = content[0].querySelector('li>label>input');
     fireEvent.click(listItemCheckbox);
-    // Unselect Column.accession to leave only Column.ccAllergen
-    expect(props.onChange).toHaveBeenCalledWith([Column.ccAllergen]);
+    expect(props.onSelect).toHaveBeenCalledWith(Column.accession);
   });
 
   test('should call onReset but reset to default button is clicked', () => {

@@ -30,10 +30,15 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
   </div>
 );
 
-// Searches through the result field structure to find the associated information:
-//  tabId, accordionId, itemId, label
-// for each column which is an enum string
 const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
+  /*
+  For each column (a string enum) searches through the result field structure
+  to find the associated information:
+    -tabId
+    -accordionId
+    -itemId
+    -label
+  */
   const selected: SelectedColumn[] = new Array(columns.length);
   [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
     fieldData[tabId].forEach(({ id: accordionId, items }) => {
@@ -51,7 +56,8 @@ const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
 type ColumnSelectViewProps = {
   selectedColumns: Column[];
   fieldData: FieldData;
-  onChange: (columnId: Column[]) => void;
+  onSelect: (columnId: Column) => void;
+  onDragDrop: (srcIndex: number, destIndex: number) => void;
   onReset: () => void;
 };
 

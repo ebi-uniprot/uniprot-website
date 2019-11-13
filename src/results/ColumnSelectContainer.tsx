@@ -60,12 +60,18 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
     return <Loader />;
   }
 
+  // remove the entry field from the choices as this must always be present
+  // in the url fields parameter when making the search request ie
+  // don't give users the choice to remove it
   const selectedColumnsWithoutEntry = selectedColumns.filter(
     col => col !== entryField.itemId
   );
+  const FieldFromFieldsDataWithoutEntry = removeFieldFromFieldsData(
+    entryField,
+    fieldData
+  );
 
   const handleChange = (columns: Column[]) => {
-    console.log(columns);
     onChange([entryField.itemId, ...columns]);
   };
 
@@ -87,9 +93,7 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
   return (
     <ColumnSelectView
       selectedColumns={selectedColumnsWithoutEntry}
-      // remove the entry field from the choices as this MUST ALWAYS BE PRESENT
-      // in the url fields parameter when making the search request
-      fieldData={removeFieldFromFieldsData(entryField, fieldData)}
+      fieldData={FieldFromFieldsDataWithoutEntry}
       onReset={() => onChange(defaultTableColumns)}
       onSelect={handleSelect}
       onDragDrop={handleDragDrop}
