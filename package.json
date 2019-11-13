@@ -53,7 +53,7 @@
     "d3": "^5.9.2",
     "eslint": "5.3.0",
     "eslint-config-prettier": "^6.0.0",
-    "franklin-sites": "0.0.19",
+    "franklin-sites": "0.0.20",
     "idx": "^2.5.2",
     "lit-html": "^1.1.2",
     "litemol": "^2.4.2",
