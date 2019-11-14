@@ -23,43 +23,41 @@ import {
 loadWebComponent('interaction-viewer', InteractionViewer);
 loadWebComponent('protvista-datatable', ProtvistaDatatable);
 
-const getInteractionColumns = (primaryAccession: string) => {
-  return {
-    title: {
-      label: 'Type',
-      resolver: (d: Interaction) => d.type,
-    },
-    entry: {
-      label: 'Entry',
-      resolver: (d: Interaction) =>
-        html`
-          <a href="/uniprotkb/${d.uniProtAccession}">${d.uniProtAccession}</a>
-        `,
-    },
-    experiments: {
-      label: 'Number of experiments',
-      resolver: (d: Interaction) => d.numberOfExperiments,
-    },
-    intact: {
-      label: 'Intact',
-      resolver: (d: Interaction) =>
-        html`
-          <a
-            href=${d.uniProtAccession
-              ? getIntActQueryUrl(d.firstInteractor, d.secondInteractor)
-              : getIntActQueryForAccessionUrl(primaryAccession)}
-            target="_blank"
-            >${d.firstInteractor}, ${d.secondInteractor}</a
-          >
-        `,
-    },
-    // NOTES SEEM TO BE MISSING FROM THE RESPONSE
-    // notes: {
-    //   label: 'Notes',
-    //   resolver: (d:Interaction) => d.
-    // }
-  };
-};
+const getInteractionColumns = (primaryAccession: string) => ({
+  title: {
+    label: 'Type',
+    resolver: (d: Interaction) => d.type,
+  },
+  entry: {
+    label: 'Entry',
+    resolver: (d: Interaction) =>
+      html`
+        <a href="/uniprotkb/${d.uniProtAccession}">${d.uniProtAccession}</a>
+      `,
+  },
+  experiments: {
+    label: 'Number of experiments',
+    resolver: (d: Interaction) => d.numberOfExperiments,
+  },
+  intact: {
+    label: 'Intact',
+    resolver: (d: Interaction) =>
+      html`
+        <a
+          href=${d.uniProtAccession
+            ? getIntActQueryUrl(d.firstInteractor, d.secondInteractor)
+            : getIntActQueryForAccessionUrl(primaryAccession)}
+          target="_blank"
+          >${d.firstInteractor}, ${d.secondInteractor}</a
+        >
+      `,
+  },
+  // NOTES SEEM TO BE MISSING FROM THE RESPONSE
+  // notes: {
+  //   label: 'Notes',
+  //   resolver: (d:Interaction) => d.
+  // }
+});
 
 interface HTMLInteractionDatatable extends HTMLElement {
   data?: Interaction[];
