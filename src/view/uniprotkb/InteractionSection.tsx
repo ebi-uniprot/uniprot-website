@@ -79,11 +79,15 @@ const InteractionSection: FC<{
 }> = ({ data, primaryAccession }): JSX.Element | null => {
   const datatableContainer = useRef<HTMLInteractionDatatable>(null);
   useEffect(() => {
-    if (datatableContainer && datatableContainer.current) {
-      const interactionComment = data.commentsData.get(
-        CommentType.INTERACTION
-      ) as InteractionComment[];
+    const interactionComment = data.commentsData.get(
+      CommentType.INTERACTION
+    ) as InteractionComment[];
 
+    if (
+      datatableContainer &&
+      datatableContainer.current &&
+      interactionComment[0]
+    ) {
       // eslint-disable-next-line no-param-reassign
       datatableContainer.current.data = interactionComment[0].interactions;
       // eslint-disable-next-line no-param-reassign
