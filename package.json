@@ -54,6 +54,7 @@
     "eslint-config-prettier": "^6.0.0",
     "franklin-sites": "0.0.17",
     "idx": "^2.5.2",
+    "interaction-viewer": "^2.2.4",
     "lit-html": "^1.1.2",
     "litemol": "^2.4.2",
     "npm-run-all": "^4.1.2",

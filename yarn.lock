@@ -5107,6 +5107,14 @@ inquirer@^5.2.0:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
+interaction-viewer@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/interaction-viewer/-/interaction-viewer-2.2.4.tgz#01d3e437d13c776d1f8f991d3b022d419a4aa711"
+  integrity sha512-SrG07OD87z2g7cmWETdPnBNdDrV8NlX87yrcDscSBcbdhZ8uos1JpJju1EyCm9+4WIK0ff+lRvfDLjmDOn1lkQ==
+  dependencies:
+    lodash-es "^4.17.11"
+    whatwg-fetch "^3.0.0"
+
 internal-ip@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-4.3.0.tgz#845452baad9d2ca3b69c635a137acb9a0dad0907"

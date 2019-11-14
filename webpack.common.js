@@ -39,6 +39,9 @@ module.exports = {
           // We use realpathSync otherwise doesn't work with symlinks
           fs.realpathSync(__dirname + '/node_modules/litemol/dist/css'),
           fs.realpathSync(__dirname + '/node_modules/@geneontology/ribbon/es'),
+          fs.realpathSync(
+            __dirname + '/node_modules/interaction-viewer/styles'
+          ),
           path.resolve(__dirname, 'src'),
         ],
         use: [
