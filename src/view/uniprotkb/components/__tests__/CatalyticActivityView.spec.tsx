@@ -7,11 +7,23 @@ import CatalyticActivityView, {
   ReactionDirection,
 } from '../CatalyticActivityView';
 import catalyticActivityUIDataJson from '../__mocks__/CatalyticActivityUIData.json';
+import { removeProperty } from '../../../../utils/utils';
 
 describe('CatalyticActivityView component', () => {
   test('should render catalytic activity', () => {
     const { asFragment } = render(
       <CatalyticActivityView comments={catalyticActivityUIDataJson} />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+  test('should render catalytic activity when comment does not have reactionReferences', () => {
+    const comment = catalyticActivityUIDataJson[0];
+    const commentWithoutReactionReferences = {
+      ...comment,
+      reaction: removeProperty(comment.reaction, 'reactionReferences'),
+    };
+    const { asFragment } = render(
+      <CatalyticActivityView comments={[commentWithoutReactionReferences]} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

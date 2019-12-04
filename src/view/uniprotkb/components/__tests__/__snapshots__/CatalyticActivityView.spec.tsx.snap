@@ -102,6 +102,108 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
 </DocumentFragment>
 `;
 
+exports[`CatalyticActivityView component should render catalytic activity when comment does not have reactionReferences 1`] = `
+<DocumentFragment>
+  <h4>
+    Catalytic Activity
+  </h4>
+  <span
+    class="text-block"
+  >
+    <strong>
+      EC:12112
+    </strong>
+     Reaction nameThis reaction proceeds in the 
+    <span
+      data-testid="direction-text"
+    >
+      forward
+    </span>
+    <span
+      class="evidence-tag svg-colour-reviewed"
+      data-testid="evidence-tag-trigger"
+      role="button"
+      tabindex="0"
+    >
+      <svg
+        height="12"
+        viewBox="0 0 426 512"
+        width="12"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+          id="Shape"
+        />
+      </svg>
+      <span
+        class="evidence-tag__label"
+        title=""
+      >
+        1 publication
+      </span>
+    </span>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+    >
+      <div>
+        <h5>
+          Manual assertion based on experiment
+        </h5>
+        <div>
+          PubMed:30193097
+        </div>
+      </div>
+    </div>
+     and the 
+    <span
+      data-testid="direction-text"
+    >
+      backward
+    </span>
+    <span
+      class="evidence-tag svg-colour-reviewed"
+      data-testid="evidence-tag-trigger"
+      role="button"
+      tabindex="0"
+    >
+      <svg
+        height="12"
+        viewBox="0 0 426 512"
+        width="12"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M432 144H288V0l144 144zM112.96 404.128l66.112 34.752-12.624-73.632 53.488-52.16L146 302.336l-33.056-66.976-33.072 66.976-73.92 10.752 53.504 52.16-12.64 73.632 66.144-34.752zM32 491.856V512h200.192L112.96 449.312 32 491.856zm114-189.52l-33.056-66.976-33.072 66.976L32 309.312v29.152l27.456 26.784-12.64 73.632 66.144-34.752 66.112 34.752-12.624-73.632 53.488-52.16L146 302.336zM256 176V0H32v268.88l21.312-3.104 59.648-120.784 59.6 120.784 133.312 19.408-96.448 94.032L232.192 512H432V176H256z"
+          id="Shape"
+        />
+      </svg>
+      <span
+        class="evidence-tag__label"
+        title=""
+      >
+        1 publication
+      </span>
+    </span>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+    >
+      <div>
+        <h5>
+          Manual assertion based on experiment
+        </h5>
+        <div>
+          PubMed:30193097
+        </div>
+      </div>
+    </div>
+     directions 
+  </span>
+</DocumentFragment>
+`;
+
 exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present  1`] = `
 <DocumentFragment>
   This reaction proceeds in the 
