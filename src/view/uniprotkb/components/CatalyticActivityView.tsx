@@ -131,37 +131,33 @@ const CatalyticActivityView: React.FC<CatalyticActivityProps> = ({
   return (
     <Fragment>
       <h4>Catalytic Activity</h4>
-      {comments.map(catalyticActivity => {
-        if (!catalyticActivity.reaction) {
+      {comments.map(({ reaction, physiologicalReactions }) => {
+        if (!reaction) {
           return null;
         }
         // Using only the first rhea reaction reference because FW has assured us that
         // there will be either 0 or 1 types of this reference (ie never > 1)
-        const rheaReactionReference = catalyticActivity.reaction.reactionReferences.find(
-          isRheaReactionReference
-        );
+
+        const rheaReactionReference =
+          reaction.reactionReferences &&
+          reaction.reactionReferences.find(isRheaReactionReference);
         const rheaId =
           rheaReactionReference && getRheaId(rheaReactionReference.id);
         if (rheaId && !firstRheaId) {
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={catalyticActivity.reaction.name}>
-            <strong>{catalyticActivity.reaction.ecNumber}</strong>
-            {` ${catalyticActivity.reaction.name}`}
-            {catalyticActivity.reaction.evidences && (
-              <UniProtEvidenceTag
-                evidences={catalyticActivity.reaction.evidences}
+          <span className="text-block" key={reaction.name}>
+            <strong>{reaction.ecNumber}</strong>
+            {` ${reaction.name}`}
+            {reaction.evidences && (
+              <UniProtEvidenceTag evidences={reaction.evidences} />
+            )}
+            {physiologicalReactions && physiologicalReactions.length && (
+              <ReactionDirection
+                physiologicalReactions={physiologicalReactions}
               />
             )}
-            {catalyticActivity.physiologicalReactions &&
-              catalyticActivity.physiologicalReactions.length && (
-                <ReactionDirection
-                  physiologicalReactions={
-                    catalyticActivity.physiologicalReactions
-                  }
-                />
-              )}
             {!!rheaId && (
               <RheaReactionVisualizer
                 rheaId={rheaId}
