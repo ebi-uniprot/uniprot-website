@@ -10,6 +10,7 @@ const scaleColors = {
   deleteriousColor: '#002594',
   benignColor: '#8FE3FF',
   othersColor: '#009e73',
+  defaultColour: '#9f9f9f',
 };
 
 const consequences = {
@@ -18,7 +19,7 @@ const consequences = {
   uncertain: /uncertain|conflicting|unclassified/i,
 };
 
-const getFilteredVariants = (
+export const getFilteredVariants = (
   variants: VariationVariants,
   callbackFilter: (variant: TransformedProtvistaVariant) => void
 ) =>
@@ -28,7 +29,7 @@ const getFilteredVariants = (
     );
     return {
       ...variant,
-      variants: [...matchingVariants],
+      variants: matchingVariants,
     };
   });
 
@@ -116,7 +117,7 @@ const filterConfig = [
     },
     options: {
       labels: ['UniProt reviewed'],
-      colors: ['#9f9f9f'],
+      colors: [scaleColors.defaultColour],
     },
     filterData: (variants: VariationVariants) =>
       getFilteredVariants(
@@ -135,7 +136,7 @@ const filterConfig = [
     },
     options: {
       labels: ['ClinVar reviewed'],
-      colors: ['#9f9f9f'],
+      colors: [scaleColors.defaultColour],
     },
     filterData: (variants: VariationVariants) =>
       getFilteredVariants(
@@ -154,7 +155,7 @@ const filterConfig = [
     },
     options: {
       labels: ['Large scale studies'],
-      colors: ['#9f9f9f'],
+      colors: [scaleColors.defaultColour],
     },
     filterData: (variants: VariationVariants) =>
       getFilteredVariants(
@@ -170,12 +171,12 @@ const predictionScale = scaleLinear<string>()
   .domain([0, 1])
   .range([scaleColors.deleteriousColor, scaleColors.benignColor]);
 
-const getPredictionColor = (siftScore?: number, polyphenScore?: number) => {
-  return predictionScale(
-    (siftScore || 0 + (1 - (polyphenScore || 1))) /
-      (polyphenScore && siftScore ? 2 : 1)
-  );
-};
+export const calculatePredictionScoreAvg = (
+  siftScore?: number,
+  polyphenScore?: number
+) =>
+  ((siftScore || 0) + (1 - (polyphenScore || 1))) /
+  (polyphenScore && siftScore ? 2 : 1);
 
 export const colorConfig = (variant: TransformedProtvistaVariant) => {
   const variantWrapper = [{ variants: [variant] }];
@@ -202,7 +203,9 @@ export const colorConfig = (variant: TransformedProtvistaVariant) => {
     filterGroups.predicted &&
     filterGroups.predicted[0].filterData(variantWrapper)[0].variants.length > 0
   ) {
-    return getPredictionColor(variant.siftScore, variant.polyphenScore);
+    return predictionScale(
+      calculatePredictionScoreAvg(variant.siftScore, variant.polyphenScore)
+    );
   }
   return scaleColors.othersColor;
 };
