@@ -1,5 +1,4 @@
 import { scaleLinear } from 'd3-scale';
-import { groupBy } from 'lodash';
 import { TransformedProtvistaVariant } from '../VariationView';
 
 type VariationVariants = { variants: TransformedProtvistaVariant[] }[];
@@ -33,8 +32,8 @@ export const getFilteredVariants = (
     };
   });
 
-const filterConfig = [
-  {
+const filterConfig = {
+  disease: {
     name: 'disease',
     type: {
       name: 'consequence',
@@ -52,7 +51,7 @@ const filterConfig = [
           consequences.likelyDisease.test(variantPos.clinicalSignificances)
       ),
   },
-  {
+  predicted: {
     name: 'predicted',
     type: {
       name: 'consequence',
@@ -70,7 +69,7 @@ const filterConfig = [
           typeof variantPos.siftScore !== 'undefined'
       ),
   },
-  {
+  nonDisease: {
     name: 'nonDisease',
     type: {
       name: 'consequence',
@@ -88,7 +87,7 @@ const filterConfig = [
           consequences.likelyBenign.test(variantPos.clinicalSignificances)
       ),
   },
-  {
+  uncertain: {
     name: 'uncertain',
     type: {
       name: 'consequence',
@@ -109,7 +108,7 @@ const filterConfig = [
             consequences.uncertain.test(variantPos.clinicalSignificances))
       ),
   },
-  {
+  UniProt: {
     name: 'UniProt',
     type: {
       name: 'provenance',
@@ -128,7 +127,7 @@ const filterConfig = [
             variantPos.xrefNames.includes('UniProt'))
       ),
   },
-  {
+  ClinVar: {
     name: 'ClinVar',
     type: {
       name: 'provenance',
@@ -147,7 +146,7 @@ const filterConfig = [
             variantPos.xrefNames.includes('clinvar'))
       ),
   },
-  {
+  LSS: {
     name: 'LSS',
     type: {
       name: 'provenance',
@@ -165,7 +164,7 @@ const filterConfig = [
           variantPos.sourceType === 'mixed'
       ),
   },
-];
+};
 
 const predictionScale = scaleLinear<string>()
   .domain([0, 1])
@@ -180,28 +179,21 @@ export const calculatePredictionScoreAvg = (
 
 export const colorConfig = (variant: TransformedProtvistaVariant) => {
   const variantWrapper = [{ variants: [variant] }];
-  const filterGroups = groupBy(filterConfig, (config) => config.name);
-  if (
-    filterGroups.disease &&
-    filterGroups.disease[0].filterData(variantWrapper)[0].variants.length > 0
-  ) {
+  if (filterConfig.disease.filterData(variantWrapper)[0].variants.length > 0) {
     return scaleColors.UPDiseaseColor;
   }
   if (
-    filterGroups.nonDisease &&
-    filterGroups.nonDisease[0].filterData(variantWrapper)[0].variants.length > 0
+    filterConfig.nonDisease.filterData(variantWrapper)[0].variants.length > 0
   ) {
     return scaleColors.UPNonDiseaseColor;
   }
   if (
-    filterGroups.uncertain &&
-    filterGroups.uncertain[0].filterData(variantWrapper)[0].variants.length > 0
+    filterConfig.uncertain.filterData(variantWrapper)[0].variants.length > 0
   ) {
     return scaleColors.othersColor;
   }
   if (
-    filterGroups.predicted &&
-    filterGroups.predicted[0].filterData(variantWrapper)[0].variants.length > 0
+    filterConfig.predicted.filterData(variantWrapper)[0].variants.length > 0
   ) {
     return predictionScale(
       calculatePredictionScoreAvg(variant.siftScore, variant.polyphenScore)
@@ -210,4 +202,5 @@ export const colorConfig = (variant: TransformedProtvistaVariant) => {
   return scaleColors.othersColor;
 };
 
-export default filterConfig;
+// export the filterConfig as an array (keys are used for lookup in colorConfig)
+export default Object.values(filterConfig);
