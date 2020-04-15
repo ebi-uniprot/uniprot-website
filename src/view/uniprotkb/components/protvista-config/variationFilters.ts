@@ -13,13 +13,10 @@ const scaleColors = {
 };
 
 const consequences = {
-  likelyDisease: [/disease/i, /pathogenic\b/i, /risk factor/i],
-  likelyBenign: [/benign/i],
-  uncertain: [/uncertain/i, /conflicting/i, /unclassified/i],
+  likelyDisease: /disease|pathogenic\b|risk factor/i,
+  likelyBenign: /benign/i,
+  uncertain: /uncertain|conflicting|unclassified/i,
 };
-
-const significanceMatches = (values: RegExp[], clinicalSignificance?: string) =>
-  clinicalSignificance && values.some((rx) => rx.test(clinicalSignificance));
 
 const getFilteredVariants = (
   variants: VariationVariants,
@@ -47,11 +44,11 @@ const filterConfig = [
       colors: [scaleColors.UPDiseaseColor],
     },
     filterData: (variants: VariationVariants) =>
-      getFilteredVariants(variants, (variantPos: TransformedProtvistaVariant) =>
-        significanceMatches(
-          consequences.likelyDisease,
-          variantPos.clinicalSignificances
-        )
+      getFilteredVariants(
+        variants,
+        (variantPos: TransformedProtvistaVariant) =>
+          variantPos.clinicalSignificances &&
+          consequences.likelyDisease.test(variantPos.clinicalSignificances)
       ),
   },
   {
@@ -83,11 +80,11 @@ const filterConfig = [
       colors: [scaleColors.UPNonDiseaseColor],
     },
     filterData: (variants: VariationVariants) =>
-      getFilteredVariants(variants, (variantPos: TransformedProtvistaVariant) =>
-        significanceMatches(
-          consequences.likelyBenign,
-          variantPos.clinicalSignificances
-        )
+      getFilteredVariants(
+        variants,
+        (variantPos: TransformedProtvistaVariant) =>
+          variantPos.clinicalSignificances &&
+          consequences.likelyBenign.test(variantPos.clinicalSignificances)
       ),
   },
   {
@@ -107,10 +104,8 @@ const filterConfig = [
           (typeof variantPos.clinicalSignificances === 'undefined' &&
             typeof variantPos.polyphenScore === 'undefined' &&
             typeof variantPos.siftScore === 'undefined') ||
-          significanceMatches(
-            consequences.uncertain,
-            variantPos.clinicalSignificances
-          )
+          (variantPos.clinicalSignificances &&
+            consequences.uncertain.test(variantPos.clinicalSignificances))
       ),
   },
   {
