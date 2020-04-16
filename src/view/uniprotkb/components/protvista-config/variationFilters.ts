@@ -27,7 +27,6 @@ export const getFilteredVariants = (
       callbackFilter(variantPos)
     );
     return {
-      ...variant,
       variants: matchingVariants,
     };
   });
