@@ -81,7 +81,7 @@ describe('getPropertyLink', () => {
     };
     const property = PropertyKey.GeneId;
     const xref = {
-      databaseType: 'Ensembl',
+      database: 'Ensembl',
       id: 'ENST00000440126',
       properties: {
         ProteinId: 'ENSP00000387483',

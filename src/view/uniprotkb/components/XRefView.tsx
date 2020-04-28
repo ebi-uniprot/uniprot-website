@@ -19,7 +19,7 @@ import {
   DatabaseInfoPoint,
   AttributesItem,
   DatabaseCategory,
-} from '../../../model/types/DatabaseTypes';
+} from '../../../model/types/DatabaseRefs';
 import PDBView from './PDBView';
 import EMBLXrefProperties from '../../../data/EMBLXrefProperties.json';
 import externalUrls from '../../../utils/externalUrls';
@@ -161,7 +161,7 @@ export const XRef: FC<XRefProps> = ({
   crc64,
 }): JSX.Element | null => {
   const databaseInfo = databaseToDatabaseInfo[database];
-  const { properties, isoformId, id, databaseType } = xref;
+  const { properties, isoformId, id, database: databaseType } = xref;
   const { uriLink, implicit } = databaseInfo;
   if (!database || !primaryAccession) {
     return null;

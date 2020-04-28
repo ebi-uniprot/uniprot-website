@@ -169,15 +169,13 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
       );
     }
   }
-  if (data.databaseCrossReferences) {
+  if (data.uniProtKBCrossReferences) {
     // Some EMBL xrefs need to be merged
     const joined = getJoinedXrefs(
-      data.databaseCrossReferences.filter(xref => xref.databaseType === 'EMBL')
+      data.uniProtKBCrossReferences.filter(xref => xref.database === 'EMBL')
     );
     const newXrefs = [
-      ...data.databaseCrossReferences.filter(
-        xref => xref.databaseType !== 'EMBL'
-      ),
+      ...data.uniProtKBCrossReferences.filter(xref => xref.database !== 'EMBL'),
       ...joined,
     ];
     const xrefs = getXrefsForSection(

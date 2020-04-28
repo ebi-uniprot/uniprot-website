@@ -9,6 +9,7 @@ import { Evidence } from '../../../model/types/modelTypes';
 import FeatureType from '../../../model/types/FeatureType';
 import { UniProtProtvistaEvidenceTag } from '../../../components/UniProtEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
+import { Xref } from '../../../model/types/CommentTypes';
 
 enum LocationModifier {
   EXACT = 'EXACT',
@@ -29,12 +30,14 @@ export type FeatureData = {
   location: {
     start: FeatureLocation;
     end: FeatureLocation;
+    sequence?: string;
   };
   alternativeSequence?: {
     originalSequence?: string;
     alternativeSequences: string[];
   };
   evidences?: Evidence[];
+  featureCrossReference?: Xref;
 }[];
 
 export type ProtvistaFeature = {

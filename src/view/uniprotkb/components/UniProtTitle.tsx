@@ -19,12 +19,12 @@ export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
 const UniProtTitle: FC<{
   primaryAccession: string;
   entryType: EntryType;
-  uniProtId: string;
-}> = ({ primaryAccession, entryType, uniProtId }) => (
+  uniProtkbId: string;
+}> = ({ primaryAccession, entryType, uniProtkbId }) => (
   <span className="uniprot-title">
     <ReviewedUnreviewed entryType={entryType} />
     {primaryAccession}
-    {` · ${uniProtId}`}
+    {` · ${uniProtkbId}`}
   </span>
 );
 

@@ -12,7 +12,7 @@ import {
 import {
   DatabaseCategory,
   DatabaseInfo,
-} from '../../model/types/DatabaseTypes';
+} from '../../model/types/DatabaseRefs';
 import {
   expectedDatabaseCategoryToNames,
   expectedDatabaseNameToCategory,

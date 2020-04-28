@@ -32,13 +32,13 @@
             "Beyreuther K.",
             "Mueller-Hill B."
           ],
-          "citationXrefs": [
+          "citationCrossReferences": [
             {
-              "databaseType": "PubMed",
+              "database": "PubMed",
               "id": "2881207"
             },
             {
-              "databaseType": "DOI",
+              "database": "DOI",
               "id": "10.1038/325733a0"
             }
           ],
@@ -84,13 +84,13 @@
             "Fuller F.",
             "Cordell B."
           ],
-          "citationXrefs": [
+          "citationCrossReferences": [
             {
-              "databaseType": "PubMed",
+              "database": "PubMed",
               "id": "2893289"
             },
             {
-              "databaseType": "DOI",
+              "database": "DOI",
               "id": "10.1038/331525a0"
             }
           ],
@@ -133,13 +133,13 @@
             "Beyreuther K.",
             "Mueller-Hill B."
           ],
-          "citationXrefs": [
+          "citationCrossReferences": [
             {
-              "databaseType": "PubMed",
+              "database": "PubMed",
               "id": "2783775"
             },
             {
-              "databaseType": "DOI",
+              "database": "DOI",
               "id": "10.1093/nar/17.2.517"
             }
           ],

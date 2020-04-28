@@ -6,7 +6,7 @@
         "database": "EMBL",
         "xrefs": [
           {
-            "databaseType": "EMBL",
+            "database": "EMBL",
             "id": "1234",
             "properties": { "propKey": "propValue" },
             "isoformId": "ABCD"

@@ -19,7 +19,7 @@ describe('KeywordsUtil', () => {
           },
         ],
         id: 'KW-11111',
-        value: 'keyword value',
+        name: 'keyword value',
       },
     ]);
   });

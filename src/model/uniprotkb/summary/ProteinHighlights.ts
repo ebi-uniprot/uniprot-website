@@ -53,7 +53,7 @@ const getProteinHighlights = (data: UniProtkbAPIModel) => {
     primaryAccession,
     features,
     comments,
-    databaseCrossReferences,
+    uniProtKBCrossReferences,
     references,
   } = data;
 
@@ -112,9 +112,9 @@ const getProteinHighlights = (data: UniProtkbAPIModel) => {
 
   // XREFS
   // 3D structures
-  if (databaseCrossReferences) {
-    const structures = databaseCrossReferences.filter(
-      databaseCrossReference => databaseCrossReference.databaseType === 'PDB'
+  if (uniProtKBCrossReferences) {
+    const structures = uniProtKBCrossReferences.filter(
+      uniProtKBCrossReference => uniProtKBCrossReference.database === 'PDB'
     );
     highlightsMap.set(highlightSection.structures, structures.length);
   }

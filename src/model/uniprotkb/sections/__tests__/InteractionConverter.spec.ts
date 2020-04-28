@@ -4,8 +4,8 @@ import { convertXrefProperties } from '../../UniProtkbConverter';
 
 describe('Interaction data converter', () => {
   beforeAll(() => {
-    modelData.databaseCrossReferences = convertXrefProperties(
-      modelData.databaseCrossReferences
+    modelData.uniProtKBCrossReferences = convertXrefProperties(
+      modelData.uniProtKBCrossReferences
     );
   });
 
@@ -20,12 +20,36 @@ describe('Interaction data converter', () => {
               commentType: 'INTERACTION',
               interactions: [
                 {
-                  firstInteractor: 'first',
-                  geneName: 'gene name',
-                  numberOfExperiments: 10,
-                  secondInteractor: 'second',
-                  type: 'BINARY',
-                  uniProtAccession: 'P12345',
+                  interactantOne: {
+                    chainId: 'PROC_12344',
+                    geneName: 'gen',
+                    intActId: 'EBI-0001',
+                    uniProtkbAccession: 'P12345',
+                  },
+                  interactantTwo: {
+                    chainId: 'PROC_12347',
+                    geneName: 'gene1',
+                    intActId: 'EBI-0002',
+                    uniProtkbAccession: 'P12345-1',
+                  },
+                  numberOfExperiments: 3,
+                  organismDiffer: true,
+                },
+                {
+                  interactantOne: {
+                    chainId: 'PROC_12345',
+                    geneName: 'gen',
+                    intActId: 'EBI-00011',
+                    uniProtkbAccession: 'P12345',
+                  },
+                  interactantTwo: {
+                    chainId: 'PROC_123454',
+                    geneName: 'gene1',
+                    intActId: 'EBI-00012',
+                    uniProtkbAccession: 'P12346',
+                  },
+                  numberOfExperiments: 6,
+                  organismDiffer: true,
                 },
               ],
             },

@@ -6,14 +6,22 @@
       "diseaseAccession": "ASDASDAS",
       "acronym": "AD",
       "description": "Some description",
-      "reference": {
-        "databaseType": "EMBL",
+      "diseaseCrossReference": {
+        "database": "EMBL",
         "id": "some ref id",
-        "properties": { "prop1": "value1" },
+        "properties": {
+          "prop1": "value1"
+        },
         "isoformId": "some isoform"
       },
       "evidences": []
     },
-    "note": { "texts": [{ "value": "Some disease note" }] }
+    "note": {
+      "texts": [
+        {
+          "value": "Some disease note"
+        }
+      ]
+    }
   }
 ]

@@ -14,17 +14,17 @@ describe('XrefUtils tests', () => {
       getDRImplicitXrefs(
         [
           {
-            databaseType: 'PDB',
+            database: 'PDB',
             id: '1AMB',
             properties: { Method: 'NMR', Resolution: '-', Chains: 'A=672-699' },
           },
           {
-            databaseType: 'MIM',
+            database: 'MIM',
             id: '104300',
             properties: { Type: 'phenotype' },
           },
           {
-            databaseType: 'HGNC',
+            database: 'HGNC',
             id: 'HGNC:620',
             properties: { GeneName: 'APP' },
           },
@@ -33,22 +33,22 @@ describe('XrefUtils tests', () => {
       )
     ).toEqual([
       {
-        databaseType: 'PDBe-KB',
+        database: 'PDBe-KB',
         implicit: true,
         properties: { GeneName: 'APP' },
       },
       {
-        databaseType: 'SOURCE_MIM',
+        database: 'SOURCE_MIM',
         implicit: true,
         properties: { GeneName: 'APP' },
       },
       {
-        databaseType: 'GenAtlas',
+        database: 'GenAtlas',
         implicit: true,
         properties: { GeneName: 'APP' },
       },
       {
-        databaseType: 'SWISS-MODEL-Workspace',
+        database: 'SWISS-MODEL-Workspace',
         implicit: true,
         properties: { GeneName: 'APP' },
       },
@@ -71,9 +71,9 @@ describe('XrefUtils tests', () => {
       ])
     ).toEqual([
       {
-        databaseType: 'GPCRDB',
+        database: 'GPCRDB',
         implicit: true,
-        properties: { uniProtId: 'TS1R1_HUMAN' },
+        properties: { uniProtkbId: 'TS1R1_HUMAN' },
       },
     ]);
   });
@@ -83,7 +83,7 @@ describe('XrefUtils tests', () => {
       getGenePatternOrganismImplicitXrefs(['PNMA5', 'KIAA1934'], 'Human')
     ).toEqual([
       {
-        databaseType: 'HUGE',
+        database: 'HUGE',
         implicit: true,
         properties: { gene: 'KIAA1934' },
       },
@@ -93,7 +93,7 @@ describe('XrefUtils tests', () => {
   test('should getECImplicitXrefs', () => {
     expect(getECImplicitXrefs([{ value: '3.1.4.4' }])).toEqual([
       {
-        databaseType: 'ENZYME',
+        database: 'ENZYME',
         implicit: true,
         properties: { ec: '3.1.4.4' },
       },
@@ -101,9 +101,9 @@ describe('XrefUtils tests', () => {
   });
   test('should getUnconditionalImplicitXrefs', () => {
     expect(getUnconditionalImplicitXrefs()).toEqual([
-      { databaseType: 'ModBase', implicit: true },
-      { databaseType: 'MobiDB', implicit: true },
-      { databaseType: 'ProtoNet', implicit: true },
+      { database: 'ModBase', implicit: true },
+      { database: 'MobiDB', implicit: true },
+      { database: 'ProtoNet', implicit: true },
     ]);
   });
 

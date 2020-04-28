@@ -125,8 +125,8 @@ ColumnConfiguration.set(Column.accession, {
 ColumnConfiguration.set(Column.id, {
   label: 'Entry Name',
   sortable: true,
-  render: (data: { uniProtId: string }) => (
-    <SimpleView termValue={data.uniProtId} />
+  render: (data: { uniProtkbId: string }) => (
+    <SimpleView termValue={data.uniProtkbId} />
   ),
 });
 
@@ -649,14 +649,16 @@ ColumnConfiguration.set(Column.ccInteraction, {
                 key={
                   interaction.type === InteractionType.SELF
                     ? 'self'
-                    : interaction.uniProtAccession
+                    : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
                 }
               >
                 {interaction.type === InteractionType.SELF ? (
                   'Itself'
                 ) : (
-                  <Link to={`/uniprotkb/${interaction.uniProtAccession}`}>
-                    {interaction.uniProtAccession}
+                  <Link
+                    to={`/uniprotkb/${interaction.interactantOne.uniProtkbAccession}`}
+                  >
+                    {interaction.interactantOne.uniProtkbAccession}
                   </Link>
                 )}
               </div>
@@ -901,9 +903,9 @@ ColumnConfiguration.set(Column.pmId, {
     let ids: Xref[] = [];
     if (data.references) {
       ids = data.references.reduce<Xref[]>((acc, citation) => {
-        const xrefs = citation.citation.citationXrefs;
+        const xrefs = citation.citation.citationCrossReferences;
         return xrefs
-          ? acc.concat(xrefs.filter(xref => xref.databaseType === 'PubMed'))
+          ? acc.concat(xrefs.filter(xref => xref.database === 'PubMed'))
           : acc;
       }, []);
     }

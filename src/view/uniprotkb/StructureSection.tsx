@@ -11,7 +11,7 @@ import {
   partitionStructureDatabases,
   XrefUIModel,
 } from '../../model/utils/XrefUtils';
-import { DatabaseCategory } from '../../model/types/DatabaseTypes';
+import { DatabaseCategory } from '../../model/types/DatabaseRefs';
 import { entrySectionToDatabaseCategoryOrder } from '../../data/database';
 
 const StructureSection: FC<{

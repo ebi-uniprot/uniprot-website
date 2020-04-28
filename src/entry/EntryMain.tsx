@@ -24,7 +24,7 @@ const EntryMain: React.FC<EntryMainProps> = ({ transformedData }) => (
         <UniProtTitle
           primaryAccession={transformedData.primaryAccession}
           entryType={transformedData.entryType}
-          uniProtId={transformedData.uniProtId}
+          uniProtkbId={transformedData.uniProtkbId}
         />
       }
     >

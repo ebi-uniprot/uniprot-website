@@ -1,6 +1,6 @@
 [
   {
-    "databaseType": "Proteomes",
+    "database": "Proteomes",
     "id": "UP000005640",
     "properties": {
       "Component": "Chromosome 21"

@@ -100,7 +100,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
 </DocumentFragment>
 `;
 
-exports[`CatalyticActivityView component should render catalytic activity when comment does not have reactionReferences 1`] = `
+exports[`CatalyticActivityView component should render catalytic activity when comment does not have reactionCrossReferences 1`] = `
 <DocumentFragment>
   <span
     class="text-block"

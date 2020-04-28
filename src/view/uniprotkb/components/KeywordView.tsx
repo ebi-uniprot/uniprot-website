@@ -29,13 +29,13 @@ export const KeywordList: React.FC<KeywordListProps> = ({
     return null;
   }
   const nodes = keywords.map((keyword, index) => {
-    const { id, value } = keyword;
-    if (!id || !value) {
+    const { id, name } = keyword;
+    if (!id || !name) {
       return null;
     }
     return (
       <Fragment key={v1()}>
-        <KeywordItem id={id} value={idOnly ? id : value} />
+        <KeywordItem id={id} value={idOnly ? id : name} />
         {index < keywords.length - 1 && ' '}
       </Fragment>
     );

@@ -4,7 +4,7 @@ import {
   DatabaseCategory,
   DatabaseInfo,
   DatabaseInfoPoint,
-} from '../model/types/DatabaseTypes';
+} from '../model/types/DatabaseRefs';
 import { Xref } from '../model/types/CommentTypes';
 
 export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
@@ -21,7 +21,7 @@ export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
       implicit?: boolean;
     };
     if (implicit) {
-      implicitDatabaseXRefs.set(name, { databaseType: name, implicit: true });
+      implicitDatabaseXRefs.set(name, { database: name, implicit: true });
     }
     const databaseNames = databaseCategoryToNames.get(category);
     databaseCategoryToNames.set(

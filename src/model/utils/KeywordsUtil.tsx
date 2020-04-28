@@ -5,7 +5,7 @@ import { UIModel } from '../uniprotkb/SectionConverter';
 
 export type Keyword = {
   id?: string;
-  value?: string;
+  name?: string;
   category?: KeywordCategory;
 };
 

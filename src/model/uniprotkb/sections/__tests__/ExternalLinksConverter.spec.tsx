@@ -4,8 +4,8 @@ import { convertXrefProperties } from '../../UniProtkbConverter';
 
 describe('External links data converter', () => {
   beforeAll(() => {
-    modelData.databaseCrossReferences = convertXrefProperties(
-      modelData.databaseCrossReferences
+    modelData.uniProtKBCrossReferences = convertXrefProperties(
+      modelData.uniProtKBCrossReferences
     );
   });
 
@@ -19,6 +19,7 @@ describe('External links data converter', () => {
             {
               commentType: 'WEB RESOURCE',
               ftp: true,
+              molecule: 'Isoform 2',
               note: 'Note text',
               resourceName: 'resource name',
               resourceUrl: 'resource URL',

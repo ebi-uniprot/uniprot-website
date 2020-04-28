@@ -4,8 +4,8 @@ import { convertXrefProperties } from '../../UniProtkbConverter';
 
 describe('Subcellular data converter', () => {
   beforeAll(() => {
-    modelDataJson.databaseCrossReferences = convertXrefProperties(
-      modelDataJson.databaseCrossReferences
+    modelDataJson.uniProtKBCrossReferences = convertXrefProperties(
+      modelDataJson.uniProtKBCrossReferences
     );
   });
 

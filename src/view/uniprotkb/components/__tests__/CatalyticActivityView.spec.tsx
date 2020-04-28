@@ -20,11 +20,11 @@ describe('CatalyticActivityView component', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
-  test('should render catalytic activity when comment does not have reactionReferences', () => {
+  test('should render catalytic activity when comment does not have reactionCrossReferences', () => {
     const comment = catalyticActivityUIDataJson[0];
     const commentWithoutReactionReferences = {
       ...comment,
-      reaction: removeProperty(comment.reaction, 'reactionReferences'),
+      reaction: removeProperty(comment.reaction, 'reactionCrossReferences'),
     };
     const { asFragment } = renderWithRedux(
       <CatalyticActivityView comments={[commentWithoutReactionReferences]} />
@@ -54,12 +54,12 @@ describe('getRheaId function', () => {
 describe('isRheaReactReference function', () => {
   test('should return true when database=Rhea and id string is RHEA:12345', () => {
     expect(
-      isRheaReactionReference({ databaseType: 'Rhea', id: 'RHEA:12345' })
+      isRheaReactionReference({ database: 'Rhea', id: 'RHEA:12345' })
     ).toEqual(true);
   });
   test('should return true when database=ChEBI and id string is CHEBI:57287', () => {
     expect(
-      isRheaReactionReference({ databaseType: 'ChEBI', id: 'CHEBI:57287' })
+      isRheaReactionReference({ database: 'ChEBI', id: 'CHEBI:57287' })
     ).toEqual(false);
   });
 });

@@ -4,8 +4,8 @@ import { convertXrefProperties } from '../../UniProtkbConverter';
 
 describe('Structure data converter', () => {
   beforeAll(() => {
-    modelData.databaseCrossReferences = convertXrefProperties(
-      modelData.databaseCrossReferences
+    modelData.uniProtKBCrossReferences = convertXrefProperties(
+      modelData.uniProtKBCrossReferences
     );
   });
 
@@ -22,13 +22,13 @@ describe('Structure data converter', () => {
           databases: [
             {
               database: 'ModBase',
-              xrefs: [{ databaseType: 'ModBase', implicit: true }],
+              xrefs: [{ database: 'ModBase', implicit: true }],
             },
             {
               database: 'SWISS-MODEL-Workspace',
               xrefs: [
                 {
-                  databaseType: 'SWISS-MODEL-Workspace',
+                  database: 'SWISS-MODEL-Workspace',
                   implicit: true,
                   properties: { GeneName: 'some Gene' },
                 },

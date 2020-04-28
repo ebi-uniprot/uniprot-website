@@ -1,5 +1,5 @@
 import EntrySection from '../model/types/EntrySection';
-import { DatabaseCategory, DatabaseInfo } from '../model/types/DatabaseTypes';
+import { DatabaseCategory, DatabaseInfo } from '../model/types/DatabaseRefs';
 import {
   getDatabaseInfoMaps,
   selectDatabases,

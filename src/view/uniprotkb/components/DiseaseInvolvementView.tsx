@@ -30,7 +30,7 @@ export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = (
     acronym = '',
     evidences,
     description,
-    reference,
+    diseaseCrossReference,
   } = disease;
   if (!diseaseId) {
     return null;
@@ -65,15 +65,15 @@ export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = (
     });
   }
 
-  if (reference) {
-    const { databaseType: database, id } = reference;
+  if (diseaseCrossReference) {
+    const { database, id } = diseaseCrossReference;
     if (database && id && databaseToDatabaseInfo[database]) {
       infoData.push({
         title: 'See also',
         content: (
           <XRef
             database={database}
-            xref={reference}
+            xref={diseaseCrossReference}
             primaryAccession={accession}
           />
         ),

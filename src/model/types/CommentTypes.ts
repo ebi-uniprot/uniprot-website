@@ -5,6 +5,7 @@ import {
   CofactorComment,
 } from '../uniprotkb/sections/FunctionConverter';
 import { FeatureData } from '../../view/uniprotkb/components/FeaturesView';
+import { Interactant } from '../uniprotkb/sections/InteractionConverter';
 
 export enum CommentType {
   ACTIVITY_REGULATION = 'ACTIVITY REGULATION',
@@ -52,7 +53,11 @@ export type FreeTextType =
   | CommentType.TISSUE_SPECIFICITY
   | CommentType.POLYMORPHISM;
 
-export type TextWithEvidence = { value: string; evidences?: Evidence[] };
+export type TextWithEvidence = {
+  value: string;
+  evidences?: Evidence[];
+  id: string;
+};
 
 export type FreeTextComment = {
   commentType: FreeTextType;
@@ -95,7 +100,7 @@ export type CatalyticActivityComment = {
   commentType: CommentType.CATALYTIC_ACTIVITY;
   reaction?: {
     name: string;
-    reactionReferences?: { databaseType: string; id: string }[];
+    reactionCrossReferences?: { database: string; id: string }[];
     ecNumber: string;
     evidences?: Evidence[];
   };
@@ -109,12 +114,12 @@ export enum PhysiologicalReactionDirection {
 
 export type PhysiologicalReaction = {
   directionType: PhysiologicalReactionDirection;
-  reactionReference: { databaseType: string; id: string };
+  reactionCrossReference: { database: string; id: string };
   evidences: Evidence[];
 };
 
 export type Xref = {
-  databaseType?: string;
+  database?: string;
   id?: string;
   properties?: { [key: string]: string };
   additionalIds?: string[];
@@ -127,7 +132,7 @@ export type DiseaseType = {
   diseaseAccession?: string;
   acronym?: string;
   description?: string;
-  reference?: Xref;
+  diseaseCrossReference?: Xref;
   evidences?: Evidence[];
 };
 
@@ -145,12 +150,10 @@ export enum InteractionType {
 }
 
 export type Interaction = {
-  firstInteractor: string;
   numberOfExperiments: number;
-  secondInteractor: string;
   type: InteractionType;
-  geneName?: string;
-  uniProtAccession?: string;
+  interactantOne: Interactant;
+  interactantTwo: Interactant;
 };
 
 export type InteractionComment = {
@@ -185,11 +188,11 @@ export type SequenceCautionComment = {
 
 export type MassSpectrometryComment = {
   commentType: CommentType.MASS_SPECTROMETRY;
+  molecule?: string;
   method?: string;
   note?: string;
   molWeight: number;
   molWeightError: number;
-  ranges?: Range[];
   evidences: Evidence[];
 };
 
@@ -207,6 +210,7 @@ export type SubcellularLocationComment = {
   subcellularLocations?: {
     location: TextWithEvidence;
     topology?: TextWithEvidence;
+    orientation?: TextWithEvidence;
   }[];
 };
 
@@ -215,19 +219,6 @@ export type WebResourceComment = {
   note?: string;
   resourceName: string;
   resourceUrl: string;
-};
-
-export type Range = {
-  range: {
-    start: {
-      value: number;
-      modifier?: string;
-    };
-    end: {
-      value: number;
-      modifier?: string;
-    };
-  };
 };
 
 type Comment =

@@ -7,7 +7,7 @@ import XRefView from '../view/uniprotkb/components/XRefView';
 import EntrySection from '../model/types/EntrySection';
 import { XrefUIModel, XrefsGoupedByDatabase } from '../model/utils/XrefUtils';
 import { CommentType, WebResourceComment } from '../model/types/CommentTypes';
-import { DatabaseCategory } from '../model/types/DatabaseTypes';
+import { DatabaseCategory } from '../model/types/DatabaseRefs';
 
 type EntryExternalLinksProps = {
   transformedData: UniProtkbUIModel;

@@ -3,22 +3,26 @@
     "commentType": "CATALYTIC ACTIVITY",
     "reaction": {
       "name": "Reaction name",
-      "reactionReferences": [
+      "reactionCrossReferences": [
         {
-          "databaseType": "dbType",
+          "database": "dbType",
           "id": "1234abc"
         }
       ],
       "ecNumber": "EC:12112",
       "evidences": [
-        { "evidenceCode": "ECO:1234", "source": "some source", "id": "some id" }
+        {
+          "evidenceCode": "ECO:1234",
+          "source": "some source",
+          "id": "some id"
+        }
       ]
     },
     "physiologicalReactions": [
       {
         "directionType": "right-to-left",
-        "reactionReference": {
-          "databaseType": "Rhea",
+        "reactionCrossReference": {
+          "database": "Rhea",
           "id": "RHEA:10390"
         },
         "evidences": [
@@ -31,8 +35,8 @@
       },
       {
         "directionType": "left-to-right",
-        "reactionReference": {
-          "databaseType": "Rhea",
+        "reactionCrossReference": {
+          "database": "Rhea",
           "id": "RHEA:10389"
         },
         "evidences": [

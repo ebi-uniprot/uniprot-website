@@ -110,7 +110,7 @@ exports[`UniProtCard component should render 1`] = `
         <a
           href="/uniprotkb/P21802#Interaction"
         >
-          1 interaction
+          2 interactions
         </a>
       </span>
       <span

@@ -109,7 +109,7 @@ const UniProtCard: FC<{
             <UniProtTitle
               primaryAccession={data.primaryAccession}
               entryType={data.entryType}
-              uniProtId={data.uniProtId}
+              uniProtkbId={data.uniProtkbId}
             />
           </h5>
           <section>

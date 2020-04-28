@@ -12,7 +12,7 @@ const convertExternalLinks = (data: UniProtkbAPIModel) => {
     featuresData: [],
     xrefData: [],
   };
-  const { comments, databaseCrossReferences, genes, organism } = data;
+  const { comments, uniProtKBCrossReferences, genes, organism } = data;
 
   if (comments) {
     convertedData.commentsData.set(
@@ -22,10 +22,10 @@ const convertExternalLinks = (data: UniProtkbAPIModel) => {
       )
     );
   }
-  if (databaseCrossReferences) {
+  if (uniProtKBCrossReferences) {
     const commonName = idx(organism, o => o.commonName);
     convertedData.xrefData = getXrefsForSection(
-      databaseCrossReferences,
+      uniProtKBCrossReferences,
       EntrySection.ExternalLinks,
       genes,
       commonName

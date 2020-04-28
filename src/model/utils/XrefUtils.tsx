@@ -13,7 +13,7 @@ import {
   PDBMirrors,
 } from '../../data/database';
 import EntrySection from '../types/EntrySection';
-import { DatabaseCategory } from '../types/DatabaseTypes';
+import { DatabaseCategory } from '../types/DatabaseRefs';
 import { Xref, FreeTextComment } from '../types/CommentTypes';
 import { GeneNamesData } from '../uniprotkb/sections/NamesAndTaxonomyConverter';
 import { flattenGeneNameData } from './utils';
@@ -40,7 +40,7 @@ export const getDRImplicitXrefs = (xrefs: Xref[], geneNames: string[]) => {
     implicitDatabaseDRAbsenceCheck[xref] = true;
   });
   xrefs.forEach(xref => {
-    const { databaseType: name } = xref;
+    const { database: name } = xref;
     if (!name) {
       return;
     }
@@ -84,13 +84,13 @@ export const getDRImplicitXrefs = (xrefs: Xref[], geneNames: string[]) => {
 };
 
 export const getDatabaseSimilarityCommentImplicitXrefs = (
-  uniProtId: string | undefined,
+  uniProtkbId: string | undefined,
   similarityComments?: FreeTextComment[]
 ) => {
   // The implicit database GPCRDB should only be inluded if there exists a
   // similarity comment with "Belongs to the G-protein coupled receptor"
   const foundXrefs: Xref[] = [];
-  if (similarityComments && uniProtId) {
+  if (similarityComments && uniProtkbId) {
     Object.entries(implicitDatabaseSimilarityComment).forEach(
       ([implicitName, commentSubstring]) => {
         const foundCommentSubstring = similarityComments.some(
@@ -101,7 +101,7 @@ export const getDatabaseSimilarityCommentImplicitXrefs = (
           const xref = implicitDatabaseXRefs.get(implicitName);
           if (xref) {
             const property = {
-              uniProtId,
+              uniProtkbId,
             };
             foundXrefs.push({
               ...xref,
@@ -218,7 +218,7 @@ export const getXrefsForSection = (
   geneNamesData?: GeneNamesData,
   commonName?: string | null,
   similarityComments?: FreeTextComment[],
-  uniProtId?: string,
+  uniProtkbId?: string,
   ecNumbers?: ValueWithEvidence[] | null
 ): XrefUIModel[] => {
   const databasesForSection = entrySectionToDatabaseNames.get(section);
@@ -237,11 +237,14 @@ export const getXrefsForSection = (
     ...xrefs,
     ...getUnconditionalImplicitXrefs(),
     ...getDRImplicitXrefs(xrefs, geneNames),
-    ...getDatabaseSimilarityCommentImplicitXrefs(uniProtId, similarityComments),
+    ...getDatabaseSimilarityCommentImplicitXrefs(
+      uniProtkbId,
+      similarityComments
+    ),
     ...getGenePatternOrganismImplicitXrefs(geneNames, commonName),
     ...getECImplicitXrefs(ecNumbers),
   ].forEach(xref => {
-    const { databaseType: name } = xref;
+    const { database: name } = xref;
     if (!name) {
       return;
     }

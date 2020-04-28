@@ -28,11 +28,24 @@ const getInteractionColumns = (primaryAccession: string) => ({
     label: 'Type',
     resolver: (d: Interaction) => d.type,
   },
-  entry: {
-    label: 'Entry',
+  entry1: {
+    label: 'Entry 1',
     resolver: (d: Interaction) =>
       html`
-        <a href="/uniprotkb/${d.uniProtAccession}">${d.uniProtAccession}</a>
+        <a href="/uniprotkb/${d.interactantOne.uniProtkbAccession}"
+          >${d.interactantOne.uniProtkbAccession}</a
+        >
+        ${d.interactantOne.geneName} ${d.interactantOne.chainId}
+      `,
+  },
+  entry2: {
+    label: 'Entry 2',
+    resolver: (d: Interaction) =>
+      html`
+        <a href="/uniprotkb/${d.interactantTwo.uniProtkbAccession}"
+          >${d.interactantTwo.uniProtkbAccession}</a
+        >
+        ${d.interactantTwo.geneName} ${d.interactantTwo.chainId}
       `,
   },
   experiments: {
@@ -44,11 +57,14 @@ const getInteractionColumns = (primaryAccession: string) => ({
     resolver: (d: Interaction) =>
       html`
         <a
-          href=${d.uniProtAccession
-            ? getIntActQueryUrl(d.firstInteractor, d.secondInteractor)
+          href=${d.interactantOne.uniProtkbAccession
+            ? getIntActQueryUrl(
+                d.interactantOne.intActId,
+                d.interactantTwo.intActId
+              )
             : getIntActQueryForAccessionUrl(primaryAccession)}
           target="_blank"
-          >${d.firstInteractor}, ${d.secondInteractor}</a
+          >${d.interactantOne.intActId}, ${d.interactantTwo.intActId}</a
         >
       `,
   },
@@ -80,7 +96,6 @@ const InteractionSection: FC<{
     const interactionComment = data.commentsData.get(
       CommentType.INTERACTION
     ) as InteractionComment[];
-
     if (
       datatableContainer &&
       datatableContainer.current &&

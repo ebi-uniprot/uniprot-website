@@ -36,10 +36,10 @@ export const convertSection = (
     comments,
     keywords,
     features,
-    databaseCrossReferences,
+    uniProtKBCrossReferences,
     genes,
     organism,
-    uniProtId,
+    uniProtkbId,
   } = data;
   if (sectionComments && comments) {
     sectionComments.forEach(commentType => {
@@ -60,7 +60,7 @@ export const convertSection = (
       return sectionFeatures.includes(feature.type);
     });
   }
-  if (section && databaseCrossReferences) {
+  if (section && uniProtKBCrossReferences) {
     const commonName = idx(organism, o => o.commonName);
     const ecNumbers = idx(
       data,
@@ -72,12 +72,12 @@ export const convertSection = (
       CommentType.SIMILARITY
     ) as FreeTextComment[];
     convertedData.xrefData = getXrefsForSection(
-      databaseCrossReferences,
+      uniProtKBCrossReferences,
       section,
       genes,
       commonName,
       similarityComments,
-      uniProtId,
+      uniProtkbId,
       ecNumbers
     );
   }

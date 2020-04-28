@@ -4,8 +4,8 @@ import { convertXrefProperties } from '../../UniProtkbConverter';
 
 describe('Family and Domains data converter', () => {
   beforeAll(() => {
-    modelDataJson.databaseCrossReferences = convertXrefProperties(
-      modelDataJson.databaseCrossReferences
+    modelDataJson.uniProtKBCrossReferences = convertXrefProperties(
+      modelDataJson.uniProtKBCrossReferences
     );
   });
 
@@ -31,7 +31,7 @@ describe('Family and Domains data converter', () => {
                 },
               ],
               id: 'KW-11111',
-              value: 'keyword value',
+              name: 'keyword value',
             },
           ],
         },
@@ -42,11 +42,11 @@ describe('Family and Domains data converter', () => {
           databases: [
             {
               database: 'MobiDB',
-              xrefs: [{ databaseType: 'MobiDB', implicit: true }],
+              xrefs: [{ database: 'MobiDB', implicit: true }],
             },
             {
               database: 'ProtoNet',
-              xrefs: [{ databaseType: 'ProtoNet', implicit: true }],
+              xrefs: [{ database: 'ProtoNet', implicit: true }],
             },
           ],
         },

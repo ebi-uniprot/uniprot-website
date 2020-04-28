@@ -43,6 +43,15 @@ export type OrganismData = {
   lineage?: string[];
 };
 
+export type LineageData = {
+  scientificName?: string;
+  commonName?: string;
+  synonyms?: string[];
+  taxonId?: number;
+  rank?: string;
+  hidden?: boolean;
+};
+
 export type NamesAndTaxonomyUIModel = {
   proteinNamesData?: ProteinNamesData;
   geneNamesData?: GeneNamesData;
@@ -72,9 +81,9 @@ export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
   if (data.organismHosts) {
     namesAndTaxonomyData.organismHosts = data.organismHosts;
   }
-  if (data.databaseCrossReferences) {
-    namesAndTaxonomyData.proteomesData = data.databaseCrossReferences.filter(
-      db => db.databaseType === 'Proteomes'
+  if (data.uniProtKBCrossReferences) {
+    namesAndTaxonomyData.proteomesData = data.uniProtKBCrossReferences.filter(
+      db => db.database === 'Proteomes'
     );
   }
 

@@ -4,8 +4,8 @@ import { convertXrefProperties } from '../../UniProtkbConverter';
 
 describe('Sequence data converter', () => {
   beforeAll(() => {
-    modelData.databaseCrossReferences = convertXrefProperties(
-      modelData.databaseCrossReferences
+    modelData.uniProtKBCrossReferences = convertXrefProperties(
+      modelData.uniProtKBCrossReferences
     );
   });
 
@@ -94,16 +94,8 @@ describe('Sequence data converter', () => {
           method: 'LSI',
           molWeight: 2.1,
           molWeightError: 1.2,
+          molecule: 'isoform 1',
           note: 'note value',
-          ranges: [
-            {
-              isoformId: 'isoformId value',
-              range: {
-                end: { modifier: 'EXACT', value: 7 },
-                start: { modifier: 'EXACT', value: 1 },
-              },
-            },
-          ],
         },
       ],
       molWeight: 1185,
@@ -113,6 +105,7 @@ describe('Sequence data converter', () => {
         {
           commentType: 'RNA EDITING',
           locationType: 'Known',
+          molecule: 'Isoform 2',
           note: {
             texts: [
               {
@@ -154,8 +147,8 @@ describe('Sequence data converter', () => {
           evidences: [
             { evidenceCode: 'ECO:0000256', id: 'PIRNR001361', source: 'PIRNR' },
           ],
+          molecule: 'Isoform 2',
           note: 'Text note',
-          positions: ['position'],
           sequence: 'sequence',
           sequenceCautionType: 'Erroneous initiation',
         },
@@ -169,7 +162,7 @@ describe('Sequence data converter', () => {
               database: 'Ensembl',
               xrefs: [
                 {
-                  databaseType: 'Ensembl',
+                  database: 'Ensembl',
                   evidences: [
                     {
                       evidenceCode: 'ECO:0000269',

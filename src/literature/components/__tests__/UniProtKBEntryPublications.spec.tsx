@@ -7,7 +7,7 @@ import entryInitialState from '../../../entry/state/entryInitialState';
 describe('UniProtKBEntryPublications', () => {
   it('Should render', () => {
     const { asFragment } = renderWithRedux(
-      <UniProtKBEntryPublications pubmedIds={['somepID2']} />,
+      <UniProtKBEntryPublications pubmedIds={['12345']} />,
       {
         initialState: {
           entry: { ...entryInitialState, accession: 'P05067', data: entryData },

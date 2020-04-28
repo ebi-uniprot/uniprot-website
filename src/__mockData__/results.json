@@ -1,11 +1,9 @@
 {
-  "facets": [
-    {
+  "facets": [{
       "label": "Status",
       "name": "reviewed",
       "allowMultipleSelection": false,
-      "values": [
-        {
+      "values": [{
           "label": "Unreviewed (TrEMBL)",
           "value": "false",
           "count": 455
@@ -21,8 +19,7 @@
       "label": "Popular organisms",
       "name": "popular_organism",
       "allowMultipleSelection": true,
-      "values": [
-        {
+      "values": [{
           "value": "Human",
           "count": 18
         },
@@ -48,8 +45,7 @@
       "label": "Other organisms",
       "name": "other_organism",
       "allowMultipleSelection": true,
-      "values": [
-        {
+      "values": [{
           "value": "Influenza A virus (A/Indonesia/CDC7/2005(H5N1))",
           "count": 11
         },
@@ -72,9 +68,10 @@
       ]
     }
   ],
-  "matchedFields": [],
-  "results": [
-    {
+  "matchedFields": [
+
+  ],
+  "results": [{
       "sequence": {
         "value": "MEASLGIQMDEPMAFSPQRDRFQAEGSLKKNEQNFKLAGVKKDIEKLYEAVPQLSNVFKIEDKIGEGTFSSVYLATAQLQVGPEEKIALKHLIPTSHPIRIAAELQCLTVAGGQDNVMGVKYCFRKNDHVVIAMPYLEHESFLDILNSLSFQEVREYMLNLFKALKRIHQFGIVHRDVKPSNFLYNRRLKKYALVDFGLAQGTHDTKIELLKFVQSEAQQERCSQNKSHIITGNKIPLSGPVPKELDQQSTTKASVKRPYTNAQIQIKQGKDGKEGSVGLSVQRSVFGERNFNIHSSISHESPAVKLMKQSKTVDVLSRKLATKKKAISTKVMNSAVMRKTASSCPASLTCDCYATDKVCSICLSRRQQVAPRAGTPGFRAPEVLTKCPNQTTAIDMWSAGVIFLSLLSGRYPFYKASDDLTALAQIMTIRGSRETIQAAKTFGKSILCSKEVPAQDLRKLCERLRGMDSSTPKLTSDIQGHASHQPAISEKTDHKASCLVQTPPGQYSGNSFKKGDSNSCEHCFDEYNTNLEGWNEVPDEAYDLLDKLLDLNPASRITAEEALLHPFFKDMSL",
         "length": 574,
@@ -83,113 +80,106 @@
         "md5": "C8AEF912151560FBEBC249127ED7F721"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Seems to phosphorylate critical substrates that regulate the G1/S phase transition and/or DNA replication. Can phosphorylates MCM2 and MCM3",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "12065429"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "3D-structure",
+      "comments": [{
+        "texts": [{
+          "value": "Seems to phosphorylate critical substrates that regulate the G1/S phase transition and/or DNA replication. Can phosphorylates MCM2 and MCM3",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "12065429"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0002",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "3D-structure"
         },
         {
-          "value": "Alternative splicing",
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "ATP-binding",
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Isopeptide bond",
           "id": "KW-1017",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Isopeptide bond"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Polymorphism",
           "id": "KW-0621",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Polymorphism"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         },
         {
-          "value": "Ubl conjugation",
           "id": "KW-0832",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Ubl conjugation"
         }
       ],
       "organism": {
@@ -214,26 +204,21 @@
         ]
       },
       "primaryAccession": "O00311",
-      "genes": [
-        {
-          "geneName": {
-            "value": "CDC7"
-          },
-          "synonyms": [
-            {
-              "value": "CDC7L1"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC7_HUMAN",
+      "genes": [{
+        "geneName": {
+          "value": "CDC7"
+        },
+        "synonyms": [{
+          "value": "CDC7L1"
+        }]
+      }],
+      "uniProtkbId": "CDC7_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cell division cycle 7-related protein kinase"
           },
-          "shortNames": [
-            {
+          "shortNames": [{
               "value": "CDC7-related kinase"
             },
             {
@@ -243,11 +228,9 @@
               "value": "huCdc7"
             }
           ],
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         }
       },
       "annotationScore": 187.39999999999998,
@@ -268,96 +251,91 @@
         "md5": "CE7B784D4AD2C6A4592104C239D9870B"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Seems to phosphorylate critical substrates that regulate the G1/S phase transition and/or DNA replication. Can phosphorylates MCM2 and MCM3"
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Alternative splicing",
+      "comments": [{
+        "texts": [{
+          "value": "Seems to phosphorylate critical substrates that regulate the G1/S phase transition and/or DNA replication. Can phosphorylates MCM2 and MCM3"
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "ATP-binding",
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Isopeptide bond",
           "id": "KW-1017",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Isopeptide bond"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         },
         {
-          "value": "Ubl conjugation",
           "id": "KW-0832",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Ubl conjugation"
         }
       ],
       "organism": {
@@ -385,37 +363,30 @@
         ]
       },
       "primaryAccession": "Q9Z0H0",
-      "genes": [
-        {
-          "geneName": {
-            "value": "Cdc7"
-          },
-          "synonyms": [
-            {
-              "value": "Cdc7l1"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC7_MOUSE",
+      "genes": [{
+        "geneName": {
+          "value": "Cdc7"
+        },
+        "synonyms": [{
+          "value": "Cdc7l1"
+        }]
+      }],
+      "uniProtkbId": "CDC7_MOUSE",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cell division cycle 7-related protein kinase"
           },
-          "shortNames": [
-            {
+          "shortNames": [{
               "value": "CDC7-related kinase"
             },
             {
               "value": "muCdc7"
             }
           ],
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         }
       },
       "annotationScore": 105.6,
@@ -436,93 +407,86 @@
         "md5": "D22BB14A89EE7CF078F458CA1998076D"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commitment to recombination during meiosis. Required for HTA1-HTB1 locus transcription repression",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "1865880"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "3D-structure",
+      "comments": [{
+        "texts": [{
+          "value": "Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commitment to recombination during meiosis. Required for HTA1-HTB1 locus transcription repression",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "1865880"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0002",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "3D-structure"
         },
         {
-          "value": "ATP-binding",
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Meiosis",
           "id": "KW-0469",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Meiosis"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Mitosis",
           "id": "KW-0498",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Mitosis"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -542,39 +506,29 @@
         ]
       },
       "primaryAccession": "P06243",
-      "genes": [
-        {
-          "geneName": {
-            "value": "CDC7"
-          },
-          "synonyms": [
-            {
-              "value": "OAF2"
-            }
-          ],
-          "orderedLocusNames": [
-            {
-              "value": "YDL017W"
-            }
-          ],
-          "orfNames": [
-            {
-              "value": "D2855"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC7_YEAST",
+      "genes": [{
+        "geneName": {
+          "value": "CDC7"
+        },
+        "synonyms": [{
+          "value": "OAF2"
+        }],
+        "orderedLocusNames": [{
+          "value": "YDL017W"
+        }],
+        "orfNames": [{
+          "value": "D2855"
+        }]
+      }],
+      "uniProtkbId": "CDC7_YEAST",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cell division control protein 7"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         }
       },
       "annotationScore": 193.39999999999998,
@@ -595,78 +549,71 @@
         "md5": "8928AE435DC4AE567A76D27A10A702B5"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Protein kinase essential for cell division. Plays a key role in initiation of septum formation and cytokinesis",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "8039497"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+      "comments": [{
+        "texts": [{
+          "value": "Protein kinase essential for cell division. Plays a key role in initiation of septum formation and cytokinesis",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "8039497"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -686,29 +633,23 @@
         ]
       },
       "primaryAccession": "P41892",
-      "genes": [
-        {
-          "geneName": {
-            "value": "cdc7"
-          },
-          "orfNames": [
-            {
-              "value": "SPBC21.06c"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC7_SCHPO",
+      "genes": [{
+        "geneName": {
+          "value": "cdc7"
+        },
+        "orfNames": [{
+          "value": "SPBC21.06c"
+        }]
+      }],
+      "uniProtkbId": "CDC7_SCHPO",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cell division control protein 7"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         }
       },
       "annotationScore": 103.6,
@@ -729,56 +670,55 @@
         "md5": "D7858718B9F2E6594BA2E0EF02408447"
       },
       "entryType": "Swiss-Prot",
-      "keywords": [
-        {
-          "value": "ATP-binding",
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Coiled coil",
           "id": "KW-0175",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Coiled coil"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -796,37 +736,29 @@
         ]
       },
       "primaryAccession": "Q54DK3",
-      "genes": [
-        {
-          "geneName": {
-            "value": "cdc7"
-          },
-          "orfNames": [
-            {
-              "value": "DDB_G0292152"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC7_DICDI",
+      "genes": [{
+        "geneName": {
+          "value": "cdc7"
+        },
+        "orfNames": [{
+          "value": "DDB_G0292152"
+        }]
+      }],
+      "uniProtkbId": "CDC7_DICDI",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Probable serine/threonine-protein kinase cdc7"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         },
-        "alternativeNames": [
-          {
-            "fullName": {
-              "value": "Cell division control protein 7"
-            }
+        "alternativeNames": [{
+          "fullName": {
+            "value": "Cell division control protein 7"
           }
-        ]
+        }]
       },
       "annotationScore": 59.1,
       "entryAudit": {
@@ -846,88 +778,82 @@
         "md5": "995EF1EE890690CCA335E9542DF7BE00"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Required for G1/S transition. Plays a role in DNA replication checkpoint signaling through regulating rad3 and cds1. Involved in the maintenance of mitotic chromosome structures during S phase through regulating the function of rad21. Required for initiation of mitotic DNA replication through phosphorylating mcm2/cdc19. Required for genome integrity",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "11027263"
+            },
             {
-              "value": "Required for G1/S transition. Plays a role in DNA replication checkpoint signaling through regulating rad3 and cds1. Involved in the maintenance of mitotic chromosome structures during S phase through regulating the function of rad21. Required for initiation of mitotic DNA replication through phosphorylating mcm2/cdc19. Required for genome integrity",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "11027263"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "11359920"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9705352"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "11359920"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "9705352"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -947,32 +873,25 @@
         ]
       },
       "primaryAccession": "P50582",
-      "genes": [
-        {
-          "geneName": {
-            "value": "hsk1"
-          },
-          "orfNames": [
-            {
-              "value": "SPBC776.12c"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "HSK1_SCHPO",
+      "genes": [{
+        "geneName": {
+          "value": "hsk1"
+        },
+        "orfNames": [{
+          "value": "SPBC776.12c"
+        }]
+      }],
+      "uniProtkbId": "HSK1_SCHPO",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cell cycle serine/threonine-protein kinase hsk1"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "Cdc7-related kinase"
             }
@@ -1002,118 +921,112 @@
         "md5": "B3F738226D3E37164183A7E0CD8AEE8D"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Component of the HUSH complex, a multiprotein complex that mediates epigenetic repression. The HUSH complex is recruited to genomic loci rich in H3K9me3 and is probably required to maintain transcriptional silencing by promoting recruitment of SETDB1, a histone methyltransferase that mediates further deposition of H3K9me3. In the HUSH complex, contributes to the maintenance of the complex at chromatin (PubMed:26022416). Acts as a transcriptional corepressor and regulates the cell cycle, probably via the HUSH complex (PubMed:15474462, PubMed:17963697). The HUSH complex is also involved in the silencing of unintegrated retroviral DNA: some part of the retroviral DNA formed immediately after infection remains unintegrated in the host genome and is transcriptionally repressed (PubMed:30487602). May be involved in epithelial differentiation by contributing to epidermal integrity and barrier formation (PubMed:12853457)",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "15474462"
+            },
             {
-              "value": "Component of the HUSH complex, a multiprotein complex that mediates epigenetic repression. The HUSH complex is recruited to genomic loci rich in H3K9me3 and is probably required to maintain transcriptional silencing by promoting recruitment of SETDB1, a histone methyltransferase that mediates further deposition of H3K9me3. In the HUSH complex, contributes to the maintenance of the complex at chromatin (PubMed:26022416). Acts as a transcriptional corepressor and regulates the cell cycle, probably via the HUSH complex (PubMed:15474462, PubMed:17963697). The HUSH complex is also involved in the silencing of unintegrated retroviral DNA: some part of the retroviral DNA formed immediately after infection remains unintegrated in the host genome and is transcriptionally repressed (PubMed:30487602). May be involved in epithelial differentiation by contributing to epidermal integrity and barrier formation (PubMed:12853457)",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "15474462"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "17963697"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "26022416"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "30487602"
-                },
-                {
-                  "evidenceCode": "ECO:0000305",
-                  "source": "PubMed",
-                  "id": "12853457"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "17963697"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "26022416"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "30487602"
+            },
+            {
+              "evidenceCode": "ECO:0000305",
+              "source": "PubMed",
+              "id": "12853457"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Acetylation",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0007",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Acetylation"
         },
         {
-          "value": "Alternative splicing",
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "Chromosome",
           "id": "KW-0158",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Chromosome"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Cytoplasm",
           "id": "KW-0963",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Cytoplasm"
         },
         {
-          "value": "Isopeptide bond",
           "id": "KW-1017",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Isopeptide bond"
         },
         {
-          "value": "Keratinization",
           "id": "KW-0417",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Keratinization"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Polymorphism",
           "id": "KW-0621",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Polymorphism"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Repressor",
           "id": "KW-0678",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Repressor"
         },
         {
-          "value": "Transcription",
           "id": "KW-0804",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Transcription"
         },
         {
-          "value": "Transcription regulation",
           "id": "KW-0805",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Transcription regulation"
         },
         {
-          "value": "Ubl conjugation",
           "id": "KW-0832",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Ubl conjugation"
         }
       ],
       "organism": {
@@ -1138,77 +1051,61 @@
         ]
       },
       "primaryAccession": "Q8NEY8",
-      "genes": [
-        {
-          "geneName": {
-            "value": "PPHLN1",
-            "evidences": [
-              {
-                "evidenceCode": "ECO:0000312",
-                "source": "HGNC",
-                "id": "HGNC:19369"
-              }
-            ]
+      "genes": [{
+        "geneName": {
+          "value": "PPHLN1",
+          "evidences": [{
+            "evidenceCode": "ECO:0000312",
+            "source": "HGNC",
+            "id": "HGNC:19369"
+          }]
+        },
+        "orfNames": [{
+            "value": "HSPC206"
           },
-          "orfNames": [
-            {
-              "value": "HSPC206"
-            },
-            {
-              "value": "HSPC232"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "PPHLN_HUMAN",
+          {
+            "value": "HSPC232"
+          }
+        ]
+      }],
+      "uniProtkbId": "PPHLN_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Periphilin-1",
-            "evidences": [
-              {
-                "evidenceCode": "ECO:0000303",
-                "source": "PubMed",
-                "id": "12853457"
-              }
-            ]
+            "evidences": [{
+              "evidenceCode": "ECO:0000303",
+              "source": "PubMed",
+              "id": "12853457"
+            }]
           }
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "CDC7 expression repressor",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000303",
-                  "source": "PubMed",
-                  "id": "15474462"
-                }
-              ]
+              "evidences": [{
+                "evidenceCode": "ECO:0000303",
+                "source": "PubMed",
+                "id": "15474462"
+              }]
             },
-            "shortNames": [
-              {
-                "value": "CR",
-                "evidences": [
-                  {
-                    "evidenceCode": "ECO:0000303",
-                    "source": "PubMed",
-                    "id": "15474462"
-                  }
-                ]
-              }
-            ]
+            "shortNames": [{
+              "value": "CR",
+              "evidences": [{
+                "evidenceCode": "ECO:0000303",
+                "source": "PubMed",
+                "id": "15474462"
+              }]
+            }]
           },
           {
             "fullName": {
               "value": "Gastric cancer antigen Ga50",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000303",
-                  "source": "PubMed",
-                  "id": "12087473"
-                }
-              ]
+              "evidences": [{
+                "evidenceCode": "ECO:0000303",
+                "source": "PubMed",
+                "id": "12087473"
+              }]
             }
           }
         ]
@@ -1231,62 +1128,52 @@
         "md5": "0C801E14DBF51B1AF3CDFBA9F7C15674"
       },
       "entryType": "TrEMBL",
-      "keywords": [
-        {
-          "value": "Complete proteome",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "Proteomes",
-              "id": "UP000000803"
-            }
-          ],
+      "keywords": [{
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "Proteomes",
+            "id": "UP000000803"
+          }],
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "EMBL",
-              "id": "AHN59421.1"
-            }
-          ],
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "EMBL",
+            "id": "AHN59421.1"
+          }],
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Reference proteome",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "Proteomes",
-              "id": "UP000000803"
-            }
-          ],
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "Proteomes",
+            "id": "UP000000803"
+          }],
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Transferase",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "EMBL",
-              "id": "AHN59421.1"
-            }
-          ],
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "EMBL",
+            "id": "AHN59421.1"
+          }],
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
         "scientificName": "Drosophila melanogaster",
         "commonName": "Fruit fly",
         "taxonId": 7227,
-        "evidences": [
-          {
+        "evidences": [{
             "evidenceCode": "ECO:0000313",
             "source": "EMBL",
             "id": "AHN59421.1"
@@ -1317,12 +1204,113 @@
         ]
       },
       "primaryAccession": "X2JCT3",
-      "genes": [
-        {
-          "geneName": {
-            "value": "Cdc7",
-            "evidences": [
-              {
+      "genes": [{
+        "geneName": {
+          "value": "Cdc7",
+          "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            },
+            {
+              "evidenceCode": "ECO:0000313",
+              "source": "FlyBase",
+              "id": "FBgn0028360"
+            }
+          ]
+        },
+        "synonyms": [{
+            "value": "anon-WO03040301.250",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "cdc7",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "cdc7-related",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "CG8655",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "CG8656",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "CT25076",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "Dmel\\CG32742",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "L(1)G0148",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "l(1)G0148",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "l(1)G0149",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          {
+            "value": "l(1)G0461",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          }
+        ],
+        "orfNames": [{
+            "value": "CG32742",
+            "evidences": [{
                 "evidenceCode": "ECO:0000313",
                 "source": "EMBL",
                 "id": "AHN59421.1"
@@ -1334,175 +1322,36 @@
               }
             ]
           },
-          "synonyms": [
-            {
-              "value": "anon-WO03040301.250",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "cdc7",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "cdc7-related",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "CG8655",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "CG8656",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "CT25076",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "Dmel\\CG32742",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "L(1)G0148",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "l(1)G0148",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "l(1)G0149",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            {
-              "value": "l(1)G0461",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            }
-          ],
-          "orfNames": [
-            {
-              "value": "CG32742",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                },
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "FlyBase",
-                  "id": "FBgn0028360"
-                }
-              ]
-            },
-            {
-              "value": "Dmel_CG32742",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "uniProtId": "X2JCT3_DROME",
-      "proteinDescription": {
-        "submissionNames": [
           {
-            "fullName": {
-              "value": "Cdc7 kinase, isoform B",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AHN59421.1"
-                }
-              ]
-            },
-            "ecNumbers": [
-              {
-                "value": "2.7.11.-",
-                "evidences": [
-                  {
-                    "evidenceCode": "ECO:0000313",
-                    "source": "EMBL",
-                    "id": "AHN59421.1"
-                  }
-                ]
-              }
-            ]
+            "value": "Dmel_CG32742",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
           }
         ]
+      }],
+      "uniProtkbId": "X2JCT3_DROME",
+      "proteinDescription": {
+        "submissionNames": [{
+          "fullName": {
+            "value": "Cdc7 kinase, isoform B",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          },
+          "ecNumbers": [{
+            "value": "2.7.11.-",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AHN59421.1"
+            }]
+          }]
+        }]
       },
       "annotationScore": 83.0,
       "entryAudit": {
@@ -1522,62 +1371,52 @@
         "md5": "76C9BE371CDFE5076F43ABEEAC89DFE5"
       },
       "entryType": "TrEMBL",
-      "keywords": [
-        {
-          "value": "Complete proteome",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "Proteomes",
-              "id": "UP000000803"
-            }
-          ],
+      "keywords": [{
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "Proteomes",
+            "id": "UP000000803"
+          }],
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "EMBL",
-              "id": "AAF46180.2"
-            }
-          ],
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "EMBL",
+            "id": "AAF46180.2"
+          }],
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Reference proteome",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "Proteomes",
-              "id": "UP000000803"
-            }
-          ],
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "Proteomes",
+            "id": "UP000000803"
+          }],
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Transferase",
-          "evidences": [
-            {
-              "evidenceCode": "ECO:0000313",
-              "source": "EMBL",
-              "id": "AAF46180.2"
-            }
-          ],
+          "evidences": [{
+            "evidenceCode": "ECO:0000313",
+            "source": "EMBL",
+            "id": "AAF46180.2"
+          }],
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
         "scientificName": "Drosophila melanogaster",
         "commonName": "Fruit fly",
         "taxonId": 7227,
-        "evidences": [
-          {
+        "evidences": [{
             "evidenceCode": "ECO:0000313",
             "source": "EMBL",
             "id": "AAF46180.2"
@@ -1608,12 +1447,113 @@
         ]
       },
       "primaryAccession": "Q9W3Y1",
-      "genes": [
-        {
-          "geneName": {
-            "value": "Cdc7",
-            "evidences": [
-              {
+      "genes": [{
+        "geneName": {
+          "value": "Cdc7",
+          "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            },
+            {
+              "evidenceCode": "ECO:0000313",
+              "source": "FlyBase",
+              "id": "FBgn0028360"
+            }
+          ]
+        },
+        "synonyms": [{
+            "value": "anon-WO03040301.250",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "cdc7",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "cdc7-related",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "CG8655",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "CG8656",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "CT25076",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "Dmel\\CG32742",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "L(1)G0148",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "l(1)G0148",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "l(1)G0149",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          {
+            "value": "l(1)G0461",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          }
+        ],
+        "orfNames": [{
+            "value": "CG32742",
+            "evidences": [{
                 "evidenceCode": "ECO:0000313",
                 "source": "EMBL",
                 "id": "AAF46180.2"
@@ -1625,175 +1565,36 @@
               }
             ]
           },
-          "synonyms": [
-            {
-              "value": "anon-WO03040301.250",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "cdc7",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "cdc7-related",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "CG8655",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "CG8656",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "CT25076",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "Dmel\\CG32742",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "L(1)G0148",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "l(1)G0148",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "l(1)G0149",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            {
-              "value": "l(1)G0461",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            }
-          ],
-          "orfNames": [
-            {
-              "value": "CG32742",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                },
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "FlyBase",
-                  "id": "FBgn0028360"
-                }
-              ]
-            },
-            {
-              "value": "Dmel_CG32742",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "uniProtId": "Q9W3Y1_DROME",
-      "proteinDescription": {
-        "submissionNames": [
           {
-            "fullName": {
-              "value": "Cdc7 kinase, isoform A",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000313",
-                  "source": "EMBL",
-                  "id": "AAF46180.2"
-                }
-              ]
-            },
-            "ecNumbers": [
-              {
-                "value": "2.7.11.-",
-                "evidences": [
-                  {
-                    "evidenceCode": "ECO:0000313",
-                    "source": "EMBL",
-                    "id": "AAF46180.2"
-                  }
-                ]
-              }
-            ]
+            "value": "Dmel_CG32742",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
           }
         ]
+      }],
+      "uniProtkbId": "Q9W3Y1_DROME",
+      "proteinDescription": {
+        "submissionNames": [{
+          "fullName": {
+            "value": "Cdc7 kinase, isoform A",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          },
+          "ecNumbers": [{
+            "value": "2.7.11.-",
+            "evidences": [{
+              "evidenceCode": "ECO:0000313",
+              "source": "EMBL",
+              "id": "AAF46180.2"
+            }]
+          }]
+        }]
       },
       "annotationScore": 91.9,
       "entryAudit": {
@@ -1813,78 +1614,72 @@
         "md5": "ED9891D9F59E9016F15884A143B91406"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role in DNA replication and cell proliferation. Required for progression of S and M phases. The complex CDC7-DBF4B selectively phosphorylates MCM2 subunit at 'Ser-40' and then is involved in regulating the initiation of DNA replication during cell cycle",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "12065429"
+            },
             {
-              "value": "Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role in DNA replication and cell proliferation. Required for progression of S and M phases. The complex CDC7-DBF4B selectively phosphorylates MCM2 subunit at 'Ser-40' and then is involved in regulating the initiation of DNA replication during cell cycle",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "12065429"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "15668232"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "17062569"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "15668232"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "17062569"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Alternative splicing",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -1909,38 +1704,32 @@
         ]
       },
       "primaryAccession": "Q8NFT6",
-      "genes": [
-        {
-          "geneName": {
-            "value": "DBF4B"
+      "genes": [{
+        "geneName": {
+          "value": "DBF4B"
+        },
+        "synonyms": [{
+            "value": "ASKL1"
           },
-          "synonyms": [
-            {
-              "value": "ASKL1"
-            },
-            {
-              "value": "DRF1"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "DBF4B_HUMAN",
+          {
+            "value": "DRF1"
+          }
+        ]
+      }],
+      "uniProtkbId": "DBF4B_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Protein DBF4 homolog B"
           }
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "Activator of S phase kinase-like protein 1"
             },
-            "shortNames": [
-              {
-                "value": "ASK-like protein 1"
-              }
-            ]
+            "shortNames": [{
+              "value": "ASK-like protein 1"
+            }]
           },
           {
             "fullName": {
@@ -1972,148 +1761,142 @@
         "md5": "37E3368E2D45585293A1E961A7A32C6C"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Regulatory subunit of the CDC7-DBF4 kinase, also called DBF4-dependent kinase (DDK), which is involved in cell cycle regulation of premitotic and premeiotic chromosome replication and in chromosome segregation. DDK plays an essential role in initiating DNA replication at replication origins by phosphorylating the MCM2 and MCM4 subunits of the MCM2-7 helicase complex. DBF4 recruits the catalytic subunit CDC7 to MCM2 and to origins of replication. DDK has also postreplicative functions in meiosis. DDK phosphorylates the meiosis-specific double-strand break protein MER2 for initiation of meiotic recombination. Interacts with CDC5 during meiosis to promote double-strand breaks and monopolar spindle orientation. Inhibits CDC5 activity during mitosis through direct binding to its PBD",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "12441400"
+            },
             {
-              "value": "Regulatory subunit of the CDC7-DBF4 kinase, also called DBF4-dependent kinase (DDK), which is involved in cell cycle regulation of premitotic and premeiotic chromosome replication and in chromosome segregation. DDK plays an essential role in initiating DNA replication at replication origins by phosphorylating the MCM2 and MCM4 subunits of the MCM2-7 helicase complex. DBF4 recruits the catalytic subunit CDC7 to MCM2 and to origins of replication. DDK has also postreplicative functions in meiosis. DDK phosphorylates the meiosis-specific double-strand break protein MER2 for initiation of meiotic recombination. Interacts with CDC5 during meiosis to promote double-strand breaks and monopolar spindle orientation. Inhibits CDC5 activity during mitosis through direct binding to its PBD",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "12441400"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "16319063"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "17018296"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "18245450"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "19013276"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "19478884"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "19692334"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "20054399"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "20170732"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "20436286"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "21036905"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "8066465"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "16319063"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "17018296"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "18245450"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "19013276"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "19478884"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "19692334"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "20054399"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "20170732"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "20436286"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "21036905"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "8066465"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "3D-structure",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0002",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "3D-structure"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Chromosome partition",
           "id": "KW-0159",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Chromosome partition"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Meiosis",
           "id": "KW-0469",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Meiosis"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Mitosis",
           "id": "KW-0498",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Mitosis"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -2133,45 +1916,36 @@
         ]
       },
       "primaryAccession": "P32325",
-      "genes": [
-        {
-          "geneName": {
-            "value": "DBF4"
+      "genes": [{
+        "geneName": {
+          "value": "DBF4"
+        },
+        "synonyms": [{
+          "value": "DNA52"
+        }],
+        "orderedLocusNames": [{
+          "value": "YDR052C"
+        }],
+        "orfNames": [{
+            "value": "D4205"
           },
-          "synonyms": [
-            {
-              "value": "DNA52"
-            }
-          ],
-          "orderedLocusNames": [
-            {
-              "value": "YDR052C"
-            }
-          ],
-          "orfNames": [
-            {
-              "value": "D4205"
-            },
-            {
-              "value": "YD9609.07C"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "DBF4_YEAST",
+          {
+            "value": "YD9609.07C"
+          }
+        ]
+      }],
+      "uniProtkbId": "DBF4_YEAST",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DDK kinase regulatory subunit DBF4"
           }
         },
-        "alternativeNames": [
-          {
-            "fullName": {
-              "value": "Dumbbell forming protein 4"
-            }
+        "alternativeNames": [{
+          "fullName": {
+            "value": "Dumbbell forming protein 4"
           }
-        ]
+        }]
       },
       "annotationScore": 168.4,
       "entryAudit": {
@@ -2191,98 +1965,92 @@
         "md5": "FB2E12415A6E714D27CAD44DB2AEC35B"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role in DNA replication and cell proliferation. Required for progression of S phase. The complex CDC7-DBF4A selectively phosphorylates MCM2 subunit at 'Ser-40' and 'Ser-53' and then is involved in regulating the initiation of DNA replication during cell cycle",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "10373557"
+            },
             {
-              "value": "Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role in DNA replication and cell proliferation. Required for progression of S phase. The complex CDC7-DBF4A selectively phosphorylates MCM2 subunit at 'Ser-40' and 'Ser-53' and then is involved in regulating the initiation of DNA replication during cell cycle",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "10373557"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "10523313"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "17062569"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "10523313"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "17062569"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "3D-structure",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0002",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "3D-structure"
         },
         {
-          "value": "Alternative splicing",
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Polymorphism",
           "id": "KW-0621",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Polymorphism"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Repeat",
           "id": "KW-0677",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Repeat"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -2307,33 +2075,29 @@
         ]
       },
       "primaryAccession": "Q9UBU7",
-      "genes": [
-        {
-          "geneName": {
-            "value": "DBF4"
+      "genes": [{
+        "geneName": {
+          "value": "DBF4"
+        },
+        "synonyms": [{
+            "value": "ASK"
           },
-          "synonyms": [
-            {
-              "value": "ASK"
-            },
-            {
-              "value": "DBF4A"
-            },
-            {
-              "value": "ZDBF1"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "DBF4A_HUMAN",
+          {
+            "value": "DBF4A"
+          },
+          {
+            "value": "ZDBF1"
+          }
+        ]
+      }],
+      "uniProtkbId": "DBF4A_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Protein DBF4 homolog A"
           }
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "Activator of S phase kinase"
             }
@@ -2368,138 +2132,132 @@
         "md5": "BB5D90539C536B36B294E50BDDD8A7B9"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity. Required for the entry in S phase and for cell division. Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "26196677"
+            },
             {
-              "value": "Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity. Required for the entry in S phase and for cell division. Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "26196677"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "8175912"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "8175912"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "3D-structure",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0002",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "3D-structure"
         },
         {
-          "value": "Acetylation",
           "id": "KW-0007",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Acetylation"
         },
         {
-          "value": "ATP-binding",
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Deafness",
           "id": "KW-0209",
-          "category": "Disease"
+          "category": "Disease",
+          "name": "Deafness"
         },
         {
-          "value": "Disease mutation",
           "id": "KW-0225",
-          "category": "Disease"
+          "category": "Disease",
+          "name": "Disease mutation"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Helicase",
           "id": "KW-0347",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Helicase"
         },
         {
-          "value": "Hydrolase",
           "id": "KW-0378",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Hydrolase"
         },
         {
-          "value": "Isopeptide bond",
           "id": "KW-1017",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Isopeptide bond"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Non-syndromic deafness",
           "id": "KW-1010",
-          "category": "Disease"
+          "category": "Disease",
+          "name": "Non-syndromic deafness"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Polymorphism",
           "id": "KW-0621",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Polymorphism"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Ubl conjugation",
           "id": "KW-0832",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Ubl conjugation"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -2524,41 +2282,35 @@
         ]
       },
       "primaryAccession": "P49736",
-      "genes": [
-        {
-          "geneName": {
-            "value": "MCM2"
+      "genes": [{
+        "geneName": {
+          "value": "MCM2"
+        },
+        "synonyms": [{
+            "value": "BM28"
           },
-          "synonyms": [
-            {
-              "value": "BM28"
-            },
-            {
-              "value": "CCNL1"
-            },
-            {
-              "value": "CDCL1"
-            },
-            {
-              "value": "KIAA0030"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "MCM2_HUMAN",
+          {
+            "value": "CCNL1"
+          },
+          {
+            "value": "CDCL1"
+          },
+          {
+            "value": "KIAA0030"
+          }
+        ]
+      }],
+      "uniProtkbId": "MCM2_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DNA replication licensing factor MCM2"
           },
-          "ecNumbers": [
-            {
-              "value": "3.6.4.12"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "3.6.4.12"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "Minichromosome maintenance protein 2 homolog"
             }
@@ -2588,93 +2340,87 @@
         "md5": "B92CCDF26231D60086BCAC717674703F"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Interacts with the components of the replication complex and 2 kinases, CDK2 and CDC7, thereby providing a functional and physical link between CDK2 and CDC7 during firing of the origins of replication. Regulates ATR-mediated checkpoint signaling",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "16082200"
+            },
             {
-              "value": "Interacts with the components of the replication complex and 2 kinases, CDK2 and CDC7, thereby providing a functional and physical link between CDK2 and CDC7 during firing of the origins of replication. Regulates ATR-mediated checkpoint signaling",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "16082200"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "19889979"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "19889979"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Acetylation",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0007",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Acetylation"
         },
         {
-          "value": "Alternative splicing",
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Coiled coil",
           "id": "KW-0175",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Coiled coil"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "DNA damage",
           "id": "KW-0227",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA damage"
         },
         {
-          "value": "DNA repair",
           "id": "KW-0234",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA repair"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Polymorphism",
           "id": "KW-0621",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Polymorphism"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         }
       ],
       "organism": {
@@ -2699,24 +2445,20 @@
         ]
       },
       "primaryAccession": "Q9BW66",
-      "genes": [
-        {
-          "geneName": {
-            "value": "CINP"
-          }
+      "genes": [{
+        "geneName": {
+          "value": "CINP"
         }
-      ],
-      "uniProtId": "CINP_HUMAN",
+      }],
+      "uniProtkbId": "CINP_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cyclin-dependent kinase 2-interacting protein"
           },
-          "shortNames": [
-            {
-              "value": "CDK2-interacting protein"
-            }
-          ]
+          "shortNames": [{
+            "value": "CDK2-interacting protein"
+          }]
         }
       },
       "annotationScore": 102.89999999999999,
@@ -2737,78 +2479,71 @@
         "md5": "047CBC6EAC770219380D1FA8FBBFE714"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role DNA in replication and cell proliferation. Required for progression of S phase. The complex CDC7-DBF4A selectively phosphorylates MCM2 subunit at 'Ser-40' and 'Ser-53' and then is involved in regulating the initiation of DNA replication during cell cycle",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "10517317"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Alternative splicing",
+      "comments": [{
+        "texts": [{
+          "value": "Regulatory subunit for CDC7 which activates its kinase activity thereby playing a central role DNA in replication and cell proliferation. Required for progression of S phase. The complex CDC7-DBF4A selectively phosphorylates MCM2 subunit at 'Ser-40' and 'Ser-53' and then is involved in regulating the initiation of DNA replication during cell cycle",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "10517317"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0025",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Alternative splicing"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Repeat",
           "id": "KW-0677",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Repeat"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -2836,32 +2571,26 @@
         ]
       },
       "primaryAccession": "Q9QZ41",
-      "genes": [
-        {
-          "geneName": {
-            "value": "Dbf4"
-          },
-          "synonyms": [
-            {
-              "value": "Dbf4a"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "DBF4A_MOUSE",
+      "genes": [{
+        "geneName": {
+          "value": "Dbf4"
+        },
+        "synonyms": [{
+          "value": "Dbf4a"
+        }]
+      }],
+      "uniProtkbId": "DBF4A_MOUSE",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Protein DBF4 homolog A"
           }
         },
-        "alternativeNames": [
-          {
-            "fullName": {
-              "value": "MuDBF4"
-            }
+        "alternativeNames": [{
+          "fullName": {
+            "value": "MuDBF4"
           }
-        ]
+        }]
       },
       "annotationScore": 85.6,
       "entryAudit": {
@@ -2881,86 +2610,79 @@
         "md5": "30673564CCB5EB3971ED55124E2C564F"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commitment to recombination during meiosis (By similarity)",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000250"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+      "comments": [{
+        "texts": [{
+          "value": "Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commitment to recombination during meiosis (By similarity)",
+          "evidences": [{
+            "evidenceCode": "ECO:0000250"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Meiosis",
           "id": "KW-0469",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Meiosis"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Mitosis",
           "id": "KW-0498",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Mitosis"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -2977,29 +2699,23 @@
         ]
       },
       "primaryAccession": "Q8SR83",
-      "genes": [
-        {
-          "geneName": {
-            "value": "CDC7-2"
-          },
-          "orderedLocusNames": [
-            {
-              "value": "ECU10_0120"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC72_ENCCU",
+      "genes": [{
+        "geneName": {
+          "value": "CDC7-2"
+        },
+        "orderedLocusNames": [{
+          "value": "ECU10_0120"
+        }]
+      }],
+      "uniProtkbId": "CDC72_ENCCU",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Probable cell division control protein 7 homolog 2"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         }
       },
       "annotationScore": 47.8,
@@ -3020,113 +2736,106 @@
         "md5": "E5CDF85097E110B60D7B5EC977FE1CAB"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity. Required for the entry in S phase and for cell division. Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000250",
-                  "source": "UniProtKB",
-                  "id": "P49736"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Acetylation",
+      "comments": [{
+        "texts": [{
+          "value": "Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity. Required for the entry in S phase and for cell division. Plays a role in terminally differentiated hair cells development of the cochlea and induces cells apoptosis",
+          "evidences": [{
+            "evidenceCode": "ECO:0000250",
+            "source": "UniProtKB",
+            "id": "P49736"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0007",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Acetylation"
         },
         {
-          "value": "ATP-binding",
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Direct protein sequencing",
           "id": "KW-0903",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Direct protein sequencing"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Helicase",
           "id": "KW-0347",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Helicase"
         },
         {
-          "value": "Hydrolase",
           "id": "KW-0378",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Hydrolase"
         },
         {
-          "value": "Isopeptide bond",
           "id": "KW-1017",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Isopeptide bond"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Ubl conjugation",
           "id": "KW-0832",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Ubl conjugation"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -3154,41 +2863,35 @@
         ]
       },
       "primaryAccession": "P97310",
-      "genes": [
-        {
-          "geneName": {
-            "value": "Mcm2"
+      "genes": [{
+        "geneName": {
+          "value": "Mcm2"
+        },
+        "synonyms": [{
+            "value": "Bm28"
           },
-          "synonyms": [
-            {
-              "value": "Bm28"
-            },
-            {
-              "value": "Cdcl1"
-            },
-            {
-              "value": "Kiaa0030"
-            },
-            {
-              "value": "Mcmd2"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "MCM2_MOUSE",
+          {
+            "value": "Cdcl1"
+          },
+          {
+            "value": "Kiaa0030"
+          },
+          {
+            "value": "Mcmd2"
+          }
+        ]
+      }],
+      "uniProtkbId": "MCM2_MOUSE",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DNA replication licensing factor MCM2"
           },
-          "ecNumbers": [
-            {
-              "value": "3.6.4.12"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "3.6.4.12"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "Minichromosome maintenance protein 2 homolog"
             }
@@ -3218,86 +2921,79 @@
         "md5": "B97A10F68ED7A0325543C751CD90FA5B"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commitment to recombination during meiosis (By similarity)",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000250"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+      "comments": [{
+        "texts": [{
+          "value": "Serine/threonine-protein kinase. Needed for the initiation of DNA synthesis during mitosis as well as for synaptonemal complex formation and commitment to recombination during meiosis (By similarity)",
+          "evidences": [{
+            "evidenceCode": "ECO:0000250"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Magnesium",
           "id": "KW-0460",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Magnesium"
         },
         {
-          "value": "Meiosis",
           "id": "KW-0469",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Meiosis"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Mitosis",
           "id": "KW-0498",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Mitosis"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -3314,29 +3010,23 @@
         ]
       },
       "primaryAccession": "Q8SR85",
-      "genes": [
-        {
-          "geneName": {
-            "value": "CDC7-1"
-          },
-          "orderedLocusNames": [
-            {
-              "value": "ECU08_1960"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC71_ENCCU",
+      "genes": [{
+        "geneName": {
+          "value": "CDC7-1"
+        },
+        "orderedLocusNames": [{
+          "value": "ECU08_1960"
+        }]
+      }],
+      "uniProtkbId": "CDC71_ENCCU",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Probable cell division control protein 7 homolog 1"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         }
       },
       "annotationScore": 47.900000000000006,
@@ -3357,88 +3047,82 @@
         "md5": "76DB28D746E54D19DCF9E24812B20535"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the mcm2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity. Required for the entry in S phase and for cell division",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "16369567"
+            },
             {
-              "value": "Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the mcm2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity. Required for the entry in S phase and for cell division",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "16369567"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9214646"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9214647"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "9214646"
+            },
+            {
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "9214647"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Helicase",
           "id": "KW-0347",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Helicase"
         },
         {
-          "value": "Hydrolase",
           "id": "KW-0378",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Hydrolase"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -3463,27 +3147,22 @@
         ]
       },
       "primaryAccession": "P55861",
-      "genes": [
-        {
-          "geneName": {
-            "value": "mcm2"
-          }
+      "genes": [{
+        "geneName": {
+          "value": "mcm2"
         }
-      ],
-      "uniProtId": "MCM2_XENLA",
+      }],
+      "uniProtkbId": "MCM2_XENLA",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DNA replication licensing factor mcm2"
           },
-          "ecNumbers": [
-            {
-              "value": "3.6.4.12"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "3.6.4.12"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "BM28-homolog"
             }
@@ -3492,11 +3171,9 @@
             "fullName": {
               "value": "Minichromosome maintenance protein 2"
             },
-            "shortNames": [
-              {
-                "value": "xMCM2"
-              }
-            ]
+            "shortNames": [{
+              "value": "xMCM2"
+            }]
           },
           {
             "fullName": {
@@ -3523,58 +3200,51 @@
         "md5": "C0042845B3C95E8A48F9271E4FB56C14"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "GTP-binding protein essential for the induction of septum formation at G2 and pre-START stages of mitosis. Acts via the cdc7 protein kinase pathway",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9203579"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Cell cycle",
+      "comments": [{
+        "texts": [{
+          "value": "GTP-binding protein essential for the induction of septum formation at G2 and pre-START stages of mitosis. Acts via the cdc7 protein kinase pathway",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "9203579"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "GTP-binding",
           "id": "KW-0342",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "GTP-binding"
         },
         {
-          "value": "Mitosis",
           "id": "KW-0498",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Mitosis"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         }
       ],
       "organism": {
@@ -3594,32 +3264,25 @@
         ]
       },
       "primaryAccession": "P87027",
-      "genes": [
-        {
-          "geneName": {
-            "value": "spg1"
-          },
-          "synonyms": [
-            {
-              "value": "sid3"
-            }
-          ],
-          "orfNames": [
-            {
-              "value": "SPAC1565.06c"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "SPG1_SCHPO",
+      "genes": [{
+        "geneName": {
+          "value": "spg1"
+        },
+        "synonyms": [{
+          "value": "sid3"
+        }],
+        "orfNames": [{
+          "value": "SPAC1565.06c"
+        }]
+      }],
+      "uniProtkbId": "SPG1_SCHPO",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Septum-promoting GTP-binding protein 1"
           }
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "GTPase spg1"
             }
@@ -3649,83 +3312,77 @@
         "md5": "E87A2A60A62E9646E0A7C7864D72FEC6"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the mcm2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "9214646"
+            },
             {
-              "value": "Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the mcm2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9214646"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9214647"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "9214647"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Helicase",
           "id": "KW-0347",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Helicase"
         },
         {
-          "value": "Hydrolase",
           "id": "KW-0378",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Hydrolase"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -3750,27 +3407,22 @@
         ]
       },
       "primaryAccession": "Q5XK83",
-      "genes": [
-        {
-          "geneName": {
-            "value": "mcm4-a"
-          }
+      "genes": [{
+        "geneName": {
+          "value": "mcm4-a"
         }
-      ],
-      "uniProtId": "MCM4A_XENLA",
+      }],
+      "uniProtkbId": "MCM4A_XENLA",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DNA replication licensing factor mcm4-A"
           },
-          "ecNumbers": [
-            {
-              "value": "3.6.4.12"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "3.6.4.12"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "CDC21 homolog-A"
             }
@@ -3779,11 +3431,9 @@
             "fullName": {
               "value": "Minichromosome maintenance protein 4-A"
             },
-            "shortNames": [
-              {
-                "value": "xMCM4-A"
-              }
-            ]
+            "shortNames": [{
+              "value": "xMCM4-A"
+            }]
           },
           {
             "fullName": {
@@ -3815,88 +3465,81 @@
         "md5": "78F34E15D72F48A984F14E514EBB8EB0"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Required for the initiation of meiosis II and progression through anaphase II",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "11739743"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+      "comments": [{
+        "texts": [{
+          "value": "Required for the initiation of meiosis II and progression through anaphase II",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "11739743"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Cell division",
           "id": "KW-0132",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell division"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Kinase",
           "id": "KW-0418",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Kinase"
         },
         {
-          "value": "Meiosis",
           "id": "KW-0469",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Meiosis"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Serine/threonine-protein kinase",
           "id": "KW-0723",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Serine/threonine-protein kinase"
         },
         {
-          "value": "Sporulation",
           "id": "KW-0749",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Sporulation"
         },
         {
-          "value": "Transferase",
           "id": "KW-0808",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Transferase"
         }
       ],
       "organism": {
@@ -3916,37 +3559,29 @@
         ]
       },
       "primaryAccession": "Q9UQY9",
-      "genes": [
-        {
-          "geneName": {
-            "value": "spo4"
-          },
-          "orfNames": [
-            {
-              "value": "SPBC21C3.18"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "SPO4_SCHPO",
+      "genes": [{
+        "geneName": {
+          "value": "spo4"
+        },
+        "orfNames": [{
+          "value": "SPBC21C3.18"
+        }]
+      }],
+      "uniProtkbId": "SPO4_SCHPO",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Cell cycle protein kinase spo4"
           },
-          "ecNumbers": [
-            {
-              "value": "2.7.11.1"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "2.7.11.1"
+          }]
         },
-        "alternativeNames": [
-          {
-            "fullName": {
-              "value": "Sporulation-specific protein 4"
-            }
+        "alternativeNames": [{
+          "fullName": {
+            "value": "Sporulation-specific protein 4"
           }
-        ]
+        }]
       },
       "annotationScore": 99.5,
       "entryAudit": {
@@ -3966,63 +3601,57 @@
         "md5": "3952FACFCF61643404D91943F82F336D"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Essential for the onset of septum formation. Involved in the organization of astral microtubules during mitosis. Acts as a bridge between sid4 and the other SIN proteins mediating their association with the spindle pole body (SPB). The sid4-cdc11 complex organizes a signaling hub on the SPB which coordinates cell and nuclear division",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "11676915"
+            },
             {
-              "value": "Essential for the onset of septum formation. Involved in the organization of astral microtubules during mitosis. Acts as a bridge between sid4 and the other SIN proteins mediating their association with the spindle pole body (SPB). The sid4-cdc11 complex organizes a signaling hub on the SPB which coordinates cell and nuclear division",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "11676915"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "15062098"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "15062098"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Complete proteome",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "Cytoplasm",
           "id": "KW-0963",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Cytoplasm"
         },
         {
-          "value": "Cytoskeleton",
           "id": "KW-0206",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Cytoskeleton"
         },
         {
-          "value": "Leucine-rich repeat",
           "id": "KW-0433",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Leucine-rich repeat"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Repeat",
           "id": "KW-0677",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Repeat"
         }
       ],
       "organism": {
@@ -4042,37 +3671,29 @@
         ]
       },
       "primaryAccession": "O74473",
-      "genes": [
-        {
-          "geneName": {
-            "value": "cdc11"
-          },
-          "orfNames": [
-            {
-              "value": "SPCC1739.11c"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "CDC11_SCHPO",
+      "genes": [{
+        "geneName": {
+          "value": "cdc11"
+        },
+        "orfNames": [{
+          "value": "SPCC1739.11c"
+        }]
+      }],
+      "uniProtkbId": "CDC11_SCHPO",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "Septation initiation network scaffold protein cdc11"
           },
-          "shortNames": [
-            {
-              "value": "SIN scaffold protein cdc11"
-            }
-          ]
+          "shortNames": [{
+            "value": "SIN scaffold protein cdc11"
+          }]
         },
-        "alternativeNames": [
-          {
-            "fullName": {
-              "value": "Cell division control protein 11"
-            }
+        "alternativeNames": [{
+          "fullName": {
+            "value": "Cell division control protein 11"
           }
-        ]
+        }]
       },
       "annotationScore": 136.5,
       "entryAudit": {
@@ -4092,78 +3713,71 @@
         "md5": "863BDFA3D3480E8E74B080EA4E38E362"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
-            {
-              "value": "Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the mcm2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "16369567"
-                }
-              ]
-            }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "ATP-binding",
+      "comments": [{
+        "texts": [{
+          "value": "Acts as component of the mcm2-7 complex (mcm complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the mcm2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity",
+          "evidences": [{
+            "evidenceCode": "ECO:0000269",
+            "source": "PubMed",
+            "id": "16369567"
+          }]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Helicase",
           "id": "KW-0347",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Helicase"
         },
         {
-          "value": "Hydrolase",
           "id": "KW-0378",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Hydrolase"
         },
         {
-          "value": "Metal-binding",
           "id": "KW-0479",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Metal-binding"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Zinc",
           "id": "KW-0862",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Zinc"
         },
         {
-          "value": "Zinc-finger",
           "id": "KW-0863",
-          "category": "Domain"
+          "category": "Domain",
+          "name": "Zinc-finger"
         }
       ],
       "organism": {
@@ -4188,27 +3802,22 @@
         ]
       },
       "primaryAccession": "P30664",
-      "genes": [
-        {
-          "geneName": {
-            "value": "mcm4-b"
-          }
+      "genes": [{
+        "geneName": {
+          "value": "mcm4-b"
         }
-      ],
-      "uniProtId": "MCM4B_XENLA",
+      }],
+      "uniProtkbId": "MCM4B_XENLA",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DNA replication licensing factor mcm4-B"
           },
-          "ecNumbers": [
-            {
-              "value": "3.6.4.12"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "3.6.4.12"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "CDC21 homolog-B"
             }
@@ -4217,11 +3826,9 @@
             "fullName": {
               "value": "Minichromosome maintenance protein 4-B"
             },
-            "shortNames": [
-              {
-                "value": "xMCM4-B"
-              }
-            ]
+            "shortNames": [{
+              "value": "xMCM4-B"
+            }]
           },
           {
             "fullName": {
@@ -4248,103 +3855,97 @@
         "md5": "06EBC1BC4FFE48770FAFAB9B48D7CC87"
       },
       "entryType": "Swiss-Prot",
-      "comments": [
-        {
-          "texts": [
+      "comments": [{
+        "texts": [{
+          "value": "Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity",
+          "evidences": [{
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "16899510"
+            },
             {
-              "value": "Acts as component of the MCM2-7 complex (MCM complex) which is the putative replicative helicase essential for 'once per cell cycle' DNA replication initiation and elongation in eukaryotic cells. The active ATPase sites in the MCM2-7 ring are formed through the interaction surfaces of two neighboring subunits such that a critical structure of a conserved arginine finger motif is provided in trans relative to the ATP-binding site of the Walker A box of the adjacent subunit. The six ATPase active sites, however, are likely to contribute differentially to the complex helicase activity",
-              "evidences": [
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "16899510"
-                },
-                {
-                  "evidenceCode": "ECO:0000269",
-                  "source": "PubMed",
-                  "id": "9305914"
-                }
-              ]
+              "evidenceCode": "ECO:0000269",
+              "source": "PubMed",
+              "id": "9305914"
             }
-          ],
-          "commentType": "FUNCTION"
-        }
-      ],
-      "keywords": [
-        {
-          "value": "Acetylation",
+          ]
+        }],
+        "commentType": "FUNCTION"
+      }],
+      "keywords": [{
           "id": "KW-0007",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Acetylation"
         },
         {
-          "value": "ATP-binding",
           "id": "KW-0067",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "ATP-binding"
         },
         {
-          "value": "Cell cycle",
           "id": "KW-0131",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "Cell cycle"
         },
         {
-          "value": "Complete proteome",
           "id": "KW-0181",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Complete proteome"
         },
         {
-          "value": "DNA replication",
           "id": "KW-0235",
-          "category": "Biological process"
+          "category": "Biological process",
+          "name": "DNA replication"
         },
         {
-          "value": "DNA-binding",
           "id": "KW-0238",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "DNA-binding"
         },
         {
-          "value": "Helicase",
           "id": "KW-0347",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Helicase"
         },
         {
-          "value": "Hydrolase",
           "id": "KW-0378",
-          "category": "Molecular function"
+          "category": "Molecular function",
+          "name": "Hydrolase"
         },
         {
-          "value": "Isopeptide bond",
           "id": "KW-1017",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Isopeptide bond"
         },
         {
-          "value": "Nucleotide-binding",
           "id": "KW-0547",
-          "category": "Ligand"
+          "category": "Ligand",
+          "name": "Nucleotide-binding"
         },
         {
-          "value": "Nucleus",
           "id": "KW-0539",
-          "category": "Cellular component"
+          "category": "Cellular component",
+          "name": "Nucleus"
         },
         {
-          "value": "Phosphoprotein",
           "id": "KW-0597",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Phosphoprotein"
         },
         {
-          "value": "Polymorphism",
           "id": "KW-0621",
-          "category": "Coding sequence diversity"
+          "category": "Coding sequence diversity",
+          "name": "Polymorphism"
         },
         {
-          "value": "Reference proteome",
           "id": "KW-1185",
-          "category": "Technical term"
+          "category": "Technical term",
+          "name": "Reference proteome"
         },
         {
-          "value": "Ubl conjugation",
           "id": "KW-0832",
-          "category": "PTM"
+          "category": "PTM",
+          "name": "Ubl conjugation"
         }
       ],
       "organism": {
@@ -4369,32 +3970,25 @@
         ]
       },
       "primaryAccession": "P33991",
-      "genes": [
-        {
-          "geneName": {
-            "value": "MCM4"
-          },
-          "synonyms": [
-            {
-              "value": "CDC21"
-            }
-          ]
-        }
-      ],
-      "uniProtId": "MCM4_HUMAN",
+      "genes": [{
+        "geneName": {
+          "value": "MCM4"
+        },
+        "synonyms": [{
+          "value": "CDC21"
+        }]
+      }],
+      "uniProtkbId": "MCM4_HUMAN",
       "proteinDescription": {
         "recommendedName": {
           "fullName": {
             "value": "DNA replication licensing factor MCM4"
           },
-          "ecNumbers": [
-            {
-              "value": "3.6.4.12"
-            }
-          ]
+          "ecNumbers": [{
+            "value": "3.6.4.12"
+          }]
         },
-        "alternativeNames": [
-          {
+        "alternativeNames": [{
             "fullName": {
               "value": "CDC21 homolog"
             }
