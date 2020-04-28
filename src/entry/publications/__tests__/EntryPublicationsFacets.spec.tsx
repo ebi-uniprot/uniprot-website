@@ -6,7 +6,7 @@ import publicationsData from '../__mocks__/entryPublicationsData.json';
 
 let component;
 const setSelectedFacets = jest.fn();
-const selectedFacets = [{ name: 'scale', value: 'Large' }];
+const selectedFacets = [{ name: 'study_type', value: 'large_scale' }];
 
 describe('EntryPublications tests', () => {
   beforeEach(() => {

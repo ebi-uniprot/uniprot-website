@@ -114,7 +114,7 @@ export const getQueryUrl = (
     query: `${query}${createFacetsQueryString(selectedFacets)}`,
     fields: columns && columns.join(','),
     facets:
-      'reviewed,popular_organism,proteins_with,existence,annotation_score,length',
+      'reviewed,model_organism,proteins_with,existence,annotation_score,length',
     sort:
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
@@ -125,7 +125,7 @@ export const getUniProtPublicationsQueryUrl = (
   selectedFacets: SelectedFacet[]
 ) =>
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
-    facets: 'source,category,scale',
+    facets: 'source,category,study_type',
     query: selectedFacets
       .map(facet => `(${facet.name}:"${facet.value}")`)
       .join(' AND '),

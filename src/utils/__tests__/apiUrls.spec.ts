@@ -13,7 +13,7 @@ describe('getQueryUrl', () => {
     ];
     const queryString = getQueryUrl('cdc7', [], facets);
     expect(queryString).toBe(
-      'https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/search?facets=reviewed%2Cpopular_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&fields=&query=cdc7%20AND%20%28facet1%3A%22value%201%22%29%20AND%20%28facet2%3A%22value%203%22%29'
+      'https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/search?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&fields=&query=cdc7%20AND%20%28facet1%3A%22value%201%22%29%20AND%20%28facet2%3A%22value%203%22%29'
     );
   });
 });

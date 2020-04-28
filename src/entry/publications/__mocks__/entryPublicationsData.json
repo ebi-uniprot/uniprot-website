@@ -1,23 +1,19 @@
 {
-  "facets": [
-    {
-      "label": "Scale",
-      "name": "scale",
-      "allowMultipleSelection": false,
-      "values": [
-        {
-          "value": "Small",
-          "count": 2272
-        },
-        {
-          "value": "Large",
-          "count": 116
-        }
-      ]
-    }
-  ],
-  "results": [
-    {
+  "facets": [{
+    "label": "Study type",
+    "name": "study_type",
+    "allowMultipleSelection": false,
+    "values": [{
+      "label": "Small scale",
+      "value": "small_scale",
+      "count": 239
+    }, {
+      "label": "Large scale",
+      "value": "large_scale",
+      "count": 8
+    }]
+  }],
+  "results": [{
       "reference": {
         "citation": {
           "citationType": "UniProt indexed literatures",
@@ -32,8 +28,7 @@
             "Beyreuther K.",
             "Mueller-Hill B."
           ],
-          "citationCrossReferences": [
-            {
+          "citationCrossReferences": [{
               "database": "PubMed",
               "id": "2881207"
             },
@@ -52,12 +47,10 @@
           "literatureAbstract": "Alzheimer's disease is characterized by a widespread functional disturbance of the human brain. Fibrillar amyloid proteins are deposited inside neurons as neurofibrillary tangles and extracellularly as amyloid plaque cores and in blood vessels. The major protein subunit (A4) of the amyloid fibril of tangles, plaques and blood vessel deposits is an insoluble, highly aggregating small polypeptide of relative molecular mass 4,500. The same polypeptide is also deposited in the brains of aged individuals with trisomy 21 (Down's syndrome). We have argued previously that the A4 protein is of neuronal origin and is the cleavage product of a larger precursor protein. To identify this precursor, we have now isolated and sequenced an apparently full-length complementary DNA clone coding for the A4 polypeptide. The predicted precursor consists of 695 residues and contains features characteristic of glycosylated cell-surface receptors. This sequence, together with the localization of its gene on chromosome 21, suggests that the cerebral amyloid deposited in Alzheimer's disease and aged Down's syndrome is caused by aberrant catabolism of a cell- surface receptor."
         },
         "referencePositions": ["NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM APP695)"],
-        "referenceComments": [
-          {
-            "value": "Brain",
-            "type": "TISSUE"
-          }
-        ]
+        "referenceComments": [{
+          "value": "Brain",
+          "type": "TISSUE"
+        }]
       },
       "statistics": {
         "reviewedProteinCount": 1,
@@ -84,8 +77,7 @@
             "Fuller F.",
             "Cordell B."
           ],
-          "citationCrossReferences": [
-            {
+          "citationCrossReferences": [{
               "database": "PubMed",
               "id": "2893289"
             },
@@ -104,12 +96,10 @@
           "literatureAbstract": "The amyloid proteins isolated from neuritic plaques and the cerebrovasculature of Alzheimer's disease are self-aggregating moieties termed A4 protein and beta- protein, respectively. A putative A4 amyloid precursor (herein termed A4(695] has been characterized by analysis of a human brain complementary DNA. We report here the sequence of a closely related amyloid cDNA, A4(751), distinguished from A4(695) by the presence of a 168 base-pair (bp) sequence which adds 57 amino acids to, and removes one residue from, the predicted A4(695) protein. The peptide predicted from this insert is very similar to the Kunitz family of serine proteinase inhibitors. The two A4-specific messenger RNAs are differentially expressed: in a limited survey, A4(751) mRNA appears to be ubiquitous, whereas A4(695) mRNA has a restricted pattern of expression which includes cells from neuronal tissue. These data may have significant implications for understanding amyloid deposition in Alzheimer's disease."
         },
         "referencePositions": ["NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM APP751)"],
-        "referenceComments": [
-          {
-            "value": "Brain",
-            "type": "TISSUE"
-          }
-        ]
+        "referenceComments": [{
+          "value": "Brain",
+          "type": "TISSUE"
+        }]
       },
       "statistics": {
         "reviewedProteinCount": 1,
@@ -133,8 +123,7 @@
             "Beyreuther K.",
             "Mueller-Hill B."
           ],
-          "citationCrossReferences": [
-            {
+          "citationCrossReferences": [{
               "database": "PubMed",
               "id": "2783775"
             },

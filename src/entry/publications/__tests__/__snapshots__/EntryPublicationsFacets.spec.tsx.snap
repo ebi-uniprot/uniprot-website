@@ -12,7 +12,7 @@ exports[`EntryPublications tests should render 1`] = `
         <div
           class="facet-name"
         >
-          Scale
+          Study type
         </div>
         <ul
           class="expandable-list no-bullet"
@@ -22,7 +22,7 @@ exports[`EntryPublications tests should render 1`] = `
               class=""
               type="button"
             >
-              Small (2,272)
+              Small scale (239)
             </button>
           </li>
           <li>
@@ -30,7 +30,7 @@ exports[`EntryPublications tests should render 1`] = `
               class="facet-active"
               type="button"
             >
-              Large (116)
+              Large scale (8)
             </button>
           </li>
         </ul>

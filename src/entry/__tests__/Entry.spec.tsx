@@ -19,7 +19,7 @@ const { primaryAccession } = entryData;
 const mock = new MockAdapter(axios);
 
 const filteredUrl = getUniProtPublicationsQueryUrl(primaryAccession, [
-  { name: 'scale', value: 'Small' },
+  { name: 'study_type', value: 'small_scale' },
 ]);
 
 mock.onGet(apiUrls.entry(primaryAccession)).reply(200, entryData);
@@ -31,8 +31,8 @@ mock.onGet(filteredUrl).reply(
   {
     facets: [
       {
-        label: 'Scale',
-        name: 'scale',
+        label: 'Study type',
+        name: 'study_type',
         values: [
           {
             value: 'Another facet',
