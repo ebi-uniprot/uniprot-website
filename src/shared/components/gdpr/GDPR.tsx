@@ -1,19 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 import './styles/gdpr.scss';
 
 const UP_COVID_GDPR = 'UP_COVID_GDPR';
 
 const GDPR: FC<{}> = () => {
-  const [token, setToken] = useState(localStorage.getItem(UP_COVID_GDPR));
+  const [token, setToken] = useLocalStorage(UP_COVID_GDPR, false);
 
-  const onClickAccept = () => {
-    localStorage.setItem(UP_COVID_GDPR, 'true');
-    setToken('true');
-  };
-
-  if (token) {
-    return null;
-  }
+  if (token) return null;
 
   return (
     <div className="gdpr-section">
@@ -25,7 +21,7 @@ const GDPR: FC<{}> = () => {
       <button
         type="button"
         className="button secondary"
-        onClick={() => onClickAccept()}
+        onClick={() => setToken(true)}
       >
         Accept
       </button>

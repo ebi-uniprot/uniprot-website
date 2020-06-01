@@ -4,6 +4,8 @@ import { FranklinSite, Loader } from 'franklin-sites';
 import * as Sentry from '@sentry/browser';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
+import GDPR from '../../shared/components/gdpr/GDPR';
 
 import history from '../../shared/utils/browserHistory';
 
@@ -75,6 +77,21 @@ const JobErrorPage = lazy(() =>
   )
 );
 
+const reportBugLinkStyles: React.CSSProperties = {
+  fontSize: '.8rem',
+  lineHeight: '1.5rem',
+  display: 'block',
+  padding: '.5rem 0',
+  color: '#FFF',
+  backgroundColor: 'red',
+  position: 'fixed',
+  bottom: '4rem',
+  right: 0,
+  writingMode: 'vertical-rl',
+  textOrientation: 'sideways',
+  zIndex: 99,
+};
+
 const App = () => (
   <FranklinSite>
     <Router history={history}>
@@ -135,6 +152,17 @@ const App = () => (
         </Suspense>
       </BaseLayout>
     </Router>
+    <a
+      style={reportBugLinkStyles}
+      target="_blank"
+      href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
+      rel="noopener noreferrer"
+    >
+      Report bug
+    </a>
+    <ErrorBoundary fallback={null}>
+      <GDPR />
+    </ErrorBoundary>
   </FranklinSite>
 );
 
