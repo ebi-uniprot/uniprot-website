@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { Location } from 'history';
 
 import ErrorComponent from './ErrorComponent';
 
-type Props = { children: React.ReactNode; fallback?: React.ReactNode };
-type State = { error?: Error };
+type Props = RouteComponentProps & {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+};
+type State = { error?: Error; location?: Location };
 
 /**
  * Use this ErrorBoundary to wrap any unit of components which might, for any
@@ -11,17 +16,25 @@ type State = { error?: Error };
  * Provide a fallback message if you need to display a specific message instead
  * of the default one.
  * Provide `null` as a fallback to simply hide the error.
+ * Will try to rerender on location change.
  */
 class ErrorBoundary extends Component<Props, State> {
   static defaultProps = { fallback: <ErrorComponent /> };
 
   constructor(props: Props) {
     super(props);
-    this.state = {};
+
+    this.state = { location: props.location };
   }
 
   static getDerivedStateFromError(error: Error) {
     return { error };
+  }
+
+  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+    if (nextProps.location === prevState.location) return null;
+    // Any change in location should reset the error state, and try to re-render
+    return { error: null };
   }
 
   componentDidCatch(error: Error, errorInfo: object) {
@@ -37,4 +50,4 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-export default ErrorBoundary;
+export default withRouter(ErrorBoundary);

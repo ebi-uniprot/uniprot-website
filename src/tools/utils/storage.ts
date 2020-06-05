@@ -1,41 +1,45 @@
-import { Store, set, get, del, clear, keys } from 'idb-keyval';
+import { openDB, IDBPDatabase } from 'idb';
 
 import { Stores } from './stores';
 
 export const DB_NAME = 'UniProt-Jobs';
 
 export default class JobStore {
-  #store: Store;
+  storeName: string;
+
+  dbPromise: Promise<IDBPDatabase>;
 
   constructor(storeName: Stores) {
-    this.#store = new Store(DB_NAME, storeName);
+    this.storeName = storeName;
+    this.dbPromise = openDB(DB_NAME, 1, {
+      upgrade(db) {
+        db.createObjectStore(storeName);
+      },
+    });
   }
 
   async get(key: IDBValidKey) {
-    return get(key, this.#store);
+    return (await this.dbPromise).get(this.storeName, key);
   }
 
-  async *getAll() {
-    const allKeys = await this.keys();
-    for (const key of allKeys) {
-      yield this.get(key);
-    }
+  async getAll() {
+    return (await this.dbPromise).getAll(this.storeName);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   async set(key: IDBValidKey, value: any) {
-    return set(key, value, this.#store);
+    return (await this.dbPromise).put(this.storeName, value, key);
   }
 
   async del(key: IDBValidKey) {
-    return del(key, this.#store);
+    return (await this.dbPromise).delete(this.storeName, key);
   }
 
   async clear() {
-    return clear(this.#store);
+    return (await this.dbPromise).clear(this.storeName);
   }
 
   async keys() {
-    return keys(this.#store);
+    return (await this.dbPromise).getAllKeys(this.storeName);
   }
 }

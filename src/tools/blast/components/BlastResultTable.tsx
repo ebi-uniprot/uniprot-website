@@ -1,24 +1,6 @@
 import React, { FC, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
-import { Link, useParams } from 'react-router-dom';
-import * as blastActions from '../../state/toolsActions';
-import { BlastFormValues } from '../config/BlastFormData';
-import { BlastJob } from '../../state/initialState';
-import { BlastHsp, BlastHit } from '../types/blastResults';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import BlastForm from './BlastForm';
-import { RootState, RootAction } from '../../../app/state/rootInitialState';
-
-const RecentJobs: FC<{ jobs: BlastJob[] }> = ({ jobs }) => (
-  <ul className="no-bullet">
-    {jobs.map((job) => (
-      <li key={job.jobId}>
-        <Link to={`/blast/${job.jobId}`}>{job.jobId}</Link>
-      </li>
-    ))}
-  </ul>
-);
+import { Link } from 'react-router-dom';
+import { BlastResults, BlastHsp, BlastHit } from '../types/blastResults';
 
 const parseHitDescription = (string: string) => {
   const regex = new RegExp(/(.*)(OS=.*)(OX=.*)(GN=.*)(PE=.*)(SV=.*)/);
@@ -39,8 +21,8 @@ const BlastResultsHsp: FC<{ hsp: BlastHsp }> = ({ hsp }) => (
   <section>{`${hsp.hsp_hit_from}-${hsp.hsp_hit_to} bit-score:${hsp.hsp_bit_score}`}</section>
 );
 
-const BlastResults: FC<{ job: BlastJob | undefined }> = ({ job }) => {
-  if (!job) {
+const BlastResultTable: FC<{ data: BlastResults }> = ({ data }) => {
+  if (!data) {
     return null;
   }
   return (
@@ -58,9 +40,9 @@ const BlastResults: FC<{ job: BlastJob | undefined }> = ({ job }) => {
           </tr>
         </thead>
         <tbody className="data-table__table__body">
-          {job.data &&
-            job.data.hits &&
-            job.data.hits.map((hit: BlastHit) => {
+          {data &&
+            data.hits &&
+            data.hits.map((hit: BlastHit) => {
               const {
                 proteinDescription,
                 organism,
@@ -96,47 +78,4 @@ const BlastResults: FC<{ job: BlastJob | undefined }> = ({ job }) => {
   );
 };
 
-const BlastPage: FC<{
-  dispatchRunBlastJob: (formValues: BlastFormValues) => void;
-  jobs: BlastJob[];
-}> = ({ dispatchRunBlastJob, jobs }) => {
-  const { jobId } = useParams();
-  return (
-    <Fragment>
-      <SideBarLayout
-        title={<h2>BLAST</h2>}
-        actionButtons={<div>BLAST buttons</div>}
-        sidebar={
-          <Fragment>
-            <h3>Recent jobs</h3>
-            <RecentJobs jobs={jobs} />
-          </Fragment>
-        }
-      >
-        <Fragment>
-          {!jobId && <BlastForm runBlastJob={dispatchRunBlastJob} />}
-          {jobId && (
-            <BlastResults job={jobs.find((job) => job.jobId === jobId)} />
-          )}
-        </Fragment>
-      </SideBarLayout>
-    </Fragment>
-  );
-};
-
-const mapStateToProps = (state: RootState) => {
-  return {
-    jobs: state.blast.jobs,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    {
-      dispatchRunBlastJob: (formValues: BlastFormValues) =>
-        blastActions.runBlastJob(formValues),
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(BlastPage);
+export default BlastResultTable;

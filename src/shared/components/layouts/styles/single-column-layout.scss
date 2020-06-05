@@ -1,0 +1,11 @@
+.single-column-layout {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > * {
+    width: 80vw;
+    max-width: 160ch;
+  }
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Loader } from 'franklin-sites';
+import { Loader, PageIntro } from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -8,6 +8,8 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import blastUrls from '../config/blastUrls';
+import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
+import BlastResultTable from './BlastResultTable';
 
 type Match = {
   params: {
@@ -25,9 +27,13 @@ const BlastResult = () => {
 
   if (error) return <ErrorHandler status={status} />;
 
-  console.log(data);
-
-  return <>Blast results for {match.params.id} (see console for now)</>;
+  return (
+    <SingleColumnLayout>
+      <PageIntro title="BLAST Results" />
+      <p>Blast results for {match.params.id}</p>
+      <BlastResultTable data={data} />
+    </SingleColumnLayout>
+  );
 };
 
 export default BlastResult;

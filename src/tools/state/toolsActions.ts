@@ -13,15 +13,20 @@ export const UPDATE_JOB_TITLE = 'UPDATE_JOB_TITLE';
  * @param {FormParameters} parameters - job parameters to be kept in the application logic
  * @param {"blast"} jobType = job type (needs to be defined properly when adding other things than Blast)
  */
-export const createJob = (parameters: FormParameters, jobType: 'blast') =>
+export const createJob = (
+  parameters: FormParameters,
+  jobType: 'blast',
+  jobName: string
+) =>
   action(CREATE_JOB, {
     parameters,
     jobType,
+    jobName,
   });
 
 export const updateJob = (job: Job) => action(UPDATE_JOB, { job });
 
-export const rehydrateJobs = (jobs: Array<Job>) =>
+export const rehydrateJobs = (jobs: { [internalID: string]: Job }) =>
   action(REHYDRATE_JOBS, { jobs });
 
 export const updateJobTitle = (id: Job['internalID'], title: string) =>

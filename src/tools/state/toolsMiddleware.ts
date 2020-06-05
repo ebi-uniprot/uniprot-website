@@ -45,20 +45,17 @@ const toolsMiddleware: Middleware = (store) => {
 
     const jobStore = new JobStore(Stores.METADATA);
 
-    const persistedJobs = [];
-    for await (const persistedJob of jobStore.getAll()) {
-      persistedJobs.push([
-        (persistedJob as Job).internalID,
-        persistedJob as Job,
-      ]);
+    const persistedJobs: { [internalID: string]: Job } = {};
+    for (const persistedJob of await jobStore.getAll()) {
+      persistedJobs[persistedJob.internalID] = persistedJob;
     }
 
-    if (!persistedJobs.length) return;
+    if (!Object.keys(persistedJobs).length) return;
 
     // Wait for browser idleness
     await schedule();
 
-    dispatch(rehydrateJobs(Object.fromEntries(persistedJobs)));
+    dispatch(rehydrateJobs(persistedJobs));
   })();
 
   // flag to avoid multiple pollJobs loop being scheduled
@@ -93,13 +90,16 @@ const toolsMiddleware: Middleware = (store) => {
       if (status === Status.NOT_FOUND) {
         throw new Error('Job was not found on the server');
       }
-
-      if (status === Status.RUNNING || status === Status.FAILED) {
+      if (
+        status === Status.RUNNING ||
+        status === Status.FAILURE ||
+        status === Status.ERRORED
+      ) {
         dispatch(
           updateJob({
             ...currentStateOfJob,
             timeLastUpdate: Date.now(),
-            status: status as Status.RUNNING | Status.FAILED,
+            status: status as Status.RUNNING | Status.FAILURE | Status.ERRORED,
           })
         );
 
@@ -118,6 +118,21 @@ const toolsMiddleware: Middleware = (store) => {
       if (!currentStateOfJob) return;
 
       const now = Date.now();
+
+      if (!results.hits) {
+        dispatch(
+          updateJob({
+            ...currentStateOfJob,
+            timeLastUpdate: now,
+            status: Status.FAILURE,
+          })
+        );
+        throw new Error(
+          `"${JSON.stringify(
+            response.data
+          )}" in not a valid result for this job`
+        );
+      }
       dispatch(
         updateJob({
           ...currentStateOfJob,
@@ -130,7 +145,7 @@ const toolsMiddleware: Middleware = (store) => {
       dispatch(
         addMessage({
           id: job.internalID,
-          content: `Job "${job.remoteID}" finished, found ${
+          content: `Job "${job.title || job.remoteID}" finished, found ${
             results.hits.length
           } hit${results.hits.length === 1 ? '' : 's'}`,
           format: MessageFormat.POP_UP,
@@ -144,12 +159,17 @@ const toolsMiddleware: Middleware = (store) => {
   };
 
   const submitJob = async (job: CreatedJob) => {
-    // specific logic to transform FormParameters to ServerParameters
-    const formData = convertFormParametersForServer(job.parameters);
-    formData.delete('scores');
-
-    const url = job.type === 'blast' ? blastUrls.runUrl : '';
     try {
+      // specific logic to transform FormParameters to ServerParameters
+      let formData;
+      try {
+        formData = convertFormParametersForServer(job.parameters);
+      } catch {
+        throw new Error('Internal error');
+      }
+      formData.delete('scores');
+      const url = job.type === 'blast' ? blastUrls.runUrl : '';
+
       const response = await postData(url, {
         data: formData,
         headers: {
@@ -186,7 +206,7 @@ const toolsMiddleware: Middleware = (store) => {
       dispatch(
         updateJob({
           ...currentStateOfJob,
-          status: Status.FAILED,
+          status: Status.FAILURE,
           timeLastUpdate: Date.now(),
         })
       );

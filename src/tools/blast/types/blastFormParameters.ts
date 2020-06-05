@@ -8,14 +8,16 @@ import {
   Scores,
   Alignments,
   Program,
+  Sequence,
 } from './blastServerParameters';
+import { SelectedTaxon } from '../config/BlastFormData';
 
 export type FormParameters = {
   stype: SType;
   program: Program;
-  sequence: string;
+  sequence: Sequence;
   database: Database;
-  taxIDs: string;
+  taxIDs: SelectedTaxon[];
   threshold: Exp;
   matrix: Matrix;
   filter: Filter;

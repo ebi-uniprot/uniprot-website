@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Card } from 'franklin-sites';
+import { Card, PageIntro, ClockIcon } from 'franklin-sites';
 
 import { Job } from '../../blast/types/blastJob';
+import { ToolsState } from '../../state/toolsInitialState';
 
+import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import Row from './Row';
 
 import './styles/Dashboard.scss';
@@ -18,7 +20,7 @@ import './styles/Dashboard.scss';
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
 const Dashboard = () => {
-  const jobs = (useSelector((state) =>
+  const jobs = (useSelector((state: ToolsState) =>
     Object.values(state.tools)
   ) as Job[]).sort(sortNewestFirst);
   // const tools: Array<Job> = [
@@ -30,11 +32,13 @@ const Dashboard = () => {
   // ];
 
   return (
-    <section>
+    <SingleColumnLayout>
+      <PageIntro title="Tool results" />
       <p>
-        Your tool analysis results from the last 7 days are listed below. For
-        any tools still running, you can navigate away to other pages and will
-        be notified once the job is finished.
+        Your tool analysis results from the last{' '}
+        <ClockIcon height="1em" width="3ch" /> 7 days are listed below. For any
+        tools still running, you can navigate away to other pages and will be
+        notified once the job is finished.
       </p>
       <div className="dashboard">
         <div className="dashboard__header">
@@ -51,7 +55,7 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
-    </section>
+    </SingleColumnLayout>
   );
 };
 

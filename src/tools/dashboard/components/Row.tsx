@@ -1,7 +1,23 @@
-import React, { memo, FocusEvent } from 'react';
+import React, {
+  memo,
+  useLayoutEffect,
+  useRef,
+  useState,
+  useCallback,
+  MouseEvent,
+  KeyboardEvent,
+  ChangeEvent,
+  FC,
+} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Card, RefreshIcon, BinIcon } from 'franklin-sites';
+import {
+  Card,
+  ReSubmitIcon,
+  BinIcon,
+  SpinnerIcon,
+  EditIcon,
+} from 'franklin-sites';
 
 import { Job, FinishedJob } from '../../blast/types/blastJob';
 import { Status } from '../../blast/types/blastStatuses';
@@ -9,30 +25,48 @@ import { Status } from '../../blast/types/blastStatuses';
 import { updateJobTitle, deleteJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+import { getBEMClassName as bem } from '../../../shared/utils/utils';
 
 import './styles/Dashboard.scss';
+
+const stopPropagation = (
+  event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
+) => event.stopPropagation();
 
 interface NameProps {
   id: Job['internalID'];
   children: Job['title'];
 }
 
-const Name = ({ children, id }: NameProps) => {
+const Name: FC<NameProps> = ({ children, id }: NameProps) => {
   const dispatch = useDispatch();
+  const [text, setText] = useState(children || '');
 
-  const handleBlur = (event: FocusEvent<HTMLSpanElement>) => {
-    const text = event.target.innerText.trim();
-    if (text !== children) dispatch(updateJobTitle(id, text));
+  const handleBlur = () => {
+    const cleanedText = text.trim();
+    if (cleanedText !== children) {
+      dispatch(updateJobTitle(id, text));
+    }
   };
 
+  const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  }, []);
+
   return (
-    <span
-      contentEditable
-      onBlur={handleBlur}
-      onKeyDown={(event) => event.stopPropagation()}
-    >
-      {children}
-    </span>
+    <>
+      <input
+        onClick={stopPropagation}
+        onBlur={handleBlur}
+        onChange={handleChange}
+        autoComplete="off"
+        type="text"
+        value={text}
+        aria-label="job name"
+        maxLength={22}
+      />
+      <EditIcon width="2ch" />
+    </>
   );
 };
 
@@ -40,7 +74,7 @@ interface TimeProps {
   children: number;
 }
 
-const Time = ({ children }: TimeProps) => {
+const Time: FC<TimeProps> = ({ children }) => {
   const date = new Date(children);
   const YYYY = date.getFullYear();
   const MM = `${date.getMonth()}`.padStart(2, '0');
@@ -58,31 +92,27 @@ const Time = ({ children }: TimeProps) => {
   );
 };
 
-interface NiceStatusPropsNotFinished {
-  children: Exclude<Status, Status.FINISHED>;
-  queriedHits: Job['parameters']['hits'];
-}
-interface NiceStatusPropsFinished {
-  children: Status.FINISHED;
-  hits: FinishedJob['data']['hits'];
+interface NiceStatusProps {
+  children: Status;
+  hits?: FinishedJob['data']['hits'];
   queriedHits: FinishedJob['parameters']['hits'];
 }
-type NiceStatusProps = NiceStatusPropsFinished & NiceStatusPropsNotFinished;
 
-const NiceStatus = ({ children, hits, queriedHits }: NiceStatusProps) => {
+const NiceStatus: FC<NiceStatusProps> = ({ children, hits, queriedHits }) => {
   switch (children) {
     case Status.CREATED:
     case Status.RUNNING:
       return (
         <>
-          Running
+          Running <SpinnerIcon width="12" height="12" />
           <br />
           <span className="dashboard__body__notify_message">
             We&apos;ll notify you when it&apos;s done
           </span>
         </>
       );
-    case Status.FAILED:
+    case Status.FAILURE:
+    case Status.ERRORED:
       return <>Failed</>;
     case Status.FINISHED: {
       if (hits === queriedHits) return <>Successful</>;
@@ -91,7 +121,7 @@ const NiceStatus = ({ children, hits, queriedHits }: NiceStatusProps) => {
         <>
           Successful{' '}
           <span
-            title={`Found ${hits} ${hitText} even though you queried ${queriedHits}`}
+            title={`${hits} ${hitText} results found instead of the requested ${queriedHits}`}
           >
             ({hits} {hitText})
           </span>
@@ -104,21 +134,32 @@ const NiceStatus = ({ children, hits, queriedHits }: NiceStatusProps) => {
 };
 
 interface ActionsProps {
-  id: Job['internalID'];
+  parameters: Job['parameters'];
+  onDelete(): void;
 }
 
-const Actions = ({ id }: ActionsProps) => {
-  const dispatch = useDispatch();
+const Actions: FC<ActionsProps> = ({ parameters, onDelete }) => {
+  const history = useHistory();
 
   return (
     <span className="dashboard__body__actions">
-      <button type="button" disabled title="resubmit this job">
-        <RefreshIcon />
+      <button
+        type="button"
+        title="resubmit this job"
+        onClick={(event) => {
+          event.stopPropagation();
+          history.push(LocationToPath[Location.Blast], { parameters });
+        }}
+      >
+        <ReSubmitIcon />
       </button>
       <button
         type="button"
-        onClick={() => dispatch(deleteJob(id))}
         title="delete this job"
+        onClick={(event) => {
+          event.stopPropagation();
+          onDelete();
+        }}
       >
         <BinIcon />
       </button>
@@ -126,24 +167,114 @@ const Actions = ({ id }: ActionsProps) => {
   );
 };
 
+const KeyframesForDelete = {
+  opacity: [1, 1, 0],
+  transform: ['translateX(0)', 'translateX(-2ch)', 'translateX(75%)'],
+};
+
+const animationOptionsForDelete: KeyframeAnimationOptions = {
+  duration: 500,
+  delay: 100,
+  easing: 'ease-out',
+  fill: 'both',
+};
+
+const keyframesForNew = {
+  opacity: [0, 1],
+  transform: ['scale(0.8)', 'scale(1.05)', 'scale(1)'],
+};
+const animationOptionsForNew: KeyframeAnimationOptions = {
+  duration: 500,
+  easing: 'ease-in-out',
+  fill: 'both',
+};
+const keyframesForStatusUpdate = {
+  opacity: [1, 0.5, 1, 0.5, 1],
+};
+const animationOptionsForStatusUpdate: KeyframeAnimationOptions = {
+  duration: 1000,
+  fill: 'both',
+};
+
 interface RowProps {
   job: Job;
 }
 
-const Row = memo(({ job }: RowProps) => {
+interface CustomLocationState {
+  parameters?: Job['parameters'];
+}
+
+const Row: FC<RowProps> = memo(({ job }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const ref = useRef<HTMLElement>(null);
+  const firstTime = useRef<boolean>(true);
+
   let jobLink: string | undefined;
   if ('remoteID' in job) {
     jobLink = `${LocationToPath[Location.Blast]}/${job.remoteID}`;
   }
-  const history = useHistory();
 
   const handleClick = () => {
-    if (!jobLink) return;
+    if (!jobLink) {
+      return;
+    }
     history.push(jobLink);
   };
 
+  const handleDelete = () => {
+    if (!(ref.current && 'animate' in ref.current)) {
+      dispatch(deleteJob(job.internalID));
+      return;
+    }
+    ref.current.animate(
+      KeyframesForDelete,
+      animationOptionsForDelete
+    ).onfinish = () => dispatch(deleteJob(job.internalID));
+  };
+
+  // if the state of the current location contains the parameters from this job,
+  // it means we just arrived from a submission form page and this is the job
+  // that was just added, animate it to have it visually represented as "new"
+  useLayoutEffect(() => {
+    if (
+      job.parameters !==
+      (history.location?.state as CustomLocationState)?.parameters
+    ) {
+      return;
+    }
+    if (!(ref.current && 'animate' in ref.current)) {
+      return;
+    }
+    ref.current.animate(keyframesForNew, animationOptionsForNew);
+  }, [history, job.parameters]);
+
+  // if the status of the current job changes, make it "flash"
+  useLayoutEffect(() => {
+    if (!(ref.current && 'animate' in ref.current)) {
+      return;
+    }
+    if (firstTime.current) {
+      firstTime.current = false;
+      return;
+    }
+    ref.current.animate(
+      keyframesForStatusUpdate,
+      animationOptionsForStatusUpdate
+    );
+  }, [job.status]);
+  // job.status = Status.FAILURE;
   return (
-    <Card onClick={handleClick}>
+    <Card
+      onClick={handleClick}
+      ref={ref}
+      className={bem({
+        b: 'card',
+        m:
+          (job.status === Status.FAILURE || job.status === Status.ERRORED) &&
+          'failure',
+      })}
+    >
       <span className="dashboard__body__name">
         <Name id={job.internalID}>{job.title}</Name>
       </span>
@@ -162,7 +293,7 @@ const Row = memo(({ job }: RowProps) => {
         </NiceStatus>
       </span>
       <span className="dashboard__body__actions">
-        <Actions id={job.internalID} />
+        <Actions parameters={job.parameters} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">
         {'remoteID' in job && jobLink && (

@@ -9,9 +9,6 @@ export enum Location {
   BlastResult = 'BlastResult',
   UniProtKBCustomiseTable = 'UniProtKBCustomiseTable',
   UniProtKBQueryBuilder = 'UniProtKBQueryBuilder',
-  PageNotFound = 'PageNotFound',
-  ServiceUnavailable = 'ServiceUnavailable',
-  JobError = 'JobError',
   Dashboard = 'Dashboard',
 }
 
@@ -24,9 +21,6 @@ export const LocationToPath = {
   [Location.BlastResult]: '/blast/:id',
   [Location.UniProtKBCustomiseTable]: '/customise-table',
   [Location.UniProtKBQueryBuilder]: '/advanced-search',
-  [Location.PageNotFound]: '/page-not-found',
-  [Location.ServiceUnavailable]: '/service-unavailable',
-  [Location.JobError]: '/job-error',
   [Location.Dashboard]: '/tool-dashboard',
 };
 

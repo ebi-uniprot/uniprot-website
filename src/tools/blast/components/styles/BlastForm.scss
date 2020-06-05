@@ -1,5 +1,6 @@
 .blast-form-textarea {
-  height: 40vh;
+  height: 30vh;
+  font-family: Consolas, 'Liberation Mono', Courier, monospace;
 }
 
 .blast-form-section {
@@ -18,6 +19,11 @@
   }
 
   &__submit {
-    float: inline-end;
+    margin-left: auto;
+    order: 2;
   }
+}
+
+.import-sequence-section {
+  display: flex;
 }

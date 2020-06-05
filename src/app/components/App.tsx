@@ -54,7 +54,9 @@ const BlastResult = lazy(() =>
   )
 );
 const BlastForm = lazy(() =>
-  import(/* webpackChunkName: "blast" */ '../../tools/blast/components/Blast')
+  import(
+    /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
+  )
 );
 const Dashboard = lazy(() =>
   import(
@@ -64,16 +66,6 @@ const Dashboard = lazy(() =>
 const ResourceNotFoundPage = lazy(() =>
   import(
     /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
-  )
-);
-const ServiceUnavailablePage = lazy(() =>
-  import(
-    /* webpackChunkName: "service-unavailable" */ '../../shared/components/error-pages/ServiceUnavailablePage'
-  )
-);
-const JobErrorPage = lazy(() =>
-  import(
-    /* webpackChunkName: "job-error" */ '../../shared/components/error-pages/JobErrorPage'
   )
 );
 
@@ -130,18 +122,6 @@ const App = () => (
             <Route
               path={LocationToPath[Location.Dashboard]}
               component={Dashboard}
-            />
-            <Route
-              path={LocationToPath[Location.PageNotFound]}
-              component={ResourceNotFoundPage}
-            />
-            <Route
-              path={LocationToPath[Location.ServiceUnavailable]}
-              component={ServiceUnavailablePage}
-            />
-            <Route
-              path={LocationToPath[Location.JobError]}
-              component={JobErrorPage}
             />
             <Route
               path={LocationToPath[Location.UniProtKBQueryBuilder]}
