@@ -19,41 +19,44 @@
     "sourceType": "module"
   },
   "rules": {
-    "jsx-no-multiline-js": 0,
-    "jsx-no-lambda": 0,
-    "no-restricted-syntax": 0,
-    "@typescript-eslint/prefer-interface": 0,
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/consistent-type-definitions": 0,
-    "@typescript-eslint/explicit-member-accessibility": 0,
-    "react/no-did-update-set-state": 0,
-    "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/label-has-associated-control": 0,
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "ignoreRestSiblings": true
       }
     ],
-    "react/jsx-wrap-multilines": [
-      "error",
-      { "declaration": false, "assignment": false }
-    ],
-    "react-hooks/rules-of-hooks": "error",
+    "@typescript-eslint/prefer-interface": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-no-lambda": "off",
+    "jsx-no-multiline-js": "off",
+    "no-restricted-syntax": "off",
     "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react/destructuring-assignment": "off",
     "react/jsx-filename-extension": [
       1,
       {
         "extensions": [".tsx"]
       }
     ],
-    "react/prop-types": 0,
-    "import/extensions": 0,
-    "import/prefer-default-export": 0,
     "react/jsx-fragments": 0,
-    "react/jsx-props-no-spreading": 1,
-    "react/static-property-placement": 0,
-    "react/destructuring-assignment": 0
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "assignment": false,
+        "declaration": false
+      }
+    ],
+    "react/no-did-update-set-state": "off",
+    "react/prop-types": "off",
+    "react/static-property-placement": "off"
   },
   "settings": {
     "import/resolver": {

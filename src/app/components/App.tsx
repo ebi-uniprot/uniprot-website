@@ -131,6 +131,9 @@ const App = () => (
           </Switch>
         </Suspense>
       </BaseLayout>
+      <ErrorBoundary fallback={null}>
+        <GDPR />
+      </ErrorBoundary>
     </Router>
     <a
       style={reportBugLinkStyles}
@@ -140,9 +143,6 @@ const App = () => (
     >
       Report bug
     </a>
-    <ErrorBoundary fallback={null}>
-      <GDPR />
-    </ErrorBoundary>
   </FranklinSite>
 );
 

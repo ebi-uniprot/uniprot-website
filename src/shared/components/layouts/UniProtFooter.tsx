@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const UniProtFooter = () => (
-  <footer style={{ background: '#014371', color: 'white' }}>footer</footer>
+const UniProtFooter: FC = (props) => (
+  <footer {...props} style={{ background: '#014371', color: 'white' }}>
+    footer
+  </footer>
 );
 
 export default UniProtFooter;
