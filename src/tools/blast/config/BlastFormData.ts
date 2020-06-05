@@ -151,5 +151,6 @@ export default Object.freeze({
   [BlastFields.name]: Object.freeze({
     fieldName: 'name',
     type: BlastFieldTypes.textarea,
+    selected: '',
   }),
 }) as Readonly<BlastFormValues>;

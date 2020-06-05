@@ -1,3 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EntryPublications tests should render the error 1`] = `<DocumentFragment />`;
+exports[`EntryPublications tests should render the error 1`] = `
+<DocumentFragment>
+  <div
+    class="error-page-container"
+    data-testid=""
+  >
+    <test-file-stub
+      classname="error-page-container__art-work"
+    />
+    <div
+      class="message message--failure"
+      role="status"
+    >
+      <section
+        class="message__content"
+      >
+        <svg
+          fill="currentColor"
+          height="1.125em"
+          viewBox="0 0 18 18"
+          width="1.125em"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M18 9A9 9 0 110 9a9 9 0 0118 0zM8 4a1 1 0 112 0v6a1 1 0 11-2 0V4zm1 9a1 1 0 100 2 1 1 0 000-2z"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <small>
+          <h4>
+            Sorry, this page can't be found!
+          </h4>
+          <span>
+            Please check the address bar for any mistakes
+          </span>
+        </small>
+      </section>
+    </div>
+  </div>
+</DocumentFragment>
+`;

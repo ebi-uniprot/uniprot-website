@@ -36,12 +36,17 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 resource name (Note text)
                 <svg
-                  fill="currentColor"
-                  viewBox="0 0 576 512"
+                  fill="none"
+                  viewBox="0 0 16 16"
                   width="12.5"
                 >
                   <path
-                    d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                    d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                    fill="currentColor"
                   />
                 </svg>
               </a>
@@ -80,12 +85,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       Search...
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>
@@ -128,12 +138,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       Search...
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>
@@ -169,12 +184,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       Search...
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>
@@ -217,12 +237,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       id value
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>
@@ -235,12 +260,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       description value
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>
@@ -289,12 +319,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       Search...
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>
@@ -330,12 +365,17 @@ exports[`Entry - External Links view should render 1`] = `
                     >
                       Submit a new modelling project...
                       <svg
-                        fill="currentColor"
-                        viewBox="0 0 576 512"
+                        fill="none"
+                        viewBox="0 0 16 16"
                         width="12.5"
                       >
                         <path
-                          d="M576 24v128c0 21-26 32-41 17l-36-36-243 244c-10 9-25 9-34 0l-23-23c-9-9-9-24 0-34L443 77l-36-36c-15-15-4-41 17-41h128c13 0 24 11 24 24zM407 271l-16 16a24 24 0 00-7 17v144H64V128h264a24 24 0 0017-7l16-16c15-15 4-41-17-41H48C21 64 0 85 0 112v352c0 27 21 48 48 48h352c27 0 48-21 48-48V288c0-22-26-32-41-17z"
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
                         />
                       </svg>
                     </a>

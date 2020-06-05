@@ -84,27 +84,17 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           class="publication__columns__side__item"
         >
           <svg
-            fill="currentColor"
+            fill="none"
             height="2em"
-            viewBox="0 0 30 32"
+            viewBox="0 0 16 16"
             width="1.875em"
           >
+            <rect />
             <path
-              d="M26.5 13.5h-8v8h8v-8z"
-            />
-            <path
-              d="M26 14v7h-7v-7h7zm1-1h-9v9h9v-9z"
-            />
-            <path
-              d="M29 1v28.06H17.05a3 3 0 00-2 .74V1.94a1 1 0 011-.94H29zm1-1H16.05a2 2 0 00-2 1.94V32h1a1.9 1.9 0 01.59-1.38 2 2 0 011.4-.56H30V0z"
-            />
-            <path
-              d="M13.12 1a.91.91 0 01.88.94v27.78a2.78 2.78 0 00-1.81-.66H1V1h12.12zm0-1H0v30.06h12.19a1.84 1.84 0 011.32.56 1.93 1.93 0 01.55 1.38H15V1.94A1.91 1.91 0 0013.12 0z"
-            />
-            <path
-              d="M22 5.5h5m-24 8h9m-9-4h7m-7-4h5m10 4h9m-24 8h9m-9 4h9m-9 4h9m6 0h9"
-              stroke="currentColor"
-              stroke-miterlimit="10"
+              clip-rule="evenodd"
+              d="M3 0a3 3 0 00-3 3v10a3 3 0 003 3h13V0H3zm10.5 3h-9v4h9V3zM.5 13A2.5 2.5 0 013 10.5h12.5V12h-12a1 1 0 100 2h12v1.5H3A2.5 2.5 0 01.5 13z"
+              fill="currentColor"
+              fill-rule="evenodd"
             />
           </svg>
           <ul
@@ -247,27 +237,17 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           class="publication__columns__side__item"
         >
           <svg
-            fill="currentColor"
+            fill="none"
             height="2em"
-            viewBox="0 0 30 32"
+            viewBox="0 0 16 16"
             width="1.875em"
           >
+            <rect />
             <path
-              d="M26.5 13.5h-8v8h8v-8z"
-            />
-            <path
-              d="M26 14v7h-7v-7h7zm1-1h-9v9h9v-9z"
-            />
-            <path
-              d="M29 1v28.06H17.05a3 3 0 00-2 .74V1.94a1 1 0 011-.94H29zm1-1H16.05a2 2 0 00-2 1.94V32h1a1.9 1.9 0 01.59-1.38 2 2 0 011.4-.56H30V0z"
-            />
-            <path
-              d="M13.12 1a.91.91 0 01.88.94v27.78a2.78 2.78 0 00-1.81-.66H1V1h12.12zm0-1H0v30.06h12.19a1.84 1.84 0 011.32.56 1.93 1.93 0 01.55 1.38H15V1.94A1.91 1.91 0 0013.12 0z"
-            />
-            <path
-              d="M22 5.5h5m-24 8h9m-9-4h7m-7-4h5m10 4h9m-24 8h9m-9 4h9m-9 4h9m6 0h9"
-              stroke="currentColor"
-              stroke-miterlimit="10"
+              clip-rule="evenodd"
+              d="M3 0a3 3 0 00-3 3v10a3 3 0 003 3h13V0H3zm10.5 3h-9v4h9V3zM.5 13A2.5 2.5 0 013 10.5h12.5V12h-12a1 1 0 100 2h12v1.5H3A2.5 2.5 0 01.5 13z"
+              fill="currentColor"
+              fill-rule="evenodd"
             />
           </svg>
           <ul
@@ -434,27 +414,17 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           class="publication__columns__side__item"
         >
           <svg
-            fill="currentColor"
+            fill="none"
             height="2em"
-            viewBox="0 0 30 32"
+            viewBox="0 0 16 16"
             width="1.875em"
           >
+            <rect />
             <path
-              d="M26.5 13.5h-8v8h8v-8z"
-            />
-            <path
-              d="M26 14v7h-7v-7h7zm1-1h-9v9h9v-9z"
-            />
-            <path
-              d="M29 1v28.06H17.05a3 3 0 00-2 .74V1.94a1 1 0 011-.94H29zm1-1H16.05a2 2 0 00-2 1.94V32h1a1.9 1.9 0 01.59-1.38 2 2 0 011.4-.56H30V0z"
-            />
-            <path
-              d="M13.12 1a.91.91 0 01.88.94v27.78a2.78 2.78 0 00-1.81-.66H1V1h12.12zm0-1H0v30.06h12.19a1.84 1.84 0 011.32.56 1.93 1.93 0 01.55 1.38H15V1.94A1.91 1.91 0 0013.12 0z"
-            />
-            <path
-              d="M22 5.5h5m-24 8h9m-9-4h7m-7-4h5m10 4h9m-24 8h9m-9 4h9m-9 4h9m6 0h9"
-              stroke="currentColor"
-              stroke-miterlimit="10"
+              clip-rule="evenodd"
+              d="M3 0a3 3 0 00-3 3v10a3 3 0 003 3h13V0H3zm10.5 3h-9v4h9V3zM.5 13A2.5 2.5 0 013 10.5h12.5V12h-12a1 1 0 100 2h12v1.5H3A2.5 2.5 0 01.5 13z"
+              fill="currentColor"
+              fill-rule="evenodd"
             />
           </svg>
           <ul
