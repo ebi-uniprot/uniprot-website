@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
@@ -69,7 +69,7 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
   }
 
   const handleEntrySelection = (rowId: string): void => {
-    const filtered = selectedEntries.filter(id => id !== rowId);
+    const filtered = selectedEntries.filter((id) => id !== rowId);
     setSelectedEntries(
       filtered.length === selectedEntries.length
         ? [...selectedEntries, rowId]
@@ -79,41 +79,34 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
   const { name, links, info } = infoMappings[namespace];
 
   return (
-    <Fragment>
-      <SideBarLayout
-        title={
-          <Fragment>
-            <PageIntro title={name} links={links} resultsCount={total}>
-              {info}
-            </PageIntro>
-          </Fragment>
-        }
-        actionButtons={
-          <ResultsButtons
-            viewMode={viewMode}
-            setViewMode={setViewMode}
-            query={query}
-            selectedFacets={selectedFacets}
-            selectedEntries={selectedEntries}
-            sortColumn={sortColumn}
-            sortDirection={sortDirection}
-            total={total}
-          />
-        }
-        sidebar={<ResultsFacets facets={facets} />}
-      >
-        <Fragment>
-          <ResultsView
-            columns={columns}
-            handleEntrySelection={handleEntrySelection}
-            selectedEntries={selectedEntries}
-            viewMode={viewMode}
-          />
-        </Fragment>
-      </SideBarLayout>
-    </Fragment>
+    <SideBarLayout
+      title={
+        <PageIntro title={name} links={links} resultsCount={total}>
+          {info}
+        </PageIntro>
+      }
+      actionButtons={
+        <ResultsButtons
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          query={query}
+          selectedFacets={selectedFacets}
+          selectedEntries={selectedEntries}
+          sortColumn={sortColumn}
+          sortDirection={sortDirection}
+          total={total}
+        />
+      }
+      sidebar={<ResultsFacets facets={facets} />}
+    >
+      <ResultsView
+        columns={columns}
+        handleEntrySelection={handleEntrySelection}
+        selectedEntries={selectedEntries}
+        viewMode={viewMode}
+      />
+    </SideBarLayout>
   );
-  // }
 };
 
 const mapStateToProps = (state: RootState) => {

@@ -188,38 +188,36 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
   ];
 
   return (
-    <section id="entry-container">
-      <SideBarLayout
-        sidebar={
-          <DisplayMenu
-            data={displayMenuData}
-            title={`Publications for ${accession}`}
-          />
-        }
-        actionButtons={
-          <Switch>
-            {displayMenuData.map((displayItem) => (
-              <Route
-                path={`${path}/${displayItem.path}`}
-                render={() => <Fragment>{displayItem.actionButtons}</Fragment>}
-                key={displayItem.name}
-              />
-            ))}
-          </Switch>
-        }
-      >
+    <SideBarLayout
+      sidebar={
+        <DisplayMenu
+          data={displayMenuData}
+          title={`Publications for ${accession}`}
+        />
+      }
+      actionButtons={
         <Switch>
           {displayMenuData.map((displayItem) => (
             <Route
               path={`${path}/${displayItem.path}`}
-              render={() => <Fragment>{displayItem.mainContent}</Fragment>}
+              render={() => <Fragment>{displayItem.actionButtons}</Fragment>}
               key={displayItem.name}
-              exact={displayItem.exact}
             />
           ))}
         </Switch>
-      </SideBarLayout>
-    </section>
+      }
+    >
+      <Switch>
+        {displayMenuData.map((displayItem) => (
+          <Route
+            path={`${path}/${displayItem.path}`}
+            render={() => <Fragment>{displayItem.mainContent}</Fragment>}
+            key={displayItem.name}
+            exact={displayItem.exact}
+          />
+        ))}
+      </Switch>
+    </SideBarLayout>
   );
 };
 

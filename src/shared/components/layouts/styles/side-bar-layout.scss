@@ -4,20 +4,22 @@
 .sidebar-layout {
   display: grid;
   grid-template-areas:
+    'title title'
     'sidebar action-buttons'
     'sidebar content';
-
   grid-template-columns: 20vw auto;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto 1fr;
+
+  height: 100%;
+  overflow-y: hidden;
 
   &__title {
+    grid-area: title;
     min-height: 1rem;
     padding: 0 $gutter-size;
   }
 
   &__action-buttons {
-    position: sticky;
-    top: 0;
     grid-area: action-buttons;
     padding: 0 $gutter-size;
   }
@@ -25,11 +27,8 @@
   &__sidebar {
     @include scroll-shadow;
 
-    position: sticky;
-    top: 0;
     padding: 0 $gutter-size;
     grid-area: sidebar;
-    align-self: start;
     overflow-y: auto;
   }
 

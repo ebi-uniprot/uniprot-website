@@ -2,7 +2,7 @@
 
 exports[`HomePage component should render 1`] = `
 <DocumentFragment>
-  <section>
+  <main>
     <div
       class="hero-header"
     >
@@ -151,6 +151,6 @@ exports[`HomePage component should render 1`] = `
         </g>
       </svg>
     </div>
-  </section>
+  </main>
 </DocumentFragment>
 `;
