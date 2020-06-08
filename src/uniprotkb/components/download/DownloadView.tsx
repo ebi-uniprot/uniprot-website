@@ -3,6 +3,7 @@ import { Loader } from 'franklin-sites';
 import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
 import { FileFormat, fileFormatsWithColumns } from '../../types/resultsTypes';
 import { Column } from '../../types/columnTypes';
+
 import './styles/download.scss';
 
 type DownloadViewProps = {
@@ -96,7 +97,7 @@ const DownloadView: React.FC<DownloadViewProps> = ({
             value={fileFormat}
             onChange={onFileFormatChange}
           >
-            {Object.values(FileFormat).map(format => (
+            {Object.values(FileFormat).map((format) => (
               <option value={format} key={format}>
                 {format}
               </option>

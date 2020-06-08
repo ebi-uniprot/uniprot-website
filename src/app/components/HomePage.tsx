@@ -19,25 +19,26 @@ const mission =
   'The mission of UniProt is to provide the scientific community with a comprehensive, high-quality and freely accessible resource of protein sequence and functional information.';
 
 const HomePage = () => (
-  <main>
-    <ErrorBoundary>
-      <HeroHeader title="Find your protein" footer={mission}>
-        <SearchContainer />
-      </HeroHeader>
-    </ErrorBoundary>
+  <>
+    <main>
+      <ErrorBoundary>
+        <HeroHeader title="Find your protein" footer={mission}>
+          <SearchContainer />
+        </HeroHeader>
+      </ErrorBoundary>
 
-    <ErrorBoundary>
-      <Suspense fallback={<Loader />}>
-        <HomePageNonCritical />
-      </Suspense>
-    </ErrorBoundary>
-
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <HomePageNonCritical />
+        </Suspense>
+      </ErrorBoundary>
+    </main>
     <Suspense fallback={null}>
       <ErrorBoundary>
         <UniProtFooter />
       </ErrorBoundary>
     </Suspense>
-  </main>
+  </>
 );
 
 export default HomePage;

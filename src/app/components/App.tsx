@@ -12,6 +12,7 @@ import history from '../../shared/utils/browserHistory';
 import { Location, LocationToPath } from '../config/urls';
 
 import './styles/app.scss';
+import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 
 if (process.env.NODE_ENV !== 'development') {
   Sentry.init({
@@ -105,29 +106,59 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.UniProtKBCustomiseTable]}
-              component={CustomiseTablePage}
+              render={() => (
+                <SingleColumnLayout>
+                  <CustomiseTablePage />
+                </SingleColumnLayout>
+              )}
             />
             <Route
               path={LocationToPath[Location.UniProtKBDownload]}
-              component={DownloadPage}
+              render={() => (
+                <SingleColumnLayout>
+                  <DownloadPage />
+                </SingleColumnLayout>
+              )}
             />
             <Route
               path={LocationToPath[Location.BlastResult]}
-              component={BlastResult}
+              render={() => (
+                <SingleColumnLayout>
+                  <BlastResult />
+                </SingleColumnLayout>
+              )}
             />
             <Route
               path={LocationToPath[Location.Blast]}
-              component={BlastForm}
+              render={() => (
+                <SingleColumnLayout>
+                  <BlastForm />
+                </SingleColumnLayout>
+              )}
             />
             <Route
               path={LocationToPath[Location.Dashboard]}
-              component={Dashboard}
+              render={() => (
+                <SingleColumnLayout>
+                  <Dashboard />
+                </SingleColumnLayout>
+              )}
             />
             <Route
               path={LocationToPath[Location.UniProtKBQueryBuilder]}
-              component={AdvancedSearchPage}
+              render={() => (
+                <SingleColumnLayout>
+                  <AdvancedSearchPage />
+                </SingleColumnLayout>
+              )}
             />
-            <Route component={ResourceNotFoundPage} />
+            <Route
+              component={() => (
+                <SingleColumnLayout>
+                  <ResourceNotFoundPage />
+                </SingleColumnLayout>
+              )}
+            />
           </Switch>
         </Suspense>
       </BaseLayout>

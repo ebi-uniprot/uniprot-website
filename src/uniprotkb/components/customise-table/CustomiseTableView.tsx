@@ -1,6 +1,7 @@
 import React from 'react';
 import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
 import { Column } from '../../types/columnTypes';
+
 import './styles/customise-table.scss';
 
 type CustomiseTableViewProps = {

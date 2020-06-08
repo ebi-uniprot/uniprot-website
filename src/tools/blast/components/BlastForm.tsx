@@ -17,7 +17,6 @@ import {
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
-import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 
 import { FormParameters } from '../types/blastFormParameters';
@@ -283,7 +282,7 @@ const BlastForm = () => {
   );
 
   return (
-    <SingleColumnLayout>
+    <>
       <PageIntro title={name} links={links}>
         {info}
       </PageIntro>
@@ -406,7 +405,7 @@ const BlastForm = () => {
           </section>
         </fieldset>
       </form>
-    </SingleColumnLayout>
+    </>
   );
 };
 

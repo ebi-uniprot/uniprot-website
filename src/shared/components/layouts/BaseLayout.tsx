@@ -19,7 +19,10 @@ const BaseLayout: React.FC<{ children: JSX.Element }> = ({ children }) => (
         <MessageManagerContainer />
       </ErrorBoundary>
     </section>
-    <div className="main-content-and-footer">
+    <div
+      className="main-content-and-footer"
+      style={{ border: '1px solid green' }}
+    >
       <ErrorBoundary>{children}</ErrorBoundary>
     </div>
   </div>

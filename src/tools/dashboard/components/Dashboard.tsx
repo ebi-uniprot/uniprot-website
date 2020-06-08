@@ -5,7 +5,6 @@ import { Card, PageIntro, ClockIcon } from 'franklin-sites';
 import { Job } from '../../blast/types/blastJob';
 import { ToolsState } from '../../state/toolsInitialState';
 
-import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import Row from './Row';
 
 import './styles/Dashboard.scss';
@@ -32,7 +31,7 @@ const Dashboard = () => {
   // ];
 
   return (
-    <SingleColumnLayout>
+    <>
       <PageIntro title="Tool results" />
       <p>
         Your tool analysis results from the last{' '}
@@ -55,7 +54,7 @@ const Dashboard = () => {
           ))}
         </div>
       </div>
-    </SingleColumnLayout>
+    </>
   );
 };
 

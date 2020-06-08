@@ -4,7 +4,10 @@ $header-height: 70px;
 
 .base-layout {
   border: 1px solid red;
+  width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   .header:not(.header--negative) > .header__logo svg g {
     fill: white;
@@ -13,6 +16,7 @@ $header-height: 70px;
 
   .main-content-and-footer {
     width: 100%;
+    flex: 1;
     overflow-y: scroll;
   }
 }

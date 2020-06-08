@@ -37,13 +37,13 @@ const Download: React.FC<DownloadTableProps> = ({
   history,
   location: {
     state: {
-      query,
-      selectedFacets,
-      sortColumn,
-      sortDirection,
-      selectedEntries,
-      totalNumberResults,
-    },
+      query = '',
+      selectedFacets = [],
+      sortColumn = Column.accession as SortableColumn,
+      sortDirection = SortDirection.ascend,
+      selectedEntries = [],
+      totalNumberResults = 0,
+    } = {},
   },
 }) => {
   const [selectedColumns, setSelectedColumns] = useState(tableColumns);

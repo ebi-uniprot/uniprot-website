@@ -26,7 +26,6 @@ import '../search/styles/search-container.scss';
 const queryBuilderPath = LocationToPath[Location.UniProtKBQueryBuilder];
 
 type Props = {
-  queryString: string;
   dispatchUpdateQueryString: (type: string) => void;
   searchTerms: SearchTermType[];
   namespace: Namespace;
@@ -56,8 +55,10 @@ type State = {
 export class Search extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const { queryString } = props;
-    this.state = { queryString };
+
+    // const { queryString } = props;
+    // this.state = { queryString };
+    this.state = { queryString: '' };
     this.handleSubmitClick = this.handleSubmitClick.bind(this);
     this.handleQueryStringChange = this.handleQueryStringChange.bind(this);
   }
@@ -74,12 +75,12 @@ export class Search extends Component<Props, State> {
     }
   }
 
-  componentDidUpdate(prevProps: Props) {
-    const { queryString: prevQueryString } = prevProps;
-    const { queryString } = this.props;
-    if (prevQueryString !== queryString) {
-      this.setState({ queryString });
-    }
+  componentDidUpdate() {
+    // const { queryString: prevQueryString } = prevProps;
+    // const { queryString } = this.props;
+    // if (prevQueryString !== queryString) {
+    //   this.setState({ queryString });
+    // }
   }
 
   handleSubmitClick() {

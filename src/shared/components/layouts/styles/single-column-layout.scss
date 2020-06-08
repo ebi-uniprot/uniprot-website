@@ -1,10 +1,11 @@
 .single-column-layout {
+  min-height: 100%;
   width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  & > main {
+  & > *:not(.footer) {
     width: 80vw;
     flex: 1 0;
     max-width: 160ch;
