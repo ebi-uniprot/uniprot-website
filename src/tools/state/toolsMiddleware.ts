@@ -29,6 +29,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 import blastUrls from '../blast/config/blastUrls';
 
 import { ToolsState } from './toolsInitialState';
+import { getServerErrorDescription } from '../utils';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 
@@ -199,6 +200,9 @@ const toolsMiddleware: Middleware = (store) => {
         })
       );
     } catch (error) {
+      const errorDescription =
+        getServerErrorDescription(error) ||
+        `Could not run job: ${error.message}`;
       // get a new reference to the job
       const currentStateOfJob = getJobWithID(job.internalID);
       // check that the job is still in the state (it might have been removed)
@@ -208,12 +212,13 @@ const toolsMiddleware: Middleware = (store) => {
           ...currentStateOfJob,
           status: Status.FAILURE,
           timeLastUpdate: Date.now(),
+          errorDescription,
         })
       );
       dispatch(
         addMessage({
           id: job.internalID,
-          content: `Could not run job: ${error.message}`,
+          content: errorDescription,
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,
           tag: MessageTag.JOB,

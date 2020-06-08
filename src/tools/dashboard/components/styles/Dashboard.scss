@@ -5,7 +5,7 @@
     font-weight: bold;
     display: grid;
     /* this needs to be the same as below to keep visual alignment */
-    grid-template-columns: 27ch 10ch 20ch 18ch 1fr;
+    grid-template-columns: 27ch 10ch 18ch 20ch 1fr;
     grid-gap: 1ch;
   }
 
@@ -39,7 +39,7 @@
       grid-template-areas:
         'name type time status actions'
         'id   id   time status actions';
-      grid-template-columns: 27ch 10ch 20ch 18ch 1fr;
+      grid-template-columns: 27ch 10ch 18ch 20ch 1fr;
       grid-gap: 1ch;
       grid-template-rows: 1fr 1fr;
     }

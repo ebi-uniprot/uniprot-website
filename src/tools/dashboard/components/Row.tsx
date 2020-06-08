@@ -96,9 +96,15 @@ interface NiceStatusProps {
   children: Status;
   hits?: FinishedJob['data']['hits'];
   queriedHits: FinishedJob['parameters']['hits'];
+  errorDescription?: string;
 }
 
-const NiceStatus: FC<NiceStatusProps> = ({ children, hits, queriedHits }) => {
+const NiceStatus: FC<NiceStatusProps> = ({
+  children,
+  hits,
+  queriedHits,
+  errorDescription,
+}) => {
   switch (children) {
     case Status.CREATED:
     case Status.RUNNING:
@@ -113,7 +119,15 @@ const NiceStatus: FC<NiceStatusProps> = ({ children, hits, queriedHits }) => {
       );
     case Status.FAILURE:
     case Status.ERRORED:
-      return <>Failed</>;
+      return (
+        <>
+          Failed
+          <br />
+          <span className="dashboard__body__notify_message">
+            {errorDescription}
+          </span>
+        </>
+      );
     case Status.FINISHED: {
       if (hits === queriedHits) return <>Successful</>;
       const hitText = `hit${hits === 1 ? '' : 's'}`;
@@ -239,11 +253,9 @@ const Row: FC<RowProps> = memo(({ job }) => {
   useLayoutEffect(() => {
     if (
       job.parameters !==
-      (history.location?.state as CustomLocationState)?.parameters
+        (history.location?.state as CustomLocationState)?.parameters ||
+      !(ref.current && 'animate' in ref.current)
     ) {
-      return;
-    }
-    if (!(ref.current && 'animate' in ref.current)) {
       return;
     }
     ref.current.animate(keyframesForNew, animationOptionsForNew);
@@ -288,6 +300,9 @@ const Row: FC<RowProps> = memo(({ job }) => {
         <NiceStatus
           hits={'data' in job ? job.data.hits : undefined}
           queriedHits={job.parameters.hits}
+          errorDescription={
+            'errorDescription' in job ? job.errorDescription : undefined
+          }
         >
           {job.status}
         </NiceStatus>

@@ -20,6 +20,7 @@ export interface FailedJob extends BaseJob {
   status: Status.FAILURE | Status.ERRORED;
   remoteID?: string; // depending on if it failed before or after submission
   timeSubmitted?: number; // depending on if it failed before or after submission
+  errorDescription?: string; // the server's error response
 }
 
 export interface RunningJob extends BaseJob {
