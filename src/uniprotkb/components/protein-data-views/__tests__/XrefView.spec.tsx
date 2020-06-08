@@ -8,7 +8,7 @@ import XRefView, {
 } from '../XRefView';
 import xrefUIData from './__mocks__/xrefUIData.json';
 import EntrySectionType from '../../../types/entrySection';
-import { XrefUIModel } from '../../../utils/XrefUtils';
+import { XrefUIModel } from '../../../utils/xrefUtils';
 import { PropertyKey } from '../../../types/modelTypes';
 
 describe('XRefView', () => {

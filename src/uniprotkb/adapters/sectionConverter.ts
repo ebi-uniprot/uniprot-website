@@ -1,5 +1,5 @@
 import idx from 'idx';
-import { getXrefsForSection, XrefUIModel } from '../utils/XrefUtils';
+import { getXrefsForSection, XrefUIModel } from '../utils/xrefUtils';
 import Comment, { CommentType, FreeTextComment } from '../types/commentTypes';
 import {
   getKeywordsForCategories,

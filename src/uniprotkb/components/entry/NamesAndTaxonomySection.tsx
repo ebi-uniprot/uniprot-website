@@ -28,7 +28,7 @@ const NamesAndTaxonomySection: FC<{
           </Fragment>
         )}
         <h3>Organism names</h3>
-        <OrganismListView data={data.organismData} hosts={data.organismHosts} />
+        <OrganismListView data={data.organismData} hosts={data.virusHosts} />
         <h3>Proteome</h3>
         <ProteomesListView data={data.proteomesData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

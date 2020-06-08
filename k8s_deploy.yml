@@ -1,0 +1,35 @@
+apiVersion: v1 # Specifies what version of K8s you want to use
+kind: Service # A service is used to expose your Deployment to the external access
+metadata:
+  name: uniprot-website-client-http
+spec:
+  ports:
+    - port: 31240
+      protocol: TCP
+      nodePort: 31240 # The port which will be externally exposed. Must be in the range [30000, 32767].
+      targetPort: 80 # The port on your Deployment which it will expose
+  selector:
+    app: uniprot-website-client # Selects the disease-portal-client Deployment to attach the Service to
+  type: NodePort # Tell K8s this wants to expose an external port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uniprot-website-client
+spec:
+  selector:
+    matchLabels:
+      app: uniprot-website-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: uniprot-website-client
+    spec:
+      containers:
+        - name: uniprot-website-client
+          image: dockerhub.ebi.ac.uk/uniprot/uniprot-website/uniprot-website:latest # The image which contains Nginx and the built assets
+          ports:
+            - containerPort: 80 # We are using Nginx's default config which serves on port 80
+      imagePullSecrets:
+        - name: gitlab-registry # Provided by GitLab, this allows K8s to connect to dockerhub.ebi.ac.uk

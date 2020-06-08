@@ -21,20 +21,20 @@ export const UPDATE_TABLE_COLUMNS = 'UPDATE_TABLE_COLUMNS';
 export const requestFields = () => action(REQUEST_FIELDS);
 
 export const prepareFields = (fields: ReceivedField[]) =>
-  fields.map(({ label, name }) => ({ id: name, label }));
+  fields.map(({ label, name }) => ({ id: name as Column, label }));
 
 export const prepareFieldData = (fieldData: ReceivedFieldData) => {
   const dataTab: FieldDatum[] = [];
   const linksTab: FieldDatum[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const linksAdded: any = {};
-  fieldData.forEach(({ groupName, fields, isDatabase }) => {
+  fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
     const group = {
-      id: groupName,
+      id,
       title: groupName,
       items: prepareFields(fields),
     };
-    if (isDatabase) {
+    if (isDatabaseGroup) {
       if (!linksAdded[groupName]) {
         linksTab.push(group);
         linksAdded[groupName] = true;
@@ -48,7 +48,6 @@ export const prepareFieldData = (fieldData: ReceivedFieldData) => {
     [ColumnSelectTab.links]: linksTab,
   };
 };
-
 export const receiveFields = (data: ReceivedFieldData) =>
   action(RECEIVE_FIELDS, {
     data: prepareFieldData(data),
@@ -57,7 +56,7 @@ export const receiveFields = (data: ReceivedFieldData) =>
 
 export const fetchFields = () => async (dispatch: Dispatch) => {
   dispatch(requestFields());
-  return fetchData(apiUrls.resultsFields).then((response) =>
+  return fetchData(apiUrls.resultsFields).then(response =>
     dispatch(receiveFields(response.data))
   );
 };

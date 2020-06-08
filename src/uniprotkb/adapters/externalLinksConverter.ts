@@ -2,7 +2,7 @@ import idx from 'idx';
 import { UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { CommentType } from '../types/commentTypes';
-import { getXrefsForSection } from '../utils/XrefUtils';
+import { getXrefsForSection } from '../utils/xrefUtils';
 import EntrySection from '../types/entrySection';
 
 const convertExternalLinks = (data: UniProtkbAPIModel) => {

@@ -57,7 +57,7 @@ export type NamesAndTaxonomyUIModel = {
   geneNamesData?: GeneNamesData;
   organismData?: OrganismData;
   proteomesData?: Xref[];
-  organismHosts?: OrganismData[];
+  virusHosts?: OrganismData[];
 } & UIModel;
 
 export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
@@ -78,8 +78,8 @@ export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
   if (data.organism) {
     namesAndTaxonomyData.organismData = data.organism;
   }
-  if (data.organismHosts) {
-    namesAndTaxonomyData.organismHosts = data.organismHosts;
+  if (data.virusHosts) {
+    namesAndTaxonomyData.virusHosts = data.virusHosts;
   }
   if (data.uniProtKBCrossReferences) {
     namesAndTaxonomyData.proteomesData = data.uniProtKBCrossReferences.filter(

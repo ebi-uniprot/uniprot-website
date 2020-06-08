@@ -1,25 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { cleanup, fireEvent } from '@testing-library/react';
 import ResultsContainer from '../ResultsContainer';
 import { act } from 'react-dom/test-utils';
-import results from './__mocks__/results.json';
-import noResults from './__mocks__/noResults.json';
-import entry from './__mocks__/swissprot_entry.json';
 import searchInitialState from '../../../state/searchInitialState';
 import resultsInitialState, {
   ViewMode,
 } from '../../../state/resultsInitialState';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-
-const mock = new MockAdapter(axios);
-
-mock.onGet(/.+noresult/).reply(200, noResults, { 'x-total-records': 25 });
-mock
-  .onGet(/\/uniprotkb\/search/)
-  .reply(200, results, { 'x-total-records': 25 });
-mock.onGet(/\/uniprotkb\//).reply(200, entry);
+import '../../__mocks__/mockApi';
 
 describe('Results component', () => {
   afterEach(cleanup);

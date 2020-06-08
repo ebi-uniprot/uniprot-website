@@ -467,7 +467,7 @@ describe('Names and taxonomy data converter', () => {
           },
         ],
       },
-      organismHosts: [
+      virusHosts: [
         {
           commonName: 'common name',
           scientificName: 'scientific name',

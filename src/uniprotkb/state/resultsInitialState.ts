@@ -20,7 +20,7 @@ export const defaultTableColumns = [
   Column.id,
   Column.proteinName,
   Column.geneNames,
-  Column.organism,
+  Column.organismName,
 ];
 
 const resultsInitialState = {

@@ -1,23 +1,13 @@
 import React from 'react';
-import axios from 'axios';
 import DownloadContainer, { getPreviewFileFormat } from '../DownloadContainer';
 import { createMemoryHistory } from 'history';
 import { fireEvent } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
 import initialState from '../../../../app/state/rootInitialState';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import mockDownloadApi from './__mocks__/downloadData.json';
-import mockResultFieldsApi from '../../../__mocks__/resultFieldsData';
 import { FileFormat } from '../../../types/resultsTypes';
+import mockFasta from '../../__mocks__/fasta.json';
+import '../../__mocks__/mockApi';
 import '@testing-library/jest-dom/extend-expect';
-
-const mock = new MockAdapter(axios);
-mock
-  .onGet(mockDownloadApi.request)
-  .reply(200, mockDownloadApi.response, mockDownloadApi.headers);
-mock
-  .onGet(mockResultFieldsApi.request)
-  .reply(200, mockResultFieldsApi.response);
 
 describe('getPreviewFileFormat', () => {
   test('should replace excel file format with tsv', () => {
@@ -77,7 +67,7 @@ describe('DownloadContainer component', () => {
     const previewButton = getByText('Preview 10');
     fireEvent.click(previewButton);
     const preview = await findByTestId('download-preview');
-    expect(preview.textContent).toEqual(mockDownloadApi.response);
+    expect(preview.textContent).toEqual(mockFasta);
   });
 
   test('should  show column selection component when excel or tsv file type is selected and otherwise hide it', async () => {

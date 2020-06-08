@@ -8,6 +8,7 @@ type Props = {
   url: string;
   onSelect: Function;
   title: string;
+  placeholder?: string;
   value?: string;
   clearOnSelect?: boolean;
 };
@@ -120,7 +121,12 @@ class AutocompleteWrapper extends Component<Props, State> {
 
   render() {
     const { data, isLoading } = this.state;
-    const { title, value, clearOnSelect = false } = this.props;
+    const {
+      title,
+      value,
+      clearOnSelect = false,
+      placeholder = '',
+    } = this.props;
     return (
       <label htmlFor={this.id}>
         {title}
@@ -131,6 +137,7 @@ class AutocompleteWrapper extends Component<Props, State> {
           onChange={this.handleChange}
           filter={false}
           value={value}
+          placeholder={placeholder}
           minCharsToShowDropdown={minCharsToShowDropdown}
           clearOnSelect={clearOnSelect}
           isLoading={isLoading}

@@ -1,4 +1,3 @@
-import 'fake-indexeddb/auto';
 import JobStore, { DB_NAME } from '../storage';
 import { openDB } from 'idb';
 import { Stores } from '../stores';

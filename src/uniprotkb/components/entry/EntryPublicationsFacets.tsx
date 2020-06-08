@@ -5,13 +5,11 @@ import { SelectedFacet } from '../../types/resultsTypes';
 import { getUniProtPublicationsQueryUrl } from '../../config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import { facetsAsString, getParamsFromURL } from '../../utils/results-utils';
+import { facetsAsString, getParamsFromURL } from '../../utils/resultsUtils';
 
-const EntryPublicationsFacets: React.FC<
-  {
-    accession: string;
-  } & RouteComponentProps
-> = ({ accession, history, location }) => {
+const EntryPublicationsFacets: React.FC<{
+  accession: string;
+} & RouteComponentProps> = ({ accession, history, location }) => {
   const { search } = location;
   const { selectedFacets } = getParamsFromURL(search);
   const url = getUniProtPublicationsQueryUrl(accession, selectedFacets);
@@ -30,7 +28,7 @@ const EntryPublicationsFacets: React.FC<
       pathname: `/uniprotkb/${accession}/publications`,
       search: facetsAsString(
         selectedFacets.filter(
-          (selectedFacet) =>
+          selectedFacet =>
             !(selectedFacet.name === name && selectedFacet.value === value)
         )
       ),

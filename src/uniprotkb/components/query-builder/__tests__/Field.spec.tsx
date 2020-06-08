@@ -104,7 +104,7 @@ describe('Clause component', () => {
     const field = {
       label: 'Date Of Creation',
       itemType: 'single',
-      term: 'created',
+      term: 'date_created',
       dataType: 'date',
       hasRange: true,
       description: 'Search by Date of creation',

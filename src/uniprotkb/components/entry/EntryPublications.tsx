@@ -10,13 +10,11 @@ import formatCitationData, {
   getCitationPubMedId,
 } from '../../adapters/literatureConverter';
 import getNextUrlFromResponse from '../../utils/queryUtils';
-import { getParamsFromURL } from '../../utils/results-utils';
+import { getParamsFromURL } from '../../utils/resultsUtils';
 
-const EntryPublications: FC<
-  {
-    accession: string;
-  } & RouteComponentProps
-> = ({ accession, location }) => {
+const EntryPublications: FC<{
+  accession: string;
+} & RouteComponentProps> = ({ accession, location }) => {
   const { search } = location;
   const { selectedFacets } = getParamsFromURL(search);
   const initialUrl = getUniProtPublicationsQueryUrl(accession, selectedFacets);
@@ -35,7 +33,7 @@ const EntryPublications: FC<
       return;
     }
     const { results } = data;
-    setAllResults((allRes) => [...allRes, ...results]);
+    setAllResults(allRes => [...allRes, ...results]);
     setMetaData(() => ({
       total: headers['x-totalrecords'],
       nextUrl: getNextUrlFromResponse(headers.link),
@@ -49,7 +47,7 @@ const EntryPublications: FC<
     setUrl(initialUrl);
     setAllResults([]);
     setMetaData({ total: 0, nextUrl: undefined });
-  }, [initialUrl]);
+  }, [initialUrl, url]);
 
   if (error) {
     return <ErrorHandler status={status} />;
@@ -104,7 +102,7 @@ const EntryPublications: FC<
                 title: 'Tissue',
                 content: referenceComments && (
                   <ul className="no-bullet">
-                    {referenceComments.map((comment) => (
+                    {referenceComments.map(comment => (
                       <li key={comment.value}>{comment.value}</li>
                     ))}
                   </ul>
@@ -114,7 +112,7 @@ const EntryPublications: FC<
                 title: 'Categories',
                 content: categories && (
                   <ul className="no-bullet">
-                    {uniq(categories).map((category) => (
+                    {uniq(categories).map(category => (
                       <li key={category}>{category}</li>
                     ))}
                   </ul>

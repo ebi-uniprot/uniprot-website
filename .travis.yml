@@ -9,7 +9,7 @@ before_script:
   - 'yarn clear-test-cache'
   - 'yarn cache clean'
 before_deploy:
-  - yarn build
+  - yarn build:staging
 deploy:
   provider: pages
   skip-cleanup: true

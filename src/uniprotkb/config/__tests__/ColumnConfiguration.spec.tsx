@@ -4,6 +4,7 @@ import ColumnConfiguration from '../ColumnConfiguration';
 import data from '../../__mocks__/entryModelData.json';
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+jest.mock('../../../tools/utils/storage');
 
 describe('ColumnConfiguration component', () => {
   let transformedData;
@@ -17,11 +18,11 @@ describe('ColumnConfiguration component', () => {
   });
 
   test('should render all columns', () => {
-    ColumnConfiguration.forEach(column => {
+    ColumnConfiguration.forEach((column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
-      expect(asFragment()).toMatchSnapshot();
+      expect(asFragment()).toMatchSnapshot(column.label);
     });
   });
 });

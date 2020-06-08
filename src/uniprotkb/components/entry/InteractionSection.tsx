@@ -128,7 +128,7 @@ const InteractionSection: FC<{
           />
         )}
         <interaction-viewer accession={primaryAccession} />
-        <protvista-datatable ref={datatableContainer} />
+        <protvista-datatable ref={datatableContainer} filter-scroll />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
       </Card>
     </div>

@@ -1,52 +1,38 @@
 import React from 'react';
 import { MemoryRouter as Router } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 import ResultsView from '../ResultsView';
 import { ViewMode } from '../../../state/resultsInitialState';
 import { render } from '@testing-library/react';
-import data from './__mocks__/results.json';
+import { Column } from '../../../types/columnTypes';
+import '../../__mocks__/mockApi';
+
+const props = {
+  columns: [Column.accession],
+  handleEntrySelection: jest.fn(),
+  selectedEntries: [],
+};
 
 describe('ResultsView component', () => {
-  test('should render table', () => {
-    const props = {
-      viewMode: ViewMode.TABLE,
-      tableColumns: ['accession'],
-      selectedEntries: [],
-      results: data.results,
-      sort: { column: 'accession', direction: 'descend' },
-      handleEntrySelection: jest.fn(),
-      handleHeaderClick: jest.fn(),
-      handleLoadMoreRows: jest.fn(),
-      totalNumberResults: 2,
-      sortColumn: null,
-      sortDirection: null,
-    };
-    const { asFragment } = render(
-      <Router>
-        <ResultsView {...props} />
-      </Router>
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it('should render table', async () => {
+    await act(async () => {
+      const { asFragment } = render(
+        <Router>
+          <ResultsView viewMode={ViewMode.TABLE} {...props} />
+        </Router>
+      );
+      expect(asFragment()).toMatchSnapshot();
+    });
   });
 
-  test('should render cards', () => {
-    const props = {
-      viewMode: ViewMode.CARD,
-      tableColumns: ['accession'],
-      selectedEntries: [],
-      results: data.results,
-      sort: { column: 'accession', direction: 'descend' },
-      handleEntrySelection: jest.fn(),
-      handleHeaderClick: jest.fn(),
-      handleLoadMoreRows: jest.fn(),
-      totalNumberResults: 2,
-      sortColumn: null,
-      sortDirection: null,
-    };
-    const { asFragment } = render(
-      <Router>
-        <ResultsView {...props} />
-      </Router>
-    );
-    expect(asFragment()).toMatchSnapshot();
+  it('should render cards', async () => {
+    await act(async () => {
+      const { asFragment } = render(
+        <Router>
+          <ResultsView viewMode={ViewMode.CARD} {...props} />
+        </Router>
+      );
+      expect(asFragment()).toMatchSnapshot();
+    });
   });
 });

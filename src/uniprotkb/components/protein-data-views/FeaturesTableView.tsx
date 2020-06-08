@@ -62,7 +62,7 @@ const FeaturesTableView: FC<{
 
   return (
     <Fragment>
-      <protvista-datatable ref={setTableData} />
+      <protvista-datatable ref={setTableData} filter-scroll />
       <div
         className={`evidence-tag-content ${showEvidenceTagData &&
           'evidence-tag-content--visible'}`}

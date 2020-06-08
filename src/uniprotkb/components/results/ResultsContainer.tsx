@@ -6,23 +6,18 @@ import { PageIntro, Loader } from 'franklin-sites';
 import ResultsView from './ResultsView';
 import ResultsButtons from './ResultsButtons';
 import ResultsFacets from './ResultsFacets';
-
 import { Clause, Namespace } from '../../types/searchTypes';
 import { Column } from '../../types/columnTypes';
-
 import { ViewMode } from '../../state/resultsInitialState';
-
 import { RootState } from '../../../app/state/rootInitialState';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import infoMappings from '../../../shared/config/InfoMappings';
 import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-
+import { getParamsFromURL } from '../../utils/resultsUtils';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useDataApi from '../../../shared/hooks/useDataApi';
-
 import { getAPIQueryUrl } from '../../config/apiUrls';
-import { getParamsFromURL } from '../../utils/results-utils';
 
 type ResultsProps = {
   namespace: Namespace;
@@ -69,12 +64,12 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
   const { facets, results } = data;
   const total = headers['x-totalrecords'];
 
-  if (results.length === 0) {
+  if (!results || results.length === 0) {
     return <NoResultsPage />;
   }
 
   const handleEntrySelection = (rowId: string): void => {
-    const filtered = selectedEntries.filter((id) => id !== rowId);
+    const filtered = selectedEntries.filter(id => id !== rowId);
     setSelectedEntries(
       filtered.length === selectedEntries.length
         ? [...selectedEntries, rowId]

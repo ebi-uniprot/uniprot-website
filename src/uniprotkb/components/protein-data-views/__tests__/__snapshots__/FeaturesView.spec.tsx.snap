@@ -20,7 +20,9 @@ exports[`FeaturesView component it renders without crashing 1`] = `
       length="21"
       sequence="ASDASDASASDASDASDSASD"
     />
-    <protvista-datatable />
+    <protvista-datatable
+      filter-scroll="true"
+    />
     <div
       class="evidence-tag-content false"
     />

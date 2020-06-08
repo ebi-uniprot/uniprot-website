@@ -71,6 +71,10 @@ const useDataApi = (url?: string): State => {
   const [state, dispatch] = useReducer(reducer, { loading: !!url });
 
   useEffect(() => {
+    // need this variabe to ensure state updates don't occur when cancelled/unmounted
+    // https://github.com/facebook/react/issues/14369#issuecomment-468267798
+    let didCancel = false;
+
     // we don't require a URL, we just don't need data anymore
     // assume succes with no data
     if (!url) {
@@ -86,18 +90,23 @@ const useDataApi = (url?: string): State => {
     // actual request
     fetchData(url, undefined, source.token).then(
       // handle ok
-      (response: AxiosResponse) =>
-        dispatch({ type: ActionType.SUCCESS, response, originalURL: url }),
+      (response: AxiosResponse) => {
+        if (didCancel) return;
+        dispatch({ type: ActionType.SUCCESS, response, originalURL: url });
+      },
       // catch error
       (error: AxiosError) => {
-        if (axios.isCancel(error)) return;
+        if (axios.isCancel(error) || didCancel) return;
         dispatch({ type: ActionType.ERROR, error });
       }
     );
 
     // handle unmounting of the hook
     // eslint-disable-next-line consistent-return
-    return () => source.cancel();
+    return () => {
+      source.cancel();
+      didCancel = true;
+    };
   }, [url]);
 
   return state;

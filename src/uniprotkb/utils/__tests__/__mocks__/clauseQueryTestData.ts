@@ -1,14 +1,14 @@
 export const testData = [
   {
     description: 'should generate simple query',
-    queryString: '(mnemonic:blah)',
+    queryString: '(id:blah)',
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -23,14 +23,14 @@ export const testData = [
   {
     description:
       'should generate simple query with padded spaces around stringVaule',
-    queryString: '(mnemonic:blah)',
+    queryString: '(id:blah)',
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -45,14 +45,14 @@ export const testData = [
   {
     description:
       'should generate query with value surrounded by double quotes when stringValue has a space',
-    queryString: '(mnemonic:"foo bar")',
+    queryString: '(id:"foo bar")',
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -352,14 +352,14 @@ export const testData = [
   },
   {
     description: 'should handle date range',
-    queryString: '(created:[2018-03-04 TO 2018-03-08])',
+    queryString: '(date_created:[2018-03-04 TO 2018-03-08])',
     clauses: [
       {
         searchTerm: {
           id: 'id_created',
           label: 'Date Of Creation',
           itemType: 'single',
-          term: 'created',
+          term: 'date_created',
           dataType: 'date',
           hasRange: true,
           description: 'Search by Date of creation',
@@ -436,14 +436,14 @@ export const testData = [
   {
     description:
       'should generate simple query from two subqueries joined by an AND',
-    queryString: '(mnemonic:blah) AND (mnemonic:foo)',
+    queryString: '(id:blah) AND (id:foo)',
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -455,10 +455,10 @@ export const testData = [
       },
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -473,14 +473,14 @@ export const testData = [
   {
     description:
       'should generate simple query from two subqueries joined by an OR',
-    queryString: '(mnemonic:blah) OR (mnemonic:foo)',
+    queryString: '(id:blah) OR (id:foo)',
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -492,10 +492,10 @@ export const testData = [
       },
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -509,14 +509,14 @@ export const testData = [
   },
   {
     description: 'should generate simple query with a NOT',
-    queryString: 'NOT (mnemonic:blah)',
+    queryString: 'NOT (id:blah)',
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -596,8 +596,8 @@ export const testData = [
   },
   {
     description:
-      'An implicit "All" joined to by an OR to a mnemonic search - mixes unbracketed and bracketed terms',
-    queryString: 'blah OR (mnemonic:foo)',
+      'An implicit "All" joined to by an OR to a id search - mixes unbracketed and bracketed terms',
+    queryString: 'blah OR (id:foo)',
     clauses: [
       {
         searchTerm: {
@@ -615,10 +615,10 @@ export const testData = [
       },
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -632,9 +632,9 @@ export const testData = [
   },
   {
     description:
-      'should handle ft range and evidence, simple mnemonic, and any query',
+      'should handle ft range and evidence, simple id, and any query',
     queryString:
-      'NOT ((ftlen_sites:[10 TO 100]) AND (ftev_sites:blahvidence)) OR (mnemonic:foo) NOT blah',
+      'NOT ((ftlen_sites:[10 TO 100]) AND (ftev_sites:blahvidence)) OR (id:foo) NOT blah',
     clauses: [
       {
         searchTerm: {
@@ -657,10 +657,10 @@ export const testData = [
       },
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
-          term: 'mnemonic',
+          term: 'id',
           dataType: 'string',
           description: 'Search by UniProtKB entry name',
           example: 'P53_HUMAN',
@@ -716,7 +716,7 @@ export const exceptionThrowingTestData = [
     clauses: [
       {
         searchTerm: {
-          id: 'id_mnemonic',
+          id: 'id_id',
           label: 'Entry Name [ID]',
           itemType: 'single',
           dataType: 'string',

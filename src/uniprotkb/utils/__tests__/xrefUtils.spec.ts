@@ -5,10 +5,10 @@ import {
   getECImplicitXrefs,
   getUnconditionalImplicitXrefs,
   getJoinedXrefs,
-} from '../XrefUtils';
+} from '../xrefUtils';
 import { CommentType } from '../../types/commentTypes';
 
-describe('XrefUtils tests', () => {
+describe('xrefUtils tests', () => {
   test('should getDRImplicitXrefs', () => {
     expect(
       getDRImplicitXrefs(

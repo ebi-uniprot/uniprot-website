@@ -122,6 +122,7 @@ const PDBView: FC<{
         selectedId={firstId}
         noScrollToRow
         noDeselect
+        filter-scroll
       />
     </protvista-manager>
   );

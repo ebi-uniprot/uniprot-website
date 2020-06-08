@@ -25,7 +25,7 @@
     ],
     "lineage": ["lineage 1"]
   },
-  "organismHosts": [
+  "virusHosts": [
     {
       "scientificName": "scientific name",
       "commonName": "common name",

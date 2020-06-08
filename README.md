@@ -51,3 +51,11 @@ service worker should be registered and functioning.
 
 Something's gone wrong with caching on a deployed build? In the entry point use
 the `unregister` function instead of the `register` function.
+
+### Build Scripts
+
+| Build script    | Use                               |
+| --------------- | --------------------------------- |
+| `build:prod`    | Web Production Kubernetes cluster |
+| `build:staging` | GitHub Pages                      |
+| `build:dev`     | Debugging service workers         |

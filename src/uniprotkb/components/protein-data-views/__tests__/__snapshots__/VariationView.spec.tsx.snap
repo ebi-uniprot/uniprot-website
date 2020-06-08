@@ -16,6 +16,7 @@ exports[`VariationView component renders on data 1`] = `
           length="7"
         />
         <protvista-sequence
+          filter-scroll="true"
           height="20"
           length="7"
           sequence="ABCDEFG"
@@ -28,7 +29,9 @@ exports[`VariationView component renders on data 1`] = `
           length="7"
         />
       </div>
-      <protvista-datatable />
+      <protvista-datatable
+        filter-scroll="true"
+      />
       <div
         class="evidence-tag-content false"
       />

@@ -40,7 +40,7 @@ export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
   organism?: OrganismData;
-  organismHosts?: OrganismData[];
+  virusHosts?: OrganismData[];
   primaryAccession: string;
   uniProtkbId: string;
   proteinExistence: string;

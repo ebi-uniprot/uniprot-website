@@ -319,6 +319,7 @@ const BlastForm = () => {
             />
             <section className="blast-form-section__item blast-form-section__item--taxon-select">
               <AutocompleteWrapper
+                placeholder="Homo sapiens, 9606,..."
                 url={uniProtKBApiUrls.organismSuggester}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"

@@ -1,9 +1,13 @@
 import queryStringModule from 'query-string';
-import { SortableColumn } from '../types/columnTypes';
-import { SelectedFacet, SortDirection } from '../types/resultsTypes';
+import { SortableColumn, Column } from '../types/columnTypes';
+import {
+  SelectedFacet,
+  SortDirection,
+  ReceivedFieldData,
+} from '../types/resultsTypes';
 
 const facetsAsArray = (facetString: string): SelectedFacet[] => {
-  return facetString.split(',').map((stringItem) => {
+  return facetString.split(',').map(stringItem => {
     const [name, value] = stringItem.split(':');
     return {
       name,
@@ -62,3 +66,15 @@ export const getLocationObjForParams = (
     `${sortDirection ? `&dir=${sortDirection}` : ''}`,
   ].join(''),
 });
+
+export const getSortableColumnToSortColumn = (
+  resultFields: ReceivedFieldData
+) => {
+  const sortableColumnToSortColumn = new Map<Column, string>();
+  resultFields.forEach(({ fields }) => {
+    fields.forEach(({ name, sortField }) => {
+      if (sortField) sortableColumnToSortColumn.set(name, sortField);
+    });
+  });
+  return sortableColumnToSortColumn;
+};

@@ -296,14 +296,14 @@ exports[`ColumnSelectView component should render 1`] = `
                   data-testid="accordion-search-list-item"
                 >
                   <label
-                    for="checkbox-dr_abcd"
+                    for="checkbox-xref_abcd"
                   >
                     <input
                       class="accordion-search__list__item-checkbox"
-                      id="checkbox-dr_abcd"
+                      id="checkbox-xref_abcd"
                       type="checkbox"
                     />
-                    drAbcd-label
+                    xrefAbcd-label
                   </label>
                 </li>
               </ul>

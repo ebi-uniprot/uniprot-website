@@ -10,7 +10,7 @@ import PDBView from '../protein-data-views/PDBView';
 import {
   partitionStructureDatabases,
   XrefUIModel,
-} from '../../utils/XrefUtils';
+} from '../../utils/xrefUtils';
 import { DatabaseCategory } from '../../types/databaseRefs';
 import { entrySectionToDatabaseCategoryOrder } from '../../config/database';
 

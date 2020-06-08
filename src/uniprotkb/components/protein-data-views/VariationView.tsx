@@ -121,7 +121,10 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
         const formatedDescription = formatVariantDescription(d.description);
         return formatedDescription
           ? formatedDescription.map(
-              (descriptionLine) => html` <p>${descriptionLine}</p> `
+              descriptionLine =>
+                html`
+                  <p>${descriptionLine}</p>
+                `
             )
           : '';
       },
@@ -143,21 +146,21 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
         if (!d.association) {
           return '';
         }
-        return d.association.map((association) => {
+        return d.association.map(association => {
           return html`
             <p>
               ${association.name}
               ${association.evidences &&
-              UniProtProtvistaEvidenceTag(
-                association.evidences.map((evidence) => {
-                  return ({
-                    evidenceCode: evidence.code,
-                    source: evidence.source.name,
-                    id: evidence.source.id,
-                  } as unknown) as Evidence;
-                }),
-                evidenceTagCallback
-              )}
+                UniProtProtvistaEvidenceTag(
+                  association.evidences.map(evidence => {
+                    return ({
+                      evidenceCode: evidence.code,
+                      source: evidence.source.name,
+                      id: evidence.source.id,
+                    } as unknown) as Evidence;
+                  }),
+                  evidenceTagCallback
+                )}
             </p>
           `;
         });
@@ -175,7 +178,7 @@ const VariationView: FC<{
     joinUrl(apiUrls.variation, primaryAccession)
   );
 
-  const protvistaFilterRef = useCallback((node) => {
+  const protvistaFilterRef = useCallback(node => {
     if (node !== null) {
       // eslint-disable-next-line no-param-reassign
       node.filters = filterConfig;
@@ -183,7 +186,7 @@ const VariationView: FC<{
   }, []);
 
   const protvistaVariationRef = useCallback(
-    (node) => {
+    node => {
       if (node !== null && data.features) {
         const transformedData: TransformedVariantsResponse = transformData(
           data
@@ -221,6 +224,7 @@ const VariationView: FC<{
               length={data.sequence.length}
               sequence={data.sequence}
               height="20"
+              filter-scroll
             />
             <protvista-filter
               for="variation-component"

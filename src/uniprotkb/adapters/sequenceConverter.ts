@@ -9,7 +9,7 @@ import {
   getXrefsForSection,
   XrefUIModel,
   getJoinedXrefs,
-} from '../utils/XrefUtils';
+} from '../utils/xrefUtils';
 import EntrySection from '../types/entrySection';
 import { SequenceData } from '../components/protein-data-views/SequenceView';
 import {

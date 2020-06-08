@@ -1,17 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 import { fireEvent } from '@testing-library/react';
-import MockAdapter from 'axios-mock-adapter';
 import CustomiseTableContainer from '../CustomiseTableContainer';
 import initialState from '../../../../app/state/rootInitialState';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import mockResultFieldsApi from '../../../__mocks__/resultFieldsData';
 import * as resultsActions from '../../../state/resultsActions';
+import '../../__mocks__/mockApi';
 
-const mock = new MockAdapter(axios);
-mock
-  .onGet(mockResultFieldsApi.request)
-  .reply(200, mockResultFieldsApi.response);
 const updateTableColumns = jest.spyOn(resultsActions, 'updateTableColumns');
 
 describe('CustomiseTableContainer component', () => {

@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import { Facets } from 'franklin-sites';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { getLocationObjForParams, getParamsFromURL } from '../../utils/results-utils';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+} from '../../utils/resultsUtils';
 import { SelectedFacet } from '../../types/resultsTypes';
 import { Facet } from '../../types/responseTypes';
 
@@ -32,7 +35,7 @@ const ResultsFacets: FC<{ facets: Facet[] } & RouteComponentProps> = ({
 
   const removeFacet = (facetName: string, facetValue: string): void => {
     const index = selectedFacets.findIndex(
-      (selectedFacet) =>
+      selectedFacet =>
         selectedFacet.name === facetName && selectedFacet.value === facetValue
     );
 
