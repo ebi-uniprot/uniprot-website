@@ -140,46 +140,55 @@ exports[`BlastForm test Renders the form 1`] = `
               id="Target database"
             >
               <option
+                data-testid="Target database-uniprotkb_refprotswissprot"
                 value="uniprotkb_refprotswissprot"
               >
                 UniProtKB reference proteomes + Swiss-Prot
               </option>
               <option
+                data-testid="Target database-uniprotkb"
                 value="uniprotkb"
               >
                 UniProtKB
               </option>
               <option
+                data-testid="Target database-uniprotkb_pdb"
                 value="uniprotkb_pdb"
               >
                 UniProtKB with 3D structure (PDB)
               </option>
               <option
+                data-testid="Target database-uniprotkb_reference_proteomes"
                 value="uniprotkb_reference_proteomes"
               >
                 UniProtKB reference proteomes
               </option>
               <option
+                data-testid="Target database-uniprotkb_swissprot"
                 value="uniprotkb_swissprot"
               >
                 UniProtKB Swiss-Prot
               </option>
               <option
+                data-testid="Target database-UniRef100"
                 value="UniRef100"
               >
                 UniRef100
               </option>
               <option
+                data-testid="Target database-UniRef90"
                 value="UniRef90"
               >
                 UniRef90
               </option>
               <option
+                data-testid="Target database-UniRef50"
                 value="UniRef50"
               >
                 UniRef50
               </option>
               <option
+                data-testid="Target database-uniparc"
                 value="uniparc"
               >
                 UniParc
@@ -239,6 +248,289 @@ exports[`BlastForm test Renders the form 1`] = `
       </section>
       <section>
         <section
+          class="blast-form-section"
+        >
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="Sequence type"
+            >
+              Sequence type
+              <select
+                id="Sequence type"
+              >
+                <option
+                  data-testid="Sequence type-protein"
+                  value="protein"
+                >
+                  Protein
+                </option>
+                <option
+                  data-testid="Sequence type-dna"
+                  value="dna"
+                >
+                  DNA/RNA
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="Program"
+            >
+              Program
+              <select
+                id="Program"
+              >
+                <option
+                  data-testid="Program-blastp"
+                  value="blastp"
+                >
+                  blastp
+                </option>
+                <option
+                  data-testid="Program-blastx"
+                  value="blastx"
+                >
+                  blastx
+                </option>
+                <option
+                  data-testid="Program-blastn"
+                  value="blastn"
+                >
+                  blastn
+                </option>
+                <option
+                  data-testid="Program-tblastx"
+                  value="tblastx"
+                >
+                  tblastx
+                </option>
+                <option
+                  data-testid="Program-tblastn"
+                  value="tblastn"
+                >
+                  tblastn
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="E-Threshold"
+            >
+              E-Threshold
+              <select
+                id="E-Threshold"
+              >
+                <option
+                  data-testid="E-Threshold-1e-4"
+                  value="1e-4"
+                >
+                  0.0001
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-3"
+                  value="1e-3"
+                >
+                  0.001
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-2"
+                  value="1e-2"
+                >
+                  0.01
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-1"
+                  value="1e-1"
+                >
+                  0.1
+                </option>
+                <option
+                  data-testid="E-Threshold-1"
+                  value="1"
+                >
+                  1
+                </option>
+                <option
+                  data-testid="E-Threshold-10"
+                  value="10"
+                >
+                  10
+                </option>
+                <option
+                  data-testid="E-Threshold-100"
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  data-testid="E-Threshold-1000"
+                  value="1000"
+                >
+                  1000
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="Matrix"
+            >
+              Matrix
+              <select
+                id="Matrix"
+              >
+                <option
+                  data-testid="Matrix-auto"
+                  value="auto"
+                >
+                  Auto - PAM30
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM45"
+                  value="BLOSUM45"
+                >
+                  BLOSUM45
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM62"
+                  value="BLOSUM62"
+                >
+                  BLOSUM62
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM80"
+                  value="BLOSUM80"
+                >
+                  BLOSUM80
+                </option>
+                <option
+                  data-testid="Matrix-PAM70"
+                  value="PAM70"
+                >
+                  PAM70
+                </option>
+                <option
+                  data-testid="Matrix-PAM30"
+                  value="PAM30"
+                >
+                  PAM30
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="Filter"
+            >
+              Filter
+              <select
+                id="Filter"
+              >
+                <option
+                  data-testid="Filter-F"
+                  value="F"
+                >
+                  None
+                </option>
+                <option
+                  data-testid="Filter-T"
+                  value="T"
+                >
+                  Filter low complexity regions
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="Gapped"
+            >
+              Gapped
+              <select
+                id="Gapped"
+              >
+                <option
+                  data-testid="Gapped-true"
+                  value="true"
+                >
+                  yes
+                </option>
+                <option
+                  data-testid="Gapped-false"
+                  value="false"
+                >
+                  no
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="blast-form-section__item"
+          >
+            <label
+              for="Hits"
+            >
+              Hits
+              <select
+                id="Hits"
+              >
+                <option
+                  data-testid="Hits-50"
+                  value="50"
+                >
+                  50
+                </option>
+                <option
+                  data-testid="Hits-100"
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  data-testid="Hits-250"
+                  value="250"
+                >
+                  250
+                </option>
+                <option
+                  data-testid="Hits-500"
+                  value="500"
+                >
+                  500
+                </option>
+                <option
+                  data-testid="Hits-750"
+                  value="750"
+                >
+                  750
+                </option>
+                <option
+                  data-testid="Hits-1000"
+                  value="1000"
+                >
+                  1000
+                </option>
+              </select>
+            </label>
+          </section>
+        </section>
+      </section>
+      <section>
+        <section
           class="blast-form-section__item"
         >
           <label>
@@ -257,20 +549,20 @@ exports[`BlastForm test Renders the form 1`] = `
       <section
         class="blast-form-section"
       >
-        <button
-          class="button primary blast-form-section__submit"
-          type="submit"
+        <section
+          class="button-group blast-form-section__buttons"
         >
-          Run Blast
-        </button>
-      </section>
-      <section>
-        <button
-          class="button tertiary"
-          type="button"
-        >
-          Advanced parameters ▸
-        </button>
+          <input
+            class="button secondary"
+            type="reset"
+          />
+          <button
+            class="button primary blast-form-section__submit"
+            type="submit"
+          >
+            Run Blast
+          </button>
+        </section>
       </section>
     </fieldset>
   </form>

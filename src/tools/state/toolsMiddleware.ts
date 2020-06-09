@@ -29,7 +29,8 @@ import { addMessage } from '../../messages/state/messagesActions';
 import blastUrls from '../blast/config/blastUrls';
 
 import { ToolsState } from './toolsInitialState';
-import { getServerErrorDescription } from '../utils';
+import getServerErrorDescription from '../utils';
+import { Location } from '../../app/config/urls';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 
@@ -152,6 +153,7 @@ const toolsMiddleware: Middleware = (store) => {
           format: MessageFormat.POP_UP,
           level: MessageLevel.SUCCESS,
           tag: MessageTag.JOB,
+          omitAndDeleteAtLocations: [Location.Dashboard],
         })
       );
     } catch (error) {
@@ -222,6 +224,7 @@ const toolsMiddleware: Middleware = (store) => {
           format: MessageFormat.POP_UP,
           level: MessageLevel.FAILURE,
           tag: MessageTag.JOB,
+          omitAndDeleteAtLocations: [Location.Dashboard],
         })
       );
     }

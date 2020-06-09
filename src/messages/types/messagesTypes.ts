@@ -27,4 +27,5 @@ export type MessageType = {
   dateExpired?: number;
   tag?: MessageTag;
   locations?: Location[];
+  omitAndDeleteAtLocations?: Location[];
 };

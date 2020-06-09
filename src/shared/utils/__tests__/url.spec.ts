@@ -1,4 +1,4 @@
-import urlsAreEqual from '../url';
+import { urlsAreEqual } from '../url';
 
 describe('urlsAreEqual', () => {
   test('should return true when urls are equal except for mismatch between the parameter compress', () => {

@@ -1,7 +1,9 @@
+import { matchPath } from 'react-router-dom';
 import queryString from 'query-string';
 import { uniq } from 'lodash-es';
+import { LocationToPath } from '../../app/config/urls';
 
-const urlsAreEqual = (
+export const urlsAreEqual = (
   url1: string,
   url2: string,
   ignoreParams: string[] = []
@@ -20,6 +22,13 @@ const urlsAreEqual = (
       ignoreParams.includes(param) ||
       urlObject1.query[param] === urlObject2.query[param]
   );
+};
+
+export const getLocationForPathname = (pathname: string) => {
+  const found = Object.entries(LocationToPath).find(([, path]) =>
+    matchPath(pathname, { path, exact: path === '/' })
+  );
+  return found && found[0];
 };
 
 export default urlsAreEqual;
