@@ -1,20 +1,14 @@
-import { schedule, sleep } from 'timing-functions';
-import { action } from 'typesafe-actions';
+import { sleep } from 'timing-functions';
 
 var axios = require('axios');
 var MockAdapter = require('axios-mock-adapter');
 
 import toolsMiddleware from '../toolsMiddleware';
 
-import postData from '../../../uniprotkb/config/postData';
 import JobStore from '../../utils/storage';
 import { Stores } from '../../utils/stores';
-import { REHYDRATE_JOBS } from '../toolsActions';
 
 import createdJob from '../../blast/__mocks__/internal-jobs/created';
-
-// jest.mock('timing-functions');
-// jest.mock('../../utils/storage', () => jest.fn());
 
 var axiosMock = new MockAdapter(axios);
 axiosMock.onPost().reply(200, { data: 'ncbiblast-R20200505-A-B-C-D' });
@@ -55,29 +49,5 @@ describe('toolsMiddleware', () => {
     });
 
     await idbStore.clear();
-  });
-
-  it.skip('submit created jobs', async () => {
-    // const { next, invoke, store } = create({
-    //   [createdJob.internalID]: createdJob,
-    // });
-    // invoke({ type: 'CREATE_JOB' });
-    // await sleep(5000);
-    // expect(store.dispatch).toHaveBeenLastCalledWith({
-    //   type: 'REHYDRATE_JOBS',
-    //   payload: { jobs: { [createdJob.internalID]: createdJob } },
-    // });
-  });
-
-  it.skip('should run with new jobs', () => {
-    // TODO this currently runs into infite loops,
-    // possibly because the dispatch doesn't interupt the loop
-    // const { next, invoke, store } = create();
-    // const action = {
-    //   type: REHYDRATE_JOBS,
-    // };
-    // const instantiatedMiddleware = toolsMiddleware(store);
-    // instantiatedMiddleware(next)(action);
-    // expect(store.dispatch).toHaveBeenCalled();
   });
 });

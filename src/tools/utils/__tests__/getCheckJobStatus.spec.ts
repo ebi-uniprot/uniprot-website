@@ -19,7 +19,7 @@ import { Location } from '../../../app/config/urls';
 var axios = require('axios');
 var MockAdapter = require('axios-mock-adapter');
 
-let mock;
+let mock, checkJobStatus;
 
 const store: Store = {
   getState: jest.fn(() => ({ tools: { [runningJob.internalID]: runningJob } })),
@@ -35,6 +35,10 @@ beforeAll(() => {
   console.error = jest.fn(() => {});
 });
 
+beforeEach(() => {
+  checkJobStatus = getCheckJobStatus(store);
+});
+
 afterEach(() => {
   mock.reset();
   (store.dispatch as jest.Mock).mockClear();
@@ -47,43 +51,60 @@ afterAll(() => {
 });
 
 describe('checkJobStatus', () => {
-  it('should not dispatch on network error', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
+  describe('failures', () => {
+    it('should not dispatch on network error', async () => {
+      mock.onGet().reply(500);
+      await checkJobStatus(runningJob);
 
-    mock.onGet().reply(500);
-    await checkJobStatus(runningJob);
-    expect(store.dispatch).not.toHaveBeenCalled();
-  });
+      expect(store.dispatch).not.toHaveBeenCalled();
+    });
 
-  it('should not dispatch on invalid status', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
+    it('should not dispatch on invalid status', async () => {
+      mock.onGet().reply(200, 'invalid status');
+      await checkJobStatus(runningJob);
 
-    mock.onGet().reply(200, 'invalid status');
-    await checkJobStatus(runningJob);
-    expect(store.dispatch).not.toHaveBeenCalled();
-  });
+      expect(store.dispatch).not.toHaveBeenCalled();
+    });
 
-  it('should not dispatch if job not in state', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
+    it('should not dispatch if job not in state', async () => {
+      mock.onGet().reply(200, Status.FINISHED);
+      await checkJobStatus({ ...runningJob, internalID: 'other id' });
 
-    mock.onGet().reply(200, Status.FINISHED);
-    await checkJobStatus({ ...runningJob, internalID: 'other id' });
-    expect(store.dispatch).not.toHaveBeenCalled();
-  });
+      expect(store.dispatch).not.toHaveBeenCalled();
+    });
 
-  it('should not dispatch if job not in state', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
+    it('should not dispatch if job not in state', async () => {
+      mock.onGet().reply(200, Status.NOT_FOUND);
+      await checkJobStatus(runningJob);
 
-    mock.onGet().reply(200, Status.NOT_FOUND);
-    await checkJobStatus(runningJob);
-    expect(store.dispatch).not.toHaveBeenCalled();
+      expect(store.dispatch).not.toHaveBeenCalled();
+    });
+
+    it('should dispatch failed job if finished but no valid data', async () => {
+      mock
+        .onGet() // first time get status
+        .replyOnce(200, Status.FINISHED)
+        .onGet() // then get data
+        .reply(200, { data: 'nonsense' });
+      await checkJobStatus(runningJob);
+
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          job: {
+            ...runningJob,
+            status: Status.FAILURE,
+            timeLastUpdate: Date.now(),
+          },
+        },
+        type: UPDATE_JOB,
+      });
+    });
   });
 
   it('should dispatch updated job with new information', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
-
     mock.onGet().reply(200, Status.RUNNING);
     await checkJobStatus(runningJob);
+
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
         job: {
@@ -96,6 +117,7 @@ describe('checkJobStatus', () => {
 
     mock.onGet().reply(200, Status.FAILURE);
     await checkJobStatus(runningJob);
+
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
         job: {
@@ -109,6 +131,7 @@ describe('checkJobStatus', () => {
 
     mock.onGet().reply(200, Status.ERRORED);
     await checkJobStatus(runningJob);
+
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
         job: {
@@ -121,36 +144,14 @@ describe('checkJobStatus', () => {
     });
   });
 
-  it('should dispatch failed job if finished but no valid data', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
-
-    mock
-      .onGet() // first time get status
-      .replyOnce(200, Status.FINISHED)
-      .onGet() // then get data
-      .reply(200, { data: 'nonsense' });
-    await checkJobStatus(runningJob);
-    expect(store.dispatch).toHaveBeenCalledWith({
-      payload: {
-        job: {
-          ...runningJob,
-          status: Status.FAILURE,
-          timeLastUpdate: Date.now(),
-        },
-      },
-      type: UPDATE_JOB,
-    });
-  });
-
   it('should dispatch finished job and new message if finished', async () => {
-    const checkJobStatus = getCheckJobStatus(store);
-
     mock
       .onGet() // first time get status
       .replyOnce(200, Status.FINISHED)
       .onGet() // then get data
       .reply(200, { hits: [0] });
     await checkJobStatus(runningJob);
+
     expect(store.dispatch).toHaveBeenNthCalledWith(1, {
       payload: {
         job: {
