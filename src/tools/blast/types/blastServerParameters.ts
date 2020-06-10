@@ -254,5 +254,5 @@ export type ServerParameters = {
   transltable?: TranslTable;
   stype?: SType; // stype
   sequence: Sequence; // sequence
-  database: Database; // targetDb
+  database: Database;
 };

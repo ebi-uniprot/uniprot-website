@@ -1,9 +1,9 @@
 import { Store } from 'redux';
 
 import fetchData from '../../shared/utils/fetchData';
+import { getJobMessage } from '.';
 
 import blastUrls from '../blast/config/blastUrls';
-import { Location } from '../../app/config/urls';
 
 import { updateJob } from '../state/toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -11,11 +11,6 @@ import { addMessage } from '../../messages/state/messagesActions';
 import { RunningJob } from '../blast/types/blastJob';
 import { Status } from '../blast/types/blastStatuses';
 import { BlastResults } from '../blast/types/blastResults';
-import {
-  MessageFormat,
-  MessageLevel,
-  MessageTag,
-} from '../../messages/types/messagesTypes';
 
 const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
   job: RunningJob
@@ -91,18 +86,7 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
         data: { hits: results.hits.length },
       })
     );
-    dispatch(
-      addMessage({
-        id: job.internalID,
-        content: `Job "${job.title || job.remoteID}" finished, found ${
-          results.hits.length
-        } hit${results.hits.length === 1 ? '' : 's'}`,
-        format: MessageFormat.POP_UP,
-        level: MessageLevel.SUCCESS,
-        tag: MessageTag.JOB,
-        omitAndDeleteAtLocations: [Location.Dashboard],
-      })
-    );
+    dispatch(addMessage(getJobMessage({ job, nHits: results.hits.length })));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);

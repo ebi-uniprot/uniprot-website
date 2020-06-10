@@ -136,9 +136,7 @@ exports[`BlastForm test Renders the form 1`] = `
             for="Target database"
           >
             Target database
-            <select
-              id="Target database"
-            >
+            <select>
               <option
                 data-testid="Target database-uniprotkb_refprotswissprot"
                 value="uniprotkb_refprotswissprot"
@@ -257,9 +255,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="Sequence type"
             >
               Sequence type
-              <select
-                id="Sequence type"
-              >
+              <select>
                 <option
                   data-testid="Sequence type-protein"
                   value="protein"
@@ -282,9 +278,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="Program"
             >
               Program
-              <select
-                id="Program"
-              >
+              <select>
                 <option
                   data-testid="Program-blastp"
                   value="blastp"
@@ -325,9 +319,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="E-Threshold"
             >
               E-Threshold
-              <select
-                id="E-Threshold"
-              >
+              <select>
                 <option
                   data-testid="E-Threshold-1e-4"
                   value="1e-4"
@@ -386,9 +378,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="Matrix"
             >
               Matrix
-              <select
-                id="Matrix"
-              >
+              <select>
                 <option
                   data-testid="Matrix-auto"
                   value="auto"
@@ -435,9 +425,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="Filter"
             >
               Filter
-              <select
-                id="Filter"
-              >
+              <select>
                 <option
                   data-testid="Filter-F"
                   value="F"
@@ -460,9 +448,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="Gapped"
             >
               Gapped
-              <select
-                id="Gapped"
-              >
+              <select>
                 <option
                   data-testid="Gapped-true"
                   value="true"
@@ -485,9 +471,7 @@ exports[`BlastForm test Renders the form 1`] = `
               for="Hits"
             >
               Hits
-              <select
-                id="Hits"
-              >
+              <select>
                 <option
                   data-testid="Hits-50"
                   value="50"

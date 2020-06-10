@@ -167,16 +167,18 @@ describe('checkJobStatus', () => {
       },
       type: UPDATE_JOB,
     });
-    expect(store.dispatch).toHaveBeenNthCalledWith(2, {
-      payload: {
-        id: runningJob.internalID,
-        content: 'Job "my job title" finished, found 1 hit',
-        format: MessageFormat.POP_UP,
-        level: MessageLevel.SUCCESS,
-        tag: MessageTag.JOB,
-        omitAndDeleteAtLocations: [Location.Dashboard],
-      },
-      type: ADD_MESSAGE,
-    });
+    expect(store.dispatch).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({
+        payload: expect.objectContaining({
+          id: runningJob.internalID,
+          content: expect.any(Object),
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.SUCCESS,
+          tag: MessageTag.JOB,
+          omitAndDeleteAtLocations: [Location.Dashboard],
+        }),
+      })
+    );
   });
 });

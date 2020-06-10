@@ -15,7 +15,7 @@ export enum BlastFields {
   stype = 'Sequence type',
   sequence = 'Sequence',
   taxons = 'Taxons',
-  targetDb = 'Target database',
+  database = 'Target database',
   threshold = 'E-Threshold',
   matrix = 'Matrix',
   filter = 'Filter',
@@ -57,7 +57,7 @@ export default Object.freeze({
     type: BlastFieldTypes.textarea,
     selected: '',
   }),
-  [BlastFields.targetDb]: Object.freeze({
+  [BlastFields.database]: Object.freeze({
     fieldName: 'database',
     type: BlastFieldTypes.select,
     selected: 'uniprotkb_refprotswissprot',

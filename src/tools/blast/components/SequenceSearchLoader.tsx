@@ -61,7 +61,7 @@ const SequenceSearchLoader: FC<{
       return;
     }
 
-    if (urlForAccessionOrID && !topResult) {
+    if (!urlForAccessionOrID) {
       onLoad({
         sequence: '',
         valid: false,

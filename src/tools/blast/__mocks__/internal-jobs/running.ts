@@ -6,7 +6,7 @@ const ONE_MINUTE_AGO = now - 1000 * 60;
 const TWO_MINUTES_AGO = now - 1000 * 60 * 2;
 const THREE_MINUTES_AGO = now - 1000 * 60 * 2;
 
-const failedAfterSubmission: RunningJob = {
+const running: RunningJob = {
   status: Status.RUNNING,
   internalID: 'local-97e5ab00-9ff0-11ea-baf5-bf14c9060612',
   remoteID: 'ncbiblast-R20200522-953245-6299-98843150-p1m',
@@ -29,4 +29,4 @@ const failedAfterSubmission: RunningJob = {
   timeLastUpdate: ONE_MINUTE_AGO,
 };
 
-export default failedAfterSubmission;
+export default running;

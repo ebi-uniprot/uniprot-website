@@ -3,21 +3,15 @@ import { Store } from 'redux';
 import convertFormParametersForServer from '../blast/adapters/BlastParametersAdapter';
 
 import isValidServerID from './isValidServerID';
-import getServerErrorDescription from '.';
+import { getServerErrorDescription, getJobMessage } from '.';
 
 import { addMessage } from '../../messages/state/messagesActions';
 import { updateJob } from '../state/toolsActions';
 
-import { Location } from '../../app/config/urls';
 import blastUrls from '../blast/config/blastUrls';
 import postData from '../../uniprotkb/config/postData';
 
 import { Status } from '../blast/types/blastStatuses';
-import {
-  MessageFormat,
-  MessageLevel,
-  MessageTag,
-} from '../../messages/types/messagesTypes';
 import { CreatedJob } from '../blast/types/blastJob';
 
 const getSubmitJob = ({ dispatch, getState }: Store) => async (
@@ -31,7 +25,6 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     } catch {
       throw new Error('Internal error');
     }
-    formData.delete('scores');
     const url = job.type === 'blast' ? blastUrls.runUrl : '';
 
     const response = await postData(url, {
@@ -77,16 +70,7 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
         errorDescription,
       })
     );
-    dispatch(
-      addMessage({
-        id: job.internalID,
-        content: errorDescription,
-        format: MessageFormat.POP_UP,
-        level: MessageLevel.FAILURE,
-        tag: MessageTag.JOB,
-        omitAndDeleteAtLocations: [Location.Dashboard],
-      })
-    );
+    dispatch(addMessage(getJobMessage({ job, errorDescription })));
   }
 };
 
