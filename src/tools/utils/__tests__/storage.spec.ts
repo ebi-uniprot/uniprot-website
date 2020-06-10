@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import JobStore, { DB_NAME } from '../storage';
 import { openDB } from 'idb';
 import { Stores } from '../stores';

@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { urlsAreEqual, getLocationForPathname } from '../url';
 import { Location } from '../../../app/config/urls';
 

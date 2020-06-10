@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import * as patterns from '../url-patterns';
 
 describe('URL patterns for service worker caching', () => {

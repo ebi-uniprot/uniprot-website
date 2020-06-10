@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { Store } from 'redux';
 
 import getCheckJobStatus from '../getCheckJobStatus';

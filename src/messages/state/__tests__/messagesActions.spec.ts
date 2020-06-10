@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import * as actions from '../messagesActions';
 import {
   MessageLevel,

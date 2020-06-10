@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { renderHook, cleanup } from '@testing-library/react-hooks';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -151,20 +154,20 @@ describe('useDataApi hook', () => {
     });
   });
 
- test('detect redirect', async () => {
-   mock.onGet(url).reply(200, 'some data');
-   mock.onGet(url2).reply(() => axios.get(url));
+  test('detect redirect', async () => {
+    mock.onGet(url).reply(200, 'some data');
+    mock.onGet(url2).reply(() => axios.get(url));
 
-   const { result, waitForNextUpdate } = renderHook(() => useDataApi(url2));
+    const { result, waitForNextUpdate } = renderHook(() => useDataApi(url2));
 
-   expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true });
 
-   await waitForNextUpdate();
-   expect(result.current).toEqual({
-    loading: false,
-    data: 'some data',
-    status: 200,
-    redirectedTo: url,
-   });
- });
+    await waitForNextUpdate();
+    expect(result.current).toEqual({
+      loading: false,
+      data: 'some data',
+      status: 200,
+      redirectedTo: url,
+    });
+  });
 });

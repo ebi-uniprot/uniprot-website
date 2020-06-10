@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import isValidServerID from '../isValidServerID';
 
 describe('isValidServerID', () => {

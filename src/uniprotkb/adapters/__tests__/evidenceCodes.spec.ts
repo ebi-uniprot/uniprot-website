@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { getEvidenceCodeData } from '../../config/evidenceCodes';
 
 describe('Evidence codes', () => {

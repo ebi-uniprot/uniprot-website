@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { sleep } from 'timing-functions';
 
 var axios = require('axios');

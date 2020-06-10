@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
   const isLiveReload = !!argv.liveReload;
+  const isTest = env.TEST;
 
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
@@ -32,6 +33,7 @@ module.exports = (env, argv) => {
       chunkFilename: '[name].[chunkhash:6].js',
     },
     devtool: (() => {
+      if (isTest) return;
       if (isLiveReload) return 'inline-sourcemap';
       if (isDev) return 'eval-source-map';
       // else, prod
@@ -79,6 +81,9 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
           },
         },
         // Stylesheets
@@ -186,6 +191,7 @@ module.exports = (env, argv) => {
           exclude: [/fonts/],
         }),
       !isLiveReload &&
+        !isTest &&
         new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)({
           analyzerMode: 'disabled',
           generateStatsFile: true,

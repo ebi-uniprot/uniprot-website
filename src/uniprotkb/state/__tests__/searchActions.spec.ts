@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
