@@ -15,5 +15,6 @@
 .env.test.local
 .env.production.local
 .vscode
+__diff_output__
 
 *.log

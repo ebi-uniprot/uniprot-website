@@ -12,6 +12,6 @@ describe('home page', () => {
 
   it('should open and load content', async () => {
     const image = await page.screenshot({ fullPage: true });
-    expect(image).toMatchImageSnapshot();
+    expect(image).toMatchImageSnapshot({ dumpDiffToConsole: true });
   });
 });
