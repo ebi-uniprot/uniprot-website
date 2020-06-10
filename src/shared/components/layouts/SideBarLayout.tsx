@@ -7,7 +7,7 @@ type SideBarLayoutProps = {
   title?: JSX.Element;
   sidebar: JSX.Element;
   children: JSX.Element;
-  actionButtons: JSX.Element;
+  actionButtons?: JSX.Element;
   invert?: boolean;
 };
 

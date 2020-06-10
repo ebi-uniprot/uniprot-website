@@ -47,9 +47,11 @@ const SequenceSearchLoader: FC<{
   const sequenceRef = useRef('');
 
   const urlForAccessionOrID = getURLForAccessionOrID(accessionOrID);
-  const { data, loading } = useDataApi(urlForAccessionOrID || '');
+  const { data, loading } = useDataApi<{ results: APISequenceData[] }>(
+    urlForAccessionOrID || ''
+  );
 
-  const topResult: APISequenceData | null = data?.results?.[0];
+  const topResult = data?.results?.[0];
 
   // no new result, probably invalid query, reset ref
   if (!topResult) {

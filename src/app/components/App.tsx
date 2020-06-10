@@ -122,11 +122,7 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.BlastResult]}
-              render={() => (
-                <SingleColumnLayout>
-                  <BlastResult />
-                </SingleColumnLayout>
-              )}
+              component={BlastResult}
             />
             <Route
               path={LocationToPath[Location.Blast]}

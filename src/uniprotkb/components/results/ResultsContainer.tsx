@@ -6,18 +6,24 @@ import { PageIntro, Loader } from 'franklin-sites';
 import ResultsView from './ResultsView';
 import ResultsButtons from './ResultsButtons';
 import ResultsFacets from './ResultsFacets';
-import { Clause, Namespace } from '../../types/searchTypes';
-import { Column } from '../../types/columnTypes';
-import { ViewMode } from '../../state/resultsInitialState';
-import { RootState } from '../../../app/state/rootInitialState';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import infoMappings from '../../../shared/config/InfoMappings';
 import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+
+import { ViewMode } from '../../state/resultsInitialState';
+import { RootState } from '../../../app/state/rootInitialState';
+
 import { getParamsFromURL } from '../../utils/resultsUtils';
+
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useDataApi from '../../../shared/hooks/useDataApi';
+
 import { getAPIQueryUrl } from '../../config/apiUrls';
+import infoMappings from '../../../shared/config/InfoMappings';
+
+import { Clause, Namespace } from '../../types/searchTypes';
+import { Column } from '../../types/columnTypes';
+import Response from '../../types/responseTypes';
 
 type ResultsProps = {
   namespace: Namespace;
@@ -51,9 +57,11 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
     sortDirection
   );
 
-  const { data, error, loading, headers, status } = useDataApi(initialApiUrl);
+  const { data, error, loading, headers, status } = useDataApi<
+    Response['data']
+  >(initialApiUrl);
 
-  if (error) {
+  if (error || !data) {
     return <ErrorHandler status={status} />;
   }
 

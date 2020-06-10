@@ -46,6 +46,7 @@ import * as messagesActions from '../../../messages/state/messagesActions';
 import uniProtKbConverter, {
   EntryType,
   UniProtkbInactiveEntryModel,
+  UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 
 import { hasContent, hasExternalLinks } from '../../utils';
@@ -66,9 +67,9 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
   const { path, params } = match;
   const { accession } = params;
 
-  const { loading, data, status, error, redirectedTo } = useDataApi(
-    apiUrls.entry(accession)
-  );
+  const { loading, data, status, error, redirectedTo } = useDataApi<
+    UniProtkbAPIModel
+  >(apiUrls.entry(accession));
 
   if (error) {
     return <ErrorHandler status={status} />;
@@ -79,7 +80,8 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
   }
 
   if (data && data.entryType === EntryType.INACTIVE) {
-    const inactiveEntryData: UniProtkbInactiveEntryModel = data as UniProtkbInactiveEntryModel;
+    // TODO: check models, because I have no idea what I'm doing here 🤷🏽‍♂️
+    const inactiveEntryData = (data as unknown) as UniProtkbInactiveEntryModel;
 
     return (
       <ObsoleteEntryPage

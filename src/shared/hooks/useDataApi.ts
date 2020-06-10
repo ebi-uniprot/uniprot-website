@@ -3,9 +3,9 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import fetchData from '../utils/fetchData';
 
-type State = {
+type State<T> = {
   loading: boolean;
-  data?: AxiosResponse['data'];
+  data?: T;
   status?: AxiosResponse['status'];
   statusText?: AxiosResponse['statusText'];
   headers?: AxiosResponse['headers'];
@@ -19,13 +19,21 @@ enum ActionType {
   ERROR = 'ERROR',
 }
 
-type Action =
+type Action<T> =
   | { type: ActionType.INIT }
-  | { type: ActionType.SUCCESS; response?: AxiosResponse; originalURL?: string }
+  | {
+      type: ActionType.SUCCESS;
+      response?: AxiosResponse<T>;
+      originalURL?: string;
+    }
   | { type: ActionType.ERROR; error: AxiosError };
 
 // eslint-disable-next-line consistent-return
-const reducer = (state: State, action: Action): State => {
+const createReducer = <T>() => (
+  state: State<T>,
+  action: Action<T>
+  // eslint-disable-next-line consistent-return
+): State<T> => {
   // eslint-disable-next-line default-case
   switch (action.type) {
     case ActionType.INIT:
@@ -34,7 +42,7 @@ const reducer = (state: State, action: Action): State => {
       };
     case ActionType.SUCCESS:
       // eslint-disable-next-line no-case-declarations
-      const newState: State = {
+      const newState: State<T> = {
         loading: false,
         data: action.response && action.response.data,
         status: action.response && action.response.status,
@@ -67,8 +75,8 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-const useDataApi = (url?: string): State => {
-  const [state, dispatch] = useReducer(reducer, { loading: !!url });
+function useDataApi<T>(url?: string): State<T> {
+  const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
 
   useEffect(() => {
     // need this variabe to ensure state updates don't occur when cancelled/unmounted
@@ -110,6 +118,6 @@ const useDataApi = (url?: string): State => {
   }, [url]);
 
   return state;
-};
+}
 
 export default useDataApi;

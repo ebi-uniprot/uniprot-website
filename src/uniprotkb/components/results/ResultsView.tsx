@@ -2,24 +2,29 @@ import React, { useState, useEffect, useRef } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { SortDirection } from '../../types/resultsTypes';
-import { SortableColumn, Column } from '../../types/columnTypes';
 import UniProtKBCard from './UniProtKBCard';
-// import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
-import ColumnConfiguration from '../../config/ColumnConfiguration';
+
 import uniProtKbConverter, {
   UniProtkbUIModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
+
 import { ViewMode } from '../../state/resultsInitialState';
+
+import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
+import ColumnConfiguration from '../../config/ColumnConfiguration';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import getNextUrlFromResponse from '../../utils/queryUtils';
 import {
   getParamsFromURL,
   getLocationObjForParams,
   getSortableColumnToSortColumn,
 } from '../../utils/resultsUtils';
-import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import getNextUrlFromResponse from '../../utils/queryUtils';
+
+import { SortDirection, ReceivedFieldData } from '../../types/resultsTypes';
+import { SortableColumn, Column } from '../../types/columnTypes';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
@@ -62,8 +67,10 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     Map<Column, string>
   >();
 
-  const { data, headers } = useDataApi(url);
-  const { data: dataResultFields } = useDataApi(apiUrls.resultsFields);
+  const { data, headers } = useDataApi<{ results: UniProtkbAPIModel[] }>(url);
+  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
+    apiUrls.resultsFields
+  );
   // TODO handle error
 
   const prevViewMode = useRef<ViewMode>();
@@ -74,7 +81,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   useEffect(() => {
     if (!data) return;
     const { results } = data;
-    setAllResults(allRes => [...allRes, ...results]);
+    setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: headers['x-totalrecords'],
       nextUrl: getNextUrlFromResponse(headers.link),
@@ -145,7 +152,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
       </div>
     );
   } // viewMode === ViewMode.TABLE
-  const columnsToDisplay = columns.map(columnName => {
+  const columnsToDisplay = columns.map((columnName) => {
     const columnConfig = ColumnConfiguration.get(columnName);
     if (columnConfig) {
       return {

@@ -17,6 +17,8 @@ import { Evidence } from '../../types/modelTypes';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
 import './styles/variation-view.scss';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+import { ProcessedFeature } from './FeaturesView';
 
 export type ProtvistaVariant = {
   begin: number;
@@ -121,10 +123,7 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
         const formatedDescription = formatVariantDescription(d.description);
         return formatedDescription
           ? formatedDescription.map(
-              descriptionLine =>
-                html`
-                  <p>${descriptionLine}</p>
-                `
+              (descriptionLine) => html` <p>${descriptionLine}</p> `
             )
           : '';
       },
@@ -146,21 +145,21 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
         if (!d.association) {
           return '';
         }
-        return d.association.map(association => {
+        return d.association.map((association) => {
           return html`
             <p>
               ${association.name}
               ${association.evidences &&
-                UniProtProtvistaEvidenceTag(
-                  association.evidences.map(evidence => {
-                    return ({
-                      evidenceCode: evidence.code,
-                      source: evidence.source.name,
-                      id: evidence.source.id,
-                    } as unknown) as Evidence;
-                  }),
-                  evidenceTagCallback
-                )}
+              UniProtProtvistaEvidenceTag(
+                association.evidences.map((evidence) => {
+                  return {
+                    evidenceCode: evidence.code,
+                    source: evidence.source.name,
+                    id: evidence.source.id,
+                  } as Evidence;
+                }),
+                evidenceTagCallback
+              )}
             </p>
           `;
         });
@@ -174,11 +173,11 @@ const VariationView: FC<{
   title?: string;
   hasTable?: boolean;
 }> = ({ primaryAccession, title, hasTable = true }) => {
-  const { loading, data, error, status } = useDataApi(
+  const { loading, data, error, status } = useDataApi<UniProtkbAPIModel>(
     joinUrl(apiUrls.variation, primaryAccession)
   );
 
-  const protvistaFilterRef = useCallback(node => {
+  const protvistaFilterRef = useCallback((node) => {
     if (node !== null) {
       // eslint-disable-next-line no-param-reassign
       node.filters = filterConfig;
@@ -186,8 +185,8 @@ const VariationView: FC<{
   }, []);
 
   const protvistaVariationRef = useCallback(
-    node => {
-      if (node !== null && data.features) {
+    (node) => {
+      if (node !== null && data && data.features) {
         const transformedData: TransformedVariantsResponse = transformData(
           data
         );
@@ -209,7 +208,13 @@ const VariationView: FC<{
     return <div>An error happened</div>;
   }
 
-  if (status === 404 || !data.sequence || data.features.length <= 0) {
+  if (
+    status === 404 ||
+    !data ||
+    !data.sequence ||
+    !data.features ||
+    data.features.length <= 0
+  ) {
     return null;
   }
 
@@ -237,8 +242,9 @@ const VariationView: FC<{
             />
           </div>
         )}
+        {/* TODO: check models, because I have no idea what I'm doing here 🤷🏽‍♂️ */}
         <FeaturesTableView
-          data={data.features}
+          data={(data.features as unknown) as ProcessedFeature[]}
           getColumnConfig={getColumnConfig}
         />
       </protvista-manager>

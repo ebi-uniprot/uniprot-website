@@ -1,16 +1,22 @@
 import React, { FC, Fragment } from 'react';
 import { Publication, Loader, Message } from 'franklin-sites';
+
 import useDataApi from '../../../shared/hooks/useDataApi';
+
 import { getPublicationsURL } from '../../config/apiUrls';
+
+import formatCitationData from '../../adapters/literatureConverter';
+
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { LiteratureAPI } from '../../types/literatureTypes';
-import formatCitationData from '../../adapters/literatureConverter';
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];
 }> = ({ pubmedIds }) => {
   const url = getPublicationsURL(pubmedIds);
-  const { loading, data, status, error } = useDataApi(url);
+  const { loading, data, status, error } = useDataApi<{
+    results: LiteratureAPI[];
+  }>(url);
 
   if (error) {
     return (
@@ -24,12 +30,12 @@ const UniProtKBEntryPublications: FC<{
     return <Loader />;
   }
 
-  const { results }: { results: LiteratureAPI[] } = data;
+  const { results } = data;
   return (
     <Fragment>
       {results &&
         results
-          .map(literatureItem => ({
+          .map((literatureItem) => ({
             ...literatureItem,
             ...formatCitationData(literatureItem.citation),
           }))
