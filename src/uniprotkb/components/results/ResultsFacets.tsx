@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import { Facets } from 'franklin-sites';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 import {
   getLocationObjForParams,
   getParamsFromURL,
 } from '../../utils/resultsUtils';
+
 import { SelectedFacet } from '../../types/resultsTypes';
 import { Facet } from '../../types/responseTypes';
 
-const ResultsFacets: FC<{ facets: Facet[] } & RouteComponentProps> = ({
-  facets,
-  location,
-  history,
-}) => {
-  const pathname = '/uniprotkb';
-  const { search: queryParamFromUrl } = location;
+const ResultsFacets: FC<{ facets: Facet[] }> = ({ facets }) => {
+  const {
+    push,
+    location: { search: queryParamFromUrl, pathname },
+  } = useHistory();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
@@ -22,7 +22,7 @@ const ResultsFacets: FC<{ facets: Facet[] } & RouteComponentProps> = ({
   const addFacet = (facetName: string, facetValue: string): void => {
     const facet: SelectedFacet = { name: facetName, value: facetValue };
 
-    history.push(
+    push(
       getLocationObjForParams(
         pathname,
         query,
@@ -35,12 +35,12 @@ const ResultsFacets: FC<{ facets: Facet[] } & RouteComponentProps> = ({
 
   const removeFacet = (facetName: string, facetValue: string): void => {
     const index = selectedFacets.findIndex(
-      selectedFacet =>
+      (selectedFacet) =>
         selectedFacet.name === facetName && selectedFacet.value === facetValue
     );
 
     selectedFacets.splice(index, 1);
-    history.push(
+    push(
       getLocationObjForParams(
         pathname,
         query,
@@ -61,4 +61,4 @@ const ResultsFacets: FC<{ facets: Facet[] } & RouteComponentProps> = ({
   );
 };
 
-export default withRouter(ResultsFacets);
+export default ResultsFacets;

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Loader, PageIntro } from 'franklin-sites';
+import { Loader, PageIntro, Tabs } from 'franklin-sites';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -29,26 +29,6 @@ type Match = {
     id: string;
   };
 };
-
-// const facets: Facet[] = [
-//   {
-//     label: 'Status',
-//     name: 'reviewed',
-//     allowMultipleSelection: false,
-//     values: [
-//       {
-//         label: 'Unreviewed (TrEMBL)',
-//         value: 'false',
-//         count: 455,
-//       },
-//       {
-//         label: 'Reviewed (Swiss-Prot)',
-//         value: 'true',
-//         count: 52,
-//       },
-//     ],
-//   },
-// ];
 
 const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
   const facets: Facet[] = [];
@@ -86,6 +66,7 @@ const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
   for (const { hit_uni_ox: value, hit_uni_os: label } of data.hits) {
     let organism = organisms.get(value);
     if (!organism) {
+      // first time we see this organism
       organism = { label, value, count: 0 };
       organisms.set(value, organism);
     }
@@ -168,7 +149,30 @@ const BlastResult = () => {
       }
       sidebar={apiLoading ? <Loader /> : <ResultsFacets facets={facets} />}
     >
-      <BlastResultTable data={data || blastData} />
+      <Tabs
+        tabData={[
+          {
+            title: 'Sumary',
+            content: <BlastResultTable data={data || blastData} />,
+            id: 'summary',
+          },
+          {
+            title: 'Taxonomy',
+            content: 'Taxonomy content',
+            id: 'taxonomy',
+          },
+          {
+            title: 'Hit Distribution',
+            content: 'Hit distribution content',
+            id: 'hit-distribution',
+          },
+          {
+            title: 'Text Output',
+            content: 'Text output content',
+            id: 'text-output',
+          },
+        ]}
+      />
     </SideBarLayout>
   );
 };
