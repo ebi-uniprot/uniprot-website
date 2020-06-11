@@ -61,12 +61,12 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
     Response['data']
   >(initialApiUrl);
 
-  if (error || !data) {
-    return <ErrorHandler status={status} />;
-  }
-
   if (loading) {
     return <Loader />;
+  }
+
+  if (error || !data) {
+    return <ErrorHandler status={status} />;
   }
 
   const { facets, results } = data;

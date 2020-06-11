@@ -106,7 +106,13 @@ const getEnrichApiUrl = (blastData?: BlastResults) => {
     return null;
   }
   return getAPIQueryUrl(
-    blastData.hits.map((hit) => `(accession:${hit.hit_acc})`).join(' OR ')
+    blastData.hits.map((hit) => `(accession:${hit.hit_acc})`).join(' OR '),
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    [],
+    blastData.hits.length
   );
 };
 
@@ -143,34 +149,26 @@ const BlastResult = () => {
   } = useDataApi<BlastResults>(blastUrls.resultUrl(match.params.id));
 
   // corresponding data from API
-  const {
-    loading: apiLoading,
-    data: apiData,
-    error: apiError,
-    status: apiStatus,
-  } = useDataApi<Response['data']>(
+  const { loading: apiLoading, data: apiData } = useDataApi<Response['data']>(
     useMemo(() => getEnrichApiUrl(blastData), [blastData])
   );
 
-  const loading = blastLoading || apiLoading;
   const data = useMemo(() => enrich(blastData, apiData), [blastData, apiData]);
-  const error = blastError || apiError;
-  const status = blastStatus || apiStatus || 404;
 
   const facets = useMemo(() => getFacetsFromData(data), [data]);
 
-  if (loading) return <Loader />;
+  if (blastLoading) return <Loader />;
 
-  if (error || !data) return <ErrorHandler status={status} />;
+  if (blastError || !blastData) return <ErrorHandler status={blastStatus} />;
 
   return (
     <SideBarLayout
       title={
-        <PageIntro title="BLAST Results" resultsCount={data.hits.length} />
+        <PageIntro title="BLAST Results" resultsCount={blastData.hits.length} />
       }
-      sidebar={<ResultsFacets facets={facets} />}
+      sidebar={apiLoading ? <Loader /> : <ResultsFacets facets={facets} />}
     >
-      <BlastResultTable data={data} />
+      <BlastResultTable data={data || blastData} />
     </SideBarLayout>
   );
 };

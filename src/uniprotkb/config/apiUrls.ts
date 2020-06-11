@@ -101,19 +101,30 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
 export const createAccessionsQueryString = (accessions: string[]) =>
   accessions.map((accession) => `accession:${accession}`).join(' OR ');
 
+const defaultFacets = [
+  'reviewed',
+  'model_organism',
+  'proteins_with',
+  'existence',
+  'annotation_score',
+  'length',
+];
+// TODO: should probably change those params to an object
 export const getAPIQueryUrl = (
   query: string,
   columns: string[] = [],
   selectedFacets: SelectedFacet[] = [],
   sortColumn: SortableColumn | undefined = undefined,
-  sortDirection: SortDirection | undefined = SortDirection.ascend
+  sortDirection: SortDirection | undefined = SortDirection.ascend,
+  facets: string[] = defaultFacets,
+  size?: number
 ) => {
   if (!query) return null;
   return `${apiUrls.search}?${queryString.stringify({
+    size,
     query: `${query}${createFacetsQueryString(selectedFacets)}`,
     fields: columns && columns.join(','),
-    facets:
-      'reviewed,model_organism,proteins_with,existence,annotation_score,length',
+    facets: facets.join(','),
     sort:
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
