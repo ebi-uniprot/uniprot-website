@@ -1,8 +1,10 @@
+export type FacetValue = { label: string; value: string; count: number };
+
 export type Facet = {
   label: string;
   name: string;
   allowMultipleSelection: boolean;
-  values: { label: string; value: string; count: number }[];
+  values: FacetValue[];
 };
 
 type Response = {

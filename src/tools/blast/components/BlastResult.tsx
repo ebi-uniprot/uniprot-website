@@ -14,7 +14,10 @@ import blastUrls from '../config/blastUrls';
 import { getAPIQueryUrl } from '../../../uniprotkb/config/apiUrls';
 
 import { BlastResults, BlastHit } from '../types/blastResults';
-import Response, { Facet } from '../../../uniprotkb/types/responseTypes';
+import Response, {
+  Facet,
+  FacetValue,
+} from '../../../uniprotkb/types/responseTypes';
 // what we import are types, even if they are in adapter file
 import {
   UniProtkbAPIModel,
@@ -55,6 +58,7 @@ const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
 
   console.table(data.hits);
 
+  // status
   facets.push({
     label: 'Status',
     name: 'reviewed',
@@ -75,6 +79,23 @@ const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
         ).length,
       },
     ],
+  });
+
+  // organisms
+  const organisms = new Map<string, FacetValue>();
+  for (const { hit_uni_ox: value, hit_uni_os: label } of data.hits) {
+    let organism = organisms.get(value);
+    if (!organism) {
+      organism = { label, value, count: 0 };
+      organisms.set(value, organism);
+    }
+    organism.count += 1;
+  }
+  facets.push({
+    label: 'Organisms',
+    name: 'organism',
+    allowMultipleSelection: true,
+    values: Array.from(organisms.values()).sort((a, b) => b.count - a.count),
   });
 
   return facets;
