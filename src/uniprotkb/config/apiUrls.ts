@@ -99,16 +99,17 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
   );
 
 export const createAccessionsQueryString = (accessions: string[]) =>
-  accessions.map(accession => `accession:${accession}`).join(' OR ');
+  accessions.map((accession) => `accession:${accession}`).join(' OR ');
 
 export const getAPIQueryUrl = (
   query: string,
-  columns: string[] | null,
-  selectedFacets: SelectedFacet[],
+  columns: string[] = [],
+  selectedFacets: SelectedFacet[] = [],
   sortColumn: SortableColumn | undefined = undefined,
   sortDirection: SortDirection | undefined = SortDirection.ascend
-) =>
-  `${apiUrls.search}?${queryString.stringify({
+) => {
+  if (!query) return null;
+  return `${apiUrls.search}?${queryString.stringify({
     query: `${query}${createFacetsQueryString(selectedFacets)}`,
     fields: columns && columns.join(','),
     facets:
@@ -117,6 +118,7 @@ export const getAPIQueryUrl = (
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
   })}`;
+};
 
 export const getUniProtPublicationsQueryUrl = (
   accession: string,
@@ -125,7 +127,7 @@ export const getUniProtPublicationsQueryUrl = (
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
     facets: 'source,category,study_type',
     query: selectedFacets
-      .map(facet => `(${facet.name}:"${facet.value}")`)
+      .map((facet) => `(${facet.name}:"${facet.value}")`)
       .join(' AND '),
   })}`;
 
@@ -195,5 +197,5 @@ export const getPublicationURL = (id: string) =>
 
 export const getPublicationsURL = (ids: string[]) =>
   `${literatureApiUrls.literature}/search?query=(${ids
-    .map(id => `id:${id}`)
+    .map((id) => `id:${id}`)
     .join(' OR ')})`;

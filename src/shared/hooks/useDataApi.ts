@@ -75,7 +75,7 @@ const createReducer = <T>() => (
   }
 };
 
-function useDataApi<T>(url?: string): State<T> {
+function useDataApi<T>(url?: string | null): State<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
 
   useEffect(() => {

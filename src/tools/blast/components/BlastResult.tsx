@@ -11,9 +11,15 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import blastUrls from '../config/blastUrls';
+import { getAPIQueryUrl } from '../../../uniprotkb/config/apiUrls';
 
-import { BlastResults } from '../types/blastResults';
-import { Facet } from '../../../uniprotkb/types/responseTypes';
+import { BlastResults, BlastHit } from '../types/blastResults';
+import Response, { Facet } from '../../../uniprotkb/types/responseTypes';
+// what we import are types, even if they are in adapter file
+import {
+  UniProtkbAPIModel,
+  EntryType,
+} from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 type Match = {
   params: {
@@ -41,28 +47,100 @@ type Match = {
 //   },
 // ];
 
-const getFacetsFromData = (data?: BlastResults): Facet[] => {
+const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
   const facets: Facet[] = [];
-  if (!data) {
+  if (!data || !data.hits.length) {
     return facets;
   }
+
+  console.table(data.hits);
+
+  facets.push({
+    label: 'Status',
+    name: 'reviewed',
+    allowMultipleSelection: false,
+    values: [
+      {
+        label: 'Unreviewed (TrEMBL)',
+        value: 'false',
+        count: data.hits.filter(
+          (hit) => hit.extra?.entryType === EntryType.TREMBL
+        ).length,
+      },
+      {
+        label: 'Reviewed (Swiss-Prot)',
+        value: 'true',
+        count: data.hits.filter(
+          (hit) => hit.extra?.entryType === EntryType.SWISSPROT
+        ).length,
+      },
+    ],
+  });
 
   return facets;
 };
 
+const getEnrichApiUrl = (blastData?: BlastResults) => {
+  if (!blastData) {
+    return null;
+  }
+  return getAPIQueryUrl(
+    blastData.hits.map((hit) => `(accession:${hit.hit_acc})`).join(' OR ')
+  );
+};
+
+interface EnrichedData extends BlastResults {
+  hits: Array<BlastHit & { extra?: UniProtkbAPIModel }>;
+}
+
+const enrich = (
+  blastData?: BlastResults,
+  apiData?: Response['data']
+): EnrichedData | null => {
+  if (!(blastData && apiData)) {
+    return null;
+  }
+  const output: EnrichedData = { ...blastData };
+  output.hits = output.hits.map((hit) => ({
+    ...hit,
+    extra: (apiData.results as UniProtkbAPIModel[]).find(
+      (entry) => hit.hit_acc === entry.primaryAccession
+    ),
+  }));
+  return output;
+};
+
 const BlastResult = () => {
   const match = useRouteMatch(LocationToPath[Location.BlastResult]) as Match;
-  const { loading, data, error, status } = useDataApi<BlastResults>(
-    blastUrls.resultUrl(match.params.id)
+
+  // data from blast
+  const {
+    loading: blastLoading,
+    data: blastData,
+    error: blastError,
+    status: blastStatus,
+  } = useDataApi<BlastResults>(blastUrls.resultUrl(match.params.id));
+
+  // corresponding data from API
+  const {
+    loading: apiLoading,
+    data: apiData,
+    error: apiError,
+    status: apiStatus,
+  } = useDataApi<Response['data']>(
+    useMemo(() => getEnrichApiUrl(blastData), [blastData])
   );
+
+  const loading = blastLoading || apiLoading;
+  const data = useMemo(() => enrich(blastData, apiData), [blastData, apiData]);
+  const error = blastError || apiError;
+  const status = blastStatus || apiStatus || 404;
 
   const facets = useMemo(() => getFacetsFromData(data), [data]);
 
   if (loading) return <Loader />;
 
-  if (error) return <ErrorHandler status={status} />;
-
-  if (!data) return <ErrorHandler status={404} />;
+  if (error || !data) return <ErrorHandler status={status} />;
 
   return (
     <SideBarLayout
