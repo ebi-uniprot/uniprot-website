@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import {
   calculatePredictionScoreAvg,
   getFilteredVariants,
@@ -104,7 +107,7 @@ describe('Variation filter config', () => {
   test('it should filter according to the callback function', () => {
     const filteredVariants = getFilteredVariants(
       transformedVariantPositions,
-      variant => variant.accession === 'A'
+      (variant) => variant.accession === 'A'
     );
     expect(filteredVariants).toEqual([
       {

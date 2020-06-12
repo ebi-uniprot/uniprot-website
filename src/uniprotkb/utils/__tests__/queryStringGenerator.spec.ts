@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import createQueryString from '../queryStringGenerator';
 import {
   testData,

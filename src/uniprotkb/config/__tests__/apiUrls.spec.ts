@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import apiUrls, { getAPIQueryUrl, createFacetsQueryString } from '../apiUrls';
 import { FileFormat } from '../../types/resultsTypes';
 

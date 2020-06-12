@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { addMessage, deleteMessage } from '../messagesActions';

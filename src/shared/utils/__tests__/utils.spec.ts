@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { removeProperty, formatLargeNumber, getBEMClassName } from '../utils';
 
 test('removeProperty removes only specified property and returns a deep copy of object ', () => {

@@ -4,14 +4,6 @@ import GDPR from '../GDPR';
 
 describe('GDPR', () => {
   const store = {};
-  beforeEach(() => {
-    spyOn(localStorage, 'getItem').and.callFake(key => {
-      store[key];
-    });
-    spyOn(localStorage, 'setItem').and.callFake((key, value) => {
-      store[key] = value;
-    });
-  });
 
   test('should render', () => {
     const { asFragment } = render(<GDPR />);

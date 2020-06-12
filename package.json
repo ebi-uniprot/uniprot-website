@@ -9,11 +9,14 @@
     "build:prod": "webpack --env.PUBLIC_PATH=/ --mode production",
     "build:staging": "webpack --env.PUBLIC_PATH=/uniprot-website/ --mode production",
     "build:dev": "webpack --env.PUBLIC_PATH=/ --mode development",
-    "check-types": "tsc",
-    "lint": "eslint 'src/**/*.ts*' --ignore-pattern 'src/**/*.spec.ts*'",
     "lint-fix": "eslint 'src/**/*.ts*' --ignore-pattern 'src/**/*.spec.ts*' --fix",
     "analyse": "webpack-bundle-analyzer build/stats.json",
-    "test": "yarn check-types && yarn lint && jest",
+    "test": "npm-run-all --continue-on-error test:*",
+    "test:lint": "eslint 'src/**/*.ts*' --ignore-pattern 'src/**/*.spec.ts*' --cache --cache-location 'node_modules/.cache'",
+    "test:types": "tsc",
+    "test:unit": "jest",
+    "test:functional": "jest --config tests/jest.config.json tests/functional",
+    "test:visual": "jest --config tests/jest.config.json tests/visual",
     "clear-test-cache": "jest --clearCache"
   },
   "browserslist": [
@@ -55,7 +58,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "pre-push": "npm-run-all test:lint test:types \"test:unit --silent --reporters='jest-silent-reporter' --bail\""
     }
   },
   "lint-staged": {
@@ -151,20 +155,28 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4.0.2",
+    "express": "4.17.1",
     "fake-indexeddb": "3.0.0",
+    "get-port": "5.1.1",
     "html-loader": "1.1.0",
     "html-webpack-plugin": "4.3.0",
     "husky": "4.2.5",
     "jest": "25.5.1",
     "jest-css-modules-transform": "4.0.0",
+    "jest-environment-node": "26.0.1",
+    "jest-image-snapshot": "4.0.2",
+    "jest-silent-reporter": "0.2.1",
     "lint-staged": "10.2.9",
     "lodash": "4.17.15",
     "mini-css-extract-plugin": "0.9.0",
     "node-sass": "4.14.1",
+    "npm-run-all": "4.1.5",
     "prettier": "2.0.5",
+    "puppeteer": "3.3.0",
     "react-beautiful-dnd-test-utils": "3.1.0",
     "react-test-renderer": "16.13.1",
     "redux-mock-store": "1.5.4",
+    "rimraf": "3.0.2",
     "sass-loader": "8.0.2",
     "style-loader": "1.2.1",
     "svg-inline-loader": "0.8.2",
