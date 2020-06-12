@@ -6,6 +6,7 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import BlastResultTable from './BlastResultTable';
 import ResultsFacets from '../../../uniprotkb/components/results/ResultsFacets';
+import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -152,24 +153,50 @@ const BlastResult = () => {
       <Tabs
         tabData={[
           {
-            title: 'Sumary',
-            content: <BlastResultTable data={data || blastData} />,
-            id: 'summary',
+            title: 'Overview',
+            content: (
+              <>
+                {/* TODO: make that component more generic */}
+                {/* @ts-ignore */}
+                <ResultsButtons />
+                <BlastResultTable data={data || blastData} />
+              </>
+            ),
+            id: 'overview',
           },
           {
             title: 'Taxonomy',
-            content: 'Taxonomy content',
+            content: (
+              <>
+                {/* TODO: make that component more generic */}
+                {/* @ts-ignore */}
+                <ResultsButtons />
+                Taxonomy content
+              </>
+            ),
             id: 'taxonomy',
           },
           {
             title: 'Hit Distribution',
-            content: 'Hit distribution content',
+            content: (
+              <>
+                {/* TODO: make that component more generic */}
+                {/* @ts-ignore */}
+                <ResultsButtons />
+                Hit distribution content
+              </>
+            ),
             id: 'hit-distribution',
           },
           {
             title: 'Text Output',
             content: 'Text output content',
             id: 'text-output',
+          },
+          {
+            title: 'Tool input',
+            content: 'Tool input content',
+            id: 'tool-input',
           },
         ]}
       />
