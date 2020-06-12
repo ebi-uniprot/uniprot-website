@@ -4,11 +4,12 @@ import { Loader, PageIntro, Tabs } from 'franklin-sites';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import ResultsButtons from '../../../../uniprotkb/components/results/ResultsButtons';
+import BlastResultSidebar from './BlastResultSidebar';
 import BlastResultTable from './BlastResultTable';
 import BlastResultTextOutput from './BlastResultTextOutput';
 import BlastResultToolInput from './BlastResultToolInput';
-import ResultsButtons from '../../../../uniprotkb/components/results/ResultsButtons';
-import BlastResultSidebar from './BlastResultSidebar';
+import BlastResultDownload from './BlastResultDownload';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -146,7 +147,7 @@ const BlastResult = () => {
           },
           {
             title: 'Download',
-            content: 'download content',
+            content: <BlastResultDownload id={match.params.id} />,
             id: 'download',
           },
         ]}

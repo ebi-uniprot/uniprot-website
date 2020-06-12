@@ -1,6 +1,6 @@
 const baseUrl = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast';
 
-type ResultFormat =
+export type ResultFormat =
   | 'out' // raw output of blast
   | 'sequence' // raw, as submitted
   | 'ids' // e.g. 'TR:F8D2X3_HALXS'

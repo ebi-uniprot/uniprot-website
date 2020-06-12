@@ -7,7 +7,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import blastUrls from '../../config/blastUrls';
 
-const BlastResultTextOutput: FC<{ id: string }> = ({ id }) => {
+const BlastResultToolInput: FC<{ id: string }> = ({ id }) => {
   const { loading, data, error, status } = useDataApi<string>(
     blastUrls.resultUrl(id, 'parameters')
   );
@@ -16,6 +16,7 @@ const BlastResultTextOutput: FC<{ id: string }> = ({ id }) => {
 
   if (error || !data) return <ErrorHandler status={status} />;
 
+  // TODO: replace with a franklin component
   return (
     <pre
       style={{
@@ -30,4 +31,4 @@ const BlastResultTextOutput: FC<{ id: string }> = ({ id }) => {
   );
 };
 
-export default BlastResultTextOutput;
+export default BlastResultToolInput;

@@ -16,6 +16,7 @@ const BlastResultTextOutput: FC<{ id: string }> = ({ id }) => {
 
   if (error || !data) return <ErrorHandler status={status} />;
 
+  // TODO: replace with a franklin component
   return (
     <pre
       style={{
