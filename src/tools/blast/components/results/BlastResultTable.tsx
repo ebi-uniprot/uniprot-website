@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { BlastResults, BlastHsp, BlastHit } from '../types/blastResults';
+import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 
 const parseHitDescription = (string: string) => {
   const regex = new RegExp(/(.*)(OS=.*)(OX=.*)(GN=.*)(PE=.*)(SV=.*)/);

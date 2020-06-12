@@ -103,7 +103,9 @@ const toolsMiddleware: Middleware = (store) => {
       }
       // job finished
       const response = await fetchData(
-        job.type === 'blast' ? blastUrls.resultUrl(job.remoteID) : ''
+        job.type === 'blast'
+          ? blastUrls.resultUrl(job.remoteID, 'jdp?format=json')
+          : ''
       );
 
       const results: BlastResults = response.data;

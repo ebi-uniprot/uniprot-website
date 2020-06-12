@@ -2,85 +2,29 @@ import React, { useMemo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Loader, PageIntro, Tabs } from 'franklin-sites';
 
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import BlastResultTable from './BlastResultTable';
-import ResultsFacets from '../../../uniprotkb/components/results/ResultsFacets';
-import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
+import BlastResultTextOutput from './BlastResultTextOutput';
+import BlastResultToolInput from './BlastResultToolInput';
+import ResultsButtons from '../../../../uniprotkb/components/results/ResultsButtons';
+import BlastResultSidebar from './BlastResultSidebar';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
-import blastUrls from '../config/blastUrls';
-import { getAPIQueryUrl } from '../../../uniprotkb/config/apiUrls';
+import { Location, LocationToPath } from '../../../../app/config/urls';
+import blastUrls from '../../config/blastUrls';
+import { getAPIQueryUrl } from '../../../../uniprotkb/config/apiUrls';
 
-import { BlastResults, BlastHit } from '../types/blastResults';
-import Response, {
-  Facet,
-  FacetValue,
-} from '../../../uniprotkb/types/responseTypes';
+import { BlastResults, BlastHit } from '../../types/blastResults';
+import Response from '../../../../uniprotkb/types/responseTypes';
 // what we import are types, even if they are in adapter file
-import {
-  UniProtkbAPIModel,
-  EntryType,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 type Match = {
   params: {
     id: string;
   };
-};
-
-const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
-  const facets: Facet[] = [];
-  if (!data || !data.hits.length) {
-    return facets;
-  }
-
-  console.table(data.hits);
-
-  // status
-  facets.push({
-    label: 'Status',
-    name: 'reviewed',
-    allowMultipleSelection: false,
-    values: [
-      {
-        label: 'Unreviewed (TrEMBL)',
-        value: 'false',
-        count: data.hits.filter(
-          (hit) => hit.extra?.entryType === EntryType.TREMBL
-        ).length,
-      },
-      {
-        label: 'Reviewed (Swiss-Prot)',
-        value: 'true',
-        count: data.hits.filter(
-          (hit) => hit.extra?.entryType === EntryType.SWISSPROT
-        ).length,
-      },
-    ],
-  });
-
-  // organisms
-  const organisms = new Map<string, FacetValue>();
-  for (const { hit_uni_ox: value, hit_uni_os: label } of data.hits) {
-    let organism = organisms.get(value);
-    if (!organism) {
-      // first time we see this organism
-      organism = { label, value, count: 0 };
-      organisms.set(value, organism);
-    }
-    organism.count += 1;
-  }
-  facets.push({
-    label: 'Organisms',
-    name: 'organism',
-    allowMultipleSelection: true,
-    values: Array.from(organisms.values()).sort((a, b) => b.count - a.count),
-  });
-
-  return facets;
 };
 
 const getEnrichApiUrl = (blastData?: BlastResults) => {
@@ -98,7 +42,9 @@ const getEnrichApiUrl = (blastData?: BlastResults) => {
   );
 };
 
-interface EnrichedData extends BlastResults {
+// probably going to change with the custom endpoint to enrich data, so keep it
+// here for now, enventually might be a new type in a type folder
+export interface EnrichedData extends BlastResults {
   hits: Array<BlastHit & { extra?: UniProtkbAPIModel }>;
 }
 
@@ -128,7 +74,9 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(blastUrls.resultUrl(match.params.id));
+  } = useDataApi<BlastResults>(
+    blastUrls.resultUrl(match.params.id, 'jdp?format=json')
+  );
 
   // corresponding data from API
   const { loading: apiLoading, data: apiData } = useDataApi<Response['data']>(
@@ -136,8 +84,6 @@ const BlastResult = () => {
   );
 
   const data = useMemo(() => enrich(blastData, apiData), [blastData, apiData]);
-
-  const facets = useMemo(() => getFacetsFromData(data), [data]);
 
   if (blastLoading) return <Loader />;
 
@@ -148,7 +94,7 @@ const BlastResult = () => {
       title={
         <PageIntro title="BLAST Results" resultsCount={blastData.hits.length} />
       }
-      sidebar={apiLoading ? <Loader /> : <ResultsFacets facets={facets} />}
+      sidebar={<BlastResultSidebar loading={apiLoading} data={data} />}
     >
       <Tabs
         tabData={[
@@ -190,13 +136,18 @@ const BlastResult = () => {
           },
           {
             title: 'Text Output',
-            content: 'Text output content',
+            content: <BlastResultTextOutput id={match.params.id} />,
             id: 'text-output',
           },
           {
             title: 'Tool input',
-            content: 'Tool input content',
+            content: <BlastResultToolInput id={match.params.id} />,
             id: 'tool-input',
+          },
+          {
+            title: 'Download',
+            content: 'download content',
+            id: 'download',
           },
         ]}
       />
