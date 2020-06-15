@@ -9,7 +9,7 @@ import BlastResultSidebar from './BlastResultSidebar';
 import BlastResultTable from './BlastResultTable';
 import BlastResultTextOutput from './BlastResultTextOutput';
 import BlastResultToolInput from './BlastResultToolInput';
-import BlastResultDownload from './BlastResultDownload';
+// import BlastResultDownload from './BlastResultDownload';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
@@ -145,11 +145,11 @@ const BlastResult = () => {
             content: <BlastResultToolInput id={match.params.id} />,
             id: 'tool-input',
           },
-          {
-            title: 'Download',
-            content: <BlastResultDownload id={match.params.id} />,
-            id: 'download',
-          },
+          // {
+          //   title: 'Download',
+          //   content: <BlastResultDownload id={match.params.id} />,
+          //   id: 'download',
+          // },
         ]}
       />
     </SideBarLayout>
