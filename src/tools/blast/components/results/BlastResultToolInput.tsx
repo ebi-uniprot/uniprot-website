@@ -7,6 +7,8 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 
 import blastUrls from '../../config/blastUrls';
 
+import './styles/blast-result.scss';
+
 const BlastResultToolInput: FC<{ id: string }> = ({ id }) => {
   const { loading, data, error, status } = useDataApi<string>(
     blastUrls.resultUrl(id, 'parameters')
@@ -16,16 +18,8 @@ const BlastResultToolInput: FC<{ id: string }> = ({ id }) => {
 
   if (error || !data) return <ErrorHandler status={status} />;
 
-  // TODO: replace with a franklin component
   return (
-    <pre
-      style={{
-        background: 'black',
-        color: 'white',
-        padding: '1ch',
-        display: 'inline-block',
-      }}
-    >
+    <pre className="code-block">
       <code>{data}</code>
     </pre>
   );
