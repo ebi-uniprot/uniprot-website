@@ -17,7 +17,7 @@ export const LocationToPath = {
   [Location.UniProtKBEntry]: '/uniprotkb/:accession',
   [Location.UniProtKBResults]: '/uniprotkb',
   [Location.UniProtKBDownload]: '/download',
-  [Location.BlastResult]: '/blast/:id',
+  [Location.BlastResult]: '/blast/:id/:subPage?',
   [Location.Blast]: '/blast',
   [Location.UniProtKBCustomiseTable]: '/customise-table',
   [Location.UniProtKBQueryBuilder]: '/advanced-search',

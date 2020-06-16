@@ -52,11 +52,14 @@ exports[`ColumnSelectView component should render 1`] = `
     >
       <div
         class="tabs__header"
+        role="tablist"
       >
         <div
+          aria-controls="<UUID>"
           class="tabs__header__item tabs__header__item--active"
+          data-target="0"
           data-testid="tab-title"
-          role="button"
+          role="tab"
           tabindex="0"
         >
           <div
@@ -75,9 +78,11 @@ exports[`ColumnSelectView component should render 1`] = `
           </div>
         </div>
         <div
-          class="tabs__header__item "
+          aria-controls="<UUID>"
+          class="tabs__header__item"
+          data-target="1"
           data-testid="tab-title"
-          role="button"
+          role="tab"
           tabindex="0"
         >
           <div
@@ -97,217 +102,122 @@ exports[`ColumnSelectView component should render 1`] = `
         </div>
       </div>
     </div>
-    <div>
+    <div
+      data-testid="tab-content"
+      id="<UUID>"
+      role="tabpanel"
+    >
       <div
-        class="tabs__content tabs__content--active"
-        data-testid="tab-content"
+        style="width: 18rem;"
       >
-        <div
-          style="width: 18rem;"
+        <span
+          class="search-input"
         >
+          <input
+            data-testid="search-input"
+            placeholder=""
+            type="text"
+            value=""
+          />
           <span
-            class="search-input"
+            class="search-input__suffix"
+            data-testid="search-input-suffix"
+            role="presentation"
           >
-            <input
-              data-testid="search-input"
-              placeholder=""
-              type="text"
-              value=""
-            />
-            <span
-              class="search-input__suffix"
-              data-testid="search-input-suffix"
-              role="presentation"
+            <svg
+              fill="currentColor"
+              height="14"
+              viewBox="0 0 512 512"
+              width="14"
             >
-              <svg
-                fill="currentColor"
-                height="14"
-                viewBox="0 0 512 512"
-                width="14"
-              >
-                <path
-                  d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                />
-              </svg>
-            </span>
+              <path
+                d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
+              />
+            </svg>
           </span>
-        </div>
-        <div
-          class="accordion-group accordion-search"
-        >
-          <div
-            class="accordion"
-          >
-            <div
-              class="accordion__title"
-              data-testid="accordion-title"
-              role="button"
-              tabindex="0"
-            >
-              <div
-                class="accordion__title__text"
-              >
-                title
-              </div>
-              <div
-                class="accordion__title__side"
-              >
-                <span
-                  class="accordion__title__side__count"
-                >
-                  <span
-                    class="bubble--small colour-sea-blue"
-                  >
-                    1
-                  </span>
-                </span>
-                <svg
-                  class="accordion__title__side__chevron"
-                  fill="currentColor"
-                  height="16"
-                  viewBox="0 0 512 311"
-                  width="16"
-                >
-                  <path
-                    d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                  />
-                </svg>
-              </div>
-            </div>
-            <div
-              class="accordion__content accordion__content--hide-content"
-              data-testid="accordion-content"
-            >
-              <ul
-                class="no-bullet accordion-search__list accordion-search__list--columns"
-              >
-                <li
-                  class="accordion-search__list__item"
-                  data-testid="accordion-search-list-item"
-                >
-                  <label
-                    for="checkbox-accession"
-                  >
-                    <input
-                      class="accordion-search__list__item-checkbox"
-                      id="checkbox-accession"
-                      type="checkbox"
-                    />
-                    accession-label
-                  </label>
-                </li>
-                <li
-                  class="accordion-search__list__item"
-                  data-testid="accordion-search-list-item"
-                >
-                  <label
-                    for="checkbox-cc_allergen"
-                  >
-                    <input
-                      checked=""
-                      class="accordion-search__list__item-checkbox"
-                      id="checkbox-cc_allergen"
-                      type="checkbox"
-                    />
-                    ccAllergen-label
-                  </label>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        </span>
       </div>
       <div
-        class="tabs__content "
-        data-testid="tab-content"
+        class="accordion-group accordion-search"
       >
         <div
-          style="width: 18rem;"
-        >
-          <span
-            class="search-input"
-          >
-            <input
-              data-testid="search-input"
-              placeholder=""
-              type="text"
-              value=""
-            />
-            <span
-              class="search-input__suffix"
-              data-testid="search-input-suffix"
-              role="presentation"
-            >
-              <svg
-                fill="currentColor"
-                height="14"
-                viewBox="0 0 512 512"
-                width="14"
-              >
-                <path
-                  d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                />
-              </svg>
-            </span>
-          </span>
-        </div>
-        <div
-          class="accordion-group accordion-search"
+          class="accordion"
         >
           <div
-            class="accordion"
+            class="accordion__title"
+            data-testid="accordion-title"
+            role="button"
+            tabindex="0"
           >
             <div
-              class="accordion__title"
-              data-testid="accordion-title"
-              role="button"
-              tabindex="0"
+              class="accordion__title__text"
             >
-              <div
-                class="accordion__title__text"
-              >
-                title
-              </div>
-              <div
-                class="accordion__title__side"
-              >
-                <svg
-                  class="accordion__title__side__chevron"
-                  fill="currentColor"
-                  height="16"
-                  viewBox="0 0 512 311"
-                  width="16"
-                >
-                  <path
-                    d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                  />
-                </svg>
-              </div>
+              title
             </div>
             <div
-              class="accordion__content accordion__content--hide-content"
-              data-testid="accordion-content"
+              class="accordion__title__side"
             >
-              <ul
-                class="no-bullet accordion-search__list accordion-search__list--columns"
+              <span
+                class="accordion__title__side__count"
               >
-                <li
-                  class="accordion-search__list__item"
-                  data-testid="accordion-search-list-item"
+                <span
+                  class="bubble--small colour-sea-blue"
                 >
-                  <label
-                    for="checkbox-xref_abcd"
-                  >
-                    <input
-                      class="accordion-search__list__item-checkbox"
-                      id="checkbox-xref_abcd"
-                      type="checkbox"
-                    />
-                    xrefAbcd-label
-                  </label>
-                </li>
-              </ul>
+                  1
+                </span>
+              </span>
+              <svg
+                class="accordion__title__side__chevron"
+                fill="currentColor"
+                height="16"
+                viewBox="0 0 512 311"
+                width="16"
+              >
+                <path
+                  d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
+                />
+              </svg>
             </div>
+          </div>
+          <div
+            class="accordion__content accordion__content--hide-content"
+            data-testid="accordion-content"
+          >
+            <ul
+              class="no-bullet accordion-search__list accordion-search__list--columns"
+            >
+              <li
+                class="accordion-search__list__item"
+                data-testid="accordion-search-list-item"
+              >
+                <label
+                  for="checkbox-accession"
+                >
+                  <input
+                    class="accordion-search__list__item-checkbox"
+                    id="checkbox-accession"
+                    type="checkbox"
+                  />
+                  accession-label
+                </label>
+              </li>
+              <li
+                class="accordion-search__list__item"
+                data-testid="accordion-search-list-item"
+              >
+                <label
+                  for="checkbox-cc_allergen"
+                >
+                  <input
+                    checked=""
+                    class="accordion-search__list__item-checkbox"
+                    id="checkbox-cc_allergen"
+                    type="checkbox"
+                  />
+                  ccAllergen-label
+                </label>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

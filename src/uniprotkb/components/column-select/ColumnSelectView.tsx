@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccordionSearch, Tabs, Bubble } from 'franklin-sites';
+import { AccordionSearch, Tabs, Tab, Bubble } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 import { Column } from '../../types/columnTypes';
@@ -40,7 +40,7 @@ const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
     -label
   */
   const selected: SelectedColumn[] = new Array(columns.length);
-  [ColumnSelectTab.data, ColumnSelectTab.links].forEach(tabId => {
+  [ColumnSelectTab.data, ColumnSelectTab.links].forEach((tabId) => {
     fieldData[tabId].forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         const index = columns.indexOf(itemId);
@@ -73,24 +73,22 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
     fieldData
   );
 
-  const tabData = [ColumnSelectTab.data, ColumnSelectTab.links].map(tabId => {
+  const tabs = [ColumnSelectTab.data, ColumnSelectTab.links].map((tabId) => {
     const selectedColumnsInTab = fieldDataForSelectedColumns.filter(
-      item => item.tabId === tabId
+      (item) => item.tabId === tabId
     );
-    return {
-      title: getTabTitle(tabId, selectedColumnsInTab),
-      id: tabId,
-      key: tabId,
-      content: (
+    return (
+      <Tab key={tabId} title={getTabTitle(tabId, selectedColumnsInTab)}>
         <AccordionSearch
           accordionData={Object.values(fieldData[tabId])}
           onSelect={(_accordionId: string, itemId: Column) => onSelect(itemId)}
           selected={selectedColumnsInTab}
           columns
         />
-      ),
-    };
+      </Tab>
+    );
   });
+
   return (
     <div className="column-select">
       <ColumnSelectDragDrop
@@ -107,7 +105,7 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
       >
         Reset to default
       </button>
-      <Tabs tabData={tabData} />
+      <Tabs>{tabs}</Tabs>
     </div>
   );
 };

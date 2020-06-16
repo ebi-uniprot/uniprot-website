@@ -1,6 +1,6 @@
-import React, { useMemo } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { Loader, PageIntro, Tabs } from 'franklin-sites';
+import React, { useMemo, useEffect } from 'react';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -25,6 +25,7 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 type Match = {
   params: {
     id: string;
+    subPage?: string;
   };
 };
 
@@ -67,6 +68,7 @@ const enrich = (
 };
 
 const BlastResult = () => {
+  const history = useHistory();
   const match = useRouteMatch(LocationToPath[Location.BlastResult]) as Match;
 
   // data from blast
@@ -78,6 +80,19 @@ const BlastResult = () => {
   } = useDataApi<BlastResults>(
     blastUrls.resultUrl(match.params.id, 'jdp?format=json')
   );
+
+  console.log(match);
+
+  useEffect(() => {
+    if (!match.params.subPage) {
+      history.replace(
+        history.createHref({
+          ...history.location,
+          pathname: `${history.location.pathname}/overview`,
+        })
+      );
+    }
+  }, [match.params.subPage, history]);
 
   // corresponding data from API
   const { loading: apiLoading, data: apiData } = useDataApi<Response['data']>(
@@ -97,61 +112,61 @@ const BlastResult = () => {
       }
       sidebar={<BlastResultSidebar loading={apiLoading} data={data} />}
     >
-      <Tabs
-        tabData={[
-          {
-            title: 'Overview',
-            content: (
-              <>
-                {/* TODO: make that component more generic */}
-                {/* @ts-ignore */}
-                <ResultsButtons />
-                <BlastResultTable data={data || blastData} />
-              </>
-            ),
-            id: 'overview',
-          },
-          {
-            title: 'Taxonomy',
-            content: (
-              <>
-                {/* TODO: make that component more generic */}
-                {/* @ts-ignore */}
-                <ResultsButtons />
-                Taxonomy content
-              </>
-            ),
-            id: 'taxonomy',
-          },
-          {
-            title: 'Hit Distribution',
-            content: (
-              <>
-                {/* TODO: make that component more generic */}
-                {/* @ts-ignore */}
-                <ResultsButtons />
-                Hit distribution content
-              </>
-            ),
-            id: 'hit-distribution',
-          },
-          {
-            title: 'Text Output',
-            content: <BlastResultTextOutput id={match.params.id} />,
-            id: 'text-output',
-          },
-          {
-            title: 'Tool input',
-            content: <BlastResultToolInput id={match.params.id} />,
-            id: 'tool-input',
-          },
-          // {
-          //   title: 'Download',
-          //   content: <BlastResultDownload id={match.params.id} />,
-          //   id: 'download',
-          // },
-        ]}
-      />
+      <Tabs active={match.params.subPage}>
+        <Tab
+          id="overview"
+          title={
+            <Link to={`/blast/${match.params.id}/overview`}>Overview</Link>
+          }
+        >
+          {/* TODO: make that component more generic */}
+          {/* @ts-ignore */}
+          <ResultsButtons />
+          <BlastResultTable data={data || blastData} />
+        </Tab>
+        <Tab
+          id="taxonomy"
+          title={
+            <Link to={`/blast/${match.params.id}/taxonomy`}>Taxonomy</Link>
+          }
+        >
+          {/* TODO: make that component more generic */}
+          {/* @ts-ignore */}
+          <ResultsButtons />
+          Taxonomy content
+        </Tab>
+        <Tab
+          id="hit-distribution"
+          title={
+            <Link to={`/blast/${match.params.id}/hit-distribution`}>
+              Hit Distribution
+            </Link>
+          }
+        >
+          {/* TODO: make that component more generic */}
+          {/* @ts-ignore */}
+          <ResultsButtons />
+          Hit distribution content
+        </Tab>
+        <Tab
+          id="text-output"
+          title={
+            <Link to={`/blast/${match.params.id}/text-output`}>
+              Text Output
+            </Link>
+          }
+        >
+          <BlastResultTextOutput id={match.params.id} />
+        </Tab>
+        <Tab
+          id="tool-input"
+          title={
+            <Link to={`/blast/${match.params.id}/tool-input`}>Tool Input</Link>
+          }
+        >
+          <BlastResultToolInput id={match.params.id} />
+        </Tab>
+      </Tabs>
     </SideBarLayout>
   );
 };

@@ -226,7 +226,7 @@ const Row: FC<RowProps> = memo(({ job }) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job) {
-    jobLink = `${LocationToPath[Location.Blast]}/${job.remoteID}`;
+    jobLink = `${LocationToPath[Location.Blast]}/${job.remoteID}/overview`;
   }
 
   const handleClick = () => {
