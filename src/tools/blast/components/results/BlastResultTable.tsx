@@ -83,16 +83,16 @@ const BlastResultTable: FC<{ data: BlastResults }> = ({ data }) => {
 
   return (
     <Fragment>
-      <table className="data-table__table">
-        <thead className="data-table__table__header">
-          <tr className="data-table__table__header__row">
-            <th className="data-table__table__header__row__cell">Accession</th>
-            <th className="data-table__table__header__row__cell">Gene</th>
-            <th className="data-table__table__header__row__cell">Organism</th>
-            <th className="data-table__table__header__row__cell">Alignment</th>
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th className="data-table__header-cell">Accession</th>
+            <th className="data-table__header-cell">Gene</th>
+            <th className="data-table__header-cell">Organism</th>
+            <th className="data-table__header-cell">Alignment</th>
           </tr>
         </thead>
-        <tbody className="data-table__table__body">
+        <tbody>
           {data &&
             data.hits &&
             data.hits.map((hit: BlastHit) => {
@@ -105,16 +105,14 @@ const BlastResultTable: FC<{ data: BlastResults }> = ({ data }) => {
               } = hit;
               return (
                 <tr key={hit_acc}>
-                  <td className="data-table__table__body__cell">
+                  <td className="data-table__cell">
                     <Link to={`/uniprotkb/${hit_acc}`}>{hit_acc}</Link>
                   </td>
-                  <td className="data-table__table__body__cell">
-                    {hit_uni_gn}
-                  </td>
-                  <td className="data-table__table__body__cell">
+                  <td className="data-table__cell">{hit_uni_gn}</td>
+                  <td className="data-table__cell">
                     <Link to={`/taxonomy/${hit_uni_ox}`}>{hit_uni_os}</Link>
                   </td>
-                  <td className="data-table__table__body__cell data-table__blast-hsp">
+                  <td className="data-table__cell data-table__blast-hsp">
                     <BlastSummaryHsps hsps={hit_hsps} length={data.query_len} />
                   </td>
                 </tr>

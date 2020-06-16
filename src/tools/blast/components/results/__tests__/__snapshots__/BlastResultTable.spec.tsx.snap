@@ -3,42 +3,36 @@
 exports[`BlastResultTable tests should render the results table 1`] = `
 <DocumentFragment>
   <table
-    class="data-table__table"
+    class="data-table"
   >
-    <thead
-      class="data-table__table__header"
-    >
-      <tr
-        class="data-table__table__header__row"
-      >
+    <thead>
+      <tr>
         <th
-          class="data-table__table__header__row__cell"
+          class="data-table__header-cell"
         >
           Accession
         </th>
         <th
-          class="data-table__table__header__row__cell"
+          class="data-table__header-cell"
         >
           Gene
         </th>
         <th
-          class="data-table__table__header__row__cell"
+          class="data-table__header-cell"
         >
           Organism
         </th>
         <th
-          class="data-table__table__header__row__cell"
+          class="data-table__header-cell"
         >
           Alignment
         </th>
       </tr>
     </thead>
-    <tbody
-      class="data-table__table__body"
-    >
+    <tbody>
       <tr>
         <td
-          class="data-table__table__body__cell"
+          class="data-table__cell"
         >
           <a
             href="/uniprotkb/U6MKN0"
@@ -47,12 +41,12 @@ exports[`BlastResultTable tests should render the results table 1`] = `
           </a>
         </td>
         <td
-          class="data-table__table__body__cell"
+          class="data-table__cell"
         >
           ENH_00046930
         </td>
         <td
-          class="data-table__table__body__cell"
+          class="data-table__cell"
         >
           <a
             href="/taxonomy/51315"
@@ -61,7 +55,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
           </a>
         </td>
         <td
-          class="data-table__table__body__cell data-table__blast-hsp"
+          class="data-table__cell data-table__blast-hsp"
         >
           <protvista-track
             data-testid="blast-summary-track"
