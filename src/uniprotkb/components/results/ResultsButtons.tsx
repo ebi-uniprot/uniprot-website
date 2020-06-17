@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, lazy, useState, Suspense } from 'react';
 import {
   DownloadIcon,
   BasketIcon,
@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { ViewMode } from '../../state/resultsInitialState';
 import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
+import SidePanel from '../../../shared/components/layouts/SidePanel';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -31,70 +32,87 @@ const ResultsButtons: FC<{
   selectedEntries,
   total,
 }) => {
+  const DownloadComponent = lazy(() =>
+    import(/* webpackChunkName: "download" */ '../download/DownloadContainer')
+  );
+
+  const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   return (
-    <div className="button-group">
-      <button type="button" className="button tertiary disabled">
-        Blast
-      </button>
-      <button type="button" className="button tertiary disabled">
-        Align
-      </button>
-      <button type="button" className="button tertiary">
-        <Link
-          to={{
-            pathname: '/download',
-            state: {
-              query,
-              selectedFacets,
-              sortColumn,
-              sortDirection,
-              selectedEntries,
-              totalNumberResults: total,
-            },
-          }}
+    <>
+      {displayDownloadPanel && (
+        <Suspense fallback>
+          <SidePanel>
+            <DownloadComponent
+              query={query}
+              selectedFacets={selectedFacets}
+              sortColumn={sortColumn}
+              sortDirection={sortDirection}
+              selectedEntries={selectedEntries}
+              totalNumberResults={total}
+              onClose={() => setDisplayDownloadPanel(false)}
+            />
+          </SidePanel>
+        </Suspense>
+      )}
+      <div className="button-group">
+        <button type="button" className="button tertiary disabled">
+          Blast
+        </button>
+        <button type="button" className="button tertiary disabled">
+          Align
+        </button>
+        <button
+          type="button"
+          className="button tertiary"
+          onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
         >
           <DownloadIcon />
           Download
-        </Link>
-      </button>
-      <button type="button" className="button tertiary disabled">
-        <BasketIcon />
-        Add
-      </button>
-      <button type="button" className="button tertiary">
-        <StatisticsIcon />
-        Statistics
-      </button>
-      <button
-        type="button"
-        className="button tertiary large-icon"
-        onClick={() =>
-          setViewMode(
-            viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
-          )
-        }
-        data-testid="table-card-toggle"
-      >
-        <span
-          className={viewMode === ViewMode.CARD ? 'tertiary-icon__active' : ''}
+        </button>
+        <button type="button" className="button tertiary disabled">
+          <BasketIcon />
+          Add
+        </button>
+        <button type="button" className="button tertiary">
+          <StatisticsIcon />
+          Statistics
+        </button>
+        <button
+          type="button"
+          className="button tertiary large-icon"
+          onClick={() =>
+            setViewMode(
+              viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
+            )
+          }
+          data-testid="table-card-toggle"
         >
-          <TableIcon />
-        </span>
-        <span
-          className={viewMode === ViewMode.TABLE ? 'tertiary-icon__active' : ''}
-        >
-          <ListIcon />
-        </span>
-      </button>
-      {viewMode === ViewMode.TABLE && (
-        <Link to="/customise-table">
-          <button type="button" className="button tertiary">
-            <EditIcon />
-            Customize data
-          </button>
-        </Link>
-      )}
-    </div>
+          <span
+            className={
+              viewMode === ViewMode.CARD ? 'tertiary-icon__active' : ''
+            }
+          >
+            <TableIcon />
+          </span>
+          <span
+            className={
+              viewMode === ViewMode.TABLE ? 'tertiary-icon__active' : ''
+            }
+          >
+            <ListIcon />
+          </span>
+        </button>
+        {viewMode === ViewMode.TABLE && (
+          <Link to="/customise-table">
+            <button type="button" className="button tertiary">
+              <EditIcon />
+              Customize data
+            </button>
+          </Link>
+        )}
+      </div>
+    </>
   );
 };
 

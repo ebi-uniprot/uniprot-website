@@ -44,11 +44,6 @@ const CustomiseTablePage = lazy(() =>
     /* webpackChunkName: "customise-table" */ '../../uniprotkb/components/customise-table/CustomiseTableContainer'
   )
 );
-const DownloadPage = lazy(() =>
-  import(
-    /* webpackChunkName: "download" */ '../../uniprotkb/components/download/DownloadContainer'
-  )
-);
 const BlastResult = lazy(() =>
   import(
     /* webpackChunkName: "blast-result" */ '../../tools/blast/components/results/BlastResult'
@@ -109,14 +104,6 @@ const App = () => (
               render={() => (
                 <SingleColumnLayout>
                   <CustomiseTablePage />
-                </SingleColumnLayout>
-              )}
-            />
-            <Route
-              path={LocationToPath[Location.UniProtKBDownload]}
-              render={() => (
-                <SingleColumnLayout>
-                  <DownloadPage />
                 </SingleColumnLayout>
               )}
             />

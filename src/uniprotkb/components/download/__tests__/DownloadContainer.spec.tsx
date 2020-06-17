@@ -20,50 +20,47 @@ describe('getPreviewFileFormat', () => {
 });
 
 describe('DownloadContainer component', () => {
-  let renderedWithRedux, goBack, history, windowSpy;
-  const location = {
-    pathname: '/download',
-    state: {
-      query: 'nod2',
-      selectedFacets: [],
-      selectedEntries: ['Q9HC29', 'O43353', 'Q3KP66'],
-      totalNumberResults: 10,
-    },
-  };
+  let renderedWithRedux;
+
+  const onCloseMock = jest.fn();
+
   beforeEach(() => {
-    history = createMemoryHistory();
-    history.replace(location);
-    renderedWithRedux = renderWithRedux(<DownloadContainer />, {
-      initialState: {
-        ...initialState,
-        results: {
-          ...initialState.results,
-          totalNumberResults: 1000,
+    renderedWithRedux = renderWithRedux(
+      <DownloadContainer
+        onClose={onCloseMock}
+        query="nod2"
+        selectedFacets={[]}
+        selectedEntries={['Q9HC29', 'O43353', 'Q3KP66']}
+        totalNumberResults={10}
+      />,
+      {
+        initialState: {
+          ...initialState,
+          results: {
+            ...initialState.results,
+            totalNumberResults: 1000,
+          },
         },
-      },
-      history,
-    });
-    goBack = jest.spyOn(history, 'goBack');
-    windowSpy = jest.spyOn(global, 'window', 'get');
+      }
+    );
   });
 
   test('should go back and not call updateTableColumns action when cancel button is pressed', () => {
     const { getByText } = renderedWithRedux;
     const cancelButton = getByText('Cancel');
     fireEvent.click(cancelButton);
-    expect(goBack).toHaveBeenCalled();
+    expect(onCloseMock).toHaveBeenCalled();
   });
 
   test('should handle download button by opening new tab and then going back', () => {
     const { getAllByText } = renderedWithRedux;
     const downloadButton = getAllByText('Download')[1];
     fireEvent.click(downloadButton);
-    expect(windowSpy).toHaveBeenCalled();
-    expect(goBack).toHaveBeenCalled();
+    expect(onCloseMock).toHaveBeenCalled();
   });
 
   test('should handle preview button click', async () => {
-    const { getByTestId, getByText, findByTestId } = renderedWithRedux;
+    const { getByText, findByTestId } = renderedWithRedux;
     const previewButton = getByText('Preview 10');
     fireEvent.click(previewButton);
     const preview = await findByTestId('download-preview');

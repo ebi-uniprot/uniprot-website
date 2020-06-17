@@ -65,7 +65,7 @@ const DownloadView: React.FC<DownloadViewProps> = ({
         className="download"
         data-testid="download-form"
       >
-        <h3>Download</h3>
+        <h2>Download</h2>
         <label htmlFor="data-selection-false">
           <input
             id="data-selection-false"

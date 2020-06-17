@@ -6,9 +6,9 @@ exports[`DownloadView component should render 1`] = `
     class="download"
     data-testid="download-form"
   >
-    <h3>
+    <h2>
       Download
-    </h3>
+    </h2>
     <label
       for="data-selection-false"
     >

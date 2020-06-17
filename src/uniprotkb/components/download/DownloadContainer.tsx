@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import idx from 'idx';
 import { RootState } from '../../../app/state/rootInitialState';
 import DownloadView from './DownloadView';
@@ -20,31 +19,24 @@ export const getPreviewFileFormat = (fileFormat: FileFormat) =>
 
 type DownloadTableProps = {
   tableColumns: Column[];
-  location: {
-    state: {
-      query: string;
-      selectedFacets: SelectedFacet[];
-      sortColumn: SortableColumn;
-      sortDirection: SortDirection;
-      selectedEntries: string[];
-      totalNumberResults: number;
-    };
-  };
-} & RouteComponentProps;
+  query: string;
+  selectedFacets: SelectedFacet[];
+  sortColumn: SortableColumn;
+  sortDirection: SortDirection;
+  selectedEntries: string[];
+  totalNumberResults: number;
+  onClose: () => void;
+};
 
 const Download: React.FC<DownloadTableProps> = ({
   tableColumns,
-  history,
-  location: {
-    state: {
-      query = '',
-      selectedFacets = [],
-      sortColumn = Column.accession as SortableColumn,
-      sortDirection = SortDirection.ascend,
-      selectedEntries = [],
-      totalNumberResults = 0,
-    } = {},
-  },
+  query = '',
+  selectedFacets = [],
+  sortColumn = Column.accession as SortableColumn,
+  sortDirection = SortDirection.ascend,
+  selectedEntries = [],
+  totalNumberResults = 0,
+  onClose,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState(tableColumns);
   const [downloadAll, setDownloadAll] = useState(true);
@@ -75,12 +67,9 @@ const Download: React.FC<DownloadTableProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    history.goBack();
+    onClose();
   };
   const nSelectedEntries = selectedEntries.length;
-  const handleCancel = () => {
-    history.goBack();
-  };
   const nPreview = Math.min(
     10,
     downloadAll ? totalNumberResults : nSelectedEntries
@@ -100,9 +89,7 @@ const Download: React.FC<DownloadTableProps> = ({
   const handlePreview = () => {
     setLoadingPreview(true);
     fetchData(previewUrl, {
-      headers: {
-        Accept: fileFormatToContentType.get(previewFileFormat),
-      },
+      Accept: fileFormatToContentType.get(previewFileFormat),
     })
       .then((response) => {
         const contentType = idx(
@@ -133,7 +120,7 @@ const Download: React.FC<DownloadTableProps> = ({
   return (
     <DownloadView
       onSubmit={handleSubmit}
-      onCancel={handleCancel}
+      onCancel={onClose}
       onPreview={handlePreview}
       selectedColumns={selectedColumns}
       downloadAll={downloadAll}
@@ -162,6 +149,6 @@ const mapStateToProps = (state: RootState) => ({
   tableColumns: state.results.tableColumns,
 });
 
-const DownloadContainer = withRouter(connect(mapStateToProps)(Download));
+const DownloadContainer = connect(mapStateToProps)(Download);
 
 export default DownloadContainer;
