@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, lazy, Suspense } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
@@ -6,9 +6,6 @@ import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import ResultsButtons from '../../../../uniprotkb/components/results/ResultsButtons';
 import BlastResultSidebar from './BlastResultSidebar';
-import BlastResultTable from './BlastResultTable';
-import BlastResultTextOutput from './BlastResultTextOutput';
-import BlastResultToolInput from './BlastResultToolInput';
 // import BlastResultDownload from './BlastResultDownload';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -21,6 +18,20 @@ import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+
+const BlastResultTable = lazy(() =>
+  import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
+);
+const BlastResultTextOutput = lazy(() =>
+  import(
+    /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
+  )
+);
+const BlastResultToolInput = lazy(() =>
+  import(
+    /* webpackChunkName: "blast-result-tool-input" */ './BlastResultToolInput'
+  )
+);
 
 type Match = {
   params: {
@@ -122,7 +133,9 @@ const BlastResult = () => {
           {/* TODO: make that component more generic */}
           {/* @ts-ignore */}
           <ResultsButtons />
-          <BlastResultTable data={data || blastData} />
+          <Suspense fallback={<Loader />}>
+            <BlastResultTable data={data || blastData} />
+          </Suspense>
         </Tab>
         <Tab
           id="taxonomy"
@@ -156,7 +169,9 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <BlastResultTextOutput id={match.params.id} />
+          <Suspense fallback={<Loader />}>
+            <BlastResultTextOutput id={match.params.id} />
+          </Suspense>
         </Tab>
         <Tab
           id="tool-input"
@@ -164,7 +179,9 @@ const BlastResult = () => {
             <Link to={`/blast/${match.params.id}/tool-input`}>Tool Input</Link>
           }
         >
-          <BlastResultToolInput id={match.params.id} />
+          <Suspense fallback={<Loader />}>
+            <BlastResultToolInput id={match.params.id} />
+          </Suspense>
         </Tab>
       </Tabs>
     </SideBarLayout>
