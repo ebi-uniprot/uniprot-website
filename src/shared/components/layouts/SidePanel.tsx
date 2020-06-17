@@ -1,19 +1,9 @@
-import React, { FC } from 'react';
-import { useSpring, animated } from 'react-spring';
+import React, { FC, memo } from 'react';
+
 import './styles/side-panel.scss';
 
-const SidePanel: FC<{ children: JSX.Element }> = ({ children }) => {
-  const [props] = useSpring(() => ({
-    opacity: 1,
-    marginRight: 0,
-    from: { opacity: 0, marginRight: -1000 },
-  }));
-
-  return (
-    <animated.div className="side-panel" style={props}>
-      <div>{children}</div>
-    </animated.div>
-  );
-};
+const SidePanel: FC<{ children: JSX.Element }> = memo(({ children }) => (
+  <div className="side-panel">{children}</div>
+));
 
 export default SidePanel;

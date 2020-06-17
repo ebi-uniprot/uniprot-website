@@ -3,6 +3,17 @@
 @import '../../../../../node_modules/franklin-sites/src/styles/colours';
 @import '../../../../../node_modules/franklin-sites/src/styles/mixins';
 
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .side-panel {
   @include box-shadow(0.125rem);
   background-color: $colour-sky-white;
@@ -15,4 +26,9 @@
   top: 0;
   z-index: $z-index-high;
   overflow-y: auto;
+  will-change: opacity, transform;
+  animation-duration: 500ms;
+  animation-name: slide-in;
+  animation-iteration-count: 1;
+  animation-timing-function: cubic-bezier(0.5, 1, 0.89, 1);
 }
