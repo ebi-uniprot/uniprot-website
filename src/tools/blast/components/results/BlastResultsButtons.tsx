@@ -4,7 +4,8 @@ import SidePanel from '../../../../shared/components/layouts/SidePanel';
 
 const BlastResultsButtons: FC<{
   jobId: string;
-}> = ({ jobId }) => {
+  selectedEntries: string[];
+}> = ({ jobId, selectedEntries }) => {
   const BlastResultDownload = lazy(() =>
     import(/* webpackChunkName: "blast-download" */ './BlastResultDownload')
   );
@@ -26,10 +27,18 @@ const BlastResultsButtons: FC<{
         </Suspense>
       )}
       <div className="button-group">
-        <button type="button" className="button tertiary disabled">
+        <button
+          type="button"
+          className="button tertiary"
+          disabled={selectedEntries.length !== 1}
+        >
           Blast
         </button>
-        <button type="button" className="button tertiary disabled">
+        <button
+          type="button"
+          className="button tertiary"
+          disabled={selectedEntries.length <= 1}
+        >
           Align
         </button>
         <button
@@ -40,7 +49,11 @@ const BlastResultsButtons: FC<{
           <DownloadIcon />
           Download
         </button>
-        <button type="button" className="button tertiary disabled">
+        <button
+          type="button"
+          className="button tertiary"
+          disabled={selectedEntries.length <= 0}
+        >
           <BasketIcon />
           Add
         </button>

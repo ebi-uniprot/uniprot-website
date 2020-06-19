@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, lazy, Suspense } from 'react';
+import React, { useMemo, useEffect, useState, lazy, Suspense } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
@@ -6,8 +6,13 @@ import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import BlastResultSidebar from './BlastResultSidebar';
 // import BlastResultDownload from './BlastResultDownload';
+import BlastResultsButtons from './BlastResultsButtons';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApi, {
+  UseDataAPIState,
+} from '../../../../shared/hooks/useDataApi';
+
+import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import blastUrls from '../../config/blastUrls';
@@ -15,9 +20,9 @@ import { getAPIQueryUrl } from '../../../../uniprotkb/config/apiUrls';
 
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
+import { PublicServerParameters } from '../../types/blastServerParameters';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import BlastResultsButtons from './BlastResultsButtons';
 
 const BlastResultTable = lazy(() =>
   import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
@@ -38,11 +43,53 @@ const BlastResultToolInput = lazy(() =>
   )
 );
 
+enum TabLocation {
+  Overview = 'overview',
+  Taxonomy = 'taxonomy',
+  HitDistribution = 'hit-distribution',
+  TextOutput = 'text-output',
+  ToolInput = 'tool-input',
+}
+
 type Match = {
   params: {
     id: string;
     subPage?: string;
   };
+};
+
+// custom hook to get data from the input parameters endpoint, input sequence
+// then parse it and merge it.
+// This is kinda 'faking' useDataApi for the kind of object it outputs
+const useParamsData = (
+  id: string
+): Partial<UseDataAPIState<PublicServerParameters>> => {
+  const [paramsData, setParamsData] = useState<
+    Partial<UseDataAPIState<PublicServerParameters>>
+  >({});
+
+  const paramsXMLData = useDataApi<string>(
+    blastUrls.resultUrl(id, 'parameters')
+  );
+  const sequenceData = useDataApi<string>(blastUrls.resultUrl(id, 'sequence'));
+
+  useEffect(() => {
+    const loading = paramsXMLData.loading || sequenceData.loading;
+    const error = paramsXMLData.error || sequenceData.error;
+    const status = paramsXMLData.status || sequenceData.status;
+    if (loading) {
+      setParamsData({ loading });
+    } else if (error) {
+      setParamsData({ loading, error, status });
+    } else if (paramsXMLData.data && sequenceData.data) {
+      setParamsData({
+        loading,
+        data: inputParamsXMLToObject(paramsXMLData.data, sequenceData.data),
+      });
+    }
+  }, [paramsXMLData, sequenceData]);
+
+  return paramsData;
 };
 
 const getEnrichApiUrl = (blastData?: BlastResults) => {
@@ -87,6 +134,8 @@ const BlastResult = () => {
   const history = useHistory();
   const match = useRouteMatch(LocationToPath[Location.BlastResult]) as Match;
 
+  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+
   // data from blast
   const {
     loading: blastLoading,
@@ -96,8 +145,6 @@ const BlastResult = () => {
   } = useDataApi<BlastResults>(
     blastUrls.resultUrl(match.params.id, 'jdp?format=json')
   );
-
-  console.log(match);
 
   useEffect(() => {
     if (!match.params.subPage) {
@@ -117,16 +164,50 @@ const BlastResult = () => {
 
   const data = useMemo(() => enrich(blastData, apiData), [blastData, apiData]);
 
-  if (blastLoading) return <Loader />;
+  const inputParamsData = useParamsData(match.params.id);
 
-  if (blastError || !blastData) return <ErrorHandler status={blastStatus} />;
+  // Note: this function is duplicated in ResultsContainer.tsx
+  const handleSelectedEntries = (rowId: string) => {
+    const filtered = selectedEntries.filter((id) => id !== rowId);
+    setSelectedEntries(
+      filtered.length === selectedEntries.length
+        ? [...selectedEntries, rowId]
+        : filtered
+    );
+  };
+
+  if (blastLoading) {
+    return <Loader />;
+  }
+
+  if (blastError || !blastData) {
+    return <ErrorHandler status={blastStatus} />;
+  }
+
+  // Deciding what should be displayed on the sidebar
+  const facetsSidebar = <BlastResultSidebar loading={apiLoading} data={data} />;
+  const emptySidebar = (
+    <div className="sidebar-layout__sidebar-content--empty" />
+  );
+  let sidebar;
+
+  switch (match.params.subPage) {
+    case TabLocation.TextOutput:
+    case TabLocation.ToolInput:
+      sidebar = emptySidebar;
+      break;
+
+    default:
+      sidebar = facetsSidebar;
+      break;
+  }
 
   return (
     <SideBarLayout
       title={
         <PageIntro title="BLAST Results" resultsCount={blastData.hits.length} />
       }
-      sidebar={<BlastResultSidebar loading={apiLoading} data={data} />}
+      sidebar={sidebar}
     >
       <Tabs active={match.params.subPage}>
         <Tab
@@ -135,10 +216,16 @@ const BlastResult = () => {
             <Link to={`/blast/${match.params.id}/overview`}>Overview</Link>
           }
         >
-          {/* TODO: make that component more generic */}
-          <BlastResultsButtons jobId={match.params.id} />
+          <BlastResultsButtons
+            jobId={match.params.id}
+            selectedEntries={selectedEntries}
+          />
           <Suspense fallback={<Loader />}>
-            <BlastResultTable data={data || blastData} />
+            <BlastResultTable
+              data={data || blastData}
+              selectedEntries={selectedEntries}
+              handleSelectedEntries={handleSelectedEntries}
+            />
           </Suspense>
         </Tab>
         <Tab
@@ -147,8 +234,10 @@ const BlastResult = () => {
             <Link to={`/blast/${match.params.id}/taxonomy`}>Taxonomy</Link>
           }
         >
-          {/* TODO: make that component more generic */}
-          <BlastResultsButtons jobId={match.params.id} />
+          <BlastResultsButtons
+            jobId={match.params.id}
+            selectedEntries={selectedEntries}
+          />
           <BlastResultTaxonomy data={data} />
         </Tab>
         <Tab
@@ -159,8 +248,10 @@ const BlastResult = () => {
             </Link>
           }
         >
-          {/* TODO: make that component more generic */}
-          <BlastResultsButtons jobId={match.params.id} />
+          <BlastResultsButtons
+            jobId={match.params.id}
+            selectedEntries={selectedEntries}
+          />
           Hit distribution content
         </Tab>
         <Tab
@@ -182,7 +273,10 @@ const BlastResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            <BlastResultToolInput id={match.params.id} />
+            <BlastResultToolInput
+              id={match.params.id}
+              inputParamsData={inputParamsData}
+            />
           </Suspense>
         </Tab>
       </Tabs>

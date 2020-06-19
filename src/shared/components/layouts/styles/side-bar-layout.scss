@@ -1,5 +1,6 @@
 @import '../../../styles/settings';
 @import '../../../styles/mixins';
+@import '../../../../../node_modules/franklin-sites/src/styles/colours';
 
 .sidebar-layout {
   display: grid;
@@ -30,6 +31,13 @@
     padding: 0 $gutter-size;
     grid-area: sidebar;
     overflow-y: auto;
+  }
+
+  &__sidebar-content {
+    &--empty {
+      height: calc(100% - 1rem);
+      background-color: $colour-platinum;
+    }
   }
 
   &__content {
