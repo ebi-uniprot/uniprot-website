@@ -3,6 +3,15 @@
     transform: scale(0.8);
   }
 
+  & svg {
+    transform: rotate(0);
+    transition: transform 100ms ease-in-out;
+
+    &.closed {
+      transform: rotate(-90deg);
+    }
+  }
+
   & > ul > li::before {
     border-left: none;
   }

@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
-import { DoughnutChart } from 'franklin-sites';
+import { DoughnutChart, ChevronDownIcon } from 'franklin-sites';
 
 import { EnrichedData } from './BlastResult';
 
@@ -72,9 +72,11 @@ type TaxItemProps = {
 const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
   const [open, setOpen] = useState(true);
 
-  let arrowMaybe = null;
+  let chevronMaybe = null;
   if (taxNode.children.length) {
-    arrowMaybe = open ? '▿' : '▹';
+    chevronMaybe = (
+      <ChevronDownIcon width="1ch" className={open ? undefined : 'closed'} />
+    );
   }
 
   // eslint-disable-next-line no-shadow
@@ -84,7 +86,7 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
     <>
       <button type="button" onClick={handleClick}>
         {<DoughnutChart size="small" percent={Math.round(ratio * 100)} />}{' '}
-        {taxNode.name} (count: {taxNode.count}) {arrowMaybe}
+        {taxNode.name} (count: {taxNode.count}) {chevronMaybe}
       </button>
       <ul>
         {open &&
