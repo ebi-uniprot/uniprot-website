@@ -22,6 +22,11 @@ import BlastResultsButtons from './BlastResultsButtons';
 const BlastResultTable = lazy(() =>
   import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
 );
+const BlastResultTaxonomy = lazy(() =>
+  import(
+    /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
+  )
+);
 const BlastResultTextOutput = lazy(() =>
   import(
     /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
@@ -144,7 +149,7 @@ const BlastResult = () => {
         >
           {/* TODO: make that component more generic */}
           <BlastResultsButtons jobId={match.params.id} />
-          Taxonomy content
+          <BlastResultTaxonomy data={data} />
         </Tab>
         <Tab
           id="hit-distribution"
