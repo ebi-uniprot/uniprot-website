@@ -3,66 +3,11 @@ import { DoughnutChart, ChevronDownIcon } from 'franklin-sites';
 
 import { EnrichedData } from './BlastResult';
 
+import arrayOfLineagesToTree, {
+  TaxNode,
+} from '../../adapters/arrayOfLineagesToTree';
+
 import './styles/blast-result-taxonomy.scss';
-
-type TaxNode = {
-  name: string;
-  count: number;
-  children: TaxNode[];
-};
-
-const orderChildren = (node: TaxNode): TaxNode => ({
-  ...node,
-  children: node.children.map(orderChildren).sort((a, b) => b.count - a.count),
-});
-
-const createTree = (data: EnrichedData | null) => {
-  if (!data) {
-    return null;
-  }
-
-  const lineages: string[][] = data.hits
-    // extract lineages and do copy (to not mess up the original)
-    .map((hit) => Array.from(hit?.extra?.organism?.lineage ?? []))
-    // filter out no data
-    .filter((lineage) => lineage.length);
-
-  // tree, as a reference to the root of the tree
-  const tree: TaxNode = { name: 'All', count: 0, children: [] };
-
-  // looping over all the hits lineages
-  for (const lineage of lineages) {
-    tree.count += 1;
-    // this will be used to navigate the tree
-    let currentNode = tree;
-    // while loop over all the organism from the left to the right of the array
-    while (lineage.length) {
-      // extract higher organism to process
-      const currentOrganism = lineage.shift();
-      if (!currentOrganism) {
-        continue; // eslint-disable-line no-continue
-      }
-      // find it in the current node's children
-      let currentOrganismNode = currentNode.children.find(
-        (child) => child.name === currentOrganism
-      );
-      // if we don't have it yet, create it and append it
-      if (!currentOrganismNode) {
-        currentOrganismNode = {
-          name: currentOrganism,
-          count: 0,
-          children: [],
-        };
-        currentNode.children.push(currentOrganismNode);
-      }
-      currentOrganismNode.count += 1;
-      currentNode = currentOrganismNode;
-    }
-  }
-  // here we have the full tree generated
-  // now mutate it to order by number of children
-  return orderChildren(tree);
-};
 
 type TaxItemProps = {
   taxNode: TaxNode;
@@ -86,7 +31,7 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
     <>
       <button type="button" onClick={handleClick}>
         {<DoughnutChart size="small" percent={Math.round(ratio * 100)} />}{' '}
-        {taxNode.name} (count: {taxNode.count}) {chevronMaybe}
+        {taxNode.name} ({taxNode.count}) {chevronMaybe}
       </button>
       <ul>
         {open &&
@@ -101,7 +46,17 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
 };
 
 const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
-  const tree = useMemo(() => createTree(data), [data]);
+  const tree = useMemo(
+    () =>
+      arrayOfLineagesToTree(
+        ((data || {}).hits || [])
+          // extract lineages and do copy (to not mess up the original)
+          .map((hit) => Array.from(hit?.extra?.organism?.lineage ?? []))
+          // filter out no data
+          .filter((lineage) => lineage.length)
+      ),
+    [data]
+  );
 
   if (!tree) {
     return null;
