@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { FC, Fragment, useCallback, useState } from 'react';
+import { DataTable, DENSITY_COMPACT } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
@@ -53,75 +54,80 @@ const BlastSummaryHsps: FC<{ hsps: BlastHsp[]; length: number }> = ({
   );
 
   return (
-    <Fragment>
-      <BlastSummaryTrack hsp={hspsOrderedByScore[0]} length={length} />
-      {hspsOrderedByScore.length > 1 &&
-        !collapsed &&
-        hspsOrderedByScore
-          .slice(1)
-          .map((hsp) => (
-            <BlastSummaryTrack
-              hsp={hsp}
-              length={length}
-              key={`${hsp.hsp_hit_from}-${hsp.hsp_hit_to}`}
-            />
-          ))}
+    <div className="data-table__blast-hsp">
+      <div className="data-table__blast-hsp__tracks">
+        <BlastSummaryTrack hsp={hspsOrderedByScore[0]} length={length} />
+        {hspsOrderedByScore.length > 1 &&
+          !collapsed &&
+          hspsOrderedByScore
+            .slice(1)
+            .map((hsp) => (
+              <BlastSummaryTrack
+                hsp={hsp}
+                length={length}
+                key={`${hsp.hsp_hit_from}-${hsp.hsp_hit_to}`}
+              />
+            ))}
+      </div>
       {hspsOrderedByScore.length > 1 && collapsed && (
-        <small>
-          <button type="button" onClick={() => setCollapsed(false)}>{`+${
-            hspsOrderedByScore.length - 1
-          } more`}</button>
-        </small>
+        <button type="button" onClick={() => setCollapsed(false)}>{`+${
+          hspsOrderedByScore.length - 1
+        } more`}</button>
       )}
-    </Fragment>
+    </div>
   );
 };
 
-const BlastResultTable: FC<{ data: BlastResults }> = ({ data }) => {
+const BlastResultTable: FC<{
+  data: BlastResults;
+  selectedEntries: string[];
+  handleSelectedEntries: (rowId: string) => void;
+}> = ({ data, selectedEntries, handleSelectedEntries }) => {
   if (!data) {
     return null;
   }
   loadWebComponent('protvista-track', ProtvistaTrack);
 
+  const columns = [
+    {
+      label: 'Accession',
+      name: 'accession',
+      render: ({ hit_acc }: BlastHit) => (
+        <Link to={`/uniprotkb/${hit_acc}`}>{hit_acc}</Link>
+      ),
+    },
+    {
+      label: 'Gene',
+      name: 'gene',
+      render: ({ hit_uni_gn }: BlastHit) => hit_uni_gn,
+    },
+    {
+      label: 'Organism',
+      name: 'organism',
+      render: ({ hit_uni_ox, hit_uni_os }: BlastHit) => (
+        <Link to={`/taxonomy/${hit_uni_ox}`}>{hit_uni_os}</Link>
+      ),
+    },
+    {
+      label: 'Alignment',
+      name: 'alignment',
+      render: ({ hit_hsps }: BlastHit) => (
+        <BlastSummaryHsps hsps={hit_hsps} length={data.query_len} />
+      ),
+    },
+  ];
+
   return (
     <Fragment>
-      <table className="data-table">
-        <thead>
-          <tr>
-            <th className="data-table__header-cell">Accession</th>
-            <th className="data-table__header-cell">Gene</th>
-            <th className="data-table__header-cell">Organism</th>
-            <th className="data-table__header-cell">Alignment</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data &&
-            data.hits &&
-            data.hits.map((hit: BlastHit) => {
-              const {
-                hit_acc,
-                hit_hsps,
-                hit_uni_gn,
-                hit_uni_os,
-                hit_uni_ox,
-              } = hit;
-              return (
-                <tr key={hit_acc}>
-                  <td className="data-table__cell">
-                    <Link to={`/uniprotkb/${hit_acc}`}>{hit_acc}</Link>
-                  </td>
-                  <td className="data-table__cell">{hit_uni_gn}</td>
-                  <td className="data-table__cell">
-                    <Link to={`/taxonomy/${hit_uni_ox}`}>{hit_uni_os}</Link>
-                  </td>
-                  <td className="data-table__cell data-table__blast-hsp">
-                    <BlastSummaryHsps hsps={hit_hsps} length={data.query_len} />
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      <DataTable
+        getIdKey={({ hit_acc }: { hit_acc: string }) => hit_acc}
+        density={DENSITY_COMPACT}
+        columns={columns}
+        data={data.hits}
+        selectable
+        selected={selectedEntries}
+        onSelect={handleSelectedEntries}
+      />
     </Fragment>
   );
 };

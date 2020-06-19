@@ -1,11 +1,21 @@
 .data-table__blast-hsp {
-  width: 40vw;
-  text-align: right;
-  svg {
-    margin: 0.1rem 0;
-  }
+  display: flex;
   button {
-    // Compensate for protvista-track margin
-    margin-right: 0.5rem;
+    white-space: nowrap;
+  }
+  &__tracks {
+    width: 40vw;
+    svg {
+      margin: 0.1rem 0;
+    }
+  }
+}
+
+/**
+* HACK! this should be fixed in franklin
+*/
+.data-table {
+  input[type='checkbox'] {
+    margin: 0;
   }
 }

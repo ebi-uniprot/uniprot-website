@@ -2,79 +2,111 @@
 
 exports[`BlastResultTable tests should render the results table 1`] = `
 <DocumentFragment>
-  <table
-    class="data-table"
+  <div
+    class="data-loader__wrapper"
   >
-    <thead>
-      <tr>
-        <th
-          class="data-table__header-cell"
+    <div
+      class="data-loader__scroll-container"
+    >
+      <table
+        class="data-table data-table--compact "
+      >
+        <thead
+          class="data-table__header"
         >
-          Accession
-        </th>
-        <th
-          class="data-table__header-cell"
-        >
-          Gene
-        </th>
-        <th
-          class="data-table__header-cell"
-        >
-          Organism
-        </th>
-        <th
-          class="data-table__header-cell"
-        >
-          Alignment
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td
-          class="data-table__cell"
-        >
-          <a
-            href="/uniprotkb/U6MKN0"
+          <tr
+            class="data-table__row"
           >
-            U6MKN0
-          </a>
-        </td>
-        <td
-          class="data-table__cell"
+            <th
+              class="data-table__header-cell"
+            >
+               
+            </th>
+            <th
+              class="data-table__header-cell "
+            >
+              Accession
+            </th>
+            <th
+              class="data-table__header-cell "
+            >
+              Gene
+            </th>
+            <th
+              class="data-table__header-cell "
+            >
+              Organism
+            </th>
+            <th
+              class="data-table__header-cell "
+            >
+              Alignment
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="data-table__table__body"
         >
-          ENH_00046930
-        </td>
-        <td
-          class="data-table__cell"
-        >
-          <a
-            href="/taxonomy/51315"
-          >
-            Eimeria necatrix
-          </a>
-        </td>
-        <td
-          class="data-table__cell data-table__blast-hsp"
-        >
-          <protvista-track
-            data-testid="blast-summary-track"
-            height="10"
-            length="30"
-            title="Start: 3
+          <tr>
+            <td
+              class="data-table__cell "
+            >
+              <input
+                type="checkbox"
+              />
+            </td>
+            <td
+              class="data-table__cell "
+            >
+              <a
+                href="/uniprotkb/U6MKN0"
+              >
+                U6MKN0
+              </a>
+            </td>
+            <td
+              class="data-table__cell "
+            >
+              ENH_00046930
+            </td>
+            <td
+              class="data-table__cell "
+            >
+              <a
+                href="/taxonomy/51315"
+              >
+                Eimeria necatrix
+              </a>
+            </td>
+            <td
+              class="data-table__cell "
+            >
+              <div
+                class="data-table__blast-hsp"
+              >
+                <div
+                  class="data-table__blast-hsp__tracks"
+                >
+                  <protvista-track
+                    data-testid="blast-summary-track"
+                    height="10"
+                    length="30"
+                    title="Start: 3
 End: 30
 Identity: 7.1%"
-          />
-          <small>
-            <button
-              type="button"
-            >
-              +1 more
-            </button>
-          </small>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+                  />
+                </div>
+                <button
+                  type="button"
+                >
+                  +1 more
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </DocumentFragment>
 `;
