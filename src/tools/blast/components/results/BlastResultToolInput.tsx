@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Loader, CodeBlock } from 'franklin-sites';
+import { Loader, CodeBlock, InfoList } from 'franklin-sites';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
@@ -18,21 +18,19 @@ const BlastResultToolInput: FC<Props> = ({ id, inputParamsData }) => {
 
   if (error || !data) return <ErrorHandler status={status} />;
 
+  const infoData = Object.entries(data).map(([key, value]) => {
+    return {
+      title: key,
+      content: <CodeBlock>{value}</CodeBlock>,
+    };
+  });
+
   return (
     <section>
       <p>
         The job with UUID {id} has been submitted with these raw input values:
       </p>
-      <ul>
-        {Object.entries(data).map(([key, value]) => {
-          return (
-            <li key={key}>
-              {key}:<br />
-              <CodeBlock>{value}</CodeBlock>
-            </li>
-          );
-        })}
-      </ul>
+      <InfoList infoData={infoData} />
       <p>
         You can refer to the documentation for these values on the{' '}
         <a href="https://www.ebi.ac.uk/seqdb/confluence/pages/viewpage.action?pageId=94147939#NCBIBLAST+HelpandDocumentation-RESTAPI">
