@@ -3,7 +3,7 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 
 import fetchData from '../utils/fetchData';
 
-type State<T> = {
+export type UseDataAPIState<T> = {
   loading: boolean;
   data?: T;
   status?: AxiosResponse['status'];
@@ -30,10 +30,10 @@ type Action<T> =
 
 // eslint-disable-next-line consistent-return
 const createReducer = <T>() => (
-  state: State<T>,
+  state: UseDataAPIState<T>,
   action: Action<T>
   // eslint-disable-next-line consistent-return
-): State<T> => {
+): UseDataAPIState<T> => {
   // eslint-disable-next-line default-case
   switch (action.type) {
     case ActionType.INIT:
@@ -42,7 +42,7 @@ const createReducer = <T>() => (
       };
     case ActionType.SUCCESS:
       // eslint-disable-next-line no-case-declarations
-      const newState: State<T> = {
+      const newState: UseDataAPIState<T> = {
         loading: false,
         data: action.response && action.response.data,
         status: action.response && action.response.status,
@@ -75,7 +75,7 @@ const createReducer = <T>() => (
   }
 };
 
-function useDataApi<T>(url?: string | null): State<T> {
+function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
 
   useEffect(() => {
