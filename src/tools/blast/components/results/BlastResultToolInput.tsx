@@ -21,7 +21,7 @@ const BlastResultToolInput: FC<Props> = ({ id, inputParamsData }) => {
   const infoData = Object.entries(data).map(([key, value]) => {
     return {
       title: key,
-      content: <CodeBlock>{value}</CodeBlock>,
+      content: <CodeBlock lightMode>{value}</CodeBlock>,
     };
   });
 
