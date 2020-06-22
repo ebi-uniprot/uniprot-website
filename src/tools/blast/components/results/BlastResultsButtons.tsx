@@ -45,7 +45,6 @@ const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
           getSuggesterUrl(uniProtKBApiUrls.organismSuggester, idCleaned)
         ).then((response) => {
           const firstSuggestion = response?.data?.suggestions?.[0]?.value;
-          console.log(firstSuggestion, idCleaned);
           if (firstSuggestion) {
             taxonMapping.set(
               idCleaned,
