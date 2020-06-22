@@ -1,5 +1,6 @@
 import React, { FC, lazy, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
+import { sleep } from 'timing-functions';
 import { DownloadIcon, BasketIcon, ReSubmitIcon } from 'franklin-sites';
 
 import SidePanel from '../../../../shared/components/layouts/SidePanel';
@@ -7,6 +8,11 @@ import SidePanel from '../../../../shared/components/layouts/SidePanel';
 import { serverParametersToFormParameters } from '../../adapters/BlastParametersAdapter';
 
 import { LocationToPath, Location } from '../../../../app/config/urls';
+import uniProtKBApiUrls, {
+  getSuggesterUrl,
+} from '../../../../uniprotkb/config/apiUrls';
+
+import fetchData from '../../../../shared/utils/fetchData';
 
 import { PublicServerParameters } from '../../types/blastServerParameters';
 
@@ -17,12 +23,49 @@ type ResubmitButtonProps = {
 const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
   const history = useHistory();
 
-  const handleClick = () => {
+  const [disabled, setDisabled] = useState(false);
+
+  const handleClick = async () => {
     if (!inputParamsData) {
       return;
     }
 
-    const parameters = serverParametersToFormParameters(inputParamsData);
+    setDisabled(true);
+
+    const taxonMapping = new Map();
+    const taxonRequests = (inputParamsData.taxids || '')
+      .split(',')
+      .map((id) => {
+        const idCleaned = id.trim();
+        if (!idCleaned) {
+          return;
+        }
+        // eslint-disable-next-line consistent-return
+        return fetchData(
+          getSuggesterUrl(uniProtKBApiUrls.organismSuggester, idCleaned)
+        ).then((response) => {
+          const firstSuggestion = response?.data?.suggestions?.[0]?.value;
+          console.log(firstSuggestion, idCleaned);
+          if (firstSuggestion) {
+            taxonMapping.set(
+              idCleaned,
+              `${firstSuggestion.replace(/ *\([^)]*\) */g, '')} [${idCleaned}]`
+            );
+          }
+        });
+      });
+
+    try {
+      // wait up to 2 seconds to get the information
+      await Promise.race([Promise.all(taxonRequests), sleep(2000)]);
+    } catch (_) {
+      /* */
+    }
+
+    const parameters = serverParametersToFormParameters(
+      inputParamsData,
+      taxonMapping
+    );
 
     history.push(LocationToPath[Location.Blast], { parameters });
   };
@@ -31,7 +74,7 @@ const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
     <button
       type="button"
       className="button tertiary"
-      disabled={!inputParamsData}
+      disabled={!inputParamsData || disabled}
       onClick={handleClick}
     >
       <ReSubmitIcon />

@@ -52,7 +52,8 @@ export const formParameterToServerParameters = (
 };
 
 export const serverParametersToFormParameters = (
-  serverParameters: PublicServerParameters
+  serverParameters: PublicServerParameters,
+  taxonMapping: Map<string, string> = new Map()
 ): FormParameters => {
   const {
     program,
@@ -75,6 +76,18 @@ export const serverParametersToFormParameters = (
     );
   }
 
+  const taxIDs = [];
+  for (const taxid of (taxids || '').split(',')) {
+    const cleaned = taxid.trim();
+    if (!cleaned) {
+      continue; // eslint-disable-line no-continue
+    }
+    taxIDs.push({
+      id: cleaned,
+      label: taxonMapping.get(cleaned) || cleaned,
+    });
+  }
+
   const formParameters: FormParameters = {
     program,
     matrix,
@@ -82,10 +95,7 @@ export const serverParametersToFormParameters = (
     threshold: exp,
     filter,
     gapped: Boolean(gapalign),
-    taxIDs: (taxids || '')
-      .split(',')
-      .filter(Boolean)
-      .map((taxid) => ({ id: taxid.trim(), label: taxid.trim() })),
+    taxIDs,
     stype,
     sequence,
     database,

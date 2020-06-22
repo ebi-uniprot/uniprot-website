@@ -54,6 +54,45 @@ describe('BlastParametersAdapter tests', () => {
         filter: 'T',
         matrix: 'BLOSUM45',
         program: 'blastp',
+        taxids: '9606',
+        scores: 250,
+        sequence:
+          '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
+        stype: 'protein',
+      };
+
+      const mapping = new Map([['9606', 'Homo Sapiens [9606]']]);
+
+      const formParams = serverParametersToFormParameters(
+        serverParams,
+        mapping
+      );
+
+      expect(formParams).toEqual({
+        database: 'uniprotkb_refprotswissprot',
+        filter: 'T',
+        gapped: false,
+        hits: 250,
+        matrix: 'BLOSUM45',
+        program: 'blastp',
+        sequence:
+          '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
+        stype: 'protein',
+        taxIDs: [{ id: '9606', label: 'Homo Sapiens [9606]' }],
+        threshold: '1e-1',
+      });
+    });
+
+    it('should translate blast parameters event without taxon info', () => {
+      const serverParams: PublicServerParameters = {
+        align: 0,
+        alignments: 250,
+        compstats: 'F',
+        database: 'uniprotkb_refprotswissprot',
+        exp: '1e-1',
+        filter: 'T',
+        matrix: 'BLOSUM45',
+        program: 'blastp',
         scores: 250,
         sequence:
           '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
