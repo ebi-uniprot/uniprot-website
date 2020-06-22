@@ -202,6 +202,14 @@ const BlastResult = () => {
       break;
   }
 
+  const actionBar = (
+    <BlastResultsButtons
+      jobId={match.params.id}
+      selectedEntries={selectedEntries}
+      inputParamsData={inputParamsData.data}
+    />
+  );
+
   return (
     <SideBarLayout
       title={
@@ -216,10 +224,7 @@ const BlastResult = () => {
             <Link to={`/blast/${match.params.id}/overview`}>Overview</Link>
           }
         >
-          <BlastResultsButtons
-            jobId={match.params.id}
-            selectedEntries={selectedEntries}
-          />
+          {actionBar}
           <Suspense fallback={<Loader />}>
             <BlastResultTable
               data={data || blastData}
@@ -234,10 +239,7 @@ const BlastResult = () => {
             <Link to={`/blast/${match.params.id}/taxonomy`}>Taxonomy</Link>
           }
         >
-          <BlastResultsButtons
-            jobId={match.params.id}
-            selectedEntries={selectedEntries}
-          />
+          {actionBar}
           <BlastResultTaxonomy data={data} />
         </Tab>
         <Tab
@@ -248,10 +250,7 @@ const BlastResult = () => {
             </Link>
           }
         >
-          <BlastResultsButtons
-            jobId={match.params.id}
-            selectedEntries={selectedEntries}
-          />
+          {actionBar}
           Hit distribution content
         </Tab>
         <Tab

@@ -1,5 +1,10 @@
 import { FormParameters } from '../types/blastFormParameters';
-import { ServerParameters } from '../types/blastServerParameters';
+import {
+  ServerParameters,
+  PublicServerParameters,
+} from '../types/blastServerParameters';
+
+const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 
 const createFormData = (serverParameters: ServerParameters) => {
   const formData = new FormData();
@@ -12,7 +17,9 @@ const createFormData = (serverParameters: ServerParameters) => {
   return formData;
 };
 
-const convertFormParametersForServer = (formParameters: FormParameters) => {
+export const formParameterToServerParameters = (
+  formParameters: FormParameters
+) => {
   const {
     program,
     matrix,
@@ -27,8 +34,8 @@ const convertFormParametersForServer = (formParameters: FormParameters) => {
   } = formParameters;
 
   const serverParameters: ServerParameters = {
-    program, // program
-    email: 'uuw_dev@uniprot.org',
+    program,
+    email: DEFAULT_EMAIL,
     matrix,
     alignments: hits,
     scores: hits,
@@ -44,4 +51,45 @@ const convertFormParametersForServer = (formParameters: FormParameters) => {
   return createFormData(serverParameters);
 };
 
-export default convertFormParametersForServer;
+export const serverParametersToFormParameters = (
+  serverParameters: PublicServerParameters
+): FormParameters => {
+  const {
+    program,
+    matrix,
+    scores,
+    alignments,
+    exp,
+    filter,
+    gapalign,
+    taxids,
+    stype,
+    sequence,
+    database,
+  } = serverParameters;
+
+  if (scores !== alignments) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `mismatch between number of scores (${scores}) and number of alignments (${alignments})`
+    );
+  }
+
+  const formParameters: FormParameters = {
+    program,
+    matrix,
+    hits: +scores as FormParameters['hits'],
+    threshold: exp,
+    filter,
+    gapped: Boolean(gapalign),
+    taxIDs: (taxids || '')
+      .split(',')
+      .filter(Boolean)
+      .map((taxid) => ({ id: taxid.trim(), label: taxid.trim() })),
+    stype,
+    sequence,
+    database,
+  };
+
+  return formParameters;
+};

@@ -233,18 +233,18 @@ export type Sequence = string;
 export type Database = string;
 
 export type ServerParameters = {
-  program?: Program; // program
+  program: Program; // program
   task?: Task;
   email: string; // email
-  matrix?: Matrix; // matrix
-  alignments?: Alignments; // hits
-  scores?: Scores; // hits
-  exp?: Exp; // threshold
+  matrix: Matrix; // matrix
+  alignments: Alignments; // hits
+  scores: Scores; // hits
+  exp: Exp; // threshold
   dropoff?: Dropoff;
   match_scores?: MatchScores;
   gapopen?: GapOpen;
   gapext?: GapExt;
-  filter?: Filter; // filter
+  filter: Filter; // filter
   seqrange?: SeqRange;
   gapalign?: GapAlign; // gapped
   wordsize?: WordSize;
@@ -252,7 +252,7 @@ export type ServerParameters = {
   compstats?: CompStats;
   align?: Align;
   transltable?: TranslTable;
-  stype?: SType; // stype
+  stype: SType; // stype
   sequence: Sequence; // sequence
   database: Database;
 };

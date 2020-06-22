@@ -1,6 +1,6 @@
 import { Store } from 'redux';
 
-import convertFormParametersForServer from '../blast/adapters/BlastParametersAdapter';
+import { formParameterToServerParameters } from '../blast/adapters/BlastParametersAdapter';
 
 import isValidServerID from './isValidServerID';
 import { getServerErrorDescription, getJobMessage } from '.';
@@ -21,7 +21,7 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     // specific logic to transform FormParameters to ServerParameters
     let formData;
     try {
-      formData = convertFormParametersForServer(job.parameters);
+      formData = formParameterToServerParameters(job.parameters);
     } catch {
       throw new Error('Internal error');
     }
