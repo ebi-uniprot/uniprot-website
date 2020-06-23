@@ -18,7 +18,7 @@ type Suggestion = {
   id: string;
 };
 
-type Suggestions = {
+export type Suggestions = {
   dictionary: string;
   query: string;
   suggestions: Suggestion[];
@@ -103,8 +103,10 @@ class AutocompleteWrapper extends Component<Props, State> {
     const { url } = this.props;
     const suggesterUrl = getSuggesterUrl(url, textInputValue);
     this.setState({ isLoading: true });
-    fetchData(suggesterUrl)
-      .then((data) => AutocompleteWrapper.prepareData(data.data.suggestions))
+    fetchData<Suggestions>(suggesterUrl)
+      .then((response) =>
+        AutocompleteWrapper.prepareData(response.data.suggestions)
+      )
       .then((data) => this.setState({ data, isLoading: false }))
       // eslint-disable-next-line no-console
       .catch((e) => console.error(e));

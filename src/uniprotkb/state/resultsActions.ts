@@ -56,7 +56,7 @@ export const receiveFields = (data: ReceivedFieldData) =>
 
 export const fetchFields = () => async (dispatch: Dispatch) => {
   dispatch(requestFields());
-  return fetchData(apiUrls.resultsFields).then(response =>
+  return fetchData<ReceivedFieldData>(apiUrls.resultsFields).then((response) =>
     dispatch(receiveFields(response.data))
   );
 };

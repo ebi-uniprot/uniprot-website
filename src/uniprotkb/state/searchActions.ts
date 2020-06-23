@@ -106,9 +106,9 @@ export const receiveSearchTerms = (data: SearchTermType[]) =>
 
 export const fetchSearchTerms = () => async (dispatch: Dispatch) => {
   dispatch(requestSearchTerms());
-  return fetchData(apiUrls.advancedSearchTerms).then(response =>
-    dispatch(receiveSearchTerms(response.data))
-  );
+  return fetchData<SearchTermType[]>(
+    apiUrls.advancedSearchTerms
+  ).then((response) => dispatch(receiveSearchTerms(response.data)));
 };
 
 export const shouldFetchSearchTerms = (state: RootState) => {
@@ -143,7 +143,8 @@ export const fetchEvidences = (evidencesType: Evidence) => async (
 ) => {
   const url = apiUrls.evidences[evidencesType];
   dispatch(requestEvidences(evidencesType));
-  return fetchData(url).then(response =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return fetchData<any>(url).then((response) =>
     dispatch(receiveEvidences(response.data, evidencesType))
   );
 };

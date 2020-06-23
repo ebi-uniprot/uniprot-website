@@ -88,7 +88,7 @@ const Download: React.FC<DownloadTableProps> = ({
   });
   const handlePreview = () => {
     setLoadingPreview(true);
-    fetchData(previewUrl, {
+    fetchData<string>(previewUrl, {
       Accept: fileFormatToContentType.get(previewFileFormat),
     })
       .then((response) => {

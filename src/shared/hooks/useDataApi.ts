@@ -96,7 +96,7 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
     const source = axios.CancelToken.source();
 
     // actual request
-    fetchData(url, undefined, source.token).then(
+    fetchData<T>(url, undefined, source.token).then(
       // handle ok
       (response: AxiosResponse) => {
         if (didCancel) return;

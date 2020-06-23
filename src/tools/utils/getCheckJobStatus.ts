@@ -17,7 +17,7 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
 ) => {
   const url = job.type === 'blast' ? blastUrls.statusUrl(job.remoteID) : '';
   try {
-    const { data: status } = await fetchData(
+    const { data: status } = await fetchData<Status>(
       url,
       { Accept: 'text/plain' },
       undefined,
@@ -52,13 +52,13 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
       return;
     }
     // job finished
-    const response = await fetchData(
+    const response = await fetchData<BlastResults>(
       job.type === 'blast'
         ? blastUrls.resultUrl(job.remoteID, 'jdp?format=json')
         : ''
     );
 
-    const results: BlastResults = response.data;
+    const results = response.data;
 
     // get a new reference to the job
     currentStateOfJob = getState().tools[job.internalID];
