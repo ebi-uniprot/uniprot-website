@@ -26,14 +26,12 @@ const BlastButton: FC<BlastButtonProps> = ({ selectedEntries }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const disabled = selectedEntries.length !== 1;
 
   const handleClick = async () => {
-    if (selectedEntries.length !== 1) {
-      return;
-    }
-
-    setDisabled(true);
+    setLoading(true);
 
     const [accession] = selectedEntries;
 
@@ -46,7 +44,7 @@ const BlastButton: FC<BlastButtonProps> = ({ selectedEntries }) => {
         parameters: { sequence: entryToFASTAWithHeaders(entry) },
       });
     } catch (err) {
-      setDisabled(false);
+      setLoading(false);
 
       if (!(err instanceof Error)) {
         return;
@@ -67,7 +65,7 @@ const BlastButton: FC<BlastButtonProps> = ({ selectedEntries }) => {
     <button
       type="button"
       className="button tertiary"
-      disabled={selectedEntries.length !== 1 || disabled}
+      disabled={disabled || loading}
       onClick={handleClick}
     >
       Blast

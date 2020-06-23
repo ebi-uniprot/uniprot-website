@@ -1,10 +1,12 @@
 import React, { FC, lazy, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import { DownloadIcon, BasketIcon, ReSubmitIcon } from 'franklin-sites';
+import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';
 
 import SidePanel from '../../../../shared/components/layouts/SidePanel';
 import BlastButton from '../../../../shared/components/action-buttons/Blast';
+import AlignButton from '../../../../shared/components/action-buttons/Align';
+import AddToBasketButton from '../../../../shared/components/action-buttons/AddToBasket';
 
 import { serverParametersToFormParameters } from '../../adapters/BlastParametersAdapter';
 
@@ -117,13 +119,7 @@ const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
       )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
-        <button
-          type="button"
-          className="button tertiary"
-          disabled={selectedEntries.length <= 1}
-        >
-          Align
-        </button>
+        <AlignButton selectedEntries={selectedEntries} />
         <button
           type="button"
           className="button tertiary"
@@ -132,14 +128,7 @@ const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
           <DownloadIcon />
           Download
         </button>
-        <button
-          type="button"
-          className="button tertiary"
-          disabled={selectedEntries.length <= 0}
-        >
-          <BasketIcon />
-          Add
-        </button>
+        <AddToBasketButton selectedEntries={selectedEntries} />
         <ResubmitButton inputParamsData={inputParamsData} />
       </div>
     </>

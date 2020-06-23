@@ -8,10 +8,16 @@ import {
   EditIcon,
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
+
 import { ViewMode } from '../../state/resultsInitialState';
+
+import SidePanel from '../../../shared/components/layouts/SidePanel';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
+import AlignButton from '../../../shared/components/action-buttons/Align';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+
 import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
-import SidePanel from '../../../shared/components/layouts/SidePanel';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -56,20 +62,8 @@ const ResultsButtons: FC<{
         </Suspense>
       )}
       <div className="button-group">
-        <button
-          type="button"
-          className="button tertiary"
-          disabled={selectedEntries.length !== 1}
-        >
-          Blast
-        </button>
-        <button
-          type="button"
-          className="button tertiary"
-          disabled={selectedEntries.length <= 1}
-        >
-          Align
-        </button>
+        <BlastButton selectedEntries={selectedEntries} />
+        <AlignButton selectedEntries={selectedEntries} />
         <button
           type="button"
           className="button tertiary"
@@ -78,14 +72,7 @@ const ResultsButtons: FC<{
           <DownloadIcon />
           Download
         </button>
-        <button
-          type="button"
-          className="button tertiary"
-          disabled={selectedEntries.length <= 0}
-        >
-          <BasketIcon />
-          Add
-        </button>
+        <AddToBasketButton selectedEntries={selectedEntries} />
         <button type="button" className="button tertiary">
           <StatisticsIcon />
           Statistics
