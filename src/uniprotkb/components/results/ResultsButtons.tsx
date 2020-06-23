@@ -1,7 +1,6 @@
 import React, { FC, lazy, useState, Suspense } from 'react';
 import {
   DownloadIcon,
-  BasketIcon,
   StatisticsIcon,
   TableIcon,
   ListIcon,

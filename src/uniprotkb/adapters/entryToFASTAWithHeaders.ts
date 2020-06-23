@@ -1,7 +1,22 @@
 import { UniProtkbAPIModel, EntryType } from './uniProtkbConverter';
+import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
-const entryToFASTAWithHeaders = (entry: UniProtkbAPIModel): string => {
-  let sequence = entry.sequence.value;
+// const CHUNK_OF_TEXT_OF_SIXTY_CHARACTERS = /(.{1,60})/g;
+// const CHUNK_OF_TEXT_OF_TEN_CHARACTERS = /(.{1,10})/g;
+
+// NOTE: if we decide to do formatting here, use formatting logic from franklin
+// .split(CHUNK_OF_TEXT_OF_SIXTY_CHARACTERS)
+// .filter(Boolean)
+// .map((line) =>
+//   line.replace(CHUNK_OF_TEXT_OF_TEN_CHARACTERS, '$1 ').trim()
+// )
+// .join('\n');
+// build a "nicely"-formatted FASTA string
+// See https://www.uniprot.org/help/fasta-headers for current headers
+const entryToFASTAWithHeaders = (
+  entry: UniProtkbAPIModel | APISequenceData
+): string => {
+  let sequence = entry.sequence.value || '';
   try {
     let db;
     switch (entry.entryType) {
@@ -33,7 +48,7 @@ const entryToFASTAWithHeaders = (entry: UniProtkbAPIModel): string => {
     const pe = entry.proteinExistence[0];
     let optionalSV = '';
     if (entry?.entryAudit?.sequenceVersion) {
-      optionalSV = `SV=${entry.entryAudit.sequenceVersion} `;
+      optionalSV = `SV=${entry.entryAudit.sequenceVersion}`;
     }
     sequence = `>${db}|${entry.primaryAccession}|${entry.uniProtkbId} ${optionalProteinName}${optionalOS}${optionalOX}${optionalGN}PE=${pe} ${optionalSV}\n${sequence}`;
   } catch {

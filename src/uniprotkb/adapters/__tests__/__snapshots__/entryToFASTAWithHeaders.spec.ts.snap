@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`entryToFASTAWithHeaders should output a FASTA string with UniProt-style headers 1`] = `
-">sp|P21802|uniprot id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5 
+">sp|P21802|uniprot id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 SAPSQDFMRF"
 `;
