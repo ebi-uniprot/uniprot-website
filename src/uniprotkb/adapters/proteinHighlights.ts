@@ -39,13 +39,13 @@ const highlightToEntrySection: {
   [highlightSection.subcell]: { link: `#${EntrySection.SubCellularLocation}` },
   [highlightSection.publications]: {
     link: '/publications',
-    prefixResolver: data =>
-      data.entryType === EntryType.SWISSPROT ? 'reviewed ' : '',
+    prefixResolver: (data) =>
+      data.entryType === EntryType.REVIEWED ? 'reviewed ' : '',
   },
 };
 
 const getFeatureCount = (features: FeatureData, type: FeatureType) =>
-  features.filter(feature => feature.type === type).length;
+  features.filter((feature) => feature.type === type).length;
 
 const getProteinHighlights = (data: UniProtkbAPIModel) => {
   const highlightsMap = new Map<highlightSection, number>();
@@ -87,7 +87,7 @@ const getProteinHighlights = (data: UniProtkbAPIModel) => {
   if (comments) {
     // isoforms
     const isoformsComments = comments.find(
-      comment => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
+      (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
     ) as AlternativeProductsComment;
     highlightsMap.set(
       highlightSection.isoforms,
@@ -96,7 +96,7 @@ const getProteinHighlights = (data: UniProtkbAPIModel) => {
 
     // interactions
     const interactionComments = comments.find(
-      comment => comment.commentType === CommentType.INTERACTION
+      (comment) => comment.commentType === CommentType.INTERACTION
     ) as InteractionComment;
     highlightsMap.set(
       highlightSection.interactions,
@@ -105,7 +105,7 @@ const getProteinHighlights = (data: UniProtkbAPIModel) => {
 
     // diseases
     const diseaseComments = comments.filter(
-      comment => comment.commentType === CommentType.DISEASE
+      (comment) => comment.commentType === CommentType.DISEASE
     ) as DiseaseComment[];
     highlightsMap.set(highlightSection.disease, diseaseComments.length);
   }
@@ -114,7 +114,7 @@ const getProteinHighlights = (data: UniProtkbAPIModel) => {
   // 3D structures
   if (uniProtKBCrossReferences) {
     const structures = uniProtKBCrossReferences.filter(
-      uniProtKBCrossReference => uniProtKBCrossReference.database === 'PDB'
+      (uniProtKBCrossReference) => uniProtKBCrossReference.database === 'PDB'
     );
     highlightsMap.set(highlightSection.structures, structures.length);
   }

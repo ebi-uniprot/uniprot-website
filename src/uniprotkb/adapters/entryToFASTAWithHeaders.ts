@@ -1,9 +1,19 @@
-import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { UniProtkbAPIModel, EntryType } from './uniProtkbConverter';
 
 const entryToFASTAWithHeaders = (entry: UniProtkbAPIModel): string => {
   let sequence = entry.sequence.value;
   try {
-    const db = entry.entryType.includes('unreviewed') ? 'tr' : 'sp';
+    let db;
+    switch (entry.entryType) {
+      case EntryType.REVIEWED:
+        db = 'sp';
+        break;
+      case EntryType.UNREVIEWED:
+        db = 'tr';
+        break;
+      default:
+        db = '??';
+    }
     let optionalProteinName = '';
     if (entry?.proteinDescription?.recommendedName?.fullName) {
       optionalProteinName = `${entry.proteinDescription.recommendedName.fullName.value} `;

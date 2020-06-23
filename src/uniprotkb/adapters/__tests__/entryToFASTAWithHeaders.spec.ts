@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
 import modelData from '../../__mocks__/entryModelData.json';

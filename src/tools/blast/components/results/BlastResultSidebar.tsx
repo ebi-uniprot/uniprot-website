@@ -23,14 +23,14 @@ const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
         label: 'Unreviewed (TrEMBL)',
         value: 'false',
         count: data.hits.filter(
-          (hit) => hit.extra?.entryType === EntryType.TREMBL
+          (hit) => hit.extra?.entryType === EntryType.UNREVIEWED
         ).length,
       },
       {
         label: 'Reviewed (Swiss-Prot)',
         value: 'true',
         count: data.hits.filter(
-          (hit) => hit.extra?.entryType === EntryType.SWISSPROT
+          (hit) => hit.extra?.entryType === EntryType.REVIEWED
         ).length,
       },
     ],

@@ -6,7 +6,7 @@ import './styles/uniprotkb-title.scss';
 export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
   entryType,
 }) =>
-  entryType === EntryType.SWISSPROT ? (
+  entryType === EntryType.REVIEWED ? (
     <span className="uniprot-title__status icon--reviewed">
       <SwissProtIcon />
     </span>
