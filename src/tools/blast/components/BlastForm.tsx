@@ -103,7 +103,7 @@ const FormSelect: FC<{
 };
 
 interface CustomLocationState {
-  parameters?: Job['parameters'];
+  parameters?: Partial<Job['parameters']>;
 }
 
 const BlastForm = () => {
@@ -117,8 +117,8 @@ const BlastForm = () => {
   // state
   const initialFormValues = useMemo(() => {
     // NOTE: we should use a similar logic to pre-fill fields based on querystring
-    const parametersFromHistoryState: FormParameters | undefined = (history
-      .location?.state as CustomLocationState)?.parameters;
+    const parametersFromHistoryState = (history.location
+      ?.state as CustomLocationState)?.parameters;
     if (parametersFromHistoryState) {
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields
@@ -135,7 +135,7 @@ const BlastForm = () => {
                 selected:
                   parametersFromHistoryState[
                     field.fieldName as keyof FormParameters
-                  ],
+                  ] || field.selected,
               }) as Readonly<BlastFormValue>,
             ]
           )
