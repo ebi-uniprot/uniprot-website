@@ -17,6 +17,12 @@
 declare const BASE_URL: string;
 declare const LIVE_RELOAD: boolean;
 
+interface Config {
+  onUpdate?(registration: ServiceWorkerRegistration): void;
+  onSuccess?(registration: ServiceWorkerRegistration): void;
+  onReady?(registration: ServiceWorkerRegistration): void;
+}
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -100,11 +106,6 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
         'No internet connection found. App is running in offline mode.'
       );
     });
-}
-
-interface Config {
-  onUpdate?(registration: ServiceWorkerRegistration): void;
-  onSuccess?(registration: ServiceWorkerRegistration): void;
 }
 
 /* == Main exports below == */

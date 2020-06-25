@@ -8,6 +8,8 @@ import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
+import { CheckVersionPlugin } from './plugins/check-version';
+
 import * as patterns from './url-patterns';
 
 // Refer to https://developers.google.com/web/tools/workbox/reference-docs/latest/
@@ -17,6 +19,8 @@ const MINUTE = 60; // seconds
 const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
+
+const channel = new BroadcastChannel('sw-channel');
 
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches
@@ -118,6 +122,7 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: 'APIs',
     plugins: [
+      new CheckVersionPlugin({ channel, cacheName: 'APIs' }),
       new ExpirationPlugin({
         maxEntries: 750,
         maxAgeSeconds: 8 * WEEK,
