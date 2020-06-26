@@ -294,7 +294,6 @@ const BlastForm = () => {
 
   const { name, links, info } = infoMappings[Tool.blast];
 
-  // const currentSequence = formValues[BlastFields.sequence].selected;
   const onSequenceChange = useCallback(
     (e: SequenceSubmissionOnChangeEvent) => {
       if (e.sequence === sequence.selected) {

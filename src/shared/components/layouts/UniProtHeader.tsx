@@ -15,7 +15,7 @@ const tools = [
   },
   {
     label: 'Align',
-    path: '/',
+    path: LocationToPath[Location.Align],
   },
   {
     label: 'Peptide Search',

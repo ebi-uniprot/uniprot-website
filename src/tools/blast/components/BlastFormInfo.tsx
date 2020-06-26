@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const BlastFormInfo = () => (
-  <Fragment>
+  <>
     <p>
       The Basic Local Alignment Search Tool (BLAST) finds regions of local
       similarity between sequences, which can be used to infer functional and
@@ -27,9 +27,12 @@ const BlastFormInfo = () => (
         Your BLAST job will be provided a default name. You may edit this name
         as per your choice.
       </li>
-      <li>Finally, click the Run BLAST button to submit your BLAST job.</li>
+      <li>
+        Finally, click the &quot;Run BLAST&quot; button to submit your BLAST
+        job.
+      </li>
     </ul>
-  </Fragment>
+  </>
 );
 
 export default BlastFormInfo;

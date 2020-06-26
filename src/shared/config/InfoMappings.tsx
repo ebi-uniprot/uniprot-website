@@ -1,8 +1,11 @@
 import React from 'react';
-import { Namespace } from '../../uniprotkb/types/searchTypes';
-import { Tool } from '../../tools/types';
+
 import UniProtKBInfo from '../../uniprotkb/components/results/UniProtKBInfo';
 import BlastInfo from '../../tools/blast/components/BlastFormInfo';
+import AlignInfo from '../../tools/align/components/AlignFormInfo';
+
+import { Namespace } from '../../uniprotkb/types/searchTypes';
+import { Tool } from '../../tools/types';
 
 const infoMappings: {
   [index in Namespace | Tool]: {
@@ -22,6 +25,14 @@ const infoMappings: {
   [Tool.blast]: {
     name: 'BLAST',
     info: <BlastInfo />,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Tool.align]: {
+    name: 'Align',
+    info: <AlignInfo />,
     links: [
       { title: 'Help', destination: '' },
       { title: 'Video', destination: '' },

@@ -1,6 +1,6 @@
 export enum Tool {
   blast = 'blast',
-  // align = 'align',
+  align = 'align',
   // peptideSearch = 'peptideSearch',
   // idMapping = 'idMapping',
 }
