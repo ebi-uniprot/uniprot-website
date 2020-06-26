@@ -8,7 +8,7 @@ import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
-import { CheckVersionPlugin } from './plugins/check-version';
+import { NewerDataPlugin } from './plugins/check-version';
 
 import * as patterns from './url-patterns';
 
@@ -52,6 +52,14 @@ registerRoute(
     cacheName: 'external-APIs',
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200, 204] }),
+      new NewerDataPlugin({
+        channel,
+        headers: [
+          'InterPro-Version',
+          'InterPro-Version-Minor',
+          'Content-Length',
+        ],
+      }),
       new ExpirationPlugin({
         maxEntries: 500,
         maxAgeSeconds: 4 * WEEK,
@@ -122,7 +130,10 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: 'APIs',
     plugins: [
-      new CheckVersionPlugin({ channel, cacheName: 'APIs' }),
+      new NewerDataPlugin({
+        channel,
+        headers: ['X-UniProt-Release', 'X-Release', 'Content-Length'],
+      }),
       new ExpirationPlugin({
         maxEntries: 750,
         maxAgeSeconds: 8 * WEEK,

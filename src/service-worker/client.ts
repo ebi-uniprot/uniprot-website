@@ -20,7 +20,6 @@ declare const LIVE_RELOAD: boolean;
 interface Config {
   onUpdate?(registration: ServiceWorkerRegistration): void;
   onSuccess?(registration: ServiceWorkerRegistration): void;
-  onReady?(registration: ServiceWorkerRegistration): void;
 }
 
 const isLocalhost = Boolean(

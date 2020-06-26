@@ -4,7 +4,7 @@ import { WorkboxPlugin, CacheDidUpdateCallback } from 'workbox-core';
 
 type ConstructorProps = {
   channel: BroadcastChannel;
-  cacheName: string;
+  headers?: Iterable<string>;
 };
 
 const drop = async (cacheName: string) => {
@@ -13,18 +13,15 @@ const drop = async (cacheName: string) => {
   await Promise.all(keys.map((key) => cache.delete(key)));
 };
 
-const headersToCheck = new Set([
-  'X-UniProt-Release',
-  'X-Release',
-  'content-length',
-]);
-
-export class CheckVersionPlugin implements WorkboxPlugin {
-  #detectedNewVersion: (request: Request) => void;
+export class NewerDataPlugin implements WorkboxPlugin {
+  #headers: Set<string>;
+  #detectedNewVersion: (cacheName: string, request: Request) => void;
   cacheDidUpdate: CacheDidUpdateCallback;
 
-  constructor({ channel, cacheName }: ConstructorProps) {
-    this.#detectedNewVersion = async (request) => {
+  constructor({ channel, headers = [] }: ConstructorProps) {
+    this.#headers = new Set(headers);
+
+    this.#detectedNewVersion = async (cacheName, request) => {
       await drop(cacheName);
       channel.postMessage({ type: 'UPDATED_DATA', content: request.url });
     };
@@ -50,12 +47,17 @@ export class CheckVersionPlugin implements WorkboxPlugin {
       const [oldHeaders, freshHeaders] = [oldResponse, newResponse].map(
         (response) => response?.headers
       );
-      for (const header of headersToCheck) {
+      for (const header of this.#headers) {
         const oldHeader = oldHeaders?.get(header);
         const freshHeader = freshHeaders?.get(header);
         console.log({ header, oldHeader, freshHeader });
-        if (oldHeader && freshHeader && oldHeader !== freshHeader) {
-          return this.#detectedNewVersion(request);
+        if (oldHeader && freshHeader) {
+          // both headers are defined and contain data
+          if (oldHeader !== freshHeader) {
+            return this.#detectedNewVersion(cacheName, request);
+          } else {
+            // return; // do we skip  all other checks?
+          }
         }
       }
 
@@ -72,7 +74,7 @@ export class CheckVersionPlugin implements WorkboxPlugin {
         oldContent.size !== freshContent.size
       ) {
         // we have length of both response, but they don't match... new data!
-        return this.#detectedNewVersion(request);
+        return this.#detectedNewVersion(cacheName, request);
       }
 
       // Finally, 3rd APPROACH: compare byte-by-byte, with early escape
@@ -91,7 +93,7 @@ export class CheckVersionPlugin implements WorkboxPlugin {
 
       for (let i = 0; i < oldRawData.length; i++) {
         if (oldRawData[i] !== freshRawData[i]) {
-          return this.#detectedNewVersion(request);
+          return this.#detectedNewVersion(cacheName, request);
         }
       }
     };
