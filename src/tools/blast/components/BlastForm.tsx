@@ -21,8 +21,9 @@ import { sleep } from 'timing-functions';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 
+import { Job } from '../../types/toolsJob';
+import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
-import { Job } from '../types/blastJob';
 import {
   SType,
   Program,
@@ -34,9 +35,8 @@ import {
   Filter,
   Scores,
 } from '../types/blastServerParameters';
-import { Tool } from '../../types';
 
-import * as actions from '../../state/toolsActions';
+import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -273,7 +273,7 @@ const BlastForm = () => {
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatch(
-        actions.createJob(parameters, 'blast', jobName.selected as string)
+        createJob(parameters, JobTypes.BLAST, jobName.selected as string)
       );
     });
   };
@@ -292,7 +292,7 @@ const BlastForm = () => {
     }));
   }, [sequence.selected]);
 
-  const { name, links, info } = infoMappings[Tool.blast];
+  const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   const onSequenceChange = useCallback(
     (e: SequenceSubmissionOnChangeEvent) => {

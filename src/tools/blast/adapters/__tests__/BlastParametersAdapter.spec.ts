@@ -1,13 +1,15 @@
 import {
-  formParameterToServerParameters,
+  formParametersToServerParameters,
   serverParametersToFormParameters,
-} from '../BlastParametersAdapter';
+} from '../../../adapters/parameters';
 
 import { FormParameters } from '../../types/blastFormParameters';
 import { PublicServerParameters } from '../../types/blastServerParameters';
 
+import { JobTypes } from '../../../types/toolsJobTypes';
+
 describe('BlastParametersAdapter tests', () => {
-  describe('formParameterToServerParameters', () => {
+  describe('formParametersToServerParameters', () => {
     it('should translate blast parameters accurately', () => {
       const formParams: FormParameters = {
         program: 'blastp',
@@ -25,7 +27,10 @@ describe('BlastParametersAdapter tests', () => {
         database: 'UniProt',
       };
 
-      const formData = formParameterToServerParameters(formParams);
+      const formData = formParametersToServerParameters(
+        JobTypes.BLAST,
+        formParams
+      );
 
       expect(Array.from(formData.entries())).toEqual([
         ['program', 'blastp'],
@@ -64,6 +69,7 @@ describe('BlastParametersAdapter tests', () => {
       const mapping = new Map([['9606', 'Homo Sapiens [9606]']]);
 
       const formParams = serverParametersToFormParameters(
+        JobTypes.BLAST,
         serverParams,
         mapping
       );
@@ -99,7 +105,10 @@ describe('BlastParametersAdapter tests', () => {
         stype: 'protein',
       };
 
-      const formParams = serverParametersToFormParameters(serverParams);
+      const formParams = serverParametersToFormParameters(
+        JobTypes.BLAST,
+        serverParams
+      );
 
       expect(formParams).toEqual({
         database: 'uniprotkb_refprotswissprot',

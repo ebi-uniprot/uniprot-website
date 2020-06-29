@@ -19,13 +19,14 @@ import {
   EditIcon,
 } from 'franklin-sites';
 
-import { Job, FinishedJob } from '../../blast/types/blastJob';
-import { Status } from '../../blast/types/blastStatuses';
-
 import { updateJobTitle, deleteJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
+
+import { Job } from '../../types/toolsJob';
+import { Status } from '../../types/toolsStatuses';
 
 import './styles/Dashboard.scss';
 
@@ -93,19 +94,11 @@ const Time: FC<TimeProps> = ({ children }) => {
 };
 
 interface NiceStatusProps {
-  children: Status;
-  hits?: FinishedJob['data']['hits'];
-  queriedHits: FinishedJob['parameters']['hits'];
-  errorDescription?: string;
+  job: Job;
 }
 
-const NiceStatus: FC<NiceStatusProps> = ({
-  children,
-  hits,
-  queriedHits,
-  errorDescription,
-}) => {
-  switch (children) {
+const NiceStatus: FC<NiceStatusProps> = ({ job }) => {
+  switch (job.status) {
     case Status.CREATED:
     case Status.RUNNING:
       return (
@@ -122,22 +115,33 @@ const NiceStatus: FC<NiceStatusProps> = ({
       return (
         <>
           Failed
-          <br />
-          <span className="dashboard__body__notify_message">
-            {errorDescription}
-          </span>
+          {'errorDescription' in job && (
+            <>
+              <br />
+              <span className="dashboard__body__notify_message">
+                {job.errorDescription}
+              </span>
+            </>
+          )}
         </>
       );
     case Status.FINISHED: {
-      if (hits === queriedHits) return <>Successful</>;
-      const hitText = `hit${hits === 1 ? '' : 's'}`;
+      if (
+        // not a blast job, or
+        !('hits' in job.data && 'hits' in job.parameters) ||
+        // same number of hits than queried
+        job.data.hits === job.parameters.hits
+      ) {
+        return <>Successful</>;
+      }
+      const hitText = `hit${job.data.hits === 1 ? '' : 's'}`;
       return (
         <>
           Successful{' '}
           <span
-            title={`${hits} ${hitText} results found instead of the requested ${queriedHits}`}
+            title={`${job.data.hits} ${hitText} results found instead of the requested ${job.parameters.hits}`}
           >
-            ({hits} {hitText})
+            ({job.data.hits} {hitText})
           </span>
         </>
       );
@@ -297,15 +301,7 @@ const Row: FC<RowProps> = memo(({ job }) => {
         )}
       </span>
       <span className="dashboard__body__status">
-        <NiceStatus
-          hits={'data' in job ? job.data.hits : undefined}
-          queriedHits={job.parameters.hits}
-          errorDescription={
-            'errorDescription' in job ? job.errorDescription : undefined
-          }
-        >
-          {job.status}
-        </NiceStatus>
+        <NiceStatus job={job} />
       </span>
       <span className="dashboard__body__actions">
         <Actions parameters={job.parameters} onDelete={handleDelete} />

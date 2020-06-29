@@ -1,5 +1,6 @@
-import { FailedJob } from '../../types/blastJob';
-import { Status } from '../../types/blastStatuses';
+import { FailedJob } from '../../types/toolsJob';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { Status } from '../../types/toolsStatuses';
 
 const now = Date.now();
 const ONE_MINUTE_AGO = now - 1000 * 60;
@@ -9,7 +10,7 @@ const failedBeforeSubmission: FailedJob = {
   status: Status.FAILURE,
   internalID: 'local-97e5ab00-9ff0-11ea-baf5-bf14c0760620',
   title: 'my job title',
-  type: 'blast',
+  type: JobTypes.BLAST,
   parameters: {
     stype: 'protein',
     sequence: 'MLPGLALLLL',

@@ -4,9 +4,9 @@ import { schedule } from 'timing-functions';
 import { Stores } from './stores';
 import JobStore from './storage';
 
-import { rehydrateJobs as rehydrateJobsAction } from '../state/toolsActions';
+import { rehydrateJobs as rehydrateJobsActionCreator } from '../state/toolsActions';
 
-import { Job } from '../blast/types/blastJob';
+import { Job } from '../types/toolsJob';
 
 const rehydrateJobs = async (dispatch: Dispatch) => {
   // Wait for browser idleness
@@ -24,7 +24,7 @@ const rehydrateJobs = async (dispatch: Dispatch) => {
   // Wait for browser idleness
   await schedule();
 
-  dispatch(rehydrateJobsAction(persistedJobs));
+  dispatch(rehydrateJobsActionCreator(persistedJobs));
 };
 
 export default rehydrateJobs;

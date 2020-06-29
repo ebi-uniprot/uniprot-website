@@ -5,12 +5,12 @@ import BlastInfo from '../../tools/blast/components/BlastFormInfo';
 import AlignInfo from '../../tools/align/components/AlignFormInfo';
 
 import { Namespace } from '../../uniprotkb/types/searchTypes';
-import { Tool } from '../../tools/types';
+import { JobTypes } from '../../tools/types/toolsJobTypes';
 
 const infoMappings: {
-  [index in Namespace | Tool]: {
+  [index in Namespace | JobTypes]: {
     name: string;
-    info: JSX.Element;
+    info: JSX.Element | null;
     links: { title: string; destination: string }[];
   };
 } = {
@@ -22,7 +22,15 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
-  [Tool.blast]: {
+  [JobTypes.ALIGN]: {
+    name: 'Align',
+    info: <AlignInfo />,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [JobTypes.BLAST]: {
     name: 'BLAST',
     info: <BlastInfo />,
     links: [
@@ -30,9 +38,17 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
-  [Tool.align]: {
-    name: 'Align',
-    info: <AlignInfo />,
+  [JobTypes.IDMAP]: {
+    name: 'ID mapping',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [JobTypes.PEPTIDE_SEARCH]: {
+    name: 'Peptide search',
+    info: null,
     links: [
       { title: 'Help', destination: '' },
       { title: 'Video', destination: '' },

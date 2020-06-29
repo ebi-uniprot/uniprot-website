@@ -1,7 +1,9 @@
-import { getServerErrorDescription, getJobMessage } from '..';
-import createdJob from '../../blast/__mocks__/internal-jobs/created';
-import runningJob from '../../blast/__mocks__/internal-jobs/running';
 import { render } from '@testing-library/react';
+
+import { getServerErrorDescription, getJobMessage } from '..';
+
+import createdJob from '../../__mocks__/internal-jobs/created';
+import runningJob from '../../__mocks__/internal-jobs/running';
 
 describe('getServerErrorDescription', () => {
   it('should get formatted error string from server error', () => {

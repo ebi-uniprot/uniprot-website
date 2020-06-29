@@ -1,6 +1,7 @@
 /* Job statuses as given by the server */
 
 // as returned by https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/status/{jobId}
+// as returned by https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo/status/{jobId}
 export enum Status {
   CREATED = 'CREATED', // not from the server, for internal use
   ERRORED = 'ERRORED', // according to www-prod, for problems with the tool

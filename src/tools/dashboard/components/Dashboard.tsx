@@ -3,21 +3,15 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card, PageIntro, ClockIcon, Message } from 'franklin-sites';
 
-import { Job } from '../../blast/types/blastJob';
-import { ToolsState } from '../../state/toolsInitialState';
-
 import Row from './Row';
+
+import { Job } from '../../types/toolsJob';
+import { ToolsState } from '../../types/toolsInitialState';
+
+import ArtWork from '../../svg/no-blast-results.svg';
 
 import './styles/Dashboard.scss';
 import '../../../shared/components/error-pages/styles/error-pages.scss';
-import ArtWork from '../../svg/no-blast-results.svg';
-
-// temporary
-// import created from '../../blast/__mocks__/internal-jobs/created';
-// import failedBeforeSubmission from '../../blast/__mocks__/internal-jobs/failed-after-submission';
-// import failedAfterSubmission from '../../blast/__mocks__/internal-jobs/failed-before-submission copy';
-// import finished from '../../blast/__mocks__/internal-jobs/finished';
-// import running from '../../blast/__mocks__/internal-jobs/running';
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 

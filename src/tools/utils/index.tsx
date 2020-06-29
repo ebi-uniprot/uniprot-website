@@ -1,12 +1,15 @@
 import React, { Fragment } from 'react';
 import { generatePath } from 'react-router-dom';
+
 import {
   MessageFormat,
   MessageLevel,
   MessageTag,
 } from '../../messages/types/messagesTypes';
+
 import { Location, LocationToPath } from '../../app/config/urls';
-import { Job } from '../blast/types/blastJob';
+
+import { Job } from '../types/toolsJob';
 
 const parseXML = (xml: string) => {
   return new window.DOMParser().parseFromString(xml, 'text/xml');

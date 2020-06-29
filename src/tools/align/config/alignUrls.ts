@@ -1,5 +1,6 @@
-const baseUrl = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast';
+const baseUrl = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo';
 
+// TODO: check below, that was copied from Blast
 export type ResultFormat =
   | 'out' // raw output of blast
   | 'sequence' // raw, as submitted

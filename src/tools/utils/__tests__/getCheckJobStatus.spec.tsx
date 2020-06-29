@@ -5,9 +5,9 @@ import { Store } from 'redux';
 
 import getCheckJobStatus from '../getCheckJobStatus';
 
-import runningJob from '../../blast/__mocks__/internal-jobs/running';
+import runningJob from '../../__mocks__/internal-jobs/running';
 
-import { Status } from '../../blast/types/blastStatuses';
+import { Status } from '../../types/toolsStatuses';
 import {
   MessageLevel,
   MessageFormat,
@@ -15,7 +15,6 @@ import {
 } from '../../../messages/types/messagesTypes';
 
 import { UPDATE_JOB } from '../../state/toolsActions';
-import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
 
 import { Location } from '../../../app/config/urls';
 

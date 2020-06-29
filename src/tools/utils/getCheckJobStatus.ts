@@ -8,8 +8,8 @@ import blastUrls from '../blast/config/blastUrls';
 import { updateJob } from '../state/toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
 
-import { RunningJob } from '../blast/types/blastJob';
-import { Status } from '../blast/types/blastStatuses';
+import { RunningJob } from '../types/toolsJob';
+import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 
 const getCheckJobStatus = ({ dispatch, getState }: Store) => async (

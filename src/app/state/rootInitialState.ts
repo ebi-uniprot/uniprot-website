@@ -9,7 +9,7 @@ import messagesInitialState, {
 } from '../../messages/state/messagesInitialState';
 import toolsInitialState, {
   ToolsState,
-} from '../../tools/state/toolsInitialState';
+} from '../../tools/types/toolsInitialState';
 import { SearchAction } from '../../uniprotkb/state/searchReducers';
 import { ResultAction } from '../../uniprotkb/state/resultsReducers';
 import { MessagesAction } from '../../messages/state/messagesReducers';

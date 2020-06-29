@@ -1,4 +1,4 @@
-import { Job } from '../blast/types/blastJob';
+import { Job } from './toolsJob';
 
 export interface ToolsState {
   [key: string]: Job;

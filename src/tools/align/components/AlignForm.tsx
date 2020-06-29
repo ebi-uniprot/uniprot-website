@@ -1,12 +1,11 @@
 import React, {
-  FC,
   useState,
-  useEffect,
+  // useEffect,
   useCallback,
   FormEvent,
   MouseEvent,
   useMemo,
-  useRef,
+  // useRef,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -18,12 +17,12 @@ import {
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
+import { Job } from '../../types/toolsJob';
+import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
-import { Job } from '../types/alignJob';
-import { Sequence } from '../types/alignServerParameters';
-import { Tool } from '../../types';
+import { ServerParameters } from '../types/alignServerParameters';
 
-import * as actions from '../../state/toolsActions';
+import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -40,8 +39,8 @@ interface CustomLocationState {
 }
 
 const AlignForm = () => {
-  // refs
-  const sslRef = useRef<{ reset: () => void }>(null);
+  // // refs
+  // const sslRef = useRef<{ reset: () => void }>(null);
 
   // hooks
   const dispatch = useDispatch();
@@ -112,7 +111,7 @@ const AlignForm = () => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      sequence: sequence.selected as Sequence,
+      sequence: sequence.selected as ServerParameters['sequence'],
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -124,12 +123,12 @@ const AlignForm = () => {
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatch(
-        actions.createJob(parameters, 'align', jobName.selected as string)
+        createJob(parameters, JobTypes.ALIGN, jobName.selected as string)
       );
     });
   };
 
-  const { name, links, info } = infoMappings[Tool.align];
+  const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
   // const currentSequence = formValues[BlastFields.sequence].selected;
   const onSequenceChange = useCallback(

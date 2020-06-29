@@ -8,7 +8,7 @@ import BlastButton from '../../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../../shared/components/action-buttons/AddToBasket';
 
-import { serverParametersToFormParameters } from '../../adapters/BlastParametersAdapter';
+import { serverParametersToFormParameters } from '../../../adapters/parameters';
 
 import { LocationToPath, Location } from '../../../../app/config/urls';
 import uniProtKBApiUrls, {
@@ -19,6 +19,7 @@ import fetchData from '../../../../shared/utils/fetchData';
 
 import { PublicServerParameters } from '../../types/blastServerParameters';
 import { Suggestions } from '../../../../uniprotkb/components/query-builder/AutocompleteWrapper';
+import { JobTypes } from '../../../types/toolsJobTypes';
 
 type ResubmitButtonProps = {
   inputParamsData?: PublicServerParameters;
@@ -66,6 +67,7 @@ const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
     }
 
     const parameters = serverParametersToFormParameters(
+      JobTypes.BLAST,
       inputParamsData,
       taxonMapping
     );
