@@ -3,7 +3,7 @@ import { Store } from 'redux';
 import fetchData from '../../shared/utils/fetchData';
 import { getJobMessage } from '.';
 
-import blastUrls from '../blast/config/blastUrls';
+import toolsURLs from '../config/urls';
 
 import { updateJob } from '../state/toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
@@ -11,14 +11,15 @@ import { addMessage } from '../../messages/state/messagesActions';
 import { RunningJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
+import { JobTypes } from '../types/toolsJobTypes';
 
 const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
   job: RunningJob
 ) => {
-  const url = job.type === 'blast' ? blastUrls.statusUrl(job.remoteID) : '';
+  const urlConfig = toolsURLs(job.type);
   try {
     const { data: status } = await fetchData<Status>(
-      url,
+      urlConfig.statusUrl(job.remoteID),
       { Accept: 'text/plain' },
       undefined,
       { responseType: 'text' }
@@ -51,44 +52,63 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
 
       return;
     }
-    // job finished
-    const response = await fetchData<BlastResults>(
-      job.type === 'blast'
-        ? blastUrls.resultUrl(job.remoteID, 'jdp?format=json')
-        : ''
-    );
+    // job finished, handle differently depending on job type
+    if (job.type === JobTypes.BLAST) {
+      const response = await fetchData<BlastResults>(
+        urlConfig.resultUrl(job.remoteID, 'jdp?format=json')
+      );
 
-    const results = response.data;
+      const results = response.data;
 
-    // get a new reference to the job
-    currentStateOfJob = getState().tools[job.internalID];
-    // check that the job is still in the state (it might have been removed)
-    if (!currentStateOfJob) return;
+      // get a new reference to the job
+      currentStateOfJob = getState().tools[job.internalID];
+      // check that the job is still in the state (it might have been removed)
+      if (!currentStateOfJob) return;
 
-    const now = Date.now();
+      const now = Date.now();
 
-    if (!results.hits) {
+      if (!results.hits) {
+        dispatch(
+          updateJob({
+            ...currentStateOfJob,
+            timeLastUpdate: now,
+            status: Status.FAILURE,
+          })
+        );
+        throw new Error(
+          `"${JSON.stringify(
+            response.data
+          )}" in not a valid result for this job`
+        );
+      }
+
       dispatch(
         updateJob({
           ...currentStateOfJob,
           timeLastUpdate: now,
-          status: Status.FAILURE,
+          timeFinished: now,
+          status,
+          data: { hits: results.hits.length },
         })
       );
-      throw new Error(
-        `"${JSON.stringify(response.data)}" in not a valid result for this job`
+      dispatch(
+        addMessage(
+          getJobMessage({ job: currentStateOfJob, nHits: results.hits.length })
+        )
       );
+    } else {
+      const now = new Date();
+      dispatch(
+        updateJob({
+          ...currentStateOfJob,
+          timeLastUpdate: now,
+          timeFinished: now,
+          status,
+          data: {},
+        })
+      );
+      dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
     }
-    dispatch(
-      updateJob({
-        ...currentStateOfJob,
-        timeLastUpdate: now,
-        timeFinished: now,
-        status,
-        data: { hits: results.hits.length },
-      })
-    );
-    dispatch(addMessage(getJobMessage({ job, nHits: results.hits.length })));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);

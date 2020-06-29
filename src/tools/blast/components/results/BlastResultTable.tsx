@@ -6,7 +6,7 @@ import ProtvistaTrack from 'protvista-track';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { loadWebComponent } from '../../../../shared/utils/utils';
 
-import '../styles/BlastResultTable.scss';
+import './styles/BlastResultTable.scss';
 
 const BlastSummaryTrack: FC<{
   hsp: BlastHsp;

@@ -8,7 +8,7 @@ import { getServerErrorDescription, getJobMessage } from '.';
 import { addMessage } from '../../messages/state/messagesActions';
 import { updateJob } from '../state/toolsActions';
 
-import blastUrls from '../blast/config/blastUrls';
+import toolsURLs from '../config/urls';
 import postData from '../../uniprotkb/config/postData';
 
 import { Status } from '../types/toolsStatuses';
@@ -25,7 +25,7 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     } catch {
       throw new Error('Internal error');
     }
-    const url = job.type === 'blast' ? blastUrls.runUrl : '';
+    const url = toolsURLs(job.type).runUrl;
 
     const response = await postData(url, {
       data: formData,
@@ -36,7 +36,7 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     });
     const remoteID = response.data;
 
-    if (!isValidServerID(remoteID)) {
+    if (!isValidServerID(job.type, remoteID)) {
       throw new Error(`The server didn't return a valid ID`);
     }
 

@@ -21,7 +21,7 @@ import {
 
 import { updateJobTitle, deleteJob } from '../../state/toolsActions';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { jobTypeToPath } from '../../../app/config/urls';
 
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
 
@@ -152,11 +152,12 @@ const NiceStatus: FC<NiceStatusProps> = ({ job }) => {
 };
 
 interface ActionsProps {
+  type: Job['type'];
   parameters: Job['parameters'];
   onDelete(): void;
 }
 
-const Actions: FC<ActionsProps> = ({ parameters, onDelete }) => {
+const Actions: FC<ActionsProps> = ({ type, parameters, onDelete }) => {
   const history = useHistory();
 
   return (
@@ -166,7 +167,10 @@ const Actions: FC<ActionsProps> = ({ parameters, onDelete }) => {
         title="resubmit this job"
         onClick={(event) => {
           event.stopPropagation();
-          history.push(LocationToPath[Location.Blast], { parameters });
+          const formPath = jobTypeToPath(type);
+          if (formPath) {
+            history.push(formPath, { parameters });
+          }
         }}
       >
         <ReSubmitIcon />
@@ -230,7 +234,7 @@ const Row: FC<RowProps> = memo(({ job }) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED) {
-    jobLink = `${LocationToPath[Location.Blast]}/${job.remoteID}/overview`;
+    jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
   }
 
   const handleClick = () => {
@@ -304,7 +308,11 @@ const Row: FC<RowProps> = memo(({ job }) => {
         <NiceStatus job={job} />
       </span>
       <span className="dashboard__body__actions">
-        <Actions parameters={job.parameters} onDelete={handleDelete} />
+        <Actions
+          type={job.type}
+          parameters={job.parameters}
+          onDelete={handleDelete}
+        />
       </span>
       <span className="dashboard__body__id">
         {'remoteID' in job &&

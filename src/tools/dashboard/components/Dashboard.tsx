@@ -12,6 +12,7 @@ import ArtWork from '../../svg/no-blast-results.svg';
 
 import './styles/Dashboard.scss';
 import '../../../shared/components/error-pages/styles/error-pages.scss';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
@@ -29,8 +30,11 @@ const Dashboard = () => {
 
   const noResultsSubtitle = (
     <div>
-      Try using <Link to="/blast">BLAST</Link>, Align, ID Mapping/Retrieve or
-      Peptide Search to begin
+      Try using <Link to={LocationToPath[Location.Blast]}>BLAST</Link>,{' '}
+      <Link to={LocationToPath[Location.Align]}>Align</Link>,{' '}
+      <Link to={LocationToPath[Location.IDMap]}>ID Mapping/Retrieve</Link> or{' '}
+      <Link to={LocationToPath[Location.PeptideSearch]}>Peptide Search</Link> to
+      begin
     </div>
   );
 

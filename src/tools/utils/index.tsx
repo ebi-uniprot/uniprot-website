@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { generatePath } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 
 import {
   MessageFormat,
@@ -7,7 +7,7 @@ import {
   MessageTag,
 } from '../../messages/types/messagesTypes';
 
-import { Location, LocationToPath } from '../../app/config/urls';
+import { Location, jobTypeToPath } from '../../app/config/urls';
 
 import { Job } from '../types/toolsJob';
 
@@ -67,15 +67,27 @@ export const getJobMessage = ({
     jobName = '';
   }
 
-  const href =
-    'remoteID' in job &&
-    generatePath(LocationToPath[Location.BlastResult], { id: job.remoteID });
+  let href;
+  if ('remoteID' in job) {
+    const pathTemplate = jobTypeToPath(job.type, true);
+    if (pathTemplate) {
+      href = generatePath(pathTemplate, {
+        id: job.remoteID,
+        subPage: 'overview',
+      });
+    }
+  }
+  let hitsMessage = '';
+  if (typeof nHits !== 'undefined') {
+    hitsMessage = `, found ${nHits} hit${nHits === 1 ? '' : 's'}`;
+  }
+
   return {
     ...message,
     content: (
       <Fragment>
-        Job {href ? <a href={href}>{jobName}</a> : { jobName }}
-        {` finished, found ${nHits} hit${nHits === 1 ? '' : 's'}`}
+        Job {href ? <Link to={href}>{jobName}</Link> : { jobName }}
+        {` finished${hitsMessage}`}
       </Fragment>
     ),
     level: MessageLevel.SUCCESS,

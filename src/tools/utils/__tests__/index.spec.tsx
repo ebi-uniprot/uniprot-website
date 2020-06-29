@@ -1,3 +1,5 @@
+import React from 'react';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
 import { getServerErrorDescription, getJobMessage } from '..';
@@ -40,7 +42,9 @@ describe('getJobMessage', () => {
       job: runningJob,
       nHits: 100,
     });
-    const { asFragment } = render(jobMessage.content as JSX.Element);
+    const { asFragment } = render(
+      <Router>{jobMessage.content as JSX.Element}</Router>
+    );
     expect(asFragment()).toMatchSnapshot();
     delete jobMessage.content;
     expect(jobMessage).toEqual({

@@ -31,7 +31,7 @@ import defaultFormValues, {
 } from '../config/AlignFormData';
 import infoMappings from '../../../shared/config/InfoMappings';
 
-// import './styles/BlastForm.scss';
+import '../../styles/ToolsForm.scss';
 
 interface CustomLocationState {
   parameters?: Partial<FormParameters>;
@@ -151,7 +151,7 @@ const AlignForm = () => {
       </PageIntro>
       <form onSubmit={submitAlignJob} onReset={handleReset}>
         {/* <fieldset>
-          <section className="blast-form-section__item">
+          <section className="tools-form-section__item">
             <legend>
               Find a protein to BLAST by UniProt ID{' '}
               <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
@@ -176,7 +176,7 @@ const AlignForm = () => {
               value={sequence.selected}
             />
           </section>
-          <section className="blast-form-section__item">
+          <section className="tools-form-section__item">
             <label>
               Name your Align job
               <input
@@ -192,8 +192,8 @@ const AlignForm = () => {
               />
             </label>
           </section>
-          <section className="blast-form-section blast-form-section__main_actions">
-            <section className="button-group blast-form-section__buttons">
+          <section className="tools-form-section tools-form-section__main_actions">
+            <section className="button-group tools-form-section__buttons">
               <input className="button secondary" type="reset" />
               <button
                 className="button primary"
