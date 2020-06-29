@@ -11,8 +11,8 @@ export const UPDATE_JOB = 'UPDATE_JOB';
 export const UPDATE_JOB_TITLE = 'UPDATE_JOB_TITLE';
 
 /**
- * @param {FormParameters[T]} parameters - job parameters to be kept in the application logic
- * @param {T} jobType = job type
+ * @param {FormParameters[T]} parameters job parameters to be kept in the application logic
+ * @param {T extends JobTypes} jobType job type
  * @param {string}
  */
 export function createJob<T extends JobTypes>(

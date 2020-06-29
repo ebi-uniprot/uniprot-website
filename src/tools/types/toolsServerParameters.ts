@@ -10,4 +10,9 @@ export type ServerParameters = {
   [JobTypes.PEPTIDE_SEARCH]: never; // TODO
 };
 
-export type PublicServerParameters = Exclude<ServerParameters, 'email'>;
+export type PublicServerParameters = {
+  [JobTypes.ALIGN]: Omit<AlignSP, 'email'>;
+  [JobTypes.BLAST]: Omit<BlastSP, 'email'>;
+  [JobTypes.IDMAP]: never; // TODO
+  [JobTypes.PEPTIDE_SEARCH]: never; // TODO
+};

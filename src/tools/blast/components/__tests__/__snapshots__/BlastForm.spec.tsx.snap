@@ -43,7 +43,7 @@ exports[`BlastForm test Renders the form 1`] = `
           Your BLAST job will be provided a default name. You may edit this name as per your choice.
         </li>
         <li>
-          Finally, click the Run BLAST button to submit your BLAST job.
+          Finally, click the "Run BLAST" button to submit your BLAST job.
         </li>
       </ul>
       <div

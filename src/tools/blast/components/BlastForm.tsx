@@ -21,7 +21,6 @@ import { sleep } from 'timing-functions';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 
-import { Job } from '../../types/toolsJob';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
 import {
@@ -103,7 +102,7 @@ const FormSelect: FC<{
 };
 
 interface CustomLocationState {
-  parameters?: Partial<Job['parameters']>;
+  parameters?: Partial<FormParameters>;
 }
 
 const BlastForm = () => {

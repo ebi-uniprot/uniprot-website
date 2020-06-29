@@ -21,6 +21,13 @@ const objectToFormData = (object: ObjectForFormData) => {
   return formData;
 };
 
+/**
+ * Takes an object containing parameters as defined for the website's form, to
+ * shape it to an object containing parameters expected by the server (as FormData)
+ * @param {T extends JobTypes} type
+ * @param {FormParameters[T]} formParameters
+ * @returns {FormData} server parameters wrapped in a FormData
+ */
 export function formParametersToServerParameters<T extends JobTypes>(
   type: T,
   formParameters: FormParameters[T]
@@ -29,28 +36,40 @@ export function formParametersToServerParameters<T extends JobTypes>(
   switch (type) {
     case JobTypes.ALIGN:
       serverParameters = {
+        email: DEFAULT_EMAIL,
         sequence: formParameters.sequence,
       } as ServerParameters[T];
       break;
     case JobTypes.BLAST:
-      serverParameters = {
-        program: (formParameters as FormParameters[JobTypes.BLAST]).program,
-        email: DEFAULT_EMAIL,
-        matrix: (formParameters as FormParameters[JobTypes.BLAST]).matrix,
-        alignments: (formParameters as FormParameters[JobTypes.BLAST]).hits,
-        scores: (formParameters as FormParameters[JobTypes.BLAST]).hits,
-        exp: (formParameters as FormParameters[JobTypes.BLAST]).threshold,
-        filter: (formParameters as FormParameters[JobTypes.BLAST]).filter,
-        gapalign: (formParameters as FormParameters[JobTypes.BLAST]).gapped,
-        taxids:
-          (formParameters as FormParameters[JobTypes.BLAST]).taxIDs &&
-          (formParameters as FormParameters[JobTypes.BLAST]).taxIDs
-            .map(({ id }) => id)
-            .join(','),
-        stype: (formParameters as FormParameters[JobTypes.BLAST]).stype,
-        sequence: (formParameters as FormParameters[JobTypes.BLAST]).sequence,
-        database: (formParameters as FormParameters[JobTypes.BLAST]).database,
-      } as ServerParameters[T];
+      {
+        const {
+          program,
+          matrix,
+          hits,
+          threshold,
+          filter,
+          gapped,
+          taxIDs,
+          stype,
+          sequence,
+          database,
+        } = formParameters as FormParameters[JobTypes.BLAST];
+
+        serverParameters = {
+          email: DEFAULT_EMAIL,
+          program,
+          matrix,
+          alignments: hits,
+          scores: hits,
+          exp: threshold,
+          filter,
+          gapalign: gapped,
+          taxids: taxIDs && taxIDs.map(({ id }) => id).join(','),
+          stype,
+          sequence,
+          database,
+        } as ServerParameters[T];
+      }
       break;
     case JobTypes.IDMAP:
       //
@@ -65,15 +84,30 @@ export function formParametersToServerParameters<T extends JobTypes>(
   return objectToFormData(serverParameters as ServerParameters[T]);
 }
 
+/**
+ * Takes an object containing parameters as defined for the server, to shape it
+ * to an object containing parameters expected by the website's form
+ * @param {T extends JobTypes} type
+ * @param {PublicServerParameters[T]} formParameters
+ * @returns {FormParameters[T]} website form parameters
+ */
 export function serverParametersToFormParameters<T extends JobTypes>(
   type: T,
   serverParameters: PublicServerParameters[T],
   taxonMapping: Map<string, string> = new Map()
 ): FormParameters[T] {
-  let formParameters: Partial<FormParameters[T]>;
+  let formParameters: Partial<FormParameters[T]> = {};
   switch (type) {
     case JobTypes.ALIGN:
-      //
+      {
+        const {
+          sequence,
+        } = serverParameters as PublicServerParameters[JobTypes.ALIGN];
+
+        formParameters = {
+          sequence,
+        } as FormParameters[T];
+      }
       break;
     case JobTypes.BLAST:
       {
@@ -121,7 +155,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           stype,
           sequence,
           database,
-        };
+        } as FormParameters[T];
       }
       break;
     case JobTypes.IDMAP:

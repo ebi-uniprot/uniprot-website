@@ -17,7 +17,6 @@ import {
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
-import { Job } from '../../types/toolsJob';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
@@ -35,7 +34,7 @@ import infoMappings from '../../../shared/config/InfoMappings';
 // import './styles/BlastForm.scss';
 
 interface CustomLocationState {
-  parameters?: Partial<Job['parameters']>;
+  parameters?: Partial<FormParameters>;
 }
 
 const AlignForm = () => {
