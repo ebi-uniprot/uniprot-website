@@ -1,7 +1,13 @@
 /**
  * @jest-environment node
  */
-import { removeProperty, formatLargeNumber, getBEMClassName } from '../utils';
+import {
+  removeProperty,
+  formatLargeNumber,
+  getBEMClassName,
+  getSmallerMultiple,
+  getLargerMultiple,
+} from '../utils';
 
 test('removeProperty removes only specified property and returns a deep copy of object ', () => {
   const obj = { foo: { bar: [1] }, baz: -1 };
@@ -67,5 +73,25 @@ describe('getBEMClassName', () => {
         m: [true && 'modifier_1'],
       })
     ).toEqual('block block--modifier_1');
+  });
+});
+
+describe('getSmallerMultiple', () => {
+  it('should return a multiple of a factor < number', () => {
+    expect(getSmallerMultiple(91, 10)).toEqual(90);
+  });
+
+  it('should return the number if number is alread a multiple of the factor ', () => {
+    expect(getSmallerMultiple(90, 10)).toEqual(90);
+  });
+});
+
+describe('getLargerMultiple', () => {
+  it('should return a multiple of a factor > number', () => {
+    expect(getLargerMultiple(91, 10)).toEqual(100);
+  });
+
+  it('should return the number if number is alread a multiple of the factor ', () => {
+    expect(getSmallerMultiple(90, 10)).toEqual(90);
   });
 });

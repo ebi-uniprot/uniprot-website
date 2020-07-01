@@ -19,8 +19,13 @@ test:
   only:
     refs:
       - master
-  extends: .js
+  image: buildkite/puppeteer
   stage: test
+  before_script:
+    - node --version
+    - npm --version
+    - yarn --version
+    - yarn
   script:
     - yarn test
 
