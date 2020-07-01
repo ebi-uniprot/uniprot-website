@@ -1,5 +1,5 @@
 import { Middleware, Store, Dispatch } from 'redux';
-import { schedule, sleep } from 'timing-functions';
+import { schedule, sleep, frame } from 'timing-functions';
 
 import { CREATE_JOB, REHYDRATE_JOBS } from './toolsActions';
 
@@ -13,6 +13,7 @@ import { Status } from '../types/toolsStatuses';
 import { ToolsState } from '../types/toolsInitialState';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
+const EXPIRED_INTERVAL = 1000 * 60 * 5; // 5 minutes
 
 const toolsMiddleware: Middleware = (store) => {
   const { dispatch, getState } = store;
@@ -20,14 +21,11 @@ const toolsMiddleware: Middleware = (store) => {
   // rehydrate jobs, run once in the application lifetime
   rehydrateJobs(dispatch as Dispatch);
 
-  // flag to avoid multiple pollJobs loop being scheduled
-  let scheduledPollJobs = false;
-
   const checkJobStatus = getCheckJobStatus(store as Store);
 
   const submitJob = getSubmitJob(store as Store);
 
-  // main loop
+  // main loop to poll job statuses
   const pollJobs = async () => {
     // Wait for browser idleness
     await schedule();
@@ -43,7 +41,7 @@ const toolsMiddleware: Middleware = (store) => {
 
     // nothing to check, early exit, no recursion
     if (!(jobsToSubmit.length || jobsToPoll.length)) {
-      scheduledPollJobs = false;
+      pollJobs.scheduled = false;
       return;
     }
 
@@ -58,25 +56,67 @@ const toolsMiddleware: Middleware = (store) => {
     }
 
     // reset flag
-    scheduledPollJobs = false;
+    pollJobs.scheduled = false;
 
     await sleep(POLLING_INTERVAL);
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    schedulePollJobs();
+    pollJobs.schedule();
+  };
+  // flag to avoid multiple pollJobs loop being scheduled
+  pollJobs.scheduled = false;
+  // scheduler using the flag
+  pollJobs.schedule = async () => {
+    if (pollJobs.scheduled) {
+      return;
+    }
+    pollJobs.scheduled = true;
+    // wait for the browser to not be busy
+    await schedule();
+    // wait for a frame to be scheduled (so won't fire until tab in foreground)
+    await frame();
+    pollJobs();
   };
 
-  const schedulePollJobs = async () => {
-    if (scheduledPollJobs) return;
-    scheduledPollJobs = true;
-    await schedule(POLLING_INTERVAL);
-    pollJobs();
+  // loop to check for expired jobs
+  const expiredJobs = async () => {
+    // Wait for browser idleness
+    await schedule();
+
+    const toolsState: ToolsState = getState().tools;
+
+    for (const [internalID, job] of Object.entries(toolsState)) {
+      console.log(internalID, new Date(job.timeCreated));
+    }
+
+    // reset flag
+    expiredJobs.scheduled = false;
+
+    await sleep(EXPIRED_INTERVAL);
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    expiredJobs.schedule();
+  };
+  // flag to avoid multiple expiredJobs loop being scheduled
+  expiredJobs.scheduled = false;
+  expiredJobs.schedule = async () => {
+    if (expiredJobs.scheduled) {
+      return;
+    }
+    expiredJobs.scheduled = true;
+    // wait for the browser to not be busy
+    await schedule();
+    // wait for a frame to be scheduled (so won't fire until tab in foreground)
+    await frame();
+    expiredJobs();
   };
 
   return (next) => (action) => {
     switch (action.type) {
       case CREATE_JOB:
+        pollJobs.schedule();
+        break;
       case REHYDRATE_JOBS:
-        schedulePollJobs();
+        pollJobs.schedule();
+        expiredJobs.schedule();
         break;
       default:
       // do nothing

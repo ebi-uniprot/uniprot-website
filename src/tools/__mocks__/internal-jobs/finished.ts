@@ -32,6 +32,7 @@ const finished: FinishedJob<JobTypes.BLAST> = {
   timeSubmitted: TWO_MINUTES_AGO,
   timeFinished: ONE_MINUTE_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,
+  saved: false,
 };
 
 export default finished;

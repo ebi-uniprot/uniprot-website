@@ -39,6 +39,7 @@ const toolsReducers = (
         parameters: action.payload.parameters,
         timeCreated: now,
         timeLastUpdate: now,
+        saved: false,
       };
 
       store.set(newJob.internalID, newJob);

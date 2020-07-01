@@ -28,6 +28,7 @@ const running: RunningJob = {
   timeCreated: THREE_MINUTES_AGO,
   timeSubmitted: TWO_MINUTES_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,
+  saved: false,
 };
 
 export default running;

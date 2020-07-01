@@ -25,6 +25,7 @@ const failedBeforeSubmission: FailedJob = {
   },
   timeCreated: TWO_MINUTES_AGO,
   timeLastUpdate: ONE_MINUTE_AGO,
+  saved: false,
 };
 
 export default failedBeforeSubmission;

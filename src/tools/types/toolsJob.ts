@@ -11,6 +11,7 @@ interface BaseJob<T extends JobTypes> {
   parameters: FormParameters[T];
   timeCreated: number;
   timeLastUpdate: number;
+  saved: boolean;
 }
 
 export interface CreatedJob extends BaseJob<JobTypes> {
