@@ -3,9 +3,9 @@ import { schedule, sleep } from 'timing-functions';
 
 import { CREATE_JOB, REHYDRATE_JOBS } from './toolsActions';
 
-import rehydrateJobs from '../utils/rehydrateJobs';
-import getCheckJobStatus from '../utils/getCheckJobStatus';
-import getSubmitJob from '../utils/getSubmitJob';
+import rehydrateJobs from './rehydrateJobs';
+import getCheckJobStatus from './getCheckJobStatus';
+import getSubmitJob from './getSubmitJob';
 
 import { CreatedJob, RunningJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';

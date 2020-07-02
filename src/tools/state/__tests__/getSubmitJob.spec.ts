@@ -11,7 +11,7 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
-import { UPDATE_JOB } from '../../state/toolsActions';
+import { UPDATE_JOB } from '../toolsActions';
 import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
 
 import { Location } from '../../../app/config/urls';

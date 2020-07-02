@@ -2,11 +2,11 @@ import { Store } from 'redux';
 
 import { formParametersToServerParameters } from '../adapters/parameters';
 
-import isValidServerID from './isValidServerID';
-import { getServerErrorDescription, getJobMessage } from '.';
+import isValidServerID from '../utils/isValidServerID';
+import { getServerErrorDescription, getJobMessage } from '../utils';
 
 import { addMessage } from '../../messages/state/messagesActions';
-import { updateJob } from '../state/toolsActions';
+import { updateJob } from './toolsActions';
 
 import toolsURLs from '../config/urls';
 import postData from '../../uniprotkb/config/postData';
