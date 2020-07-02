@@ -76,7 +76,7 @@ const FormSelect: FC<{
   }
   const label = BlastFields[formValue.fieldName as keyof typeof BlastFields];
   return (
-    <section className="blast-form-section__item">
+    <section className="tools-form-section__item">
       <label htmlFor={label}>
         {label}
         <select

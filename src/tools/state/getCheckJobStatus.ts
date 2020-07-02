@@ -1,11 +1,11 @@
 import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getJobMessage } from '.';
+import { getJobMessage } from '../utils';
 
 import toolsURLs from '../config/urls';
 
-import { updateJob } from '../state/toolsActions';
+import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
 
 import { RootState } from '../../app/state/rootInitialState';

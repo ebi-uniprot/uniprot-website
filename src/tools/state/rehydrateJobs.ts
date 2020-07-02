@@ -1,10 +1,10 @@
 import { Dispatch } from 'redux';
 import { schedule } from 'timing-functions';
 
-import { Stores } from './stores';
-import JobStore from './storage';
+import { Stores } from '../utils/stores';
+import JobStore from '../utils/storage';
 
-import { rehydrateJobs as rehydrateJobsActionCreator } from '../state/toolsActions';
+import { rehydrateJobs as rehydrateJobsActionCreator } from './toolsActions';
 
 import { Job } from '../types/toolsJob';
 

@@ -14,7 +14,7 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
-import { UPDATE_JOB } from '../../state/toolsActions';
+import { UPDATE_JOB } from '../toolsActions';
 
 import { Location } from '../../../app/config/urls';
 
