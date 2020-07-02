@@ -130,7 +130,7 @@ exports[`BlastForm test Renders the form 1`] = `
         class="tools-form-section"
       >
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Target database"
@@ -248,7 +248,7 @@ exports[`BlastForm test Renders the form 1`] = `
         class="tools-form-section"
       >
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Sequence type"
@@ -271,7 +271,7 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Program"
@@ -312,7 +312,7 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="E-Threshold"
@@ -371,7 +371,7 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Matrix"
@@ -418,7 +418,7 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Filter"
@@ -441,7 +441,7 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Gapped"
@@ -464,7 +464,7 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
         <section
-          class="blast-form-section__item"
+          class="tools-form-section__item"
         >
           <label
             for="Hits"
