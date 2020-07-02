@@ -15,6 +15,23 @@
       border-left: 0.25rem solid $colour-failure;
     }
 
+    & .card--expired {
+      & .dashboard__body__name,
+      & .dashboard__body__type,
+      & .dashboard__body__status,
+      & .dashboard__body__id {
+        opacity: 0.5;
+      }
+
+      & .card__content {
+        cursor: not-allowed;
+      }
+
+      & .dashboard__body__actions {
+        opacity: 1;
+      }
+    }
+
     & .card:nth-of-type(2n + 1) {
       background: #e4e8eb;
     }
@@ -77,6 +94,14 @@
 
     &__time {
       grid-area: time;
+
+      display: flex;
+      align-items: flex-start;
+
+      & svg {
+        margin: 0.4em;
+        color: #f0c135;
+      }
     }
 
     &__status {

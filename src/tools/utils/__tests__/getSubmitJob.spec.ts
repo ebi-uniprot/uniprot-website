@@ -58,8 +58,8 @@ describe('submitJob', () => {
 
       expect(store.dispatch).toHaveBeenNthCalledWith(1, {
         payload: {
-          job: {
-            ...createdJob,
+          id: createdJob.internalID,
+          partialJob: {
             status: Status.FAILURE,
             timeLastUpdate: Date.now(),
             errorDescription:
@@ -87,8 +87,8 @@ describe('submitJob', () => {
 
       expect(store.dispatch).toHaveBeenNthCalledWith(1, {
         payload: {
-          job: {
-            ...createdJob,
+          id: createdJob.internalID,
+          partialJob: {
             status: Status.FAILURE,
             timeLastUpdate: Date.now(),
             errorDescription:
@@ -124,8 +124,8 @@ describe('submitJob', () => {
 
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
-        job: {
-          ...createdJob,
+        id: createdJob.internalID,
+        partialJob: {
           status: Status.RUNNING,
           remoteID: serverUUID,
           timeSubmitted: Date.now(),

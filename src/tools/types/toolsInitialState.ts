@@ -1,8 +1,8 @@
 import { Job } from './toolsJob';
 
-export interface ToolsState {
+export type ToolsState = {
   [key: string]: Job;
-}
+};
 
 const toolsInitialState: ToolsState = {};
 

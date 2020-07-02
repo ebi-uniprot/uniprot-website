@@ -1,7 +1,7 @@
-import { Middleware, Store, Dispatch } from 'redux';
+import { Middleware, Dispatch, AnyAction } from 'redux';
 import { schedule, sleep, frame } from 'timing-functions';
 
-import { CREATE_JOB, REHYDRATE_JOBS } from './toolsActions';
+import { CREATE_JOB, REHYDRATE_JOBS, deleteJob } from './toolsActions';
 
 import rehydrateJobs from '../utils/rehydrateJobs';
 import getCheckJobStatus from '../utils/getCheckJobStatus';
@@ -10,27 +10,28 @@ import getSubmitJob from '../utils/getSubmitJob';
 import { CreatedJob, RunningJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 
-import { ToolsState } from '../types/toolsInitialState';
+import { RootState } from '../../app/state/rootInitialState';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 const EXPIRED_INTERVAL = 1000 * 60 * 5; // 5 minutes
+const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
-const toolsMiddleware: Middleware = (store) => {
+const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
   const { dispatch, getState } = store;
 
   // rehydrate jobs, run once in the application lifetime
   rehydrateJobs(dispatch as Dispatch);
 
-  const checkJobStatus = getCheckJobStatus(store as Store);
+  const checkJobStatus = getCheckJobStatus(store);
 
-  const submitJob = getSubmitJob(store as Store);
+  const submitJob = getSubmitJob(store);
 
   // main loop to poll job statuses
   const pollJobs = async () => {
     // Wait for browser idleness
     await schedule();
 
-    const toolsState: ToolsState = getState().tools;
+    const toolsState = getState().tools;
 
     const jobsToSubmit = Object.values(toolsState).filter(
       (job) => job.status === Status.CREATED
@@ -82,10 +83,13 @@ const toolsMiddleware: Middleware = (store) => {
     // Wait for browser idleness
     await schedule();
 
-    const toolsState: ToolsState = getState().tools;
+    const toolsState = getState().tools;
 
+    const now = Date.now();
     for (const [internalID, job] of Object.entries(toolsState)) {
-      console.log(internalID, new Date(job.timeCreated));
+      if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
+        dispatch(deleteJob(internalID));
+      }
     }
 
     // reset flag

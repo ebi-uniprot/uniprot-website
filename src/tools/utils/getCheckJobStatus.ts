@@ -1,4 +1,4 @@
-import { Store } from 'redux';
+import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
 
 import fetchData from '../../shared/utils/fetchData';
 import { getJobMessage } from '.';
@@ -8,12 +8,16 @@ import toolsURLs from '../config/urls';
 import { updateJob } from '../state/toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
 
+import { RootState } from '../../app/state/rootInitialState';
 import { RunningJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
 
-const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
+const getCheckJobStatus = ({
+  dispatch,
+  getState,
+}: MiddlewareAPI<Dispatch<AnyAction>, RootState>) => async (
   job: RunningJob
 ) => {
   const urlConfig = toolsURLs(job.type);
@@ -43,8 +47,7 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
       status === Status.ERRORED
     ) {
       dispatch(
-        updateJob({
-          ...currentStateOfJob,
+        updateJob(job.internalID, {
           timeLastUpdate: Date.now(),
           status: status as Status.RUNNING | Status.FAILURE | Status.ERRORED,
         })
@@ -69,8 +72,7 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
 
       if (!results.hits) {
         dispatch(
-          updateJob({
-            ...currentStateOfJob,
+          updateJob(job.internalID, {
             timeLastUpdate: now,
             status: Status.FAILURE,
           })
@@ -83,8 +85,7 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
       }
 
       dispatch(
-        updateJob({
-          ...currentStateOfJob,
+        updateJob(job.internalID, {
           timeLastUpdate: now,
           timeFinished: now,
           status,
@@ -97,10 +98,9 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
         )
       );
     } else {
-      const now = new Date();
+      const now = Date.now();
       dispatch(
-        updateJob({
-          ...currentStateOfJob,
+        updateJob(job.internalID, {
           timeLastUpdate: now,
           timeFinished: now,
           status,

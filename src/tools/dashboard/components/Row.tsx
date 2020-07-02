@@ -17,9 +17,10 @@ import {
   BinIcon,
   SpinnerIcon,
   EditIcon,
+  WarningTriangleIcon,
 } from 'franklin-sites';
 
-import { updateJobTitle, deleteJob } from '../../state/toolsActions';
+import { updateJob, deleteJob } from '../../state/toolsActions';
 
 import { jobTypeToPath } from '../../../app/config/urls';
 
@@ -46,7 +47,7 @@ const Name: FC<NameProps> = ({ children, id }: NameProps) => {
   const handleBlur = () => {
     const cleanedText = text.trim();
     if (cleanedText !== children) {
-      dispatch(updateJobTitle(id, text));
+      dispatch(updateJob(id, { title: text }));
     }
   };
 
@@ -78,7 +79,8 @@ interface TimeProps {
 const Time: FC<TimeProps> = ({ children }) => {
   const date = new Date(children);
   const YYYY = date.getFullYear();
-  const MM = `${date.getMonth()}`.padStart(2, '0');
+  // date.getMonth() starts at 0 for January
+  const MM = `${date.getMonth() + 1}`.padStart(2, '0');
   const DD = `${date.getDate()}`.padStart(2, '0');
   const hh = `${date.getHours()}`.padStart(2, '0');
   const mm = `${date.getMinutes()}`.padStart(2, '0');
@@ -152,24 +154,34 @@ const NiceStatus: FC<NiceStatusProps> = ({ job }) => {
 };
 
 interface ActionsProps {
-  type: Job['type'];
-  parameters: Job['parameters'];
+  job: Job;
   onDelete(): void;
 }
 
-const Actions: FC<ActionsProps> = ({ type, parameters, onDelete }) => {
+const Actions: FC<ActionsProps> = ({ job, onDelete }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
 
   return (
     <span className="dashboard__body__actions">
       <button
         type="button"
+        title="keep this job"
+        onClick={(event) => {
+          event.stopPropagation();
+          dispatch(updateJob(job.internalID, { saved: !job.saved }));
+        }}
+      >
+        {job.saved ? '★' : '☆'}
+      </button>
+      <button
+        type="button"
         title="resubmit this job"
         onClick={(event) => {
           event.stopPropagation();
-          const formPath = jobTypeToPath(type);
+          const formPath = jobTypeToPath(job.type);
           if (formPath) {
-            history.push(formPath, { parameters });
+            history.push(formPath, { parameters: job.parameters });
           }
         }}
       >
@@ -220,20 +232,21 @@ const animationOptionsForStatusUpdate: KeyframeAnimationOptions = {
 
 interface RowProps {
   job: Job;
+  hasExpired?: boolean;
 }
 
 interface CustomLocationState {
   parameters?: Job['parameters'];
 }
 
-const Row: FC<RowProps> = memo(({ job }) => {
+const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const ref = useRef<HTMLElement>(null);
   const firstTime = useRef<boolean>(true);
 
   let jobLink: string | undefined;
-  if ('remoteID' in job && job.status === Status.FINISHED) {
+  if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
     jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
   }
 
@@ -290,29 +303,37 @@ const Row: FC<RowProps> = memo(({ job }) => {
       ref={ref}
       className={bem({
         b: 'card',
-        m:
+        m: [
           (job.status === Status.FAILURE || job.status === Status.ERRORED) &&
-          'failure',
+            'failure',
+          Boolean(hasExpired) && 'expired',
+        ],
       })}
     >
       <span className="dashboard__body__name">
         <Name id={job.internalID}>{job.title}</Name>
       </span>
       <span className="dashboard__body__type">{job.type}</span>
-      <span className="dashboard__body__time">
+      <span
+        className="dashboard__body__time"
+        title={
+          hasExpired
+            ? 'This job has expired and its data is no longer available'
+            : undefined
+        }
+      >
         {'timeSubmitted' in job && job.timeSubmitted && (
-          <Time>{job.timeSubmitted}</Time>
+          <>
+            <Time>{job.timeSubmitted}</Time>
+            {hasExpired && <WarningTriangleIcon width="1em" />}
+          </>
         )}
       </span>
       <span className="dashboard__body__status">
         <NiceStatus job={job} />
       </span>
       <span className="dashboard__body__actions">
-        <Actions
-          type={job.type}
-          parameters={job.parameters}
-          onDelete={handleDelete}
-        />
+        <Actions job={job} onDelete={handleDelete} />
       </span>
       <span className="dashboard__body__id">
         {'remoteID' in job &&

@@ -92,8 +92,8 @@ describe('checkJobStatus', () => {
 
       expect(store.dispatch).toHaveBeenCalledWith({
         payload: {
-          job: {
-            ...runningJob,
+          id: runningJob.internalID,
+          partialJob: {
             status: Status.FAILURE,
             timeLastUpdate: Date.now(),
           },
@@ -109,8 +109,9 @@ describe('checkJobStatus', () => {
 
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
-        job: {
-          ...runningJob,
+        id: runningJob.internalID,
+        partialJob: {
+          status: Status.RUNNING,
           timeLastUpdate: Date.now(),
         },
       },
@@ -122,8 +123,8 @@ describe('checkJobStatus', () => {
 
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
-        job: {
-          ...runningJob,
+        id: runningJob.internalID,
+        partialJob: {
           status: Status.FAILURE,
           timeLastUpdate: Date.now(),
         },
@@ -136,8 +137,8 @@ describe('checkJobStatus', () => {
 
     expect(store.dispatch).toHaveBeenCalledWith({
       payload: {
-        job: {
-          ...runningJob,
+        id: runningJob.internalID,
+        partialJob: {
           status: Status.ERRORED,
           timeLastUpdate: Date.now(),
         },
@@ -156,8 +157,8 @@ describe('checkJobStatus', () => {
 
     expect(store.dispatch).toHaveBeenNthCalledWith(1, {
       payload: {
-        job: {
-          ...runningJob,
+        id: runningJob.internalID,
+        partialJob: {
           status: Status.FINISHED,
           timeLastUpdate: Date.now(),
           timeFinished: Date.now(),

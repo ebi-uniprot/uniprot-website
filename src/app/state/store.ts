@@ -9,7 +9,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import rootReducer from './rootReducer';
-import initialState from './rootInitialState';
+import initialState, { RootAction, RootState } from './rootInitialState';
 import toolsMiddleware from '../../tools/state/toolsMiddleware';
 
 const persistConfig = {
@@ -35,14 +35,17 @@ const persistConfig = {
   ],
 };
 
-const persistorReducer = persistReducer(persistConfig, rootReducer);
+const persistorReducer = persistReducer<any, RootAction>(
+  persistConfig,
+  rootReducer
+);
 
 function configureStore() {
   let store;
 
   if (process.env.NODE_ENV === 'development') {
     const debug = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-    store = createStore(
+    store = createStore<RootState, RootAction, any, any>(
       rootReducer,
       initialState,
       debug
