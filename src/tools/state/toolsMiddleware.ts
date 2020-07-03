@@ -10,7 +10,7 @@ import getSubmitJob from './getSubmitJob';
 import { CreatedJob, RunningJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 
-import { ToolsState } from '../types/toolsInitialState';
+import { ToolsState } from './toolsInitialState';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 

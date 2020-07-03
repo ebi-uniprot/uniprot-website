@@ -6,7 +6,7 @@ import { Card, PageIntro, ClockIcon, Message } from 'franklin-sites';
 import Row from './Row';
 
 import { Job } from '../../types/toolsJob';
-import { ToolsState } from '../../types/toolsInitialState';
+import { ToolsState } from '../../state/toolsInitialState';
 
 import ArtWork from '../../svg/no-blast-results.svg';
 

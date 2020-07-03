@@ -1,4 +1,4 @@
-import { Job } from './toolsJob';
+import { Job } from '../types/toolsJob';
 
 export interface ToolsState {
   [key: string]: Job;
