@@ -41,7 +41,7 @@ type DataForDashboard = {
 };
 
 export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
-  status: Status.FINISHED;
+  status: Status.FINISHED | Status.NOT_FOUND;
   remoteID: string;
   timeSubmitted: number;
   timeFinished: number;

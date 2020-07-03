@@ -127,6 +127,8 @@ const NiceStatus: FC<NiceStatusProps> = ({ job }) => {
           )}
         </>
       );
+    case Status.NOT_FOUND:
+      return <>Job not found on the server</>;
     case Status.FINISHED: {
       if (
         // not a blast job, or

@@ -9,7 +9,7 @@ import { updateJob } from './toolsActions';
 import { addMessage } from '../../messages/state/messagesActions';
 
 import { RootState } from '../../app/state/rootInitialState';
-import { RunningJob } from '../types/toolsJob';
+import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -18,7 +18,7 @@ const getCheckJobStatus = ({
   dispatch,
   getState,
 }: MiddlewareAPI<Dispatch<AnyAction>, RootState>) => async (
-  job: RunningJob
+  job: RunningJob | FinishedJob<JobTypes>
 ) => {
   const urlConfig = toolsURLs(job.type);
   try {
@@ -38,10 +38,15 @@ const getCheckJobStatus = ({
         `got an unexpected status of "${status}" from the server`
       );
     }
-    if (status === Status.NOT_FOUND) {
-      throw new Error('Job was not found on the server');
+    if (
+      status === Status.FINISHED &&
+      currentStateOfJob.status === Status.FINISHED
+    ) {
+      // job was already finished, and is still in the same state on the server
+      return;
     }
     if (
+      status === Status.NOT_FOUND ||
       status === Status.RUNNING ||
       status === Status.FAILURE ||
       status === Status.ERRORED
@@ -49,14 +54,18 @@ const getCheckJobStatus = ({
       dispatch(
         updateJob(job.internalID, {
           timeLastUpdate: Date.now(),
-          status: status as Status.RUNNING | Status.FAILURE | Status.ERRORED,
+          status: status as
+            | Status.NOT_FOUND
+            | Status.RUNNING
+            | Status.FAILURE
+            | Status.ERRORED,
         })
       );
-
       return;
     }
     // job finished, handle differently depending on job type
     if (job.type === JobTypes.BLAST) {
+      // only BLAST jobs
       const response = await fetchData<BlastResults>(
         urlConfig.resultUrl(job.remoteID, 'jdp?format=json')
       );
@@ -98,6 +107,7 @@ const getCheckJobStatus = ({
         )
       );
     } else {
+      // all kinds of jobs except BLAST
       const now = Date.now();
       dispatch(
         updateJob(job.internalID, {

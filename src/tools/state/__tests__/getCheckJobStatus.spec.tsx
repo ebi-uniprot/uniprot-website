@@ -75,11 +75,20 @@ describe('checkJobStatus', () => {
       expect(store.dispatch).not.toHaveBeenCalled();
     });
 
-    it('should not dispatch if job not in state', async () => {
+    it('should dispatch if job disappeared from server', async () => {
       mock.onGet().reply(200, Status.NOT_FOUND);
       await checkJobStatus(runningJob);
 
-      expect(store.dispatch).not.toHaveBeenCalled();
+      expect(store.dispatch).toHaveBeenCalledWith({
+        payload: {
+          id: runningJob.internalID,
+          partialJob: {
+            status: Status.NOT_FOUND,
+            timeLastUpdate: Date.now(),
+          },
+        },
+        type: UPDATE_JOB,
+      });
     });
 
     it('should dispatch failed job if finished but no valid data', async () => {

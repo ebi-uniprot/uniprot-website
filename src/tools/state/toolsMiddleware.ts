@@ -28,9 +28,6 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   // main loop to poll job statuses
   const pollJobs = async () => {
-    // Wait for browser idleness
-    await schedule();
-
     const toolsState = getState().tools;
 
     const jobsToSubmit = Object.values(toolsState).filter(
@@ -80,15 +77,17 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   // loop to check for expired jobs
   const expiredJobs = async () => {
-    // Wait for browser idleness
-    await schedule();
-
     const toolsState = getState().tools;
 
     const now = Date.now();
     for (const [internalID, job] of Object.entries(toolsState)) {
       if (now - job.timeCreated > AUTO_DELETE_TIME && !job.saved) {
+        // job is older than 7 days
         dispatch(deleteJob(internalID));
+      } else if (job.status === Status.FINISHED) {
+        // job is finished and should still be present on the server
+        // eslint-disable-next-line no-await-in-loop
+        await checkJobStatus(job);
       }
     }
 

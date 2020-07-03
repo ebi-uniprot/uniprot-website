@@ -86,7 +86,7 @@ export const getJobMessage = ({
     ...message,
     content: (
       <Fragment>
-        Job {href ? <Link to={href}>{jobName}</Link> : { jobName }}
+        {job.type} job {href ? <Link to={href}>{jobName}</Link> : { jobName }}
         {` finished${hitsMessage}`}
       </Fragment>
     ),
