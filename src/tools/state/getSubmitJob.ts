@@ -43,7 +43,9 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     // get a new reference to the job
     const currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
-    if (!currentStateOfJob) return;
+    if (!currentStateOfJob) {
+      return;
+    }
 
     const now = Date.now();
     dispatch(
@@ -61,7 +63,9 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     // get a new reference to the job
     const currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
-    if (!currentStateOfJob) return;
+    if (!currentStateOfJob) {
+      return;
+    }
     dispatch(
       updateJob({
         ...currentStateOfJob,

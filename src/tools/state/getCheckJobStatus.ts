@@ -27,7 +27,9 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
     // get a new reference to the job
     let currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
-    if (!currentStateOfJob) return;
+    if (!currentStateOfJob) {
+      return;
+    }
     // check that the status we got from the server is something expected
     if (!(Object.values(Status) as Array<string>).includes(status)) {
       throw new Error(
@@ -63,7 +65,9 @@ const getCheckJobStatus = ({ dispatch, getState }: Store) => async (
       // get a new reference to the job
       currentStateOfJob = getState().tools[job.internalID];
       // check that the job is still in the state (it might have been removed)
-      if (!currentStateOfJob) return;
+      if (!currentStateOfJob) {
+        return;
+      }
 
       const now = Date.now();
 
