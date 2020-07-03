@@ -46,8 +46,15 @@ const options: DownloadOptions[] = [
   { format: 'ffdp-subject-jpeg', description: 'FFDP subject JPG', ext: 'jpg' },
 ];
 
-const BlastResultDownload = memo<{ id: string; onToggleDisplay: () => void }>(
-  ({ id, onToggleDisplay }) => {
+type BlastResultDownloadProps = {
+  id: string;
+  onToggleDisplay: () => void;
+  nHits: number;
+  isTableResultsFiltered: boolean;
+};
+
+const BlastResultDownload = memo<BlastResultDownloadProps>(
+  ({ id, onToggleDisplay, nHits, isTableResultsFiltered }) => {
     const [fileFormat, setFileFormat] = useState(options[0].format);
 
     const updateFileFormat = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -69,7 +76,14 @@ const BlastResultDownload = memo<{ id: string; onToggleDisplay: () => void }>(
     return (
       <>
         <h2>Download</h2>
-        <h3>BLAST results</h3>
+        <h3>BLAST results · {nHits} hits</h3>
+        {isTableResultsFiltered && (
+          <p>
+            <b>Note</b>: The results in the table view have user-selected
+            filters applied while the file downloaded here will not have these
+            filters applied and will contain all {nHits} hits of the BLAST job.
+          </p>
+        )}
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend>

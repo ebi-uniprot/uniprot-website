@@ -254,6 +254,11 @@ const BlastResult = () => {
       jobId={match.params.id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
+      nHits={blastData.hits.length}
+      isTableResultsFiltered={
+        typeof data?.hits.length !== 'undefined' &&
+        data?.hits.length !== blastData.hits.length
+      }
     />
   );
 
