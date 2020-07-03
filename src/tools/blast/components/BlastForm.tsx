@@ -236,7 +236,9 @@ const BlastForm = () => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence) return;
+    if (!sequence) {
+      return;
+    }
 
     setSubmitDisabled(true);
     setSending(true);

@@ -5,7 +5,7 @@ import JobStore from '../utils/storage';
 
 import * as toolsActions from './toolsActions';
 
-import toolsInitialState, { ToolsState } from '../types/toolsInitialState';
+import toolsInitialState, { ToolsState } from './toolsInitialState';
 
 import { CreatedJob, Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';

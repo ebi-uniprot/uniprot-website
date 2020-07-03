@@ -101,7 +101,9 @@ const AlignForm = () => {
   const submitAlignJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence) return;
+    if (!sequence) {
+      return;
+    }
 
     setSubmitDisabled(true);
     setSending(true);
