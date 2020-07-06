@@ -126,6 +126,7 @@ const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
               }
               nHits={nHits}
               isTableResultsFiltered={isTableResultsFiltered}
+              isTableRowSelected={selectedEntries.length > 0}
             />
           </SidePanel>
         </Suspense>

@@ -4,7 +4,7 @@ import BlastResultDownload from '../BlastResultDownload';
 
 describe('Blast results download', () => {
   jest.spyOn(document.body, 'appendChild');
-  const nDownloadedExplanationRe = /The results in the table view have user-selected filters/;
+  const nDownloadedExplanationRe = /The download file will contain/;
 
   it('should change the format; download the correct resource/format; not display explanation when table results have not been filtered', () => {
     const onCloseMock = jest.fn();
@@ -15,6 +15,7 @@ describe('Blast results download', () => {
         onToggleDisplay={onCloseMock}
         nHits={100}
         isTableResultsFiltered={false}
+        isTableRowSelected={false}
       />
     );
     const select = getByTestId('file-format-select');
@@ -32,7 +33,7 @@ describe('Blast results download', () => {
     expect(nDownloadExplanation).toBeNull();
   });
 
-  it('should display explanation when table results have been filtered', () => {
+  it('should display explanation when table results have been filtered and a row has been selected', () => {
     const onCloseMock = jest.fn();
 
     const { getByText } = render(
@@ -41,6 +42,7 @@ describe('Blast results download', () => {
         onToggleDisplay={onCloseMock}
         nHits={100}
         isTableResultsFiltered={true}
+        isTableRowSelected={true}
       />
     );
     const nDownloadExplanation = getByText(nDownloadedExplanationRe);

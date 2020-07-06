@@ -51,10 +51,17 @@ type BlastResultDownloadProps = {
   onToggleDisplay: () => void;
   nHits: number;
   isTableResultsFiltered: boolean;
+  isTableRowSelected: boolean;
 };
 
 const BlastResultDownload = memo<BlastResultDownloadProps>(
-  ({ id, onToggleDisplay, nHits, isTableResultsFiltered }) => {
+  ({
+    id,
+    onToggleDisplay,
+    nHits,
+    isTableResultsFiltered,
+    isTableRowSelected,
+  }) => {
     const [fileFormat, setFileFormat] = useState(options[0].format);
 
     const updateFileFormat = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -77,11 +84,11 @@ const BlastResultDownload = memo<BlastResultDownloadProps>(
       <>
         <h2>Download</h2>
         <h3>BLAST results · {nHits} hits</h3>
-        {isTableResultsFiltered && (
+        {(isTableResultsFiltered || isTableRowSelected) && (
           <p>
-            <b>Note</b>: The results in the table view have user-selected
-            filters applied while the file downloaded here will not have these
-            filters applied and will contain all {nHits} hits of the BLAST job.
+            <b>Note</b>: The download file will contain all {nHits} results of
+            this BLAST job. Any selections or filters applied on the results
+            page will not affect the download set.
           </p>
         )}
         <form onSubmit={handleSubmit}>
