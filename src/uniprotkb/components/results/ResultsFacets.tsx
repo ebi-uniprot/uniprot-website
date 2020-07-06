@@ -10,7 +10,12 @@ import {
 import { SelectedFacet } from '../../types/resultsTypes';
 import { Facet } from '../../types/responseTypes';
 
-const ResultsFacets: FC<{ facets: Facet[] }> = ({ facets }) => {
+import './styles/results-view.scss';
+
+const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
+  facets,
+  isStale,
+}) => {
   const {
     push,
     location: { search: queryParamFromUrl, pathname },
@@ -52,12 +57,14 @@ const ResultsFacets: FC<{ facets: Facet[] }> = ({ facets }) => {
   };
 
   return (
-    <Facets
-      data={facets}
-      selectedFacets={selectedFacets}
-      addFacet={(name: string, value: string) => addFacet(name, value)}
-      removeFacet={(name: string, value: string) => removeFacet(name, value)}
-    />
+    <div className={isStale ? 'is-stale' : undefined}>
+      <Facets
+        data={facets}
+        selectedFacets={selectedFacets}
+        addFacet={(name: string, value: string) => addFacet(name, value)}
+        removeFacet={(name: string, value: string) => removeFacet(name, value)}
+      />
+    </div>
   );
 };
 

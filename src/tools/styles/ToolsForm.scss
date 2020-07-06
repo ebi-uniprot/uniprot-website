@@ -22,8 +22,7 @@
 
   &__buttons {
     pointer-events: initial;
-    margin-left: auto;
-    order: 2;
+    justify-content: flex-end;
   }
 }
 

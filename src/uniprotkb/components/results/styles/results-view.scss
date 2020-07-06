@@ -3,3 +3,9 @@
   height: 100%; //needed for the data list to function
   overflow-y: auto;
 }
+
+.is-stale {
+  opacity: 0.5;
+  pointer-events: none;
+  user-select: none;
+}
