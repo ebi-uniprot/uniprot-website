@@ -1,16 +1,16 @@
 import { Middleware, Store, Dispatch } from 'redux';
 import { schedule, sleep } from 'timing-functions';
 
-import { CreatedJob, RunningJob } from '../blast/types/blastJob';
-import { Status } from '../blast/types/blastStatuses';
-
 import { CREATE_JOB, REHYDRATE_JOBS } from './toolsActions';
 
-import { ToolsState } from './toolsInitialState';
+import rehydrateJobs from './rehydrateJobs';
+import getCheckJobStatus from './getCheckJobStatus';
+import getSubmitJob from './getSubmitJob';
 
-import rehydrateJobs from '../utils/rehydrateJobs';
-import getCheckJobStatus from '../utils/getCheckJobStatus';
-import getSubmitJob from '../utils/getSubmitJob';
+import { CreatedJob, RunningJob } from '../types/toolsJob';
+import { Status } from '../types/toolsStatuses';
+
+import { ToolsState } from './toolsInitialState';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 

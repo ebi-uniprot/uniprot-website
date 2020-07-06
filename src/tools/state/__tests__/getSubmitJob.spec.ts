@@ -2,16 +2,16 @@ import { Store } from 'redux';
 
 import getSubmitJob from '../getSubmitJob';
 
-import createdJob from '../../blast/__mocks__/internal-jobs/created';
+import createdJob from '../../__mocks__/internal-jobs/created';
 
-import { Status } from '../../blast/types/blastStatuses';
+import { Status } from '../../types/toolsStatuses';
 import {
   MessageLevel,
   MessageFormat,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
-import { UPDATE_JOB } from '../../state/toolsActions';
+import { UPDATE_JOB } from '../toolsActions';
 import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
 
 import { Location } from '../../../app/config/urls';

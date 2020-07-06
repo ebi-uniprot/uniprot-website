@@ -11,7 +11,7 @@ import toolsMiddleware from '../toolsMiddleware';
 import JobStore from '../../utils/storage';
 import { Stores } from '../../utils/stores';
 
-import createdJob from '../../blast/__mocks__/internal-jobs/created';
+import createdJob from '../../__mocks__/internal-jobs/created';
 
 var axiosMock = new MockAdapter(axios);
 axiosMock.onPost().reply(200, { data: 'ncbiblast-R20200505-A-B-C-D' });

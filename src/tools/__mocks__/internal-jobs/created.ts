@@ -1,5 +1,6 @@
-import { CreatedJob } from '../../types/blastJob';
-import { Status } from '../../types/blastStatuses';
+import { CreatedJob } from '../../types/toolsJob';
+import { JobTypes } from '../../types/toolsJobTypes';
+import { Status } from '../../types/toolsStatuses';
 
 const ONE_MINUTE_AGO = Date.now() - 1000 * 60;
 
@@ -7,7 +8,7 @@ const created: CreatedJob = {
   status: Status.CREATED,
   internalID: 'local-97e5ab00-9ff0-11ea-baf5-bf14c0760612',
   title: 'my job title',
-  type: 'blast',
+  type: JobTypes.BLAST,
   parameters: {
     stype: 'protein',
     sequence: 'MLPGLALLLL',

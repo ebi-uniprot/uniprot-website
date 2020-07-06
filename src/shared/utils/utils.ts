@@ -70,3 +70,9 @@ export const getBEMClassName = ({
   }
   return className;
 };
+
+export const getSmallerMultiple = (n: number, factor: number) =>
+  Math.floor(n / factor) * factor;
+
+export const getLargerMultiple = (n: number, factor: number) =>
+  Math.ceil(n / factor) * factor;

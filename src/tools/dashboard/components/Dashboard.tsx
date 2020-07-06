@@ -3,21 +3,16 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Card, PageIntro, ClockIcon, Message } from 'franklin-sites';
 
-import { Job } from '../../blast/types/blastJob';
+import Row from './Row';
+
+import { Job } from '../../types/toolsJob';
 import { ToolsState } from '../../state/toolsInitialState';
 
-import Row from './Row';
+import ArtWork from '../../svg/no-blast-results.svg';
 
 import './styles/Dashboard.scss';
 import '../../../shared/components/error-pages/styles/error-pages.scss';
-import ArtWork from '../../svg/no-blast-results.svg';
-
-// temporary
-// import created from '../../blast/__mocks__/internal-jobs/created';
-// import failedBeforeSubmission from '../../blast/__mocks__/internal-jobs/failed-after-submission';
-// import failedAfterSubmission from '../../blast/__mocks__/internal-jobs/failed-before-submission copy';
-// import finished from '../../blast/__mocks__/internal-jobs/finished';
-// import running from '../../blast/__mocks__/internal-jobs/running';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 const sortNewestFirst = (a: Job, b: Job) => b.timeCreated - a.timeCreated;
 
@@ -35,8 +30,11 @@ const Dashboard = () => {
 
   const noResultsSubtitle = (
     <div>
-      Try using <Link to="/blast">BLAST</Link>, Align, ID Mapping/Retrieve or
-      Peptide Search to begin
+      Try using <Link to={LocationToPath[Location.Blast]}>BLAST</Link>,{' '}
+      <Link to={LocationToPath[Location.Align]}>Align</Link>,{' '}
+      <Link to={LocationToPath[Location.IDMap]}>ID Mapping/Retrieve</Link> or{' '}
+      <Link to={LocationToPath[Location.PeptideSearch]}>Peptide Search</Link> to
+      begin
     </div>
   );
 

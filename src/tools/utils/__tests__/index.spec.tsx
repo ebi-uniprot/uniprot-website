@@ -1,7 +1,11 @@
-import { getServerErrorDescription, getJobMessage } from '..';
-import createdJob from '../../blast/__mocks__/internal-jobs/created';
-import runningJob from '../../blast/__mocks__/internal-jobs/running';
+import React from 'react';
+import { MemoryRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
+
+import { getServerErrorDescription, getJobMessage } from '..';
+
+import createdJob from '../../__mocks__/internal-jobs/created';
+import runningJob from '../../__mocks__/internal-jobs/running';
 
 describe('getServerErrorDescription', () => {
   it('should get formatted error string from server error', () => {
@@ -38,7 +42,9 @@ describe('getJobMessage', () => {
       job: runningJob,
       nHits: 100,
     });
-    const { asFragment } = render(jobMessage.content as JSX.Element);
+    const { asFragment } = render(
+      <Router>{jobMessage.content as JSX.Element}</Router>
+    );
     expect(asFragment()).toMatchSnapshot();
     delete jobMessage.content;
     expect(jobMessage).toEqual({

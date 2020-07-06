@@ -1,7 +1,8 @@
 import { action } from 'typesafe-actions';
 
-import { FormParameters } from '../blast/types/blastFormParameters';
-import { Job } from '../blast/types/blastJob';
+import { Job } from '../types/toolsJob';
+import { FormParameters } from '../types/toolsFormParameters';
+import { JobTypes } from '../types/toolsJobTypes';
 
 export const REHYDRATE_JOBS = 'REHYDRATE_JOBS';
 export const CREATE_JOB = 'CREATE_JOB';
@@ -10,19 +11,21 @@ export const UPDATE_JOB = 'UPDATE_JOB';
 export const UPDATE_JOB_TITLE = 'UPDATE_JOB_TITLE';
 
 /**
- * @param {FormParameters} parameters - job parameters to be kept in the application logic
- * @param {"blast"} jobType = job type (needs to be defined properly when adding other things than Blast)
+ * @param {FormParameters[T]} parameters job parameters to be kept in the application logic
+ * @param {T extends JobTypes} jobType job type
+ * @param {string}
  */
-export const createJob = (
-  parameters: FormParameters,
-  jobType: 'blast',
+export function createJob<T extends JobTypes>(
+  parameters: FormParameters[T],
+  jobType: T,
   jobName: string
-) =>
-  action(CREATE_JOB, {
+) {
+  return action(CREATE_JOB, {
     parameters,
     jobType,
     jobName,
   });
+}
 
 export const updateJob = (job: Job) => action(UPDATE_JOB, { job });
 

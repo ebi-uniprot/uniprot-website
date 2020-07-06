@@ -34,6 +34,7 @@ module.exports = async () => {
       height: 890,
     },
     headless: true, // make browser invisible
+    args: ['--no-sandbox'], // https://github.com/puppeteer/puppeteer/issues/3698
     slowMo: 0, // slows down actions the browser take (to see what happens)
   });
 };

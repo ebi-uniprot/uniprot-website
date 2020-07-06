@@ -1,11 +1,11 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useRef, Fragment } from 'react';
 import { Loader } from 'franklin-sites';
-
 import ResultsFacets from '../../../../uniprotkb/components/results/ResultsFacets';
-
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { Facet, FacetValue } from '../../../../uniprotkb/types/responseTypes';
+import BlastResultsParametersFacets from './BlastResultsParametersFacets';
 import { EnrichedData } from './BlastResult';
+import { BlastHitFacetParameters } from '../../utils/blastFacetDataUtils';
 
 const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
   const facets: Facet[] = [];
@@ -57,14 +57,39 @@ const getFacetsFromData = (data?: EnrichedData | null): Facet[] => {
   return facets;
 };
 
-type Props = { loading: boolean; data?: EnrichedData | null };
+type BlastResultSidebarProps = {
+  loading: boolean;
+  data?: EnrichedData | null;
+  histogramSettings?: BlastHitFacetParameters;
+};
 
-const BlastResultSidebar: FC<Props> = ({ loading, data }) => {
+const BlastResultSidebar: FC<BlastResultSidebarProps> = ({
+  loading,
+  data,
+  histogramSettings,
+}) => {
+  const staleFacets = useRef<Facet[]>([]);
   const facets = useMemo(() => getFacetsFromData(data), [data]);
 
-  if (loading) return <Loader />;
+  if (facets.length) {
+    staleFacets.current = facets;
+  }
 
-  return <ResultsFacets facets={facets} />;
+  if ((!staleFacets.current.length && loading) || !histogramSettings) {
+    return <Loader />;
+  }
+
+  const isStale = staleFacets.current !== facets;
+
+  return (
+    <Fragment>
+      <ResultsFacets facets={staleFacets.current} isStale={isStale} />
+      <BlastResultsParametersFacets
+        parameters={histogramSettings}
+        isStale={isStale}
+      />
+    </Fragment>
+  );
 };
 
 export default BlastResultSidebar;

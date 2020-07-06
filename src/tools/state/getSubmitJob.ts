@@ -1,18 +1,18 @@
 import { Store } from 'redux';
 
-import { formParameterToServerParameters } from '../blast/adapters/BlastParametersAdapter';
+import { formParametersToServerParameters } from '../adapters/parameters';
 
-import isValidServerID from './isValidServerID';
-import { getServerErrorDescription, getJobMessage } from '.';
+import isValidServerID from '../utils/isValidServerID';
+import { getServerErrorDescription, getJobMessage } from '../utils';
 
 import { addMessage } from '../../messages/state/messagesActions';
-import { updateJob } from '../state/toolsActions';
+import { updateJob } from './toolsActions';
 
-import blastUrls from '../blast/config/blastUrls';
+import toolsURLs from '../config/urls';
 import postData from '../../uniprotkb/config/postData';
 
-import { Status } from '../blast/types/blastStatuses';
-import { CreatedJob } from '../blast/types/blastJob';
+import { Status } from '../types/toolsStatuses';
+import { CreatedJob } from '../types/toolsJob';
 
 const getSubmitJob = ({ dispatch, getState }: Store) => async (
   job: CreatedJob
@@ -21,11 +21,11 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     // specific logic to transform FormParameters to ServerParameters
     let formData;
     try {
-      formData = formParameterToServerParameters(job.parameters);
+      formData = formParametersToServerParameters(job.type, job.parameters);
     } catch {
       throw new Error('Internal error');
     }
-    const url = job.type === 'blast' ? blastUrls.runUrl : '';
+    const url = toolsURLs(job.type).runUrl;
 
     const response = await postData(url, {
       data: formData,
@@ -36,14 +36,16 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     });
     const remoteID = response.data;
 
-    if (!isValidServerID(remoteID)) {
+    if (!isValidServerID(job.type, remoteID)) {
       throw new Error(`The server didn't return a valid ID`);
     }
 
     // get a new reference to the job
     const currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
-    if (!currentStateOfJob) return;
+    if (!currentStateOfJob) {
+      return;
+    }
 
     const now = Date.now();
     dispatch(
@@ -61,7 +63,9 @@ const getSubmitJob = ({ dispatch, getState }: Store) => async (
     // get a new reference to the job
     const currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
-    if (!currentStateOfJob) return;
+    if (!currentStateOfJob) {
+      return;
+    }
     dispatch(
       updateJob({
         ...currentStateOfJob,

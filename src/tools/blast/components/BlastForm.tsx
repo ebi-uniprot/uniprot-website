@@ -21,8 +21,8 @@ import { sleep } from 'timing-functions';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 
+import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
-import { Job } from '../types/blastJob';
 import {
   SType,
   Program,
@@ -34,9 +34,8 @@ import {
   Filter,
   Scores,
 } from '../types/blastServerParameters';
-import { Tool } from '../../types';
 
-import * as actions from '../../state/toolsActions';
+import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -52,7 +51,7 @@ import SequenceSearchLoader, {
   SequenceSubmissionOnChangeEvent,
 } from './SequenceSearchLoader';
 
-import './styles/BlastForm.scss';
+import '../../styles/ToolsForm.scss';
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
@@ -77,7 +76,7 @@ const FormSelect: FC<{
   }
   const label = BlastFields[formValue.fieldName as keyof typeof BlastFields];
   return (
-    <section className="blast-form-section__item">
+    <section className="tools-form-section__item">
       <label htmlFor={label}>
         {label}
         <select
@@ -103,7 +102,7 @@ const FormSelect: FC<{
 };
 
 interface CustomLocationState {
-  parameters?: Partial<Job['parameters']>;
+  parameters?: Partial<FormParameters>;
 }
 
 const BlastForm = () => {
@@ -237,7 +236,9 @@ const BlastForm = () => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence) return;
+    if (!sequence) {
+      return;
+    }
 
     setSubmitDisabled(true);
     setSending(true);
@@ -273,7 +274,7 @@ const BlastForm = () => {
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
       dispatch(
-        actions.createJob(parameters, 'blast', jobName.selected as string)
+        createJob(parameters, JobTypes.BLAST, jobName.selected as string)
       );
     });
   };
@@ -292,9 +293,8 @@ const BlastForm = () => {
     }));
   }, [sequence.selected]);
 
-  const { name, links, info } = infoMappings[Tool.blast];
+  const { name, links, info } = infoMappings[JobTypes.BLAST];
 
-  // const currentSequence = formValues[BlastFields.sequence].selected;
   const onSequenceChange = useCallback(
     (e: SequenceSubmissionOnChangeEvent) => {
       if (e.sequence === sequence.selected) {
@@ -323,7 +323,7 @@ const BlastForm = () => {
       </PageIntro>
       <form onSubmit={submitBlastJob} onReset={handleReset}>
         <fieldset>
-          <section className="blast-form-section__item">
+          <section className="tools-form-section__item">
             <legend>
               Find a protein to BLAST by UniProt ID{' '}
               <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
@@ -345,9 +345,9 @@ const BlastForm = () => {
               value={sequence.selected}
             />
           </section>
-          <section className="blast-form-section">
+          <section className="tools-form-section">
             <FormSelect formValue={database} updateFormValue={setDatabase} />
-            <section className="blast-form-section__item blast-form-section__item--taxon-select">
+            <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
                 placeholder="Homo sapiens, 9606,..."
                 url={uniProtKBApiUrls.organismSuggester}
@@ -356,7 +356,7 @@ const BlastForm = () => {
                 clearOnSelect
               />
             </section>
-            <section className="blast-form-section__item blast-form-section__item--selected-taxon">
+            <section className="tools-form-section__item tools-form-section__item--selected-taxon">
               {((taxIDs.selected as SelectedTaxon[]) || []).map(
                 ({ label, id }: SelectedTaxon) => (
                   <div key={label}>
@@ -371,7 +371,7 @@ const BlastForm = () => {
               )}
             </section>
           </section>
-          <section className="blast-form-section">
+          <section className="tools-form-section">
             {[
               [stype, setSType],
               [program, setProgram],
@@ -392,7 +392,7 @@ const BlastForm = () => {
               />
             ))}
           </section>
-          <section className="blast-form-section__item">
+          <section className="tools-form-section__item">
             <label>
               Name your BLAST job
               <input
@@ -408,8 +408,8 @@ const BlastForm = () => {
               />
             </label>
           </section>
-          <section className="blast-form-section blast-form-section__main_actions">
-            <section className="button-group blast-form-section__buttons">
+          <section className="tools-form-section tools-form-section__main_actions">
+            <section className="button-group tools-form-section__buttons">
               <input className="button secondary" type="reset" />
               <button
                 className="button primary"

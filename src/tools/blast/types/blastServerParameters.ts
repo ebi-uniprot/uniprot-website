@@ -1,4 +1,6 @@
 /* Parameters of a blast job as required by the server */
+// https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast?wadl
+// https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameters
 
 // https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/program
 // The BLAST program to be used for the Sequence Similarity Search.
