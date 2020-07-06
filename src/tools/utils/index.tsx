@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link, generatePath } from 'react-router-dom';
 
 import {
@@ -85,10 +85,10 @@ export const getJobMessage = ({
   return {
     ...message,
     content: (
-      <Fragment>
+      <>
         {job.type} job {href ? <Link to={href}>{jobName}</Link> : { jobName }}
         {` finished${hitsMessage}`}
-      </Fragment>
+      </>
     ),
     level: MessageLevel.SUCCESS,
   };

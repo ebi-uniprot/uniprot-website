@@ -6,6 +6,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import useDataApi from '../useDataApi';
+import useDataApiWithStale from '../useDataApiWithStale';
 
 const url = '/some/path';
 const url2 = '/some/other/path';
@@ -168,6 +169,43 @@ describe('useDataApi hook', () => {
       data: 'some data',
       status: 200,
       redirectedTo: url,
+    });
+  });
+});
+
+describe('useDataApiWithStale hook', () => {
+  test('change of URL', async () => {
+    mock.onGet(url).reply(200, 'some data');
+    mock.onGet(url2).reply(200, 'some other data');
+    const { result, waitForNextUpdate, rerender } = renderHook(
+      (props) => useDataApiWithStale(props.url),
+      { initialProps: { url } }
+    );
+
+    expect(result.current).toEqual({ loading: true });
+
+    await waitForNextUpdate();
+
+    expect(result.current).toEqual({
+      loading: false,
+      data: 'some data',
+      status: 200,
+    });
+
+    rerender({ url: url2 });
+
+    expect(result.current).toEqual({
+      loading: true,
+      data: 'some data',
+      isStale: true,
+    });
+
+    await waitForNextUpdate();
+
+    expect(result.current).toEqual({
+      loading: false,
+      data: 'some other data',
+      status: 200,
     });
   });
 });

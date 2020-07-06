@@ -68,3 +68,9 @@ export type BlastResults = {
   search: string; // duration, job duration
   hits: BlastHit[];
 };
+
+export enum BlastFacet {
+  SCORE = 'score',
+  IDENTITY = 'identity',
+  EVALUE = 'evalue',
+}

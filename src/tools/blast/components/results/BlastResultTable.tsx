@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { FC, Fragment, useCallback, useState } from 'react';
-import { DataTable, DENSITY_COMPACT, Chip } from 'franklin-sites';
+import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
@@ -119,10 +119,15 @@ const BlastSummaryHsps: FC<{
 };
 
 const BlastResultTable: FC<{
-  data: BlastResults;
+  data: BlastResults | null;
   selectedEntries: string[];
   handleSelectedEntries: (rowId: string) => void;
-}> = ({ data, selectedEntries, handleSelectedEntries }) => {
+  loading: boolean;
+}> = ({ data, selectedEntries, handleSelectedEntries, loading }) => {
+  if (loading) {
+    return <Loader />;
+  }
+
   if (!data) {
     return null;
   }
