@@ -36,6 +36,7 @@ import EntryExternalLinks from './EntryExternalLinks';
 
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
+import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -182,9 +183,7 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
               </ul>
             </div>
           </DropdownButton>
-          <button type="button" className="button tertiary">
-            Add
-          </button>
+          <AddToBasketButton selectedEntries={[accession]} />
         </div>
       ),
       mainContent: <EntryMain transformedData={transformedData} />,
