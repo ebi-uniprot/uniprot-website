@@ -11,6 +11,7 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { NewerDataPlugin } from './plugins/check-version';
 
 import * as patterns from './url-patterns';
+import { CHANNEL_NAME } from './cross-env-constants';
 
 // Refer to https://developers.google.com/web/tools/workbox/reference-docs/latest/
 // for documentation about this whole file's use of workbox
@@ -20,7 +21,7 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
 
-const channel = new BroadcastChannel('sw-channel');
+const channel = new BroadcastChannel(CHANNEL_NAME);
 
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches

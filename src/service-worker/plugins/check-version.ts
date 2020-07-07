@@ -1,29 +1,43 @@
-/* eslint-disable */
 // See https://developers.google.com/web/tools/workbox/guides/using-plugins#custom_plugins
 import { WorkboxPlugin, CacheDidUpdateCallback } from 'workbox-core';
 
-type ConstructorProps = {
-  channel: BroadcastChannel;
-  headers?: Iterable<string>;
-};
+import { MESSAGE_TYPES, SWMessage } from '../cross-env-constants';
 
+// helper function to drop all entries of a specific cache
 const drop = async (cacheName: string) => {
   const cache = await caches.open(cacheName);
   const keys = await caches.keys();
   await Promise.all(keys.map((key) => cache.delete(key)));
 };
 
+type ConstructorProps = {
+  channel: BroadcastChannel;
+  headers?: Iterable<string>;
+};
+
 export class NewerDataPlugin implements WorkboxPlugin {
   #headers: Set<string>;
-  #detectedNewVersion: (cacheName: string, request: Request) => void;
+
+  #detectedNewVersion: (
+    cacheName: string,
+    request: Request,
+    reason: string
+  ) => void;
+
   cacheDidUpdate: CacheDidUpdateCallback;
 
   constructor({ channel, headers = [] }: ConstructorProps) {
     this.#headers = new Set(headers);
 
-    this.#detectedNewVersion = async (cacheName, request) => {
+    this.#detectedNewVersion = async (cacheName, request, reason) => {
+      // drop the whole cache containing this request, as we assume the whole
+      // data might be stale
       await drop(cacheName);
-      channel.postMessage({ type: 'UPDATED_DATA', content: request.url });
+      channel.postMessage({
+        type: MESSAGE_TYPES.UPDATED_DATA,
+        url: request.url,
+        reason,
+      } as SWMessage);
     };
 
     this.cacheDidUpdate = async ({
@@ -31,50 +45,62 @@ export class NewerDataPlugin implements WorkboxPlugin {
       request,
       oldResponse,
       newResponse,
-      event,
     }) => {
-      console.log('cacheDidUpdate', {
-        cacheName,
-        request,
-        oldResponse,
-        newResponse,
-        event,
-      });
+      if (request.url.includes('/pdbe/coordinates/')) {
+        // We're skipping testing for these URLs because they include timestamp
+        // _inside_ the file content, so they would always trigger a cache drop
+        return;
+      }
 
       // Different approaches, from less expensive to most expensive
 
-      // 1st APPROACH: get key info from headers, check for mismatch
+      /* 1st APPROACH: get key info from headers, check for mismatch */
       const [oldHeaders, freshHeaders] = [oldResponse, newResponse].map(
         (response) => response?.headers
       );
+      let hasACheckBeenDone = false;
       for (const header of this.#headers) {
         const oldHeader = oldHeaders?.get(header);
         const freshHeader = freshHeaders?.get(header);
-        console.log({ header, oldHeader, freshHeader });
         if (oldHeader && freshHeader) {
-          // both headers are defined and contain data
-          if (oldHeader !== freshHeader) {
-            return this.#detectedNewVersion(cacheName, request);
+          // both headers are defined and contain a value
+          if (oldHeader === freshHeader) {
+            // the values did match, move on, but mark that at least one check
+            // has been done
+            hasACheckBeenDone = true;
           } else {
-            // return; // do we skip  all other checks?
+            // but the values don't match
+            this.#detectedNewVersion(cacheName, request, 'header check');
+            return;
           }
         }
       }
+      if (!hasACheckBeenDone) {
+        // if we have been able to compare values for at least on header, we
+        // assume the data is still the same and we can bail
+        return;
+      }
 
-      // 2nd APPROACH: get content length from bodies, check for mismatch
+      // if no header was available to check, go on with the
+      /* 2nd APPROACH: get content length from bodies, check for mismatch */
+      // get a brand new response from the cache,
+      // because 'newResponse' has been used already
       const freshResponse = await caches.match(request, { cacheName });
+      // use the responses to extract their content
       const [oldContent, freshContent] = await Promise.all([
         oldResponse?.blob(),
         freshResponse?.blob(),
       ]);
-      console.log('content size', oldContent?.size, freshContent?.size);
+
       if (
         oldContent?.size &&
         freshContent?.size &&
         oldContent.size !== freshContent.size
       ) {
-        // we have length of both response, but they don't match... new data!
-        return this.#detectedNewVersion(cacheName, request);
+        // if we managed to extract content, and this content is not empty,
+        // but the content lengths don't match
+        this.#detectedNewVersion(cacheName, request, 'length check');
+        return;
       }
 
       // Finally, 3rd APPROACH: compare byte-by-byte, with early escape
@@ -84,16 +110,15 @@ export class NewerDataPlugin implements WorkboxPlugin {
         )
       );
 
-      console.log('raw content', oldRawData, freshRawData);
-
       if (!(oldRawData?.length && freshRawData?.length)) {
         // 🤷🏽‍♂️ we should have already escaped before, but oh well
         return;
       }
 
-      for (let i = 0; i < oldRawData.length; i++) {
+      for (let i = 0; i < oldRawData.length; i += 1) {
         if (oldRawData[i] !== freshRawData[i]) {
-          return this.#detectedNewVersion(cacheName, request);
+          this.#detectedNewVersion(cacheName, request, 'byte check');
+          return;
         }
       }
     };

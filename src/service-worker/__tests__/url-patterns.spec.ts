@@ -9,7 +9,7 @@ describe('URL patterns for service worker caching', () => {
       'https://api.geneontology.org/api/bioentityset/slimmer/function'
     ).toMatch(patterns.externalAPIs);
     expect('https://api.rhea-db.org/rhea/32727/json').toMatch(
-      patterns['externalAPIs']
+      patterns.externalAPIs
     );
     expect(
       'https://www.rhea-db.org/compoundImage?dimensions=200&chebiId=CHEBI:16526'

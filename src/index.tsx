@@ -1,7 +1,6 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }] */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { v1 } from 'uuid';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
@@ -11,6 +10,11 @@ import { store, persistor } from './app/state/store';
 
 import { addMessage } from './messages/state/messagesActions';
 
+import {
+  CHANNEL_NAME,
+  MESSAGE_TYPES,
+  SWMessage,
+} from './service-worker/cross-env-constants';
 import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
 
 const LoadingView = () => <span>Loading ...</span>;
@@ -46,7 +50,7 @@ import(
       } else {
         store.dispatch(
           addMessage({
-            id: v1(),
+            id: 'new-version-website',
             content: (
               <>
                 A newer version of this website is available.
@@ -71,30 +75,37 @@ import(
   // if that implies a change from what is currently deployed ( -> if an issue)
   // serviceWorker.unregister();
 
-  const channel = new BroadcastChannel('sw-channel');
-  channel.addEventListener('message', ({ data }) => {
-    console.log('message from sw', data);
-    if (data.type === 'UPDATED_DATA') {
-      store.dispatch(
-        addMessage({
-          id: v1(),
-          content: (
-            <>
-              A newer version of the data on this page is available.
-              <br />
-              <button
-                type="button"
-                className="button secondary tiny"
-                onClick={() => window.location.reload()}
-              >
-                Refresh page
-              </button>
-            </>
-          ),
-          format: MessageFormat.POP_UP,
-          level: MessageLevel.INFO,
-        })
-      );
+  interface CustomMessageEvent<T> extends MessageEvent {
+    data: T;
+  }
+
+  const channel = new BroadcastChannel(CHANNEL_NAME);
+  channel.addEventListener(
+    'message',
+    ({ data }: CustomMessageEvent<SWMessage>) => {
+      console.log('message from sw', data);
+      if (data.type === MESSAGE_TYPES.UPDATED_DATA) {
+        store.dispatch(
+          addMessage({
+            id: 'new-version-data',
+            content: (
+              <>
+                A newer version of the data on this page is available.
+                <br />
+                <button
+                  type="button"
+                  className="button secondary tiny"
+                  onClick={() => window.location.reload()}
+                >
+                  Refresh page
+                </button>
+              </>
+            ),
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.INFO,
+          })
+        );
+      }
     }
-  });
+  );
 });
