@@ -1,7 +1,7 @@
 // See https://developers.google.com/web/tools/workbox/guides/using-plugins#custom_plugins
 import { WorkboxPlugin, CacheDidUpdateCallback } from 'workbox-core';
 
-import { MESSAGE_TYPES, SWMessage } from '../cross-env-constants';
+import { MessageTypes, Reasons, SWMessage } from '../cross-env-constants';
 
 // helper function to drop all entries of a specific cache
 const drop = async (cacheName: string) => {
@@ -21,7 +21,7 @@ export class NewerDataPlugin implements WorkboxPlugin {
   #detectedNewVersion: (
     cacheName: string,
     request: Request,
-    reason: string
+    reason: Reasons
   ) => void;
 
   cacheDidUpdate: CacheDidUpdateCallback;
@@ -34,7 +34,7 @@ export class NewerDataPlugin implements WorkboxPlugin {
       // data might be stale
       await drop(cacheName);
       channel.postMessage({
-        type: MESSAGE_TYPES.UPDATED_DATA,
+        type: MessageTypes.UPDATED_DATA,
         url: request.url,
         reason,
       } as SWMessage);
@@ -70,13 +70,13 @@ export class NewerDataPlugin implements WorkboxPlugin {
             hasACheckBeenDone = true;
           } else {
             // but the values don't match
-            this.#detectedNewVersion(cacheName, request, 'header check');
+            this.#detectedNewVersion(cacheName, request, Reasons.HEADER_CHECK);
             return;
           }
         }
       }
       if (!hasACheckBeenDone) {
-        // if we have been able to compare values for at least on header, we
+        // if we have been able to compare values for at least one header, we
         // assume the data is still the same and we can bail
         return;
       }
@@ -99,7 +99,7 @@ export class NewerDataPlugin implements WorkboxPlugin {
       ) {
         // if we managed to extract content, and this content is not empty,
         // but the content lengths don't match
-        this.#detectedNewVersion(cacheName, request, 'length check');
+        this.#detectedNewVersion(cacheName, request, Reasons.LENGTH_CHECK);
         return;
       }
 
@@ -117,7 +117,8 @@ export class NewerDataPlugin implements WorkboxPlugin {
 
       for (let i = 0; i < oldRawData.length; i += 1) {
         if (oldRawData[i] !== freshRawData[i]) {
-          this.#detectedNewVersion(cacheName, request, 'byte check');
+          // Escape as soon as one byte is different
+          this.#detectedNewVersion(cacheName, request, Reasons.BYTE_CHECK);
           return;
         }
       }

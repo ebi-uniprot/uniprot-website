@@ -12,7 +12,7 @@ import { addMessage } from './messages/state/messagesActions';
 
 import {
   CHANNEL_NAME,
-  MESSAGE_TYPES,
+  MessageTypes,
   SWMessage,
 } from './service-worker/cross-env-constants';
 import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
@@ -82,9 +82,8 @@ import(
   const channel = new BroadcastChannel(CHANNEL_NAME);
   channel.addEventListener(
     'message',
-    ({ data }: CustomMessageEvent<SWMessage>) => {
-      console.log('message from sw', data);
-      if (data.type === MESSAGE_TYPES.UPDATED_DATA) {
+    (message: CustomMessageEvent<SWMessage>) => {
+      if (message.data.type === MessageTypes.UPDATED_DATA) {
         store.dispatch(
           addMessage({
             id: 'new-version-data',
