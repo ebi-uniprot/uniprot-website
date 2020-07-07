@@ -97,12 +97,16 @@ type BlastResultsButtonsProps = {
   jobId: string;
   selectedEntries: string[];
   inputParamsData?: PublicServerParameters[JobTypes.BLAST];
+  nHits: number;
+  isTableResultsFiltered: boolean;
 };
 
 const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
   jobId,
   selectedEntries,
   inputParamsData,
+  nHits,
+  isTableResultsFiltered,
 }) => {
   const BlastResultDownload = lazy(() =>
     import(/* webpackChunkName: "blast-download" */ './BlastResultDownload')
@@ -120,6 +124,9 @@ const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
               onToggleDisplay={() =>
                 setDisplayDownloadPanel(!displayDownloadPanel)
               }
+              nHits={nHits}
+              isTableResultsFiltered={isTableResultsFiltered}
+              isTableRowSelected={selectedEntries.length > 0}
             />
           </SidePanel>
         </Suspense>
