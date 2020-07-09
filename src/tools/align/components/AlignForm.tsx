@@ -5,17 +5,21 @@ import React, {
   FormEvent,
   MouseEvent,
   useMemo,
-  // useRef,
+  useRef,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   SequenceSubmission,
   PageIntro,
   SpinnerIcon,
-  // extractNameFromFASTAHeader,
+  sequenceProcessor,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
+
+import SequenceSearchLoader, {
+  SequenceSubmissionOnChangeEvent,
+} from '../../components/SequenceSearchLoader';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
@@ -39,7 +43,7 @@ interface CustomLocationState {
 
 const AlignForm = () => {
   // // refs
-  // const sslRef = useRef<{ reset: () => void }>(null);
+  const sslRef = useRef<{ reset: () => void }>(null);
 
   // hooks
   const dispatch = useDispatch();
@@ -81,6 +85,8 @@ const AlignForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
+  // flag to see if the user manually changed the title
+  const [jobNameEdited, setJobNameEdited] = useState(false);
 
   const [sequence, setSequence] = useState<
     AlignFormValues[AlignFields.sequence]
@@ -131,19 +137,49 @@ const AlignForm = () => {
 
   const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
-  // const currentSequence = formValues[BlastFields.sequence].selected;
   const onSequenceChange = useCallback(
-    (e) => {
-      if (e.sequence === sequence.selected) {
-        return;
+    (event: SequenceSubmissionOnChangeEvent) => {
+      console.log(event);
+
+      if (!jobNameEdited) {
+        if (!event.length) return;
+        const firstName = event.find((item) => item.name)?.name;
+        let potentialJobName = '';
+        if (firstName) {
+          potentialJobName = firstName;
+          if (event.length > 1) {
+            potentialJobName += ` +${event.length - 1}`;
+          }
+        } else {
+          potentialJobName = `${event.length} sequence${
+            event.length === 1 ? '' : 's'
+          }`;
+        }
+        setJobName((jobName) => ({ ...jobName, selected: potentialJobName }));
       }
 
-      setJobName({ ...jobName, selected: e.name || '' });
-      setSequence({ ...sequence, selected: e.sequence });
+      setSequence((sequence) => ({
+        ...sequence,
+        selected: event.map((item) => item.raw).join('\n'),
+      }));
 
-      setSubmitDisabled(!e.valid);
+      setSubmitDisabled(event.some((item) => !item.valid));
     },
-    [jobName, sequence]
+    [jobNameEdited]
+  );
+
+  const onSequenceLoad = useCallback(
+    (event: SequenceSubmissionOnChangeEvent) => {
+      const sequenceToPrepend = event[0].raw;
+      onSequenceChange(
+        sequenceProcessor(
+          sequence.selected
+            ? `${sequenceToPrepend}\n\n${sequence.selected}`
+            : sequenceToPrepend
+        )
+      );
+    },
+    [onSequenceChange, sequence.selected]
   );
 
   return (
@@ -152,17 +188,17 @@ const AlignForm = () => {
         {info}
       </PageIntro>
       <form onSubmit={submitAlignJob} onReset={handleReset}>
-        {/* <fieldset>
+        <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein to BLAST by UniProt ID{' '}
+              Find proteins to Align by UniProt ID{' '}
               <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
             </legend>
             <div className="import-sequence-section">
-              <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
+              <SequenceSearchLoader ref={sslRef} onLoad={onSequenceLoad} />
             </div>
           </section>
-        </fieldset> */}
+        </fieldset>
         <section className="text-block">
           <strong>OR</strong>
         </section>
@@ -189,9 +225,10 @@ const AlignForm = () => {
                   maxLength={22}
                   placeholder="my job title"
                   value={jobName.selected as string}
-                  onChange={(e) =>
-                    setJobName({ ...jobName, selected: e.target.value })
-                  }
+                  onChange={(event) => {
+                    setJobNameEdited(Boolean(event.target.value));
+                    setJobName({ ...jobName, selected: event.target.value });
+                  }}
                 />
               </label>
             </section>

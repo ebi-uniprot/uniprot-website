@@ -36,6 +36,7 @@
     "jsx-no-lambda": "off",
     "jsx-no-multiline-js": "off",
     "no-restricted-syntax": "off",
+    "no-shadow": "off",
     "react-hooks/exhaustive-deps": "warn",
     "react-hooks/rules-of-hooks": "error",
     "react/destructuring-assignment": "off",

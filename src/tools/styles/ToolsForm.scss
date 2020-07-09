@@ -12,6 +12,10 @@
     &--selected-taxon {
       margin-top: 1.5rem;
     }
+
+    & [name='title'] {
+      width: 22ch; /* match the max number of characters allowed in the field */
+    }
   }
 
   &__main_actions {

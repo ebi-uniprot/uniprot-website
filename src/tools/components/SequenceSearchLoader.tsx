@@ -9,14 +9,15 @@ import React, {
 import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApi from '../../shared/hooks/useDataApi';
 
-import uniProtKBApiUrls from '../../../uniprotkb/config/apiUrls';
+import uniProtKBApiUrls from '../../uniprotkb/config/apiUrls';
 
-import entryToFASTAWithHeaders from '../../../uniprotkb/adapters/entryToFASTAWithHeaders';
-import { uniProtKBAccessionRegEx } from '../../../uniprotkb/utils';
+import entryToFASTAWithHeaders from '../../uniprotkb/adapters/entryToFASTAWithHeaders';
+import { uniProtKBAccessionRegEx } from '../../uniprotkb/utils';
 
-import { APISequenceData } from '../types/apiSequenceData';
+import { APISequenceData } from '../blast/types/apiSequenceData';
+import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim();
@@ -37,11 +38,13 @@ const getURLForAccessionOrID = (input: string) => {
 
 export type SequenceSubmissionOnChangeEvent = {
   sequence: string;
+  raw: string;
+  header: string;
   valid: boolean;
   likelyType: 'na' | 'aa' | null;
   message: string | null;
   name?: string;
-};
+}[];
 
 const SequenceSearchLoader = forwardRef<
   { reset: () => void },
@@ -74,12 +77,16 @@ const SequenceSearchLoader = forwardRef<
     }
 
     if (!urlForAccessionOrID) {
-      onLoad({
-        sequence: '',
-        valid: false,
-        likelyType: null,
-        message: null,
-      });
+      onLoad([
+        {
+          raw: '',
+          header: '',
+          sequence: '',
+          valid: false,
+          likelyType: null,
+          message: null,
+        },
+      ]);
       return;
     }
 
@@ -96,13 +103,20 @@ const SequenceSearchLoader = forwardRef<
     // set ref to the value of the sequence we are about to set
     sequenceRef.current = sequence;
 
-    onLoad({
-      sequence,
-      valid: true,
-      likelyType: null,
-      message: null,
-      name: topResult.primaryAccession || accessionOrID,
-    });
+    onLoad([
+      {
+        raw: sequence,
+        header: '',
+        sequence: '',
+        valid: true,
+        likelyType: null,
+        message: null,
+        // name as a NCBI ID formatted UniProt-style
+        name: `${topResult.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
+          topResult.primaryAccession
+        }|${topResult.uniProtkbId}`,
+      },
+    ]);
   }, [topResult, onLoad, urlForAccessionOrID, accessionOrID]);
 
   return (

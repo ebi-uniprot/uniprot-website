@@ -20,6 +20,9 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
+import SequenceSearchLoader, {
+  SequenceSubmissionOnChangeEvent,
+} from '../../components/SequenceSearchLoader';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -46,10 +49,6 @@ import defaultFormValues, {
 } from '../config/BlastFormData';
 import uniProtKBApiUrls from '../../../uniprotkb/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
-
-import SequenceSearchLoader, {
-  SequenceSubmissionOnChangeEvent,
-} from './SequenceSearchLoader';
 
 import '../../styles/ToolsForm.scss';
 
@@ -149,6 +148,8 @@ const BlastForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
+  // flag to see if the user manually changed the title
+  const [jobNameEdited, setJobNameEdited] = useState(false);
 
   const [stype, setSType] = useState<BlastFormValues[BlastFields.stype]>(
     initialFormValues[BlastFields.stype]
@@ -283,7 +284,6 @@ const BlastForm = () => {
   // set the "Auto" matrix to the have the correct label depending on sequence
   useEffect(() => {
     const autoMatrix = getAutoMatrixFor(sequence.selected as string);
-    // eslint-disable-next-line no-shadow
     setMatrix((matrix) => ({
       ...matrix,
       values: [
@@ -296,24 +296,30 @@ const BlastForm = () => {
   const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   const onSequenceChange = useCallback(
-    (e: SequenceSubmissionOnChangeEvent) => {
-      if (e.sequence === sequence.selected) {
+    (event: SequenceSubmissionOnChangeEvent) => {
+      if (event.sequence === sequence.selected) {
         return;
       }
 
-      setJobName({ ...jobName, selected: e.name || '' });
-      setSequence({ ...sequence, selected: e.sequence });
-
-      if (e.likelyType === 'na') {
-        setSType({ ...stype, selected: 'dna' });
-      } else {
-        // we want protein by default
-        setSType({ ...stype, selected: 'protein' });
+      if (!jobNameEdited) {
+        // if the user didn't manually change the title, autofill it
+        setJobName((jobName) => ({ ...jobName, selected: event.name || '' }));
       }
+      setSequence((sequence) => ({ ...sequence, selected: event.sequence }));
 
-      setSubmitDisabled(!e.valid);
+      setSType((stype) => {
+        // we want protein by default
+        const selected = event.likelyType === 'na' ? 'dna' : 'protein';
+        if (stype.selected === selected) {
+          // avoid unecessary rerender by keeping the same object
+          return stype;
+        }
+        return { ...stype, selected };
+      });
+
+      setSubmitDisabled(!event.valid);
     },
-    [jobName, sequence, stype]
+    [jobNameEdited, sequence.selected]
   );
 
   return (
@@ -403,9 +409,10 @@ const BlastForm = () => {
                   maxLength={22}
                   placeholder="my job title"
                   value={jobName.selected as string}
-                  onChange={(e) =>
-                    setJobName({ ...jobName, selected: e.target.value })
-                  }
+                  onChange={(event) => {
+                    setJobNameEdited(Boolean(event.target.value));
+                    setJobName({ ...jobName, selected: event.target.value });
+                  }}
                 />
               </label>
             </section>

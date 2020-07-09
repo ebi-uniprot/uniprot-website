@@ -1,3 +1,5 @@
+import { formatFASTA } from 'franklin-sites';
+
 import { UniProtkbAPIModel, EntryType } from './uniProtkbConverter';
 import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
@@ -71,13 +73,13 @@ const entryToFASTAWithHeaders = (
     }
     let optionalSubset = '';
     if (subsets.length) {
-      optionalSubset = `${subsets.join(',')}|`;
+      optionalSubset = `|${subsets.join(',')}`;
     }
-    sequence = `>${db}|${entry.primaryAccession}|${optionalSubset}${entry.uniProtkbId} ${optionalProteinName}${optionalOS}${optionalOX}${optionalGN}PE=${pe} ${optionalSV}\n${sequence}`;
+    sequence = `>${db}|${entry.primaryAccession}|${entry.uniProtkbId}${optionalSubset} ${optionalProteinName}${optionalOS}${optionalOX}${optionalGN}PE=${pe} ${optionalSV}\n${sequence}`;
   } catch {
     /* */
   }
-  return sequence;
+  return formatFASTA(sequence);
 };
 
 export default entryToFASTAWithHeaders;

@@ -24,7 +24,6 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
     );
   }
 
-  // eslint-disable-next-line no-shadow
   const handleClick = () => setOpen((open) => !open);
 
   return (

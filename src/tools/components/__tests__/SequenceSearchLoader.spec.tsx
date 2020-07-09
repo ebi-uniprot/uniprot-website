@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import SequenceSearchLoader from '../SequenceSearchLoader';
-import entryModelData from '../../../../uniprotkb/__mocks__/entryModelData.json';
+import entryModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 describe('SequenceSearchLoader tests', () => {
   it('Should load a sequence', () => {
@@ -26,9 +26,9 @@ describe('SequenceSearchLoader tests', () => {
     expect(onLoadMock).toBeCalledWith({
       likelyType: null,
       message: null,
-      name: 'P21802',
+      name: 'sp|P21802|uniprot_id',
       sequence:
-        '>sp|P21802|uniprot id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF',
+        '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF',
       valid: true,
     });
   });

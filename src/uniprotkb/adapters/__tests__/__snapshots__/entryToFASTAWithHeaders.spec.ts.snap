@@ -6,6 +6,6 @@ SAPSQDFMRF"
 `;
 
 exports[`entryToFASTAWithHeaders should output a FASTA with subset 1`] = `
-">sp|P21802|1-1,3-5|uniprot id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+">sp|P21802|uniprot_id|1-1,3-5 rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 SPSQ"
 `;
