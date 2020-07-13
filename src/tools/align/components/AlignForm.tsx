@@ -18,7 +18,7 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 
 import SequenceSearchLoader, {
-  SequenceSubmissionOnChangeEvent,
+  ParsedSequence,
 } from '../../components/SequenceSearchLoader';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -87,6 +87,9 @@ const AlignForm = () => {
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
+  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
+    sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
+  );
 
   const [sequence, setSequence] = useState<
     AlignFormValues[AlignFields.sequence]
@@ -98,6 +101,7 @@ const AlignForm = () => {
     event.preventDefault();
 
     // reset all form state to defaults
+    setParsedSequences([]);
     setSequence(defaultFormValues[AlignFields.sequence]);
     setJobName(defaultFormValues[AlignFields.name]);
   };
@@ -138,48 +142,42 @@ const AlignForm = () => {
   const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
   const onSequenceChange = useCallback(
-    (event: SequenceSubmissionOnChangeEvent) => {
-      console.log(event);
-
+    (parsedSequences: ParsedSequence[]) => {
       if (!jobNameEdited) {
-        if (!event.length) return;
-        const firstName = event.find((item) => item.name)?.name;
+        const firstName = parsedSequences.find((item) => item.name)?.name;
         let potentialJobName = '';
         if (firstName) {
           potentialJobName = firstName;
-          if (event.length > 1) {
-            potentialJobName += ` +${event.length - 1}`;
+          if (parsedSequences.length > 1) {
+            potentialJobName += ` +${parsedSequences.length - 1}`;
           }
-        } else {
-          potentialJobName = `${event.length} sequence${
-            event.length === 1 ? '' : 's'
+        } else if (parsedSequences.length) {
+          potentialJobName = `${parsedSequences.length} sequence${
+            parsedSequences.length === 1 ? '' : 's'
           }`;
         }
         setJobName((jobName) => ({ ...jobName, selected: potentialJobName }));
       }
 
+      setParsedSequences(parsedSequences);
       setSequence((sequence) => ({
         ...sequence,
-        selected: event.map((item) => item.raw).join('\n'),
+        selected: parsedSequences
+          .map((parsedSequence) => parsedSequence.raw)
+          .join('\n'),
       }));
-
-      setSubmitDisabled(event.some((item) => !item.valid));
+      setSubmitDisabled(
+        parsedSequences.some((parsedSequence) => !parsedSequence.valid)
+      );
     },
     [jobNameEdited]
   );
 
   const onSequenceLoad = useCallback(
-    (event: SequenceSubmissionOnChangeEvent) => {
-      const sequenceToPrepend = event[0].raw;
-      onSequenceChange(
-        sequenceProcessor(
-          sequence.selected
-            ? `${sequenceToPrepend}\n\n${sequence.selected}`
-            : sequenceToPrepend
-        )
-      );
+    (parsedRetrievedSequences: ParsedSequence[]) => {
+      onSequenceChange([...parsedRetrievedSequences, ...parsedSequences]);
     },
-    [onSequenceChange, sequence.selected]
+    [onSequenceChange, parsedSequences]
   );
 
   return (
@@ -193,6 +191,8 @@ const AlignForm = () => {
             <legend>
               Find proteins to Align by UniProt ID{' '}
               <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
+              <br />
+              You can also paste a list of IDs.
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader ref={sslRef} onLoad={onSequenceLoad} />
@@ -211,7 +211,7 @@ const AlignForm = () => {
             <SequenceSubmission
               placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
               onChange={onSequenceChange}
-              value={sequence.selected}
+              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
           </section>
           <section className="tools-form-section">

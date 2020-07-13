@@ -21,7 +21,7 @@ import { sleep } from 'timing-functions';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 import SequenceSearchLoader, {
-  SequenceSubmissionOnChangeEvent,
+  ParsedSequence,
 } from '../../components/SequenceSearchLoader';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -296,7 +296,7 @@ const BlastForm = () => {
   const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   const onSequenceChange = useCallback(
-    (event: SequenceSubmissionOnChangeEvent) => {
+    (event: ParsedSequence[]) => {
       if (event.sequence === sequence.selected) {
         return;
       }

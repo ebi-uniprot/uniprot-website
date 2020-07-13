@@ -3,32 +3,53 @@ import React, {
   useEffect,
   useRef,
   ChangeEvent,
+  ClipboardEvent,
   forwardRef,
   useImperativeHandle,
+  useCallback,
 } from 'react';
 import queryString from 'query-string';
 import { SearchInput } from 'franklin-sites';
+import { useDispatch } from 'react-redux';
+import { v1 } from 'uuid';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
+import { addMessage } from '../../messages/state/messagesActions';
+
 import uniProtKBApiUrls from '../../uniprotkb/config/apiUrls';
+import uniParcApiUrls from '../../uniparc/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../uniprotkb/adapters/entryToFASTAWithHeaders';
 import { uniProtKBAccessionRegEx } from '../../uniprotkb/utils';
+import fetchData from '../../shared/utils/fetchData';
 
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 import { APISequenceData } from '../blast/types/apiSequenceData';
 import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 const getURLForAccessionOrID = (input: string) => {
-  const cleanedInput = input.trim();
+  const cleanedInput = input.trim().toUpperCase();
   if (!cleanedInput) {
     return null;
   }
 
+  // UniParc accession
+  if (cleanedInput.startsWith('UPI')) {
+    return uniParcApiUrls.entry(cleanedInput);
+  }
+
+  // UniProtKB accession
+  if (uniProtKBAccessionRegEx.test(cleanedInput)) {
+    return uniProtKBApiUrls.entry(cleanedInput);
+  }
+
+  // UniProtKB ID
   const query = queryString.stringify({
-    query: uniProtKBAccessionRegEx.test(cleanedInput)
-      ? `accession:${cleanedInput}`
-      : `id:${cleanedInput}`,
+    query: `id:${cleanedInput}`,
     fields:
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
   });
@@ -36,7 +57,7 @@ const getURLForAccessionOrID = (input: string) => {
   return `${uniProtKBApiUrls.search}?${query}`;
 };
 
-export type SequenceSubmissionOnChangeEvent = {
+export type ParsedSequence = {
   sequence: string;
   raw: string;
   header: string;
@@ -44,13 +65,17 @@ export type SequenceSubmissionOnChangeEvent = {
   likelyType: 'na' | 'aa' | null;
   message: string | null;
   name?: string;
-}[];
+};
+
+type NetworkResponses = { results: APISequenceData[] } | APISequenceData;
 
 const SequenceSearchLoader = forwardRef<
   { reset: () => void },
-  { onLoad: (event: SequenceSubmissionOnChangeEvent) => void }
+  { onLoad: (event: ParsedSequence[]) => void }
 >(({ onLoad }, ref) => {
   const [accessionOrID, setAccessionOrID] = useState('');
+  const [pasteLoading, setPasteLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useImperativeHandle(ref, () => ({
     reset: () => setAccessionOrID(''),
@@ -60,19 +85,24 @@ const SequenceSearchLoader = forwardRef<
   const sequenceRef = useRef('');
 
   const urlForAccessionOrID = getURLForAccessionOrID(accessionOrID);
-  const { data, loading } = useDataApi<{ results: APISequenceData[] }>(
-    urlForAccessionOrID || ''
-  );
+  const { data, loading } = useDataApi<NetworkResponses>(urlForAccessionOrID);
 
-  const topResult = data?.results?.[0];
+  let entry: APISequenceData | null = null;
+  if (data) {
+    if ('results' in data) {
+      [entry] = data.results;
+    } else {
+      entry = data;
+    }
+  }
 
-  // no new result, probably invalid query, reset ref
-  if (!topResult) {
+  // no entry found, probably invalid query, reset ref
+  if (!entry) {
     sequenceRef.current = '';
   }
 
   useEffect(() => {
-    if (!topResult) {
+    if (!entry) {
       return;
     }
 
@@ -90,7 +120,7 @@ const SequenceSearchLoader = forwardRef<
       return;
     }
 
-    const sequence = entryToFASTAWithHeaders(topResult);
+    const sequence = `${entryToFASTAWithHeaders(entry)}\n`;
 
     if (sequence === sequenceRef.current) {
       // if the new generated sequence would be the same than the previously
@@ -106,27 +136,108 @@ const SequenceSearchLoader = forwardRef<
     onLoad([
       {
         raw: sequence,
+        // no need to fill the rest, it will be parsed again later
         header: '',
         sequence: '',
         valid: true,
         likelyType: null,
         message: null,
         // name as a NCBI ID formatted UniProt-style
-        name: `${topResult.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
-          topResult.primaryAccession
-        }|${topResult.uniProtkbId}`,
+        name: entry.uniProtkbId
+          ? `${entry.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
+              entry.primaryAccession
+            }|${entry.uniProtkbId}`
+          : '',
       },
     ]);
-  }, [topResult, onLoad, urlForAccessionOrID, accessionOrID]);
+  }, [entry, onLoad, urlForAccessionOrID, accessionOrID]);
+
+  const handlePaste = useCallback(
+    async (event: ClipboardEvent) => {
+      const pastedContent = event.clipboardData.getData('text/plain');
+      // use a Set to remove duplicate
+      const potentialAccessions = new Set(
+        pastedContent.split(/\W+/).map((text) => text.toUpperCase())
+      );
+      if (!potentialAccessions.size) {
+        return;
+      }
+
+      // prevent displaying the content of the clipboard and empty the input
+      event.preventDefault();
+      setAccessionOrID('');
+      setPasteLoading(true);
+
+      try {
+        const parsedSequences = [];
+        const errors = [];
+        for (const acc of potentialAccessions) {
+          try {
+            const url = getURLForAccessionOrID(acc);
+            if (!url) {
+              continue; // eslint-disable-line no-continue
+            }
+            // eslint-disable-next-line no-await-in-loop
+            let { data } = await fetchData<NetworkResponses>(url);
+            if ('results' in data) {
+              [data] = data.results;
+            }
+
+            parsedSequences.push({
+              raw: `${entryToFASTAWithHeaders(data)}\n`,
+              // no need to fill the rest, it will be parsed again later
+              header: '',
+              sequence: '',
+              valid: true,
+              likelyType: null,
+              message: null,
+              // name as a NCBI ID formatted UniProt-style
+              name: data.uniProtkbId
+                ? `${data.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
+                    data.primaryAccession
+                  }|${data.uniProtkbId}`
+                : '',
+            });
+          } catch (_) {
+            errors.push(acc);
+          }
+        }
+        onLoad(parsedSequences);
+        if (errors.length) {
+          dispatch(
+            addMessage({
+              id: v1(),
+              content: `There was an issue retrieving sequence data for: ${errors.join(
+                ', '
+              )}`,
+              format: MessageFormat.POP_UP,
+              level: MessageLevel.FAILURE,
+            })
+          );
+        }
+      } catch (error) {
+        /**/
+      } finally {
+        setPasteLoading(false);
+      }
+    },
+    [onLoad, dispatch]
+  );
 
   return (
     <SearchInput
-      isLoading={loading}
+      isLoading={loading || pasteLoading}
       onChange={(e: ChangeEvent<HTMLInputElement>) =>
         setAccessionOrID(e.target.value)
       }
-      placeholder="P05067, A4_HUMAN, UPI0000000001"
+      onPaste={handlePaste}
+      placeholder={
+        pasteLoading
+          ? 'loading from pasted text'
+          : 'P05067, A4_HUMAN, UPI0000000001'
+      }
       value={accessionOrID}
+      disabled={pasteLoading}
     />
   );
 });

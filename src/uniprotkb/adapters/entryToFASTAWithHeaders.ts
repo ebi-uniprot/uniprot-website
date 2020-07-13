@@ -7,16 +7,6 @@ type Subset = { start: number; end: number };
 
 type Modifications = { subsets: Subset[] }; // keep open for variant for example?
 
-// const CHUNK_OF_TEXT_OF_SIXTY_CHARACTERS = /(.{1,60})/g;
-// const CHUNK_OF_TEXT_OF_TEN_CHARACTERS = /(.{1,10})/g;
-
-// NOTE: if we decide to do formatting here, use formatting logic from franklin
-// .split(CHUNK_OF_TEXT_OF_SIXTY_CHARACTERS)
-// .filter(Boolean)
-// .map((line) =>
-//   line.replace(CHUNK_OF_TEXT_OF_TEN_CHARACTERS, '$1 ').trim()
-// )
-// .join('\n');
 // build a "nicely"-formatted FASTA string
 // See https://www.uniprot.org/help/fasta-headers for current headers
 const entryToFASTAWithHeaders = (
@@ -77,7 +67,13 @@ const entryToFASTAWithHeaders = (
     }
     sequence = `>${db}|${entry.primaryAccession}|${entry.uniProtkbId}${optionalSubset} ${optionalProteinName}${optionalOS}${optionalOX}${optionalGN}PE=${pe} ${optionalSV}\n${sequence}`;
   } catch {
-    /* */
+    // temporary catch for uniParc entry
+    if ((entry as any).uniParcId) {
+      sequence = `>${(entry as any).uniParcId}\n${sequence}`;
+    } else {
+      // empty header 🤷🏽‍♂️
+      sequence = `>\n${sequence}`;
+    }
   }
   return formatFASTA(sequence);
 };
