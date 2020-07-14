@@ -1,6 +1,5 @@
 import React, {
   useState,
-  // useEffect,
   useCallback,
   FormEvent,
   MouseEvent,
@@ -42,7 +41,7 @@ interface CustomLocationState {
 }
 
 const AlignForm = () => {
-  // // refs
+  // refs
   const sslRef = useRef<{ reset: () => void }>(null);
 
   // hooks
@@ -60,6 +59,7 @@ const AlignForm = () => {
       // yes, I'm doing that in one go to avoid having typescript complain about
       // the object not being of the right shape even though I want to construct
       // it in multiple steps 🙄
+      // TODO: Try to use TypeScript Partial<>
       return Object.freeze(
         Object.fromEntries(
           Object.entries(defaultFormValues as AlignFormValues).map(
@@ -87,13 +87,17 @@ const AlignForm = () => {
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
+  // store parsed sequence objects
   const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
     sequenceProcessor(initialFormValues[AlignFields.sequence].selected)
   );
 
+  // actual form fields
   const [sequence, setSequence] = useState<
     AlignFormValues[AlignFields.sequence]
   >(initialFormValues[AlignFields.sequence]);
+
+  // extra job-related fields
   const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);
 
   // form event handlers
@@ -102,8 +106,14 @@ const AlignForm = () => {
 
     // reset all form state to defaults
     setParsedSequences([]);
+
     setSequence(defaultFormValues[AlignFields.sequence]);
+
     setJobName(defaultFormValues[AlignFields.name]);
+
+    // imperatively reset SequenceSearchLoader... 😷
+    // eslint-disable-next-line no-unused-expressions
+    ((sslRef.current as unknown) as { reset: () => void }).reset();
   };
 
   // the only thing to do here would be to check the values and prevent
@@ -139,11 +149,10 @@ const AlignForm = () => {
     });
   };
 
-  const { name, links, info } = infoMappings[JobTypes.ALIGN];
-
   const onSequenceChange = useCallback(
     (parsedSequences: ParsedSequence[]) => {
       if (!jobNameEdited) {
+        // if the user didn't manually change the title, autofill it
         const firstName = parsedSequences.find((item) => item.name)?.name;
         let potentialJobName = '';
         if (firstName) {
@@ -156,7 +165,13 @@ const AlignForm = () => {
             parsedSequences.length === 1 ? '' : 's'
           }`;
         }
-        setJobName((jobName) => ({ ...jobName, selected: potentialJobName }));
+        setJobName((jobName) => {
+          if (jobName.selected === potentialJobName) {
+            // avoid unecessary rerender by keeping the same object
+            return jobName;
+          }
+          return { ...jobName, selected: potentialJobName };
+        });
       }
 
       setParsedSequences(parsedSequences);
@@ -173,12 +188,15 @@ const AlignForm = () => {
     [jobNameEdited]
   );
 
+  // specific logic to prepend loaded sequences instead of just replacing
   const onSequenceLoad = useCallback(
     (parsedRetrievedSequences: ParsedSequence[]) => {
       onSequenceChange([...parsedRetrievedSequences, ...parsedSequences]);
     },
     [onSequenceChange, parsedSequences]
   );
+
+  const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
   return (
     <>

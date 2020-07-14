@@ -581,7 +581,7 @@ exports[`ColumnConfiguration component should render all columns: Entry 1`] = `
 exports[`ColumnConfiguration component should render all columns: Entry Name 1`] = `
 <DocumentFragment>
   <span>
-    uniprot id
+    uniprot_id
   </span>
 </DocumentFragment>
 `;

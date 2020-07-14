@@ -43,7 +43,7 @@ exports[`UniProtKBCard component should render 1`] = `
                     />
                   </svg>
                 </span>
-                P21802 · uniprot id
+                P21802 · uniprot_id
               </span>
             </h5>
             <section>
@@ -95,7 +95,7 @@ exports[`UniProtKBCard component should render 1`] = `
       class="card__actions"
     >
       <span
-        class="card__link false"
+        class="card__link"
       >
         <a
           href="/uniprotkb/P21802#Sequence"

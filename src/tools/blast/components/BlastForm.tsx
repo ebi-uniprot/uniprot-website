@@ -14,7 +14,7 @@ import {
   SequenceSubmission,
   PageIntro,
   SpinnerIcon,
-  // extractNameFromFASTAHeader,
+  sequenceProcessor,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
@@ -123,6 +123,7 @@ const BlastForm = () => {
       // yes, I'm doing that in one go to avoid having typescript complain about
       // the object not being of the right shape even though I want to construct
       // it in multiple steps 🙄
+      // TODO: Try to use TypeScript Partial<>
       return Object.freeze(
         Object.fromEntries(
           Object.entries(defaultFormValues as BlastFormValues).map(
@@ -150,7 +151,12 @@ const BlastForm = () => {
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
+  // store parsed sequence objects
+  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
+    sequenceProcessor(initialFormValues[BlastFields.sequence].selected)
+  );
 
+  // actual form fields
   const [stype, setSType] = useState<BlastFormValues[BlastFields.stype]>(
     initialFormValues[BlastFields.stype]
   );
@@ -160,7 +166,6 @@ const BlastForm = () => {
   const [sequence, setSequence] = useState<
     BlastFormValues[BlastFields.sequence]
   >(initialFormValues[BlastFields.sequence]);
-  const [jobName, setJobName] = useState(initialFormValues[BlastFields.name]);
   const [database, setDatabase] = useState<
     BlastFormValues[BlastFields.database]
   >(initialFormValues[BlastFields.database]);
@@ -182,6 +187,9 @@ const BlastForm = () => {
   const [hits, setHits] = useState<BlastFormValues[BlastFields.hits]>(
     initialFormValues[BlastFields.hits]
   );
+
+  // extra job-related fields
+  const [jobName, setJobName] = useState(initialFormValues[BlastFields.name]);
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id: string) => {
@@ -215,10 +223,11 @@ const BlastForm = () => {
     event.preventDefault();
 
     // reset all form state to defaults
+    setParsedSequences([]);
+
     setSType(defaultFormValues[BlastFields.stype]);
     setProgram(defaultFormValues[BlastFields.program]);
     setSequence(defaultFormValues[BlastFields.sequence]);
-    setJobName(defaultFormValues[BlastFields.name]);
     setDatabase(defaultFormValues[BlastFields.database]);
     setTaxIDs(defaultFormValues[BlastFields.taxons]);
     setThreshold(defaultFormValues[BlastFields.threshold]);
@@ -226,6 +235,8 @@ const BlastForm = () => {
     setFilter(defaultFormValues[BlastFields.filter]);
     setGapped(defaultFormValues[BlastFields.gapped]);
     setHits(defaultFormValues[BlastFields.hits]);
+
+    setJobName(defaultFormValues[BlastFields.name]);
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions
@@ -293,34 +304,49 @@ const BlastForm = () => {
     }));
   }, [sequence.selected]);
 
-  const { name, links, info } = infoMappings[JobTypes.BLAST];
-
   const onSequenceChange = useCallback(
-    (event: ParsedSequence[]) => {
-      if (event.sequence === sequence.selected) {
+    (parsedSequences: ParsedSequence[]) => {
+      const rawSequence = parsedSequences
+        .map((parsedSequence) => parsedSequence.raw)
+        .join('\n');
+
+      if (rawSequence === sequence.selected) {
         return;
       }
 
       if (!jobNameEdited) {
         // if the user didn't manually change the title, autofill it
-        setJobName((jobName) => ({ ...jobName, selected: event.name || '' }));
+        setJobName((jobName) => {
+          const potentialJobName = parsedSequences[0]?.name || '';
+          if (jobName.selected === potentialJobName) {
+            // avoid unecessary rerender by keeping the same object
+            return jobName;
+          }
+          return { ...jobName, selected: potentialJobName };
+        });
       }
-      setSequence((sequence) => ({ ...sequence, selected: event.sequence }));
+
+      setParsedSequences(parsedSequences);
+      setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
+      setSubmitDisabled(
+        parsedSequences.length !== 1 || !parsedSequences[0].valid
+      );
 
       setSType((stype) => {
         // we want protein by default
-        const selected = event.likelyType === 'na' ? 'dna' : 'protein';
+        const selected =
+          parsedSequences[0]?.likelyType === 'na' ? 'dna' : 'protein';
         if (stype.selected === selected) {
           // avoid unecessary rerender by keeping the same object
           return stype;
         }
         return { ...stype, selected };
       });
-
-      setSubmitDisabled(!event.valid);
     },
     [jobNameEdited, sequence.selected]
   );
+
+  const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   return (
     <>
@@ -348,7 +374,7 @@ const BlastForm = () => {
             <SequenceSubmission
               placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
               onChange={onSequenceChange}
-              value={sequence.selected}
+              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
           </section>
           <section className="tools-form-section">

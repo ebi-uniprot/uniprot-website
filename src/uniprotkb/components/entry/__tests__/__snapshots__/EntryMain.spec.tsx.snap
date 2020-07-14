@@ -27,7 +27,7 @@ exports[`Entry view should render 1`] = `
                 />
               </svg>
             </span>
-            P21802 · uniprot id
+            P21802 · uniprot_id
           </span>
         </h2>
       </div>
