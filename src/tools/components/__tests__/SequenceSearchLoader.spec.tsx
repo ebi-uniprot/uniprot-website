@@ -34,8 +34,10 @@ describe('SequenceSearchLoader tests', () => {
         likelyType: null,
         message: null,
         name: 'sp|P21802|uniprot_id',
-        sequence:
-          '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF',
+        sequence: '',
+        header: '',
+        raw:
+          '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF\n',
         valid: true,
       },
     ]);
