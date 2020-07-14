@@ -120,26 +120,23 @@ const BlastForm = () => {
     if (parametersFromHistoryState) {
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields
-      // yes, I'm doing that in one go to avoid having typescript complain about
-      // the object not being of the right shape even though I want to construct
-      // it in multiple steps 🙄
-      // TODO: Try to use TypeScript Partial<>
-      return Object.freeze(
-        Object.fromEntries(
-          Object.entries(defaultFormValues as BlastFormValues).map(
-            ([key, field]) => [
-              key,
-              Object.freeze({
-                ...field,
-                selected:
-                  parametersFromHistoryState[
-                    field.fieldName as keyof FormParameters
-                  ] || field.selected,
-              }) as Readonly<BlastFormValue>,
-            ]
-          )
-        )
-      ) as Readonly<BlastFormValues>;
+      const formValues: Partial<BlastFormValues> = {};
+      const defaultValuesEntries = Object.entries(defaultFormValues) as [
+        BlastFields,
+        BlastFormValue
+      ][];
+      // for every field of the form, get its value from the history state if
+      // present, otherwise go for the default one
+      for (const [key, field] of defaultValuesEntries) {
+        formValues[key] = Object.freeze({
+          ...field,
+          selected:
+            parametersFromHistoryState[
+              field.fieldName as keyof FormParameters
+            ] || field.selected,
+        }) as Readonly<BlastFormValue>;
+      }
+      return Object.freeze(formValues) as Readonly<BlastFormValues>;
     }
     // otherwise, pass the default values
     return defaultFormValues;
