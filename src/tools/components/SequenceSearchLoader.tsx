@@ -216,7 +216,7 @@ const SequenceSearchLoader = forwardRef<
           );
         }
       } catch (error) {
-        /**/
+        console.error(error); // eslint-disable-line no-console
       } finally {
         setPasteLoading(false);
       }
