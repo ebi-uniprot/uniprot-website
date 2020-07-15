@@ -245,7 +245,7 @@ const BlastForm = () => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence) {
+    if (!sequence.selected) {
       return;
     }
 
@@ -274,17 +274,36 @@ const BlastForm = () => {
       hits: parseInt(hits.selected as string, 10) as Scores,
     };
 
+    const multipleParameters = parsedSequences.map((parsedSequence) => ({
+      ...parameters,
+      sequence: parsedSequence.raw as Sequence,
+    }));
+
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
     sleep(1000).then(() => {
-      history.push(LocationToPath[Location.Dashboard], { parameters });
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatch(
-        createJob(parameters, JobTypes.BLAST, jobName.selected as string)
-      );
+      for (let i = 0; i < parsedSequences.length; i += 1) {
+        // take extracted name by default
+        let { name = '' } = parsedSequences[i];
+        if (jobNameEdited) {
+          // if one was submitted by user, and we only have one sequence, use it
+          if (parsedSequences.length === 1) {
+            name = jobName.selected as string;
+          } else {
+            // if we have more sequences, append a counter
+            name = `${jobName.selected as string} - ${i + 1}`;
+          }
+        }
+        dispatch(createJob(multipleParameters[i], JobTypes.BLAST, name));
+      }
+
+      history.push(LocationToPath[Location.Dashboard], {
+        parameters: multipleParameters,
+      });
     });
   };
 
@@ -326,7 +345,7 @@ const BlastForm = () => {
       setParsedSequences(parsedSequences);
       setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
       setSubmitDisabled(
-        parsedSequences.length !== 1 || !parsedSequences[0].valid
+        parsedSequences.some((parsedSequence) => !parsedSequence.valid)
       );
 
       setSType((stype) => {
@@ -344,6 +363,14 @@ const BlastForm = () => {
   );
 
   const { name, links, info } = infoMappings[JobTypes.BLAST];
+
+  let submitButtonContent: string | JSX.Element = 'Run BLAST';
+  if (parsedSequences.length > 1) {
+    submitButtonContent = `BLAST ${parsedSequences.length} sequences`;
+  }
+  if (sending) {
+    submitButtonContent = <SpinnerIcon />;
+  }
 
   return (
     <>
@@ -449,7 +476,7 @@ const BlastForm = () => {
                 disabled={submitDisabled}
                 onClick={submitBlastJob}
               >
-                {sending ? <SpinnerIcon /> : 'Run Blast'}
+                {submitButtonContent}
               </button>
             </section>
           </section>

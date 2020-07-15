@@ -239,7 +239,7 @@ interface RowProps {
 }
 
 interface CustomLocationState {
-  parameters?: Job['parameters'];
+  parameters?: Job['parameters'][];
 }
 
 const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
@@ -275,10 +275,13 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
   // it means we just arrived from a submission form page and this is the job
   // that was just added, animate it to have it visually represented as "new"
   useLayoutEffect(() => {
+    if (!(ref.current && 'animate' in ref.current)) {
+      return;
+    }
     if (
-      job.parameters !==
-        (history.location?.state as CustomLocationState)?.parameters ||
-      !(ref.current && 'animate' in ref.current)
+      !(history.location?.state as CustomLocationState)?.parameters?.includes(
+        job.parameters
+      )
     ) {
       return;
     }

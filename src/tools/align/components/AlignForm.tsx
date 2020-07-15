@@ -118,7 +118,7 @@ const AlignForm = () => {
   const submitAlignJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence) {
+    if (!sequence.selected) {
       return;
     }
 
@@ -135,7 +135,9 @@ const AlignForm = () => {
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
     sleep(1000).then(() => {
-      history.push(LocationToPath[Location.Dashboard], { parameters });
+      history.push(LocationToPath[Location.Dashboard], {
+        parameters: [parameters],
+      });
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
@@ -179,7 +181,8 @@ const AlignForm = () => {
           .join('\n'),
       }));
       setSubmitDisabled(
-        parsedSequences.some((parsedSequence) => !parsedSequence.valid)
+        parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
+          parsedSequences.length === 1
       );
     },
     [jobNameEdited]
@@ -194,6 +197,14 @@ const AlignForm = () => {
   );
 
   const { name, links, info } = infoMappings[JobTypes.ALIGN];
+
+  let submitButtonContent: string | JSX.Element = 'Run Align';
+  if (parsedSequences.length > 1) {
+    submitButtonContent = `Align ${parsedSequences.length} sequences`;
+  }
+  if (sending) {
+    submitButtonContent = <SpinnerIcon />;
+  }
 
   return (
     <>
@@ -257,7 +268,7 @@ const AlignForm = () => {
                 disabled={submitDisabled}
                 onClick={submitAlignJob}
               >
-                {sending ? <SpinnerIcon /> : 'Run Align'}
+                {submitButtonContent}
               </button>
             </section>
           </section>

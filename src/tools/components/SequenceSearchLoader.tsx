@@ -57,6 +57,14 @@ const getURLForAccessionOrID = (input: string) => {
   return `${uniProtKBApiUrls.search}?${query}`;
 };
 
+// name as a NCBI ID formatted UniProt-style
+const nameFromEntry = (entry: APISequenceData) =>
+  entry.uniProtkbId
+    ? `${entry.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
+        entry.primaryAccession
+      }|${entry.uniProtkbId}`
+    : '';
+
 export type ParsedSequence = {
   sequence: string;
   raw: string;
@@ -74,7 +82,8 @@ const SequenceSearchLoader = forwardRef<
   { onLoad: (event: ParsedSequence[]) => void }
 >(({ onLoad }, ref) => {
   const [accessionOrID, setAccessionOrID] = useState('');
-  const [pasteLoading, setPasteLoading] = useState(false);
+  // flag, abused to store previous value of the field
+  const [pasteLoading, setPasteLoading] = useState<null | string>(null);
   const dispatch = useDispatch();
 
   useImperativeHandle(ref, () => ({
@@ -102,7 +111,7 @@ const SequenceSearchLoader = forwardRef<
   }
 
   useEffect(() => {
-    if (!entry) {
+    if (!entry || entry.entryType === EntryType.INACTIVE) {
       return;
     }
 
@@ -142,18 +151,18 @@ const SequenceSearchLoader = forwardRef<
         valid: true,
         likelyType: null,
         message: null,
-        // name as a NCBI ID formatted UniProt-style
-        name: entry.uniProtkbId
-          ? `${entry.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
-              entry.primaryAccession
-            }|${entry.uniProtkbId}`
-          : '',
+        name: nameFromEntry(entry),
       },
     ]);
   }, [entry, onLoad, urlForAccessionOrID, accessionOrID]);
 
   const handlePaste = useCallback(
     async (event: ClipboardEvent) => {
+      // clipboard data not supported, just ignore that paste event and let the
+      // browser handle it as a change
+      if (!('clipboardData' in event)) {
+        return;
+      }
       const pastedContent = event.clipboardData.getData('text/plain');
       // use a Set to remove duplicate
       const potentialAccessions = new Set(
@@ -166,7 +175,7 @@ const SequenceSearchLoader = forwardRef<
       // prevent displaying the content of the clipboard and empty the input
       event.preventDefault();
       setAccessionOrID('');
-      setPasteLoading(true);
+      setPasteLoading(accessionOrID);
 
       try {
         const parsedSequences = [];
@@ -183,6 +192,10 @@ const SequenceSearchLoader = forwardRef<
               [data] = data.results;
             }
 
+            if (data.entryType === EntryType.INACTIVE) {
+              throw new Error('inactive, no sequence available');
+            }
+
             parsedSequences.push({
               raw: `${entryToFASTAWithHeaders(data)}\n`,
               // no need to fill the rest, it will be parsed again later
@@ -191,12 +204,7 @@ const SequenceSearchLoader = forwardRef<
               valid: true,
               likelyType: null,
               message: null,
-              // name as a NCBI ID formatted UniProt-style
-              name: data.uniProtkbId
-                ? `${data.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
-                    data.primaryAccession
-                  }|${data.uniProtkbId}`
-                : '',
+              name: nameFromEntry(data),
             });
           } catch (_) {
             errors.push(acc);
@@ -218,26 +226,27 @@ const SequenceSearchLoader = forwardRef<
       } catch (error) {
         console.error(error); // eslint-disable-line no-console
       } finally {
-        setPasteLoading(false);
+        setAccessionOrID(pasteLoading || '');
+        setPasteLoading(null);
       }
     },
-    [onLoad, dispatch]
+    [onLoad, dispatch, accessionOrID, setAccessionOrID, pasteLoading]
   );
 
   return (
     <SearchInput
-      isLoading={loading || pasteLoading}
-      onChange={(e: ChangeEvent<HTMLInputElement>) =>
-        setAccessionOrID(e.target.value)
+      isLoading={loading || typeof pasteLoading === 'string'}
+      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        setAccessionOrID(event.target.value)
       }
       onPaste={handlePaste}
       placeholder={
-        pasteLoading
+        typeof pasteLoading === 'string'
           ? 'loading from pasted text'
           : 'P05067, A4_HUMAN, UPI0000000001'
       }
       value={accessionOrID}
-      disabled={pasteLoading}
+      disabled={typeof pasteLoading === 'string'}
     />
   );
 });
