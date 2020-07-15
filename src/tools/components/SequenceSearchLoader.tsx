@@ -83,7 +83,7 @@ const SequenceSearchLoader = forwardRef<
 >(({ onLoad }, ref) => {
   const [accessionOrID, setAccessionOrID] = useState('');
   // flag, abused to store previous value of the field
-  const [pasteLoading, setPasteLoading] = useState<null | string>(null);
+  const [pasteLoading, setPasteLoading] = useState(false);
   const dispatch = useDispatch();
 
   useImperativeHandle(ref, () => ({
@@ -175,7 +175,7 @@ const SequenceSearchLoader = forwardRef<
       // prevent displaying the content of the clipboard and empty the input
       event.preventDefault();
       setAccessionOrID('');
-      setPasteLoading(accessionOrID);
+      setPasteLoading(true);
 
       try {
         const parsedSequences = [];
@@ -226,27 +226,27 @@ const SequenceSearchLoader = forwardRef<
       } catch (error) {
         console.error(error); // eslint-disable-line no-console
       } finally {
-        setAccessionOrID(pasteLoading || '');
-        setPasteLoading(null);
+        setAccessionOrID(accessionOrID); // reset to previous value
+        setPasteLoading(false);
       }
     },
-    [onLoad, dispatch, accessionOrID, setAccessionOrID, pasteLoading]
+    [onLoad, dispatch, accessionOrID, setAccessionOrID]
   );
 
   return (
     <SearchInput
-      isLoading={loading || typeof pasteLoading === 'string'}
+      isLoading={loading || pasteLoading}
       onChange={(event: ChangeEvent<HTMLInputElement>) =>
         setAccessionOrID(event.target.value)
       }
       onPaste={handlePaste}
       placeholder={
-        typeof pasteLoading === 'string'
+        pasteLoading
           ? 'loading from pasted text'
           : 'P05067, A4_HUMAN, UPI0000000001'
       }
       value={accessionOrID}
-      disabled={typeof pasteLoading === 'string'}
+      disabled={pasteLoading}
     />
   );
 });
