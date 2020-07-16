@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { renderHook, cleanup, act } from '@testing-library/react-hooks';
 
 import useSafeState from '../useSafeState';
