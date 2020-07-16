@@ -77,8 +77,12 @@ export type ParsedSequence = {
 
 type NetworkResponses = { results: APISequenceData[] } | APISequenceData;
 
+export interface SequenceSearchLoaderInterface {
+  reset: () => void;
+}
+
 const SequenceSearchLoader = forwardRef<
-  { reset: () => void },
+  SequenceSearchLoaderInterface,
   { onLoad: (event: ParsedSequence[]) => void }
 >(({ onLoad }, ref) => {
   const [accessionOrID, setAccessionOrID] = useState('');

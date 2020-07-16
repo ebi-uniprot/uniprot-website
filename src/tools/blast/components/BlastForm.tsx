@@ -22,6 +22,7 @@ import { sleep } from 'timing-functions';
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 import SequenceSearchLoader, {
   ParsedSequence,
+  SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -106,7 +107,7 @@ interface CustomLocationState {
 
 const BlastForm = () => {
   // refs
-  const sslRef = useRef<{ reset: () => void }>(null);
+  const sslRef = useRef<SequenceSearchLoaderInterface>(null);
 
   // hooks
   const dispatch = useDispatch();
@@ -237,7 +238,7 @@ const BlastForm = () => {
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions
-    ((sslRef.current as unknown) as { reset: () => void }).reset();
+    sslRef.current?.reset();
   };
 
   // the only thing to do here would be to check the values and prevent
