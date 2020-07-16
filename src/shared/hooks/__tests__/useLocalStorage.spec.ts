@@ -5,6 +5,10 @@ import useLocalStorage from '../useLocalStorage';
 const url = '/some/path';
 const url2 = '/some/other/path';
 
+afterAll(() => {
+  cleanup();
+});
+
 describe('useLocalStorage hook', () => {
   test('get value, basic', () => {
     const { result } = renderHook(() =>
