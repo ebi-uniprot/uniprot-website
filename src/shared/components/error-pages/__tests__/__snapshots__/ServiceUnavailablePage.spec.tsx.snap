@@ -19,13 +19,13 @@ exports[`ServiceUnavailablePage component should render 1`] = `
       <svg
         fill="currentColor"
         height="1.125em"
-        viewBox="0 0 18 18"
+        stroke="currentColor"
+        viewBox="0 0 19 18"
         width="1.125em"
       >
         <path
-          clip-rule="evenodd"
-          d="M18 9A9 9 0 110 9a9 9 0 0118 0zM8 4a1 1 0 112 0v6a1 1 0 11-2 0V4zm1 9a1 1 0 100 2 1 1 0 000-2z"
-          fill-rule="evenodd"
+          d="M14.93 11.14h0L12.8 9l2.13-2.14a1.9 1.9 0 000-2.67h0l-.63-.64a1.9 1.9 0 00-2.68 0h0L9.5 5.7 7.35 3.55a1.9 1.9 0 00-2.68 0h0l-.63.64a1.9 1.9 0 000 2.67h0L6.18 9l-2.14 2.14a1.9 1.9 0 000 2.67h0l.63.64a1.9 1.9 0 002.68 0L9.5 12.3l2.13 2.14a1.9 1.9 0 002.68 0l.63-.64a1.9 1.9 0 000-2.67zM17.5 9a8 8 0 11-16 0 8 8 0 0116 0z"
+          stroke-width="2"
         />
       </svg>
       <section
