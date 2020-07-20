@@ -119,6 +119,14 @@ exports[`BlastForm test Renders the form 1`] = `
       >
         <legend>
           Enter either a protein or nucleotide sequence.
+          <label
+            class="tools-form-section__file-input"
+          >
+            Load from a file
+            <input
+              type="file"
+            />
+          </label>
         </legend>
         <textarea
           class="sequence-submission-input"

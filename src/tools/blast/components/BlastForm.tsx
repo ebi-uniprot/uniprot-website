@@ -5,8 +5,10 @@ import React, {
   useCallback,
   FormEvent,
   MouseEvent,
+  DragEvent,
   useMemo,
   useRef,
+  ChangeEvent,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -143,6 +145,8 @@ const BlastForm = () => {
     return defaultFormValues;
   }, [history]);
 
+  // user is dragging something
+  const [isDragging, setIsDragging] = useState(false);
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
@@ -363,6 +367,49 @@ const BlastForm = () => {
     [jobNameEdited, sequence.selected]
   );
 
+  // file handling
+  const handleFile = useCallback(
+    (file?: File) => {
+      if (!file) {
+        return;
+      }
+      const fileReader = new FileReader();
+      fileReader.onload = () =>
+        onSequenceChange(sequenceProcessor(fileReader.result));
+      fileReader.readAsText(file);
+    },
+    [onSequenceChange]
+  );
+
+  // through file input
+  const handleFileChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      handleFile(event.target?.files?.[0]);
+      event.target.value = ''; // eslint-disable-line no-param-reassign
+    },
+    [handleFile]
+  );
+
+  // through drag-and-drop
+  const handleDragging = useCallback((event: DragEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  }, []);
+
+  const handleUndragging = useCallback((event: DragEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+  }, []);
+
+  const handleDrop = useCallback(
+    (event: DragEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      handleFile(event?.dataTransfer?.files?.[0]);
+      setIsDragging(false);
+    },
+    [handleFile]
+  );
+
   const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   let submitButtonContent: string | JSX.Element = 'Run BLAST';
@@ -378,7 +425,19 @@ const BlastForm = () => {
       <PageIntro title={name} links={links}>
         {info}
       </PageIntro>
-      <form onSubmit={submitBlastJob} onReset={handleReset}>
+      <form
+        onSubmit={submitBlastJob}
+        onReset={handleReset}
+        onDrag={handleDragging}
+        onDragStart={handleDragging}
+        onDragOver={handleDragging}
+        onDragEnter={handleDragging}
+        onDragEnd={handleUndragging}
+        onDragExit={handleUndragging}
+        onDragLeave={handleUndragging}
+        onDrop={handleDrop}
+        className={isDragging ? 'dragging' : undefined}
+      >
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
@@ -395,7 +454,13 @@ const BlastForm = () => {
         </section>
         <fieldset>
           <section className="text-block">
-            <legend>Enter either a protein or nucleotide sequence.</legend>
+            <legend>
+              Enter either a protein or nucleotide sequence.
+              <label className="tools-form-section__file-input">
+                Load from a file
+                <input type="file" onChange={handleFileChange} />
+              </label>
+            </legend>
             <SequenceSubmission
               placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
               onChange={onSequenceChange}
