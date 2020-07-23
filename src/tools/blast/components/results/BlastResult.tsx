@@ -18,13 +18,14 @@ import {
 import {
   getFacetParametersFromBlastHits,
   filterBlastDataForResults,
+  filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import blastUrls from '../../config/blastUrls';
-import { getAPIQueryUrl } from '../../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
 
 import { BlastResults, BlastHit, BlastFacet } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -106,22 +107,6 @@ const useParamsData = (
   return paramsData;
 };
 
-const getEnrichApiUrl = (blastData?: BlastResults) => {
-  if (!blastData || blastData.hits.length === 0) {
-    return null;
-  }
-
-  return getAPIQueryUrl(
-    blastData.hits.map((hit) => `(accession:${hit.hit_acc})`).join(' OR '),
-    undefined,
-    undefined,
-    undefined,
-    undefined,
-    [],
-    blastData.hits.length
-  );
-};
-
 // probably going to change with the custom endpoint to enrich data, so keep it
 // here for now, enventually might be a new type in a type folder
 export interface EnrichedData extends BlastResults {
@@ -151,20 +136,9 @@ const BlastResult = () => {
   const location = useLocation();
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-  const [urlParams, setUrlParams] = useState<URLResultParams>();
 
-  // data from blast
-  const {
-    loading: blastLoading,
-    data: blastData,
-    error: blastError,
-    status: blastStatus,
-  } = useDataApi<BlastResults>(
-    blastUrls.resultUrl(match.params.id, 'jdp?format=json')
-  );
-
+  // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    // TODO: investigate why /overview keeps recursively appended
     if (!match.params.subPage) {
       history.replace(
         history.createHref({
@@ -175,27 +149,81 @@ const BlastResult = () => {
     }
   }, [match.params.subPage, history]);
 
-  useEffect(() => {
-    setUrlParams(getParamsFromURL(location.search));
-  }, [location.search, blastData]);
+  // get data from the blast endpoint
+  const {
+    loading: blastLoading,
+    data: blastData,
+    error: blastError,
+    status: blastStatus,
+  } = useDataApi<BlastResults>(
+    blastUrls.resultUrl(match.params.id, 'jdp?format=json')
+  );
 
-  // BLAST results filtered by BLAST facets (ie score, e-value, identity)
+  // extract facets and other info from URL querystring
+  const urlParams: URLResultParams = useMemo(
+    () => getParamsFromURL(location.search),
+    [location.search]
+  );
+
+  // filter the blast results by local facets
+  const hitsFilteredByLocalFacets = useMemo(
+    () =>
+      (blastData &&
+        blastData.hits.filter(filterBlastByFacets(urlParams.selectedFacets))) ||
+      [],
+    [blastData, urlParams.selectedFacets]
+  );
+
+  // accessions of the blast results filtered by local facets
+  const accessionsFilteredByLocalFacets = useMemo(
+    () => hitsFilteredByLocalFacets.map((hit) => hit.hit_acc),
+    [hitsFilteredByLocalFacets]
+  );
+
+  // get data from accessions endpoint with facets applied
+  const { loading: accessionsLoading, data: accessionsData } = useDataApi<
+    Response['data']
+  >(
+    useMemo(
+      () =>
+        getAccessionsURL(accessionsFilteredByLocalFacets, {
+          selectedFacets: urlParams.selectedFacets,
+        }),
+      [accessionsFilteredByLocalFacets, urlParams.selectedFacets]
+    )
+  );
+
+  const accessionsFilteredByServer = useMemo(
+    () =>
+      (accessionsData &&
+        accessionsData.results.map(
+          ({ primaryAccession }) => primaryAccession
+        )) ||
+      [],
+    [accessionsData]
+  );
+
+  // additionally filter the blast results by server-calculated facets
+  const hitsFiltered = useMemo(
+    () =>
+      (accessionsFilteredByServer.length &&
+        hitsFilteredByLocalFacets.filter((hit) =>
+          accessionsFilteredByServer.includes(hit.hit_acc)
+        )) ||
+      [],
+    [accessionsFilteredByServer, hitsFilteredByLocalFacets]
+  );
+
+  // filter BLAST results according facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
     blastData &&
     urlParams &&
     filterBlastDataForResults(blastData, urlParams.selectedFacets);
 
-  // corresponding data from API
-  const { loading: apiLoading, data: apiData } = useDataApi<Response['data']>(
-    useMemo(() => getEnrichApiUrl(filteredBlastData || undefined), [
-      filteredBlastData,
-    ])
+  const data = useMemo(
+    () => enrich(filteredBlastData || undefined, accessionsData),
+    [filteredBlastData, accessionsData]
   );
-
-  const data = useMemo(() => enrich(filteredBlastData || undefined, apiData), [
-    filteredBlastData,
-    apiData,
-  ]);
 
   const inputParamsData = useParamsData(match.params.id);
 
@@ -228,8 +256,7 @@ const BlastResult = () => {
   // Deciding what should be displayed on the sidebar
   const facetsSidebar = (
     <BlastResultSidebar
-      loading={apiLoading}
-      data={data}
+      accessions={accessionsFilteredByLocalFacets}
       histogramSettings={histogramSettings}
     />
   );
@@ -280,8 +307,8 @@ const BlastResult = () => {
           {actionBar}
           <Suspense fallback={<Loader />}>
             <BlastResultTable
-              loading={apiLoading}
-              data={data}
+              loading={blastLoading && accessionsLoading}
+              data={{ ...blastData, hits: hitsFiltered }}
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
             />

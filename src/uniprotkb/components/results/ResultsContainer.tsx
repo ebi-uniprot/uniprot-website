@@ -16,7 +16,7 @@ import { RootState } from '../../../app/state/rootInitialState';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
@@ -54,14 +54,21 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
     columns,
     selectedFacets,
     sortColumn,
-    sortDirection
+    sortDirection,
+    undefined,
+    1 // TODO: change to 0 whenever the API accepts it
   );
 
-  const { data, error, loading, headers, status } = useDataApi<
-    Response['data']
-  >(initialApiUrl);
+  const {
+    data,
+    error,
+    loading,
+    headers,
+    status,
+    isStale,
+  } = useDataApiWithStale<Response['data']>(initialApiUrl);
 
-  if (loading) {
+  if (loading && !data) {
     return <Loader />;
   }
 
@@ -70,7 +77,7 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
   }
 
   const { facets, results } = data;
-  const total = headers['x-totalrecords'];
+  const total = headers?.['x-totalrecords'];
 
   if (!results || results.length === 0) {
     return <NoResultsPage />;
@@ -105,7 +112,7 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
           total={total}
         />
       }
-      sidebar={<ResultsFacets facets={facets} />}
+      sidebar={<ResultsFacets facets={facets} isStale={isStale} />}
     >
       <ResultsView
         columns={columns}

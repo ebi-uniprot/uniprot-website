@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 import joinUrl from 'url-join';
+
 import {
   getApiSortDirection,
   SortDirection,
@@ -9,6 +10,7 @@ import {
   fileFormatToUrlParameter,
 } from '../types/resultsTypes';
 import { SortableColumn } from '../types/columnTypes';
+import { BlastFacet } from '../../tools/blast/types/blastResults';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
@@ -50,6 +52,7 @@ const apiUrls = {
   search: joinUrl(devPrefix, '/uniprot/api/uniprotkb/search'),
   download: joinUrl(devPrefix, '/uniprot/api/uniprotkb/download'),
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
+  accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
 
   entry: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/uniprotkb/accession', accession),
@@ -88,15 +91,16 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
    * Single word values shouldn't have double quotes as they can be boolean.
    * Range queries (/^\[.*]$/) should not have double quotes either.
    * */
-  facets.reduce(
-    (queryAccumulator, facet) =>
-      `${queryAccumulator} AND (${facet.name}:${
-        facet.value.indexOf(' ') >= 0 && !facet.value.match(/^\[.*\]$/)
-          ? `"${facet.value}"`
-          : facet.value
-      })`,
-    ''
-  );
+  facets
+    .map(
+      (facet) =>
+        `(${facet.name}:${
+          facet.value.indexOf(' ') >= 0 && !facet.value.match(/^\[.*\]$/)
+            ? `"${facet.value}"`
+            : facet.value
+        })`
+    )
+    .join(' AND ');
 
 export const createAccessionsQueryString = (accessions: string[]) =>
   accessions.map((accession) => `accession:${accession}`).join(' OR ');
@@ -119,10 +123,12 @@ export const getAPIQueryUrl = (
   facets: string[] = defaultFacets,
   size?: number
 ) => {
-  if (!query) return null;
+  if (!query) {
+    return null;
+  }
   return `${apiUrls.search}?${queryString.stringify({
     size,
-    query: `${query}${createFacetsQueryString(selectedFacets)}`,
+    query: `${query} AND ${createFacetsQueryString(selectedFacets)}`,
     fields: columns && columns.join(','),
     facets: facets.join(','),
     sort:
@@ -131,15 +137,64 @@ export const getAPIQueryUrl = (
   })}`;
 };
 
-export const getUniProtPublicationsQueryUrl = (
-  accession: string,
-  selectedFacets: SelectedFacet[]
-) =>
+const localBlastFacets = Object.values(BlastFacet) as string[];
+const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
+  !localBlastFacets.includes(name);
+
+type GetOptions = {
+  columns?: string[];
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  facets?: string[];
+  size?: number;
+};
+
+export const getAccessionsURL = (
+  accessions?: string[],
+  {
+    columns = [],
+    selectedFacets = [],
+    sortColumn = undefined,
+    sortDirection = SortDirection.ascend,
+    facets = defaultFacets,
+    size,
+  }: GetOptions = {}
+) => {
+  if (!(accessions && accessions.length)) {
+    return null;
+  }
+  return `${apiUrls.accessions}?${queryString.stringify({
+    size,
+    accessions: accessions.join(','),
+    facetFilter: createFacetsQueryString(
+      selectedFacets.filter(excludeLocalBlastFacets)
+    ),
+    fields: columns && columns.join(','),
+    facets: facets.join(','),
+    sort:
+      sortColumn &&
+      `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
+  })}`;
+};
+
+type GetUniProtPublicationsQueryUrl = {
+  accession: string;
+  selectedFacets: SelectedFacet[];
+  size?: number;
+};
+export const getUniProtPublicationsQueryUrl = ({
+  accession,
+  selectedFacets,
+  size,
+}: GetUniProtPublicationsQueryUrl) =>
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
     facets: 'source,category,study_type',
-    query: selectedFacets
-      .map((facet) => `(${facet.name}:"${facet.value}")`)
-      .join(' AND '),
+    query:
+      selectedFacets
+        .map((facet) => `(${facet.name}:"${facet.value}")`)
+        .join(' AND ') || undefined,
+    size,
   })}`;
 
 export const getDownloadUrl = ({

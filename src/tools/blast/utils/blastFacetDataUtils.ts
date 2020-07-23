@@ -11,6 +11,7 @@ import {
 } from '../types/blastResults';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 
+const localFacets = Object.values(BlastFacet);
 const blastFacetToKeyName = {
   [BlastFacet.SCORE]: 'hsp_score',
   [BlastFacet.IDENTITY]: 'hsp_identity',
@@ -18,12 +19,10 @@ const blastFacetToKeyName = {
 };
 
 const parseBlastFacets = (facets: SelectedFacet[]): ParsedBlastFacets =>
-  Object.fromEntries(
-    facets.map(({ name, value }) => {
-      const [min, max] = value.split('-').map((x) => Number(x));
-      return [name, [min, max]];
-    })
-  );
+  facets.map(({ name, value }) => {
+    const [min, max] = value.split('-').map((x) => Number(x));
+    return { name, min, max };
+  });
 
 export const filterBlastHitForResults = (
   hits: BlastHit[],
@@ -36,6 +35,31 @@ export const filterBlastHitForResults = (
       .map((hsp) => hsp[blastFacetToKeyName[facet] as keyof BlastHsp])
       .filter((score) => score >= min && score <= max).length;
   });
+};
+
+export const filterBlastByFacets = (facets: SelectedFacet[] = []) => {
+  const parsedFacets = parseBlastFacets(
+    facets.filter(({ name }) => localFacets.includes(name as BlastFacet))
+  );
+
+  // filter function
+  return (hit: BlastHit) => {
+    // eslint-disable-next-line no-labels
+    outer: for (const { name, min, max } of parsedFacets) {
+      const keyName = blastFacetToKeyName[name as BlastFacet] as keyof BlastHsp;
+      for (const hsp of hit.hit_hsps) {
+        const value = hsp[keyName] as number;
+        if (value >= min && value <= max) {
+          // if any of the value is within range, skip to check next facet
+          continue outer; // eslint-disable-line no-continue, no-labels
+        }
+      }
+      // if none of the values was within range, this hit needs to be excluded
+      return false;
+    }
+    // if all the hits had any value within range for all the facets, keep hit
+    return true;
+  };
 };
 
 export const filterBlastDataForResults = (
@@ -53,9 +77,9 @@ export const filterBlastDataForResults = (
   let { hits } = data;
 
   const parsedFacets = parseBlastFacets(facets);
-  Object.entries(parsedFacets).forEach(([facet, [min, max]]) => {
-    if (facet in blastFacetToKeyName) {
-      hits = filterBlastHitForResults(hits, min, max, facet as BlastFacet);
+  parsedFacets.forEach(({ name, min, max }) => {
+    if (name in blastFacetToKeyName) {
+      hits = filterBlastHitForResults(hits, min, max, name as BlastFacet);
     }
   });
 
@@ -72,8 +96,11 @@ export const isBlastValueWithinRange = (
   facet: BlastFacet
 ) => {
   const value = hitDatapoint[facet];
-  const [min, max] = rangeFilters[facet];
-  return min <= value && value <= max;
+  const rangeFilter = rangeFilters.find(({ name }) => name === facet);
+  if (!rangeFilter) {
+    return true;
+  }
+  return rangeFilter.min <= value && value <= rangeFilter.max;
 };
 
 export const filterBlastHitForFacets = (
@@ -86,24 +113,26 @@ export const filterBlastHitForFacets = (
   //    have the intersection of all of the ranges applied (including the active).
   // 2. The activeFacet has only has the inactiveFacets intersection applied.
 
-  if (!rangeFilters || !Object.keys(rangeFilters).length) {
+  const rangeFilterNames = rangeFilters.map(({ name }) => name);
+
+  if (!rangeFilters || !rangeFilterNames.length) {
     return hitDatapoint;
   }
 
   let activeFacet = inActiveFacet;
   if (!inActiveFacet) {
-    if (Object.keys(rangeFilters).length > 1) {
+    if (rangeFilterNames.length > 1) {
       throw Error(
         'More than one blast hit facet provided and no active facet set.'
       );
     } else {
       // Guaranteed to be one here because it's nonzero but < 2
-      const facet = Object.keys(rangeFilters);
+      const facet = rangeFilterNames;
       activeFacet = facet[0] as BlastFacet;
     }
   }
 
-  const inactiveRangedFacets = Object.keys(rangeFilters).filter(
+  const inactiveRangedFacets = rangeFilterNames.filter(
     (facet) => facet !== activeFacet
   );
 
@@ -169,9 +198,7 @@ type HitDatapoint = {
   [BlastFacet.EVALUE]: number;
 };
 
-export type ParsedBlastFacets = {
-  [key: string]: [number, number];
-};
+export type ParsedBlastFacets = { name: string; min: number; max: number }[];
 
 export const getFacetParametersFromBlastHits = (
   facets: SelectedFacet[],

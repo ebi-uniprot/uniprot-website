@@ -18,7 +18,7 @@ const blastFacetToString = {
 
 const BlastResultsParametersFacets: FC<{
   parameters: BlastHitFacetParameters;
-  isStale: boolean;
+  isStale?: boolean;
 }> = ({ parameters, isStale }) => {
   const {
     push,

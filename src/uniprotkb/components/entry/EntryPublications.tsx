@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { uniq } from 'lodash-es';
+import { useLocation } from 'react-router-dom';
 import { Loader, Publication, DataList } from 'franklin-sites';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import { LiteratureForProteinAPI } from '../../types/literatureTypes';
 
@@ -18,14 +18,13 @@ import formatCitationData, {
 import getNextUrlFromResponse from '../../utils/queryUtils';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
-const EntryPublications: FC<
-  {
-    accession: string;
-  } & RouteComponentProps
-> = ({ accession, location }) => {
-  const { search } = location;
+const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
+  const { search } = useLocation();
   const { selectedFacets } = getParamsFromURL(search);
-  const initialUrl = getUniProtPublicationsQueryUrl(accession, selectedFacets);
+  const initialUrl = getUniProtPublicationsQueryUrl({
+    accession,
+    selectedFacets,
+  });
 
   const [url, setUrl] = useState(initialUrl);
   const [allResults, setAllResults] = useState<LiteratureForProteinAPI[]>([]);
@@ -51,13 +50,10 @@ const EntryPublications: FC<
   }, [data, headers]);
 
   useEffect(() => {
-    if (url === initialUrl) {
-      return;
-    }
-    setUrl(initialUrl);
     setAllResults([]);
     setMetaData({ total: 0, nextUrl: undefined });
-  }, [initialUrl, url]);
+    setUrl(initialUrl);
+  }, [initialUrl]);
 
   if (error) {
     return <ErrorHandler status={status} />;
@@ -155,4 +151,4 @@ const EntryPublications: FC<
   );
 };
 
-export default withRouter(EntryPublications);
+export default EntryPublications;

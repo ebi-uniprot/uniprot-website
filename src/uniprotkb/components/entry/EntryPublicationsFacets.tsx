@@ -1,66 +1,50 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Facets, Loader } from 'franklin-sites';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { getUniProtPublicationsQueryUrl } from '../../config/apiUrls';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
-import { facetsAsString, getParamsFromURL } from '../../utils/resultsUtils';
+import { getParamsFromURL } from '../../utils/resultsUtils';
 
-import { SelectedFacet } from '../../types/resultsTypes';
 import { Facet } from '../../types/responseTypes';
 
-const EntryPublicationsFacets: React.FC<
-  {
-    accession: string;
-  } & RouteComponentProps
-> = ({ accession, history, location }) => {
-  const { search } = location;
+import './styles/entry-publications-facets.scss';
+
+const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
+  const { search } = useLocation();
+
   const { selectedFacets } = getParamsFromURL(search);
-  const url = getUniProtPublicationsQueryUrl(accession, selectedFacets);
-  const { loading, data, status, error } = useDataApi<{ facets: Facet[] }>(url);
+  const url = getUniProtPublicationsQueryUrl({
+    accession,
+    selectedFacets,
+    size: 1, // TODO: change to 0 whenever the API accepts it
+  });
 
-  const addFacet = (name: string, value: string) => {
-    const facet: SelectedFacet = { name, value };
-    history.push({
-      pathname: `/uniprotkb/${accession}/publications`,
-      search: facetsAsString([...selectedFacets.concat(facet)]),
-    });
-  };
-
-  const removeFacet = (name: string, value: string) => {
-    history.push({
-      pathname: `/uniprotkb/${accession}/publications`,
-      search: facetsAsString(
-        selectedFacets.filter(
-          (selectedFacet) =>
-            !(selectedFacet.name === name && selectedFacet.value === value)
-        )
-      ),
-    });
-  };
+  const { loading, data, status, error, isStale } = useDataApiWithStale<{
+    facets: Facet[];
+  }>(url);
 
   if (error) {
     return <ErrorHandler status={status} />;
   }
 
-  if (loading || !data) {
+  if (loading && !data) {
     return <Loader />;
   }
 
-  const { facets } = data;
+  if (error || !data?.facets) {
+    return <ErrorHandler status={status} />;
+  }
 
   return (
-    <Facets
-      data={facets}
-      addFacet={addFacet}
-      removeFacet={removeFacet}
-      selectedFacets={selectedFacets}
-    />
+    <div className={isStale ? 'is-stale' : undefined}>
+      <Facets data={data.facets} />
+    </div>
   );
 };
 
-export default withRouter(EntryPublicationsFacets);
+export default EntryPublicationsFacets;

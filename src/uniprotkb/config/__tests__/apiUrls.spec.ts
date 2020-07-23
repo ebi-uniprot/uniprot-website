@@ -27,7 +27,7 @@ describe('createFacetsQueryString', () => {
     ];
     const queryString = createFacetsQueryString(facets);
     expect(queryString).toBe(
-      ' AND (facet1:"value 1") AND (facet2:"value 3") AND (facet3:value3) AND (facet4:[1 TO *])'
+      '(facet1:"value 1") AND (facet2:"value 3") AND (facet3:value3) AND (facet4:[1 TO *])'
     );
   });
 });
