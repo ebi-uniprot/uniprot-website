@@ -16,7 +16,6 @@ import {
   URLResultParams,
 } from '../../../../uniprotkb/utils/resultsUtils';
 import {
-  getFacetParametersFromBlastHits,
   filterBlastDataForResults,
   filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
@@ -27,7 +26,7 @@ import { Location, LocationToPath } from '../../../../app/config/urls';
 import blastUrls from '../../config/blastUrls';
 import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
 
-import { BlastResults, BlastHit, BlastFacet } from '../../types/blastResults';
+import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
@@ -188,6 +187,7 @@ const BlastResult = () => {
       () =>
         getAccessionsURL(accessionsFilteredByLocalFacets, {
           selectedFacets: urlParams.selectedFacets,
+          facets: [],
         }),
       [accessionsFilteredByLocalFacets, urlParams.selectedFacets]
     )
@@ -196,20 +196,22 @@ const BlastResult = () => {
   // list of all the accessions returned by the accessions endpoint
   const accessionsFilteredByServer = useMemo(
     () =>
-      (accessionsData &&
-        accessionsData.results.map(
-          ({ primaryAccession }) => primaryAccession
-        )) ||
-      [],
+      new Set(
+        (accessionsData &&
+          accessionsData.results.map(
+            ({ primaryAccession }) => primaryAccession
+          )) ||
+          []
+      ),
     [accessionsData]
   );
 
   // additionally filter the blast results by server-calculated facets
   const hitsFiltered = useMemo(
     () =>
-      (accessionsFilteredByServer.length &&
+      (accessionsFilteredByServer.size &&
         hitsFilteredByLocalFacets.filter((hit) =>
-          accessionsFilteredByServer.includes(hit.hit_acc)
+          accessionsFilteredByServer.has(hit.hit_acc)
         )) ||
       [],
     [accessionsFilteredByServer, hitsFilteredByLocalFacets]
@@ -217,10 +219,10 @@ const BlastResult = () => {
 
   const hitsFilteredByServer = useMemo(
     () =>
-      (accessionsFilteredByServer.length &&
+      (accessionsFilteredByServer.size &&
         blastData &&
         blastData.hits.filter((hit) =>
-          accessionsFilteredByServer.includes(hit.hit_acc)
+          accessionsFilteredByServer.has(hit.hit_acc)
         )) ||
       [],
     [accessionsFilteredByServer, blastData]
@@ -269,13 +271,13 @@ const BlastResult = () => {
   const facetsSidebar = (
     <>
       <ErrorBoundary>
-        <BlastResultSidebar accessions={accessionsFilteredByLocalFacets} />
-      </ErrorBoundary>
-      <ErrorBoundary>
         <BlastResultParametersFacets
           allHits={blastData.hits}
           hitsFilteredByServer={hitsFilteredByServer}
         />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <BlastResultSidebar accessions={accessionsFilteredByLocalFacets} />
       </ErrorBoundary>
     </>
   );

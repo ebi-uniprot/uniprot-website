@@ -170,9 +170,9 @@ export const getAccessionsURL = (
   return `${apiUrls.accessions}?${queryString.stringify({
     size,
     accessions: accessions.join(','),
-    facetFilter: createFacetsQueryString(
-      selectedFacets.filter(excludeLocalBlastFacets)
-    ),
+    facetFilter:
+      createFacetsQueryString(selectedFacets.filter(excludeLocalBlastFacets)) ||
+      undefined,
     fields: (columns && columns.join(',')) || undefined,
     facets: facets.join(',') || undefined,
     sort:

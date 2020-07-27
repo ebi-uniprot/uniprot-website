@@ -1,6 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { HistogramFilter } from 'franklin-sites';
+
 import {
   getLocationObjForParams,
   getParamsFromURL,
@@ -10,26 +11,30 @@ import {
   getBounds,
   getDataPoints,
   getFacetBounds,
+  filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
+import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
+
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import { BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
+import Response from '../../../../uniprotkb/types/responseTypes';
 
 import './styles/results-view.scss';
-import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 type LocalFacetProps = {
   facet: string;
   bounds: { min: number; max: number };
   facetBounds: { min: number; max: number };
-  dataPoints: number[];
+  hitsFilteredByServer: BlastHit[];
   selectedFacets: SelectedFacet[];
 };
 const LocalFacet: FC<LocalFacetProps> = ({
   facet,
   bounds,
   facetBounds,
-  dataPoints,
+  hitsFilteredByServer,
   selectedFacets,
 }) => {
   const history = useHistory();
@@ -41,6 +46,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
     const value = `[${min === bounds.min ? '*' : min} TO ${
       max === bounds.max ? '*' : max
     }]`;
+
     let nextFacets: SelectedFacet[];
     if (value === `[* TO *]`) {
       // it's the same as "don't filter by this facet"
@@ -48,6 +54,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
     } else {
       nextFacets = [...facetsWithoutModified, { name: facet, value }];
     }
+
     history.replace(
       getLocationObjForParams({
         pathname: history.location.pathname,
@@ -62,6 +69,14 @@ const LocalFacet: FC<LocalFacetProps> = ({
       facetBounds.max === +Infinity ? bounds.max : facetBounds.max,
     ],
     [bounds, facetBounds]
+  );
+
+  const values = useMemo(
+    () =>
+      getDataPoints(
+        hitsFilteredByServer.filter(filterBlastByFacets(selectedFacets, facet))
+      ),
+    [hitsFilteredByServer, facet, selectedFacets]
   );
 
   if (bounds.min === bounds.max) {
@@ -79,7 +94,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
         nBins={30}
         onChange={handleChange}
         selectedRange={selectedRange}
-        values={dataPoints}
+        values={values[facet]}
       />
     </li>
   );
@@ -87,33 +102,39 @@ const LocalFacet: FC<LocalFacetProps> = ({
 
 const BlastResultLocalFacets: FC<{
   allHits: BlastHit[];
-  hitsFilteredByServer: BlastHit[];
-  isStale?: boolean;
-}> = ({ allHits, hitsFilteredByServer }) => {
+}> = ({ allHits }) => {
   const { search: queryParamFromUrl } = useLocation();
-
-  // get data from accessions endpoint with facets applied
-  const {
-    loading: accessionsLoading,
-    data: accessionsData,
-    isStale,
-  } = useDataApiWithStale<Response['data']>(
-    useMemo(
-      () =>
-        getAccessionsURL(accessionsFilteredByLocalFacets, {
-          selectedFacets: urlParams.selectedFacets,
-        }),
-      [accessionsFilteredByLocalFacets, urlParams.selectedFacets]
-    )
-  );
 
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
-  const bounds = useMemo(() => getBounds(allHits), [allHits]);
+  // get data from accessions endpoint with facets applied
+  const { loading, data, isStale } = useDataApiWithStale<Response['data']>(
+    useMemo(
+      () =>
+        getAccessionsURL(
+          allHits.map((hit) => hit.hit_acc),
+          {
+            selectedFacets,
+            facets: [],
+          }
+        ),
+      [allHits, selectedFacets]
+    )
+  );
 
-  const dataPoints = useMemo(() => getDataPoints(hitsFilteredByServer), [
-    hitsFilteredByServer,
-  ]);
+  console.log(loading, data, isStale);
+
+  const hitsFilteredByServer = useMemo(() => {
+    if (!data) {
+      return [];
+    }
+    const filteredAccessions = new Set(
+      data.results.map((entry) => entry.primaryAccession)
+    );
+    return allHits.filter((hit) => filteredAccessions.has(hit.hit_acc));
+  }, [data, allHits]);
+
+  const bounds = useMemo(() => getBounds(allHits), [allHits]);
 
   const facetBounds = useMemo(() => getFacetBounds(selectedFacets), [
     selectedFacets,
@@ -122,7 +143,6 @@ const BlastResultLocalFacets: FC<{
   console.log({
     bounds,
     facetBounds,
-    dataPoints,
     selectedFacets,
     hitsFilteredByServer,
   });
@@ -132,7 +152,7 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <div className={`blast-parameters-facet${isStale ? ' is-stale' : ''}`}>
+    <div className="blast-parameters-facet">
       <ul className="no-bullet">
         <li>
           <span className="facet-name">Blast parameters</span>
@@ -143,7 +163,7 @@ const BlastResultLocalFacets: FC<{
                 facet={facet}
                 bounds={bounds[facet]}
                 facetBounds={facetBounds[facet]}
-                dataPoints={dataPoints[facet]}
+                hitsFilteredByServer={hitsFilteredByServer}
                 selectedFacets={selectedFacets}
               />
             ))}

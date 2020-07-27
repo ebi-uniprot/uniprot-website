@@ -68,9 +68,14 @@ export const filterBlastHitForResults = (
   });
 };
 
-export const filterBlastByFacets = (facets: SelectedFacet[] = []) => {
+export const filterBlastByFacets = (
+  facets: SelectedFacet[] = [],
+  ignoredFacet = ''
+) => {
   const parsedFacets = parseLocalFacets(
-    facets.filter(({ name }) => localFacets.includes(name))
+    facets.filter(
+      ({ name }) => localFacets.includes(name) && name !== ignoredFacet
+    )
   );
 
   // filter function
