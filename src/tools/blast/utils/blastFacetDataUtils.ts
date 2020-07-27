@@ -1,8 +1,3 @@
-// import {
-//   getSmallerMultiple,
-//   getLargerMultiple,
-// } from '../../../shared/utils/utils';
-
 import {
   BlastFacet,
   BlastHit,
@@ -55,19 +50,12 @@ const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
   return output;
 };
 
-export const filterBlastHitForResults = (
-  hits: BlastHit[],
-  min: number,
-  max: number,
-  facet: BlastFacet
-) => {
-  return hits.filter((hit) => {
-    return hit.hit_hsps
-      .map((hsp) => hsp[blastFacetToKeyName[facet] as keyof BlastHsp])
-      .filter((score) => score >= min && score <= max).length;
-  });
-};
-
+/**
+ * Returns a filter function to be used in an array "filter" method
+ * @param {SelectedFacet[]} facets - facets extracted from the URL querystring
+ * @param {string} ignoredFacet - optional ignored facet name
+ * @returns {function} - function to use to filter BlastHits
+ */
 export const filterBlastByFacets = (
   facets: SelectedFacet[] = [],
   ignoredFacet = ''
@@ -98,6 +86,19 @@ export const filterBlastByFacets = (
   };
 };
 
+export const filterBlastHitForResults = (
+  hits: BlastHit[],
+  min: number,
+  max: number,
+  facet: BlastFacet
+) => {
+  return hits.filter((hit) => {
+    return hit.hit_hsps
+      .map((hsp) => hsp[blastFacetToKeyName[facet] as keyof BlastHsp])
+      .filter((score) => score >= min && score <= max).length;
+  });
+};
+
 export const filterBlastDataForResults = (
   data: BlastResults,
   facets: SelectedFacet[]
@@ -125,85 +126,6 @@ export const filterBlastDataForResults = (
     alignments: hits.length,
   };
 };
-
-// export const isBlastValueWithinRange = (
-//   hitDatapoint: HitDatapoint,
-//   rangeFilters: ParsedBlastFacets,
-//   facet: BlastFacet
-// ) => {
-//   const value = hitDatapoint[facet];
-//   const rangeFilter = rangeFilters.find(({ name }) => name === facet);
-//   if (!rangeFilter) {
-//     return true;
-//   }
-//   return rangeFilter.min <= value && value <= rangeFilter.max;
-// };
-
-// export const filterBlastHitForFacets = (
-//   hitDatapoint: HitDatapoint,
-//   rangeFilters: ParsedBlastFacets,
-//   inActiveFacet?: BlastFacet
-// ) => {
-//   // Notes:
-//   // 1. All inactiveFacets (including user selected and not user selected) will need to
-//   //    have the intersection of all of the ranges applied (including the active).
-//   // 2. The activeFacet has only has the inactiveFacets intersection applied.
-
-//   const rangeFilterNames = rangeFilters.map(({ name }) => name);
-
-//   if (!rangeFilters || !rangeFilterNames.length) {
-//     return hitDatapoint;
-//   }
-
-//   let activeFacet = inActiveFacet;
-//   if (!inActiveFacet) {
-//     if (rangeFilterNames.length > 1) {
-//       throw Error(
-//         'More than one blast hit facet provided and no active facet set.'
-//       );
-//     } else {
-//       // Guaranteed to be one here because it's nonzero but < 2
-//       const facet = rangeFilterNames;
-//       activeFacet = facet[0] as BlastFacet;
-//     }
-//   }
-
-//   const inactiveRangedFacets = rangeFilterNames.filter(
-//     (facet) => facet !== activeFacet
-//   );
-
-//   const includeActive = inactiveRangedFacets.every((facet) =>
-//     isBlastValueWithinRange(hitDatapoint, rangeFilters, facet as BlastFacet)
-//   );
-//   const includeInactive =
-//     includeActive &&
-//     isBlastValueWithinRange(
-//       hitDatapoint,
-//       rangeFilters,
-//       activeFacet as BlastFacet
-//     );
-
-//   const result = new Map<BlastFacet, number>();
-
-//   const allInactiveFacets = Object.values(BlastFacet).filter(
-//     (facet) => facet !== activeFacet
-//   );
-
-//   allInactiveFacets.forEach((facet) => {
-//     if (includeInactive) {
-//       result.set(facet, hitDatapoint[facet]);
-//     }
-//   });
-
-//   if (includeActive) {
-//     result.set(
-//       activeFacet as BlastFacet,
-//       hitDatapoint[activeFacet as BlastFacet]
-//     );
-//   }
-
-//   return Object.fromEntries(result);
-// };
 
 export const getFacetBounds = (facets: SelectedFacet[]) => {
   const output = Object.fromEntries(
@@ -264,21 +186,6 @@ export const getDataPoints = (hits: BlastHit[]) => {
   return Object.freeze(output);
 };
 
-const setMinMaxValues = (
-  parameters: BlastHitFacetParameters,
-  facet: BlastFacet,
-  value: number
-) => {
-  const facetParameter = parameters[facet];
-  if (typeof facetParameter.min === 'undefined' || facetParameter.min > value) {
-    facetParameter.min = value;
-  }
-
-  if (typeof facetParameter.max === 'undefined' || facetParameter.max < value) {
-    facetParameter.max = value;
-  }
-};
-
 export type BlastHitFacetParameters = {
   [facet in BlastFacet]: {
     values: number[];
@@ -287,68 +194,4 @@ export type BlastHitFacetParameters = {
   };
 };
 
-type HitDatapoint = {
-  [BlastFacet.SCORE]: number;
-  [BlastFacet.IDENTITY]: number;
-  [BlastFacet.EVALUE]: number;
-};
-
 export type ParsedLocalFacet = { name: string; min: number; max: number };
-
-export const getFacetParametersFromBlastHits = (
-  facets: SelectedFacet[],
-  activeFacet: BlastFacet,
-  hits?: BlastHit[] | null
-) => {
-  const parameters: BlastHitFacetParameters = {
-    score: {
-      values: [],
-    },
-    identity: {
-      values: [],
-    },
-    evalue: {
-      values: [],
-    },
-  };
-
-  if (!hits) {
-    return parameters;
-  }
-
-  hits.forEach(({ hit_hsps: hsps }) => {
-    hsps.forEach(
-      ({ hsp_score: score, hsp_identity: identity, hsp_expect: evalue }) => {
-        setMinMaxValues(parameters, BlastFacet.SCORE, score);
-        setMinMaxValues(parameters, BlastFacet.IDENTITY, identity);
-        setMinMaxValues(parameters, BlastFacet.EVALUE, evalue);
-
-        const hitData: HitDatapoint = {
-          score,
-          identity,
-          evalue,
-        };
-
-        const parsedFacets = parseBlastFacets(facets);
-
-        const {
-          score: filteredScore,
-          identity: filteredIdentity,
-          evalue: filteredEvalue,
-        } = filterBlastHitForFacets(hitData, parsedFacets, activeFacet);
-
-        // We would like to include 0 values, hence, check for 'undefined' explicitly
-        if (filteredScore !== undefined) {
-          parameters.score.values.push(filteredScore);
-        }
-        if (filteredIdentity !== undefined) {
-          parameters.identity.values.push(filteredIdentity);
-        }
-        if (filteredEvalue !== undefined) {
-          parameters.evalue.values.push(filteredEvalue);
-        }
-      }
-    );
-  });
-  return parameters;
-};

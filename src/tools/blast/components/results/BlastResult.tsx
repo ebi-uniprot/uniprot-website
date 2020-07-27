@@ -222,17 +222,6 @@ const BlastResult = () => {
     [accessionsFilteredByServer, hitsFilteredByLocalFacets]
   );
 
-  const hitsFilteredByServer = useMemo(
-    () =>
-      (accessionsFilteredByServer.size &&
-        blastData &&
-        blastData.hits.filter((hit) =>
-          accessionsFilteredByServer.has(hit.hit_acc)
-        )) ||
-      [],
-    [accessionsFilteredByServer, blastData]
-  );
-
   // filter BLAST results according facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
     blastData &&
@@ -255,14 +244,6 @@ const BlastResult = () => {
         : filtered
     );
   };
-
-  // const histogramSettings =
-  //   urlParams &&
-  //   getFacetParametersFromBlastHits(
-  //     urlParams.selectedFacets,
-  //     urlParams.activeFacet as BlastFacet,
-  //     blastData && blastData.hits
-  //   );
 
   if (blastLoading) {
     return <Loader />;

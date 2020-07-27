@@ -13,7 +13,7 @@ import { BlastHsp } from '../../types/blastResults';
 import { loadWebComponent } from '../../../../shared/utils/utils';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import apiUrls from '../../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
 import FeatureType from '../../../../uniprotkb/types/featureType';
 import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -166,7 +166,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   );
 
   const { loading, data, status, error } = useDataApi<UniProtkbAccessionsAPI>(
-    apiUrls.entries([hitAccession])
+    getAccessionsURL([hitAccession], { facets: [] })
   );
 
   const features = data?.results?.[0]?.features;
