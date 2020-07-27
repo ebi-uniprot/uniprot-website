@@ -12,6 +12,10 @@
       * protvista-track
       */
       width: 32vw;
+      cursor: pointer;
+      &:hover {
+        background: #d2dce3;
+      }
       svg {
         margin: 0.2rem;
       }

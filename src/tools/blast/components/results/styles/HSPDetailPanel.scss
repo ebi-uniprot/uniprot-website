@@ -1,0 +1,29 @@
+.hsp-detail-panel {
+  height: auto;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  &__visualisation {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    margin-bottom: 1em;
+  }
+
+  .annotation-choice:first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.hsp-label {
+  text-align: right;
+  padding-right: 1rem;
+  font-weight: 800;
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}

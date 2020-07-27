@@ -1734,6 +1734,11 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/classnames@2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.10.tgz#cc658ca319b6355399efc1f5b9e818f1a24bf999"
+  integrity sha512-1UzDldn9GfYYEsWWnn/P4wkTlkZDH7lDb0wBMGbtIQc9zXEQq7FlKBdZUn6OBqD8sKZZ2RQO2mAjGpXiDGoRmQ==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -3573,7 +3578,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5, classnames@^2.2.6:
+classnames@2.2.6, classnames@^2.2.5, classnames@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
@@ -7758,7 +7763,7 @@ loader-utils@1.2.3:
     emojis-list "^2.0.0"
     json5 "^1.0.1"
 
-loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3, loader-utils@^1.4.0:
+loader-utils@^1.0.0, loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3, loader-utils@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.4.0.tgz#c579b5e34cb34b1a74edc6c1fb36bfa371d5a613"
   integrity sha512-qH0WSMBtn/oHuwjy/NucEgbx5dbxxnxup9s4PVXJUDHZBQY+s0NWA9rJf53RBnQZxfch7euUui7hpoAPvALZdA==
@@ -8035,6 +8040,11 @@ mdast-add-list-metadata@1.0.1:
   integrity sha512-fB/VP4MJ0LaRsog7hGPxgOrSL3gE/2uEdZyDuSEnKCv/8IkYHiDkIQSbChiJoHyxZZXZ9bzckyRk+vNxFzh8rA==
   dependencies:
     unist-util-visit-parents "1.1.2"
+
+mdi-react@5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/mdi-react/-/mdi-react-5.2.0.tgz#a46d83434aae0f9229365b4db98b6950b6775ebf"
+  integrity sha512-q0zeUZbissoRVouq9JYSTrr/+2qk2P0dJI9N2m/TvZDX5RMcwHsVxffiqisjlo2m6cbXiCzAQaGaGmjoPfC4Pg==
 
 mdn-data@2.0.4:
   version "2.0.4"
@@ -9213,6 +9223,14 @@ please-upgrade-node@^3.2.0:
   dependencies:
     semver-compare "^1.0.0"
 
+plotly-icons@1.3.14:
+  version "1.3.14"
+  resolved "https://registry.yarnpkg.com/plotly-icons/-/plotly-icons-1.3.14.tgz#38c23d62fd6d65ebaf7768244b4b2ecbf5394086"
+  integrity sha512-qglJLtQKeE0g5Zr08Je6Q16tbyOhSqiZ7eVvlUuxMxvNAFYqoYgqUXaagi3ytwYZdn+5SxSTscOt/lsKrAiEWQ==
+  dependencies:
+    mdi-react "5.2.0"
+    prop-types "^15.6.1"
+
 pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
@@ -9396,7 +9414,7 @@ prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9467,10 +9485,10 @@ protvista-interpro-track@^2.6.1:
     lodash-es "^4.17.11"
     protvista-track "^2.6.1"
 
-protvista-manager@2.12.0:
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/protvista-manager/-/protvista-manager-2.12.0.tgz#9ce86335fc356943f197437b454e12677ed04b92"
-  integrity sha512-C18wAntl73ZKED+vtu1qoTwc6fqcpsN9/I/U5johA5eCpo6uQpev+ZwmWBF3TxBTmeznbgBJZomad0z3fGq9cw==
+protvista-manager@2.15.1:
+  version "2.15.1"
+  resolved "https://registry.yarnpkg.com/protvista-manager/-/protvista-manager-2.15.1.tgz#3903f92ed65c2d58b7252b24be6778d93f9f1252"
+  integrity sha512-ZNZ5sfA3hsy06TDMQecdG91efFNaqTBhHywEpnLWBJpbbjvDEAZkIRnd1TCmyReDaTxYzclRBbB4/049ixoOZA==
   dependencies:
     lodash-es "^4.17.11"
 
@@ -9480,6 +9498,14 @@ protvista-manager@^2.9.1:
   integrity sha512-W2YfHsqzgRUX0gyy6krcBLiFV6WvJ+/fziasLTYkxXG9YN3/O/DbyMIZQUSyRUaxECGXcLuZ4zkYVr/lsPrFOw==
   dependencies:
     lodash-es "^4.17.11"
+
+protvista-msa@^2.15.3:
+  version "2.15.3"
+  resolved "https://registry.yarnpkg.com/protvista-msa/-/protvista-msa-2.15.3.tgz#45a6e6c41d071454a7d1507d28c8fbf32cbfcd7e"
+  integrity sha512-vqtKPs3ulpG5zG7nmfpt0qj8xQRLKv+gzleuXokrFiaQTtBTnu3i16q4kanEowha1gzs20sARlKk9UxSvgxKVQ==
+  dependencies:
+    protvista-zoomable "^2.12.0"
+    react-msa-viewer "https://github.com/ebi-webcomponents/react-msa-viewer#semver:1.3.1"
 
 protvista-navigation@2.12.0:
   version "2.12.0"
@@ -9551,10 +9577,10 @@ protvista-tooltip@^2.9.2:
     lit-element "^2.2.0"
     lodash-es "^4.17.11"
 
-protvista-track@2.12.2, protvista-track@^2.12.2:
-  version "2.12.2"
-  resolved "https://registry.yarnpkg.com/protvista-track/-/protvista-track-2.12.2.tgz#ed19d55f83e48cda285643105bb44bec90cefad8"
-  integrity sha512-8Atq2W9so8bhqj4zM0Bms4GR4Oz2VFnmiozbQffiggsd+i3qy6zvTYXv6bK/W6tYAbB2Smw+/rIwqfzwp+jz1A==
+protvista-track@2.13.0, protvista-track@^2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/protvista-track/-/protvista-track-2.13.0.tgz#84abe55e41d91dd25df853236c5e4625619ef03b"
+  integrity sha512-jfH5+x849ZmFqrAjWURUnIaIayPx3Fry++XcosW2+RE3v8d81gxR8LtGCE7fxUFVPSQbP917zm3/O3VnQosbuQ==
   dependencies:
     lodash-es "^4.17.11"
     protvista-zoomable "^2.12.0"
@@ -9633,13 +9659,13 @@ protvista-variation-graph@^2.9.3:
   dependencies:
     protvista-track "^2.6.1"
 
-protvista-variation@2.12.2:
-  version "2.12.2"
-  resolved "https://registry.yarnpkg.com/protvista-variation/-/protvista-variation-2.12.2.tgz#472c8af213f44f4a2a6d07cc25c5affff5093e5f"
-  integrity sha512-IgtLLN8mrKOx79VKZoDyb44aPexJpwAu/CHqyRJgQxqR1aTITAUh+0wm0VZQ++6VmntGMksLyObHtW31JDqQQg==
+protvista-variation@2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/protvista-variation/-/protvista-variation-2.13.0.tgz#f127299e40ef606d090ca3de57f4666adb6185d9"
+  integrity sha512-KN0jmkh5hj9Pquil6NN1AxmDmvMK2Lj0LIPahVx7ie8Q7TTx0zhBQbNWVmvBepVv+A7IRZgwk7cEC+RLyt0zqQ==
   dependencies:
     lodash-es "^4.17.11"
-    protvista-track "^2.12.2"
+    protvista-track "^2.13.0"
 
 protvista-variation@^2.6.1:
   version "2.6.1"
@@ -9921,6 +9947,17 @@ react-markdown@^4.2.2:
     unified "^6.1.5"
     unist-util-visit "^1.3.0"
     xtend "^4.0.1"
+
+"react-msa-viewer@https://github.com/ebi-webcomponents/react-msa-viewer#semver:1.3.1":
+  version "1.3.1"
+  resolved "https://github.com/ebi-webcomponents/react-msa-viewer#8e816a652b79ac12ae363d07a670bd9e917f4dfb"
+  dependencies:
+    lodash-es "4.17.15"
+    plotly-icons "1.3.14"
+    prop-types "15.7.2"
+    react-redux "7.2.0"
+    redux "4.0.5"
+    reselect "4.0.0"
 
 react-popper@^1.0.2:
   version "1.3.7"
@@ -10463,6 +10500,11 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
+reselect@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.0.0.tgz#f2529830e5d3d0e021408b246a206ef4ea4437f7"
+  integrity sha512-qUgANli03jjAyGlnbYVAV5vvnOmJnODyABz51RdBN7M4WaVu8mecZWgyQNkG8Yqe3KRGRt0l4K4B3XVEULC4CA==
+
 resize-observer-polyfill@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
@@ -10727,6 +10769,14 @@ scheduler@^0.19.1:
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
+
+schema-utils@^0.4.0:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.7.tgz#ba74f597d2be2ea880131746ee17d0a093c68187"
+  integrity sha512-v/iwU6wvwGK8HbU9yi3/nhGzP0yGSuhQMzL6ySiec1FSrZZDkhm4noOSWzrNFo/jEc+SJY6jRTwuwbSXJPDUnQ==
+  dependencies:
+    ajv "^6.1.0"
+    ajv-keywords "^3.1.0"
 
 schema-utils@^1.0.0:
   version "1.0.0"
@@ -12763,6 +12813,14 @@ worker-farm@^1.7.0:
   integrity sha512-rvw3QTZc8lAxyVrqcSGVm5yP/IJ2UcB3U0graE3LCFoZ0Yn2x4EoVSqJKdB/T5M+FLcRPjz4TDacRf3OCfNUzw==
   dependencies:
     errno "~0.1.7"
+
+worker-loader@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/worker-loader/-/worker-loader-2.0.0.tgz#45fda3ef76aca815771a89107399ee4119b430ac"
+  integrity sha512-tnvNp4K3KQOpfRnD20m8xltE3eWh89Ye+5oj7wXEEHKac1P4oZ6p9oTj8/8ExqoSBnk9nu5Pr4nKfQ1hn2APJw==
+  dependencies:
+    loader-utils "^1.0.0"
+    schema-utils "^0.4.0"
 
 wrap-ansi@^5.1.0:
   version "5.1.0"

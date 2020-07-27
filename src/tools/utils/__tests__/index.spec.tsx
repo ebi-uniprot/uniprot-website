@@ -2,7 +2,11 @@ import React from 'react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
-import { getServerErrorDescription, getJobMessage } from '..';
+import {
+  getServerErrorDescription,
+  getJobMessage,
+  findSequenceSegments,
+} from '..';
 
 import createdJob from '../../__mocks__/internal-jobs/created';
 import runningJob from '../../__mocks__/internal-jobs/running';
@@ -54,5 +58,37 @@ describe('getJobMessage', () => {
       omitAndDeleteAtLocations: ['Dashboard'],
       level: 'success',
     });
+  });
+});
+
+describe('findSequenceSegments', () => {
+  it('should find segments', () => {
+    const sequences = [
+      '1',
+      '123',
+      '12345--',
+      '-2345--',
+      '-2345--89-B',
+      '-2345--89-B--',
+    ];
+    const expectedResults = [
+      [[1, 1]],
+      [[1, 3]],
+      [[1, 5]],
+      [[2, 5]],
+      [
+        [2, 5],
+        [8, 9],
+        [11, 11],
+      ],
+      [
+        [2, 5],
+        [8, 9],
+        [11, 11],
+      ],
+    ];
+
+    const results = sequences.map((s) => findSequenceSegments(s));
+    expect(results).toEqual(expectedResults);
   });
 });

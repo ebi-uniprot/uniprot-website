@@ -45,6 +45,7 @@ module.exports = (env, argv) => {
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
         'react-router-dom': path.resolve('./node_modules/react-router-dom'),
+        redux: path.resolve('./node_modules/redux'),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
         // (just looked at node_modules to see what packages were used, but
@@ -74,17 +75,26 @@ module.exports = (env, argv) => {
     },
     // MODULE
     module: {
-      // JavaScript and Typescript files
       rules: [
+        // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude: /node_modules/,
+          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer).*)/,
           use: {
             loader: 'babel-loader',
             options: {
               cacheDirectory: true,
             },
           },
+        },
+        /**
+         * Worker required for msa-react-viewer. Gustavo looking at
+         * making dependency optional
+         * */
+
+        {
+          test: /\.worker\.js$/,
+          use: { loader: 'worker-loader' },
         },
         // Stylesheets
         {

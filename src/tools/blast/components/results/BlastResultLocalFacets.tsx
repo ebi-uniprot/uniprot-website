@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { HistogramFilter } from 'franklin-sites';
+import { HistogramFilter, Loader } from 'franklin-sites';
 
 import {
   getLocationObjForParams,
@@ -122,8 +122,6 @@ const BlastResultLocalFacets: FC<{
     )
   );
 
-  console.log(loading, data, isStale);
-
   const hitsFilteredByServer = useMemo(() => {
     if (!data) {
       return [];
@@ -140,12 +138,9 @@ const BlastResultLocalFacets: FC<{
     selectedFacets,
   ]);
 
-  console.log({
-    bounds,
-    facetBounds,
-    selectedFacets,
-    hitsFilteredByServer,
-  });
+  if (loading && !isStale) {
+    return <Loader />;
+  }
 
   if (!(allHits.length && hitsFilteredByServer.length)) {
     return null;

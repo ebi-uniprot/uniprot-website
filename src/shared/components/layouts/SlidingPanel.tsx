@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import { useSpring, animated } from 'react-spring';
+import cn from 'classnames';
+
 import './styles/sliding-panel.scss';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
-const SlidingPanel: FC<{ children: JSX.Element; position: Position }> = ({
-  children,
-  position,
-}) => {
+const SlidingPanel: FC<{
+  position: Position;
+  className?: string;
+}> = ({ children, position, className }) => {
   const [props] = useSpring(() => ({
     opacity: 1,
     marginRight: 0,
@@ -16,7 +18,7 @@ const SlidingPanel: FC<{ children: JSX.Element; position: Position }> = ({
 
   return (
     <animated.div
-      className={`sliding-panel sliding-panel--${position}`}
+      className={cn(`sliding-panel sliding-panel--${position}`, className)}
       style={props}
     >
       <div>{children}</div>

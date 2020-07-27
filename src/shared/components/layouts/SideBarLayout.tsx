@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 
 import './styles/side-bar-layout.scss';
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
 type SideBarLayoutProps = {
-  title?: JSX.Element;
-  sidebar: JSX.Element;
-  children: JSX.Element;
-  actionButtons?: JSX.Element;
+  title?: ReactNode;
+  sidebar: ReactNode;
+  actionButtons?: ReactNode;
   invert?: boolean;
 };
 

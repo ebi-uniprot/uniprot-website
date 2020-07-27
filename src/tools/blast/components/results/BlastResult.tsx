@@ -32,8 +32,9 @@ import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import BlastResultParametersFacets from './BlastResultLocalFacets';
+import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 const BlastResultTable = lazy(() =>
   import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
@@ -137,6 +138,10 @@ const BlastResult = () => {
   const location = useLocation();
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  const [
+    hspDetailPanel,
+    setHspDetailPanel,
+  ] = useState<HSPDetailPanelProps | null>();
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
@@ -271,10 +276,7 @@ const BlastResult = () => {
   const facetsSidebar = (
     <>
       <ErrorBoundary>
-        <BlastResultParametersFacets
-          allHits={blastData.hits}
-          hitsFilteredByServer={hitsFilteredByServer}
-        />
+        <BlastResultLocalFacets allHits={blastData.hits} />
       </ErrorBoundary>
       <ErrorBoundary>
         <BlastResultSidebar accessions={accessionsFilteredByLocalFacets} />
@@ -339,6 +341,7 @@ const BlastResult = () => {
               data={{ ...blastData, hits: hitsFiltered }}
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
+              setHspDetailPanel={setHspDetailPanel}
             />
           </Suspense>
         </Tab>
@@ -413,6 +416,12 @@ const BlastResult = () => {
           </Suspense>
         </Tab>
       </Tabs>
+      {hspDetailPanel && (
+        <HSPDetailPanel
+          {...hspDetailPanel}
+          onClose={() => setHspDetailPanel(null)}
+        />
+      )}
     </SideBarLayout>
   );
 };

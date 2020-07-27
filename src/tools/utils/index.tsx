@@ -93,3 +93,38 @@ export const getJobMessage = ({
     level: MessageLevel.SUCCESS,
   };
 };
+
+export const findSequenceSegments = (seq: string) => {
+  const ranges: number[][] = [];
+  const newRange = () => ({
+    start: null,
+    end: null,
+  });
+
+  type SegmentRange = {
+    start: number | null;
+    end: number | null;
+  };
+
+  let range: SegmentRange = newRange();
+
+  [...seq].forEach((ch, i) => {
+    if (ch !== '-') {
+      if (range.start === null) {
+        range.start = i + 1;
+      }
+    } else if (range.start !== null && range.end === null) {
+      range.end = i;
+      ranges.push([range.start, range.end]);
+      range = newRange();
+    }
+
+    if (i === seq.length - 1 && range.start !== null && range.end === null) {
+      range.end = i + 1;
+      ranges.push([range.start as number, range.end as number]);
+      range = newRange();
+    }
+  });
+
+  return ranges;
+};

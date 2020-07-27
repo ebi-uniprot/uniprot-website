@@ -56,6 +56,11 @@ const apiUrls = {
 
   entry: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/uniprotkb/accession', accession),
+  entries: (accessions: string[]) =>
+    joinUrl(
+      devPrefix,
+      `/uniprot/api/uniprotkb/accessions?accessions=${accessions.join(',')}`
+    ),
   sequenceFasta: (accession: string) => `${apiUrls.entry(accession)}.fasta`,
   entryDownload: (accession: string, format: FileFormat) =>
     format === FileFormat.fastaCanonicalIsoform
@@ -268,3 +273,6 @@ export const getPublicationsURL = (ids: string[]) =>
   `${literatureApiUrls.literature}/search?query=(${ids
     .map((id) => `id:${id}`)
     .join(' OR ')})`;
+
+export const getProteinsApiUrl = (accession: string) =>
+  `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
