@@ -11,18 +11,49 @@ import {
 } from '../types/blastResults';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 
-const localFacets = Object.values(BlastFacet);
-const blastFacetToKeyName = {
+export const localFacets: string[] = Object.values(BlastFacet);
+export const blastFacetToKeyName = {
   [BlastFacet.SCORE]: 'hsp_score',
   [BlastFacet.IDENTITY]: 'hsp_identity',
   [BlastFacet.EVALUE]: 'hsp_expect',
 };
 
-const parseBlastFacets = (facets: SelectedFacet[]): ParsedBlastFacets =>
-  facets.map(({ name, value }) => {
-    const [min, max] = value.split('-').map((x) => Number(x));
-    return { name, min, max };
-  });
+const urlBoundsRE = /\[(.+) TO (.+)\]/;
+const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
+  const output = [];
+  for (const { name, value } of facets) {
+    if (!localFacets.includes(name)) {
+      // skip, it's just a server facet
+      continue; // eslint-disable-line no-continue
+    }
+    const match = value.match(urlBoundsRE);
+    if (!match) {
+      // not in the right format 🤷🏽‍♂️
+      continue; // eslint-disable-line no-continue
+    }
+    const [, min, max] = match;
+    let parsedMin = -Infinity;
+    let parsedMax = +Infinity;
+    if (min !== '*') {
+      // assume * == -Infinity
+      parsedMin = parseFloat(min);
+      if (Number.isNaN(parsedMin)) {
+        // not a parsable number 🤷🏽‍♂️
+        continue; // eslint-disable-line no-continue
+      }
+    }
+    if (max !== '*') {
+      // assume * == +Infinity
+      parsedMax = parseFloat(max);
+      if (Number.isNaN(parsedMax)) {
+        // not a parsable number 🤷🏽‍♂️
+        continue; // eslint-disable-line no-continue
+      }
+    }
+    output.push({ name, min: parsedMin, max: parsedMax });
+  }
+  return output;
+};
 
 export const filterBlastHitForResults = (
   hits: BlastHit[],
@@ -38,8 +69,8 @@ export const filterBlastHitForResults = (
 };
 
 export const filterBlastByFacets = (facets: SelectedFacet[] = []) => {
-  const parsedFacets = parseBlastFacets(
-    facets.filter(({ name }) => localFacets.includes(name as BlastFacet))
+  const parsedFacets = parseLocalFacets(
+    facets.filter(({ name }) => localFacets.includes(name))
   );
 
   // filter function
@@ -76,7 +107,7 @@ export const filterBlastDataForResults = (
 
   let { hits } = data;
 
-  const parsedFacets = parseBlastFacets(facets);
+  const parsedFacets = parseLocalFacets(facets);
   parsedFacets.forEach(({ name, min, max }) => {
     if (name in blastFacetToKeyName) {
       hits = filterBlastHitForResults(hits, min, max, name as BlastFacet);
@@ -90,83 +121,142 @@ export const filterBlastDataForResults = (
   };
 };
 
-export const isBlastValueWithinRange = (
-  hitDatapoint: HitDatapoint,
-  rangeFilters: ParsedBlastFacets,
-  facet: BlastFacet
-) => {
-  const value = hitDatapoint[facet];
-  const rangeFilter = rangeFilters.find(({ name }) => name === facet);
-  if (!rangeFilter) {
-    return true;
+// export const isBlastValueWithinRange = (
+//   hitDatapoint: HitDatapoint,
+//   rangeFilters: ParsedBlastFacets,
+//   facet: BlastFacet
+// ) => {
+//   const value = hitDatapoint[facet];
+//   const rangeFilter = rangeFilters.find(({ name }) => name === facet);
+//   if (!rangeFilter) {
+//     return true;
+//   }
+//   return rangeFilter.min <= value && value <= rangeFilter.max;
+// };
+
+// export const filterBlastHitForFacets = (
+//   hitDatapoint: HitDatapoint,
+//   rangeFilters: ParsedBlastFacets,
+//   inActiveFacet?: BlastFacet
+// ) => {
+//   // Notes:
+//   // 1. All inactiveFacets (including user selected and not user selected) will need to
+//   //    have the intersection of all of the ranges applied (including the active).
+//   // 2. The activeFacet has only has the inactiveFacets intersection applied.
+
+//   const rangeFilterNames = rangeFilters.map(({ name }) => name);
+
+//   if (!rangeFilters || !rangeFilterNames.length) {
+//     return hitDatapoint;
+//   }
+
+//   let activeFacet = inActiveFacet;
+//   if (!inActiveFacet) {
+//     if (rangeFilterNames.length > 1) {
+//       throw Error(
+//         'More than one blast hit facet provided and no active facet set.'
+//       );
+//     } else {
+//       // Guaranteed to be one here because it's nonzero but < 2
+//       const facet = rangeFilterNames;
+//       activeFacet = facet[0] as BlastFacet;
+//     }
+//   }
+
+//   const inactiveRangedFacets = rangeFilterNames.filter(
+//     (facet) => facet !== activeFacet
+//   );
+
+//   const includeActive = inactiveRangedFacets.every((facet) =>
+//     isBlastValueWithinRange(hitDatapoint, rangeFilters, facet as BlastFacet)
+//   );
+//   const includeInactive =
+//     includeActive &&
+//     isBlastValueWithinRange(
+//       hitDatapoint,
+//       rangeFilters,
+//       activeFacet as BlastFacet
+//     );
+
+//   const result = new Map<BlastFacet, number>();
+
+//   const allInactiveFacets = Object.values(BlastFacet).filter(
+//     (facet) => facet !== activeFacet
+//   );
+
+//   allInactiveFacets.forEach((facet) => {
+//     if (includeInactive) {
+//       result.set(facet, hitDatapoint[facet]);
+//     }
+//   });
+
+//   if (includeActive) {
+//     result.set(
+//       activeFacet as BlastFacet,
+//       hitDatapoint[activeFacet as BlastFacet]
+//     );
+//   }
+
+//   return Object.fromEntries(result);
+// };
+
+export const getFacetBounds = (facets: SelectedFacet[]) => {
+  const output = Object.fromEntries(
+    Object.keys(blastFacetToKeyName).map((key) => [
+      key,
+      { min: -Infinity, max: +Infinity },
+    ])
+  );
+  // for every facet in the URL
+  for (const { name, min, max } of parseLocalFacets(facets)) {
+    output[name] = Object.freeze({ min, max });
   }
-  return rangeFilter.min <= value && value <= rangeFilter.max;
+  return Object.freeze(output);
 };
 
-export const filterBlastHitForFacets = (
-  hitDatapoint: HitDatapoint,
-  rangeFilters: ParsedBlastFacets,
-  inActiveFacet?: BlastFacet
-) => {
-  // Notes:
-  // 1. All inactiveFacets (including user selected and not user selected) will need to
-  //    have the intersection of all of the ranges applied (including the active).
-  // 2. The activeFacet has only has the inactiveFacets intersection applied.
-
-  const rangeFilterNames = rangeFilters.map(({ name }) => name);
-
-  if (!rangeFilters || !rangeFilterNames.length) {
-    return hitDatapoint;
-  }
-
-  let activeFacet = inActiveFacet;
-  if (!inActiveFacet) {
-    if (rangeFilterNames.length > 1) {
-      throw Error(
-        'More than one blast hit facet provided and no active facet set.'
-      );
-    } else {
-      // Guaranteed to be one here because it's nonzero but < 2
-      const facet = rangeFilterNames;
-      activeFacet = facet[0] as BlastFacet;
+export const getBounds = (hits: BlastHit[]) => {
+  const output = Object.fromEntries(
+    Object.keys(blastFacetToKeyName).map((key) => [
+      key,
+      { min: +Infinity, max: -Infinity },
+    ])
+  );
+  for (const [facet, keyName] of Object.entries(blastFacetToKeyName)) {
+    const current = output[facet];
+    for (const hit of hits) {
+      for (const hsp of hit.hit_hsps) {
+        const value = hsp[keyName as keyof BlastHsp] as number;
+        if (value < current.min) {
+          current.min = value;
+        }
+        if (value > current.max) {
+          current.max = value;
+        }
+      }
     }
+    output[facet] = Object.freeze(current);
   }
+  return Object.freeze(output);
+};
 
-  const inactiveRangedFacets = rangeFilterNames.filter(
-    (facet) => facet !== activeFacet
+export const getDataPoints = (hits: BlastHit[]) => {
+  const output = Object.fromEntries(
+    Object.keys(blastFacetToKeyName).map((key) => [key, [] as number[]])
   );
-
-  const includeActive = inactiveRangedFacets.every((facet) =>
-    isBlastValueWithinRange(hitDatapoint, rangeFilters, facet as BlastFacet)
-  );
-  const includeInactive =
-    includeActive &&
-    isBlastValueWithinRange(
-      hitDatapoint,
-      rangeFilters,
-      activeFacet as BlastFacet
-    );
-
-  const result = new Map<BlastFacet, number>();
-
-  const allInactiveFacets = Object.values(BlastFacet).filter(
-    (facet) => facet !== activeFacet
-  );
-
-  allInactiveFacets.forEach((facet) => {
-    if (includeInactive) {
-      result.set(facet, hitDatapoint[facet]);
+  for (const [facet, keyName] of Object.entries(blastFacetToKeyName)) {
+    // eslint-disable-next-line no-multi-assign
+    const current = output[facet];
+    for (const hit of hits) {
+      for (const hsp of hit.hit_hsps) {
+        const value = hsp[keyName as keyof BlastHsp] as number;
+        if (typeof value !== 'undefined') {
+          current.push(value);
+        }
+      }
     }
-  });
-
-  if (includeActive) {
-    result.set(
-      activeFacet as BlastFacet,
-      hitDatapoint[activeFacet as BlastFacet]
-    );
+    output[facet] = current;
   }
-
-  return Object.fromEntries(result);
+  return Object.freeze(output);
 };
 
 const setMinMaxValues = (
@@ -198,7 +288,7 @@ type HitDatapoint = {
   [BlastFacet.EVALUE]: number;
 };
 
-export type ParsedBlastFacets = { name: string; min: number; max: number }[];
+export type ParsedLocalFacet = { name: string; min: number; max: number };
 
 export const getFacetParametersFromBlastHits = (
   facets: SelectedFacet[],

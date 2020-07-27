@@ -6,7 +6,7 @@ import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import BlastResultSidebar from './BlastResultSidebar';
 // import BlastResultDownload from './BlastResultDownload';
-import BlastResultsButtons from './BlastResultsButtons';
+import BlastResultButtons from './BlastResultButtons';
 
 import useDataApi, {
   UseDataAPIState,
@@ -33,6 +33,8 @@ import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import BlastResultParametersFacets from './BlastResultLocalFacets';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 
 const BlastResultTable = lazy(() =>
   import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
@@ -155,9 +157,7 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(
-    blastUrls.resultUrl(match.params.id, 'jdp?format=json')
-  );
+  } = useDataApi<BlastResults>(blastUrls.resultUrl(match.params.id, 'json'));
 
   // extract facets and other info from URL querystring
   const urlParams: URLResultParams = useMemo(
@@ -193,6 +193,7 @@ const BlastResult = () => {
     )
   );
 
+  // list of all the accessions returned by the accessions endpoint
   const accessionsFilteredByServer = useMemo(
     () =>
       (accessionsData &&
@@ -212,6 +213,17 @@ const BlastResult = () => {
         )) ||
       [],
     [accessionsFilteredByServer, hitsFilteredByLocalFacets]
+  );
+
+  const hitsFilteredByServer = useMemo(
+    () =>
+      (accessionsFilteredByServer.length &&
+        blastData &&
+        blastData.hits.filter((hit) =>
+          accessionsFilteredByServer.includes(hit.hit_acc)
+        )) ||
+      [],
+    [accessionsFilteredByServer, blastData]
   );
 
   // filter BLAST results according facets (through accession endpoint and other BLAST facets facets)
@@ -237,13 +249,13 @@ const BlastResult = () => {
     );
   };
 
-  const histogramSettings =
-    urlParams &&
-    getFacetParametersFromBlastHits(
-      urlParams.selectedFacets,
-      urlParams.activeFacet as BlastFacet,
-      blastData && blastData.hits
-    );
+  // const histogramSettings =
+  //   urlParams &&
+  //   getFacetParametersFromBlastHits(
+  //     urlParams.selectedFacets,
+  //     urlParams.activeFacet as BlastFacet,
+  //     blastData && blastData.hits
+  //   );
 
   if (blastLoading) {
     return <Loader />;
@@ -255,10 +267,17 @@ const BlastResult = () => {
 
   // Deciding what should be displayed on the sidebar
   const facetsSidebar = (
-    <BlastResultSidebar
-      accessions={accessionsFilteredByLocalFacets}
-      histogramSettings={histogramSettings}
-    />
+    <>
+      <ErrorBoundary>
+        <BlastResultSidebar accessions={accessionsFilteredByLocalFacets} />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <BlastResultParametersFacets
+          allHits={blastData.hits}
+          hitsFilteredByServer={hitsFilteredByServer}
+        />
+      </ErrorBoundary>
+    </>
   );
 
   const emptySidebar = (
@@ -278,7 +297,7 @@ const BlastResult = () => {
   }
 
   const actionBar = (
-    <BlastResultsButtons
+    <BlastResultButtons
       jobId={match.params.id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
@@ -301,13 +320,20 @@ const BlastResult = () => {
         <Tab
           id="overview"
           title={
-            <Link to={`/blast/${match.params.id}/overview`}>Overview</Link>
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/overview`,
+              })}
+            >
+              Overview
+            </Link>
           }
         >
           {actionBar}
           <Suspense fallback={<Loader />}>
             <BlastResultTable
-              loading={blastLoading && accessionsLoading}
+              loading={blastLoading || accessionsLoading}
               data={{ ...blastData, hits: hitsFiltered }}
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
@@ -317,7 +343,14 @@ const BlastResult = () => {
         <Tab
           id="taxonomy"
           title={
-            <Link to={`/blast/${match.params.id}/taxonomy`}>Taxonomy</Link>
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/taxonomy`,
+              })}
+            >
+              Taxonomy
+            </Link>
           }
         >
           {actionBar}
@@ -326,7 +359,12 @@ const BlastResult = () => {
         <Tab
           id="hit-distribution"
           title={
-            <Link to={`/blast/${match.params.id}/hit-distribution`}>
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/hit-distribution`,
+              })}
+            >
               Hit Distribution
             </Link>
           }
@@ -337,7 +375,12 @@ const BlastResult = () => {
         <Tab
           id="text-output"
           title={
-            <Link to={`/blast/${match.params.id}/text-output`}>
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/text-output`,
+              })}
+            >
               Text Output
             </Link>
           }
@@ -349,7 +392,14 @@ const BlastResult = () => {
         <Tab
           id="tool-input"
           title={
-            <Link to={`/blast/${match.params.id}/tool-input`}>Tool Input</Link>
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/tool-input`,
+              })}
+            >
+              Tool Input
+            </Link>
           }
         >
           <Suspense fallback={<Loader />}>

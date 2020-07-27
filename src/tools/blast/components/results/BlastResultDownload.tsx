@@ -11,7 +11,7 @@ type DownloadOptions = {
 const options: DownloadOptions[] = [
   { format: 'out', description: 'Raw output from BLAST', ext: 'txt' },
   { format: 'xml', description: 'XML output', ext: 'xml' },
-  { format: 'jdp?format=json', description: 'JSON output', ext: 'json' },
+  { format: 'json', description: 'JSON output', ext: 'json' },
   { format: 'ids', description: 'List of matching identifiers', ext: 'txt' },
   { format: 'accs', description: 'List of matching accessions', ext: 'txt' },
   {

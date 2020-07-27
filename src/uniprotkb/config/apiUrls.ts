@@ -128,9 +128,12 @@ export const getAPIQueryUrl = (
   }
   return `${apiUrls.search}?${queryString.stringify({
     size,
-    query: `${query} AND ${createFacetsQueryString(selectedFacets)}`,
-    fields: columns && columns.join(','),
-    facets: facets.join(','),
+    query:
+      `${[query, createFacetsQueryString(selectedFacets)]
+        .filter(Boolean)
+        .join(' AND ')}` || undefined,
+    fields: (columns && columns.join(',')) || undefined,
+    facets: facets.join(',') || undefined,
     sort:
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
@@ -170,8 +173,8 @@ export const getAccessionsURL = (
     facetFilter: createFacetsQueryString(
       selectedFacets.filter(excludeLocalBlastFacets)
     ),
-    fields: columns && columns.join(','),
-    facets: facets.join(','),
+    fields: (columns && columns.join(',')) || undefined,
+    facets: facets.join(',') || undefined,
     sort:
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,

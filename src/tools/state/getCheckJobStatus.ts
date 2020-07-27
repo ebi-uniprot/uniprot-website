@@ -69,7 +69,7 @@ const getCheckJobStatus = ({
     if (job.type === JobTypes.BLAST) {
       // only BLAST jobs
       const response = await fetchData<BlastResults>(
-        urlConfig.resultUrl(job.remoteID, 'jdp?format=json')
+        urlConfig.resultUrl(job.remoteID, 'json')
       );
 
       const results = response.data;

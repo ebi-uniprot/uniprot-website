@@ -19,13 +19,7 @@ export type ResultFormat =
   | 'ffdp-subject-png'
   | 'ffdp-subject-jpeg'
   | 'parameters' // in XML
-  // The following ones are temporary, as they are on wwwdev,
-  // they will eventually change when prod finished implementing it.
-  // The only interesting one is json, as the others are already present
-  | 'jdp?format=json'
-  | 'jdp?format=xml'
-  | 'jdp?format=ids'
-  | 'jdp?format=accs';
+  | 'json';
 
 export default {
   runUrl: `${baseUrl}/run`,

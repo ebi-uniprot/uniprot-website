@@ -42,28 +42,39 @@ export const getParamsFromURL = (url: string): URLResultParams => {
   };
 };
 
-export const facetsAsString = (facets: SelectedFacet[]): string => {
+export const facetsAsString = (facets?: SelectedFacet[]): string => {
   if (!facets || facets.length <= 0) {
     return '';
   }
   return facets.reduce(
     (accumulator, facet, i) =>
       `${accumulator}${i > 0 ? ',' : ''}${facet.name}:${facet.value}`,
-    '&facets='
+    'facets='
   );
 };
 
-export const getLocationObjForParams = (
-  pathname: string,
-  query: string,
-  selectedFacets: SelectedFacet[],
-  sortColumn?: string,
-  sortDirection?: SortDirection,
-  activeFacet?: string
-) => ({
+type GetLocationObjForParams = {
+  pathname?: string;
+  query?: string;
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: string;
+  sortDirection?: SortDirection;
+  activeFacet?: string;
+};
+
+export const getLocationObjForParams = ({
+  pathname,
+  query,
+  selectedFacets,
+  sortColumn,
+  sortDirection,
+  activeFacet,
+}: GetLocationObjForParams = {}) => ({
   pathname,
   search: [
-    `query=${query}${facetsAsString(selectedFacets)}`,
+    `${[query && `query=${query}`, facetsAsString(selectedFacets)]
+      .filter(Boolean)
+      .join('&')}`,
     `${sortColumn ? `&sort=${sortColumn}` : ''}`,
     `${sortDirection ? `&dir=${sortDirection}` : ''}`,
     `${activeFacet ? `&activeFacet=${activeFacet}` : ''}`,

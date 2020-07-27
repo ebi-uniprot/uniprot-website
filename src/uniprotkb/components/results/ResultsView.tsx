@@ -127,13 +127,13 @@ const ResultsView: React.FC<ResultsTableProps> = ({
         : SortDirection.descend;
 
     history.push(
-      getLocationObjForParams(
-        '/uniprotkb',
+      getLocationObjForParams({
+        pathname: '/uniprotkb',
         query,
         selectedFacets,
-        sortableColumn,
-        updatedSortDirection
-      )
+        sortColumn: sortableColumn,
+        sortDirection: updatedSortDirection,
+      })
     );
   };
 

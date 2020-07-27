@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { FC, Fragment, useCallback, useState } from 'react';
+import React, { FC, Fragment, useCallback, useState, useRef } from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
@@ -124,7 +124,13 @@ const BlastResultTable: FC<{
   handleSelectedEntries: (rowId: string) => void;
   loading: boolean;
 }> = ({ data, selectedEntries, handleSelectedEntries, loading }) => {
-  if (loading) {
+  // logic to keep stale data available
+  const hitsRef = useRef<BlastHit[]>([]);
+  if (data?.hits.length || !loading) {
+    hitsRef.current = data?.hits || [];
+  }
+
+  if (loading && !hitsRef.current.length) {
     return <Loader />;
   }
 
@@ -182,7 +188,7 @@ const BlastResultTable: FC<{
         getIdKey={({ hit_acc }: { hit_acc: string }) => hit_acc}
         density={DENSITY_COMPACT}
         columns={columns}
-        data={data.hits}
+        data={hitsRef.current}
         selectable
         selected={selectedEntries}
         onSelect={handleSelectedEntries}

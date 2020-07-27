@@ -32,7 +32,7 @@ const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
             ),
           })}
         >
-          link to full taxonomy
+          Link to full taxonomy
         </Link>,
       ],
     ]);

@@ -93,7 +93,7 @@ const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
   );
 };
 
-type BlastResultsButtonsProps = {
+type BlastResultButtonsProps = {
   jobId: string;
   selectedEntries: string[];
   inputParamsData?: PublicServerParameters[JobTypes.BLAST];
@@ -101,7 +101,7 @@ type BlastResultsButtonsProps = {
   isTableResultsFiltered: boolean;
 };
 
-const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
+const BlastResultButtons: FC<BlastResultButtonsProps> = ({
   jobId,
   selectedEntries,
   inputParamsData,
@@ -149,4 +149,4 @@ const BlastResultsButtons: FC<BlastResultsButtonsProps> = ({
   );
 };
 
-export default BlastResultsButtons;
+export default BlastResultButtons;
