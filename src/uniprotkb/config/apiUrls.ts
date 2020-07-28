@@ -103,7 +103,10 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     .join(' AND ');
 
 export const createAccessionsQueryString = (accessions: string[]) =>
-  accessions.map((accession) => `accession:${accession}`).join(' OR ');
+  accessions
+    .map((accession) => `accession:${accession}`)
+    .sort() // to improve possible cache hit
+    .join(' OR ');
 
 const defaultFacets = [
   'reviewed',
@@ -169,7 +172,8 @@ export const getAccessionsURL = (
   }
   return `${apiUrls.accessions}?${queryString.stringify({
     size,
-    accessions: accessions.join(','),
+    // sort to improve possible cache hit
+    accessions: Array.from(accessions).sort().join(','),
     facetFilter:
       createFacetsQueryString(selectedFacets.filter(excludeLocalBlastFacets)) ||
       undefined,

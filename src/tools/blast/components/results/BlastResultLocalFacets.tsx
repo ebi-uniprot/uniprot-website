@@ -1,5 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import cn from 'classnames';
 import { HistogramFilter, Loader } from 'franklin-sites';
 
 import {
@@ -153,7 +154,7 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <div className="blast-parameters-facet">
+    <div className={cn('blast-parameters-facet', isStale && 'is-stale')}>
       <ul className="no-bullet">
         <li>
           <span className="facet-name">Blast parameters</span>
