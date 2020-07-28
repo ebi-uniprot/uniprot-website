@@ -33,9 +33,15 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     nextUrl: string | undefined;
   }>({ total: 0, nextUrl: undefined });
 
-  const { data, status, error, headers } = useDataApi<{
+  const { data, loading, status, error, headers } = useDataApi<{
     results: LiteratureForProteinAPI[];
   }>(url);
+
+  useEffect(() => {
+    setAllResults([]);
+    setMetaData({ total: 0, nextUrl: undefined });
+    setUrl(initialUrl);
+  }, [initialUrl]);
 
   useEffect(() => {
     if (!data) {
@@ -49,17 +55,11 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     }));
   }, [data, headers]);
 
-  useEffect(() => {
-    setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
-    setUrl(initialUrl);
-  }, [initialUrl]);
-
   if (error) {
     return <ErrorHandler status={status} />;
   }
 
-  if (allResults.length === 0) {
+  if (allResults.length === 0 && loading) {
     return <Loader />;
   }
 

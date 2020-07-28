@@ -9,9 +9,11 @@ import { ColumnSelectTab } from '../../../types/resultsTypes';
 import { Column } from '../../../types/columnTypes';
 import ColumnSelectDragDrop from '../ColumnSelectDragDrop';
 
+// TODO: test that some other way, the testing library for react-beautiful-dnd
+// TODO: seems to be outdated (or will soon be) because it's firing warnings
 describe('ColumnSelectDragDrop component', () => {
-  let props, rendered;
-  beforeEach(() => {
+  let props, rendered, dragEl;
+  beforeEach(async () => {
     props = {
       columns: [
         {
@@ -37,6 +39,9 @@ describe('ColumnSelectDragDrop component', () => {
       onRemove: jest.fn(),
     };
     rendered = render(<ColumnSelectDragDrop {...props} />);
+    dragEl = (await rendered.findByText('Gene Names')).closest(
+      DND_DRAGGABLE_DATA_ATTR
+    );
   });
 
   test('should render', () => {
@@ -45,12 +50,10 @@ describe('ColumnSelectDragDrop component', () => {
   });
 
   test('should call onDragDrop with correct arguments when item is moved', async () => {
-    const getDragElFn = text => () =>
-      getByText(text).closest(DND_DRAGGABLE_DATA_ATTR);
-    const { getByText } = rendered;
+    const { findByText } = rendered;
     await makeDnd({
-      getByText,
-      getDragEl: getDragElFn('Gene Names'),
+      getByText: findByText,
+      getDragEl: () => dragEl,
       direction: DND_DIRECTION_LEFT,
       positions: 1,
     });

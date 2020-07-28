@@ -9,6 +9,7 @@ exports[`ErrorPage component should render 1`] = `
     <test-file-stub
       classname="error-page-container__art-work"
     />
+    test message
   </div>
 </DocumentFragment>
 `;

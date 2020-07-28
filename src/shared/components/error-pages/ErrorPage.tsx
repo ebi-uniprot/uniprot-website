@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactNode, ReactElement } from 'react';
 
 import './styles/error-pages.scss';
 
 const ErrorPage: React.FC<{
-  artwork: JSX.Element;
-  message: JSX.Element;
+  artwork: ReactElement;
+  message: ReactNode;
   testid?: string;
 }> = ({ artwork, message, testid }) => (
   <div className="error-page-container" data-testid={testid || ''}>

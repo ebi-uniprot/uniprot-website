@@ -46,7 +46,8 @@ describe('Results component', () => {
     });
   });
 
-  test('should toggle card view to table', async () => {
+  // NOTE: all the warnings about multiple same keys are coming from here
+  test.only('should toggle card view to table', async () => {
     await act(async () => {
       const state = {
         query: searchInitialState,
@@ -73,19 +74,18 @@ describe('Results component', () => {
     });
   });
 
+  // FIXME: Test failing if it is run on its own (with "test.only()")
   test('should set sorting', async () => {
     const state = {
       query: searchInitialState,
       results: { ...resultsInitialState, viewMode: ViewMode.TABLE },
     };
+    // NOTE: not sure act() should wrap that much code
     await act(async () => {
-      const { getByText, history, findByText } = renderWithRedux(
-        <ResultsContainer />,
-        {
-          initialState: state,
-          route: '/uniprotkb?query=blah',
-        }
-      );
+      const { history, findByText } = renderWithRedux(<ResultsContainer />, {
+        initialState: state,
+        route: '/uniprotkb?query=blah',
+      });
       let columnHeader = await findByText('Entry');
       fireEvent.click(columnHeader);
       expect(history.location.search).toBe(

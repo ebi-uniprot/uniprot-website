@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import UniProtHeader from './UniProtHeader';
 
@@ -7,7 +7,7 @@ import MessageManagerContainer from '../../../messages/components/MessageManager
 
 import './styles/base-layout.scss';
 
-const BaseLayout: React.FC<{ children: JSX.Element }> = ({ children }) => (
+const BaseLayout: FC = ({ children }) => (
   <div className="base-layout">
     <section className="main-header">
       <ErrorBoundary>

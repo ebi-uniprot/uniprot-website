@@ -13,10 +13,17 @@ const props = {
   selectedEntries: [],
 };
 
-describe('ResultsView component', () => {
+// FIXME: none of this is testing the right thing, the snapshots are just
+// FIXME: containing the <Loader /> component
+describe.skip('ResultsView component', () => {
   it('should render table', async () => {
     await act(async () => {
-      const { asFragment } = render(
+      const { asFragment, rerender } = render(
+        <Router>
+          <ResultsView viewMode={ViewMode.TABLE} {...props} />
+        </Router>
+      );
+      rerender(
         <Router>
           <ResultsView viewMode={ViewMode.TABLE} {...props} />
         </Router>
