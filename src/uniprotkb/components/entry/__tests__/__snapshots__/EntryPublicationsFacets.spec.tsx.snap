@@ -20,14 +20,14 @@ exports[`EntryPublication facets tests should render 1`] = `
           >
             <li>
               <a
-                href="/?facets=study_type:small_scale"
+                href="/?facets=study_type%3Asmall_scale"
               >
                 Small scale (239)
               </a>
             </li>
             <li>
               <a
-                href="/?facets=study_type:large_scale"
+                href="/?facets=study_type%3Alarge_scale"
               >
                 Large scale (8)
               </a>

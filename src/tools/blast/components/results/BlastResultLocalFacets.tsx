@@ -29,6 +29,7 @@ type LocalFacetProps = {
   facetBounds: { min: number; max: number };
   hitsFilteredByServer: BlastHit[];
   selectedFacets: SelectedFacet[];
+  unfilteredValues: number[];
 };
 const LocalFacet: FC<LocalFacetProps> = ({
   facet,
@@ -36,9 +37,11 @@ const LocalFacet: FC<LocalFacetProps> = ({
   facetBounds,
   hitsFilteredByServer,
   selectedFacets,
+  unfilteredValues,
 }) => {
   const history = useHistory();
 
+  // handle modifying querystring to reflect the chosen values in the URL
   const handleChange = ([min, max]: [number, number]) => {
     const facetsWithoutModified = selectedFacets.filter(
       ({ name }) => name !== facet
@@ -95,6 +98,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
         onChange={handleChange}
         selectedRange={selectedRange}
         values={values[facet]}
+        unfilteredValues={unfilteredValues}
       />
     </li>
   );
@@ -138,6 +142,8 @@ const BlastResultLocalFacets: FC<{
     selectedFacets,
   ]);
 
+  const unfilteredValues = useMemo(() => getDataPoints(allHits), [allHits]);
+
   if (loading && !isStale) {
     return <Loader />;
   }
@@ -160,6 +166,7 @@ const BlastResultLocalFacets: FC<{
                 facetBounds={facetBounds[facet]}
                 hitsFilteredByServer={hitsFilteredByServer}
                 selectedFacets={selectedFacets}
+                unfilteredValues={unfilteredValues[facet]}
               />
             ))}
           </ul>

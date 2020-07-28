@@ -111,14 +111,7 @@ export const filterBlastDataForResults = (
     return data;
   }
 
-  let { hits } = data;
-
-  const parsedFacets = parseLocalFacets(facets);
-  parsedFacets.forEach(({ name, min, max }) => {
-    if (name in blastFacetToKeyName) {
-      hits = filterBlastHitForResults(hits, min, max, name as BlastFacet);
-    }
-  });
+  const hits = data.hits.filter(filterBlastByFacets(facets));
 
   return {
     ...data,
@@ -184,14 +177,6 @@ export const getDataPoints = (hits: BlastHit[]) => {
     output[facet] = current;
   }
   return Object.freeze(output);
-};
-
-export type BlastHitFacetParameters = {
-  [facet in BlastFacet]: {
-    values: number[];
-    min?: number;
-    max?: number;
-  };
 };
 
 export type ParsedLocalFacet = { name: string; min: number; max: number };
