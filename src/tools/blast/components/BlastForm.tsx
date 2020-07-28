@@ -394,6 +394,12 @@ const BlastForm = () => {
   const handleDragging = useCallback((event: DragEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsDragging(true);
+    if (event?.dataTransfer) {
+      // eslint-disable-next-line no-param-reassign
+      event.dataTransfer.dropEffect = 'copy';
+      // eslint-disable-next-line no-param-reassign
+      event.dataTransfer.effectAllowed = 'copy';
+    }
   }, []);
 
   const handleUndragging = useCallback((event: DragEvent<HTMLFormElement>) => {
