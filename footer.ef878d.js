@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{583:function(e,n,o){"use strict";o.r(n);var t=o(241),r=o.n(t),w=o(0),c=o.n(w);n.default=function(e){return c.a.createElement("footer",r()({},e,{style:{background:"#014371",color:"white",width:"100vw"}}),"footer")}}}]);
+//# sourceMappingURL=footer.ef878d.js.map
