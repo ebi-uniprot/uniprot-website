@@ -164,7 +164,6 @@ export const getDataPoints = (hits: BlastHit[]) => {
     Object.keys(blastFacetToKeyName).map((key) => [key, [] as number[]])
   );
   for (const [facet, keyName] of Object.entries(blastFacetToKeyName)) {
-    // eslint-disable-next-line no-multi-assign
     const current = output[facet];
     for (const hit of hits) {
       for (const hsp of hit.hit_hsps) {
