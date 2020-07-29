@@ -2,4 +2,4 @@
 
 // TODO
 
-export type AlignResults = any;
+export type AlignResults = string;

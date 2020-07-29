@@ -5,9 +5,12 @@
   flex-direction: column;
   align-items: center;
 
-  & > *:not(.footer) {
-    width: 80vw;
+  & > .single-column-layout__main {
     flex: 1 0;
+  }
+
+  & > *:not(.single-column-layout__footer) {
+    width: 80vw;
     max-width: 160ch;
   }
 }

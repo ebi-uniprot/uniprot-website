@@ -54,11 +54,11 @@ const BlastForm = lazy(() =>
     /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
   )
 );
-// const AlignResult = lazy(() =>
-//   import(
-//     /* webpackChunkName: "align-result" */ '../../tools/blast/components/results/AlignResult'
-//   )
-// );
+const AlignResult = lazy(() =>
+  import(
+    /* webpackChunkName: "align-result" */ '../../tools/align/components/results/AlignResult'
+  )
+);
 const AlignForm = lazy(() =>
   import(
     /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
@@ -129,10 +129,10 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
-            {/* <Route
+            <Route
               path={LocationToPath[Location.AlignResult]}
               component={AlignResult}
-            /> */}
+            />
             <Route
               path={LocationToPath[Location.Align]}
               render={() => (
