@@ -49,10 +49,8 @@ const BlastResultTextOutput = lazy(() =>
     /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
   )
 );
-const BlastResultToolInput = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-tool-input" */ './BlastResultToolInput'
-  )
+const ToolInput = lazy(() =>
+  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
 );
 const BlastResultHitDistribution = lazy(() =>
   import(
@@ -71,7 +69,7 @@ enum TabLocation {
 type Match = {
   params: {
     id: string;
-    subPage?: string;
+    subPage?: TabLocation;
   };
 };
 
@@ -149,7 +147,7 @@ const BlastResult = () => {
       history.replace(
         history.createHref({
           ...history.location,
-          pathname: `${history.location.pathname}/overview`,
+          pathname: `${history.location.pathname}/${TabLocation.Overview}`,
         })
       );
     }
@@ -303,12 +301,12 @@ const BlastResult = () => {
     >
       <Tabs active={match.params.subPage}>
         <Tab
-          id="overview"
+          id={TabLocation.Overview}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/overview`,
+                pathname: `/blast/${match.params.id}/${TabLocation.Overview}`,
               })}
             >
               Overview
@@ -327,12 +325,12 @@ const BlastResult = () => {
           </Suspense>
         </Tab>
         <Tab
-          id="taxonomy"
+          id={TabLocation.Taxonomy}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/taxonomy`,
+                pathname: `/blast/${match.params.id}/${TabLocation.Taxonomy}`,
               })}
             >
               Taxonomy
@@ -343,12 +341,12 @@ const BlastResult = () => {
           <BlastResultTaxonomy data={data} />
         </Tab>
         <Tab
-          id="hit-distribution"
+          id={TabLocation.HitDistribution}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/hit-distribution`,
+                pathname: `/blast/${match.params.id}/${TabLocation.HitDistribution}`,
               })}
             >
               Hit Distribution
@@ -359,12 +357,12 @@ const BlastResult = () => {
           <BlastResultHitDistribution hits={blastData.hits} />
         </Tab>
         <Tab
-          id="text-output"
+          id={TabLocation.TextOutput}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/text-output`,
+                pathname: `/blast/${match.params.id}/${TabLocation.TextOutput}`,
               })}
             >
               Text Output
@@ -376,12 +374,12 @@ const BlastResult = () => {
           </Suspense>
         </Tab>
         <Tab
-          id="tool-input"
+          id={TabLocation.ToolInput}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/tool-input`,
+                pathname: `/blast/${match.params.id}/${TabLocation.ToolInput}`,
               })}
             >
               Tool Input
@@ -389,7 +387,7 @@ const BlastResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            <BlastResultToolInput
+            <ToolInput
               id={match.params.id}
               jobType={JobTypes.BLAST}
               inputParamsData={inputParamsData}

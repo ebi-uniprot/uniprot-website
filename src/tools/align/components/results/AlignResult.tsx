@@ -39,10 +39,8 @@ const alignUrls = toolsURLs(JobTypes.ALIGN);
 //     /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
 //   )
 // );
-const BlastResultToolInput = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-tool-input" */ '../../../blast/components/results/BlastResultToolInput'
-  )
+const ToolInput = lazy(() =>
+  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
 );
 // const BlastResultHitDistribution = lazy(() =>
 //   import(
@@ -52,8 +50,8 @@ const BlastResultToolInput = lazy(() =>
 
 enum TabLocation {
   Overview = 'overview',
-  Taxonomy = 'taxonomy',
-  HitDistribution = 'hit-distribution',
+  PhyloTree = 'phylogenetic-tree',
+  PIM = 'percent-identity-matrix',
   TextOutput = 'text-output',
   ToolInput = 'tool-input',
 }
@@ -61,7 +59,7 @@ enum TabLocation {
 type Match = {
   params: {
     id: string;
-    subPage?: string;
+    subPage?: TabLocation;
   };
 };
 
@@ -107,7 +105,7 @@ const AlignResult = () => {
   const history = useHistory();
   const match = useRouteMatch(LocationToPath[Location.AlignResult]) as Match;
 
-  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  // const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
@@ -115,7 +113,7 @@ const AlignResult = () => {
       history.replace(
         history.createHref({
           ...history.location,
-          pathname: `${history.location.pathname}/overview`,
+          pathname: `${history.location.pathname}/${TabLocation.Overview}`,
         })
       );
     }
@@ -143,14 +141,14 @@ const AlignResult = () => {
   const inputParamsData = useParamsData(match.params.id);
 
   // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = (rowId: string) => {
-    const filtered = selectedEntries.filter((id) => id !== rowId);
-    setSelectedEntries(
-      filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered
-    );
-  };
+  // const handleSelectedEntries = (rowId: string) => {
+  //   const filtered = selectedEntries.filter((id) => id !== rowId);
+  //   setSelectedEntries(
+  //     filtered.length === selectedEntries.length
+  //       ? [...selectedEntries, rowId]
+  //       : filtered
+  //   );
+  // };
 
   if (loading) {
     return <Loader />;
@@ -179,12 +177,12 @@ const AlignResult = () => {
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab
-          id="overview"
+          id={TabLocation.Overview}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/align/${match.params.id}/overview`,
+                pathname: `/align/${match.params.id}/${TabLocation.Overview}`,
               })}
             >
               Overview
@@ -203,12 +201,46 @@ const AlignResult = () => {
           </Suspense>
         </Tab>
         <Tab
-          id="text-output"
+          id={TabLocation.PhyloTree}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/align/${match.params.id}/text-output`,
+                pathname: `/align/${match.params.id}/${TabLocation.PhyloTree}`,
+              })}
+            >
+              Phylogenetic Tree
+            </Link>
+          }
+        >
+          <Suspense fallback={<Loader />}>
+            {/* <BlastResultTextOutput id={match.params.id} /> */}
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.PIM}
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/align/${match.params.id}/${TabLocation.PIM}`,
+              })}
+            >
+              Percent Identity Matrix
+            </Link>
+          }
+        >
+          <Suspense fallback={<Loader />}>
+            {/* <BlastResultTextOutput id={match.params.id} /> */}
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.TextOutput}
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/align/${match.params.id}/${TabLocation.TextOutput}`,
               })}
             >
               Text Output
@@ -221,12 +253,12 @@ const AlignResult = () => {
           </Suspense>
         </Tab>
         <Tab
-          id="tool-input"
+          id={TabLocation.ToolInput}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/align/${match.params.id}/tool-input`,
+                pathname: `/align/${match.params.id}/${TabLocation.ToolInput}`,
               })}
             >
               Tool Input
@@ -234,7 +266,7 @@ const AlignResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            <BlastResultToolInput
+            <ToolInput
               id={match.params.id}
               jobType={JobTypes.ALIGN}
               inputParamsData={inputParamsData}

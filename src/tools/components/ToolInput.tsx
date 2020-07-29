@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Loader, CodeBlock, InfoList } from 'franklin-sites';
 
-import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
 
-import { UseDataAPIState } from '../../../../shared/hooks/useDataApi';
+import { UseDataAPIState } from '../../shared/hooks/useDataApi';
 
-import toolsURLs from '../../../config/urls';
+import toolsURLs from '../config/urls';
 
-import { PublicServerParameters } from '../../types/blastServerParameters';
-import { JobTypes } from '../../../types/toolsJobTypes';
+import { PublicServerParameters } from '../types/toolsServerParameters';
+import { JobTypes } from '../types/toolsJobTypes';
 
 const inputToCurl = (
   input: Partial<PublicServerParameters>,
@@ -24,7 +24,7 @@ const inputToCurl = (
 
 type Props = {
   id: string;
-  inputParamsData: Partial<UseDataAPIState<PublicServerParameters>>;
+  inputParamsData: Partial<UseDataAPIState<PublicServerParameters[JobTypes]>>;
   jobType: JobTypes;
 };
 
@@ -65,18 +65,16 @@ const BlastResultToolInput: FC<Props> = ({ id, inputParamsData, jobType }) => {
         </a>
         , you could run a new job on the command line with the same input like
         this:
-        <br />
-        <CodeBlock lightMode>{inputToCurl(data, jobType)}</CodeBlock>
-        {data.sequence.includes("'") && (
-          <>
-            <br />
-            <small>
-              You might need to escape the sequence as it contains special
-              characters
-            </small>
-          </>
-        )}
       </p>
+      <CodeBlock lightMode>{inputToCurl(data, jobType)}</CodeBlock>
+      {data.sequence.includes("'") && (
+        <p>
+          <small>
+            You might need to escape the sequence as it contains special
+            characters
+          </small>
+        </p>
+      )}
     </section>
   );
 };
