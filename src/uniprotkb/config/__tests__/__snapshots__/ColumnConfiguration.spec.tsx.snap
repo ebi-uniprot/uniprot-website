@@ -1632,7 +1632,7 @@ exports[`ColumnConfiguration component should render all columns: PubMed ID 1`] 
     </li>
     <li>
       <button
-        class="button tertiary"
+        class="button tertiary expandable-list__action"
         data-testid="expandable-message"
         type="button"
       >

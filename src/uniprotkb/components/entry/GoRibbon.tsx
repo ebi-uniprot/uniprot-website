@@ -18,21 +18,18 @@ enum COLOR_BY {
   ANNOTATION_COUNT = 1,
 }
 
+type RibbonData = {
+  entities: any;
+  config: any;
+  dataError: any;
+  dataReceived: any;
+};
+
 const GoRibbon: FC<{ primaryAccession: string }> = ({ primaryAccession }) => (
   <div className="GoRibbon">
     <h3>GO Annotations</h3>
     <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
-      {({
-        entities,
-        config,
-        dataError,
-        dataReceived,
-      }: {
-        entities: any;
-        config: any;
-        dataError: any;
-        dataReceived: any;
-      }) => (
+      {({ entities, config, dataError, dataReceived }: RibbonData) => (
         <div className="GoRibbon__container">
           {dataReceived && (
             <Ribbon

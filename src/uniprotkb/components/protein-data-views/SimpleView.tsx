@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const SimpleView = (props: { termValue: string; linkTo?: string }) => {
-  const { termValue, linkTo } = props;
+type SimpleViewProps = {
+  termValue: string;
+  linkTo?: string;
+};
+
+const SimpleView: FC<SimpleViewProps> = ({ termValue, linkTo }) => {
   if (typeof linkTo !== 'undefined') {
     return <Link to={linkTo}>{termValue}</Link>;
-  } 
-    return <span>{termValue}</span>;
-  
+  }
+  return <span>{termValue}</span>;
 };
 
 export default SimpleView;

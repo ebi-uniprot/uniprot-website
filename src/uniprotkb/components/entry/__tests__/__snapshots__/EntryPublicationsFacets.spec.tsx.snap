@@ -18,20 +18,18 @@ exports[`EntryPublication facets tests should render 1`] = `
           class="expandable-list no-bullet"
         >
           <li>
-            <button
-              class=""
-              type="button"
+            <a
+              href="/?facets=study_type%3Asmall_scale"
             >
               Small scale (239)
-            </button>
+            </a>
           </li>
           <li>
-            <button
-              class=""
-              type="button"
+            <a
+              href="/?facets=study_type%3Alarge_scale"
             >
               Large scale (8)
-            </button>
+            </a>
           </li>
         </ul>
       </li>

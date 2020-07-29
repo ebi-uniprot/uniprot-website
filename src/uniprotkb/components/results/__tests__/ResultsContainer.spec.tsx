@@ -30,7 +30,7 @@ describe('Results component', () => {
       const unreviewedButton = await findByText('Unreviewed (TrEMBL) (455)');
       fireEvent.click(unreviewedButton);
       expect(history.location.search).toEqual(
-        '?query=blah&facets=reviewed:false'
+        '?facets=reviewed%3Afalse&query=blah'
       );
     });
   });
