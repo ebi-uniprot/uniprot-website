@@ -36,24 +36,27 @@ import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
+// overview
 const BlastResultTable = lazy(() =>
   import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
 );
+// taxonomy
 const BlastResultTaxonomy = lazy(() =>
   import(
     /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
   )
 );
-const BlastResultTextOutput = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
-  )
-);
+// hit-distribution
 const BlastResultHitDistribution = lazy(() =>
   import(
     /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
   )
 );
+// text-output
+const TextOutput = lazy(() =>
+  import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
+);
+// tool-input
 const ToolInput = lazy(() =>
   import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
 );
@@ -370,7 +373,7 @@ const BlastResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            <BlastResultTextOutput id={match.params.id} />
+            <TextOutput id={match.params.id} jobType={JobTypes.BLAST} />
           </Suspense>
         </Tab>
         <Tab

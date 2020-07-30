@@ -26,27 +26,26 @@ import ErrorBoundary from '../../../../shared/components/error-component/ErrorBo
 
 const alignUrls = toolsURLs(JobTypes.ALIGN);
 
+// overview
 // const AlignResultOverview = lazy(() =>
-//   import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
+//   import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
 // );
-// const BlastResultTaxonomy = lazy(() =>
-//   import(
-//     /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
-//   )
+// phylogenetic-tree
+// const AlignResultPhyloTree = lazy(() =>
+//   import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
 // );
-// const BlastResultTextOutput = lazy(() =>
-//   import(
-//     /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
-//   )
+// percent-identity-matrix
+// const AlignResultPIM = lazy(() =>
+//   import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
 // );
+// text-output
+const TextOutput = lazy(() =>
+  import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
+);
+// tool-input
 const ToolInput = lazy(() =>
   import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
 );
-// const BlastResultHitDistribution = lazy(() =>
-//   import(
-//     /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
-//   )
-// );
 
 enum TabLocation {
   Overview = 'overview',
@@ -93,10 +92,6 @@ const useParamsData = (
       });
     }
   }, [paramsXMLData, sequenceData]);
-
-  if (paramsData.data) {
-    console.log('params data:', paramsData.data);
-  }
 
   return paramsData;
 };
@@ -192,12 +187,7 @@ const AlignResult = () => {
           {actionBar}
           <Suspense fallback={<Loader />}>
             {data}
-            {/* <BlastResultTable
-              loading={blastLoading || accessionsLoading}
-              data={{ ...blastData, hits: hitsFiltered }}
-              selectedEntries={selectedEntries}
-              handleSelectedEntries={handleSelectedEntries}
-            /> */}
+            {/* <AlignResultOverview /> */}
           </Suspense>
         </Tab>
         <Tab
@@ -214,7 +204,7 @@ const AlignResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            {/* <BlastResultTextOutput id={match.params.id} /> */}
+            {/* <AlignResultPhyloTree /> */}
           </Suspense>
         </Tab>
         <Tab
@@ -230,9 +220,7 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Suspense fallback={<Loader />}>
-            {/* <BlastResultTextOutput id={match.params.id} /> */}
-          </Suspense>
+          <Suspense fallback={<Loader />}>{/* <AlignResultPIM /> */}</Suspense>
         </Tab>
         <Tab
           id={TabLocation.TextOutput}
@@ -249,7 +237,7 @@ const AlignResult = () => {
         >
           <Suspense fallback={<Loader />}>
             {data}
-            {/* <BlastResultTextOutput id={match.params.id} /> */}
+            <TextOutput id={match.params.id} jobType={JobTypes.ALIGN} />
           </Suspense>
         </Tab>
         <Tab
