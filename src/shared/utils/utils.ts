@@ -5,7 +5,7 @@
 export const removeProperty = (
   obj: { [key: string]: any },
   property: string | number
-): { [key: string]: object } => {
+): { [key: string]: any } => {
   const { [property]: unwantedProperty, ...objWithoutProperty } = obj;
   return objWithoutProperty;
 };

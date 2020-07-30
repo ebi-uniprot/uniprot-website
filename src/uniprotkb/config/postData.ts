@@ -2,7 +2,10 @@ import axios from 'axios';
 
 export default function postData(
   url: string,
-  options: { headers?: object; data?: object } = {
+  options: {
+    headers?: Record<string, unknown>;
+    data?: FormData;
+  } = {
     headers: {},
   }
 ) {

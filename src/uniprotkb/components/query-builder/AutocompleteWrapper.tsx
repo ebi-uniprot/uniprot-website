@@ -6,7 +6,7 @@ import { getSuggesterUrl } from '../../config/apiUrls';
 
 type Props = {
   url: string;
-  onSelect: Function;
+  onSelect: (path: string, id?: string) => void;
   title: string;
   placeholder?: string;
   value?: string;

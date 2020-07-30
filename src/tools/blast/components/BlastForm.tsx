@@ -190,7 +190,7 @@ const BlastForm = () => {
   const [jobName, setJobName] = useState(initialFormValues[BlastFields.name]);
 
   // taxon field handlers
-  const updateTaxonFormValue = (path: string, id: string) => {
+  const updateTaxonFormValue = (path: string, id?: string) => {
     // Only proceed if a node is selected
     if (!id) return;
 

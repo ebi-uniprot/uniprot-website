@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+/* eslint-disable camelcase */
 import React, { Fragment } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
 import idx from 'idx';

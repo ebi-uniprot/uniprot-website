@@ -32,9 +32,9 @@ export interface RunningJob extends BaseJob<JobTypes> {
 }
 
 type DataForDashboard = {
-  [JobTypes.ALIGN]: {};
+  [JobTypes.ALIGN]: never; // TODO
   [JobTypes.BLAST]: {
-    hits: number;
+    hits?: number;
   };
   [JobTypes.IDMAP]: never; // TODO
   [JobTypes.PEPTIDE_SEARCH]: never; // TODO

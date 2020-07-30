@@ -1,0 +1,596 @@
+[
+  {
+    "accession": "P09958",
+    "name": "FURIN_HUMAN",
+    "proteinExistence": "Evidence at protein level",
+    "taxonomy": 9606,
+    "interactions": [
+      {
+        "accession1": "P09958",
+        "accession2": "P50281",
+        "gene": "MMP14",
+        "interactor1": "EBI-1056807",
+        "interactor2": "EBI-992788",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P09958",
+        "accession2": "Q9H239",
+        "gene": "MMP28",
+        "interactor1": "EBI-1056807",
+        "interactor2": "EBI-20858485",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P09958",
+        "accession2": "O14793",
+        "gene": "MSTN",
+        "interactor1": "EBI-1056807",
+        "interactor2": "EBI-8542977",
+        "organismDiffer": false,
+        "experiments": 2
+      }
+    ],
+    "subcellularLocations": [
+      {
+        "type": "SUBCELLULAR_LOCATION",
+        "locations": [
+          {
+            "location": {
+              "value": "Golgi apparatus, trans-Golgi network membrane",
+              "evidences": [
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "11331585",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/11331585",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/11331585"
+                  }
+                },
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "11799113",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/11799113",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/11799113"
+                  }
+                },
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "8846780",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/8846780",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/8846780"
+                  }
+                },
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "9130696",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/9130696",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/9130696"
+                  }
+                },
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "9412467",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/9412467",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/9412467"
+                  }
+                }
+              ]
+            },
+            "topology": {
+              "value": "Single-pass type I membrane protein",
+              "evidences": [
+                {
+                  "code": "ECO:0000305"
+                }
+              ]
+            }
+          },
+          {
+            "location": {
+              "value": "Cell membrane",
+              "evidences": [
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "11799113",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/11799113",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/11799113"
+                  }
+                },
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "9130696",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/9130696",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/9130696"
+                  }
+                },
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "9412467",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/9412467",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/9412467"
+                  }
+                }
+              ]
+            },
+            "topology": {
+              "value": "Single-pass type I membrane protein",
+              "evidences": [
+                {
+                  "code": "ECO:0000305"
+                }
+              ]
+            }
+          },
+          {
+            "location": {
+              "value": "Secreted",
+              "evidences": [
+                {
+                  "code": "ECO:0000305",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "11799113",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/11799113",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/11799113"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "location": {
+              "value": "Endosome membrane",
+              "evidences": [
+                {
+                  "code": "ECO:0000269",
+                  "source": {
+                    "name": "PubMed",
+                    "id": "9412467",
+                    "url": "http://www.ncbi.nlm.nih.gov/pubmed/9412467",
+                    "alternativeUrl": "https://europepmc.org/abstract/MED/9412467"
+                  }
+                }
+              ]
+            },
+            "topology": {
+              "value": "Single-pass type I membrane protein",
+              "evidences": [
+                {
+                  "code": "ECO:0000305"
+                }
+              ]
+            }
+          }
+        ],
+        "text": [
+          {
+            "value": "Shuttles between the trans-Golgi network and the cell surface (PubMed:9412467, PubMed:11799113). Propeptide cleavage is a prerequisite for exit of furin molecules out of the endoplasmic reticulum (ER). A second cleavage within the propeptide occurs in the trans Golgi network (TGN), followed by the release of the propeptide and the activation of furin (PubMed:11799113)",
+            "evidences": [
+              {
+                "code": "ECO:0000269",
+                "source": {
+                  "name": "PubMed",
+                  "id": "11799113",
+                  "url": "http://www.ncbi.nlm.nih.gov/pubmed/11799113",
+                  "alternativeUrl": "https://europepmc.org/abstract/MED/11799113"
+                }
+              },
+              {
+                "code": "ECO:0000269",
+                "source": {
+                  "name": "PubMed",
+                  "id": "9412467",
+                  "url": "http://www.ncbi.nlm.nih.gov/pubmed/9412467",
+                  "alternativeUrl": "https://europepmc.org/abstract/MED/9412467"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "accession": "O14793",
+    "name": "GDF8_HUMAN",
+    "proteinExistence": "Evidence at protein level",
+    "taxonomy": 9606,
+    "interactions": [
+      {
+        "accession1": "O14793",
+        "accession2": "Q13705",
+        "gene": "ACVR2B",
+        "interactor1": "EBI-8542977",
+        "interactor2": "EBI-1383577",
+        "organismDiffer": false,
+        "experiments": 4
+      },
+      {
+        "accession1": "O14793",
+        "accession2": "P13497",
+        "gene": "BMP1",
+        "interactor1": "EBI-8542977",
+        "interactor2": "EBI-489827",
+        "organismDiffer": false,
+        "experiments": 2
+      },
+      {
+        "accession1": "O14793",
+        "accession2": "P09958",
+        "gene": "FURIN",
+        "interactor1": "EBI-8542977",
+        "interactor2": "EBI-1056807",
+        "organismDiffer": false,
+        "experiments": 2
+      },
+      {
+        "accession1": "O14793",
+        "accession2": "O14793",
+        "gene": "MSTN",
+        "interactor1": "EBI-8542977",
+        "interactor2": "EBI-8542977",
+        "organismDiffer": false,
+        "experiments": 6
+      },
+      {
+        "accession1": "O14793",
+        "accession2": "Q96NZ8",
+        "gene": "WFIKKN1",
+        "interactor1": "EBI-8542977",
+        "interactor2": "EBI-2363713",
+        "organismDiffer": false,
+        "experiments": 4
+      },
+      {
+        "accession1": "O14793",
+        "chain1": "PRO_0000033951",
+        "accession2": "O14793",
+        "chain2": "PRO_0000033950",
+        "gene": "MSTN",
+        "interactor1": "EBI-20717179",
+        "interactor2": "EBI-20717185",
+        "organismDiffer": false,
+        "experiments": 3
+      }
+    ],
+    "diseases": [
+      {
+        "type": "DISEASE",
+        "diseaseId": "Muscle hypertrophy",
+        "acronym": "MSLHP",
+        "dbReference": {
+          "type": "MIM",
+          "id": "614160"
+        },
+        "description": {
+          "value": "A condition characterized by increased muscle bulk and strength. Affected individuals are exceptionally strong.",
+          "evidences": [
+            {
+              "code": "ECO:0000269",
+              "source": {
+                "name": "PubMed",
+                "id": "15215484",
+                "url": "http://www.ncbi.nlm.nih.gov/pubmed/15215484",
+                "alternativeUrl": "https://europepmc.org/abstract/MED/15215484"
+              }
+            }
+          ]
+        },
+        "text": [
+          {
+            "value": "The disease is caused by mutations affecting the gene represented in this entry"
+          }
+        ]
+      }
+    ],
+    "subcellularLocations": [
+      {
+        "type": "SUBCELLULAR_LOCATION",
+        "locations": [
+          {
+            "location": {
+              "value": "Secreted",
+              "evidences": [
+                {
+                  "code": "ECO:0000250",
+                  "source": {
+                    "name": "UniProtKB",
+                    "id": "O08689",
+                    "url": "https://www.uniprot.org/uniprot/O08689"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "accession": "Q9H239",
+    "name": "MMP28_HUMAN",
+    "proteinExistence": "Evidence at protein level",
+    "taxonomy": 9606,
+    "interactions": [
+      {
+        "accession1": "Q9H239",
+        "accession2": "P09958",
+        "gene": "FURIN",
+        "interactor1": "EBI-20858485",
+        "interactor2": "EBI-1056807",
+        "organismDiffer": false,
+        "experiments": 3
+      }
+    ],
+    "subcellularLocations": [
+      {
+        "type": "SUBCELLULAR_LOCATION",
+        "locations": [
+          {
+            "location": {
+              "value": "Secreted, extracellular space, extracellular matrix"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "accession": "P50281",
+    "name": "MMP14_HUMAN",
+    "proteinExistence": "Evidence at protein level",
+    "taxonomy": 9606,
+    "interactions": [
+      {
+        "accession1": "P50281",
+        "accession2": "Q9BV57",
+        "gene": "ADI1",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-992807",
+        "organismDiffer": false,
+        "experiments": 4
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q13520",
+        "gene": "AQP6",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-13059134",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P56945",
+        "gene": "BCAR1",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-702093",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q8N6L0",
+        "gene": "CCDC155",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-749265",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q15125",
+        "gene": "EBP",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-3915253",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q9GZR5",
+        "gene": "ELOVL4",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-18535450",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q9Y624",
+        "gene": "F11R",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-742600",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P22455",
+        "gene": "FGFR4",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-6256193",
+        "organismDiffer": false,
+        "experiments": 6
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q13643",
+        "gene": "FHL3",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-741101",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P09958",
+        "gene": "FURIN",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-1056807",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q7Z5P4",
+        "gene": "HSD17B13",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-18053395",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P53667",
+        "gene": "LIMK1",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-444403",
+        "organismDiffer": false,
+        "experiments": 4
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P51884",
+        "gene": "LUM",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-725780",
+        "organismDiffer": false,
+        "experiments": 2
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q15800",
+        "gene": "MSMO1",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-949102",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P27105",
+        "gene": "STOM",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-1211440",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "P16035",
+        "gene": "TIMP2",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-1033507",
+        "organismDiffer": false,
+        "experiments": 2
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q96AP4",
+        "gene": "ZUP1",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-744706",
+        "organismDiffer": false,
+        "experiments": 3
+      },
+      {
+        "accession1": "P50281",
+        "accession2": "Q9R064",
+        "gene": "Gorasp2",
+        "interactor1": "EBI-992788",
+        "interactor2": "EBI-4422912",
+        "organismDiffer": true,
+        "experiments": 14
+      }
+    ],
+    "diseases": [
+      {
+        "type": "DISEASE",
+        "diseaseId": "Winchester syndrome",
+        "acronym": "WNCHRS",
+        "dbReference": {
+          "type": "MIM",
+          "id": "277950"
+        },
+        "description": {
+          "value": "A disease characterized by severe osteolysis in the hands and feet, generalized osteoporosis, bone thinning, and absence of subcutaneous nodules. Various additional features include coarse face, corneal opacities, gum hypertrophy, and EKG changes.",
+          "evidences": [
+            {
+              "code": "ECO:0000269",
+              "source": {
+                "name": "PubMed",
+                "id": "22922033",
+                "url": "http://www.ncbi.nlm.nih.gov/pubmed/22922033",
+                "alternativeUrl": "https://europepmc.org/abstract/MED/22922033"
+              }
+            }
+          ]
+        },
+        "text": [
+          {
+            "value": "The disease is caused by mutations affecting the gene represented in this entry"
+          }
+        ]
+      }
+    ],
+    "subcellularLocations": [
+      {
+        "type": "SUBCELLULAR_LOCATION",
+        "locations": [
+          {
+            "location": {
+              "value": "Membrane",
+              "evidences": [
+                {
+                  "code": "ECO:0000305"
+                }
+              ]
+            },
+            "topology": {
+              "value": "Single-pass type I membrane protein",
+              "evidences": [
+                {
+                  "code": "ECO:0000305"
+                }
+              ]
+            }
+          },
+          {
+            "location": {
+              "value": "Melanosome"
+            }
+          },
+          {
+            "location": {
+              "value": "Cytoplasm"
+            }
+          }
+        ],
+        "text": [
+          {
+            "value": "Identified by mass spectrometry in melanosome fractions from stage I to stage IV. Forms a complex with BST2 and localizes to the cytoplasm"
+          }
+        ]
+      }
+    ]
+  }
+]
