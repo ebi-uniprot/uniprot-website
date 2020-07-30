@@ -1,4 +1,4 @@
-import React, { lazy, FC, Suspense, ReactNode } from 'react';
+import React, { lazy, FC, Suspense } from 'react';
 import { Loader } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -11,7 +11,6 @@ const UniProtFooter = lazy(() =>
 );
 
 type Props = {
-  title?: ReactNode;
   className?: string;
 };
 
