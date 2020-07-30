@@ -35,6 +35,7 @@ const persistConfig = {
   ],
 };
 
+// eslint-disable-next-line
 const persistorReducer = persistReducer<any, RootAction>(
   persistConfig,
   rootReducer
@@ -53,9 +54,14 @@ function configureStore() {
         : applyMiddleware(thunkMiddleware, toolsMiddleware)
     );
   } else {
+    // store = createStore(
+    //   persistorReducer,
+    //   undefined,
+    //   applyMiddleware(thunkMiddleware, toolsMiddleware)
+    // );
     store = createStore(
-      persistorReducer,
-      undefined,
+      rootReducer,
+      initialState,
       applyMiddleware(thunkMiddleware, toolsMiddleware)
     );
   }

@@ -124,10 +124,9 @@ export const getAPIQueryUrl = (
   facets: string[] = defaultFacets,
   size?: number
 ) => {
-  if (!query) return null;
   return `${apiUrls.search}?${queryString.stringify({
     size,
-    query: `${query}${createFacetsQueryString(selectedFacets)}`,
+    query: `${query || '*'}${createFacetsQueryString(selectedFacets)}`,
     fields: columns && columns.join(','),
     facets: facets.join(','),
     sort:

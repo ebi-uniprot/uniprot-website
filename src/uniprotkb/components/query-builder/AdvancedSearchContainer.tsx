@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, FormEvent, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { PageIntro } from 'franklin-sites';
 
 import {
   Clause,
@@ -83,11 +84,16 @@ export class Search extends Component<Props, State> {
     // }
   }
 
-  handleSubmitClick() {
+  handleSubmitClick(event: FormEvent | MouseEvent) {
+    event.preventDefault();
+
     const { history, clauses, dispatchUpdateQueryString } = this.props;
     const queryString = createQueryString(clauses);
     dispatchUpdateQueryString(queryString);
-    history.push({ pathname: '/uniprotkb', search: `query=${queryString}` });
+    history.push({
+      pathname: '/uniprotkb',
+      search: queryString && `query=${queryString}`,
+    });
   }
 
   handleQueryStringChange(queryString: string) {
@@ -96,14 +102,17 @@ export class Search extends Component<Props, State> {
 
   render() {
     const { queryString } = this.state;
-    const search = (
-      <AdvancedSearch
-        {...this.props}
-        queryString={queryString}
-        handleAdvancedSubmitClick={this.handleSubmitClick}
-      />
+
+    return (
+      <>
+        <PageIntro title="Advanced search" />
+        <AdvancedSearch
+          {...this.props}
+          queryString={queryString}
+          handleAdvancedSubmitClick={this.handleSubmitClick}
+        />
+      </>
     );
-    return <Fragment>{search}</Fragment>;
   }
 }
 

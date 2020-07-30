@@ -2,10 +2,11 @@
 
 exports[`AdvancedSearch shallow components should render 1`] = `
 <DocumentFragment>
-  <div
+  <form
     class="advanced-search"
+    data-testid="advanced-search-form"
   >
-    <div>
+    <fieldset>
       <label
         for="namespace-select"
       >
@@ -18,460 +19,464 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           </option>
         </select>
       </label>
-    </div>
-    <div
-      class="advanced-search__clause"
-    >
-      <select
-        class="advanced-search__logic"
-        data-testid="advanced-search-logic-select"
-      >
-        <option
-          value="AND"
-        >
-          AND
-        </option>
-        <option
-          value="OR"
-        >
-          OR
-        </option>
-        <option
-          value="NOT"
-        >
-          NOT
-        </option>
-      </select>
+    </fieldset>
+    <fieldset>
       <div
-        class="dropdown-container"
+        class="advanced-search__clause"
       >
-        <button
-          class="button dropdown "
-          type="button"
+        <select
+          class="advanced-search__logic"
+          data-testid="advanced-search-logic-select"
         >
-          All
-        </button>
-        <div
-          class="dropdown-menu"
-          style="top: 0px;"
-        >
-          <div
-            class="autocomplete-container"
+          <option
+            value="AND"
           >
-            <span
-              class="search-input"
-            >
-              <input
-                data-testid="search-input"
-                placeholder="Search for field"
-                type="text"
-                value=""
-              />
-              <span
-                class="search-input__suffix"
-                data-testid="search-input-suffix"
-                role="presentation"
-              >
-                <svg
-                  fill="currentColor"
-                  height="14"
-                  viewBox="0 0 512 512"
-                  width="14"
-                >
-                  <path
-                    d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                  />
-                </svg>
-              </span>
-            </span>
+            AND
+          </option>
+          <option
+            value="OR"
+          >
+            OR
+          </option>
+          <option
+            value="NOT"
+          >
+            NOT
+          </option>
+        </select>
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button dropdown "
+            type="button"
+          >
+            All
+          </button>
+          <div
+            class="dropdown-menu"
+            style="top: 0px;"
+          >
             <div
-              class="autocomplete-menu"
+              class="autocomplete-container"
             >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Search for field"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="14"
+                    viewBox="0 0 512 512"
+                    width="14"
+                  >
+                    <path
+                      d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
+                    />
+                  </svg>
+                </span>
+              </span>
               <div
-                class="dropdown-menu__panel"
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+            <div
+              class="dropdown-menu__panel"
+            >
+              <ul
+                class=""
               />
             </div>
           </div>
-          <div
-            class="dropdown-menu__panel"
-          >
-            <ul
-              class=""
-            />
-          </div>
         </div>
-      </div>
-      <div
-        class="advanced-search__inputs"
-      >
         <div
           class="advanced-search__inputs"
         >
-          <label
-            for="input_All"
-          >
-            All
-            <input
-              id="input_All"
-              placeholder="a4_human, P05067, cdc7 human"
-              type="text"
-              value=""
-            />
-          </label>
-        </div>
-      </div>
-      <button
-        class="button-remove"
-        data-testid="clause-list-button-remove"
-        type="button"
-      >
-        Remove
-      </button>
-    </div>
-    <div
-      class="advanced-search__clause"
-    >
-      <select
-        class="advanced-search__logic"
-        data-testid="advanced-search-logic-select"
-      >
-        <option
-          value="AND"
-        >
-          AND
-        </option>
-        <option
-          value="OR"
-        >
-          OR
-        </option>
-        <option
-          value="NOT"
-        >
-          NOT
-        </option>
-      </select>
-      <div
-        class="dropdown-container"
-      >
-        <button
-          class="button dropdown "
-          type="button"
-        >
-          All
-        </button>
-        <div
-          class="dropdown-menu"
-          style="top: 0px;"
-        >
           <div
-            class="autocomplete-container"
+            class="advanced-search__inputs"
           >
-            <span
-              class="search-input"
+            <label
+              for="input_All"
             >
+              All
               <input
-                data-testid="search-input"
-                placeholder="Search for field"
+                id="input_All"
+                placeholder="a4_human, P05067, cdc7 human"
                 type="text"
                 value=""
               />
-              <span
-                class="search-input__suffix"
-                data-testid="search-input-suffix"
-                role="presentation"
-              >
-                <svg
-                  fill="currentColor"
-                  height="14"
-                  viewBox="0 0 512 512"
-                  width="14"
-                >
-                  <path
-                    d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                  />
-                </svg>
-              </span>
-            </span>
+            </label>
+          </div>
+        </div>
+        <button
+          class="button tertiary button-remove"
+          data-testid="clause-list-button-remove"
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
+      <div
+        class="advanced-search__clause"
+      >
+        <select
+          class="advanced-search__logic"
+          data-testid="advanced-search-logic-select"
+        >
+          <option
+            value="AND"
+          >
+            AND
+          </option>
+          <option
+            value="OR"
+          >
+            OR
+          </option>
+          <option
+            value="NOT"
+          >
+            NOT
+          </option>
+        </select>
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button dropdown "
+            type="button"
+          >
+            All
+          </button>
+          <div
+            class="dropdown-menu"
+            style="top: 0px;"
+          >
             <div
-              class="autocomplete-menu"
+              class="autocomplete-container"
             >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Search for field"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="14"
+                    viewBox="0 0 512 512"
+                    width="14"
+                  >
+                    <path
+                      d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
+                    />
+                  </svg>
+                </span>
+              </span>
               <div
-                class="dropdown-menu__panel"
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+            <div
+              class="dropdown-menu__panel"
+            >
+              <ul
+                class=""
               />
             </div>
           </div>
-          <div
-            class="dropdown-menu__panel"
-          >
-            <ul
-              class=""
-            />
-          </div>
         </div>
-      </div>
-      <div
-        class="advanced-search__inputs"
-      >
         <div
           class="advanced-search__inputs"
         >
-          <label
-            for="input_All"
-          >
-            All
-            <input
-              id="input_All"
-              placeholder="a4_human, P05067, cdc7 human"
-              type="text"
-              value=""
-            />
-          </label>
-        </div>
-      </div>
-      <button
-        class="button-remove"
-        data-testid="clause-list-button-remove"
-        type="button"
-      >
-        Remove
-      </button>
-    </div>
-    <div
-      class="advanced-search__clause"
-    >
-      <select
-        class="advanced-search__logic"
-        data-testid="advanced-search-logic-select"
-      >
-        <option
-          value="AND"
-        >
-          AND
-        </option>
-        <option
-          value="OR"
-        >
-          OR
-        </option>
-        <option
-          value="NOT"
-        >
-          NOT
-        </option>
-      </select>
-      <div
-        class="dropdown-container"
-      >
-        <button
-          class="button dropdown "
-          type="button"
-        >
-          All
-        </button>
-        <div
-          class="dropdown-menu"
-          style="top: 0px;"
-        >
           <div
-            class="autocomplete-container"
+            class="advanced-search__inputs"
           >
-            <span
-              class="search-input"
+            <label
+              for="input_All"
             >
+              All
               <input
-                data-testid="search-input"
-                placeholder="Search for field"
+                id="input_All"
+                placeholder="a4_human, P05067, cdc7 human"
                 type="text"
                 value=""
               />
-              <span
-                class="search-input__suffix"
-                data-testid="search-input-suffix"
-                role="presentation"
-              >
-                <svg
-                  fill="currentColor"
-                  height="14"
-                  viewBox="0 0 512 512"
-                  width="14"
-                >
-                  <path
-                    d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                  />
-                </svg>
-              </span>
-            </span>
+            </label>
+          </div>
+        </div>
+        <button
+          class="button tertiary button-remove"
+          data-testid="clause-list-button-remove"
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
+      <div
+        class="advanced-search__clause"
+      >
+        <select
+          class="advanced-search__logic"
+          data-testid="advanced-search-logic-select"
+        >
+          <option
+            value="AND"
+          >
+            AND
+          </option>
+          <option
+            value="OR"
+          >
+            OR
+          </option>
+          <option
+            value="NOT"
+          >
+            NOT
+          </option>
+        </select>
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button dropdown "
+            type="button"
+          >
+            All
+          </button>
+          <div
+            class="dropdown-menu"
+            style="top: 0px;"
+          >
             <div
-              class="autocomplete-menu"
+              class="autocomplete-container"
             >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Search for field"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="14"
+                    viewBox="0 0 512 512"
+                    width="14"
+                  >
+                    <path
+                      d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
+                    />
+                  </svg>
+                </span>
+              </span>
               <div
-                class="dropdown-menu__panel"
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+            <div
+              class="dropdown-menu__panel"
+            >
+              <ul
+                class=""
               />
             </div>
           </div>
-          <div
-            class="dropdown-menu__panel"
-          >
-            <ul
-              class=""
-            />
-          </div>
         </div>
-      </div>
-      <div
-        class="advanced-search__inputs"
-      >
         <div
           class="advanced-search__inputs"
         >
-          <label
-            for="input_All"
-          >
-            All
-            <input
-              id="input_All"
-              placeholder="a4_human, P05067, cdc7 human"
-              type="text"
-              value=""
-            />
-          </label>
-        </div>
-      </div>
-      <button
-        class="button-remove"
-        data-testid="clause-list-button-remove"
-        type="button"
-      >
-        Remove
-      </button>
-    </div>
-    <div
-      class="advanced-search__clause"
-    >
-      <select
-        class="advanced-search__logic"
-        data-testid="advanced-search-logic-select"
-      >
-        <option
-          value="AND"
-        >
-          AND
-        </option>
-        <option
-          value="OR"
-        >
-          OR
-        </option>
-        <option
-          value="NOT"
-        >
-          NOT
-        </option>
-      </select>
-      <div
-        class="dropdown-container"
-      >
-        <button
-          class="button dropdown "
-          type="button"
-        >
-          All
-        </button>
-        <div
-          class="dropdown-menu"
-          style="top: 0px;"
-        >
           <div
-            class="autocomplete-container"
+            class="advanced-search__inputs"
           >
-            <span
-              class="search-input"
+            <label
+              for="input_All"
             >
+              All
               <input
-                data-testid="search-input"
-                placeholder="Search for field"
+                id="input_All"
+                placeholder="a4_human, P05067, cdc7 human"
                 type="text"
                 value=""
               />
-              <span
-                class="search-input__suffix"
-                data-testid="search-input-suffix"
-                role="presentation"
-              >
-                <svg
-                  fill="currentColor"
-                  height="14"
-                  viewBox="0 0 512 512"
-                  width="14"
-                >
-                  <path
-                    d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                  />
-                </svg>
-              </span>
-            </span>
+            </label>
+          </div>
+        </div>
+        <button
+          class="button tertiary button-remove"
+          data-testid="clause-list-button-remove"
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
+      <div
+        class="advanced-search__clause"
+      >
+        <select
+          class="advanced-search__logic"
+          data-testid="advanced-search-logic-select"
+        >
+          <option
+            value="AND"
+          >
+            AND
+          </option>
+          <option
+            value="OR"
+          >
+            OR
+          </option>
+          <option
+            value="NOT"
+          >
+            NOT
+          </option>
+        </select>
+        <div
+          class="dropdown-container"
+        >
+          <button
+            class="button dropdown "
+            type="button"
+          >
+            All
+          </button>
+          <div
+            class="dropdown-menu"
+            style="top: 0px;"
+          >
             <div
-              class="autocomplete-menu"
+              class="autocomplete-container"
             >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Search for field"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="14"
+                    viewBox="0 0 512 512"
+                    width="14"
+                  >
+                    <path
+                      d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
+                    />
+                  </svg>
+                </span>
+              </span>
               <div
-                class="dropdown-menu__panel"
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+            <div
+              class="dropdown-menu__panel"
+            >
+              <ul
+                class=""
               />
             </div>
           </div>
-          <div
-            class="dropdown-menu__panel"
-          >
-            <ul
-              class=""
-            />
-          </div>
         </div>
-      </div>
-      <div
-        class="advanced-search__inputs"
-      >
         <div
           class="advanced-search__inputs"
         >
-          <label
-            for="input_All"
+          <div
+            class="advanced-search__inputs"
           >
-            All
-            <input
-              id="input_All"
-              placeholder="a4_human, P05067, cdc7 human"
-              type="text"
-              value=""
-            />
-          </label>
+            <label
+              for="input_All"
+            >
+              All
+              <input
+                id="input_All"
+                placeholder="a4_human, P05067, cdc7 human"
+                type="text"
+                value=""
+              />
+            </label>
+          </div>
         </div>
+        <button
+          class="button tertiary button-remove"
+          data-testid="clause-list-button-remove"
+          type="button"
+        >
+          Remove
+        </button>
       </div>
+    </fieldset>
+    <div
+      class="advanced-search__actions"
+    >
       <button
-        class="button-remove"
-        data-testid="clause-list-button-remove"
+        class="button tertiary"
+        data-testid="advanced-search-add-field"
+        id="add-field"
         type="button"
       >
-        Remove
+        Add Field
       </button>
-    </div>
-    <button
-      data-testid="advanced-search-add-field"
-      id="add-field"
-      type="button"
-    >
-      Add Field
-    </button>
-    <div>
       <button
         class="button"
-        data-testid="advanced-search-submit"
         id="submit-query"
-        type="button"
+        type="submit"
       >
         Search
       </button>
     </div>
-  </div>
+  </form>
 </DocumentFragment>
 `;

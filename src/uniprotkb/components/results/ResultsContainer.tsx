@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
@@ -21,18 +21,18 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 
-import { Clause, Namespace } from '../../types/searchTypes';
+import { Namespace } from '../../types/searchTypes';
 import { Column } from '../../types/columnTypes';
 import Response from '../../types/responseTypes';
 
-type ResultsProps = {
-  namespace: Namespace;
-  tableColumns: Column[];
-  clauses?: Clause[];
-} & RouteComponentProps;
-
-const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
-  const { search: queryParamFromUrl } = location;
+const Results: FC = () => {
+  const namespace = useSelector<RootState, Namespace>(
+    (state) => state.query.namespace
+  );
+  const tableColumns = useSelector<RootState, Column[]>(
+    (state) => state.results.tableColumns
+  );
+  const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
@@ -117,13 +117,4 @@ const Results: FC<ResultsProps> = ({ namespace, location, tableColumns }) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    namespace: state.query.namespace,
-    tableColumns: state.results.tableColumns,
-  };
-};
-
-const ResultsContainer = withRouter(connect(mapStateToProps)(Results));
-
-export default ResultsContainer;
+export default Results;

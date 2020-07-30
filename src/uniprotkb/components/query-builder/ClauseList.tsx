@@ -47,7 +47,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
   handleRemoveClause,
 }) => (
   <Fragment>
-    {clauses.map(clause => {
+    {clauses.map((clause) => {
       if (!clause.searchTerm) {
         return null;
       }
@@ -99,7 +99,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
           )}
           <button
             type="button"
-            className="button-remove"
+            className="button tertiary button-remove"
             data-testid="clause-list-button-remove"
             onClick={() => handleRemoveClause(clause.id)}
           >

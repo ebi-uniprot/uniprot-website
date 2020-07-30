@@ -1,13 +1,17 @@
-@import "../../../../shared/styles/settings";
+@import '../../../../shared/styles/settings';
 
 .advanced-search {
-  .advanced-search__clause {
+  &__clause {
     display: flex;
     align-items: center;
 
-    &>div,
-    &>select,
-    &>a {
+    & button {
+      margin-bottom: 0;
+    }
+
+    & > div,
+    & > select,
+    & > a {
       margin: 0 $gutter-size;
     }
 
@@ -26,7 +30,11 @@
     }
   }
 
-  #submit-query {
-    float: right;
+  &__actions {
+    margin-top: 1em;
+
+    [type='submit'] {
+      float: right;
+    }
   }
 }
