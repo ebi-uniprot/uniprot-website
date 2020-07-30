@@ -4,7 +4,7 @@ type CommonResultFormats =
   | 'out' // raw output of the tool
   | 'sequence'; // raw, as submitted
 
-type ResultFormat = {
+export type ResultFormat = {
   [JobTypes.ALIGN]:
     | CommonResultFormats
     | 'aln-clustal_num' // Alignment in CLUSTAL format with base/residue numbering

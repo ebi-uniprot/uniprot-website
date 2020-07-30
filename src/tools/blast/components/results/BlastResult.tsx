@@ -23,7 +23,7 @@ import {
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
-import blastUrls from '../../config/blastUrls';
+import toolsURLs from '../../../config/urls';
 import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
 
 import { BlastResults, BlastHit } from '../../types/blastResults';
@@ -35,6 +35,8 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
+
+const blastURls = toolsURLs(JobTypes.BLAST);
 
 // overview
 const BlastResultTable = lazy(() =>
@@ -87,9 +89,9 @@ const useParamsData = (
   >({});
 
   const paramsXMLData = useDataApi<string>(
-    blastUrls.resultUrl(id, 'parameters')
+    blastURls.resultUrl(id, 'parameters')
   );
-  const sequenceData = useDataApi<string>(blastUrls.resultUrl(id, 'sequence'));
+  const sequenceData = useDataApi<string>(blastURls.resultUrl(id, 'sequence'));
 
   useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
@@ -162,7 +164,7 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(blastUrls.resultUrl(match.params.id, 'json'));
+  } = useDataApi<BlastResults>(blastURls.resultUrl(match.params.id, 'json'));
 
   // extract facets and other info from URL querystring
   const urlParams: URLResultParams = useMemo(

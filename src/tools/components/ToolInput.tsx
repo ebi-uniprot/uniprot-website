@@ -10,17 +10,17 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
-const inputToCurl = (
-  input: Partial<PublicServerParameters>,
-  jobType: JobTypes
-) => {
+function inputToCurl<T extends JobTypes>(
+  input: Partial<PublicServerParameters[T]>,
+  jobType: T
+) {
   let command = "curl -F 'email=<enter your email here>' \\\n";
   for (const [key, value] of Object.entries(input)) {
     command += `     -F '${key}=${value}' \\\n`;
   }
   command += `     ${toolsURLs(jobType).runUrl}`;
   return command;
-};
+}
 
 type Props = {
   id: string;

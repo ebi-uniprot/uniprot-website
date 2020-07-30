@@ -1,9 +1,13 @@
 import React, { memo, useState } from 'react';
 
-import blastUrls, { ResultFormat } from '../../config/blastUrls';
+import toolsURLs, { ResultFormat } from '../../../config/urls';
+
+import { JobTypes } from '../../../types/toolsJobTypes';
+
+const blastURLs = toolsURLs(JobTypes.BLAST);
 
 type DownloadOptions = {
-  format: ResultFormat;
+  format: ResultFormat[JobTypes.BLAST];
   description: string;
   ext: string;
 };
@@ -65,13 +69,13 @@ const BlastResultDownload = memo<BlastResultDownloadProps>(
     const [fileFormat, setFileFormat] = useState(options[0].format);
 
     const updateFileFormat = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setFileFormat(e.target.value as ResultFormat);
+      setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
     };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const link = document.createElement('a');
-      link.href = blastUrls.resultUrl(id, fileFormat);
+      link.href = blastURLs.resultUrl(id, fileFormat);
       link.target = '_blank';
       link.setAttribute('download', '');
       document.body.appendChild(link);

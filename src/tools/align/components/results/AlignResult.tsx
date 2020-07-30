@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect, useState, lazy, Suspense } from 'react';
-import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
@@ -14,15 +14,10 @@ import inputParamsXMLToObject from '../../../blast/adapters/inputParamsXMLToObje
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
-import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
 
 import { AlignResults } from '../../types/alignResults';
-import Response from '../../../../uniprotkb/types/responseTypes';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/alignServerParameters';
-// what we import are types, even if they are in adapter file
-import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 
 const alignUrls = toolsURLs(JobTypes.ALIGN);
 
