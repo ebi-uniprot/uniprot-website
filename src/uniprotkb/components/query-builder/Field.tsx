@@ -85,7 +85,7 @@ const Field = ({
       return TextField({
         field,
         type: 'number',
-        handleChange: value => handleInputChange(value),
+        handleChange: (value) => handleInputChange(value),
         value: queryInput.stringValue,
       });
     default:

@@ -49,13 +49,13 @@ const BlastResultTextOutput = lazy(() =>
     /* webpackChunkName: "blast-result-text-output" */ './BlastResultTextOutput'
   )
 );
-const ToolInput = lazy(() =>
-  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
-);
 const BlastResultHitDistribution = lazy(() =>
   import(
     /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
   )
+);
+const ToolInput = lazy(() =>
+  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
 );
 
 enum TabLocation {

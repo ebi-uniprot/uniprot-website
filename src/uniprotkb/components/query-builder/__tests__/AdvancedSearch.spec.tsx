@@ -61,7 +61,7 @@ describe('AdvancedSearch shallow components', () => {
 
   test('should submit a query', () => {
     const { getByTestId } = rendered;
-    fireEvent.click(getByTestId('advanced-search-submit'));
+    fireEvent.submit(getByTestId('advanced-search-form'));
     expect(props.handleAdvancedSubmitClick).toHaveBeenCalled();
   });
 });

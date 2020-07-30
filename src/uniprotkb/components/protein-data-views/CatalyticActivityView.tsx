@@ -98,7 +98,13 @@ export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
       {show && (
         <Fragment>
           <div className="rhea-reaction-visualizer__component">
-            <rhea-reaction rheaid={rheaId} zoom showids ref={callback} />
+            <rhea-reaction
+              rheaid={rheaId}
+              zoom
+              showids
+              ref={callback}
+              usehost="https://api.rhea-db.org"
+            />
           </div>
           {displayModal && zoomImageData && zoomImageData.imgURL && (
             <Modal

@@ -13,9 +13,7 @@ mock
   .reply(200, results, { 'x-total-records': 25 });
 mock.onGet(/\/uniprotkb\/result-fields/).reply(200, resultFields);
 mock
-  .onGet(
-    /\/uniprotkb\/download\?compressed=true&format=fasta&query=nod2&size=10/
-  )
+  .onGet(/\/uniprotkb\/stream/)
   .reply(200, mockFasta, { 'content-type': 'text/fasta' });
 mock.onGet(/\/uniprotkb\//).reply(200, entry);
 

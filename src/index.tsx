@@ -2,11 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/lib/integration/react';
+// import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import App from './app/components/App';
 
-import { store, persistor } from './app/state/store';
+import { store /* , persistor */ } from './app/state/store';
 
 import { addMessage } from './messages/state/messagesActions';
 
@@ -17,19 +17,20 @@ import {
 } from './service-worker/cross-env-constants';
 import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
 
-const LoadingView = () => <span>Loading ...</span>;
+// const LoadingView = () => <span>Loading ...</span>;
 
 let dateRendered: number;
 
 ReactDOM.render(
   <Provider store={store}>
-    {process.env.NODE_ENV === 'development' ? (
+    <App />
+    {/* {process.env.NODE_ENV === 'development' ? (
       <App />
     ) : (
       <PersistGate loading={<LoadingView />} persistor={persistor}>
         <App />
       </PersistGate>
-    )}
+    )} */}
   </Provider>,
   document.getElementById('root'),
   () => {

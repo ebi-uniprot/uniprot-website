@@ -1649,10 +1649,10 @@
     "@svgr/plugin-svgo" "^5.4.0"
     loader-utils "^2.0.0"
 
-"@swissprot/rhea-reaction-visualizer@0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-visualizer/-/rhea-reaction-visualizer-0.0.12.tgz#2f2ab5f79a4da244f0ff064900691121278c4d72"
-  integrity sha512-kFkoSr+cClE1LBU+Lk5PAu/4YWIIpVHi5W9MT9bE+Z5JdvbpjshBbcYkteL3V+xkOr/Oty3cI6R1qSsEPm2sFQ==
+"@swissprot/rhea-reaction-visualizer@0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-visualizer/-/rhea-reaction-visualizer-0.0.16.tgz#4d79ddcd6b81836e070374f8b7b07a458e442eeb"
+  integrity sha512-+pZOH72x3RsJQsMmM6sIqrQKRoCSBhi8ScYgk/bMvNGKENBE2NhBZwBK160yJHEMOmmPKLEMhE4vPg1EhxmV7Q==
 
 "@testing-library/dom@^7.2.2":
   version "7.5.5"
@@ -7885,10 +7885,10 @@ lodash.unset@^4.5.2:
   resolved "https://registry.yarnpkg.com/lodash.unset/-/lodash.unset-4.5.2.tgz#370d1d3e85b72a7e1b0cdf2d272121306f23e4ed"
   integrity sha1-Nw0dPoW3Kn4bDN8tJyEhMG8j5O0=
 
-lodash@4.17.15, lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@~4.17.12:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+lodash@4.17.19, lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.4, lodash@~4.17.12:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^4.0.0:
   version "4.0.0"

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, FormEvent, MouseEvent } from 'react';
 import ClauseList from './ClauseList';
 import {
   Namespace,
@@ -18,7 +18,7 @@ type AdvancedSearchProps = {
   evidences: Evidences;
   dispatchfetchEvidencesIfNeeded: (type: Evidence) => void;
   dispatchFetchSearchTermsIfNeeded: () => void;
-  handleAdvancedSubmitClick: () => void;
+  handleAdvancedSubmitClick: (event: FormEvent | MouseEvent) => void;
   dispatchAddClause: () => void;
   handleFieldSelect: (clauseId: string, field: SearchTermType) => void;
   handleInputChange: (clauseId: string, value: string, id?: string) => void;
@@ -50,36 +50,37 @@ class AdvancedSearch extends Component<AdvancedSearchProps> {
       dispatchAddClause,
     } = this.props;
     return (
-      <div className="advanced-search">
-        <div>
+      <form
+        className="advanced-search"
+        onSubmit={handleAdvancedSubmitClick}
+        data-testid="advanced-search-form"
+      >
+        <fieldset>
           <label htmlFor="namespace-select">
             Searching in
             <select id="namespace-select">
               <option>{namespace}</option>
             </select>
           </label>
-        </div>
-        <ClauseList {...this.props} />
-        <button
-          type="button"
-          id="add-field"
-          data-testid="advanced-search-add-field"
-          onClick={dispatchAddClause}
-        >
-          Add Field
-        </button>
-        <div>
+        </fieldset>
+        <fieldset>
+          <ClauseList {...this.props} />
+        </fieldset>
+        <div className="advanced-search__actions">
           <button
             type="button"
-            id="submit-query"
-            data-testid="advanced-search-submit"
-            className="button"
-            onClick={handleAdvancedSubmitClick}
+            id="add-field"
+            className="button tertiary"
+            data-testid="advanced-search-add-field"
+            onClick={dispatchAddClause}
           >
+            Add Field
+          </button>
+          <button type="submit" id="submit-query" className="button">
             Search
           </button>
         </div>
-      </div>
+      </form>
     );
   }
 }

@@ -104,7 +104,7 @@ exports[`ClauseList component should render 1`] = `
       </div>
     </div>
     <button
-      class="button-remove"
+      class="button tertiary button-remove"
       data-testid="clause-list-button-remove"
       type="button"
     >

@@ -62,7 +62,7 @@ export const createPreSelectedClauses = (): Clause[] => [
         { name: 'No', value: 'false' },
       ],
     },
-    queryInput: {},
+    queryInput: { stringValue: 'true' },
   },
   {
     id: v1(),
