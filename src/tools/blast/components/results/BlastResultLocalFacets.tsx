@@ -143,16 +143,16 @@ const BlastResultLocalFacets: FC<{
     selectedFacets,
   ]);
 
-  const [unfilteredValues, bounds, optimisedBinNumber] = useMemo(
-    () => [
-      getDataPoints(allHits),
+  const [unfilteredValues, bounds, optimisedBinNumber] = useMemo(() => {
+    const dataPoints = getDataPoints(allHits);
+    return [
+      dataPoints,
       getBounds(allHits),
       // see: https://en.wikipedia.org/wiki/Histogram#Square-root_choice
       // We chose the simplest implementation, 𝐤=⌈√𝐧⌉
-      Math.ceil(Math.sqrt(allHits.length)),
-    ],
-    [allHits]
-  );
+      Math.ceil(Math.sqrt(dataPoints.score.length)),
+    ];
+  }, [allHits]);
 
   if (loading && !isStale) {
     return <Loader />;
