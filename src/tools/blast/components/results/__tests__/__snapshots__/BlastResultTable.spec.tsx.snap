@@ -107,14 +107,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
                     <section
                       class="data-table__blast-hsp__blast-track"
                     >
-                      <protvista-track
-                        data-testid="blast-summary-track"
-                        height="10"
-                        length="30"
-                        title="Start: 3
-End: 30
-Hit Length: 486"
-                      />
+                      _class {}
                     </section>
                     <span
                       class="data-table__blast-hsp__blast-params"

@@ -2029,28 +2029,18 @@ exports[`Entry view should render 1`] = `
           <h3>
             Features
           </h3>
-          <protvista-manager
-            attributes="highlight displaystart displayend selectedid"
-          >
-            <protvista-navigation
-              length="10"
-            />
-            <protvista-track
-              layout="non-overlapping"
-              length="10"
-            />
-            <protvista-sequence
-              height="20"
-              length="10"
-              sequence="SAPSQDFMRF"
-            />
-            <protvista-datatable
-              filter-scroll="true"
-            />
-            <div
-              class="evidence-tag-content false"
-            />
-          </protvista-manager>
+          n {
+            "_attributes": Array [
+              "highlight",
+              "displaystart",
+              "displayend",
+              "selectedid",
+            ],
+            "attributeValues": Map {},
+            "mouseOver": false,
+            "propertyValues": Map {},
+            "protvistaElements": Set {},
+          }
         </div>
       </section>
     </div>
@@ -2074,12 +2064,18 @@ exports[`Entry view should render 1`] = `
         <div
           class="card__content"
         >
-          <interaction-viewer
-            accession="P21802"
-          />
-          <protvista-datatable
-            filter-scroll="true"
-          />
+          r {
+            "clickFilter": [Function],
+            "filterData": [Function],
+            "filters": Array [],
+            "getNodeByAccession": [Function],
+            "mode": "ADJACENCY_GRAPH",
+            "nodes": null,
+            "resetAllFilters": [Function],
+            "resetFilter": [Function],
+            "updateFilterSelection": [Function],
+          }
+          _class {}
         </div>
       </section>
     </div>

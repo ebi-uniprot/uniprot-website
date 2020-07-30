@@ -56,19 +56,19 @@ mock.onGet(joinUrl(apiUrls.variation, primaryAccession)).reply(200, {});
 let component;
 
 describe('Entry', () => {
-  beforeEach(async () => {
-    await act(async () => {
-      component = renderWithRedux(
-        <Route
-          component={(props) => <Entry {...props} />}
-          path="/uniprotkb/:accession"
-        />,
-        {
-          route: `/uniprotkb/${primaryAccession}`,
-        }
-      );
-    });
-  });
+  // beforeEach(async () => {
+  //   await act(async () => {
+  //     component = renderWithRedux(
+  //       <Route
+  //         component={(props) => <Entry {...props} />}
+  //         path="/uniprotkb/:accession"
+  //       />,
+  //       {
+  //         route: `/uniprotkb/${primaryAccession}`,
+  //       }
+  //     );
+  //   });
+  // });
 
   // it('should render main', async () => {
   //   await act(async () => {
