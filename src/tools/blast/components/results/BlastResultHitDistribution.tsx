@@ -72,19 +72,26 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
           </select>
         </label>
       </fieldset>
-      {Object.entries(valuesRef.current).map(([name, values]) => (
-        <div className="blast-result-hit-distribution" key={name}>
-          <Histogram
-            values={values}
-            unfilteredValues={unfilteredValues[name]}
-            nBins={nBinsValue === 'auto' ? optimisedBinNumber : nBinsValue}
-            min={bounds[name].min}
-            max={bounds[name].max}
-            xLabel={name}
-            yLabel="hits"
-          />
-        </div>
-      ))}
+      {Object.entries(valuesRef.current).map(([name, values]) => {
+        const { min, max } = bounds[name];
+        if (min === max) {
+          // If all values are the same then don't render the histogram
+          return null;
+        }
+        return (
+          <div className="blast-result-hit-distribution" key={name}>
+            <Histogram
+              values={values}
+              unfilteredValues={unfilteredValues[name]}
+              nBins={nBinsValue === 'auto' ? optimisedBinNumber : nBinsValue}
+              min={min}
+              max={max}
+              xLabel={name}
+              yLabel="hits"
+            />
+          </div>
+        );
+      })}
     </>
   );
 };
