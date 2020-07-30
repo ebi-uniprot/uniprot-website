@@ -4,7 +4,7 @@ import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-// import BlastResultButtons from './BlastResultButtons';
+import ResultButtons from '../../../components/ResultButtons';
 
 import useDataApi, {
   UseDataAPIState,
@@ -19,6 +19,8 @@ import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 
+import '../../../styles/ToolsResult.scss';
+
 const alignUrls = toolsURLs(JobTypes.ALIGN);
 
 // overview
@@ -26,13 +28,13 @@ const alignUrls = toolsURLs(JobTypes.ALIGN);
 //   import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
 // );
 // phylogenetic-tree
-// const AlignResultPhyloTree = lazy(() =>
-//   import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
-// );
+const AlignResultPhyloTree = lazy(() =>
+  import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
+);
 // percent-identity-matrix
-// const AlignResultPIM = lazy(() =>
-//   import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
-// );
+const AlignResultPIM = lazy(() =>
+  import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
+);
 // text-output
 const TextOutput = lazy(() =>
   import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
@@ -95,7 +97,10 @@ const AlignResult = () => {
   const history = useHistory();
   const match = useRouteMatch(LocationToPath[Location.AlignResult]) as Match;
 
-  // const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  // TODO: remove all those when we start using 'setSelectedEntries'
+  // eslint-disable-next-line
+  // @ts-ignore
+  const [selectedEntries, setSelectedEntries] = useState<string[]>([]); // eslint-disable-line
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
@@ -148,22 +153,17 @@ const AlignResult = () => {
     return <ErrorHandler status={status} />;
   }
 
-  // const actionBar = (
-  //   <BlastResultButtons
-  //     jobId={match.params.id}
-  //     selectedEntries={selectedEntries}
-  //     inputParamsData={inputParamsData.data}
-  //     nHits={blastData.hits.length}
-  //     isTableResultsFiltered={
-  //       typeof data?.hits.length !== 'undefined' &&
-  //       data?.hits.length !== blastData.hits.length
-  //     }
-  //   />
-  // );
-  const actionBar = '<AlignResultButtons>';
+  const actionBar = (
+    <ResultButtons
+      jobType={JobTypes.ALIGN}
+      jobId={match.params.id}
+      selectedEntries={selectedEntries}
+      inputParamsData={inputParamsData.data}
+    />
+  );
 
   return (
-    <SingleColumnLayout>
+    <SingleColumnLayout className="tools-result">
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab
@@ -182,7 +182,10 @@ const AlignResult = () => {
           {actionBar}
           <Suspense fallback={<Loader />}>
             {data}
-            {/* <AlignResultOverview /> */}
+            {/* <AlignResultOverview 
+              selectedEntries={selectedEntries}
+              handleSelectedEntries={handleSelectedEntries}
+            /> */}
           </Suspense>
         </Tab>
         <Tab
@@ -198,8 +201,9 @@ const AlignResult = () => {
             </Link>
           }
         >
+          {actionBar}
           <Suspense fallback={<Loader />}>
-            {/* <AlignResultPhyloTree /> */}
+            <AlignResultPhyloTree id={match.params.id} />
           </Suspense>
         </Tab>
         <Tab
@@ -215,7 +219,10 @@ const AlignResult = () => {
             </Link>
           }
         >
-          <Suspense fallback={<Loader />}>{/* <AlignResultPIM /> */}</Suspense>
+          {actionBar}
+          <Suspense fallback={<Loader />}>
+            <AlignResultPIM id={match.params.id} />
+          </Suspense>
         </Tab>
         <Tab
           id={TabLocation.TextOutput}
@@ -230,8 +237,8 @@ const AlignResult = () => {
             </Link>
           }
         >
+          {actionBar}
           <Suspense fallback={<Loader />}>
-            {data}
             <TextOutput id={match.params.id} jobType={JobTypes.ALIGN} />
           </Suspense>
         </Tab>

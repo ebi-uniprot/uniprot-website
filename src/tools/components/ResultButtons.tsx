@@ -3,29 +3,33 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';
 
-import SlidingPanel from '../../../../shared/components/layouts/SlidingPanel';
-import BlastButton from '../../../../shared/components/action-buttons/Blast';
-import AlignButton from '../../../../shared/components/action-buttons/Align';
-import AddToBasketButton from '../../../../shared/components/action-buttons/AddToBasket';
+import SlidingPanel from '../../shared/components/layouts/SlidingPanel';
+import BlastButton from '../../shared/components/action-buttons/Blast';
+import AlignButton from '../../shared/components/action-buttons/Align';
+import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
 
-import { serverParametersToFormParameters } from '../../../adapters/parameters';
+import { serverParametersToFormParameters } from '../adapters/parameters';
 
-import { LocationToPath, Location } from '../../../../app/config/urls';
+import { jobTypeToPath } from '../../app/config/urls';
 import uniProtKBApiUrls, {
   getSuggesterUrl,
-} from '../../../../uniprotkb/config/apiUrls';
+} from '../../uniprotkb/config/apiUrls';
 
-import fetchData from '../../../../shared/utils/fetchData';
+import fetchData from '../../shared/utils/fetchData';
 
-import { PublicServerParameters } from '../../../types/toolsServerParameters';
-import { Suggestions } from '../../../../uniprotkb/components/query-builder/AutocompleteWrapper';
-import { JobTypes } from '../../../types/toolsJobTypes';
+import { PublicServerParameters } from '../types/toolsServerParameters';
+import { Suggestions } from '../../uniprotkb/components/query-builder/AutocompleteWrapper';
+import { JobTypes } from '../types/toolsJobTypes';
 
-type ResubmitButtonProps = {
-  inputParamsData?: PublicServerParameters[JobTypes.BLAST];
+type ResubmitButtonProps<T extends JobTypes> = {
+  jobType: T;
+  inputParamsData?: PublicServerParameters[T];
 };
 
-const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
+const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
+  jobType,
+  inputParamsData,
+}) => {
   const history = useHistory();
 
   const [disabled, setDisabled] = useState(false);
@@ -72,12 +76,12 @@ const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
     }
 
     const parameters = serverParametersToFormParameters(
-      JobTypes.BLAST,
+      jobType,
       inputParamsData,
       taxonMapping
     );
 
-    history.push(LocationToPath[Location.Blast], { parameters });
+    history.push(jobTypeToPath(jobType), { parameters });
   };
 
   return (
@@ -93,23 +97,25 @@ const ResubmitButton: FC<ResubmitButtonProps> = ({ inputParamsData }) => {
   );
 };
 
-type BlastResultButtonsProps = {
+type ResultButtonsProps<T extends JobTypes> = {
+  jobType: T;
   jobId: string;
   selectedEntries: string[];
-  inputParamsData?: PublicServerParameters[JobTypes.BLAST];
-  nHits: number;
-  isTableResultsFiltered: boolean;
+  inputParamsData?: PublicServerParameters[T];
+  nHits?: number;
+  isTableResultsFiltered?: boolean;
 };
 
-const BlastResultButtons: FC<BlastResultButtonsProps> = ({
+const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
+  jobType,
   jobId,
   selectedEntries,
   inputParamsData,
   nHits,
   isTableResultsFiltered,
 }) => {
-  const BlastResultDownload = lazy(() =>
-    import(/* webpackChunkName: "blast-download" */ './BlastResultDownload')
+  const ResultDownload = lazy(() =>
+    import(/* webpackChunkName: "result-download" */ './ResultDownload')
   );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
@@ -117,9 +123,10 @@ const BlastResultButtons: FC<BlastResultButtonsProps> = ({
   return (
     <>
       {displayDownloadPanel && (
-        <Suspense fallback>
+        <Suspense fallback={null}>
           <SlidingPanel position="right">
-            <BlastResultDownload
+            <ResultDownload
+              jobType={jobType}
               id={jobId}
               onToggleDisplay={() =>
                 setDisplayDownloadPanel(!displayDownloadPanel)
@@ -143,10 +150,10 @@ const BlastResultButtons: FC<BlastResultButtonsProps> = ({
           Download
         </button>
         <AddToBasketButton selectedEntries={selectedEntries} />
-        <ResubmitButton inputParamsData={inputParamsData} />
+        <ResubmitButton inputParamsData={inputParamsData} jobType={jobType} />
       </div>
     </>
   );
 };
 
-export default BlastResultButtons;
+export default ResultButtons;

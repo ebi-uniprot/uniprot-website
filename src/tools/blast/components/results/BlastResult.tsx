@@ -5,8 +5,7 @@ import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import BlastResultSidebar from './BlastResultSidebar';
-// import BlastResultDownload from './BlastResultDownload';
-import BlastResultButtons from './BlastResultButtons';
+import ResultButtons from '../../../components/ResultButtons';
 
 import useDataApi, {
   UseDataAPIState,
@@ -35,6 +34,8 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
+
+import '../../../styles/ToolsResult.scss';
 
 const blastURls = toolsURLs(JobTypes.BLAST);
 
@@ -285,15 +286,13 @@ const BlastResult = () => {
   }
 
   const actionBar = (
-    <BlastResultButtons
+    <ResultButtons
+      jobType={JobTypes.BLAST}
       jobId={match.params.id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
       nHits={blastData.hits.length}
-      isTableResultsFiltered={
-        typeof data?.hits.length !== 'undefined' &&
-        data?.hits.length !== blastData.hits.length
-      }
+      isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
 
@@ -303,6 +302,7 @@ const BlastResult = () => {
         <PageIntro title="BLAST Results" resultsCount={blastData.hits.length} />
       }
       sidebar={sidebar}
+      className="tools-result"
     >
       <Tabs active={match.params.subPage}>
         <Tab

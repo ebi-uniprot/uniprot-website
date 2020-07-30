@@ -1,6 +1,7 @@
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
-import BlastResultDownload from '../BlastResultDownload';
+import { fireEvent, render } from '@testing-library/react';
+import ResultDownload from '../ResultDownload';
+import { JobTypes } from '../../types/toolsJobTypes';
 
 describe('Blast results download', () => {
   jest.spyOn(document.body, 'appendChild');
@@ -10,7 +11,8 @@ describe('Blast results download', () => {
     const onCloseMock = jest.fn();
 
     const { getByTestId, queryByText } = render(
-      <BlastResultDownload
+      <ResultDownload
+        jobType={JobTypes.BLAST}
         id="1234"
         onToggleDisplay={onCloseMock}
         nHits={100}
@@ -37,7 +39,8 @@ describe('Blast results download', () => {
     const onCloseMock = jest.fn();
 
     const { getByText } = render(
-      <BlastResultDownload
+      <ResultDownload
+        jobType={JobTypes.BLAST}
         id="1234"
         onToggleDisplay={onCloseMock}
         nHits={100}

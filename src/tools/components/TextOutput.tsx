@@ -14,9 +14,13 @@ const TextOutput: FC<{ id: string; jobType: JobTypes }> = ({ id, jobType }) => {
     toolsURLs(jobType).resultUrl(id, 'out')
   );
 
-  if (loading) return <Loader />;
+  if (loading) {
+    return <Loader />;
+  }
 
-  if (error || !data) return <ErrorHandler status={status} />;
+  if (error || !data) {
+    return <ErrorHandler status={status} />;
+  }
 
   return <CodeBlock>{data}</CodeBlock>;
 };

@@ -1,0 +1,15 @@
+.tools-result {
+  & .tabs__header {
+    z-index: 3;
+    position: sticky;
+    top: 0;
+    background: white;
+    background: linear-gradient(
+      white 0%,
+      rgba(255, 255, 255, 0.8) 80%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    backdrop-filter: blur(1px) grayscale(0.25);
+    border-bottom: none;
+  }
+}

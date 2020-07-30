@@ -1,13 +1,16 @@
 import React, { FC, ReactNode } from 'react';
+import cn from 'classnames';
+
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import './styles/side-bar-layout.scss';
-import ErrorBoundary from '../error-component/ErrorBoundary';
 
 type SideBarLayoutProps = {
   title?: ReactNode;
   sidebar: ReactNode;
   actionButtons?: ReactNode;
   invert?: boolean;
+  className?: string;
 };
 
 const SideBarLayout: React.FC<SideBarLayoutProps> = ({
@@ -15,8 +18,9 @@ const SideBarLayout: React.FC<SideBarLayoutProps> = ({
   sidebar,
   actionButtons,
   children,
+  className,
 }) => (
-  <div className="sidebar-layout">
+  <div className={cn('sidebar-layout', className)}>
     <ErrorBoundary>
       <section className="sidebar-layout__title">{title}</section>
     </ErrorBoundary>

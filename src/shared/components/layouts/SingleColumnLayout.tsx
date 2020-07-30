@@ -1,5 +1,6 @@
 import React, { lazy, FC, Suspense, ReactNode } from 'react';
 import { Loader } from 'franklin-sites';
+import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
@@ -11,10 +12,11 @@ const UniProtFooter = lazy(() =>
 
 type Props = {
   title?: ReactNode;
+  className?: string;
 };
 
-const SingleColumnLayout: FC<Props> = ({ children }) => (
-  <div className="single-column-layout">
+const SingleColumnLayout: FC<Props> = ({ children, className }) => (
+  <div className={cn('single-column-layout', className)}>
     <Suspense fallback={<Loader />}>
       <ErrorBoundary>
         <main className="single-column-layout__main">{children}</main>
