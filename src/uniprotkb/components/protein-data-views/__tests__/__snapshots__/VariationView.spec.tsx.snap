@@ -6,19 +6,36 @@ exports[`VariationView component renders on data 1`] = `
     <h3>
       some title
     </h3>
-    n {
-      "_attributes": Array [
-        "highlight",
-        "displaystart",
-        "displayend",
-        "activefilters",
-        "filters",
-      ],
-      "attributeValues": Map {},
-      "mouseOver": false,
-      "propertyValues": Map {},
-      "protvistaElements": Set {},
-    }
+    <protvista-manager
+      attributes="highlight displaystart displayend activefilters filters"
+    >
+      <div
+        class="variation-view"
+      >
+        <protvista-navigation
+          length="7"
+        />
+        <protvista-sequence
+          filter-scroll="true"
+          height="20"
+          length="7"
+          sequence="ABCDEFG"
+        />
+        <protvista-filter
+          for="variation-component"
+        />
+        <protvista-variation
+          id="variation-component"
+          length="7"
+        />
+      </div>
+      <protvista-datatable
+        filter-scroll="true"
+      />
+      <div
+        class="evidence-tag-content false"
+      />
+    </protvista-manager>
   </div>
 </DocumentFragment>
 `;
