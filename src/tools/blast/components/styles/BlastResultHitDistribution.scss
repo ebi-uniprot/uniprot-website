@@ -4,3 +4,11 @@
   padding-right: 1rem;
   max-width: 60rem;
 }
+
+.nbin-selection {
+  float: right;
+
+  & select {
+    width: auto;
+  }
+}

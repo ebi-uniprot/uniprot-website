@@ -50,7 +50,7 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
 
   return (
     <>
-      <fieldset>
+      <fieldset className="nbin-selection">
         <label>
           Number of bins:{' '}
           <select
@@ -88,6 +88,7 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
               max={max}
               xLabel={name}
               yLabel="hits"
+              unfilteredValuesShadow={0.2}
             />
           </div>
         );
