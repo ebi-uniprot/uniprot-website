@@ -1,0 +1,49 @@
+// keyframe to have the base style when the component mounts,
+// the "to" is automatically decided with what we define in the component's code
+@keyframes appear {
+  from {
+    background-color: white;
+  }
+}
+
+.align-result-pim {
+  & fieldset {
+    float: right;
+
+    & label {
+      display: flex;
+    }
+  }
+
+  &__matrix {
+    min-width: 100%;
+    display: grid;
+    align-items: center;
+  }
+
+  &__name {
+    margin-right: 1ch;
+  }
+
+  &__cell {
+    width: 100%;
+    aspect-ratio: 1/1; // keep cells squared (if not supported it's fine 🤷🏽‍♂️)
+    // to center the inner text
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bolder;
+    color: white;
+
+    // animation on mount
+    animation-duration: 100ms;
+    animation-name: appear;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: backwards;
+
+    // transition on contrast update
+    transition: background-color ease-in-out 100ms;
+  }
+}
