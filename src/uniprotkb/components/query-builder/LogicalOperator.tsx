@@ -8,15 +8,15 @@ const LogicalOperator = ({
   handleChange,
 }: {
   value: Operator;
-  handleChange: Function;
+  handleChange: (value: Operator) => void;
 }) => (
   <select
     className="advanced-search__logic"
     value={value}
     data-testid="advanced-search-logic-select"
-    onChange={e => handleChange(e.target.value)}
+    onChange={(e) => handleChange(e.target.value as Operator)}
   >
-    {operators.map(op => (
+    {operators.map((op) => (
       <option value={op} key={op}>
         {op}
       </option>

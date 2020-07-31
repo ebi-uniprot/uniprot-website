@@ -6,7 +6,7 @@ import './styles/gdpr.scss';
 
 const UP_COVID_GDPR = 'UP_COVID_GDPR';
 
-const GDPR: FC<{}> = () => {
+const GDPR: FC = () => {
   const [token, setToken] = useLocalStorage(UP_COVID_GDPR, false);
 
   if (token) return null;

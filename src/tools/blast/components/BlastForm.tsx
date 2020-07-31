@@ -190,14 +190,18 @@ const BlastForm = () => {
   const [jobName, setJobName] = useState(initialFormValues[BlastFields.name]);
 
   // taxon field handlers
-  const updateTaxonFormValue = (path: string, id: string) => {
+  const updateTaxonFormValue = (path: string, id?: string) => {
     // Only proceed if a node is selected
-    if (!id) return;
+    if (!id) {
+      return;
+    }
 
     const selected = (taxIDs.selected || []) as SelectedTaxon[];
 
     // If already there, don't add again
-    if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) return;
+    if (selected.some((taxon: SelectedTaxon) => taxon.id === id)) {
+      return;
+    }
 
     // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens (Man/Human/HUMAN) [9606]
     const label = path.replace(/ *\([^)]*\) */g, ' ');

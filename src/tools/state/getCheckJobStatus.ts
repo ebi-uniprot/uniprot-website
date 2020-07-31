@@ -118,7 +118,6 @@ const getCheckJobStatus = ({
           timeLastUpdate: now,
           timeFinished: now,
           status,
-          data: {},
         })
       );
       dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));

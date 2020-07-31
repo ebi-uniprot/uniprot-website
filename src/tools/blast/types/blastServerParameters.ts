@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* Parameters of a blast job as required by the server */
 // https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast?wadl
 // https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameters

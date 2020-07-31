@@ -107,7 +107,7 @@ const UniProtKBEvidenceTag: FC<{ evidences: Evidence[] }> = ({ evidences }) => {
 
 export const UniProtProtvistaEvidenceTag = (
   evidences: Evidence[],
-  callback: Function
+  callback: (evidenceData: EvidenceData, references: Evidence[]) => void
 ) => {
   const size = 12;
   const evidenceObj = groupBy(

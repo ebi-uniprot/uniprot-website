@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ErrorInfo } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Location } from 'history';
 
@@ -37,7 +37,7 @@ class ErrorBoundary extends Component<Props, State> {
     return { error: null };
   }
 
-  componentDidCatch(error: Error, errorInfo: object) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // eslint-disable-next-line no-console
     console.error(error, errorInfo);
   }

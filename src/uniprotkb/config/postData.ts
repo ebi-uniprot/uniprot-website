@@ -2,11 +2,14 @@ import axios from 'axios';
 
 export default function postData(
   url: string,
-  options: { headers?: object; data?: object } = {
+  options: {
+    headers: Record<string, string>;
+    data?: FormData;
+  } = {
     headers: {},
   }
 ) {
-  const { headers, data } = options;
+  const { headers = {}, data } = options;
   return axios.post(url, data, {
     headers: {
       Accept: 'application/json',

@@ -51,7 +51,7 @@ export type EvidenceData = {
   manual: boolean;
   label: string;
   description: string;
-  labelRender?: Function;
+  labelRender?: (evidences: Evidence[]) => string;
 };
 
 const publicationCountRenderer = (evidences: Evidence[]) => {
@@ -64,7 +64,7 @@ const publicationCountRenderer = (evidences: Evidence[]) => {
 const rulesCountRenderer = (evidences: Evidence[]) => {
   const { length } = evidences;
   const isSAMPhobius = evidences.some(
-    evidence =>
+    (evidence) =>
       typeof evidence.source !== 'undefined' &&
       evidence.source === 'SAM' &&
       evidence.id === 'Phobius'
@@ -226,7 +226,7 @@ export const getEvidenceCodeData = (eco: string): EvidenceData | null => {
         label: 'Manual assertion inferred from experiment',
         description: 'Inferred by curator',
         labelRender: (evidences: Evidence[]) => {
-          return evidences.some(evidence => evidence.source)
+          return evidences.some((evidence) => evidence.source)
             ? publicationCountRenderer(evidences)
             : 'Curated';
         },

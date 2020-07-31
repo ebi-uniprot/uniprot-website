@@ -2,7 +2,7 @@ import axios, { CancelToken } from 'axios';
 
 export default function fetchData<T>(
   url: string,
-  headers: object = {},
+  headers: Record<string, string> = {},
   cancelToken?: CancelToken,
   axiosOptions = {}
 ) {

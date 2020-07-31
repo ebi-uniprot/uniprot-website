@@ -88,9 +88,14 @@ const Download: React.FC<DownloadTableProps> = ({
   });
   const handlePreview = () => {
     setLoadingPreview(true);
-    fetchData<string>(previewUrl, {
-      Accept: fileFormatToContentType.get(previewFileFormat),
-    })
+
+    const headers: Record<string, string> = {};
+    const accept = fileFormatToContentType.get(previewFileFormat);
+    if (accept) {
+      headers.Accept = accept;
+    }
+
+    fetchData<string>(previewUrl, headers)
       .then((response) => {
         const contentType = idx(
           response,
