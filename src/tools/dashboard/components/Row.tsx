@@ -133,7 +133,7 @@ const NiceStatus: FC<NiceStatusProps> = ({ job, jobLink }) => {
       const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
       if (
         // not a blast job, or
-        !('hits' in job.data && 'hits' in job.parameters) ||
+        !('data' in job && 'hits' in job.data && 'hits' in job.parameters) ||
         // same number of hits than queried
         job.data.hits === job.parameters.hits
       ) {
