@@ -119,20 +119,6 @@ const AlignResult = () => {
     alignUrls.resultUrl(match.params.id, 'aln-clustal_num')
   );
 
-  // get data from accessions endpoint with facets applied
-  // const { loading: accessionsLoading, data: accessionsData } = useDataApi<
-  //   Response['data']
-  // >(
-  //   useMemo(
-  //     () =>
-  //       getAccessionsURL(accessionsFilteredByLocalFacets, {
-  //         selectedFacets: urlParams.selectedFacets,
-  //         facets: [],
-  //       }),
-  //     [accessionsFilteredByLocalFacets, urlParams.selectedFacets]
-  //   )
-  // );
-
   const inputParamsData = useParamsData(match.params.id);
 
   // Note: this function is duplicated in ResultsContainer.tsx

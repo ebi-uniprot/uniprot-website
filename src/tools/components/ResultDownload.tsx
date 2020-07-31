@@ -76,6 +76,13 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
   [JobTypes.PEPTIDE_SEARCH]: [],
 };
 
+const defaultFormat: Record<JobTypes, ResultFormat[JobTypes]> = {
+  [JobTypes.ALIGN]: 'aln-clustal_num',
+  [JobTypes.BLAST]: 'out',
+  [JobTypes.IDMAP]: 'out', // TODO: check after implementing
+  [JobTypes.PEPTIDE_SEARCH]: 'out', // TODO: check after implementing
+};
+
 type ResultDownloadProps = {
   jobType: JobTypes;
   id: string;
@@ -94,7 +101,7 @@ const ResultDownload = memo<ResultDownloadProps>(
     isTableResultsFiltered,
     isTableRowSelected,
   }) => {
-    const [fileFormat, setFileFormat] = useState(options[jobType][0].format);
+    const [fileFormat, setFileFormat] = useState(defaultFormat[jobType]);
 
     const updateFileFormat = (e: React.ChangeEvent<HTMLSelectElement>) => {
       setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
