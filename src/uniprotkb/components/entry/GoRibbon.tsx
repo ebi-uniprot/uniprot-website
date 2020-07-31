@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react';
+
+// NOTE: this dependency is quite big (because of "amigo2-instance-data"), so
+// NOTE: you can lazy load this module to avoid blocking the rest of the page
+// NOTE: while instantiating this
 import Ribbon, { RibbonDataProvider } from '@geneontology/ribbon';
+
 import '@geneontology/ribbon/es/main.scss';
 import './styles/go-ribbon.scss';
 

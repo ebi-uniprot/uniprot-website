@@ -1,20 +1,17 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, lazy, Suspense } from 'react';
 import { v1 } from 'uuid';
-import { Card } from 'franklin-sites';
-import { hasContent } from '../../utils';
+import { Card, Loader } from 'franklin-sites';
+
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+
 import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/FeaturesView';
-import EntrySection from '../../types/entrySection';
-import {
-  CommentType,
-  CatalyticActivityComment,
-  FreeTextComment,
-} from '../../types/commentTypes';
-import GoRibbon from './GoRibbon';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
+
+import { hasContent } from '../../utils';
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
@@ -22,6 +19,17 @@ import {
   KineticParameters,
   CofactorComment,
 } from '../../adapters/functionConverter';
+
+import EntrySection from '../../types/entrySection';
+import {
+  CommentType,
+  CatalyticActivityComment,
+  FreeTextComment,
+} from '../../types/commentTypes';
+
+const GoRibbon = lazy(() =>
+  import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
+);
 
 export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => {
   return (
@@ -194,7 +202,11 @@ const FunctionSection: FC<{
           title={CommentType.ACTIVITY_REGULATION.toLowerCase()}
         />
         <FeaturesView features={data.featuresData} sequence={sequence} />
-        <GoRibbon primaryAccession={primaryAccession} />
+        <ErrorBoundary>
+          <Suspense fallback={<Loader />}>
+            <GoRibbon primaryAccession={primaryAccession} />
+          </Suspense>
+        </ErrorBoundary>
         {/* {data.goTerms && <GOView data={data.goTerms} />} removed for now */}
         <KeywordView keywords={data.keywordData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

@@ -1,30 +1,99 @@
-import React, { FC } from 'react';
-import { Histogram } from 'franklin-sites';
+import React, { FC, useRef, useMemo, useState } from 'react';
+import { Histogram, Loader } from 'franklin-sites';
+
+import { getDataPoints, getBounds } from '../../utils/blastFacetDataUtils';
+
 import { BlastHit } from '../../types/blastResults';
-import {
-  getSmallerMultiple,
-  getLargerMultiple,
-} from '../../../../shared/utils/utils';
+
 import '../styles/BlastResultHitDistribution.scss';
 
-const BlastResultHitDistribution: FC<{ hits: BlastHit[] }> = ({ hits }) => {
-  const scores = hits
-    .map((hit) => hit.hit_hsps.map((hsp) => hsp.hsp_score))
-    .flat();
-  const binSize = 100;
-  const min = getSmallerMultiple(Math.min(...scores), binSize);
-  const max = getLargerMultiple(Math.max(...scores), binSize);
+const nBinOptions = ['auto', 5, 10, 25, 50, 100] as const;
+
+type BlastResultHitDistributionProps = {
+  loading: boolean;
+  allHits: BlastHit[];
+  filteredHits: BlastHit[];
+};
+
+const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
+  loading,
+  allHits,
+  filteredHits,
+}) => {
+  const [nBinsValue, setNBinsValue] = useState<typeof nBinOptions[number]>(
+    'auto'
+  );
+
+  const values = useMemo(() => getDataPoints(filteredHits || []), [
+    filteredHits,
+  ]);
+  // logic to keep stale data available
+  const valuesRef = useRef(values);
+  if (values.score.length || !loading) {
+    valuesRef.current = values;
+  }
+
+  const [unfilteredValues, bounds, optimisedBinNumber] = useMemo(() => {
+    const dataPoints = getDataPoints(allHits);
+    return [
+      dataPoints,
+      getBounds(allHits),
+      // see: https://en.wikipedia.org/wiki/Histogram#Square-root_choice
+      // We chose the simplest implementation, 𝐤=⌈√𝐧⌉
+      Math.ceil(Math.sqrt(dataPoints.score.length)),
+    ];
+  }, [allHits]);
+
+  if (loading && !valuesRef.current.score.length) {
+    return <Loader />;
+  }
+
   return (
-    <div className="blast-result-hit-distribution">
-      <Histogram
-        values={scores}
-        binSize={binSize}
-        min={min}
-        max={max}
-        xLabel="Score"
-        yLabel="Hits"
-      />
-    </div>
+    <>
+      <fieldset className="nbin-selection">
+        <label>
+          Number of bins:{' '}
+          <select
+            value={nBinsValue}
+            onChange={(event) =>
+              setNBinsValue(
+                event.target.value === 'auto'
+                  ? event.target.value
+                  : (+event.target.value as typeof nBinOptions[number])
+              )
+            }
+          >
+            {nBinOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+                {option === 'auto' && ` (${optimisedBinNumber})`}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+      {Object.entries(valuesRef.current).map(([name, values]) => {
+        const { min, max } = bounds[name];
+        if (min === max) {
+          // If all values are the same then don't render the histogram
+          return null;
+        }
+        return (
+          <div className="blast-result-hit-distribution" key={name}>
+            <Histogram
+              values={values}
+              unfilteredValues={unfilteredValues[name]}
+              nBins={nBinsValue === 'auto' ? optimisedBinNumber : nBinsValue}
+              min={min}
+              max={max}
+              xLabel={name}
+              yLabel="hits"
+              unfilteredValuesShadow={0.2}
+            />
+          </div>
+        );
+      })}
+    </>
   );
 };
 

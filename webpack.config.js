@@ -245,6 +245,11 @@ module.exports = (env, argv) => {
             name: 'franklin',
             chunks: 'all',
           },
+          geneontology: {
+            test: /[\\/]node_modules[\\/]@geneontology|amigo2-instance-data[\\/]/,
+            name: 'geneontology',
+            chunks: 'all',
+          },
           react: {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: 'react',

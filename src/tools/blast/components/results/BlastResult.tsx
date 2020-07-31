@@ -359,7 +359,11 @@ const BlastResult = () => {
           }
         >
           {actionBar}
-          <BlastResultHitDistribution hits={blastData.hits} />
+          <BlastResultHitDistribution
+            loading={blastLoading || accessionsLoading}
+            allHits={blastData?.hits || []}
+            filteredHits={hitsFiltered}
+          />
         </Tab>
         <Tab
           id={TabLocation.TextOutput}

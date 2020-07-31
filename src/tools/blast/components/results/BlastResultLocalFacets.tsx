@@ -31,6 +31,7 @@ type LocalFacetProps = {
   hitsFilteredByServer: BlastHit[];
   selectedFacets: SelectedFacet[];
   unfilteredValues: number[];
+  optimisedBinNumber: number;
 };
 const LocalFacet: FC<LocalFacetProps> = ({
   facet,
@@ -39,6 +40,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
   hitsFilteredByServer,
   selectedFacets,
   unfilteredValues,
+  optimisedBinNumber,
 }) => {
   const history = useHistory();
 
@@ -95,7 +97,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
         height={50}
         min={bounds.min}
         max={bounds.max}
-        nBins={30}
+        nBins={optimisedBinNumber}
         onChange={handleChange}
         selectedRange={selectedRange}
         values={values[facet]}
@@ -137,13 +139,20 @@ const BlastResultLocalFacets: FC<{
     return allHits.filter((hit) => filteredAccessions.has(hit.hit_acc));
   }, [data, allHits]);
 
-  const bounds = useMemo(() => getBounds(allHits), [allHits]);
-
   const facetBounds = useMemo(() => getFacetBounds(selectedFacets), [
     selectedFacets,
   ]);
 
-  const unfilteredValues = useMemo(() => getDataPoints(allHits), [allHits]);
+  const [unfilteredValues, bounds, optimisedBinNumber] = useMemo(() => {
+    const dataPoints = getDataPoints(allHits);
+    return [
+      dataPoints,
+      getBounds(allHits),
+      // see: https://en.wikipedia.org/wiki/Histogram#Square-root_choice
+      // We chose the simplest implementation, 𝐤=⌈√𝐧⌉
+      Math.ceil(Math.sqrt(dataPoints.score.length)),
+    ];
+  }, [allHits]);
 
   if (loading && !isStale) {
     return <Loader />;
@@ -168,6 +177,7 @@ const BlastResultLocalFacets: FC<{
                 hitsFilteredByServer={hitsFilteredByServer}
                 selectedFacets={selectedFacets}
                 unfilteredValues={unfilteredValues[facet]}
+                optimisedBinNumber={optimisedBinNumber}
               />
             ))}
           </ul>
