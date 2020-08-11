@@ -19,6 +19,7 @@
     min-width: 100%;
     display: grid;
     align-items: center;
+    gap: 0.5ch;
   }
 
   &__name {
@@ -27,6 +28,7 @@
 
   &__cell {
     width: 100%;
+    border-radius: 0.5ch;
     aspect-ratio: 1/1; // keep cells squared (if not supported it's fine 🤷🏽‍♂️)
     // to center the inner text
     display: flex;
