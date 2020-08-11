@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[13],{605:function(e,a,t){"use strict";t.r(a);var n=t(0),r=t.n(n),l=t(22),o=t(254),u=t(248),c=t(100),s=t(7);a.default=function(e){var a=e.id,t=Object(u.a)(Object(c.a)(s.a.BLAST).resultUrl(a,"out")),n=t.loading,d=t.data,i=t.error,w=t.status;return n?r.a.createElement(l.Loader,null):i||!d?r.a.createElement(o.a,{status:w}):r.a.createElement(l.CodeBlock,null,d)}}}]);
-//# sourceMappingURL=blast-result-text-output.c25b1b.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{602:function(e,a,t){"use strict";t.r(a);var n=t(0),r=t.n(n),l=t(22),u=t(252),c=t(248),o=t(95),s=t(7),d=Object(o.a)(s.a.ALIGN);a.default=function(e){var a=e.id,t=Object(c.a)(d.resultUrl(a,"phylotree")),n=t.loading,o=t.data,s=t.error,i=t.status;return n?r.a.createElement(l.Loader,null):s||!o?r.a.createElement(u.a,{status:i}):r.a.createElement("p",null,o)}}}]);
+//# sourceMappingURL=align-phylotree.39022f.js.map

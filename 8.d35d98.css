@@ -1,0 +1,4 @@
+@keyframes appear{from{background-color:white}}.align-result-pim fieldset{float:right}.align-result-pim fieldset label{display:flex}.align-result-pim__matrix{min-width:100%;display:grid;align-items:center;gap:0.5ch}.align-result-pim__name{margin-right:1ch}.align-result-pim__cell{width:100%;border-radius:0.5ch;aspect-ratio:1/1;display:flex;justify-content:center;align-items:center;font-weight:bolder;color:white;animation-duration:100ms;animation-name:appear;animation-iteration-count:1;animation-timing-function:ease-in-out;animation-fill-mode:backwards;transition:background-color ease-in-out 100ms}
+
+
+/*# sourceMappingURL=8.d35d98.css.map*/
