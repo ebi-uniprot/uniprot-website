@@ -45,6 +45,9 @@ module.exports = (env, argv) => {
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
         'react-router-dom': path.resolve('./node_modules/react-router-dom'),
+        'franklin-sites': path.resolve(
+          './node_modules/franklin-sites/src/components/index.js'
+        ),
         redux: path.resolve('./node_modules/redux'),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
@@ -79,7 +82,7 @@ module.exports = (env, argv) => {
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer).*)/,
+          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites).*)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -101,6 +104,8 @@ module.exports = (env, argv) => {
           test: /\.(css|sass|scss)$/,
           include: [
             // We use realpathSync otherwise doesn't work with symlinks
+            fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+            fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/litemol/dist/css`),
             fs.realpathSync(
               `${__dirname}/node_modules/@geneontology/ribbon/es`
@@ -153,6 +158,7 @@ module.exports = (env, argv) => {
           test: /\.svg$/,
           include: [
             path.resolve(__dirname, 'node_modules/protvista-datatable'),
+            path.resolve(__dirname, 'node_modules/franklin-sites'),
           ],
           loader: 'svg-inline-loader',
         },
