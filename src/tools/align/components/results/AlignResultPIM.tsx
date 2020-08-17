@@ -45,6 +45,7 @@ const WAVE_EFFECT_TIME = 250; // in ms
 const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
   const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
+
   const { loading, data, error, status } = useDataApi<string>(
     alignURLs.resultUrl(id, 'pim')
   );

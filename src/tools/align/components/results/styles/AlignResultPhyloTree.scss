@@ -1,0 +1,20 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.align-result-pim {
+  & svg {
+    // border: 1px solid red;
+    width: 100%;
+    overflow: visible;
+  }
+
+  & .link {
+    fill: none;
+    stroke: $colour-sapphire-blue;
+    stroke-width: 1px;
+
+    &.hovered {
+      stroke: black;
+      stroke-width: 2px;
+    }
+  }
+}

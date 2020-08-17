@@ -1,14 +1,13 @@
 /* Results as given by the server */
 /* and also adding the results afters parsing because server just gives text */
 
-// TODO
-
 export type AlignResults = string;
 
 export type PhyloTreeNode = {
-  name: string;
-  length?: number;
-  children: PhyloTreeNode[];
+  name?: string;
+  distance?: number;
+  distanceFromRoot?: number;
+  children?: PhyloTreeNode[];
 };
 export type PhyloTree = PhyloTreeNode;
 

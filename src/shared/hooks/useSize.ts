@@ -1,4 +1,7 @@
-import { MutableRefObject, useEffect, useState, useCallback } from 'react';
+import { MutableRefObject, useCallback, useEffect } from 'react';
+import useSafeState from './useSafeState';
+
+type ContainerElement = HTMLElement | SVGElement | SVGSVGElement;
 
 /**
  * given a reference to an actual HTML element, gives us access to its size
@@ -11,24 +14,27 @@ import { MutableRefObject, useEffect, useState, useCallback } from 'react';
  *          Manual refresh function, to call if the size needs to be recomputed
  *          for whatever reason (e.g. content changed)
  */
-function useSize<E extends HTMLElement = HTMLElement>(
-  ref: MutableRefObject<E | undefined>
+function useSize<E extends ContainerElement = ContainerElement>(
+  ref: MutableRefObject<E | undefined | null>
 ): [DOMRect | null, () => void] {
-  const [rect, setRect] = useState<DOMRect | null>(null);
+  const [rect, setRect] = useSafeState<DOMRect | null>(null);
 
   const onResize = useCallback(() => {
     if (!ref.current) {
       return;
     }
     setRect(ref.current.getBoundingClientRect());
-  }, [ref]);
+  }, [ref, setRect]);
+
+  // This effect will run after EVERY render
+  useEffect(() => {
+    // ask for size value until we finally get one
+    if (!rect) {
+      onResize();
+    }
+  }); // No dependency array, it's on purpose!
 
   useEffect(() => {
-    if (!ref.current) {
-      setRect(null);
-      return;
-    }
-
     onResize(); // first time
     window.addEventListener('resize', onResize);
     // eslint-disable-next-line consistent-return

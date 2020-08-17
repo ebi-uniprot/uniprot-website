@@ -1,3 +1,5 @@
+// TODO: check if we can use 'd3' directly (it's already using ES6 modules so
+// TODO: should be tree-shakeable). Watch out for version mismatch!
 import { scaleLinear } from 'd3-scale';
 import { TransformedProtvistaVariant } from '../components/protein-data-views/VariationView';
 
@@ -22,8 +24,8 @@ export const getFilteredVariants = (
   variants: VariationVariants,
   callbackFilter: (variant: TransformedProtvistaVariant) => void
 ) =>
-  variants.map(variant => {
-    const matchingVariants = variant.variants.filter(variantPos =>
+  variants.map((variant) => {
+    const matchingVariants = variant.variants.filter((variantPos) =>
       callbackFilter(variantPos)
     );
     return {

@@ -2,15 +2,13 @@ import extractAccession from '../utils/extractAccession';
 
 import { PIM } from '../types/alignResults';
 
-// match indices: ([1])   (                 [2])
+// match indices: ([1])   (                           [2])
 const re = /^\d+: (\S*)\s+(((\d{1,3}\.\d{2}|(-?nan))\s*)+)$/;
 //           ↳ index of the sequence in the file
 //                ↳ identifier of the sequence (group match)
 //                          ↳ any decimal number between 0.00 and 100.00
 //                                          ↳ "-nan" is a possible value
 const whitespaces = /\s+/;
-
-// TODO: take into account possible NaN values (present as "-nan" in the data)!
 
 export default (string: string): PIM => {
   const output: PIM = [];

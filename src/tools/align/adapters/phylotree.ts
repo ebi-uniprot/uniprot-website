@@ -1,11 +1,123 @@
 // see parsing ideas here: https://stackoverflow.com/a/38311111 and rest of page
 
-import { PhyloTree } from '../types/alignResults';
+import { PhyloTree, PhyloTreeNode } from '../types/alignResults';
+
+const assignDistanceFromRoot = (node: PhyloTreeNode, isRoot = false) => {
+  if (
+    !node.children ||
+    (typeof node.distanceFromRoot === 'undefined' && !isRoot)
+  ) {
+    return;
+  }
+  for (const child of node.children) {
+    if (typeof child.distance === 'undefined') {
+      continue; // eslint-disable-line no-continue
+    }
+    child.distanceFromRoot = (node.distanceFromRoot || 0) + child.distance;
+    assignDistanceFromRoot(child);
+  }
+};
+
+const WHITESPACE = /\s+/g;
+const TOKENIZER = /([;(),:])/;
 
 const phylotree = (string: string): PhyloTree => {
-  console.log(string);
+  const ancestors: PhyloTreeNode[] = [];
+  let tree: PhyloTree = {};
+  let subtree;
 
-  return { name: '', children: [] };
+  try {
+    // clean and tokenize the input string
+    const tokens = string.replace(WHITESPACE, '').split(TOKENIZER);
+
+    let previousToken: string | undefined;
+    for (const token of tokens) {
+      switch (token) {
+        case '':
+          // just skip emtpy tokens (should be the first and the last tokens)
+          break;
+        case '(': // new children list
+          subtree = {};
+          tree.children = [subtree];
+          ancestors.push(tree);
+          tree = subtree;
+          break;
+        case ')': // preceding name (optional)
+          tree = ancestors.pop() as PhyloTreeNode;
+          break;
+        case ',': {
+          // another branch
+          subtree = {};
+          const ancestor = ancestors[ancestors.length - 1];
+          if (!('children' in ancestor && Array.isArray(ancestor.children))) {
+            throw new SyntaxError();
+          }
+          ancestor.children.push(subtree);
+          tree = subtree;
+          break;
+        }
+        case ':': // preceding distance info (optional)
+          break;
+        case ';': // end of file
+          break;
+        default:
+          switch (previousToken) {
+            case '(':
+            case ')':
+            case ',':
+              // name info
+              tree.name = token;
+              break;
+            case ':':
+              // distance info
+              tree.distance = parseFloat(token);
+              if (Number.isNaN(tree.distance)) {
+                throw new SyntaxError(
+                  `Expected to get a number value but got "${token}"`
+                );
+              }
+              break;
+            default:
+              // shouldn't happen
+              throw new SyntaxError(
+                `"${previousToken}" shouldn't be followed by "${token}"`
+              );
+          }
+      }
+
+      previousToken = token;
+    }
+  } catch (error) {
+    throw new SyntaxError(
+      error.message || 'Error while parsing the input in Newick format'
+    );
+  }
+
+  // mutate the tree recursively to add the distance of each node from the root
+  assignDistanceFromRoot(tree, true);
+
+  // console.log(
+  //   string.replace(WHITESPACE, ''),
+  //   tree,
+  //   JSON.stringify(tree, null, 2)
+  // );
+
+  return tree;
+
+  // return { name: '', children: [] };
 };
 
 export default phylotree;
+
+export function* traverseTree(tree: PhyloTree): Iterable<PhyloTreeNode> {
+  for (const child of tree.children || []) {
+    // and recursively do the same for all the children
+    yield* traverseTree(child);
+  }
+  yield tree; // yields itself as a node
+}
+
+export const findLongerDistance = (tree: PhyloTree) =>
+  Math.max(
+    ...Array.from(traverseTree(tree)).map((tree) => tree.distanceFromRoot || 0)
+  );
