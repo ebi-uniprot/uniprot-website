@@ -2,9 +2,17 @@ import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
 
-import phylotree, { traverseTree, findLongerDistance } from '../phylotree';
+import phylotree from '../phylotree';
 
 const readFile = promisify(fs.readFile);
+
+function* traverseTree(tree) {
+  for (const child of tree.children || []) {
+    // and recursively do the same for all the children
+    yield* traverseTree(child);
+  }
+  yield tree; // yields itself as a node
+}
 
 describe('phylotree', () => {
   let file1, file2, file3;
@@ -43,6 +51,16 @@ describe('phylotree', () => {
     const nodes3 = Array.from(traverseTree(phylotree(file3)));
     expect(nodes3.length).toBe(32);
     expect(nodes3.filter((node) => node.name).length).toBe(17);
-    console.log(findLongerDistance(phylotree(file3)));
+  });
+
+  it('should match snapshot', () => {
+    const nodes1 = Array.from(traverseTree(phylotree(file1)));
+    expect(nodes1).toMatchSnapshot();
+
+    const nodes2 = Array.from(traverseTree(phylotree(file2)));
+    expect(nodes2).toMatchSnapshot();
+
+    const nodes3 = Array.from(traverseTree(phylotree(file3)));
+    expect(nodes3).toMatchSnapshot();
   });
 });

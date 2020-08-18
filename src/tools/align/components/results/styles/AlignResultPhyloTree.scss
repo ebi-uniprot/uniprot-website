@@ -1,7 +1,16 @@
 @import '../../../../../../node_modules/franklin-sites/src/styles/colours';
 
 .align-result-phylotree {
-  & svg {
+  fieldset {
+    float: right;
+
+    & > div {
+      display: inline-block;
+      margin-left: 5ch;
+    }
+  }
+
+  & > svg {
     width: 100%;
     overflow: visible;
   }
@@ -16,8 +25,8 @@
     }
 
     &.hovered {
-      stroke: black;
-      stroke-width: 2px;
+      stroke: $colour-medium-turquoise;
+      stroke-width: 4px;
     }
   }
 }

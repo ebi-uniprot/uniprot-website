@@ -21,10 +21,14 @@ const assignDistanceFromRoot = (node: PhyloTreeNode, isRoot = false) => {
 const WHITESPACE = /\s+/g;
 const TOKENIZER = /([;(),:])/;
 
-const phylotree = (string: string): PhyloTree => {
+const phylotree = (string?: string): PhyloTree => {
   const ancestors: PhyloTreeNode[] = [];
   let tree: PhyloTree = {};
   let subtree;
+
+  if (!string) {
+    return tree;
+  }
 
   try {
     // clean and tokenize the input string
@@ -96,28 +100,9 @@ const phylotree = (string: string): PhyloTree => {
   // mutate the tree recursively to add the distance of each node from the root
   assignDistanceFromRoot(tree, true);
 
-  // console.log(
-  //   string.replace(WHITESPACE, ''),
-  //   tree,
-  //   JSON.stringify(tree, null, 2)
-  // );
-
   return tree;
 
   // return { name: '', children: [] };
 };
 
 export default phylotree;
-
-export function* traverseTree(tree: PhyloTree): Iterable<PhyloTreeNode> {
-  for (const child of tree.children || []) {
-    // and recursively do the same for all the children
-    yield* traverseTree(child);
-  }
-  yield tree; // yields itself as a node
-}
-
-export const findLongerDistance = (tree: PhyloTree) =>
-  Math.max(
-    ...Array.from(traverseTree(tree)).map((tree) => tree.distanceFromRoot || 0)
-  );
