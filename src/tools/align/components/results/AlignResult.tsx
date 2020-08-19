@@ -171,7 +171,7 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              {data}
+              <pre>{data}</pre>
               {/* <AlignResultOverview 
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
