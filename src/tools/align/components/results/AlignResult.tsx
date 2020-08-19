@@ -40,9 +40,11 @@ const AlignResultPIM = lazy(() =>
 const TextOutput = lazy(() =>
   import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
 );
-// tool-input
-const ToolInput = lazy(() =>
-  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
+// input-parameters
+const InputParameters = lazy(() =>
+  import(
+    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+  )
 );
 
 enum TabLocation {
@@ -50,7 +52,7 @@ enum TabLocation {
   PhyloTree = 'phylogenetic-tree',
   PIM = 'percent-identity-matrix',
   TextOutput = 'text-output',
-  ToolInput = 'tool-input',
+  InputParameters = 'input-parameters',
 }
 
 type Match = {
@@ -238,21 +240,21 @@ const AlignResult = () => {
           </ErrorBoundary>
         </Tab>
         <Tab
-          id={TabLocation.ToolInput}
+          id={TabLocation.InputParameters}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.ToolInput}`,
+                pathname: `/align/${match.params.id}/${TabLocation.InputParameters}`,
               })}
             >
-              Tool Input
+              Input Parameters
             </Link>
           }
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <ToolInput
+              <InputParameters
                 id={match.params.id}
                 jobType={JobTypes.ALIGN}
                 inputParamsData={inputParamsData}

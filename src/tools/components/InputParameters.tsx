@@ -28,7 +28,7 @@ type Props = {
   jobType: JobTypes;
 };
 
-const ToolInput: FC<Props> = ({ id, inputParamsData, jobType }) => {
+const InputParameters: FC<Props> = ({ id, inputParamsData, jobType }) => {
   const { loading, data, error, status } = inputParamsData;
 
   if (loading) return <Loader />;
@@ -79,4 +79,4 @@ const ToolInput: FC<Props> = ({ id, inputParamsData, jobType }) => {
   );
 };
 
-export default ToolInput;
+export default InputParameters;

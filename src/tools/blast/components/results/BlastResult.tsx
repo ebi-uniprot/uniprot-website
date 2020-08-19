@@ -59,9 +59,11 @@ const BlastResultHitDistribution = lazy(() =>
 const TextOutput = lazy(() =>
   import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
 );
-// tool-input
-const ToolInput = lazy(() =>
-  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
+// input-parameters
+const InputParameters = lazy(() =>
+  import(
+    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+  )
 );
 
 enum TabLocation {
@@ -69,7 +71,7 @@ enum TabLocation {
   Taxonomy = 'taxonomy',
   HitDistribution = 'hit-distribution',
   TextOutput = 'text-output',
-  ToolInput = 'tool-input',
+  InputParameters = 'input-parameters',
 }
 
 type Match = {
@@ -276,7 +278,7 @@ const BlastResult = () => {
 
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
-    case TabLocation.ToolInput:
+    case TabLocation.InputParameters:
       sidebar = emptySidebar;
       break;
 
@@ -383,20 +385,20 @@ const BlastResult = () => {
           </Suspense>
         </Tab>
         <Tab
-          id={TabLocation.ToolInput}
+          id={TabLocation.InputParameters}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.ToolInput}`,
+                pathname: `/blast/${match.params.id}/${TabLocation.InputParameters}`,
               })}
             >
-              Tool Input
+              Input Parameters
             </Link>
           }
         >
           <Suspense fallback={<Loader />}>
-            <ToolInput
+            <InputParameters
               id={match.params.id}
               jobType={JobTypes.BLAST}
               inputParamsData={inputParamsData}
