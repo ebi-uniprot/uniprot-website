@@ -251,7 +251,7 @@ const AlignResultPhyloTree: FC<{ id: string }> = ({ id }) => {
       <fieldset>
         <div>
           Branch length:
-          <label>
+          <label title="Branch lengths are not proportional to calculated distances">
             <input
               name="distance"
               type="radio"
@@ -260,14 +260,14 @@ const AlignResultPhyloTree: FC<{ id: string }> = ({ id }) => {
             />
             Cladogram
           </label>
-          <label>
+          <label title="Branch lengths are proportional to calculated distances">
             <input
               name="distance"
               type="radio"
               checked={showDistance}
               onChange={() => setShowDistance(true)}
             />
-            Real
+            Phylogram
           </label>
         </div>
         <div>
@@ -301,7 +301,7 @@ const AlignResultPhyloTree: FC<{ id: string }> = ({ id }) => {
       {hasNegative && (
         <Message level="warning">
           One or more branches contain negative values, shown in red. They
-          represent negative distances as measured by the tool given the
+          represent negative distances as measured by the algorithm given the
           specific input you have provided, and they should not be interpreted
           biologically.
         </Message>
