@@ -59,7 +59,10 @@ const AlignResultPhyloTree: FC<{ id: string }> = ({ id }) => {
 
   const [root, maxDistance, hasNegative] = useMemo(() => {
     const parsed = phylotree(data);
-    const root = hierarchy(parsed);
+    const root = hierarchy(parsed)
+      .sum((node) => node.distance || 0)
+      // sort to have smallest total branches at the top
+      .sort((a, b) => (a.value || 0) - (b.value || 0));
     const nodes = root.descendants();
     return [
       root,
