@@ -13,7 +13,7 @@ import { Status } from '../types/toolsStatuses';
 import { RootState } from '../../app/state/rootInitialState';
 
 const POLLING_INTERVAL = 1000 * 3; // 3 seconds
-const EXPIRED_INTERVAL = 1000 * 60 * 5; // 5 minutes
+const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
 const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
@@ -119,7 +119,8 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
         break;
       case REHYDRATE_JOBS:
         pollJobs.schedule();
-        expiredJobs.schedule();
+        // don't check that rightaway, to avoid using up important connections
+        sleep(5000).then(expiredJobs.schedule);
         break;
       default:
       // do nothing

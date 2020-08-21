@@ -1,8 +1,10 @@
 import { HierarchyPointNode } from 'd3';
 
+import { polarToX, polarToY } from './trigonometry';
+
 import { PhyloTreeNode } from '../types/alignResults';
 
-interface CustomHierarchyNode extends HierarchyPointNode<PhyloTreeNode> {
+export interface CustomHierarchyNode extends HierarchyPointNode<PhyloTreeNode> {
   links(): {
     source: CustomHierarchyNode;
     target: CustomHierarchyNode;
@@ -14,6 +16,7 @@ interface CustomHierarchyNode extends HierarchyPointNode<PhyloTreeNode> {
     phi: number;
     deg: number;
   };
+  textSize?: number;
   linkDOM?: SVGElement;
 }
 
@@ -32,7 +35,7 @@ const customLayout = () => {
 
     const output = node as Partial<CustomHierarchyNode>;
 
-    output.coords = {
+    const coords = {
       // switch x and y because default layout assumes top to bottom
       // direct mapping for horizontal layout
       x: output.y || 0,
@@ -43,15 +46,17 @@ const customLayout = () => {
       radius: output.y || 0,
     };
     if (showDistance) {
-      output.coords.x =
+      coords.x =
         ((output.data?.distanceFromRoot || 0) / maxDistance) * availableWidth;
-      output.coords.radius = output.coords.x / 2;
+      coords.radius = coords.x / 2;
     }
     if (circularLayout) {
       // the correct data for circular layout is in polar coordinates, convert:
-      output.coords.x = output.coords.radius * Math.cos(output.coords.phi);
-      output.coords.y = output.coords.radius * Math.sin(output.coords.phi);
+      coords.x = polarToX(coords.radius, coords.phi);
+      coords.y = polarToY(coords.radius, coords.phi);
     }
+
+    output.coords = coords;
 
     return output as CustomHierarchyNode;
   };
