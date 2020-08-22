@@ -7,6 +7,7 @@ import { Message } from 'franklin-sites';
 import AlignLabel from './AlignLabel';
 
 import useSize from '../../../../shared/hooks/useSize';
+import useReducedMotion from '../../../../shared/hooks/useReducedMotion';
 
 import phylotree from '../../adapters/phylotree';
 
@@ -61,6 +62,10 @@ const PhyloTree: FC<Props> = ({
   const redrawRef = useRef<Redraw & Cancelable>();
 
   const [size] = useSize<SVGSVGElement>(svgRef);
+  const reducedMotion = useReducedMotion();
+
+  const reducedMotionRef = useRef(reducedMotion);
+  reducedMotionRef.current = reducedMotion;
 
   const width = size?.width || 0;
 
@@ -193,11 +198,13 @@ const PhyloTree: FC<Props> = ({
           circularLayout ? availableRadius : availableWidth,
         ]);
 
+        const duration = reducedMotionRef.current ? 0 : DURATION;
+
         {
           const height = circularLayout ? width : nLeaves * 25 + 2 * MARGIN;
           svg
             .transition()
-            .duration(DURATION)
+            .duration(duration)
             .attr('opacity', 1)
             .attr('width', width)
             .attr('height', height)
@@ -216,7 +223,7 @@ const PhyloTree: FC<Props> = ({
         container
           .transition()
           .ease(easeQuadOut)
-          .duration(DURATION)
+          .duration(duration)
           .attr(
             'transform',
             `translate(${MARGIN},${MARGIN}) translate(${
@@ -228,8 +235,8 @@ const PhyloTree: FC<Props> = ({
           .data(mutatedRoot.leaves())
           .merge(labels)
           .transition()
-          .duration(DURATION)
-          .delay((d) => 25 * d.depth)
+          .duration(duration)
+          .delay((d) => (reducedMotionRef.current ? 0 : 25 * d.depth))
           .attr('opacity', 1)
           .attr('y', -14) // alignment to the middle of the line
           // .attr('x', 6)
@@ -277,8 +284,8 @@ const PhyloTree: FC<Props> = ({
           .data(mutatedRoot.leaves())
           .merge(endLinks)
           .transition()
-          .duration(DURATION)
-          .delay((d) => 25 * d.depth)
+          .duration(duration)
+          .delay((d) => (reducedMotionRef.current ? 0 : 25 * d.depth))
           .attr('d', (d) => {
             const fakeTarget = { coords: { ...d.coords } };
             if (alignLabels) {
@@ -307,8 +314,10 @@ const PhyloTree: FC<Props> = ({
           .data(mutatedRoot.links())
           .merge(links)
           .transition()
-          .duration(DURATION)
-          .delay(({ target }) => 25 * target.depth)
+          .duration(duration)
+          .delay(({ target }) =>
+            reducedMotionRef.current ? 0 : 25 * target.depth
+          )
           .attr('d', pm);
       },
       DEBOUNCE_DELAY
