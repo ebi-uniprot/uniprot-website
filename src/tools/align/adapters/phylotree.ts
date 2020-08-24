@@ -101,8 +101,6 @@ const phylotree = (string?: string): PhyloTree => {
   assignDistanceFromRoot(tree, true);
 
   return tree;
-
-  // return { name: '', children: [] };
 };
 
 export default phylotree;
