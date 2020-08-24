@@ -13,6 +13,7 @@ const assignDistanceFromRoot = (node: PhyloTreeNode, isRoot = false) => {
     if (typeof child.distance === 'undefined') {
       continue; // eslint-disable-line no-continue
     }
+    // taking absolute value, as to be consistent with other tools out there 🤷🏽‍♂️
     child.distanceFromRoot =
       (node.distanceFromRoot || 0) + Math.abs(child.distance);
     assignDistanceFromRoot(child);
