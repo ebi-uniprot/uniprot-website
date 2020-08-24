@@ -52,6 +52,7 @@ const apiUrls = {
   search: joinUrl(devPrefix, '/uniprot/api/uniprotkb/search'),
   download: joinUrl(devPrefix, '/uniprot/api/uniprotkb/stream'),
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
+  features: joinUrl(prodPrefix, '/proteins/api/features'),
   accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
 
   entry: (accession: string) =>
@@ -150,6 +151,16 @@ type GetOptions = {
   sortDirection?: SortDirection;
   facets?: string[];
   size?: number;
+};
+
+export const getFeaturesURL = (accessions?: string[]) => {
+  if (!(accessions && accessions.length)) {
+    return null;
+  }
+  return `${apiUrls.features}?${queryString.stringify({
+    // sort to improve possible cache hit
+    accession: Array.from(accessions).sort().join(','),
+  })}`;
 };
 
 export const getAccessionsURL = (
