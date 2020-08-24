@@ -61,7 +61,7 @@ const PhyloTree: FC<Props> = ({
   const svgRef = useRef<SVGSVGElement>(null);
   const redrawRef = useRef<Redraw & Cancelable>();
 
-  const [size] = useSize<SVGSVGElement>(svgRef);
+  const [size] = useSize(svgRef);
   const reducedMotion = useReducedMotion();
 
   const reducedMotionRef = useRef(reducedMotion);

@@ -6,13 +6,16 @@ import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
 import renderWithRouter from '../../../../../shared/__test-helpers__/RenderWithRouter';
 
 jest.mock('../../../../../shared/hooks/useDataApi', () => jest.fn());
+jest.mock('../../../../../shared/hooks/useSize', () => jest.fn());
 import useDataApi from '../../../../../shared/hooks/useDataApi';
+import useSize from '../../../../../shared/hooks/useSize';
 
 const dataMock = {
   loading: false,
   data: modelData,
 };
 useDataApi.mockImplementation(() => dataMock);
+useSize.mockImplementation(() => [{ width: 1000 }]);
 
 describe('HSPDetailPanel', () => {
   let rendered;
@@ -49,10 +52,10 @@ describe('HSPDetailPanel', () => {
   });
 
   it('should change to wrapped and render when wrapped view is clicked', async () => {
-    const { getByText, getByTestId, asFragment } = rendered;
+    const { getByText, findByTestId, asFragment } = rendered;
     const wrappedButton = getByText('Wrapped');
     fireEvent.click(wrappedButton);
-    expect(getByTestId('wrapped-hsp-detail')).toBeTruthy();
+    expect(await findByTestId('wrapped-hsp-detail')).toBeTruthy();
     expect(asFragment()).toMatchSnapshot();
   });
 });

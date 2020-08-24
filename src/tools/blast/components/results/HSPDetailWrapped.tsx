@@ -1,22 +1,38 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
-import React, { FC, useCallback, useMemo } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
+import { debounce } from 'lodash-es';
+import { sleep, schedule } from 'timing-functions';
 import ProtvistaManager from 'protvista-manager';
 import ProtvistaNavigation from 'protvista-navigation';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaMSA from 'protvista-msa';
-import { MsaColorScheme } from '../../../config/msaColorSchemes';
-import FeatureType from '../../../../uniprotkb/types/featureType';
+
 import { loadWebComponent } from '../../../../shared/utils/utils';
+
+import useSize from '../../../../shared/hooks/useSize';
+import useSafeState from '../../../../shared/hooks/useSafeState';
+
 import { ConservationOptions } from './HSPDetailPanel';
+import { MsaColorScheme } from '../../../config/msaColorSchemes';
+
+import FeatureType from '../../../../uniprotkb/types/featureType';
 
 loadWebComponent('protvista-track', ProtvistaTrack);
 loadWebComponent('protvista-msa', ProtvistaMSA);
 loadWebComponent('protvista-manager', ProtvistaManager);
 loadWebComponent('protvista-navigation', ProtvistaNavigation);
 
-// TODO replace with useSize hook
-const rowLength = 60;
+const widthOfAA = 20;
+// number of chunks to render first
+const firstPass = 4;
 
 type Sequence = {
   name: string;
@@ -34,7 +50,14 @@ type Ranges = {
   };
 };
 
+type Chunk = {
+  sequences: Sequence[];
+  id: string;
+  ranges: Ranges;
+};
+
 export type HSPDetailWrappedRowProps = {
+  rowLength: number;
   highlightProperty: MsaColorScheme | undefined;
   conservationOptions: ConservationOptions;
   annotation: FeatureType | undefined;
@@ -44,6 +67,7 @@ export type HSPDetailWrappedRowProps = {
 };
 
 const HSPDetailWrappedRow: FC<HSPDetailWrappedRowProps> = ({
+  rowLength,
   sequences,
   ranges,
   annotation,
@@ -131,13 +155,45 @@ const HSPDetailWrapped: FC<HSPDetailWrappedProps> = ({
   hsp_hit_from,
   hsp_query_from,
 }) => {
-  const sequenceChunks = useMemo(() => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [size] = useSize(containerRef);
+
+  const [rowLength, setRowLength] = useSafeState(0);
+  const [chunks, setChunks] = useState<Chunk[]>([]);
+
+  const debouncedSetRowLength = useMemo(
+    () =>
+      debounce((width: number) => {
+        // using 9 tenths of the available size as its the proportion assigned
+        // to the track in the CSS
+        setRowLength(Math.floor((0.9 * width) / widthOfAA));
+      }, 1000),
+    [setRowLength]
+  );
+
+  if (size?.width) {
+    debouncedSetRowLength(size.width);
+    if (!rowLength) {
+      // when it passes from 0 to any value, don't debounce
+      debouncedSetRowLength.flush();
+    }
+  }
+
+  const sequenceChunks = useMemo<Chunk[]>(() => {
+    if (!rowLength) {
+      return [];
+    }
+
     const numberRows = Math.ceil(hsp_align_len / rowLength);
     const chunks = [...Array(numberRows).keys()].map((index) => {
       const start = index * rowLength;
       const end = start + rowLength;
       return {
-        id: `row-${index}`,
+        // FIXME: UGLY trick to have the whole track re-render on change of size
+        // at the moment when the track is updated instead of re-rendered, we
+        // get a weird effect towards the end of the track.
+        // Need to check with the MSA track itself in Nightingale
+        id: `row-${Math.random()}`,
         ranges: {
           hit: {
             start: start + hsp_hit_from,
@@ -161,12 +217,48 @@ const HSPDetailWrapped: FC<HSPDetailWrappedProps> = ({
       };
     });
     return chunks;
-  }, [hsp_align_len, hsp_hit_from, hsp_hseq, hsp_qseq, hsp_query_from]);
+  }, [
+    hsp_align_len,
+    hsp_hit_from,
+    hsp_hseq,
+    hsp_qseq,
+    hsp_query_from,
+    rowLength,
+  ]);
+
+  useEffect(() => {
+    if (!sequenceChunks.length) {
+      return;
+    }
+    if (sequenceChunks.length <= firstPass) {
+      setChunks(sequenceChunks);
+      return;
+    }
+    // there's a lot of chunks, render the first ones, then add the others to be
+    // rendered at a later time
+    setChunks(sequenceChunks.slice(0, firstPass));
+    let cancelToken = false;
+    (async () => {
+      await sleep(1000);
+      await schedule();
+      if (!cancelToken) {
+        setChunks(sequenceChunks);
+      }
+    })();
+    // eslint-disable-next-line consistent-return
+    return () => {
+      // happens if the sequenceChunks have changed (e.g.: change of width)
+      // or if unmounted
+      cancelToken = true;
+    };
+  }, [sequenceChunks, setChunks]);
+
   return (
-    <>
-      {sequenceChunks.map(({ sequences, id, ranges }) => (
+    <div ref={containerRef}>
+      {chunks.map(({ sequences, id, ranges }) => (
         <HSPDetailWrappedRow
           key={id}
+          rowLength={rowLength}
           sequences={sequences}
           ranges={ranges}
           annotation={annotation}
@@ -175,7 +267,7 @@ const HSPDetailWrapped: FC<HSPDetailWrappedProps> = ({
           conservationOptions={conservationOptions}
         />
       ))}
-    </>
+    </div>
   );
 };
 
