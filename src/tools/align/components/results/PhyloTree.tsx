@@ -239,7 +239,6 @@ const PhyloTree: FC<Props> = ({
           .delay((d) => (reducedMotionRef.current ? 0 : 25 * d.depth))
           .attr('opacity', 1)
           .attr('y', -14) // alignment to the middle of the line
-          // .attr('x', 6)
           .attr('x', ({ coords: { deg } }) =>
             circularLayout && deg > 90 && deg < 270 ? -6 : 6
           )

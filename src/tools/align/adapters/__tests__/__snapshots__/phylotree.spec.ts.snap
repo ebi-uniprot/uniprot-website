@@ -637,7 +637,7 @@ Array [
   },
   Object {
     "distance": -0.00572,
-    "distanceFromRoot": 0.09318,
+    "distanceFromRoot": 0.10462,
     "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
   },
   Object {
@@ -649,7 +649,7 @@ Array [
       },
       Object {
         "distance": -0.00572,
-        "distanceFromRoot": 0.09318,
+        "distanceFromRoot": 0.10462,
         "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
       },
     ],
@@ -693,7 +693,7 @@ Array [
           },
           Object {
             "distance": -0.00572,
-            "distanceFromRoot": 0.09318,
+            "distanceFromRoot": 0.10462,
             "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
           },
         ],
@@ -823,7 +823,7 @@ Array [
   },
   Object {
     "distance": -0.0236,
-    "distanceFromRoot": 0.7864099999999999,
+    "distanceFromRoot": 0.8336099999999999,
     "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
   },
   Object {
@@ -835,7 +835,7 @@ Array [
     "children": Array [
       Object {
         "distance": -0.0236,
-        "distanceFromRoot": 0.7864099999999999,
+        "distanceFromRoot": 0.8336099999999999,
         "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
       },
       Object {
@@ -891,7 +891,7 @@ Array [
         "children": Array [
           Object {
             "distance": -0.0236,
-            "distanceFromRoot": 0.7864099999999999,
+            "distanceFromRoot": 0.8336099999999999,
             "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
           },
           Object {
@@ -979,7 +979,7 @@ Array [
             "children": Array [
               Object {
                 "distance": -0.0236,
-                "distanceFromRoot": 0.7864099999999999,
+                "distanceFromRoot": 0.8336099999999999,
                 "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
               },
               Object {
@@ -1068,7 +1068,7 @@ Array [
                 "children": Array [
                   Object {
                     "distance": -0.0236,
-                    "distanceFromRoot": 0.7864099999999999,
+                    "distanceFromRoot": 0.8336099999999999,
                     "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                   },
                   Object {
@@ -1126,7 +1126,7 @@ Array [
               },
               Object {
                 "distance": -0.00572,
-                "distanceFromRoot": 0.09318,
+                "distanceFromRoot": 0.10462,
                 "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
               },
             ],
@@ -1201,7 +1201,7 @@ Array [
                     "children": Array [
                       Object {
                         "distance": -0.0236,
-                        "distanceFromRoot": 0.7864099999999999,
+                        "distanceFromRoot": 0.8336099999999999,
                         "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                       },
                       Object {
@@ -1270,7 +1270,7 @@ Array [
                   },
                   Object {
                     "distance": -0.00572,
-                    "distanceFromRoot": 0.09318,
+                    "distanceFromRoot": 0.10462,
                     "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
                   },
                 ],
@@ -1345,7 +1345,7 @@ Array [
                         "children": Array [
                           Object {
                             "distance": -0.0236,
-                            "distanceFromRoot": 0.7864099999999999,
+                            "distanceFromRoot": 0.8336099999999999,
                             "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                           },
                           Object {
@@ -1451,7 +1451,7 @@ Array [
                       },
                       Object {
                         "distance": -0.00572,
-                        "distanceFromRoot": 0.09318,
+                        "distanceFromRoot": 0.10462,
                         "name": "tr|A0A4W2C324|A0A4W2C324_BOBOX",
                       },
                     ],
@@ -1526,7 +1526,7 @@ Array [
                             "children": Array [
                               Object {
                                 "distance": -0.0236,
-                                "distanceFromRoot": 0.7864099999999999,
+                                "distanceFromRoot": 0.8336099999999999,
                                 "name": "tr|A0A3Q7SLA2|A0A3Q7SLA2_VULVU",
                               },
                               Object {

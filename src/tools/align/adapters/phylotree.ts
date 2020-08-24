@@ -13,7 +13,8 @@ const assignDistanceFromRoot = (node: PhyloTreeNode, isRoot = false) => {
     if (typeof child.distance === 'undefined') {
       continue; // eslint-disable-line no-continue
     }
-    child.distanceFromRoot = (node.distanceFromRoot || 0) + child.distance;
+    child.distanceFromRoot =
+      (node.distanceFromRoot || 0) + Math.abs(child.distance);
     assignDistanceFromRoot(child);
   }
 };
