@@ -1,12 +1,5 @@
 /* eslint-disable camelcase */
-import React, {
-  FC,
-  Fragment,
-  useCallback,
-  useState,
-  useRef,
-  useMemo,
-} from 'react';
+import React, { FC, useCallback, useState, useRef, useMemo } from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
@@ -282,8 +275,10 @@ const BlastResultTable: FC<{
     return null;
   }
 
+  console.log({ loading });
+
   return (
-    <Fragment>
+    <div className={loading ? 'loading-data-table' : undefined}>
       <DataTable
         getIdKey={({ hit_acc }: { hit_acc: string }) => hit_acc}
         density={DENSITY_COMPACT}
@@ -294,7 +289,7 @@ const BlastResultTable: FC<{
         onSelect={handleSelectedEntries}
         fixedLayout
       />
-    </Fragment>
+    </div>
   );
 };
 

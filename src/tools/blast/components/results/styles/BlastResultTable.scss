@@ -46,3 +46,16 @@
     margin-left: 0.5rem;
   }
 }
+
+@keyframes loading {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
+
+.loading-data-table .data-table {
+  animation: alternate loading 1000ms infinite ease-in-out;
+}
