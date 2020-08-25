@@ -2,6 +2,10 @@
   height: auto;
   max-height: 50%;
 
+  &__placeholder {
+    height: 80px;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;

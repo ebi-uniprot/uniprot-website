@@ -1,14 +1,25 @@
 /* eslint-disable camelcase */
-import React, { FC, Fragment, useCallback, useState, useRef } from 'react';
+import React, {
+  FC,
+  Fragment,
+  useCallback,
+  useState,
+  useRef,
+  useMemo,
+} from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaNavigation from 'protvista-navigation';
-import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
+
+import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
+
 import { loadWebComponent } from '../../../../shared/utils/utils';
 
-import './styles/BlastResultTable.scss';
+import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { HSPDetailPanelProps } from './HSPDetailPanel';
+
+import './styles/BlastResultTable.scss';
 
 const BlastSummaryTrack: FC<{
   hsp: BlastHsp;
@@ -156,6 +167,12 @@ const BlastResultTable: FC<{
     hitsRef.current = data?.hits || [];
   }
 
+  const nItemsToRender = useStaggeredRenderingHelper(
+    hitsRef.current.length
+      ? { first: 25, max: hitsRef.current.length }
+      : undefined
+  );
+
   // The "query" column header
   const queryColumnHeaderRef = useCallback(
     (node) => {
@@ -173,6 +190,69 @@ const BlastResultTable: FC<{
     [data]
   );
 
+  loadWebComponent('protvista-track', ProtvistaTrack);
+  loadWebComponent('protvista-navigation', ProtvistaNavigation);
+
+  const queryLen = data?.query_len;
+  const columns = useMemo(() => {
+    if (queryLen === undefined) {
+      return [];
+    }
+    return [
+      {
+        label: 'Accession',
+        name: 'accession',
+        render: ({ hit_acc }: BlastHit) => (
+          <Link to={`/uniprotkb/${hit_acc}`}>{hit_acc}</Link>
+        ),
+        width: '5rem',
+      },
+      {
+        label: 'Gene',
+        name: 'gene',
+        render: ({ hit_uni_gn }: BlastHit) => hit_uni_gn,
+        width: '5rem',
+      },
+      {
+        label: 'Protein',
+        name: 'protein_name',
+        render: ({ hit_uni_de }: BlastHit) => hit_uni_de,
+        ellipsis: true,
+      },
+      {
+        label: 'Organism',
+        name: 'organism',
+        render: ({ hit_uni_ox, hit_uni_os }: BlastHit) => (
+          <Link to={`/taxonomy/${hit_uni_ox}`}>{hit_uni_os}</Link>
+        ),
+        ellipsis: true,
+      },
+      {
+        label: (
+          <div className="query-sequence-wrapper">
+            <protvista-navigation
+              ref={queryColumnHeaderRef}
+              length={queryLen}
+              height={10}
+              title="Query"
+            />
+          </div>
+        ),
+        name: 'alignment',
+        width: '40vw',
+        render: ({ hit_hsps, hit_len, hit_acc }: BlastHit) => (
+          <BlastSummaryHsps
+            hsps={hit_hsps}
+            queryLength={queryLen}
+            hitLength={hit_len}
+            hitAccession={hit_acc}
+            setHspDetailPanel={setHspDetailPanel}
+          />
+        ),
+      },
+    ];
+  }, [queryLen, queryColumnHeaderRef, setHspDetailPanel]);
+
   if (loading && !hitsRef.current.length) {
     return <Loader />;
   }
@@ -180,62 +260,6 @@ const BlastResultTable: FC<{
   if (!data) {
     return null;
   }
-  loadWebComponent('protvista-track', ProtvistaTrack);
-  loadWebComponent('protvista-navigation', ProtvistaNavigation);
-
-  const columns = [
-    {
-      label: 'Accession',
-      name: 'accession',
-      render: ({ hit_acc }: BlastHit) => (
-        <Link to={`/uniprotkb/${hit_acc}`}>{hit_acc}</Link>
-      ),
-      width: '5rem',
-    },
-    {
-      label: 'Gene',
-      name: 'gene',
-      render: ({ hit_uni_gn }: BlastHit) => hit_uni_gn,
-      width: '5rem',
-    },
-    {
-      label: 'Protein',
-      name: 'protein_name',
-      render: ({ hit_uni_de }: BlastHit) => hit_uni_de,
-      ellipsis: true,
-    },
-    {
-      label: 'Organism',
-      name: 'organism',
-      render: ({ hit_uni_ox, hit_uni_os }: BlastHit) => (
-        <Link to={`/taxonomy/${hit_uni_ox}`}>{hit_uni_os}</Link>
-      ),
-      ellipsis: true,
-    },
-    {
-      label: (
-        <div className="query-sequence-wrapper">
-          <protvista-navigation
-            ref={queryColumnHeaderRef}
-            length={data.query_len}
-            height={10}
-            title="Query"
-          />
-        </div>
-      ),
-      name: 'alignment',
-      width: '40vw',
-      render: ({ hit_hsps, hit_len, hit_acc }: BlastHit) => (
-        <BlastSummaryHsps
-          hsps={hit_hsps}
-          queryLength={data.query_len}
-          hitLength={hit_len}
-          hitAccession={hit_acc}
-          setHspDetailPanel={setHspDetailPanel}
-        />
-      ),
-    },
-  ];
 
   return (
     <Fragment>
@@ -243,7 +267,7 @@ const BlastResultTable: FC<{
         getIdKey={({ hit_acc }: { hit_acc: string }) => hit_acc}
         density={DENSITY_COMPACT}
         columns={columns}
-        data={hitsRef.current}
+        data={hitsRef.current.slice(0, nItemsToRender)}
         selectable
         selected={selectedEntries}
         onSelect={handleSelectedEntries}

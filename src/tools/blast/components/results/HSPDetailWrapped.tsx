@@ -1,15 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
-import React, {
-  FC,
-  useCallback,
-  useMemo,
-  useRef,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, useCallback, useMemo, useRef } from 'react';
 import { debounce } from 'lodash-es';
-import { sleep, schedule } from 'timing-functions';
 import ProtvistaManager from 'protvista-manager';
 import ProtvistaNavigation from 'protvista-navigation';
 import ProtvistaTrack from 'protvista-track';
@@ -19,6 +11,7 @@ import { loadWebComponent } from '../../../../shared/utils/utils';
 
 import useSize from '../../../../shared/hooks/useSize';
 import useSafeState from '../../../../shared/hooks/useSafeState';
+import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 
 import { ConservationOptions } from './HSPDetailPanel';
 import { MsaColorScheme } from '../../../config/msaColorSchemes';
@@ -31,8 +24,6 @@ loadWebComponent('protvista-manager', ProtvistaManager);
 loadWebComponent('protvista-navigation', ProtvistaNavigation);
 
 const widthOfAA = 20;
-// number of chunks to render first
-const firstPass = 4;
 
 type Sequence = {
   name: string;
@@ -159,7 +150,12 @@ const HSPDetailWrapped: FC<HSPDetailWrappedProps> = ({
   const [size] = useSize(containerRef);
 
   const [rowLength, setRowLength] = useSafeState(0);
-  const [chunks, setChunks] = useState<Chunk[]>([]);
+  const nItemsToRender = useStaggeredRenderingHelper({
+    first: 4,
+    increment: +Infinity,
+    max: +Infinity,
+    delay: 500,
+  });
 
   const debouncedSetRowLength = useMemo(
     () =>
@@ -226,47 +222,25 @@ const HSPDetailWrapped: FC<HSPDetailWrappedProps> = ({
     rowLength,
   ]);
 
-  useEffect(() => {
-    if (!sequenceChunks.length) {
-      return;
-    }
-    if (sequenceChunks.length <= firstPass) {
-      setChunks(sequenceChunks);
-      return;
-    }
-    // there's a lot of chunks, render the first ones, then add the others to be
-    // rendered at a later time
-    setChunks(sequenceChunks.slice(0, firstPass));
-    let cancelToken = false;
-    (async () => {
-      await sleep(1000);
-      await schedule();
-      if (!cancelToken) {
-        setChunks(sequenceChunks);
-      }
-    })();
-    // eslint-disable-next-line consistent-return
-    return () => {
-      // happens if the sequenceChunks have changed (e.g.: change of width)
-      // or if unmounted
-      cancelToken = true;
-    };
-  }, [sequenceChunks, setChunks]);
-
   return (
     <div ref={containerRef}>
-      {chunks.map(({ sequences, id, ranges }) => (
-        <HSPDetailWrappedRow
-          key={id}
-          rowLength={rowLength}
-          sequences={sequences}
-          ranges={ranges}
-          annotation={annotation}
-          setFeatureTrackData={setFeatureTrackData}
-          highlightProperty={highlightProperty}
-          conservationOptions={conservationOptions}
-        />
-      ))}
+      {sequenceChunks.map(({ sequences, id, ranges }, index) => {
+        if (index < nItemsToRender) {
+          return (
+            <HSPDetailWrappedRow
+              key={id}
+              rowLength={rowLength}
+              sequences={sequences}
+              ranges={ranges}
+              annotation={annotation}
+              setFeatureTrackData={setFeatureTrackData}
+              highlightProperty={highlightProperty}
+              conservationOptions={conservationOptions}
+            />
+          );
+        }
+        return <section key={id} className="hsp-detail-panel__placeholder" />;
+      })}
     </div>
   );
 };
