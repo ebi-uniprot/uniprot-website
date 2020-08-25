@@ -9,12 +9,21 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import toolsURLs from '../../../config/urls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
+import { EnrichedParsed } from './AlignResult';
 
 import './styles/AlignResultPhyloTree.scss';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 
-const AlignResultPhyloTree: FC<{ id: string }> = ({ id }) => {
+type Props = {
+  id: string;
+  sequenceInfo: {
+    loading: boolean;
+    data: Map<EnrichedParsed['accession'], EnrichedParsed>;
+  };
+};
+
+const AlignResultPhyloTree: FC<Props> = ({ id, sequenceInfo }) => {
   const [showDistance, setShowDistance] = useState(true);
   const [alignLabels, setAlignLabels] = useState(true);
   const [circularLayout, setCircularLayout] = useState(false);
@@ -102,6 +111,7 @@ const AlignResultPhyloTree: FC<{ id: string }> = ({ id }) => {
           showDistance={showDistance}
           alignLabels={alignLabels}
           circularLayout={circularLayout}
+          sequenceInfo={sequenceInfo}
         />
       )}
     </section>

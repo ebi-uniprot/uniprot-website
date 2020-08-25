@@ -107,7 +107,7 @@ const useParamsData = (
   return paramsData;
 };
 
-type EnrichedParsed = ParsedSequence & {
+export type EnrichedParsed = ParsedSequence & {
   accession: string;
   features?: FeatureData[];
 };
@@ -160,10 +160,12 @@ const useSequenceInfo = (rawSequences?: string) => {
 
   // eslint-disable-next-line consistent-return
   return {
-    data: processedArray,
+    data: new Map(
+      processedArray.map((processed) => [processed.accession, processed])
+    ),
     loading: loading || !rawSequences || (endpoint && !data && !error),
   } as {
-    data: EnrichedParsed[];
+    data: Map<EnrichedParsed['accession'], EnrichedParsed>;
     loading: boolean;
   };
 };
@@ -197,8 +199,6 @@ const AlignResult = () => {
   const inputParamsData = useParamsData(match.params.id);
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
-
-  console.log(sequenceInfo);
 
   // Note: this function is duplicated in ResultsContainer.tsx
   // const handleSelectedEntries = (rowId: string) => {
@@ -271,7 +271,10 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPhyloTree id={match.params.id} />
+              <AlignResultPhyloTree
+                id={match.params.id}
+                sequenceInfo={sequenceInfo}
+              />
             </Suspense>
           </ErrorBoundary>
         </Tab>
@@ -291,7 +294,10 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPIM id={match.params.id} />
+              <AlignResultPIM
+                id={match.params.id}
+                sequenceInfo={sequenceInfo}
+              />
             </Suspense>
           </ErrorBoundary>
         </Tab>
@@ -308,7 +314,6 @@ const AlignResult = () => {
             </Link>
           }
         >
-          {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <TextOutput id={match.params.id} jobType={JobTypes.ALIGN} />

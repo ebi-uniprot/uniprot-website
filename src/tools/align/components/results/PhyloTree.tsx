@@ -17,6 +17,7 @@ import pathMaker from '../../utils/pathMaker';
 import customLayout, { CustomHierarchyNode } from '../../utils/customLayout';
 
 import { PhyloTreeNode } from '../../types/alignResults';
+import { EnrichedParsed } from './AlignResult';
 
 import './styles/PhyloTree.scss';
 
@@ -50,6 +51,10 @@ type Props = {
   showDistance: boolean;
   alignLabels: boolean;
   circularLayout: boolean;
+  sequenceInfo: {
+    loading: boolean;
+    data: Map<EnrichedParsed['accession'], EnrichedParsed>;
+  };
 };
 
 const PhyloTree: FC<Props> = ({
@@ -57,6 +62,7 @@ const PhyloTree: FC<Props> = ({
   showDistance,
   alignLabels,
   circularLayout,
+  sequenceInfo,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const redrawRef = useRef<Redraw & Cancelable>();
@@ -341,19 +347,20 @@ const PhyloTree: FC<Props> = ({
         <g className="container">
           <g className="links" />
           <g className="labels">
-            {root.leaves().map(({ data: { name } }, i) => (
-              <foreignObject
-                className="label"
-                // eslint-disable-next-line react/no-array-index-key
-                key={i}
-              >
-                <span>
-                  <AlignLabel accession={extractAccession(name)}>
+            {root.leaves().map(({ data: { name } }) => {
+              const accession = extractAccession(name);
+              return (
+                <foreignObject className="label" key={name}>
+                  <AlignLabel
+                    accession={accession}
+                    info={sequenceInfo.data.get(accession || '')}
+                    loading={sequenceInfo.loading}
+                  >
                     {name || ''}
                   </AlignLabel>
-                </span>
-              </foreignObject>
-            ))}
+                </foreignObject>
+              );
+            })}
           </g>
         </g>
       </svg>

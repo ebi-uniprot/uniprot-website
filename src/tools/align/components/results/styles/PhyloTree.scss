@@ -6,6 +6,8 @@
 
   & foreignObject {
     overflow: visible;
+    // NOTE: somehow... this specific "overflow: visible" messes up with the
+    // "aspect-ratio: 1/1" in the PIM matrix... 🤷🏽‍♂️ (Chrome 84)
     white-space: nowrap;
   }
 
