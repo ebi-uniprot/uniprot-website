@@ -10,13 +10,31 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
+const blacklist = new Map<JobTypes, string[]>([
+  [JobTypes.ALIGN, ['program', 'version', 'outfmt']],
+]);
+
+const documentation = new Map<JobTypes, string>([
+  [
+    JobTypes.ALIGN,
+    'https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Clustal+Omega+Help+and+Documentation#ClustalOmegaHelpandDocumentation-RESTAPI',
+  ],
+  [
+    JobTypes.BLAST,
+    'https://www.ebi.ac.uk/seqdb/confluence/pages/viewpage.action?pageId=94147939#NCBIBLAST+HelpandDocumentation-RESTAPI',
+  ],
+]);
+
 function inputToCurl<T extends JobTypes>(
   input: Partial<PublicServerParameters[T]>,
   jobType: T
 ) {
+  const bl = blacklist.get(jobType) || [];
   let command = "curl -F 'email=<enter your email here>' \\\n";
   for (const [key, value] of Object.entries(input)) {
-    command += `     -F '${key}=${value}' \\\n`;
+    if (!bl.includes(key)) {
+      command += `     -F '${key}=${value}' \\\n`;
+    }
   }
   command += `     ${toolsURLs(jobType).runUrl}`;
   return command;
@@ -50,7 +68,11 @@ const InputParameters: FC<Props> = ({ id, inputParamsData, jobType }) => {
       <InfoList infoData={infoData} />
       <p>
         You can refer to the documentation for these values on the{' '}
-        <a href="https://www.ebi.ac.uk/seqdb/confluence/pages/viewpage.action?pageId=94147939#NCBIBLAST+HelpandDocumentation-RESTAPI">
+        <a
+          target="_blank"
+          rel="noreferrer noopener"
+          href={documentation.get(jobType)}
+        >
           API documentation page
         </a>
       </p>

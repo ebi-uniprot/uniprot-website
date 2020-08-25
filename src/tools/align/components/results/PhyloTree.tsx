@@ -17,7 +17,7 @@ import pathMaker from '../../utils/pathMaker';
 import customLayout, { CustomHierarchyNode } from '../../utils/customLayout';
 
 import { PhyloTreeNode } from '../../types/alignResults';
-import { EnrichedParsed } from './AlignResult';
+import { SequenceInfo } from '../../utils/useSequenceInfo';
 
 import './styles/PhyloTree.scss';
 
@@ -51,10 +51,7 @@ type Props = {
   showDistance: boolean;
   alignLabels: boolean;
   circularLayout: boolean;
-  sequenceInfo: {
-    loading: boolean;
-    data: Map<EnrichedParsed['accession'], EnrichedParsed>;
-  };
+  sequenceInfo: SequenceInfo;
 };
 
 const PhyloTree: FC<Props> = ({

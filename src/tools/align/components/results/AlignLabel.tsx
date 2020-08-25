@@ -5,14 +5,14 @@ import cn from 'classnames';
 import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
 
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { EnrichedParsed } from './AlignResult';
+import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
 
 type Props = {
   accession?: string;
   children: string;
-  info?: EnrichedParsed;
+  info?: ParsedSequenceAndFeatures;
   loading: boolean;
 };
 

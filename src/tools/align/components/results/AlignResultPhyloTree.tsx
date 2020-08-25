@@ -9,7 +9,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import toolsURLs from '../../../config/urls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
-import { EnrichedParsed } from './AlignResult';
+import { SequenceInfo } from '../../utils/useSequenceInfo';
 
 import './styles/AlignResultPhyloTree.scss';
 
@@ -17,10 +17,7 @@ const alignURLs = toolsURLs(JobTypes.ALIGN);
 
 type Props = {
   id: string;
-  sequenceInfo: {
-    loading: boolean;
-    data: Map<EnrichedParsed['accession'], EnrichedParsed>;
-  };
+  sequenceInfo: SequenceInfo;
 };
 
 const AlignResultPhyloTree: FC<Props> = ({ id, sequenceInfo }) => {

@@ -13,7 +13,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import toolsURLs from '../../../config/urls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
-import { EnrichedParsed } from './AlignResult';
+import { SequenceInfo } from '../../utils/useSequenceInfo';
 
 import './styles/AlignResultPIM.scss';
 
@@ -24,10 +24,7 @@ const WAVE_EFFECT_TIME = 250; // in ms
 
 type Props = {
   id: string;
-  sequenceInfo: {
-    loading: boolean;
-    data: Map<EnrichedParsed['accession'], EnrichedParsed>;
-  };
+  sequenceInfo: SequenceInfo;
 };
 
 const AlignResultPIM: FC<Props> = ({ id, sequenceInfo }) => {
