@@ -12,12 +12,15 @@ import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaNavigation from 'protvista-navigation';
 
+import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
+
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 
 import { loadWebComponent } from '../../../../shared/utils/utils';
 
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { HSPDetailPanelProps } from './HSPDetailPanel';
+import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/BlastResultTable.scss';
 
@@ -202,10 +205,28 @@ const BlastResultTable: FC<{
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ hit_acc }: BlastHit) => (
-          <Link to={`/uniprotkb/${hit_acc}`}>{hit_acc}</Link>
-        ),
-        width: '5rem',
+        render: ({ hit_acc, hit_db }: BlastHit) => {
+          let reviewImg;
+          switch (hit_db) {
+            case 'SP':
+              reviewImg = <ReviewedUnreviewed entryType={EntryType.REVIEWED} />;
+              break;
+            case 'TR':
+              reviewImg = (
+                <ReviewedUnreviewed entryType={EntryType.UNREVIEWED} />
+              );
+              break;
+            default:
+              reviewImg = null;
+          }
+          return (
+            <Link to={`/uniprotkb/${hit_acc}`}>
+              {reviewImg}
+              {hit_acc}
+            </Link>
+          );
+        },
+        width: '8rem',
       },
       {
         label: 'Gene',
