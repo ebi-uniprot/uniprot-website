@@ -275,8 +275,6 @@ const BlastResultTable: FC<{
     return null;
   }
 
-  console.log({ loading });
-
   return (
     <div className={loading ? 'loading-data-table' : undefined}>
       <DataTable
