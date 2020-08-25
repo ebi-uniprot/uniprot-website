@@ -10,8 +10,9 @@ import ResultButtons from '../../../components/ResultButtons';
 import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
+import useSequenceInfo from '../../utils/useSequenceInfo';
 
-import inputParamsXMLToObject from '../../../blast/adapters/inputParamsXMLToObject';
+import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
@@ -117,12 +118,14 @@ const AlignResult = () => {
     }
   }, [match.params.subPage, history]);
 
-  // get data from the blast endpoint
+  // get data from the align endpoint
   const { loading, data, error, status } = useDataApi<AlignResults>(
     alignUrls.resultUrl(match.params.id, 'aln-clustal_num')
   );
 
   const inputParamsData = useParamsData(match.params.id);
+
+  const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
   // Note: this function is duplicated in ResultsContainer.tsx
   // const handleSelectedEntries = (rowId: string) => {
@@ -195,7 +198,10 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPhyloTree id={match.params.id} />
+              <AlignResultPhyloTree
+                id={match.params.id}
+                sequenceInfo={sequenceInfo}
+              />
             </Suspense>
           </ErrorBoundary>
         </Tab>
@@ -215,7 +221,10 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPIM id={match.params.id} />
+              <AlignResultPIM
+                id={match.params.id}
+                sequenceInfo={sequenceInfo}
+              />
             </Suspense>
           </ErrorBoundary>
         </Tab>
@@ -232,7 +241,6 @@ const AlignResult = () => {
             </Link>
           }
         >
-          {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
               <TextOutput id={match.params.id} jobType={JobTypes.ALIGN} />

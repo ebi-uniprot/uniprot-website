@@ -1,0 +1,38 @@
+<execution>
+  <commandLine>/nfs/public/ro/es/appbin/linux-x86_64/clustal-omega-1.2.4/bin/clustalo --infile clustalo-R20200825-100618-0457-2871826-np2.sequence --threads 8 --MAC-RAM 8000 --verbose --outfmt clustal --resno --outfile clustalo-R20200825-100618-0457-2871826-np2.clustal_num</commandLine>
+  <userParameters class="linked-hash-map">
+    <entry>
+      <string>program</string>
+      <string>clustalo</string>
+    </entry>
+    <entry>
+      <string>version</string>
+      <string>1.2.4</string>
+    </entry>
+    <entry>
+      <string>outfmt</string>
+      <string>clustal_num</string>
+    </entry>
+    <entry>
+      <string>sequence</string>
+      <string>/nfs/public/rw/es/projects/wp-jdispatcher/sources/wwwdev/jobs/clustalo/rest/20200825/1006/clustalo-R20200825-100618-0457-2871826-np2.sequence</string>
+    </entry>
+  </userParameters>
+  <outputLocation>file:/nfs/public/rw/es/projects/wp-jdispatcher/sources/wwwdev/jobs/clustalo/rest/20200825/1006//clustalo-R20200825-100618-0457-2871826-np2.output</outputLocation>
+  <errorLocation>file:/nfs/public/rw/es/projects/wp-jdispatcher/sources/wwwdev/jobs/clustalo/rest/20200825/1006//clustalo-R20200825-100618-0457-2871826-np2.error</errorLocation>
+  <toolId>clustalo</toolId>
+  <jobId>clustalo-R20200825-100618-0457-2871826-np2</jobId>
+  <email>uuw_dev@uniprot.org</email>
+  <emailNotification>false</emailNotification>
+  <clientId>81.101.15.185</clientId>
+  <executionContext>rest</executionContext>
+  <additionalProperties class="uk.ac.ebi.properties.commonsconfiguration.CommonsConfigurationPropertiesContainer">
+    <property key="command">sh /nfs/public/rw/es/projects/wp-jdispatcher/sources/wwwdev/resources/management/scripts/remoteExecution.sh &quot;dev&quot; /nfs/public/rw/es/projects/wp-jdispatcher/sources/wwwdev/resources/services-hx-wp-wwwdev.properties ${tool.id} ${job.id} ${host.id} /nfs/public/rw/es/projects/wp-jdispatcher/sources/wwwdev/lib/jdispatcher-execution-1.0-SNAPSHOT-jar-with-dependencies.jar</property>
+    <property key="parameter.excludes">sequence, upfile, asequence, aupfile, bsequence, bupfile, program, version</property>
+    <property key="postprocessor.class">uk.ac.ebi.jdispatcher.execution.domain.service.MultipleCommandsPostProcessor</property>
+    <property key="postprocessor.properties.input_suffix">clustal clustal_num fasta msf, clustal</property>
+    <property key="postprocessor.properties.output_suffix">output.ph, nxs</property>
+    <property key="postprocessor.properties.additional_command">/nfs/public/ro/es/appbin/linux-x86_64/clustalw-2.1/bin/clustalw2 -infile=input -tree -outputtree=phylip -pim, if [[ clustal_num = &quot;nexus&quot; ]] ;then /nfs/public/ro/es/appbin/linux-x86_64/EMBOSS-6.6.0/bin/seqret -auto -stdout -sequence input -sformat1 unknown -osformat2 nexus; fi;</property>
+    <property key="outfmt">clustal_num</property>
+  </additionalProperties>
+</execution>

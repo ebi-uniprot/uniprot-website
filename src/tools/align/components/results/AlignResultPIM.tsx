@@ -13,6 +13,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import toolsURLs from '../../../config/urls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
+import { SequenceInfo } from '../../utils/useSequenceInfo';
 
 import './styles/AlignResultPIM.scss';
 
@@ -21,7 +22,12 @@ const alignURLs = toolsURLs(JobTypes.ALIGN);
 const DEFAULT_CONTRAST = 2; // need to be >1
 const WAVE_EFFECT_TIME = 250; // in ms
 
-const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
+type Props = {
+  id: string;
+  sequenceInfo: SequenceInfo;
+};
+
+const AlignResultPIM: FC<Props> = ({ id, sequenceInfo }) => {
   const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
 
@@ -63,7 +69,13 @@ const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
                 'align-result-pim__name--hovered': hovered.includes(indexRow),
               })}
             >
-              <AlignLabel accession={accession}>{name}</AlignLabel>
+              <AlignLabel
+                accession={accession}
+                info={sequenceInfo.data.get(accession || '')}
+                loading={sequenceInfo.loading}
+              >
+                {name}
+              </AlignLabel>
             </span>
             {/* for each of the sequences this one is measured against */}
             {values.map((value, indexCol) => {
