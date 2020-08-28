@@ -18,6 +18,8 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
+const ALIGN_LIMIT = 100;
+
 type AlignButtonProps = {
   selectedEntries: string[];
 };
@@ -28,7 +30,18 @@ const AlignButton: FC<AlignButtonProps> = ({ selectedEntries }) => {
 
   const [loading, setLoading] = useState(false);
 
-  const disabled = selectedEntries.length <= 1;
+  const n = selectedEntries.length;
+
+  const disabled = n <= 1 || n > ALIGN_LIMIT;
+
+  let title = 'Select at least 2 entries to run an Align job';
+  if (n > 1) {
+    if (n > ALIGN_LIMIT) {
+      title = `Please select a maximum of ${ALIGN_LIMIT} entries to run an Align job`;
+    } else {
+      title = `Run an Align job against ${n} entries`;
+    }
+  }
 
   const handleClick = async () => {
     setLoading(true);
@@ -66,6 +79,7 @@ const AlignButton: FC<AlignButtonProps> = ({ selectedEntries }) => {
     <button
       type="button"
       className="button tertiary"
+      title={title}
       disabled={disabled || loading}
       onClick={handleClick}
     >
