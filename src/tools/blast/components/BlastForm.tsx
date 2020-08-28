@@ -431,27 +431,6 @@ const BlastForm = () => {
             </section>
           </section>
           <section className="tools-form-section">
-            {[
-              [stype, setSType],
-              [program, setProgram],
-              [threshold, setThreshold],
-              [matrix, setMatrix],
-              [filter, setFilter],
-              [gapped, setGapped],
-              [hits, setHits],
-            ].map(([stateItem, setStateItem]) => (
-              <FormSelect
-                key={(stateItem as BlastFormValue).fieldName}
-                formValue={stateItem as BlastFormValue}
-                updateFormValue={
-                  setStateItem as React.Dispatch<
-                    React.SetStateAction<BlastFormValue>
-                  >
-                }
-              />
-            ))}
-          </section>
-          <section className="tools-form-section">
             <section className="tools-form-section__item">
               <label>
                 Name your BLAST job
@@ -470,6 +449,33 @@ const BlastForm = () => {
               </label>
             </section>
           </section>
+          <details className="tools-form-advanced" open>
+            <summary>
+              <span>Advanced parameters</span>
+            </summary>
+            <section className="tools-form-section">
+              {[
+                [stype, setSType],
+                [program, setProgram],
+                [threshold, setThreshold],
+                [matrix, setMatrix],
+                [filter, setFilter],
+                [gapped, setGapped],
+                [hits, setHits],
+              ].map(([stateItem, setStateItem]) => (
+                <FormSelect
+                  key={(stateItem as BlastFormValue).fieldName}
+                  formValue={stateItem as BlastFormValue}
+                  updateFormValue={
+                    setStateItem as React.Dispatch<
+                      React.SetStateAction<BlastFormValue>
+                    >
+                  }
+                />
+              ))}
+            </section>
+          </details>
+
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
