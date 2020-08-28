@@ -5,6 +5,7 @@ import React, {
   MouseEvent,
   useMemo,
   useRef,
+  FC,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -39,6 +40,40 @@ import infoMappings from '../../../shared/config/InfoMappings';
 import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
+
+const FormSelect: FC<{
+  formValue: AlignFormValue;
+  updateFormValue: React.Dispatch<React.SetStateAction<AlignFormValue>>;
+}> = ({ formValue, updateFormValue }) => {
+  if (!formValue) {
+    return null;
+  }
+  const label = AlignFields[formValue.fieldName as keyof typeof AlignFields];
+  return (
+    <section className="tools-form-section__item">
+      <label htmlFor={label}>
+        {label}
+        <select
+          value={formValue.selected as string}
+          onChange={(e) =>
+            updateFormValue({ ...formValue, selected: e.target.value })
+          }
+        >
+          {formValue.values &&
+            formValue.values.map((optionItem) => (
+              <option
+                value={String(optionItem.value)}
+                key={String(optionItem.value)}
+                data-testid={`${label}-${optionItem.value}`}
+              >
+                {optionItem.label ? optionItem.label : optionItem.value}
+              </option>
+            ))}
+        </select>
+      </label>
+    </section>
+  );
+};
 
 interface CustomLocationState {
   parameters?: Partial<FormParameters>;
@@ -98,6 +133,12 @@ const AlignForm = () => {
   const [sequence, setSequence] = useState<
     AlignFormValues[AlignFields.sequence]
   >(initialFormValues[AlignFields.sequence]);
+  const [order, setOrder] = useState<AlignFormValues[AlignFields.order]>(
+    initialFormValues[AlignFields.order]
+  );
+  const [iterations, setIterations] = useState<
+    AlignFormValues[AlignFields.iterations]
+  >(initialFormValues[AlignFields.iterations]);
 
   // extra job-related fields
   const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);
@@ -135,6 +176,8 @@ const AlignForm = () => {
     // tools middleware
     const parameters: FormParameters = {
       sequence: sequence.selected as ServerParameters['sequence'],
+      order: order.selected as ServerParameters['order'],
+      iterations: iterations.selected as ServerParameters['iterations'],
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -257,6 +300,27 @@ const AlignForm = () => {
               </label>
             </section>
           </section>
+          <details className="tools-form-advanced" open>
+            <summary>
+              <span>Advanced parameters</span>
+            </summary>
+            <section className="tools-form-section">
+              {[
+                [order, setOrder],
+                [iterations, setIterations],
+              ].map(([stateItem, setStateItem]) => (
+                <FormSelect
+                  key={(stateItem as AlignFormValue).fieldName}
+                  formValue={stateItem as AlignFormValue}
+                  updateFormValue={
+                    setStateItem as React.Dispatch<
+                      React.SetStateAction<AlignFormValue>
+                    >
+                  }
+                />
+              ))}
+            </section>
+          </details>
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (

@@ -1,13 +1,17 @@
+import { FormParameters } from '../types/alignFormParameters';
+
 export type AlignFormValue = {
   fieldName: string;
-  selected?: string;
+  selected?: string | boolean | number;
   type?: AlignFieldTypes;
-  values?: { label?: string; value?: string }[];
+  values?: { label?: string; value?: string | boolean | number }[];
 };
 
 export enum AlignFields {
   sequence = 'Sequence',
   name = 'Name',
+  order = 'Output sequence order',
+  iterations = 'Iterations',
 }
 
 export enum AlignFieldTypes {
@@ -27,5 +31,27 @@ export default Object.freeze({
     fieldName: 'name',
     type: AlignFieldTypes.textarea,
     selected: '',
+  }),
+  [AlignFields.order]: Object.freeze({
+    fieldName: 'order',
+    type: AlignFieldTypes.select,
+    values: Object.freeze([
+      { value: true, label: 'from alignment' },
+      { value: false, label: 'same as input' },
+    ] as Array<{ label?: string; value: FormParameters['order'] }>),
+    selected: true,
+  }),
+  [AlignFields.iterations]: Object.freeze({
+    fieldName: 'iterations',
+    type: AlignFieldTypes.select,
+    values: Object.freeze([
+      { value: 0 },
+      { value: 1 },
+      { value: 2 },
+      { value: 3 },
+      { value: 4 },
+      { value: 5 },
+    ] as Array<{ value: FormParameters['iterations'] }>),
+    selected: true,
   }),
 }) as Readonly<AlignFormValues>;

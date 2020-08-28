@@ -2,6 +2,7 @@
 
 exports[`inputParamsXMLToObject tests should transform an XML string of input params to an object 1`] = `
 Object {
+  "hmmiterations": "5",
   "outfmt": "clustal_num",
   "program": "clustalo",
   "sequence": ">sp|P86979|ALDOA_THUAL Fructose-bisphosphate aldolase A OS=Thunnus albacares OX=8236 GN=ALDOA PE=1 SV=1

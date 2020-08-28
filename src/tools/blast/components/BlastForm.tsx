@@ -475,7 +475,6 @@ const BlastForm = () => {
               ))}
             </section>
           </details>
-
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
