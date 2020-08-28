@@ -52,6 +52,6 @@ export default Object.freeze({
       { value: 4 },
       { value: 5 },
     ] as Array<{ value: FormParameters['iterations'] }>),
-    selected: true,
+    selected: 0,
   }),
 }) as Readonly<AlignFormValues>;
