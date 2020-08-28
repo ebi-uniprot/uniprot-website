@@ -24,6 +24,8 @@ import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
 
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+
 import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -47,6 +49,7 @@ const AlignForm = () => {
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const reducedMotion = useReducedMotion();
 
   // state
   const initialFormValues = useMemo(() => {
@@ -198,14 +201,6 @@ const AlignForm = () => {
 
   const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
-  let submitButtonContent: string | JSX.Element = 'Run Align';
-  if (parsedSequences.length > 1) {
-    submitButtonContent = `Align ${parsedSequences.length} sequences`;
-  }
-  if (sending) {
-    submitButtonContent = <SpinnerIcon />;
-  }
-
   return (
     <>
       <PageIntro title={name} links={links}>
@@ -261,6 +256,12 @@ const AlignForm = () => {
           </section>
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
+              {sending && !reducedMotion && (
+                <>
+                  <SpinnerIcon />
+                  &nbsp;
+                </>
+              )}
               <input className="button secondary" type="reset" />
               <button
                 className="button primary"
@@ -268,7 +269,9 @@ const AlignForm = () => {
                 disabled={submitDisabled}
                 onClick={submitAlignJob}
               >
-                {submitButtonContent}
+                {parsedSequences.length <= 2
+                  ? 'Run Align'
+                  : `Align ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>

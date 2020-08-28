@@ -39,6 +39,8 @@ import {
   Scores,
 } from '../types/blastServerParameters';
 
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+
 import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -112,6 +114,7 @@ const BlastForm = () => {
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const reducedMotion = useReducedMotion();
 
   // state
   const initialFormValues = useMemo(() => {
@@ -369,14 +372,6 @@ const BlastForm = () => {
 
   const { name, links, info } = infoMappings[JobTypes.BLAST];
 
-  let submitButtonContent: string | JSX.Element = 'Run BLAST';
-  if (parsedSequences.length > 1) {
-    submitButtonContent = `BLAST ${parsedSequences.length} sequences`;
-  }
-  if (sending) {
-    submitButtonContent = <SpinnerIcon />;
-  }
-
   return (
     <>
       <PageIntro title={name} links={links}>
@@ -474,6 +469,12 @@ const BlastForm = () => {
           </section>
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
+              {sending && !reducedMotion && (
+                <>
+                  <SpinnerIcon />
+                  &nbsp;
+                </>
+              )}
               <input className="button secondary" type="reset" />
               <button
                 className="button primary"
@@ -481,7 +482,9 @@ const BlastForm = () => {
                 disabled={submitDisabled}
                 onClick={submitBlastJob}
               >
-                {submitButtonContent}
+                {parsedSequences.length <= 1
+                  ? 'Run BLAST'
+                  : `BLAST ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>

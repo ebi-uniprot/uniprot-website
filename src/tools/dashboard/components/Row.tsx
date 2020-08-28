@@ -24,6 +24,7 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 
 import { jobTypeToPath } from '../../../app/config/urls';
 
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
 
 import { Job } from '../../types/toolsJob';
@@ -243,10 +244,12 @@ interface CustomLocationState {
 }
 
 const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
-  const history = useHistory();
-  const dispatch = useDispatch();
   const ref = useRef<HTMLElement>(null);
   const firstTime = useRef<boolean>(true);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const reducedMotion = useReducedMotion();
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
@@ -261,7 +264,7 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
   };
 
   const handleDelete = () => {
-    if (!(ref.current && 'animate' in ref.current)) {
+    if (reducedMotion || !(ref.current && 'animate' in ref.current)) {
       dispatch(deleteJob(job.internalID));
       return;
     }
@@ -285,8 +288,12 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
     ) {
       return;
     }
-    ref.current.animate(keyframesForNew, animationOptionsForNew);
-  }, [history, job.parameters]);
+    ref.current.animate(
+      // use flash of opacity if prefers reduced motion, otherwise zoom in/out
+      reducedMotion ? keyframesForStatusUpdate : keyframesForNew,
+      animationOptionsForNew
+    );
+  }, [history, job.parameters, reducedMotion]);
 
   // if the status of the current job changes, make it "flash"
   useLayoutEffect(() => {
