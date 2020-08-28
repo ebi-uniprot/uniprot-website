@@ -55,6 +55,8 @@ import infoMappings from '../../../shared/config/InfoMappings';
 
 import '../../styles/ToolsForm.scss';
 
+const BLAST_LIMIT = 20;
+
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
   if (sequence.length <= 34) {
@@ -353,7 +355,8 @@ const BlastForm = () => {
       setParsedSequences(parsedSequences);
       setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
       setSubmitDisabled(
-        parsedSequences.some((parsedSequence) => !parsedSequence.valid)
+        parsedSequences.length > BLAST_LIMIT ||
+          parsedSequences.some((parsedSequence) => !parsedSequence.valid)
       );
 
       setSType((stype) => {

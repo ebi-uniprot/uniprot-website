@@ -38,6 +38,8 @@ import infoMappings from '../../../shared/config/InfoMappings';
 
 import '../../styles/ToolsForm.scss';
 
+const ALIGN_LIMIT = 100;
+
 interface CustomLocationState {
   parameters?: Partial<FormParameters>;
 }
@@ -184,7 +186,8 @@ const AlignForm = () => {
           .join('\n'),
       }));
       setSubmitDisabled(
-        parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
+        parsedSequences.length > ALIGN_LIMIT ||
+          parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
           parsedSequences.length === 1
       );
     },
