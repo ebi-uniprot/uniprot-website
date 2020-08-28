@@ -36,10 +36,10 @@ export default Object.freeze({
     fieldName: 'order',
     type: AlignFieldTypes.select,
     values: Object.freeze([
-      { value: true, label: 'from alignment' },
-      { value: false, label: 'same as input' },
+      { value: 'aligned', label: 'from alignment' },
+      { value: 'input', label: 'same as input' },
     ] as Array<{ label?: string; value: FormParameters['order'] }>),
-    selected: true,
+    selected: 'aligned',
   }),
   [AlignFields.iterations]: Object.freeze({
     fieldName: 'iterations',

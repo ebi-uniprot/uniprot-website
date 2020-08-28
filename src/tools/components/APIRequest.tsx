@@ -10,8 +10,9 @@ import toolsURLs from '../config/urls';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
+// black list data that is just there as information and cannot be set
 const blacklist = new Map<JobTypes, string[]>([
-  [JobTypes.ALIGN, ['program', 'version', 'outfmt']],
+  [JobTypes.ALIGN, ['program', 'version']],
 ]);
 
 const documentation = new Map<JobTypes, string>([

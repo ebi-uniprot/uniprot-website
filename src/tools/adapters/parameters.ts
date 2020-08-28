@@ -43,7 +43,6 @@ export function formParametersToServerParameters<T extends JobTypes>(
         } = formParameters as FormParameters[JobTypes.ALIGN];
         serverParameters = {
           email: DEFAULT_EMAIL,
-          dismatout: true,
           outfmt: 'clustal_num',
           // from form
           sequence,

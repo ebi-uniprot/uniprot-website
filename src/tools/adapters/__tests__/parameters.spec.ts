@@ -13,7 +13,7 @@ describe('tools adapter tests', () => {
       it('should translate align parameters accurately', () => {
         const formParams: FormParameters[JobTypes.ALIGN] = {
           sequence: 'ATGC',
-          order: false,
+          order: 'input',
           iterations: 0,
         };
 
@@ -24,10 +24,9 @@ describe('tools adapter tests', () => {
 
         expect(Array.from(formData.entries())).toEqual([
           ['email', 'uuw_dev@uniprot.org'],
-          ['dismatout', 'true'],
           ['outfmt', 'clustal_num'],
           ['sequence', 'ATGC'],
-          ['order', 'false'],
+          ['order', 'input'],
           ['iterations', '0'],
         ]);
       });
@@ -38,7 +37,7 @@ describe('tools adapter tests', () => {
         const serverParams: PublicServerParameters[JobTypes.ALIGN] = {
           sequence:
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
-          order: false,
+          order: 'aligned',
           iterations: 0,
         };
 
@@ -50,7 +49,7 @@ describe('tools adapter tests', () => {
         expect(formParams).toEqual({
           sequence:
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
-          order: false,
+          order: 'aligned',
           iterations: 0,
         });
       });
