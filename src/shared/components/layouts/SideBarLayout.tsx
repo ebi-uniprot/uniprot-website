@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from 'react';
+import React, { FC, ReactNode, useRef, cloneElement } from 'react';
 import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -19,25 +19,27 @@ const SideBarLayout: React.FC<SideBarLayoutProps> = ({
   actionButtons,
   children,
   className,
-}) => (
-  <div className={cn('sidebar-layout', className)}>
-    <ErrorBoundary>
-      <section className="sidebar-layout__title">{title}</section>
-    </ErrorBoundary>
-    {actionButtons && (
-      <ErrorBoundary>
-        <section className="sidebar-layout__action-buttons">
-          {actionButtons}
-        </section>
-      </ErrorBoundary>
-    )}
-    <section className="sidebar-layout__sidebar">
-      <ErrorBoundary>{sidebar}</ErrorBoundary>
-    </section>
-    <section className="sidebar-layout__content">
-      <ErrorBoundary>{children}</ErrorBoundary>
-    </section>
-  </div>
-);
-
+}) => {
+  const contentRef = useRef<HTMLElement>(null);
+  return (
+    <div className={cn('sidebar-layout', className)}>
+      <section className="sidebar-layout__sidebar">
+        <ErrorBoundary>{sidebar}</ErrorBoundary>
+      </section>
+      <section className="sidebar-layout__content" ref={contentRef}>
+        <ErrorBoundary>
+          <section className="sidebar-layout__title">{title}</section>
+        </ErrorBoundary>
+        {actionButtons && (
+          <ErrorBoundary>
+            <section className="sidebar-layout__action-buttons">
+              {actionButtons}
+            </section>
+          </ErrorBoundary>
+        )}
+        <ErrorBoundary>{cloneElement(children, { contentRef })}</ErrorBoundary>
+      </section>
+    </div>
+  );
+};
 export default SideBarLayout;

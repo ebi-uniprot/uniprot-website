@@ -4,10 +4,7 @@
 
 .sidebar-layout {
   display: grid;
-  grid-template-areas:
-    'title title'
-    'sidebar action-buttons'
-    'sidebar content';
+  grid-template-areas: 'sidebar content';
   grid-template-columns: 20vw auto;
   grid-template-rows: auto auto 1fr;
 
@@ -15,14 +12,16 @@
   overflow-y: hidden;
 
   &__title {
-    grid-area: title;
+    // grid-area: title;
     min-height: 1rem;
     padding: 0 $gutter-size;
   }
 
   &__action-buttons {
-    grid-area: action-buttons;
+    // grid-area: action-buttons;
     padding: 0 $gutter-size;
+    top: 0;
+    position: sticky;
   }
 
   &__sidebar {

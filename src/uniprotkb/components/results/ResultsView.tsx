@@ -43,6 +43,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   handleEntrySelection,
   history,
   location,
+  contentRef,
 }) => {
   const { search: queryParamFromUrl } = location;
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
@@ -56,7 +57,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     sortColumn,
     sortDirection
   );
-
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
@@ -66,6 +66,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
     Map<Column, string>
   >();
+  // const ref = useRef<HTMLElement>
 
   const { data, headers } = useDataApi<{ results: UniProtkbAPIModel[] }>(url);
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
@@ -140,24 +141,23 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   const hasMoreData = total > allResults.length;
   if (viewMode === ViewMode.CARD) {
     return (
-      <div className="datalist">
-        <DataList
-          getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
-            primaryAccession
-          }
-          data={allResults}
-          dataRenderer={(dataItem: UniProtkbAPIModel) => (
-            <UniProtKBCard
-              data={dataItem}
-              selected={selectedEntries.includes(dataItem.primaryAccession)}
-              handleEntrySelection={handleEntrySelection}
-            />
-          )}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={<Loader />}
-        />
-      </div>
+      <DataList
+        getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
+          primaryAccession
+        }
+        data={allResults}
+        scrollRef={contentRef}
+        dataRenderer={(dataItem: UniProtkbAPIModel) => (
+          <UniProtKBCard
+            data={dataItem}
+            selected={selectedEntries.includes(dataItem.primaryAccession)}
+            handleEntrySelection={handleEntrySelection}
+          />
+        )}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={<Loader />}
+      />
     );
   } // viewMode === ViewMode.TABLE
   const columnsToDisplay = columns.map((columnName) => {
@@ -188,6 +188,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
         primaryAccession
       }
       columns={columnsToDisplay}
+      scrollRef={contentRef}
       data={allResults}
       selectable
       selected={selectedEntries}
