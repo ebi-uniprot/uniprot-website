@@ -16,18 +16,22 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
+import { v1 } from 'uuid';
 
 import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
 
+import { addMessage } from '../../../messages/state/messagesActions';
+
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+
+import { createJob } from '../../state/toolsActions';
+
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
-
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
-
-import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -36,6 +40,10 @@ import defaultFormValues, {
   AlignFields,
 } from '../config/AlignFormData';
 import infoMappings from '../../../shared/config/InfoMappings';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import '../../styles/ToolsForm.scss';
 
@@ -82,6 +90,7 @@ interface CustomLocationState {
 const AlignForm = () => {
   // refs
   const sslRef = useRef<{ reset: () => void }>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
   const dispatch = useDispatch();
@@ -245,6 +254,22 @@ const AlignForm = () => {
     [onSequenceChange, parsedSequences]
   );
 
+  // file handling
+  useTextFileInput({
+    input: fileInputRef.current,
+    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onError: (error) =>
+      dispatch(
+        addMessage({
+          id: v1(),
+          content: error.message,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+        })
+      ),
+    dndOverlay: <span>Drop your input file anywhere on this page</span>,
+  });
+
   const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
   return (
@@ -273,7 +298,11 @@ const AlignForm = () => {
           <section className="text-block">
             <legend>
               Enter multiple protein or nucleotide sequences, separated by a
-              FASTA header.
+              FASTA header. You may also
+              <label className="tools-form-section__file-input">
+                load from a text file
+                <input type="file" ref={fileInputRef} />
+              </label>
             </legend>
             <SequenceSubmission
               placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"

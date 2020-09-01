@@ -7,7 +7,6 @@ import React, {
   MouseEvent,
   useMemo,
   useRef,
-  ChangeEvent,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
