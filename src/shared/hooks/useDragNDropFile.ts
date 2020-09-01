@@ -11,22 +11,21 @@ import { debounce } from 'lodash-es';
 
 const DRAG_OUT_DELAY = 250;
 
+type Props = {
+  dndTarget: HTMLElement | null;
+  overlay: ReactElement;
+  onDrop: (files: FileList) => void;
+};
+
 /**
  * given an actual HTML element as a target, sets up all event handlers to
  * handle drag-n-drop of files on it
- * @param {HTMLElement} dndTarget
- * @returns {Array} tuple - return tuple
- * @returns {boolean} tuple[0]
- *          return a boolean denoting if the user is dragging on the page
- * @returns {FileList} tuple[1]
- *          List of files dropped on the target
  */
-const useDragNDropFile = (
-  dndTarget: HTMLElement | null,
-  overlay: ReactElement
-): [boolean, FileList | undefined] => {
+const useDragNDropFile = ({ dndTarget, overlay, onDrop }: Props): void => {
   const [isDragging, setIsDragging] = useState(false);
-  const [files, setFiles] = useState<FileList>();
+
+  const onDropRef = useRef(onDrop);
+  onDropRef.current = onDrop;
 
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
@@ -34,7 +33,7 @@ const useDragNDropFile = (
     () =>
       debounce((event: Event) => {
         const e = event as DragEvent;
-        if (!e.dataTransfer?.files.length) {
+        if (!e.dataTransfer?.types.includes('Files')) {
           return;
         }
         event.preventDefault();
@@ -46,11 +45,13 @@ const useDragNDropFile = (
   const handleDraggingIn = useCallback(
     (event: Event) => {
       const e = event as DragEvent;
-      if (!e.dataTransfer) {
+      // avoid activating any logic when dragging other things than files
+      if (!e.dataTransfer?.types.includes('Files')) {
         return;
       }
       e.preventDefault();
       handleDraggingOut.cancel();
+      // style to add a plus sign next to the dragged files
       e.dataTransfer.dropEffect = 'copy';
       e.dataTransfer.effectAllowed = 'copy';
       setIsDragging(true);
@@ -61,13 +62,13 @@ const useDragNDropFile = (
   const handleDrop = useCallback(
     (event: Event) => {
       const e = event as DragEvent;
-      if (!e.dataTransfer?.files.length) {
+      if (!e.dataTransfer?.types.includes('Files')) {
         return;
       }
       event.preventDefault();
       handleDraggingOut.cancel();
       setIsDragging(false);
-      setFiles(e.dataTransfer.files);
+      onDropRef.current(e.dataTransfer.files);
     },
     [handleDraggingOut]
   );
@@ -147,8 +148,6 @@ const useDragNDropFile = (
       render(overlay, overlayRef.current);
     }
   }, [overlay]);
-
-  return [isDragging, files];
 };
 
 export default useDragNDropFile;

@@ -19,12 +19,20 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
+import { v1 } from 'uuid';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 import SequenceSearchLoader, {
   ParsedSequence,
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
+
+import { addMessage } from '../../../messages/state/messagesActions';
+
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+
+import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -40,12 +48,6 @@ import {
   Scores,
 } from '../types/blastServerParameters';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
-import useDragNDropFile from '../../../shared/hooks/useDragNDropFile';
-import useTextFile from '../../../shared/hooks/useTextFile';
-
-import { createJob } from '../../state/toolsActions';
-
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
   BlastFormValues,
@@ -55,6 +57,10 @@ import defaultFormValues, {
 } from '../config/BlastFormData';
 import uniProtKBApiUrls from '../../../uniprotkb/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import '../../styles/ToolsForm.scss';
 
@@ -115,6 +121,7 @@ interface CustomLocationState {
 const BlastForm = () => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
   const dispatch = useDispatch();
@@ -377,38 +384,20 @@ const BlastForm = () => {
   );
 
   // file handling
-  const [isDragging, files] = useDragNDropFile(
-    document.body,
-    <span>Drop your input file anywhere on this page</span>
-  );
-
-  console.log({ isDragging, files });
-  // TODO:
-  // don't use custom hook, just use an async function to use both on DragNDrop new file, and on input[type="file"] change
-  const { content, loading, error } = useTextFile(files?.[0]);
-  console.log(content, loading, error);
-
-  const handleFile = useCallback(
-    (file?: File) => {
-      if (!file) {
-        return;
-      }
-      const fileReader = new FileReader();
-      fileReader.onload = () =>
-        onSequenceChange(sequenceProcessor(fileReader.result));
-      fileReader.readAsText(file);
-    },
-    [onSequenceChange]
-  );
-
-  // through file input
-  const handleFileChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      handleFile(event.target?.files?.[0]);
-      event.target.value = ''; // eslint-disable-line no-param-reassign
-    },
-    [handleFile]
-  );
+  useTextFileInput({
+    input: fileInputRef.current,
+    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onError: (error) =>
+      dispatch(
+        addMessage({
+          id: v1(),
+          content: error.message,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+        })
+      ),
+    dndOverlay: <span>Drop your input file anywhere on this page</span>,
+  });
 
   const { name, links, info } = infoMappings[JobTypes.BLAST];
 
@@ -417,11 +406,7 @@ const BlastForm = () => {
       <PageIntro title={name} links={links}>
         {info}
       </PageIntro>
-      <form
-        onSubmit={submitBlastJob}
-        onReset={handleReset}
-        className={isDragging ? 'tools-form--dragging' : undefined}
-      >
+      <form onSubmit={submitBlastJob} onReset={handleReset}>
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
@@ -442,7 +427,7 @@ const BlastForm = () => {
               Enter one or more sequences ({BLAST_LIMIT} max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
-                <input type="file" onChange={handleFileChange} />
+                <input type="file" ref={fileInputRef} />
               </label>
             </legend>
             <SequenceSubmission
