@@ -281,8 +281,8 @@ const AlignForm = () => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find proteins to Align by UniProt ID{' '}
-              <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
+              Find a protein sequence to run BLAST sequence similarity search by
+              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
               <br />
               You can also paste a list of IDs.
             </legend>
@@ -303,9 +303,10 @@ const AlignForm = () => {
                 load from a text file
                 <input type="file" ref={fileInputRef} />
               </label>
+              .
             </legend>
             <SequenceSubmission
-              placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
+              placeholder="Protein or nucleotide sequences in FASTA format."
               onChange={onSequenceChange}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />

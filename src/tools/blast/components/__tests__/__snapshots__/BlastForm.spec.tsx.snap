@@ -68,11 +68,7 @@ exports[`BlastForm test Renders the form 1`] = `
         class="tools-form-section__item"
       >
         <legend>
-          Find a protein to BLAST by UniProt ID 
-          <small>
-            (e.g. P05067 or A4_HUMAN or UPI0000000001)
-          </small>
-          .
+          Find a protein sequence to run BLAST sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
         </legend>
         <div
           class="import-sequence-section"
@@ -82,7 +78,7 @@ exports[`BlastForm test Renders the form 1`] = `
           >
             <input
               data-testid="search-input"
-              placeholder="P05067, A4_HUMAN, UPI0000000001"
+              placeholder="UniProt IDs"
               type="text"
               value=""
             />
@@ -127,11 +123,12 @@ exports[`BlastForm test Renders the form 1`] = `
               type="file"
             />
           </label>
+          .
         </legend>
         <textarea
           class="sequence-submission-input"
           data-testid="sequence-submission-input"
-          placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
+          placeholder="Protein or nucleotide sequence(s) in FASTA format."
           spellcheck="false"
         />
       </section>
@@ -218,7 +215,7 @@ exports[`BlastForm test Renders the form 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="Homo sapiens, 9606,..."
+                  placeholder="Enter taxonomy names or tax IDs"
                   type="text"
                   value=""
                 />

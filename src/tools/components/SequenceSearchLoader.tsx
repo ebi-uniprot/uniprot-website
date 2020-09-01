@@ -244,11 +244,7 @@ const SequenceSearchLoader = forwardRef<
         setAccessionOrID(event.target.value)
       }
       onPaste={handlePaste}
-      placeholder={
-        pasteLoading
-          ? 'loading from pasted text'
-          : 'P05067, A4_HUMAN, UPI0000000001'
-      }
+      placeholder={pasteLoading ? 'loading from pasted text' : 'UniProt IDs'}
       value={accessionOrID}
       disabled={pasteLoading}
     />

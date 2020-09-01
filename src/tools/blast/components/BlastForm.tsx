@@ -409,8 +409,8 @@ const BlastForm = () => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein to BLAST by UniProt ID{' '}
-              <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
+              Find a protein sequence to run BLAST sequence similarity search by
+              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
@@ -428,9 +428,10 @@ const BlastForm = () => {
                 load from a text file
                 <input type="file" ref={fileInputRef} />
               </label>
+              .
             </legend>
             <SequenceSubmission
-              placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
+              placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={onSequenceChange}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
@@ -439,7 +440,7 @@ const BlastForm = () => {
             <FormSelect formValue={database} updateFormValue={setDatabase} />
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
-                placeholder="Homo sapiens, 9606,..."
+                placeholder="Enter taxonomy names or tax IDs"
                 url={uniProtKBApiUrls.organismSuggester}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"

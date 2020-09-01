@@ -26,7 +26,7 @@ describe('SequenceSearchLoader tests', () => {
       <SequenceSearchLoader onLoad={onLoadMock} />
     );
     const { getByPlaceholderText } = component;
-    const input = getByPlaceholderText('P05067, A4_HUMAN, UPI0000000001');
+    const input = getByPlaceholderText('UniProt IDs');
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([
@@ -58,7 +58,7 @@ describe('SequenceSearchLoader tests', () => {
       <SequenceSearchLoader onLoad={onLoadMock} />
     );
     const { getByPlaceholderText } = component;
-    const input = getByPlaceholderText('P05067, A4_HUMAN, UPI0000000001');
+    const input = getByPlaceholderText('UniProt IDs');
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([
