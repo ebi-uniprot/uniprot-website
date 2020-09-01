@@ -5,7 +5,6 @@ import React, {
   useCallback,
   FormEvent,
   MouseEvent,
-  DragEvent,
   useMemo,
   useRef,
   ChangeEvent,
@@ -42,6 +41,8 @@ import {
 } from '../types/blastServerParameters';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useDragNDropFile from '../../../shared/hooks/useDragNDropFile';
+import useTextFile from '../../../shared/hooks/useTextFile';
 
 import { createJob } from '../../state/toolsActions';
 
@@ -150,8 +151,6 @@ const BlastForm = () => {
     return defaultFormValues;
   }, [history]);
 
-  // user is dragging something
-  const [isDragging, setIsDragging] = useState(false);
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
@@ -378,6 +377,17 @@ const BlastForm = () => {
   );
 
   // file handling
+  const [isDragging, files] = useDragNDropFile(
+    document.body,
+    <span>Drop your input file anywhere on this page</span>
+  );
+
+  console.log({ isDragging, files });
+  // TODO:
+  // don't use custom hook, just use an async function to use both on DragNDrop new file, and on input[type="file"] change
+  const { content, loading, error } = useTextFile(files?.[0]);
+  console.log(content, loading, error);
+
   const handleFile = useCallback(
     (file?: File) => {
       if (!file) {
@@ -400,32 +410,6 @@ const BlastForm = () => {
     [handleFile]
   );
 
-  // through drag-and-drop
-  const handleDragging = useCallback((event: DragEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsDragging(true);
-    if (event?.dataTransfer) {
-      // eslint-disable-next-line no-param-reassign
-      event.dataTransfer.dropEffect = 'copy';
-      // eslint-disable-next-line no-param-reassign
-      event.dataTransfer.effectAllowed = 'copy';
-    }
-  }, []);
-
-  const handleUndragging = useCallback((event: DragEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsDragging(false);
-  }, []);
-
-  const handleDrop = useCallback(
-    (event: DragEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      handleFile(event?.dataTransfer?.files?.[0]);
-      setIsDragging(false);
-    },
-    [handleFile]
-  );
-
   const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   return (
@@ -436,14 +420,6 @@ const BlastForm = () => {
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}
-        onDrag={handleDragging}
-        onDragStart={handleDragging}
-        onDragOver={handleDragging}
-        onDragEnter={handleDragging}
-        onDragEnd={handleUndragging}
-        onDragExit={handleUndragging}
-        onDragLeave={handleUndragging}
-        onDrop={handleDrop}
         className={isDragging ? 'tools-form--dragging' : undefined}
       >
         <fieldset>
@@ -463,9 +439,9 @@ const BlastForm = () => {
         <fieldset>
           <section className="text-block">
             <legend>
-              Enter either a protein or nucleotide sequence.
+              Enter one or more sequences ({BLAST_LIMIT} max). You may also
               <label className="tools-form-section__file-input">
-                Load from a file
+                load from a text file
                 <input type="file" onChange={handleFileChange} />
               </label>
             </legend>

@@ -27,7 +27,8 @@
 
   &__file-input {
     display: inline-block;
-    margin-left: 1ch;
+    font-weight: bold;
+    margin-left: 0.5ch;
     color: $primary-color;
     cursor: pointer;
     user-select: none;
