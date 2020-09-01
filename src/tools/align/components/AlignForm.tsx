@@ -248,7 +248,10 @@ const AlignForm = () => {
                   name="title"
                   type="text"
                   autoComplete="off"
-                  maxLength={22}
+                  maxLength={100}
+                  style={{
+                    width: `${(jobName.selected as string).length + 2}ch`,
+                  }}
                   placeholder="my job title"
                   value={jobName.selected as string}
                   onChange={(event) => {

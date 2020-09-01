@@ -14,7 +14,9 @@
     }
 
     & [name='title'] {
-      width: 22ch; /* match the max number of characters allowed in the field */
+      // so that we have a calculable size in ch units
+      font-family: monospace;
+      min-width: 25ch;
     }
   }
 

@@ -522,9 +522,10 @@ exports[`BlastForm test Renders the form 1`] = `
             Name your BLAST job
             <input
               autocomplete="off"
-              maxlength="22"
+              maxlength="100"
               name="title"
               placeholder="my job title"
+              style="width: 2ch;"
               type="text"
               value=""
             />

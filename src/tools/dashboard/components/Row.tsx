@@ -64,7 +64,7 @@ const Name: FC<NameProps> = ({ children, id }: NameProps) => {
         autoComplete="off"
         type="text"
         value={text}
-        maxLength={22}
+        maxLength={100}
       />
       <EditIcon width="2ch" />
     </label>
@@ -316,10 +316,10 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
         ],
       })}
     >
+      <span className="dashboard__body__type">{job.type}</span>
       <span className="dashboard__body__name">
         <Name id={job.internalID}>{job.title}</Name>
       </span>
-      <span className="dashboard__body__type">{job.type}</span>
       <span
         className="dashboard__body__time"
         title={
