@@ -30,33 +30,40 @@ type RibbonData = {
   dataReceived: any;
 };
 
+const RibbonContainer: FC<RibbonData> = ({
+  entities,
+  config,
+  dataError,
+  dataReceived,
+}) => (
+  <div className="GoRibbon__container">
+    {dataReceived && (
+      <Ribbon
+        entities={entities}
+        config={config}
+        showing
+        entityLabel={POSITION.RIGHT}
+        colorBy={COLOR_BY.CLASS_COUNT}
+        binaryColor={false}
+        oddEvenColor
+      />
+    )}
+    {!dataReceived && dataError && (
+      <div className="GoRibbon__container__message">
+        Cannot load Go Ribbon visualisation due to server error
+      </div>
+    )}
+    {!dataReceived && !dataError && (
+      <div className="GoRibbon__container__message">Loading...</div>
+    )}
+  </div>
+);
+
 const GoRibbon: FC<{ primaryAccession: string }> = ({ primaryAccession }) => (
   <div className="GoRibbon">
     <h3>GO Annotations</h3>
     <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
-      {({ entities, config, dataError, dataReceived }: RibbonData) => (
-        <div className="GoRibbon__container">
-          {dataReceived && (
-            <Ribbon
-              entities={entities}
-              config={config}
-              showing
-              entityLabel={POSITION.RIGHT}
-              colorBy={COLOR_BY.CLASS_COUNT}
-              binaryColor={false}
-              oddEvenColor
-            />
-          )}
-          {!dataReceived && dataError && (
-            <div className="GoRibbon__container__message">
-              Cannot load Go Ribbon visualisation due to server error
-            </div>
-          )}
-          {!dataReceived && !dataError && (
-            <div className="GoRibbon__container__message">Loading...</div>
-          )}
-        </div>
-      )}
+      {(data: RibbonData) => <RibbonContainer {...data} />}
     </RibbonDataProvider>
   </div>
 );

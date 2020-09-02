@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 import { SearchTermType } from '../../types/searchTypes';
 
 type RangeFieldProps = {
@@ -23,7 +24,7 @@ const RangeField = ({
         id={`from_input_${field.id}`}
         data-testid="range-field-from-input"
         type={type}
-        onChange={e => handleChange(e.target.value, true)}
+        onChange={(e) => handleChange(e.target.value, true)}
         placeholder="0"
         value={rangeFrom}
       />
@@ -34,11 +35,18 @@ const RangeField = ({
         id={`to_input_${field.id}`}
         data-testid="range-field-to-input"
         type={type}
-        onChange={e => handleChange(e.target.value, false)}
+        onChange={(e) => handleChange(e.target.value, false)}
         placeholder="100"
         value={rangeTo}
       />
     </label>
   </Fragment>
 );
+
+RangeField.defaultProps = {
+  type: undefined,
+  rangeFrom: undefined,
+  rangeTo: undefined,
+};
+
 export default RangeField;
