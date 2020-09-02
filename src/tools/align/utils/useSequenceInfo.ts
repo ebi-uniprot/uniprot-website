@@ -12,7 +12,7 @@ import { ParsedSequence } from '../../components/SequenceSearchLoader';
 type FeatureEndpointData = {
   accession: string;
   entryName: string;
-  features: FeatureData[];
+  features: FeatureData;
   sequence: string;
   sequenceChecksum: string;
   taxid: number;
@@ -20,7 +20,7 @@ type FeatureEndpointData = {
 
 export type ParsedSequenceAndFeatures = ParsedSequence & {
   accession: string;
-  features?: FeatureData[];
+  features?: FeatureData;
 };
 
 export type SequenceInfo = {

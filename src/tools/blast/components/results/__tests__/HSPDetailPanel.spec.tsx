@@ -17,7 +17,7 @@ const dataMock = {
 useDataApi.mockImplementation(() => dataMock);
 useSize.mockImplementation(() => [{ width: 1000 }]);
 
-describe('HSPDetailPanel', () => {
+describe.skip('HSPDetailPanel', () => {
   let rendered;
   const onClose = jest.fn();
   const hit = blastResultsMockData.hits[0];
