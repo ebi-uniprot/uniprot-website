@@ -24,6 +24,21 @@ type ParsedAndEnriched = {
   sequences: EnrichedSequence[];
 };
 
+const dashesRE = {
+  start: /^-*/,
+  end: /-*$/,
+  any: /-*/g,
+};
+// calculate start and end of alignments without initial and final dashes
+const getFromToLength = (clustalSeq = '') => {
+  const trimmedStart = clustalSeq.replace(dashesRE.start, '');
+  const from = clustalSeq.length - trimmedStart.length + 1;
+  const trimmed = trimmedStart.replace(dashesRE.end, '');
+  const { length } = trimmed.replace(dashesRE.any, '');
+  console.log({ from, to: from + trimmed.length, length });
+  return { from, to: from + trimmed.length, length };
+};
+
 const enrichParsed = (
   parsed: AlnClustalNum | null,
   sequenceInfo: SequenceInfo
@@ -37,8 +52,11 @@ const enrichParsed = (
     if (matchIndex !== -1) {
       const match = sequences[matchIndex];
       sequences[matchIndex] = {
-        ...match,
         ...info,
+        ...match,
+        // not sure yet if that is needed or not
+        ...getFromToLength(match.sequence),
+        // or if those values are enough
         from: 1,
         to: match.sequence?.length || 0,
         length: match.sequence?.length || 0,

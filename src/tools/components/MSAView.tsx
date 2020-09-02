@@ -167,6 +167,7 @@ const MSAView: FC<MSAViewProps> = ({
           // Looks like displaylength initialisation is ignored when there's labels - bug in MSA
           // labelwidth={200}
           length={alignmentLength}
+          height={alignment.length * 22}
           colorscheme={highlightProperty}
           {...conservationOptions}
         />
