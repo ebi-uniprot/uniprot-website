@@ -1,0 +1,28 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.align-result-overview {
+  display: flex;
+  gap: 1ch;
+  width: 100%;
+
+  &--labels {
+    align-self: flex-end;
+    margin: 0;
+    list-style: none;
+
+    > li {
+      height: 20px;
+      font-size: 12px;
+      border-top: 1px solid $colour-gainsborough;
+      display: flex;
+
+      &:last-child {
+        border-bottom: 1px solid $colour-gainsborough;
+      }
+    }
+  }
+
+  &--msa {
+    flex: 1;
+  }
+}

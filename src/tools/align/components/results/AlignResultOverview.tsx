@@ -1,5 +1,6 @@
 import React, { FC, useMemo } from 'react';
 
+import AlignLabel from './AlignLabel';
 import MSAWrapper from '../../../components/MSAWrapper';
 
 import alnClustalNum from '../../adapters/alnClustalNum';
@@ -9,6 +10,8 @@ import {
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
+
+import './styles/AlignResultOverview.scss';
 
 type Props = {
   data: string;
@@ -35,7 +38,6 @@ const getFromToLength = (clustalSeq = '') => {
   const from = clustalSeq.length - trimmedStart.length + 1;
   const trimmed = trimmedStart.replace(dashesRE.end, '');
   const { length } = trimmed.replace(dashesRE.any, '');
-  console.log({ from, to: from + trimmed.length, length });
   return { from, to: from + trimmed.length, length };
 };
 
@@ -79,10 +81,23 @@ const AlignResultOverview: FC<Props> = ({ data, sequenceInfo }) => {
   }
 
   return (
-    <MSAWrapper
-      alignment={parsedAndEnriched.sequences}
-      alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
-    />
+    <section className="align-result-overview">
+      <ul className="align-result-overview--labels">
+        {parsedAndEnriched.sequences.map((s) => (
+          <li key={s.name}>
+            <AlignLabel accession={s.accession} info={s} loading={false}>
+              {s.name || ''}
+            </AlignLabel>
+          </li>
+        ))}
+      </ul>
+      <div className="align-result-overview--msa">
+        <MSAWrapper
+          alignment={parsedAndEnriched.sequences}
+          alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
+        />
+      </div>
+    </section>
   );
 };
 
