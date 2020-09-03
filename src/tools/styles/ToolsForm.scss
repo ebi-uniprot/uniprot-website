@@ -43,6 +43,8 @@
 
 .tools-form-advanced > summary {
   overflow: hidden;
+  cursor: pointer;
+  user-select: none;
 
   & > span {
     position: relative;
