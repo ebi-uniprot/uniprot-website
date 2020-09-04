@@ -1,3 +1,8 @@
+export enum AlignFieldTypes {
+  textarea,
+  select,
+}
+
 export type AlignFormValue = {
   fieldName: string;
   selected?: string;
@@ -8,11 +13,6 @@ export type AlignFormValue = {
 export enum AlignFields {
   sequence = 'Sequence',
   name = 'Name',
-}
-
-export enum AlignFieldTypes {
-  textarea,
-  select,
 }
 
 export type AlignFormValues = { [x in AlignFields]: AlignFormValue };

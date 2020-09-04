@@ -13,6 +13,8 @@ export const blastFacetToKeyName = {
   [BlastFacet.EVALUE]: 'hsp_expect',
 };
 
+export type ParsedLocalFacet = { name: string; min: number; max: number };
+
 const urlBoundsRE = /\[(.+) TO (.+)\]/;
 const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
   const output = [];
@@ -177,5 +179,3 @@ export const getDataPoints = (hits: BlastHit[]) => {
   }
   return Object.freeze(output);
 };
-
-export type ParsedLocalFacet = { name: string; min: number; max: number };
