@@ -1,25 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useRef, useCallback } from 'react';
+import { noop } from 'lodash-es';
 
-declare global {
-  interface Window {
-    requestIdleCallback: (
-      callback: () => void,
-      options?: { timeout: number }
-    ) => any;
-    cancelIdleCallback: (handle: any) => void;
-  }
-}
+type Serializable = null | boolean | number | string | Record<string, unknown>;
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type Serializable = null | boolean | number | string | object;
-
-// fallback: noop
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const cancelIdleCallback = window.cancelIdleCallback || (() => {});
+const cancelIdleCallback = window.cancelIdleCallback || noop;
 // fallback: execute rightaway
 const requestIdleCallback =
-  window.requestIdleCallback || ((fn: () => any) => fn());
+  window.requestIdleCallback || ((fn: () => unknown) => fn());
 
 type Output<T> = [
   value: T | null,
@@ -31,9 +18,11 @@ function useLocalStorage<T extends Serializable>(
   key: string,
   initialValue: T | null = null
 ): Output<T> {
-  const handle = useRef();
+  type State = T | null;
 
-  const [state, setState] = useState<T | null>(() => {
+  const handle = useRef<number>();
+
+  const [state, setState] = useState<State>(() => {
     const stored = window.localStorage.getItem(key);
     let parsed = null;
     try {
@@ -46,11 +35,13 @@ function useLocalStorage<T extends Serializable>(
   });
 
   const setValue = useCallback(
-    (value: T | null) => {
+    (value: State | ((prevState: State) => State)) => {
       const valueToStore = typeof value === 'function' ? value(state) : value;
       setState(valueToStore);
 
-      cancelIdleCallback(handle.current);
+      if (handle.current !== undefined) {
+        cancelIdleCallback(handle.current);
+      }
       handle.current = requestIdleCallback(() => {
         try {
           window.localStorage.setItem(key, JSON.stringify(value));
@@ -64,7 +55,9 @@ function useLocalStorage<T extends Serializable>(
 
   const deleteValue = useCallback(() => {
     setValue(null);
-    cancelIdleCallback(handle.current);
+    if (handle.current !== undefined) {
+      cancelIdleCallback(handle.current);
+    }
     handle.current = requestIdleCallback(() => {
       window.localStorage.removeItem('key');
     });

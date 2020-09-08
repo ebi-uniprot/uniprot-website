@@ -42,7 +42,6 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -217,7 +216,6 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -345,7 +343,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -520,7 +517,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"

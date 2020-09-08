@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react';
 
 // NOTE: this dependency is quite big (because of "amigo2-instance-data"), so
@@ -24,10 +23,10 @@ enum COLOR_BY {
 }
 
 type RibbonData = {
-  entities: any;
-  config: any;
-  dataError: any;
-  dataReceived: any;
+  entities: unknown;
+  config: unknown;
+  dataError: unknown;
+  dataReceived: unknown;
 };
 
 const RibbonContainer: FC<RibbonData> = ({
