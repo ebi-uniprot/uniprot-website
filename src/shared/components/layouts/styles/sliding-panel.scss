@@ -8,7 +8,7 @@
   background-color: $colour-sky-white;
   border-radius: 0.2rem;
   padding: 0 $global-padding;
-  position: absolute;
+  position: fixed;
   z-index: $z-index-high;
 
   &__button-row {

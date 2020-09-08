@@ -19,27 +19,25 @@ const SideBarLayout: React.FC<SideBarLayoutProps> = ({
   actionButtons,
   children,
   className,
-}) => {
-  const contentRef = useRef<HTMLElement>(null);
-  return (
-    <div className={cn('sidebar-layout', className)}>
-      <section className="sidebar-layout__sidebar">
-        <ErrorBoundary>{sidebar}</ErrorBoundary>
-      </section>
-      <section className="sidebar-layout__content" ref={contentRef}>
+}) => (
+  <div className={cn('sidebar-layout', className)}>
+    <section className="sidebar-layout__sidebar">
+      <ErrorBoundary>{sidebar}</ErrorBoundary>
+    </section>
+    <section className="sidebar-layout__content" data-loader-scroll="sidebar">
+      <ErrorBoundary>
+        <section className="sidebar-layout__title">{title}</section>
+      </ErrorBoundary>
+      {actionButtons && (
         <ErrorBoundary>
-          <section className="sidebar-layout__title">{title}</section>
+          <section className="sidebar-layout__action-buttons">
+            {actionButtons}
+          </section>
         </ErrorBoundary>
-        {actionButtons && (
-          <ErrorBoundary>
-            <section className="sidebar-layout__action-buttons">
-              {actionButtons}
-            </section>
-          </ErrorBoundary>
-        )}
-        <ErrorBoundary>{cloneElement(children, { contentRef })}</ErrorBoundary>
-      </section>
-    </div>
-  );
-};
+      )}
+      <ErrorBoundary>{children}</ErrorBoundary>
+    </section>
+  </div>
+);
+
 export default SideBarLayout;

@@ -12,16 +12,20 @@
   overflow-y: hidden;
 
   &__title {
-    // grid-area: title;
     min-height: 1rem;
     padding: 0 $gutter-size;
   }
 
   &__action-buttons {
-    // grid-area: action-buttons;
-    padding: 0 $gutter-size;
+    padding-right: $gutter-size;
+    padding-left: calc(2 * #{$gutter-size});
+    margin-left: -$gutter-size;
+    padding-top: 0.5rem;
     top: 0;
     position: sticky;
+    z-index: 2;
+    background-color: $colour-sky-white;
+    height: $action-buttons-height;
   }
 
   &__sidebar {

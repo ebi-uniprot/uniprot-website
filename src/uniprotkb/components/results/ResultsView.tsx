@@ -43,7 +43,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   handleEntrySelection,
   history,
   location,
-  contentRef,
 }) => {
   const { search: queryParamFromUrl } = location;
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
@@ -146,7 +145,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
           primaryAccession
         }
         data={allResults}
-        scrollRef={contentRef}
         dataRenderer={(dataItem: UniProtkbAPIModel) => (
           <UniProtKBCard
             data={dataItem}
@@ -157,6 +155,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
+        scrollDataAttribute="sidebar"
       />
     );
   } // viewMode === ViewMode.TABLE
@@ -188,7 +187,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
         primaryAccession
       }
       columns={columnsToDisplay}
-      scrollRef={contentRef}
       data={allResults}
       selectable
       selected={selectedEntries}
@@ -197,6 +195,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
       onLoadMoreItems={handleLoadMoreRows}
       hasMoreData={hasMoreData}
       loaderComponent={<Loader />}
+      scrollDataAttribute="sidebar"
     />
   );
 };
