@@ -48,20 +48,6 @@ const HSPDetailOverview: FC<HSPDetailOverviewProps> = ({
     data-testid="overview-hsp-detail"
     className="hsp-detail-panel__visualisation"
   >
-    <section className="hsp-label">Alignment</section>
-    <protvista-manager ref={managerRef} attributes="displaystart displayend">
-      <protvista-navigation length={hsp_align_len} />
-      <protvista-msa
-        ref={setMSAAttributes}
-        length={hsp_align_len}
-        colorscheme={highlightProperty}
-        {...conservationOptions}
-      />
-    </protvista-manager>
-    {/* 
-          TODO listen to "highlight" event from block above and set on these 2 tracks,
-          working as protvista-manager
-          */}
     {/* Query track */}
     <section className="hsp-label">Query</section>
     <protvista-track
@@ -71,7 +57,7 @@ const HSPDetailOverview: FC<HSPDetailOverviewProps> = ({
       layout="overlapping"
       highlight={highlightPosition}
     />
-    {/* Match track - to colour based on score, see BlastSummaryTrack in BlastResultTable */}
+    {/* Match track - coloured based on score */}
     <section className="hsp-label">
       <Link to={`/uniprotkb/${hitAccession}`}>{hitAccession}</Link>
     </section>
@@ -89,6 +75,16 @@ const HSPDetailOverview: FC<HSPDetailOverviewProps> = ({
       layout="non-overlapping"
       highlight={highlightPosition}
     />
+    <section className="hsp-label">Alignment</section>
+    <protvista-manager ref={managerRef} attributes="displaystart displayend">
+      <protvista-navigation length={hsp_align_len} />
+      <protvista-msa
+        ref={setMSAAttributes}
+        length={hsp_align_len}
+        colorscheme={highlightProperty}
+        {...conservationOptions}
+      />
+    </protvista-manager>
   </section>
 );
 

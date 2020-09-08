@@ -96,17 +96,6 @@ export type TemperatureDependenceComment = {
   };
 };
 
-export type CatalyticActivityComment = {
-  commentType: CommentType.CATALYTIC_ACTIVITY;
-  reaction?: {
-    name: string;
-    reactionCrossReferences?: { database: string; id: string }[];
-    ecNumber: string;
-    evidences?: Evidence[];
-  };
-  physiologicalReactions?: PhysiologicalReaction[];
-};
-
 export enum PhysiologicalReactionDirection {
   LeftToRight = 'left-to-right',
   RightToLeft = 'right-to-left',
@@ -116,6 +105,17 @@ export type PhysiologicalReaction = {
   directionType: PhysiologicalReactionDirection;
   reactionCrossReference: { database: string; id: string };
   evidences: Evidence[];
+};
+
+export type CatalyticActivityComment = {
+  commentType: CommentType.CATALYTIC_ACTIVITY;
+  reaction?: {
+    name: string;
+    reactionCrossReferences?: { database: string; id: string }[];
+    ecNumber: string;
+    evidences?: Evidence[];
+  };
+  physiologicalReactions?: PhysiologicalReaction[];
 };
 
 export type Xref = {

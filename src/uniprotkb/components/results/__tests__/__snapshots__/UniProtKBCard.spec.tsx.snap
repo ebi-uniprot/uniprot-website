@@ -33,6 +33,7 @@ exports[`UniProtKBCard component should render 1`] = `
               >
                 <span
                   class="uniprot-title__status icon--reviewed"
+                  title="This marks a reviewed entry"
                 >
                   <svg
                     fill="currentColor"

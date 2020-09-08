@@ -1,3 +1,5 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
 // keyframe to have the base style when the component mounts,
 // the "to" is automatically decided with what we define in the component's code
 @keyframes appear {
@@ -23,12 +25,19 @@
   }
 
   &__name {
-    margin-right: 1ch;
+    padding: 1ch;
+    justify-self: start;
+    background-color: transparent;
+
+    &--hovered {
+      background-color: $colour-gainsborough;
+    }
   }
 
   &__cell {
     width: 100%;
     border-radius: 0.5ch;
+    border: 1px solid transparent;
     aspect-ratio: 1/1; // keep cells squared (if not supported it's fine 🤷🏽‍♂️)
     // to center the inner text
     display: flex;
@@ -47,5 +56,18 @@
 
     // transition on contrast update
     transition: background-color ease-in-out 100ms;
+
+    &--dark {
+      color: black;
+    }
+
+    &--hovered {
+      border-color: $colour-medium-turquoise;
+    }
+
+    // combine both modifiers for classes on the same element
+    &--dark#{&}--hovered {
+      border-color: $colour-sapphire-blue;
+    }
   }
 }

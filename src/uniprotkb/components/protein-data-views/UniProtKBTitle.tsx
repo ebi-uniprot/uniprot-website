@@ -7,11 +7,17 @@ export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
   entryType,
 }) =>
   entryType === EntryType.REVIEWED ? (
-    <span className="uniprot-title__status icon--reviewed">
+    <span
+      className="uniprot-title__status icon--reviewed"
+      title="This marks a reviewed entry"
+    >
       <SwissProtIcon />
     </span>
   ) : (
-    <span className="uniprot-title__status icon--unreviewed">
+    <span
+      className="uniprot-title__status icon--unreviewed"
+      title="This marks an unreviewed entry"
+    >
       <TremblIcon />
     </span>
   );

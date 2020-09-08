@@ -130,8 +130,10 @@ export const requestEvidences = (evidencesType: Evidence) =>
     evidencesType,
   });
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const receiveEvidences = (data: any, evidencesType: Evidence) =>
+export const receiveEvidences = (
+  data: SearchTermType[],
+  evidencesType: Evidence
+) =>
   action(RECEIVE_EVIDENCES, {
     data,
     evidencesType,
@@ -143,8 +145,7 @@ export const fetchEvidences = (evidencesType: Evidence) => async (
 ) => {
   const url = apiUrls.evidences[evidencesType];
   dispatch(requestEvidences(evidencesType));
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return fetchData<any>(url).then((response) =>
+  return fetchData<SearchTermType[]>(url).then((response) =>
     dispatch(receiveEvidences(response.data, evidencesType))
   );
 };

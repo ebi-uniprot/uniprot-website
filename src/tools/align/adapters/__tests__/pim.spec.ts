@@ -80,4 +80,26 @@ describe('pim', () => {
       ]);
     });
   });
+
+  describe('file with NaNs', () => {
+    let file;
+
+    beforeAll(async () => {
+      file = await readFile(
+        path.join(__dirname, '..', '__mocks__', 'pim-with-nan.txt'),
+        'utf8'
+      );
+    });
+
+    it('should parse correctly', () => {
+      let parsed;
+      expect(() => {
+        parsed = pim(file);
+      }).not.toThrow();
+
+      expect(parsed[0].values[0]).not.toBeNaN();
+      expect(parsed[16].values[9]).toBeNaN();
+      expect(parsed[9].values[16]).toBeNaN();
+    });
+  });
 });

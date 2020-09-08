@@ -37,7 +37,8 @@ import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import '../../../styles/ToolsResult.scss';
 
-const blastURls = toolsURLs(JobTypes.BLAST);
+const jobType = JobTypes.BLAST;
+const urls = toolsURLs(jobType);
 
 // overview
 const BlastResultTable = lazy(() =>
@@ -59,9 +60,15 @@ const BlastResultHitDistribution = lazy(() =>
 const TextOutput = lazy(() =>
   import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
 );
-// tool-input
-const ToolInput = lazy(() =>
-  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
+// input-parameters
+const InputParameters = lazy(() =>
+  import(
+    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+  )
+);
+// input-parameters
+const APIRequest = lazy(() =>
+  import(/* webpackChunkName: "api-request" */ '../../../components/APIRequest')
 );
 
 enum TabLocation {
@@ -69,7 +76,8 @@ enum TabLocation {
   Taxonomy = 'taxonomy',
   HitDistribution = 'hit-distribution',
   TextOutput = 'text-output',
-  ToolInput = 'tool-input',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
 }
 
 type Match = {
@@ -89,10 +97,8 @@ const useParamsData = (
     Partial<UseDataAPIState<PublicServerParameters>>
   >({});
 
-  const paramsXMLData = useDataApi<string>(
-    blastURls.resultUrl(id, 'parameters')
-  );
-  const sequenceData = useDataApi<string>(blastURls.resultUrl(id, 'sequence'));
+  const paramsXMLData = useDataApi<string>(urls.resultUrl(id, 'parameters'));
+  const sequenceData = useDataApi<string>(urls.resultUrl(id, 'sequence'));
 
   useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
@@ -165,7 +171,7 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(blastURls.resultUrl(match.params.id, 'json'));
+  } = useDataApi<BlastResults>(urls.resultUrl(match.params.id, 'json'));
 
   // extract facets and other info from URL querystring
   const urlParams: URLResultParams = useMemo(
@@ -276,7 +282,7 @@ const BlastResult = () => {
 
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
-    case TabLocation.ToolInput:
+    case TabLocation.InputParameters:
       sidebar = emptySidebar;
       break;
 
@@ -287,7 +293,7 @@ const BlastResult = () => {
 
   const actionBar = (
     <ResultButtons
-      jobType={JobTypes.BLAST}
+      jobType={jobType}
       jobId={match.params.id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
@@ -379,28 +385,44 @@ const BlastResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            <TextOutput id={match.params.id} jobType={JobTypes.BLAST} />
+            <TextOutput id={match.params.id} jobType={jobType} />
           </Suspense>
         </Tab>
         <Tab
-          id={TabLocation.ToolInput}
+          id={TabLocation.InputParameters}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/blast/${match.params.id}/${TabLocation.ToolInput}`,
+                pathname: `/blast/${match.params.id}/${TabLocation.InputParameters}`,
               })}
             >
-              Tool Input
+              Input Parameters
             </Link>
           }
         >
           <Suspense fallback={<Loader />}>
-            <ToolInput
+            <InputParameters
               id={match.params.id}
-              jobType={JobTypes.BLAST}
               inputParamsData={inputParamsData}
             />
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.APIRequest}
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/${TabLocation.APIRequest}`,
+              })}
+            >
+              API Request
+            </Link>
+          }
+        >
+          <Suspense fallback={<Loader />}>
+            <APIRequest jobType={jobType} inputParamsData={inputParamsData} />
           </Suspense>
         </Tab>
       </Tabs>

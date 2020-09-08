@@ -3,6 +3,12 @@ import { FormParameters } from '../types/blastFormParameters';
 
 export type SelectedTaxon = { label: string; id: string };
 
+export enum BlastFieldTypes {
+  textarea,
+  select,
+  autocomplete,
+}
+
 export type BlastFormValue = {
   fieldName: string;
   selected?: string | SelectedTaxon[] | boolean | number;
@@ -22,12 +28,6 @@ export enum BlastFields {
   gapped = 'Gapped',
   hits = 'Hits',
   name = 'Name',
-}
-
-export enum BlastFieldTypes {
-  textarea,
-  select,
-  autocomplete,
 }
 
 export type BlastFormValues = { [x in BlastFields]: BlastFormValue };

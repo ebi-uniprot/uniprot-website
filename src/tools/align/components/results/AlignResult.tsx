@@ -10,8 +10,9 @@ import ResultButtons from '../../../components/ResultButtons';
 import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
+import useSequenceInfo from '../../utils/useSequenceInfo';
 
-import inputParamsXMLToObject from '../../../blast/adapters/inputParamsXMLToObject';
+import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
@@ -22,7 +23,8 @@ import { PublicServerParameters } from '../../types/alignServerParameters';
 
 import '../../../styles/ToolsResult.scss';
 
-const alignUrls = toolsURLs(JobTypes.ALIGN);
+const jobType = JobTypes.ALIGN;
+const urls = toolsURLs(jobType);
 
 // overview
 // const AlignResultOverview = lazy(() =>
@@ -40,9 +42,15 @@ const AlignResultPIM = lazy(() =>
 const TextOutput = lazy(() =>
   import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
 );
-// tool-input
-const ToolInput = lazy(() =>
-  import(/* webpackChunkName: "tool-input" */ '../../../components/ToolInput')
+// input-parameters
+const InputParameters = lazy(() =>
+  import(
+    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+  )
+);
+// input-parameters
+const APIRequest = lazy(() =>
+  import(/* webpackChunkName: "api-request" */ '../../../components/APIRequest')
 );
 
 enum TabLocation {
@@ -50,7 +58,8 @@ enum TabLocation {
   PhyloTree = 'phylogenetic-tree',
   PIM = 'percent-identity-matrix',
   TextOutput = 'text-output',
-  ToolInput = 'tool-input',
+  InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
 }
 
 type Match = {
@@ -70,10 +79,8 @@ const useParamsData = (
     Partial<UseDataAPIState<PublicServerParameters>>
   >({});
 
-  const paramsXMLData = useDataApi<string>(
-    alignUrls.resultUrl(id, 'submission')
-  );
-  const sequenceData = useDataApi<string>(alignUrls.resultUrl(id, 'sequence'));
+  const paramsXMLData = useDataApi<string>(urls.resultUrl(id, 'submission'));
+  const sequenceData = useDataApi<string>(urls.resultUrl(id, 'sequence'));
 
   useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
@@ -115,12 +122,14 @@ const AlignResult = () => {
     }
   }, [match.params.subPage, history]);
 
-  // get data from the blast endpoint
+  // get data from the align endpoint
   const { loading, data, error, status } = useDataApi<AlignResults>(
-    alignUrls.resultUrl(match.params.id, 'aln-clustal_num')
+    urls.resultUrl(match.params.id, 'aln-clustal_num')
   );
 
   const inputParamsData = useParamsData(match.params.id);
+
+  const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
   // Note: this function is duplicated in ResultsContainer.tsx
   // const handleSelectedEntries = (rowId: string) => {
@@ -142,7 +151,7 @@ const AlignResult = () => {
 
   const actionBar = (
     <ResultButtons
-      jobType={JobTypes.ALIGN}
+      jobType={jobType}
       jobId={match.params.id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
@@ -169,7 +178,7 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              {data}
+              <pre>{data}</pre>
               {/* <AlignResultOverview 
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
@@ -193,7 +202,10 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPhyloTree id={match.params.id} />
+              <AlignResultPhyloTree
+                id={match.params.id}
+                sequenceInfo={sequenceInfo}
+              />
             </Suspense>
           </ErrorBoundary>
         </Tab>
@@ -213,7 +225,10 @@ const AlignResult = () => {
           {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <AlignResultPIM id={match.params.id} />
+              <AlignResultPIM
+                id={match.params.id}
+                sequenceInfo={sequenceInfo}
+              />
             </Suspense>
           </ErrorBoundary>
         </Tab>
@@ -230,33 +245,50 @@ const AlignResult = () => {
             </Link>
           }
         >
-          {actionBar}
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <TextOutput id={match.params.id} jobType={JobTypes.ALIGN} />
+              <TextOutput id={match.params.id} jobType={jobType} />
             </Suspense>
           </ErrorBoundary>
         </Tab>
         <Tab
-          id={TabLocation.ToolInput}
+          id={TabLocation.InputParameters}
           title={
             <Link
               to={(location) => ({
                 ...location,
-                pathname: `/align/${match.params.id}/${TabLocation.ToolInput}`,
+                pathname: `/align/${match.params.id}/${TabLocation.InputParameters}`,
               })}
             >
-              Tool Input
+              Input Parameters
             </Link>
           }
         >
           <ErrorBoundary>
             <Suspense fallback={<Loader />}>
-              <ToolInput
+              <InputParameters
                 id={match.params.id}
-                jobType={JobTypes.ALIGN}
                 inputParamsData={inputParamsData}
               />
+            </Suspense>
+          </ErrorBoundary>
+        </Tab>
+        <Tab
+          id={TabLocation.APIRequest}
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/align/${match.params.id}/${TabLocation.APIRequest}`,
+              })}
+            >
+              API Request
+            </Link>
+          }
+        >
+          <ErrorBoundary>
+            <Suspense fallback={<Loader />}>
+              <APIRequest jobType={jobType} inputParamsData={inputParamsData} />
             </Suspense>
           </ErrorBoundary>
         </Tab>

@@ -7,7 +7,7 @@ type CommonResultFormats =
 export type ResultFormat = {
   [JobTypes.ALIGN]:
     | CommonResultFormats
-    | 'aln-clustal_num' // Alignment in CLUSTAL format with base/residue numbering
+    | 'aln-clustal_num' // Alignment in CLUSTAL format with base/residue numbering; https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Multiple+Sequence+Alignment+Tool+Output+Examples#MultipleSequenceAlignmentToolOutputExamples-ClustalOmegaproteinoutputexamples / ClustalW: http://web.mit.edu/meme_v4.11.4/share/doc/clustalw-format.html
     | 'phylotree' // Phylogenetic Tree
     | 'pim' // Percent Identity Matrix
     | 'submission'; // Submission Details (according to doc in JSON, but it looks like it's actually XML)

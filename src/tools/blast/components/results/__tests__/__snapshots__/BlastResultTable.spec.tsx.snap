@@ -2,162 +2,177 @@
 
 exports[`BlastResultTable tests should render the results table 1`] = `
 <DocumentFragment>
-  <div
-    class="data-loader__wrapper"
-  >
+  <div>
     <div
-      class="data-loader__scroll-container"
+      class="data-loader__wrapper"
     >
-      <table
-        class="data-table data-table--compact  data-table--fixed"
+      <div
+        class="data-loader__scroll-container"
       >
-        <thead
-          class="data-table__header"
+        <table
+          class="data-table data-table--compact  data-table--fixed"
         >
-          <tr
-            class="data-table__row"
+          <thead
+            class="data-table__header"
           >
-            <th
-              class="data-table__header-cell data-table__header-cell--checkbox"
+            <tr
+              class="data-table__row"
             >
-               
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: 5rem;"
-            >
-              Accession
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: 5rem;"
-            >
-              Gene
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: auto;"
-            >
-              Protein
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: auto;"
-            >
-              Organism
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: 40vw;"
-            >
-              <div
-                class="query-sequence-wrapper"
+              <th
+                class="data-table__header-cell data-table__header-cell--checkbox"
               >
-                <protvista-navigation
-                  height="10"
-                  length="30"
-                  title="Query"
+                 
+              </th>
+              <th
+                class="data-table__header-cell "
+                style="width: 8rem;"
+              >
+                Accession
+              </th>
+              <th
+                class="data-table__header-cell "
+                style="width: 5rem;"
+              >
+                Gene
+              </th>
+              <th
+                class="data-table__header-cell "
+                style="width: auto;"
+              >
+                Protein
+              </th>
+              <th
+                class="data-table__header-cell "
+                style="width: auto;"
+              >
+                Organism
+              </th>
+              <th
+                class="data-table__header-cell "
+                style="width: 40vw;"
+              >
+                <div
+                  class="query-sequence-wrapper"
+                >
+                  <protvista-navigation
+                    height="10"
+                    length="30"
+                    title="Query"
+                  />
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="data-table__table__body"
+          >
+            <tr>
+              <td
+                class="data-table__cell "
+              >
+                <input
+                  aria-label="U6MKN0"
+                  type="checkbox"
                 />
-              </div>
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          class="data-table__table__body"
-        >
-          <tr>
-            <td
-              class="data-table__cell "
-            >
-              <input
-                aria-label="U6MKN0"
-                type="checkbox"
-              />
-            </td>
-            <td
-              class="data-table__cell  data-table__cell--ellipsis"
-            >
-              <a
-                href="/uniprotkb/U6MKN0"
+              </td>
+              <td
+                class="data-table__cell  data-table__cell--ellipsis"
               >
-                U6MKN0
-              </a>
-            </td>
-            <td
-              class="data-table__cell  data-table__cell--ellipsis"
-            >
-              ENH_00046930
-            </td>
-            <td
-              class="data-table__cell  data-table__cell--ellipsis"
-            >
-              Uncharacterized protein
-            </td>
-            <td
-              class="data-table__cell  data-table__cell--ellipsis"
-            >
-              <a
-                href="/taxonomy/51315"
-              >
-                Eimeria necatrix
-              </a>
-            </td>
-            <td
-              class="data-table__cell  data-table__cell--ellipsis"
-            >
-              <div
-                class="data-table__blast-hsp"
-              >
-                <div>
-                  <div
-                    class="data-table__blast-hsp__tracks"
+                <a
+                  href="/uniprotkb/U6MKN0"
+                >
+                  <span
+                    class="uniprot-title__status icon--unreviewed"
+                    title="This marks an unreviewed entry"
                   >
-                    <section
-                      class="data-table__blast-hsp__blast-track"
+                    <svg
+                      fill="currentColor"
+                      viewBox="0 0 400 512"
                     >
-                      <protvista-track
-                        data-testid="blast-summary-track"
-                        height="10"
-                        length="30"
-                        title="Start: 3
+                      <path
+                        d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                      />
+                    </svg>
+                  </span>
+                  U6MKN0
+                </a>
+              </td>
+              <td
+                class="data-table__cell  data-table__cell--ellipsis"
+              >
+                ENH_00046930
+              </td>
+              <td
+                class="data-table__cell  data-table__cell--ellipsis"
+              >
+                Uncharacterized protein
+              </td>
+              <td
+                class="data-table__cell  data-table__cell--ellipsis"
+              >
+                <a
+                  href="/taxonomy/51315"
+                >
+                  Eimeria necatrix
+                </a>
+              </td>
+              <td
+                class="data-table__cell  data-table__cell--ellipsis"
+              >
+                <div
+                  class="data-table__blast-hsp"
+                >
+                  <div>
+                    <div
+                      class="data-table__blast-hsp__tracks"
+                    >
+                      <section
+                        class="data-table__blast-hsp__blast-track"
+                      >
+                        <protvista-track
+                          data-testid="blast-summary-track"
+                          height="10"
+                          length="30"
+                          title="Start: 3
 End: 30
 Hit Length: 486"
-                      />
-                    </section>
-                    <span
-                      class="data-table__blast-hsp__blast-params"
-                    >
+                        />
+                      </section>
                       <span
-                        class="chip chip--compact"
-                        title="Identity"
+                        class="data-table__blast-hsp__blast-params"
                       >
-                        7.1%
+                        <span
+                          class="chip chip--compact"
+                          title="Identity"
+                        >
+                          7.1%
+                        </span>
+                        <span
+                          class="chip chip--compact"
+                          title="Score"
+                        >
+                          41.5874
+                        </span>
+                        <span
+                          class="chip chip--compact"
+                          title="e-value"
+                        >
+                          0.0048
+                        </span>
                       </span>
-                      <span
-                        class="chip chip--compact"
-                        title="Score"
-                      >
-                        41.5874
-                      </span>
-                      <span
-                        class="chip chip--compact"
-                        title="e-value"
-                      >
-                        0.0048
-                      </span>
-                    </span>
+                    </div>
                   </div>
+                  <button
+                    type="button"
+                  >
+                    +1 more
+                  </button>
                 </div>
-                <button
-                  type="button"
-                >
-                  +1 more
-                </button>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </DocumentFragment>

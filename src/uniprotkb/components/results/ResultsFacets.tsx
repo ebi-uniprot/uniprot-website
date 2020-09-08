@@ -21,7 +21,7 @@ const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
     // eslint-disable-next-line consistent-return
     return new Map([
       [
-        'model_organism',
+        'other_organism',
         <Link
           className="button tertiary expandable-list__action"
           to={(location) => ({

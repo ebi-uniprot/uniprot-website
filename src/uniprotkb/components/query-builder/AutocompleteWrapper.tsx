@@ -24,17 +24,17 @@ export type Suggestions = {
   suggestions: Suggestion[];
 };
 
-type State = {
-  data: SelectValue[];
-  previousTextInputValue: string;
-  isLoading: boolean;
-};
-
 type SelectValue = {
   id: string;
   itemLabel: string;
   pathLabel: string;
   apiId: string;
+};
+
+type State = {
+  data: SelectValue[];
+  previousTextInputValue: string;
+  isLoading: boolean;
 };
 
 const minCharsToShowDropdown = 3;

@@ -45,12 +45,12 @@ const LocalFacet: FC<LocalFacetProps> = ({
   const history = useHistory();
 
   // handle modifying querystring to reflect the chosen values in the URL
-  const handleChange = ([min, max]: [number, number]) => {
+  const handleChange = ([min, max]: [min: number, max: number]) => {
     const facetsWithoutModified = selectedFacets.filter(
       ({ name }) => name !== facet
     );
-    const value = `[${min === bounds.min ? '*' : min} TO ${
-      max === bounds.max ? '*' : max
+    const value = `[${min <= bounds.min ? '*' : min} TO ${
+      max >= bounds.max ? '*' : max
     }]`;
 
     let nextFacets: SelectedFacet[];

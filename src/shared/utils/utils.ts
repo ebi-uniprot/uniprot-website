@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 // Keeping this util because _.omit is marked to be deprecated:
 // https://github.com/lodash/lodash/wiki/Roadmap
 export function removeProperty<
-  O extends Record<string | number, any>,
+  O extends Record<string | number, unknown>,
   P extends string | number
 >(obj: O, property: P): Omit<O, P> {
   const { [property]: unwantedProperty, ...objWithoutProperty } = obj;
@@ -27,21 +25,20 @@ export const loadWebComponent = (
   }
 };
 
-export const moveItemInList = (
-  list: any[],
+export function moveItemInList<T>(
+  list: T[],
   srcIndex: number,
   destIndex: number
-) => {
+) {
   const result = Array.from(list);
   const [removed] = result.splice(srcIndex, 1);
   result.splice(destIndex, 0, removed);
   return result;
-};
+}
 
-export const removeItemFromList = (list: any[], index: number) => [
-  ...list.slice(0, index),
-  ...list.slice(index + 1),
-];
+export function removeItemFromList<T>(list: T[], index: number) {
+  return [...list.slice(0, index), ...list.slice(index + 1)];
+}
 
 export const getBEMClassName = ({
   b,

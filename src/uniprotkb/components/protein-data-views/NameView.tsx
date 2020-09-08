@@ -1,8 +1,8 @@
 import React from 'react';
 
 type NameViewProps = {
-  name: string | null | undefined;
-  shortName?: string | null | undefined;
+  name?: string | null;
+  shortName?: string | null;
   alternativeNames?: string[];
 };
 
@@ -14,12 +14,16 @@ const NameView = (props: NameViewProps) => {
   }
   return (
     <span>
-      <strong>{name}</strong> 
-      {' '}
-      {shortName}
+      <strong>{name}</strong> {shortName}
       {altNames && <div>{altNames}</div>}
     </span>
   );
+};
+
+NameView.defaultProps = {
+  name: undefined,
+  shortName: undefined,
+  alternativeNames: undefined,
 };
 
 export default NameView;

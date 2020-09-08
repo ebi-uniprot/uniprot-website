@@ -1,0 +1,34 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.phylotree {
+  width: 100%;
+  overflow: visible;
+
+  & foreignObject {
+    overflow: visible;
+    // NOTE: somehow... this specific "overflow: visible" messes up with the
+    // "aspect-ratio: 1/1" in the PIM matrix... 🤷🏽‍♂️ (Chrome 84)
+    white-space: nowrap;
+  }
+
+  .link {
+    fill: none;
+    stroke: $colour-sapphire-blue;
+    stroke-width: 2px;
+
+    &.nonsense {
+      stroke: $colour-failure;
+    }
+
+    &.hovered {
+      stroke: $colour-medium-turquoise;
+      stroke-width: 4px;
+    }
+  }
+
+  .end-link {
+    fill: none;
+    stroke: $colour-gainsborough;
+    stroke-width: 1px;
+  }
+}

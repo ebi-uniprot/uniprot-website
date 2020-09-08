@@ -1,14 +1,16 @@
 import { uniq } from 'lodash-es';
+
 import UniProtKBEntryConfig from '../config/UniProtEntryConfig';
+
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
+
 import { Property, PropertyKey } from '../types/modelTypes';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export const hasContent = (obj: any) => {
+export const hasContent = (obj: Record<string | number | symbol, unknown>) => {
   return Object.values(obj).some((val) => {
     if (Array.isArray(val)) {
-      const valArray = val as any[];
+      const valArray = val as unknown[];
       return valArray.length > 0;
     }
     if (typeof val === 'object' && val) {
@@ -67,5 +69,4 @@ export const getPropertyValue = (
 
 // The regex that matches uniprot accession. Taken from:
 // https://www.uniprot.org/help/accession_numbers
-export const uniProtKBAccessionRegEx =
-  /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
+export const uniProtKBAccessionRegEx = /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;

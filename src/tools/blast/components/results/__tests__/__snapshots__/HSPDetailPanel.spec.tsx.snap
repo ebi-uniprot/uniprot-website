@@ -42,7 +42,6 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -217,7 +216,6 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -247,54 +245,56 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
       <div
         class="hsp-detail-panel__body"
       >
-        <section
-          class="hsp-detail-panel__visualisation hsp-detail-panel__visualisation__wrapped-row"
-          data-testid="wrapped-hsp-detail"
-        >
+        <div>
           <section
-            class="query-ruler"
+            class="hsp-detail-panel__visualisation hsp-detail-panel__visualisation__wrapped-row"
+            data-testid="wrapped-hsp-detail"
           >
-            <protvista-navigation
-              height="2"
-              length="60"
-              rulerstart="3"
+            <section
+              class="query-ruler"
+            >
+              <protvista-navigation
+                height="2"
+                length="45"
+                rulerstart="3"
+              />
+            </section>
+            <section
+              class="hsp-label hsp-label--msa"
+            >
+              Alignment
+            </section>
+            <section
+              class="hsp-detail-panel__visualisation--msa"
+            >
+              <protvista-msa
+                length="45"
+              />
+            </section>
+            <section
+              class="hit-ruler"
+            >
+              <protvista-navigation
+                height="2"
+                length="45"
+                rulerstart="418"
+              />
+            </section>
+            <section
+              class="hsp-label hsp-label--track"
             />
+            <section
+              class="hsp-detail-panel__visualisation--track"
+            >
+              <protvista-track
+                displayend="462"
+                displaystart="418"
+                layout="non-overlapping"
+                length="45"
+              />
+            </section>
           </section>
-          <section
-            class="hsp-label hsp-label--msa"
-          >
-            Alignment
-          </section>
-          <section
-            class="hsp-detail-panel__visualisation--msa"
-          >
-            <protvista-msa
-              length="60"
-            />
-          </section>
-          <section
-            class="hit-ruler"
-          >
-            <protvista-navigation
-              height="2"
-              length="60"
-              rulerstart="418"
-            />
-          </section>
-          <section
-            class="hsp-label hsp-label--track"
-          />
-          <section
-            class="hsp-detail-panel__visualisation--track"
-          >
-            <protvista-track
-              displayend="477"
-              displaystart="418"
-              layout="non-overlapping"
-              length="60"
-            />
-          </section>
-        </section>
+        </div>
       </div>
     </div>
   </div>
@@ -343,7 +343,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -518,7 +517,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="dropdown-menu__content"
@@ -555,23 +553,6 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
           <section
             class="hsp-label"
           >
-            Alignment
-          </section>
-          <protvista-manager
-            attributes="displaystart displayend"
-            displayend="28"
-            displaystart="1"
-          >
-            <protvista-navigation
-              length="28"
-            />
-            <protvista-msa
-              length="28"
-            />
-          </protvista-manager>
-          <section
-            class="hsp-label"
-          >
             Query
           </section>
           <protvista-track
@@ -603,6 +584,23 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             layout="non-overlapping"
             length="486"
           />
+          <section
+            class="hsp-label"
+          >
+            Alignment
+          </section>
+          <protvista-manager
+            attributes="displaystart displayend"
+            displayend="28"
+            displaystart="1"
+          >
+            <protvista-navigation
+              length="28"
+            />
+            <protvista-msa
+              length="28"
+            />
+          </protvista-manager>
         </section>
       </div>
     </div>

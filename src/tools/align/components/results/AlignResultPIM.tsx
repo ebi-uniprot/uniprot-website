@@ -1,8 +1,9 @@
 import React, { Fragment, useState, FC } from 'react';
 import { Loader } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import AlignLabel from './AlignLabel';
 
 import pim from '../../adapters/pim';
 import getExponentialContrast from '../../utils/getExponentialContrast';
@@ -12,37 +13,24 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import toolsURLs from '../../../config/urls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
+import { SequenceInfo } from '../../utils/useSequenceInfo';
 
 import './styles/AlignResultPIM.scss';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 
-const NameWithPossibleAccession: FC<{
-  accession?: string;
-  children: string;
-}> = ({ accession, children }) => {
-  if (!accession) {
-    return <>{children}</>;
-  }
-
-  // separate text by chunks where we find the accession string
-  const [before, ...after] = children.split(accession);
-
-  return (
-    <>
-      {before}
-      {/* inject a link to the entry page */}
-      <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
-      {after.join(accession)}
-    </>
-  );
-};
-
 const DEFAULT_CONTRAST = 2; // need to be >1
 const WAVE_EFFECT_TIME = 250; // in ms
 
-const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
+type Props = {
+  id: string;
+  sequenceInfo: SequenceInfo;
+};
+
+const AlignResultPIM: FC<Props> = ({ id, sequenceInfo }) => {
+  const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
+
   const { loading, data, error, status } = useDataApi<string>(
     alignURLs.resultUrl(id, 'pim')
   );
@@ -68,7 +56,7 @@ const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
         className="align-result-pim__matrix"
         style={{
           //                    name column|value columns (as many as needed)
-          gridTemplateColumns: `min-content repeat(${parsed[0].values.length},1fr)`,
+          gridTemplateColumns: `max-content repeat(${parsed[0].values.length},1fr)`,
         }}
       >
         {/* for every sequence in the alignment */}
@@ -76,26 +64,54 @@ const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
           <Fragment
             key={indexRow} // eslint-disable-line react/no-array-index-key
           >
-            <span className="align-result-pim__name">
-              <NameWithPossibleAccession accession={accession}>
+            <span
+              className={cn('align-result-pim__name', {
+                'align-result-pim__name--hovered': hovered.includes(indexRow),
+              })}
+            >
+              <AlignLabel
+                accession={accession}
+                info={sequenceInfo.data.get(accession || '')}
+                loading={sequenceInfo.loading}
+              >
                 {name}
-              </NameWithPossibleAccession>
+              </AlignLabel>
             </span>
             {/* for each of the sequences this one is measured against */}
             {values.map((value, indexCol) => {
-              const opacity = getExponentialContrast(value / 100, contrast);
               // sequence against which this one is compared
               const vsSequence = parsed[indexCol];
+
+              let stringValue;
+              let opacity = 0;
+              if (Number.isNaN(value)) {
+                stringValue = `Not a Number`;
+              } else {
+                stringValue = `${value.toFixed(2)}%`;
+                opacity = getExponentialContrast(value / 100, contrast);
+              }
+
+              const isHovered =
+                // is hovered cell in down left triangle
+                (hovered[0] === indexRow && hovered[1] === indexCol) ||
+                // or is corresponding cell in up right triangle
+                (hovered[1] === indexRow && hovered[0] === indexCol);
+
               const delay =
                 (WAVE_EFFECT_TIME * (indexCol + indexRow)) /
                 (parsed.length + parsed.length - 2);
               return (
                 <span
                   key={indexCol} // eslint-disable-line react/no-array-index-key
-                  className="align-result-pim__cell"
+                  className={cn('align-result-pim__cell', {
+                    'align-result-pim__cell--hovered': isHovered,
+                    'align-result-pim__cell--dark': opacity < 0.5,
+                  })}
                   title={`${accession || name} vs ${
                     vsSequence.accession || vsSequence.name
-                  }: ${value}%`}
+                  }: ${stringValue}`}
+                  onPointerEnter={() => setHovered([indexRow, indexCol])}
+                  onPointerLeave={() => setHovered([])}
                   style={{
                     // effect from top left to bottom right on mount
                     animationDelay: `${delay}ms`,
@@ -103,10 +119,9 @@ const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
                     // looks like the effect start from where the button is
                     transitionDelay: `${WAVE_EFFECT_TIME - delay}ms`,
                     backgroundColor: `rgba(1,67,113,${opacity})`,
-                    color: opacity < 0.5 ? 'black' : 'white',
                   }}
                 >
-                  <span>{value.toFixed(2)}%</span>
+                  <span>{stringValue}</span>
                 </span>
               );
             })}
