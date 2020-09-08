@@ -14,8 +14,8 @@ const rehydrateJobs = async (dispatch: Dispatch) => {
 
   const jobStore = new JobStore(Stores.METADATA);
 
-  const persistedJobs: { [internalID: string]: Job } = {};
-  for (const persistedJob of await jobStore.getAll()) {
+  const persistedJobs: Record<string, Job> = {};
+  for (const persistedJob of await jobStore.getAll<Job>()) {
     persistedJobs[persistedJob.internalID] = persistedJob;
   }
 

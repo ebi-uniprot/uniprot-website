@@ -1,5 +1,10 @@
 import { FormParameters } from '../types/alignFormParameters';
 
+export enum AlignFieldTypes {
+  textarea,
+  select,
+}
+
 export type AlignFormValue = {
   fieldName: string;
   selected?: string | boolean | number;
@@ -12,11 +17,6 @@ export enum AlignFields {
   name = 'Name',
   order = 'Output sequence order',
   iterations = 'Iterations',
-}
-
-export enum AlignFieldTypes {
-  textarea,
-  select,
 }
 
 export type AlignFormValues = { [x in AlignFields]: AlignFormValue };

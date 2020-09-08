@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from 'react';
 
 // NOTE: this dependency is quite big (because of "amigo2-instance-data"), so
@@ -24,39 +23,46 @@ enum COLOR_BY {
 }
 
 type RibbonData = {
-  entities: any;
-  config: any;
-  dataError: any;
-  dataReceived: any;
+  entities: unknown;
+  config: unknown;
+  dataError: unknown;
+  dataReceived: unknown;
 };
+
+const RibbonContainer: FC<RibbonData> = ({
+  entities,
+  config,
+  dataError,
+  dataReceived,
+}) => (
+  <div className="GoRibbon__container">
+    {dataReceived && (
+      <Ribbon
+        entities={entities}
+        config={config}
+        showing
+        entityLabel={POSITION.RIGHT}
+        colorBy={COLOR_BY.CLASS_COUNT}
+        binaryColor={false}
+        oddEvenColor
+      />
+    )}
+    {!dataReceived && dataError && (
+      <div className="GoRibbon__container__message">
+        Cannot load Go Ribbon visualisation due to server error
+      </div>
+    )}
+    {!dataReceived && !dataError && (
+      <div className="GoRibbon__container__message">Loading...</div>
+    )}
+  </div>
+);
 
 const GoRibbon: FC<{ primaryAccession: string }> = ({ primaryAccession }) => (
   <div className="GoRibbon">
     <h3>GO Annotations</h3>
     <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
-      {({ entities, config, dataError, dataReceived }: RibbonData) => (
-        <div className="GoRibbon__container">
-          {dataReceived && (
-            <Ribbon
-              entities={entities}
-              config={config}
-              showing
-              entityLabel={POSITION.RIGHT}
-              colorBy={COLOR_BY.CLASS_COUNT}
-              binaryColor={false}
-              oddEvenColor
-            />
-          )}
-          {!dataReceived && dataError && (
-            <div className="GoRibbon__container__message">
-              Cannot load Go Ribbon visualisation due to server error
-            </div>
-          )}
-          {!dataReceived && !dataError && (
-            <div className="GoRibbon__container__message">Loading...</div>
-          )}
-        </div>
-      )}
+      {(data: RibbonData) => <RibbonContainer {...data} />}
     </RibbonDataProvider>
   </div>
 );

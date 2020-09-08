@@ -91,7 +91,6 @@ module.exports = (env, argv) => {
          * Worker required for msa-react-viewer. Gustavo looking at
          * making dependency optional
          * */
-
         {
           test: /\.worker\.js$/,
           use: { loader: 'worker-loader' },

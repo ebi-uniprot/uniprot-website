@@ -25,6 +25,11 @@ export const isRheaReactionReference = ({
   id: string;
 }) => database === 'Rhea' && !!getRheaId(id);
 
+type ChebiImageData = {
+  chebi: string;
+  imgURL: string;
+} | null;
+
 export const ZoomModalContent: React.FC<ChebiImageData> = ({
   chebi,
   imgURL,
@@ -55,11 +60,6 @@ type RheaReactionVisualizerProps = {
   rheaId: number;
   show: boolean;
 };
-
-type ChebiImageData = {
-  chebi: string;
-  imgURL: string;
-} | null;
 
 export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
   rheaId,
