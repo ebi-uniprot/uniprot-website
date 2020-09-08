@@ -1,0 +1,16 @@
+.adv-search-toggle{clear:both;float:right;margin-top:0.2rem;font-size:0.9rem}
+
+.error-component{width:100%;padding:1ch;border:solid 1px red;display:flex;flex-direction:column;align-items:center}
+
+.popup-message-container{z-index:9000;position:fixed;display:flex;width:25vw;max-height:calc(100vh - 2rem);overflow:scroll;flex-direction:column;right:1rem;bottom:1rem}
+
+.base-layout{width:100vw;height:100vh;display:flex;flex-direction:column}.base-layout .header:not(.header--negative)>.header__logo svg g{fill:white;height:70px}.base-layout .main-content-and-footer{width:100%;flex:1;overflow-y:scroll}
+
+.gdpr-section{width:100%;font-size:0.85rem;padding:1rem 2rem;position:fixed;bottom:0;background-color:#010101;color:#fff}.gdpr-section a{color:#fff}.gdpr-section button{margin-left:2rem;margin-bottom:0}
+
+.text-block{margin-bottom:1rem;font-size:inherit;line-height:1.6;text-rendering:optimizeLegibility;display:block;margin-block-end:1em;margin-inline-start:0;margin-inline-end:0}
+
+.single-column-layout{min-height:100%;width:100vw;display:flex;flex-direction:column;align-items:center}.single-column-layout>.single-column-layout__main{flex:1 0}.single-column-layout>*:not(.single-column-layout__footer){width:80vw;max-width:160ch}
+
+
+/*# sourceMappingURL=28.705b26.css.map*/

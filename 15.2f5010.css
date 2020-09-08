@@ -1,0 +1,6 @@
+.uniprot-title{position:relative}.uniprot-title__status{display:inline-flex;align-self:center}.uniprot-title__status svg{width:0.75em;height:0.75em;margin-right:0.25rem;position:relative}
+
+.data-table .query-sequence-wrapper{width:32vw;margin-left:0.2rem}.data-table .query-sequence-wrapper protvista-navigation .zoom-polygon,.data-table .query-sequence-wrapper protvista-navigation .brush,.data-table .query-sequence-wrapper protvista-navigation .start-label,.data-table .query-sequence-wrapper protvista-navigation .end-label{display:none}.data-table__blast-hsp{display:flex}.data-table__blast-hsp .chip{margin-top:0}.data-table__blast-hsp__tracks{position:relative}.data-table__blast-hsp__tracks .data-table__blast-hsp__blast-track{width:32vw;cursor:pointer}.data-table__blast-hsp__tracks .data-table__blast-hsp__blast-track:hover{background:#d2dce3}.data-table__blast-hsp__tracks .data-table__blast-hsp__blast-track svg{margin:0.2rem}.data-table__blast-hsp__tracks .data-table__blast-hsp__blast-params{position:absolute;top:-0.6rem;right:0.1rem}.data-table__blast-hsp button{margin-left:0.5rem}@keyframes loading{from{opacity:1}to{opacity:0.5}}.loading-data-table .data-table{animation:alternate loading 1000ms infinite ease-in-out}
+
+
+/*# sourceMappingURL=15.2f5010.css.map*/

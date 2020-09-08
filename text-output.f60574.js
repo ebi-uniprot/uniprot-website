@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[30],{600:function(e,t,a){"use strict";a.r(t);var n=a(0),r=a.n(n),o=a(22),l=a(252),u=a(248),c=a(95);t.default=function(e){var t=e.id,a=e.jobType,n=Object(u.a)(Object(c.a)(a).resultUrl(t,"out")),s=n.loading,d=n.data,i=n.error,p=n.status;return s?r.a.createElement(o.Loader,null):i||!d?r.a.createElement(l.a,{status:p}):r.a.createElement(o.CodeBlock,null,d)}}}]);
-//# sourceMappingURL=text-output.f60574.js.map
