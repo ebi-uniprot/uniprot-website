@@ -56,6 +56,8 @@ describe('HSPDetailPanel', () => {
     const wrappedButton = getByText('Wrapped');
     fireEvent.click(wrappedButton);
     expect(await findByTestId('wrapped-hsp-detail')).toBeTruthy();
-    expect(asFragment()).toMatchSnapshot();
+    // skip the top level div, as it contains the dynamically injected style
+    // that might be different across different runs ("sliding" effect)
+    expect(asFragment().firstElementChild.firstElementChild).toMatchSnapshot();
   });
 });

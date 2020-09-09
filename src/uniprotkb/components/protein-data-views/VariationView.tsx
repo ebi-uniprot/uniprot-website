@@ -1,24 +1,32 @@
 import React, { useCallback, FC } from 'react';
+import { Loader } from 'franklin-sites';
+import { html } from 'lit-html';
+import joinUrl from 'url-join';
+
 import ProtvistaManager from 'protvista-manager';
 import ProtvistaSequence from 'protvista-sequence';
 import ProtvistaNavigation from 'protvista-navigation';
 import ProtvistaVariation from 'protvista-variation';
 import { transformData } from 'protvista-variation-adapter';
 import ProtvistaFilter from 'protvista-filter';
-import { Loader } from 'franklin-sites';
-import { html } from 'lit-html';
-import joinUrl from 'url-join';
-import { loadWebComponent } from '../../../shared/utils/utils';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import apiUrls from '../../config/apiUrls';
-import FeatureType from '../../types/featureType';
+
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
-import { Evidence } from '../../types/modelTypes';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
-import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
-import './styles/variation-view.scss';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import { loadWebComponent } from '../../../shared/utils/utils';
+
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+
+import apiUrls from '../../config/apiUrls';
+import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
+
+import FeatureType from '../../types/featureType';
+import { Evidence } from '../../types/modelTypes';
 import { ProcessedFeature } from './FeaturesView';
+
+import './styles/variation-view.scss';
 
 export type ProtvistaVariant = {
   begin: number;
@@ -65,10 +73,6 @@ export type TransformedVariantsResponse = {
   sequence: string;
   variants: TransformedProtvistaVariant[];
 };
-
-interface ChangeEvent extends Event {
-  detail?: { type: string; value: string[] };
-}
 
 loadWebComponent('protvista-variation', ProtvistaVariation);
 loadWebComponent('protvista-navigation', ProtvistaNavigation);

@@ -1,306 +1,284 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HSPDetailPanel should change to wrapped and render when wrapped view is clicked 1`] = `
-<DocumentFragment>
+<div>
   <div
-    class="sliding-panel sliding-panel--bottom hsp-detail-panel"
-    style="opacity: 0; margin-right: -1000px;"
+    class="hsp-detail-panel__header"
   >
-    <div>
-      <div
-        class="hsp-detail-panel__header"
+    <h4>
+      U6MKN0
+    </h4>
+    <button
+      type="button"
+    >
+      <svg
+        fill="currentColor"
+        height="16"
+        viewBox="0 0 352 512"
+        width="16"
       >
-        <h4>
-          U6MKN0
-        </h4>
+        <path
+          d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
+        />
+      </svg>
+    </button>
+  </div>
+  <div
+    class="hsp-detail-panel__body"
+  >
+    <div
+      class="button-group"
+    >
+      <div
+        class="dropdown-container"
+      >
         <button
+          class="button dropdown tertiary"
           type="button"
         >
-          <svg
-            fill="currentColor"
-            height="16"
-            viewBox="0 0 352 512"
-            width="16"
-          >
-            <path
-              d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
-            />
-          </svg>
+          Highlight properties
         </button>
-      </div>
-      <div
-        class="button-group"
-      >
         <div
-          class="dropdown-container"
+          class="dropdown-menu"
         >
-          <button
-            class="button dropdown tertiary"
-            type="button"
-          >
-            Highlight properties
-          </button>
           <div
-            class="dropdown-menu"
-            style="top: 0px;"
+            class="dropdown-menu__content"
           >
-            <div
-              class="dropdown-menu__content"
-            >
-              <ul>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Similarity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Negative
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Positive
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Aliphatic
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Aromatic
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Charged
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Polar
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Serine Threonine
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Buried Index
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Clustal
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Clustal 2
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Cinema
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Helix Propensity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Hydro
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Lesk
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Mae
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Nucleotide
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Purine Pyrimidine
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Strand Propensity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Taylor
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Turn Propensity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Zappo
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div
-          class="dropdown-container"
-        >
-          <button
-            class="button dropdown tertiary"
-            type="button"
-          >
-            View
-          </button>
-          <div
-            class="dropdown-menu"
-            style="top: 0px;"
-          >
-            <div
-              class="dropdown-menu__content"
-            >
-              <ul>
-                <li>
-                  <button
-                    class="button tertiary"
-                    type="button"
-                  >
-                    Overview
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="button tertiary"
-                    type="button"
-                  >
-                    Wrapped
-                  </button>
-                </li>
-              </ul>
-            </div>
+            <ul>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Similarity
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Negative
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Positive
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Aliphatic
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Aromatic
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Charged
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Polar
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Serine Threonine
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Buried Index
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button primary"
+                  type="button"
+                >
+                  Clustal
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Clustal 2
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Cinema
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Helix Propensity
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Hydro
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Lesk
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Mae
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Nucleotide
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Purine Pyrimidine
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Strand Propensity
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Taylor
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Turn Propensity
+                </button>
+              </li>
+              <li>
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Zappo
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-      <div
-        class="hsp-detail-panel__body"
+      <fieldset
+        class="msa-view-choice"
       >
-        <div>
+        View:
+        <label>
+          <input
+            checked=""
+            name="view"
+            type="radio"
+          />
+          Overview
+        </label>
+        <label>
+          <input
+            name="view"
+            type="radio"
+          />
+          Wrapped
+        </label>
+      </fieldset>
+    </div>
+    <div>
+      <div>
+        <section
+          class="hsp-detail-panel__visualisation hsp-detail-panel__visualisation__wrapped-row"
+          data-testid="wrapped-hsp-detail"
+        >
           <section
-            class="hsp-detail-panel__visualisation hsp-detail-panel__visualisation__wrapped-row"
-            data-testid="wrapped-hsp-detail"
+            class="hsp-label hsp-label--msa"
           >
-            <section
-              class="query-ruler"
-            >
-              <protvista-navigation
-                height="2"
-                length="45"
-                rulerstart="3"
-              />
-            </section>
-            <section
-              class="hsp-label hsp-label--msa"
-            >
-              Alignment
-            </section>
-            <section
-              class="hsp-detail-panel__visualisation--msa"
-            >
-              <protvista-msa
-                length="45"
-              />
-            </section>
-            <section
-              class="hit-ruler"
-            >
-              <protvista-navigation
-                height="2"
-                length="45"
-                rulerstart="418"
-              />
-            </section>
-            <section
-              class="hsp-label hsp-label--track"
-            />
-            <section
-              class="hsp-detail-panel__visualisation--track"
-            >
-              <protvista-track
-                displayend="462"
-                displaystart="418"
-                layout="non-overlapping"
-                length="45"
-              />
-            </section>
+            Alignment
           </section>
-        </div>
+          <section
+            class="hsp-detail-panel__visualisation--msa"
+          >
+            <protvista-msa
+              colorscheme="clustal"
+              height="40"
+              length="45"
+            />
+          </section>
+          <section
+            class="hsp-label hsp-label--track"
+          />
+          <section
+            class="hsp-detail-panel__visualisation--track"
+          >
+            <protvista-track />
+          </section>
+        </section>
       </div>
     </div>
   </div>
-</DocumentFragment>
+</div>
 `;
 
 exports[`HSPDetailPanel should initially render overview 1`] = `
@@ -332,280 +310,281 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
         </button>
       </div>
       <div
-        class="button-group"
-      >
-        <div
-          class="dropdown-container"
-        >
-          <button
-            class="button dropdown tertiary"
-            type="button"
-          >
-            Highlight properties
-          </button>
-          <div
-            class="dropdown-menu"
-            style="top: 0px;"
-          >
-            <div
-              class="dropdown-menu__content"
-            >
-              <ul>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Similarity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Negative
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Positive
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Aliphatic
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Aromatic
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Charged
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Polar
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Serine Threonine
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Buried Index
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Clustal
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Clustal 2
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Cinema
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Helix Propensity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Hydro
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Lesk
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Mae
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Nucleotide
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Purine Pyrimidine
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Strand Propensity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Taylor
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Turn Propensity
-                  </button>
-                </li>
-                <li>
-                  <button
-                    type="button"
-                  >
-                    Zappo
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div
-          class="dropdown-container"
-        >
-          <button
-            class="button dropdown tertiary"
-            type="button"
-          >
-            View
-          </button>
-          <div
-            class="dropdown-menu"
-            style="top: 0px;"
-          >
-            <div
-              class="dropdown-menu__content"
-            >
-              <ul>
-                <li>
-                  <button
-                    class="button tertiary"
-                    type="button"
-                  >
-                    Overview
-                  </button>
-                </li>
-                <li>
-                  <button
-                    class="button tertiary"
-                    type="button"
-                  >
-                    Wrapped
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="hsp-detail-panel__body"
       >
-        <section
-          class="hsp-detail-panel__visualisation"
-          data-testid="overview-hsp-detail"
+        <div
+          class="button-group"
         >
-          <section
-            class="hsp-label"
+          <div
+            class="dropdown-container"
           >
-            Query
-          </section>
-          <protvista-track
-            height="30"
-            highlight="418:446"
-            layout="overlapping"
-            length="486"
-          />
-          <section
-            class="hsp-label"
-          >
-            <a
-              href="/uniprotkb/U6MKN0"
+            <button
+              class="button dropdown tertiary"
+              type="button"
             >
-              U6MKN0
-            </a>
-          </section>
-          <protvista-track
-            height="30"
-            highlight="418:446"
-            layout="overlapping"
-            length="486"
-          />
-          <section
-            class="hsp-label"
-          />
-          <protvista-track
-            highlight="418:446"
-            layout="non-overlapping"
-            length="486"
-          />
-          <section
-            class="hsp-label"
+              Highlight properties
+            </button>
+            <div
+              class="dropdown-menu"
+            >
+              <div
+                class="dropdown-menu__content"
+              >
+                <ul>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Similarity
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Negative
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Positive
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Aliphatic
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Aromatic
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Charged
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Polar
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Serine Threonine
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Buried Index
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button primary"
+                      type="button"
+                    >
+                      Clustal
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Clustal 2
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Cinema
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Helix Propensity
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Hydro
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Lesk
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Mae
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Nucleotide
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Purine Pyrimidine
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Strand Propensity
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Taylor
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Turn Propensity
+                    </button>
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      Zappo
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <fieldset
+            class="msa-view-choice"
           >
-            Alignment
-          </section>
-          <protvista-manager
-            attributes="displaystart displayend"
-            displayend="28"
-            displaystart="1"
+            View:
+            <label>
+              <input
+                checked=""
+                name="view"
+                type="radio"
+              />
+              Overview
+            </label>
+            <label>
+              <input
+                name="view"
+                type="radio"
+              />
+              Wrapped
+            </label>
+          </fieldset>
+        </div>
+        <div>
+          <section
+            class="hsp-detail-panel__visualisation"
+            data-testid="overview-hsp-detail"
           >
-            <protvista-navigation
-              length="28"
+            <section
+              class="hsp-label"
+            >
+              Overview
+            </section>
+            <div>
+              <protvista-track
+                height="9"
+                highlight="418:446"
+                layout="overlapping"
+                length="486"
+              />
+              <protvista-track
+                height="9"
+                highlight="418:446"
+                layout="overlapping"
+                length="486"
+              />
+            </div>
+            <section
+              class="hsp-label"
             />
-            <protvista-msa
-              length="28"
+            <protvista-track
+              highlight="418:446"
+              layout="non-overlapping"
+              length="486"
             />
-          </protvista-manager>
-        </section>
+            <section
+              class="hsp-label"
+            >
+              Alignment
+            </section>
+            <protvista-manager
+              attributes="displaystart displayend"
+              displayend="28"
+              displaystart="1"
+            >
+              <protvista-navigation
+                length="28"
+              />
+              <protvista-msa
+                colorscheme="clustal"
+                height="40"
+                length="28"
+              />
+            </protvista-manager>
+          </section>
+        </div>
       </div>
     </div>
   </div>

@@ -37,33 +37,47 @@ import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import '../../../styles/ToolsResult.scss';
 
-const blastURls = toolsURLs(JobTypes.BLAST);
+const jobType = JobTypes.BLAST;
+const urls = toolsURLs(jobType);
 
 // overview
-const BlastResultTable = lazy(() =>
-  import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
+const BlastResultTable = lazy(
+  () => import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
 );
 // taxonomy
-const BlastResultTaxonomy = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
-  )
+const BlastResultTaxonomy = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
+    )
 );
 // hit-distribution
-const BlastResultHitDistribution = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
-  )
+const BlastResultHitDistribution = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
+    )
 );
 // text-output
-const TextOutput = lazy(() =>
-  import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
+const TextOutput = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "text-output" */ '../../../components/TextOutput'
+    )
 );
 // input-parameters
-const InputParameters = lazy(() =>
-  import(
-    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
-  )
+const InputParameters = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+    )
+);
+// input-parameters
+const APIRequest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+    )
 );
 
 enum TabLocation {
@@ -72,6 +86,7 @@ enum TabLocation {
   HitDistribution = 'hit-distribution',
   TextOutput = 'text-output',
   InputParameters = 'input-parameters',
+  APIRequest = 'api-request',
 }
 
 type Match = {
@@ -91,10 +106,8 @@ const useParamsData = (
     Partial<UseDataAPIState<PublicServerParameters>>
   >({});
 
-  const paramsXMLData = useDataApi<string>(
-    blastURls.resultUrl(id, 'parameters')
-  );
-  const sequenceData = useDataApi<string>(blastURls.resultUrl(id, 'sequence'));
+  const paramsXMLData = useDataApi<string>(urls.resultUrl(id, 'parameters'));
+  const sequenceData = useDataApi<string>(urls.resultUrl(id, 'sequence'));
 
   useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
@@ -117,8 +130,10 @@ const useParamsData = (
 
 // probably going to change with the custom endpoint to enrich data, so keep it
 // here for now, enventually might be a new type in a type folder
+export type EnrichedBlastHit = BlastHit & { extra?: UniProtkbAPIModel };
+
 export interface EnrichedData extends BlastResults {
-  hits: Array<BlastHit & { extra?: UniProtkbAPIModel }>;
+  hits: Array<EnrichedBlastHit>;
 }
 
 const enrich = (
@@ -167,7 +182,7 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(blastURls.resultUrl(match.params.id, 'json'));
+  } = useDataApi<BlastResults>(urls.resultUrl(match.params.id, 'json'));
 
   // extract facets and other info from URL querystring
   const urlParams: URLResultParams = useMemo(
@@ -205,30 +220,19 @@ const BlastResult = () => {
   );
 
   // list of all the accessions returned by the accessions endpoint
-  const accessionsFilteredByServer = useMemo(
-    () =>
-      new Set(
-        (accessionsData &&
-          accessionsData.results.map(
-            ({ primaryAccession }) => primaryAccession
-          )) ||
-          []
-      ),
-    [accessionsData]
-  );
+  // const accessionsFilteredByServer = useMemo(
+  //   () =>
+  //     new Set(
+  //       (accessionsData &&
+  //         accessionsData.results.map(
+  //           ({ primaryAccession }) => primaryAccession
+  //         )) ||
+  //         []
+  //     ),
+  //   [accessionsData]
+  // );
 
-  // additionally filter the blast results by server-calculated facets
-  const hitsFiltered = useMemo(
-    () =>
-      (accessionsFilteredByServer.size &&
-        hitsFilteredByLocalFacets.filter((hit) =>
-          accessionsFilteredByServer.has(hit.hit_acc)
-        )) ||
-      [],
-    [accessionsFilteredByServer, hitsFilteredByLocalFacets]
-  );
-
-  // filter BLAST results according facets (through accession endpoint and other BLAST facets facets)
+  // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
     blastData &&
     urlParams &&
@@ -237,6 +241,13 @@ const BlastResult = () => {
   const data = useMemo(
     () => enrich(filteredBlastData || undefined, accessionsData),
     [filteredBlastData, accessionsData]
+  );
+
+  // Hits filtered out by server facets don't have "extra"
+  // This could be improved by filtering things out in filteredBlastData??
+  const hitsFiltered = useMemo(
+    () => (data?.hits ? data.hits.filter((hit) => hit.extra) : []),
+    [data]
   );
 
   const inputParamsData = useParamsData(match.params.id);
@@ -279,6 +290,7 @@ const BlastResult = () => {
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
+    case TabLocation.APIRequest:
       sidebar = emptySidebar;
       break;
 
@@ -289,7 +301,7 @@ const BlastResult = () => {
 
   const actionBar = (
     <ResultButtons
-      jobType={JobTypes.BLAST}
+      jobType={jobType}
       jobId={match.params.id}
       selectedEntries={selectedEntries}
       inputParamsData={inputParamsData.data}
@@ -381,7 +393,7 @@ const BlastResult = () => {
           }
         >
           <Suspense fallback={<Loader />}>
-            <TextOutput id={match.params.id} jobType={JobTypes.BLAST} />
+            <TextOutput id={match.params.id} jobType={jobType} />
           </Suspense>
         </Tab>
         <Tab
@@ -400,9 +412,25 @@ const BlastResult = () => {
           <Suspense fallback={<Loader />}>
             <InputParameters
               id={match.params.id}
-              jobType={JobTypes.BLAST}
               inputParamsData={inputParamsData}
             />
+          </Suspense>
+        </Tab>
+        <Tab
+          id={TabLocation.APIRequest}
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/blast/${match.params.id}/${TabLocation.APIRequest}`,
+              })}
+            >
+              API Request
+            </Link>
+          }
+        >
+          <Suspense fallback={<Loader />}>
+            <APIRequest jobType={jobType} inputParamsData={inputParamsData} />
           </Suspense>
         </Tab>
       </Tabs>

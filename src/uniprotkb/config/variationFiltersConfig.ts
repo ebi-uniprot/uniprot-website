@@ -1,6 +1,5 @@
-// TODO: check if we can use 'd3' directly (it's already using ES6 modules so
-// TODO: should be tree-shakeable). Watch out for version mismatch!
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear } from 'd3';
+
 import { TransformedProtvistaVariant } from '../components/protein-data-views/VariationView';
 
 type VariationVariants = { variants: TransformedProtvistaVariant[] }[];

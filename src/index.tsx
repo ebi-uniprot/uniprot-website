@@ -1,12 +1,10 @@
-/* eslint no-underscore-dangle: ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] }] */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-// import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import App from './app/components/App';
 
-import { store /* , persistor */ } from './app/state/store';
+import store from './app/state/store';
 
 import { addMessage } from './messages/state/messagesActions';
 
@@ -17,20 +15,11 @@ import {
 } from './service-worker/cross-env-constants';
 import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
 
-// const LoadingView = () => <span>Loading ...</span>;
-
 let dateRendered: number;
 
 ReactDOM.render(
   <Provider store={store}>
     <App />
-    {/* {process.env.NODE_ENV === 'development' ? (
-      <App />
-    ) : (
-      <PersistGate loading={<LoadingView />} persistor={persistor}>
-        <App />
-      </PersistGate>
-    )} */}
   </Provider>,
   document.getElementById('root'),
   () => {
@@ -45,10 +34,15 @@ import(
 ).then((serviceWorker) => {
   serviceWorker.register({
     onUpdate() {
+      // when there is an update to the codebase
       const updatedTime = Date.now() - dateRendered;
       if (updatedTime < MAX_TIME_AUTO_RELOAD) {
+        // only reload automatically the page if we know that within reasonable
+        // time after page load, to not disrupt the user too much
         window.location.reload();
       } else {
+        // otherwise display a message to the user to have them do the reload
+        // whenever that is convenient for them
         store.dispatch(
           addMessage({
             id: 'new-version-website',

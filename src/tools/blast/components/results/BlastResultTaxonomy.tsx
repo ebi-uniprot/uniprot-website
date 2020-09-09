@@ -30,7 +30,8 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
     <>
       <button type="button" onClick={handleClick}>
         {<DoughnutChart size="small" percent={Math.round(ratio * 100)} />}{' '}
-        {taxNode.name} ({taxNode.count}) {chevronMaybe}
+        {taxNode.name} ({taxNode.count} result{taxNode.count === 1 ? '' : 's'}){' '}
+        {chevronMaybe}
       </button>
       <ul>
         {open &&

@@ -38,7 +38,10 @@ const Results: FC = () => {
   );
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-  const [viewMode, setViewMode] = useLocalStorage('view-mode', ViewMode.CARD);
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
+    'view-mode',
+    ViewMode.CARD
+  );
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -98,7 +101,7 @@ const Results: FC = () => {
       }
       actionButtons={
         <ResultsButtons
-          viewMode={viewMode}
+          viewMode={viewMode ?? ViewMode.CARD}
           setViewMode={setViewMode}
           query={query}
           selectedFacets={selectedFacets}
@@ -120,7 +123,7 @@ const Results: FC = () => {
         columns={columns}
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
-        viewMode={viewMode}
+        viewMode={viewMode ?? ViewMode.CARD}
       />
     </SideBarLayout>
   );

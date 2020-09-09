@@ -6,12 +6,18 @@ import { useState, useEffect } from 'react';
  */
 const QUERY = '(prefers-reduced-motion: reduce)';
 
+const isSupported = 'matchMedia' in window;
+
 const useReducedMotion = () => {
   const [reducedMotion, setReducedMotion] = useState(
-    window.matchMedia(QUERY).matches
+    isSupported ? window.matchMedia(QUERY).matches : false
   );
 
   useEffect(() => {
+    if (!isSupported) {
+      return;
+    }
+
     const mediaQueryList = window.matchMedia(QUERY);
 
     const listener = (event: MediaQueryListEvent) => {
@@ -19,6 +25,7 @@ const useReducedMotion = () => {
     };
 
     mediaQueryList.addListener(listener);
+    // eslint-disable-next-line consistent-return
     return () => mediaQueryList.removeListener(listener);
   }, []);
 

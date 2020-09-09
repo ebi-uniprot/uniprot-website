@@ -10,6 +10,10 @@
       <string>1.2.4</string>
     </entry>
     <entry>
+      <string>hmmiterations</string>
+      <int>5</int>
+    </entry>
+    <entry>
       <string>outfmt</string>
       <string>clustal_num</string>
     </entry>

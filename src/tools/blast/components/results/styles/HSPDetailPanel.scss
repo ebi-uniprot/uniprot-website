@@ -35,18 +35,8 @@
 
     &__wrapped-row {
       grid-template-areas:
-        '. query-ruler'
         'msa-label msa'
-        '. hit-ruler'
         'track-label track';
-
-      .query-ruler {
-        grid-area: query-ruler;
-      }
-
-      .hit-ruler {
-        grid-area: hit-ruler;
-      }
 
       protvista-navigation {
         .zoom-polygon,
@@ -59,10 +49,6 @@
         padding-bottom: 0.25rem;
       }
     }
-  }
-
-  .annotation-choice:first-letter {
-    text-transform: uppercase;
   }
 
   .hsp-label {

@@ -4,23 +4,19 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import extractAccession from './extractAccession';
 
-import { getFeaturesURL } from '../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../uniprotkb/config/apiUrls';
 
 import { FeatureData } from '../../../uniprotkb/components/protein-data-views/FeaturesView';
 import { ParsedSequence } from '../../components/SequenceSearchLoader';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
-type FeatureEndpointData = {
-  accession: string;
-  entryName: string;
-  features: FeatureData[];
-  sequence: string;
-  sequenceChecksum: string;
-  taxid: number;
+type UniProtkbAccessionsAPI = {
+  results: UniProtkbAPIModel[];
 };
 
 export type ParsedSequenceAndFeatures = ParsedSequence & {
   accession: string;
-  features?: FeatureData[];
+  features?: FeatureData;
 };
 
 export type SequenceInfo = {
@@ -44,13 +40,13 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     // ensures we managed to extract an accession from header, otherwise discard
     .filter(hasAccession);
 
-  const endpoint = getFeaturesURL(
+  const endpoint = getAccessionsURL(
     processedArray.map((processed) => processed.accession)
   );
-  const { data, loading, error } = useDataApi<FeatureEndpointData[]>(endpoint);
+  const { data, loading, error } = useDataApi<UniProtkbAccessionsAPI>(endpoint);
 
   const dataPerAccession = new Map(
-    data?.map((object) => [object.accession, object]) ?? []
+    data?.results.map((object) => [object.primaryAccession, object]) ?? []
   );
 
   processedArray = processedArray
@@ -58,7 +54,7 @@ const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
     .filter(
       (processed) =>
         processed.sequence ===
-        dataPerAccession.get(processed.accession)?.sequence
+        dataPerAccession.get(processed.accession)?.sequence.value
     )
     // enrich with the feature data
     .map((processed) => ({

@@ -92,7 +92,6 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </button>
       <div
         class="dropdown-menu"
-        style="top: 0px;"
       >
         <ul
           class="no-bullet"
@@ -171,7 +170,6 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </button>
       <div
         class="dropdown-menu"
-        style="top: 0px;"
       >
         <div
           class="dropdown-menu__content"
@@ -455,7 +453,6 @@ exports[`SequenceView component should render SequenceView 1`] = `
       </button>
       <div
         class="dropdown-menu"
-        style="top: 0px;"
       >
         <ul
           class="no-bullet"
@@ -534,7 +531,6 @@ exports[`SequenceView component should render SequenceView 1`] = `
       </button>
       <div
         class="dropdown-menu"
-        style="top: 0px;"
       >
         <div
           class="dropdown-menu__content"

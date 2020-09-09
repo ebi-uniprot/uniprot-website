@@ -18,16 +18,15 @@ export default class JobStore {
     });
   }
 
-  async get(key: IDBValidKey) {
+  async get<T>(key: IDBValidKey): Promise<T> {
     return (await this.dbPromise).get(this.storeName, key);
   }
 
-  async getAll() {
+  async getAll<T>(): Promise<T[]> {
     return (await this.dbPromise).getAll(this.storeName);
   }
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  async set(key: IDBValidKey, value: any) {
+  async set<T>(key: IDBValidKey, value: T) {
     return (await this.dbPromise).put(this.storeName, value, key);
   }
 

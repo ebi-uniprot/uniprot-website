@@ -16,13 +16,13 @@ const EnumField: React.FC<EnumFieldProps> = ({
     <label htmlFor={`select_${field.term}`}>
       {field.label}
       <select
-        onChange={e => handleChange(e.target.value)}
+        onChange={(e) => handleChange(e.target.value)}
         id={`select_${field.term}`}
         data-testid="enum-field-select"
         value={value}
       >
         {field.values &&
-          field.values.map(item => (
+          field.values.map((item) => (
             <option value={item.value} key={`select_${item.value}`}>
               {item.name}
             </option>

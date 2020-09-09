@@ -13,17 +13,29 @@ import { loadWebComponent } from '../../../../shared/utils/utils';
 
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { HSPDetailPanelProps } from './HSPDetailPanel';
-import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  EntryType,
+  UniProtkbAPIModel,
+} from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/BlastResultTable.scss';
+import { EnrichedBlastHit } from './BlastResult';
 
 const BlastSummaryTrack: FC<{
   hsp: BlastHsp;
+  extra?: UniProtkbAPIModel;
   queryLength: number;
   hitLength: number;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   hitAccession: string;
-}> = ({ hsp, queryLength, hitLength, setHspDetailPanel, hitAccession }) => {
+}> = ({
+  hsp,
+  queryLength,
+  hitLength,
+  setHspDetailPanel,
+  hitAccession,
+  extra,
+}) => {
   const {
     hsp_query_from,
     hsp_query_to,
@@ -84,6 +96,7 @@ const BlastSummaryTrack: FC<{
               onClose: () => null,
               queryLength,
               hitLength,
+              extra,
             });
           }}
         />
@@ -102,8 +115,16 @@ const BlastSummaryHsps: FC<{
   queryLength: number;
   hitLength: number;
   hitAccession: string;
+  extra?: UniProtkbAPIModel;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
-}> = ({ hsps, queryLength, hitLength, setHspDetailPanel, hitAccession }) => {
+}> = ({
+  hsps,
+  queryLength,
+  hitLength,
+  setHspDetailPanel,
+  hitAccession,
+  extra,
+}) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const hspsOrderedByScore = hsps.sort(
@@ -118,6 +139,7 @@ const BlastSummaryHsps: FC<{
           queryLength={queryLength}
           hitLength={hitLength}
           hitAccession={hitAccession}
+          extra={extra}
           setHspDetailPanel={setHspDetailPanel}
         />
         {hspsOrderedByScore.length > 1 &&
@@ -131,6 +153,7 @@ const BlastSummaryHsps: FC<{
                 hitLength={hitLength}
                 key={`hsp_${hsp.hsp_num}`}
                 hitAccession={hitAccession}
+                extra={extra}
                 setHspDetailPanel={setHspDetailPanel}
               />
             ))}
@@ -254,13 +277,14 @@ const BlastResultTable: FC<{
         ),
         name: 'alignment',
         width: '40vw',
-        render: ({ hit_hsps, hit_len, hit_acc }: BlastHit) => (
+        render: ({ hit_hsps, hit_len, hit_acc, extra }: EnrichedBlastHit) => (
           <BlastSummaryHsps
             hsps={hit_hsps}
             queryLength={queryLen}
             hitLength={hit_len}
             hitAccession={hit_acc}
             setHspDetailPanel={setHspDetailPanel}
+            extra={extra}
           />
         ),
       },

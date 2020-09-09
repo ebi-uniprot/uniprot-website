@@ -55,7 +55,6 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="autocomplete-container"
@@ -164,7 +163,6 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="autocomplete-container"
@@ -273,7 +271,6 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="autocomplete-container"
@@ -382,7 +379,6 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           </button>
           <div
             class="dropdown-menu"
-            style="top: 0px;"
           >
             <div
               class="autocomplete-container"
