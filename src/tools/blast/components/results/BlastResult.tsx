@@ -41,34 +41,43 @@ const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
 
 // overview
-const BlastResultTable = lazy(() =>
-  import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
+const BlastResultTable = lazy(
+  () => import(/* webpackChunkName: "blast-result-page" */ './BlastResultTable')
 );
 // taxonomy
-const BlastResultTaxonomy = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
-  )
+const BlastResultTaxonomy = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-result-taxonomy" */ './BlastResultTaxonomy'
+    )
 );
 // hit-distribution
-const BlastResultHitDistribution = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
-  )
+const BlastResultHitDistribution = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-result-hit-distribution" */ './BlastResultHitDistribution'
+    )
 );
 // text-output
-const TextOutput = lazy(() =>
-  import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
+const TextOutput = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "text-output" */ '../../../components/TextOutput'
+    )
 );
 // input-parameters
-const InputParameters = lazy(() =>
-  import(
-    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
-  )
+const InputParameters = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+    )
 );
 // input-parameters
-const APIRequest = lazy(() =>
-  import(/* webpackChunkName: "api-request" */ '../../../components/APIRequest')
+const APIRequest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+    )
 );
 
 enum TabLocation {
@@ -281,6 +290,7 @@ const BlastResult = () => {
   switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
+    case TabLocation.APIRequest:
       sidebar = emptySidebar;
       break;
 
