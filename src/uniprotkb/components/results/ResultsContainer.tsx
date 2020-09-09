@@ -101,7 +101,7 @@ const Results: FC = () => {
       }
       actionButtons={
         <ResultsButtons
-          viewMode={viewMode || ViewMode.CARD}
+          viewMode={viewMode ?? ViewMode.CARD}
           setViewMode={setViewMode}
           query={query}
           selectedFacets={selectedFacets}
@@ -123,7 +123,7 @@ const Results: FC = () => {
         columns={columns}
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
-        viewMode={viewMode || ViewMode.CARD}
+        viewMode={viewMode ?? ViewMode.CARD}
       />
     </SideBarLayout>
   );
