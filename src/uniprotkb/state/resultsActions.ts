@@ -26,8 +26,7 @@ export const prepareFields = (fields: ReceivedField[]) =>
 export const prepareFieldData = (fieldData: ReceivedFieldData) => {
   const dataTab: FieldDatum[] = [];
   const linksTab: FieldDatum[] = [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const linksAdded: any = {};
+  const linksAdded: Record<string, boolean> = {};
   fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
     const group = {
       id,

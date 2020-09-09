@@ -18,12 +18,20 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
+import { v1 } from 'uuid';
 
 import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
 import SequenceSearchLoader, {
   ParsedSequence,
   SequenceSearchLoaderInterface,
 } from '../../components/SequenceSearchLoader';
+
+import { addMessage } from '../../../messages/state/messagesActions';
+
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+
+import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
@@ -39,8 +47,6 @@ import {
   Scores,
 } from '../types/blastServerParameters';
 
-import { createJob } from '../../state/toolsActions';
-
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
   BlastFormValues,
@@ -50,8 +56,14 @@ import defaultFormValues, {
 } from '../config/BlastFormData';
 import uniProtKBApiUrls from '../../../uniprotkb/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import '../../styles/ToolsForm.scss';
+
+const BLAST_LIMIT = 20;
 
 // https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
 const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
@@ -108,10 +120,12 @@ interface CustomLocationState {
 const BlastForm = () => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const reducedMotion = useReducedMotion();
 
   // state
   const initialFormValues = useMemo(() => {
@@ -350,7 +364,8 @@ const BlastForm = () => {
       setParsedSequences(parsedSequences);
       setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
       setSubmitDisabled(
-        parsedSequences.some((parsedSequence) => !parsedSequence.valid)
+        parsedSequences.length > BLAST_LIMIT ||
+          parsedSequences.some((parsedSequence) => !parsedSequence.valid)
       );
 
       setSType((stype) => {
@@ -367,15 +382,23 @@ const BlastForm = () => {
     [jobNameEdited, sequence.selected]
   );
 
-  const { name, links, info } = infoMappings[JobTypes.BLAST];
+  // file handling
+  useTextFileInput({
+    input: fileInputRef.current,
+    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onError: (error) =>
+      dispatch(
+        addMessage({
+          id: v1(),
+          content: error.message,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+        })
+      ),
+    dndOverlay: <span>Drop your input file anywhere on this page</span>,
+  });
 
-  let submitButtonContent: string | JSX.Element = 'Run BLAST';
-  if (parsedSequences.length > 1) {
-    submitButtonContent = `BLAST ${parsedSequences.length} sequences`;
-  }
-  if (sending) {
-    submitButtonContent = <SpinnerIcon />;
-  }
+  const { name, links, info } = infoMappings[JobTypes.BLAST];
 
   return (
     <>
@@ -386,8 +409,8 @@ const BlastForm = () => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein to BLAST by UniProt ID{' '}
-              <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
+              Find a protein sequence to run BLAST sequence similarity search by
+              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
@@ -399,9 +422,16 @@ const BlastForm = () => {
         </section>
         <fieldset>
           <section className="text-block">
-            <legend>Enter either a protein or nucleotide sequence.</legend>
+            <legend>
+              Enter one or more sequences ({BLAST_LIMIT} max). You may also
+              <label className="tools-form-section__file-input">
+                load from a text file
+                <input type="file" ref={fileInputRef} />
+              </label>
+              .
+            </legend>
             <SequenceSubmission
-              placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
+              placeholder="Protein or nucleotide sequence(s) in FASTA format."
               onChange={onSequenceChange}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
@@ -410,7 +440,7 @@ const BlastForm = () => {
             <FormSelect formValue={database} updateFormValue={setDatabase} />
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
-                placeholder="Homo sapiens, 9606,..."
+                placeholder="Enter taxonomy names or tax IDs"
                 url={uniProtKBApiUrls.organismSuggester}
                 onSelect={updateTaxonFormValue}
                 title="Restrict by taxonomy"
@@ -431,27 +461,6 @@ const BlastForm = () => {
                 )
               )}
             </section>
-          </section>
-          <section className="tools-form-section">
-            {[
-              [stype, setSType],
-              [program, setProgram],
-              [threshold, setThreshold],
-              [matrix, setMatrix],
-              [filter, setFilter],
-              [gapped, setGapped],
-              [hits, setHits],
-            ].map(([stateItem, setStateItem]) => (
-              <FormSelect
-                key={(stateItem as BlastFormValue).fieldName}
-                formValue={stateItem as BlastFormValue}
-                updateFormValue={
-                  setStateItem as React.Dispatch<
-                    React.SetStateAction<BlastFormValue>
-                  >
-                }
-              />
-            ))}
           </section>
           <section className="tools-form-section">
             <section className="tools-form-section__item">
@@ -475,8 +484,40 @@ const BlastForm = () => {
               </label>
             </section>
           </section>
+          <details className="tools-form-advanced" open>
+            <summary>
+              <span>Advanced parameters</span>
+            </summary>
+            <section className="tools-form-section">
+              {[
+                [stype, setSType],
+                [program, setProgram],
+                [threshold, setThreshold],
+                [matrix, setMatrix],
+                [filter, setFilter],
+                [gapped, setGapped],
+                [hits, setHits],
+              ].map(([stateItem, setStateItem]) => (
+                <FormSelect
+                  key={(stateItem as BlastFormValue).fieldName}
+                  formValue={stateItem as BlastFormValue}
+                  updateFormValue={
+                    setStateItem as React.Dispatch<
+                      React.SetStateAction<BlastFormValue>
+                    >
+                  }
+                />
+              ))}
+            </section>
+          </details>
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
+              {sending && !reducedMotion && (
+                <>
+                  <SpinnerIcon />
+                  &nbsp;
+                </>
+              )}
               <input className="button secondary" type="reset" />
               <button
                 className="button primary"
@@ -484,7 +525,9 @@ const BlastForm = () => {
                 disabled={submitDisabled}
                 onClick={submitBlastJob}
               >
-                {submitButtonContent}
+                {parsedSequences.length <= 1
+                  ? 'Run BLAST'
+                  : `BLAST ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>

@@ -76,7 +76,9 @@ describe('BlastForm test', () => {
       queryByText,
       getByTestId,
     } = component;
-    const autocompleteInput = getByPlaceholderText('Homo sapiens, 9606,...');
+    const autocompleteInput = getByPlaceholderText(
+      'Enter taxonomy names or tax IDs'
+    );
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },
     });

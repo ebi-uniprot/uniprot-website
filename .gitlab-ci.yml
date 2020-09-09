@@ -10,6 +10,7 @@ variables:
 .js:
   image: node
   before_script:
+    - git --version
     - node --version
     - npm --version
     - yarn --version
@@ -22,6 +23,8 @@ test:
   image: buildkite/puppeteer
   stage: test
   before_script:
+    - apt-get update && apt-get install -y git
+    - git --version
     - node --version
     - npm --version
     - yarn --version

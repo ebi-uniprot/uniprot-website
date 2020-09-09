@@ -87,57 +87,49 @@ const MSAWrapper: React.FC<{
     <>
       <div className="button-group">
         <DropdownButton label="Highlight properties" className="tertiary">
-          {(setShowMenu: (showMenu: boolean) => void) => (
-            <div className="dropdown-menu__content">
-              <ul>
-                {Object.entries(msaColorSchemeToString).map(
-                  ([schemeValue, schemeString]) => (
-                    <li key={schemeString}>
-                      <button
-                        type="button"
-                        className={cn('button', {
-                          primary: highlightProperty === schemeValue,
-                          tertiary: highlightProperty !== schemeValue,
-                        })}
-                        onClick={() => {
-                          setShowMenu(false);
-                          setHighlightProperty(schemeValue as MsaColorScheme);
-                        }}
-                      >
-                        {schemeString}
-                      </button>
-                    </li>
-                  )
-                )}
-              </ul>
-            </div>
-          )}
+          <div className="dropdown-menu__content">
+            <ul>
+              {Object.entries(msaColorSchemeToString).map(
+                ([schemeValue, schemeString]) => (
+                  <li key={schemeString}>
+                    <button
+                      type="button"
+                      className={cn('button', {
+                        primary: highlightProperty === schemeValue,
+                        tertiary: highlightProperty !== schemeValue,
+                      })}
+                      onClick={() =>
+                        setHighlightProperty(schemeValue as MsaColorScheme)
+                      }
+                    >
+                      {schemeString}
+                    </button>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
         </DropdownButton>
         {!!annotationChoices.length && (
           <DropdownButton label="Show annotation" className="tertiary">
-            {(setShowMenu: (showMenu: boolean) => void) => (
-              <div className="dropdown-menu__content">
-                <ul>
-                  {annotationChoices.map((annotationChoice) => (
-                    <li key={annotationChoice}>
-                      <button
-                        type="button"
-                        className={cn('button', 'annotation-choice', {
-                          primary: annotation === annotationChoice,
-                          tertiary: annotation !== annotationChoice,
-                        })}
-                        onClick={() => {
-                          setShowMenu(false);
-                          setAnnotation(annotationChoice);
-                        }}
-                      >
-                        {annotationChoice}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <div className="dropdown-menu__content">
+              <ul>
+                {annotationChoices.map((annotationChoice) => (
+                  <li key={annotationChoice}>
+                    <button
+                      type="button"
+                      className={cn('button', 'annotation-choice', {
+                        primary: annotation === annotationChoice,
+                        tertiary: annotation !== annotationChoice,
+                      })}
+                      onClick={() => setAnnotation(annotationChoice)}
+                    >
+                      {annotationChoice}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </DropdownButton>
         )}
         <fieldset className="msa-view-choice">

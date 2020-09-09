@@ -13,7 +13,7 @@ type SideBarLayoutProps = {
   className?: string;
 };
 
-const SideBarLayout: React.FC<SideBarLayoutProps> = ({
+const SideBarLayout: FC<SideBarLayoutProps> = ({
   title,
   sidebar,
   actionButtons,

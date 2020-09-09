@@ -14,7 +14,7 @@ import {
  */
 function useSafeState<S>(
   initialState: S | (() => S)
-): [S, Dispatch<SetStateAction<S>>] {
+): [state: S, setState: Dispatch<SetStateAction<S>>] {
   const [state, setState] = useState<S>(initialState);
   const isMounted = useRef<boolean>(true);
 

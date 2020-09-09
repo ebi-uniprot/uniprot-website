@@ -128,7 +128,7 @@ const EMBLXref: FC<{
       {') '}
       {id && <ExternalLink url={externalUrls.ENA(id)}>{id}</ExternalLink>}
       {additionalIds &&
-        additionalIds.map(additionalId => (
+        additionalIds.map((additionalId) => (
           <ExternalLink url={externalUrls.ENA(additionalId)} key={additionalId}>
             {additionalId}
           </ExternalLink>
@@ -168,7 +168,7 @@ export const XRef: FC<XRefProps> = ({
   }
   let propertiesNode;
   if (properties && !implicit) {
-    propertiesNode = Object.keys(properties).map(key =>
+    propertiesNode = Object.keys(properties).map((key) =>
       [PropertyKey.ProteinId, PropertyKey.GeneId].includes(key as PropertyKey)
         ? getPropertyLink(databaseInfo, key as PropertyKey, xref)
         : getPropertyString(key, properties[key])
@@ -271,6 +271,39 @@ export const DatabaseList: FC<{
   );
 };
 
+type XRefsGroupedByCategoryProps = {
+  databases: XrefsGoupedByDatabase[];
+  primaryAccession: string;
+  crc64?: string;
+};
+
+const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
+  databases,
+  primaryAccession,
+  crc64,
+}): JSX.Element => {
+  const infoData = sortBy(databases, ({ database }) => [
+    idx(databaseToDatabaseInfo, (o) => o[database].implicit),
+    database,
+  ]).map((database): {
+    title: string;
+    content: JSX.Element;
+  } => {
+    const databaseInfo = databaseToDatabaseInfo[database.database];
+    return {
+      title: databaseInfo.displayName,
+      content: (
+        <DatabaseList
+          xrefsGoupedByDatabase={database}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
+      ),
+    };
+  });
+  return <InfoList infoData={infoData} columns />;
+};
+
 type StructureXRefsGroupedByCategoryProps = {
   databases: XrefsGoupedByDatabase[];
   primaryAccession: string;
@@ -301,39 +334,6 @@ const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> 
       )}
     </Fragment>
   );
-};
-
-type XRefsGroupedByCategoryProps = {
-  databases: XrefsGoupedByDatabase[];
-  primaryAccession: string;
-  crc64?: string;
-};
-
-const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
-  databases,
-  primaryAccession,
-  crc64,
-}): JSX.Element => {
-  const infoData = sortBy(databases, ({ database }) => [
-    idx(databaseToDatabaseInfo, o => o[database].implicit),
-    database,
-  ]).map((database): {
-    title: string;
-    content: JSX.Element;
-  } => {
-    const databaseInfo = databaseToDatabaseInfo[database.database];
-    return {
-      title: databaseInfo.displayName,
-      content: (
-        <DatabaseList
-          xrefsGoupedByDatabase={database}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
-      ),
-    };
-  });
-  return <InfoList infoData={infoData} columns />;
 };
 
 type XRefViewProps = {

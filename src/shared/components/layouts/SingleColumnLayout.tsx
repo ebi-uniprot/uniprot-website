@@ -16,11 +16,11 @@ type Props = {
 
 const SingleColumnLayout: FC<Props> = ({ children, className }) => (
   <div className={cn('single-column-layout', className)}>
-    <Suspense fallback={<Loader />}>
-      <ErrorBoundary>
-        <main className="single-column-layout__main">{children}</main>
-      </ErrorBoundary>
-    </Suspense>
+    <main className="single-column-layout__main">
+      <Suspense fallback={<Loader />}>
+        <ErrorBoundary>{children}</ErrorBoundary>
+      </Suspense>
+    </main>
     <Suspense fallback={null}>
       <ErrorBoundary>
         <UniProtFooter className="single-column-layout__footer" />

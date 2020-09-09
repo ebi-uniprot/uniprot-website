@@ -1,5 +1,6 @@
 import { Middleware, Dispatch, AnyAction } from 'redux';
 import { schedule, sleep, frame } from 'timing-functions';
+import pMap from 'p-map';
 
 import { CREATE_JOB, REHYDRATE_JOBS, deleteJob } from './toolsActions';
 
@@ -7,7 +8,7 @@ import rehydrateJobs from './rehydrateJobs';
 import getCheckJobStatus from './getCheckJobStatus';
 import getSubmitJob from './getSubmitJob';
 
-import { CreatedJob, RunningJob } from '../types/toolsJob';
+import { Job } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 
 import { RootState } from '../../app/state/rootInitialState';
@@ -26,32 +27,21 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   const submitJob = getSubmitJob(store);
 
+  // eslint-disable-next-line consistent-return
+  const pollJobMapper = (job: Job) => {
+    if (job.status === Status.CREATED) {
+      return submitJob(job);
+    }
+    if (job.status === Status.RUNNING) {
+      return checkJobStatus(job);
+    }
+  };
+
   // main loop to poll job statuses
   const pollJobs = async () => {
     const toolsState = getState().tools;
 
-    const jobsToSubmit = Object.values(toolsState).filter(
-      (job) => job.status === Status.CREATED
-    ) as Array<CreatedJob>;
-    const jobsToPoll = Object.values(toolsState).filter(
-      (job) => job.status === Status.RUNNING
-    ) as Array<RunningJob>;
-
-    // nothing to check, early exit, no recursion
-    if (!(jobsToSubmit.length || jobsToPoll.length)) {
-      pollJobs.scheduled = false;
-      return;
-    }
-
-    for (const createdJob of jobsToSubmit) {
-      // eslint-disable-next-line no-await-in-loop
-      await submitJob(createdJob);
-    }
-
-    for (const runningJob of jobsToPoll) {
-      // eslint-disable-next-line no-await-in-loop
-      await checkJobStatus(runningJob);
-    }
+    await pMap(Object.values(toolsState), pollJobMapper, { concurrency: 4 });
 
     // reset flag
     pollJobs.scheduled = false;

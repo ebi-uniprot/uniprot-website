@@ -3,6 +3,7 @@ import {
   precacheAndRoute,
   createHandlerBoundToURL,
 } from 'workbox-precaching';
+import { skipWaiting, clientsClaim } from 'workbox-core';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
@@ -26,6 +27,11 @@ const channel = new BroadcastChannel(CHANNEL_NAME);
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches
 cleanupOutdatedCaches();
+
+// https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.skipWaiting
+skipWaiting();
+// https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
+clientsClaim();
 
 // eslint-disable-next-line
 // @ts-ignore

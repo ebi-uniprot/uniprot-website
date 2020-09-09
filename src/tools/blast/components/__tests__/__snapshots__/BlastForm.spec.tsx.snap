@@ -68,11 +68,7 @@ exports[`BlastForm test Renders the form 1`] = `
         class="tools-form-section__item"
       >
         <legend>
-          Find a protein to BLAST by UniProt ID 
-          <small>
-            (e.g. P05067 or A4_HUMAN or UPI0000000001)
-          </small>
-          .
+          Find a protein sequence to run BLAST sequence similarity search by UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
         </legend>
         <div
           class="import-sequence-section"
@@ -82,7 +78,7 @@ exports[`BlastForm test Renders the form 1`] = `
           >
             <input
               data-testid="search-input"
-              placeholder="P05067, A4_HUMAN, UPI0000000001"
+              placeholder="UniProt IDs"
               type="text"
               value=""
             />
@@ -118,12 +114,21 @@ exports[`BlastForm test Renders the form 1`] = `
         class="text-block"
       >
         <legend>
-          Enter either a protein or nucleotide sequence.
+          Enter one or more sequences (20 max). You may also
+          <label
+            class="tools-form-section__file-input"
+          >
+            load from a text file
+            <input
+              type="file"
+            />
+          </label>
+          .
         </legend>
         <textarea
           class="sequence-submission-input"
           data-testid="sequence-submission-input"
-          placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
+          placeholder="Protein or nucleotide sequence(s) in FASTA format."
           spellcheck="false"
         />
       </section>
@@ -210,7 +215,7 @@ exports[`BlastForm test Renders the form 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="Homo sapiens, 9606,..."
+                  placeholder="Enter taxonomy names or tax IDs"
                   type="text"
                   value=""
                 />
@@ -251,273 +256,6 @@ exports[`BlastForm test Renders the form 1`] = `
         <section
           class="tools-form-section__item"
         >
-          <label
-            for="Sequence type"
-          >
-            Sequence type
-            <select>
-              <option
-                data-testid="Sequence type-protein"
-                value="protein"
-              >
-                Protein
-              </option>
-              <option
-                data-testid="Sequence type-dna"
-                value="dna"
-              >
-                DNA/RNA
-              </option>
-            </select>
-          </label>
-        </section>
-        <section
-          class="tools-form-section__item"
-        >
-          <label
-            for="Program"
-          >
-            Program
-            <select>
-              <option
-                data-testid="Program-blastp"
-                value="blastp"
-              >
-                blastp
-              </option>
-              <option
-                data-testid="Program-blastx"
-                value="blastx"
-              >
-                blastx
-              </option>
-              <option
-                data-testid="Program-blastn"
-                value="blastn"
-              >
-                blastn
-              </option>
-              <option
-                data-testid="Program-tblastx"
-                value="tblastx"
-              >
-                tblastx
-              </option>
-              <option
-                data-testid="Program-tblastn"
-                value="tblastn"
-              >
-                tblastn
-              </option>
-            </select>
-          </label>
-        </section>
-        <section
-          class="tools-form-section__item"
-        >
-          <label
-            for="E-Threshold"
-          >
-            E-Threshold
-            <select>
-              <option
-                data-testid="E-Threshold-1e-4"
-                value="1e-4"
-              >
-                0.0001
-              </option>
-              <option
-                data-testid="E-Threshold-1e-3"
-                value="1e-3"
-              >
-                0.001
-              </option>
-              <option
-                data-testid="E-Threshold-1e-2"
-                value="1e-2"
-              >
-                0.01
-              </option>
-              <option
-                data-testid="E-Threshold-1e-1"
-                value="1e-1"
-              >
-                0.1
-              </option>
-              <option
-                data-testid="E-Threshold-1.0"
-                value="1.0"
-              >
-                1
-              </option>
-              <option
-                data-testid="E-Threshold-10"
-                value="10"
-              >
-                10
-              </option>
-              <option
-                data-testid="E-Threshold-100"
-                value="100"
-              >
-                100
-              </option>
-              <option
-                data-testid="E-Threshold-1000"
-                value="1000"
-              >
-                1000
-              </option>
-            </select>
-          </label>
-        </section>
-        <section
-          class="tools-form-section__item"
-        >
-          <label
-            for="Matrix"
-          >
-            Matrix
-            <select>
-              <option
-                data-testid="Matrix-auto"
-                value="auto"
-              >
-                Auto - PAM30
-              </option>
-              <option
-                data-testid="Matrix-BLOSUM45"
-                value="BLOSUM45"
-              >
-                BLOSUM45
-              </option>
-              <option
-                data-testid="Matrix-BLOSUM62"
-                value="BLOSUM62"
-              >
-                BLOSUM62
-              </option>
-              <option
-                data-testid="Matrix-BLOSUM80"
-                value="BLOSUM80"
-              >
-                BLOSUM80
-              </option>
-              <option
-                data-testid="Matrix-PAM70"
-                value="PAM70"
-              >
-                PAM70
-              </option>
-              <option
-                data-testid="Matrix-PAM30"
-                value="PAM30"
-              >
-                PAM30
-              </option>
-            </select>
-          </label>
-        </section>
-        <section
-          class="tools-form-section__item"
-        >
-          <label
-            for="Filter"
-          >
-            Filter
-            <select>
-              <option
-                data-testid="Filter-F"
-                value="F"
-              >
-                None
-              </option>
-              <option
-                data-testid="Filter-T"
-                value="T"
-              >
-                Filter low complexity regions
-              </option>
-            </select>
-          </label>
-        </section>
-        <section
-          class="tools-form-section__item"
-        >
-          <label
-            for="Gapped"
-          >
-            Gapped
-            <select>
-              <option
-                data-testid="Gapped-true"
-                value="true"
-              >
-                yes
-              </option>
-              <option
-                data-testid="Gapped-false"
-                value="false"
-              >
-                no
-              </option>
-            </select>
-          </label>
-        </section>
-        <section
-          class="tools-form-section__item"
-        >
-          <label
-            for="Hits"
-          >
-            Hits
-            <select>
-              <option
-                data-testid="Hits-50"
-                value="50"
-              >
-                50
-              </option>
-              <option
-                data-testid="Hits-100"
-                value="100"
-              >
-                100
-              </option>
-              <option
-                data-testid="Hits-250"
-                value="250"
-              >
-                250
-              </option>
-              <option
-                data-testid="Hits-500"
-                value="500"
-              >
-                500
-              </option>
-              <option
-                data-testid="Hits-750"
-                value="750"
-              >
-                750
-              </option>
-              <option
-                data-testid="Hits-1000"
-                value="1000"
-              >
-                1000
-              </option>
-            </select>
-          </label>
-        </section>
-      </section>
-      <section
-        class="tools-form-section"
-      >
-        <section
-          class="tools-form-section__item"
-        >
           <label>
             Name your BLAST job
             <input
@@ -532,6 +270,283 @@ exports[`BlastForm test Renders the form 1`] = `
           </label>
         </section>
       </section>
+      <details
+        class="tools-form-advanced"
+        open=""
+      >
+        <summary>
+          <span>
+            Advanced parameters
+          </span>
+        </summary>
+        <section
+          class="tools-form-section"
+        >
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Sequence type"
+            >
+              Sequence type
+              <select>
+                <option
+                  data-testid="Sequence type-protein"
+                  value="protein"
+                >
+                  Protein
+                </option>
+                <option
+                  data-testid="Sequence type-dna"
+                  value="dna"
+                >
+                  DNA/RNA
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Program"
+            >
+              Program
+              <select>
+                <option
+                  data-testid="Program-blastp"
+                  value="blastp"
+                >
+                  blastp
+                </option>
+                <option
+                  data-testid="Program-blastx"
+                  value="blastx"
+                >
+                  blastx
+                </option>
+                <option
+                  data-testid="Program-blastn"
+                  value="blastn"
+                >
+                  blastn
+                </option>
+                <option
+                  data-testid="Program-tblastx"
+                  value="tblastx"
+                >
+                  tblastx
+                </option>
+                <option
+                  data-testid="Program-tblastn"
+                  value="tblastn"
+                >
+                  tblastn
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="E-Threshold"
+            >
+              E-Threshold
+              <select>
+                <option
+                  data-testid="E-Threshold-1e-4"
+                  value="1e-4"
+                >
+                  0.0001
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-3"
+                  value="1e-3"
+                >
+                  0.001
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-2"
+                  value="1e-2"
+                >
+                  0.01
+                </option>
+                <option
+                  data-testid="E-Threshold-1e-1"
+                  value="1e-1"
+                >
+                  0.1
+                </option>
+                <option
+                  data-testid="E-Threshold-1.0"
+                  value="1.0"
+                >
+                  1
+                </option>
+                <option
+                  data-testid="E-Threshold-10"
+                  value="10"
+                >
+                  10
+                </option>
+                <option
+                  data-testid="E-Threshold-100"
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  data-testid="E-Threshold-1000"
+                  value="1000"
+                >
+                  1000
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Matrix"
+            >
+              Matrix
+              <select>
+                <option
+                  data-testid="Matrix-auto"
+                  value="auto"
+                >
+                  Auto - PAM30
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM45"
+                  value="BLOSUM45"
+                >
+                  BLOSUM45
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM62"
+                  value="BLOSUM62"
+                >
+                  BLOSUM62
+                </option>
+                <option
+                  data-testid="Matrix-BLOSUM80"
+                  value="BLOSUM80"
+                >
+                  BLOSUM80
+                </option>
+                <option
+                  data-testid="Matrix-PAM70"
+                  value="PAM70"
+                >
+                  PAM70
+                </option>
+                <option
+                  data-testid="Matrix-PAM30"
+                  value="PAM30"
+                >
+                  PAM30
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Filter"
+            >
+              Filter
+              <select>
+                <option
+                  data-testid="Filter-F"
+                  value="F"
+                >
+                  None
+                </option>
+                <option
+                  data-testid="Filter-T"
+                  value="T"
+                >
+                  Filter low complexity regions
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Gapped"
+            >
+              Gapped
+              <select>
+                <option
+                  data-testid="Gapped-true"
+                  value="true"
+                >
+                  yes
+                </option>
+                <option
+                  data-testid="Gapped-false"
+                  value="false"
+                >
+                  no
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Hits"
+            >
+              Hits
+              <select>
+                <option
+                  data-testid="Hits-50"
+                  value="50"
+                >
+                  50
+                </option>
+                <option
+                  data-testid="Hits-100"
+                  value="100"
+                >
+                  100
+                </option>
+                <option
+                  data-testid="Hits-250"
+                  value="250"
+                >
+                  250
+                </option>
+                <option
+                  data-testid="Hits-500"
+                  value="500"
+                >
+                  500
+                </option>
+                <option
+                  data-testid="Hits-750"
+                  value="750"
+                >
+                  750
+                </option>
+                <option
+                  data-testid="Hits-1000"
+                  value="1000"
+                >
+                  1000
+                </option>
+              </select>
+            </label>
+          </section>
+        </section>
+      </details>
       <section
         class="tools-form-section tools-form-section__main_actions"
       >

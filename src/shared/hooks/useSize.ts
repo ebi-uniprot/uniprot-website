@@ -16,7 +16,7 @@ type ContainerElement = HTMLElement | SVGElement | SVGSVGElement;
  */
 function useSize<E extends ContainerElement = ContainerElement>(
   ref: MutableRefObject<E | undefined | null>
-): [DOMRect | null, () => void] {
+): [domRect: DOMRect | null, forceRefresh: () => void] {
   const [rect, setRect] = useSafeState<DOMRect | null>(null);
 
   const onResize = useCallback(() => {

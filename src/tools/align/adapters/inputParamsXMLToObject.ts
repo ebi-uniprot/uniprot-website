@@ -13,16 +13,10 @@ const inputParamsXMLToObject = (
     let key;
     let value;
     for (const childNode of node.children) {
-      switch (childNode.tagName) {
-        case 'string':
-          if (!key) {
-            key = childNode.textContent;
-          } else {
-            value = childNode.textContent;
-          }
-          break;
-        default:
-        // skip
+      if (!key) {
+        key = childNode.textContent;
+      } else {
+        value = childNode.textContent;
       }
     }
     if (!(key && value)) {

@@ -5,6 +5,7 @@ import React, {
   MouseEvent,
   useMemo,
   useRef,
+  FC,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -15,16 +16,22 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
+import { v1 } from 'uuid';
 
 import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
 
+import { addMessage } from '../../../messages/state/messagesActions';
+
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+
+import { createJob } from '../../state/toolsActions';
+
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/alignFormParameters';
 import { ServerParameters } from '../types/alignServerParameters';
-
-import { createJob } from '../../state/toolsActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -33,8 +40,48 @@ import defaultFormValues, {
   AlignFields,
 } from '../config/AlignFormData';
 import infoMappings from '../../../shared/config/InfoMappings';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../../messages/types/messagesTypes';
 
 import '../../styles/ToolsForm.scss';
+
+const ALIGN_LIMIT = 100;
+
+const FormSelect: FC<{
+  formValue: AlignFormValue;
+  updateFormValue: React.Dispatch<React.SetStateAction<AlignFormValue>>;
+}> = ({ formValue, updateFormValue }) => {
+  if (!formValue) {
+    return null;
+  }
+  const label = AlignFields[formValue.fieldName as keyof typeof AlignFields];
+  return (
+    <section className="tools-form-section__item">
+      <label htmlFor={label}>
+        {label}
+        <select
+          value={formValue.selected as string}
+          onChange={(e) =>
+            updateFormValue({ ...formValue, selected: e.target.value })
+          }
+        >
+          {formValue.values &&
+            formValue.values.map((optionItem) => (
+              <option
+                value={String(optionItem.value)}
+                key={String(optionItem.value)}
+                data-testid={`${label}-${optionItem.value}`}
+              >
+                {optionItem.label ? optionItem.label : optionItem.value}
+              </option>
+            ))}
+        </select>
+      </label>
+    </section>
+  );
+};
 
 interface CustomLocationState {
   parameters?: Partial<FormParameters>;
@@ -43,10 +90,12 @@ interface CustomLocationState {
 const AlignForm = () => {
   // refs
   const sslRef = useRef<{ reset: () => void }>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const reducedMotion = useReducedMotion();
 
   // state
   const initialFormValues = useMemo(() => {
@@ -93,6 +142,12 @@ const AlignForm = () => {
   const [sequence, setSequence] = useState<
     AlignFormValues[AlignFields.sequence]
   >(initialFormValues[AlignFields.sequence]);
+  const [order, setOrder] = useState<AlignFormValues[AlignFields.order]>(
+    initialFormValues[AlignFields.order]
+  );
+  const [iterations, setIterations] = useState<
+    AlignFormValues[AlignFields.iterations]
+  >(initialFormValues[AlignFields.iterations]);
 
   // extra job-related fields
   const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);
@@ -130,6 +185,8 @@ const AlignForm = () => {
     // tools middleware
     const parameters: FormParameters = {
       sequence: sequence.selected as ServerParameters['sequence'],
+      order: order.selected as ServerParameters['order'],
+      iterations: iterations.selected as ServerParameters['iterations'],
     };
 
     // navigate to the dashboard, not immediately, to give the impression that
@@ -181,7 +238,8 @@ const AlignForm = () => {
           .join('\n'),
       }));
       setSubmitDisabled(
-        parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
+        parsedSequences.length > ALIGN_LIMIT ||
+          parsedSequences.some((parsedSequence) => !parsedSequence.valid) ||
           parsedSequences.length === 1
       );
     },
@@ -196,15 +254,23 @@ const AlignForm = () => {
     [onSequenceChange, parsedSequences]
   );
 
-  const { name, links, info } = infoMappings[JobTypes.ALIGN];
+  // file handling
+  useTextFileInput({
+    input: fileInputRef.current,
+    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onError: (error) =>
+      dispatch(
+        addMessage({
+          id: v1(),
+          content: error.message,
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+        })
+      ),
+    dndOverlay: <span>Drop your input file anywhere on this page</span>,
+  });
 
-  let submitButtonContent: string | JSX.Element = 'Run Align';
-  if (parsedSequences.length > 1) {
-    submitButtonContent = `Align ${parsedSequences.length} sequences`;
-  }
-  if (sending) {
-    submitButtonContent = <SpinnerIcon />;
-  }
+  const { name, links, info } = infoMappings[JobTypes.ALIGN];
 
   return (
     <>
@@ -215,8 +281,8 @@ const AlignForm = () => {
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find proteins to Align by UniProt ID{' '}
-              <small>(e.g. P05067 or A4_HUMAN or UPI0000000001)</small>.
+              Find a protein sequence to run BLAST sequence similarity search by
+              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
               <br />
               You can also paste a list of IDs.
             </legend>
@@ -232,10 +298,15 @@ const AlignForm = () => {
           <section className="text-block">
             <legend>
               Enter multiple protein or nucleotide sequences, separated by a
-              FASTA header.
+              FASTA header. You may also
+              <label className="tools-form-section__file-input">
+                load from a text file
+                <input type="file" ref={fileInputRef} />
+              </label>
+              .
             </legend>
             <SequenceSubmission
-              placeholder="MLPGLALLLL or AGTTTCCTCGGCAGCGGTAGGC"
+              placeholder="Protein or nucleotide sequences in FASTA format."
               onChange={onSequenceChange}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
@@ -262,8 +333,35 @@ const AlignForm = () => {
               </label>
             </section>
           </section>
+          <details className="tools-form-advanced" open>
+            <summary>
+              <span>Advanced parameters</span>
+            </summary>
+            <section className="tools-form-section">
+              {[
+                [order, setOrder],
+                [iterations, setIterations],
+              ].map(([stateItem, setStateItem]) => (
+                <FormSelect
+                  key={(stateItem as AlignFormValue).fieldName}
+                  formValue={stateItem as AlignFormValue}
+                  updateFormValue={
+                    setStateItem as React.Dispatch<
+                      React.SetStateAction<AlignFormValue>
+                    >
+                  }
+                />
+              ))}
+            </section>
+          </details>
           <section className="tools-form-section tools-form-section__main_actions">
             <section className="button-group tools-form-section__buttons">
+              {sending && !reducedMotion && (
+                <>
+                  <SpinnerIcon />
+                  &nbsp;
+                </>
+              )}
               <input className="button secondary" type="reset" />
               <button
                 className="button primary"
@@ -271,7 +369,9 @@ const AlignForm = () => {
                 disabled={submitDisabled}
                 onClick={submitAlignJob}
               >
-                {submitButtonContent}
+                {parsedSequences.length <= 2
+                  ? 'Run Align'
+                  : `Align ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>

@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
-import { v1 } from 'uuid';
 import ProtvistaTrack from 'protvista-track';
+
 import { loadWebComponent } from '../../shared/utils/utils';
 import { FullAlignmentSegments, SegmentTrackData } from '../utils/sequences';
 
@@ -61,14 +61,15 @@ const AlignmentOverview: FC<AlignmentOverviewProps> = ({
 
   return (
     <div>
-      {data.map(({ trackData }) => {
+      {data.map(({ trackData }, index) => {
         return (
           <AlignmentOverviewTrack
             data={trackData}
             height={singleTrackHeight}
             length={length}
             highlight={highlight}
-            key={v1()}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
           />
         );
       })}
