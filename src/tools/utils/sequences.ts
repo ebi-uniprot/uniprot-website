@@ -91,7 +91,7 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
       trackData: [
         {
           start: offset,
-          end: offset + al.from,
+          end: offset + al.from - 1,
           shape: 'line',
           color: colour,
         },
@@ -101,7 +101,7 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
           color: colour,
         })),
         {
-          start: offset + al.to + countGaps(al.sequence),
+          start: offset + al.to + countGaps(al.sequence) + 1,
           end: offset + al.length + countGaps(al.sequence),
           shape: 'line',
           color: colour,
