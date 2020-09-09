@@ -6,6 +6,8 @@
   user-select: none;
 }
 
-.data-table__header-cell {
-  top: $action-buttons-height !important;
+.results-view {
+  .data-table__header-cell {
+    top: $action-buttons-height !important;
+  }
 }

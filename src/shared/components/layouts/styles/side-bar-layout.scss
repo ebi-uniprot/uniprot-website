@@ -23,7 +23,7 @@
     padding-top: 0.5rem;
     top: 0;
     position: sticky;
-    z-index: 2;
+    z-index: $z-index-medium;
     background-color: $colour-sky-white;
     height: $action-buttons-height;
   }

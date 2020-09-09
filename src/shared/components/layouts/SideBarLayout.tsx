@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useRef, cloneElement } from 'react';
+import React, { FC, ReactNode } from 'react';
 import cn from 'classnames';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
@@ -24,7 +24,10 @@ const SideBarLayout: React.FC<SideBarLayoutProps> = ({
     <section className="sidebar-layout__sidebar">
       <ErrorBoundary>{sidebar}</ErrorBoundary>
     </section>
-    <section className="sidebar-layout__content" data-loader-scroll="sidebar">
+    <section
+      className="sidebar-layout__content"
+      data-loader-scroll="sidebar-content"
+    >
       <ErrorBoundary>
         <section className="sidebar-layout__title">{title}</section>
       </ErrorBoundary>

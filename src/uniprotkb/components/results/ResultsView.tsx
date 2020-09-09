@@ -138,8 +138,9 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   };
 
   const hasMoreData = total > allResults.length;
+  let dataView;
   if (viewMode === ViewMode.CARD) {
-    return (
+    dataView = (
       <DataList
         getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
           primaryAccession
@@ -155,49 +156,52 @@ const ResultsView: React.FC<ResultsTableProps> = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
-        scrollDataAttribute="sidebar"
+        scrollDataAttribute="sidebar-content"
       />
     );
-  } // viewMode === ViewMode.TABLE
-  const columnsToDisplay = columns.map((columnName) => {
-    const columnConfig = ColumnConfiguration.get(columnName);
-    if (columnConfig) {
-      return {
-        label: columnConfig.label,
-        name: columnName,
-        render: (row: UniProtkbAPIModel) =>
-          columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
-        sortable: sortableColumnToSortColumn.has(columnName),
-        sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
-      };
-    }
-    return {
-      label: columnName,
-      name: columnName,
-      render: () => (
-        <div className="warning">{`${columnName} has no config`}</div>
-      ),
-      sortable: false,
-      sorted: false,
-    };
-  });
-  return (
-    <DataTable
-      getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
-        primaryAccession
+  } else {
+    // viewMode === ViewMode.TABLE
+    const columnsToDisplay = columns.map((columnName) => {
+      const columnConfig = ColumnConfiguration.get(columnName);
+      if (columnConfig) {
+        return {
+          label: columnConfig.label,
+          name: columnName,
+          render: (row: UniProtkbAPIModel) =>
+            columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
+          sortable: sortableColumnToSortColumn.has(columnName),
+          sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
+        };
       }
-      columns={columnsToDisplay}
-      data={allResults}
-      selectable
-      selected={selectedEntries}
-      onSelect={handleEntrySelection}
-      onHeaderClick={updateColumnSort}
-      onLoadMoreItems={handleLoadMoreRows}
-      hasMoreData={hasMoreData}
-      loaderComponent={<Loader />}
-      scrollDataAttribute="sidebar"
-    />
-  );
+      return {
+        label: columnName,
+        name: columnName,
+        render: () => (
+          <div className="warning">{`${columnName} has no config`}</div>
+        ),
+        sortable: false,
+        sorted: false,
+      };
+    });
+    dataView = (
+      <DataTable
+        getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
+          primaryAccession
+        }
+        columns={columnsToDisplay}
+        data={allResults}
+        selectable
+        selected={selectedEntries}
+        onSelect={handleEntrySelection}
+        onHeaderClick={updateColumnSort}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={<Loader />}
+        scrollDataAttribute="sidebar-content"
+      />
+    );
+  }
+  return <div className="results-view">{dataView}</div>;
 };
 
 export default withRouter(ResultsView);
