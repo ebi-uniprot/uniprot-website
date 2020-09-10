@@ -124,6 +124,11 @@ const MSAView: FC<MSAViewProps> = ({
     [features, annotation]
   );
 
+  const overviewHeight: string = (alignment && alignment.length > 10
+    ? alignment.length * 3
+    : 30
+  ).toString();
+
   return (
     <section
       data-testid="overview-hsp-detail"
@@ -134,7 +139,7 @@ const MSAView: FC<MSAViewProps> = ({
       <section className="hsp-label">Overview</section>
 
       <AlignmentOverview
-        height="20"
+        height={overviewHeight}
         length={totalLength}
         highlight={highlightPosition}
         data={alignment ? getFullAlignmentSegments(alignment) : []}

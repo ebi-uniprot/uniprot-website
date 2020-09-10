@@ -26,16 +26,11 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   length,
   height,
 }) => {
-  const marginBottom = Math.floor(height / 6);
   const setTrackData = useCallback(
     (node): void => {
       if (node) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
-        // not supported yet in protvista-track
-        // node.margin = {
-        //   bottom: marginBottom,
-        // };
       }
     },
     [data]
@@ -43,10 +38,10 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
 
   return (
     <protvista-track
-      height={height - marginBottom}
+      height={height}
       ref={setTrackData}
       length={length}
-      layout="overlapping"
+      layout="non-overlapping"
       highlight={highlight}
     />
   );
