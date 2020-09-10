@@ -65,7 +65,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
     Map<Column, string>
   >();
-  // const ref = useRef<HTMLElement>
 
   const { data, headers } = useDataApi<{ results: UniProtkbAPIModel[] }>(url);
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
