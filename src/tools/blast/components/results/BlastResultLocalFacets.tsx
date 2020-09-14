@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
-import { HistogramFilter, Loader } from 'franklin-sites';
+import { HistogramFilter } from 'franklin-sites';
 
 import {
   getLocationObjForParams,
@@ -115,7 +115,7 @@ const BlastResultLocalFacets: FC<{
   const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
   // get data from accessions endpoint with facets applied
-  const { loading, data, isStale } = useDataApiWithStale<Response['data']>(
+  const { data, isStale } = useDataApiWithStale<Response['data']>(
     useMemo(
       () =>
         getAccessionsURL(
@@ -131,7 +131,7 @@ const BlastResultLocalFacets: FC<{
 
   const hitsFilteredByServer = useMemo(() => {
     if (!data) {
-      return [];
+      return allHits;
     }
     const filteredAccessions = new Set(
       data.results.map((entry) => entry.primaryAccession)
@@ -149,14 +149,10 @@ const BlastResultLocalFacets: FC<{
       dataPoints,
       getBounds(allHits),
       // see: https://en.wikipedia.org/wiki/Histogram#Square-root_choice
-      // We chose the simplest implementation, 𝐤=⌈√𝐧⌉
+      // We chose the simplest implementation for the bin number, 𝐤=⌈√𝐧⌉
       Math.ceil(Math.sqrt(dataPoints.score.length)),
     ];
   }, [allHits]);
-
-  if (loading && !isStale) {
-    return <Loader />;
-  }
 
   if (!(allHits.length && hitsFilteredByServer.length)) {
     return null;
