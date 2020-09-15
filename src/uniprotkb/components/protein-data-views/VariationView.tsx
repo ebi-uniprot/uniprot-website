@@ -7,7 +7,12 @@ import ProtvistaManager from 'protvista-manager';
 import ProtvistaSequence from 'protvista-sequence';
 import ProtvistaNavigation from 'protvista-navigation';
 import ProtvistaVariation from 'protvista-variation';
+import { filterConfig, colorConfig } from 'protvista-uniprot';
 import { transformData } from 'protvista-variation-adapter';
+import {
+  ProteinsAPIVariation,
+  Feature as VariantFeature,
+} from 'protvista-variation-adapter/dist/es/variants';
 import ProtvistaFilter from 'protvista-filter';
 
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
@@ -17,62 +22,12 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { loadWebComponent } from '../../../shared/utils/utils';
 
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-
 import apiUrls from '../../config/apiUrls';
-import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
+// import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
 
-import FeatureType from '../../types/featureType';
 import { Evidence } from '../../types/modelTypes';
-import { ProcessedFeature } from './FeaturesView';
 
 import './styles/variation-view.scss';
-
-export type ProtvistaVariant = {
-  begin: number;
-  end: number;
-  type: FeatureType.VARIANT;
-  wildType: string;
-  alternativeSequence: string;
-  polyphenPrediction?: string;
-  polyphenScore?: number;
-  siftPrediction?: string;
-  siftScore?: number;
-  description?: string;
-  consequenceType: string;
-  cytogeneticBand?: string;
-  genomicLocation?: string;
-  somaticStatus?: number;
-  sourceType: string;
-  clinicalSignificances?: string;
-  association?: {
-    description: string;
-    disease: boolean;
-    name: string;
-    evidences: { code: string; source: { name: string; id: string } }[];
-  }[];
-  xrefs: {
-    alternativeUrl?: string;
-    id: string;
-    name: string;
-    url: string;
-  }[];
-};
-
-export type TransformedProtvistaVariant = ProtvistaVariant & {
-  accession: string;
-  start: string;
-  tooltipContent: string;
-  sourceType: string;
-  variant: string;
-  protvistaFeatureId: string;
-  xrefNames: string[];
-};
-
-export type TransformedVariantsResponse = {
-  sequence: string;
-  variants: TransformedProtvistaVariant[];
-};
 
 loadWebComponent('protvista-variation', ProtvistaVariation);
 loadWebComponent('protvista-navigation', ProtvistaNavigation);
@@ -80,72 +35,54 @@ loadWebComponent('protvista-sequence', ProtvistaSequence);
 loadWebComponent('protvista-manager', ProtvistaManager);
 loadWebComponent('protvista-filter', ProtvistaFilter);
 
-const formatVariantDescription = (description: string) => {
-  /* eslint-disable no-useless-escape */
-  const pattern = /\[(\w+)\]: ([^\[]+)/g;
-  const match = description.match(pattern);
-  return match;
-};
-
 const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
   return {
     positions: {
       label: 'Position(s)',
-      resolver: (d: ProtvistaVariant) =>
+      resolver: (d: VariantFeature) =>
         d.begin === d.end ? d.begin : `${d.begin}-${d.end}`,
     },
     change: {
       label: 'Change',
-      resolver: (d: ProtvistaVariant) =>
-        `${d.wildType}>${d.alternativeSequence}`,
+      resolver: (d: VariantFeature) => `${d.wildType}>${d.alternativeSequence}`,
     },
     consequence: {
       label: 'Consequence',
       child: true,
-      resolver: (d: ProtvistaVariant) => d.consequenceType,
+      resolver: (d: VariantFeature) => d.consequenceType,
     },
-    sift: {
-      label: 'SIFT prediction',
+    predictions: {
+      label: 'Predictions',
       child: true,
-      resolver: (d: ProtvistaVariant) =>
-        d.siftPrediction ? `${d.siftPrediction} (${d.siftScore})` : '',
-    },
-    polyphen: {
-      label: 'Polyphen prediction',
-      child: true,
-      resolver: (d: ProtvistaVariant) =>
-        d.polyphenPrediction
-          ? `${d.polyphenPrediction} (${d.polyphenScore})`
-          : '',
+      resolver: (d: VariantFeature) =>
+        html`${d.predictions?.map(
+          (prediction) =>
+            html`${prediction.predAlgorithmNameType}:
+              ${prediction.predictionValType} (${prediction.score})<br />`
+        )}`,
     },
     description: {
       label: 'Description',
-      resolver: (d: ProtvistaVariant) => {
-        if (!d.description) {
-          return '';
-        }
-        const formatedDescription = formatVariantDescription(d.description);
-        return formatedDescription
-          ? formatedDescription.map(
-              (descriptionLine) => html` <p>${descriptionLine}</p> `
-            )
-          : '';
-      },
+      resolver: (d: VariantFeature) =>
+        html`${d.descriptions?.map(
+          (description) =>
+            html`${description.value} (${description.sources.join(', ')})<br />`
+        )}`,
     },
     somaticStatus: {
       label: 'Somatic',
       child: true,
-      resolver: (d: ProtvistaVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
+      resolver: (d: VariantFeature) => (d.somaticStatus === 1 ? 'Y' : 'N'),
     },
     hasDisease: {
       label: 'Disease association',
-      resolver: (d: ProtvistaVariant) =>
+      resolver: (d: VariantFeature) =>
         d.association && d.association.length > 0 ? 'Y' : 'N',
     },
     association: {
       label: 'Disease association',
       child: true,
-      resolver: (d: ProtvistaVariant) => {
+      resolver: (d: VariantFeature) => {
         if (!d.association) {
           return '';
         }
@@ -177,7 +114,7 @@ const VariationView: FC<{
   title?: string;
   hasTable?: boolean;
 }> = ({ primaryAccession, title, hasTable = true }) => {
-  const { loading, data, error, status } = useDataApi<UniProtkbAPIModel>(
+  const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
     joinUrl(apiUrls.variation, primaryAccession)
   );
 
@@ -191,9 +128,7 @@ const VariationView: FC<{
   const protvistaVariationRef = useCallback(
     (node) => {
       if (node !== null && data && data.features) {
-        const transformedData: TransformedVariantsResponse = transformData(
-          data
-        );
+        const transformedData = transformData(data);
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
         // eslint-disable-next-line no-param-reassign
@@ -246,9 +181,8 @@ const VariationView: FC<{
             />
           </div>
         )}
-        {/* TODO: check models, because I have no idea what I'm doing here 🤷🏽‍♂️ */}
         <FeaturesTableView
-          data={(data.features as unknown) as ProcessedFeature[]}
+          data={data.features}
           getColumnConfig={getColumnConfig}
         />
       </protvista-manager>

@@ -1,10 +1,10 @@
 import React, { Fragment, useCallback, useState, FC } from 'react';
 import { TemplateResult } from 'lit-html';
 import ProtvistaDatatable from 'protvista-datatable';
+import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
 import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
 import { loadWebComponent } from '../../../shared/utils/utils';
-import { ProtvistaFeature, ProcessedFeature } from './FeaturesView';
-import { ProtvistaVariant } from './VariationView';
+import { ProcessedFeature } from './FeaturesView';
 import { EvidenceData } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
 
@@ -14,7 +14,7 @@ type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
-      d: ProtvistaFeature & ProtvistaVariant
+      d: ProcessedFeature & VariantFeature
     ) => string | number | TemplateResult | TemplateResult[];
   };
 };
@@ -25,7 +25,7 @@ export type FeaturesTableCallback = (
 ) => void;
 
 const FeaturesTableView: FC<{
-  data: ProcessedFeature[] | ProtvistaVariant[];
+  data: ProcessedFeature[] | VariantFeature[];
   getColumnConfig: (
     callback: (
       evidenceData: EvidenceData,
