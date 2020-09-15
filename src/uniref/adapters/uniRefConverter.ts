@@ -1,12 +1,13 @@
 enum GeneOntologyAspect {
-  FUNCTION = 'Function',
-  PROCESS = 'Process',
-  COMPONENT = 'Component',
+  FUNCTION = 'GO Molecular Function',
+  PROCESS = 'GO Biological Process',
+  COMPONENT = 'GO Cellular Component',
 }
 
 enum MemberIdType {
-  UNIPROTKB = 'UniProtKb',
-  UNIPARC = 'UniParc',
+  UNIPROTKB_SWISSPROT = 'UniProtKB Reviewed (Swiss-Prot)',
+  UNIPROTKB_TREMBL = 'UniProtKB Unreviewed (TrEMBL)',
+  UNIPARC = 'UniParc ID',
 }
 
 enum EntryType {
@@ -16,26 +17,16 @@ enum EntryType {
 }
 
 type GeneOntologyEntry = {
-  ancestors: GeneOntologyEntry[];
   aspect: GeneOntologyAspect;
-  name: string;
-  id: string;
-} | null;
+  goId: string;
+};
 
 type Sequence = {
   value: string;
   length: number;
-  checksum: string;
-};
-
-type UniProtKBAccession = {
-  validAccession: boolean;
-  value: string;
-};
-
-type EntryID = {
-  validId: boolean;
-  value: string;
+  molWeight: number;
+  crc64: string;
+  md5: string;
 };
 
 type OverlapRegion = {
@@ -51,16 +42,36 @@ type UniRefMember = {
   organismTaxId: number;
   sequenceLength: number;
   proteinName: string;
-  uniProtAccessions: UniProtKBAccession[];
-  uniRef50Id: EntryID;
-  uniRef90Id: EntryID;
-  uniRef100Id: EntryID;
-  uniParcId: EntryID;
+  accessions: string[];
+  uniRef50Id: string;
+  uniRef90Id: string;
+  uniRef100Id: string;
+  uniParcId: string;
   overlapRegion: OverlapRegion;
 };
 
 type RepresentativeMember = UniRefMember & {
   sequence: Sequence;
+};
+
+export type UniRefLiteAPIModel = {
+  commonTaxonId: number;
+  commonTaxon: string;
+  goTerms: GeneOntologyEntry[];
+  memberCount: number;
+  entryType: EntryType;
+  updated: string;
+  name: string;
+  id: string;
+  sequence: string;
+  sequenceLength: number;
+  organismCount: number;
+  representativeId: string;
+  seedId: string;
+  memberIdTypes: MemberIdType;
+  members: string[];
+  organismIds: number[];
+  organisms: string[];
 };
 
 export type UniRefAPIModel = {
@@ -70,8 +81,8 @@ export type UniRefAPIModel = {
   representativeMember: RepresentativeMember;
   memberCount: number;
   entryType: EntryType;
-  update: string;
+  updated: string;
   name: string;
-  id: EntryID;
+  id: string;
   members: UniRefMember[];
 };
