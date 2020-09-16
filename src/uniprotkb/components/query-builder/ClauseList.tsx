@@ -61,6 +61,8 @@ const ClauseList: React.FC<ClauseListProps> = ({
         evidencesData = evidences[evidencesType].data || [];
       }
 
+      console.log(clause);
+
       return (
         <div key={`clause_${clause.id}`} className="advanced-search__clause">
           <LogicalOperator

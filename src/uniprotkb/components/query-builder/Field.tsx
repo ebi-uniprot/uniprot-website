@@ -1,22 +1,25 @@
 import React, { Fragment } from 'react';
+import { noop } from 'lodash-es';
+
 import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
 import AutocompleteWrapper from './AutocompleteWrapper';
+
 import { SearchTermType, Input } from '../../types/searchTypes';
 
 type FieldProps = {
   field: SearchTermType;
   handleInputChange: (value: string, id?: string) => void;
-  handleRangeInputChange: (value: string, from?: boolean) => void;
-  queryInput: Input;
+  handleRangeInputChange?: (value: string, from?: boolean) => void;
+  queryInput?: Input;
 };
 
 const Field = ({
   field,
   handleInputChange,
-  handleRangeInputChange,
-  queryInput,
+  handleRangeInputChange = noop,
+  queryInput = {},
 }: FieldProps) => {
   const { dataType, hasRange } = field;
   let node;
@@ -92,6 +95,11 @@ const Field = ({
       return null;
   }
   return <div className="advanced-search__inputs">{node}</div>;
+};
+
+Field.defaultProps = {
+  queryInput: undefined,
+  handleRangeInputChange: undefined,
 };
 
 export default Field;

@@ -5,7 +5,7 @@ import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
 import ResultsButtons from './ResultsButtons';
-import ResultsFacets from './ResultsFacets';
+import ResultsFacets from '../../../shared/components/facets/ResultsFacets';
 import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';

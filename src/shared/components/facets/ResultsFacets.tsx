@@ -2,10 +2,13 @@ import React, { FC, ReactElement, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Facets } from 'franklin-sites';
 
-import { Facet } from '../../types/responseTypes';
+import TaxonomyFacet from './TaxonomyFacet';
 
-import './styles/results-view.scss';
 import { Location, LocationToPath } from '../../../app/config/urls';
+
+import { Facet } from '../../../uniprotkb/types/responseTypes';
+
+import './styles/ResultFacets.scss';
 
 const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
   facets,
@@ -40,6 +43,7 @@ const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
 
   return (
     <div className={isStale ? 'is-stale' : undefined}>
+      <TaxonomyFacet />
       <Facets data={facets} extraActionsFor={extraActionsFor} />
     </div>
   );
