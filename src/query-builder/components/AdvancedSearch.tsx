@@ -7,7 +7,7 @@ import {
   SearchTermType,
   Operator,
   Evidences,
-} from '../../types/searchTypes';
+} from '../../uniprotkb/types/searchTypes';
 import './styles/advanced-search.scss';
 
 type AdvancedSearchProps = {

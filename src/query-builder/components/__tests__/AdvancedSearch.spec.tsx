@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { createEmptyClause } from '../../../utils/clause';
-import AdvancedSearch from '../AdvancedSearch';
-import { resetUuidV1 } from '../../../../../__mocks__/uuid';
+import { createEmptyClause } from '../../utils/clause';
+import AdvancedSearch from '../../../query-builder/components/AdvancedSearch';
+import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 let rendered;
 let props;

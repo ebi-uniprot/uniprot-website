@@ -4,7 +4,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import extractAccession from './extractAccession';
 
-import { getAccessionsURL } from '../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../shared/config/apiUrls';
 
 import { FeatureData } from '../../../uniprotkb/components/protein-data-views/FeaturesView';
 import { ParsedSequence } from '../../components/SequenceSearchLoader';

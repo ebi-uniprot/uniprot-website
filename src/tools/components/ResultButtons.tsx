@@ -13,12 +13,12 @@ import { serverParametersToFormParameters } from '../adapters/parameters';
 import { jobTypeToPath } from '../../app/config/urls';
 import uniProtKBApiUrls, {
   getSuggesterUrl,
-} from '../../uniprotkb/config/apiUrls';
+} from '../../shared/config/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
-import { Suggestions } from '../../uniprotkb/components/query-builder/AutocompleteWrapper';
+import { Suggestions } from '../../query-builder/components/AutocompleteWrapper';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type ResubmitButtonProps<T extends JobTypes> = {

@@ -2,7 +2,7 @@ import { Dispatch, Action } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { action } from 'typesafe-actions';
 import fetchData from '../../shared/utils/fetchData';
-import apiUrls from '../config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls';
 import {
   SearchTermType,
   Operator,

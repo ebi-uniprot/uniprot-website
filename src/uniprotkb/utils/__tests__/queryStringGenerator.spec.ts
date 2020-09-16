@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import createQueryString from '../queryStringGenerator';
+import createQueryString from '../../../query-builder/utils/queryStringGenerator';
 import {
   testData,
   exceptionThrowingTestData,

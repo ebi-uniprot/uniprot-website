@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import ClauseList from '../ClauseList';
-import { createEmptyClause } from '../../../utils/clause';
-import { resetUuidV1 } from '../../../../../__mocks__/uuid';
+import ClauseList from '../../../query-builder/components/ClauseList';
+import { createEmptyClause } from '../../utils/clause';
+import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 let rendered;
 let props;

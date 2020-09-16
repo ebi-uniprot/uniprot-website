@@ -1,4 +1,4 @@
-import { createPreSelectedClauses } from '../utils/clause';
+import { createPreSelectedClauses } from '../../query-builder/utils/clause';
 import {
   Clause,
   Namespace,

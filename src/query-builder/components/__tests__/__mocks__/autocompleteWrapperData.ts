@@ -1,4 +1,4 @@
-import { getSuggesterUrl } from '../../../../config/apiUrls';
+import { getSuggesterUrl } from '../../../../shared/config/apiUrls';
 
 const query = 'human';
 const baseUrl = '/uniprot/api/suggester?dict=taxonomy&query=?';

@@ -3,7 +3,7 @@
  */
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls';
 import { clause, searchTerms, evidences } from '../searchReducers';
 import {
   updateInputValue,

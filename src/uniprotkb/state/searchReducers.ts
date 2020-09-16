@@ -1,6 +1,6 @@
 import { ActionType } from 'typesafe-actions';
 import * as searchActions from './searchActions';
-import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
+import { createEmptyClause, createPreSelectedClauses } from '../../query-builder/utils/clause';
 // import createQueryString from '../utils/QueryStringGenerator';
 import searchInitialState, { SearchState } from './searchInitialState';
 import { Clause } from '../types/searchTypes';

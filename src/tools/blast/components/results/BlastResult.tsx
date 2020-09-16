@@ -23,7 +23,7 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
-import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';

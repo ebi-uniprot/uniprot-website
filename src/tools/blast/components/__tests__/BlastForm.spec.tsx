@@ -6,7 +6,7 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 import BlastForm from '../BlastForm';
 import initialState from '../../../../app/state/rootInitialState';
-import { mockSuggesterApi } from '../../../../uniprotkb/components/query-builder/__tests__/__mocks__/autocompleteWrapperData';
+import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
 
 const mock = new MockAdapter(axios);
 mock.onGet().reply(200, mockSuggesterApi.response);

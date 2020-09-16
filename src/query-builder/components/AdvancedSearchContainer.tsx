@@ -11,18 +11,18 @@ import {
   Evidence,
   Evidences,
   Namespace,
-} from '../../types/searchTypes';
+} from '../../uniprotkb/types/searchTypes';
 
 import AdvancedSearch from './AdvancedSearch';
 
-import { RootState, RootAction } from '../../../app/state/rootInitialState';
-import * as searchActions from '../../state/searchActions';
+import { RootState, RootAction } from '../../app/state/rootInitialState';
+import * as searchActions from '../../uniprotkb/state/searchActions';
 
-import createQueryString from '../../utils/queryStringGenerator';
+import createQueryString from '../utils/queryStringGenerator';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 
-import '../search/styles/search-container.scss';
+import '../../uniprotkb/components/search/styles/search-container.scss';
 
 const queryBuilderPath = LocationToPath[Location.UniProtKBQueryBuilder];
 
