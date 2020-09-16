@@ -310,6 +310,7 @@ const BlastResultTable: FC<{
         selected={selectedEntries}
         onSelect={handleSelectedEntries}
         fixedLayout
+        scrollDataAttribute="sidebar-content"
       />
     </div>
   );

@@ -12,13 +12,16 @@ const dataMock = {
   data: mockPublicationsData,
   headers,
 };
-
+const getRendered = () =>
+  renderWithRouter(
+    <div data-loader-scroll="sidebar-content">
+      <EntryPublications accession="P05067" />
+    </div>
+  );
 describe('EntryPublications tests', () => {
   it('should call useDataApi and render', async () => {
     useDataApi.mockImplementation(() => dataMock);
-    const { findByText } = renderWithRouter(
-      <EntryPublications accession="P05067" />
-    );
+    const { findByText } = getRendered();
     expect(useDataApi).toHaveBeenCalled();
     expect(await findByText(/ISOFORM APP751/)).toBeTruthy();
   });
@@ -31,9 +34,7 @@ describe('EntryPublications tests', () => {
         status: 400,
       };
     });
-    const { asFragment } = renderWithRouter(
-      <EntryPublications accession="P05067" />
-    );
+    const { asFragment } = getRendered();
     expect(asFragment()).toMatchSnapshot();
   });
 });
