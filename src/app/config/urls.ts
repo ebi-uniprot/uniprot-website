@@ -1,6 +1,7 @@
 import { invert } from 'lodash-es';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { Namespace } from '../../uniprotkb/types/searchTypes';
 
 export enum Location {
   Home = 'Home',
@@ -34,6 +35,13 @@ export const LocationToPath = {
   [Location.UniProtKBCustomiseTable]: '/customise-table',
   [Location.UniProtKBQueryBuilder]: '/advanced-search',
   [Location.Dashboard]: '/tool-dashboard',
+  [Location.UniRefEntry]: '/uniref/:accession',
+  [Location.UniRefResults]: '/uniref',
+};
+
+export const SearchResultsLocations = {
+  [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
+  [Namespace.uniref]: LocationToPath[Location.UniRefResults],
 };
 
 // eslint-disable-next-line consistent-return

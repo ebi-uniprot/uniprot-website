@@ -3,18 +3,14 @@ import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch } from 'franklin-sites';
 
-import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  SearchResultsLocations,
+} from '../../../app/config/urls';
+import { Namespace, NamespaceLabels } from '../../types/searchTypes';
 
 import './styles/search-container.scss';
-
-const namespaces = [
-  'UniProtKB - the UniProt knowledgebase',
-  'UniRef',
-  'UniParc',
-  'Proteomes',
-  'Publications',
-  'Keywords',
-];
 
 const Search = () => {
   const history = useHistory();
@@ -23,6 +19,10 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState(
     // initialise with whatever is already in the URL
     queryString.parse(history.location.search, { decode: true }).query
+  );
+
+  const [selectedNamespace, setSelectedNamespace] = useState(
+    Namespace.uniprotkb
   );
 
   const handleSubmit = (event: Event) => {
@@ -37,17 +37,23 @@ const Search = () => {
 
     // push a new location to the history containing the modified search term
     history.push({
-      pathname: LocationToPath[Location.UniProtKBResults], // NOTE: shouldn't that depend on the selected namespace?
+      pathname: SearchResultsLocations[selectedNamespace],
       search: stringifiedSearch,
     });
   };
 
+  const setNamespace = (namespace: string) => {
+    setSelectedNamespace(namespace);
+  };
+
   return (
     <MainSearch
-      namespaces={namespaces}
+      namespaces={NamespaceLabels}
       searchTerm={searchTerm}
       onChange={setSearchTerm}
       onSubmit={handleSubmit}
+      onNamespaceChange={setNamespace}
+      selectedNamespace={selectedNamespace}
     />
   );
 };
