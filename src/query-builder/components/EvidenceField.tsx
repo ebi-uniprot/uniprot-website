@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { EvidenceDataPoint } from '../../types/searchTypes';
+import { EvidenceDataPoint } from '../../uniprotkb/types/searchTypes';
 
 type EvidenceFieldProps = {
   value: string | undefined;
@@ -24,9 +24,9 @@ const EvidenceField: React.FC<EvidenceFieldProps> = ({
           id="evidence_select"
           data-testid="evidence-select"
           value={value}
-          onChange={e => handleChange(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
         >
-          {data.map(group => (
+          {data.map((group) => (
             <optgroup label={group.groupName} key={group.groupName}>
               {group.items.map((item: { code: string; name: string }) => (
                 <option value={item.code} key={item.code}>

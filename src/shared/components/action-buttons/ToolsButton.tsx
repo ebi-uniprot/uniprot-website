@@ -7,7 +7,7 @@ import fetchData from '../../utils/fetchData';
 
 import useSafeState from '../../hooks/useSafeState';
 
-import uniProtKBApiUrls from '../../../uniprotkb/config/apiUrls';
+import uniProtKBApiUrls from '../../config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';

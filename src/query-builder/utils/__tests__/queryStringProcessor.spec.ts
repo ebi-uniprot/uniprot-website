@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import { parse, stringify } from '../searchQueryString';
+import { parse, stringify } from '../queryStringProcessor';
 import {
   testData,
   exceptionThrowingTestData,

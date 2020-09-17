@@ -20,7 +20,7 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 
-import AutocompleteWrapper from '../../../uniprotkb/components/query-builder/AutocompleteWrapper';
+import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 import SequenceSearchLoader, {
   ParsedSequence,
   SequenceSearchLoaderInterface,
@@ -54,7 +54,7 @@ import defaultFormValues, {
   BlastFields,
   SelectedTaxon,
 } from '../config/BlastFormData';
-import uniProtKBApiUrls from '../../../uniprotkb/config/apiUrls';
+import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 import {
   MessageFormat,

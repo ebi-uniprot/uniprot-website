@@ -1,4 +1,9 @@
-import { Clause, Operator, itemType, dataType } from '../types/searchTypes';
+import {
+  Clause,
+  Operator,
+  itemType,
+  dataType,
+} from '../../uniprotkb/types/searchTypes';
 
 type IPrefixMap = {
   feature: string;

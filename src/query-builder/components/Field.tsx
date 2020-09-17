@@ -3,7 +3,7 @@ import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
 import AutocompleteWrapper from './AutocompleteWrapper';
-import { SearchTermType, Input } from '../../types/searchTypes';
+import { SearchTermType, Input } from '../../uniprotkb/types/searchTypes';
 
 type FieldProps = {
   field: SearchTermType;

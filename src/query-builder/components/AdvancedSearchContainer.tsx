@@ -8,33 +8,27 @@ import {
   Clause,
   SearchTermType,
   Operator,
-  Evidence,
-  Evidences,
   Namespace,
-} from '../../types/searchTypes';
+} from '../../uniprotkb/types/searchTypes';
 
 import AdvancedSearch from './AdvancedSearch';
 
-import { RootState, RootAction } from '../../../app/state/rootInitialState';
-import * as searchActions from '../../state/searchActions';
+import { RootState, RootAction } from '../../app/state/rootInitialState';
+import * as searchActions from '../../uniprotkb/state/searchActions';
 
-import { stringify } from '../../utils/searchQueryString';
+import { stringify } from '../utils/queryStringProcessor';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { Location, LocationToPath } from '../../app/config/urls';
 
-import '../search/styles/search-container.scss';
+import '../../uniprotkb/components/search/styles/search-container.scss';
 
 const queryBuilderPath = LocationToPath[Location.UniProtKBQueryBuilder];
 
 type Props = {
   dispatchUpdateQueryString: (type: string) => void;
-  searchTerms: SearchTermType[];
   namespace: Namespace;
   clauses: Clause[];
-  evidences: Evidences;
   dispatchUpdateClauses: (clauses: Clause[]) => void;
-  dispatchfetchEvidencesIfNeeded: (type: Evidence) => void;
-  dispatchFetchSearchTermsIfNeeded: () => void;
   dispatchAddClause: () => void;
   handleFieldSelect: (clauseId: string, field: SearchTermType) => void;
   handleInputChange: (clauseId: string, value: string, id?: string) => void;
@@ -76,14 +70,6 @@ export class Search extends Component<Props, State> {
     }
   }
 
-  componentDidUpdate() {
-    // const { queryString: prevQueryString } = prevProps;
-    // const { queryString } = this.props;
-    // if (prevQueryString !== queryString) {
-    //   this.setState({ queryString });
-    // }
-  }
-
   handleSubmitClick(event: FormEvent | MouseEvent) {
     event.preventDefault();
 
@@ -118,10 +104,7 @@ export class Search extends Component<Props, State> {
 
 const mapStateToProps = (state: RootState) => ({
   clauses: state.query.clauses,
-  searchTerms: state.query.searchTerms.data,
   namespace: state.query.namespace,
-  evidences: state.query.evidences,
-  // queryString: state.query.queryString,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
@@ -143,10 +126,6 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
       handleRemoveClause: (clauseId: string) =>
         searchActions.removeClause(clauseId),
       dispatchAddClause: () => searchActions.addClause(),
-      dispatchfetchEvidencesIfNeeded: (evidencesType) =>
-        searchActions.fetchEvidencesIfNeeded(evidencesType),
-      dispatchFetchSearchTermsIfNeeded: () =>
-        searchActions.fetchSearchTermsIfNeeded(),
       dispatchSubmitAdvancedQuery: () => searchActions.submitAdvancedQuery(),
       dispatchUpdateClauses: (clauses) => searchActions.updateClauses(clauses),
       dispatchUpdateQueryString: (queryString) =>
