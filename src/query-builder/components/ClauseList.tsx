@@ -58,7 +58,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
           clause.searchTerm.term === Evidence.GO
             ? Evidence.GO
             : Evidence.ANNOTATION;
-        evidencesData = evidences[evidencesType].data || [];
+        evidencesData = evidences[evidencesType] || [];
       }
 
       return (

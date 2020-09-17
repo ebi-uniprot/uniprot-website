@@ -78,12 +78,7 @@ export type EvidenceDataPoint = {
   items: { name: string; code: string }[];
 };
 
-type EvidenceData = {
-  data: EvidenceDataPoint[];
-  isFetching: boolean;
-};
-
 export type Evidences = {
-  [Evidence.GO]: EvidenceData;
-  [Evidence.ANNOTATION]: EvidenceData;
+  [Evidence.GO]: EvidenceDataPoint[];
+  [Evidence.ANNOTATION]: EvidenceDataPoint[];
 };
