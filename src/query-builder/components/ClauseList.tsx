@@ -53,7 +53,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
       }
 
       let evidencesData;
-      if (clause.searchTerm.hasEvidence) {
+      if (clause.searchTerm.hasEvidence && evidences) {
         const evidencesType =
           clause.searchTerm.term === Evidence.GO
             ? Evidence.GO

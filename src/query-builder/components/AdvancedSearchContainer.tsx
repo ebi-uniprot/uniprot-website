@@ -8,7 +8,6 @@ import {
   Clause,
   SearchTermType,
   Operator,
-  Evidences,
   Namespace,
 } from '../../uniprotkb/types/searchTypes';
 

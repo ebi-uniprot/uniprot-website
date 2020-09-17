@@ -3,9 +3,14 @@ import { render, fireEvent } from '@testing-library/react';
 import { createEmptyClause } from '../../utils/clause';
 import AdvancedSearch from '../../../query-builder/components/AdvancedSearch';
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+jest.mock('../../../shared/hooks/useDataApi');
 
 let rendered;
 let props;
+
+useDataApi.mockImplementation(() => ({ data: [] }));
 
 describe('AdvancedSearch shallow components', () => {
   beforeEach(() => {
@@ -20,17 +25,6 @@ describe('AdvancedSearch shallow components', () => {
       },
       clauses: [...Array(4)].map(() => createEmptyClause()),
       namespace: 'UniProtKB',
-      searchTerms: [],
-      evidences: {
-        go: {
-          data: [],
-          isFetching: false,
-        },
-        annotation: {
-          data: [],
-          isFetching: false,
-        },
-      },
     };
     rendered = render(<AdvancedSearch {...props} />);
   });
