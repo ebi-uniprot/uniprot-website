@@ -19,7 +19,7 @@ import { loadWebComponent } from '../../../shared/utils/utils';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls';
 import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
 
 import FeatureType from '../../types/featureType';

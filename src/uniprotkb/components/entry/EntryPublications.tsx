@@ -5,7 +5,7 @@ import { Loader, Publication, DataList } from 'franklin-sites';
 
 import { LiteratureForProteinAPI } from '../../types/literatureTypes';
 
-import { getUniProtPublicationsQueryUrl } from '../../config/apiUrls';
+import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 

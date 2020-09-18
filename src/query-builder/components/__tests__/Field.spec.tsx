@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Field from '../Field';
+import Field from '../../../query-builder/components/Field';
 
 const handleInputChange = jest.fn();
 const handleRangeInputChange = jest.fn();

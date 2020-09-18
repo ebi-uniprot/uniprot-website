@@ -18,7 +18,7 @@ import { getParamsFromURL } from '../../utils/resultsUtils';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
+import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 
 import { Namespace } from '../../types/searchTypes';

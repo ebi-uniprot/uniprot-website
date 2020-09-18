@@ -14,7 +14,7 @@ import {
   getFacetBounds,
   filterBlastByFacets,
 } from '../../utils/blastFacetDataUtils';
-import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 

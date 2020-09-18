@@ -3,7 +3,7 @@ import { Publication, Loader, Message } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getPublicationsURL } from '../../config/apiUrls';
+import { getPublicationsURL } from '../../../shared/config/apiUrls';
 
 import formatCitationData from '../../adapters/literatureConverter';
 

@@ -12,7 +12,7 @@ import fetchData from '../../../shared/utils/fetchData';
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
 
 import externalUrls from '../../config/externalUrls';
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import {
   Isoform,

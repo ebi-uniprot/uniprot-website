@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Autocomplete } from 'franklin-sites';
 import { v1 } from 'uuid';
-import fetchData from '../../../shared/utils/fetchData';
-import { getSuggesterUrl } from '../../config/apiUrls';
+import fetchData from '../../shared/utils/fetchData';
+import { getSuggesterUrl } from '../../shared/config/apiUrls';
 
 type Props = {
   url: string;
