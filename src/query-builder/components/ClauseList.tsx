@@ -9,7 +9,7 @@ import {
   Operator,
   Evidence,
   Evidences,
-} from '../../uniprotkb/types/searchTypes';
+} from '../types/searchTypes';
 
 // .itemType
 // single: a simple/single type item: such as accession, gene created, this is default type.

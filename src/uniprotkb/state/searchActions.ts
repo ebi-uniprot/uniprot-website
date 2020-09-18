@@ -4,7 +4,7 @@ import {
   Operator,
   Clause,
   dataType,
-} from '../types/searchTypes';
+} from '../../query-builder/types/searchTypes';
 
 export const SELECT_SEARCH_TERM = 'SELECT_SEARCH_TERM';
 export const UPDATE_INPUT_VALUE = 'UPDATE_INPUT_VALUE';
@@ -14,7 +14,6 @@ export const UPDATE_LOGIC_OPERATOR = 'UPDATE_LOGIC_OPERATOR';
 export const HANDLE_FIELD_SELECT = 'HANDLE_FIELD_SELECT';
 export const SUBMIT_ADVANCED_QUERY = 'SUBMIT_ADVANCED_QUERY';
 export const SET_PRE_SELECTED_CLAUSES = 'SET_PRE_SELECTED_CLAUSES';
-export const ADD_CLAUSE = 'ADD_CLAUSE';
 export const REMOVE_CLAUSE = 'REMOVE_CLAUSE';
 export const UPDATE_CLAUSES = 'UPDATE_CLAUSES';
 export const UPDATE_QUERY_STRING = 'UPDATE_QUERY_STRING';
@@ -73,8 +72,6 @@ export const updateLogicOperator = (clauseId: string, value: Operator) =>
 export const submitAdvancedQuery = () => action(SUBMIT_ADVANCED_QUERY);
 
 export const setPreSelectedClauses = () => action(SET_PRE_SELECTED_CLAUSES);
-
-export const addClause = () => action(ADD_CLAUSE);
 
 export const removeClause = (clauseId: string) =>
   action(REMOVE_CLAUSE, {

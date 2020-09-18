@@ -5,7 +5,7 @@ import {
   createPreSelectedClauses,
 } from '../../query-builder/utils/clause';
 import searchInitialState, { SearchState } from './searchInitialState';
-import { Clause } from '../types/searchTypes';
+import { Clause } from '../../query-builder/types/searchTypes';
 
 export type SearchAction = ActionType<typeof searchActions>;
 
@@ -80,11 +80,6 @@ const searchReducers = (
       return {
         ...state,
         clauses: createPreSelectedClauses(),
-      };
-    case searchActions.ADD_CLAUSE:
-      return {
-        ...state,
-        clauses: [...state.clauses, createEmptyClause()],
       };
     case searchActions.REMOVE_CLAUSE:
       if (state.clauses.length === 1) {

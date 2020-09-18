@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { SearchTermType } from '../../uniprotkb/types/searchTypes';
+import { SearchTermType } from '../types/searchTypes';
 
 type RangeFieldProps = {
   field: SearchTermType;

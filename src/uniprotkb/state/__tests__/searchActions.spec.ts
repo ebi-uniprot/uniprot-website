@@ -8,7 +8,7 @@ import MockAdapter from 'axios-mock-adapter';
 import apiUrls from '../../../shared/config/apiUrls';
 import * as actions from '../searchActions';
 import initialState from '../searchInitialState';
-import { itemType, dataType } from '../../types/searchTypes';
+import { itemType, dataType } from '../../../query-builder/types/searchTypes';
 
 const mock = new MockAdapter(axios);
 const middlewares = [thunk];
