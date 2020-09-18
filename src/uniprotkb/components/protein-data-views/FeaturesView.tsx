@@ -58,6 +58,7 @@ type FeatureProps = {
 
 export type ProcessedFeature = {
   protvistaFeatureId?: string;
+  featureId?: string;
   start: number;
   end: number;
   startModifier: LocationModifier;
@@ -74,7 +75,8 @@ export const processFeaturesData = (
 ): ProcessedFeature[] =>
   data.map(
     (feature): ProcessedFeature => ({
-      protvistaFeatureId: feature.featureId ? feature.featureId : v1(),
+      protvistaFeatureId: feature.featureId || v1(),
+      featureId: feature.featureId,
       start: feature.location.start.value,
       end: feature.location.end.value,
       startModifier: feature.location.start.modifier,
@@ -103,9 +105,11 @@ const FeaturesView: React.FC<FeatureProps> = ({
   const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
     type: {
       label: 'Type',
-      resolver: (d: ProcessedFeature): string => {
-        return d.type;
-      },
+      resolver: (d: ProcessedFeature): string => d.type,
+    },
+    id: {
+      label: 'ID',
+      resolver: (d: ProcessedFeature): string => d.featureId || '',
     },
     positions: {
       label: 'Positions',
@@ -126,7 +130,7 @@ const FeaturesView: React.FC<FeatureProps> = ({
     sequence: {
       label: 'Sequence',
       child: true,
-      resolver: (d: ProcessedFeature) => (d.sequence ? d.sequence : ''),
+      resolver: (d: ProcessedFeature) => d?.sequence || '',
     },
   });
 

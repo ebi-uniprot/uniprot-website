@@ -1,3 +1,5 @@
+@import '../../../../../shared/styles/settings';
+
 .data-table {
   .query-sequence-wrapper {
     width: 32vw;
@@ -11,6 +13,9 @@
         display: none;
       }
     }
+  }
+  &__header-cell {
+    top: 3rem !important;
   }
 }
 

@@ -1,11 +1,13 @@
-.datalist {
-  display: flex;
-  height: 100%; //needed for the data list to function
-  overflow-y: auto;
-}
+@import '../../../../shared/styles/settings';
 
 .is-stale {
   opacity: 0.5;
   pointer-events: none;
   user-select: none;
+}
+
+.results-view {
+  .data-table__header-cell {
+    top: $action-buttons-height !important;
+  }
 }

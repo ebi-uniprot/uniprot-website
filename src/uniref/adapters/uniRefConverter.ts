@@ -5,8 +5,8 @@ enum GeneOntologyAspect {
 }
 
 enum MemberIdType {
-  UNIPROTKB_SWISSPROT = 'UniProtKB Reviewed (Swiss-Prot)',
-  UNIPROTKB_TREMBL = 'UniProtKB Unreviewed (TrEMBL)',
+  UNIPROTKB_REVIEWED = 'UniProtKB Reviewed (Swiss-Prot)',
+  UNIPROTKB_UNREVIEWED = 'UniProtKB Unreviewed (TrEMBL)',
   UNIPARC = 'UniParc ID',
 }
 
