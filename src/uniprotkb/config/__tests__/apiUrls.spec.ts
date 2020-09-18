@@ -1,7 +1,10 @@
 /**
  * @jest-environment node
  */
-import apiUrls, { getAPIQueryUrl, createFacetsQueryString } from '../../../shared/config/apiUrls';
+import apiUrls, {
+  getAPIQueryUrl,
+  createFacetsQueryString,
+} from '../../../shared/config/apiUrls';
 import { FileFormat } from '../../types/resultsTypes';
 
 describe('getQueryUrl', () => {

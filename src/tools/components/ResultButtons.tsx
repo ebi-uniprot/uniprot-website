@@ -11,9 +11,7 @@ import AddToBasketButton from '../../shared/components/action-buttons/AddToBaske
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
 import { jobTypeToPath } from '../../app/config/urls';
-import uniProtKBApiUrls, {
-  getSuggesterUrl,
-} from '../../shared/config/apiUrls';
+import uniProtKBApiUrls, { getSuggesterUrl } from '../../shared/config/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 
@@ -114,8 +112,8 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
   nHits,
   isTableResultsFiltered,
 }) => {
-  const ResultDownload = lazy(() =>
-    import(/* webpackChunkName: "result-download" */ './ResultDownload')
+  const ResultDownload = lazy(
+    () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
   );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);

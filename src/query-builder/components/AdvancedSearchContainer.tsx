@@ -16,7 +16,7 @@ import AdvancedSearch from './AdvancedSearch';
 import { RootState, RootAction } from '../../app/state/rootInitialState';
 import * as searchActions from '../../uniprotkb/state/searchActions';
 
-import createQueryString from '../utils/queryStringGenerator';
+import { stringify } from '../utils/queryStringProcessor';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 
@@ -74,7 +74,7 @@ export class Search extends Component<Props, State> {
     event.preventDefault();
 
     const { history, clauses, dispatchUpdateQueryString } = this.props;
-    const queryString = createQueryString(clauses);
+    const queryString = stringify(clauses);
     dispatchUpdateQueryString(queryString);
     history.push({
       pathname: '/uniprotkb',

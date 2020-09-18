@@ -182,7 +182,7 @@ const BlastResultTable: FC<{
 }) => {
   // logic to keep stale data available
   const hitsRef = useRef<BlastHit[]>([]);
-  if (data?.hits.length || !loading) {
+  if (data?.hits.length) {
     hitsRef.current = data?.hits || [];
   }
 

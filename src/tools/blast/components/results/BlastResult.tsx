@@ -199,6 +199,9 @@ const BlastResult = () => {
     [blastData, urlParams.selectedFacets]
   );
 
+  const localFacetsChangedSelection =
+    hitsFilteredByLocalFacets.length !== blastData?.hits.length;
+
   // accessions of the blast results filtered by local facets
   const accessionsFilteredByLocalFacets = useMemo(
     () => hitsFilteredByLocalFacets.map((hit) => hit.hit_acc),
@@ -335,8 +338,15 @@ const BlastResult = () => {
           {actionBar}
           <Suspense fallback={<Loader />}>
             <BlastResultTable
-              loading={blastLoading || accessionsLoading}
-              data={{ ...blastData, hits: hitsFiltered }}
+              loading={
+                blastLoading ||
+                (localFacetsChangedSelection && accessionsLoading)
+              }
+              data={
+                accessionsLoading && !hitsFiltered.length
+                  ? blastData
+                  : { ...blastData, hits: hitsFiltered }
+              }
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
               setHspDetailPanel={setHspDetailPanel}
