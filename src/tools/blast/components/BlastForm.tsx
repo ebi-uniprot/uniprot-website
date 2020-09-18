@@ -368,15 +368,25 @@ const BlastForm = () => {
           parsedSequences.some((parsedSequence) => !parsedSequence.valid)
       );
 
+      const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
+
       setSType((stype) => {
         // we want protein by default
-        const selected =
-          parsedSequences[0]?.likelyType === 'na' ? 'dna' : 'protein';
+        const selected = mightBeDNA ? 'dna' : 'protein';
         if (stype.selected === selected) {
           // avoid unecessary rerender by keeping the same object
           return stype;
         }
         return { ...stype, selected };
+      });
+      setProgram((program) => {
+        // we want protein by default
+        const selected = mightBeDNA ? 'blastx' : 'blastp';
+        if (program.selected === selected) {
+          // avoid unecessary rerender by keeping the same object
+          return program;
+        }
+        return { ...program, selected };
       });
     },
     [jobNameEdited, sequence.selected]
