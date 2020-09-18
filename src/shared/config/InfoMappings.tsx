@@ -22,6 +22,46 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
+  [Namespace.uniref]: {
+    name: 'UniRef',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.uniparc]: {
+    name: 'UniParc',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.proteomes]: {
+    name: 'Proteomes',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.publications]: {
+    name: 'Publications',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.keywords]: {
+    name: 'Keywords',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
   [JobTypes.ALIGN]: {
     name: 'Align',
     info: <AlignInfo />,

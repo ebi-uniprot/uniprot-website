@@ -42,7 +42,7 @@ const Search = () => {
     });
   };
 
-  const setNamespace = (namespace: string) => {
+  const setNamespace = (namespace: Namespace) => {
     setSelectedNamespace(namespace);
   };
 

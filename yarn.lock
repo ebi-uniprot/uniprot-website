@@ -6652,15 +6652,16 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-franklin-sites@0.0.70:
-  version "0.0.70"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.70.tgz#234696dd2c00a94eb877c75ef76267b16a3af613"
-  integrity sha512-vkxVSzhiQKBNJkexm3zKpzEYZnb6rb9ncOWs1NrERksA1h/yx/e8gFyqhdujzUwl1yHaRvpiaES1dsn1E8nSEA==
+franklin-sites@0.0.72:
+  version "0.0.72"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.72.tgz#f25ce11553b506b393675e0fed42226922a70234"
+  integrity sha512-WZEf4fcklpkckkF9uCtGBQgu5ZYAzpAHSuOjc+/y7AprBZ8HJpyuvOo6X7jIh6XFeWp7WzCei6/scgXhx9Yheg==
   dependencies:
     classnames "^2.2.6"
     d3 "5.16.0"
     foundation-sites "^6.5.3"
     history "^4.10.1"
+    lodash-es "^4.17.15"
     lorem-ipsum "^2.0.2"
     path "^0.12.7"
     prop-types "^15.6.2"
@@ -8813,7 +8814,7 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
-lodash-es@4.17.15, lodash-es@^4.17.11:
+lodash-es@4.17.15, lodash-es@^4.17.11, lodash-es@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
   integrity sha512-rlrc3yU3+JNOpZ9zj5pQtxnx2THmvRykwL4Xlxoa8I9lHBlVbbyPhgyPMioxVZ4NqyxaVVtaJnzsyOidQIhyyQ==
