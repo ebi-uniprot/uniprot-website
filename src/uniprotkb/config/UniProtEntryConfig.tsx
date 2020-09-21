@@ -1,5 +1,5 @@
 import React from 'react';
-import idx from 'idx';
+
 import FunctionSection from '../components/entry/FunctionSection';
 import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
 import PathologyAndBiotechSection from '../components/entry/PathologyAndBiotechSection';
@@ -10,6 +10,7 @@ import SequenceSection from '../components/entry/SequenceSection';
 import InteractionSection from '../components/entry/InteractionSection';
 import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
 import StructureSection from '../components/entry/StructureSection';
+
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import EntrySection from '../types/entrySection';
@@ -99,9 +100,7 @@ const UniProtKBEntryConfig: {
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         key={EntrySection.Structure}
-        crc64={
-          idx(data, o => o[EntrySection.Sequence].sequence.crc64) || undefined
-        }
+        crc64={data[EntrySection.Sequence].sequence.crc64}
       />
     ),
   },

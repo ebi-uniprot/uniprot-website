@@ -44,7 +44,7 @@ export type UniProtkbAPIModel = {
   primaryAccession: string;
   uniProtkbId: string;
   proteinExistence: string;
-  entryType: EntryType;
+  entryType: Exclude<EntryType, EntryType.INACTIVE>;
   comments?: Comment[];
   keywords?: Keyword[];
   features?: FeatureData;

@@ -5,16 +5,10 @@ import {
   InPageNav,
   Loader,
   DisplayMenu,
-  PublicationIcon,
-  ExternalLinkIcon,
   TremblIcon,
-  DownloadIcon,
-  DropdownButton,
-  ProtVistaIcon,
+  // DropdownButton,
 } from 'franklin-sites';
 
-import { fileFormatEntryDownload } from '../../types/resultsTypes';
-import EntrySection from '../../types/entrySection';
 import {
   MessageLevel,
   MessageFormat,
@@ -22,49 +16,38 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
-import FeatureViewer from './FeatureViewer';
-import EntryPublicationsFacets from './EntryPublicationsFacets';
-import EntryPublications from './EntryPublications';
-import EntryMain from './EntryMain';
-import EntryExternalLinks from './EntryExternalLinks';
+// import EntryMain from './EntryMain';
 
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
-import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
+import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { hasContent, hasExternalLinks } from '../../utils';
+// check if we need it here too and move it to a shared folder if needed
+import { hasContent } from '../../../uniprotkb/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import uniProtKbConverter, {
-  EntryType,
-  UniProtkbInactiveEntryModel,
-  UniProtkbAPIModel,
-} from '../../adapters/uniProtkbConverter';
-import {
-  CommentType,
-  AlternativeProductsComment,
-  Isoform,
-} from '../../types/commentTypes';
+import uniRefConverter, {
+  UniRefAPIModel,
+} from '../../adapters/uniRefConverter';
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.UniProtKBEntry]
+    LocationToPath[Location.UniRefEntry]
   );
 
   const { loading, data, status, error, redirectedTo } = useDataApi<
-    UniProtkbAPIModel | UniProtkbInactiveEntryModel
-  >(apiUrls.entry(match?.params.accession || ''));
+    UniRefAPIModel
+  >(apiUrls.uniref.entry(match?.params.accession || ''));
 
   if (error || !match?.params.accession) {
     return <ErrorHandler status={status} />;
@@ -72,17 +55,6 @@ const Entry: FC = () => {
 
   if (loading || !data) {
     return <Loader />;
-  }
-
-  if (data && data.entryType === EntryType.INACTIVE) {
-    const inactiveEntryData = data;
-
-    return (
-      <ObsoleteEntryPage
-        accession={match.params.accession}
-        details={inactiveEntryData.inactiveReason}
-      />
-    );
   }
 
   if (redirectedTo) {
@@ -99,33 +71,14 @@ const Entry: FC = () => {
     dispatch(addMessage(message));
   }
 
-  const transformedData = uniProtKbConverter(data);
+  const transformedData = uniRefConverter(data);
 
-  const sections = UniProtKBEntryConfig.map((section) => ({
+  const sections = UniRefEntryConfig.map((section) => ({
     label: section.name,
     id: section.name,
 
-    disabled:
-      section.name === EntrySection.ExternalLinks
-        ? !hasExternalLinks(transformedData)
-        : !hasContent(transformedData[section.name]),
+    disabled: !hasContent(transformedData[section.name]),
   }));
-
-  const listOfIsoformAccessions =
-    data.comments
-      ?.filter(
-        (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
-      )
-      ?.map((comment) =>
-        (comment as AlternativeProductsComment).isoforms.map(
-          (isoform) => (isoform as Isoform).isoformIds
-        )
-      )
-      ?.flat(2)
-      ?.filter(
-        (maybeAccession: string | undefined): maybeAccession is string =>
-          typeof maybeAccession === 'string'
-      ) || [];
 
   const displayMenuData = [
     {
@@ -139,13 +92,8 @@ const Entry: FC = () => {
       actionButtons: (
         <div className="button-group">
           <BlastButton selectedEntries={[match.params.accession]} />
-          <AlignButton
-            selectedEntries={[
-              match.params.accession,
-              ...listOfIsoformAccessions,
-            ]}
-          />
-          <DropdownButton
+          <AlignButton selectedEntries={[]} />
+          {/* <DropdownButton
             label={
               <>
                 <DownloadIcon />
@@ -171,32 +119,11 @@ const Entry: FC = () => {
                 ))}
               </ul>
             </div>
-          </DropdownButton>
+          </DropdownButton> */}
           <AddToBasketButton selectedEntries={[match.params.accession]} />
         </div>
       ),
-      mainContent: <EntryMain transformedData={transformedData} />,
-    },
-    {
-      name: 'Feature viewer',
-      path: 'feature-viewer',
-      icon: <ProtVistaIcon />,
-      mainContent: <FeatureViewer accession={match.params.accession} />,
-    },
-    {
-      name: 'Publications',
-      path: 'publications',
-      icon: <PublicationIcon />,
-      itemContent: (
-        <EntryPublicationsFacets accession={match.params.accession} />
-      ),
-      mainContent: <EntryPublications accession={match.params.accession} />,
-    },
-    {
-      name: 'External links',
-      path: 'external-links',
-      icon: <ExternalLinkIcon />,
-      mainContent: <EntryExternalLinks transformedData={transformedData} />,
+      mainContent: <>Main content</>,
     },
   ];
 

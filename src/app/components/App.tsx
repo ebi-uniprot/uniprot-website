@@ -27,13 +27,13 @@ const HomePage = lazy(
 const ResultsPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "results" */ '../../uniprotkb/components/results/ResultsContainer'
+      /* webpackChunkName: "uniprotkb-results" */ '../../uniprotkb/components/results/ResultsContainer'
     )
 );
 const EntryPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "entry" */ '../../uniprotkb/components/entry/Entry'
+      /* webpackChunkName: "uniprotkb-entry" */ '../../uniprotkb/components/entry/Entry'
     )
 );
 const AdvancedSearchPage = lazy(
@@ -46,6 +46,18 @@ const CustomiseTablePage = lazy(
   () =>
     import(
       /* webpackChunkName: "customise-table" */ '../../uniprotkb/components/customise-table/CustomiseTableContainer'
+    )
+);
+const UniRefResultsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniref-results" */ '../../uniref/components/results/ResultsContainer'
+    )
+);
+const UniRefEntry = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
 const BlastResult = lazy(
@@ -84,12 +96,6 @@ const ResourceNotFoundPage = lazy(
       /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
     )
 );
-const UniRefResultsPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "uniref-results" */ '../../uniref/components/results/ResultsContainer'
-    )
-);
 
 const reportBugLinkStyles: React.CSSProperties = {
   fontSize: '.8rem',
@@ -112,11 +118,13 @@ const App = () => (
       <BaseLayout>
         <Suspense fallback={<Loader />}>
           <Switch>
+            {/* Home */}
             <Route
               path={LocationToPath[Location.Home]}
               exact
               component={HomePage}
             />
+            {/* Main namespaces */}
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
               component={EntryPage}
@@ -126,6 +134,14 @@ const App = () => (
               component={ResultsPage}
             />
             <Route
+              path={LocationToPath[Location.UniRefEntry]}
+              component={UniRefEntry}
+            />
+            <Route
+              path={LocationToPath[Location.UniRefResults]}
+              component={UniRefResultsPage}
+            />
+            <Route
               path={LocationToPath[Location.UniProtKBCustomiseTable]}
               render={() => (
                 <SingleColumnLayout>
@@ -133,6 +149,7 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
+            {/* Tools */}
             <Route
               path={LocationToPath[Location.BlastResult]}
               component={BlastResult}
@@ -165,6 +182,7 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
+            {/* Query builder */}
             <Route
               path={LocationToPath[Location.UniProtKBQueryBuilder]}
               render={() => (
@@ -173,10 +191,7 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
-            <Route
-              path={LocationToPath[Location.UniRefResults]}
-              component={UniRefResultsPage}
-            />
+            {/* Catch-all handler -> Not found */}
             <Route
               component={() => (
                 <SingleColumnLayout>

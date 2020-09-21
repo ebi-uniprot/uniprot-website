@@ -1,3 +1,5 @@
+import EntrySection from '../types/entrySection';
+
 enum GeneOntologyAspect {
   FUNCTION = 'GO Molecular Function',
   PROCESS = 'GO Biological Process',
@@ -84,5 +86,20 @@ export type UniRefAPIModel = {
   updated: string;
   name: string;
   id: string;
-  members: UniRefMember[];
+  // if 'members' is absent, it means only the representative member is member
+  members?: UniRefMember[];
 };
+
+export type UniRefUIModel = UniRefAPIModel & {
+  [EntrySection.Members]: UniRefAPIModel['members'];
+  // use SequenceUIModel?
+  [EntrySection.Sequence]: UniRefAPIModel['representativeMember']['sequence'];
+};
+
+const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
+  ...data,
+  [EntrySection.Members]: [data.representativeMember, ...(data.members || [])],
+  [EntrySection.Sequence]: data.representativeMember.sequence,
+});
+
+export default uniRefConverter;

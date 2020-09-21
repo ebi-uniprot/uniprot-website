@@ -76,6 +76,10 @@ const apiUrls = {
       '/publications'
     ),
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
+
+  uniref: {
+    entry: (id: string) => joinUrl(devPrefix, '/uniprot/api/uniref', id),
+  },
 };
 
 export default apiUrls;
