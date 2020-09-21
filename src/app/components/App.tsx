@@ -39,7 +39,7 @@ const EntryPage = lazy(
 const AdvancedSearchPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "advanced-search" */ '../../uniprotkb/components/query-builder/AdvancedSearchContainer'
+      /* webpackChunkName: "advanced-search" */ '../../query-builder/components/AdvancedSearchContainer'
     )
 );
 const CustomiseTablePage = lazy(

@@ -7,7 +7,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import { loadWebComponent } from '../../../shared/utils/utils';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import { getProteinsApiUrl } from '../../config/apiUrls';
+import { getProteinsApiUrl } from '../../../shared/config/apiUrls';
 
 loadWebComponent('protvista-uniprot', ProtvistaUniprot);
 

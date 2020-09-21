@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Facets, Loader } from 'franklin-sites';
 import { useLocation } from 'react-router-dom';
 
-import { getUniProtPublicationsQueryUrl } from '../../config/apiUrls';
+import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 

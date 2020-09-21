@@ -6,7 +6,7 @@ import SlidingPanel from '../../../../shared/components/layouts/SlidingPanel';
 import { BlastHsp } from '../../types/blastResults';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import './styles/HSPDetailPanel.scss';
 import MSAWrapper, { MSAInput, View } from '../../../components/MSAWrapper';

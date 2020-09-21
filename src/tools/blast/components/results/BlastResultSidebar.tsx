@@ -6,7 +6,7 @@ import ResultsFacets from '../../../../uniprotkb/components/results/ResultsFacet
 
 import Response from '../../../../uniprotkb/types/responseTypes';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
-import { getAccessionsURL } from '../../../../uniprotkb/config/apiUrls';
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 
 type BlastResultSidebarProps = {

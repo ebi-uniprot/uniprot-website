@@ -11,7 +11,7 @@ import uniProtKbConverter, {
 
 import { ViewMode } from '../../state/resultsInitialState';
 
-import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import ColumnConfiguration from '../../config/ColumnConfiguration';
 
 import useDataApi from '../../../shared/hooks/useDataApi';

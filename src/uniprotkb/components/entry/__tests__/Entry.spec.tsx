@@ -8,7 +8,7 @@ import Entry from '../Entry';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 import apiUrls, {
   getUniProtPublicationsQueryUrl,
-} from '../../../config/apiUrls';
+} from '../../../../shared/config/apiUrls';
 import joinUrl from 'url-join';
 import entryData from '../../../__mocks__/entryModelData.json';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';

@@ -8,8 +8,8 @@ import {
   FileFormat,
   fileFormatsWithColumns,
   fileFormatToUrlParameter,
-} from '../types/resultsTypes';
-import { SortableColumn } from '../types/columnTypes';
+} from '../../uniprotkb/types/resultsTypes';
+import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';

@@ -11,14 +11,12 @@ import AddToBasketButton from '../../shared/components/action-buttons/AddToBaske
 import { serverParametersToFormParameters } from '../adapters/parameters';
 
 import { jobTypeToPath } from '../../app/config/urls';
-import uniProtKBApiUrls, {
-  getSuggesterUrl,
-} from '../../uniprotkb/config/apiUrls';
+import uniProtKBApiUrls, { getSuggesterUrl } from '../../shared/config/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
-import { Suggestions } from '../../uniprotkb/components/query-builder/AutocompleteWrapper';
+import { Suggestions } from '../../query-builder/components/AutocompleteWrapper';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type ResubmitButtonProps<T extends JobTypes> = {
@@ -114,8 +112,8 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
   nHits,
   isTableResultsFiltered,
 }) => {
-  const ResultDownload = lazy(() =>
-    import(/* webpackChunkName: "result-download" */ './ResultDownload')
+  const ResultDownload = lazy(
+    () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
   );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);

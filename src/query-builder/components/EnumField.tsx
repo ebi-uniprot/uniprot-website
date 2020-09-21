@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { SearchTermType } from '../../types/searchTypes';
+import { SearchTermType } from '../../uniprotkb/types/searchTypes';
 
 type EnumFieldProps = {
   field: SearchTermType;

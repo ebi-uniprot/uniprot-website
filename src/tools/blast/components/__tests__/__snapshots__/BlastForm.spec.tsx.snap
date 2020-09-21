@@ -325,24 +325,6 @@ exports[`BlastForm test Renders the form 1`] = `
                 >
                   blastx
                 </option>
-                <option
-                  data-testid="Program-blastn"
-                  value="blastn"
-                >
-                  blastn
-                </option>
-                <option
-                  data-testid="Program-tblastx"
-                  value="tblastx"
-                >
-                  tblastx
-                </option>
-                <option
-                  data-testid="Program-tblastn"
-                  value="tblastn"
-                >
-                  tblastn
-                </option>
               </select>
             </label>
           </section>

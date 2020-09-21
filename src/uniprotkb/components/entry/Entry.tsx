@@ -58,7 +58,7 @@ import {
 } from '../../types/commentTypes';
 
 import { hasContent, hasExternalLinks } from '../../utils';
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 

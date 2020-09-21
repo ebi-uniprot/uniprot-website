@@ -17,7 +17,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
-import uniProtKBApiUrls from '../../uniprotkb/config/apiUrls';
+import uniProtKBApiUrls from '../../shared/config/apiUrls';
 import uniParcApiUrls from '../../uniparc/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../uniprotkb/adapters/entryToFASTAWithHeaders';

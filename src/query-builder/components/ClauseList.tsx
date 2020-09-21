@@ -9,7 +9,7 @@ import {
   Operator,
   Evidence,
   Evidences,
-} from '../../types/searchTypes';
+} from '../../uniprotkb/types/searchTypes';
 
 // .itemType
 // single: a simple/single type item: such as accession, gene created, this is default type.
@@ -53,12 +53,12 @@ const ClauseList: React.FC<ClauseListProps> = ({
       }
 
       let evidencesData;
-      if (clause.searchTerm.hasEvidence) {
+      if (clause.searchTerm.hasEvidence && evidences) {
         const evidencesType =
           clause.searchTerm.term === Evidence.GO
             ? Evidence.GO
             : Evidence.ANNOTATION;
-        evidencesData = evidences[evidencesType].data || [];
+        evidencesData = evidences[evidencesType] || [];
       }
 
       return (
