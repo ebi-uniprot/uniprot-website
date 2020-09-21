@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { MainSearch } from 'franklin-sites';
 
 import { SearchResultsLocations } from '../../../app/config/urls';
-import { Namespace, NamespaceLabels } from '../../types/searchTypes';
+import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import './styles/search-container.scss';
 

@@ -1,7 +1,7 @@
 import { invert } from 'lodash-es';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { Namespace } from '../../uniprotkb/types/searchTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 export enum Location {
   Home = 'Home',

@@ -8,8 +8,8 @@ import {
   Clause,
   SearchTermType,
   Operator,
-  Namespace,
 } from '../../uniprotkb/types/searchTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 import AdvancedSearch from './AdvancedSearch';
 

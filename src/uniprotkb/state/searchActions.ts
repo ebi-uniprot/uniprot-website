@@ -4,8 +4,8 @@ import {
   Operator,
   Clause,
   dataType,
-  Namespace,
 } from '../types/searchTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 export const SELECT_SEARCH_TERM = 'SELECT_SEARCH_TERM';
 export const UPDATE_INPUT_VALUE = 'UPDATE_INPUT_VALUE';

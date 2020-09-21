@@ -1,16 +1,19 @@
 import React, { FC, FormEvent, MouseEvent } from 'react';
+
+import useDataApi from '../../shared/hooks/useDataApi';
+import apiUrls from '../../shared/config/apiUrls';
+
 import ClauseList from './ClauseList';
 import {
-  Namespace,
   Evidence,
   Clause,
   SearchTermType,
   Operator,
   EvidenceDataPoint,
 } from '../../uniprotkb/types/searchTypes';
+import { Namespace } from '../../shared/types/namespaces';
+
 import './styles/advanced-search.scss';
-import useDataApi from '../../shared/hooks/useDataApi';
-import apiUrls from '../../shared/config/apiUrls';
 
 type AdvancedSearchProps = {
   queryString: string;
