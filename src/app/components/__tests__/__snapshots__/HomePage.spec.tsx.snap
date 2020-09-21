@@ -37,7 +37,7 @@ exports[`HomePage component should render 1`] = `
                   <button
                     type="button"
                   >
-                    UniProtKB - the UniProt knowledgebase
+                    UniProtKB
                   </button>
                 </li>
                 <li>

@@ -1,7 +1,3 @@
-export enum Namespace {
-  uniprotkb = 'uniprotkb',
-}
-
 export enum Operator {
   AND = 'AND',
   OR = 'OR',

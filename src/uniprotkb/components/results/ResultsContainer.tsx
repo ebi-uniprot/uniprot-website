@@ -21,7 +21,7 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 
-import { Namespace } from '../../types/searchTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../types/columnTypes';
 import Response from '../../types/responseTypes';
 
