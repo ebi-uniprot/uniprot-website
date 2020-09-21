@@ -35,13 +35,9 @@ export type BlastFormValues = { [x in BlastFields]: BlastFormValue };
 export default Object.freeze({
   [BlastFields.program]: Object.freeze({
     fieldName: 'program',
-    values: Object.freeze([
-      { value: 'blastp' },
-      { value: 'blastx' },
-      { value: 'blastn' },
-      { value: 'tblastx' },
-      { value: 'tblastn' },
-    ] as Array<{ value: FormParameters['program'] }>),
+    values: Object.freeze([{ value: 'blastp' }, { value: 'blastx' }] as Array<{
+      value: FormParameters['program'];
+    }>),
     selected: 'blastp' as Program,
   }),
   [BlastFields.stype]: Object.freeze({

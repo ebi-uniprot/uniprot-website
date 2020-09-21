@@ -37,7 +37,6 @@ import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
 import {
   SType,
-  Program,
   Sequence,
   Matrix,
   GapAlign,
@@ -276,7 +275,7 @@ const BlastForm = () => {
     // tools middleware
     const parameters: FormParameters = {
       stype: stype.selected as SType,
-      program: program.selected as Program,
+      program: program.selected as FormParameters['program'],
       sequence: sequence.selected as Sequence,
       database: database.selected as Database,
       taxIDs: taxIDs.selected as SelectedTaxon[],
