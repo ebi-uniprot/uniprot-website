@@ -17,9 +17,9 @@ export const Results = () => {
     data,
     error,
     loading,
-    headers,
+    // headers,
     status,
-    isStale,
+    // isStale,
   } = useDataApiWithStale<Response['data']>(initialApiUrl);
 
   if (error || !(loading || data)) {
