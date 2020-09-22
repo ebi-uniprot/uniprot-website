@@ -22,6 +22,7 @@ import {
   getFullAlignmentSegments,
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
+import AlignLabel from '../align/components/results/AlignLabel';
 
 import './styles/MSAView.scss';
 
@@ -136,9 +137,8 @@ const MSAView: FC<MSAViewProps> = ({
       {/* Query track */}
       {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
 
-      <section className="msa-view__row msa-view__row--msa-track">
+      <section className="msa-view__row msa-view__row">
         <span className="track-label">Overview</span>
-        <span className="left-coord">Left</span>
         <div className="track">
           <AlignmentOverview
             height={overviewHeight}
@@ -147,7 +147,6 @@ const MSAView: FC<MSAViewProps> = ({
             data={alignment ? getFullAlignmentSegments(alignment) : []}
           />
         </div>
-        <span className="right-coord">Right</span>
       </section>
 
       <section className="msa-view__row">
@@ -160,6 +159,33 @@ const MSAView: FC<MSAViewProps> = ({
             highlight={highlightPosition}
           />
         </div>
+      </section>
+
+      <section className="msa-view__row msa-view__row--msa-track">
+        <span className="track-label">
+          {alignment.map((s) => (
+            <AlignLabel loading={false} key={s.name}>
+              {s.name}
+            </AlignLabel>
+          ))}
+        </span>
+        <span className="left-coord">Left</span>
+        <div className="track">
+          <protvista-manager
+            ref={managerRef}
+            attributes="displaystart displayend"
+          >
+            <protvista-navigation length={alignmentLength} />
+            <protvista-msa
+              ref={setMSAAttributes}
+              length={alignmentLength}
+              height={alignment.length * 20}
+              colorscheme={highlightProperty}
+              {...conservationOptions}
+            />
+          </protvista-manager>
+        </div>
+        <span className="right-coord">Right</span>
       </section>
 
       {/* <section className="hsp-label">{annotation}</section>
