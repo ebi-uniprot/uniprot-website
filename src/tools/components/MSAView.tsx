@@ -136,29 +136,31 @@ const MSAView: FC<MSAViewProps> = ({
       {/* Query track */}
       {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
 
-      <section className="track-label">Overview</section>
-      <section className="coordinate">L Coordinate</section>
-      <section className="track">
-        <AlignmentOverview
-          height={overviewHeight}
-          length={totalLength}
-          highlight={highlightPosition}
-          data={alignment ? getFullAlignmentSegments(alignment) : []}
-        />
+      <section className="msa-view__row msa-view__row--msa-track">
+        <span className="track-label">Overview</span>
+        <span className="left-coord">Left</span>
+        <div className="track">
+          <AlignmentOverview
+            height={overviewHeight}
+            length={totalLength}
+            highlight={highlightPosition}
+            data={alignment ? getFullAlignmentSegments(alignment) : []}
+          />
+        </div>
+        <span className="right-coord">Right</span>
       </section>
-      <section className="coordinate">R Coordinate</section>
 
-      <section className="track-label">{annotation}</section>
-      <section className="coordinate">&nbsp;</section>
-      <section className="track">
-        <protvista-track
-          ref={setFeatureTrackData}
-          length={totalLength}
-          layout="non-overlapping"
-          highlight={highlightPosition}
-        />
+      <section className="msa-view__row">
+        <span className="track-label">{annotation}</span>
+        <div className="track">
+          <protvista-track
+            ref={setFeatureTrackData}
+            length={totalLength}
+            layout="non-overlapping"
+            highlight={highlightPosition}
+          />
+        </div>
       </section>
-      <section className="coordinate">&nbsp;</section>
 
       {/* <section className="hsp-label">{annotation}</section>
       <protvista-track

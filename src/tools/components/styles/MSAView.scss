@@ -1,13 +1,17 @@
 .msa-view {
-  display: grid;
-  grid-template-columns: 1fr 1fr 7fr 1fr;
   margin-bottom: 1em;
   align-items: center;
   height: auto;
   max-height: 50%;
 
   &__row {
-    grid-template-areas: 'label coordinate track coordinate';
+    display: grid;
+    grid-template-columns: 10vw 5vw 80vw 5vw;
+    grid-template-areas: 'label . track .';
+
+    &--msa-track {
+      grid-template-areas: 'label left-coord track right-coord';
+    }
 
     protvista-navigation {
       .zoom-polygon,
@@ -34,8 +38,12 @@
       grid-area: track;
     }
 
-    .coordinate {
-      grid-area: coordinate;
+    .left-coord {
+      grid-area: left-coord;
+    }
+
+    .right-coord {
+      grid-area: right-coord;
     }
   }
 }
