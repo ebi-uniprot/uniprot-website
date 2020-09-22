@@ -61,13 +61,19 @@ const MSAView: FC<MSAViewProps> = ({
     number | undefined
   >();
   const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
+  const [displayPosition, setDisplayPosition] = useState<
+    [number | null, number | null]
+  >([null, null]);
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
 
   const findHighlighPositions = useCallback(
-    ({ displaystart, displayend }: EventDetail) => {
-      const start = tracksOffset + parseInt(displaystart, 10);
-      const end = tracksOffset + parseInt(displayend, 10);
+    (event: EventDetail) => {
+      const displaystart = parseInt(event.displaystart, 10);
+      const displayend = parseInt(event.displayend, 10);
+      const start = tracksOffset + displaystart;
+      const end = tracksOffset + displayend;
+      setDisplayPosition([displaystart, displayend]);
       setHighlighPosition(`${start}:${end}`);
     },
     [tracksOffset]
@@ -135,7 +141,7 @@ const MSAView: FC<MSAViewProps> = ({
     ? alignment.length * 3
     : 30
   ).toString();
-
+  const getWithMSAOffsetTop = (array) => console.log(displayPosition);
   return (
     <section data-testid="overview-hsp-detail" className="msa-view">
       {/* Query track */}
@@ -179,7 +185,19 @@ const MSAView: FC<MSAViewProps> = ({
             </div>
           ))}
         </div>
-        <span className="left-coord">Left</span>
+        <span className="left-coord">
+          <div style={{ height: msaOffsetTop }} />
+          {alignment.map((s) => (
+            <div
+              style={{
+                height: 20,
+              }}
+              key={s.name}
+            >
+              {displayPosition[0]}
+            </div>
+          ))}
+        </span>
         <div className="track">
           <protvista-manager
             ref={managerRef}
@@ -195,7 +213,19 @@ const MSAView: FC<MSAViewProps> = ({
             />
           </protvista-manager>
         </div>
-        <span className="right-coord">Right</span>
+        <span className="right-coord">
+          <div style={{ height: msaOffsetTop }} />
+          {alignment.map((s) => (
+            <div
+              style={{
+                height: 20,
+              }}
+              key={s.name}
+            >
+              {displayPosition[1]}
+            </div>
+          ))}
+        </span>
       </section>
 
       {/* <section className="hsp-label">{annotation}</section>
