@@ -5,7 +5,7 @@ import { hasContent } from '../../utils';
 import EntrySection from '../../types/entrySection';
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 import GeneNamesView from '../protein-data-views/GeneNamesView';
-import { OrganismListView } from '../protein-data-views/OrganismView';
+import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
 import ProteomesListView from '../protein-data-views/ProteomesView';
 import XRefView from '../protein-data-views/XRefView';
 
@@ -28,7 +28,7 @@ const NamesAndTaxonomySection: FC<{
           </Fragment>
         )}
         <h3>Organism names</h3>
-        <OrganismListView data={data.organismData} hosts={data.virusHosts} />
+        <TaxonomyListView data={data.organismData} hosts={data.virusHosts} />
         <h3>Proteome</h3>
         <ProteomesListView data={data.proteomesData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

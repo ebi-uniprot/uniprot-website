@@ -16,7 +16,7 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
-// import EntryMain from './EntryMain';
+import EntryMain from './EntryMain';
 
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -123,7 +123,7 @@ const Entry: FC = () => {
           <AddToBasketButton selectedEntries={[match.params.accession]} />
         </div>
       ),
-      mainContent: <>Main content</>,
+      mainContent: <EntryMain transformedData={transformedData} />,
     },
   ];
 

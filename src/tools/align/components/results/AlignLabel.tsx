@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTitle';
 
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';

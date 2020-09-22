@@ -1,36 +1,35 @@
-import React, { Fragment } from 'react';
+import React, { FC } from 'react';
 import { InfoList, ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import SimpleView from './SimpleView';
-import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import externalUrls from '../../config/externalUrls';
 
-type OrganismDataProps = {
+import SimpleView from '../../../uniprotkb/components/protein-data-views/SimpleView';
+
+import externalUrls from '../../../uniprotkb/config/externalUrls';
+
+import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+
+type TaxonomyDataProps = {
   data: OrganismData;
 };
 
-export const OrganismLineage: React.FC<{ lineage: string[] }> = ({
-  lineage,
-}) => <Fragment>{lineage.join(' > ')}</Fragment>;
+export const TaxonomyLineage: FC<{ lineage: string[] }> = ({ lineage }) => (
+  <>{lineage.join(' > ')}</>
+);
 
-export const OrganismId: React.FC<{ taxonId: number | undefined }> = ({
-  taxonId,
-}) => {
+export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   if (!taxonId) {
     return null;
   }
   return (
-    <Fragment>
+    <>
       <Link to={`taxonomy/${taxonId}`}>{`${taxonId} `}</Link>
       <ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>
-    </Fragment>
+    </>
   );
 };
 
-const OrganismView: React.FC<OrganismDataProps> = ({
-  data,
-}): JSX.Element | null => {
+const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
   if (!data) {
     return null;
   }
@@ -44,7 +43,7 @@ const OrganismView: React.FC<OrganismDataProps> = ({
   );
 };
 
-export const OrganismListView: React.FC<{
+export const TaxonomyListView: React.FC<{
   data?: OrganismData;
   hosts?: OrganismData[];
 }> = ({ data, hosts }): JSX.Element | null => {
@@ -56,44 +55,44 @@ export const OrganismListView: React.FC<{
     infoListData.push({
       title: 'Organism',
       content: (
-        <Fragment>
+        <>
           <Link to={`/taxonomy/${data.taxonId}`}>
             {`${data.scientificName} (${data.commonName})`}
           </Link>
           {data.evidences && data.evidences.length && (
             <UniProtKBEvidenceTag evidences={data.evidences} />
           )}
-        </Fragment>
+        </>
       ),
     });
   }
   if (data.taxonId) {
     infoListData.push({
       title: 'Taxonomic identifier',
-      content: <OrganismId taxonId={data.taxonId} />,
+      content: <TaxonomyId taxonId={data.taxonId} />,
     });
   }
   if (data.lineage) {
     infoListData.push({
       title: 'Taxonomic lineage',
-      content: <OrganismLineage lineage={data.lineage} />,
+      content: <TaxonomyLineage lineage={data.lineage} />,
     });
   }
   if (hosts) {
     infoListData.push({
       title: 'Virus hosts',
       content: (
-        <Fragment>
-          {hosts.map(host => (
+        <>
+          {hosts.map((host) => (
             <p key={host.taxonId}>
-              <OrganismView data={host} />
+              <TaxonomyView data={host} />
             </p>
           ))}
-        </Fragment>
+        </>
       ),
     });
   }
   return <InfoList infoData={infoListData} />;
 };
 
-export default OrganismView;
+export default TaxonomyView;

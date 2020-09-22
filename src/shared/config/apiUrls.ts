@@ -77,6 +77,7 @@ const apiUrls = {
     ),
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
 
+  // TODO: move that to UniRef-specific file?
   uniref: {
     entry: (id: string) => joinUrl(devPrefix, '/uniprot/api/uniref', id),
   },

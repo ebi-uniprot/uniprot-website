@@ -3,15 +3,17 @@ import React, { FC, Fragment } from 'react';
 import idx from 'idx';
 import { Card } from 'franklin-sites';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import KeywordCategory from '../../types/keywordCategory';
 import { KeywordList } from '../protein-data-views/KeywordView';
-import UniProtKBTitle from '../protein-data-views/UniProtKBTitle';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../protein-data-views/AnnotationScoreDoughnutChart';
 import getProteinHighlights from '../../adapters/proteinHighlights';
+
 import './styles/uniprotkb-card.scss';
 
 const UniProtKBCard: FC<
@@ -98,10 +100,10 @@ const UniProtKBCard: FC<
         </section>
         <section className="uniprot-card__right">
           <h5>
-            <UniProtKBTitle
-              primaryAccession={data.primaryAccession}
+            <EntryTitle
+              mainTitle={data.primaryAccession}
+              optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
-              uniProtkbId={data.uniProtkbId}
             />
           </h5>
           <section>

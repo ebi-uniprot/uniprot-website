@@ -9,10 +9,10 @@ import SimpleView from '../components/protein-data-views/SimpleView';
 import ProteinNamesView, {
   ECNumbersView,
 } from '../components/protein-data-views/ProteinNamesView';
-import OrganismView, {
-  OrganismLineage,
-  OrganismId,
-} from '../components/protein-data-views/OrganismView';
+import TaxonomyView, {
+  TaxonomyLineage,
+  TaxonomyId,
+} from '../../shared/components/entry/TaxonomyView';
 import GeneNamesView, {
   geneAlternativeNamesView,
 } from '../components/protein-data-views/GeneNamesView';
@@ -60,7 +60,7 @@ import AnnotationScoreDoughnutChart, {
 import { ValueWithEvidence } from '../types/modelTypes';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
-import { ReviewedUnreviewed } from '../components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../shared/components/entry/EntryTitle';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import {
   databaseNameToCategory,
@@ -153,7 +153,7 @@ ColumnConfiguration.set(Column.organismName, {
   label: 'Organism',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <OrganismView data={organismData} />;
+    return organismData && <TaxonomyView data={organismData} />;
   },
 });
 
@@ -252,7 +252,7 @@ ColumnConfiguration.set(Column.organismId, {
   label: 'Organism',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <OrganismId taxonId={organismData.taxonId} />;
+    return organismData && <TaxonomyId taxonId={organismData.taxonId} />;
   },
 });
 
@@ -269,7 +269,7 @@ ColumnConfiguration.set(Column.lineage, {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
     return (
       organismData &&
-      organismData.lineage && <OrganismLineage lineage={organismData.lineage} />
+      organismData.lineage && <TaxonomyLineage lineage={organismData.lineage} />
     );
   },
 });
@@ -282,7 +282,7 @@ ColumnConfiguration.set(Column.virusHosts, {
         <Fragment>
           {virusHosts.map((host) => (
             <p key={host.taxonId}>
-              <OrganismView data={host} />
+              <TaxonomyView data={host} />
             </p>
           ))}
         </Fragment>

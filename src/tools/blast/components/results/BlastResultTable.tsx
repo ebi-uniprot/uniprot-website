@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaNavigation from 'protvista-navigation';
 
-import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTitle';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 
