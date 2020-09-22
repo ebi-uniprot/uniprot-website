@@ -60,6 +60,7 @@ const MSAView: FC<MSAViewProps> = ({
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
+  const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
 
@@ -95,6 +96,7 @@ const MSAView: FC<MSAViewProps> = ({
       }
       console.log(node.getBoundingClientRect());
       console.log(node.offsetLeft, node.offsetTop);
+      setMsaOffsetTop(node.offsetTop);
 
       const displayEndValue =
         alignmentLength / (15 / node.getSingleBaseWidth());
@@ -164,13 +166,19 @@ const MSAView: FC<MSAViewProps> = ({
       </section>
 
       <section className="msa-view__row msa-view__row--msa-track">
-        <span className="track-label">
+        <div className="track-label">
+          <div style={{ height: msaOffsetTop }} />
           {alignment.map((s) => (
-            <AlignLabel loading={false} key={s.name}>
-              {s.name}
-            </AlignLabel>
+            <div
+              style={{
+                height: 20,
+              }}
+              key={s.name}
+            >
+              {s.accession || s.name}
+            </div>
           ))}
-        </span>
+        </div>
         <span className="left-coord">Left</span>
         <div className="track">
           <protvista-manager

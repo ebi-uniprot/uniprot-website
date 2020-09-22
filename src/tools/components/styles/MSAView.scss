@@ -6,7 +6,7 @@
 
   &__row {
     display: grid;
-    grid-template-columns: 10vw 5vw 80vw 5vw;
+    grid-template-columns: 10vw 5vw auto 5vw;
     grid-template-areas: 'label . track .';
 
     &--msa-track {
@@ -28,8 +28,9 @@
     .track-label {
       grid-area: label;
       text-align: right;
-      padding-right: 1rem;
+      padding-right: 0.5rem;
       font-weight: 800;
+      border: 1px solid black;
       &:first-letter {
         text-transform: uppercase;
       }
@@ -41,10 +42,13 @@
     }
 
     .left-coord {
+      text-align: right;
+      padding-right: 0.1rem;
       grid-area: left-coord;
     }
 
     .right-coord {
+      padding-left: 0.1rem;
       grid-area: right-coord;
     }
   }
