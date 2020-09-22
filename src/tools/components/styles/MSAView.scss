@@ -1,0 +1,41 @@
+.msa-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr 7fr 1fr;
+  margin-bottom: 1em;
+  align-items: center;
+  height: auto;
+  max-height: 50%;
+
+  &__row {
+    grid-template-areas: 'label coordinate track coordinate';
+
+    protvista-navigation {
+      .zoom-polygon,
+      .brush,
+      .start-label,
+      .end-label {
+        display: none;
+      }
+      height: 1.25rem;
+      padding-bottom: 0.25rem;
+    }
+
+    .track-label {
+      grid-area: label;
+      text-align: right;
+      padding-right: 1rem;
+      font-weight: 800;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    .track {
+      grid-area: track;
+    }
+
+    .coordinate {
+      grid-area: coordinate;
+    }
+  }
+}

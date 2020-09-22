@@ -23,6 +23,8 @@ import {
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
 
+import './styles/MSAView.scss';
+
 loadWebComponent('protvista-navigation', ProtvistaNavigation);
 loadWebComponent('protvista-track', ProtvistaTrack);
 loadWebComponent('protvista-msa', ProtvistaMSA);
@@ -130,21 +132,35 @@ const MSAView: FC<MSAViewProps> = ({
   ).toString();
 
   return (
-    <section
-      data-testid="overview-hsp-detail"
-      className="hsp-detail-panel__visualisation"
-    >
+    <section data-testid="overview-hsp-detail" className="msa-view">
       {/* Query track */}
       {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
-      <section className="hsp-label">Overview</section>
 
-      <AlignmentOverview
-        height={overviewHeight}
-        length={totalLength}
-        highlight={highlightPosition}
-        data={alignment ? getFullAlignmentSegments(alignment) : []}
-      />
-      <section className="hsp-label">{annotation}</section>
+      <section className="track-label">Overview</section>
+      <section className="coordinate">L Coordinate</section>
+      <section className="track">
+        <AlignmentOverview
+          height={overviewHeight}
+          length={totalLength}
+          highlight={highlightPosition}
+          data={alignment ? getFullAlignmentSegments(alignment) : []}
+        />
+      </section>
+      <section className="coordinate">R Coordinate</section>
+
+      <section className="track-label">{annotation}</section>
+      <section className="coordinate">&nbsp;</section>
+      <section className="track">
+        <protvista-track
+          ref={setFeatureTrackData}
+          length={totalLength}
+          layout="non-overlapping"
+          highlight={highlightPosition}
+        />
+      </section>
+      <section className="coordinate">&nbsp;</section>
+
+      {/* <section className="hsp-label">{annotation}</section>
       <protvista-track
         ref={setFeatureTrackData}
         length={totalLength}
@@ -156,14 +172,12 @@ const MSAView: FC<MSAViewProps> = ({
         <protvista-navigation length={alignmentLength} />
         <protvista-msa
           ref={setMSAAttributes}
-          // Looks like displaylength initialisation is ignored when there's labels - bug in MSA
-          // labelwidth={200}
           length={alignmentLength}
           height={alignment.length * 20}
           colorscheme={highlightProperty}
           {...conservationOptions}
         />
-      </protvista-manager>
+      </protvista-manager> */}
     </section>
   );
 };
