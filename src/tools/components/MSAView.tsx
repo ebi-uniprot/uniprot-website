@@ -93,6 +93,8 @@ const MSAView: FC<MSAViewProps> = ({
       if (!node) {
         return;
       }
+      console.log(node.getBoundingClientRect());
+      console.log(node.offsetLeft, node.offsetTop);
 
       const displayEndValue =
         alignmentLength / (15 / node.getSingleBaseWidth());

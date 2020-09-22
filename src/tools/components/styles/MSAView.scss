@@ -13,16 +13,17 @@
       grid-template-areas: 'label left-coord track right-coord';
     }
 
-    protvista-navigation {
-      .zoom-polygon,
-      .brush,
-      .start-label,
-      .end-label {
-        display: none;
-      }
-      height: 1.25rem;
-      padding-bottom: 0.25rem;
-    }
+    // Need this for the wrapped view to show only the protvista ruler:
+    // protvista-navigation {
+    //   .zoom-polygon,
+    //   .brush,
+    //   .start-label,
+    //   .end-label {
+    //     display: none;
+    //   }
+    //   height: 1.25rem;
+    //   padding-bottom: 0.25rem;
+    // }
 
     .track-label {
       grid-area: label;
@@ -36,6 +37,7 @@
 
     .track {
       grid-area: track;
+      position: relative;
     }
 
     .left-coord {
