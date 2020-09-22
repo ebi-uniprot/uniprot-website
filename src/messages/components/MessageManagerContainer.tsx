@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { bindActionCreators, Dispatch } from 'redux';
@@ -58,10 +58,10 @@ const MessageManager: FC<MessageManagerContainerProps> = ({
   } = groupBy(filteredActiveMessages, ({ format }) => format);
 
   return (
-    <Fragment>
+    <>
       <InPageMessageHub messages={inPageMessages} onDismiss={deleteMessage} />
       <PopUpMessageHub messages={popUpMessages} onDismiss={deleteMessage} />
-    </Fragment>
+    </>
   );
 };
 

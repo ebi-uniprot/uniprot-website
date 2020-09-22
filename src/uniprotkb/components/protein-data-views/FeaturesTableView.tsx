@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState, FC } from 'react';
+import React, { useCallback, useState, FC } from 'react';
 import { TemplateResult } from 'lit-html';
 import ProtvistaDatatable from 'protvista-datatable';
 import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
@@ -61,7 +61,7 @@ const FeaturesTableView: FC<{
   );
 
   return (
-    <Fragment>
+    <>
       <protvista-datatable ref={setTableData} filter-scroll />
       <div
         className={`evidence-tag-content ${
@@ -75,7 +75,7 @@ const FeaturesTableView: FC<{
           />
         )}
       </div>
-    </Fragment>
+    </>
   );
 };
 

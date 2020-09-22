@@ -18,7 +18,7 @@ import {
   SequenceUIModel,
   EntryAudit,
 } from './sequenceConverter';
-import { SequenceData } from '../components/protein-data-views/SequenceView';
+import { SequenceData } from '../../shared/components/entry/SequenceView';
 import { Keyword } from '../utils/KeywordsUtil';
 import convertInteraction from './interactionConverter';
 import convertFamilyAndDomains from './familyAndDomainsConverter';

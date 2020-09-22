@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { v1 } from 'uuid';
+
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { DiseaseComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -48,7 +49,7 @@ export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = (
         title: 'Note',
         content: (
           <ExpandableList descriptionString="notes">
-            {texts.map(text => ({
+            {texts.map((text) => ({
               id: v1(),
               content: text.value,
             }))}
@@ -81,11 +82,11 @@ export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = (
     }
   }
   return (
-    <Fragment>
+    <>
       <h3>{`${diseaseId} ${acronym && `(${acronym})`}`}</h3>
       <span className="text-block">{evidenceNodes}</span>
       <InfoList infoData={infoData} />
-    </Fragment>
+    </>
   );
 };
 
@@ -97,18 +98,19 @@ export const DiseaseInvolvementView: React.FC<DiseaseInvolvementProps> = ({
   if (!comments || comments.length <= 0) {
     return null;
   }
-  const nodes = comments.map(comment => (
+  const nodes = comments.map((comment, index) => (
     <DiseaseInvolvementEntry
-      key={v1()}
+      // eslint-disable-next-line react/no-array-index-key
+      key={index}
       comment={comment}
       accession={accession}
     />
   ));
   return (
-    <Fragment>
+    <>
       {includeTitle && <h3>Involvement in disease</h3>}
       {nodes}
-    </Fragment>
+    </>
   );
 };
 

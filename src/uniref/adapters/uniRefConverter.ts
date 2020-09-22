@@ -36,7 +36,7 @@ type OverlapRegion = {
   start: number;
 };
 
-type UniRefMember = {
+export type UniRefMember = {
   seed: boolean;
   memberIdType: MemberIdType;
   memberId: string;
@@ -45,14 +45,14 @@ type UniRefMember = {
   sequenceLength: number;
   proteinName: string;
   accessions: string[];
-  uniRef50Id: string;
-  uniRef90Id: string;
-  uniRef100Id: string;
+  uniRef50Id?: string;
+  uniRef90Id?: string;
+  uniRef100Id?: string;
   uniParcId: string;
   overlapRegion: OverlapRegion;
 };
 
-type RepresentativeMember = UniRefMember & {
+export type RepresentativeMember = UniRefMember & {
   sequence: Sequence;
 };
 
@@ -93,13 +93,15 @@ export type UniRefAPIModel = {
 export type UniRefUIModel = UniRefAPIModel & {
   [EntrySection.Members]: UniRefAPIModel['members'];
   // use SequenceUIModel?
-  [EntrySection.Sequence]: UniRefAPIModel['representativeMember']['sequence'];
+  [EntrySection.Sequence]: {
+    sequence: UniRefAPIModel['representativeMember']['sequence'];
+  };
 };
 
 const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
   ...data,
   [EntrySection.Members]: [data.representativeMember, ...(data.members || [])],
-  [EntrySection.Sequence]: data.representativeMember.sequence,
+  [EntrySection.Sequence]: { sequence: data.representativeMember.sequence },
 });
 
 export default uniRefConverter;

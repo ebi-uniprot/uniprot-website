@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import React, { Fragment } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
-import idx from 'idx';
 import { flatten } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +25,7 @@ import {
   MassSpectrometryView,
   RNAEditingView,
   IsoformView,
-} from '../components/protein-data-views/SequenceView';
+} from '../../shared/components/entry/SequenceView';
 import { Flag } from '../adapters/sequenceConverter';
 import FeatureType from '../types/featureType';
 import FreeTextView, {
@@ -57,7 +56,6 @@ import {
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
-import { ValueWithEvidence } from '../types/modelTypes';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
 import { ReviewedUnreviewed } from '../../shared/components/entry/EntryTitle';
@@ -465,10 +463,7 @@ ColumnConfiguration.set(Column.ec, {
   label: 'EC Number',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    const ecNumbers = idx(
-      proteinNamesData,
-      (proteinName) => proteinName.recommendedName.ecNumbers
-    ) as ValueWithEvidence[];
+    const ecNumbers = proteinNamesData?.recommendedName?.ecNumbers;
     return ecNumbers && <ECNumbersView ecNumbers={ecNumbers} />;
   },
 });

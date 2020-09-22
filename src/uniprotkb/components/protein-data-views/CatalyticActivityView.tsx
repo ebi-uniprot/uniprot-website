@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useCallback, useRef } from 'react';
+import React, { FC, Fragment, useState, useCallback, useRef } from 'react';
 import '@swissprot/rhea-reaction-visualizer';
 import { useModal, ModalBackdrop, Window, Loader } from 'franklin-sites';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
@@ -30,10 +30,7 @@ type ChebiImageData = {
   imgURL: string;
 } | null;
 
-export const ZoomModalContent: React.FC<ChebiImageData> = ({
-  chebi,
-  imgURL,
-}) => {
+export const ZoomModalContent: FC<ChebiImageData> = ({ chebi, imgURL }) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [loading, setLoading] = useState(true);
   const image = new Image();
@@ -61,7 +58,7 @@ type RheaReactionVisualizerProps = {
   show: boolean;
 };
 
-export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
+export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
   rheaId,
   show: initialShow,
 }) => {
@@ -87,7 +84,7 @@ export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
   );
 
   return (
-    <Fragment>
+    <>
       <button
         type="button"
         className="button tertiary rhea-reaction-visualizer__button"
@@ -96,7 +93,7 @@ export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
         {`${show ? 'Hide' : 'View'} Rhea reaction`}
       </button>
       {show && (
-        <Fragment>
+        <>
           <div className="rhea-reaction-visualizer__component">
             <rhea-reaction
               rheaid={rheaId}
@@ -118,9 +115,9 @@ export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
               />
             </Modal>
           )}
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -136,7 +133,7 @@ export type ReactionDirectionProps = {
   physiologicalReactions: PhysiologicalReaction[];
 };
 
-export const ReactionDirection: React.FC<ReactionDirectionProps> = ({
+export const ReactionDirection: FC<ReactionDirectionProps> = ({
   physiologicalReactions,
 }) => {
   /*
@@ -156,7 +153,7 @@ export const ReactionDirection: React.FC<ReactionDirectionProps> = ({
     return null;
   }
   return (
-    <Fragment>
+    <>
       {`This reaction proceeds in `}
       {physiologicalReactions
         // Ensure that left-to-right/forward comes before right-to-left/backward
@@ -175,7 +172,7 @@ export const ReactionDirection: React.FC<ReactionDirectionProps> = ({
               ' directions '}
           </Fragment>
         ))}
-    </Fragment>
+    </>
   );
 };
 
@@ -184,18 +181,18 @@ type CatalyticActivityProps = {
   title?: string;
 };
 
-const CatalyticActivityView: React.FC<CatalyticActivityProps> = ({
+const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   comments,
   title,
 }) => {
-  if (!comments || comments.length <= 0) {
+  if (!comments || !comments.length) {
     return null;
   }
-  let firstRheaId: number | null = null;
+  let firstRheaId: number;
   return (
-    <Fragment>
+    <>
       {title && <h3>{title}</h3>}
-      {comments.map(({ reaction, physiologicalReactions }) => {
+      {comments.map(({ reaction, physiologicalReactions }, index) => {
         if (!reaction) {
           return null;
         }
@@ -211,7 +208,7 @@ const CatalyticActivityView: React.FC<CatalyticActivityProps> = ({
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={reaction.ecNumber}>
+          <span className="text-block" key={reaction.ecNumber || index}>
             <strong>{reaction.ecNumber}</strong>
             {/* Need a link to search for EC in UniProtKB:
              https://www.ebi.ac.uk/panda/jira/browse/TRM-23597 */}
@@ -233,7 +230,7 @@ const CatalyticActivityView: React.FC<CatalyticActivityProps> = ({
           </span>
         );
       })}
-    </Fragment>
+    </>
   );
 };
 

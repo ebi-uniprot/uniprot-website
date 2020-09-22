@@ -3,10 +3,17 @@ import { Card } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
 import ProtvistaDatatable from 'protvista-datatable';
 import InteractionViewer from 'interaction-viewer';
-import { hasContent } from '../../utils';
+
 import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
+
+import { hasContent, loadWebComponent } from '../../../shared/utils/utils';
+import {
+  getIntActQueryUrl,
+  getIntActQueryForAccessionUrl,
+} from '../../config/externalUrls';
+
 import {
   CommentType,
   FreeTextComment,
@@ -14,11 +21,6 @@ import {
   Interaction,
 } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-import { loadWebComponent } from '../../../shared/utils/utils';
-import {
-  getIntActQueryUrl,
-  getIntActQueryForAccessionUrl,
-} from '../../config/externalUrls';
 
 loadWebComponent('interaction-viewer', InteractionViewer);
 loadWebComponent('protvista-datatable', ProtvistaDatatable);

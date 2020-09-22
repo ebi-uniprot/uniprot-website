@@ -1,4 +1,3 @@
-import idx from 'idx';
 import { ProteinNamesData } from './namesAndTaxonomyConverter';
 
 const convertProteinNames = (data: ProteinNamesData) => {
@@ -8,25 +7,25 @@ const convertProteinNames = (data: ProteinNamesData) => {
     recommendedName = data.recommendedName.fullName.value;
     if (data.recommendedName.shortNames) {
       shortNames = data.recommendedName.shortNames
-        .map(shortName => shortName.value)
+        .map((shortName) => shortName.value)
         .join(', ');
     }
   }
   const alternativeNames: string[] = [];
-  const ecNumbers = idx(data, o => o.recommendedName.ecNumbers);
+  const ecNumbers = data.recommendedName?.ecNumbers;
   if (ecNumbers && ecNumbers.length > 0) {
-    alternativeNames.push(...ecNumbers.map(ec => ec.value));
+    alternativeNames.push(...ecNumbers.map((ec) => ec.value));
   }
-  const submissionNames = idx(data, o => o.submissionNames);
+  const { submissionNames } = data;
   if (submissionNames && submissionNames.length > 0) {
     alternativeNames.push(
-      ...submissionNames.map(submissionName => submissionName.fullName.value)
+      ...submissionNames.map((submissionName) => submissionName.fullName.value)
     );
   }
-  const alternativeNameArray = idx(data, o => o.alternativeNames);
+  const alternativeNameArray = data.alternativeNames;
   if (alternativeNameArray && alternativeNameArray.length > 0) {
     alternativeNames.push(
-      ...alternativeNameArray.map(altName => altName.fullName.value)
+      ...alternativeNameArray.map((altName) => altName.fullName.value)
     );
   }
   return { recommendedName, shortNames, alternativeNames };

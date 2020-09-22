@@ -1,26 +1,24 @@
 import React from 'react';
 
-// check if it's the same logic, if so, move up to shared folder
-import SequenceSection from '../../uniprotkb/components/entry/SequenceSection';
+import MembersSection from '../components/entry/MembersSection';
+import SequenceSection from '../components/entry/SequenceSection';
 
 import { UniRefUIModel } from '../adapters/uniRefConverter';
 import EntrySection from '../types/entrySection';
 
-const UniProtKBEntryConfig: {
+const UniRefEntryConfig: {
   name: EntrySection;
   sectionContent: (entryData: UniRefUIModel) => JSX.Element;
 }[] = [
-  // {
-  //   name: EntrySection.Members,
-  //   sectionContent: (data: UniRefUIModel): JSX.Element => (
-  //     <MembersSection
-  //       data={data[EntrySection.Members]}
-  //       primaryAccession={data.primaryAccession}
-  //       sequence={data[EntrySection.Sequence].sequence.value}
-  //       key={EntrySection.Members}
-  //     />
-  //   ),
-  // },
+  {
+    name: EntrySection.Members,
+    sectionContent: (data: UniRefUIModel): JSX.Element => (
+      <MembersSection
+        data={data[EntrySection.Members]}
+        key={EntrySection.Members}
+      />
+    ),
+  },
   {
     name: EntrySection.Sequence,
     sectionContent: (data: UniRefUIModel): JSX.Element => (
@@ -33,4 +31,4 @@ const UniProtKBEntryConfig: {
   },
 ];
 
-export default UniProtKBEntryConfig;
+export default UniRefEntryConfig;

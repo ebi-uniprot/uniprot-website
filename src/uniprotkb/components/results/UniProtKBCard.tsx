@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, Fragment } from 'react';
-import idx from 'idx';
+import React, { Fragment, FC } from 'react';
 import { Card } from 'franklin-sites';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
@@ -24,10 +23,8 @@ const UniProtKBCard: FC<
   } & RouteComponentProps
 > = ({ data, selected, handleEntrySelection, history }): JSX.Element => {
   let recommendedNameNode;
-  const recommendedName = idx(
-    data,
-    (_): string => _.proteinDescription.recommendedName.fullName.value
-  );
+  const recommendedName =
+    data.proteinDescription?.recommendedName?.fullName.value;
   if (recommendedName) {
     recommendedNameNode = `${recommendedName} · `;
   }
@@ -35,23 +32,23 @@ const UniProtKBCard: FC<
   const highlights = getProteinHighlights(data);
 
   const organismNameNode = (
-    <Fragment>
-      <a href="#">{idx(data, (_): string => _.organism.scientificName)}</a>
+    <>
+      <a href="#">{data.organism?.scientificName}</a>
       {' · '}
-    </Fragment>
+    </>
   );
 
   let geneNameListNode;
   if (data.genes) {
     geneNameListNode = (
-      <Fragment>
+      <>
         {'Gene: '}
         {data.genes
           .filter((geneName) => geneName.geneName)
           .map((geneName) => geneName.geneName && geneName.geneName.value)
           .join(', ')}
         {' · '}
-      </Fragment>
+      </>
     );
   }
 

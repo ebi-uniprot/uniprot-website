@@ -1,29 +1,9 @@
-import { uniq } from 'lodash-es';
-
 import UniProtKBEntryConfig from '../config/UniProtEntryConfig';
 
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 
 import { Property, PropertyKey } from '../types/modelTypes';
-
-export const hasContent = (obj: Record<string | number | symbol, unknown>) => {
-  return Object.values(obj).some((val) => {
-    if (Array.isArray(val)) {
-      const valArray = val as unknown[];
-      return valArray.length > 0;
-    }
-    if (typeof val === 'object' && val) {
-      if (val instanceof Map) {
-        return Array.from(val.values()).some(
-          (value) => value && value.length > 0
-        );
-      }
-      return Object.values(val).length > 0;
-    }
-    return false;
-  });
-};
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ name }) => {
@@ -32,20 +12,20 @@ export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   });
 
 export const flattenGeneNameData = (geneNamesData: GeneNamesData) => {
-  const geneNames: string[] = [];
+  const geneNames = new Set<string>();
   geneNamesData.forEach(
     ({ geneName, synonyms = [], orfNames = [], orderedLocusNames = [] }) => {
       if (geneName) {
-        geneNames.push(geneName.value);
+        geneNames.add(geneName.value);
       }
       [synonyms, orfNames, orderedLocusNames].forEach((names) => {
         names.forEach(({ value }) => {
-          geneNames.push(value);
+          geneNames.add(value);
         });
       });
     }
   );
-  return uniq(geneNames);
+  return Array.from(geneNames);
 };
 
 export const transfromProperties = (properties: Property[]) => {

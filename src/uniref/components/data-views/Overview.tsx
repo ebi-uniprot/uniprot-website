@@ -13,6 +13,10 @@ export const Overview: FC<{
   //   EntrySection.NamesAndTaxonomy
   // ];
 
+  const updated = transformedData.updated
+    ? new Date(transformedData.updated)
+    : undefined;
+
   const infoListData = [
     {
       title: 'Name',
@@ -29,6 +33,14 @@ export const Overview: FC<{
         />
       ),
     },
+    {
+      title: 'Updated',
+      content: updated && (
+        <time dateTime={updated.toISOString()}>{transformedData.updated}</time>
+      ),
+    },
+    // NOTE: add seed information?
+    // NOTE: add members composition?
   ];
 
   return <InfoList infoData={infoListData} />;

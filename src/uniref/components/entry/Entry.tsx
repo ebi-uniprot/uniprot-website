@@ -29,7 +29,7 @@ import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 import { addMessage } from '../../../messages/state/messagesActions';
 
 // check if we need it here too and move it to a shared folder if needed
-import { hasContent } from '../../../uniprotkb/utils';
+import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 

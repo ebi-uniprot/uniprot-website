@@ -39,7 +39,8 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { hasContent, hasExternalLinks } from '../../utils';
+import { hasExternalLinks } from '../../utils';
+import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 

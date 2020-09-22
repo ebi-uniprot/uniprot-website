@@ -7378,11 +7378,6 @@ idb@5.0.4:
   resolved "https://registry.yarnpkg.com/idb/-/idb-5.0.4.tgz#9b6d42d5eff3c7f063b6f4d3e7c7e9aaeae2fd7a"
   integrity sha512-g+CRa0NLB5R+VTd8UQK/J8eEPlZk82iwekJQOYA0bFJsc7TGDKyBywNmLBUdHPUyyazV1wN8DdHhSKzEX9Z9kQ==
 
-idx@2.5.6:
-  version "2.5.6"
-  resolved "https://registry.yarnpkg.com/idx/-/idx-2.5.6.tgz#1f824595070100ae9ad585c86db08dc74f83a59d"
-  integrity sha512-WFXLF7JgPytbMgelpRY46nHz5tyDcedJ76pLV+RJWdb8h33bxFq4bdZau38DhNSzk5eVniBf1K3jwfK+Lb5nYA==
-
 ieee754@^1.1.13, ieee754@^1.1.4:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.1.13.tgz#ec168558e95aa181fd87d37f55c32bbcb6708b84"
