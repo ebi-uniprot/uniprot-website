@@ -9,7 +9,10 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import './styles/HSPDetailPanel.scss';
-import MSAWrapper, { MSAInput, View } from '../../../components/MSAWrapper';
+import AlignmentView, {
+  MSAInput,
+  View,
+} from '../../../components/AlignmentView';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -116,7 +119,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
         </button>
       </div>
       <div className="hsp-detail-panel__body">
-        <MSAWrapper
+        <AlignmentView
           alignmentLength={hsp_align_len}
           // totalLength={totalLength}
           alignment={alignment}

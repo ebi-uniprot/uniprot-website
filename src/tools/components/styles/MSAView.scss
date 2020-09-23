@@ -1,29 +1,22 @@
-.msa-view {
+.alignment-grid {
   margin-bottom: 1em;
   align-items: center;
   height: auto;
   max-height: 50%;
 
+  &__placeholder {
+    height: 80px;
+  }
+
   &__row {
     display: grid;
-    grid-template-columns: 10vw 5vw auto 5vw;
-    grid-template-areas: 'label . track .';
+    grid-template-columns: 10vw auto 4vw;
+    grid-template-areas: 'label track .';
+    align-items: center;
 
     &--msa-track {
-      grid-template-areas: 'label left-coord track right-coord';
+      grid-template-areas: 'label track right-coord';
     }
-
-    // Need this for the wrapped view to show only the protvista ruler:
-    // protvista-navigation {
-    //   .zoom-polygon,
-    //   .brush,
-    //   .start-label,
-    //   .end-label {
-    //     display: none;
-    //   }
-    //   height: 1.25rem;
-    //   padding-bottom: 0.25rem;
-    // }
 
     .track-label {
       grid-area: label;
@@ -38,12 +31,6 @@
     .track {
       grid-area: track;
       position: relative;
-    }
-
-    .left-coord {
-      text-align: right;
-      padding-right: 0.1rem;
-      grid-area: left-coord;
     }
 
     .right-coord {

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import { MSAInput } from '../components/MSAWrapper';
+import { MSAInput } from '../components/AlignmentView';
 import {
   ProcessedFeature,
   FeatureData,

@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 
 import AlignLabel from './AlignLabel';
-import MSAWrapper, { View } from '../../../components/MSAWrapper';
+import AlignmentView, { View } from '../../../components/AlignmentView';
 
 import alnClustalNum from '../../adapters/alnClustalNum';
 
@@ -97,7 +97,7 @@ const AlignResultOverview: FC<Props> = ({ data, sequenceInfo }) => {
         ))}
       </ul>
       <div className="align-result-overview--msa">
-        <MSAWrapper
+        <AlignmentView
           alignment={parsedAndEnriched.sequences}
           alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
           defaultView={View.wrapped}

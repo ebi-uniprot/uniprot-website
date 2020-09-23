@@ -2,8 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { DropdownButton } from 'franklin-sites';
 import cn from 'classnames';
 
-import MSAView from './MSAView';
-import MSAWrappedView from './MSAWrappedView';
+import BlastOverview from './BlastOverview';
+import BlastWrapped from './BlastWrapped';
 
 import {
   msaColorSchemeToString,
@@ -15,7 +15,7 @@ import { getFullAlignmentLength } from '../utils/sequences';
 import FeatureType from '../../uniprotkb/types/featureType';
 import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 
-import './styles/MSAWrapper.scss';
+import './styles/AlignmentView.scss';
 
 export type ConservationOptions = {
   'calculate-conservation'?: true;
@@ -37,7 +37,7 @@ export type MSAInput = {
   features?: FeatureData;
 };
 
-const MSAWrapper: React.FC<{
+const AlignmentView: React.FC<{
   alignment: MSAInput[];
   alignmentLength: number;
   defaultView?: View;
@@ -156,7 +156,7 @@ const MSAWrapper: React.FC<{
       </div>
       <div>
         {activeView === View.overview ? (
-          <MSAView
+          <BlastOverview
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}
@@ -167,7 +167,7 @@ const MSAWrapper: React.FC<{
             setSelectedId={setSelectedId}
           />
         ) : (
-          <MSAWrappedView
+          <BlastWrapped
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}
@@ -183,4 +183,4 @@ const MSAWrapper: React.FC<{
   );
 };
 
-export default MSAWrapper;
+export default AlignmentView;

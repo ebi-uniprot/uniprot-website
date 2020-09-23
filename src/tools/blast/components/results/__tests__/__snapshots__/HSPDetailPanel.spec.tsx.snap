@@ -535,7 +535,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
         <div>
           <section
             class="hsp-detail-panel__visualisation"
-            data-testid="overview-hsp-detail"
+            data-testid="alignment-view"
           >
             <section
               class="hsp-label"

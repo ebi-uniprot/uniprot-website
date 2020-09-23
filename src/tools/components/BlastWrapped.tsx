@@ -7,6 +7,7 @@ import React, {
   useRef,
   SetStateAction,
   Dispatch,
+  useState,
 } from 'react';
 import { debounce } from 'lodash-es';
 import ProtvistaManager from 'protvista-manager';
@@ -22,7 +23,7 @@ import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderin
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { ConservationOptions } from './MSAWrapper';
+import { ConservationOptions } from './AlignmentView';
 import { MSAViewProps } from './MSAView';
 import {
   FeatureData,
@@ -68,12 +69,15 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   sequences,
   selectedId,
 }) => {
+  const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
+
   const setMSAAttributes = useCallback(
     (node): void => {
       if (!node) {
         return;
       }
       node.data = sequences;
+      setMsaOffsetTop(node.offsetTop);
     },
     [sequences]
   );
@@ -101,29 +105,55 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   );
 
   return (
-    <section
-      data-testid="wrapped-hsp-detail"
-      className="hsp-detail-panel__visualisation hsp-detail-panel__visualisation__wrapped-row"
-    >
-      <section className="hsp-label hsp-label--msa">Alignment</section>
-      <section className="hsp-detail-panel__visualisation--msa">
-        <protvista-msa
-          ref={setMSAAttributes}
-          length={rowLength}
-          height={sequences.length * 20}
-          colorscheme={highlightProperty}
-          {...conservationOptions}
-        />
+    <section data-testid="alignment-wrapped-view" className="alignment-grid">
+      <section className="alignment-grid__row alignment-grid__row--msa-track">
+        <div className="track-label">
+          {sequences.map((s, index) => (
+            <div
+              style={{
+                height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
+              }}
+              key={s.name}
+            >
+              {s.accession || s.name}
+            </div>
+          ))}
+        </div>
+        <div className="track">
+          <protvista-msa
+            ref={setMSAAttributes}
+            length={rowLength}
+            height={sequences.length * 20}
+            colorscheme={highlightProperty}
+            {...conservationOptions}
+          />
+        </div>
+        <span className="right-coord">
+          {sequences.map((s, index) => (
+            <div
+              style={{
+                height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
+              }}
+              key={s.name}
+            >
+              {s.end}
+            </div>
+          ))}
+        </span>
       </section>
-      <section className="hsp-label hsp-label--track">{annotation}</section>
-      <section className="hsp-detail-panel__visualisation--track">
-        <protvista-track ref={setFeatureTrackData} />
+      <section className="alignment-grid__row">
+        <span className="track-label">{annotation}</span>
+        <div className="track">
+          <protvista-track ref={setFeatureTrackData} />
+        </div>
       </section>
     </section>
   );
 };
 
-const MSAWrappedView: FC<MSAViewProps> = ({
+const BlastWrapped: FC<MSAViewProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
@@ -209,10 +239,10 @@ const MSAWrappedView: FC<MSAViewProps> = ({
             />
           );
         }
-        return <section key={id} className="hsp-detail-panel__placeholder" />;
+        return <section key={id} className="alignment-grid__placeholder" />;
       })}
     </div>
   );
 };
 
-export default MSAWrappedView;
+export default BlastWrapped;

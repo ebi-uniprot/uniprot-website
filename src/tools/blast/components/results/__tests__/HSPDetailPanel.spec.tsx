@@ -38,7 +38,7 @@ describe('HSPDetailPanel', () => {
 
   it('should initially render overview', () => {
     const { asFragment, getByTestId } = rendered;
-    expect(getByTestId('overview-hsp-detail')).toBeTruthy();
+    expect(getByTestId('alignment-view')).toBeTruthy();
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -55,7 +55,7 @@ describe('HSPDetailPanel', () => {
     const { getByText, findByTestId, asFragment } = rendered;
     const wrappedButton = getByText('Wrapped');
     fireEvent.click(wrappedButton);
-    expect(await findByTestId('wrapped-hsp-detail')).toBeTruthy();
+    expect(await findByTestId('alignment-wrapped-view')).toBeTruthy();
     // skip the top level div, as it contains the dynamically injected style
     // that might be different across different runs ("sliding" effect)
     expect(asFragment().firstElementChild.firstElementChild).toMatchSnapshot();

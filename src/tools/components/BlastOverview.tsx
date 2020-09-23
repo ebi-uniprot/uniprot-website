@@ -22,7 +22,6 @@ import {
   getFullAlignmentSegments,
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
-import AlignLabel from '../align/components/results/AlignLabel';
 
 import './styles/MSAView.scss';
 
@@ -37,7 +36,7 @@ type EventDetail = {
   displayend: string;
 };
 
-export type MSAViewProps = {
+export type BlastOverviewProps = {
   alignment: MSAInput[];
   alignmentLength: number;
   highlightProperty: MsaColorScheme | undefined;
@@ -48,7 +47,7 @@ export type MSAViewProps = {
   setSelectedId: Dispatch<SetStateAction<string | undefined>>;
 };
 
-const MSAView: FC<MSAViewProps> = ({
+const BlastOverview: FC<BlastOverviewProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
@@ -141,13 +140,13 @@ const MSAView: FC<MSAViewProps> = ({
     ? alignment.length * 3
     : 30
   ).toString();
-  const getWithMSAOffsetTop = (array) => console.log(displayPosition);
+
   return (
-    <section data-testid="alignment-view" className="msa-view">
+    <section data-testid="alignment-view" className="alignment-grid">
       {/* Query track */}
       {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
 
-      <section className="msa-view__row msa-view__row">
+      <section className="alignment-grid__row">
         <span className="track-label">Overview</span>
         <div className="track">
           <AlignmentOverview
@@ -159,7 +158,7 @@ const MSAView: FC<MSAViewProps> = ({
         </div>
       </section>
 
-      <section className="msa-view__row">
+      <section className="alignment-grid__row">
         <span className="track-label">{annotation}</span>
         <div className="track">
           <protvista-track
@@ -171,7 +170,7 @@ const MSAView: FC<MSAViewProps> = ({
         </div>
       </section>
 
-      <section className="msa-view__row msa-view__row--msa-track">
+      <section className="alignment-grid__row alignment-grid__row--msa-track">
         <div className="track-label">
           {alignment.map((s, index) => (
             <div
@@ -185,19 +184,6 @@ const MSAView: FC<MSAViewProps> = ({
             </div>
           ))}
         </div>
-        <span className="left-coord">
-          {alignment.map((s, index) => (
-            <div
-              style={{
-                height: 20,
-                marginTop: index === 0 ? msaOffsetTop : undefined,
-              }}
-              key={s.name}
-            >
-              {displayPosition[0]}
-            </div>
-          ))}
-        </span>
         <div className="track">
           <protvista-manager
             ref={managerRef}
@@ -213,41 +199,28 @@ const MSAView: FC<MSAViewProps> = ({
             />
           </protvista-manager>
         </div>
-        <span className="right-coord">
-          {alignment.map((s, index) => (
-            <div
-              style={{
-                height: 20,
-                marginTop: index === 0 ? msaOffsetTop : undefined,
-              }}
-              key={s.name}
-            >
-              {displayPosition[1]}
-            </div>
-          ))}
-        </span>
       </section>
 
       {/* <section className="hsp-label">{annotation}</section>
-      <protvista-track
-        ref={setFeatureTrackData}
-        length={totalLength}
-        layout="non-overlapping"
-        highlight={highlightPosition}
-      />
-      <section className="hsp-label">Alignment</section>
-      <protvista-manager ref={managerRef} attributes="displaystart displayend">
-        <protvista-navigation length={alignmentLength} />
-        <protvista-msa
-          ref={setMSAAttributes}
-          length={alignmentLength}
-          height={alignment.length * 20}
-          colorscheme={highlightProperty}
-          {...conservationOptions}
+        <protvista-track
+          ref={setFeatureTrackData}
+          length={totalLength}
+          layout="non-overlapping"
+          highlight={highlightPosition}
         />
-      </protvista-manager> */}
+        <section className="hsp-label">Alignment</section>
+        <protvista-manager ref={managerRef} attributes="displaystart displayend">
+          <protvista-navigation length={alignmentLength} />
+          <protvista-msa
+            ref={setMSAAttributes}
+            length={alignmentLength}
+            height={alignment.length * 20}
+            colorscheme={highlightProperty}
+            {...conservationOptions}
+          />
+        </protvista-manager> */}
     </section>
   );
 };
 
-export default MSAView;
+export default BlastOverview;
