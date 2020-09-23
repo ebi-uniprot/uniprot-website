@@ -1,20 +1,20 @@
 import React, { FC, FormEvent, MouseEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-
 import ClauseList from './ClauseList';
 import {
-  Namespace,
   Evidence,
   Clause,
   SearchTermType,
   Operator,
   EvidenceDataPoint,
 } from '../types/searchTypes';
-import './styles/advanced-search.scss';
 import useDataApi from '../../shared/hooks/useDataApi';
 import apiUrls from '../../shared/config/apiUrls';
 import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
 import { stringify } from '../utils/queryStringProcessor';
+import { Namespace } from '../../shared/types/namespaces';
+
+import './styles/advanced-search.scss';
 
 type AdvancedSearchProps = {
   queryString: string;

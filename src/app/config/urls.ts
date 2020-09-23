@@ -1,6 +1,7 @@
 import { invert } from 'lodash-es';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 export enum Location {
   Home = 'Home',
@@ -17,6 +18,8 @@ export enum Location {
   UniProtKBCustomiseTable = 'UniProtKBCustomiseTable',
   UniProtKBQueryBuilder = 'UniProtKBQueryBuilder',
   Dashboard = 'Dashboard',
+  UniRefEntry = 'UniRefEntry',
+  UniRefResults = 'UniRefResults',
 }
 
 export const LocationToPath = {
@@ -34,6 +37,17 @@ export const LocationToPath = {
   [Location.UniProtKBCustomiseTable]: '/customise-table',
   [Location.UniProtKBQueryBuilder]: '/advanced-search',
   [Location.Dashboard]: '/tool-dashboard',
+  [Location.UniRefEntry]: '/uniref/:accession',
+  [Location.UniRefResults]: '/uniref',
+};
+
+export const SearchResultsLocations = {
+  [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
+  [Namespace.uniref]: LocationToPath[Location.UniRefResults],
+  [Namespace.uniparc]: '',
+  [Namespace.proteomes]: '',
+  [Namespace.publications]: '',
+  [Namespace.keywords]: '',
 };
 
 // eslint-disable-next-line consistent-return

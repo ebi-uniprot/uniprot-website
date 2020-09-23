@@ -84,6 +84,12 @@ const ResourceNotFoundPage = lazy(
       /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
     )
 );
+const UniRefResultsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniref-results" */ '../../uniref/components/results/ResultsContainer'
+    )
+);
 
 const reportBugLinkStyles: React.CSSProperties = {
   fontSize: '.8rem',
@@ -166,6 +172,10 @@ const App = () => (
                   <AdvancedSearchPage />
                 </SingleColumnLayout>
               )}
+            />
+            <Route
+              path={LocationToPath[Location.UniRefResults]}
+              component={UniRefResultsPage}
             />
             <Route
               component={() => (

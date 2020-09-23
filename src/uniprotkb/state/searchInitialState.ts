@@ -1,5 +1,6 @@
 import { createPreSelectedClauses } from '../../query-builder/utils/clause';
-import { Clause, Namespace } from '../../query-builder/types/searchTypes';
+import { Clause } from '../../query-builder/types/searchTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 // This will be removed
 export type SearchState = {

@@ -5,6 +5,7 @@ import {
   Clause,
   dataType,
 } from '../../query-builder/types/searchTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 export const SELECT_SEARCH_TERM = 'SELECT_SEARCH_TERM';
 export const UPDATE_INPUT_VALUE = 'UPDATE_INPUT_VALUE';
@@ -19,6 +20,7 @@ export const UPDATE_CLAUSES = 'UPDATE_CLAUSES';
 export const UPDATE_QUERY_STRING = 'UPDATE_QUERY_STRING';
 export const RESET = 'RESET';
 export const RESET_SEARCH_INPUT = 'RESET_SEARCH_INPUT';
+export const UPDATE_NAMESPACE = 'UPDATE_NAMESPACE';
 
 export const selectSearchTerm = (
   clauseId: string,
@@ -91,3 +93,6 @@ export const updateQueryString = (queryString: string) =>
 export const reset = () => action(RESET);
 
 export const resetSearchInput = () => action(RESET_SEARCH_INPUT);
+
+export const updateNamespace = (namespace: Namespace) =>
+  action(UPDATE_NAMESPACE, { namespace });

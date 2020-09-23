@@ -37,7 +37,6 @@ import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/blastFormParameters';
 import {
   SType,
-  Program,
   Sequence,
   Matrix,
   GapAlign,
@@ -276,7 +275,7 @@ const BlastForm = () => {
     // tools middleware
     const parameters: FormParameters = {
       stype: stype.selected as SType,
-      program: program.selected as Program,
+      program: program.selected as FormParameters['program'],
       sequence: sequence.selected as Sequence,
       database: database.selected as Database,
       taxIDs: taxIDs.selected as SelectedTaxon[],
@@ -368,15 +367,25 @@ const BlastForm = () => {
           parsedSequences.some((parsedSequence) => !parsedSequence.valid)
       );
 
+      const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
+
       setSType((stype) => {
         // we want protein by default
-        const selected =
-          parsedSequences[0]?.likelyType === 'na' ? 'dna' : 'protein';
+        const selected = mightBeDNA ? 'dna' : 'protein';
         if (stype.selected === selected) {
           // avoid unecessary rerender by keeping the same object
           return stype;
         }
         return { ...stype, selected };
+      });
+      setProgram((program) => {
+        // we want protein by default
+        const selected = mightBeDNA ? 'blastx' : 'blastp';
+        if (program.selected === selected) {
+          // avoid unecessary rerender by keeping the same object
+          return program;
+        }
+        return { ...program, selected };
       });
     },
     [jobNameEdited, sequence.selected]
