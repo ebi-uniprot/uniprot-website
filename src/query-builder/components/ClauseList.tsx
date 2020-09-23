@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import { TreeSelect } from 'franklin-sites';
 import EvidenceField from './EvidenceField';
 import LogicalOperator from './LogicalOperator';
@@ -9,6 +9,7 @@ import {
   Operator,
   Evidence,
   Evidences,
+  dataType,
 } from '../types/searchTypes';
 
 // .itemType
@@ -23,15 +24,12 @@ type ClauseListProps = {
   clauses: Clause[];
   searchTerms: SearchTermType[];
   evidences: Evidences;
-  handleFieldSelect: (clauseId: string, field: SearchTermType) => void;
-  handleInputChange: (clauseId: string, value: string, id?: string) => void;
   handleEvidenceChange: (clauseId: string, value: string) => void;
   handleRangeInputChange: (
     clauseId: string,
     value: string,
     from?: boolean
   ) => void;
-  handleLogicChange: (clauseId: string, value: Operator) => void;
   handleRemoveClause: (clauseId: string) => void;
 };
 
@@ -39,76 +37,129 @@ const ClauseList: React.FC<ClauseListProps> = ({
   clauses,
   searchTerms,
   evidences,
-  handleFieldSelect,
-  handleInputChange,
   handleEvidenceChange,
   handleRangeInputChange,
-  handleLogicChange,
   handleRemoveClause,
-}) => (
-  <Fragment>
-    {clauses.map((clause) => {
-      if (!clause.searchTerm) {
-        return null;
-      }
+}) => {
+  const [clauseList, setClauseList] = useState(clauses);
 
-      let evidencesData;
-      if (clause.searchTerm.hasEvidence && evidences) {
-        const evidencesType =
-          clause.searchTerm.term === Evidence.GO
-            ? Evidence.GO
-            : Evidence.ANNOTATION;
-        evidencesData = evidences[evidencesType] || [];
-      }
+  const handleFieldSelect = (clauseId: string, searchTerm: SearchTermType) => {
+    setClauseList(
+      clauseList.map((clause) => {
+        if (clause.id === clauseId) {
+          return {
+            ...clause,
+            searchTerm,
+            queryInput:
+              searchTerm.dataType === dataType.enum &&
+              searchTerm.values &&
+              searchTerm.values.length
+                ? { stringValue: searchTerm.values[0].value }
+                : {},
+          };
+        }
+        return clause;
+      })
+    );
+  };
 
-      return (
-        <div key={`clause_${clause.id}`} className="advanced-search__clause">
-          <LogicalOperator
-            value={clause.logicOperator}
-            handleChange={(value: Operator) =>
-              handleLogicChange(clause.id, value)
-            }
-          />
-          <TreeSelect
-            data={searchTerms}
-            onSelect={(value: SearchTermType) =>
-              handleFieldSelect(clause.id, value)
-            }
-            autocompletePlaceholder="Search for field"
-            value={clause.searchTerm}
-            autocomplete
-          />
-          <Field
-            field={clause.searchTerm}
-            handleInputChange={(value: string, id?: string) =>
-              handleInputChange(clause.id, value, id)
-            }
-            handleRangeInputChange={(value: string, from?: boolean) =>
-              handleRangeInputChange(clause.id, value, from)
-            }
-            queryInput={clause.queryInput}
-          />
-          {evidencesData && (
-            <EvidenceField
-              handleChange={(value: string) =>
-                handleEvidenceChange(clause.id, value)
+  const handleLogicChange = (clauseId: string, value: Operator) => {
+    setClauseList(
+      clauseList.map((clause) => {
+        if (clause.id === clauseId) {
+          return {
+            ...clause,
+            logicOperator: value,
+          };
+        }
+        return clause;
+      })
+    );
+  };
+
+  const handleInputChange = (clauseId: string, value: string, id?: string) => {
+    setClauseList(
+      clauseList.map((clause) => {
+        if (clause.id === clauseId) {
+          return {
+            ...clause,
+            queryInput: {
+              ...clause.queryInput,
+              stringValue: value,
+              id,
+            },
+          };
+        }
+        return clause;
+      })
+    );
+  };
+
+  return (
+    <>
+      {clauseList.map((clause) => {
+        if (!clause.searchTerm) {
+          return null;
+        }
+
+        let evidencesData;
+        if (clause.searchTerm.hasEvidence && evidences) {
+          const evidencesType =
+            clause.searchTerm.term === Evidence.GO
+              ? Evidence.GO
+              : Evidence.ANNOTATION;
+          evidencesData = evidences[evidencesType] || [];
+        }
+
+        return (
+          <div key={`clause_${clause.id}`} className="advanced-search__clause">
+            <LogicalOperator
+              value={clause.logicOperator}
+              handleChange={(value: Operator) =>
+                handleLogicChange(clause.id, value)
               }
-              value={clause.queryInput.evidenceValue}
-              data={evidencesData}
             />
-          )}
-          <button
-            type="button"
-            className="button tertiary button-remove"
-            data-testid="clause-list-button-remove"
-            onClick={() => handleRemoveClause(clause.id)}
-          >
-            Remove
-          </button>
-        </div>
-      );
-    })}
-  </Fragment>
-);
+            <TreeSelect
+              data={searchTerms}
+              onSelect={(value: SearchTermType) =>
+                handleFieldSelect(clause.id, value)
+              }
+              autocompletePlaceholder="Search for field"
+              value={clause.searchTerm}
+              autocomplete
+            />
+            <Field
+              field={clause.searchTerm}
+              handleInputChange={(value: string, id?: string) =>
+                handleInputChange(clause.id, value, id)
+              }
+              handleRangeInputChange={(value: string, from?: boolean) =>
+                handleRangeInputChange(clause.id, value, from)
+              }
+              queryInput={clause.queryInput}
+            />
+            {evidencesData && (
+              <EvidenceField
+                handleChange={(value: string) =>
+                  handleEvidenceChange(clause.id, value)
+                }
+                value={clause.queryInput.evidenceValue}
+                data={evidencesData}
+              />
+            )}
+            <button
+              type="button"
+              className="button tertiary button-remove"
+              data-testid="clause-list-button-remove"
+              onClick={() => handleRemoveClause(clause.id)}
+            >
+              Remove
+            </button>
+          </div>
+        );
+      })}
+    </>
+  );
+};
 
 export default ClauseList;

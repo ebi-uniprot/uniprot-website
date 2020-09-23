@@ -11,21 +11,6 @@ export type SearchAction = ActionType<typeof searchActions>;
 
 export const clause = (state: Clause, action: SearchAction) => {
   switch (action.type) {
-    case searchActions.SELECT_SEARCH_TERM:
-      return {
-        ...state,
-        searchTerm: action.payload.searchTerm,
-        queryInput: action.payload.queryInput,
-      };
-    case searchActions.UPDATE_INPUT_VALUE:
-      return {
-        ...state,
-        queryInput: {
-          ...state.queryInput,
-          stringValue: action.payload.value,
-          id: action.payload.id,
-        },
-      };
     case searchActions.UPDATE_RANGE_VALUE:
       return {
         ...state,
@@ -42,11 +27,6 @@ export const clause = (state: Clause, action: SearchAction) => {
           evidenceValue: action.payload.value,
         },
       };
-    case searchActions.UPDATE_LOGIC_OPERATOR:
-      return {
-        ...state,
-        logicOperator: action.payload.value,
-      };
     default:
       return state;
   }
@@ -57,11 +37,8 @@ const searchReducers = (
   action: SearchAction
 ): SearchState => {
   switch (action.type) {
-    case searchActions.SELECT_SEARCH_TERM:
-    case searchActions.UPDATE_INPUT_VALUE:
     case searchActions.UPDATE_RANGE_VALUE:
     case searchActions.UPDATE_EVIDENCE:
-    case searchActions.UPDATE_LOGIC_OPERATOR:
       return {
         ...state,
         clauses: state.clauses.map((c) => {
