@@ -173,11 +173,11 @@ const MSAView: FC<MSAViewProps> = ({
 
       <section className="msa-view__row msa-view__row--msa-track">
         <div className="track-label">
-          <div style={{ height: msaOffsetTop }} />
-          {alignment.map((s) => (
+          {alignment.map((s, index) => (
             <div
               style={{
                 height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               key={s.name}
             >
@@ -186,11 +186,11 @@ const MSAView: FC<MSAViewProps> = ({
           ))}
         </div>
         <span className="left-coord">
-          <div style={{ height: msaOffsetTop }} />
-          {alignment.map((s) => (
+          {alignment.map((s, index) => (
             <div
               style={{
                 height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               key={s.name}
             >
@@ -214,11 +214,11 @@ const MSAView: FC<MSAViewProps> = ({
           </protvista-manager>
         </div>
         <span className="right-coord">
-          <div style={{ height: msaOffsetTop }} />
-          {alignment.map((s) => (
+          {alignment.map((s, index) => (
             <div
               style={{
                 height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               key={s.name}
             >
