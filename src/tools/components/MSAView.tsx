@@ -8,25 +8,20 @@ import React, {
   Dispatch,
   SetStateAction,
 } from 'react';
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaNavigation from 'protvista-navigation';
-import ProtvistaTrack from 'protvista-track';
-import ProtvistaMSA from 'protvista-msa';
-import { MsaColorScheme } from '../config/msaColorSchemes';
-import FeatureType from '../../uniprotkb/types/featureType';
-import { loadWebComponent } from '../../shared/utils/utils';
+import { Loading } from 'franklin-sites';
+
 import { MSAInput, ConservationOptions } from './MSAWrapper';
+import AlignmentOverview from './AlignmentOverview';
+
 import { processFeaturesData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
   transformFeaturesPositions,
   getFullAlignmentSegments,
 } from '../utils/sequences';
-import AlignmentOverview from './AlignmentOverview';
+import useCustomElement from '../../shared/hooks/useCustomElement';
 
-loadWebComponent('protvista-navigation', ProtvistaNavigation);
-loadWebComponent('protvista-track', ProtvistaTrack);
-loadWebComponent('protvista-msa', ProtvistaMSA);
-loadWebComponent('protvista-manager', ProtvistaManager);
+import { MsaColorScheme } from '../config/msaColorSchemes';
+import FeatureType from '../../uniprotkb/types/featureType';
 
 // Do we have this defined somewhere else?
 type EventDetail = {
@@ -85,6 +80,11 @@ const MSAView: FC<MSAViewProps> = ({
     [initialDisplayEnd, findHighlighPositions, tracksOffset]
   );
 
+  const trackDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'protvista-track'
+  );
+
   const setMSAAttributes = useCallback(
     (node): void => {
       if (!node) {
@@ -108,12 +108,32 @@ const MSAView: FC<MSAViewProps> = ({
     [alignment, alignmentLength]
   );
 
+  const navigationDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
+      ),
+    'protvista-navigation'
+  );
+  const msaDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
+    'protvista-msa'
+  );
+  const managerDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
+    'protvista-manager'
+  );
+
+  const ceDefined =
+    trackDefined && navigationDefined && msaDefined && managerDefined;
+
   // This should use state to handle selection of alignment and set features
   const features = useMemo(() => alignment[1].features, [alignment]);
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && features && annotation) {
+      if (node && ceDefined && features && annotation) {
         let processedFeatures = processFeaturesData(
           features.filter(({ type }) => type === annotation)
         );
@@ -121,13 +141,17 @@ const MSAView: FC<MSAViewProps> = ({
         node.data = processedFeatures;
       }
     },
-    [features, annotation]
+    [ceDefined, features, annotation]
   );
 
   const overviewHeight: string = (alignment && alignment.length > 10
     ? alignment.length * 3
     : 30
   ).toString();
+
+  if (!ceDefined) {
+    return <Loading />;
+  }
 
   return (
     <section

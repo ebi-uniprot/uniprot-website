@@ -2,14 +2,13 @@
 import React, { FC, useCallback, useState, useRef, useMemo } from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
-import ProtvistaTrack from 'protvista-track';
-import ProtvistaNavigation from 'protvista-navigation';
+
+import { EnrichedBlastHit } from './BlastResult';
 
 import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
-
-import { loadWebComponent } from '../../../../shared/utils/utils';
+import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { HSPDetailPanelProps } from './HSPDetailPanel';
@@ -19,7 +18,6 @@ import {
 } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/BlastResultTable.scss';
-import { EnrichedBlastHit } from './BlastResult';
 
 const BlastSummaryTrack: FC<{
   hsp: BlastHsp;
@@ -44,9 +42,14 @@ const BlastSummaryTrack: FC<{
     hsp_expect,
   } = hsp;
 
+  const ceDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'protvista-track'
+  );
+
   const setTrackData = useCallback(
     (node): void => {
-      if (node) {
+      if (node && ceDefined) {
         /**
          * TODO - would be nice to add gaps
          * at some point
@@ -77,7 +80,7 @@ const BlastSummaryTrack: FC<{
         ];
       }
     },
-    [hsp_query_from, hsp_query_to, hsp_identity, hitLength]
+    [ceDefined, hsp_query_from, hsp_query_to, hsp_identity, hitLength]
   );
 
   return (
@@ -182,6 +185,7 @@ const BlastResultTable: FC<{
 }) => {
   // logic to keep stale data available
   const hitsRef = useRef<BlastHit[]>([]);
+
   if (data?.hits.length) {
     hitsRef.current = data?.hits || [];
   }
@@ -192,10 +196,18 @@ const BlastResultTable: FC<{
       : undefined
   );
 
+  const ceDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
+      ),
+    'protvista-navigation'
+  );
+
   // The "query" column header
   const queryColumnHeaderRef = useCallback(
     (node) => {
-      if (node && data) {
+      if (node && ceDefined && data) {
         const { query_len } = data;
         // eslint-disable-next-line no-param-reassign
         node.data = [
@@ -206,11 +218,8 @@ const BlastResultTable: FC<{
         ];
       }
     },
-    [data]
+    [data, ceDefined]
   );
-
-  loadWebComponent('protvista-track', ProtvistaTrack);
-  loadWebComponent('protvista-navigation', ProtvistaNavigation);
 
   const queryLen = data?.query_len;
   const columns = useMemo(() => {

@@ -1,17 +1,13 @@
 import React, { useCallback, FC } from 'react';
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaDatatable from 'protvista-datatable';
-import ProtvistaStructure from 'protvista-structure';
 import { TemplateResult, html } from 'lit-html';
-import { loadWebComponent } from '../../../shared/utils/utils';
+import { Loader } from 'franklin-sites';
+
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { PDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
 import { Xref } from '../../types/commentTypes';
-import 'litemol/dist/css/LiteMol-plugin.css';
 
-loadWebComponent('protvista-manager', ProtvistaManager);
-loadWebComponent('protvista-datatable', ProtvistaDatatable);
-loadWebComponent('protvista-structure', ProtvistaStructure);
+import 'litemol/dist/css/LiteMol-plugin.css';
 
 const processData = (xrefs: Xref[]) =>
   xrefs.map(({ id, properties }) => {
@@ -78,12 +74,7 @@ const getColumnConfig = () => ({
                 >${displayName}</a
               >
             `
-        ).reduce(
-          (prev, curr) =>
-            html`
-              ${prev} · ${curr}
-            `
-        )}
+        ).reduce((prev, curr) => html` ${prev} · ${curr} `)}
       `,
   },
 });
@@ -93,10 +84,31 @@ const PDBView: FC<{
   noStructure?: boolean;
   primaryAccession?: string;
 }> = ({ xrefs, noStructure = false, primaryAccession }) => {
+  const structureDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-structure" */ 'protvista-structure'
+      ),
+    'protvista-structure'
+  );
+  const managerDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
+    'protvista-manager'
+  );
+  const datatableDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
+  const ceDefined = structureDefined && managerDefined && datatableDefined;
+
   const data = processData(xrefs);
   const setTableData = useCallback(
     (node): void => {
-      if (node) {
+      if (node && datatableDefined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
         // eslint-disable-next-line no-param-reassign
@@ -105,8 +117,12 @@ const PDBView: FC<{
         node.rowClickEvent = ({ id }: { id: string }) => ({ 'pdb-id': id });
       }
     },
-    [data]
+    [datatableDefined, data]
   );
+
+  if (!ceDefined) {
+    return <Loader />;
+  }
 
   if (noStructure) {
     return <protvista-datatable ref={setTableData} />;

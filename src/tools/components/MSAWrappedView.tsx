@@ -9,15 +9,12 @@ import React, {
   Dispatch,
 } from 'react';
 import { debounce } from 'lodash-es';
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaTrack from 'protvista-track';
-import ProtvistaMSA from 'protvista-msa';
-
-import { loadWebComponent } from '../../shared/utils/utils';
+import { Loading } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
+import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
@@ -29,10 +26,6 @@ import {
   processFeaturesData,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import { transformFeaturesPositions } from '../utils/sequences';
-
-loadWebComponent('protvista-track', ProtvistaTrack);
-loadWebComponent('protvista-msa', ProtvistaMSA);
-loadWebComponent('protvista-manager', ProtvistaManager);
 
 const widthOfAA = 20;
 
@@ -68,19 +61,28 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   sequences,
   selectedId,
 }) => {
+  const msaDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
+    'protvista-msa'
+  );
+
   const setMSAAttributes = useCallback(
     (node): void => {
-      if (!node) {
-        return;
+      if (node && msaDefined) {
+        node.data = sequences;
       }
-      node.data = sequences;
     },
-    [sequences]
+    [msaDefined, sequences]
+  );
+
+  const trackDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'provista-track'
   );
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && annotation) {
+      if (node && trackDefined && annotation) {
         const featuresSeq = sequences.find(
           ({ accession }) => accession && accession === selectedId
         );
@@ -97,8 +99,12 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         }
       }
     },
-    [annotation, selectedId, sequences]
+    [trackDefined, annotation, selectedId, sequences]
   );
+
+  if (!(msaDefined && trackDefined)) {
+    return <Loading />;
+  }
 
   return (
     <section

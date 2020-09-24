@@ -1,11 +1,10 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { html, TemplateResult } from 'lit-html';
-import ProtvistaTrack from 'protvista-track';
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaSequence from 'protvista-sequence';
-import ProtvistaNavigation from 'protvista-navigation';
 import { v1 } from 'uuid';
-import { loadWebComponent } from '../../../shared/utils/utils';
+import { Loader } from 'franklin-sites';
+
+import useCustomElement from '../../../shared/hooks/useCustomElement';
+
 import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
@@ -95,10 +94,24 @@ const FeaturesView: React.FC<FeatureProps> = ({
   sequence,
   features,
 }): JSX.Element | null => {
-  loadWebComponent('protvista-track', ProtvistaTrack);
-  loadWebComponent('protvista-manager', ProtvistaManager);
-  loadWebComponent('protvista-sequence', ProtvistaSequence);
-  loadWebComponent('protvista-navigation', ProtvistaNavigation);
+  const navigationDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
+      ),
+    'protvista-navigation'
+  );
+  const sequenceDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
+    'protvista-sequence'
+  );
+  const managerDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
+    'protvista-manager'
+  );
+  const ceDefined = navigationDefined && sequenceDefined && managerDefined;
 
   const processedData = processFeaturesData(features, sequence);
 
@@ -134,26 +147,35 @@ const FeaturesView: React.FC<FeatureProps> = ({
     },
   });
 
+  const trackDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'protvista-track'
+  );
+
   const setTrackData = useCallback(
     (node): void => {
-      if (node) {
+      if (node && trackDefined) {
         // eslint-disable-next-line no-param-reassign
         node.data = processedData;
       }
     },
-    [processedData]
+    [trackDefined, processedData]
   );
 
   if (processedData.length === 0) {
     return null;
   }
 
+  if (!ceDefined) {
+    return <Loader />;
+  }
+
   return (
-    <Fragment>
+    <>
       <h3>Features</h3>
       <protvista-manager attributes="highlight displaystart displayend selectedid">
         {sequence && (
-          <Fragment>
+          <>
             <protvista-navigation length={sequence.length} />
             <protvista-track
               ref={setTrackData}
@@ -165,14 +187,14 @@ const FeaturesView: React.FC<FeatureProps> = ({
               length={sequence.length}
               height="20"
             />
-          </Fragment>
+          </>
         )}
         <FeaturesTableView
           data={processedData}
           getColumnConfig={getColumnConfig}
         />
       </protvista-manager>
-    </Fragment>
+    </>
   );
 };
 
