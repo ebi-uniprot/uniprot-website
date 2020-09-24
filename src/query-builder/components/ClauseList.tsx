@@ -59,7 +59,7 @@ const ClauseItem: React.FC<{
   }
 
   return (
-    <div key={`clause_${clause.id}`} className="advanced-search__clause">
+    <div className="advanced-search__clause">
       <LogicalOperator
         value={clause.logicOperator}
         handleChange={(value: Operator) => handleLogicChange(clause.id, value)}
@@ -144,7 +144,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
     []
   );
 
-  const handleLogicChange = (clauseId: string, value: Operator) => {
+  const handleLogicChange = useCallback((clauseId: string, value: Operator) => {
     setClauseList((clauseList) =>
       clauseList.map((clause) => {
         if (clause.id === clauseId) {
@@ -156,68 +156,74 @@ const ClauseList: React.FC<ClauseListProps> = ({
         return clause;
       })
     );
-  };
+  }, []);
 
-  const handleInputChange = (clauseId: string, value: string, id?: string) => {
-    setClauseList((clauseList) =>
-      clauseList.map((clause) => {
-        if (clause.id === clauseId) {
-          return {
-            ...clause,
-            queryInput: {
-              ...clause.queryInput,
-              stringValue: value,
-              id,
-            },
-          };
-        }
-        return clause;
-      })
-    );
-  };
+  const handleInputChange = useCallback(
+    (clauseId: string, value: string, id?: string) => {
+      setClauseList((clauseList) =>
+        clauseList.map((clause) => {
+          if (clause.id === clauseId) {
+            return {
+              ...clause,
+              queryInput: {
+                ...clause.queryInput,
+                stringValue: value,
+                id,
+              },
+            };
+          }
+          return clause;
+        })
+      );
+    },
+    []
+  );
 
-  const handleEvidenceChange = (clauseId: string, value: string) => {
-    setClauseList((clauseList) =>
-      clauseList.map((clause) => {
-        if (clause.id === clauseId) {
-          return {
-            ...clause,
-            queryInput: {
-              ...clause.queryInput,
-              evidenceValue: value,
-            },
-          };
-        }
-        return clause;
-      })
-    );
-  };
+  const handleEvidenceChange = useCallback(
+    (clauseId: string, value: string) => {
+      setClauseList((clauseList) =>
+        clauseList.map((clause) => {
+          if (clause.id === clauseId) {
+            return {
+              ...clause,
+              queryInput: {
+                ...clause.queryInput,
+                evidenceValue: value,
+              },
+            };
+          }
+          return clause;
+        })
+      );
+    },
+    []
+  );
 
-  const handleRangeInputChange = (
-    clauseId: string,
-    value: string,
-    from?: boolean
-  ) => {
-    setClauseList((clauseList) =>
-      clauseList.map((clause) => {
-        if (clause.id === clauseId) {
-          return {
-            ...clause,
-            queryInput: {
-              ...clause.queryInput,
-              [from ? 'rangeFrom' : 'rangeTo']: value,
-            },
-          };
-        }
-        return clause;
-      })
-    );
-  };
+  const handleRangeInputChange = useCallback(
+    (clauseId: string, value: string, from?: boolean) => {
+      setClauseList((clauseList) =>
+        clauseList.map((clause) => {
+          if (clause.id === clauseId) {
+            return {
+              ...clause,
+              queryInput: {
+                ...clause.queryInput,
+                [from ? 'rangeFrom' : 'rangeTo']: value,
+              },
+            };
+          }
+          return clause;
+        })
+      );
+    },
+    []
+  );
 
   return (
     <>
       {clauseList.map((clause) => (
         <MemoizedClauseItem
+          key={`clause_${clause.id}`}
           clause={clause}
           searchTerms={searchTerms}
           evidences={evidences}
