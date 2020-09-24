@@ -108,6 +108,7 @@ const MemoizedClauseItem = React.memo(ClauseItem);
 
 type ClauseListProps = {
   clauses: Clause[];
+  setClauses: React.Dispatch<React.SetStateAction<Clause[]>>;
   searchTerms: SearchTermType[];
   evidences: Evidences;
   removeClause: (clauseId: string) => void;
@@ -115,15 +116,14 @@ type ClauseListProps = {
 
 const ClauseList: React.FC<ClauseListProps> = ({
   clauses,
+  setClauses,
   searchTerms,
   evidences,
   removeClause,
 }) => {
-  const [clauseList, setClauseList] = useState(clauses);
-
   const handleFieldSelect = useCallback(
     (clauseId: string, searchTerm: SearchTermType) => {
-      setClauseList((clauseList) =>
+      setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
@@ -141,26 +141,29 @@ const ClauseList: React.FC<ClauseListProps> = ({
         })
       );
     },
-    []
+    [setClauses]
   );
 
-  const handleLogicChange = useCallback((clauseId: string, value: Operator) => {
-    setClauseList((clauseList) =>
-      clauseList.map((clause) => {
-        if (clause.id === clauseId) {
-          return {
-            ...clause,
-            logicOperator: value,
-          };
-        }
-        return clause;
-      })
-    );
-  }, []);
+  const handleLogicChange = useCallback(
+    (clauseId: string, value: Operator) => {
+      setClauses((clauseList) =>
+        clauseList.map((clause) => {
+          if (clause.id === clauseId) {
+            return {
+              ...clause,
+              logicOperator: value,
+            };
+          }
+          return clause;
+        })
+      );
+    },
+    [setClauses]
+  );
 
   const handleInputChange = useCallback(
     (clauseId: string, value: string, id?: string) => {
-      setClauseList((clauseList) =>
+      setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
@@ -176,12 +179,12 @@ const ClauseList: React.FC<ClauseListProps> = ({
         })
       );
     },
-    []
+    [setClauses]
   );
 
   const handleEvidenceChange = useCallback(
     (clauseId: string, value: string) => {
-      setClauseList((clauseList) =>
+      setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
@@ -196,12 +199,12 @@ const ClauseList: React.FC<ClauseListProps> = ({
         })
       );
     },
-    []
+    [setClauses]
   );
 
   const handleRangeInputChange = useCallback(
     (clauseId: string, value: string, from?: boolean) => {
-      setClauseList((clauseList) =>
+      setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
@@ -216,12 +219,12 @@ const ClauseList: React.FC<ClauseListProps> = ({
         })
       );
     },
-    []
+    [setClauses]
   );
 
   return (
     <>
-      {clauseList.map((clause) => (
+      {clauses.map((clause) => (
         <MemoizedClauseItem
           key={`clause_${clause.id}`}
           clause={clause}
