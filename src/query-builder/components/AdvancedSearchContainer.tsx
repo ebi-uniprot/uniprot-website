@@ -16,12 +16,6 @@ import '../../uniprotkb/components/search/styles/search-container.scss';
 type Props = {
   dispatchUpdateQueryString: (type: string) => void;
   dispatchUpdateClauses: (clauses: Clause[]) => void;
-  handleEvidenceChange: (clauseId: string, value: string) => void;
-  handleRangeInputChange: (
-    clauseId: string,
-    value: string,
-    from?: boolean
-  ) => void;
   handleRemoveClause: (clauseId: string) => void;
 } & RouteComponentProps;
 
@@ -58,13 +52,6 @@ export class Search extends Component<Props, State> {
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      handleEvidenceChange: (clauseId: string, value: string) =>
-        searchActions.updateEvidence(clauseId, value),
-      handleRangeInputChange: (
-        clauseId: string,
-        value: string,
-        from?: boolean
-      ) => searchActions.updateRangeValue(clauseId, value, from),
       handleRemoveClause: (clauseId: string) =>
         searchActions.removeClause(clauseId),
       dispatchUpdateClauses: (clauses) => searchActions.updateClauses(clauses),

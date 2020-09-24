@@ -17,12 +17,6 @@ import './styles/advanced-search.scss';
 
 type AdvancedSearchProps = {
   queryString: string;
-  handleEvidenceChange: (clauseId: string, value: string) => void;
-  handleRangeInputChange: (
-    clauseId: string,
-    value: string,
-    from?: boolean
-  ) => void;
   handleRemoveClause: (clauseId: string) => void;
 };
 const AdvancedSearch: FC<AdvancedSearchProps> = (props) => {

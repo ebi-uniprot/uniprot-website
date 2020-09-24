@@ -24,12 +24,6 @@ type ClauseListProps = {
   clauses: Clause[];
   searchTerms: SearchTermType[];
   evidences: Evidences;
-  handleEvidenceChange: (clauseId: string, value: string) => void;
-  handleRangeInputChange: (
-    clauseId: string,
-    value: string,
-    from?: boolean
-  ) => void;
   handleRemoveClause: (clauseId: string) => void;
 };
 
@@ -37,8 +31,6 @@ const ClauseList: React.FC<ClauseListProps> = ({
   clauses,
   searchTerms,
   evidences,
-  handleEvidenceChange,
-  handleRangeInputChange,
   handleRemoveClause,
 }) => {
   const [clauseList, setClauseList] = useState(clauses);
@@ -87,6 +79,44 @@ const ClauseList: React.FC<ClauseListProps> = ({
               ...clause.queryInput,
               stringValue: value,
               id,
+            },
+          };
+        }
+        return clause;
+      })
+    );
+  };
+
+  const handleEvidenceChange = (clauseId: string, value: string) => {
+    setClauseList(
+      clauseList.map((clause) => {
+        if (clause.id === clauseId) {
+          return {
+            ...clause,
+            queryInput: {
+              ...clause.queryInput,
+              evidenceValue: value,
+            },
+          };
+        }
+        return clause;
+      })
+    );
+  };
+
+  const handleRangeInputChange = (
+    clauseId: string,
+    value: string,
+    from?: boolean
+  ) => {
+    setClauseList(
+      clauseList.map((clause) => {
+        if (clause.id === clauseId) {
+          return {
+            ...clause,
+            queryInput: {
+              ...clause.queryInput,
+              [from ? 'rangeFrom' : 'rangeTo']: value,
             },
           };
         }

@@ -5,49 +5,14 @@ import {
   createPreSelectedClauses,
 } from '../../query-builder/utils/clause';
 import searchInitialState, { SearchState } from './searchInitialState';
-import { Clause } from '../../query-builder/types/searchTypes';
 
 export type SearchAction = ActionType<typeof searchActions>;
-
-export const clause = (state: Clause, action: SearchAction) => {
-  switch (action.type) {
-    case searchActions.UPDATE_RANGE_VALUE:
-      return {
-        ...state,
-        queryInput: {
-          ...state.queryInput,
-          [action.payload.from ? 'rangeFrom' : 'rangeTo']: action.payload.value,
-        },
-      };
-    case searchActions.UPDATE_EVIDENCE:
-      return {
-        ...state,
-        queryInput: {
-          ...state.queryInput,
-          evidenceValue: action.payload.value,
-        },
-      };
-    default:
-      return state;
-  }
-};
 
 const searchReducers = (
   state: SearchState = searchInitialState,
   action: SearchAction
 ): SearchState => {
   switch (action.type) {
-    case searchActions.UPDATE_RANGE_VALUE:
-    case searchActions.UPDATE_EVIDENCE:
-      return {
-        ...state,
-        clauses: state.clauses.map((c) => {
-          if (c.id !== action.payload.clauseId) {
-            return c;
-          }
-          return clause(c, action);
-        }),
-      };
     case searchActions.SUBMIT_ADVANCED_QUERY:
       return {
         ...state,
