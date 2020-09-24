@@ -69,6 +69,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   annotation,
   sequences,
   selectedId,
+  setSelectedId,
 }) => {
   const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
 
@@ -120,7 +121,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               withCheckbox
-              onIdClick={() => console.log(s.accession)}
+              onIdClick={() => setSelectedId(s.accession)}
             >
               {s.name || ''}
             </AlignLabel>
