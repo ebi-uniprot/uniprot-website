@@ -86,9 +86,11 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     getAccessionsURL([hitAccession], { facets: [] })
   );
 
+  const apiData = extra || data?.results?.[0];
+
   const recommendedName =
-    data?.results?.[0]?.proteinDescription?.recommendedName?.fullName.value;
-  const organism = data?.results?.[0]?.organism?.scientificName;
+    apiData?.proteinDescription?.recommendedName?.fullName.value;
+  const organism = apiData?.organism?.scientificName;
 
   const title = [hitAccession, recommendedName, organism]
     .filter(Boolean)
@@ -99,14 +101,16 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     queryLength,
     hitLength,
     hitAccession,
-    extra
+    apiData
   );
 
   let content;
-  if (error) {
-    content = <ErrorHandler status={status} />;
-  } else if (loading) {
-    content = <Loader />;
+  if (!apiData) {
+    if (error) {
+      content = <ErrorHandler status={status} />;
+    } else if (loading) {
+      content = <Loader />;
+    }
   } else {
     content = (
       <>
@@ -127,7 +131,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
       </>
     );
   }
-  console.log(status, loading, data, error, alignment[1].features);
+  // console.log(error, alignment[1].features);
 
   return (
     <SlidingPanel position="bottom" className="hsp-detail-panel">
