@@ -16,6 +16,7 @@ type Props = {
   loading: boolean;
   style: CSSProperties;
   withCheckbox: boolean;
+  onIdClick: func;
 };
 
 const AlignLabel: FC<Props> = ({
@@ -25,6 +26,7 @@ const AlignLabel: FC<Props> = ({
   children,
   style,
   withCheckbox = false,
+  onIdClick,
 }) => {
   const invalid = accession && !loading && !info;
   const title = invalid
@@ -65,7 +67,13 @@ const AlignLabel: FC<Props> = ({
       {before}
       {/* inject a link to the entry page */}
       <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
-      {after.join(accession)}
+      {onIdClick ? (
+        <button className="button tertiary" onClick={onIdClick}>
+          {after.join(',')}
+        </button>
+      ) : (
+        after.join(',')
+      )}
     </span>
   );
 };

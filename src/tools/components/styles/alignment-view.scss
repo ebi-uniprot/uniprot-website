@@ -35,13 +35,18 @@
         list-style: none;
 
         .align-label {
-          font-size: 12px;
+          font-size: 0.75rem;
           border-top: 1px solid $colour-gainsborough;
           display: flex;
           align-items: center;
 
           &:last-child {
             border-bottom: 1px solid $colour-gainsborough;
+          }
+
+          button {
+            margin: 0;
+            font-size: 0.75rem;
           }
         }
       }

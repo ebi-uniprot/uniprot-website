@@ -120,6 +120,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               withCheckbox
+              onIdClick={() => console.log(s.accession)}
             >
               {s.name || ''}
             </AlignLabel>
