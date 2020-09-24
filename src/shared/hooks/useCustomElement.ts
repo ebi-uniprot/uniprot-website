@@ -27,12 +27,7 @@ const useCustomElement = (
     CEgetter.current()
       .then((module) => {
         if (!window.customElements.get(name)) {
-          try {
-            window.customElements.define(name, module.default);
-          } catch (err) {
-            console.error(err);
-            console.log(module, name);
-          }
+          window.customElements.define(name, module.default);
         }
         setDefined(true);
       })

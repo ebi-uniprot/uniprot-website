@@ -80,19 +80,20 @@ const MSAView: FC<MSAViewProps> = ({
     [initialDisplayEnd, findHighlighPositions, tracksOffset]
   );
 
-  const trackDefined = useCustomElement(
-    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'protvista-track'
+  const msaDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
+    'protvista-msa'
   );
 
   const setMSAAttributes = useCallback(
     (node): void => {
-      if (!node) {
+      if (!(node && msaDefined)) {
         return;
       }
 
-      const displayEndValue =
-        alignmentLength / (15 / node.getSingleBaseWidth());
+      const singleBaseWidth =
+        'getSingleBaseWidth' in node ? node.getSingleBaseWidth() : 15;
+      const displayEndValue = alignmentLength / (15 / singleBaseWidth);
 
       const maxSequenceLength = Math.max(
         ...alignment.map((al) => al.sequence.length)
@@ -105,19 +106,19 @@ const MSAView: FC<MSAViewProps> = ({
 
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [alignment, alignmentLength]
+    [msaDefined, alignment, alignmentLength]
   );
 
+  const trackDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'protvista-track'
+  );
   const navigationDefined = useCustomElement(
     () =>
       import(
         /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
       ),
     'protvista-navigation'
-  );
-  const msaDefined = useCustomElement(
-    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
-    'protvista-msa'
   );
   const managerDefined = useCustomElement(
     () =>

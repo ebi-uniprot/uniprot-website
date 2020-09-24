@@ -65,7 +65,7 @@ const FeaturesTableView: FC<{
         node.columns = getColumnConfig(evidenceTagCallback);
       }
     },
-    [data, getColumnConfig]
+    [datatableDefined, data, getColumnConfig]
   );
 
   return (

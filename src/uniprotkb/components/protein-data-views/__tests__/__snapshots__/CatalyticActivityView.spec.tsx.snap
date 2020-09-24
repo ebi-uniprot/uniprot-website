@@ -286,16 +286,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
 </DocumentFragment>
 `;
 
-exports[`RheaReactionVisualizer component should render RheaReactionVisualizer 1`] = `
-<DocumentFragment>
-  <button
-    class="button tertiary rhea-reaction-visualizer__button"
-    type="button"
-  >
-    View Rhea reaction
-  </button>
-</DocumentFragment>
-`;
+exports[`RheaReactionVisualizer component should render RheaReactionVisualizer 1`] = `<DocumentFragment />`;
 
 exports[`ZoomModalContent component should render 1`] = `
 <DocumentFragment>
