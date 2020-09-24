@@ -18,4 +18,8 @@
   &--loading {
     animation: alternate loading 500ms infinite ease-in-out;
   }
+
+  input[type='checkbox'] {
+    margin: 0 0.4rem 0 0;
+  }
 }

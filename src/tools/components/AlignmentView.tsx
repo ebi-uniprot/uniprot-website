@@ -5,6 +5,7 @@ import cn from 'classnames';
 import BlastOverview from './BlastOverview';
 import BlastWrapped from './BlastWrapped';
 import AlignOverview from './AlignOverview';
+import AlignWrapped from './AlignWrapped';
 
 import {
   msaColorSchemeToString,
@@ -190,6 +191,19 @@ const AlignmentView: React.FC<{
 
         {activeView === View.overview && tool === Tool.align && (
           <AlignOverview
+            alignment={alignment}
+            alignmentLength={alignmentLength}
+            highlightProperty={highlightProperty}
+            conservationOptions={conservationOptions}
+            totalLength={totalLength}
+            annotation={annotation}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+          />
+        )}
+
+        {activeView === View.wrapped && tool === Tool.align && (
+          <AlignWrapped
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}

@@ -12,7 +12,7 @@
 
   &__row {
     display: grid;
-    grid-template-columns: 15vw auto 4vw;
+    grid-template-columns: 17vw auto 4vw;
     grid-template-areas: 'label track .';
     align-items: center;
 
@@ -38,6 +38,7 @@
           font-size: 12px;
           border-top: 1px solid $colour-gainsborough;
           display: flex;
+          align-items: center;
 
           &:last-child {
             border-bottom: 1px solid $colour-gainsborough;

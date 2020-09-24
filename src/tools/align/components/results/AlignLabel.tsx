@@ -15,6 +15,7 @@ type Props = {
   info?: ParsedSequenceAndFeatures;
   loading: boolean;
   style: CSSProperties;
+  withCheckbox: boolean;
 };
 
 const AlignLabel: FC<Props> = ({
@@ -23,6 +24,7 @@ const AlignLabel: FC<Props> = ({
   loading,
   children,
   style,
+  withCheckbox = false,
 }) => {
   const invalid = accession && !loading && !info;
   const title = invalid
@@ -58,6 +60,7 @@ const AlignLabel: FC<Props> = ({
 
   return (
     <span className={className} style={style}>
+      {withCheckbox && <input type="checkbox" />}
       {reviewImg}
       {before}
       {/* inject a link to the entry page */}
