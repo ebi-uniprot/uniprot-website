@@ -312,7 +312,7 @@ const BlastResult = () => {
       isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
-
+  console.log('hspDetailPanel', hspDetailPanel);
   return (
     <SideBarLayout
       title={

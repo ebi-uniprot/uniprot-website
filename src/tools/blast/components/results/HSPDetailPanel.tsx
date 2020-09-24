@@ -102,30 +102,36 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     extra
   );
 
+  let content;
   if (error) {
-    return <ErrorHandler status={status} />;
+    content = <ErrorHandler status={status} />;
+  } else if (loading) {
+    content = <Loader />;
+  } else {
+    content = (
+      <>
+        <div className="hsp-detail-panel__header">
+          <h4>{title}</h4>
+          <button type="button" onClick={onClose}>
+            <CloseIcon width="16" height="16" />
+          </button>
+        </div>
+        <div className="hsp-detail-panel__body">
+          <AlignmentView
+            alignmentLength={hsp_align_len}
+            // totalLength={totalLength}
+            alignment={alignment}
+            defaultView={View.overview}
+          />
+        </div>
+      </>
+    );
   }
-
-  if (loading) {
-    return <Loader />;
-  }
+  console.log(status, loading, data, error, alignment[1].features);
 
   return (
     <SlidingPanel position="bottom" className="hsp-detail-panel">
-      <div className="hsp-detail-panel__header">
-        <h4>{title}</h4>
-        <button type="button" onClick={onClose}>
-          <CloseIcon width="16" height="16" />
-        </button>
-      </div>
-      <div className="hsp-detail-panel__body">
-        <AlignmentView
-          alignmentLength={hsp_align_len}
-          // totalLength={totalLength}
-          alignment={alignment}
-          defaultView={View.overview}
-        />
-      </div>
+      {content}
     </SlidingPanel>
   );
 };
