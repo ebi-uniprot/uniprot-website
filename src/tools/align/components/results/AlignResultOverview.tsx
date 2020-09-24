@@ -1,7 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 
-import AlignLabel from './AlignLabel';
 import AlignmentView, { View, Tool } from '../../../components/AlignmentView';
 
 import alnClustalNum from '../../adapters/alnClustalNum';

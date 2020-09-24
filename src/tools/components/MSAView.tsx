@@ -22,7 +22,6 @@ import {
   getFullAlignmentSegments,
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
-import AlignLabel from '../align/components/results/AlignLabel';
 
 import './styles/alignment-view.scss';
 
@@ -141,7 +140,7 @@ const MSAView: FC<MSAViewProps> = ({
     ? alignment.length * 3
     : 30
   ).toString();
-  const getWithMSAOffsetTop = (array) => console.log(displayPosition);
+
   return (
     <section data-testid="alignment-view" className="msa-view">
       {/* Query track */}

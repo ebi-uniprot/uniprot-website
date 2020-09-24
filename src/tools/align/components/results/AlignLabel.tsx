@@ -16,7 +16,7 @@ type Props = {
   loading: boolean;
   style: CSSProperties;
   withCheckbox: boolean;
-  onIdClick: func;
+  onIdClick: () => void;
 };
 
 const AlignLabel: FC<Props> = ({
@@ -68,7 +68,7 @@ const AlignLabel: FC<Props> = ({
       {/* inject a link to the entry page */}
       <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
       {onIdClick ? (
-        <button className="button tertiary" onClick={onIdClick}>
+        <button type="button" className="button tertiary" onClick={onIdClick}>
           {after.join(',')}
         </button>
       ) : (
