@@ -24,7 +24,7 @@ import {
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 
-import './styles/MSAView.scss';
+import './styles/alignment-view.scss';
 
 loadWebComponent('protvista-navigation', ProtvistaNavigation);
 loadWebComponent('protvista-track', ProtvistaTrack);

@@ -23,7 +23,7 @@ import {
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
 
-import './styles/MSAView.scss';
+import './styles/alignment-view.scss';
 
 loadWebComponent('protvista-navigation', ProtvistaNavigation);
 loadWebComponent('protvista-track', ProtvistaTrack);
@@ -60,19 +60,13 @@ const BlastOverview: FC<BlastOverviewProps> = ({
     number | undefined
   >();
   const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
-  const [displayPosition, setDisplayPosition] = useState<
-    [number | null, number | null]
-  >([null, null]);
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
 
   const findHighlighPositions = useCallback(
-    (event: EventDetail) => {
-      const displaystart = parseInt(event.displaystart, 10);
-      const displayend = parseInt(event.displayend, 10);
-      const start = tracksOffset + displaystart;
-      const end = tracksOffset + displayend;
-      setDisplayPosition([displaystart, displayend]);
+    ({ displaystart, displayend }: EventDetail) => {
+      const start = tracksOffset + parseInt(displaystart, 10);
+      const end = tracksOffset + parseInt(displayend, 10);
       setHighlighPosition(`${start}:${end}`);
     },
     [tracksOffset]
@@ -99,8 +93,6 @@ const BlastOverview: FC<BlastOverviewProps> = ({
       if (!node) {
         return;
       }
-      console.log(node.getBoundingClientRect());
-      console.log(node.offsetLeft, node.offsetTop);
       setMsaOffsetTop(node.offsetTop);
 
       const displayEndValue =
@@ -200,25 +192,6 @@ const BlastOverview: FC<BlastOverviewProps> = ({
           </protvista-manager>
         </div>
       </section>
-
-      {/* <section className="hsp-label">{annotation}</section>
-        <protvista-track
-          ref={setFeatureTrackData}
-          length={totalLength}
-          layout="non-overlapping"
-          highlight={highlightPosition}
-        />
-        <section className="hsp-label">Alignment</section>
-        <protvista-manager ref={managerRef} attributes="displaystart displayend">
-          <protvista-navigation length={alignmentLength} />
-          <protvista-msa
-            ref={setMSAAttributes}
-            length={alignmentLength}
-            height={alignment.length * 20}
-            colorscheme={highlightProperty}
-            {...conservationOptions}
-          />
-        </protvista-manager> */}
     </section>
   );
 };
