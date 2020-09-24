@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import BlastOverview from './BlastOverview';
 import BlastWrapped from './BlastWrapped';
+import AlignOverview from './AlignOverview';
 
 import {
   msaColorSchemeToString,
@@ -27,6 +28,11 @@ export enum View {
   wrapped = 'Wrapped',
 }
 
+export enum Tool {
+  align = 'Align',
+  blast = 'BLAST',
+}
+
 export type MSAInput = {
   name?: string;
   accession?: string;
@@ -41,7 +47,8 @@ const AlignmentView: React.FC<{
   alignment: MSAInput[];
   alignmentLength: number;
   defaultView?: View;
-}> = ({ alignment, alignmentLength, defaultView }) => {
+  tool: Tool;
+}> = ({ alignment, alignmentLength, defaultView, tool }) => {
   const annotationChoices = useMemo(() => {
     const features = alignment
       .map(({ features }) => features)
@@ -155,7 +162,7 @@ const AlignmentView: React.FC<{
         </fieldset>
       </div>
       <div>
-        {activeView === View.overview ? (
+        {activeView === View.overview && tool === Tool.blast && (
           <BlastOverview
             alignment={alignment}
             alignmentLength={alignmentLength}
@@ -166,8 +173,23 @@ const AlignmentView: React.FC<{
             selectedId={selectedId}
             setSelectedId={setSelectedId}
           />
-        ) : (
+        )}
+
+        {activeView === View.wrapped && tool === Tool.blast && (
           <BlastWrapped
+            alignment={alignment}
+            alignmentLength={alignmentLength}
+            highlightProperty={highlightProperty}
+            conservationOptions={conservationOptions}
+            totalLength={totalLength}
+            annotation={annotation}
+            selectedId={selectedId}
+            setSelectedId={setSelectedId}
+          />
+        )}
+
+        {activeView === View.overview && tool === Tool.align && (
+          <AlignOverview
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}

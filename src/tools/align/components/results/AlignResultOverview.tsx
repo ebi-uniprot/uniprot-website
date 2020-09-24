@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 
 import AlignLabel from './AlignLabel';
-import AlignmentView, { View } from '../../../components/AlignmentView';
+import AlignmentView, { View, Tool } from '../../../components/AlignmentView';
 
 import alnClustalNum from '../../adapters/alnClustalNum';
 
@@ -11,8 +11,6 @@ import {
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
-
-import './styles/AlignResultOverview.scss';
 
 type Props = {
   data: string;
@@ -86,24 +84,12 @@ const AlignResultOverview: FC<Props> = ({ data, sequenceInfo }) => {
   }
 
   return (
-    <section className="align-result-overview">
-      <ul className="align-result-overview--labels">
-        {parsedAndEnriched.sequences.map((s) => (
-          <li key={s.name}>
-            <AlignLabel accession={s.accession} info={s} loading={false}>
-              {s.name || ''}
-            </AlignLabel>
-          </li>
-        ))}
-      </ul>
-      <div className="align-result-overview--msa">
-        <AlignmentView
-          alignment={parsedAndEnriched.sequences}
-          alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
-          defaultView={View.wrapped}
-        />
-      </div>
-    </section>
+    <AlignmentView
+      alignment={parsedAndEnriched.sequences}
+      alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
+      defaultView={View.wrapped}
+      tool={Tool.align}
+    />
   );
 };
 
