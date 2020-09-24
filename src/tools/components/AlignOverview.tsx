@@ -164,7 +164,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       </section>
 
       <section className="alignment-grid__row alignment-grid__row--msa-track">
-        <div className="track-label">
+        <div className="track-label track-label--align-labels">
           {alignment.map((s, index) => (
             <AlignLabel
               accession={s.accession}

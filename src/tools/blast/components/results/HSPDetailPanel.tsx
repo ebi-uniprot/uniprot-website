@@ -12,6 +12,7 @@ import './styles/HSPDetailPanel.scss';
 import AlignmentView, {
   MSAInput,
   View,
+  Tool,
 } from '../../../components/AlignmentView';
 
 type UniProtkbAccessionsAPI = {
@@ -126,6 +127,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
             // totalLength={totalLength}
             alignment={alignment}
             defaultView={View.overview}
+            tool={Tool.blast}
           />
         </div>
       </>

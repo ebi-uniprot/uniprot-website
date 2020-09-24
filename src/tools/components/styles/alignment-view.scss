@@ -1,3 +1,5 @@
+@import '../../../../node_modules/franklin-sites/src/styles/colours';
+
 .alignment-grid {
   margin-bottom: 1em;
   align-items: center;
@@ -10,12 +12,12 @@
 
   &__row {
     display: grid;
-    grid-template-columns: 10vw auto 4vw;
+    grid-template-columns: 15vw auto 4vw;
     grid-template-areas: 'label track .';
     align-items: center;
 
     &--msa-track {
-      grid-template-areas: 'label track';
+      grid-template-areas: 'label track right-coord';
     }
 
     .track-label {
@@ -25,6 +27,22 @@
       font-weight: 800;
       &:first-letter {
         text-transform: uppercase;
+      }
+
+      &--align-labels {
+        align-self: flex-end;
+        margin: 0;
+        list-style: none;
+
+        .align-label {
+          font-size: 12px;
+          border-top: 1px solid $colour-gainsborough;
+          display: flex;
+
+          &:last-child {
+            border-bottom: 1px solid $colour-gainsborough;
+          }
+        }
       }
     }
 

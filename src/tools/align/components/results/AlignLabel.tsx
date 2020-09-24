@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -14,9 +14,16 @@ type Props = {
   children: string;
   info?: ParsedSequenceAndFeatures;
   loading: boolean;
+  style: CSSProperties;
 };
 
-const AlignLabel: FC<Props> = ({ accession, info, loading, children }) => {
+const AlignLabel: FC<Props> = ({
+  accession,
+  info,
+  loading,
+  children,
+  style,
+}) => {
   const invalid = accession && !loading && !info;
   const title = invalid
     ? 'Even though this looks like a valid accession, the sequence appears to have been edited and does not match our data'
@@ -50,7 +57,7 @@ const AlignLabel: FC<Props> = ({ accession, info, loading, children }) => {
   }
 
   return (
-    <span className={className}>
+    <span className={className} style={style}>
       {reviewImg}
       {before}
       {/* inject a link to the entry page */}
