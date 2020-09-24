@@ -26,9 +26,8 @@ import { Column } from '../../types/columnTypes';
 import Response from '../../types/responseTypes';
 
 const Results: FC = () => {
-  const namespace = useSelector<RootState, Namespace>(
-    (state) => state.query.namespace
-  );
+  const namespace = Namespace.uniprotkb; // This should come from the url
+
   const tableColumns = useSelector<RootState, Column[]>(
     (state) => state.results.tableColumns
   );

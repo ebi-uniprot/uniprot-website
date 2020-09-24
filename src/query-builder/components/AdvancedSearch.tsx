@@ -15,11 +15,7 @@ import { Namespace } from '../../shared/types/namespaces';
 
 import './styles/advanced-search.scss';
 
-type AdvancedSearchProps = {
-  queryString: string;
-  handleRemoveClause: (clauseId: string) => void;
-};
-const AdvancedSearch: FC<AdvancedSearchProps> = (props) => {
+const AdvancedSearch: FC = () => {
   // Use namespace hook here when ready
   const { data: searchTermsData } = useDataApi<SearchTermType[]>(
     apiUrls.advancedSearchTerms
@@ -54,6 +50,15 @@ const AdvancedSearch: FC<AdvancedSearchProps> = (props) => {
     setClauses((clauses) => [...clauses, createEmptyClause()]);
   };
 
+  const removeClause = (clauseId: string) => {
+    setClauses((clauses) => {
+      if (clauses.length === 1) {
+        return [createEmptyClause()];
+      }
+      return clauses.filter((clause) => clause.id !== clauseId);
+    });
+  };
+
   const handleSubmitClick = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
     const queryString = stringify(clauses);
@@ -79,7 +84,7 @@ const AdvancedSearch: FC<AdvancedSearchProps> = (props) => {
       </fieldset>
       <fieldset>
         <ClauseList
-          {...props}
+          removeClause={removeClause}
           clauses={clauses}
           searchTerms={searchTermsData}
           evidences={evidences}

@@ -33,7 +33,7 @@ const ClauseItem: React.FC<{
     from?: boolean
   ) => void;
   handleEvidenceChange: (clauseId: string, value: string) => void;
-  handleRemoveClause: (clauseId: string) => void;
+  removeClause: (clauseId: string) => void;
 }> = ({
   clause,
   searchTerms,
@@ -43,7 +43,7 @@ const ClauseItem: React.FC<{
   handleInputChange,
   handleRangeInputChange,
   handleEvidenceChange,
-  handleRemoveClause,
+  removeClause,
 }) => {
   if (!clause.searchTerm) {
     return null;
@@ -96,7 +96,7 @@ const ClauseItem: React.FC<{
         type="button"
         className="button tertiary button-remove"
         data-testid="clause-list-button-remove"
-        onClick={() => handleRemoveClause(clause.id)}
+        onClick={() => removeClause(clause.id)}
       >
         Remove
       </button>
@@ -110,14 +110,14 @@ type ClauseListProps = {
   clauses: Clause[];
   searchTerms: SearchTermType[];
   evidences: Evidences;
-  handleRemoveClause: (clauseId: string) => void;
+  removeClause: (clauseId: string) => void;
 };
 
 const ClauseList: React.FC<ClauseListProps> = ({
   clauses,
   searchTerms,
   evidences,
-  handleRemoveClause,
+  removeClause,
 }) => {
   const [clauseList, setClauseList] = useState(clauses);
 
@@ -232,7 +232,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
           handleInputChange={handleInputChange}
           handleRangeInputChange={handleRangeInputChange}
           handleEvidenceChange={handleEvidenceChange}
-          handleRemoveClause={handleRemoveClause}
+          removeClause={removeClause}
         />
       ))}
     </>
