@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { DropdownButton } from 'franklin-sites';
 import cn from 'classnames';
 
@@ -42,6 +48,26 @@ export type MSAInput = {
   to: number;
   length: number;
   features?: FeatureData;
+};
+
+export type Sequence = {
+  name: string;
+  sequence: string;
+  start: number;
+  end: number;
+  features?: FeatureData;
+  accession?: string;
+};
+
+export type MSAViewProps = {
+  alignment: MSAInput[];
+  alignmentLength: number;
+  highlightProperty: MsaColorScheme | undefined;
+  conservationOptions: ConservationOptions;
+  totalLength: number;
+  annotation: FeatureType | undefined;
+  selectedId?: string;
+  setSelectedId: Dispatch<SetStateAction<string | undefined>>;
 };
 
 const AlignmentView: React.FC<{

@@ -23,8 +23,7 @@ import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderin
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { ConservationOptions } from './AlignmentView';
-import { MSAViewProps } from './MSAView';
+import { MSAViewProps, ConservationOptions } from './AlignmentView';
 import {
   FeatureData,
   processFeaturesData,
