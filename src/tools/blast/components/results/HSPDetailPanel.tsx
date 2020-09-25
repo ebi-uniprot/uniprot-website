@@ -124,7 +124,6 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
         <div className="hsp-detail-panel__body">
           <AlignmentView
             alignmentLength={hsp_align_len}
-            // totalLength={totalLength}
             alignment={alignment}
             defaultView={View.overview}
             tool={Tool.blast}
@@ -133,7 +132,6 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
       </>
     );
   }
-  // console.log(error, alignment[1].features);
 
   return (
     <SlidingPanel position="bottom" className="hsp-detail-panel">

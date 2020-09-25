@@ -12,7 +12,7 @@ import useSize from '../../../../../shared/hooks/useSize';
 
 const dataMock = {
   loading: false,
-  data: modelData,
+  data: { results: [modelData] },
 };
 useDataApi.mockImplementation(() => dataMock);
 useSize.mockImplementation(() => [{ width: 1000 }]);
@@ -36,9 +36,9 @@ describe('HSPDetailPanel', () => {
     await rendered;
   });
 
-  it('should initially render overview', () => {
+  it('should initially render overview', async () => {
     const { asFragment, getByTestId } = rendered;
-    expect(getByTestId('alignment-view')).toBeTruthy();
+    expect(await getByTestId('alignment-view')).toBeTruthy();
     expect(asFragment()).toMatchSnapshot();
   });
 
