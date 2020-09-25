@@ -14,9 +14,9 @@ type Props = {
   children: string;
   info?: ParsedSequenceAndFeatures;
   loading: boolean;
-  style: CSSProperties;
-  withCheckbox: boolean;
-  onIdClick: () => void;
+  style?: CSSProperties;
+  withCheckbox?: boolean;
+  onIdClick?: () => void;
 };
 
 const AlignLabel: FC<Props> = ({
