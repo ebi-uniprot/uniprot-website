@@ -180,6 +180,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
                 height: 20,
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
+              withCheckbox
             >
               {s.name || ''}
             </AlignLabel>
