@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, FC } from 'react';
 import { Card } from 'franklin-sites';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
@@ -13,15 +13,14 @@ import AnnotationScoreDoughnutChart, {
 } from '../protein-data-views/AnnotationScoreDoughnutChart';
 import getProteinHighlights from '../../adapters/proteinHighlights';
 
-import './styles/uniprotkb-card.scss';
+import './styles/uniprot-card.scss';
 
-const UniProtKBCard: FC<
-  {
-    data: UniProtkbAPIModel;
-    selected: boolean;
-    handleEntrySelection: (rowId: string) => void;
-  } & RouteComponentProps
-> = ({ data, selected, handleEntrySelection, history }): JSX.Element => {
+const UniProtKBCard: FC<{
+  data: UniProtkbAPIModel;
+  selected: boolean;
+  handleEntrySelection: (rowId: string) => void;
+}> = ({ data, selected, handleEntrySelection }): JSX.Element => {
+  const history = useHistory();
   let recommendedNameNode;
   const recommendedName =
     data.proteinDescription?.recommendedName?.fullName.value;
@@ -119,4 +118,4 @@ const UniProtKBCard: FC<
   );
 };
 
-export default withRouter(UniProtKBCard);
+export default UniProtKBCard;

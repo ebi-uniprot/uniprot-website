@@ -24,13 +24,13 @@ if (process.env.NODE_ENV !== 'development') {
 const HomePage = lazy(
   () => import(/* webpackChunkName: "home-page" */ './HomePage')
 );
-const ResultsPage = lazy(
+const UniProtKBResultsPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-results" */ '../../uniprotkb/components/results/ResultsContainer'
     )
 );
-const EntryPage = lazy(
+const UniProtKBEntryPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry" */ '../../uniprotkb/components/entry/Entry'
@@ -54,7 +54,7 @@ const UniRefResultsPage = lazy(
       /* webpackChunkName: "uniref-results" */ '../../uniref/components/results/ResultsContainer'
     )
 );
-const UniRefEntry = lazy(
+const UniRefEntryPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
@@ -127,15 +127,15 @@ const App = () => (
             {/* Main namespaces */}
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
-              component={EntryPage}
+              component={UniProtKBEntryPage}
             />
             <Route
               path={LocationToPath[Location.UniProtKBResults]}
-              component={ResultsPage}
+              component={UniProtKBResultsPage}
             />
             <Route
               path={LocationToPath[Location.UniRefEntry]}
-              component={UniRefEntry}
+              component={UniRefEntryPage}
             />
             <Route
               path={LocationToPath[Location.UniRefResults]}

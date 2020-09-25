@@ -11,6 +11,7 @@ import {
 } from '../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { Namespace } from '../types/namespaces';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
@@ -49,7 +50,8 @@ const apiUrls = {
     '/uniprot/api/configure/uniprotkb/result-fields'
   ),
   // Retrieve results
-  search: joinUrl(devPrefix, '/uniprot/api/uniprotkb/search'),
+  search: (namespace: Namespace = Namespace.uniprotkb) =>
+    joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
   download: joinUrl(devPrefix, '/uniprot/api/uniprotkb/stream'),
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
   features: joinUrl(prodPrefix, '/proteins/api/features'),
@@ -60,7 +62,7 @@ const apiUrls = {
   sequenceFasta: (accession: string) => `${apiUrls.entry(accession)}.fasta`,
   entryDownload: (accession: string, format: FileFormat) =>
     format === FileFormat.fastaCanonicalIsoform
-      ? `${apiUrls.search}?${queryString.stringify({
+      ? `${apiUrls.search()}?${queryString.stringify({
           query: `accession:${accession}`,
           includeIsoform: true,
           format: fileFormatToUrlParameter.get(
@@ -114,31 +116,51 @@ export const createAccessionsQueryString = (accessions: string[]) =>
     .sort() // to improve possible cache hit
     .join(' OR ');
 
-const defaultFacets = [
-  'reviewed',
-  'model_organism',
-  'proteins_with',
-  'existence',
-  'annotation_score',
-  'length',
-];
-// TODO: should probably change those params to an object
-export const getAPIQueryUrl = (
-  query: string,
-  columns: string[] = [],
-  selectedFacets: SelectedFacet[] = [],
-  sortColumn: SortableColumn | undefined = undefined,
-  sortDirection: SortDirection | undefined = SortDirection.ascend,
-  facets: string[] = defaultFacets,
-  size?: number
-) => {
-  return `${apiUrls.search}?${queryString.stringify({
+const defaultFacets = new Map<Namespace, string[]>([
+  [
+    Namespace.uniprotkb,
+    [
+      'reviewed',
+      'model_organism',
+      'proteins_with',
+      'existence',
+      'annotation_score',
+      'length',
+    ],
+  ],
+  [Namespace.uniref, ['identity']],
+]);
+type QueryUrlProps = {
+  namespace?: Namespace;
+  query?: string;
+  columns?: string[];
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  facets?: string[];
+  size?: number;
+};
+export const getAPIQueryUrl = ({
+  namespace = Namespace.uniprotkb,
+  query = '*',
+  columns = [],
+  selectedFacets = [],
+  sortColumn = undefined,
+  sortDirection = SortDirection.ascend,
+  facets,
+  size,
+}: QueryUrlProps = {}) => {
+  let facetField = facets;
+  if (!facetField) {
+    facetField = defaultFacets.get(namespace);
+  }
+  return `${apiUrls.search(namespace)}?${queryString.stringify({
     size,
     query: `${[query || '*', createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
     fields: (columns && columns.join(',')) || undefined,
-    facets: facets.join(',') || undefined,
+    facets: facetField?.join(','),
     sort:
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
@@ -175,7 +197,7 @@ export const getAccessionsURL = (
     selectedFacets = [],
     sortColumn = undefined,
     sortDirection = SortDirection.ascend,
-    facets = defaultFacets,
+    facets = defaultFacets.get(Namespace.uniprotkb),
     size,
   }: GetOptions = {}
 ) => {
@@ -190,7 +212,7 @@ export const getAccessionsURL = (
       createFacetsQueryString(selectedFacets.filter(excludeLocalBlastFacets)) ||
       undefined,
     fields: (columns && columns.join(',')) || undefined,
-    facets: facets.join(',') || undefined,
+    facets: facets?.join(',') || undefined,
     sort:
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
