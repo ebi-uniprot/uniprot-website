@@ -118,10 +118,8 @@ export const transformFeaturesPositions = (features: ProcessedFeature[]) =>
     end: feature.end - 1,
   }));
 
-const getNumberOfInsertionsBeforeIndex = (sequence: string, index: number) =>
-  (sequence.slice(0, index - 1).match(/-/g) || []).length;
+export const getNumberOfInsertions = (sequence: string, endPosition: number) =>
+  (sequence.slice(0, endPosition).match(/-/g) || []).length;
 
-export const getEndCoordinate = (sequence: string, index: number) => {
-  const coordinate = index - getNumberOfInsertionsBeforeIndex(sequence, index);
-  return coordinate === 1 ? 0 : coordinate;
-};
+export const getEndCoordinate = (sequence: string, endPosition: number) =>
+  endPosition - getNumberOfInsertions(sequence, endPosition);
