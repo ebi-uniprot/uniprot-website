@@ -20,6 +20,7 @@ import { processFeaturesData } from '../../uniprotkb/components/protein-data-vie
 import {
   transformFeaturesPositions,
   getFullAlignmentSegments,
+  getEndCoordinate,
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
@@ -60,15 +61,19 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
+  const [displayEnd, setDisplayEnd] = useState<number>();
   const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
 
   const findHighlighPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
-      const start = tracksOffset + parseInt(displaystart, 10);
-      const end = tracksOffset + parseInt(displayend, 10);
+      const displayStart = parseInt(displaystart, 10);
+      const displayEnd = parseInt(displayend, 10);
+      const start = tracksOffset + displayStart;
+      const end = tracksOffset + displayEnd;
       setHighlighPosition(`${start}:${end}`);
+      setDisplayEnd(displayEnd);
     },
     [tracksOffset]
   );
@@ -195,6 +200,22 @@ const AlignOverview: FC<BlastOverviewProps> = ({
             />
           </protvista-manager>
         </div>
+        <span className="right-coord">
+          {alignment.map((s, index) => (
+            <div
+              style={{
+                height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
+              }}
+              key={s.name}
+            >
+              {getEndCoordinate(
+                s.sequence,
+                displayEnd ?? initialDisplayEnd ?? 0
+              )}
+            </div>
+          ))}
+        </span>
       </section>
     </section>
   );
