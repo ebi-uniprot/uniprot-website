@@ -17,6 +17,7 @@ type Props = {
   style: CSSProperties;
   withCheckbox: boolean;
   onIdClick: () => void;
+  active: boolean;
 };
 
 const AlignLabel: FC<Props> = ({
@@ -27,6 +28,7 @@ const AlignLabel: FC<Props> = ({
   style,
   withCheckbox = false,
   onIdClick,
+  active = false,
 }) => {
   const invalid = accession && !loading && !info;
   const title = invalid
@@ -35,6 +37,7 @@ const AlignLabel: FC<Props> = ({
   const className = cn('align-label', {
     'align-label--invalid': invalid,
     'align-label--loading': loading,
+    'align-label--active': active,
   });
 
   if (!accession || loading || invalid) {

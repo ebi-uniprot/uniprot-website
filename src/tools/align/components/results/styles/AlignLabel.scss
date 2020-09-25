@@ -1,3 +1,5 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
 @keyframes loading {
   from {
     opacity: 0.5;
@@ -17,6 +19,10 @@
 
   &--loading {
     animation: alternate loading 500ms infinite ease-in-out;
+  }
+
+  &--active {
+    background-color: $colour-gainsborough;
   }
 
   input[type='checkbox'] {

@@ -125,6 +125,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
               }}
               withCheckbox
               onIdClick={() => setSelectedId(s.accession)}
+              active={selectedId === s.accession}
             >
               {s.name || ''}
             </AlignLabel>
