@@ -8,11 +8,13 @@ import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
+import { MSAInput } from '../../../components/AlignmentView';
+import { Sequence } from '../../../components/AlignWrapped';
 
 type Props = {
   accession?: string;
   children: string;
-  info?: ParsedSequenceAndFeatures;
+  info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
   loading: boolean;
   style?: CSSProperties;
   withCheckbox?: boolean;
