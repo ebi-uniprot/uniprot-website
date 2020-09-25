@@ -29,7 +29,10 @@ import {
   FeatureData,
   processFeaturesData,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { transformFeaturesPositions } from '../utils/sequences';
+import {
+  transformFeaturesPositions,
+  getEndCoordinate,
+} from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 loadWebComponent('protvista-track', ProtvistaTrack);
@@ -145,7 +148,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
               }}
               key={s.name}
             >
-              {s.end}
+              {getEndCoordinate(s.sequence, s.end)}
             </div>
           ))}
         </span>
