@@ -122,7 +122,7 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
     description: {
       label: 'Description',
       resolver: (d: ProtvistaVariant) => {
-        const id = d.ftId ? html`[Feature identifier]: ${d.ftId}` : undefined;
+        const id = d.ftId ? html`UniProt feature ID: ${d.ftId}` : undefined;
         const description =
           formatVariantDescription(d.description || '')?.map(
             (descriptionLine) => html`<p>${descriptionLine}</p> `
