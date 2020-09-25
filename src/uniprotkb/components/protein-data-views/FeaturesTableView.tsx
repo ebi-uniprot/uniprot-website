@@ -15,7 +15,12 @@ type FeatureColumns = {
     label: string;
     resolver: (
       d: ProtvistaFeature & ProtvistaVariant
-    ) => string | number | TemplateResult | TemplateResult[];
+    ) =>
+      | undefined
+      | string
+      | number
+      | TemplateResult
+      | Array<TemplateResult | undefined>;
   };
 };
 
