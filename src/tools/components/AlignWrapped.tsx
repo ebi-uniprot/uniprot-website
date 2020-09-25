@@ -41,7 +41,7 @@ loadWebComponent('protvista-manager', ProtvistaManager);
 
 const widthOfAA = 20;
 
-type Sequence = {
+export type Sequence = {
   name: string;
   sequence: string;
   start: number;
