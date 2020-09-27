@@ -21,58 +21,74 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 // Async loading of page components
-const HomePage = lazy(() =>
-  import(/* webpackChunkName: "home-page" */ './HomePage')
+const HomePage = lazy(
+  () => import(/* webpackChunkName: "home-page" */ './HomePage')
 );
-const ResultsPage = lazy(() =>
-  import(
-    /* webpackChunkName: "results" */ '../../uniprotkb/components/results/ResultsContainer'
-  )
+const ResultsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "results" */ '../../uniprotkb/components/results/ResultsContainer'
+    )
 );
-const EntryPage = lazy(() =>
-  import(
-    /* webpackChunkName: "entry" */ '../../uniprotkb/components/entry/Entry'
-  )
+const EntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "entry" */ '../../uniprotkb/components/entry/Entry'
+    )
 );
-const AdvancedSearchPage = lazy(() =>
-  import(
-    /* webpackChunkName: "advanced-search" */ '../../uniprotkb/components/query-builder/AdvancedSearchContainer'
-  )
+const AdvancedSearchPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "advanced-search" */ '../../query-builder/components/AdvancedSearchContainer'
+    )
 );
-const CustomiseTablePage = lazy(() =>
-  import(
-    /* webpackChunkName: "customise-table" */ '../../uniprotkb/components/customise-table/CustomiseTableContainer'
-  )
+const CustomiseTablePage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "customise-table" */ '../../uniprotkb/components/customise-table/CustomiseTableContainer'
+    )
 );
-const BlastResult = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-result" */ '../../tools/blast/components/results/BlastResult'
-  )
+const BlastResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-result" */ '../../tools/blast/components/results/BlastResult'
+    )
 );
-const BlastForm = lazy(() =>
-  import(
-    /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
-  )
+const BlastForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "blast-form" */ '../../tools/blast/components/BlastForm'
+    )
 );
-const AlignResult = lazy(() =>
-  import(
-    /* webpackChunkName: "align-result" */ '../../tools/align/components/results/AlignResult'
-  )
+const AlignResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "align-result" */ '../../tools/align/components/results/AlignResult'
+    )
 );
-const AlignForm = lazy(() =>
-  import(
-    /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
-  )
+const AlignForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
+    )
 );
-const Dashboard = lazy(() =>
-  import(
-    /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
-  )
+const Dashboard = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
+    )
 );
-const ResourceNotFoundPage = lazy(() =>
-  import(
-    /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
-  )
+const ResourceNotFoundPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "resource-not-found" */ '../../shared/components/error-pages/ResourceNotFoundPage'
+    )
+);
+const UniRefResultsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniref-results" */ '../../uniref/components/results/ResultsContainer'
+    )
 );
 
 const reportBugLinkStyles: React.CSSProperties = {
@@ -156,6 +172,10 @@ const App = () => (
                   <AdvancedSearchPage />
                 </SingleColumnLayout>
               )}
+            />
+            <Route
+              path={LocationToPath[Location.UniRefResults]}
+              component={UniRefResultsPage}
             />
             <Route
               component={() => (

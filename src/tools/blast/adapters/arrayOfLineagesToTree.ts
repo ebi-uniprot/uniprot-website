@@ -11,8 +11,8 @@ const orderChildren = (node: TaxNode): TaxNode => ({
   children: node.children.map(orderChildren).sort((a, b) => b.count - a.count),
 });
 
-const arrayOfLineagesToTree = (lineages: string[][]) => {
-  if (!lineages.length) {
+const arrayOfLineagesToTree = (lineages?: string[][]) => {
+  if (!(lineages && lineages.length)) {
     return null;
   }
 

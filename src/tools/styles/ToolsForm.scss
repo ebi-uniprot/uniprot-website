@@ -1,7 +1,10 @@
+@import '../../../node_modules/franklin-sites/src/styles/colours';
+
 .tools-form-section {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+  margin-bottom: 2rem;
 
   &__item {
     display: inline-block;
@@ -14,7 +17,22 @@
     }
 
     & [name='title'] {
-      width: 22ch; /* match the max number of characters allowed in the field */
+      // so that we have a calculable size in ch units
+      font-family: monospace;
+      min-width: 25ch;
+    }
+  }
+
+  &__file-input {
+    display: inline-block;
+    font-weight: bold;
+    margin-left: 0.5ch;
+    color: $primary-color;
+    cursor: pointer;
+    user-select: none;
+
+    & input[type='file'] {
+      display: none;
     }
   }
 
@@ -22,6 +40,29 @@
     float: right;
     position: sticky;
     bottom: 0;
+  }
+}
+
+.tools-form-advanced > summary {
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+
+  & > span {
+    position: relative;
+    display: inline;
+    font-size: 1.5em;
+    font-weight: bold;
+
+    &:after {
+      content: '';
+      position: absolute;
+      border-bottom: 2px solid $colour-gainsborough;
+      margin: auto;
+      height: 75%;
+      width: 100vw;
+      left: calc(100% + 1ch);
+    }
   }
 }
 

@@ -18,10 +18,10 @@ import { getParamsFromURL } from '../../utils/resultsUtils';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
+import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 
-import { Namespace } from '../../types/searchTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../types/columnTypes';
 import Response from '../../types/responseTypes';
 
@@ -38,7 +38,10 @@ const Results: FC = () => {
   );
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-  const [viewMode, setViewMode] = useLocalStorage('view-mode', ViewMode.CARD);
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
+    'view-mode',
+    ViewMode.CARD
+  );
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -98,7 +101,7 @@ const Results: FC = () => {
       }
       actionButtons={
         <ResultsButtons
-          viewMode={viewMode}
+          viewMode={viewMode ?? ViewMode.CARD}
           setViewMode={setViewMode}
           query={query}
           selectedFacets={selectedFacets}
@@ -120,7 +123,7 @@ const Results: FC = () => {
         columns={columns}
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
-        viewMode={viewMode}
+        viewMode={viewMode ?? ViewMode.CARD}
       />
     </SideBarLayout>
   );

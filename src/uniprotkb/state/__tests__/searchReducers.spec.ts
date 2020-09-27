@@ -3,17 +3,13 @@
  */
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import apiUrls from '../../config/apiUrls';
-import { clause, searchTerms, evidences } from '../searchReducers';
+import apiUrls from '../../../shared/config/apiUrls';
+import { clause } from '../searchReducers';
 import {
   updateInputValue,
   updateEvidence,
   updateRangeValue,
   updateLogicOperator,
-  requestSearchTerms,
-  receiveSearchTerms,
-  requestEvidences,
-  receiveEvidences,
   selectSearchTerm,
 } from '../searchActions';
 
@@ -92,94 +88,6 @@ describe('Clause reducer', () => {
       field: 'foo',
       queryInput: { stringValue: 'bar' },
       logicOperator: 'OR',
-    });
-  });
-});
-
-describe('searchTerms reducer', () => {
-  test('should request search terms', () => {
-    const state = {
-      isFetching: false,
-      data: [],
-    };
-    const action = requestSearchTerms();
-    expect(searchTerms(state, action)).toEqual({
-      isFetching: true,
-      data: [],
-    });
-  });
-
-  test('should receive search terms', () => {
-    const data = [
-      { id: '1', label: 'foo' },
-      { id: '2', label: 'bar' },
-    ];
-    mock.onGet(apiUrls.advancedSearchTerms).reply(200, data);
-
-    const state = {
-      isFetching: true,
-      data: [],
-    };
-    const action = receiveSearchTerms(data);
-    expect(searchTerms(state, action)).toEqual({
-      isFetching: false,
-      lastUpdated: dateNow,
-      data,
-    });
-  });
-});
-
-describe('evidences reducer', () => {
-  test('should request evidences', () => {
-    const state = {
-      go: {
-        data: [],
-        isFetching: false,
-      },
-    };
-    const action = requestEvidences('go');
-    expect(evidences(state, action)).toEqual({
-      go: {
-        data: [],
-        isFetching: true,
-      },
-    });
-  });
-
-  test('should receive search terms', () => {
-    const data = [
-      {
-        groupName: 'Any',
-        items: [
-          {
-            name: 'Any assertion method',
-            code: 'any',
-          },
-          {
-            name: 'Any manual assertion',
-            code: 'manual',
-          },
-          {
-            name: 'Any automatic assertion',
-            code: 'automatic',
-          },
-        ],
-      },
-    ];
-    mock.onGet(apiUrls.evidences.go).reply(200, data);
-    const state = {
-      go: {
-        data: [],
-        isFetching: false,
-      },
-    };
-    const action = receiveEvidences(data, 'go');
-    expect(evidences(state, action)).toEqual({
-      go: {
-        isFetching: false,
-        lastUpdated: dateNow,
-        data,
-      },
     });
   });
 });

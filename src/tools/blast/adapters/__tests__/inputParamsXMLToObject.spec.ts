@@ -31,6 +31,8 @@ describe('inputParamsXMLToObject tests', () => {
   });
 
   it('should transform an XML string of input params with taxons to an object', () => {
-    expect(inputParamsXMLToObject(inputParams, sequence)).toMatchSnapshot();
+    expect(
+      inputParamsXMLToObject(inputParamsWithTaxons, sequence)
+    ).toMatchSnapshot();
   });
 });

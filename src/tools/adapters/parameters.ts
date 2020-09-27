@@ -14,7 +14,7 @@ type ObjectForFormData = {
 const objectToFormData = (object: ObjectForFormData) => {
   const formData = new FormData();
   for (const [key, value] of Object.entries(object)) {
-    if (value) {
+    if (value !== undefined) {
       formData.append(key, String(value));
     }
   }
@@ -35,10 +35,21 @@ export function formParametersToServerParameters<T extends JobTypes>(
   let serverParameters: Partial<ServerParameters[T]> = {};
   switch (type) {
     case JobTypes.ALIGN:
-      serverParameters = {
-        email: DEFAULT_EMAIL,
-        sequence: formParameters.sequence,
-      } as ServerParameters[T];
+      {
+        const {
+          sequence,
+          order,
+          iterations,
+        } = formParameters as FormParameters[JobTypes.ALIGN];
+        serverParameters = {
+          email: DEFAULT_EMAIL,
+          outfmt: 'clustal_num',
+          // from form
+          sequence,
+          order,
+          iterations,
+        } as ServerParameters[T];
+      }
       break;
     case JobTypes.BLAST:
       {
@@ -57,6 +68,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
 
         serverParameters = {
           email: DEFAULT_EMAIL,
+          // from form
           program,
           matrix,
           alignments: hits,
@@ -102,10 +114,14 @@ export function serverParametersToFormParameters<T extends JobTypes>(
       {
         const {
           sequence,
+          order,
+          iterations,
         } = serverParameters as PublicServerParameters[JobTypes.ALIGN];
 
         formParameters = {
           sequence,
+          order,
+          iterations,
         } as FormParameters[T];
       }
       break;

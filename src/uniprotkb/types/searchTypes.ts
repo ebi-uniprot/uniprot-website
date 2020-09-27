@@ -1,8 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export enum Namespace {
-  uniprotkb = 'uniprotkb',
-}
-
 export enum Operator {
   AND = 'AND',
   OR = 'OR',
@@ -79,12 +74,7 @@ export type EvidenceDataPoint = {
   items: { name: string; code: string }[];
 };
 
-type EvidenceData = {
-  data: EvidenceDataPoint[];
-  isFetching: boolean;
-};
-
 export type Evidences = {
-  [Evidence.GO]: EvidenceData;
-  [Evidence.ANNOTATION]: EvidenceData;
+  [Evidence.GO]: EvidenceDataPoint[];
+  [Evidence.ANNOTATION]: EvidenceDataPoint[];
 };

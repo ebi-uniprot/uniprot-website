@@ -14,11 +14,11 @@ export type ServerParameters = {
   dealign?: boolean;
   mbed?: boolean;
   mbediteration?: boolean;
-  iterations?: number;
+  iterations?: 0 | 1 | 2 | 3 | 4 | 5;
   gtiterations?: number;
   hmmiterations?: number;
   outfmt?: string;
-  order?: string;
+  order?: 'aligned' | 'input';
   stype?: string;
   sequence: string; // sequence
 };

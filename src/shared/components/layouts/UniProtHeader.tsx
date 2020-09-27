@@ -25,12 +25,11 @@ const tools = [
     label: 'Retrieve/ID Mapping',
     path: '/',
   },
+  {
+    label: 'Tool Results',
+    path: LocationToPath[Location.Dashboard],
+  },
 ];
-
-const dashboard = {
-  label: 'Dashboard',
-  path: LocationToPath[Location.Dashboard],
-};
 
 const links = [
   {
@@ -84,7 +83,7 @@ const UniProtHeader = () => {
     () =>
       isHomePage
         ? [...tools, ...links]
-        : [{ label: 'Tools', links: [...tools, dashboard] }, ...links],
+        : [{ label: 'Tools', links: tools }, ...links],
     [isHomePage]
   );
 

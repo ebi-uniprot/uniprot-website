@@ -1,0 +1,17 @@
+CLUSTAL O(1.2.4) multiple sequence alignment
+
+
+a    -AAAAAAAAA 10
+b    BBBBBBBBBB 10
+c    CCCCCCCCCC 10
+
+
+a    AAAAAAAAAA 10
+b    BBBBBBBBBB 10
+c    CCCCCCCCCC 10
+     ::::::::::
+
+a    AAAAAAAAA- 10
+b    BBBBBBBBBB 10
+c    CCCCCCCCCC 10
+     **********

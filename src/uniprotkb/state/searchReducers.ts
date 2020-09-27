@@ -1,7 +1,9 @@
 import { ActionType } from 'typesafe-actions';
 import * as searchActions from './searchActions';
-import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
-// import createQueryString from '../utils/QueryStringGenerator';
+import {
+  createEmptyClause,
+  createPreSelectedClauses,
+} from '../../query-builder/utils/clause';
 import searchInitialState, { SearchState } from './searchInitialState';
 import { Clause } from '../types/searchTypes';
 
@@ -44,55 +46,6 @@ export const clause = (state: Clause, action: SearchAction) => {
       return {
         ...state,
         logicOperator: action.payload.value,
-      };
-    default:
-      return state;
-  }
-};
-
-export const searchTerms = (
-  state: SearchState['searchTerms'],
-  action: SearchAction
-) => {
-  switch (action.type) {
-    case searchActions.REQUEST_SEARCH_TERMS:
-      return {
-        ...state,
-        isFetching: true,
-      };
-    case searchActions.RECEIVE_SEARCH_TERMS:
-      return {
-        ...state,
-        isFetching: false,
-        data: action.payload.data,
-        lastUpdated: action.payload.receivedAt,
-      };
-    default:
-      return state;
-  }
-};
-
-export const evidences = (
-  state: SearchState['evidences'],
-  action: SearchAction
-) => {
-  switch (action.type) {
-    case searchActions.REQUEST_EVIDENCES:
-      return {
-        ...state,
-        [action.payload.evidencesType]: {
-          ...state[action.payload.evidencesType],
-          isFetching: true,
-        },
-      };
-    case searchActions.RECEIVE_EVIDENCES:
-      return {
-        ...state,
-        [action.payload.evidencesType]: {
-          isFetching: false,
-          data: action.payload.data,
-          lastUpdated: action.payload.receivedAt,
-        },
       };
     default:
       return state;
@@ -148,18 +101,6 @@ const searchReducers = (
       return {
         ...state,
         clauses: action.payload.clauses,
-      };
-    case searchActions.REQUEST_SEARCH_TERMS:
-    case searchActions.RECEIVE_SEARCH_TERMS:
-      return {
-        ...state,
-        searchTerms: searchTerms(state.searchTerms, action),
-      };
-    case searchActions.REQUEST_EVIDENCES:
-    case searchActions.RECEIVE_EVIDENCES:
-      return {
-        ...state,
-        evidences: evidences(state.evidences, action),
       };
     case searchActions.UPDATE_QUERY_STRING:
       return {

@@ -7,9 +7,9 @@ import './styles/gdpr.scss';
 const UP_COVID_GDPR = 'UP_COVID_GDPR';
 
 const GDPR: FC = () => {
-  const [token, setToken] = useLocalStorage(UP_COVID_GDPR, false);
+  const [token, setToken] = useLocalStorage<boolean>(UP_COVID_GDPR, false);
 
-  if (token) return null;
+  if (token === true) return null;
 
   return (
     <div className="gdpr-section">

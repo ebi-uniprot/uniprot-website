@@ -1,9 +1,9 @@
 import React, { Fragment, useState, FC } from 'react';
 import { Loader } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import AlignLabel from './AlignLabel';
 
 import pim from '../../adapters/pim';
 import getExponentialContrast from '../../utils/getExponentialContrast';
@@ -13,38 +13,24 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import toolsURLs from '../../../config/urls';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
+import { SequenceInfo } from '../../utils/useSequenceInfo';
 
 import './styles/AlignResultPIM.scss';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 
-const NameWithPossibleAccession: FC<{
-  accession?: string;
-  children: string;
-}> = ({ accession, children }) => {
-  if (!accession) {
-    return <>{children}</>;
-  }
-
-  // separate text by chunks where we find the accession string
-  const [before, ...after] = children.split(accession);
-
-  return (
-    <>
-      {before}
-      {/* inject a link to the entry page */}
-      <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
-      {after.join(accession)}
-    </>
-  );
-};
-
 const DEFAULT_CONTRAST = 2; // need to be >1
 const WAVE_EFFECT_TIME = 250; // in ms
 
-const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
+type Props = {
+  id: string;
+  sequenceInfo: SequenceInfo;
+};
+
+const AlignResultPIM: FC<Props> = ({ id, sequenceInfo }) => {
   const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
+
   const { loading, data, error, status } = useDataApi<string>(
     alignURLs.resultUrl(id, 'pim')
   );
@@ -70,7 +56,7 @@ const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
         className="align-result-pim__matrix"
         style={{
           //                    name column|value columns (as many as needed)
-          gridTemplateColumns: `min-content repeat(${parsed[0].values.length},1fr)`,
+          gridTemplateColumns: `max-content repeat(${parsed[0].values.length},1fr)`,
         }}
       >
         {/* for every sequence in the alignment */}
@@ -83,9 +69,13 @@ const AlignResultPIM: FC<{ id: string }> = ({ id }) => {
                 'align-result-pim__name--hovered': hovered.includes(indexRow),
               })}
             >
-              <NameWithPossibleAccession accession={accession}>
+              <AlignLabel
+                accession={accession}
+                info={sequenceInfo.data.get(accession || '')}
+                loading={sequenceInfo.loading}
+              >
                 {name}
-              </NameWithPossibleAccession>
+              </AlignLabel>
             </span>
             {/* for each of the sequences this one is measured against */}
             {values.map((value, indexCol) => {

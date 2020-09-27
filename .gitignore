@@ -21,3 +21,4 @@ __diff_output__
 
 # Tests temp directory
 /tests/.tmp/
+report.*.json

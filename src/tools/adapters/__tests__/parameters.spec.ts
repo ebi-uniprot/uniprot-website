@@ -13,6 +13,8 @@ describe('tools adapter tests', () => {
       it('should translate align parameters accurately', () => {
         const formParams: FormParameters[JobTypes.ALIGN] = {
           sequence: 'ATGC',
+          order: 'input',
+          iterations: 0,
         };
 
         const formData = formParametersToServerParameters(
@@ -22,7 +24,10 @@ describe('tools adapter tests', () => {
 
         expect(Array.from(formData.entries())).toEqual([
           ['email', 'uuw_dev@uniprot.org'],
+          ['outfmt', 'clustal_num'],
           ['sequence', 'ATGC'],
+          ['order', 'input'],
+          ['iterations', '0'],
         ]);
       });
     });
@@ -32,6 +37,8 @@ describe('tools adapter tests', () => {
         const serverParams: PublicServerParameters[JobTypes.ALIGN] = {
           sequence:
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
+          order: 'aligned',
+          iterations: 0,
         };
 
         const formParams = serverParametersToFormParameters(
@@ -42,6 +49,8 @@ describe('tools adapter tests', () => {
         expect(formParams).toEqual({
           sequence:
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
+          order: 'aligned',
+          iterations: 0,
         });
       });
     });
@@ -79,6 +88,7 @@ describe('tools adapter tests', () => {
           ['scores', '250'],
           ['exp', '1e-4'],
           ['filter', 'F'],
+          ['gapalign', 'false'],
           ['taxids', '1234,4321'],
           ['stype', 'protein'],
           ['sequence', 'ATGC'],
@@ -130,7 +140,6 @@ describe('tools adapter tests', () => {
 
       it('should translate blast parameters event without taxon info', () => {
         const serverParams: PublicServerParameters = {
-          align: 0,
           alignments: 250,
           compstats: 'F',
           database: 'uniprotkb_refprotswissprot',

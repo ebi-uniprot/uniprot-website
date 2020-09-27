@@ -9,7 +9,13 @@ type AddToBasketButtonProps = {
 const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
   // const dispatch = useDispatch();
 
-  const disabled = !selectedEntries.length;
+  const n = selectedEntries.length;
+
+  const disabled = !n;
+
+  const title = n
+    ? `Add ${n} entr${n === 1 ? 'y' : 'ies'} to the basket`
+    : 'Select at least one entry to add to the basket';
 
   const handleClick = () => {
     console.log('handle add to basket');
@@ -20,6 +26,7 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
     <button
       type="button"
       className="button tertiary"
+      title={title}
       disabled={disabled}
       onClick={handleClick}
     >

@@ -4,6 +4,7 @@ exports[`ColumnConfiguration component should render all columns 1`] = `
 <DocumentFragment>
   <span
     class="uniprot-title__status icon--reviewed"
+    title="This marks a reviewed entry"
   >
     <svg
       fill="currentColor"

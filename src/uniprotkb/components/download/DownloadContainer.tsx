@@ -10,7 +10,7 @@ import {
   SelectedFacet,
   SortDirection,
 } from '../../types/resultsTypes';
-import { getDownloadUrl } from '../../config/apiUrls';
+import { getDownloadUrl } from '../../../shared/config/apiUrls';
 import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
 

@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import apiUrls from '../../config/apiUrls';
+import apiUrls from '../../../shared/config/apiUrls';
 import * as actions from '../searchActions';
 import initialState from '../searchInitialState';
 import { itemType, dataType } from '../../types/searchTypes';
@@ -169,113 +169,5 @@ describe('sync actions', () => {
       },
     };
     expect(actions.removeClause(clauseId)).toEqual(expectedAction);
-  });
-
-  it('should create a REQUEST_SEARCH_TERMS action', () => {
-    const expectedAction = {
-      type: actions.REQUEST_SEARCH_TERMS,
-    };
-    expect(actions.requestSearchTerms()).toEqual(expectedAction);
-  });
-
-  it('should return true if evidences is not fetching ', () => {
-    const state = store.getState();
-    state.query.evidences.go.isFetching = false;
-    expect(actions.shouldFetchEvidences(state, 'go')).toEqual(true);
-    state.query.evidences.go.isFetching = true;
-    expect(actions.shouldFetchEvidences(state, 'go')).toEqual(false);
-  });
-
-  it('should create a REQUEST_EVIDENCES action', () => {
-    const expectedAction = {
-      type: actions.REQUEST_EVIDENCES,
-      meta: undefined,
-      payload: {
-        evidencesType: undefined,
-      },
-    };
-    expect(actions.requestEvidences()).toEqual(expectedAction);
-  });
-});
-
-describe('async actions', () => {
-  const search_terms_data = [
-    { id: '1', label: 'foo' },
-    { id: '2', label: 'bar' },
-  ];
-
-  it('creates RECEIVE_SEARCH_TERMS when fetching has been done', () => {
-    const data = [
-      { id: '1', label: 'foo' },
-      { id: '2', label: 'bar' },
-    ];
-    mock.onGet(apiUrls.advancedSearchTerms).reply(200, data);
-    const expectedActions = [
-      {
-        type: actions.REQUEST_SEARCH_TERMS,
-        meta: undefined,
-        payload: undefined,
-      },
-      {
-        type: actions.RECEIVE_SEARCH_TERMS,
-        payload: { receivedAt: dateNow, data: search_terms_data },
-        meta: undefined,
-      },
-    ];
-    return store.dispatch(actions.fetchSearchTerms()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  it('creates RECEIVE_EVIDENCES when fetching has been done', () => {
-    const data = [
-      {
-        groupName: 'Any',
-        items: [
-          {
-            name: 'Any assertion method',
-            code: 'any',
-          },
-          {
-            name: 'Any manual assertion',
-            code: 'manual',
-          },
-          {
-            name: 'Any automatic assertion',
-            code: 'automatic',
-          },
-        ],
-      },
-    ];
-    mock.onGet(apiUrls.evidences.go).reply(200, data);
-    const expectedActions = [
-      {
-        type: actions.REQUEST_SEARCH_TERMS,
-        meta: undefined,
-        payload: undefined,
-      },
-      {
-        type: actions.RECEIVE_SEARCH_TERMS,
-        payload: { receivedAt: dateNow, data: search_terms_data },
-        meta: undefined,
-      },
-      {
-        type: actions.REQUEST_EVIDENCES,
-        payload: { evidencesType: 'go' },
-        meta: undefined,
-      },
-      {
-        type: actions.RECEIVE_EVIDENCES,
-        payload: {
-          receivedAt: dateNow,
-          evidencesType: 'go',
-          data,
-        },
-        meta: undefined,
-      },
-    ];
-    return store.dispatch(actions.fetchEvidences('go')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
   });
 });

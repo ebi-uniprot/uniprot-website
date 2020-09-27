@@ -14,7 +14,7 @@ import { SelectedTaxon } from '../config/BlastFormData';
 
 export type FormParameters = {
   stype: SType;
-  program: Program;
+  program: Extract<Program, 'blastp' | 'blastx'>;
   sequence: Sequence;
   database: Database;
   taxIDs: SelectedTaxon[];

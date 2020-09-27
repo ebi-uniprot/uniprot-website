@@ -3,11 +3,9 @@
 exports[`BlastResultTable tests should render the results table 1`] = `
 <DocumentFragment>
   <div
-    class="data-loader__wrapper"
+    data-loader-scroll="sidebar-content"
   >
-    <div
-      class="data-loader__scroll-container"
-    >
+    <div>
       <table
         class="data-table data-table--compact  data-table--fixed"
       >
@@ -24,7 +22,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
             </th>
             <th
               class="data-table__header-cell "
-              style="width: 5rem;"
+              style="width: 8rem;"
             >
               Accession
             </th>
@@ -80,6 +78,19 @@ exports[`BlastResultTable tests should render the results table 1`] = `
               <a
                 href="/uniprotkb/U6MKN0"
               >
+                <span
+                  class="uniprot-title__status icon--unreviewed"
+                  title="This marks an unreviewed entry"
+                >
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 400 512"
+                  >
+                    <path
+                      d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                    />
+                  </svg>
+                </span>
                 U6MKN0
               </a>
             </td>

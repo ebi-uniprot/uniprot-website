@@ -1,0 +1,21 @@
+@keyframes loading {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.align-label {
+  white-space: nowrap;
+  opacity: 1;
+
+  &--invalid {
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    animation: alternate loading 500ms infinite ease-in-out;
+  }
+}

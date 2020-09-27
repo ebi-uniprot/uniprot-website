@@ -3,6 +3,12 @@ import { FormParameters } from '../types/blastFormParameters';
 
 export type SelectedTaxon = { label: string; id: string };
 
+export enum BlastFieldTypes {
+  textarea,
+  select,
+  autocomplete,
+}
+
 export type BlastFormValue = {
   fieldName: string;
   selected?: string | SelectedTaxon[] | boolean | number;
@@ -24,24 +30,14 @@ export enum BlastFields {
   name = 'Name',
 }
 
-export enum BlastFieldTypes {
-  textarea,
-  select,
-  autocomplete,
-}
-
 export type BlastFormValues = { [x in BlastFields]: BlastFormValue };
 
 export default Object.freeze({
   [BlastFields.program]: Object.freeze({
     fieldName: 'program',
-    values: Object.freeze([
-      { value: 'blastp' },
-      { value: 'blastx' },
-      { value: 'blastn' },
-      { value: 'tblastx' },
-      { value: 'tblastn' },
-    ] as Array<{ value: FormParameters['program'] }>),
+    values: Object.freeze([{ value: 'blastp' }, { value: 'blastx' }] as Array<{
+      value: FormParameters['program'];
+    }>),
     selected: 'blastp' as Program,
   }),
   [BlastFields.stype]: Object.freeze({

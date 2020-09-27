@@ -35,10 +35,8 @@
   }
 
   &__cell {
-    width: 100%;
     border-radius: 0.5ch;
     border: 1px solid transparent;
-    aspect-ratio: 1/1; // keep cells squared (if not supported it's fine 🤷🏽‍♂️)
     // to center the inner text
     display: flex;
     justify-content: center;
@@ -56,6 +54,12 @@
 
     // transition on contrast update
     transition: background-color ease-in-out 100ms;
+
+    // CSS hack to have 1/1 aspect-ratio
+    &::before {
+      content: '';
+      padding-bottom: 100%; // meaning, 100% of the width to bottom padding
+    }
 
     &--dark {
       color: black;

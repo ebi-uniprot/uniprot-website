@@ -17,7 +17,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
-import uniProtKBApiUrls from '../../uniprotkb/config/apiUrls';
+import uniProtKBApiUrls from '../../shared/config/apiUrls';
 import uniParcApiUrls from '../../uniparc/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../uniprotkb/adapters/entryToFASTAWithHeaders';
@@ -244,11 +244,7 @@ const SequenceSearchLoader = forwardRef<
         setAccessionOrID(event.target.value)
       }
       onPaste={handlePaste}
-      placeholder={
-        pasteLoading
-          ? 'loading from pasted text'
-          : 'P05067, A4_HUMAN, UPI0000000001'
-      }
+      placeholder={pasteLoading ? 'loading from pasted text' : 'UniProt IDs'}
       value={accessionOrID}
       disabled={pasteLoading}
     />

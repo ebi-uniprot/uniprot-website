@@ -29,6 +29,7 @@
         "ignoreRestSiblings": true
       }
     ],
+    "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/prefer-interface": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
@@ -38,6 +39,7 @@
     "jsx-no-multiline-js": "off",
     "no-restricted-syntax": "off",
     "no-shadow": "off",
+    "no-use-before-define": "off",
     "react-hooks/exhaustive-deps": "warn",
     "react-hooks/rules-of-hooks": "error",
     "react/destructuring-assignment": "off",
