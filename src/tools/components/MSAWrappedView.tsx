@@ -9,7 +9,7 @@ import React, {
   Dispatch,
 } from 'react';
 import { debounce } from 'lodash-es';
-import { Loading } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
@@ -103,7 +103,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   );
 
   if (!(msaDefined && trackDefined)) {
-    return <Loading />;
+    return <Loader />;
   }
 
   return (
