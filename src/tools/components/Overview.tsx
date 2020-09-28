@@ -47,7 +47,7 @@ export type BlastOverviewProps = {
   annotation: FeatureType | undefined;
   activeId?: string;
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
+  onSequenceChecked?: (id: string) => void;
   omitInsertionsInCoords?: boolean;
 };
 

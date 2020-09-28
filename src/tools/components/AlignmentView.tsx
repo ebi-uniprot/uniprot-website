@@ -98,6 +98,8 @@ const AlignmentView: React.FC<{
       .map(({ accession }) => accession)[0]
   );
 
+  const [checkedIds, setCheckedIds] = useState<{ [id: string]: boolean }>({});
+
   useEffect(() => {
     // if no default value was available on first render, set it now
     if (!annotation && annotationChoices.length) {
@@ -114,6 +116,10 @@ const AlignmentView: React.FC<{
           'overlay-conservation': true,
         }
       : {};
+
+  const handleSequenceChecked = (id: string) => {
+    setCheckedIds({ ...checkedIds, [id]: !checkedIds[id] });
+  };
 
   return (
     <>
@@ -211,7 +217,7 @@ const AlignmentView: React.FC<{
             activeId={activeId}
             setActiveId={setActiveId}
             omitInsertionsInCoords
-            onSequenceChecked={(id: string) => console.log(id)}
+            onSequenceChecked={handleSequenceChecked}
           />
         )}
 
@@ -239,7 +245,7 @@ const AlignmentView: React.FC<{
             activeId={activeId}
             setActiveId={setActiveId}
             omitInsertionsInCoords
-            onSequenceChecked={(id: string) => console.log(id)}
+            onSequenceChecked={handleSequenceChecked}
           />
         )}
       </div>

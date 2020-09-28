@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, SetStateAction, Dispatch } from 'react';
+import React, { FC, CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -17,7 +17,7 @@ type Props = {
   info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
   loading: boolean;
   style?: CSSProperties;
-  onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
+  onSequenceChecked?: (id: string) => void;
   onIdClick?: () => void;
   active?: boolean;
 };
