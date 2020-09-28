@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
-import * as Sentry from '@sentry/browser';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
