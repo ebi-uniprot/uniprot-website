@@ -62,7 +62,7 @@ export type MSAWrappedRowProps = {
   annotation: FeatureType | undefined;
   sequences: Sequence[];
   activeId?: string;
-  setActiveId: Dispatch<SetStateAction<string | undefined>>;
+  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
   omitInsertionsInCoords?: boolean;
 };
@@ -74,7 +74,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   annotation,
   sequences,
   activeId,
-  setActiveId,
+  setActiveId = () => null,
   onSequenceChecked,
   omitInsertionsInCoords = true,
 }) => {
@@ -182,7 +182,7 @@ export type MSAViewProps = {
   totalLength: number;
   annotation: FeatureType | undefined;
   activeId?: string;
-  setActiveId: Dispatch<SetStateAction<string | undefined>>;
+  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
   omitInsertionsInCoords?: boolean;
 };

@@ -20,8 +20,10 @@ import { processFeaturesData } from '../../uniprotkb/components/protein-data-vie
 import {
   transformFeaturesPositions,
   getFullAlignmentSegments,
+  getEndCoordinate,
 } from '../utils/sequences';
 import AlignmentOverview from './AlignmentOverview';
+import AlignLabel from '../align/components/results/AlignLabel';
 
 import './styles/alignment-view.scss';
 
@@ -43,31 +45,41 @@ export type BlastOverviewProps = {
   conservationOptions: ConservationOptions;
   totalLength: number;
   annotation: FeatureType | undefined;
-  selectedId?: string;
-  setSelectedId: Dispatch<SetStateAction<string | undefined>>;
+  activeId?: string;
+  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
+  onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
+  omitInsertionsInCoords?: boolean;
 };
 
-const BlastOverview: FC<BlastOverviewProps> = ({
+const AlignOverview: FC<BlastOverviewProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
   conservationOptions,
   totalLength,
   annotation,
+  activeId,
+  setActiveId = () => null,
+  onSequenceChecked,
+  omitInsertionsInCoords,
 }) => {
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
+  const [displayEnd, setDisplayEnd] = useState<number>();
   const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
 
   const findHighlighPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
-      const start = tracksOffset + parseInt(displaystart, 10);
-      const end = tracksOffset + parseInt(displayend, 10);
+      const displayStart = parseInt(displaystart, 10);
+      const displayEnd = parseInt(displayend, 10);
+      const start = tracksOffset + displayStart;
+      const end = tracksOffset + displayEnd;
       setHighlighPosition(`${start}:${end}`);
+      setDisplayEnd(displayEnd);
     },
     [tracksOffset]
   );
@@ -163,17 +175,23 @@ const BlastOverview: FC<BlastOverviewProps> = ({
       </section>
 
       <section className="alignment-grid__row alignment-grid__row--msa-track">
-        <div className="track-label">
+        <div className="track-label track-label--align-labels">
           {alignment.map((s, index) => (
-            <div
+            <AlignLabel
+              accession={s.accession}
+              info={s}
+              loading={false}
+              key={s.name}
               style={{
                 height: 20,
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
-              key={s.name}
+              onSequenceChecked={onSequenceChecked}
+              onIdClick={() => setActiveId(s.accession)}
+              active={activeId === s.accession}
             >
-              {s.accession || s.name}
-            </div>
+              {s.name || ''}
+            </AlignLabel>
           ))}
         </div>
         <div className="track">
@@ -191,9 +209,27 @@ const BlastOverview: FC<BlastOverviewProps> = ({
             />
           </protvista-manager>
         </div>
+        <span className="right-coord">
+          {alignment.map((s, index) => (
+            <div
+              style={{
+                height: 20,
+                marginTop: index === 0 ? msaOffsetTop : undefined,
+              }}
+              key={s.name}
+            >
+              {omitInsertionsInCoords
+                ? getEndCoordinate(
+                    s.sequence,
+                    displayEnd ?? initialDisplayEnd ?? 0
+                  )
+                : displayEnd ?? initialDisplayEnd ?? 0}
+            </div>
+          ))}
+        </span>
       </section>
     </section>
   );
 };
 
-export default BlastOverview;
+export default AlignOverview;

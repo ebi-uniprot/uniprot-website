@@ -9,10 +9,7 @@ import { DropdownButton } from 'franklin-sites';
 import cn from 'classnames';
 
 import Wrapped from './Wrapped';
-import BlastOverview from './BlastOverview';
-import BlastWrapped from './BlastWrapped';
-import AlignOverview from './AlignOverview';
-import AlignWrapped from './AlignWrapped';
+import Overview from './Overview';
 
 import {
   msaColorSchemeToString,
@@ -191,7 +188,7 @@ const AlignmentView: React.FC<{
       </div>
       <div>
         {activeView === View.overview && tool === Tool.blast && (
-          <BlastOverview
+          <Overview
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}
@@ -213,11 +210,13 @@ const AlignmentView: React.FC<{
             annotation={annotation}
             activeId={activeId}
             setActiveId={setActiveId}
+            omitInsertionsInCoords
+            onSequenceChecked={(id: string) => console.log(id)}
           />
         )}
 
         {activeView === View.overview && tool === Tool.align && (
-          <AlignOverview
+          <Overview
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}
