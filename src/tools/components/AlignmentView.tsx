@@ -73,7 +73,16 @@ const AlignmentView: React.FC<{
   alignmentLength: number;
   defaultView?: View;
   tool: Tool;
-}> = ({ alignment, alignmentLength, defaultView, tool }) => {
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
+}> = ({
+  alignment,
+  alignmentLength,
+  defaultView,
+  tool,
+  selectedEntries,
+  handleSelectedEntries,
+}) => {
   const annotationChoices = useMemo(() => {
     const features = alignment
       .map(({ features }) => features)
@@ -98,8 +107,6 @@ const AlignmentView: React.FC<{
       .map(({ accession }) => accession)[0]
   );
 
-  const [checkedIds, setCheckedIds] = useState<{ [id: string]: boolean }>({});
-
   useEffect(() => {
     // if no default value was available on first render, set it now
     if (!annotation && annotationChoices.length) {
@@ -117,10 +124,6 @@ const AlignmentView: React.FC<{
         }
       : {};
 
-  const handleSequenceChecked = (id: string) => {
-    setCheckedIds({ ...checkedIds, [id]: !checkedIds[id] });
-  };
-
   const AlignmentComponent = activeView === View.overview ? Overview : Wrapped;
   const additionalAlignProps =
     tool === Tool.align
@@ -128,7 +131,8 @@ const AlignmentView: React.FC<{
           activeId,
           setActiveId,
           omitInsertionsInCoords: true,
-          onSequenceChecked: handleSequenceChecked,
+          selectedEntries,
+          handleSelectedEntries,
         }
       : {};
 

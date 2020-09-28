@@ -1,15 +1,16 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { noop } from 'lodash-es';
 
+import { MSAInput } from '../../../components/AlignmentView';
+import { Sequence } from '../../../components/Wrapped';
 import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
 
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
-import { MSAInput } from '../../../components/AlignmentView';
-import { Sequence } from '../../../components/Wrapped';
 
 type AlignLabelProps = {
   accession?: string;
@@ -17,6 +18,7 @@ type AlignLabelProps = {
   info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
   loading: boolean;
   style?: CSSProperties;
+  checked?: boolean;
   onSequenceChecked?: (id: string) => void;
   onIdClick?: () => void;
   active?: boolean;
@@ -28,6 +30,7 @@ const AlignLabel: FC<AlignLabelProps> = ({
   loading,
   children,
   style,
+  checked,
   onSequenceChecked,
   onIdClick,
   active = false,
@@ -40,7 +43,13 @@ const AlignLabel: FC<AlignLabelProps> = ({
     'align-label--invalid': invalid,
     'align-label--loading': loading,
     'align-label--active': active,
+    'align-label--selectable': onIdClick,
   });
+
+  const handleChange = useCallback(
+    () => accession && onSequenceChecked?.(accession),
+    [onSequenceChecked, accession]
+  );
 
   if (!accession || loading || invalid) {
     return (
@@ -66,20 +75,22 @@ const AlignLabel: FC<AlignLabelProps> = ({
   }
 
   return (
-    <span className={className} style={style}>
-      {onSequenceChecked && <input type="checkbox" />}
+    <button
+      type="button"
+      className={className}
+      style={style}
+      onClick={onIdClick || noop}
+      tabIndex={onIdClick ? 0 : -1}
+    >
+      {onSequenceChecked && (
+        <input type="checkbox" onChange={handleChange} checked={checked} />
+      )}
       {reviewImg}
       {before}
       {/* inject a link to the entry page */}
       <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
-      {onIdClick ? (
-        <button type="button" className="button tertiary" onClick={onIdClick}>
-          {after.join(',')}
-        </button>
-      ) : (
-        after.join(',')
-      )}
-    </span>
+      {after.join(',')}
+    </button>
   );
 };
 

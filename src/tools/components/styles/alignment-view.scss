@@ -10,56 +10,87 @@
     height: 80px;
   }
 
-  &__row {
-    display: grid;
-    grid-template-columns: 16vw auto 4vw;
-    grid-template-areas: 'label track .';
-    align-items: center;
+  display: grid;
+  grid-template-columns: fit-content(10px) 1fr fit-content(10px);
+  grid-template-areas:
+    'label-1 track-1 .'
+    'label-2 track-2 .'
+    'label-3 track-3 right-coord';
+  align-items: end;
 
-    &--msa-track {
-      grid-template-areas: 'label track right-coord';
+  &.alignment-wrapped {
+    grid-template-areas:
+      'label-1 track-1 right-coord'
+      'label-2 track-2 .';
+  }
+
+  .track-label {
+    text-align: right;
+    padding-right: 0.5rem;
+    font-weight: 800;
+    white-space: nowrap;
+
+    &:first-letter {
+      text-transform: uppercase;
     }
 
-    .track-label {
-      grid-area: label;
-      text-align: right;
-      padding-right: 0.5rem;
-      font-weight: 800;
-      &:first-letter {
-        text-transform: uppercase;
-      }
+    &.row-1 {
+      grid-area: label-1;
+    }
 
-      &--align-labels {
-        align-self: flex-end;
-        margin: 0;
-        list-style: none;
+    &.row-2 {
+      grid-area: label-2;
+    }
 
-        .align-label {
+    &.row-3 {
+      grid-area: label-3;
+    }
+
+    &--align-labels {
+      align-self: flex-end;
+      margin: 0;
+      list-style: none;
+
+      .align-label {
+        font-size: 0.75rem;
+        border-top: 1px solid $colour-gainsborough;
+        display: flex;
+        align-items: center;
+
+        &:last-child {
+          border-bottom: 1px solid $colour-gainsborough;
+        }
+
+        button {
+          margin: 0;
           font-size: 0.75rem;
-          border-top: 1px solid $colour-gainsborough;
-          display: flex;
-          align-items: center;
-
-          &:last-child {
-            border-bottom: 1px solid $colour-gainsborough;
-          }
-
-          button {
-            margin: 0;
-            font-size: 0.75rem;
-          }
         }
       }
     }
 
-    .track {
-      grid-area: track;
-      position: relative;
+    & > * {
+      width: 100%;
+    }
+  }
+
+  .track {
+    position: relative;
+
+    &.row-1 {
+      grid-area: track-1;
     }
 
-    .right-coord {
-      padding-left: 0.1rem;
-      grid-area: right-coord;
+    &.row-2 {
+      grid-area: track-2;
     }
+
+    &.row-3 {
+      grid-area: track-3;
+    }
+  }
+
+  .right-coord {
+    padding-left: 0.1rem;
+    grid-area: right-coord;
   }
 }

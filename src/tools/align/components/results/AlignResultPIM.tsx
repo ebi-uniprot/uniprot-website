@@ -25,9 +25,16 @@ const WAVE_EFFECT_TIME = 250; // in ms
 type AlignResultPIMProps = {
   id: string;
   sequenceInfo: SequenceInfo;
+  selectedEntries: string[];
+  handleSelectedEntries: (rowId: string) => void;
 };
 
-const AlignResultPIM: FC<AlignResultPIMProps> = ({ id, sequenceInfo }) => {
+const AlignResultPIM: FC<AlignResultPIMProps> = ({
+  id,
+  sequenceInfo,
+  selectedEntries,
+  handleSelectedEntries,
+}) => {
   const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
 
@@ -73,6 +80,10 @@ const AlignResultPIM: FC<AlignResultPIMProps> = ({ id, sequenceInfo }) => {
                 accession={accession}
                 info={sequenceInfo.data.get(accession || '')}
                 loading={sequenceInfo.loading}
+                checked={Boolean(
+                  accession && selectedEntries?.includes(accession)
+                )}
+                onSequenceChecked={handleSelectedEntries}
               >
                 {name}
               </AlignLabel>

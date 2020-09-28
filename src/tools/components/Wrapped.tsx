@@ -7,13 +7,11 @@ import React, {
   useRef,
   SetStateAction,
   Dispatch,
-  useState,
 } from 'react';
 import { debounce } from 'lodash-es';
 import ProtvistaManager from 'protvista-manager';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaMSA from 'protvista-msa';
-import cn from 'classnames';
 
 import { loadWebComponent } from '../../shared/utils/utils';
 
@@ -63,9 +61,13 @@ export type MSAWrappedRowProps = {
   sequences: Sequence[];
   activeId?: string;
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  onSequenceChecked?: (id: string) => void;
   omitInsertionsInCoords?: boolean;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
 };
+
+// NOTE: hardcoded for now, might need to change that in the future if need be
+const heightStyle = { height: '20px' };
 
 const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   rowLength,
@@ -75,18 +77,16 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   sequences,
   activeId,
   setActiveId = () => null,
-  onSequenceChecked,
   omitInsertionsInCoords = true,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
-  const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
-
   const setMSAAttributes = useCallback(
     (node): void => {
       if (!node) {
         return;
       }
       node.data = sequences;
-      setMsaOffsetTop(node.offsetTop);
     },
     [sequences]
   );
@@ -113,63 +113,54 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
     [annotation, activeId, sequences]
   );
 
+  // TODO: replace this with fragments to have one big grid
+  // -> to keep the right column of the right size to fit all possible values
   return (
-    <section data-testid="alignment-wrapped-view" className="alignment-grid">
-      <section
-        className={cn('alignment-grid__row alignment-grid__row--msa-track', {
-          'alignment-grid__row--with-checkbox': onSequenceChecked,
-        })}
-      >
-        <div className="track-label track-label--align-labels">
-          {sequences.map((s, index) => (
-            <AlignLabel
-              accession={s.accession}
-              info={s}
-              loading={false}
-              key={s.name}
-              style={{
-                height: 20,
-                marginTop: index === 0 ? msaOffsetTop : undefined,
-              }}
-              onSequenceChecked={onSequenceChecked}
-              onIdClick={() => setActiveId(s.accession)}
-              active={!!activeId && activeId === s.accession}
-            >
-              {s.name || ''}
-            </AlignLabel>
-          ))}
-        </div>
-        <div className="track">
-          <protvista-msa
-            ref={setMSAAttributes}
-            length={rowLength}
-            height={sequences.length * 20}
-            colorscheme={highlightProperty}
-            {...conservationOptions}
-          />
-        </div>
-        <span className="right-coord">
-          {sequences.map((s, index) => (
-            <div
-              style={{
-                height: 20,
-                marginTop: index === 0 ? msaOffsetTop : undefined,
-              }}
-              key={s.name}
-            >
-              {omitInsertionsInCoords
-                ? getEndCoordinate(s.sequence, s.end)
-                : s.end}
-            </div>
-          ))}
-        </span>
-      </section>
-      <section className="alignment-grid__row">
-        <span className="track-label">{annotation}</span>
-        <div className="track">
-          <protvista-track ref={setFeatureTrackData} />
-        </div>
-      </section>
+    <section
+      data-testid="alignment-wrapped-view"
+      className="alignment-grid alignment-wrapped"
+    >
+      <div className="row-1 track-label track-label--align-labels">
+        {sequences.map((s) => (
+          <AlignLabel
+            accession={s.accession}
+            info={s}
+            loading={false}
+            key={s.name}
+            style={heightStyle}
+            checked={Boolean(
+              s.accession && selectedEntries?.includes(s.accession)
+            )}
+            onSequenceChecked={handleSelectedEntries}
+            onIdClick={() => setActiveId(s.accession)}
+            active={!!activeId && activeId === s.accession}
+          >
+            {s.name || ''}
+          </AlignLabel>
+        ))}
+      </div>
+      <div className="row-1 track">
+        <protvista-msa
+          ref={setMSAAttributes}
+          length={rowLength}
+          height={sequences.length * 20}
+          colorscheme={highlightProperty}
+          {...conservationOptions}
+        />
+      </div>
+      <span className="row-1 right-coord">
+        {sequences.map((s) => (
+          <div style={heightStyle} key={s.name}>
+            {omitInsertionsInCoords
+              ? getEndCoordinate(s.sequence, s.end)
+              : s.end}
+          </div>
+        ))}
+      </span>
+      <span className="row-2 track-label">{annotation}</span>
+      <div className="row-2 track">
+        <protvista-track ref={setFeatureTrackData} />
+      </div>
     </section>
   );
 };
@@ -183,8 +174,9 @@ export type MSAViewProps = {
   annotation: FeatureType | undefined;
   activeId?: string;
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  onSequenceChecked?: (id: string) => void;
   omitInsertionsInCoords?: boolean;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
 };
 
 const Wrapped: FC<MSAViewProps> = ({
@@ -195,8 +187,9 @@ const Wrapped: FC<MSAViewProps> = ({
   annotation,
   activeId,
   setActiveId,
-  onSequenceChecked,
   omitInsertionsInCoords = false,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
@@ -272,8 +265,9 @@ const Wrapped: FC<MSAViewProps> = ({
               conservationOptions={conservationOptions}
               activeId={activeId}
               setActiveId={setActiveId}
-              onSequenceChecked={onSequenceChecked}
               omitInsertionsInCoords={omitInsertionsInCoords}
+              selectedEntries={selectedEntries}
+              handleSelectedEntries={handleSelectedEntries}
             />
           );
         }

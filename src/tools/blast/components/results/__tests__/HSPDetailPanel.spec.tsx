@@ -47,7 +47,7 @@ describe('HSPDetailPanel', () => {
     const msa = container.querySelector('protvista-msa');
     expect(msa.data).toEqual([
       { name: 'Query', sequence: hsp.hsp_qseq },
-      { name: 'Match', sequence: hsp.hsp_hseq },
+      { name: 'Match:', sequence: hsp.hsp_hseq },
     ]);
   });
 
