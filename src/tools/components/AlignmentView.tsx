@@ -8,6 +8,7 @@ import React, {
 import { DropdownButton } from 'franklin-sites';
 import cn from 'classnames';
 
+import Wrapped from './Wrapped';
 import BlastOverview from './BlastOverview';
 import BlastWrapped from './BlastWrapped';
 import AlignOverview from './AlignOverview';
@@ -66,8 +67,8 @@ export type MSAViewProps = {
   conservationOptions: ConservationOptions;
   totalLength: number;
   annotation: FeatureType | undefined;
-  selectedId?: string;
-  setSelectedId: Dispatch<SetStateAction<string | undefined>>;
+  activeId?: string;
+  setActiveId: Dispatch<SetStateAction<string | undefined>>;
 };
 
 const AlignmentView: React.FC<{
@@ -94,7 +95,7 @@ const AlignmentView: React.FC<{
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
     MsaColorScheme.CLUSTAL
   );
-  const [selectedId, setSelectedId] = useState<string | undefined>(
+  const [activeId, setActiveId] = useState<string | undefined>(
     alignment
       .filter(({ accession }) => accession)
       .map(({ accession }) => accession)[0]
@@ -197,21 +198,21 @@ const AlignmentView: React.FC<{
             conservationOptions={conservationOptions}
             totalLength={totalLength}
             annotation={annotation}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
+            activeId={activeId}
+            setActiveId={setActiveId}
           />
         )}
 
         {activeView === View.wrapped && tool === Tool.blast && (
-          <BlastWrapped
+          <Wrapped
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}
             conservationOptions={conservationOptions}
             totalLength={totalLength}
             annotation={annotation}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
+            activeId={activeId}
+            setActiveId={setActiveId}
           />
         )}
 
@@ -223,21 +224,23 @@ const AlignmentView: React.FC<{
             conservationOptions={conservationOptions}
             totalLength={totalLength}
             annotation={annotation}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
+            activeId={activeId}
+            setActiveId={setActiveId}
           />
         )}
 
         {activeView === View.wrapped && tool === Tool.align && (
-          <AlignWrapped
+          <Wrapped
             alignment={alignment}
             alignmentLength={alignmentLength}
             highlightProperty={highlightProperty}
             conservationOptions={conservationOptions}
             totalLength={totalLength}
             annotation={annotation}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
+            activeId={activeId}
+            setActiveId={setActiveId}
+            omitInsertionsInCoords
+            onSequenceChecked={(id: string) => console.log(id)}
           />
         )}
       </div>

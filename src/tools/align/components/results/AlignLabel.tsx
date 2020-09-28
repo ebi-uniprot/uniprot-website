@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties, SetStateAction, Dispatch } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -9,7 +9,7 @@ import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
 import { MSAInput } from '../../../components/AlignmentView';
-import { Sequence } from '../../../components/AlignWrapped';
+import { Sequence } from '../../../components/Wrapped';
 
 type Props = {
   accession?: string;
@@ -17,7 +17,7 @@ type Props = {
   info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
   loading: boolean;
   style?: CSSProperties;
-  withCheckbox?: boolean;
+  onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
   onIdClick?: () => void;
   active?: boolean;
 };
@@ -28,7 +28,7 @@ const AlignLabel: FC<Props> = ({
   loading,
   children,
   style,
-  withCheckbox = false,
+  onSequenceChecked,
   onIdClick,
   active = false,
 }) => {
@@ -67,7 +67,7 @@ const AlignLabel: FC<Props> = ({
 
   return (
     <span className={className} style={style}>
-      {withCheckbox && <input type="checkbox" />}
+      {onSequenceChecked && <input type="checkbox" />}
       {reviewImg}
       {before}
       {/* inject a link to the entry page */}

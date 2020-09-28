@@ -13,6 +13,7 @@ import { debounce } from 'lodash-es';
 import ProtvistaManager from 'protvista-manager';
 import ProtvistaTrack from 'protvista-track';
 import ProtvistaMSA from 'protvista-msa';
+import cn from 'classnames';
 
 import { loadWebComponent } from '../../shared/utils/utils';
 
@@ -23,12 +24,16 @@ import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderin
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { MSAViewProps, ConservationOptions } from './AlignmentView';
+import { ConservationOptions, MSAInput } from './AlignmentView';
 import {
   FeatureData,
   processFeaturesData,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { transformFeaturesPositions } from '../utils/sequences';
+import {
+  transformFeaturesPositions,
+  getEndCoordinate,
+} from '../utils/sequences';
+import AlignLabel from '../align/components/results/AlignLabel';
 
 loadWebComponent('protvista-track', ProtvistaTrack);
 loadWebComponent('protvista-msa', ProtvistaMSA);
@@ -36,7 +41,7 @@ loadWebComponent('protvista-manager', ProtvistaManager);
 
 const widthOfAA = 20;
 
-type Sequence = {
+export type Sequence = {
   name: string;
   sequence: string;
   start: number;
@@ -56,8 +61,10 @@ export type MSAWrappedRowProps = {
   conservationOptions: ConservationOptions;
   annotation: FeatureType | undefined;
   sequences: Sequence[];
-  selectedId?: string;
-  setSelectedId: Dispatch<SetStateAction<string | undefined>>;
+  activeId?: string;
+  setActiveId: Dispatch<SetStateAction<string | undefined>>;
+  onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
+  omitInsertionsInCoords?: boolean;
 };
 
 const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
@@ -66,7 +73,10 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   conservationOptions,
   annotation,
   sequences,
-  selectedId,
+  activeId,
+  setActiveId,
+  onSequenceChecked,
+  omitInsertionsInCoords = true,
 }) => {
   const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
 
@@ -85,7 +95,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
     (node): void => {
       if (node && annotation) {
         const featuresSeq = sequences.find(
-          ({ accession }) => accession && accession === selectedId
+          ({ accession }) => accession && accession === activeId
         );
         const features = featuresSeq?.features?.filter(
           ({ type }) => type === annotation
@@ -100,23 +110,33 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         }
       }
     },
-    [annotation, selectedId, sequences]
+    [annotation, activeId, sequences]
   );
 
   return (
     <section data-testid="alignment-wrapped-view" className="alignment-grid">
-      <section className="alignment-grid__row alignment-grid__row--msa-track">
-        <div className="track-label">
+      <section
+        className={cn('alignment-grid__row alignment-grid__row--msa-track', {
+          'alignment-grid__row--with-checkbox': onSequenceChecked,
+        })}
+      >
+        <div className="track-label track-label--align-labels">
           {sequences.map((s, index) => (
-            <div
+            <AlignLabel
+              accession={s.accession}
+              info={s}
+              loading={false}
+              key={s.name}
               style={{
                 height: 20,
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
-              key={s.name}
+              onSequenceChecked={onSequenceChecked}
+              onIdClick={() => setActiveId(s.accession)}
+              active={activeId === s.accession}
             >
-              {s.accession || s.name}
-            </div>
+              {s.name || ''}
+            </AlignLabel>
           ))}
         </div>
         <div className="track">
@@ -137,7 +157,9 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
               }}
               key={s.name}
             >
-              {s.end}
+              {omitInsertionsInCoords
+                ? getEndCoordinate(s.sequence, s.end)
+                : s.end}
             </div>
           ))}
         </span>
@@ -152,14 +174,29 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   );
 };
 
-const BlastWrapped: FC<MSAViewProps> = ({
+export type MSAViewProps = {
+  alignment: MSAInput[];
+  alignmentLength: number;
+  highlightProperty: MsaColorScheme | undefined;
+  conservationOptions: ConservationOptions;
+  totalLength: number;
+  annotation: FeatureType | undefined;
+  activeId?: string;
+  setActiveId: Dispatch<SetStateAction<string | undefined>>;
+  onSequenceChecked?: Dispatch<SetStateAction<string | undefined>>;
+  omitInsertionsInCoords?: boolean;
+};
+
+const Wrapped: FC<MSAViewProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
   conservationOptions,
   annotation,
-  selectedId,
-  setSelectedId,
+  activeId,
+  setActiveId,
+  onSequenceChecked,
+  omitInsertionsInCoords = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
@@ -233,8 +270,10 @@ const BlastWrapped: FC<MSAViewProps> = ({
               annotation={annotation}
               highlightProperty={highlightProperty}
               conservationOptions={conservationOptions}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
+              activeId={activeId}
+              setActiveId={setActiveId}
+              onSequenceChecked={onSequenceChecked}
+              omitInsertionsInCoords={omitInsertionsInCoords}
             />
           );
         }
@@ -244,4 +283,4 @@ const BlastWrapped: FC<MSAViewProps> = ({
   );
 };
 
-export default BlastWrapped;
+export default Wrapped;
