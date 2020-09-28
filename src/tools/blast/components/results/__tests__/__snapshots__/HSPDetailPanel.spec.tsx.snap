@@ -292,7 +292,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
                 Query
               </span>
               <span
-                class="align-label align-label--active"
+                class="align-label"
                 style="height: 20px;"
               >
                 Match
@@ -342,11 +342,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
             <div
               class="track"
             >
-              <protvista-track
-                displayend="462"
-                displaystart="418"
-                length="45"
-              />
+              <protvista-track />
             </div>
           </section>
         </section>
@@ -697,7 +693,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                   Query
                 </span>
                 <span
-                  class="align-label align-label--active"
+                  class="align-label"
                   style="height: 20px;"
                 >
                   Match

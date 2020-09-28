@@ -188,7 +188,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
               }}
               onSequenceChecked={onSequenceChecked}
               onIdClick={() => setActiveId(s.accession)}
-              active={activeId === s.accession}
+              active={!!activeId && activeId === s.accession}
             >
               {s.name || ''}
             </AlignLabel>

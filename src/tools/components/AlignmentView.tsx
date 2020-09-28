@@ -121,6 +121,17 @@ const AlignmentView: React.FC<{
     setCheckedIds({ ...checkedIds, [id]: !checkedIds[id] });
   };
 
+  const AlignmentComponent = activeView === View.overview ? Overview : Wrapped;
+  const additionalAlignProps =
+    tool === Tool.align
+      ? {
+          activeId,
+          setActiveId,
+          omitInsertionsInCoords: true,
+          onSequenceChecked: handleSequenceChecked,
+        }
+      : {};
+
   return (
     <>
       <div className="button-group">
@@ -193,62 +204,15 @@ const AlignmentView: React.FC<{
         </fieldset>
       </div>
       <div>
-        {activeView === View.overview && tool === Tool.blast && (
-          <Overview
-            alignment={alignment}
-            alignmentLength={alignmentLength}
-            highlightProperty={highlightProperty}
-            conservationOptions={conservationOptions}
-            totalLength={totalLength}
-            annotation={annotation}
-            activeId={activeId}
-            setActiveId={setActiveId}
-          />
-        )}
-
-        {activeView === View.wrapped && tool === Tool.blast && (
-          <Wrapped
-            alignment={alignment}
-            alignmentLength={alignmentLength}
-            highlightProperty={highlightProperty}
-            conservationOptions={conservationOptions}
-            totalLength={totalLength}
-            annotation={annotation}
-            activeId={activeId}
-            setActiveId={setActiveId}
-            omitInsertionsInCoords
-          />
-        )}
-
-        {activeView === View.overview && tool === Tool.align && (
-          <Overview
-            alignment={alignment}
-            alignmentLength={alignmentLength}
-            highlightProperty={highlightProperty}
-            conservationOptions={conservationOptions}
-            totalLength={totalLength}
-            annotation={annotation}
-            activeId={activeId}
-            setActiveId={setActiveId}
-            omitInsertionsInCoords
-            onSequenceChecked={handleSequenceChecked}
-          />
-        )}
-
-        {activeView === View.wrapped && tool === Tool.align && (
-          <Wrapped
-            alignment={alignment}
-            alignmentLength={alignmentLength}
-            highlightProperty={highlightProperty}
-            conservationOptions={conservationOptions}
-            totalLength={totalLength}
-            annotation={annotation}
-            activeId={activeId}
-            setActiveId={setActiveId}
-            omitInsertionsInCoords
-            onSequenceChecked={handleSequenceChecked}
-          />
-        )}
+        <AlignmentComponent
+          alignment={alignment}
+          alignmentLength={alignmentLength}
+          highlightProperty={highlightProperty}
+          conservationOptions={conservationOptions}
+          totalLength={totalLength}
+          annotation={annotation}
+          {...additionalAlignProps}
+        />
       </div>
     </>
   );
