@@ -11,7 +11,7 @@ import './styles/AlignLabel.scss';
 import { MSAInput } from '../../../components/AlignmentView';
 import { Sequence } from '../../../components/Wrapped';
 
-type Props = {
+type AlignLabelProps = {
   accession?: string;
   children: string;
   info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
@@ -22,7 +22,7 @@ type Props = {
   active?: boolean;
 };
 
-const AlignLabel: FC<Props> = ({
+const AlignLabel: FC<AlignLabelProps> = ({
   accession,
   info,
   loading,

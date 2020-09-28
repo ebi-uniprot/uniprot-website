@@ -22,12 +22,12 @@ const alignURLs = toolsURLs(JobTypes.ALIGN);
 const DEFAULT_CONTRAST = 2; // need to be >1
 const WAVE_EFFECT_TIME = 250; // in ms
 
-type Props = {
+type AlignResultPIMProps = {
   id: string;
   sequenceInfo: SequenceInfo;
 };
 
-const AlignResultPIM: FC<Props> = ({ id, sequenceInfo }) => {
+const AlignResultPIM: FC<AlignResultPIMProps> = ({ id, sequenceInfo }) => {
   const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
 

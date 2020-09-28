@@ -11,7 +11,7 @@ import {
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
 
-type Props = {
+type AlignResultOverviewProps = {
   data: string;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
@@ -66,7 +66,10 @@ const enrichParsed = (
   return { ...parsed, sequences } as ParsedAndEnriched;
 };
 
-const AlignResultOverview: FC<Props> = ({ data, sequenceInfo }) => {
+const AlignResultOverview: FC<AlignResultOverviewProps> = ({
+  data,
+  sequenceInfo,
+}) => {
   const clustalParsed = useMemo(() => alnClustalNum(data), [data]);
 
   const parsedAndEnriched = useMemo(

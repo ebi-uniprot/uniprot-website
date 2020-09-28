@@ -24,7 +24,7 @@ import '../../uniprotkb/components/search/styles/search-container.scss';
 
 const queryBuilderPath = LocationToPath[Location.UniProtKBQueryBuilder];
 
-type Props = {
+type SearchProps = {
   dispatchUpdateQueryString: (type: string) => void;
   namespace: Namespace;
   clauses: Clause[];
@@ -43,12 +43,12 @@ type Props = {
   dispatchSetPreSelectedClauses: () => void;
 } & RouteComponentProps;
 
-type State = {
+type SearchState = {
   queryString: string;
 };
 
-export class Search extends Component<Props, State> {
-  constructor(props: Props) {
+export class Search extends Component<SearchProps, SearchState> {
+  constructor(props: SearchProps) {
     super(props);
 
     // const { queryString } = props;

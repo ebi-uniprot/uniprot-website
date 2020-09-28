@@ -46,7 +46,7 @@ interface Cancelable {
   flush(): void;
 }
 
-type Props = {
+type PhyloTreeProps = {
   newick?: string;
   showDistance: boolean;
   alignLabels: boolean;
@@ -54,7 +54,7 @@ type Props = {
   sequenceInfo: SequenceInfo;
 };
 
-const PhyloTree: FC<Props> = ({
+const PhyloTree: FC<PhyloTreeProps> = ({
   newick,
   showDistance,
   alignLabels,
