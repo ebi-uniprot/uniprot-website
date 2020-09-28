@@ -284,18 +284,28 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
             class="alignment-grid__row alignment-grid__row--msa-track"
           >
             <div
-              class="track-label"
+              class="track-label track-label--align-labels"
             >
-              <div
-                style="height: 20px; margin-top: 0px;"
+              <span
+                class="align-label"
               >
                 Query
-              </div>
-              <div
+              </span>
+              <span
+                class="align-label align-label--active"
                 style="height: 20px;"
               >
-                U6MKN0
-              </div>
+                Match
+                <a
+                  href="/uniprotkb/U6MKN0"
+                >
+                  U6MKN0
+                </a>
+                <button
+                  class="button tertiary"
+                  type="button"
+                />
+              </span>
             </div>
             <div
               class="track"
@@ -679,18 +689,28 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               class="alignment-grid__row alignment-grid__row--msa-track"
             >
               <div
-                class="track-label"
+                class="track-label track-label--align-labels"
               >
-                <div
-                  style="height: 20px; margin-top: 0px;"
+                <span
+                  class="align-label"
                 >
                   Query
-                </div>
-                <div
+                </span>
+                <span
+                  class="align-label align-label--active"
                   style="height: 20px;"
                 >
-                  U6MKN0
-                </div>
+                  Match
+                  <a
+                    href="/uniprotkb/U6MKN0"
+                  >
+                    U6MKN0
+                  </a>
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  />
+                </span>
               </div>
               <div
                 class="track"
@@ -710,6 +730,20 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                   />
                 </protvista-manager>
               </div>
+              <span
+                class="right-coord"
+              >
+                <div
+                  style="height: 20px; margin-top: 0px;"
+                >
+                  28
+                </div>
+                <div
+                  style="height: 20px;"
+                >
+                  28
+                </div>
+              </span>
             </section>
           </section>
         </div>
