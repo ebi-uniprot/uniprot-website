@@ -279,6 +279,11 @@ module.exports = (env, argv) => {
         maxInitialRequests: 4,
         automaticNameDelimiter: '~',
         cacheGroups: {
+          sentry: {
+            test: /[\\/]node_modules[\\/]@sentry[\\/]/,
+            name: 'sentry',
+            chunks: 'all',
+          },
           geneontology: {
             // list the package to extract into its own bundle, plus all its
             // dependencies used *only* by it (use `yarn why <dependency>` to find)
