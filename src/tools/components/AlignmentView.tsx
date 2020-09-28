@@ -217,7 +217,6 @@ const AlignmentView: React.FC<{
             activeId={activeId}
             setActiveId={setActiveId}
             omitInsertionsInCoords
-            onSequenceChecked={handleSequenceChecked}
           />
         )}
 
@@ -231,6 +230,8 @@ const AlignmentView: React.FC<{
             annotation={annotation}
             activeId={activeId}
             setActiveId={setActiveId}
+            omitInsertionsInCoords
+            onSequenceChecked={handleSequenceChecked}
           />
         )}
 
