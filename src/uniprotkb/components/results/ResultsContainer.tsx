@@ -80,7 +80,7 @@ const Results: FC = () => {
     : undefined;
 
   // no results if total is 0, or if not loading anymore and still no total info
-  if (total === undefined || total === 0 || !(total || loading)) {
+  if (total === 0 || !(total || loading)) {
     return <NoResultsPage />;
   }
 
@@ -110,7 +110,7 @@ const Results: FC = () => {
           selectedEntries={selectedEntries}
           sortColumn={sortColumn}
           sortDirection={sortDirection}
-          total={total}
+          total={total || 0}
         />
       }
       sidebar={
