@@ -1,12 +1,19 @@
 import React, { FC, useRef, useEffect } from 'react';
-import { Card } from 'franklin-sites';
+import { Card, Loader } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
-import ProtvistaDatatable from 'protvista-datatable';
-import InteractionViewer from 'interaction-viewer';
-import { hasContent } from '../../utils';
+
 import EntrySection from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
+
+import { hasContent } from '../../utils';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
+
+import {
+  getIntActQueryUrl,
+  getIntActQueryForAccessionUrl,
+} from '../../config/externalUrls';
+
 import {
   CommentType,
   FreeTextComment,
@@ -14,14 +21,6 @@ import {
   Interaction,
 } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
-import { loadWebComponent } from '../../../shared/utils/utils';
-import {
-  getIntActQueryUrl,
-  getIntActQueryForAccessionUrl,
-} from '../../config/externalUrls';
-
-loadWebComponent('interaction-viewer', InteractionViewer);
-loadWebComponent('protvista-datatable', ProtvistaDatatable);
 
 const getInteractionColumns = (primaryAccession: string) => ({
   title: {
@@ -92,13 +91,19 @@ const InteractionSection: FC<{
   primaryAccession: string;
 }> = ({ data, primaryAccession }): JSX.Element | null => {
   const datatableContainer = useRef<HTMLInteractionDatatable>(null);
+  const datatableDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-track" */ 'protvista-datatable'),
+    'protvista-datatable'
+  );
+
   useEffect(() => {
     const interactionComment = data.commentsData.get(
       CommentType.INTERACTION
     ) as InteractionComment[];
     if (
-      datatableContainer &&
       datatableContainer.current &&
+      datatableDefined &&
       interactionComment &&
       interactionComment[0]
     ) {
@@ -109,7 +114,13 @@ const InteractionSection: FC<{
         primaryAccession
       );
     }
-  });
+  }, [datatableDefined, data.commentsData, primaryAccession]);
+
+  const interactionViewerDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-track" */ 'interaction-viewer'),
+    'interaction-viewer'
+  );
 
   if (!hasContent(data)) {
     return null;
@@ -117,6 +128,10 @@ const InteractionSection: FC<{
   const comments = data.commentsData.get(
     CommentType.SUBUNIT
   ) as FreeTextComment[];
+
+  if (!(datatableDefined && interactionViewerDefined)) {
+    return <Loader />;
+  }
 
   return (
     <div id={EntrySection.Interaction}>
