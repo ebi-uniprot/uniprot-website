@@ -140,7 +140,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     [features, annotation]
   );
 
-  const overviewHeight: string = (alignment && alignment.length > 10
+  const overviewHeight = (alignment && alignment.length > 10
     ? alignment.length * 3
     : 30
   ).toString();
