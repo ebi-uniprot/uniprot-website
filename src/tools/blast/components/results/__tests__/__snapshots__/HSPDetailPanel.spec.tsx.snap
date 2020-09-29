@@ -332,7 +332,11 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
         <div
           class="track annotation-track"
         >
-          <protvista-track />
+          <protvista-track
+            displayend="462"
+            displaystart="418"
+            length="45"
+          />
         </div>
       </div>
     </div>
@@ -625,12 +629,12 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             data-testid="alignment-view"
           >
             <span
-              class="row-1 track-label"
+              class="track-label"
             >
               Overview
             </span>
             <div
-              class="row-1 track"
+              class="track"
             >
               <div>
                 <protvista-track
@@ -648,12 +652,12 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               </div>
             </div>
             <span
-              class="row-2 track-label"
+              class="track-label"
             >
               chain
             </span>
             <div
-              class="row-2 track"
+              class="track"
             >
               <protvista-track
                 highlight="418:446"
@@ -662,7 +666,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               />
             </div>
             <div
-              class="row-3 track-label track-label--align-labels"
+              class="track-label track-label--align-labels"
             >
               <span
                 class="align-label align-label--selectable"
@@ -684,7 +688,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               </button>
             </div>
             <div
-              class="row-3 track"
+              class="track"
             >
               <protvista-manager
                 attributes="displaystart displayend"
@@ -702,7 +706,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               </protvista-manager>
             </div>
             <span
-              class="row-3 right-coord"
+              class="right-coord"
             >
               <div
                 style="height: 20px;"

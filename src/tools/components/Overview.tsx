@@ -63,7 +63,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   totalLength,
   annotation,
   activeId,
-  setActiveId = () => null,
+  setActiveId,
   omitInsertionsInCoords,
   selectedEntries,
   handleSelectedEntries,
@@ -154,8 +154,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
 
       {/* first row */}
-      <span className="row-1 track-label">Overview</span>
-      <div className="row-1 track">
+      <span className="track-label">Overview</span>
+      <div className="track">
         <AlignmentOverview
           height={overviewHeight}
           length={totalLength}
@@ -165,8 +165,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       </div>
 
       {/* second row */}
-      <span className="row-2 track-label">{annotation}</span>
-      <div className="row-2 track">
+      <span className="track-label">{annotation}</span>
+      <div className="track">
         <protvista-track
           ref={setFeatureTrackData}
           length={totalLength}
@@ -176,7 +176,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       </div>
 
       {/* third row */}
-      <div className="row-3 track-label track-label--align-labels">
+      <div className="track-label track-label--align-labels">
         {alignment.map((s) => (
           <AlignLabel
             accession={s.accession}
@@ -188,14 +188,14 @@ const AlignOverview: FC<BlastOverviewProps> = ({
               s.accession && selectedEntries?.includes(s.accession)
             )}
             onSequenceChecked={handleSelectedEntries}
-            onIdClick={() => setActiveId(s.accession)}
-            active={!!activeId && activeId === s.accession}
+            onIdClick={() => setActiveId?.(s.accession)}
+            active={!!activeId && setActiveId && activeId === s.accession}
           >
             {s.name || ''}
           </AlignLabel>
         ))}
       </div>
-      <div className="row-3 track">
+      <div className="track">
         <protvista-manager
           ref={managerRef}
           attributes="displaystart displayend"
@@ -210,7 +210,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           />
         </protvista-manager>
       </div>
-      <span className="row-3 right-coord">
+      <span className="right-coord">
         {alignment.map((s) => (
           <div style={heightStyle} key={s.name}>
             {Math.floor(

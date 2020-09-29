@@ -76,7 +76,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   annotation,
   sequences,
   activeId,
-  setActiveId = () => null,
+  setActiveId,
   omitInsertionsInCoords = true,
   selectedEntries,
   handleSelectedEntries,
@@ -129,8 +129,8 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
               s.accession && selectedEntries?.includes(s.accession)
             )}
             onSequenceChecked={handleSelectedEntries}
-            onIdClick={() => setActiveId(s.accession)}
-            active={!!activeId && activeId === s.accession}
+            onIdClick={() => setActiveId?.(s.accession)}
+            active={!!activeId && setActiveId && activeId === s.accession}
           >
             {s.name || ''}
           </AlignLabel>
