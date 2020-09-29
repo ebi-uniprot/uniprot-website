@@ -189,7 +189,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
               s.accession && selectedEntries?.includes(s.accession)
             )}
             onSequenceChecked={handleSelectedEntries}
-            onIdClick={() => setActiveId?.(s.accession)}
+            onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
             active={!!activeId && setActiveId && activeId === s.accession}
           >
             {s.name || ''}
