@@ -177,9 +177,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
   return (
     <section data-testid="alignment-view" className="alignment-grid">
-      {/* Query track */}
-      {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
-
       {/* first row */}
       <span className="track-label">Overview</span>
       <div className="track">
