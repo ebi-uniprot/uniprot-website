@@ -8,19 +8,24 @@ import React, {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { Loading } from 'franklin-sites';
-import { MsaColorScheme } from '../config/msaColorSchemes';
-import FeatureType from '../../uniprotkb/types/featureType';
-import { MSAInput, ConservationOptions } from './AlignmentView';
+import { Loader } from 'franklin-sites';
+
+import AlignmentOverview from './AlignmentOverview';
+import AlignLabel from '../align/components/results/AlignLabel';
+
+import useCustomElement from '../../shared/hooks/useCustomElement';
 import { processFeaturesData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
   transformFeaturesPositions,
   getFullAlignmentSegments,
   getEndCoordinate,
 } from '../utils/sequences';
-import AlignmentOverview from './AlignmentOverview';
-import AlignLabel from '../align/components/results/AlignLabel';
-import useCustomElement from '../../shared/hooks/useCustomElement';
+
+import { MsaColorScheme } from '../config/msaColorSchemes';
+import FeatureType from '../../uniprotkb/types/featureType';
+
+import { MSAInput, ConservationOptions } from './AlignmentView';
+
 import './styles/alignment-view.scss';
 
 // Do we have this defined somewhere else?
@@ -167,7 +172,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   ).toString();
 
   if (!ceDefined) {
-    return <Loading />;
+    return <Loader />;
   }
 
   return (
