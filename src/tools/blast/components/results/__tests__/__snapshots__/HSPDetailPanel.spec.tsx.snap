@@ -283,14 +283,14 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           class="track-label track-label--align-labels"
         >
           <span
-            class="align-label align-label--selectable"
+            class="align-label"
           >
             Query
           </span>
           <button
-            class="align-label align-label--selectable"
+            class="align-label"
             style="height: 20px;"
-            tabindex="0"
+            tabindex="-1"
             type="button"
           >
             Match:
@@ -669,14 +669,14 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               class="track-label track-label--align-labels"
             >
               <span
-                class="align-label align-label--selectable"
+                class="align-label"
               >
                 Query
               </span>
               <button
-                class="align-label align-label--selectable"
+                class="align-label"
                 style="height: 20px;"
-                tabindex="0"
+                tabindex="-1"
                 type="button"
               >
                 Match:
