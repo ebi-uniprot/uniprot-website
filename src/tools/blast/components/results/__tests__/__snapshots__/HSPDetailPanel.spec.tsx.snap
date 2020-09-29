@@ -275,67 +275,65 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
       </fieldset>
     </div>
     <div>
-      <div>
-        <section
-          class="alignment-grid alignment-wrapped"
-          data-testid="alignment-wrapped-view"
+      <div
+        class="alignment-grid alignment-wrapped"
+        data-testid="alignment-wrapped-view"
+      >
+        <div
+          class="track-label track-label--align-labels"
+        >
+          <span
+            class="align-label align-label--selectable"
+          >
+            Query
+          </span>
+          <button
+            class="align-label align-label--selectable"
+            style="height: 20px;"
+            tabindex="0"
+            type="button"
+          >
+            Match:
+            <a
+              href="/uniprotkb/U6MKN0"
+            >
+              U6MKN0
+            </a>
+          </button>
+        </div>
+        <div
+          class="track"
+        >
+          <protvista-msa
+            colorscheme="clustal"
+            height="40"
+            length="45"
+          />
+        </div>
+        <span
+          class="right-coord"
         >
           <div
-            class="row-1 track-label track-label--align-labels"
+            style="height: 20px;"
           >
-            <span
-              class="align-label align-label--selectable"
-            >
-              Query
-            </span>
-            <button
-              class="align-label align-label--selectable"
-              style="height: 20px;"
-              tabindex="0"
-              type="button"
-            >
-              Match:
-              <a
-                href="/uniprotkb/U6MKN0"
-              >
-                U6MKN0
-              </a>
-            </button>
+            47
           </div>
           <div
-            class="row-1 track"
+            style="height: 20px;"
           >
-            <protvista-msa
-              colorscheme="clustal"
-              height="40"
-              length="45"
-            />
+            462
           </div>
-          <span
-            class="row-1 right-coord"
-          >
-            <div
-              style="height: 20px;"
-            >
-              47
-            </div>
-            <div
-              style="height: 20px;"
-            >
-              462
-            </div>
-          </span>
-          <span
-            class="row-2 track-label"
-          >
-            chain
-          </span>
-          <div
-            class="row-2 track"
-          >
-            <protvista-track />
-          </div>
-        </section>
+        </span>
+        <span
+          class="track-label annotation-label"
+        >
+          chain
+        </span>
+        <div
+          class="track"
+        >
+          <protvista-track />
+        </div>
       </div>
     </div>
   </div>

@@ -8,20 +8,25 @@
 
   &__placeholder {
     height: 80px;
+    grid-column: span 3;
+    background: red;
   }
 
   display: grid;
-  grid-template-columns: fit-content(10px) 1fr fit-content(10px);
-  grid-template-areas:
-    'label-1 track-1 .'
-    'label-2 track-2 .'
-    'label-3 track-3 right-coord';
+  grid-template-columns: fit-content(auto) 1fr fit-content(auto);
   align-items: end;
 
   &.alignment-wrapped {
-    grid-template-areas:
-      'label-1 track-1 right-coord'
-      'label-2 track-2 .';
+    align-items: start;
+
+    .annotation-label {
+      align-self: center;
+      margin-bottom: 1em; // hacky: fake gap between groups of cells ("rows")
+    }
+
+    .track:nth-of-type(odd) {
+      margin-bottom: 1em; // hacky: fake gap between groups of cells ("rows")
+    }
   }
 
   .track-label {
@@ -29,21 +34,10 @@
     padding-right: 0.5rem;
     font-weight: 800;
     white-space: nowrap;
+    grid-column: 1;
 
     &:first-letter {
       text-transform: uppercase;
-    }
-
-    &.row-1 {
-      grid-area: label-1;
-    }
-
-    &.row-2 {
-      grid-area: label-2;
-    }
-
-    &.row-3 {
-      grid-area: label-3;
     }
 
     &--align-labels {
@@ -75,22 +69,12 @@
 
   .track {
     position: relative;
-
-    &.row-1 {
-      grid-area: track-1;
-    }
-
-    &.row-2 {
-      grid-area: track-2;
-    }
-
-    &.row-3 {
-      grid-area: track-3;
-    }
+    grid-column: 2;
   }
 
   .right-coord {
     padding-left: 0.1rem;
-    grid-area: right-coord;
+    grid-column: 3;
+    grid-row: span 2;
   }
 }

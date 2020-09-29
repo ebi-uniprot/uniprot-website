@@ -116,11 +116,8 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   // TODO: replace this with fragments to have one big grid
   // -> to keep the right column of the right size to fit all possible values
   return (
-    <section
-      data-testid="alignment-wrapped-view"
-      className="alignment-grid alignment-wrapped"
-    >
-      <div className="row-1 track-label track-label--align-labels">
+    <>
+      <div className="track-label track-label--align-labels">
         {sequences.map((s) => (
           <AlignLabel
             accession={s.accession}
@@ -139,7 +136,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           </AlignLabel>
         ))}
       </div>
-      <div className="row-1 track">
+      <div className="track">
         <protvista-msa
           ref={setMSAAttributes}
           length={rowLength}
@@ -148,7 +145,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           {...conservationOptions}
         />
       </div>
-      <span className="row-1 right-coord">
+      <span className="right-coord">
         {sequences.map((s) => (
           <div style={heightStyle} key={s.name}>
             {omitInsertionsInCoords
@@ -157,11 +154,11 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           </div>
         ))}
       </span>
-      <span className="row-2 track-label">{annotation}</span>
-      <div className="row-2 track">
+      <span className="track-label annotation-label">{annotation}</span>
+      <div className="track">
         <protvista-track ref={setFeatureTrackData} />
       </div>
-    </section>
+    </>
   );
 };
 
@@ -252,7 +249,11 @@ const Wrapped: FC<MSAViewProps> = ({
   }, [alignment, alignmentLength, rowLength]);
 
   return (
-    <div ref={containerRef}>
+    <div
+      ref={containerRef}
+      className="alignment-grid alignment-wrapped"
+      data-testid="alignment-wrapped-view"
+    >
       {sequenceChunks.map(({ sequences, id }, index) => {
         if (index < nItemsToRender) {
           return (
@@ -271,7 +272,7 @@ const Wrapped: FC<MSAViewProps> = ({
             />
           );
         }
-        return <section key={id} className="alignment-grid__placeholder" />;
+        return <div key={id} className="alignment-grid__placeholder" />;
       })}
     </div>
   );
