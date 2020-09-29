@@ -53,7 +53,8 @@ export type BlastOverviewProps = {
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
-const heightStyle = { height: '20px' };
+const sequenceHeight = 20;
+const heightStyle = { height: `${sequenceHeight}px` };
 
 const AlignOverview: FC<BlastOverviewProps> = ({
   alignment,
@@ -204,7 +205,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           <protvista-msa
             ref={setMSAAttributes}
             length={alignmentLength}
-            height={alignment.length * 20}
+            height={alignment.length * sequenceHeight}
             colorscheme={highlightProperty}
             {...conservationOptions}
           />

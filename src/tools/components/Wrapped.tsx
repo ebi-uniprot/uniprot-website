@@ -67,7 +67,8 @@ export type MSAWrappedRowProps = {
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
-const heightStyle = { height: '20px' };
+const sequenceHeight = 20;
+const heightStyle = { height: `${sequenceHeight}px` };
 
 const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   rowLength,
@@ -140,7 +141,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         <protvista-msa
           ref={setMSAAttributes}
           length={rowLength}
-          height={sequences.length * 20}
+          height={sequences.length * sequenceHeight}
           colorscheme={highlightProperty}
           {...conservationOptions}
         />

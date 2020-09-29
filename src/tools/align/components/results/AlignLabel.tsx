@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, useCallback } from 'react';
+import React, { FC, CSSProperties, useCallback, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { noop } from 'lodash-es';
@@ -51,6 +51,10 @@ const AlignLabel: FC<AlignLabelProps> = ({
     [onSequenceChecked, accession]
   );
 
+  const handleClick = useCallback((event: MouseEvent) => {
+    event.stopPropagation();
+  }, []);
+
   if (!accession || loading || invalid) {
     return (
       <span className={className} title={title}>
@@ -82,8 +86,13 @@ const AlignLabel: FC<AlignLabelProps> = ({
       onClick={onIdClick || noop}
       tabIndex={onIdClick ? 0 : -1}
     >
-      {onSequenceChecked && (
-        <input type="checkbox" onChange={handleChange} checked={checked} />
+      {onSequenceChecked && accession && (
+        <input
+          type="checkbox"
+          onChange={handleChange}
+          onClick={handleClick}
+          checked={checked}
+        />
       )}
       {reviewImg}
       {before}
