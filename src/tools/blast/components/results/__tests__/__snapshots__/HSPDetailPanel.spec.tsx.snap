@@ -275,81 +275,69 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
       </fieldset>
     </div>
     <div>
-      <div>
-        <section
-          class="alignment-grid"
-          data-testid="alignment-wrapped-view"
+      <div
+        class="alignment-grid alignment-wrapped"
+        data-testid="alignment-wrapped-view"
+      >
+        <div
+          class="track-label track-label--align-labels"
         >
-          <section
-            class="alignment-grid__row alignment-grid__row--msa-track"
+          <span
+            class="align-label align-label--selectable"
           >
-            <div
-              class="track-label track-label--align-labels"
-            >
-              <span
-                class="align-label"
-              >
-                Query
-              </span>
-              <span
-                class="align-label"
-                style="height: 20px;"
-              >
-                Match
-                <a
-                  href="/uniprotkb/U6MKN0"
-                >
-                  U6MKN0
-                </a>
-                <button
-                  class="button tertiary"
-                  type="button"
-                />
-              </span>
-            </div>
-            <div
-              class="track"
-            >
-              <protvista-msa
-                colorscheme="clustal"
-                height="40"
-                length="45"
-              />
-            </div>
-            <span
-              class="right-coord"
-            >
-              <div
-                style="height: 20px; margin-top: 0px;"
-              >
-                47
-              </div>
-              <div
-                style="height: 20px;"
-              >
-                462
-              </div>
-            </span>
-          </section>
-          <section
-            class="alignment-grid__row"
+            Query
+          </span>
+          <button
+            class="align-label align-label--selectable"
+            style="height: 20px;"
+            tabindex="0"
+            type="button"
           >
-            <span
-              class="track-label"
+            Match:
+            <a
+              href="/uniprotkb/U6MKN0"
             >
-              chain
-            </span>
-            <div
-              class="track"
-            >
-              <protvista-track
-                displayend="462"
-                displaystart="418"
-                length="45"
-              />
-            </div>
-          </section>
-        </section>
+              U6MKN0
+            </a>
+          </button>
+        </div>
+        <div
+          class="track"
+        >
+          <protvista-msa
+            colorscheme="clustal"
+            height="40"
+            length="45"
+          />
+        </div>
+        <span
+          class="right-coord"
+        >
+          <div
+            style="height: 20px;"
+          >
+            47
+          </div>
+          <div
+            style="height: 20px;"
+          >
+            462
+          </div>
+        </span>
+        <span
+          class="track-label annotation-label"
+        >
+          chain
+        </span>
+        <div
+          class="track annotation-track"
+        >
+          <protvista-track
+            displayend="462"
+            displaystart="418"
+            length="45"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -640,111 +628,97 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             class="alignment-grid"
             data-testid="alignment-view"
           >
-            <section
-              class="alignment-grid__row"
+            <span
+              class="track-label"
             >
-              <span
-                class="track-label"
-              >
-                Overview
-              </span>
-              <div
-                class="track"
-              >
-                <div>
-                  <protvista-track
-                    height="15"
-                    highlight="418:446"
-                    layout="non-overlapping"
-                    length="486"
-                  />
-                  <protvista-track
-                    height="15"
-                    highlight="418:446"
-                    layout="non-overlapping"
-                    length="486"
-                  />
-                </div>
-              </div>
-            </section>
-            <section
-              class="alignment-grid__row"
+              Overview
+            </span>
+            <div
+              class="track"
             >
-              <span
-                class="track-label"
-              >
-                chain
-              </span>
-              <div
-                class="track"
-              >
+              <div>
                 <protvista-track
+                  height="15"
+                  highlight="418:446"
+                  layout="non-overlapping"
+                  length="486"
+                />
+                <protvista-track
+                  height="15"
                   highlight="418:446"
                   layout="non-overlapping"
                   length="486"
                 />
               </div>
-            </section>
-            <section
-              class="alignment-grid__row alignment-grid__row--msa-track"
+            </div>
+            <span
+              class="track-label"
+            >
+              chain
+            </span>
+            <div
+              class="track"
+            >
+              <protvista-track
+                highlight="418:446"
+                layout="non-overlapping"
+                length="486"
+              />
+            </div>
+            <div
+              class="track-label track-label--align-labels"
+            >
+              <span
+                class="align-label align-label--selectable"
+              >
+                Query
+              </span>
+              <button
+                class="align-label align-label--selectable"
+                style="height: 20px;"
+                tabindex="0"
+                type="button"
+              >
+                Match:
+                <a
+                  href="/uniprotkb/U6MKN0"
+                >
+                  U6MKN0
+                </a>
+              </button>
+            </div>
+            <div
+              class="track"
+            >
+              <protvista-manager
+                attributes="displaystart displayend"
+                displayend="28"
+                displaystart="1"
+              >
+                <protvista-navigation
+                  length="28"
+                />
+                <protvista-msa
+                  colorscheme="clustal"
+                  height="40"
+                  length="28"
+                />
+              </protvista-manager>
+            </div>
+            <span
+              class="right-coord"
             >
               <div
-                class="track-label track-label--align-labels"
+                style="height: 20px;"
               >
-                <span
-                  class="align-label"
-                >
-                  Query
-                </span>
-                <span
-                  class="align-label"
-                  style="height: 20px;"
-                >
-                  Match
-                  <a
-                    href="/uniprotkb/U6MKN0"
-                  >
-                    U6MKN0
-                  </a>
-                  <button
-                    class="button tertiary"
-                    type="button"
-                  />
-                </span>
+                28
               </div>
               <div
-                class="track"
+                style="height: 20px;"
               >
-                <protvista-manager
-                  attributes="displaystart displayend"
-                  displayend="28"
-                  displaystart="1"
-                >
-                  <protvista-navigation
-                    length="28"
-                  />
-                  <protvista-msa
-                    colorscheme="clustal"
-                    height="40"
-                    length="28"
-                  />
-                </protvista-manager>
+                28
               </div>
-              <span
-                class="right-coord"
-              >
-                <div
-                  style="height: 20px; margin-top: 0px;"
-                >
-                  28
-                </div>
-                <div
-                  style="height: 20px;"
-                >
-                  28
-                </div>
-              </span>
-            </section>
+            </span>
           </section>
         </div>
       </div>

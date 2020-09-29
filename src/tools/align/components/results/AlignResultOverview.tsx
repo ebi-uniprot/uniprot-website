@@ -69,6 +69,8 @@ const enrichParsed = (
 const AlignResultOverview: FC<AlignResultOverviewProps> = ({
   data,
   sequenceInfo,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
   const clustalParsed = useMemo(() => alnClustalNum(data), [data]);
 
@@ -91,6 +93,8 @@ const AlignResultOverview: FC<AlignResultOverviewProps> = ({
       alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
       defaultView={View.wrapped}
       tool={Tool.align}
+      selectedEntries={selectedEntries}
+      handleSelectedEntries={handleSelectedEntries}
     />
   );
 };

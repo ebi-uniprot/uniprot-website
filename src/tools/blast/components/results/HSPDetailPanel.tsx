@@ -8,12 +8,13 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import './styles/HSPDetailPanel.scss';
 import AlignmentView, {
   MSAInput,
   View,
   Tool,
 } from '../../../components/AlignmentView';
+
+import './styles/HSPDetailPanel.scss';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -53,7 +54,7 @@ export const convertHSPtoMSAInputs = (
       length: queryLength,
     },
     {
-      name: 'Match',
+      name: 'Match:',
       sequence: hsp_hseq,
       from: hsp_hit_from,
       to: hsp_hit_to,

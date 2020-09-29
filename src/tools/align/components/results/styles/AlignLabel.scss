@@ -12,6 +12,8 @@
 .align-label {
   white-space: nowrap;
   opacity: 1;
+  margin: 0;
+  outline: none;
 
   &--invalid {
     cursor: not-allowed;
@@ -23,6 +25,11 @@
 
   &--active {
     background-color: $colour-gainsborough;
+  }
+
+  &--selectable {
+    cursor: pointer;
+    outline: initial;
   }
 
   input[type='checkbox'] {

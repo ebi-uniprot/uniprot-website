@@ -6,60 +6,74 @@
   height: auto;
   max-height: 50%;
 
+  display: grid;
+  grid-template-columns: fit-content(auto) 1fr fit-content(auto);
+  align-items: end;
+
   &__placeholder {
     height: 80px;
+    grid-column: span 3;
   }
 
-  &__row {
-    display: grid;
-    grid-template-columns: 16vw auto 4vw;
-    grid-template-areas: 'label track .';
-    align-items: center;
+  &.alignment-wrapped {
+    align-items: start;
 
-    &--msa-track {
-      grid-template-areas: 'label track right-coord';
+    .annotation-label {
+      align-self: center;
+      margin-bottom: 1em; // hacky: fake gap between groups of cells ("rows")
     }
 
-    .track-label {
-      grid-area: label;
-      text-align: right;
-      padding-right: 0.5rem;
-      font-weight: 800;
-      &:first-letter {
-        text-transform: uppercase;
-      }
+    .annotation-track {
+      margin-bottom: 1em; // hacky: fake gap between groups of cells ("rows")
+    }
+  }
 
-      &--align-labels {
-        align-self: flex-end;
-        margin: 0;
-        list-style: none;
+  .track-label {
+    text-align: right;
+    padding-right: 0.5rem;
+    font-weight: 800;
+    white-space: nowrap;
+    grid-column: 1;
 
-        .align-label {
+    &:first-letter {
+      text-transform: uppercase;
+    }
+
+    &--align-labels {
+      align-self: flex-end;
+      margin: 0;
+      list-style: none;
+
+      .align-label {
+        font-size: 0.75rem;
+        border-top: 1px solid $colour-gainsborough;
+        display: flex;
+        align-items: center;
+
+        &:last-child {
+          border-bottom: 1px solid $colour-gainsborough;
+        }
+
+        button {
+          margin: 0;
           font-size: 0.75rem;
-          border-top: 1px solid $colour-gainsborough;
-          display: flex;
-          align-items: center;
-
-          &:last-child {
-            border-bottom: 1px solid $colour-gainsborough;
-          }
-
-          button {
-            margin: 0;
-            font-size: 0.75rem;
-          }
         }
       }
     }
 
-    .track {
-      grid-area: track;
-      position: relative;
+    & > * {
+      width: 100%;
     }
+  }
 
-    .right-coord {
-      padding-left: 0.1rem;
-      grid-area: right-coord;
-    }
+  .track {
+    position: relative;
+    grid-column: 2;
+  }
+
+  .right-coord {
+    padding-left: 0.1rem;
+    grid-column: 3;
+    grid-row: span 2;
   }
 }

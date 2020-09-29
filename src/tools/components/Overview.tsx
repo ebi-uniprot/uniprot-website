@@ -47,9 +47,14 @@ export type BlastOverviewProps = {
   annotation: FeatureType | undefined;
   activeId?: string;
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  onSequenceChecked?: (id: string) => void;
   omitInsertionsInCoords?: boolean;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
 };
+
+// NOTE: hardcoded for now, might need to change that in the future if need be
+const sequenceHeight = 20;
+const heightStyle = { height: `${sequenceHeight}px` };
 
 const AlignOverview: FC<BlastOverviewProps> = ({
   alignment,
@@ -60,15 +65,15 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   annotation,
   activeId,
   setActiveId,
-  onSequenceChecked,
   omitInsertionsInCoords,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
   const [displayEnd, setDisplayEnd] = useState<number>();
-  const [msaOffsetTop, setMsaOffsetTop] = useState<number | undefined>();
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
 
@@ -105,7 +110,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       if (!node) {
         return;
       }
-      setMsaOffsetTop(node.offsetTop);
 
       const displayEndValue =
         alignmentLength / (15 / node.getSingleBaseWidth());
@@ -150,88 +154,77 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       {/* Query track */}
       {/* NOTE: both tracks currently merged into one - new Nightingale component needed */}
 
-      <section className="alignment-grid__row">
-        <span className="track-label">Overview</span>
-        <div className="track">
-          <AlignmentOverview
-            height={overviewHeight}
-            length={totalLength}
-            highlight={highlightPosition}
-            data={alignment ? getFullAlignmentSegments(alignment) : []}
-          />
-        </div>
-      </section>
+      {/* first row */}
+      <span className="track-label">Overview</span>
+      <div className="track">
+        <AlignmentOverview
+          height={overviewHeight}
+          length={totalLength}
+          highlight={highlightPosition}
+          data={alignment ? getFullAlignmentSegments(alignment) : []}
+        />
+      </div>
 
-      <section className="alignment-grid__row">
-        <span className="track-label">{annotation}</span>
-        <div className="track">
-          <protvista-track
-            ref={setFeatureTrackData}
-            length={totalLength}
-            layout="non-overlapping"
-            highlight={highlightPosition}
-          />
-        </div>
-      </section>
+      {/* second row */}
+      <span className="track-label">{annotation}</span>
+      <div className="track">
+        <protvista-track
+          ref={setFeatureTrackData}
+          length={totalLength}
+          layout="non-overlapping"
+          highlight={highlightPosition}
+        />
+      </div>
 
-      <section className="alignment-grid__row alignment-grid__row--msa-track">
-        <div className="track-label track-label--align-labels">
-          {alignment.map((s, index) => (
-            <AlignLabel
-              accession={s.accession}
-              info={s}
-              loading={false}
-              key={s.name}
-              style={{
-                height: 20,
-                marginTop: index === 0 ? msaOffsetTop : undefined,
-              }}
-              onSequenceChecked={onSequenceChecked}
-              onIdClick={() => {
-                if (typeof setActiveId === 'function') {
-                  setActiveId(s.accession);
-                }
-              }}
-              active={!!activeId && setActiveId && activeId === s.accession}
-            >
-              {s.name || ''}
-            </AlignLabel>
-          ))}
-        </div>
-        <div className="track">
-          <protvista-manager
-            ref={managerRef}
-            attributes="displaystart displayend"
+      {/* third row */}
+      <div className="track-label track-label--align-labels">
+        {alignment.map((s) => (
+          <AlignLabel
+            accession={s.accession}
+            info={s}
+            loading={false}
+            key={s.name}
+            style={heightStyle}
+            checked={Boolean(
+              s.accession && selectedEntries?.includes(s.accession)
+            )}
+            onSequenceChecked={handleSelectedEntries}
+            onIdClick={() => setActiveId?.(s.accession)}
+            active={!!activeId && setActiveId && activeId === s.accession}
           >
-            <protvista-navigation length={alignmentLength} />
-            <protvista-msa
-              ref={setMSAAttributes}
-              length={alignmentLength}
-              height={alignment.length * 20}
-              colorscheme={highlightProperty}
-              {...conservationOptions}
-            />
-          </protvista-manager>
-        </div>
-        <span className="right-coord">
-          {alignment.map((s, index) => (
-            <div
-              style={{
-                height: 20,
-                marginTop: index === 0 ? msaOffsetTop : undefined,
-              }}
-              key={s.name}
-            >
-              {omitInsertionsInCoords
+            {s.name || ''}
+          </AlignLabel>
+        ))}
+      </div>
+      <div className="track">
+        <protvista-manager
+          ref={managerRef}
+          attributes="displaystart displayend"
+        >
+          <protvista-navigation length={alignmentLength} />
+          <protvista-msa
+            ref={setMSAAttributes}
+            length={alignmentLength}
+            height={alignment.length * sequenceHeight}
+            colorscheme={highlightProperty}
+            {...conservationOptions}
+          />
+        </protvista-manager>
+      </div>
+      <span className="right-coord">
+        {alignment.map((s) => (
+          <div style={heightStyle} key={s.name}>
+            {Math.floor(
+              omitInsertionsInCoords
                 ? getEndCoordinate(
                     s.sequence,
                     displayEnd ?? initialDisplayEnd ?? 0
                   )
-                : displayEnd ?? initialDisplayEnd ?? 0}
-            </div>
-          ))}
-        </span>
-      </section>
+                : displayEnd ?? initialDisplayEnd ?? 0
+            )}
+          </div>
+        ))}
+      </span>
     </section>
   );
 };

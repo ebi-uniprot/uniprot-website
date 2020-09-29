@@ -27,30 +27,38 @@ const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
 
 // overview
-const AlignResultOverview = lazy(() =>
-  import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
+const AlignResultOverview = lazy(
+  () => import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
 );
 // phylogenetic-tree
-const AlignResultPhyloTree = lazy(() =>
-  import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
+const AlignResultPhyloTree = lazy(
+  () =>
+    import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
 );
 // percent-identity-matrix
-const AlignResultPIM = lazy(() =>
-  import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
+const AlignResultPIM = lazy(
+  () => import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
 );
 // text-output
-const TextOutput = lazy(() =>
-  import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
+const TextOutput = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "text-output" */ '../../../components/TextOutput'
+    )
 );
 // input-parameters
-const InputParameters = lazy(() =>
-  import(
-    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
-  )
+const InputParameters = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+    )
 );
 // input-parameters
-const APIRequest = lazy(() =>
-  import(/* webpackChunkName: "api-request" */ '../../../components/APIRequest')
+const APIRequest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+    )
 );
 
 enum TabLocation {
@@ -203,6 +211,8 @@ const AlignResult = () => {
               <AlignResultPhyloTree
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
+                selectedEntries={selectedEntries}
+                handleSelectedEntries={handleSelectedEntries}
               />
             </Suspense>
           </ErrorBoundary>
@@ -226,6 +236,8 @@ const AlignResult = () => {
               <AlignResultPIM
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
+                selectedEntries={selectedEntries}
+                handleSelectedEntries={handleSelectedEntries}
               />
             </Suspense>
           </ErrorBoundary>
