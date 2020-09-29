@@ -94,7 +94,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         node.setAttribute('displaystart', 1);
         node.setAttribute('displayend', initialDisplayEnd);
         setHighlighPosition(
-          `${tracksOffset}:${tracksOffset + initialDisplayEnd}`
+          (highlight) =>
+            highlight || `${tracksOffset}:${tracksOffset + initialDisplayEnd}`
         );
       }
     },
@@ -171,6 +172,10 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     : 30
   ).toString();
 
+  const alignmentOverviewData = useMemo(() => {
+    return alignment ? getFullAlignmentSegments(alignment) : [];
+  }, [alignment]);
+
   if (!ceDefined) {
     return <Loader />;
   }
@@ -184,7 +189,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           height={overviewHeight}
           length={totalLength}
           highlight={highlightPosition}
-          data={alignment ? getFullAlignmentSegments(alignment) : []}
+          data={alignmentOverviewData}
         />
       </div>
 

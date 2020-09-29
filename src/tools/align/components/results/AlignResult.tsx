@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
@@ -137,14 +137,14 @@ const AlignResult = () => {
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
   // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = (rowId: string) => {
-    const filtered = selectedEntries.filter((id) => id !== rowId);
-    setSelectedEntries(
-      filtered.length === selectedEntries.length
+  const handleSelectedEntries = useCallback((rowId: string) => {
+    setSelectedEntries((selectedEntries) => {
+      const filtered = selectedEntries.filter((id) => id !== rowId);
+      return filtered.length === selectedEntries.length
         ? [...selectedEntries, rowId]
-        : filtered
-    );
-  };
+        : filtered;
+    });
+  }, []);
 
   if (loading) {
     return <Loader />;

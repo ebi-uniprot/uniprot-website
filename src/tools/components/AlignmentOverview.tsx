@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, memo } from 'react';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import { FullAlignmentSegments, SegmentTrackData } from '../utils/sequences';
@@ -49,34 +49,31 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   );
 };
 
-const AlignmentOverview: FC<AlignmentOverviewProps> = ({
-  height,
-  data,
-  length,
-  highlight,
-}) => {
-  if (!data || data.length < 1) {
-    return null;
+const AlignmentOverview: FC<AlignmentOverviewProps> = memo(
+  ({ height, data, length, highlight }) => {
+    if (!data || data.length < 1) {
+      return null;
+    }
+
+    const singleTrackHeight = Math.floor(parseInt(height, 10) / data.length);
+
+    return (
+      <div>
+        {data.map(({ trackData }, index) => {
+          return (
+            <AlignmentOverviewTrack
+              data={trackData}
+              height={singleTrackHeight}
+              length={length}
+              highlight={highlight}
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+            />
+          );
+        })}
+      </div>
+    );
   }
-
-  const singleTrackHeight = Math.floor(parseInt(height, 10) / data.length);
-
-  return (
-    <div>
-      {data.map(({ trackData }, index) => {
-        return (
-          <AlignmentOverviewTrack
-            data={trackData}
-            height={singleTrackHeight}
-            length={length}
-            highlight={highlight}
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-          />
-        );
-      })}
-    </div>
-  );
-};
+);
 
 export default AlignmentOverview;
