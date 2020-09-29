@@ -7,7 +7,8 @@
   max-height: 50%;
 
   display: grid;
-  grid-template-columns: fit-content(auto) 1fr fit-content(auto);
+  // grid sizing magic below
+  grid-template-columns: min-content minmax(0, 1fr) min-content;
   align-items: end;
 
   &__placeholder {
