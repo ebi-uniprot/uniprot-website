@@ -330,7 +330,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           chain
         </span>
         <div
-          class="track"
+          class="track annotation-track"
         >
           <protvista-track />
         </div>

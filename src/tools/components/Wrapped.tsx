@@ -155,7 +155,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         ))}
       </span>
       <span className="track-label annotation-label">{annotation}</span>
-      <div className="track">
+      <div className="track annotation-track">
         <protvista-track ref={setFeatureTrackData} />
       </div>
     </>
