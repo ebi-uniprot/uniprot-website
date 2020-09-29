@@ -1,10 +1,7 @@
 import React, { FC, useCallback } from 'react';
-import ProtvistaTrack from 'protvista-track';
 
-import { loadWebComponent } from '../../shared/utils/utils';
+import useCustomElement from '../../shared/hooks/useCustomElement';
 import { FullAlignmentSegments, SegmentTrackData } from '../utils/sequences';
-
-loadWebComponent('protvista-track', ProtvistaTrack);
 
 type AlignmentOverviewProps = {
   height: string;
@@ -26,14 +23,19 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   length,
   height,
 }) => {
+  const ceDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'protvista-track'
+  );
+
   const setTrackData = useCallback(
     (node): void => {
-      if (node) {
+      if (node && ceDefined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
       }
     },
-    [data]
+    [data, ceDefined]
   );
 
   return (

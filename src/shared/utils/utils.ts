@@ -12,19 +12,6 @@ export const formatLargeNumber = (x: number) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-interface WebComponentConstructor {
-  new (): HTMLElement;
-}
-
-export const loadWebComponent = (
-  name: string,
-  className: WebComponentConstructor
-) => {
-  if (window.customElements && !window.customElements.get(name)) {
-    window.customElements.define(name, className);
-  }
-};
-
 export function moveItemInList<T>(
   list: T[],
   srcIndex: number,

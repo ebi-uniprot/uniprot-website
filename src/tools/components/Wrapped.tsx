@@ -9,15 +9,12 @@ import React, {
   Dispatch,
 } from 'react';
 import { debounce } from 'lodash-es';
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaTrack from 'protvista-track';
-import ProtvistaMSA from 'protvista-msa';
-
-import { loadWebComponent } from '../../shared/utils/utils';
+import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
+import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
@@ -32,10 +29,6 @@ import {
   getEndCoordinate,
 } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
-
-loadWebComponent('protvista-track', ProtvistaTrack);
-loadWebComponent('protvista-msa', ProtvistaMSA);
-loadWebComponent('protvista-manager', ProtvistaManager);
 
 const widthOfAA = 20;
 
@@ -82,19 +75,28 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   selectedEntries,
   handleSelectedEntries,
 }) => {
+  const msaDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
+    'protvista-msa'
+  );
+
   const setMSAAttributes = useCallback(
     (node): void => {
-      if (!node) {
-        return;
+      if (node && msaDefined) {
+        node.data = sequences;
       }
-      node.data = sequences;
     },
-    [sequences]
+    [msaDefined, sequences]
+  );
+
+  const trackDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'provista-track'
   );
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && annotation) {
+      if (node && trackDefined && annotation) {
         const featuresSeq = sequences.find(
           ({ accession }) => accession && accession === activeId
         );
@@ -111,11 +113,15 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         }
       }
     },
-    [annotation, activeId, sequences]
+    // TODO: replace this with fragments to have one big grid
+    // -> to keep the right column of the right size to fit all possible values
+    [trackDefined, annotation, sequences, activeId]
   );
 
-  // TODO: replace this with fragments to have one big grid
-  // -> to keep the right column of the right size to fit all possible values
+  if (!(msaDefined && trackDefined)) {
+    return <Loader />;
+  }
+
   return (
     <>
       <div className="track-label track-label--align-labels">
