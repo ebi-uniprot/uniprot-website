@@ -74,7 +74,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   annotation,
   sequences,
   activeId,
-  setActiveId = () => null,
+  setActiveId,
   onSequenceChecked,
   omitInsertionsInCoords = true,
 }) => {
@@ -132,8 +132,12 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               onSequenceChecked={onSequenceChecked}
-              onIdClick={() => setActiveId(s.accession)}
-              active={!!activeId && activeId === s.accession}
+              onIdClick={() => {
+                if (typeof setActiveId === 'function') {
+                  setActiveId(s.accession);
+                }
+              }}
+              active={!!activeId && setActiveId && activeId === s.accession}
             >
               {s.name || ''}
             </AlignLabel>

@@ -59,7 +59,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   totalLength,
   annotation,
   activeId,
-  setActiveId = () => null,
+  setActiveId,
   onSequenceChecked,
   omitInsertionsInCoords,
 }) => {
@@ -187,8 +187,12 @@ const AlignOverview: FC<BlastOverviewProps> = ({
                 marginTop: index === 0 ? msaOffsetTop : undefined,
               }}
               onSequenceChecked={onSequenceChecked}
-              onIdClick={() => setActiveId(s.accession)}
-              active={!!activeId && activeId === s.accession}
+              onIdClick={() => {
+                if (typeof setActiveId === 'function') {
+                  setActiveId(s.accession);
+                }
+              }}
+              active={!!activeId && setActiveId && activeId === s.accession}
             >
               {s.name || ''}
             </AlignLabel>

@@ -125,7 +125,6 @@ const AlignmentView: React.FC<{
   const additionalAlignProps =
     tool === Tool.align
       ? {
-          activeId,
           setActiveId,
           omitInsertionsInCoords: true,
           onSequenceChecked: handleSequenceChecked,
@@ -211,6 +210,7 @@ const AlignmentView: React.FC<{
           conservationOptions={conservationOptions}
           totalLength={totalLength}
           annotation={annotation}
+          activeId={activeId}
           {...additionalAlignProps}
         />
       </div>
