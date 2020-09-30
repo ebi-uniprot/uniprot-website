@@ -59,7 +59,7 @@ const ClauseItem: React.FC<{
   }
 
   return (
-    <div className="advanced-search__clause">
+    <div className="advanced-search__clause" data-testid="search__clause">
       <LogicalOperator
         value={clause.logicOperator}
         handleChange={(value: Operator) => handleLogicChange(clause.id, value)}
