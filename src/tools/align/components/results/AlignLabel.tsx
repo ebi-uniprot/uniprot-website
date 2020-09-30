@@ -98,7 +98,7 @@ const AlignLabel: FC<AlignLabelProps> = ({
       {before}
       {/* inject a link to the entry page */}
       <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
-      {after.join(',')}
+      {after.join(accession)}
     </button>
   );
 };
