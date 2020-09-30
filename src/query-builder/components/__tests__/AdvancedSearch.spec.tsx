@@ -4,6 +4,7 @@ import { createEmptyClause } from '../../utils/clause';
 import AdvancedSearch from '../../../query-builder/components/AdvancedSearch';
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import useDataApi from '../../../shared/hooks/useDataApi';
+import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
@@ -26,7 +27,7 @@ describe('AdvancedSearch shallow components', () => {
       clauses: [...Array(4)].map(() => createEmptyClause()),
       namespace: 'UniProtKB',
     };
-    rendered = render(<AdvancedSearch {...props} />);
+    rendered = renderWithRedux(<AdvancedSearch {...props} />);
   });
 
   test('should render', () => {
