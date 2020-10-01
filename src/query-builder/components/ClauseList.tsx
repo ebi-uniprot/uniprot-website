@@ -75,7 +75,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
               handleFieldSelect(clause.id, value)
             }
             autocompletePlaceholder="Search for field"
-            value={clause.searchTerm}
+            label={clause.searchTerm.label}
             autocomplete
           />
           <Field

@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { DropdownButton } from 'franklin-sites';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { DropdownButton, TreeSelect } from 'franklin-sites';
 import cn from 'classnames';
 
 import MSAView from './MSAView';
 import MSAWrappedView from './MSAWrappedView';
 
-import {
-  msaColorSchemeToString,
-  MsaColorScheme,
-} from '../config/msaColorSchemes';
+import { MsaColorScheme, colorSchemeTree } from '../config/msaColorSchemes';
 
 import { getFullAlignmentLength } from '../utils/sequences';
 
@@ -83,33 +80,24 @@ const MSAWrapper: React.FC<{
         }
       : {};
 
+  const handleHighlightSelect = useCallback(
+    ({ id }: { id: MsaColorScheme }) => setHighlightProperty(id),
+    []
+  );
+
   return (
     <>
       <div className="button-group">
-        <DropdownButton label="Highlight properties" className="tertiary">
-          <div className="dropdown-menu__content">
-            <ul>
-              {Object.entries(msaColorSchemeToString).map(
-                ([schemeValue, schemeString]) => (
-                  <li key={schemeString}>
-                    <button
-                      type="button"
-                      className={cn('button', {
-                        primary: highlightProperty === schemeValue,
-                        tertiary: highlightProperty !== schemeValue,
-                      })}
-                      onClick={() =>
-                        setHighlightProperty(schemeValue as MsaColorScheme)
-                      }
-                    >
-                      {schemeString}
-                    </button>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-        </DropdownButton>
+        <TreeSelect
+          data={colorSchemeTree}
+          onSelect={handleHighlightSelect}
+          autocomplete
+          autocompleteFilter
+          autocompletePlaceholder="Enter a color scheme"
+          label="Highlight properties"
+          defaultActiveNodes={useMemo(() => [MsaColorScheme.CLUSTAL], [])}
+          className="tertiary"
+        />
         {!!annotationChoices.length && (
           <DropdownButton label="Show annotation" className="tertiary">
             <div className="dropdown-menu__content">
