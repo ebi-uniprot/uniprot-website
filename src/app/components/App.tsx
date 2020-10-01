@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
-import * as Sentry from '@sentry/browser';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
@@ -15,8 +14,10 @@ import './styles/app.scss';
 import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 
 if (process.env.NODE_ENV !== 'development') {
-  Sentry.init({
-    dsn: 'https://be99e24b352b42019d5b9f53dd7b68c3@sentry.io/1770286',
+  import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
+    module.init({
+      dsn: 'https://be99e24b352b42019d5b9f53dd7b68c3@sentry.io/1770286',
+    });
   });
 }
 
