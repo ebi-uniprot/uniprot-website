@@ -1,40 +1,29 @@
-import React, { FC, FormEvent, MouseEvent } from 'react';
-
-import useDataApi from '../../shared/hooks/useDataApi';
-import apiUrls from '../../shared/config/apiUrls';
-
+import React, { FC, FormEvent, MouseEvent, useState } from 'react';
+import { useHistory, withRouter } from 'react-router-dom';
+import { PageIntro } from 'franklin-sites';
 import ClauseList from './ClauseList';
 import {
   Evidence,
   Clause,
   SearchTermType,
-  Operator,
   EvidenceDataPoint,
-} from '../../uniprotkb/types/searchTypes';
+} from '../types/searchTypes';
+import useDataApi from '../../shared/hooks/useDataApi';
+import apiUrls from '../../shared/config/apiUrls';
+import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
+import { stringify } from '../utils/queryStringProcessor';
 import { Namespace } from '../../shared/types/namespaces';
 
+import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/advanced-search.scss';
 
-type AdvancedSearchProps = {
-  queryString: string;
-  namespace: Namespace;
-  clauses: Clause[];
-  handleAdvancedSubmitClick: (event: FormEvent | MouseEvent) => void;
-  dispatchAddClause: () => void;
-  handleFieldSelect: (clauseId: string, field: SearchTermType) => void;
-  handleInputChange: (clauseId: string, value: string, id?: string) => void;
-  handleEvidenceChange: (clauseId: string, value: string) => void;
-  handleRangeInputChange: (
-    clauseId: string,
-    value: string,
-    from?: boolean
-  ) => void;
-  handleLogicChange: (clauseId: string, value: Operator) => void;
-  handleRemoveClause: (clauseId: string) => void;
-  dispatchSetPreSelectedClauses: () => void;
-};
-const AdvancedSearch: FC<AdvancedSearchProps> = (props) => {
-  // Use namespace hook here when ready
+const AdvancedSearch: FC = () => {
+  const history = useHistory();
+
+  // To be replaced by getting it from url
+  const [clauses, setClauses] = useState<Clause[]>(createPreSelectedClauses());
+  const [namespace] = useState<Namespace>(Namespace.uniprotkb);
+
   const { data: searchTermsData } = useDataApi<SearchTermType[]>(
     apiUrls.advancedSearchTerms
   );
@@ -52,51 +41,77 @@ const AdvancedSearch: FC<AdvancedSearchProps> = (props) => {
     return null;
   }
 
-  const { handleAdvancedSubmitClick, namespace, dispatchAddClause } = props;
-
   // Handle that better...
   const evidences = {
     [Evidence.GO]: goEvidenceData,
     [Evidence.ANNOTATION]: annotationEvidenceData,
   };
 
+  const addClause = () => {
+    setClauses((clauses) => [...clauses, createEmptyClause()]);
+  };
+
+  const removeClause = (clauseId: string) => {
+    setClauses((clauses) => {
+      if (clauses.length === 1) {
+        return [createEmptyClause()];
+      }
+      return clauses.filter((clause) => clause.id !== clauseId);
+    });
+  };
+
+  const handleSubmitClick = (event: FormEvent | MouseEvent) => {
+    event.preventDefault();
+    const queryString = stringify(clauses);
+    history.push({
+      pathname: '/uniprotkb',
+      search: queryString && `query=${queryString}`,
+    });
+  };
+
   return (
-    <form
-      className="advanced-search"
-      onSubmit={handleAdvancedSubmitClick}
-      data-testid="advanced-search-form"
-    >
-      <fieldset>
-        <label htmlFor="namespace-select">
-          Searching in
-          <select id="namespace-select">
-            <option>{namespace}</option>
-          </select>
-        </label>
-      </fieldset>
-      <fieldset>
-        <ClauseList
-          {...props}
-          searchTerms={searchTermsData}
-          evidences={evidences}
-        />
-      </fieldset>
-      <div className="advanced-search__actions">
-        <button
-          type="button"
-          id="add-field"
-          className="button tertiary"
-          data-testid="advanced-search-add-field"
-          onClick={dispatchAddClause}
-        >
-          Add Field
-        </button>
-        <button type="submit" id="submit-query" className="button">
-          Search
-        </button>
-      </div>
-    </form>
+    <>
+      <PageIntro title="Advanced search" />
+
+      <form
+        className="advanced-search"
+        onSubmit={handleSubmitClick}
+        data-testid="advanced-search-form"
+      >
+        <fieldset>
+          <label htmlFor="namespace-select">
+            Searching in
+            <select id="namespace-select">
+              <option>{namespace}</option>
+            </select>
+          </label>
+        </fieldset>
+        <fieldset>
+          <ClauseList
+            removeClause={removeClause}
+            clauses={clauses}
+            setClauses={setClauses}
+            searchTerms={searchTermsData}
+            evidences={evidences}
+          />
+        </fieldset>
+        <div className="advanced-search__actions">
+          <button
+            type="button"
+            id="add-field"
+            className="button tertiary"
+            data-testid="advanced-search-add-field"
+            onClick={addClause}
+          >
+            Add Field
+          </button>
+          <button type="submit" id="submit-query" className="button">
+            Search
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
-export default AdvancedSearch;
+export default withRouter(AdvancedSearch);

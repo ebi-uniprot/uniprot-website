@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { EvidenceDataPoint } from '../../uniprotkb/types/searchTypes';
+import { EvidenceDataPoint } from '../types/searchTypes';
 
 type EvidenceFieldProps = {
   value: string | undefined;
