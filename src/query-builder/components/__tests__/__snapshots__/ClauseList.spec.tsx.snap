@@ -4,6 +4,7 @@ exports[`ClauseList component should render 1`] = `
 <DocumentFragment>
   <div
     class="advanced-search__clause"
+    data-testid="search__clause"
   >
     <select
       class="advanced-search__logic"

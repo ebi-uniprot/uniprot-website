@@ -1,6 +1,5 @@
 import React from 'react';
 import DownloadContainer, { getPreviewFileFormat } from '../DownloadContainer';
-import { createMemoryHistory } from 'history';
 import { fireEvent } from '@testing-library/react';
 import initialState from '../../../../app/state/rootInitialState';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';

@@ -204,7 +204,7 @@ exports[`BlastForm test Renders the form 1`] = `
           class="tools-form-section__item tools-form-section__item--taxon-select"
         >
           <label
-            for="5"
+            for="0"
           >
             Restrict by taxonomy
             <div

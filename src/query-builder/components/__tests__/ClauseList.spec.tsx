@@ -32,10 +32,4 @@ describe('ClauseList component', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
-
-  test('should remove a clause', () => {
-    const { getByTestId } = rendered;
-    fireEvent.click(getByTestId('clause-list-button-remove'));
-    expect(props.handleRemoveClause).toHaveBeenCalled();
-  });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Operator } from '../../uniprotkb/types/searchTypes';
+import { Operator } from '../types/searchTypes';
 
 const operators: Operator[] = [Operator.AND, Operator.OR, Operator.NOT];
 
