@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent } from '@testing-library/react';
+import { act, fireEvent, getAllByTestId } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -63,62 +63,16 @@ describe('AdvancedSearch shallow components', () => {
     expect(searchField).toBeTruthy();
   });
 
-  test.skip('should update input value', () => {
-    const action = updateInputValue('1', 'qux');
-    expect(clause(state, action)).toEqual({
-      id: '1',
-      field: 'foo',
-      queryInput: { stringValue: 'qux' },
-    });
-  });
-
-  test.skip('should update range input value', () => {
-    const state = {
-      id: '1',
-      field: 'foo',
-      queryInput: { rangeFrom: 1, rangeTo: 100 },
-    };
-    const action = updateRangeValue('1', 2, true);
-    expect(clause(state, action)).toEqual({
-      id: '1',
-      field: 'foo',
-      queryInput: { rangeFrom: 2, rangeTo: 100 },
-    });
-  });
-
-  test.skip('should update evidence', () => {
-    const state = {
-      id: '1',
-      field: 'foo',
-      queryInput: { stringValue: 'bar', evidenceValue: 'garply' },
-    };
-    const action = updateEvidence('1', 'waldo');
-    expect(clause(state, action)).toEqual({
-      id: '1',
-      field: 'foo',
-      queryInput: { stringValue: 'bar', evidenceValue: 'waldo' },
-    });
-  });
-
-  test.skip('should update logic operator', () => {
-    const state = {
-      id: '1',
-      field: 'foo',
-      queryInput: { stringValue: 'bar' },
-      logicOperator: 'AND',
-    };
-    const action = updateLogicOperator('1', 'OR');
-    expect(clause(state, action)).toEqual({
-      id: '1',
-      field: 'foo',
-      queryInput: { stringValue: 'bar' },
-      logicOperator: 'OR',
-    });
-  });
-
-  test('should submit a query', () => {
-    const { getByTestId } = rendered;
+  test('should submit a simple query', () => {
+    const { getByTestId, getAllByTestId, getByPlaceholderText } = rendered;
+    const input = getByPlaceholderText(/ydj1/);
+    fireEvent.change(input, { target: { value: 'zen' } });
+    const reviewedLogic = getAllByTestId('advanced-search-logic-select');
+    // Note this should be 1 as the first line shouldn't have one
+    fireEvent.change(reviewedLogic[2], { target: { value: 'OR' } });
     fireEvent.submit(getByTestId('advanced-search-form'));
-    expect(history.location.search).toBe('?query=(reviewed:true)');
+    expect(history.location.search).toBe(
+      '?query=(gene:zen) OR (reviewed:true)'
+    );
   });
 });
