@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../utils';
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -21,7 +21,7 @@ const SequenceSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.Sequence}>
+    <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
       <Card title={EntrySection.Sequence}>
         <SequenceView data={data} accession={primaryAccession} />
         <FeaturesView
