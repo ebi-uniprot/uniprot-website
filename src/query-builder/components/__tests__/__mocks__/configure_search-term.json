@@ -1,0 +1,93 @@
+[
+  {
+    "id": "id_accession",
+    "label": "UniProtKB AC",
+    "itemType": "single",
+    "term": "accession",
+    "dataType": "string",
+    "description": "Search by UniProtKB Accession",
+    "example": "P12345"
+  },
+  {
+    "id": "id_organism",
+    "label": "Organism [OS]",
+    "itemType": "single",
+    "term": "organism",
+    "dataType": "string",
+    "autoComplete": "/uniprot/api/suggester?dict=organism&query=?",
+    "description": "Search by Organism name",
+    "example": "saccharomyces",
+    "termSuffix": true
+  },
+  {
+    "id": "id_existence",
+    "label": "Protein Existence [PE]",
+    "itemType": "single",
+    "term": "existence",
+    "dataType": "enum",
+    "values": [
+      {
+        "name": "Evidence at protein level",
+        "value": "protein_level"
+      },
+      {
+        "name": "Evidence at transcript level",
+        "value": "transcript_level"
+      },
+      {
+        "name": "Inferred from homology",
+        "value": "homology"
+      },
+      {
+        "name": "Predicted",
+        "value": "predicted"
+      },
+      {
+        "name": "Uncertain",
+        "value": "uncertain"
+      }
+    ],
+    "description": "Search by protein existence",
+    "example": "1"
+  },
+  {
+    "id": "id_group_function",
+    "label": "Function",
+    "itemType": "group",
+    "term": "",
+    "dataType": "string",
+    "items": [
+      {
+        "id": "id_ec",
+        "label": "Enzyme classification [EC]",
+        "itemType": "single",
+        "term": "ec",
+        "dataType": "string",
+        "autoComplete": "/uniprot/api/suggester?dict=ec&query=?",
+        "description": "Search by Enzyme EC number",
+        "example": "1.1.2.3"
+      }
+    ]
+  },
+  {
+    "id": "id_ca_bind",
+    "label": "Calcium binding",
+    "itemType": "feature",
+    "term": "ca_bind",
+    "dataType": "string",
+    "hasRange": true,
+    "hasEvidence": true,
+    "description": "Search by feature calcium binding",
+    "example": "site"
+  },
+  {
+    "id": "id_created",
+    "label": "Date Of Creation",
+    "itemType": "single",
+    "term": "date_created",
+    "dataType": "date",
+    "hasRange": true,
+    "description": "Search by Date of creation",
+    "example": "[2018-03-04 TO 2018-03-08]"
+  }
+]

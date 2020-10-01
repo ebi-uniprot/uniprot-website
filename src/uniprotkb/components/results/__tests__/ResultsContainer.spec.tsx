@@ -3,7 +3,6 @@ import axios from 'axios';
 import { cleanup, fireEvent } from '@testing-library/react';
 import ResultsContainer from '../ResultsContainer';
 import { act } from 'react-dom/test-utils';
-import searchInitialState from '../../../state/searchInitialState';
 import resultsInitialState, {
   ViewMode,
 } from '../../../state/resultsInitialState';
@@ -52,7 +51,6 @@ describe.skip('Results component', () => {
   test.skip('should toggle card view to table', async () => {
     await act(async () => {
       const state = {
-        query: searchInitialState,
         results: {
           ...resultsInitialState,
           viewMode: ViewMode.TABLE,
@@ -80,7 +78,6 @@ describe.skip('Results component', () => {
   // NOTE: Does that depend on an other test in this file? It shouldn't...
   test('should set sorting', async () => {
     const state = {
-      query: searchInitialState,
       results: { ...resultsInitialState, viewMode: ViewMode.TABLE },
     };
     // NOTE: not sure act() should wrap that much code
@@ -109,7 +106,6 @@ describe.skip('Results component', () => {
 
   test('should display no results page', async () => {
     const state = {
-      query: searchInitialState,
       results: { ...resultsInitialState },
     };
 
