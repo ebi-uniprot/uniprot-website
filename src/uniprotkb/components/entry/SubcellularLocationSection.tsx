@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../utils';
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import { UIModel } from '../../adapters/sectionConverter';
@@ -19,7 +19,10 @@ const SubcellularLocationSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.SubCellularLocation}>
+    <div
+      id={EntrySectionIDs[EntrySection.SubCellularLocation]}
+      data-entry-section
+    >
       <Card title={EntrySection.SubCellularLocation}>
         <SubcellularLocationView
           comments={

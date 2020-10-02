@@ -378,7 +378,8 @@ exports[`Entry view should render 1`] = `
     </section>
   </div>
   <div
-    id="Function"
+    data-entry-section="true"
+    id="function"
   >
     <div
       class="card"
@@ -926,7 +927,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Names & Taxonomy"
+    data-entry-section="true"
+    id="names-and-taxonomy"
   >
     <div
       class="card"
@@ -1683,7 +1685,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Subcellular Location"
+    data-entry-section="true"
+    id="subcellular-location"
   >
     <div
       class="card"
@@ -1812,7 +1815,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Pathology & BioTech"
+    data-entry-section="true"
+    id="pathology-and-biotech"
   >
     <div
       class="card"
@@ -2054,7 +2058,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Protein Processing"
+    data-entry-section="true"
+    id="protein-processing"
   >
     <div
       class="card"
@@ -2102,7 +2107,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Interaction"
+    data-entry-section="true"
+    id="interaction"
   >
     <div
       class="card"
@@ -2131,7 +2137,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Structure"
+    data-entry-section="true"
+    id="structure"
   >
     <div
       class="card"
@@ -2253,7 +2260,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Family & Domains"
+    data-entry-section="true"
+    id="family-and-domains"
   >
     <div
       class="card"
@@ -2404,7 +2412,8 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    id="Sequence"
+    data-entry-section="true"
+    id="sequence"
   >
     <div
       class="card"

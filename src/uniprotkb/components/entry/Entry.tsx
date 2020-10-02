@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import {
@@ -62,6 +62,8 @@ import apiUrls from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
+import './styles/entry-page.scss';
+
 type MatchParams = {
   accession: string;
   path: string;
@@ -79,12 +81,30 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
     UniProtkbAPIModel
   >(apiUrls.entry(accession));
 
-  if (error) {
-    return <ErrorHandler status={status} />;
-  }
+  const transformedData = useMemo(() => data && uniProtKbConverter(data), [
+    data,
+  ]);
+
+  const sections = useMemo(
+    () =>
+      transformedData &&
+      UniProtKBEntryConfig.map((section) => ({
+        label: section.name,
+        id: section.id,
+        disabled:
+          section.name === EntrySection.ExternalLinks
+            ? !hasExternalLinks(transformedData)
+            : !hasContent(transformedData[section.name]),
+      })),
+    [transformedData]
+  );
 
   if (loading || !data) {
     return <Loader />;
+  }
+
+  if (error || !transformedData) {
+    return <ErrorHandler status={status} />;
   }
 
   if (data && data.entryType === EntryType.INACTIVE) {
@@ -112,18 +132,6 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
 
     addMessage(message);
   }
-
-  const transformedData = uniProtKbConverter(data);
-
-  const sections = UniProtKBEntryConfig.map((section) => ({
-    label: section.name,
-    id: section.name,
-
-    disabled:
-      section.name === EntrySection.ExternalLinks
-        ? !hasExternalLinks(transformedData)
-        : !hasContent(transformedData[section.name]),
-  }));
 
   const listOfIsoformAccessions =
     data.comments
@@ -228,6 +236,7 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
           ))}
         </Switch>
       }
+      className="entry-page"
     >
       <Switch>
         {displayMenuData.map((displayItem) => (
