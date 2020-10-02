@@ -142,7 +142,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     );
   };
 
-  let NamespacedCard;
+  let NamespacedCard: typeof UniRefCard | typeof UniProtKBCard;
   switch (namespace) {
     case Namespace.uniref:
       NamespacedCard = UniRefCard;
