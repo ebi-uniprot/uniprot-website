@@ -11,7 +11,7 @@ import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 import { Xref } from '../../types/commentTypes';
 
-enum LocationModifier {
+export enum LocationModifier {
   EXACT = 'EXACT',
   OUTSIDE = 'OUTSIDE',
   UNSURE = 'UNSURE',

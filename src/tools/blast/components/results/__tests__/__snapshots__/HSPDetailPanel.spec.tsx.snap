@@ -316,12 +316,12 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           <div
             style="height: 20px;"
           >
-            47
+            31
           </div>
           <div
             style="height: 20px;"
           >
-            462
+            446
           </div>
         </span>
         <span
@@ -333,9 +333,9 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           class="track annotation-track"
         >
           <protvista-track
-            displayend="462"
+            displayend="446"
             displaystart="418"
-            length="45"
+            length="28"
           />
         </div>
       </div>

@@ -15,6 +15,7 @@ import AlignmentView, {
 } from '../../../components/AlignmentView';
 
 import './styles/HSPDetailPanel.scss';
+import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -88,7 +89,11 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     getAccessionsURL([hitAccession], { facets: [] })
   );
 
-  const apiData = extra || data?.results?.[0];
+  let apiData = extra || data?.results?.[0];
+  apiData = {
+    ...apiData,
+    features: removeFeaturesWithUnknownModifier(apiData?.features),
+  } as UniProtkbAPIModel;
 
   const recommendedName =
     apiData?.proteinDescription?.recommendedName?.fullName.value;

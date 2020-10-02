@@ -54,7 +54,6 @@ export type MSAWrappedRowProps = {
   sequences: Sequence[];
   activeId?: string;
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  omitInsertionsInCoords?: boolean;
   selectedEntries?: string[];
   handleSelectedEntries?: (rowId: string) => void;
 };
@@ -71,7 +70,6 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   sequences,
   activeId,
   setActiveId,
-  omitInsertionsInCoords = true,
   selectedEntries,
   handleSelectedEntries,
 }) => {
@@ -94,28 +92,37 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
     'protvista-track'
   );
 
+  const activeSeq = useMemo(
+    () =>
+      sequences.find(({ accession }) => accession && accession === activeId),
+    [sequences, activeId]
+  );
+
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined && annotation) {
-        const featuresSeq = sequences.find(
-          ({ accession }) => accession && accession === activeId
-        );
-        const features = featuresSeq?.features?.filter(
+        const features = activeSeq?.features?.filter(
           ({ type }) => type === annotation
         );
-        if (featuresSeq && features) {
+        if (
+          activeSeq &&
+          activeSeq.start > 0 &&
+          activeSeq.end > 0 &&
+          activeSeq.start !== activeSeq.end &&
+          features
+        ) {
           let processedFeatures = processFeaturesData(features);
           processedFeatures = transformFeaturesPositions(processedFeatures);
           node.data = processedFeatures;
-          node.setAttribute('length', featuresSeq.end - featuresSeq.start + 1);
-          node.setAttribute('displaystart', featuresSeq.start);
-          node.setAttribute('displayend', featuresSeq.end);
+          node.setAttribute('length', activeSeq.end - activeSeq.start);
+          node.setAttribute('displaystart', activeSeq.start);
+          node.setAttribute('displayend', activeSeq.end);
         }
       }
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [trackDefined, annotation, sequences, activeId]
+    [trackDefined, annotation, activeSeq]
   );
 
   if (!(msaDefined && trackDefined)) {
@@ -155,9 +162,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
       <span className="right-coord">
         {sequences.map((s) => (
           <div style={heightStyle} key={s.name}>
-            {omitInsertionsInCoords
-              ? getEndCoordinate(s.sequence, s.end)
-              : s.end}
+            {s.end}
           </div>
         ))}
       </span>
@@ -205,7 +210,6 @@ const Wrapped: FC<MSAViewProps> = ({
     max: +Infinity,
     delay: 500,
   });
-
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
@@ -223,7 +227,6 @@ const Wrapped: FC<MSAViewProps> = ({
       debouncedSetRowLength.flush();
     }
   }
-
   const sequenceChunks = useMemo<Chunk[]>(() => {
     if (!rowLength) {
       return [];
@@ -232,7 +235,7 @@ const Wrapped: FC<MSAViewProps> = ({
     const numberRows = Math.ceil(alignmentLength / rowLength);
     const chunks = [...Array(numberRows).keys()].map((index) => {
       const start = index * rowLength;
-      const end = start + rowLength;
+      const end = Math.min(start + rowLength, alignmentLength);
       return {
         // NOTE: This is a bit of an ugly trick to have the whole track
         // re-render on change of size. Otherwise when the track is updated
@@ -244,8 +247,14 @@ const Wrapped: FC<MSAViewProps> = ({
           ({ name, sequence, from, features, accession }) => ({
             name: name || '',
             sequence: sequence.slice(start, end),
-            start: start + from,
-            end: end + from - 1,
+            start:
+              from +
+              (omitInsertionsInCoords
+                ? getEndCoordinate(sequence, start)
+                : start),
+            end:
+              from +
+              (omitInsertionsInCoords ? getEndCoordinate(sequence, end) : end),
             features,
             accession,
           })
@@ -253,7 +262,7 @@ const Wrapped: FC<MSAViewProps> = ({
       };
     });
     return chunks;
-  }, [alignment, alignmentLength, rowLength]);
+  }, [alignment, alignmentLength, omitInsertionsInCoords, rowLength]);
 
   return (
     <div
@@ -273,7 +282,6 @@ const Wrapped: FC<MSAViewProps> = ({
               conservationOptions={conservationOptions}
               activeId={activeId}
               setActiveId={setActiveId}
-              omitInsertionsInCoords={omitInsertionsInCoords}
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
             />

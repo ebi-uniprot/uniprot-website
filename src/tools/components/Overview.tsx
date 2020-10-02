@@ -72,7 +72,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const [displayEnd, setDisplayEnd] = useState<number>();
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
-
   const findHighlighPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
       const displayStart = parseInt(displaystart, 10);
@@ -125,7 +124,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       } else {
         setInitialDisplayEnd(maxSequenceLength);
       }
-
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
     [msaDefined, alignment, alignmentLength]
@@ -151,8 +149,12 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const ceDefined =
     trackDefined && navigationDefined && msaDefined && managerDefined;
 
-  // This should use state to handle selection of alignment and set features
-  const features = useMemo(() => alignment[1].features, [alignment]);
+  const features = useMemo(
+    () =>
+      alignment.find(({ accession }) => accession && accession === activeId)
+        ?.features,
+    [alignment, activeId]
+  );
 
   const setFeatureTrackData = useCallback(
     (node): void => {
@@ -179,7 +181,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   if (!ceDefined) {
     return <Loader />;
   }
-
   return (
     <section data-testid="alignment-view" className="alignment-grid">
       {/* first row */}

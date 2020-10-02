@@ -10,6 +10,7 @@ import {
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
+import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 
 type AlignResultOverviewProps = {
   data: string;
@@ -53,6 +54,7 @@ const enrichParsed = (
       const match = sequences[matchIndex];
       sequences[matchIndex] = {
         ...info,
+        features: removeFeaturesWithUnknownModifier(info.features),
         ...match,
         // not sure yet if that is needed or not
         ...getFromToLength(match.sequence),
