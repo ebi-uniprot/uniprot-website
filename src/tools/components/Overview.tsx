@@ -236,6 +236,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
             length={alignmentLength}
             height={alignment.length * sequenceHeight}
             colorscheme={highlightProperty}
+            hidelabel
             {...conservationOptions}
           />
         </protvista-manager>

@@ -307,6 +307,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           <protvista-msa
             colorscheme="clustal"
             height="40"
+            hidelabel="true"
             length="45"
           />
         </div>
@@ -701,6 +702,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                 <protvista-msa
                   colorscheme="clustal"
                   height="40"
+                  hidelabel="true"
                   length="28"
                 />
               </protvista-manager>

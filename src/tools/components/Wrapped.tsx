@@ -156,6 +156,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           length={rowLength}
           height={sequences.length * sequenceHeight}
           colorscheme={highlightProperty}
+          hidelabel
           {...conservationOptions}
         />
       </div>
