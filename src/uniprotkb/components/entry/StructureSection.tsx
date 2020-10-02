@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 import { hasContent } from '../../utils';
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import XRefView from '../protein-data-views/XRefView';
@@ -81,7 +81,7 @@ const StructureSection: FC<{
   }
 
   return (
-    <div id={EntrySection.Structure}>
+    <div id={EntrySectionIDs[EntrySection.Structure]} data-entry-section>
       <Card title={EntrySection.Structure}>
         {PDBViewNode}
         <FeaturesView features={data.featuresData} sequence={sequence} />

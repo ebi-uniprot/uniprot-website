@@ -3,7 +3,8 @@
 exports[`Entry - External Links view should render 1`] = `
 <DocumentFragment>
   <div
-    id="External Links"
+    data-entry-section="true"
+    id="external-links"
   >
     <div
       class="card"
