@@ -8,7 +8,7 @@ import React, {
   Dispatch,
   SetStateAction,
 } from 'react';
-import { Loading } from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 
 import { MSAInput, ConservationOptions } from './MSAWrapper';
 import AlignmentOverview from './AlignmentOverview';
@@ -151,7 +151,7 @@ const MSAView: FC<MSAViewProps> = ({
   ).toString();
 
   if (!ceDefined) {
-    return <Loading />;
+    return <Loader />;
   }
 
   return (

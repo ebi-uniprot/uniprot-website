@@ -77,7 +77,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
 
   const trackDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'provista-track'
+    'protvista-track'
   );
 
   const setFeatureTrackData = useCallback(
