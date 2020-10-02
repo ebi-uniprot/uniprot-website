@@ -13,4 +13,19 @@ enum EntrySection {
   ExternalLinks = 'External Links',
 }
 
+export const EntrySectionIDs = {
+  [EntrySection.Function]: 'function',
+  [EntrySection.FamilyAndDomains]: 'family-and-domains',
+  [EntrySection.Expression]: 'expression',
+  [EntrySection.Interaction]: 'interaction',
+  // [EntrySection.Miscellaneous]: 'miscellaneous',
+  [EntrySection.NamesAndTaxonomy]: 'names-and-taxonomy',
+  [EntrySection.PathologyAndBioTech]: 'pathology-and-biotech',
+  [EntrySection.ProteinProcessing]: 'protein-processing',
+  [EntrySection.Sequence]: 'sequence',
+  [EntrySection.Structure]: 'structure',
+  [EntrySection.SubCellularLocation]: 'subcellular-location',
+  [EntrySection.ExternalLinks]: 'external-links',
+};
+
 export default EntrySection;

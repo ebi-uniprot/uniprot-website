@@ -19,7 +19,7 @@ import {
   CofactorComment,
 } from '../../adapters/functionConverter';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import {
   CommentType,
   CatalyticActivityComment,
@@ -149,7 +149,7 @@ const FunctionSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.Function}>
+    <div id={EntrySectionIDs[EntrySection.Function]} data-entry-section>
       <Card title={EntrySection.Function}>
         <FreeTextView
           comments={

@@ -111,7 +111,7 @@ const Results: FC = () => {
           selectedEntries={selectedEntries}
           sortColumn={sortColumn}
           sortDirection={sortDirection}
-          total={total}
+          total={total || 0}
         />
       }
       sidebar={

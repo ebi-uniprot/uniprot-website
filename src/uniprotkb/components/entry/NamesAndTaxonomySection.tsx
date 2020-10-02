@@ -11,7 +11,7 @@ import { hasContent } from '../../../shared/utils/utils';
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
 import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
 const NamesAndTaxonomySection: FC<{
   data: NamesAndTaxonomyUIModel;
@@ -21,7 +21,7 @@ const NamesAndTaxonomySection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.NamesAndTaxonomy}>
+    <div id={EntrySectionIDs[EntrySection.NamesAndTaxonomy]} data-entry-section>
       <Card title={EntrySection.NamesAndTaxonomy}>
         <h3>Protein names</h3>
         <ProteinNamesView proteinNames={data.proteinNamesData} />

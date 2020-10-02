@@ -13,14 +13,16 @@ import StructureSection from '../components/entry/StructureSection';
 
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
-import EntrySection from '../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../types/entrySection';
 
 const UniProtKBEntryConfig: {
   name: EntrySection;
+  id: typeof EntrySectionIDs[EntrySection];
   sectionContent: (entryData: UniProtkbUIModel) => JSX.Element;
 }[] = [
   {
     name: EntrySection.Function,
+    id: EntrySectionIDs[EntrySection.Function],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <FunctionSection
         data={data[EntrySection.Function] as FunctionUIModel}
@@ -32,6 +34,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.NamesAndTaxonomy,
+    id: EntrySectionIDs[EntrySection.NamesAndTaxonomy],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <NamesAndTaxonomySection
         data={data[EntrySection.NamesAndTaxonomy]}
@@ -42,6 +45,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.SubCellularLocation,
+    id: EntrySectionIDs[EntrySection.SubCellularLocation],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <SubcellularLocationSection
         data={data[EntrySection.SubCellularLocation]}
@@ -52,6 +56,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.PathologyAndBioTech,
+    id: EntrySectionIDs[EntrySection.PathologyAndBioTech],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <PathologyAndBiotechSection
         data={data[EntrySection.PathologyAndBioTech]}
@@ -63,6 +68,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.ProteinProcessing,
+    id: EntrySectionIDs[EntrySection.ProteinProcessing],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <ProteinProcessingSection
         data={data[EntrySection.ProteinProcessing]}
@@ -74,6 +80,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.Expression,
+    id: EntrySectionIDs[EntrySection.Expression],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <ExpressionSection
         data={data[EntrySection.Expression]}
@@ -84,6 +91,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.Interaction,
+    id: EntrySectionIDs[EntrySection.Interaction],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <InteractionSection
         data={data[EntrySection.Interaction]}
@@ -94,6 +102,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.Structure,
+    id: EntrySectionIDs[EntrySection.Structure],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <StructureSection
         data={data[EntrySection.Structure]}
@@ -106,6 +115,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.FamilyAndDomains,
+    id: EntrySectionIDs[EntrySection.FamilyAndDomains],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <FamilyAndDomainsSection
         data={data[EntrySection.FamilyAndDomains]}
@@ -117,6 +127,7 @@ const UniProtKBEntryConfig: {
   },
   {
     name: EntrySection.Sequence,
+    id: EntrySectionIDs[EntrySection.Sequence],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
