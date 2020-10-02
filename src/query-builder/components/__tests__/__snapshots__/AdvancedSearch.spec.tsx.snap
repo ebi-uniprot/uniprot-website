@@ -78,7 +78,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Gene Name [GN]
@@ -262,7 +262,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Taxonomy [OC]
@@ -473,7 +473,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Reviewed
@@ -662,7 +662,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Keyword [KW]
@@ -873,7 +873,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             All

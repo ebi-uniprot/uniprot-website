@@ -70,7 +70,7 @@ const ClauseItem: React.FC<{
           handleFieldSelect(clause.id, value)
         }
         autocompletePlaceholder="Search for field"
-        value={clause.searchTerm.label}
+        label={clause.searchTerm.label}
         autocomplete
       />
       <Field
