@@ -1,11 +1,21 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from 'react';
 import { DropdownButton, TreeSelect } from 'franklin-sites';
 import cn from 'classnames';
 
 import MSAView from './MSAView';
 import MSAWrappedView from './MSAWrappedView';
 
-import { MsaColorScheme, colorSchemeTree } from '../config/msaColorSchemes';
+import {
+  MsaColorScheme,
+  colorSchemeTree,
+  msaColorSchemeToString,
+} from '../config/msaColorSchemes';
 
 import { getFullAlignmentLength } from '../utils/sequences';
 
@@ -57,6 +67,7 @@ const MSAWrapper: React.FC<{
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
     MsaColorScheme.CLUSTAL
   );
+  const highlightChanged = useRef(false);
   const [selectedId, setSelectedId] = useState<string | undefined>(
     alignment
       .filter(({ accession }) => accession)
@@ -81,7 +92,11 @@ const MSAWrapper: React.FC<{
       : {};
 
   const handleHighlightSelect = useCallback(
-    ({ id }: { id: MsaColorScheme }) => setHighlightProperty(id),
+    ({ id }: { id: MsaColorScheme }) => {
+      // switch the flag when a user manually changes the highlight
+      highlightChanged.current = true;
+      setHighlightProperty(id);
+    },
     []
   );
 
@@ -94,7 +109,11 @@ const MSAWrapper: React.FC<{
           autocomplete
           autocompleteFilter
           autocompletePlaceholder="Enter a color scheme"
-          label="Highlight properties"
+          label={
+            highlightChanged.current
+              ? `"${msaColorSchemeToString[highlightProperty]}" highlight`
+              : 'Highlight properties'
+          }
           defaultActiveNodes={useMemo(() => [MsaColorScheme.CLUSTAL], [])}
           className="tertiary"
         />

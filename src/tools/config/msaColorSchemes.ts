@@ -17,11 +17,11 @@ export enum MsaColorScheme {
   LESK = 'lesk', // in MSA-colorschemes
   MAE = 'mae', // in MSA-colorschemes
   NEGATIVE = 'negative',
-  NUCLEOTIDE = 'nucleotide', // in MSA-colorschemes; in JalView; Nucleotide-specific
+  // NUCLEOTIDE = 'nucleotide', // in MSA-colorschemes; in JalView; Nucleotide-specific
   POLAR = 'polar',
   POSITIVE = 'positive',
-  PURINE = 'purine', // in MSA-colorschemes; same as Purine-Pyrimidine
-  PURINE_PYRIMIDINE = 'purine_pyrimidine', // in JalView; Nucleotide-specific
+  // PURINE = 'purine', // in MSA-colorschemes; same as Purine-Pyrimidine
+  // PURINE_PYRIMIDINE = 'purine_pyrimidine', // in JalView; Nucleotide-specific
   SERINE_THREONINE = 'serine_threonine',
   STRAND_PROPENSITY = 'strand_propensity', // in MSA-colorschemes; in JalView
   TAYLOR = 'taylor', // in MSA-colorschemes; in JalView
@@ -45,6 +45,7 @@ export const msaColorSchemeToString = {
   [MsaColorScheme.AROMATIC]: 'Aromatic',
   // "structure"?
   [MsaColorScheme.BURIED_INDEX]: 'Buried Index',
+  [MsaColorScheme.BURIED]: 'Buried Index',
   [MsaColorScheme.HELIX_PROPENSITY]: 'Helix Propensity',
   [MsaColorScheme.STRAND_PROPENSITY]: 'Strand Propensity',
   [MsaColorScheme.TURN_PROPENSITY]: 'Turn Propensity',
