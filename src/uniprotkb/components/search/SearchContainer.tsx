@@ -40,6 +40,7 @@ const Search = () => {
   };
 
   const setNamespace = (namespace: Namespace) => {
+    console.log(namespace);
     setSelectedNamespace(namespace);
   };
 

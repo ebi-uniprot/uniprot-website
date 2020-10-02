@@ -3,19 +3,13 @@ import { Loader } from 'franklin-sites';
 import { html } from 'lit-html';
 import joinUrl from 'url-join';
 
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaSequence from 'protvista-sequence';
-import ProtvistaNavigation from 'protvista-navigation';
-import ProtvistaVariation from 'protvista-variation';
 import { transformData } from 'protvista-variation-adapter';
-import ProtvistaFilter from 'protvista-filter';
 
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { loadWebComponent } from '../../../shared/utils/utils';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
@@ -32,6 +26,7 @@ export type ProtvistaVariant = {
   begin: number;
   end: number;
   type: FeatureType.VARIANT;
+  ftId?: string;
   wildType: string;
   alternativeSequence: string;
   polyphenPrediction?: string;
@@ -74,12 +69,6 @@ export type TransformedVariantsResponse = {
   variants: TransformedProtvistaVariant[];
 };
 
-loadWebComponent('protvista-variation', ProtvistaVariation);
-loadWebComponent('protvista-navigation', ProtvistaNavigation);
-loadWebComponent('protvista-sequence', ProtvistaSequence);
-loadWebComponent('protvista-manager', ProtvistaManager);
-loadWebComponent('protvista-filter', ProtvistaFilter);
-
 const formatVariantDescription = (description: string) => {
   /* eslint-disable no-useless-escape */
   const pattern = /\[(\w+)\]: ([^\[]+)/g;
@@ -121,15 +110,12 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
     description: {
       label: 'Description',
       resolver: (d: ProtvistaVariant) => {
-        if (!d.description) {
-          return '';
-        }
-        const formatedDescription = formatVariantDescription(d.description);
-        return formatedDescription
-          ? formatedDescription.map(
-              (descriptionLine) => html` <p>${descriptionLine}</p> `
-            )
-          : '';
+        const id = d.ftId ? html`UniProt feature ID: ${d.ftId}` : undefined;
+        const description =
+          formatVariantDescription(d.description || '')?.map(
+            (descriptionLine) => html`<p>${descriptionLine}</p> `
+          ) || [];
+        return [id, ...description];
       },
     },
     somaticStatus: {
@@ -181,16 +167,32 @@ const VariationView: FC<{
     joinUrl(apiUrls.variation, primaryAccession)
   );
 
-  const protvistaFilterRef = useCallback((node) => {
-    if (node !== null) {
-      // eslint-disable-next-line no-param-reassign
-      node.filters = filterConfig;
-    }
-  }, []);
+  const filterDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
+    'protvista-filter'
+  );
+
+  const protvistaFilterRef = useCallback(
+    (node) => {
+      if (node && filterDefined) {
+        // eslint-disable-next-line no-param-reassign
+        node.filters = filterConfig;
+      }
+    },
+    [filterDefined]
+  );
+
+  const variationDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-variation" */ 'protvista-variation'
+      ),
+    'protvista-variation'
+  );
 
   const protvistaVariationRef = useCallback(
     (node) => {
-      if (node !== null && data && data.features) {
+      if (node && variationDefined && data && data.features) {
         const transformedData: TransformedVariantsResponse = transformData(
           data
         );
@@ -202,10 +204,34 @@ const VariationView: FC<{
         node.length = transformedData.sequence.length;
       }
     },
-    [data]
+    [variationDefined, data]
   );
 
-  if (loading) return <Loader />;
+  const navigationDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
+      ),
+    'protvista-navigation'
+  );
+  const sequenceDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
+    'protvista-sequence'
+  );
+  const managerDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
+    'protvista-manager'
+  );
+  const ceDefined =
+    filterDefined &&
+    variationDefined &&
+    navigationDefined &&
+    sequenceDefined &&
+    managerDefined;
+
+  if (loading || !ceDefined) return <Loader />;
 
   if (error && status !== 404) {
     // TODO: use in-page error message

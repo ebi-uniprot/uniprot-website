@@ -26,9 +26,8 @@ import { Column } from '../../types/columnTypes';
 import Response from '../../types/responseTypes';
 
 const Results: FC = () => {
-  const namespace = useSelector<RootState, Namespace>(
-    (state) => state.query.namespace
-  );
+  const namespace = Namespace.uniprotkb; // This should come from the url
+
   const tableColumns = useSelector<RootState, Column[]>(
     (state) => state.results.tableColumns
   );
@@ -74,7 +73,9 @@ const Results: FC = () => {
     return <ErrorHandler status={status} />;
   }
 
-  const total = headers?.['x-totalrecords'];
+  const total = headers?.['x-totalrecords']
+    ? +headers['x-totalrecords']
+    : undefined;
 
   // no results if total is 0, or if not loading anymore and still no total info
   if (total === 0 || !(total || loading)) {
@@ -107,7 +108,7 @@ const Results: FC = () => {
           selectedEntries={selectedEntries}
           sortColumn={sortColumn}
           sortDirection={sortDirection}
-          total={total}
+          total={total || 0}
         />
       }
       sidebar={

@@ -1,12 +1,23 @@
-import React, { FC, Fragment, useState, useCallback, useRef } from 'react';
-import '@swissprot/rhea-reaction-visualizer';
+import React, {
+  Fragment,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+  FC,
+} from 'react';
 import { useModal, ModalBackdrop, Window, Loader } from 'franklin-sites';
+
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import useSafeState from '../../../shared/hooks/useSafeState';
+
 import {
   CatalyticActivityComment,
   PhysiologicalReactionDirection,
   PhysiologicalReaction,
 } from '../../types/commentTypes';
+
 import './styles/catalytic-activity-view.scss';
 
 // example accession to view this component: P31937
@@ -63,6 +74,7 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
   show: initialShow,
 }) => {
   const [show, setShow] = useState(initialShow);
+  const [wcLoaded, setWCLoaded] = useSafeState(false);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
     ModalBackdrop,
@@ -82,6 +94,18 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
     },
     [setDisplayModal]
   );
+
+  useEffect(() => {
+    import('@swissprot/rhea-reaction-visualizer').then(
+      () => setWCLoaded(true),
+      // eslint-disable-next-line no-console
+      (error) => console.error(error)
+    );
+  }, [setWCLoaded]);
+
+  if (!wcLoaded) {
+    return null;
+  }
 
   return (
     <>

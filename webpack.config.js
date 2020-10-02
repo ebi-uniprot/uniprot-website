@@ -41,11 +41,22 @@ module.exports = (env, argv) => {
     })(),
     resolve: {
       extensions: ['.tsx', '.jsx', '.js', '.ts'],
+      // most of it is to avoid duplication of packages in the codebase
+      // NOTE: (there has to be a better way than doing that manually!!!)
       alias: {
+        // make all dependencies using react and related use our versions
         react: path.resolve('./node_modules/react'),
         'react-dom': path.resolve('./node_modules/react-dom'),
         'react-router-dom': path.resolve('./node_modules/react-router-dom'),
         redux: path.resolve('./node_modules/redux'),
+        // other packages
+        classnames: path.resolve('./node_modules/classnames'),
+        // go package uses a slightly earlier version of axios, link it to ours
+        axios: path.resolve('./node_modules/axios'),
+        // point directly to the ES6 module entry point, to be processed by us
+        'franklin-sites': fs.realpathSync(
+          `${__dirname}/node_modules/franklin-sites/src/components/index.js`
+        ),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
         // (just looked at node_modules to see what packages were used, but
@@ -79,7 +90,7 @@ module.exports = (env, argv) => {
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer).*)/,
+          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites).*)/,
           use: {
             loader: 'babel-loader',
             options: {
@@ -99,7 +110,10 @@ module.exports = (env, argv) => {
         {
           test: /\.(css|sass|scss)$/,
           include: [
+            path.resolve(__dirname, 'src'),
             // We use realpathSync otherwise doesn't work with symlinks
+            fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+            fs.realpathSync(`${__dirname}/node_modules/rheostat`),
             fs.realpathSync(`${__dirname}/node_modules/litemol/dist/css`),
             fs.realpathSync(
               `${__dirname}/node_modules/@geneontology/ribbon/es`
@@ -107,7 +121,6 @@ module.exports = (env, argv) => {
             fs.realpathSync(
               `${__dirname}/node_modules/interaction-viewer/styles`
             ),
-            path.resolve(__dirname, 'src'),
           ],
           use: [
             {
@@ -120,12 +133,31 @@ module.exports = (env, argv) => {
             },
             {
               loader: 'sass-loader', // compiles Sass to CSS
+              options: {
+                sassOptions: {
+                  includePaths: [
+                    fs.realpathSync(
+                      `${__dirname}/node_modules/franklin-sites/src/styles`
+                    ),
+                  ],
+                },
+              },
             },
           ],
         },
-        // SVGs
+        // SVGs in stylesheets
         {
           test: /\.svg$/i,
+          issuer: /\.(css|scss)?$/,
+          loader: 'svg-url-loader',
+        },
+        // rest of SVGs
+        {
+          test: /\.svg$/i,
+          include: [
+            path.resolve(__dirname, 'src'),
+            fs.realpathSync(`${__dirname}/node_modules/franklin-sites`),
+          ],
           issuer: /\.(t|j)sx?$/,
           use: [
             {
@@ -136,7 +168,11 @@ module.exports = (env, argv) => {
         // Fonts
         {
           test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          include: [path.resolve(__dirname, 'node_modules/litemol/dist/fonts')],
+          // NOTE: watch out, this *only* includes litemol, if we need to load
+          // NOTE: fonts from somewhere else we'll have to add it here.
+          include: [
+            fs.realpathSync(`${__dirname}/node_modules/litemol/dist/fonts`),
+          ],
           use: [
             {
               loader: 'file-loader',
@@ -147,11 +183,12 @@ module.exports = (env, argv) => {
             },
           ],
         },
-        // SVGs from protvista-datatable
+        // SVGs from nightingale and protvista packages
         {
           test: /\.svg$/,
           include: [
-            path.resolve(__dirname, 'node_modules/protvista-datatable'),
+            fs.realpathSync(`${__dirname}/node_modules/protvista-datatable`),
+            fs.realpathSync(`${__dirname}/node_modules/protvista-uniprot`),
           ],
           loader: 'svg-inline-loader',
         },
@@ -193,7 +230,7 @@ module.exports = (env, argv) => {
         new (require('workbox-webpack-plugin').InjectManifest)({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
           // TODO: remove following line whenever we manage to reduce size of entrypoint
-          maximumFileSizeToCacheInBytes: 1024 * 1024 * 50,
+          maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10MB
           dontCacheBustURLsMatching: /\.[\da-f]{6}\.[\w]{2,5}$/i,
           // exclude from precaching because one browser will never need all fonts
           // formats at the same time, will cache later whichever is actually used
@@ -209,7 +246,7 @@ module.exports = (env, argv) => {
       !isLiveReload &&
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash:6].css',
-          chunkFilename: '[id].[contenthash:6].css',
+          chunkFilename: '[name].[contenthash:6].css',
         }),
     ].filter(Boolean),
     // END PLUGINS
@@ -222,6 +259,9 @@ module.exports = (env, argv) => {
       host: 'localhost',
       port: 0,
       historyApiFallback: true,
+      stats: 'minimal',
+      // use a browser specified in the user's environment, otherwise use default
+      open: process.env.BROWSER || true,
     };
   }
 
@@ -239,13 +279,15 @@ module.exports = (env, argv) => {
         maxInitialRequests: 4,
         automaticNameDelimiter: '~',
         cacheGroups: {
-          franklin: {
-            test: /[\\/]node_modules[\\/]franklin-sites[\\/]/,
-            name: 'franklin',
+          sentry: {
+            test: /[\\/]node_modules[\\/]@sentry[\\/]/,
+            name: 'sentry',
             chunks: 'all',
           },
           geneontology: {
-            test: /[\\/]node_modules[\\/]@geneontology|amigo2-instance-data[\\/]/,
+            // list the package to extract into its own bundle, plus all its
+            // dependencies used *only* by it (use `yarn why <dependency>` to find)
+            test: /[\\/]node_modules[\\/]@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core[\\/]/,
             name: 'geneontology',
             chunks: 'all',
           },

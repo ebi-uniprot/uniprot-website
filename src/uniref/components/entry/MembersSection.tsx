@@ -1,12 +1,9 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Card } from 'franklin-sites';
-import ProtvistaDatatable from 'protvista-datatable';
-
-import {
-  /* hasContent, */ loadWebComponent,
-} from '../../../shared/utils/utils';
 
 import EntrySection from '../../types/entrySection';
+
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import {
   UniRefMember,
@@ -20,13 +17,17 @@ const MembersSection: FC<{ data: UniRefMember[] }> = ({ data }) => {
 
   // NOTE: not sure if that what we should use here, or rather a generic version
   // NOTE: of what is in the search result pages
-  useEffect(() => {
-    loadWebComponent('protvista-datatable', ProtvistaDatatable);
-  }, []);
+  const ceDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
 
   const setTableData = useCallback(
     (node) => {
-      if (node) {
+      if (node && ceDefined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
         // eslint-disable-next-line no-param-reassign
@@ -77,7 +78,7 @@ const MembersSection: FC<{ data: UniRefMember[] }> = ({ data }) => {
         };
       }
     },
-    [data]
+    [data, ceDefined]
   );
 
   return (
