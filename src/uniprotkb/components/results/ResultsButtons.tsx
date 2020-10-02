@@ -37,8 +37,9 @@ const ResultsButtons: FC<{
   selectedEntries,
   total,
 }) => {
-  const DownloadComponent = lazy(() =>
-    import(/* webpackChunkName: "download" */ '../download/DownloadContainer')
+  const DownloadComponent = lazy(
+    () =>
+      import(/* webpackChunkName: "download" */ '../download/DownloadContainer')
   );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
