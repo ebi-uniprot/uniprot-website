@@ -95,12 +95,27 @@ const AlignmentView: React.FC<{
     return Array.from(new Set(features?.map((feature) => feature?.type)));
   }, [alignment]);
 
+  const annotationsPerEntry = useMemo(
+    () =>
+      alignment.map((sequence) => ({
+        label: sequence.accession,
+        id: sequence.accession,
+        items: Array.from(
+          new Set(sequence.features?.map((f) => f.type))
+        ).map((label) => ({ label, id: `${sequence.accession}|${label}` })),
+      })),
+    [alignment]
+  );
+
+  // console.log(annotationsPerEntry);
+
   const [activeView, setActiveView] = useState<View>(
     defaultView || View.wrapped
   );
   const [annotation, setAnnotation] = useState<FeatureType | undefined>(
     annotationChoices[0]
   );
+  const annotationChanged = useRef(false);
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
     MsaColorScheme.CLUSTAL
   );
@@ -148,6 +163,16 @@ const AlignmentView: React.FC<{
     []
   );
 
+  const handleAnnotationSelect = useCallback(({ id }: { id: string }) => {
+    // switch the flag when a user manually changes the annotation
+    const [accession, feature] = id.split('|') as [string, FeatureType];
+    annotationChanged.current = true;
+    setAnnotation(feature);
+    setActiveId(accession);
+  }, []);
+
+  // console.log(annotationChoices);
+
   return (
     <>
       <div className="button-group">
@@ -165,7 +190,27 @@ const AlignmentView: React.FC<{
           defaultActiveNodes={useMemo(() => [MsaColorScheme.CLUSTAL], [])}
           className="tertiary"
         />
-        {!!annotationChoices.length && (
+        <TreeSelect
+          data={annotationsPerEntry}
+          onSelect={handleAnnotationSelect}
+          autocomplete
+          autocompleteFilter
+          autocompletePlaceholder="Enter a color scheme"
+          label={
+            annotationChanged.current
+              ? `Showing "${annotation}" in "${activeId}"`
+              : 'Select annotation'
+          }
+          defaultActiveNodes={useMemo(
+            () => [
+              annotationsPerEntry[0].id,
+              annotationsPerEntry[0].items[0].id,
+            ],
+            [annotationsPerEntry]
+          )}
+          className="tertiary"
+        />
+        {/* {!!annotationChoices.length && (
           <DropdownButton label="Show annotation" className="tertiary">
             <div className="dropdown-menu__content">
               <ul>
@@ -186,7 +231,7 @@ const AlignmentView: React.FC<{
               </ul>
             </div>
           </DropdownButton>
-        )}
+        )} */}
         <fieldset className="msa-view-choice">
           View:
           <label>
