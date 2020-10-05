@@ -1,7 +1,14 @@
 import { useEffect, useReducer } from 'react';
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import { v1 } from 'uuid';
+import { useDispatch } from 'react-redux';
 
 import fetchData from '../utils/fetchData';
+import { addMessage } from '../../messages/state/messagesActions';
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 
 export type UseDataAPIState<T> = {
   loading: boolean;
@@ -77,6 +84,7 @@ const createReducer = <T>() => (
 
 function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
+  const reduxDispatch = useDispatch();
 
   useEffect(() => {
     // need this variabe to ensure state updates don't occur when cancelled/unmounted
@@ -104,8 +112,20 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
       },
       // catch error
       (error: AxiosError) => {
-        if (axios.isCancel(error) || didCancel) return;
+        if (axios.isCancel(error) || didCancel) {
+          return;
+        }
         dispatch({ type: ActionType.ERROR, error });
+        if (error?.response?.status === 400) {
+          reduxDispatch(
+            addMessage({
+              id: v1(),
+              content: error?.response?.data?.messages || '400 Error',
+              format: MessageFormat.POP_UP,
+              level: MessageLevel.FAILURE,
+            })
+          );
+        }
       }
     );
 
