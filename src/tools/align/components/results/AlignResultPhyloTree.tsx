@@ -15,12 +15,19 @@ import './styles/AlignResultPhyloTree.scss';
 
 const alignURLs = toolsURLs(JobTypes.ALIGN);
 
-type Props = {
+type AlignResultPhyloTreeProps = {
   id: string;
   sequenceInfo: SequenceInfo;
+  selectedEntries: string[];
+  handleSelectedEntries: (rowId: string) => void;
 };
 
-const AlignResultPhyloTree: FC<Props> = ({ id, sequenceInfo }) => {
+const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
+  id,
+  sequenceInfo,
+  selectedEntries,
+  handleSelectedEntries,
+}) => {
   const [showDistance, setShowDistance] = useState(true);
   const [alignLabels, setAlignLabels] = useState(true);
   const [circularLayout, setCircularLayout] = useState(false);
@@ -109,6 +116,8 @@ const AlignResultPhyloTree: FC<Props> = ({ id, sequenceInfo }) => {
           alignLabels={alignLabels}
           circularLayout={circularLayout}
           sequenceInfo={sequenceInfo}
+          selectedEntries={selectedEntries}
+          handleSelectedEntries={handleSelectedEntries}
         />
       )}
     </section>

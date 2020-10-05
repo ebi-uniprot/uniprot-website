@@ -2,14 +2,16 @@ import React, {
   useState,
   useEffect,
   useMemo,
-  useCallback,
+  Dispatch,
+  SetStateAction,
   useRef,
+  useCallback,
 } from 'react';
 import { DropdownButton, TreeSelect } from 'franklin-sites';
 import cn from 'classnames';
 
-import MSAView from './MSAView';
-import MSAWrappedView from './MSAWrappedView';
+import Wrapped from './Wrapped';
+import Overview from './Overview';
 
 import {
   MsaColorScheme,
@@ -22,7 +24,7 @@ import { getFullAlignmentLength } from '../utils/sequences';
 import FeatureType from '../../uniprotkb/types/featureType';
 import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 
-import './styles/MSAWrapper.scss';
+import './styles/AlignmentView.scss';
 
 export type ConservationOptions = {
   'calculate-conservation'?: true;
@@ -32,6 +34,11 @@ export type ConservationOptions = {
 export enum View {
   overview = 'Overview',
   wrapped = 'Wrapped',
+}
+
+export enum Tool {
+  align = 'Align',
+  blast = 'BLAST',
 }
 
 export type MSAInput = {
@@ -44,11 +51,41 @@ export type MSAInput = {
   features?: FeatureData;
 };
 
-const MSAWrapper: React.FC<{
+export type Sequence = {
+  name: string;
+  sequence: string;
+  start: number;
+  end: number;
+  features?: FeatureData;
+  accession?: string;
+};
+
+export type MSAViewProps = {
+  alignment: MSAInput[];
+  alignmentLength: number;
+  highlightProperty: MsaColorScheme | undefined;
+  conservationOptions: ConservationOptions;
+  totalLength: number;
+  annotation: FeatureType | undefined;
+  activeId?: string;
+  setActiveId: Dispatch<SetStateAction<string | undefined>>;
+};
+
+const AlignmentView: React.FC<{
   alignment: MSAInput[];
   alignmentLength: number;
   defaultView?: View;
-}> = ({ alignment, alignmentLength, defaultView }) => {
+  tool: Tool;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
+}> = ({
+  alignment,
+  alignmentLength,
+  defaultView,
+  tool,
+  selectedEntries,
+  handleSelectedEntries,
+}) => {
   const annotationChoices = useMemo(() => {
     const features = alignment
       .map(({ features }) => features)
@@ -68,7 +105,7 @@ const MSAWrapper: React.FC<{
     MsaColorScheme.CLUSTAL
   );
   const highlightChanged = useRef(false);
-  const [selectedId, setSelectedId] = useState<string | undefined>(
+  const [activeId, setActiveId] = useState<string | undefined>(
     alignment
       .filter(({ accession }) => accession)
       .map(({ accession }) => accession)[0]
@@ -88,6 +125,17 @@ const MSAWrapper: React.FC<{
       ? {
           'calculate-conservation': true,
           'overlay-conservation': true,
+        }
+      : {};
+
+  const AlignmentComponent = activeView === View.overview ? Overview : Wrapped;
+  const additionalAlignProps =
+    tool === Tool.align
+      ? {
+          setActiveId,
+          omitInsertionsInCoords: true,
+          selectedEntries,
+          handleSelectedEntries,
         }
       : {};
 
@@ -162,32 +210,19 @@ const MSAWrapper: React.FC<{
         </fieldset>
       </div>
       <div>
-        {activeView === View.overview ? (
-          <MSAView
-            alignment={alignment}
-            alignmentLength={alignmentLength}
-            highlightProperty={highlightProperty}
-            conservationOptions={conservationOptions}
-            totalLength={totalLength}
-            annotation={annotation}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
-          />
-        ) : (
-          <MSAWrappedView
-            alignment={alignment}
-            alignmentLength={alignmentLength}
-            highlightProperty={highlightProperty}
-            conservationOptions={conservationOptions}
-            totalLength={totalLength}
-            annotation={annotation}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
-          />
-        )}
+        <AlignmentComponent
+          alignment={alignment}
+          alignmentLength={alignmentLength}
+          highlightProperty={highlightProperty}
+          conservationOptions={conservationOptions}
+          totalLength={totalLength}
+          annotation={annotation}
+          activeId={activeId}
+          {...additionalAlignProps}
+        />
       </div>
     </>
   );
 };
 
-export default MSAWrapper;
+export default AlignmentView;

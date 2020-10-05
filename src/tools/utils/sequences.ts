@@ -1,9 +1,10 @@
 /* eslint-disable camelcase */
 
-import { MSAInput } from '../components/MSAWrapper';
+import { MSAInput } from '../components/AlignmentView';
 import {
   ProcessedFeature,
   FeatureData,
+  LocationModifier,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 
 export const findSequenceSegments = (seq: string) => {
@@ -117,3 +118,18 @@ export const transformFeaturesPositions = (features: ProcessedFeature[]) =>
     start: feature.start - 1,
     end: feature.end - 1,
   }));
+
+export const getNumberOfInsertions = (sequence: string, endPosition: number) =>
+  (sequence.slice(0, endPosition).match(/-/g) || []).length;
+
+export const getEndCoordinate = (sequence: string, endPosition: number) =>
+  endPosition - getNumberOfInsertions(sequence, endPosition);
+
+// Jie has said that if it is unknown, you can ignore value
+// These erroneous features are temporary and will eventually be removed
+export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
+  features?.filter(
+    ({ location: { start, end } }) =>
+      start.modifier !== LocationModifier.UNKNOWN &&
+      end.modifier !== LocationModifier.UNKNOWN
+  );

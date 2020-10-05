@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, CSSProperties, useCallback, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import { noop } from 'lodash-es';
 
+import { MSAInput } from '../../../components/AlignmentView';
+import { Sequence } from '../../../components/Wrapped';
 import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
 
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -9,14 +12,29 @@ import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
 
-type Props = {
+type AlignLabelProps = {
   accession?: string;
   children: string;
-  info?: ParsedSequenceAndFeatures;
+  info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
   loading: boolean;
+  style?: CSSProperties;
+  checked?: boolean;
+  onSequenceChecked?: (id: string) => void;
+  onIdClick?: () => void;
+  active?: boolean;
 };
 
-const AlignLabel: FC<Props> = ({ accession, info, loading, children }) => {
+const AlignLabel: FC<AlignLabelProps> = ({
+  accession,
+  info,
+  loading,
+  children,
+  style,
+  checked,
+  onSequenceChecked,
+  onIdClick,
+  active = false,
+}) => {
   const invalid = accession && !loading && !info;
   const title = invalid
     ? 'Even though this looks like a valid accession, the sequence appears to have been edited and does not match our data'
@@ -24,7 +42,18 @@ const AlignLabel: FC<Props> = ({ accession, info, loading, children }) => {
   const className = cn('align-label', {
     'align-label--invalid': invalid,
     'align-label--loading': loading,
+    'align-label--active': active,
+    'align-label--selectable': onIdClick,
   });
+
+  const handleChange = useCallback(
+    () => accession && onSequenceChecked?.(accession),
+    [onSequenceChecked, accession]
+  );
+
+  const handleClick = useCallback((event: MouseEvent) => {
+    event.stopPropagation();
+  }, []);
 
   if (!accession || loading || invalid) {
     return (
@@ -50,13 +79,27 @@ const AlignLabel: FC<Props> = ({ accession, info, loading, children }) => {
   }
 
   return (
-    <span className={className}>
+    <button
+      type="button"
+      className={className}
+      style={style}
+      onClick={onIdClick || noop}
+      tabIndex={onIdClick ? 0 : -1}
+    >
+      {onSequenceChecked && accession && (
+        <input
+          type="checkbox"
+          onChange={handleChange}
+          onClick={handleClick}
+          checked={checked}
+        />
+      )}
       {reviewImg}
       {before}
       {/* inject a link to the entry page */}
       <Link to={`/uniprotkb/${accession}`}>{accession}</Link>
       {after.join(accession)}
-    </span>
+    </button>
   );
 };
 

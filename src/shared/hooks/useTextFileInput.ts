@@ -2,7 +2,7 @@ import { useEffect, useCallback, useRef, ReactElement } from 'react';
 import fileType from 'file-type/browser';
 import useDragNDropFile from './useDragNDropFile';
 
-type Props = {
+type UseTextFileInputProps = {
   input: HTMLInputElement | null;
   onFileContent: (content: string) => void;
   onError?: (error: TypeError) => void;
@@ -18,7 +18,7 @@ const useTextFileInput = ({
   onFileContent,
   onError,
   dndOverlay,
-}: Props) => {
+}: UseTextFileInputProps) => {
   const onFileContentRef = useRef(onFileContent);
   onFileContentRef.current = onFileContent;
   const onErrorRef = useRef(onError);
