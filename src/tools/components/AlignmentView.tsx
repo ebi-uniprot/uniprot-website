@@ -7,8 +7,7 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
-import { DropdownButton, TreeSelect } from 'franklin-sites';
-import cn from 'classnames';
+import { TreeSelect } from 'franklin-sites';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
@@ -60,6 +59,26 @@ export type Sequence = {
   accession?: string;
 };
 
+type PossiblyEmptyMenuItem = {
+  label: string | undefined;
+  id: string | undefined;
+  items: {
+    label: FeatureType;
+    id: string;
+  }[];
+};
+type MenuItem = {
+  label: string;
+  id: string;
+  items: {
+    label: FeatureType;
+    id: string;
+  }[];
+};
+
+const isNonEmptyMenuItem = (item: PossiblyEmptyMenuItem): item is MenuItem =>
+  Boolean(item.id && item.label && item.items.length);
+
 export type MSAViewProps = {
   alignment: MSAInput[];
   alignmentLength: number;
@@ -95,12 +114,34 @@ const AlignmentView: React.FC<{
     return Array.from(new Set(features?.map((feature) => feature?.type)));
   }, [alignment]);
 
+  const annotationsPerEntry = useMemo(
+    () =>
+      alignment
+        .map((sequence) => ({
+          label: sequence.accession,
+          id: sequence.accession,
+          items: Array.from(
+            new Set(sequence.features?.map((f) => f.type))
+          ).map((label) => ({ label, id: `${sequence.accession}|${label}` })),
+        }))
+        .filter(isNonEmptyMenuItem),
+    [alignment]
+  );
+  const defaultActiveAnnotation = useMemo(
+    () =>
+      annotationsPerEntry.length
+        ? [annotationsPerEntry[0].id, annotationsPerEntry[0].items[0].id]
+        : undefined,
+    [annotationsPerEntry]
+  );
+
   const [activeView, setActiveView] = useState<View>(
     defaultView || View.wrapped
   );
   const [annotation, setAnnotation] = useState<FeatureType | undefined>(
     annotationChoices[0]
   );
+  const annotationChanged = useRef(false);
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
     MsaColorScheme.CLUSTAL
   );
@@ -148,6 +189,14 @@ const AlignmentView: React.FC<{
     []
   );
 
+  const handleAnnotationSelect = useCallback(({ id }: { id: string }) => {
+    // switch the flag when a user manually changes the annotation
+    const [accession, feature] = id.split('|') as [string, FeatureType];
+    annotationChanged.current = true;
+    setAnnotation(feature);
+    setActiveId(accession);
+  }, []);
+
   return (
     <>
       <div className="button-group">
@@ -165,27 +214,21 @@ const AlignmentView: React.FC<{
           defaultActiveNodes={useMemo(() => [MsaColorScheme.CLUSTAL], [])}
           className="tertiary"
         />
-        {!!annotationChoices.length && (
-          <DropdownButton label="Show annotation" className="tertiary">
-            <div className="dropdown-menu__content">
-              <ul>
-                {annotationChoices.map((annotationChoice) => (
-                  <li key={annotationChoice}>
-                    <button
-                      type="button"
-                      className={cn('button', 'annotation-choice', {
-                        primary: annotation === annotationChoice,
-                        tertiary: annotation !== annotationChoice,
-                      })}
-                      onClick={() => setAnnotation(annotationChoice)}
-                    >
-                      {annotationChoice}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </DropdownButton>
+        {annotationsPerEntry.length && (
+          <TreeSelect
+            data={annotationsPerEntry}
+            onSelect={handleAnnotationSelect}
+            autocomplete
+            autocompleteFilter
+            autocompletePlaceholder="Look for an annotation"
+            label={
+              annotationChanged.current
+                ? `Showing "${annotation}" in "${activeId}"`
+                : 'Select annotation'
+            }
+            defaultActiveNodes={defaultActiveAnnotation}
+            className="tertiary"
+          />
         )}
         <fieldset className="msa-view-choice">
           View:
