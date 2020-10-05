@@ -49,7 +49,9 @@ type Props = {
 const APIRequest: FC<Props> = ({ inputParamsData, jobType }) => {
   const { loading, data, error, status } = inputParamsData;
 
-  if (error || !data) return <ErrorHandler status={status} />;
+  if (error || !data) {
+    return <ErrorHandler status={status} />;
+  }
 
   return (
     <section>
