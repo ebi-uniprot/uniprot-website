@@ -16,7 +16,7 @@ export type UseDataAPIState<T> = {
   status?: AxiosResponse['status'];
   statusText?: AxiosResponse['statusText'];
   headers?: AxiosResponse['headers'];
-  error?: AxiosError;
+  error?: AxiosError<{ messages?: string[] }>;
   redirectedTo?: string;
 };
 
@@ -116,16 +116,6 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
           return;
         }
         dispatch({ type: ActionType.ERROR, error });
-        if (error?.response?.status === 400) {
-          reduxDispatch(
-            addMessage({
-              id: v1(),
-              content: error?.response?.data?.messages || '400 Error',
-              format: MessageFormat.POP_UP,
-              level: MessageLevel.FAILURE,
-            })
-          );
-        }
       }
     );
 
@@ -136,6 +126,20 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
       didCancel = true;
     };
   }, [url]);
+
+  useEffect(() => {
+    if (state.status === 400) {
+      reduxDispatch(
+        addMessage({
+          id: v1(),
+          content:
+            state.error?.response?.data?.messages?.join(',') || '400 Error',
+          format: MessageFormat.POP_UP,
+          level: MessageLevel.FAILURE,
+        })
+      );
+    }
+  }, [reduxDispatch, state.status, state.error]);
 
   return state;
 }
