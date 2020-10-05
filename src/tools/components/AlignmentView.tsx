@@ -128,7 +128,10 @@ const AlignmentView: React.FC<{
     [alignment]
   );
   const defaultActiveAnnotation = useMemo(
-    () => [annotationsPerEntry[0].id, annotationsPerEntry[0].items[0].id],
+    () =>
+      annotationsPerEntry.length
+        ? [annotationsPerEntry[0].id, annotationsPerEntry[0].items[0].id]
+        : undefined,
     [annotationsPerEntry]
   );
 
@@ -217,7 +220,7 @@ const AlignmentView: React.FC<{
             onSelect={handleAnnotationSelect}
             autocomplete
             autocompleteFilter
-            autocompletePlaceholder="Enter a color scheme"
+            autocompletePlaceholder="Look for an annotation"
             label={
               annotationChanged.current
                 ? `Showing "${annotation}" in "${activeId}"`

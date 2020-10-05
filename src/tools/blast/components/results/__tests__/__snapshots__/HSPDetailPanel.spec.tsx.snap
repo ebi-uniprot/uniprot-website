@@ -350,7 +350,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
             >
               <input
                 data-testid="search-input"
-                placeholder="Enter a color scheme"
+                placeholder="Look for an annotation"
                 type="text"
                 value=""
               />
@@ -860,7 +860,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                 >
                   <input
                     data-testid="search-input"
-                    placeholder="Enter a color scheme"
+                    placeholder="Look for an annotation"
                     type="text"
                     value=""
                   />
