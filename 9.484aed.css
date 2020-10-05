@@ -1,8 +1,0 @@
-.uniprot-title{position:relative}.uniprot-title__status{display:inline-flex;align-self:center}.uniprot-title__status svg{width:0.75em;height:0.75em;margin-right:0.25rem;position:relative}
-
-@keyframes loading{from{opacity:0.5}to{opacity:1}}.align-label{white-space:nowrap;opacity:1}.align-label--invalid{cursor:not-allowed}.align-label--loading{animation:alternate loading 500ms infinite ease-in-out}
-
-@keyframes appear{from{background-color:white}}.align-result-pim fieldset{float:right}.align-result-pim fieldset label{display:flex}.align-result-pim__matrix{min-width:100%;display:grid;align-items:center;gap:0.5ch}.align-result-pim__name{padding:1ch;justify-self:start;background-color:transparent}.align-result-pim__name--hovered{background-color:#d2dce3}.align-result-pim__cell{border-radius:0.5ch;border:1px solid transparent;display:flex;justify-content:center;align-items:center;font-weight:bolder;color:white;animation-duration:100ms;animation-name:appear;animation-iteration-count:1;animation-timing-function:ease-in-out;animation-fill-mode:backwards;transition:background-color ease-in-out 100ms}.align-result-pim__cell::before{content:'';padding-bottom:100%}.align-result-pim__cell--dark{color:black}.align-result-pim__cell--hovered{border-color:#46d6fa}.align-result-pim__cell--dark.align-result-pim__cell--hovered{border-color:#014371}
-
-
-/*# sourceMappingURL=9.484aed.css.map*/
