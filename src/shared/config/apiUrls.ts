@@ -11,16 +11,15 @@ import {
 } from '../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
+import { Namespace } from '../types/namespaces';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
 const apiUrls = {
   // uniprotkb advanced search terms
-  advancedSearchTerms: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/search_terms'
-  ),
+  advancedSearchTerms: (namespace: Namespace) =>
+    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/search_terms`),
   // Annotation evidence used by advanced search
   evidences: {
     annotation: joinUrl(

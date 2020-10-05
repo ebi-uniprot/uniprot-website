@@ -2,7 +2,7 @@ import { v1 } from 'uuid';
 import { isEqual } from 'lodash-es';
 
 import { removeProperty } from '../../shared/utils/utils';
-import { Operator, Clause, itemType, dataType } from '../types/searchTypes';
+import { Operator, Clause, ItemType, DataType } from '../types/searchTypes';
 
 export const createEmptyClause = (): Clause => ({
   id: v1(),
@@ -11,8 +11,8 @@ export const createEmptyClause = (): Clause => ({
     label: 'All',
     term: 'All',
     example: 'a4_human, P05067, cdc7 human',
-    itemType: itemType.single,
-    dataType: dataType.string,
+    itemType: ItemType.single,
+    dataType: DataType.string,
     id: 'id_all',
   },
   queryInput: {},
@@ -26,8 +26,8 @@ export const createPreSelectedClauses = (): Clause[] => [
       label: 'Gene Name [GN]',
       term: 'gene',
       example: 'ydj1',
-      itemType: itemType.single,
-      dataType: dataType.string,
+      itemType: ItemType.single,
+      dataType: DataType.string,
       id: 'id_gene',
     },
     queryInput: {},
@@ -39,12 +39,10 @@ export const createPreSelectedClauses = (): Clause[] => [
       id: 'id_taxonomy',
       label: 'Taxonomy [OC]',
       term: 'taxonomy',
-      itemType: itemType.single,
-      dataType: dataType.string,
+      itemType: ItemType.single,
+      dataType: DataType.string,
       autoComplete: '/uniprot/api/suggester?dict=taxonomy&query=?',
-      description: 'Search by NCBI taxonomy',
       example: 'human',
-      termSuffix: true,
     },
     queryInput: {},
   },
@@ -56,8 +54,8 @@ export const createPreSelectedClauses = (): Clause[] => [
       label: 'Reviewed',
       term: 'reviewed',
       example: 'true',
-      itemType: itemType.single,
-      dataType: dataType.enum,
+      itemType: ItemType.single,
+      dataType: DataType.enum,
       values: [
         { name: 'Yes', value: 'true' },
         { name: 'No', value: 'false' },
@@ -73,9 +71,8 @@ export const createPreSelectedClauses = (): Clause[] => [
       label: 'Keyword [KW]',
       term: 'keyword',
       example: 'chromosomal',
-      itemType: itemType.single,
-      dataType: dataType.string,
-      description: 'Search by keyword',
+      itemType: ItemType.single,
+      dataType: DataType.string,
       autoComplete: '/uniprot/api/suggester?dict=keyword&query=?',
     },
     queryInput: {},

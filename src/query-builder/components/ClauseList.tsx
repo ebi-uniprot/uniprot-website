@@ -9,7 +9,7 @@ import {
   Operator,
   Evidence,
   Evidences,
-  dataType,
+  DataType,
 } from '../types/searchTypes';
 
 // .itemType
@@ -130,7 +130,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
               ...clause,
               searchTerm,
               queryInput:
-                searchTerm.dataType === dataType.enum &&
+                searchTerm.dataType === DataType.enum &&
                 searchTerm.values &&
                 searchTerm.values.length
                   ? { stringValue: searchTerm.values[0].value }

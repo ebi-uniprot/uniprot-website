@@ -1,4 +1,4 @@
-import { Clause, Operator, itemType, dataType } from '../types/searchTypes';
+import { Clause, Operator, ItemType, DataType } from '../types/searchTypes';
 
 type IPrefixMap = {
   feature: string;
@@ -191,8 +191,8 @@ const getEmptyClause = (): Clause => ({
   searchTerm: {
     id: '',
     label: '',
-    itemType: itemType.single,
-    dataType: dataType.string,
+    itemType: ItemType.single,
+    dataType: DataType.string,
   },
   logicOperator: Operator.AND,
   queryInput: {},
@@ -220,11 +220,11 @@ export const parse = (queryString = ''): Clause[] => {
 
       // item type
       if (key.startsWith('cc_')) {
-        currentClause.searchTerm.itemType = itemType.comment;
+        currentClause.searchTerm.itemType = ItemType.comment;
       } else if (key.startsWith('ft')) {
-        currentClause.searchTerm.itemType = itemType.feature;
+        currentClause.searchTerm.itemType = ItemType.feature;
       } else if (key === 'xref') {
-        currentClause.searchTerm.itemType = itemType.database;
+        currentClause.searchTerm.itemType = ItemType.database;
       }
 
       // evidence
@@ -243,7 +243,7 @@ export const parse = (queryString = ''): Clause[] => {
       if (range) {
         // range
         currentClause.queryInput = range;
-      } else if (currentClause.searchTerm.itemType === itemType.database) {
+      } else if (currentClause.searchTerm.itemType === ItemType.database) {
         // cross-references
         if (value.includes('-')) {
           // database references

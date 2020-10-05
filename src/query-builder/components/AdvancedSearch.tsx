@@ -12,7 +12,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 import apiUrls from '../../shared/config/apiUrls';
 import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
 import { stringify } from '../utils/queryStringProcessor';
-import { Namespace } from '../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
 
 import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/advanced-search.scss';
@@ -22,10 +22,10 @@ const AdvancedSearch: FC = () => {
 
   // To be replaced by getting it from url
   const [clauses, setClauses] = useState<Clause[]>(createPreSelectedClauses());
-  const [namespace] = useState<Namespace>(Namespace.uniprotkb);
+  const [namespace, setNamespace] = useState<Namespace>(Namespace.uniprotkb);
 
   const { data: searchTermsData } = useDataApi<SearchTermType[]>(
-    apiUrls.advancedSearchTerms
+    apiUrls.advancedSearchTerms(namespace)
   );
 
   // NOTE: move this to the corresponding component?
@@ -81,8 +81,18 @@ const AdvancedSearch: FC = () => {
         <fieldset>
           <label htmlFor="namespace-select">
             Searching in
-            <select id="namespace-select">
-              <option>{namespace}</option>
+            <select
+              id="namespace-select"
+              onChange={(e) =>
+                setNamespace((e.target.value as unknown) as Namespace)
+              }
+              value={namespace}
+            >
+              {Object.keys(NamespaceLabels).map((key) => (
+                <option value={key} key={key}>
+                  {NamespaceLabels[key as Namespace]}
+                </option>
+              ))}
             </select>
           </label>
         </fieldset>
