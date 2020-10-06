@@ -12,6 +12,16 @@ const url = '/some/path';
 const url2 = '/some/other/path';
 let mock;
 
+jest.mock('react-redux', () => ({
+  useDispatch: () => () => ({
+    error: new Error('Request failed with status code 400'),
+    headers: undefined,
+    loading: false,
+    status: 400,
+    statusText: undefined,
+  }),
+}));
+
 beforeAll(() => {
   mock = new MockAdapter(axios);
 });
@@ -72,6 +82,23 @@ describe('useDataApi hook', () => {
     expect(result.current).toEqual({
       loading: false,
       error: new Error('timeout of 0ms exceeded'),
+    });
+  });
+
+  test('400', async () => {
+    mock.onGet(url).reply(400);
+    const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
+
+    expect(result.current).toEqual({ loading: true });
+
+    await waitForNextUpdate();
+
+    expect(result.current).toEqual({
+      error: new Error('Request failed with status code 400'),
+      headers: undefined,
+      loading: false,
+      status: 400,
+      statusText: undefined,
     });
   });
 
