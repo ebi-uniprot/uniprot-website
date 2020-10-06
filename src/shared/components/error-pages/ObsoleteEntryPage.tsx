@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Message } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import {
@@ -9,14 +9,7 @@ import ArtWork from './svgs/obsolete-entry.svg';
 
 import './styles/error-pages.scss';
 
-type ObsoleteEntryPageProps = {
-  accession: string;
-  details: InactiveEntryReason;
-};
-
-const DeletedEntryMessage: React.FC<{ accession: string }> = ({
-  accession,
-}) => (
+const DeletedEntryMessage: FC<{ accession: string }> = ({ accession }) => (
   <Message level="info">
     <h4>This entry is obsolete</h4>
     <p data-testid="deleted-entry-message">
@@ -28,7 +21,7 @@ const DeletedEntryMessage: React.FC<{ accession: string }> = ({
   </Message>
 );
 
-const DemergedEntryMessage: React.FC<{
+const DemergedEntryMessage: FC<{
   accession: string;
   demergedTo: string[];
 }> = ({ accession, demergedTo }) => (
@@ -64,7 +57,12 @@ const DemergedEntryMessage: React.FC<{
   </Message>
 );
 
-const ObsoleteEntryPage: React.FC<ObsoleteEntryPageProps> = ({
+type ObsoleteEntryPageProps = {
+  accession: string;
+  details: InactiveEntryReason;
+};
+
+const ObsoleteEntryPage: FC<ObsoleteEntryPageProps> = ({
   accession,
   details,
 }) => (

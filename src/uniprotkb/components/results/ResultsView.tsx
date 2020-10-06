@@ -9,6 +9,7 @@ import uniProtKbConverter, {
   UniProtkbUIModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
+import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 import { ViewMode } from '../../state/resultsInitialState';
 
@@ -142,17 +143,6 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     );
   };
 
-  let NamespacedCard: typeof UniRefCard | typeof UniProtKBCard;
-  switch (namespace) {
-    case Namespace.uniref:
-      NamespacedCard = UniRefCard;
-      break;
-    case Namespace.uniprotkb:
-    default:
-      NamespacedCard = UniProtKBCard;
-      break;
-  }
-
   const hasMoreData = total > allResults.length;
   let dataView;
   if (viewMode === ViewMode.CARD) {
@@ -166,13 +156,26 @@ const ResultsView: React.FC<ResultsTableProps> = ({
           id: string;
         }) => primaryAccession || id}
         data={allResults}
-        dataRenderer={(dataItem: UniProtkbAPIModel) => (
-          <NamespacedCard
-            data={dataItem}
-            selected={selectedEntries.includes(dataItem.primaryAccession)}
-            handleEntrySelection={handleEntrySelection}
-          />
-        )}
+        dataRenderer={(dataItem: UniProtkbAPIModel | UniRefAPIModel) => {
+          if (namespace === Namespace.uniref) {
+            const data = dataItem as UniRefAPIModel;
+            return (
+              <UniRefCard
+                data={data}
+                selected={selectedEntries.includes(data.id)}
+                handleEntrySelection={handleEntrySelection}
+              />
+            );
+          }
+          const data = dataItem as UniProtkbAPIModel;
+          return (
+            <UniProtKBCard
+              data={data}
+              selected={selectedEntries.includes(data.primaryAccession)}
+              handleEntrySelection={handleEntrySelection}
+            />
+          );
+        }}
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}

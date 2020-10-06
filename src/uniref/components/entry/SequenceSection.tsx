@@ -5,7 +5,7 @@ import SequenceView from '../../../shared/components/entry/SequenceView';
 
 import { hasContent } from '../../../shared/utils/utils';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
 import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
 
@@ -17,7 +17,7 @@ const SequenceSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.Sequence}>
+    <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
       <Card title={EntrySection.Sequence}>
         <SequenceView data={data} accession={primaryAccession} />
       </Card>

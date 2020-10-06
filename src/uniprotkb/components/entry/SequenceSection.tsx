@@ -27,10 +27,12 @@ const SequenceSection: FC<{
     <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
       <Card title={EntrySection.Sequence}>
         <SequenceView data={data} accession={primaryAccession} />
-        <FeaturesView
-          features={data.featuresData}
-          sequence={data.sequence.value}
-        />
+        {data.featuresData && (
+          <FeaturesView
+            features={data.featuresData}
+            sequence={data.sequence.value}
+          />
+        )}
         {data.sequenceCaution && data.sequenceCaution.length > 0 && (
           <>
             <h3>Sequence caution</h3>
@@ -55,8 +57,10 @@ const SequenceSection: FC<{
             <RNAEditingView data={data.rnaEditing} />
           </>
         )}
-        <KeywordView keywords={data.keywordData} />
-        <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+        {data.keywordData && <KeywordView keywords={data.keywordData} />}
+        {data.xrefData && (
+          <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+        )}
       </Card>
     </div>
   );

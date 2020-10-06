@@ -972,7 +972,7 @@ const getXrefColumn = (databaseName: string) => ({
     }
     const { xrefData } = data[entrySection];
     // Get the category for the database name in the section
-    const category = xrefData.find(
+    const category = xrefData?.find(
       (xrefCategory) =>
         xrefCategory.category === databaseNameToCategory.get(databaseName)
     );

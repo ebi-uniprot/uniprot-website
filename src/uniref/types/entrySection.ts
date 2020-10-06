@@ -4,3 +4,8 @@ enum EntrySection {
 }
 
 export default EntrySection;
+
+export const EntrySectionIDs = {
+  [EntrySection.Members]: 'members',
+  [EntrySection.Sequence]: 'sequence',
+};

@@ -39,6 +39,8 @@ import uniRefConverter, {
   UniRefAPIModel,
 } from '../../adapters/uniRefConverter';
 
+import '../../../shared/components/entry/styles/entry-page.scss';
+
 const Entry: FC = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch<{ accession: string }>(
@@ -75,8 +77,7 @@ const Entry: FC = () => {
 
   const sections = UniRefEntryConfig.map((section) => ({
     label: section.name,
-    id: section.name,
-
+    id: section.id,
     disabled: !hasContent(transformedData[section.name]),
   }));
 
@@ -147,6 +148,7 @@ const Entry: FC = () => {
           ))}
         </Switch>
       }
+      className="entry-page"
     >
       <Switch>
         {displayMenuData.map((displayItem) => (

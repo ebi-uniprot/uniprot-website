@@ -91,7 +91,7 @@ export type UniRefAPIModel = {
 };
 
 export type UniRefUIModel = UniRefAPIModel & {
-  [EntrySection.Members]: UniRefAPIModel['members'];
+  [EntrySection.Members]: { members: UniRefMember[] };
   // use SequenceUIModel?
   [EntrySection.Sequence]: {
     sequence: UniRefAPIModel['representativeMember']['sequence'];
@@ -100,7 +100,9 @@ export type UniRefUIModel = UniRefAPIModel & {
 
 const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
   ...data,
-  [EntrySection.Members]: [data.representativeMember, ...(data.members || [])],
+  [EntrySection.Members]: {
+    members: [data.representativeMember, ...(data.members || [])],
+  },
   [EntrySection.Sequence]: { sequence: data.representativeMember.sequence },
 });
 

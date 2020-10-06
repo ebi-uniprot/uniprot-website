@@ -57,7 +57,7 @@ import {
   Isoform,
 } from '../../types/commentTypes';
 
-import './styles/entry-page.scss';
+import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -69,9 +69,11 @@ const Entry: FC = () => {
     UniProtkbAPIModel | UniProtkbInactiveEntryModel
   >(apiUrls.entry(match?.params.accession || ''));
 
-  const transformedData = useMemo(() => data && uniProtKbConverter(data), [
-    data,
-  ]);
+  const transformedData = useMemo(
+    () =>
+      data && data.entryType !== EntryType.INACTIVE && uniProtKbConverter(data),
+    [data]
+  );
 
   const sections = useMemo(
     () =>
@@ -87,23 +89,48 @@ const Entry: FC = () => {
     [transformedData]
   );
 
+  const listOfIsoformAccessions = useMemo(
+    () =>
+      (data &&
+        'comments' in data &&
+        data.comments
+          ?.filter(
+            (comment) =>
+              comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
+          )
+          ?.map((comment) =>
+            (comment as AlternativeProductsComment).isoforms.map(
+              (isoform) => (isoform as Isoform).isoformIds
+            )
+          )
+          ?.flat(2)
+          ?.filter(
+            (maybeAccession: string | undefined): maybeAccession is string =>
+              typeof maybeAccession === 'string'
+          )) ||
+      [],
+    [data]
+  );
+
   if (loading || !data) {
     return <Loader />;
   }
 
-  if (error || !match?.params.accession) {
-    return <ErrorHandler status={status} />;
-  }
-
   if (data && data.entryType === EntryType.INACTIVE) {
-    const inactiveEntryData = data;
+    if (!match) {
+      return <ErrorHandler />;
+    }
 
     return (
       <ObsoleteEntryPage
         accession={match.params.accession}
-        details={inactiveEntryData.inactiveReason}
+        details={data.inactiveReason}
       />
     );
+  }
+
+  if (error || !match?.params.accession || !transformedData || !match) {
+    return <ErrorHandler status={status} />;
   }
 
   if (redirectedTo) {
@@ -119,22 +146,6 @@ const Entry: FC = () => {
 
     dispatch(addMessage(message));
   }
-
-  const listOfIsoformAccessions =
-    data.comments
-      ?.filter(
-        (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
-      )
-      ?.map((comment) =>
-        (comment as AlternativeProductsComment).isoforms.map(
-          (isoform) => (isoform as Isoform).isoformIds
-        )
-      )
-      ?.flat(2)
-      ?.filter(
-        (maybeAccession: string | undefined): maybeAccession is string =>
-          typeof maybeAccession === 'string'
-      ) || [];
 
   const displayMenuData = [
     {

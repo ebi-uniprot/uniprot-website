@@ -1,20 +1,20 @@
 import React, { FC, useCallback } from 'react';
 import { Card } from 'franklin-sites';
 
-import EntrySection from '../../types/entrySection';
-
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+
+import { hasContent } from '../../../shared/utils/utils';
+
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
 import {
   UniRefMember,
   RepresentativeMember,
 } from '../../adapters/uniRefConverter';
 
-const MembersSection: FC<{ data: UniRefMember[] }> = ({ data }) => {
-  // if (!hasContent(data)) {
-  //   return null;
-  // }
-
+const MembersSection: FC<{ data: { members: UniRefMember[] } }> = ({
+  data,
+}) => {
   // NOTE: not sure if that what we should use here, or rather a generic version
   // NOTE: of what is in the search result pages
   const ceDefined = useCustomElement(
@@ -29,7 +29,7 @@ const MembersSection: FC<{ data: UniRefMember[] }> = ({ data }) => {
     (node) => {
       if (node && ceDefined) {
         // eslint-disable-next-line no-param-reassign
-        node.data = data;
+        node.data = data.members;
         // eslint-disable-next-line no-param-reassign
         node.columns = {
           members: {
@@ -78,11 +78,15 @@ const MembersSection: FC<{ data: UniRefMember[] }> = ({ data }) => {
         };
       }
     },
-    [data, ceDefined]
+    [data.members, ceDefined]
   );
 
+  if (!hasContent(data)) {
+    return null;
+  }
+
   return (
-    <div id={EntrySection.Members}>
+    <div id={EntrySectionIDs[EntrySection.Members]} data-entry-section>
       <Card title={EntrySection.Members}>
         <protvista-datatable ref={setTableData} />
       </Card>

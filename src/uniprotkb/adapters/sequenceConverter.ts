@@ -43,14 +43,14 @@ export type SequenceUIModel = {
   flag?: Flag;
   status?: string;
   processing?: string;
-  keywordData: KeywordUIModel[];
+  keywordData?: KeywordUIModel[];
   alternativeProducts?: AlternativeProductsComment;
   sequenceCaution?: SequenceCautionComment[];
   massSpectrometry?: MassSpectrometryComment[];
   polymorphysm?: FreeTextComment[];
   rnaEditing?: RNAEditingComment[];
-  featuresData: FeatureData;
-  xrefData: XrefUIModel[];
+  featuresData?: FeatureData;
+  xrefData?: XrefUIModel[];
   lastUpdateDate?: string;
   entryAudit?: EntryAudit;
   molWeight?: number;

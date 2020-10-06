@@ -13,12 +13,12 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 // } from '../protein-data-views/AnnotationScoreDoughnutChart';
 // import getProteinHighlights from '../../adapters/proteinHighlights';
 
-import { UniRefUIModel } from '../../adapters/uniRefConverter';
+import { UniRefAPIModel } from '../../adapters/uniRefConverter';
 
 import '../../../uniprotkb/components/results/styles/uniprot-card.scss';
 
 const UniRefCard: FC<{
-  data: UniRefUIModel;
+  data: UniRefAPIModel;
   selected: boolean;
   handleEntrySelection: (rowId: string) => void;
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
