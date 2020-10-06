@@ -1,4 +1,11 @@
-import React, { useMemo, useEffect, useState, lazy, Suspense } from 'react';
+import React, {
+  useMemo,
+  useEffect,
+  useCallback,
+  useState,
+  lazy,
+  Suspense,
+} from 'react';
 import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
@@ -254,14 +261,14 @@ const BlastResult = () => {
   const inputParamsData = useParamsData(match?.params.id || '');
 
   // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = (rowId: string) => {
-    const filtered = selectedEntries.filter((id) => id !== rowId);
-    setSelectedEntries(
-      filtered.length === selectedEntries.length
+  const handleSelectedEntries = useCallback((rowId: string) => {
+    setSelectedEntries((selectedEntries) => {
+      const filtered = selectedEntries.filter((id) => id !== rowId);
+      return filtered.length === selectedEntries.length
         ? [...selectedEntries, rowId]
-        : filtered
-    );
-  };
+        : filtered;
+    });
+  }, []);
 
   if (blastLoading) {
     return <Loader />;
@@ -310,7 +317,6 @@ const BlastResult = () => {
       isTableResultsFiltered={blastData?.hits.length !== hitsFiltered.length}
     />
   );
-
   return (
     <SideBarLayout
       title={
