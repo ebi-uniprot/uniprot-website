@@ -10515,10 +10515,10 @@ protvista-manager@^2.9.1:
   dependencies:
     lodash-es "^4.17.11"
 
-protvista-msa@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/protvista-msa/-/protvista-msa-3.0.0.tgz#d4a17b27081953f2c60b316a9e7c341ed13194ff"
-  integrity sha512-XVEGJKfWIkcwNFDx7jcdYbB4Xv05dPh45r25xQLJ980kmsz/RHOXH72di+cpCRyPHNLG4iAt0uROeV6rLnFl+w==
+protvista-msa@3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/protvista-msa/-/protvista-msa-3.1.0.tgz#01c79f546ea1277fe06b96b438f2d6d4747f671f"
+  integrity sha512-CFueVPqdFlQzjnnkvs3U+5PxTVfgQFp0tCFq4MJkP2pjxwL1JE1p5xI9pxe0cVuLf3sHtdSrFoJWN1Qu+UPDcw==
   dependencies:
     protvista-utils "^3.0.0"
     protvista-zoomable "^3.0.0"
