@@ -2,12 +2,7 @@ import React, { FC, FormEvent, MouseEvent, useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 import { PageIntro } from 'franklin-sites';
 import ClauseList from './ClauseList';
-import {
-  Evidence,
-  Clause,
-  SearchTermType,
-  EvidenceDataPoint,
-} from '../types/searchTypes';
+import { Clause, SearchTermType } from '../types/searchTypes';
 import useDataApi from '../../shared/hooks/useDataApi';
 import apiUrls from '../../shared/config/apiUrls';
 import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
@@ -28,24 +23,9 @@ const AdvancedSearch: FC = () => {
     apiUrls.advancedSearchTerms(namespace)
   );
 
-  // NOTE: move this to the corresponding component?
-  const { data: goEvidenceData } = useDataApi<EvidenceDataPoint[]>(
-    apiUrls.evidences[Evidence.GO]
-  );
-  // NOTE: move this to the corresponding component?
-  const { data: annotationEvidenceData } = useDataApi<EvidenceDataPoint[]>(
-    apiUrls.evidences[Evidence.ANNOTATION]
-  );
-
-  if (!searchTermsData || !goEvidenceData || !annotationEvidenceData) {
+  if (!searchTermsData) {
     return null;
   }
-
-  // Handle that better...
-  const evidences = {
-    [Evidence.GO]: goEvidenceData,
-    [Evidence.ANNOTATION]: annotationEvidenceData,
-  };
 
   const addClause = () => {
     setClauses((clauses) => [...clauses, createEmptyClause()]);
@@ -102,7 +82,6 @@ const AdvancedSearch: FC = () => {
             clauses={clauses}
             setClauses={setClauses}
             searchTerms={searchTermsData}
-            evidences={evidences}
           />
         </fieldset>
         <div className="advanced-search__actions">

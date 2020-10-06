@@ -3,7 +3,12 @@ import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
 import AutocompleteWrapper from './AutocompleteWrapper';
-import { SearchTermType, Input } from '../types/searchTypes';
+import {
+  SearchTermType,
+  Input,
+  DataType,
+  FieldType,
+} from '../types/searchTypes';
 
 type FieldProps = {
   field: SearchTermType;
@@ -18,10 +23,10 @@ const Field = ({
   handleRangeInputChange,
   queryInput,
 }: FieldProps) => {
-  const { dataType, hasRange } = field;
+  const { dataType } = field;
   let node;
   switch (dataType) {
-    case 'enum':
+    case DataType.enum:
       node = (
         <EnumField
           field={field}
@@ -30,7 +35,7 @@ const Field = ({
         />
       );
       break;
-    case 'date':
+    case DataType.date:
       node = (
         <RangeField
           type="date"
@@ -41,7 +46,7 @@ const Field = ({
         />
       );
       break;
-    case 'string':
+    case DataType.string:
       node = (
         <Fragment>
           {field.autoComplete ? (
@@ -59,20 +64,11 @@ const Field = ({
               value={queryInput.stringValue}
             />
           )}
-          {hasRange && String(dataType) !== 'integer' && (
-            <RangeField
-              field={field}
-              handleChange={handleRangeInputChange}
-              type="text"
-              rangeFrom={queryInput.rangeFrom}
-              rangeTo={queryInput.rangeTo}
-            />
-          )}
         </Fragment>
       );
       break;
-    case 'integer':
-      if (hasRange) {
+    case DataType.integer:
+      if (field.fieldType === FieldType.range) {
         return RangeField({
           field,
           type: 'number',

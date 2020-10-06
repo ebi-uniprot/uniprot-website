@@ -19,7 +19,7 @@ export const prodPrefix = 'https://www.ebi.ac.uk';
 const apiUrls = {
   // uniprotkb advanced search terms
   advancedSearchTerms: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/search_terms`),
+    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/search-fields`),
   // Annotation evidence used by advanced search
   evidences: {
     annotation: joinUrl(

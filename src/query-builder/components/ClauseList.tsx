@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { TreeSelect } from 'franklin-sites';
 import EvidenceField from './EvidenceField';
 import LogicalOperator from './LogicalOperator';
@@ -7,9 +7,8 @@ import {
   Clause,
   SearchTermType,
   Operator,
-  Evidence,
-  Evidences,
   DataType,
+  ItemType,
 } from '../types/searchTypes';
 
 // .itemType
@@ -20,10 +19,26 @@ import {
 // goterm: for go term search
 // Group: this item type is a group type, grouping a list of search items
 
+const modifyTree = (items: SearchTermType[]): SearchTermType[] => {
+  return items.map((item) => {
+    const { itemType } = item;
+    if (itemType === ItemType.siblingGroup) {
+      return {
+        ...item,
+        items: undefined,
+        siblings: item.items ? modifyTree(item.items) : undefined,
+      };
+    }
+    return {
+      ...item,
+      items: item.items ? modifyTree(item.items) : undefined,
+    };
+  });
+};
+
 const ClauseItem: React.FC<{
   clause: Clause;
   searchTerms: SearchTermType[];
-  evidences: Evidences;
   handleLogicChange: (clauseId: string, value: Operator) => void;
   handleFieldSelect: (clauseId: string, value: SearchTermType) => void;
   handleInputChange: (clauseId: string, value: string, id?: string) => void;
@@ -37,7 +52,6 @@ const ClauseItem: React.FC<{
 }> = ({
   clause,
   searchTerms,
-  evidences,
   handleLogicChange,
   handleFieldSelect,
   handleInputChange,
@@ -45,17 +59,13 @@ const ClauseItem: React.FC<{
   handleEvidenceChange,
   removeClause,
 }) => {
+  // Convert "items" to "siblings" for "sibling_group" types
+  const treeSelectData = useMemo(() => {
+    return modifyTree(searchTerms);
+  }, [searchTerms]);
+
   if (!clause.searchTerm) {
     return null;
-  }
-
-  let evidencesData;
-  if (clause.searchTerm.hasEvidence && evidences) {
-    const evidencesType =
-      clause.searchTerm.term === Evidence.GO
-        ? Evidence.GO
-        : Evidence.ANNOTATION;
-    evidencesData = evidences[evidencesType] || [];
   }
 
   return (
@@ -65,7 +75,7 @@ const ClauseItem: React.FC<{
         handleChange={(value: Operator) => handleLogicChange(clause.id, value)}
       />
       <TreeSelect
-        data={searchTerms}
+        data={treeSelectData}
         onSelect={(value: SearchTermType) =>
           handleFieldSelect(clause.id, value)
         }
@@ -83,13 +93,13 @@ const ClauseItem: React.FC<{
         }
         queryInput={clause.queryInput}
       />
-      {evidencesData && (
+      {clause.searchTerm.evidenceGroups && (
         <EvidenceField
           handleChange={(value: string) =>
             handleEvidenceChange(clause.id, value)
           }
           value={clause.queryInput.evidenceValue}
-          data={evidencesData}
+          data={clause.searchTerm.evidenceGroups}
         />
       )}
       <button
@@ -110,7 +120,6 @@ type ClauseListProps = {
   clauses: Clause[];
   setClauses: React.Dispatch<React.SetStateAction<Clause[]>>;
   searchTerms: SearchTermType[];
-  evidences: Evidences;
   removeClause: (clauseId: string) => void;
 };
 
@@ -118,11 +127,11 @@ const ClauseList: React.FC<ClauseListProps> = ({
   clauses,
   setClauses,
   searchTerms,
-  evidences,
   removeClause,
 }) => {
   const handleFieldSelect = useCallback(
     (clauseId: string, searchTerm: SearchTermType) => {
+      // TODO Handle searchTerm.siblings
       setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
@@ -229,7 +238,6 @@ const ClauseList: React.FC<ClauseListProps> = ({
           key={`clause_${clause.id}`}
           clause={clause}
           searchTerms={searchTerms}
-          evidences={evidences}
           handleLogicChange={handleLogicChange}
           handleFieldSelect={handleFieldSelect}
           handleInputChange={handleInputChange}

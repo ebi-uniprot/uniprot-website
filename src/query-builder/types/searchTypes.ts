@@ -18,7 +18,7 @@ export enum DataType {
   string = 'string',
 }
 
-enum FieldType {
+export enum FieldType {
   evidence = 'evidence',
   general = 'general',
   range = 'range',
@@ -31,8 +31,8 @@ type EvidenceGroup = {
 
 export type SearchTermType = {
   id: string;
-  label?: string;
-  itemType?: ItemType;
+  label: string;
+  itemType: ItemType;
   term?: string;
   dataType?: DataType;
   fieldType?: FieldType;

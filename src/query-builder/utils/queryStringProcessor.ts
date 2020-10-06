@@ -29,9 +29,7 @@ const getItemTypeRangePrefix = (itemType: string) =>
 
 const createTermString = (
   term: string | undefined,
-  itemType: string,
-  id: string | undefined,
-  termSuffix: boolean | undefined,
+  itemType: ItemType,
   stringValue = ''
 ) => {
   if (term === undefined) {
@@ -39,9 +37,6 @@ const createTermString = (
   }
   if (term === 'xref' && stringValue === '*') {
     return 'database:';
-  }
-  if (termSuffix) {
-    return id ? `${term}_id:` : `${term}_name:`;
   }
   const itemTypePrefix = getItemTypePrefix(itemType);
   return `${itemTypePrefix}${term}${term ? ':' : ''}`;
@@ -85,7 +80,7 @@ const createSimpleSubquery = (clause: Clause) => {
   if (clause.searchTerm.itemType === 'group') {
     throw Error('Cannot create a query with a group term.');
   }
-  const { itemType, term, valuePrefix, termSuffix } = clause.searchTerm;
+  const { itemType, term, valuePrefix } = clause.searchTerm;
   const { stringValue = '', id } = clause.queryInput;
   const stringValueTrimmed = stringValue.trim();
   if (!stringValueTrimmed) {
@@ -94,13 +89,7 @@ const createSimpleSubquery = (clause: Clause) => {
   if (term === 'All') {
     return stringValueTrimmed;
   }
-  const termString = createTermString(
-    term,
-    itemType,
-    id,
-    termSuffix,
-    stringValueTrimmed
-  );
+  const termString = createTermString(term, itemType, stringValueTrimmed);
   const valueString = createValueString(
     term,
     valuePrefix,
@@ -219,19 +208,19 @@ export const parse = (queryString = ''): Clause[] => {
       const [key, value] = splitClause(chunk);
 
       // item type
-      if (key.startsWith('cc_')) {
-        currentClause.searchTerm.itemType = ItemType.comment;
-      } else if (key.startsWith('ft')) {
-        currentClause.searchTerm.itemType = ItemType.feature;
-      } else if (key === 'xref') {
-        currentClause.searchTerm.itemType = ItemType.database;
-      }
+      // if (key.startsWith('cc_')) {
+      //   currentClause.searchTerm.itemType = ItemType.comment;
+      // } else if (key.startsWith('ft')) {
+      //   currentClause.searchTerm.itemType = ItemType.feature;
+      // } else if (key === 'xref') {
+      //   currentClause.searchTerm.itemType = ItemType.database;
+      // }
 
       // evidence
       if (evidenceKey.test(key)) {
         // if it's an evidence key, mopdify the last inserted clause and skip
         const prevClause = clauses[clauses.length - 1];
-        prevClause.searchTerm.hasEvidence = true;
+        // prevClause.searchTerm.hasEvidence = true;
         prevClause.queryInput.evidenceValue = value;
         continue; // eslint-disable-line no-continue
       }
@@ -243,19 +232,21 @@ export const parse = (queryString = ''): Clause[] => {
       if (range) {
         // range
         currentClause.queryInput = range;
-      } else if (currentClause.searchTerm.itemType === ItemType.database) {
-        // cross-references
-        if (value.includes('-')) {
-          // database references
-          const [prefix, ...rest] = value.split('-');
-          currentClause.searchTerm.valuePrefix = prefix;
-          currentClause.queryInput.stringValue = rest.join('-');
-        } else {
-          // any other references
-          currentClause.searchTerm.valuePrefix = 'any';
-          currentClause.queryInput.stringValue = value;
-        }
-      } else {
+      }
+      // else if (currentClause.searchTerm.itemType === ItemType.database) {
+      //   // cross-references
+      //   if (value.includes('-')) {
+      //     // database references
+      //     const [prefix, ...rest] = value.split('-');
+      //     currentClause.searchTerm.valuePrefix = prefix;
+      //     currentClause.queryInput.stringValue = rest.join('-');
+      //   } else {
+      //     // any other references
+      //     currentClause.searchTerm.valuePrefix = 'any';
+      //     currentClause.queryInput.stringValue = value;
+      //   }
+      // }
+      else {
         // "default"
         currentClause.queryInput.stringValue = value;
         if (quotedId.test(chunk)) {
