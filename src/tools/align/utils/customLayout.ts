@@ -33,7 +33,7 @@ const customLayout = () => {
 
     const availableWidth = width - (circularLayout ? 2 : 1) * maxLabelWidth;
 
-    const output = node as Partial<CustomHierarchyNode>;
+    const output = (node as unknown) as Partial<CustomHierarchyNode>;
 
     const coords = {
       // switch x and y because default layout assumes top to bottom

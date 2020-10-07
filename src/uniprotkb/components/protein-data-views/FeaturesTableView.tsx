@@ -14,7 +14,7 @@ type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
-      d: ProtvistaFeature & VariantFeature
+      d: ProcessedFeature & VariantFeature
     ) =>
       | undefined
       | string
