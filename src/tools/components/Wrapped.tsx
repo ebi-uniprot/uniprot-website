@@ -104,6 +104,15 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         const features = activeSeq?.features?.filter(
           ({ type }) => type === annotation
         );
+        console.log('---');
+        console.log('annotation', annotation, 'for', activeSeq?.accession);
+        console.log(
+          'features',
+          features?.map(({ location }) => {
+            console.log(JSON.stringify(location, null, 2));
+          })
+        );
+        console.log('---');
         if (
           activeSeq &&
           activeSeq.start > 0 &&
@@ -233,7 +242,7 @@ const Wrapped: FC<MSAViewProps> = ({
       return [];
     }
 
-    const numberRows = Math.ceil(alignmentLength / rowLength);
+    const numberRows = 4; // Math.ceil(alignmentLength / rowLength);
     const chunks = [...Array(numberRows).keys()].map((index) => {
       const start = index * rowLength;
       const end = Math.min(start + rowLength, alignmentLength);
@@ -245,20 +254,38 @@ const Wrapped: FC<MSAViewProps> = ({
         // and from within the Nightingale component
         id: `row-${index}-${rowLength}`,
         sequences: alignment.map(
-          ({ name, sequence, from, features, accession }) => ({
-            name: name || '',
-            sequence: sequence.slice(start, end),
-            start:
-              from +
-              (omitInsertionsInCoords
-                ? getEndCoordinate(sequence, start)
-                : start),
-            end:
-              from +
-              (omitInsertionsInCoords ? getEndCoordinate(sequence, end) : end),
-            features,
-            accession,
-          })
+          ({ name, sequence, from, features, accession }) => {
+            // TODO revert
+            const t = {
+              name: name || '',
+              sequence: sequence.slice(start, end),
+              start:
+                from +
+                (omitInsertionsInCoords
+                  ? getEndCoordinate(sequence, start)
+                  : start),
+              end:
+                from +
+                (omitInsertionsInCoords
+                  ? getEndCoordinate(sequence, end)
+                  : end),
+              features,
+              accession,
+            };
+            // TODO revert
+            if (accession === 'P05067') {
+              console.log(
+                `chunk ${index}:`,
+                'seq',
+                t.sequence,
+                'start',
+                t.start,
+                'end',
+                t.end
+              );
+            }
+            return t;
+          }
         ),
       };
     });
