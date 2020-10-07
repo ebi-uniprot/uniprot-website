@@ -1,21 +1,26 @@
-import React, { Fragment, useCallback, useState, FC } from 'react';
+import React, { useCallback, useState, FC } from 'react';
 import { TemplateResult } from 'lit-html';
-import ProtvistaDatatable from 'protvista-datatable';
 import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
+
 import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
-import { loadWebComponent } from '../../../shared/utils/utils';
-import { ProcessedFeature } from './FeaturesView';
+import { ProtvistaFeature, ProcessedFeature } from './FeaturesView';
+
+import useCustomElement from '../../../shared/hooks/useCustomElement';
+
 import { EvidenceData } from '../../config/evidenceCodes';
 import { Evidence } from '../../types/modelTypes';
-
-loadWebComponent('protvista-datatable', ProtvistaDatatable);
 
 type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
-      d: ProcessedFeature & VariantFeature
-    ) => string | number | TemplateResult | TemplateResult[];
+      d: ProtvistaFeature & VariantFeature
+    ) =>
+      | undefined
+      | string
+      | number
+      | TemplateResult
+      | Array<TemplateResult | undefined>;
   };
 };
 
@@ -48,20 +53,28 @@ const FeaturesTableView: FC<{
     setShowEvidenceTagData(true);
   };
 
+  const datatableDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
+      ),
+    'protvista-datatable'
+  );
+
   const setTableData = useCallback(
     (node): void => {
-      if (node) {
+      if (node && datatableDefined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
         // eslint-disable-next-line no-param-reassign
         node.columns = getColumnConfig(evidenceTagCallback);
       }
     },
-    [data, getColumnConfig]
+    [datatableDefined, data, getColumnConfig]
   );
 
   return (
-    <Fragment>
+    <>
       <protvista-datatable ref={setTableData} filter-scroll />
       <div
         className={`evidence-tag-content ${
@@ -75,7 +88,7 @@ const FeaturesTableView: FC<{
           />
         )}
       </div>
-    </Fragment>
+    </>
   );
 };
 

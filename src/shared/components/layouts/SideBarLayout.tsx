@@ -21,20 +21,23 @@ const SideBarLayout: FC<SideBarLayoutProps> = ({
   className,
 }) => (
   <div className={cn('sidebar-layout', className)}>
-    <ErrorBoundary>
-      <section className="sidebar-layout__title">{title}</section>
-    </ErrorBoundary>
-    {actionButtons && (
-      <ErrorBoundary>
-        <section className="sidebar-layout__action-buttons">
-          {actionButtons}
-        </section>
-      </ErrorBoundary>
-    )}
     <section className="sidebar-layout__sidebar">
       <ErrorBoundary>{sidebar}</ErrorBoundary>
     </section>
-    <section className="sidebar-layout__content">
+    <section
+      className="sidebar-layout__content"
+      data-loader-scroll="sidebar-content"
+    >
+      <ErrorBoundary>
+        <section className="sidebar-layout__title">{title}</section>
+      </ErrorBoundary>
+      {actionButtons && (
+        <ErrorBoundary>
+          <section className="sidebar-layout__action-buttons">
+            {actionButtons}
+          </section>
+        </ErrorBoundary>
+      )}
       <ErrorBoundary>{children}</ErrorBoundary>
     </section>
   </div>

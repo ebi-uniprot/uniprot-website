@@ -46,20 +46,24 @@ interface Cancelable {
   flush(): void;
 }
 
-type Props = {
+type PhyloTreeProps = {
   newick?: string;
   showDistance: boolean;
   alignLabels: boolean;
   circularLayout: boolean;
   sequenceInfo: SequenceInfo;
+  selectedEntries: string[];
+  handleSelectedEntries: (rowId: string) => void;
 };
 
-const PhyloTree: FC<Props> = ({
+const PhyloTree: FC<PhyloTreeProps> = ({
   newick,
   showDistance,
   alignLabels,
   circularLayout,
   sequenceInfo,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const redrawRef = useRef<Redraw & Cancelable>();
@@ -352,6 +356,10 @@ const PhyloTree: FC<Props> = ({
                     accession={accession}
                     info={sequenceInfo.data.get(accession || '')}
                     loading={sequenceInfo.loading}
+                    checked={Boolean(
+                      accession && selectedEntries?.includes(accession)
+                    )}
+                    onSequenceChecked={handleSelectedEntries}
                   >
                     {name || ''}
                   </AlignLabel>

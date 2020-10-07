@@ -1,0 +1,80 @@
+@import '../../../../node_modules/franklin-sites/src/styles/colours';
+
+.alignment-grid {
+  margin-bottom: 1em;
+  align-items: center;
+  height: auto;
+  max-height: 50%;
+
+  display: grid;
+  // grid sizing magic below
+  grid-template-columns: min-content minmax(0, 1fr) min-content;
+  align-items: end;
+
+  &__placeholder {
+    height: 80px;
+    grid-column: span 3;
+  }
+
+  &.alignment-wrapped {
+    align-items: start;
+
+    .annotation-label {
+      align-self: center;
+      margin-bottom: 1em; // hacky: fake gap between groups of cells ("rows")
+    }
+
+    .annotation-track {
+      margin-bottom: 1em; // hacky: fake gap between groups of cells ("rows")
+    }
+  }
+
+  .track-label {
+    text-align: right;
+    padding-right: 0.5rem;
+    font-weight: 800;
+    white-space: nowrap;
+    grid-column: 1;
+
+    &:first-letter {
+      text-transform: uppercase;
+    }
+
+    &--align-labels {
+      align-self: flex-end;
+      margin: 0;
+      list-style: none;
+
+      .align-label {
+        font-size: 0.75rem;
+        border-top: 1px solid $colour-gainsborough;
+        display: flex;
+        align-items: center;
+
+        &:last-child {
+          border-bottom: 1px solid $colour-gainsborough;
+        }
+
+        button {
+          margin: 0;
+          font-size: 0.75rem;
+        }
+      }
+    }
+
+    & > * {
+      width: 100%;
+    }
+  }
+
+  .track {
+    position: relative;
+    grid-column: 2;
+  }
+
+  .right-coord {
+    padding-left: 0.1rem;
+    grid-column: 3;
+    grid-row: span 2;
+  }
+}

@@ -24,7 +24,7 @@ exports[`HomePage component should render 1`] = `
             class="dropdown-container"
           >
             <button
-              class="button dropdown "
+              class="button dropdown"
               type="button"
             >
               UniProtKB
@@ -37,7 +37,7 @@ exports[`HomePage component should render 1`] = `
                   <button
                     type="button"
                   >
-                    UniProtKB - the UniProt knowledgebase
+                    UniProtKB
                   </button>
                 </li>
                 <li>

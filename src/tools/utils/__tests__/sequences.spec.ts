@@ -1,4 +1,9 @@
-import { findSequenceSegments, getFullAlignmentSegments } from '../sequences';
+import {
+  findSequenceSegments,
+  getFullAlignmentSegments,
+  getNumberOfInsertions,
+  getEndCoordinate,
+} from '../sequences';
 
 describe('Tool sequences utils', () => {
   it('should find segments', () => {
@@ -29,6 +34,26 @@ describe('Tool sequences utils', () => {
 
     const results = sequences.map((s) => findSequenceSegments(s));
     expect(results).toEqual(expectedResults);
+  });
+
+  describe('getEndCoordinate', () => {
+    const sequence = '123-';
+    it('should exclude insertions (-) from the count', () => {
+      expect(getEndCoordinate(sequence, 4)).toEqual(3);
+    });
+    it('should return just the index when no insertions (-) are present', () => {
+      expect(getEndCoordinate(sequence, 3)).toEqual(3);
+    });
+  });
+
+  describe('getNumberOfInsertions', () => {
+    const sequence = '123-';
+    it('should exclude insertions (-) from the count', () => {
+      expect(getNumberOfInsertions(sequence, 4)).toEqual(1);
+    });
+    it('should return just the index when no insertions (-) are present', () => {
+      expect(getNumberOfInsertions(sequence, 3)).toEqual(0);
+    });
   });
 
   // TODO update the tests below / generate mockdata to cover edge cases

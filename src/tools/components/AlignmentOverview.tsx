@@ -1,10 +1,7 @@
-import React, { FC, useCallback } from 'react';
-import ProtvistaTrack from 'protvista-track';
+import React, { FC, useCallback, memo } from 'react';
 
-import { loadWebComponent } from '../../shared/utils/utils';
+import useCustomElement from '../../shared/hooks/useCustomElement';
 import { FullAlignmentSegments, SegmentTrackData } from '../utils/sequences';
-
-loadWebComponent('protvista-track', ProtvistaTrack);
 
 type AlignmentOverviewProps = {
   height: string;
@@ -26,14 +23,19 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   length,
   height,
 }) => {
+  const ceDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
+    'protvista-track'
+  );
+
   const setTrackData = useCallback(
     (node): void => {
-      if (node) {
+      if (node && ceDefined) {
         // eslint-disable-next-line no-param-reassign
         node.data = data;
       }
     },
-    [data]
+    [data, ceDefined]
   );
 
   return (
@@ -47,34 +49,31 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   );
 };
 
-const AlignmentOverview: FC<AlignmentOverviewProps> = ({
-  height,
-  data,
-  length,
-  highlight,
-}) => {
-  if (!data || data.length < 1) {
-    return null;
+const AlignmentOverview: FC<AlignmentOverviewProps> = memo(
+  ({ height, data, length, highlight }) => {
+    if (!data || data.length < 1) {
+      return null;
+    }
+
+    const singleTrackHeight = Math.floor(parseInt(height, 10) / data.length);
+
+    return (
+      <div>
+        {data.map(({ trackData }, index) => {
+          return (
+            <AlignmentOverviewTrack
+              data={trackData}
+              height={singleTrackHeight}
+              length={length}
+              highlight={highlight}
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+            />
+          );
+        })}
+      </div>
+    );
   }
-
-  const singleTrackHeight = Math.floor(parseInt(height, 10) / data.length);
-
-  return (
-    <div>
-      {data.map(({ trackData }, index) => {
-        return (
-          <AlignmentOverviewTrack
-            data={trackData}
-            height={singleTrackHeight}
-            length={length}
-            highlight={highlight}
-            // eslint-disable-next-line react/no-array-index-key
-            key={index}
-          />
-        );
-      })}
-    </div>
-  );
-};
+);
 
 export default AlignmentOverview;

@@ -1,20 +1,22 @@
 import React, { FC } from 'react';
-import ProtvistaUniprot from 'protvista-uniprot';
 import { Loader } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-
-import { loadWebComponent } from '../../../shared/utils/utils';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import { getProteinsApiUrl } from '../../config/apiUrls';
-
-loadWebComponent('protvista-uniprot', ProtvistaUniprot);
+import { getProteinsApiUrl } from '../../../shared/config/apiUrls';
 
 const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
   // just to make sure not to render protvista-uniprot if we won't get any data
   const { loading, data } = useDataApi<UniProtkbAPIModel>(
     getProteinsApiUrl(accession)
+  );
+
+  useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
+    'protvista-uniprot'
   );
 
   if (loading) return <Loader />;

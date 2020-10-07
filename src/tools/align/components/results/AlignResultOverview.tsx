@@ -1,8 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 
-import AlignLabel from './AlignLabel';
-import MSAWrapper, { View } from '../../../components/MSAWrapper';
+import AlignmentView, { View, Tool } from '../../../components/AlignmentView';
 
 import alnClustalNum from '../../adapters/alnClustalNum';
 
@@ -11,10 +10,9 @@ import {
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
+import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 
-import './styles/AlignResultOverview.scss';
-
-type Props = {
+type AlignResultOverviewProps = {
   data: string;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
@@ -56,6 +54,7 @@ const enrichParsed = (
       const match = sequences[matchIndex];
       sequences[matchIndex] = {
         ...info,
+        features: removeFeaturesWithUnknownModifier(info.features),
         ...match,
         // not sure yet if that is needed or not
         ...getFromToLength(match.sequence),
@@ -69,7 +68,12 @@ const enrichParsed = (
   return { ...parsed, sequences } as ParsedAndEnriched;
 };
 
-const AlignResultOverview: FC<Props> = ({ data, sequenceInfo }) => {
+const AlignResultOverview: FC<AlignResultOverviewProps> = ({
+  data,
+  sequenceInfo,
+  selectedEntries,
+  handleSelectedEntries,
+}) => {
   const clustalParsed = useMemo(() => alnClustalNum(data), [data]);
 
   const parsedAndEnriched = useMemo(
@@ -86,24 +90,14 @@ const AlignResultOverview: FC<Props> = ({ data, sequenceInfo }) => {
   }
 
   return (
-    <section className="align-result-overview">
-      <ul className="align-result-overview--labels">
-        {parsedAndEnriched.sequences.map((s) => (
-          <li key={s.name}>
-            <AlignLabel accession={s.accession} info={s} loading={false}>
-              {s.name || ''}
-            </AlignLabel>
-          </li>
-        ))}
-      </ul>
-      <div className="align-result-overview--msa">
-        <MSAWrapper
-          alignment={parsedAndEnriched.sequences}
-          alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
-          defaultView={View.wrapped}
-        />
-      </div>
-    </section>
+    <AlignmentView
+      alignment={parsedAndEnriched.sequences}
+      alignmentLength={parsedAndEnriched.sequences[0].sequence.length}
+      defaultView={View.wrapped}
+      tool={Tool.align}
+      selectedEntries={selectedEntries}
+      handleSelectedEntries={handleSelectedEntries}
+    />
   );
 };
 

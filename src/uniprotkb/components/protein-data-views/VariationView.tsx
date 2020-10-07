@@ -3,37 +3,24 @@ import { Loader } from 'franklin-sites';
 import { html } from 'lit-html';
 import joinUrl from 'url-join';
 
-import ProtvistaManager from 'protvista-manager';
-import ProtvistaSequence from 'protvista-sequence';
-import ProtvistaNavigation from 'protvista-navigation';
-import ProtvistaVariation from 'protvista-variation';
 import { filterConfig, colorConfig } from 'protvista-uniprot';
-import { transformData } from 'protvista-variation-adapter';
 import {
   ProteinsAPIVariation,
   Feature as VariantFeature,
 } from 'protvista-variation-adapter/dist/es/variants';
-import ProtvistaFilter from 'protvista-filter';
+import { transformData } from 'protvista-variation-adapter';
 
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useCustomElement from '../../../shared/hooks/useCustomElement';
 
-import { loadWebComponent } from '../../../shared/utils/utils';
-
-import apiUrls from '../../config/apiUrls';
-// import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import { Evidence } from '../../types/modelTypes';
 
 import './styles/variation-view.scss';
-
-loadWebComponent('protvista-variation', ProtvistaVariation);
-loadWebComponent('protvista-navigation', ProtvistaNavigation);
-loadWebComponent('protvista-sequence', ProtvistaSequence);
-loadWebComponent('protvista-manager', ProtvistaManager);
-loadWebComponent('protvista-filter', ProtvistaFilter);
 
 const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
   return {
@@ -118,16 +105,32 @@ const VariationView: FC<{
     joinUrl(apiUrls.variation, primaryAccession)
   );
 
-  const protvistaFilterRef = useCallback((node) => {
-    if (node !== null) {
-      // eslint-disable-next-line no-param-reassign
-      node.filters = filterConfig;
-    }
-  }, []);
+  const filterDefined = useCustomElement(
+    () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
+    'protvista-filter'
+  );
+
+  const protvistaFilterRef = useCallback(
+    (node) => {
+      if (node && filterDefined) {
+        // eslint-disable-next-line no-param-reassign
+        node.filters = filterConfig;
+      }
+    },
+    [filterDefined]
+  );
+
+  const variationDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-variation" */ 'protvista-variation'
+      ),
+    'protvista-variation'
+  );
 
   const protvistaVariationRef = useCallback(
     (node) => {
-      if (node !== null && data && data.features) {
+      if (node && variationDefined && data && data.features) {
         const transformedData = transformData(data);
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
@@ -137,10 +140,34 @@ const VariationView: FC<{
         node.length = transformedData.sequence.length;
       }
     },
-    [data]
+    [variationDefined, data]
   );
 
-  if (loading) return <Loader />;
+  const navigationDefined = useCustomElement(
+    () =>
+      import(
+        /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
+      ),
+    'protvista-navigation'
+  );
+  const sequenceDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
+    'protvista-sequence'
+  );
+  const managerDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
+    'protvista-manager'
+  );
+  const ceDefined =
+    filterDefined &&
+    variationDefined &&
+    navigationDefined &&
+    sequenceDefined &&
+    managerDefined;
+
+  if (loading || !ceDefined) return <Loader />;
 
   if (error && status !== 404) {
     // TODO: use in-page error message

@@ -2,7 +2,7 @@ import React from 'react';
 import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
-import { getPublicationsURL } from '../../../config/apiUrls';
+import { getPublicationsURL } from '../../../../shared/config/apiUrls';
 import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';

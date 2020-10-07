@@ -12,7 +12,7 @@ import useSize from '../../../../../shared/hooks/useSize';
 
 const dataMock = {
   loading: false,
-  data: modelData,
+  data: { results: [modelData] },
 };
 useDataApi.mockImplementation(() => dataMock);
 useSize.mockImplementation(() => [{ width: 1000 }]);
@@ -36,9 +36,9 @@ describe('HSPDetailPanel', () => {
     await rendered;
   });
 
-  it('should initially render overview', () => {
+  it('should initially render overview', async () => {
     const { asFragment, getByTestId } = rendered;
-    expect(getByTestId('overview-hsp-detail')).toBeTruthy();
+    expect(await getByTestId('alignment-view')).toBeTruthy();
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -47,7 +47,7 @@ describe('HSPDetailPanel', () => {
     const msa = container.querySelector('protvista-msa');
     expect(msa.data).toEqual([
       { name: 'Query', sequence: hsp.hsp_qseq },
-      { name: 'Match', sequence: hsp.hsp_hseq },
+      { name: 'Match:', sequence: hsp.hsp_hseq },
     ]);
   });
 
@@ -55,7 +55,7 @@ describe('HSPDetailPanel', () => {
     const { getByText, findByTestId, asFragment } = rendered;
     const wrappedButton = getByText('Wrapped');
     fireEvent.click(wrappedButton);
-    expect(await findByTestId('wrapped-hsp-detail')).toBeTruthy();
+    expect(await findByTestId('alignment-wrapped-view')).toBeTruthy();
     // skip the top level div, as it contains the dynamically injected style
     // that might be different across different runs ("sliding" effect)
     expect(asFragment().firstElementChild.firstElementChild).toMatchSnapshot();
