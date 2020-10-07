@@ -79,7 +79,7 @@ module.exports = (env, argv) => {
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer).*)/,
+          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer|protvista-uniprot).*)/,
           use: {
             loader: 'babel-loader',
             options: {
