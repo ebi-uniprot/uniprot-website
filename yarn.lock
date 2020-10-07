@@ -12804,15 +12804,20 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-timing-functions@2.0.0, timing-functions@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/timing-functions/-/timing-functions-2.0.0.tgz#ce31caf2c87e6e99e6d7c1cb67226495f9934c50"
-  integrity sha512-UEGnoCxgmlttVetfXJz9gtmp/dDBnZTNcrniTfVDu8RQYMVoBGtY7fzew5kAzrqhi/dOrPRC2mlTC5CI6WIilA==
+timing-functions@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/timing-functions/-/timing-functions-2.0.1.tgz#84145da4f68de95051ea96b57b9d9d76383d7140"
+  integrity sha512-3sLJqeghQTekD7DmrH3Xpp6/PIJ7gj9ldqn7gfaoBiQGHSsCE17qnvoFLcNQTTv8lJzzKZyiBO6IBiilJVW8Qg==
 
 timing-functions@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/timing-functions/-/timing-functions-1.0.0.tgz#483482e0efb8339e811d0a9f690c47976fd64cd8"
   integrity sha512-+ampbNCJVWnyoQJeDH6m3X+IuKKe7j6XpGty+jQkva4RzDOfKeYhchc6S1hzOrGpZeNErnCgL3txETgSKvp68Q==
+
+timing-functions@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/timing-functions/-/timing-functions-2.0.0.tgz#ce31caf2c87e6e99e6d7c1cb67226495f9934c50"
+  integrity sha512-UEGnoCxgmlttVetfXJz9gtmp/dDBnZTNcrniTfVDu8RQYMVoBGtY7fzew5kAzrqhi/dOrPRC2mlTC5CI6WIilA==
 
 tiny-invariant@^1.0.2, tiny-invariant@^1.0.6:
   version "1.1.0"
