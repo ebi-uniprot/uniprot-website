@@ -133,7 +133,7 @@ const defaultFacets = new Map<Namespace, string[]>([
 type QueryUrlProps = {
   namespace?: Namespace;
   query?: string;
-  columns?: string[];
+  columns?: string[] | null;
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
@@ -159,7 +159,7 @@ export const getAPIQueryUrl = ({
     query: `${[query || '*', createFacetsQueryString(selectedFacets)]
       .filter(Boolean)
       .join(' AND ')}`,
-    fields: (columns && columns.join(',')) || undefined,
+    fields: columns?.join(',') || undefined,
     facets: facetField?.join(','),
     sort:
       sortColumn &&

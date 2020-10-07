@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -35,12 +35,12 @@ import './styles/results-view.scss';
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: Column[];
+  columns: Column[] | null;
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
 };
 
-const ResultsView: React.FC<ResultsTableProps> = ({
+const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
   columns,
   viewMode,
@@ -184,28 +184,29 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     );
   } else {
     // viewMode === ViewMode.TABLE
-    const columnsToDisplay = columns.map((columnName) => {
-      const columnConfig = ColumnConfiguration.get(columnName);
-      if (columnConfig) {
+    const columnsToDisplay =
+      columns?.map((columnName) => {
+        const columnConfig = ColumnConfiguration.get(columnName);
+        if (columnConfig) {
+          return {
+            label: columnConfig.label,
+            name: columnName,
+            render: (row: UniProtkbAPIModel) =>
+              columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
+            sortable: sortableColumnToSortColumn.has(columnName),
+            sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
+          };
+        }
         return {
-          label: columnConfig.label,
+          label: columnName,
           name: columnName,
-          render: (row: UniProtkbAPIModel) =>
-            columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
-          sortable: sortableColumnToSortColumn.has(columnName),
-          sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
+          render: () => (
+            <div className="warning">{`${columnName} has no config`}</div>
+          ),
+          sortable: false,
+          sorted: false,
         };
-      }
-      return {
-        label: columnName,
-        name: columnName,
-        render: () => (
-          <div className="warning">{`${columnName} has no config`}</div>
-        ),
-        sortable: false,
-        sorted: false,
-      };
-    });
+      }) || [];
     dataView = (
       <DataTable
         getIdKey={({ primaryAccession }: { primaryAccession: string }) =>

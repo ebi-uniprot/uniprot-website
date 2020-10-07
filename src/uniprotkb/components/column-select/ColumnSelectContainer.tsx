@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import {
   moveItemInList,
@@ -20,7 +19,7 @@ type ColumnSelectProps = {
   isFetching: boolean;
   fieldData: FieldData;
   onChange: (columndIds: Column[]) => void;
-} & RouteComponentProps;
+};
 
 export const entryField = {
   tabId: ColumnSelectTab.data,
@@ -37,14 +36,14 @@ export const removeFieldFromFieldsData = (
   fieldData: FieldData
 ) => ({
   ...fieldData,
-  [tabId]: fieldData[tabId].map(group =>
+  [tabId]: fieldData[tabId].map((group) =>
     group.id === accordionId
       ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
       : group
   ),
 });
 
-const ColumnSelect: React.FC<ColumnSelectProps> = ({
+const ColumnSelect: FC<ColumnSelectProps> = ({
   fetchFieldsIfNeeded,
   isFetching,
   fieldData,
@@ -67,7 +66,7 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
   const selectedColumnsWithoutEntry = selectedColumns.filter(
-    col => col !== entryField.itemId
+    (col) => col !== entryField.itemId
   );
   const FieldFromFieldsDataWithoutEntry = removeFieldFromFieldsData(
     entryField,
@@ -124,8 +123,9 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
     dispatch
   );
 
-const ColumnSelectContainer = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ColumnSelect)
-);
+const ColumnSelectContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ColumnSelect);
 
 export default ColumnSelectContainer;
