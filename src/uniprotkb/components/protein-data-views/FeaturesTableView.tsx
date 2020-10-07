@@ -3,7 +3,7 @@ import { TemplateResult } from 'lit-html';
 import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
 
 import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
-import { ProtvistaFeature, ProcessedFeature } from './FeaturesView';
+import { ProcessedFeature } from './FeaturesView';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
