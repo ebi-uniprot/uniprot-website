@@ -1,9 +1,9 @@
 import React, { useCallback, useState, FC } from 'react';
 import { TemplateResult } from 'lit-html';
+import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
 
 import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
-import { ProtvistaFeature, ProcessedFeature } from './FeaturesView';
-import { ProtvistaVariant } from './VariationView';
+import { ProcessedFeature } from './FeaturesView';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -14,7 +14,7 @@ type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
-      d: ProtvistaFeature & ProtvistaVariant
+      d: ProcessedFeature & VariantFeature
     ) =>
       | undefined
       | string
@@ -30,7 +30,7 @@ export type FeaturesTableCallback = (
 ) => void;
 
 const FeaturesTableView: FC<{
-  data: ProcessedFeature[] | ProtvistaVariant[];
+  data: ProcessedFeature[] | VariantFeature[];
   getColumnConfig: (
     callback: (
       evidenceData: EvidenceData,

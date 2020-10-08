@@ -74,7 +74,7 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
   show: initialShow,
 }) => {
   const [show, setShow] = useState(initialShow);
-  const [wcLoaded, setWCLoaded] = useSafeState(false);
+  const [ceLoaded, setCELoaded] = useSafeState(false);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
     ModalBackdrop,
@@ -97,13 +97,13 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
 
   useEffect(() => {
     import('@swissprot/rhea-reaction-visualizer').then(
-      () => setWCLoaded(true),
+      () => setCELoaded(true),
       // eslint-disable-next-line no-console
       (error) => console.error(error)
     );
-  }, [setWCLoaded]);
+  }, [setCELoaded]);
 
-  if (!wcLoaded) {
+  if (!ceLoaded) {
     return null;
   }
 
