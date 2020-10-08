@@ -157,24 +157,29 @@ const ResultsView: React.FC<ResultsTableProps> = ({
         }) => primaryAccession || id}
         data={allResults}
         dataRenderer={(dataItem: UniProtkbAPIModel | UniRefAPIModel) => {
-          if (namespace === Namespace.uniref) {
-            const data = dataItem as UniRefAPIModel;
-            return (
-              <UniRefCard
-                data={data}
-                selected={selectedEntries.includes(data.id)}
-                handleEntrySelection={handleEntrySelection}
-              />
-            );
+          switch (namespace) {
+            case Namespace.uniref: {
+              const data = dataItem as UniRefAPIModel;
+              return (
+                <UniRefCard
+                  data={data}
+                  selected={selectedEntries.includes(data.id)}
+                  handleEntrySelection={handleEntrySelection}
+                />
+              );
+            }
+            case Namespace.uniprotkb:
+            default: {
+              const data = dataItem as UniProtkbAPIModel;
+              return (
+                <UniProtKBCard
+                  data={data}
+                  selected={selectedEntries.includes(data.primaryAccession)}
+                  handleEntrySelection={handleEntrySelection}
+                />
+              );
+            }
           }
-          const data = dataItem as UniProtkbAPIModel;
-          return (
-            <UniProtKBCard
-              data={data}
-              selected={selectedEntries.includes(data.primaryAccession)}
-              handleEntrySelection={handleEntrySelection}
-            />
-          );
         }}
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
