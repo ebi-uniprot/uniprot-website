@@ -39,7 +39,7 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { hasExternalLinks } from '../../utils';
+import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -51,11 +51,6 @@ import uniProtKbConverter, {
   UniProtkbInactiveEntryModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
-import {
-  CommentType,
-  AlternativeProductsComment,
-  Isoform,
-} from '../../types/commentTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -90,25 +85,7 @@ const Entry: FC = () => {
   );
 
   const listOfIsoformAccessions = useMemo(
-    () =>
-      (data &&
-        'comments' in data &&
-        data.comments
-          ?.filter(
-            (comment) =>
-              comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
-          )
-          ?.map((comment) =>
-            (comment as AlternativeProductsComment).isoforms.map(
-              (isoform) => (isoform as Isoform).isoformIds
-            )
-          )
-          ?.flat(2)
-          ?.filter(
-            (maybeAccession: string | undefined): maybeAccession is string =>
-              typeof maybeAccession === 'string'
-          )) ||
-      [],
+    () => getListOfIsoformAccessions(data),
     [data]
   );
 

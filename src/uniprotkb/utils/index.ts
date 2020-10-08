@@ -1,9 +1,14 @@
 import UniProtKBEntryConfig from '../config/UniProtEntryConfig';
 
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import {
+  UniProtkbInactiveEntryModel,
+  UniProtkbUIModel,
+  UniProtkbAPIModel,
+} from '../adapters/uniProtkbConverter';
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 
 import { Property, PropertyKey } from '../types/modelTypes';
+import { CommentType } from '../types/commentTypes';
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
   UniProtKBEntryConfig.some(({ name }) => {
@@ -26,6 +31,30 @@ export const flattenGeneNameData = (geneNamesData: GeneNamesData) => {
     }
   );
   return Array.from(geneNames);
+};
+
+export const getListOfIsoformAccessions = (
+  data?: UniProtkbAPIModel | UniProtkbInactiveEntryModel
+) => {
+  // will push all isoform accessions in this variable
+  const out: string[] = [];
+  if (!(data && 'comments' in data && data.comments)) {
+    return out;
+  }
+  for (const comment of data.comments) {
+    // filter out all the non-"Alternative Products" comments
+    if (comment.commentType !== CommentType.ALTERNATIVE_PRODUCTS) {
+      continue; // eslint-disable-line no-continue
+    }
+    for (const isoform of comment.isoforms) {
+      for (const isoformId of isoform.isoformIds) {
+        if (isoformId) {
+          out.push(isoformId);
+        }
+      }
+    }
+  }
+  return out;
 };
 
 export const transfromProperties = (properties: Property[]) => {
