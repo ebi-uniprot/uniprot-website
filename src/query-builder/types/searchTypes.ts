@@ -47,6 +47,7 @@ export type SearchTermType = {
     value: string;
   }[];
   items?: SearchTermType[];
+  siblings?: SearchTermType[];
 };
 
 export type Input = {

@@ -59,14 +59,13 @@ const ClauseItem: React.FC<{
   handleEvidenceChange,
   removeClause,
 }) => {
-  // Convert "items" to "siblings" for "sibling_group" types
-  const treeSelectData = useMemo(() => {
-    return modifyTree(searchTerms);
-  }, [searchTerms]);
-
   if (!clause.searchTerm) {
     return null;
   }
+
+  const fieldItems = clause.searchTerm.siblings
+    ? clause.searchTerm.siblings
+    : [clause.searchTerm];
 
   return (
     <div className="advanced-search__clause" data-testid="search__clause">
@@ -75,7 +74,7 @@ const ClauseItem: React.FC<{
         handleChange={(value: Operator) => handleLogicChange(clause.id, value)}
       />
       <TreeSelect
-        data={treeSelectData}
+        data={searchTerms}
         onSelect={(value: SearchTermType) =>
           handleFieldSelect(clause.id, value)
         }
@@ -83,25 +82,25 @@ const ClauseItem: React.FC<{
         value={clause.searchTerm}
         autocomplete
       />
-      <Field
-        field={clause.searchTerm}
-        handleInputChange={(value: string, id?: string) =>
-          handleInputChange(clause.id, value, id)
-        }
-        handleRangeInputChange={(value: string, from?: boolean) =>
-          handleRangeInputChange(clause.id, value, from)
-        }
-        queryInput={clause.queryInput}
-      />
-      {clause.searchTerm.evidenceGroups && (
-        <EvidenceField
-          handleChange={(value: string) =>
-            handleEvidenceChange(clause.id, value)
-          }
-          value={clause.queryInput.evidenceValue}
-          data={clause.searchTerm.evidenceGroups}
-        />
-      )}
+      {fieldItems.map((siblingTerm) => {
+        return (
+          <div className="advanced-search__inputs" key={siblingTerm.id}>
+            <Field
+              field={siblingTerm}
+              handleInputChange={(value: string, id?: string) =>
+                handleInputChange(clause.id, value, id)
+              }
+              handleRangeInputChange={(value: string, from?: boolean) =>
+                handleRangeInputChange(clause.id, value, from)
+              }
+              handleEvidenceChange={(value: string) =>
+                handleEvidenceChange(clause.id, value)
+              }
+              queryInput={clause.queryInput}
+            />
+          </div>
+        );
+      })}
       <button
         type="button"
         className="button tertiary button-remove"
@@ -129,6 +128,11 @@ const ClauseList: React.FC<ClauseListProps> = ({
   searchTerms,
   removeClause,
 }) => {
+  // Convert "items" to "siblings" for "sibling_group" types
+  const treeSelectData = useMemo(() => {
+    return modifyTree(searchTerms);
+  }, [searchTerms]);
+
   const handleFieldSelect = useCallback(
     (clauseId: string, searchTerm: SearchTermType) => {
       // TODO Handle searchTerm.siblings
@@ -237,7 +241,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
         <MemoizedClauseItem
           key={`clause_${clause.id}`}
           clause={clause}
-          searchTerms={searchTerms}
+          searchTerms={treeSelectData}
           handleLogicChange={handleLogicChange}
           handleFieldSelect={handleFieldSelect}
           handleInputChange={handleInputChange}

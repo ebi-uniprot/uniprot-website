@@ -1,23 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { SearchTermType } from '../types/searchTypes';
 
-type RangeFieldProps = {
+const RangeField: React.FC<{
   field: SearchTermType;
   type?: string;
   handleChange: (value: string, isFrom: boolean) => void;
   rangeFrom?: string;
   rangeTo?: string;
-};
-
-const RangeField = ({
-  field,
-  type,
-  handleChange,
-  rangeFrom = '',
-  rangeTo = '',
-}: RangeFieldProps) => (
-  <Fragment>
+}> = ({ field, type, handleChange, rangeFrom = '', rangeTo = '' }) => (
+  <>
     <label htmlFor={`from_input_${field.id}`}>
       From
       <input
@@ -40,13 +32,7 @@ const RangeField = ({
         value={rangeTo}
       />
     </label>
-  </Fragment>
+  </>
 );
-
-RangeField.defaultProps = {
-  type: undefined,
-  rangeFrom: undefined,
-  rangeTo: undefined,
-};
 
 export default RangeField;
