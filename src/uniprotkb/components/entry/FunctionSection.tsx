@@ -1,5 +1,4 @@
-import React, { FC, Fragment, lazy, Suspense } from 'react';
-import { v1 } from 'uuid';
+import React, { FC, lazy, Suspense } from 'react';
 import { Card, Loader } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -11,7 +10,7 @@ import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
-import { hasContent } from '../../utils';
+import { hasContent } from '../../../shared/utils/utils';
 import {
   FunctionUIModel,
   BioPhysicoChemicalProperties,
@@ -33,7 +32,7 @@ const GoRibbon = lazy(
 
 export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => {
   return (
-    <Fragment>
+    <>
       <section className="text-block">
         {`Abs(max) = ${data.approximate && '~'}${data.max}nm`}
       </section>
@@ -41,13 +40,13 @@ export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => {
         {data.note && <TextView comments={data.note.texts} />}
         {data.evidences && <UniProtKBEvidenceTag evidences={data.evidences} />}
       </section>
-    </Fragment>
+    </>
   );
 };
 
 export const KineticsView: FC<{ data: KineticParameters }> = ({ data }) => {
   return (
-    <Fragment>
+    <>
       <section className="text-block">
         {data.michaelisConstants && (
           <ul className="no-bullet">
@@ -64,7 +63,7 @@ export const KineticsView: FC<{ data: KineticParameters }> = ({ data }) => {
       <section className="text-block">
         {data.note && <TextView comments={data.note.texts} />}
       </section>
-    </Fragment>
+    </>
   );
 };
 
@@ -75,38 +74,38 @@ const BioPhysicoChemicalPropertiesView: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <>
       {data.absorption && (
-        <Fragment>
+        <>
           <h3>Absorption</h3>
           <AbsorptionView data={data.absorption} />
-        </Fragment>
+        </>
       )}
       {data.kinetics && (
-        <Fragment>
+        <>
           <h3>Kinetics</h3>
           <KineticsView data={data.kinetics} />
-        </Fragment>
+        </>
       )}
       {data.pHDependence && (
-        <Fragment>
+        <>
           <h3>pH Dependence</h3>
           <TextView comments={data.pHDependence} />
-        </Fragment>
+        </>
       )}
       {data.redoxPotential && (
-        <Fragment>
+        <>
           <h3>Redox Potential</h3>
           <TextView comments={data.redoxPotential} />
-        </Fragment>
+        </>
       )}
       {data.temperatureDependence && (
-        <Fragment>
+        <>
           <h3>Temperature Dependence</h3>
           <TextView comments={data.temperatureDependence} />
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -118,10 +117,11 @@ export const CofactorView: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <>
       {title && <h3>{title}</h3>}
-      {cofactors.map((cofactorComment) => (
-        <section className="text-block" key={v1()}>
+      {cofactors.map((cofactorComment, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <section className="text-block" key={index}>
           {cofactorComment.cofactors &&
             cofactorComment.cofactors.map((cofactor) => (
               <span key={cofactor.name}>
@@ -136,7 +136,7 @@ export const CofactorView: FC<{
           )}
         </section>
       ))}
-    </Fragment>
+    </>
   );
 };
 

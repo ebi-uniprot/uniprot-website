@@ -6,7 +6,8 @@ import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 
-import { hasContent } from '../../utils';
+import { hasContent } from '../../../shared/utils/utils';
+
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import {

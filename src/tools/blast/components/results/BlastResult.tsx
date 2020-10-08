@@ -96,11 +96,9 @@ enum TabLocation {
   APIRequest = 'api-request',
 }
 
-type Match = {
-  params: {
-    id: string;
-    subPage?: TabLocation;
-  };
+type Params = {
+  id: string;
+  subPage?: TabLocation;
 };
 
 // custom hook to get data from the input parameters endpoint, input sequence
@@ -162,7 +160,7 @@ const enrich = (
 
 const BlastResult = () => {
   const history = useHistory();
-  const match = useRouteMatch(LocationToPath[Location.BlastResult]) as Match;
+  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult]);
   const location = useLocation();
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
@@ -173,7 +171,7 @@ const BlastResult = () => {
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match.params.subPage) {
+    if (!match?.params?.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
@@ -181,7 +179,7 @@ const BlastResult = () => {
         })
       );
     }
-  }, [match.params.subPage, history]);
+  }, [match, history]);
 
   // get data from the blast endpoint
   const {
@@ -189,7 +187,7 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(urls.resultUrl(match.params.id, 'json'));
+  } = useDataApi<BlastResults>(urls.resultUrl(match?.params.id || '', 'json'));
 
   // extract facets and other info from URL querystring
   const urlParams: URLResultParams = useMemo(
@@ -260,7 +258,7 @@ const BlastResult = () => {
     [data]
   );
 
-  const inputParamsData = useParamsData(match.params.id);
+  const inputParamsData = useParamsData(match?.params.id || '');
 
   // Note: this function is duplicated in ResultsContainer.tsx
   const handleSelectedEntries = useCallback((rowId: string) => {
@@ -276,7 +274,7 @@ const BlastResult = () => {
     return <Loader />;
   }
 
-  if (blastError || !blastData) {
+  if (blastError || !blastData || !match) {
     return <ErrorHandler status={blastStatus} />;
   }
 
@@ -297,7 +295,7 @@ const BlastResult = () => {
   );
   let sidebar;
 
-  switch (match.params.subPage) {
+  switch (match.params?.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
@@ -327,7 +325,7 @@ const BlastResult = () => {
       sidebar={sidebar}
       className="tools-result"
     >
-      <Tabs active={match.params.subPage}>
+      <Tabs active={match.params?.subPage}>
         <Tab
           id={TabLocation.Overview}
           title={

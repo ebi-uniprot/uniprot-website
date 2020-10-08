@@ -13,6 +13,8 @@ enum EntrySection {
   ExternalLinks = 'External Links',
 }
 
+export default EntrySection;
+
 export const EntrySectionIDs = {
   [EntrySection.Function]: 'function',
   [EntrySection.FamilyAndDomains]: 'family-and-domains',
@@ -27,5 +29,3 @@ export const EntrySectionIDs = {
   [EntrySection.SubCellularLocation]: 'subcellular-location',
   [EntrySection.ExternalLinks]: 'external-links',
 };
-
-export default EntrySection;

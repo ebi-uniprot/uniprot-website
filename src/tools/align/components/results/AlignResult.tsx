@@ -70,13 +70,6 @@ enum TabLocation {
   APIRequest = 'api-request',
 }
 
-type Match = {
-  params: {
-    id: string;
-    subPage?: TabLocation;
-  };
-};
-
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.
 // This is kinda 'faking' useDataApi for the kind of object it outputs
@@ -109,15 +102,20 @@ const useParamsData = (
   return paramsData;
 };
 
+type Params = {
+  id: string;
+  subPage?: TabLocation;
+};
+
 const AlignResult = () => {
   const history = useHistory();
-  const match = useRouteMatch(LocationToPath[Location.AlignResult]) as Match;
+  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult]);
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match.params.subPage) {
+    if (!match?.params?.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
@@ -125,14 +123,14 @@ const AlignResult = () => {
         })
       );
     }
-  }, [match.params.subPage, history]);
+  }, [match, history]);
 
   // get data from the align endpoint
   const { loading, data, error, status } = useDataApi<AlignResults>(
-    urls.resultUrl(match.params.id, 'aln-clustal_num')
+    urls.resultUrl(match?.params.id || '', 'aln-clustal_num')
   );
 
-  const inputParamsData = useParamsData(match.params.id);
+  const inputParamsData = useParamsData(match?.params.id || '');
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
@@ -150,7 +148,7 @@ const AlignResult = () => {
     return <Loader />;
   }
 
-  if (error || !data) {
+  if (error || !data || !match) {
     return <ErrorHandler status={status} />;
   }
 

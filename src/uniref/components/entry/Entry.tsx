@@ -1,20 +1,14 @@
-import React, { useMemo, FC } from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import {
   InPageNav,
   Loader,
   DisplayMenu,
-  PublicationIcon,
-  ExternalLinkIcon,
   TremblIcon,
-  DownloadIcon,
-  DropdownButton,
-  ProtVistaIcon,
+  // DropdownButton,
 } from 'franklin-sites';
 
-import { fileFormatEntryDownload } from '../../types/resultsTypes';
-import EntrySection from '../../types/entrySection';
 import {
   MessageLevel,
   MessageFormat,
@@ -22,92 +16,47 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
-import FeatureViewer from './FeatureViewer';
-import EntryPublicationsFacets from './EntryPublicationsFacets';
-import EntryPublications from './EntryPublications';
 import EntryMain from './EntryMain';
-import EntryExternalLinks from './EntryExternalLinks';
 
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
-import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
-import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
+import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
+// check if we need it here too and move it to a shared folder if needed
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import uniProtKbConverter, {
-  EntryType,
-  UniProtkbInactiveEntryModel,
-  UniProtkbAPIModel,
-} from '../../adapters/uniProtkbConverter';
+import uniRefConverter, {
+  UniRefAPIModel,
+} from '../../adapters/uniRefConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch<{ accession: string }>(
-    LocationToPath[Location.UniProtKBEntry]
+    LocationToPath[Location.UniRefEntry]
   );
 
   const { loading, data, status, error, redirectedTo } = useDataApi<
-    UniProtkbAPIModel | UniProtkbInactiveEntryModel
-  >(apiUrls.entry(match?.params.accession || ''));
+    UniRefAPIModel
+  >(apiUrls.uniref.entry(match?.params.accession || ''));
 
-  const transformedData = useMemo(
-    () =>
-      data && data.entryType !== EntryType.INACTIVE && uniProtKbConverter(data),
-    [data]
-  );
-
-  const sections = useMemo(
-    () =>
-      transformedData &&
-      UniProtKBEntryConfig.map((section) => ({
-        label: section.name,
-        id: section.id,
-        disabled:
-          section.name === EntrySection.ExternalLinks
-            ? !hasExternalLinks(transformedData)
-            : !hasContent(transformedData[section.name]),
-      })),
-    [transformedData]
-  );
-
-  const listOfIsoformAccessions = useMemo(
-    () => getListOfIsoformAccessions(data),
-    [data]
-  );
+  if (error || !match?.params.accession) {
+    return <ErrorHandler status={status} />;
+  }
 
   if (loading || !data) {
     return <Loader />;
-  }
-
-  if (data && data.entryType === EntryType.INACTIVE) {
-    if (!match) {
-      return <ErrorHandler />;
-    }
-
-    return (
-      <ObsoleteEntryPage
-        accession={match.params.accession}
-        details={data.inactiveReason}
-      />
-    );
-  }
-
-  if (error || !match?.params.accession || !transformedData || !match) {
-    return <ErrorHandler status={status} />;
   }
 
   if (redirectedTo) {
@@ -124,6 +73,14 @@ const Entry: FC = () => {
     dispatch(addMessage(message));
   }
 
+  const transformedData = uniRefConverter(data);
+
+  const sections = UniRefEntryConfig.map((section) => ({
+    label: section.name,
+    id: section.id,
+    disabled: !hasContent(transformedData[section.name]),
+  }));
+
   const displayMenuData = [
     {
       name: 'Entry',
@@ -136,13 +93,8 @@ const Entry: FC = () => {
       actionButtons: (
         <div className="button-group">
           <BlastButton selectedEntries={[match.params.accession]} />
-          <AlignButton
-            selectedEntries={[
-              match.params.accession,
-              ...listOfIsoformAccessions,
-            ]}
-          />
-          <DropdownButton
+          <AlignButton selectedEntries={[]} />
+          {/* <DropdownButton
             label={
               <>
                 <DownloadIcon />
@@ -168,32 +120,11 @@ const Entry: FC = () => {
                 ))}
               </ul>
             </div>
-          </DropdownButton>
+          </DropdownButton> */}
           <AddToBasketButton selectedEntries={[match.params.accession]} />
         </div>
       ),
       mainContent: <EntryMain transformedData={transformedData} />,
-    },
-    {
-      name: 'Feature viewer',
-      path: 'feature-viewer',
-      icon: <ProtVistaIcon />,
-      mainContent: <FeatureViewer accession={match.params.accession} />,
-    },
-    {
-      name: 'Publications',
-      path: 'publications',
-      icon: <PublicationIcon />,
-      itemContent: (
-        <EntryPublicationsFacets accession={match.params.accession} />
-      ),
-      mainContent: <EntryPublications accession={match.params.accession} />,
-    },
-    {
-      name: 'External links',
-      path: 'external-links',
-      icon: <ExternalLinkIcon />,
-      mainContent: <EntryExternalLinks transformedData={transformedData} />,
     },
   ];
 

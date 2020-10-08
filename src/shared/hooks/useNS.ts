@@ -1,22 +1,17 @@
 import { useRouteMatch } from 'react-router-dom';
 
-export enum NS {
-  UniProtKB = 'uniprotkb',
-  UniRef = 'uniref',
-  UniParc = 'uniparc',
-  Proteomes = 'proteomes',
-  Publications = 'publications',
-  Keywords = 'keywords',
-}
+import { Namespace } from '../types/namespaces';
 
-const useNS = (): void | NS => {
-  const match = useRouteMatch<{ potentialNS: NS | string }>('/:potentialNS/');
+const useNS = (): void | Namespace => {
+  const match = useRouteMatch<{ potentialNS: Namespace | string }>(
+    '/:potentialNS/'
+  );
 
   if (!match) return;
 
   const potentialNS = match.params.potentialNS.toLowerCase();
   // eslint-disable-next-line consistent-return
-  return Object.values(NS).find((ns) => ns === potentialNS);
+  return Object.values(Namespace).find((ns) => ns === potentialNS);
 };
 
 export default useNS;

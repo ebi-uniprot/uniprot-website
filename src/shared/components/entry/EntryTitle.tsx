@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { SwissProtIcon, TremblIcon } from 'franklin-sites';
-import { EntryType } from '../../adapters/uniProtkbConverter';
+
+import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+
 import './styles/uniprotkb-title.scss';
 
 export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
@@ -22,16 +24,16 @@ export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
     </span>
   );
 
-const UniProtKBTitle: FC<{
-  primaryAccession: string;
-  entryType: EntryType;
-  uniProtkbId: string;
-}> = ({ primaryAccession, entryType, uniProtkbId }) => (
+const EntryTitle: FC<{
+  mainTitle: string;
+  optionalTitle?: string;
+  entryType?: EntryType;
+}> = ({ mainTitle, optionalTitle, entryType }) => (
   <span className="uniprot-title">
-    <ReviewedUnreviewed entryType={entryType} />
-    {primaryAccession}
-    {` · ${uniProtkbId}`}
+    {entryType && <ReviewedUnreviewed entryType={entryType} />}
+    {mainTitle}
+    {optionalTitle && ` · ${optionalTitle}`}
   </span>
 );
 
-export default UniProtKBTitle;
+export default EntryTitle;

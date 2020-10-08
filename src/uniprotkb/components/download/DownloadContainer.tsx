@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import idx from 'idx';
+
 import { RootState } from '../../../app/state/rootInitialState';
 import DownloadView from './DownloadView';
 import { Column, SortableColumn } from '../../types/columnTypes';
@@ -97,16 +97,13 @@ const Download: React.FC<DownloadTableProps> = ({
 
     fetchData<string>(previewUrl, headers)
       .then((response) => {
-        const contentType = idx(
-          response,
-          (o) => o.headers['content-type']
-        ) as FileFormat;
+        const contentType = response.headers?.['content-type'] as FileFormat;
         setPreview({
           data:
             contentType === fileFormatToContentType.get(FileFormat.json)
               ? JSON.stringify(response.data, null, 2)
               : response.data,
-          url: idx(response, (o) => o.config.url) || '',
+          url: response.config.url ?? '',
           contentType,
         });
       })

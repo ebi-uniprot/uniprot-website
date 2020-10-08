@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { v1 } from 'uuid';
 import { InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
+
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
 
 type KeywordListProps = {
@@ -34,14 +34,15 @@ export const KeywordList: React.FC<KeywordListProps> = ({
       return null;
     }
     return (
-      <Fragment key={v1()}>
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
         <KeywordItem id={id} value={idOnly ? id : name} />
         {index < keywords.length - 1 && ' '}
       </Fragment>
     );
   });
 
-  return <Fragment>{nodes}</Fragment>;
+  return <>{nodes}</>;
 };
 
 const KeywordView: React.FC<{ keywords: KeywordUIModel[] }> = ({
@@ -50,7 +51,7 @@ const KeywordView: React.FC<{ keywords: KeywordUIModel[] }> = ({
   if (!keywords || keywords.length <= 0) {
     return null;
   }
-  const infoData = keywords.map(keywordCategory => ({
+  const infoData = keywords.map((keywordCategory) => ({
     title: keywordCategory.category,
     content: <KeywordList keywords={keywordCategory.keywords} />,
   }));
@@ -58,10 +59,10 @@ const KeywordView: React.FC<{ keywords: KeywordUIModel[] }> = ({
     return null;
   }
   return (
-    <Fragment>
+    <>
       <h3>Keywords</h3>
       <InfoList infoData={infoData} />
-    </Fragment>
+    </>
   );
 };
 

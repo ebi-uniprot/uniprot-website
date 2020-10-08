@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { EnrichedBlastHit } from './BlastResult';
 
-import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTitle';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';

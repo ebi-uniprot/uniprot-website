@@ -1,8 +1,10 @@
 .uniprot-title {
   position: relative;
+
   &__status {
     display: inline-flex;
     align-self: center;
+
     svg {
       width: 0.75em;
       height: 0.75em;

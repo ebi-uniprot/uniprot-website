@@ -51,15 +51,14 @@ const Results: FC = () => {
    */
   const columns: Column[] = viewMode === ViewMode.TABLE ? tableColumns : [];
 
-  const initialApiUrl = getAPIQueryUrl(
+  const initialApiUrl = getAPIQueryUrl({
     query,
     columns,
     selectedFacets,
     sortColumn,
     sortDirection,
-    undefined,
-    1 // TODO: change to 0 whenever the API accepts it
-  );
+    size: 1, // TODO: change to 0 whenever the API accepts it
+  });
 
   const {
     data,

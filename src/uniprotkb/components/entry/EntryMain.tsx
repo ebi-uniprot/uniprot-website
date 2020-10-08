@@ -1,8 +1,8 @@
-import React, { Fragment, memo } from 'react';
+import React, { FC, memo } from 'react';
 import { Card } from 'franklin-sites';
 
-import { ProteinOverview } from '../protein-data-views/ProteinOverviewView';
-import UniProtKBTitle from '../protein-data-views/UniProtKBTitle';
+import Overview from '../protein-data-views/ProteinOverviewView';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -22,19 +22,19 @@ function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
   );
 }
 
-const EntryMain: React.FC<EntryMainProps> = ({ transformedData }) => (
-  <Fragment>
+const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
+  <>
     <ErrorBoundary>
       <Card
         title={
-          <UniProtKBTitle
-            primaryAccession={transformedData.primaryAccession}
+          <EntryTitle
+            mainTitle={transformedData.primaryAccession}
+            optionalTitle={transformedData.uniProtkbId}
             entryType={transformedData.entryType}
-            uniProtkbId={transformedData.uniProtkbId}
           />
         }
       >
-        <ProteinOverview transformedData={transformedData} />
+        <Overview transformedData={transformedData} />
       </Card>
     </ErrorBoundary>
 
@@ -43,7 +43,7 @@ const EntryMain: React.FC<EntryMainProps> = ({ transformedData }) => (
         {sectionContent(transformedData)}
       </ErrorBoundary>
     ))}
-  </Fragment>
+  </>
 );
 
 export default memo(EntryMain, arePropsEqual);
