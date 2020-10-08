@@ -52,7 +52,6 @@ exports[`BlastResultTable tests should render the results table 1`] = `
                 class="query-sequence-wrapper"
               >
                 <protvista-navigation
-                  height="10"
                   length="30"
                   title="Query"
                 />
@@ -132,27 +131,27 @@ exports[`BlastResultTable tests should render the results table 1`] = `
                         length="30"
                         title="Start: 3
 End: 30
-Hit Length: 486"
+Hit length: 486"
                       />
                     </section>
                     <span
                       class="data-table__blast-hsp__blast-params"
                     >
                       <span
-                        class="chip chip--compact"
+                        class="chip chip--compact primary"
                         title="Identity"
                       >
                         7.1%
                       </span>
                       <span
-                        class="chip chip--compact"
+                        class="chip chip--compact secondary"
                         title="Score"
                       >
                         41.5874
                       </span>
                       <span
-                        class="chip chip--compact"
-                        title="e-value"
+                        class="chip chip--compact secondary"
+                        title="E-value"
                       >
                         0.0048
                       </span>
