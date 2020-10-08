@@ -4256,7 +4256,7 @@ d3-scale@2:
     d3-time "1"
     d3-time-format "2"
 
-d3-scale@^3.2.0:
+d3-scale@^3.2.0, d3-scale@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/d3-scale/-/d3-scale-3.2.3.tgz#be380f57f1f61d4ff2e6cbb65a40593a51649cfd"
   integrity sha512-8E37oWEmEzj57bHcnjPVOBS3n4jqakOeuv1EDdQSiSrYnMCBdMd3nc4HtKk7uia8DUHcY/CGuJ42xxgtEYrX0g==
@@ -9369,12 +9369,12 @@ protvista-feature-adapter@^2.18.0:
   dependencies:
     uuid "^8.1.0"
 
-protvista-feature-adapter@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.0.0.tgz#21e1e5fb8b631b2dbffbe113a5781767e7cc2a3f"
-  integrity sha512-jcE9HhAWvIK7sroficqQ4jySHWHI+wmm5H3UjRa1c4wgl8AIzY1oxTnc9ANV3ppbuZqVZohSdGPObDEkls0pag==
+protvista-feature-adapter@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.1.2.tgz#cd513916d138d53fce48527db6a8cb2e351a51c1"
+  integrity sha512-6BLaeWiy/V0cHVBZpPtNzZsxsGq4rkPODFfOhC4M0Xwl0Cf5h5C+/607idogehq5o5o8UnBEjSwzqY3Vcodagg==
   dependencies:
-    uuid "^8.1.0"
+    uuid "^8.3.1"
 
 protvista-filter@3.0.0:
   version "3.0.0"
@@ -9554,16 +9554,16 @@ protvista-utils@^2.18.0:
   resolved "https://registry.yarnpkg.com/protvista-utils/-/protvista-utils-2.18.0.tgz#51d464917d2d790ed523966a7b512e71fcdcdd85"
   integrity sha512-kD75nDjmzqbcejKFjyG8BwXQvEvm49ybsQul3e6ng67Y1QWTYmZyYylaUNzRTgbwYYAIHs7VxVZLw4bgkw0dNQ==
 
-protvista-variation-adapter@3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/protvista-variation-adapter/-/protvista-variation-adapter-3.0.0.tgz#c70d48e8daa5f6c961d24c9ed6b31dd2f0d41723"
-  integrity sha512-4aC8jvrr35IHIIEzbUC9b/T5nP4dpD3Hc70XPGIQHDory3MbXdurlZeNOFRDv3KAf0JvniMrCMJTlUNPjtySdg==
+protvista-variation-adapter@3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/protvista-variation-adapter/-/protvista-variation-adapter-3.1.2.tgz#76f24c431686e4e4f5c02c5db1615f37abfce0b5"
+  integrity sha512-EQ12MDyZKbnUd6FnO6ewv6EJGXvPN9i7TMyro1uMHhyppqdYCQKpVnXiVk5J2zmvfS5mh1ndQ7PCXsfclibc6w==
   dependencies:
-    d3-scale "^3.2.0"
+    d3-scale "^3.2.3"
     data-loader "^3.0.0"
     lodash-es "^4.17.11"
-    protvista-feature-adapter "^3.0.0"
-    uuid "^8.1.0"
+    protvista-feature-adapter "^3.1.2"
+    uuid "^8.3.1"
 
 protvista-variation-adapter@^2.18.3:
   version "2.18.3"

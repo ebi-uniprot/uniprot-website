@@ -1,6 +1,7 @@
 import React, { useCallback, useState, FC } from 'react';
 import { TemplateResult } from 'lit-html';
 import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
+import { TransformedVariant } from 'protvista-variation-adapter';
 
 import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
 import { ProcessedFeature } from './FeaturesView';
@@ -14,7 +15,7 @@ type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
-      d: ProcessedFeature & VariantFeature
+      d: ProcessedFeature & TransformedVariant
     ) =>
       | undefined
       | string
