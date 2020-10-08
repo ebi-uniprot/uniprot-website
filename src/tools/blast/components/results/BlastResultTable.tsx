@@ -71,11 +71,20 @@ const BlastSummaryTrack: FC<{
         let opacity = +hsp[selectedScoring];
         const max = maxScorings[selectedScoring];
         if (max !== undefined) {
-          if (selectedScoring === 'hsp_expect') {
-            // invert scale and rescale for e-value
-            opacity = 1 - +hsp[selectedScoring] / (2 * max);
-          } else {
-            opacity /= max;
+          switch (selectedScoring) {
+            case 'hsp_expect':
+              // invert scale and rescale for e-value
+              opacity = 1 - +hsp[selectedScoring] / (2 * max);
+              break;
+            case 'hsp_identity':
+              // rescale for percents
+              opacity /= 100;
+              break;
+            case 'hsp_bit_score':
+              opacity /= max;
+              break;
+            default:
+            //
           }
         }
         // eslint-disable-next-line no-param-reassign
