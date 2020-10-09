@@ -10,6 +10,9 @@ import React, {
 } from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
+
+import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import { EnrichedBlastHit } from './BlastResult';
 
@@ -27,10 +30,16 @@ import {
 
 import './styles/BlastResultTable.scss';
 
-const scoringMap: Partial<Record<keyof BlastHsp, string>> = {
+const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
   hsp_bit_score: 'Score',
   hsp_expect: 'E-value',
+};
+
+const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
+  hsp_identity: colors.sapphireBlue,
+  hsp_bit_score: colors.coyoteBrown,
+  hsp_expect: colors.outerSpace,
 };
 
 const BlastSummaryTrack: FC<{
@@ -87,25 +96,26 @@ const BlastSummaryTrack: FC<{
             //
           }
         }
+        const color = scoringColorDict[selectedScoring];
         // eslint-disable-next-line no-param-reassign
         node.data = [
           {
             start: 1,
             end: hsp.hsp_query_from,
             shape: 'line',
-            color: '#014371',
+            color,
           },
           {
             start: hsp.hsp_query_from,
             end: hsp.hsp_query_to,
-            color: '#014371',
+            color,
             opacity,
           },
           {
             start: hsp.hsp_query_to,
             end: hitLength > hsp.hsp_query_to ? hitLength : hsp.hsp_query_to,
             shape: 'line',
-            color: '#014371',
+            color,
           },
         ];
       }
@@ -135,12 +145,15 @@ const BlastSummaryTrack: FC<{
         />
       </section>
       <span className="data-table__blast-hsp__blast-params">
-        {Object.entries(scoringMap).map(([key, title]) => (
+        {Object.entries(scoringDict).map(([key, title]) => (
           <Chip
             key={key}
             compact
             title={title}
-            className={key === selectedScoring ? 'primary' : 'secondary'}
+            className={cn(
+              key,
+              key === selectedScoring ? 'primary' : 'secondary'
+            )}
             onClick={() => setSelectedScoring(key as keyof BlastHsp)}
           >
             {`${hsp[key as keyof BlastHsp]}${
@@ -377,7 +390,13 @@ const BlastResultTable: FC<{
         ),
       },
     ];
-  }, [queryLen, queryColumnHeaderRef, setHspDetailPanel, selectedScoring]);
+  }, [
+    queryLen,
+    queryColumnHeaderRef,
+    setHspDetailPanel,
+    selectedScoring,
+    maxScorings,
+  ]);
 
   if (loading && !hitsRef.current.length) {
     return <Loader />;
