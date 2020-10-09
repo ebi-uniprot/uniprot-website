@@ -87,21 +87,17 @@ exports[`ClauseList component should render 1`] = `
     <div
       class="advanced-search__inputs"
     >
-      <div
-        class="advanced-search__inputs"
+      <label
+        for="input_All"
       >
-        <label
-          for="input_All"
-        >
-          All
-          <input
-            id="input_All"
-            placeholder="a4_human, P05067, cdc7 human"
-            type="text"
-            value=""
-          />
-        </label>
-      </div>
+        All
+        <input
+          id="input_All"
+          placeholder="a4_human, P05067, cdc7 human"
+          type="text"
+          value=""
+        />
+      </label>
     </div>
     <button
       class="button tertiary button-remove"

@@ -50,19 +50,13 @@ export type SearchTermType = {
   siblings?: SearchTermType[];
 };
 
-export type Input = {
-  stringValue?: string;
-  rangeFrom?: string;
-  rangeTo?: string;
-  evidenceValue?: string;
-  id?: string;
-};
+export type QueryBit = { [key: string]: string };
 
 export type Clause = {
   id: string;
   searchTerm: SearchTermType;
+  queryBits: QueryBit;
   logicOperator: Operator;
-  queryInput: Input;
 };
 
 export enum Evidence {

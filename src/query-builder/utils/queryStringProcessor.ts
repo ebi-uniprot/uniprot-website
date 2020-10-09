@@ -1,33 +1,8 @@
 import { Clause, Operator, ItemType, DataType } from '../types/searchTypes';
 
-type IPrefixMap = {
-  feature: string;
-  comment: string;
-  [key: string]: string;
-};
-
 const doubleQuote = (string: string) => `"${string}"`;
 
-const getItemTypePrefix = (itemType: string) => {
-  const itemTypeToPrefixMap: IPrefixMap = {
-    feature: 'ft_',
-    comment: 'cc_',
-  };
-  return itemTypeToPrefixMap[itemType] || '';
-};
-
-const getItemTypeEvidencePrefix = (itemType: string) => {
-  const itemTypeToEvidencePrefixMap: IPrefixMap = {
-    feature: 'ftev_',
-    comment: 'ccev_',
-  };
-  return itemTypeToEvidencePrefixMap[itemType] || '';
-};
-
-const getItemTypeRangePrefix = (itemType: string) =>
-  itemType === 'feature' ? 'ftlen_' : '';
-
-const createTermString = (
+export const createTermString = (
   term: string | undefined,
   itemType: ItemType,
   stringValue = ''
@@ -38,8 +13,7 @@ const createTermString = (
   if (term === 'xref' && stringValue === '*') {
     return 'database:';
   }
-  const itemTypePrefix = getItemTypePrefix(itemType);
-  return `${itemTypePrefix}${term}${term ? ':' : ''}`;
+  return `${term}${term ? ':' : ''}`;
 };
 
 const createValueString = (
@@ -76,65 +50,10 @@ const createValueString = (
   return valueString.includes(' ') ? doubleQuote(valueString) : valueString;
 };
 
-const createSimpleSubquery = (clause: Clause) => {
-  if (clause.searchTerm.itemType === 'group') {
-    throw Error('Cannot create a query with a group term.');
-  }
-  const { itemType, term, valuePrefix } = clause.searchTerm;
-  const { stringValue = '', id } = clause.queryInput;
-  const stringValueTrimmed = stringValue.trim();
-  if (!stringValueTrimmed) {
-    throw new Error('Value not provided in query');
-  }
-  if (term === 'All') {
-    return stringValueTrimmed;
-  }
-  const termString = createTermString(term, itemType, stringValueTrimmed);
-  const valueString = createValueString(
-    term,
-    valuePrefix,
-    stringValueTrimmed,
-    id
-  );
-  return `(${termString}${valueString})`;
-};
-
-const createRangeSubquery = (clause: Clause) => {
-  const { term, itemType } = clause.searchTerm;
-  const { rangeFrom = '', rangeTo = '' } = clause.queryInput;
-  const itemTypeRangePrefix = getItemTypeRangePrefix(itemType);
-  return `(${itemTypeRangePrefix}${term}:[${rangeFrom.trim()} TO ${rangeTo.trim()}])`;
-};
-
-const getEvidenceSubquery = (clause: Clause) => {
-  const { evidenceValue = '' } = clause.queryInput;
-  const { term, itemType } = clause.searchTerm;
-  if (!evidenceValue) {
-    throw new Error('Evidence value not provided');
-  }
-  const itemTypeEvidencePrefix = getItemTypeEvidencePrefix(itemType);
-  return `(${itemTypeEvidencePrefix}${term}:${evidenceValue.trim()})`;
-};
-
 export const stringify = (clauses: Clause[] = []): string =>
   clauses.reduce((queryAccumulator: string, clause: Clause) => {
-    const query = [];
-    const {
-      id,
-      stringValue = '',
-      rangeFrom = '',
-      rangeTo = '',
-      evidenceValue = '',
-    } = clause.queryInput;
-    if (id || stringValue.trim()) {
-      query.push(createSimpleSubquery(clause));
-    }
-    if (rangeFrom.trim() || rangeTo.trim()) {
-      query.push(createRangeSubquery(clause));
-    }
-    if (evidenceValue.trim()) {
-      query.push(getEvidenceSubquery(clause));
-    }
+    const query = Object.values(clause.queryBits);
+
     let queryJoined = query.join(` ${Operator.AND} `);
     if (query.length > 1) {
       queryJoined = `(${queryJoined})`;
@@ -183,8 +102,8 @@ const getEmptyClause = (): Clause => ({
     itemType: ItemType.single,
     dataType: DataType.string,
   },
+  queryBits: {},
   logicOperator: Operator.AND,
-  queryInput: {},
 });
 
 export const parse = (queryString = ''): Clause[] => {
@@ -208,13 +127,13 @@ export const parse = (queryString = ''): Clause[] => {
       const [key, value] = splitClause(chunk);
 
       // item type
-      // if (key.startsWith('cc_')) {
-      //   currentClause.searchTerm.itemType = ItemType.comment;
-      // } else if (key.startsWith('ft')) {
-      //   currentClause.searchTerm.itemType = ItemType.feature;
-      // } else if (key === 'xref') {
-      //   currentClause.searchTerm.itemType = ItemType.database;
-      // }
+      if (key.startsWith('cc_')) {
+        currentClause.searchTerm.itemType = ItemType.comment;
+      } else if (key.startsWith('ft')) {
+        currentClause.searchTerm.itemType = ItemType.feature;
+      } else if (key === 'xref') {
+        currentClause.searchTerm.itemType = ItemType.database;
+      }
 
       // evidence
       if (evidenceKey.test(key)) {
@@ -232,21 +151,19 @@ export const parse = (queryString = ''): Clause[] => {
       if (range) {
         // range
         currentClause.queryInput = range;
-      }
-      // else if (currentClause.searchTerm.itemType === ItemType.database) {
-      //   // cross-references
-      //   if (value.includes('-')) {
-      //     // database references
-      //     const [prefix, ...rest] = value.split('-');
-      //     currentClause.searchTerm.valuePrefix = prefix;
-      //     currentClause.queryInput.stringValue = rest.join('-');
-      //   } else {
-      //     // any other references
-      //     currentClause.searchTerm.valuePrefix = 'any';
-      //     currentClause.queryInput.stringValue = value;
-      //   }
-      // }
-      else {
+      } else if (currentClause.searchTerm.itemType === ItemType.database) {
+        //   // cross-references
+        if (value.includes('-')) {
+          // database references
+          const [prefix, ...rest] = value.split('-');
+          currentClause.searchTerm.valuePrefix = prefix;
+          currentClause.queryInput.stringValue = rest.join('-');
+        } else {
+          // any other references
+          currentClause.searchTerm.valuePrefix = 'any';
+          currentClause.queryInput.stringValue = value;
+        }
+      } else {
         // "default"
         currentClause.queryInput.stringValue = value;
         if (quotedId.test(chunk)) {

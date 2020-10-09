@@ -43,8 +43,35 @@ exports[`AdvancedSearch shallow components should render 1`] = `
         <select
           id="namespace-select"
         >
-          <option>
-            uniprotkb
+          <option
+            value="uniprotkb"
+          >
+            UniProtKB
+          </option>
+          <option
+            value="uniref"
+          >
+            UniRef
+          </option>
+          <option
+            value="uniparc"
+          >
+            UniParc
+          </option>
+          <option
+            value="proteomes"
+          >
+            Proteomes
+          </option>
+          <option
+            value="publications"
+          >
+            Publications
+          </option>
+          <option
+            value="keywords"
+          >
+            Keywords
           </option>
         </select>
       </label>
@@ -210,21 +237,17 @@ exports[`AdvancedSearch shallow components should render 1`] = `
         <div
           class="advanced-search__inputs"
         >
-          <div
-            class="advanced-search__inputs"
+          <label
+            for="input_gene"
           >
-            <label
-              for="input_gene"
-            >
-              Gene Name [GN]
-              <input
-                id="input_gene"
-                placeholder="ydj1"
-                type="text"
-                value=""
-              />
-            </label>
-          </div>
+            Gene Name [GN]
+            <input
+              id="input_gene"
+              placeholder="ydj1"
+              type="text"
+              value=""
+            />
+          </label>
         </div>
         <button
           class="button tertiary button-remove"
@@ -395,7 +418,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="advanced-search__inputs"
         >
           <label
-            for="25"
+            for="15"
           >
             Taxonomy [OC]
             <div
@@ -795,7 +818,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
           class="advanced-search__inputs"
         >
           <label
-            for="26"
+            for="16"
           >
             Keyword [KW]
             <div
@@ -1005,21 +1028,17 @@ exports[`AdvancedSearch shallow components should render 1`] = `
         <div
           class="advanced-search__inputs"
         >
-          <div
-            class="advanced-search__inputs"
+          <label
+            for="input_All"
           >
-            <label
-              for="input_All"
-            >
-              All
-              <input
-                id="input_All"
-                placeholder="a4_human, P05067, cdc7 human"
-                type="text"
-                value=""
-              />
-            </label>
-          </div>
+            All
+            <input
+              id="input_All"
+              placeholder="a4_human, P05067, cdc7 human"
+              type="text"
+              value=""
+            />
+          </label>
         </div>
         <button
           class="button tertiary button-remove"

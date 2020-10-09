@@ -15,7 +15,7 @@ export const createEmptyClause = (): Clause => ({
     dataType: DataType.string,
     id: 'id_all',
   },
-  queryInput: {},
+  queryBits: {},
 });
 
 export const createPreSelectedClauses = (): Clause[] => [
@@ -30,7 +30,7 @@ export const createPreSelectedClauses = (): Clause[] => [
       dataType: DataType.string,
       id: 'id_gene',
     },
-    queryInput: {},
+    queryBits: {},
   },
   {
     id: v1(),
@@ -44,24 +44,7 @@ export const createPreSelectedClauses = (): Clause[] => [
       autoComplete: '/uniprot/api/suggester?dict=taxonomy&query=?',
       example: 'human',
     },
-    queryInput: {},
-  },
-  {
-    id: v1(),
-    logicOperator: Operator.AND,
-    searchTerm: {
-      id: 'id_reviewed',
-      label: 'Reviewed',
-      term: 'reviewed',
-      example: 'true',
-      itemType: ItemType.single,
-      dataType: DataType.enum,
-      values: [
-        { name: 'Yes', value: 'true' },
-        { name: 'No', value: 'false' },
-      ],
-    },
-    queryInput: { stringValue: 'true' },
+    queryBits: {},
   },
   {
     id: v1(),
@@ -75,7 +58,7 @@ export const createPreSelectedClauses = (): Clause[] => [
       dataType: DataType.string,
       autoComplete: '/uniprot/api/suggester?dict=keyword&query=?',
     },
-    queryInput: {},
+    queryBits: {},
   },
   createEmptyClause(),
 ];

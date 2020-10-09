@@ -1,14 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
 import { TreeSelect } from 'franklin-sites';
-import EvidenceField from './EvidenceField';
 import LogicalOperator from './LogicalOperator';
 import Field from './Field';
 import {
   Clause,
   SearchTermType,
   Operator,
-  DataType,
   ItemType,
+  QueryBit,
 } from '../types/searchTypes';
 
 // .itemType
@@ -41,28 +40,26 @@ const ClauseItem: React.FC<{
   searchTerms: SearchTermType[];
   handleLogicChange: (clauseId: string, value: Operator) => void;
   handleFieldSelect: (clauseId: string, value: SearchTermType) => void;
-  handleInputChange: (clauseId: string, value: string, id?: string) => void;
-  handleRangeInputChange: (
-    clauseId: string,
-    value: string,
-    from?: boolean
-  ) => void;
-  handleEvidenceChange: (clauseId: string, value: string) => void;
+  handleQueryChange: (clauseId: string, updatedQueryBit: QueryBit) => void;
   removeClause: (clauseId: string) => void;
 }> = ({
   clause,
   searchTerms,
   handleLogicChange,
   handleFieldSelect,
-  handleInputChange,
-  handleRangeInputChange,
-  handleEvidenceChange,
+  handleQueryChange,
   removeClause,
 }) => {
+  const handleChange = useCallback(
+    (queryBit: QueryBit) => {
+      handleQueryChange(clause.id, queryBit);
+    },
+    [clause.id, handleQueryChange]
+  );
+
   if (!clause.searchTerm) {
     return null;
   }
-
   const fieldItems = clause.searchTerm.siblings
     ? clause.searchTerm.siblings
     : [clause.searchTerm];
@@ -85,19 +82,7 @@ const ClauseItem: React.FC<{
       {fieldItems.map((siblingTerm) => {
         return (
           <div className="advanced-search__inputs" key={siblingTerm.id}>
-            <Field
-              field={siblingTerm}
-              handleInputChange={(value: string, id?: string) =>
-                handleInputChange(clause.id, value, id)
-              }
-              handleRangeInputChange={(value: string, from?: boolean) =>
-                handleRangeInputChange(clause.id, value, from)
-              }
-              handleEvidenceChange={(value: string) =>
-                handleEvidenceChange(clause.id, value)
-              }
-              queryInput={clause.queryInput}
-            />
+            <Field field={siblingTerm} handleChange={handleChange} />
           </div>
         );
       })}
@@ -135,19 +120,12 @@ const ClauseList: React.FC<ClauseListProps> = ({
 
   const handleFieldSelect = useCallback(
     (clauseId: string, searchTerm: SearchTermType) => {
-      // TODO Handle searchTerm.siblings
       setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
               ...clause,
               searchTerm,
-              queryInput:
-                searchTerm.dataType === DataType.enum &&
-                searchTerm.values &&
-                searchTerm.values.length
-                  ? { stringValue: searchTerm.values[0].value }
-                  : {},
             };
           }
           return clause;
@@ -174,17 +152,16 @@ const ClauseList: React.FC<ClauseListProps> = ({
     [setClauses]
   );
 
-  const handleInputChange = useCallback(
-    (clauseId: string, value: string, id?: string) => {
+  const handleQueryChange = useCallback(
+    (clauseId: string, updatedQueryBit: QueryBit) => {
       setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
               ...clause,
-              queryInput: {
-                ...clause.queryInput,
-                stringValue: value,
-                id,
+              queryBits: {
+                ...clause.queryBits,
+                ...updatedQueryBit,
               },
             };
           }
@@ -195,45 +172,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
     [setClauses]
   );
 
-  const handleEvidenceChange = useCallback(
-    (clauseId: string, value: string) => {
-      setClauses((clauseList) =>
-        clauseList.map((clause) => {
-          if (clause.id === clauseId) {
-            return {
-              ...clause,
-              queryInput: {
-                ...clause.queryInput,
-                evidenceValue: value,
-              },
-            };
-          }
-          return clause;
-        })
-      );
-    },
-    [setClauses]
-  );
-
-  const handleRangeInputChange = useCallback(
-    (clauseId: string, value: string, from?: boolean) => {
-      setClauses((clauseList) =>
-        clauseList.map((clause) => {
-          if (clause.id === clauseId) {
-            return {
-              ...clause,
-              queryInput: {
-                ...clause.queryInput,
-                [from ? 'rangeFrom' : 'rangeTo']: value,
-              },
-            };
-          }
-          return clause;
-        })
-      );
-    },
-    [setClauses]
-  );
+  console.log(clauses);
 
   return (
     <>
@@ -244,9 +183,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
           searchTerms={treeSelectData}
           handleLogicChange={handleLogicChange}
           handleFieldSelect={handleFieldSelect}
-          handleInputChange={handleInputChange}
-          handleRangeInputChange={handleRangeInputChange}
-          handleEvidenceChange={handleEvidenceChange}
+          handleQueryChange={handleQueryChange}
           removeClause={removeClause}
         />
       ))}

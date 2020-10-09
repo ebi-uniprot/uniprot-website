@@ -8,16 +8,13 @@ import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 import { createMemoryHistory } from 'history';
 import searchTermData from './__mocks__/configure_search-term.json';
-import annotationEvidence from './__mocks__/configure_annotation_ev.json';
-import goEvidence from './__mocks__/configure_go_ev.json';
 import apiUrls from '../../../shared/config/apiUrls';
+import { Namespace } from '../../../shared/types/namespaces';
 
 const mock = new MockAdapter(axios);
-mock.onGet(apiUrls.advancedSearchTerms).reply(200, searchTermData);
-
-mock.onGet(apiUrls.evidences.annotation).reply(200, annotationEvidence);
-
-mock.onGet(apiUrls.evidences.go).reply(200, goEvidence);
+mock
+  .onGet(apiUrls.advancedSearchTerms(Namespace.uniprotkb))
+  .reply(200, searchTermData);
 
 let rendered;
 

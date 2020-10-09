@@ -4,98 +4,51 @@ import EnumField from './EnumField';
 import TextField from './TextField';
 import AutocompleteWrapper from './AutocompleteWrapper';
 import {
-  SearchTermType,
-  Input,
   DataType,
   FieldType,
+  QueryBit,
+  SearchTermType,
 } from '../types/searchTypes';
 import EvidenceField from './EvidenceField';
 
 type FieldProps = {
   field: SearchTermType;
-  handleInputChange: (value: string, id?: string) => void;
-  handleRangeInputChange: (value: string, from?: boolean) => void;
-  handleEvidenceChange: (value: string) => void;
-  queryInput: Input;
+  handleChange: (updatedQueryBit: QueryBit) => void;
 };
 
-const Field = ({
-  field,
-  handleInputChange,
-  handleRangeInputChange,
-  handleEvidenceChange,
-  queryInput,
-}: FieldProps) => {
+const Field = ({ field, handleChange }: FieldProps) => {
   const { dataType, fieldType } = field;
 
   if (dataType === DataType.enum || dataType === DataType.boolean) {
-    return (
-      <EnumField
-        field={field}
-        handleChange={handleInputChange}
-        value={queryInput ? queryInput.stringValue : ''}
-      />
-    );
+    return <EnumField field={field} handleChange={handleChange} />;
   }
   if (dataType === DataType.date) {
-    return (
-      <RangeField
-        type="date"
-        field={field}
-        handleChange={handleRangeInputChange}
-        rangeFrom={queryInput.rangeFrom}
-        rangeTo={queryInput.rangeTo}
-      />
-    );
+    return <RangeField type="date" field={field} handleChange={handleChange} />;
   }
   if (dataType === DataType.string && fieldType === FieldType.evidence) {
-    return (
-      <EvidenceField
-        handleChange={(value: string) => handleEvidenceChange(value)}
-        value={queryInput.evidenceValue}
-        data={field.evidenceGroups}
-      />
-    );
+    return <EvidenceField handleChange={handleChange} field={field} />;
   }
-  if (dataType === DataType.string && field.autoComplete) {
-    return (
-      <AutocompleteWrapper
-        url={field.autoComplete}
-        onSelect={handleInputChange}
-        title={field.label}
-        value={queryInput.stringValue}
-      />
-    );
-  }
+  // if (dataType === DataType.string && field.autoComplete) {
+  //   return (
+  //     <AutocompleteWrapper
+  //       url={field.autoComplete}
+  //       onSelect={handleInputChange}
+  //       title={field.label}
+  //       value={queryInput.stringValue}
+  //     />
+  //   );
+  // }
   if (dataType === DataType.string) {
-    return (
-      <TextField
-        field={field}
-        handleChange={handleInputChange}
-        type="text"
-        value={queryInput.stringValue}
-      />
-    );
+    return <TextField field={field} handleChange={handleChange} type="text" />;
   }
   if (dataType === DataType.integer && fieldType === FieldType.range) {
     return (
-      <RangeField
-        field={field}
-        type="number"
-        handleChange={(value, isFrom) => handleRangeInputChange(value, isFrom)}
-        rangeFrom={queryInput.rangeFrom}
-        rangeTo={queryInput.rangeTo}
-      />
+      <RangeField field={field} type="number" handleChange={handleChange} />
     );
   }
   if (dataType === DataType.integer) {
     return (
-      <TextField
-        field={field}
-        type="number"
-        handleChange={(value) => handleInputChange(value)}
-        value={queryInput.stringValue}
-      />
+      <TextField field={field} type="number" handleChange={handleChange} />
     );
   }
   return null;

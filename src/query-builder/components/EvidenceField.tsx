@@ -1,14 +1,19 @@
-import React from 'react';
-import { EvidenceDataPoint } from '../types/searchTypes';
+import React, { useEffect, useState } from 'react';
+import { QueryBit, SearchTermType } from '../types/searchTypes';
 
 const EvidenceField: React.FC<{
-  value?: string;
-  handleChange: (value: string) => void;
-  data?: EvidenceDataPoint[];
-}> = ({ value, handleChange, data = [] }) => {
-  if (!data) {
-    return null;
-  }
+  field: SearchTermType;
+  handleChange: (queryBit: QueryBit) => void;
+  initialValue?: string;
+}> = ({ field, handleChange, initialValue = '' }) => {
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    if (value.length > 0) {
+      handleChange({ [field.id]: `(${field.term}:${value?.trim()})` });
+    }
+  }, [field, value, handleChange]);
+
   return (
     <label htmlFor="evidence_select">
       Evidence
@@ -16,9 +21,9 @@ const EvidenceField: React.FC<{
         id="evidence_select"
         data-testid="evidence-select"
         value={value}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
       >
-        {data.map((group) => (
+        {field.evidenceGroups?.map((group) => (
           <optgroup label={group.groupName} key={group.groupName}>
             {group.items.map((item: { code: string; name: string }) => (
               <option value={item.code} key={item.code}>
