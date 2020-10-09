@@ -281,17 +281,17 @@ const BlastResultTable: FC<{
     () => ({
       hsp_identity: Math.max(
         ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.flatMap((hsp) => hsp.hsp_identity)
+          hit.hit_hsps.map((hsp) => hsp.hsp_identity)
         ) ?? [100])
       ),
       hsp_bit_score: Math.max(
         ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.flatMap((hsp) => hsp.hsp_bit_score)
+          hit.hit_hsps.map((hsp) => hsp.hsp_bit_score)
         ) ?? [1])
       ),
       hsp_expect: Math.max(
         ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.flatMap((hsp) => hsp.hsp_expect)
+          hit.hit_hsps.map((hsp) => hsp.hsp_expect)
         ) ?? [1])
       ),
     }),
