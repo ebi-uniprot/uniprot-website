@@ -47,15 +47,15 @@ const splitClause = (clause: string) => {
 };
 // const quotedId = /:"[^") ]+"\)*$/;
 const evidenceKey = /^(\w\wev_)/;
-const rangeValue = /^\[(.+) TO (.+)\]$/;
-const getRangedValue = (value: string) => {
-  const match = rangeValue.exec(value);
-  if (!match) {
-    return;
-  }
-  // eslint-disable-next-line consistent-return
-  return { rangeFrom: match[1], rangeTo: match[2] };
-};
+// const rangeValue = /^\[(.+) TO (.+)\]$/;
+// const getRangedValue = (value: string) => {
+//   const match = rangeValue.exec(value);
+//   if (!match) {
+//     return;
+//   }
+//   // eslint-disable-next-line consistent-return
+//   return { rangeFrom: match[1], rangeTo: match[2] };
+// };
 const searchTermReplacer = /(cc|ft(len)?)_/;
 
 const getEmptyClause = (): Clause => ({
@@ -88,7 +88,8 @@ export const parse = (queryString = ''): Clause[] => {
         continue; // eslint-disable-line no-continue
       }
       // for every other item (even) should be the content of the clause
-      const [key, value] = splitClause(chunk);
+      // const [key, value] = splitClause(chunk);
+      const [key] = splitClause(chunk);
 
       // item type
       // if (key.startsWith('cc_')) {
