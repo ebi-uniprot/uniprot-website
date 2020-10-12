@@ -10,15 +10,13 @@ describe('Range field', () => {
     props = {
       field: {
         id: 'range_field',
-        field: {
-          label: 'Any',
-          itemType: 'feature',
-          term: 'sites',
-          dataType: 'string',
-          hasRange: true,
-          description: 'Search by feature sites',
-          example: 'translocation',
-        },
+        label: 'Any',
+        itemType: 'feature',
+        term: 'sites',
+        dataType: 'string',
+        hasRange: true,
+        description: 'Search by feature sites',
+        example: 'translocation',
         queryInput: {},
       },
       handleChange: jest.fn(),
@@ -38,6 +36,8 @@ describe('Range field', () => {
     const index = 0;
     fireEvent.change(fromNodes[index], { target: { value: 'val1' } });
     fireEvent.change(toNodes[index], { target: { value: 'val1' } });
-    expect(props.handleChange).toHaveBeenCalledTimes(2);
+    expect(props.handleChange).toHaveBeenCalledWith({
+      range_field: '(sites:[val1 TO val1])',
+    });
   });
 });

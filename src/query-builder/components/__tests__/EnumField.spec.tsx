@@ -4,6 +4,7 @@ import EnumField from '../../../query-builder/components/EnumField';
 
 const props = {
   field: {
+    id: 'protein_existence',
     label: 'Protein Existence [PE]',
     itemType: 'single',
     term: 'existence',
@@ -25,14 +26,26 @@ const props = {
   queryInput: { stringValue: '1' },
 };
 
+let rendered;
+
 describe('Enum field', () => {
+  beforeEach(() => {
+    rendered = render(<EnumField {...props} />);
+  });
+
   test('should render an enum field', () => {
-    const { asFragment, getByTestId } = render(<EnumField {...props} />);
+    const { asFragment } = rendered;
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('should select value and generate query bit', () => {
+    const { getByTestId } = rendered;
     const select = getByTestId('enum-field-select');
     expect(select.value).toBe('1');
     fireEvent.change(select, { target: { value: '2' } });
     expect(select.value).toBe('2');
-    expect(props.handleChange).toBeCalled();
-    expect(asFragment()).toMatchSnapshot();
+    expect(props.handleChange).toBeCalledWith({
+      protein_existence: '(existence:2)',
+    });
   });
 });

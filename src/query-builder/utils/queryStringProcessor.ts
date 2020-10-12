@@ -1,7 +1,5 @@
 import { Clause, Operator, ItemType, DataType } from '../types/searchTypes';
 
-const doubleQuote = (string: string) => `"${string}"`;
-
 export const createTermString = (
   term: string | undefined,
   itemType: ItemType,
@@ -14,40 +12,6 @@ export const createTermString = (
     return 'database:';
   }
   return `${term}${term ? ':' : ''}`;
-};
-
-const createValueString = (
-  term: string | undefined,
-  valuePrefix: string | undefined,
-  stringValue: string,
-  id: string | undefined
-) => {
-  if (term === undefined) {
-    throw new Error('term is undefined');
-  }
-  if (id) {
-    return doubleQuote(id);
-  }
-
-  let valueString = stringValue;
-  if (term === 'xref') {
-    if (!valuePrefix) {
-      throw new Error('valuePrefix not provided in xref query');
-    }
-    // The API will run more quickly when all database entries are
-    // requested by the user if xref-X:* becomes database:X
-    else if (stringValue === '*') {
-      valueString = valuePrefix;
-    }
-    // We are testing for term=xref and valuePrefix=any because the
-    // search API expects the valuePrefix to be ommited in this case.
-    // eg xref:foo rather than xref_any:foo
-    else if (valuePrefix !== 'any') {
-      valueString = `${valuePrefix}-${stringValue}`;
-    }
-  }
-
-  return valueString.includes(' ') ? doubleQuote(valueString) : valueString;
 };
 
 export const stringify = (clauses: Clause[] = []): string =>
@@ -81,7 +45,7 @@ const splitClause = (clause: string) => {
   }
   return [match[1], match[2]];
 };
-const quotedId = /:"[^") ]+"\)*$/;
+// const quotedId = /:"[^") ]+"\)*$/;
 const evidenceKey = /^(\w\wev_)/;
 const rangeValue = /^\[(.+) TO (.+)\]$/;
 const getRangedValue = (value: string) => {
@@ -127,50 +91,50 @@ export const parse = (queryString = ''): Clause[] => {
       const [key, value] = splitClause(chunk);
 
       // item type
-      if (key.startsWith('cc_')) {
-        currentClause.searchTerm.itemType = ItemType.comment;
-      } else if (key.startsWith('ft')) {
-        currentClause.searchTerm.itemType = ItemType.feature;
-      } else if (key === 'xref') {
-        currentClause.searchTerm.itemType = ItemType.database;
-      }
+      // if (key.startsWith('cc_')) {
+      //   currentClause.searchTerm.itemType = ItemType.comment;
+      // } else if (key.startsWith('ft')) {
+      //   currentClause.searchTerm.itemType = ItemType.feature;
+      // } else if (key === 'xref') {
+      //   currentClause.searchTerm.itemType = ItemType.database;
+      // }
 
       // evidence
       if (evidenceKey.test(key)) {
         // if it's an evidence key, mopdify the last inserted clause and skip
-        const prevClause = clauses[clauses.length - 1];
+        // const prevClause = clauses[clauses.length - 1];
         // prevClause.searchTerm.hasEvidence = true;
-        prevClause.queryInput.evidenceValue = value;
+        // prevClause.queryInput.evidenceValue = value;
         continue; // eslint-disable-line no-continue
       }
 
       // term
       currentClause.searchTerm.term = key.replace(searchTermReplacer, '');
 
-      const range = getRangedValue(value);
-      if (range) {
-        // range
-        currentClause.queryInput = range;
-      } else if (currentClause.searchTerm.itemType === ItemType.database) {
-        //   // cross-references
-        if (value.includes('-')) {
-          // database references
-          const [prefix, ...rest] = value.split('-');
-          currentClause.searchTerm.valuePrefix = prefix;
-          currentClause.queryInput.stringValue = rest.join('-');
-        } else {
-          // any other references
-          currentClause.searchTerm.valuePrefix = 'any';
-          currentClause.queryInput.stringValue = value;
-        }
-      } else {
-        // "default"
-        currentClause.queryInput.stringValue = value;
-        if (quotedId.test(chunk)) {
-          // if it's an ID and not just a full-text
-          currentClause.queryInput.id = value;
-        }
-      }
+      // const range = getRangedValue(value);
+      // if (range) {
+      //   // range
+      //   currentClause.queryInput = range;
+      // } else if (currentClause.searchTerm.itemType === ItemType.database) {
+      //   //   // cross-references
+      //   if (value.includes('-')) {
+      //     // database references
+      //     const [prefix, ...rest] = value.split('-');
+      //     currentClause.searchTerm.valuePrefix = prefix;
+      //     currentClause.queryInput.stringValue = rest.join('-');
+      //   } else {
+      //     // any other references
+      //     currentClause.searchTerm.valuePrefix = 'any';
+      //     currentClause.queryInput.stringValue = value;
+      //   }
+      // } else {
+      //   // "default"
+      //   currentClause.queryInput.stringValue = value;
+      //   if (quotedId.test(chunk)) {
+      //     // if it's an ID and not just a full-text
+      //     currentClause.queryInput.id = value;
+      //   }
+      // }
 
       clauses.push(currentClause);
     }

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
-import AutocompleteWrapper from './AutocompleteWrapper';
 import {
   DataType,
   FieldType,
@@ -10,43 +9,7 @@ import {
   SearchTermType,
 } from '../types/searchTypes';
 import EvidenceField from './EvidenceField';
-
-const AutocompleteField: React.FC<{
-  searchTerm: SearchTermType;
-  handleChange: (queryBit: QueryBit) => void;
-  initialValue?: string;
-}> = ({ searchTerm, handleChange, initialValue }) => {
-  const [value, setValue] = useState(initialValue);
-  const [selectedId, setSelectedId] = useState<string | null>();
-
-  const { autoComplete, term, label, id, autoCompleteQueryTerm } = searchTerm;
-
-  const handleSelect = (path: string, autocompleteSelectedId?: string) => {
-    setValue(path);
-    setSelectedId(autocompleteSelectedId);
-  };
-
-  useEffect(() => {
-    if (selectedId) {
-      handleChange({ [id]: `(${autoCompleteQueryTerm}:"${selectedId}")` });
-    } else {
-      handleChange({ [id]: `(${term}:${value})` });
-    }
-  }, [id, term, autoCompleteQueryTerm, selectedId, value, handleChange]);
-
-  return (
-    <>
-      {autoComplete && (
-        <AutocompleteWrapper
-          url={autoComplete}
-          onSelect={handleSelect}
-          title={label}
-          value={value}
-        />
-      )}
-    </>
-  );
-};
+import AutocompleteField from './AutocompleteField';
 
 type FieldProps = {
   field: SearchTermType;

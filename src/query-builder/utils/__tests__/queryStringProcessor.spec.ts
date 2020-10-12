@@ -7,17 +7,12 @@ import {
   exceptionThrowingTestData,
 } from './__mocks__/clauseQueryTestData';
 
-describe('search querystring stringifier', () => {
+describe.skip('search querystring stringifier', () => {
   testData.forEach(({ description, queryString, clauses }) => {
-    if (
-      description ===
-      'should handle ft range and evidence, simple id, and any query'
-    ) {
-      test(description, () => {
-        const testQueryString = stringify(clauses);
-        expect(testQueryString).toBe(queryString);
-      });
-    }
+    test(description, () => {
+      const testQueryString = stringify(clauses);
+      expect(testQueryString).toBe(queryString);
+    });
   });
   exceptionThrowingTestData.forEach(({ description, error, clauses }) => {
     test(description, () => {
@@ -30,7 +25,7 @@ describe('search querystring stringifier', () => {
 });
 
 // test by parsing then re-stringifying just to see if we end up with the same
-describe('search querystring parser', () => {
+describe.skip('search querystring parser', () => {
   testData.forEach(({ description, queryString, clauses }) => {
     test(description, () => {
       expect(stringify(parse(queryString))).toEqual(queryString);

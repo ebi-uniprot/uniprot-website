@@ -10,14 +10,6 @@ import {
   QueryBit,
 } from '../types/searchTypes';
 
-// .itemType
-// single: a simple/single type item: such as accession, gene created, this is default type.
-// Comment: this item type is for comment/annotation search
-// Feature: this item type is for feature/annotation search
-// Database: this type is for cross reference search
-// goterm: for go term search
-// Group: this item type is a group type, grouping a list of search items
-
 const modifyTree = (items: SearchTermType[]): SearchTermType[] => {
   return items.map((item) => {
     const { itemType } = item;
@@ -171,8 +163,6 @@ const ClauseList: React.FC<ClauseListProps> = ({
     },
     [setClauses]
   );
-
-  console.log(clauses);
 
   return (
     <>
