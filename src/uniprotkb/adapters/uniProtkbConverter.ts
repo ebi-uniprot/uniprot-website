@@ -42,6 +42,7 @@ export type UniProtkbAPIModel = {
   organism?: OrganismData;
   virusHosts?: OrganismData[];
   primaryAccession: string;
+  secondaryAccessions?: string[];
   uniProtkbId: string;
   proteinExistence: string;
   entryType: Exclude<EntryType, EntryType.INACTIVE>;

@@ -12,6 +12,7 @@ import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverte
 
 import { TaxonomyListView } from '../../../shared/components/entry/TaxonomyView';
 import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import AccessionsView from '../protein-data-views/AccessionsView';
 
 const NamesAndTaxonomySection: FC<{
   data: NamesAndTaxonomyUIModel;
@@ -33,6 +34,8 @@ const NamesAndTaxonomySection: FC<{
         )}
         <h3>Organism names</h3>
         <TaxonomyListView data={data.organismData} hosts={data.virusHosts} />
+        <h3>Accessions</h3>
+        <AccessionsView data={data} />
         <h3>Proteome</h3>
         <ProteomesListView data={data.proteomesData} />
         <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

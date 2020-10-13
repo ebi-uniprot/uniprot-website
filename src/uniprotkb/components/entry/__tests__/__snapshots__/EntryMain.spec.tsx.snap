@@ -1678,6 +1678,55 @@ exports[`Entry view should render 1`] = `
             </div>
           </div>
           <h3>
+            Accessions
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Primary accession
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                P21802
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Secondary accessions
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    P21802
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <h3>
             Proteome
           </h3>
         </div>
