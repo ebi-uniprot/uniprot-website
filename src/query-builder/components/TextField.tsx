@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
 
 const getStringValue = (value: string, prefix?: string) =>
   value.includes(' ')
@@ -11,10 +11,9 @@ const getStringValue = (value: string, prefix?: string) =>
 
 const TextField: React.FC<{
   field: SearchTermType;
-  type: string;
   initialValue?: QueryBit;
   handleChange: (queryBit: QueryBit) => void;
-}> = ({ field, type, handleChange, initialValue }) => {
+}> = ({ field, handleChange, initialValue }) => {
   const [value, setValue] = useState(() => initializer(field, initialValue));
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const TextField: React.FC<{
       {field.label}
       <input
         id={`input_${field.term}`}
-        type={type}
+        type={field.dataType === DataType.integer ? 'number' : 'text'}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={field.example}
