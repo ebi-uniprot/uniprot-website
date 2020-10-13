@@ -7,7 +7,7 @@ enum EntrySection {
   NamesAndTaxonomy = 'Names & Taxonomy',
   DiseaseAndDrugs = 'Disease & Drugs',
   ProteinProcessing = 'PTM/Processing',
-  Sequence = 'Sequence',
+  Sequence = 'Sequence & Isoforms',
   Structure = 'Structure',
   SubCellularLocation = 'Subcellular Location',
   ExternalLinks = 'External Links',

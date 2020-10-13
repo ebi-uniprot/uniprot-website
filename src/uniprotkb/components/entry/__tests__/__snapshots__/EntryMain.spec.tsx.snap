@@ -2425,7 +2425,7 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Sequence
+            Sequence & Isoforms
           </h2>
         </div>
         <div
