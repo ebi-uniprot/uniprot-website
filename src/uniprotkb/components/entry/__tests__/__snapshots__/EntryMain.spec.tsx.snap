@@ -2059,7 +2059,7 @@ exports[`Entry view should render 1`] = `
   </div>
   <div
     data-entry-section="true"
-    id="protein-processing"
+    id="ptm-processing"
   >
     <div
       class="card"
@@ -2071,7 +2071,7 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Protein Processing
+            PTM/Processing
           </h2>
         </div>
         <div

@@ -416,7 +416,7 @@ export const expectedEntrySectionToDatabaseCategoryOrder = [
   ['Interaction', ['PPI', 'CHEMISTRY']],
   ['Names & Taxonomy', ['ORG', 'GMA']],
   ['Disease & Drugs', ['ORG', 'CHEMISTRY', 'PMD', 'PFAM']],
-  ['Protein Processing', ['PROTEOMIC', '2DG', 'PTM']],
+  ['PTM/Processing', ['PROTEOMIC', '2DG', 'PTM']],
   ['Sequence', ['SEQ', 'GMA']],
   ['Structure', ['3DS', 'OTHER']],
   ['External Links', ['OTHER', 'PAM', 'ORG', '3DS']],
