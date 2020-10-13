@@ -56,7 +56,10 @@ export type SequenceUIModel = {
   molWeight?: number;
 };
 
-const sequenceKeywords = [KeywordCategory.CODING_SEQUENCE_DIVERSITY];
+const sequenceKeywords = [
+  KeywordCategory.CODING_SEQUENCE_DIVERSITY,
+  KeywordCategory.TECHNICAL_TERM,
+];
 
 const sequenceFeatures = [
   FeatureType.COMPBIAS,
