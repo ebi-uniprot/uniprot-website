@@ -1,8 +1,8 @@
-import convertPathologyAndBiotech from '../pathologyAndBiotechConverter';
+import diseaseAndDrugs from '../diseaseAndDrugs';
 import modelData from '../../__mocks__/entryModelData.json';
 import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
 
-describe('Pathology/Biotech data converter', () => {
+describe('Disease and Drugs data converter', () => {
   beforeAll(() => {
     modelData.uniProtKBCrossReferences = convertXrefProperties(
       modelData.uniProtKBCrossReferences
@@ -10,7 +10,7 @@ describe('Pathology/Biotech data converter', () => {
   });
 
   test('should convert the data', () => {
-    const convertedData = convertPathologyAndBiotech(modelData);
+    const convertedData = diseaseAndDrugs(modelData);
     expect(convertedData).toEqual({
       commentsData: new Map([
         [

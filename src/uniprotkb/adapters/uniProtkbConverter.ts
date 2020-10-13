@@ -1,7 +1,7 @@
 import EntrySection from '../types/entrySection';
 import convertFunction from './functionConverter';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
-import convertPathologyAndBiotech from './pathologyAndBiotechConverter';
+import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import {
   convertNamesAndTaxonomy,
   NamesAndTaxonomyUIModel,
@@ -121,7 +121,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Function]: convertFunction(dataCopy),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
-    [EntrySection.DiseaseAndDrugs]: convertPathologyAndBiotech(dataCopy),
+    [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(dataCopy),
     [EntrySection.ProteinProcessing]: convertProteinProcessing(dataCopy),
     [EntrySection.Expression]: convertExpression(dataCopy),
     [EntrySection.Interaction]: convertInteraction(dataCopy),

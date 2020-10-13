@@ -18,7 +18,7 @@ const commentsCategories = [
   CommentType.PHARMACEUTICAL,
 ];
 
-const convertPathologyAndBiotech = (data: UniProtkbAPIModel) => {
+const convertDiseaseAndDrugs = (data: UniProtkbAPIModel) => {
   return convertSection(
     data,
     commentsCategories,
@@ -28,4 +28,4 @@ const convertPathologyAndBiotech = (data: UniProtkbAPIModel) => {
   );
 };
 
-export default convertPathologyAndBiotech;
+export default convertDiseaseAndDrugs;

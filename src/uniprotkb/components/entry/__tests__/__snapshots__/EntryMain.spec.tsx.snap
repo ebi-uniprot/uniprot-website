@@ -1816,7 +1816,7 @@ exports[`Entry view should render 1`] = `
   </div>
   <div
     data-entry-section="true"
-    id="pathology-and-biotech"
+    id="disease-and-drugs"
   >
     <div
       class="card"
@@ -1828,7 +1828,7 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Pathology & BioTech
+            Disease & Drugs
           </h2>
         </div>
         <div
