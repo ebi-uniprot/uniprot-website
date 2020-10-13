@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-const initializer = (field: SearchTermType, initialValue: QueryBit) => () => {
+const initializer = (field: SearchTermType, initialValue?: QueryBit) => () => {
   if (!(initialValue && initialValue[field.term])) {
     console.log(field.term, 'no initial value');
     return '';
@@ -14,14 +14,28 @@ const initializer = (field: SearchTermType, initialValue: QueryBit) => () => {
     return '';
   }
   const [, value] = match;
-  if (
-    field.regex &&
-    field.regex !== undefined &&
-    !new RegExp(field.regex).test(value)
-  ) {
-    console.log(field.term, 'invalid value');
-    return '';
+
+  // regular expression matching
+  if (field.regex && field.regex !== undefined) {
+    const { regex } = field;
+    let re: RegExp;
+    if (regex.startsWith('(?i)')) {
+      re = new RegExp(regex.replace('(?i)', 'i'));
+    } else {
+      re = new RegExp(regex);
+    }
+    if (!re.test(value)) {
+      console.log(field.term, 'invalid value (regex)');
+      return '';
+    }
   }
+  // enum matching
+  if (field.values && Array.isArray(field.values)) {
+    if (field.values.map(({ value }) => value).includes(value)) {
+      console.log(field.term, 'invalid value (values)');
+    }
+  }
+
   return value;
 };
 
