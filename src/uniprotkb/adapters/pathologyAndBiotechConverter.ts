@@ -24,7 +24,7 @@ const convertPathologyAndBiotech = (data: UniProtkbAPIModel) => {
     commentsCategories,
     keywordsCategories,
     featuresCategories,
-    EntrySection.PathologyAndBioTech
+    EntrySection.DiseaseAndDrugs
   );
 };
 

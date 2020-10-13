@@ -65,7 +65,7 @@ export type UniProtkbUIModel = {
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
-  [EntrySection.PathologyAndBioTech]: UIModel;
+  [EntrySection.DiseaseAndDrugs]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
@@ -121,7 +121,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Function]: convertFunction(dataCopy),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
-    [EntrySection.PathologyAndBioTech]: convertPathologyAndBiotech(dataCopy),
+    [EntrySection.DiseaseAndDrugs]: convertPathologyAndBiotech(dataCopy),
     [EntrySection.ProteinProcessing]: convertProteinProcessing(dataCopy),
     [EntrySection.Expression]: convertExpression(dataCopy),
     [EntrySection.Interaction]: convertInteraction(dataCopy),

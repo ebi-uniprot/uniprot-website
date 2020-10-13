@@ -2,7 +2,7 @@ import React from 'react';
 
 import FunctionSection from '../components/entry/FunctionSection';
 import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
-import PathologyAndBiotechSection from '../components/entry/PathologyAndBiotechSection';
+import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
 import ProteinProcessingSection from '../components/entry/ProteinProcessingSection';
 import ExpressionSection from '../components/entry/ExpressionSection';
 import SubcellularLocationSection from '../components/entry/SubcellularLocationSection';
@@ -55,14 +55,14 @@ const UniProtKBEntryConfig: {
     ),
   },
   {
-    name: EntrySection.PathologyAndBioTech,
-    id: EntrySectionIDs[EntrySection.PathologyAndBioTech],
+    name: EntrySection.DiseaseAndDrugs,
+    id: EntrySectionIDs[EntrySection.DiseaseAndDrugs],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
-      <PathologyAndBiotechSection
-        data={data[EntrySection.PathologyAndBioTech]}
+      <DiseaseAndDrugsSection
+        data={data[EntrySection.DiseaseAndDrugs]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
-        key={EntrySection.PathologyAndBioTech}
+        key={EntrySection.DiseaseAndDrugs}
       />
     ),
   },
