@@ -1,191 +1,192 @@
 export const testData = [
   {
-    description: 'should generate simple query',
-    queryString: '(id:blah)',
+    description: 'should parse simple query with quotes',
+    queryString: '(id:"blah blah")',
     clauses: [
       {
         searchTerm: {
-          id: 'id_id',
+          id: 'id_field',
           label: 'Entry Name [ID]',
           itemType: 'single',
           term: 'id',
           dataType: 'string',
-          description: 'Search by UniProtKB entry name',
+          fieldType: 'general',
           example: 'P53_HUMAN',
         },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
+        queryBits: {
+          id_field: '(id:"blah blah")',
         },
       },
     ],
   },
   {
-    description:
-      'should generate simple query with padded spaces around stringVaule',
-    queryString: '(id:blah)',
+    description: 'should parse autocomplete free text',
+    queryString: '(organism_name:"Homo sap")',
     clauses: [
       {
         searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: ' blah ',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should generate query with value surrounded by double quotes when stringValue has a space',
-    queryString: '(id:"foo bar")',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'foo bar',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should search with id if term one is present',
-    queryString: '(cc_scl_term:"SL-12345")',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_scl_term',
-          label: 'Subcellular location term',
-          itemType: 'comment',
-          term: 'cc_scl_term',
-          dataType: 'string',
-          hasEvidence: true,
-          autoComplete: '/uniprot/api/suggester?dict=subcell&query=?',
-          description: 'Search by comment subcellular location term',
-          example: 'membrane',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-          id: 'SL-12345',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should append _id to term if termSuffix=true and id is present',
-    queryString: '(organism_id:"1234")',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_organism',
+          id: 'organism_name_field',
           label: 'Organism [OS]',
           itemType: 'single',
-          term: 'organism',
+          term: 'organism_name',
           dataType: 'string',
-          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
-          description: 'Search by Organism name',
+          fieldType: 'general',
           example: 'saccharomyces',
-          termSuffix: true,
+          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
+          autoCompleteQueryTerm: 'organism_id',
         },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-          id: '1234',
+        queryBits: {
+          organism_name_field: '(organism_name:"Homo sap")',
         },
       },
     ],
   },
   {
-    description:
-      'should append _name to term if termSuffix=true and id is not present',
-    queryString: '(organism_name:blah)',
+    description: 'should parse autocomplete id',
+    queryString: '(organism_name:"blah blah")',
     clauses: [
       {
         searchTerm: {
-          id: 'id_organism',
+          id: 'organism_name_field',
           label: 'Organism [OS]',
           itemType: 'single',
-          term: 'organism',
+          term: 'organism_name',
           dataType: 'string',
-          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
-          description: 'Search by Organism name',
+          fieldType: 'general',
           example: 'saccharomyces',
-          termSuffix: true,
+          autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
+          autoCompleteQueryTerm: 'organism_id',
         },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
+        queryBits: {
+          organism_name_field: '(organism_id:9606)',
         },
       },
     ],
   },
   {
-    description: 'should handle enzyme classification [EC] search with an ID',
-    queryString: '(ec:"1.2.3.4")',
+    description: 'should handle range',
+    queryString: '(ftlen_sites:[10 TO 100])',
     clauses: [
       {
         searchTerm: {
-          id: 'id_ec',
-          label: 'Enzyme classification [EC]',
+          id: 'ftlen_sites',
           itemType: 'single',
-          term: 'ec',
-          dataType: 'string',
-          autoComplete: '/uniprot/api/suggester?dict=ec&query=?',
-          description: 'Search by Enzyme EC number',
-          example: '1.1.2.3',
+          term: 'ftlen_sites',
+          dataType: 'integer',
+          fieldType: 'range',
+          example: '[0 TO 100]',
         },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'foo [1.2.3.4]',
-          id: '1.2.3.4',
+        queryBits: {
+          ftlen_sites: '(ftlen_sites:[10 TO 100])',
+        },
+      },
+    ],
+  },
+  {
+    description: 'should handle date range',
+    queryString: '(date_created:[2018-03-04 TO 2018-03-08])',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'date_created',
+          label: 'Date Of Creation',
+          itemType: 'single',
+          term: 'date_created',
+          dataType: 'date',
+          fieldType: 'range',
+          example: '[2018-03-04 TO 2018-03-08]',
+        },
+        queryBits: {
+          date_created: '(date_created:[2018-03-04 TO 2018-03-08])',
+        },
+      },
+    ],
+  },
+  {
+    description: 'should handle enum',
+    queryString: '(existence:predicted)',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'existence',
+          label: 'Protein Existence [PE]',
+          itemType: 'single',
+          term: 'existence',
+          dataType: 'enum',
+          fieldType: 'general',
+          example: '1',
+          values: [
+            {
+              name: 'Evidence at protein level',
+              value: 'protein_level',
+            },
+            {
+              name: 'Evidence at transcript level',
+              value: 'transcript_level',
+            },
+            {
+              name: 'Inferred from homology',
+              value: 'homology',
+            },
+            {
+              name: 'Predicted',
+              value: 'predicted',
+            },
+            {
+              name: 'Uncertain',
+              value: 'uncertain',
+            },
+          ],
+        },
+        queryBits: {
+          existence: '(existence:predicted)',
+        },
+      },
+    ],
+  },
+  {
+    description: 'should handle xrefs',
+    queryString: '(xref:pdb-Something)',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'xref_pdb',
+          label: 'PDB',
+          itemType: 'single',
+          term: 'xref',
+          dataType: 'string',
+          fieldType: 'general',
+          valuePrefix: 'pdb-',
+        },
+        queryBits: {
+          xref_pdb: '(xref:pdb-Something)',
+        },
+      },
+    ],
+  },
+  {
+    description: 'should handle any xrefs',
+    queryString: '(xref:Something)',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'id_xref_any',
+          label: 'Any cross-reference',
+          itemType: 'database',
+          term: 'xref',
+          dataType: 'string',
+          valuePrefix: 'any',
+        },
+        queryBits: {
+          id_xref_any: '(xref:Something)',
         },
       },
     ],
   },
   {
     description:
-      'should handle enzyme classification [EC] search without an ID',
-    queryString: '(ec:foo)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_ec',
-          label: 'Enzyme classification [EC]',
-          itemType: 'single',
-          term: 'ec',
-          dataType: 'string',
-          autoComplete: '/uniprot/api/suggester?dict=ec&query=?',
-          description: 'Search by Enzyme EC number',
-          example: '1.1.2.3',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'foo',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should ignore empty fields',
-    queryString: '',
+      'should handle an "All" query (eg without a specific field selected)',
+    queryString: 'blah',
     clauses: [
       {
         searchTerm: {
@@ -196,70 +197,95 @@ export const testData = [
           dataType: 'string',
           example: 'a4_human, P05067, cdc7 human',
         },
-        logicOperator: 'AND',
-        queryInput: {},
+        queryBits: {
+          id_all: 'blah',
+        },
       },
     ],
   },
   {
-    description: 'should handle cc evidence tags',
-    queryString:
-      '((cc_cofactor_chebi:"CHEBI:12345") AND (ccev_cofactor_chebi:blahvidence))',
+    description:
+      'if embl xref selected and * value provided should generate query: database:embl',
+    queryString: '(database:embl)',
     clauses: [
       {
         searchTerm: {
-          id: 'id_cofactor_chebi',
-          label: 'ChEBI term',
-          itemType: 'comment',
-          term: 'cofactor_chebi',
+          id: 'id_xref_embl',
+          label: 'EMBL',
+          itemType: 'database',
+          term: 'xref',
           dataType: 'string',
-          hasEvidence: true,
-          autoComplete: '/uniprot/api/suggester?dict=chebi&query=?',
-          description: 'Search by cofactor chebi ',
-          example: '29105',
+          valuePrefix: 'embl',
         },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah [CHEBI:12345]',
-          id: 'CHEBI:12345',
-          evidenceValue: 'blahvidence',
+        queryBits: {
+          id_xref_embl: '(database:embl)',
         },
       },
     ],
   },
   {
-    description: 'should handle ft evidence tags',
-    queryString: '((ft_ca_bind:blah) AND (ftev_ca_bind:blahvidence))',
+    description: 'should handle simple OR query with 2 clauses',
+    queryString: '((id:blah) OR (protein_name:"My protein"))',
     clauses: [
       {
         searchTerm: {
-          id: 'calcium_binding',
-          label: 'Calcium binding',
+          id: 'id_field',
+          label: 'Entry Name [ID]',
+          itemType: 'single',
+          term: 'id',
+          dataType: 'string',
+          fieldType: 'general',
+          example: 'P53_HUMAN',
+        },
+        queryBits: {
+          id_field: '(id:blah)',
+        },
+      },
+      {
+        searchTerm: {
+          id: 'protein_name_field',
+          label: 'Protein Name [DE]',
+          itemType: 'single',
+          term: 'protein_name',
+          dataType: 'string',
+          fieldType: 'general',
+          example: 'mas5',
+        },
+        logicOperator: 'OR',
+        queryBits: {
+          protein_name_field: '(protein_name:"My protein")',
+        },
+      },
+    ],
+  },
+  {
+    description: 'should handle siblings with evidence tags',
+    queryString:
+      '((cc_cofactor_chebi:"CHEBI:12345") AND (ccev_cofactor_chebi:manual))',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'chebi_term',
+          label: 'ChEBI term',
           itemType: 'sibling_group',
-          items: [
+          siblings: [
             {
-              id: 'ft_ca_bind',
+              id: 'cc_cofactor_chebi',
               itemType: 'single',
-              term: 'ft_ca_bind',
+              term: 'cc_cofactor_chebi',
               dataType: 'string',
               fieldType: 'general',
-              example: 'site',
+              example: '29105',
+              autoComplete: '/uniprot/api/suggester?dict=chebi&query=?',
+              autoCompleteQueryTerm: 'cc_cofactor_chebi',
             },
             {
-              id: 'ftlen_ca_bind',
+              id: 'ccev_cofactor_chebi',
               itemType: 'single',
-              term: 'ftlen_ca_bind',
-              dataType: 'integer',
-              fieldType: 'range',
-              example: '[0 TO 100]',
-            },
-            {
-              id: 'ftev_ca_bind',
-              itemType: 'single',
-              term: 'ftev_ca_bind',
+              term: 'ccev_cofactor_chebi',
               dataType: 'string',
               fieldType: 'evidence',
-              example: 'any',
+              example: 'manual',
               evidenceGroups: [
                 {
                   groupName: 'Any',
@@ -286,530 +312,99 @@ export const testData = [
             },
           ],
         },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-          evidenceValue: 'blahvidence',
+        queryBits: {
+          cc_cofactor_chebi: '(cc_cofactor_chebi:"CHEBI:12345")',
+          ccev_cofactor_chebi: '(ccev_cofactor_chebi:manual)',
         },
       },
     ],
   },
   {
-    description:
-      'should evidence query with padded spaces around evidence string input',
-    queryString: '((ft_ca_bind:blah) AND (ftev_ca_bind:blahvidence))',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_ca_bind',
-          label: 'Calcium binding',
-          itemType: 'feature',
-          term: 'ca_bind',
-          dataType: 'string',
-          hasRange: true,
-          hasEvidence: true,
-          description: 'Search by feature calcium binding',
-          example: 'site',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-          evidenceValue: '        blahvidence    ',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle range',
-    queryString: '(ftlen_sites:[10 TO 100])',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_sites',
-          label: 'Any',
-          itemType: 'feature',
-          term: 'ftlen_sites',
-          dataType: 'string',
-          hasRange: true,
-          hasEvidence: true,
-          description: 'Search by feature sites',
-          example: 'translocation',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          rangeFrom: '10',
-          rangeTo: '100',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should handle range with padded space around the input rangeFrom and rangeTo',
-    queryString: '(ftlen_sites:[10 TO 100])',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_sites',
-          label: 'Any',
-          itemType: 'feature',
-          term: 'ftlen_sites',
-          dataType: 'string',
-          hasRange: true,
-          hasEvidence: true,
-          description: 'Search by feature sites',
-          example: 'translocation',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          rangeFrom: ' 10 ',
-          rangeTo: ' 100 ',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle ft range and evidence',
-    queryString: '((ftlen_sites:[10 TO 100]) AND (ftev_sites:blahvidence))',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_sites',
-          label: 'Any',
-          itemType: 'feature',
-          term: 'ftev_sites',
-          dataType: 'string',
-          hasRange: true,
-          hasEvidence: true,
-          description: 'Search by feature sites',
-          example: 'translocation',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          rangeFrom: '10',
-          rangeTo: '100',
-          evidenceValue: 'blahvidence',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle date range',
-    queryString: '(date_created:[2018-03-04 TO 2018-03-08])',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_created',
-          label: 'Date Of Creation',
-          itemType: 'single',
-          term: 'date_created',
-          dataType: 'date',
-          hasRange: true,
-          description: 'Search by Date of creation',
-          example: '[2018-03-04 TO 2018-03-08]',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          rangeFrom: '2018-03-04',
-          rangeTo: '2018-03-08',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle xrefs',
-    queryString: '(xref:pdb-Something)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_xref_pdb',
-          label: 'PDB',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-          valuePrefix: 'pdb',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'Something',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle xrefs when input string value has spaces',
-    queryString: '(xref:"pdb-Something or another")',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_xref_pdb',
-          label: 'PDB',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-          valuePrefix: 'pdb',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'Something or another',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle any xrefs',
-    queryString: '(xref:Something)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_xref_any',
-          label: 'Any cross-reference',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-          valuePrefix: 'any',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'Something',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should generate simple query from two subqueries joined by an AND',
-    queryString: '(id:blah) AND (id:foo)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'foo',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should generate simple query from two subqueries joined by an OR',
-    queryString: '(id:blah) OR (id:foo)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'OR',
-        queryInput: {
-          stringValue: 'foo',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should generate simple query with a NOT',
-    queryString: 'NOT (id:blah)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'NOT',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should handle single cc query',
-    queryString: '(cc_cofactor_chebi:"CHEBI:12345")',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_cofactor_chebi',
-          label: 'ChEBI term',
-          itemType: 'comment',
-          term: 'cc_cofactor_chebi',
-          dataType: 'string',
-          hasEvidence: true,
-          autoComplete: '/uniprot/api/suggester?dict=chebi&query=?',
-          description: 'Search by cofactor chebi ',
-          example: '29105',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah [CHEBI:12345]',
-          id: 'CHEBI:12345',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should handle an "All" query (eg without a specific field selected)',
-    queryString: 'blah',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_all',
-          label: 'All',
-          itemType: 'single',
-          term: 'All',
-          dataType: 'string',
-          example: 'a4_human, P05067, cdc7 human',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should handle an "All" query (eg without a specific field selected) with a NOT logic operator',
-    queryString: 'NOT blah',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_all',
-          label: 'All',
-          itemType: 'single',
-          term: 'All',
-          dataType: 'string',
-          example: 'a4_human, P05067, cdc7 human',
-        },
-        logicOperator: 'NOT',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'An implicit "All" joined to by an OR to a id search - mixes unbracketed and bracketed terms',
-    queryString: 'blah OR (id:foo)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_all',
-          label: 'All',
-          itemType: 'single',
-          term: 'All',
-          dataType: 'string',
-          example: 'a4_human, P05067, cdc7 human',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          term: 'id',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'OR',
-        queryInput: {
-          stringValue: 'foo',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'should handle ft range and evidence, simple id, and any query',
+    description: 'should handle more complex query',
     queryString:
-      'NOT ((ftlen_sites:[10 TO 100]) AND (ftev_sites:blahvidence)) OR (id:foo) NOT blah',
+      '(((ft_sites:my_site) AND (ftlen_sites:[10 TO 20]) AND (ftev_sites:automatic))AND (gene:my_gene))',
     clauses: [
       {
         searchTerm: {
-          id: 'sites_any',
-          label: 'Any',
-          itemType: 'sibling_group',
+          id: 'sites',
+          label: 'Sites',
+          itemType: 'group',
           siblings: [
             {
-              id: 'ft_sites',
-              itemType: 'single',
-              term: 'ft_sites',
-              dataType: 'string',
-              fieldType: 'general',
-              example: 'translocation',
-            },
-            {
-              id: 'ftlen_sites',
-              itemType: 'single',
-              term: 'ftlen_sites',
-              dataType: 'integer',
-              fieldType: 'range',
-              example: '[0 TO 100]',
-            },
-            {
-              id: 'ftev_sites',
-              itemType: 'single',
-              term: 'ftev_sites',
-              dataType: 'string',
-              fieldType: 'evidence',
-              example: 'manual',
-              evidenceGroups: [{}],
+              id: 'sites_any',
+              label: 'Any',
+              itemType: 'sibling_group',
+              items: [
+                {
+                  id: 'ft_sites',
+                  itemType: 'single',
+                  term: 'ft_sites',
+                  dataType: 'string',
+                  fieldType: 'general',
+                  example: 'translocation',
+                },
+                {
+                  id: 'ftlen_sites',
+                  itemType: 'single',
+                  term: 'ftlen_sites',
+                  dataType: 'integer',
+                  fieldType: 'range',
+                  example: '[0 TO 100]',
+                },
+                {
+                  id: 'ftev_sites',
+                  itemType: 'single',
+                  term: 'ftev_sites',
+                  dataType: 'string',
+                  fieldType: 'evidence',
+                  example: 'manual',
+                  evidenceGroups: [
+                    {
+                      groupName: 'Any',
+                      items: [
+                        {
+                          name: 'Any assertion method',
+                          code: 'any',
+                        },
+                        {
+                          name: 'Any manual assertion',
+                          code: 'manual',
+                        },
+                        {
+                          name: 'Any automatic assertion',
+                          code: 'automatic',
+                        },
+                        {
+                          name: 'Any experimental assertion',
+                          code: 'experimental',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
-        logicOperator: 'NOT',
-        queryInput: {
-          rangeFrom: '10',
-          rangeTo: '100',
-          evidenceValue: 'blahvidence',
+        queryBits: {
+          ft_sites: '(ft_sites:my_site)',
+          ftlen_sites: '(ftlen_sites:[10 TO 20])',
+          ftev_sites: '(ftev_sites:automatic)',
         },
       },
       {
         searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
+          id: 'gene_field',
+          label: 'Gene Name [GN]',
           itemType: 'single',
-          term: 'id',
+          term: 'gene',
           dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'OR',
-        queryInput: {
-          stringValue: 'foo',
-        },
-      },
-      {
-        searchTerm: {
-          id: 'id_all',
-          label: 'All',
-          itemType: 'single',
-          term: 'All',
-          dataType: 'string',
-          example: 'a4_human, P05067, cdc7 human',
-        },
-        logicOperator: 'NOT',
-        queryInput: {
-          stringValue: 'blah',
-        },
-      },
-    ],
-  },
-  {
-    description:
-      'if embl xref selected and * value provided should generate query: database:embl',
-    queryString: '(database:embl)',
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_xref_embl',
-          label: 'EMBL',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-          valuePrefix: 'embl',
+          fieldType: 'general',
+          example: 'ydj1',
         },
         logicOperator: 'AND',
-        queryInput: {
-          stringValue: '*',
-        },
-      },
-    ],
-  },
-];
-
-export const exceptionThrowingTestData = [
-  {
-    description: 'should throw "term is undefined" Error',
-    error: Error('term is undefined'),
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_id',
-          label: 'Entry Name [ID]',
-          itemType: 'single',
-          dataType: 'string',
-          description: 'Search by UniProtKB entry name',
-          example: 'P53_HUMAN',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
-          id: '1234',
-        },
-      },
-    ],
-  },
-  {
-    description: 'should throw "valuePrefix not provided in xref query" Error',
-    error: Error('valuePrefix not provided in xref query'),
-    clauses: [
-      {
-        searchTerm: {
-          id: 'id_xref_embl',
-          label: 'EMBL',
-          itemType: 'database',
-          term: 'xref',
-          dataType: 'string',
-        },
-        logicOperator: 'AND',
-        queryInput: {
-          stringValue: 'blah',
+        queryBits: {
+          gene_field: '(gene:my_gene)',
         },
       },
     ],

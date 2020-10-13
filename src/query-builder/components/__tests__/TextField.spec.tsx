@@ -101,5 +101,25 @@ describe('TextField', () => {
     });
   });
 
-  // TODO test (database:any)
+  test('should generate correct query for database *', () => {
+    const propsPrefix = {
+      field: {
+        id: 'prefix',
+        label: 'prefixed',
+        itemType: 'single',
+        term: 'database',
+        description: 'Search by UniProtKB Accession',
+        example: 'Prefix',
+        valuePrefix: 'embl',
+      },
+      type: 'text',
+      handleChange: jest.fn(),
+    };
+    const { getByPlaceholderText } = render(<TextField {...propsPrefix} />);
+    const inputElt = getByPlaceholderText('Prefix');
+    fireEvent.change(inputElt, { target: { value: '*' } });
+    expect(propsPrefix.handleChange).toBeCalledWith({
+      [propsPrefix.field.id]: `(database:embl)`,
+    });
+  });
 });

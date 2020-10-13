@@ -4,13 +4,6 @@ import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-// TODO add that back in
-//     // The API will run more quickly when all database entries are
-//     // requested by the user if xref-X:* becomes database:X
-//     else if (stringValue === '*') {
-//       valueString = valuePrefix;
-//     }
-
 const getStringValue = (value: string, prefix?: string) =>
   value.includes(' ')
     ? `"${prefix ? `${prefix}` : ''}${value?.trim()}"`
@@ -29,6 +22,15 @@ const TextField: React.FC<{
       if (field.term === 'All') {
         handleChange({
           [field.id]: value?.trim(),
+        });
+      } else if (
+        field.valuePrefix &&
+        field.term === 'database' &&
+        value.trim() === '*'
+      ) {
+        // Query is faster with this hack
+        handleChange({
+          [field.id]: `(${field.term}:${field.valuePrefix})`,
         });
       } else {
         handleChange({
