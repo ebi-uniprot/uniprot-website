@@ -1,13 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
+const initializer = (field: SearchTermType, initialValue: QueryBit) => () => {
+  if (!(initialValue && initialValue[field.term])) {
+    console.log(field.term, 'no initial value');
+    return '';
+  }
+  const match = new RegExp(`^\\(${'fragment'}:(\\w*)\\)$`).exec(
+    initialValue[field.term]
+  );
+  if (!match) {
+    console.log(field.term, 'invalid queryBit');
+    return '';
+  }
+  const [, value] = match;
+  if (
+    field.regex &&
+    field.regex !== undefined &&
+    !new RegExp(field.regex).test(value)
+  ) {
+    console.log(field.term, 'invalid value');
+    return '';
+  }
+  return value;
+};
+
 const EnumField: React.FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
-  initialValue?: string;
-}> = ({ field, handleChange, initialValue = '' }) => {
+  initialValue?: QueryBit;
+}> = ({ field, handleChange, initialValue }) => {
   // should initialValue be initialised to the first item?
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState(initializer(field, initialValue));
 
   useEffect(() => {
     if (value.length > 0) {

@@ -33,7 +33,7 @@ export type SearchTermType = {
   id: string;
   label: string;
   itemType: ItemType;
-  term?: string;
+  term: string;
   dataType?: DataType;
   fieldType?: FieldType;
   example?: string;
@@ -50,7 +50,7 @@ export type SearchTermType = {
   siblings?: SearchTermType[];
 };
 
-export type QueryBit = { [key: string]: string };
+export type QueryBit = Record<string, string>;
 
 export type Clause = {
   id: string;
