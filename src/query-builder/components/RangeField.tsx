@@ -9,9 +9,10 @@ const RangeField: React.FC<{
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;
 }> = ({ field, handleChange, initialValue }) => {
-  const [[from, to], setRange] = useState<[from: string, to: string]>(() =>
-    initializer(field, initialValue)
-  );
+  const [[from, to], setRange] = useState<[from: string, to: string]>(() => {
+    const range = initializer(field, initialValue);
+    return Array.isArray(range) ? range : ['', ''];
+  });
 
   useEffect(() => {
     if (from.length > 0 && to.length > 0) {

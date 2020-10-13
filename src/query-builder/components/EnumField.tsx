@@ -10,7 +10,9 @@ const EnumField: React.FC<{
   initialValue?: QueryBit;
 }> = ({ field, handleChange, initialValue }) => {
   // should initialValue be initialised to the first item?
-  const [value, setValue] = useState(() => initializer(field, initialValue));
+  const [value, setValue] = useState(
+    () => initializer(field, initialValue) as string
+  );
 
   useEffect(() => {
     if (value.length > 0) {

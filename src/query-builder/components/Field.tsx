@@ -43,7 +43,17 @@ const Field: FC<FieldProps> = ({ field, handleChange }: FieldProps) => {
       GenericField = TextField;
   }
 
-  return <GenericField field={field} handleChange={handleChange} />;
+  return (
+    <GenericField
+      field={field}
+      handleChange={handleChange}
+      // test
+      // initialValue={{
+      //   id_gene: '(gene:ydj1)',
+      //   id_all: 'free text',
+      // }}
+    />
+  );
 };
 
 export default Field;

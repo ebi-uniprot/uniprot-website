@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, MouseEvent, useState } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { PageIntro } from 'franklin-sites';
 import ClauseList from './ClauseList';
 import { Clause, SearchTermType } from '../types/searchTypes';
@@ -103,4 +103,4 @@ const AdvancedSearch: FC = () => {
   );
 };
 
-export default withRouter(AdvancedSearch);
+export default AdvancedSearch;

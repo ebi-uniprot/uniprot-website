@@ -11,10 +11,12 @@ const getStringValue = (value: string, prefix?: string) =>
 
 const TextField: React.FC<{
   field: SearchTermType;
-  initialValue?: QueryBit;
   handleChange: (queryBit: QueryBit) => void;
+  initialValue?: QueryBit;
 }> = ({ field, handleChange, initialValue }) => {
-  const [value, setValue] = useState(() => initializer(field, initialValue));
+  const [value, setValue] = useState(
+    () => initializer(field, initialValue) as string
+  );
 
   useEffect(() => {
     if (value.length > 0) {

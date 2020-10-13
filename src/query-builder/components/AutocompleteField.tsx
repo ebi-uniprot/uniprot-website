@@ -11,7 +11,9 @@ const AutocompleteField: React.FC<{
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;
 }> = ({ field, handleChange, initialValue }) => {
-  const [value, setValue] = useState(() => initializer(field, initialValue));
+  const [value, setValue] = useState(
+    () => initializer(field, initialValue) as string
+  );
   const [selectedId, setSelectedId] = useState<string | null>();
 
   const { autoComplete, term, label, id, autoCompleteQueryTerm } = field;
