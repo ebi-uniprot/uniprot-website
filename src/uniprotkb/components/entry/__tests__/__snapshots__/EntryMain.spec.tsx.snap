@@ -2848,5 +2848,14 @@ exports[`Entry view should render 1`] = `
       </section>
     </div>
   </div>
+  <div
+    class="hero-container"
+  >
+    <section>
+      <em>
+        Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
+      </em>
+    </section>
+  </div>
 </DocumentFragment>
 `;
