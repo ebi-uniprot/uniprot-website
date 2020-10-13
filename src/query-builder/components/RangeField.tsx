@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
+import initializer from '../utils/fieldInitializer';
+
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
 const RangeField: React.FC<{
   field: SearchTermType;
   type?: string;
   handleChange: (queryBit: QueryBit) => void;
-  initialRangeFrom?: string;
-  initialRangeTo?: string;
-}> = ({
-  field,
-  type,
-  handleChange,
-  initialRangeFrom = '',
-  initialRangeTo = '',
-}) => {
-  const [rangeFrom, setRangeFrom] = useState(initialRangeFrom);
-  const [rangeTo, setRangeTo] = useState(initialRangeTo);
+  initialValue?: string;
+}> = ({ field, type, handleChange, initialValue }) => {
+  const [[from, to], setRange] = useState<[from: string, to: string]>(() =>
+    initializer(field, initialValue)
+  );
 
   useEffect(() => {
-    if (rangeFrom.length > 0 && rangeTo.length > 0) {
+    if (from.length > 0 && to.length > 0) {
       handleChange({
-        [field.id]: `(${
-          field.term
-        }:[${rangeFrom.trim()} TO ${rangeTo.trim()}])`,
+        [field.id]: `(${field.term}:[${from.trim()} TO ${to.trim()}])`,
       });
     }
-  }, [field, handleChange, rangeFrom, rangeTo]);
+  }, [field, handleChange, from, to]);
 
   return (
     <>
@@ -36,9 +30,9 @@ const RangeField: React.FC<{
           id={`from_input_${field.id}`}
           data-testid="range-field-from-input"
           type={type}
-          onChange={(e) => setRangeFrom(e.target.value)}
+          onChange={(e) => setRange(([, to]) => [e.target.value, to])}
           placeholder="0"
-          value={rangeFrom}
+          value={from}
         />
       </label>
       <label htmlFor={`to_input_${field.id}`}>
@@ -47,9 +41,9 @@ const RangeField: React.FC<{
           id={`to_input_${field.id}`}
           data-testid="range-field-to-input"
           type={type}
-          onChange={(e) => setRangeTo(e.target.value)}
+          onChange={(e) => setRange(([from]) => [from, e.target.value])}
           placeholder="100"
-          value={rangeTo}
+          value={to}
         />
       </label>
     </>

@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+
+import initializer from '../utils/fieldInitializer';
+
 import AutocompleteWrapper from './AutocompleteWrapper';
 
+import { QueryBit, SearchTermType } from '../types/searchTypes';
+
 const AutocompleteField: React.FC<{
-  searchTerm: SearchTermType;
+  field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
-  initialValue?: string;
-}> = ({ searchTerm, handleChange, initialValue }) => {
-  const [value, setValue] = useState(initialValue);
+  initialValue?: QueryBit;
+}> = ({ field, handleChange, initialValue }) => {
+  const [value, setValue] = useState(() => initializer(field, initialValue));
   const [selectedId, setSelectedId] = useState<string | null>();
 
-  const { autoComplete, term, label, id, autoCompleteQueryTerm } = searchTerm;
+  const { autoComplete, term, label, id, autoCompleteQueryTerm } = field;
 
   const handleSelect = (path: string, autocompleteSelectedId?: string) => {
     setValue(path);

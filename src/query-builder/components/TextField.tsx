@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import initializer from '../utils/fieldInitializer';
+
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
 // TODO add that back in
@@ -17,10 +19,10 @@ const getStringValue = (value: string, prefix?: string) =>
 const TextField: React.FC<{
   field: SearchTermType;
   type: string;
-  initialValue?: string;
+  initialValue?: QueryBit;
   handleChange: (queryBit: QueryBit) => void;
-}> = ({ field, type, handleChange, initialValue = '' }) => {
-  const [value, setValue] = useState(initialValue);
+}> = ({ field, type, handleChange, initialValue }) => {
+  const [value, setValue] = useState(() => initializer(field, initialValue));
 
   useEffect(() => {
     if (value.length > 0) {

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { QueryBit, SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
 
 const EvidenceField: React.FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
-  initialValue?: string;
-}> = ({ field, handleChange, initialValue = '' }) => {
-  const [value, setValue] = useState(initialValue);
+  initialValue?: QueryBit;
+}> = ({ field, handleChange, initialValue }) => {
+  const [value, setValue] = useState(() => initializer(field, initialValue));
 
   useEffect(() => {
     if (value.length > 0) {
