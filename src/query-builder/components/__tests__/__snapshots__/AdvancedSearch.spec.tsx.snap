@@ -105,7 +105,7 @@ exports[`AdvancedSearch should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Gene Name [GN]
@@ -285,7 +285,7 @@ exports[`AdvancedSearch should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Taxonomy [OC]
@@ -496,7 +496,7 @@ exports[`AdvancedSearch should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             Keyword [KW]
@@ -707,7 +707,7 @@ exports[`AdvancedSearch should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown "
+            class="button dropdown"
             type="button"
           >
             All

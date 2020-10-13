@@ -1,9 +1,11 @@
-import React, { useCallback, FC } from 'react';
+import React, { useCallback, FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 import { html } from 'lit-html';
 import joinUrl from 'url-join';
 
-import { transformData } from 'protvista-variation-adapter';
+import { filterConfig, colorConfig } from 'protvista-uniprot';
+import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
+import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
@@ -11,127 +13,61 @@ import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-
 import apiUrls from '../../../shared/config/apiUrls';
-import filterConfig, { colorConfig } from '../../config/variationFiltersConfig';
 
-import FeatureType from '../../types/featureType';
 import { Evidence } from '../../types/modelTypes';
-import { ProcessedFeature } from './FeaturesView';
 
 import './styles/variation-view.scss';
-
-export type ProtvistaVariant = {
-  begin: number;
-  end: number;
-  type: FeatureType.VARIANT;
-  ftId?: string;
-  wildType: string;
-  alternativeSequence: string;
-  polyphenPrediction?: string;
-  polyphenScore?: number;
-  siftPrediction?: string;
-  siftScore?: number;
-  description?: string;
-  consequenceType: string;
-  cytogeneticBand?: string;
-  genomicLocation?: string;
-  somaticStatus?: number;
-  sourceType: string;
-  clinicalSignificances?: string;
-  association?: {
-    description: string;
-    disease: boolean;
-    name: string;
-    evidences: { code: string; source: { name: string; id: string } }[];
-  }[];
-  xrefs: {
-    alternativeUrl?: string;
-    id: string;
-    name: string;
-    url: string;
-  }[];
-};
-
-export type TransformedProtvistaVariant = ProtvistaVariant & {
-  accession: string;
-  start: string;
-  tooltipContent: string;
-  sourceType: string;
-  variant: string;
-  protvistaFeatureId: string;
-  xrefNames: string[];
-};
-
-export type TransformedVariantsResponse = {
-  sequence: string;
-  variants: TransformedProtvistaVariant[];
-};
-
-const formatVariantDescription = (description: string) => {
-  /* eslint-disable no-useless-escape */
-  const pattern = /\[(\w+)\]: ([^\[]+)/g;
-  const match = description.match(pattern);
-  return match;
-};
 
 const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
   return {
     positions: {
       label: 'Position(s)',
-      resolver: (d: ProtvistaVariant) =>
-        d.begin === d.end ? d.begin : `${d.begin}-${d.end}`,
+      resolver: (d: TransformedVariant) =>
+        d.start === d.end ? d.start : `${d.start}-${d.end}`,
     },
     change: {
       label: 'Change',
-      resolver: (d: ProtvistaVariant) =>
+      resolver: (d: TransformedVariant) =>
         `${d.wildType}>${d.alternativeSequence}`,
     },
     consequence: {
       label: 'Consequence',
       child: true,
-      resolver: (d: ProtvistaVariant) => d.consequenceType,
+      resolver: (d: TransformedVariant) => d.consequenceType,
     },
-    sift: {
-      label: 'SIFT prediction',
+    predictions: {
+      label: 'Predictions',
       child: true,
-      resolver: (d: ProtvistaVariant) =>
-        d.siftPrediction ? `${d.siftPrediction} (${d.siftScore})` : '',
-    },
-    polyphen: {
-      label: 'Polyphen prediction',
-      child: true,
-      resolver: (d: ProtvistaVariant) =>
-        d.polyphenPrediction
-          ? `${d.polyphenPrediction} (${d.polyphenScore})`
-          : '',
+      resolver: (d: TransformedVariant) =>
+        html`${d.predictions?.map(
+          (prediction) =>
+            html`${prediction.predAlgorithmNameType}:
+              ${prediction.predictionValType} (${prediction.score})<br />`
+        )}`,
     },
     description: {
       label: 'Description',
-      resolver: (d: ProtvistaVariant) => {
-        const id = d.ftId ? html`UniProt feature ID: ${d.ftId}` : undefined;
-        const description =
-          formatVariantDescription(d.description || '')?.map(
-            (descriptionLine) => html`<p>${descriptionLine}</p> `
-          ) || [];
-        return [id, ...description];
-      },
+      resolver: (d: TransformedVariant) =>
+        html`${d.descriptions?.map(
+          (description) =>
+            html`${description.value} (${description.sources.join(', ')})<br />`
+        )}`,
     },
     somaticStatus: {
       label: 'Somatic',
       child: true,
-      resolver: (d: ProtvistaVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
+      resolver: (d: TransformedVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
     },
     hasDisease: {
       label: 'Disease association',
-      resolver: (d: ProtvistaVariant) =>
+      resolver: (d: TransformedVariant) =>
         d.association && d.association.length > 0 ? 'Y' : 'N',
     },
     association: {
       label: 'Disease association',
       child: true,
-      resolver: (d: ProtvistaVariant) => {
+      resolver: (d: TransformedVariant) => {
         if (!d.association) {
           return '';
         }
@@ -163,8 +99,16 @@ const VariationView: FC<{
   title?: string;
   hasTable?: boolean;
 }> = ({ primaryAccession, title, hasTable = true }) => {
-  const { loading, data, error, status } = useDataApi<UniProtkbAPIModel>(
+  const { loading, data, error, status } = useDataApi<ProteinsAPIVariation>(
     joinUrl(apiUrls.variation, primaryAccession)
+  );
+
+  // We pass the transformed data to both the variation viewer and the
+  // data table as ids are set during the transformation - they are
+  // used for the selection between the 2 components
+  const transformedData = useMemo(
+    () => (data && data.features ? transformData(data) : undefined),
+    [data]
   );
 
   const filterDefined = useCustomElement(
@@ -192,10 +136,12 @@ const VariationView: FC<{
 
   const protvistaVariationRef = useCallback(
     (node) => {
-      if (node && variationDefined && data && data.features) {
-        const transformedData: TransformedVariantsResponse = transformData(
-          data
-        );
+      if (
+        node &&
+        variationDefined &&
+        transformedData &&
+        transformedData.variants
+      ) {
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
         // eslint-disable-next-line no-param-reassign
@@ -204,7 +150,7 @@ const VariationView: FC<{
         node.length = transformedData.sequence.length;
       }
     },
-    [variationDefined, data]
+    [variationDefined, transformedData]
   );
 
   const navigationDefined = useCustomElement(
@@ -240,10 +186,10 @@ const VariationView: FC<{
 
   if (
     status === 404 ||
-    !data ||
-    !data.sequence ||
-    !data.features ||
-    data.features.length <= 0
+    !transformedData ||
+    !transformedData.sequence ||
+    !transformedData.variants ||
+    transformedData.variants.length <= 0
   ) {
     return null;
   }
@@ -251,13 +197,13 @@ const VariationView: FC<{
   return (
     <div>
       {title && <h3>{title}</h3>}
-      <protvista-manager attributes="highlight displaystart displayend activefilters filters">
+      <protvista-manager attributes="highlight displaystart displayend activefilters filters selectedid">
         {hasTable && (
           <div className="variation-view">
-            <protvista-navigation length={data.sequence.length} />
+            <protvista-navigation length={transformedData.sequence.length} />
             <protvista-sequence
-              length={data.sequence.length}
-              sequence={data.sequence}
+              length={transformedData.sequence.length}
+              sequence={transformedData.sequence}
               height="20"
               filter-scroll
             />
@@ -267,14 +213,13 @@ const VariationView: FC<{
             />
             <protvista-variation
               id="variation-component"
-              length={data.sequence.length}
+              length={transformedData.sequence.length}
               ref={protvistaVariationRef}
             />
           </div>
         )}
-        {/* TODO: check models, because I have no idea what I'm doing here 🤷🏽‍♂️ */}
         <FeaturesTableView
-          data={(data.features as unknown) as ProcessedFeature[]}
+          data={transformedData.variants}
           getColumnConfig={getColumnConfig}
         />
       </protvista-manager>

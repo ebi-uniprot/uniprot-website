@@ -41,15 +41,17 @@ function inputToCurl<T extends JobTypes>(
   return command;
 }
 
-type Props = {
+type APIRequestProps = {
   inputParamsData: Partial<UseDataAPIState<PublicServerParameters[JobTypes]>>;
   jobType: JobTypes;
 };
 
-const APIRequest: FC<Props> = ({ inputParamsData, jobType }) => {
+const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
   const { loading, data, error, status } = inputParamsData;
 
-  if (error || !data) return <ErrorHandler status={status} />;
+  if (error || !data) {
+    return <ErrorHandler status={status} />;
+  }
 
   return (
     <section>

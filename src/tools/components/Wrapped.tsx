@@ -19,17 +19,20 @@ import useCustomElement from '../../shared/hooks/useCustomElement';
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { ConservationOptions } from './MSAWrapper';
-import { MSAViewProps } from './MSAView';
+import { ConservationOptions, MSAInput } from './AlignmentView';
 import {
   FeatureData,
   processFeaturesData,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { transformFeaturesPositions } from '../utils/sequences';
+import {
+  transformFeaturesPositions,
+  getEndCoordinate,
+} from '../utils/sequences';
+import AlignLabel from '../align/components/results/AlignLabel';
 
 const widthOfAA = 20;
 
-type Sequence = {
+export type Sequence = {
   name: string;
   sequence: string;
   start: number;
@@ -49,9 +52,15 @@ export type MSAWrappedRowProps = {
   conservationOptions: ConservationOptions;
   annotation: FeatureType | undefined;
   sequences: Sequence[];
-  selectedId?: string;
-  setSelectedId: Dispatch<SetStateAction<string | undefined>>;
+  activeId?: string;
+  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
 };
+
+// NOTE: hardcoded for now, might need to change that in the future if need be
+const sequenceHeight = 20;
+const heightStyle = { height: `${sequenceHeight}px` };
 
 const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   rowLength,
@@ -59,7 +68,10 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   conservationOptions,
   annotation,
   sequences,
-  selectedId,
+  activeId,
+  setActiveId,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
@@ -77,29 +89,40 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
 
   const trackDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
-    'provista-track'
+    'protvista-track'
+  );
+
+  const activeSeq = useMemo(
+    () =>
+      sequences.find(({ accession }) => accession && accession === activeId),
+    [sequences, activeId]
   );
 
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined && annotation) {
-        const featuresSeq = sequences.find(
-          ({ accession }) => accession && accession === selectedId
-        );
-        const features = featuresSeq?.features?.filter(
+        const features = activeSeq?.features?.filter(
           ({ type }) => type === annotation
         );
-        if (featuresSeq && features) {
+        if (
+          activeSeq &&
+          activeSeq.start > 0 &&
+          activeSeq.end > 0 &&
+          activeSeq.start !== activeSeq.end &&
+          features
+        ) {
           let processedFeatures = processFeaturesData(features);
           processedFeatures = transformFeaturesPositions(processedFeatures);
           node.data = processedFeatures;
-          node.setAttribute('length', featuresSeq.end - featuresSeq.start + 1);
-          node.setAttribute('displaystart', featuresSeq.start);
-          node.setAttribute('displayend', featuresSeq.end);
+          node.setAttribute('length', activeSeq.end - activeSeq.start);
+          node.setAttribute('displaystart', activeSeq.start);
+          node.setAttribute('displayend', activeSeq.end);
         }
       }
     },
-    [trackDefined, annotation, selectedId, sequences]
+    // TODO: replace this with fragments to have one big grid
+    // -> to keep the right column of the right size to fit all possible values
+    [trackDefined, annotation, activeSeq]
   );
 
   if (!(msaDefined && trackDefined)) {
@@ -107,36 +130,76 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   }
 
   return (
-    <section
-      data-testid="wrapped-hsp-detail"
-      className="hsp-detail-panel__visualisation hsp-detail-panel__visualisation__wrapped-row"
-    >
-      <section className="hsp-label hsp-label--msa">Alignment</section>
-      <section className="hsp-detail-panel__visualisation--msa">
+    <>
+      <div className="track-label track-label--align-labels">
+        {sequences.map((s) => (
+          <AlignLabel
+            accession={s.accession}
+            info={s}
+            loading={false}
+            key={s.name}
+            style={heightStyle}
+            checked={Boolean(
+              s.accession && selectedEntries?.includes(s.accession)
+            )}
+            onSequenceChecked={handleSelectedEntries}
+            onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
+            active={!!activeId && setActiveId && activeId === s.accession}
+          >
+            {s.name || ''}
+          </AlignLabel>
+        ))}
+      </div>
+      <div className="track">
         <protvista-msa
           ref={setMSAAttributes}
           length={rowLength}
-          height={sequences.length * 20}
+          height={sequences.length * sequenceHeight}
           colorscheme={highlightProperty}
+          hidelabel
           {...conservationOptions}
         />
-      </section>
-      <section className="hsp-label hsp-label--track">{annotation}</section>
-      <section className="hsp-detail-panel__visualisation--track">
+      </div>
+      <span className="right-coord">
+        {sequences.map((s) => (
+          <div style={heightStyle} key={s.name}>
+            {s.end}
+          </div>
+        ))}
+      </span>
+      <span className="track-label annotation-label">{annotation}</span>
+      <div className="track annotation-track">
         <protvista-track ref={setFeatureTrackData} />
-      </section>
-    </section>
+      </div>
+    </>
   );
 };
 
-const MSAWrappedView: FC<MSAViewProps> = ({
+export type MSAViewProps = {
+  alignment: MSAInput[];
+  alignmentLength: number;
+  highlightProperty: MsaColorScheme | undefined;
+  conservationOptions: ConservationOptions;
+  totalLength: number;
+  annotation: FeatureType | undefined;
+  activeId?: string;
+  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
+  omitInsertionsInCoords?: boolean;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
+};
+
+const Wrapped: FC<MSAViewProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
   conservationOptions,
   annotation,
-  selectedId,
-  setSelectedId,
+  activeId,
+  setActiveId,
+  omitInsertionsInCoords = false,
+  selectedEntries,
+  handleSelectedEntries,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
@@ -148,7 +211,6 @@ const MSAWrappedView: FC<MSAViewProps> = ({
     max: +Infinity,
     delay: 500,
   });
-
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
@@ -166,7 +228,6 @@ const MSAWrappedView: FC<MSAViewProps> = ({
       debouncedSetRowLength.flush();
     }
   }
-
   const sequenceChunks = useMemo<Chunk[]>(() => {
     if (!rowLength) {
       return [];
@@ -175,7 +236,7 @@ const MSAWrappedView: FC<MSAViewProps> = ({
     const numberRows = Math.ceil(alignmentLength / rowLength);
     const chunks = [...Array(numberRows).keys()].map((index) => {
       const start = index * rowLength;
-      const end = start + rowLength;
+      const end = Math.min(start + rowLength, alignmentLength);
       return {
         // NOTE: This is a bit of an ugly trick to have the whole track
         // re-render on change of size. Otherwise when the track is updated
@@ -187,8 +248,14 @@ const MSAWrappedView: FC<MSAViewProps> = ({
           ({ name, sequence, from, features, accession }) => ({
             name: name || '',
             sequence: sequence.slice(start, end),
-            start: start + from,
-            end: end + from - 1,
+            start:
+              from +
+              (omitInsertionsInCoords
+                ? getEndCoordinate(sequence, start)
+                : start),
+            end:
+              from +
+              (omitInsertionsInCoords ? getEndCoordinate(sequence, end) : end),
             features,
             accession,
           })
@@ -196,10 +263,14 @@ const MSAWrappedView: FC<MSAViewProps> = ({
       };
     });
     return chunks;
-  }, [alignment, alignmentLength, rowLength]);
+  }, [alignment, alignmentLength, omitInsertionsInCoords, rowLength]);
 
   return (
-    <div ref={containerRef}>
+    <div
+      ref={containerRef}
+      className="alignment-grid alignment-wrapped"
+      data-testid="alignment-wrapped-view"
+    >
       {sequenceChunks.map(({ sequences, id }, index) => {
         if (index < nItemsToRender) {
           return (
@@ -210,15 +281,17 @@ const MSAWrappedView: FC<MSAViewProps> = ({
               annotation={annotation}
               highlightProperty={highlightProperty}
               conservationOptions={conservationOptions}
-              selectedId={selectedId}
-              setSelectedId={setSelectedId}
+              activeId={activeId}
+              setActiveId={setActiveId}
+              selectedEntries={selectedEntries}
+              handleSelectedEntries={handleSelectedEntries}
             />
           );
         }
-        return <section key={id} className="hsp-detail-panel__placeholder" />;
+        return <div key={id} className="alignment-grid__placeholder" />;
       })}
     </div>
   );
 };
 
-export default MSAWrappedView;
+export default Wrapped;

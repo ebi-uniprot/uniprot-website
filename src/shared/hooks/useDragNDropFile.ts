@@ -11,7 +11,7 @@ import { debounce } from 'lodash-es';
 
 const DRAG_OUT_DELAY = 250;
 
-type Props = {
+type UseDragNDropFileProps = {
   dndTarget: HTMLElement | null;
   overlay: ReactElement;
   onDrop: (files: FileList) => void;
@@ -21,7 +21,11 @@ type Props = {
  * given an actual HTML element as a target, sets up all event handlers to
  * handle drag-n-drop of files on it
  */
-const useDragNDropFile = ({ dndTarget, overlay, onDrop }: Props): void => {
+const useDragNDropFile = ({
+  dndTarget,
+  overlay,
+  onDrop,
+}: UseDragNDropFileProps): void => {
   const [isDragging, setIsDragging] = useState(false);
 
   const onDropRef = useRef(onDrop);

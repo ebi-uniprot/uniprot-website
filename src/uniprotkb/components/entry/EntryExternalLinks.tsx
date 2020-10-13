@@ -4,7 +4,7 @@ import { v1 } from 'uuid';
 import { groupBy } from 'lodash-es';
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 import XRefView from '../protein-data-views/XRefView';
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import { XrefUIModel, XrefsGoupedByDatabase } from '../../utils/xrefUtils';
 import { CommentType, WebResourceComment } from '../../types/commentTypes';
 import { DatabaseCategory } from '../../types/databaseRefs';
@@ -49,8 +49,8 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
     DatabaseCategory,
     XrefsGoupedByDatabase[]
   >();
-  Object.values(EntrySection).forEach(entrySection => {
-    transformedData[entrySection as EntrySection].xrefData.forEach(
+  Object.values(EntrySection).forEach((entrySection) => {
+    transformedData[entrySection as EntrySection].xrefData?.forEach(
       ({ category, databases }) => {
         const currentDatabases = databaseCategoryToXrefsGoupedByDatabase.get(
           category
@@ -74,17 +74,17 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
       )
       // Only need the first entry as it assumed that each database
       // list is the same across all of the sections
-    ).map(v => v[0]),
+    ).map((v) => v[0]),
   }));
 
   return (
-    <div id={EntrySection.ExternalLinks}>
+    <div id={EntrySectionIDs[EntrySection.ExternalLinks]} data-entry-section>
       <Card title={EntrySection.ExternalLinks}>
         {webResourceComments && (
           <Fragment>
             <h3>Web resources</h3>
             <ExpandableList descriptionString="alternative names">
-              {webResourceComments.map(comment => ({
+              {webResourceComments.map((comment) => ({
                 id: v1(),
                 content: (
                   <WebResourceLink comment={comment as WebResourceComment} />

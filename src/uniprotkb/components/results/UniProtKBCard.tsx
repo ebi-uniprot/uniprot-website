@@ -1,31 +1,29 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { FC, Fragment } from 'react';
-import idx from 'idx';
+import React, { Fragment, FC } from 'react';
 import { Card } from 'franklin-sites';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import KeywordCategory from '../../types/keywordCategory';
 import { KeywordList } from '../protein-data-views/KeywordView';
-import UniProtKBTitle from '../protein-data-views/UniProtKBTitle';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../protein-data-views/AnnotationScoreDoughnutChart';
 import getProteinHighlights from '../../adapters/proteinHighlights';
-import './styles/uniprotkb-card.scss';
 
-const UniProtKBCard: FC<
-  {
-    data: UniProtkbAPIModel;
-    selected: boolean;
-    handleEntrySelection: (rowId: string) => void;
-  } & RouteComponentProps
-> = ({ data, selected, handleEntrySelection, history }): JSX.Element => {
+import './styles/uniprot-card.scss';
+
+const UniProtKBCard: FC<{
+  data: UniProtkbAPIModel;
+  selected: boolean;
+  handleEntrySelection: (rowId: string) => void;
+}> = ({ data, selected, handleEntrySelection }): JSX.Element => {
+  const history = useHistory();
   let recommendedNameNode;
-  const recommendedName = idx(
-    data,
-    (_): string => _.proteinDescription.recommendedName.fullName.value
-  );
+  const recommendedName =
+    data.proteinDescription?.recommendedName?.fullName.value;
   if (recommendedName) {
     recommendedNameNode = `${recommendedName} · `;
   }
@@ -33,23 +31,23 @@ const UniProtKBCard: FC<
   const highlights = getProteinHighlights(data);
 
   const organismNameNode = (
-    <Fragment>
-      <a href="#">{idx(data, (_): string => _.organism.scientificName)}</a>
+    <>
+      <a href="#">{data.organism?.scientificName}</a>
       {' · '}
-    </Fragment>
+    </>
   );
 
   let geneNameListNode;
   if (data.genes) {
     geneNameListNode = (
-      <Fragment>
+      <>
         {'Gene: '}
         {data.genes
           .filter((geneName) => geneName.geneName)
           .map((geneName) => geneName.geneName && geneName.geneName.value)
           .join(', ')}
         {' · '}
-      </Fragment>
+      </>
     );
   }
 
@@ -98,10 +96,10 @@ const UniProtKBCard: FC<
         </section>
         <section className="uniprot-card__right">
           <h5>
-            <UniProtKBTitle
-              primaryAccession={data.primaryAccession}
+            <EntryTitle
+              mainTitle={data.primaryAccession}
+              optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
-              uniProtkbId={data.uniProtkbId}
             />
           </h5>
           <section>
@@ -120,4 +118,4 @@ const UniProtKBCard: FC<
   );
 };
 
-export default withRouter(UniProtKBCard);
+export default UniProtKBCard;

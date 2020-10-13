@@ -1,12 +1,6 @@
-import React, { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
-import {
-  withRouter,
-  RouteComponentProps,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import React, { useMemo, FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import {
   InPageNav,
   Loader,
@@ -43,60 +37,77 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
-import { RootAction } from '../../../app/state/rootInitialState';
-import * as messagesActions from '../../../messages/state/messagesActions';
+import { addMessage } from '../../../messages/state/messagesActions';
+
+import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
+import { hasContent } from '../../../shared/utils/utils';
+import apiUrls from '../../../shared/config/apiUrls';
+import { LocationToPath, Location } from '../../../app/config/urls';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 import uniProtKbConverter, {
   EntryType,
   UniProtkbInactiveEntryModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
-import {
-  CommentType,
-  AlternativeProductsComment,
-  Isoform,
-} from '../../types/commentTypes';
 
-import { hasContent, hasExternalLinks } from '../../utils';
-import apiUrls from '../../../shared/config/apiUrls';
+import '../../../shared/components/entry/styles/entry-page.scss';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-
-type MatchParams = {
-  accession: string;
-  path: string;
-};
-
-type EntryProps = {
-  addMessage: (message: MessageType) => void;
-} & RouteComponentProps<MatchParams>;
-
-const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
-  const { path, params } = match;
-  const { accession } = params;
+const Entry: FC = () => {
+  const dispatch = useDispatch();
+  const match = useRouteMatch<{ accession: string }>(
+    LocationToPath[Location.UniProtKBEntry]
+  );
 
   const { loading, data, status, error, redirectedTo } = useDataApi<
-    UniProtkbAPIModel
-  >(apiUrls.entry(accession));
+    UniProtkbAPIModel | UniProtkbInactiveEntryModel
+  >(apiUrls.entry(match?.params.accession || ''));
 
-  if (error) {
-    return <ErrorHandler status={status} />;
-  }
+  const transformedData = useMemo(
+    () =>
+      data && data.entryType !== EntryType.INACTIVE && uniProtKbConverter(data),
+    [data]
+  );
+
+  const sections = useMemo(
+    () =>
+      transformedData &&
+      UniProtKBEntryConfig.map((section) => ({
+        label: section.name,
+        id: section.id,
+        disabled:
+          section.name === EntrySection.ExternalLinks
+            ? !hasExternalLinks(transformedData)
+            : !hasContent(transformedData[section.name]),
+      })),
+    [transformedData]
+  );
+
+  const listOfIsoformAccessions = useMemo(
+    () => getListOfIsoformAccessions(data),
+    [data]
+  );
 
   if (loading || !data) {
     return <Loader />;
   }
 
   if (data && data.entryType === EntryType.INACTIVE) {
-    // TODO: check models, because I have no idea what I'm doing here 🤷🏽‍♂️
-    const inactiveEntryData = (data as unknown) as UniProtkbInactiveEntryModel;
+    if (!match) {
+      return <ErrorHandler />;
+    }
 
     return (
       <ObsoleteEntryPage
-        accession={accession}
-        details={inactiveEntryData.inactiveReason}
+        accession={match.params.accession}
+        details={data.inactiveReason}
       />
     );
+  }
+
+  if (error || !match?.params.accession || !transformedData || !match) {
+    return <ErrorHandler status={status} />;
   }
 
   if (redirectedTo) {
@@ -110,36 +121,8 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
       tag: MessageTag.REDIRECT,
     };
 
-    addMessage(message);
+    dispatch(addMessage(message));
   }
-
-  const transformedData = uniProtKbConverter(data);
-
-  const sections = UniProtKBEntryConfig.map((section) => ({
-    label: section.name,
-    id: section.name,
-
-    disabled:
-      section.name === EntrySection.ExternalLinks
-        ? !hasExternalLinks(transformedData)
-        : !hasContent(transformedData[section.name]),
-  }));
-
-  const listOfIsoformAccessions =
-    data.comments
-      ?.filter(
-        (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
-      )
-      ?.map((comment) =>
-        (comment as AlternativeProductsComment).isoforms.map(
-          (isoform) => (isoform as Isoform).isoformIds
-        )
-      )
-      ?.flat(2)
-      ?.filter(
-        (maybeAccession: string | undefined): maybeAccession is string =>
-          typeof maybeAccession === 'string'
-      ) || [];
 
   const displayMenuData = [
     {
@@ -152,16 +135,19 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
       exact: true,
       actionButtons: (
         <div className="button-group">
-          <BlastButton selectedEntries={[accession]} />
+          <BlastButton selectedEntries={[match.params.accession]} />
           <AlignButton
-            selectedEntries={[accession, ...listOfIsoformAccessions]}
+            selectedEntries={[
+              match.params.accession,
+              ...listOfIsoformAccessions,
+            ]}
           />
           <DropdownButton
             label={
-              <Fragment>
+              <>
                 <DownloadIcon />
                 Download
-              </Fragment>
+              </>
             }
             className="tertiary"
             // onSelect={action('onSelect')}
@@ -183,7 +169,7 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
               </ul>
             </div>
           </DropdownButton>
-          <AddToBasketButton selectedEntries={[accession]} />
+          <AddToBasketButton selectedEntries={[match.params.accession]} />
         </div>
       ),
       mainContent: <EntryMain transformedData={transformedData} />,
@@ -192,14 +178,16 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
       name: 'Feature viewer',
       path: 'feature-viewer',
       icon: <ProtVistaIcon />,
-      mainContent: <FeatureViewer accession={accession} />,
+      mainContent: <FeatureViewer accession={match.params.accession} />,
     },
     {
       name: 'Publications',
       path: 'publications',
       icon: <PublicationIcon />,
-      itemContent: <EntryPublicationsFacets accession={accession} />,
-      mainContent: <EntryPublications accession={accession} />,
+      itemContent: (
+        <EntryPublicationsFacets accession={match.params.accession} />
+      ),
+      mainContent: <EntryPublications accession={match.params.accession} />,
     },
     {
       name: 'External links',
@@ -214,43 +202,36 @@ const Entry: React.FC<EntryProps> = ({ addMessage, match }) => {
       sidebar={
         <DisplayMenu
           data={displayMenuData}
-          title={`Publications for ${accession}`}
+          title={`Publications for ${match.params.accession}`}
         />
       }
       actionButtons={
         <Switch>
           {displayMenuData.map((displayItem) => (
             <Route
-              path={`${path}/${displayItem.path}`}
-              render={() => <Fragment>{displayItem.actionButtons}</Fragment>}
+              path={`${match.path}/${displayItem.path}`}
               key={displayItem.name}
-            />
+            >
+              {displayItem.actionButtons}
+            </Route>
           ))}
         </Switch>
       }
+      className="entry-page"
     >
       <Switch>
         {displayMenuData.map((displayItem) => (
           <Route
-            path={`${path}/${displayItem.path}`}
-            render={() => <Fragment>{displayItem.mainContent}</Fragment>}
+            path={`${match.path}/${displayItem.path}`}
             key={displayItem.name}
             exact={displayItem.exact}
-          />
+          >
+            {displayItem.mainContent}
+          </Route>
         ))}
       </Switch>
     </SideBarLayout>
   );
 };
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    {
-      addMessage: (message: MessageType) => messagesActions.addMessage(message),
-    },
-    dispatch
-  );
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Entry));
+export default Entry;

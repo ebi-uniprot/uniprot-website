@@ -1,4 +1,3 @@
-import idx from 'idx';
 import { getXrefsForSection, XrefUIModel } from '../utils/xrefUtils';
 import Comment, { CommentType, FreeTextComment } from '../types/commentTypes';
 import {
@@ -42,10 +41,10 @@ export const convertSection = (
     uniProtkbId,
   } = data;
   if (sectionComments && comments) {
-    sectionComments.forEach(commentType => {
+    sectionComments.forEach((commentType) => {
       convertedData.commentsData.set(
         commentType,
-        comments.filter(comment => comment.commentType === commentType)
+        comments.filter((comment) => comment.commentType === commentType)
       );
     });
   }
@@ -56,16 +55,11 @@ export const convertSection = (
     );
   }
   if (sectionFeatures && features) {
-    convertedData.featuresData = features.filter(feature => {
+    convertedData.featuresData = features.filter((feature) => {
       return sectionFeatures.includes(feature.type);
     });
   }
   if (section && uniProtKBCrossReferences) {
-    const commonName = idx(organism, o => o.commonName);
-    const ecNumbers = idx(
-      data,
-      o => o.proteinDescription.recommendedName.ecNumbers
-    );
     // These are needed because the implicit database GPCRDB depends on the existence of a similarity
     // comment with the text "Belongs to the G-protein coupled receptor"'],
     const similarityComments = convertedData.commentsData.get(
@@ -75,10 +69,10 @@ export const convertSection = (
       uniProtKBCrossReferences,
       section,
       genes,
-      commonName,
+      organism?.commonName,
       similarityComments,
       uniProtkbId,
-      ecNumbers
+      data?.proteinDescription?.recommendedName?.ecNumbers
     );
   }
   return convertedData;

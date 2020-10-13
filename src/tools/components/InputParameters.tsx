@@ -8,15 +8,17 @@ import { UseDataAPIState } from '../../shared/hooks/useDataApi';
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
-type Props = {
+type InputParametersProps = {
   id: string;
   inputParamsData: Partial<UseDataAPIState<PublicServerParameters[JobTypes]>>;
 };
 
-const InputParameters: FC<Props> = ({ id, inputParamsData }) => {
+const InputParameters: FC<InputParametersProps> = ({ id, inputParamsData }) => {
   const { loading, data, error, status } = inputParamsData;
 
-  if (error || !data) return <ErrorHandler status={status} />;
+  if (error || !data) {
+    return <ErrorHandler status={status} />;
+  }
 
   return (
     <section>

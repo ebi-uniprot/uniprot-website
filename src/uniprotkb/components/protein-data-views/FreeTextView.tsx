@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { v1 } from 'uuid';
+
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 
@@ -11,9 +11,10 @@ type FreeTextProps = {
 export const TextView: React.FC<{ comments: TextWithEvidence[] }> = ({
   comments,
 }) => (
-  <section className="text-block" key={v1()}>
-    {comments.map(comment => (
-      <Fragment key={v1()}>
+  <section className="text-block">
+    {comments.map((comment, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
         {comment.value}
         {comment.evidences && (
           <UniProtKBEvidenceTag evidences={comment.evidences} />
@@ -28,9 +29,10 @@ const FreeTextView: React.FC<FreeTextProps> = ({ comments, title }) => {
     return null;
   }
   const freeTextData = comments.map(
-    item =>
+    (item, index) =>
       item.texts && (
-        <Fragment key={v1()}>
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
           {item.molecule && <h5>{item.molecule}</h5>}
           <TextView comments={item.texts} />
         </Fragment>
@@ -38,10 +40,10 @@ const FreeTextView: React.FC<FreeTextProps> = ({ comments, title }) => {
   );
 
   return (
-    <Fragment>
+    <>
       {title && <h3 style={{ textTransform: 'capitalize' }}>{title}</h3>}
       {freeTextData}
-    </Fragment>
+    </>
   );
 };
 

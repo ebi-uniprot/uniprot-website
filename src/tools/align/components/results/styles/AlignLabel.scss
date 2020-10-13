@@ -1,3 +1,5 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
 @keyframes loading {
   from {
     opacity: 0.5;
@@ -10,6 +12,9 @@
 .align-label {
   white-space: nowrap;
   opacity: 1;
+  margin: 0;
+  outline: none;
+  cursor: default;
 
   &--invalid {
     cursor: not-allowed;
@@ -17,5 +22,18 @@
 
   &--loading {
     animation: alternate loading 500ms infinite ease-in-out;
+  }
+
+  &--active {
+    background-color: $colour-gainsborough;
+  }
+
+  &--selectable {
+    cursor: pointer;
+    outline: initial;
+  }
+
+  input[type='checkbox'] {
+    margin: 0 0.4rem 0 0;
   }
 }

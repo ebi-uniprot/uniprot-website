@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
+
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/FeaturesView';
-import EntrySection from '../../types/entrySection';
-import { hasContent } from '../../utils';
+
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import { CommentType, FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
+import { hasContent } from '../../../shared/utils/utils';
 
 const FamilyAndDomainsSection: FC<{
   data: UIModel;
@@ -18,7 +20,7 @@ const FamilyAndDomainsSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.FamilyAndDomains}>
+    <div id={EntrySectionIDs[EntrySection.FamilyAndDomains]} data-entry-section>
       <Card title={EntrySection.FamilyAndDomains}>
         <FeaturesView features={data.featuresData} sequence={sequence} />
         <FreeTextView

@@ -5,6 +5,8 @@ import { renderHook, cleanup } from '@testing-library/react-hooks';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
+import { resetUuidV1 } from '../../../../__mocks__/uuid';
+
 import useDataApi from '../useDataApi';
 import useDataApiWithStale from '../useDataApiWithStale';
 
@@ -12,12 +14,20 @@ const url = '/some/path';
 const url2 = '/some/other/path';
 let mock;
 
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => ({ useDispatch: () => mockDispatch }));
+
+beforeEach(() => {
+  resetUuidV1();
+});
+
 beforeAll(() => {
   mock = new MockAdapter(axios);
 });
 
 afterEach(() => {
   mock.reset();
+  mockDispatch.mockReset();
 });
 
 afterAll(() => {
@@ -72,6 +82,34 @@ describe('useDataApi hook', () => {
     expect(result.current).toEqual({
       loading: false,
       error: new Error('timeout of 0ms exceeded'),
+    });
+  });
+
+  test('400', async () => {
+    const message = '??? does not exist';
+    mock.onGet(url).reply(400, { messages: [message] });
+    const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
+
+    expect(result.current).toEqual({ loading: true });
+
+    await waitForNextUpdate();
+
+    expect(mockDispatch).toHaveBeenCalledWith({
+      payload: {
+        content: message,
+        format: 'POP_UP',
+        level: 'failure',
+        id: 0,
+      },
+      type: 'ADD_MESSAGE',
+    });
+
+    expect(result.current).toEqual({
+      error: new Error('Request failed with status code 400'),
+      headers: undefined,
+      loading: false,
+      status: 400,
+      statusText: undefined,
     });
   });
 

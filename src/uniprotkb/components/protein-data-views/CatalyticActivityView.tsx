@@ -4,6 +4,7 @@ import React, {
   useCallback,
   useRef,
   useEffect,
+  FC,
 } from 'react';
 import { useModal, ModalBackdrop, Window, Loader } from 'franklin-sites';
 
@@ -40,10 +41,7 @@ type ChebiImageData = {
   imgURL: string;
 } | null;
 
-export const ZoomModalContent: React.FC<ChebiImageData> = ({
-  chebi,
-  imgURL,
-}) => {
+export const ZoomModalContent: FC<ChebiImageData> = ({ chebi, imgURL }) => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [loading, setLoading] = useState(true);
   const image = new Image();
@@ -71,12 +69,12 @@ type RheaReactionVisualizerProps = {
   show: boolean;
 };
 
-export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
+export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
   rheaId,
   show: initialShow,
 }) => {
   const [show, setShow] = useState(initialShow);
-  const [wcLoaded, setWCLoaded] = useSafeState(false);
+  const [ceLoaded, setCELoaded] = useSafeState(false);
   const [zoomImageData, setZoomImageData] = useState<ChebiImageData>();
   const { displayModal, setDisplayModal, Modal } = useModal(
     ModalBackdrop,
@@ -99,13 +97,13 @@ export const RheaReactionVisualizer: React.FC<RheaReactionVisualizerProps> = ({
 
   useEffect(() => {
     import('@swissprot/rhea-reaction-visualizer').then(
-      () => setWCLoaded(true),
+      () => setCELoaded(true),
       // eslint-disable-next-line no-console
       (error) => console.error(error)
     );
-  }, [setWCLoaded]);
+  }, [setCELoaded]);
 
-  if (!wcLoaded) {
+  if (!ceLoaded) {
     return null;
   }
 
@@ -159,7 +157,7 @@ export type ReactionDirectionProps = {
   physiologicalReactions: PhysiologicalReaction[];
 };
 
-export const ReactionDirection: React.FC<ReactionDirectionProps> = ({
+export const ReactionDirection: FC<ReactionDirectionProps> = ({
   physiologicalReactions,
 }) => {
   /*
@@ -207,18 +205,18 @@ type CatalyticActivityProps = {
   title?: string;
 };
 
-const CatalyticActivityView: React.FC<CatalyticActivityProps> = ({
+const CatalyticActivityView: FC<CatalyticActivityProps> = ({
   comments,
   title,
 }) => {
-  if (!comments || comments.length <= 0) {
+  if (!comments || !comments.length) {
     return null;
   }
-  let firstRheaId: number | null = null;
+  let firstRheaId: number;
   return (
     <>
       {title && <h3>{title}</h3>}
-      {comments.map(({ reaction, physiologicalReactions }) => {
+      {comments.map(({ reaction, physiologicalReactions }, index) => {
         if (!reaction) {
           return null;
         }
@@ -234,7 +232,7 @@ const CatalyticActivityView: React.FC<CatalyticActivityProps> = ({
           firstRheaId = rheaId;
         }
         return (
-          <span className="text-block" key={reaction.ecNumber}>
+          <span className="text-block" key={reaction.ecNumber || index}>
             <strong>{reaction.ecNumber}</strong>
             {/* Need a link to search for EC in UniProtKB:
              https://www.ebi.ac.uk/panda/jira/browse/TRM-23597 */}

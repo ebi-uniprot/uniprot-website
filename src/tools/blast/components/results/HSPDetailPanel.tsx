@@ -8,8 +8,14 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import AlignmentView, {
+  MSAInput,
+  View,
+  Tool,
+} from '../../../components/AlignmentView';
+
 import './styles/HSPDetailPanel.scss';
-import MSAWrapper, { MSAInput, View } from '../../../components/MSAWrapper';
+import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -49,7 +55,7 @@ export const convertHSPtoMSAInputs = (
       length: queryLength,
     },
     {
-      name: 'Match',
+      name: 'Match:',
       sequence: hsp_hseq,
       from: hsp_hit_from,
       to: hsp_hit_to,
@@ -83,9 +89,15 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     getAccessionsURL([hitAccession], { facets: [] })
   );
 
+  let apiData = extra || data?.results?.[0];
+  apiData = {
+    ...apiData,
+    features: removeFeaturesWithUnknownModifier(apiData?.features),
+  } as UniProtkbAPIModel;
+
   const recommendedName =
-    data?.results?.[0]?.proteinDescription?.recommendedName?.fullName.value;
-  const organism = data?.results?.[0]?.organism?.scientificName;
+    apiData?.proteinDescription?.recommendedName?.fullName.value;
+  const organism = apiData?.organism?.scientificName;
 
   const title = [hitAccession, recommendedName, organism]
     .filter(Boolean)
@@ -96,33 +108,40 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     queryLength,
     hitLength,
     hitAccession,
-    extra
+    apiData
   );
 
-  if (error) {
-    return <ErrorHandler status={status} />;
-  }
-
-  if (loading) {
-    return <Loader />;
+  let content;
+  if (!apiData) {
+    if (error) {
+      content = <ErrorHandler status={status} />;
+    } else if (loading) {
+      content = <Loader />;
+    }
+  } else {
+    content = (
+      <>
+        <div className="hsp-detail-panel__header">
+          <h4>{title}</h4>
+          <button type="button" onClick={onClose}>
+            <CloseIcon width="16" height="16" />
+          </button>
+        </div>
+        <div className="hsp-detail-panel__body">
+          <AlignmentView
+            alignmentLength={hsp_align_len}
+            alignment={alignment}
+            defaultView={View.overview}
+            tool={Tool.blast}
+          />
+        </div>
+      </>
+    );
   }
 
   return (
     <SlidingPanel position="bottom" className="hsp-detail-panel">
-      <div className="hsp-detail-panel__header">
-        <h4>{title}</h4>
-        <button type="button" onClick={onClose}>
-          <CloseIcon width="16" height="16" />
-        </button>
-      </div>
-      <div className="hsp-detail-panel__body">
-        <MSAWrapper
-          alignmentLength={hsp_align_len}
-          // totalLength={totalLength}
-          alignment={alignment}
-          defaultView={View.overview}
-        />
-      </div>
+      {content}
     </SlidingPanel>
   );
 };

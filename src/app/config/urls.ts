@@ -7,6 +7,8 @@ export enum Location {
   Home = 'Home',
   UniProtKBResults = 'UniProtKBResults',
   UniProtKBEntry = 'UniProtKBEntry',
+  UniRefEntry = 'UniRefEntry',
+  UniRefResults = 'UniRefResults',
   Align = 'Align',
   AlignResult = 'AlignResult',
   Blast = 'Blast',
@@ -18,8 +20,6 @@ export enum Location {
   UniProtKBCustomiseTable = 'UniProtKBCustomiseTable',
   UniProtKBQueryBuilder = 'UniProtKBQueryBuilder',
   Dashboard = 'Dashboard',
-  UniRefEntry = 'UniRefEntry',
-  UniRefResults = 'UniRefResults',
 }
 
 export const LocationToPath = {

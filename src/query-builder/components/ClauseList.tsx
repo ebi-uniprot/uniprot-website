@@ -68,7 +68,7 @@ const ClauseItem: React.FC<{
           handleFieldSelect(clause.id, value)
         }
         autocompletePlaceholder="Search for field"
-        value={clause.searchTerm}
+        label={clause.searchTerm.label}
         autocomplete
       />
       {fieldItems.map((siblingTerm) => {

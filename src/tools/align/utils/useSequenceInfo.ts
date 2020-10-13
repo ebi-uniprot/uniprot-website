@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { sequenceProcessor } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -30,45 +31,53 @@ const hasAccession = (
   (value as ParsedSequenceAndFeatures).accession !== undefined;
 
 const useSequenceInfo = (rawSequences?: string): SequenceInfo => {
-  let processedArray: ParsedSequenceAndFeatures[] = (sequenceProcessor(
-    rawSequences || ''
-  ) as ParsedSequence[])
-    .map((processed) => ({
-      ...processed,
-      accession: extractAccession(processed.name),
-    }))
-    // ensures we managed to extract an accession from header, otherwise discard
-    .filter(hasAccession);
+  const processedArray: ParsedSequenceAndFeatures[] = useMemo(
+    () =>
+      (sequenceProcessor(rawSequences || '') as ParsedSequence[])
+        .map((processed) => ({
+          ...processed,
+          accession: extractAccession(processed.name),
+        }))
+        // ensures we managed to extract an accession from header, otherwise discard
+        .filter(hasAccession),
+    [rawSequences]
+  );
 
   const endpoint = getAccessionsURL(
     processedArray.map((processed) => processed.accession)
   );
   const { data, loading, error } = useDataApi<UniProtkbAccessionsAPI>(endpoint);
 
-  const dataPerAccession = new Map(
-    data?.results.map((object) => [object.primaryAccession, object]) ?? []
+  const outputData = useMemo(() => {
+    const dataPerAccession = new Map(
+      data?.results.map((object) => [object.primaryAccession, object]) ?? []
+    );
+
+    const pa = processedArray
+      // ensures the sequences are identical between submitted and UniProt's DB
+      .filter(
+        (processed) =>
+          processed.sequence ===
+          dataPerAccession.get(processed.accession)?.sequence.value
+      )
+      // enrich with the feature data
+      .map((processed) => ({
+        ...processed,
+        features: dataPerAccession.get(processed.accession)?.features,
+      }));
+    return new Map(pa.map((processed) => [processed.accession, processed]));
+  }, [data, processedArray]);
+
+  const output = useMemo(
+    () => ({
+      data: outputData,
+      loading: loading || !rawSequences || (endpoint && !data && !error),
+    }),
+    [outputData, loading, rawSequences, endpoint, data, error]
   );
 
-  processedArray = processedArray
-    // ensures the sequences are identical between submitted and UniProt's DB
-    .filter(
-      (processed) =>
-        processed.sequence ===
-        dataPerAccession.get(processed.accession)?.sequence.value
-    )
-    // enrich with the feature data
-    .map((processed) => ({
-      ...processed,
-      features: dataPerAccession.get(processed.accession)?.features,
-    }));
-
   // eslint-disable-next-line consistent-return
-  return {
-    data: new Map(
-      processedArray.map((processed) => [processed.accession, processed])
-    ),
-    loading: loading || !rawSequences || (endpoint && !data && !error),
-  } as SequenceInfo;
+  return output as SequenceInfo;
 };
 
 export default useSequenceInfo;

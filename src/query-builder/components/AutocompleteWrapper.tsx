@@ -4,7 +4,7 @@ import { v1 } from 'uuid';
 import fetchData from '../../shared/utils/fetchData';
 import { getSuggesterUrl } from '../../shared/config/apiUrls';
 
-type Props = {
+type AutocompleteWrapperProps = {
   url: string;
   onSelect: (path: string, id?: string) => void;
   title: string;
@@ -31,7 +31,7 @@ type SelectValue = {
   apiId: string;
 };
 
-type State = {
+type AutocompleteWrapperState = {
   data: SelectValue[];
   previousTextInputValue: string;
   isLoading: boolean;
@@ -39,7 +39,10 @@ type State = {
 
 const minCharsToShowDropdown = 3;
 
-class AutocompleteWrapper extends Component<Props, State> {
+class AutocompleteWrapper extends Component<
+  AutocompleteWrapperProps,
+  AutocompleteWrapperState
+> {
   static prepareData(suggestions: Suggestion[]) {
     return suggestions.map(
       (suggestion: Suggestion): SelectValue => ({
@@ -53,7 +56,7 @@ class AutocompleteWrapper extends Component<Props, State> {
 
   id: string;
 
-  constructor(props: Props) {
+  constructor(props: AutocompleteWrapperProps) {
     super(props);
     this.state = { data: [], previousTextInputValue: '', isLoading: false };
     this.id = v1();

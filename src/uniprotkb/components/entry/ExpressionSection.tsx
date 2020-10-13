@@ -1,10 +1,13 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
-import { hasContent } from '../../utils';
-import EntrySection from '../../types/entrySection';
+
+import { hasContent } from '../../../shared/utils/utils';
+
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
+
 import { UIModel } from '../../adapters/sectionConverter';
 import { CommentType, FreeTextComment } from '../../types/commentTypes';
 
@@ -16,7 +19,7 @@ const ExpressionSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySection.Expression}>
+    <div id={EntrySectionIDs[EntrySection.Expression]} data-entry-section>
       <Card title={EntrySection.Expression}>
         <FreeTextView
           comments={

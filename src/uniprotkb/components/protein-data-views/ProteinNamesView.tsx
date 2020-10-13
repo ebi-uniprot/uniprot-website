@@ -9,40 +9,39 @@ import {
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
-export const NameWithEvidence: React.FC<{ data: ValueWithEvidence }> = ({
-  data,
-}): JSX.Element => (
-  <Fragment>
+export const NameWithEvidence: FC<{ data: ValueWithEvidence }> = ({ data }) => (
+  <>
     {data.value}
     {data.evidences && (
-      <Fragment>
+      <>
         {' '}
         <UniProtKBEvidenceTag evidences={data.evidences} />
-      </Fragment>
+      </>
     )}
-  </Fragment>
+  </>
 );
 
-const ProteinNamesViewFlat: React.FC<{
+const ProteinNamesViewFlat: FC<{
   names?: ProteinNames;
   includeEvidence?: boolean;
-}> = ({ names, includeEvidence = false }): JSX.Element | null => {
+}> = ({ names, includeEvidence = false }) => {
   if (!names) {
     return null;
   }
   return (
-    <Fragment>
+    <>
       {includeEvidence ? (
         <NameWithEvidence data={names.fullName} />
       ) : (
         `${names.fullName.value}`
       )}
       {names.shortNames && (
-        <Fragment>
+        <>
           {' ('}
           {names.shortNames.map(
             (shortName, index): JSX.Element => (
-              <Fragment key={v1()}>
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
                 {index > 0 && '; '}
                 {includeEvidence ? (
                   <NameWithEvidence data={shortName} />
@@ -53,23 +52,23 @@ const ProteinNamesViewFlat: React.FC<{
             )
           )}
           {') '}
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
-const ProteinDescriptionView: React.FC<{
+const ProteinDescriptionView: FC<{
   proteinDescription?: ProteinDescription;
-}> = ({ proteinDescription }): JSX.Element | null => {
+}> = ({ proteinDescription }) => {
   if (!proteinDescription) {
     return null;
   }
   return (
-    <Fragment>
+    <>
       <ProteinNamesViewFlat names={proteinDescription.recommendedName} />
       {proteinDescription.alternativeNames && (
-        <Fragment>
+        <>
           {' '}
           <strong>Alternative names: </strong>
           {proteinDescription.alternativeNames.map(
@@ -80,9 +79,9 @@ const ProteinDescriptionView: React.FC<{
               />
             )
           )}
-        </Fragment>
+        </>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -90,16 +89,18 @@ export const ECNumbersView: FC<{
   ecNumbers: ValueWithEvidence[];
   isCompact?: boolean;
 }> = ({ ecNumbers, isCompact = false }) => (
-  <Fragment>
+  <>
     {ecNumbers.map(
-      (ecNumber): JSX.Element =>
+      (ecNumber, index): JSX.Element =>
         isCompact ? (
-          <Fragment key={v1()}>{ecNumber.value}</Fragment>
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>{ecNumber.value}</Fragment>
         ) : (
-          <NameWithEvidence data={ecNumber} key={v1()} />
+          // eslint-disable-next-line react/no-array-index-key
+          <NameWithEvidence data={ecNumber} key={index} />
         )
     )}
-  </Fragment>
+  </>
 );
 
 const getInfoListForNames = (
@@ -112,7 +113,7 @@ const getInfoListForNames = (
     infoData.push({
       title: 'Recommended name',
       content: isCompact ? (
-        <Fragment>{name.fullName.value}</Fragment>
+        <>{name.fullName.value}</>
       ) : (
         <NameWithEvidence data={name.fullName} />
       ),
@@ -130,10 +131,11 @@ const getInfoListForNames = (
     infoData.push({
       title: 'Short names',
       content: (
-        <Fragment>
+        <>
           {name.shortNames.map(
             (shortName, i): JSX.Element => (
-              <Fragment key={v1()}>
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={i}>
                 {i > 0 && '; '}
                 {isCompact ? (
                   shortName.value
@@ -143,7 +145,7 @@ const getInfoListForNames = (
               </Fragment>
             )
           )}
-        </Fragment>
+        </>
       ),
     });
   }
@@ -230,7 +232,7 @@ const ProteinNamesView: React.FC<{
     infoData.push({
       title: 'Biotech name',
       content: isCompact ? (
-        <Fragment>{proteinNames.biotechName.value}</Fragment>
+        <>{proteinNames.biotechName.value}</>
       ) : (
         <NameWithEvidence data={proteinNames.biotechName} />
       ),
@@ -241,7 +243,7 @@ const ProteinNamesView: React.FC<{
     infoData.push({
       title: 'CD Antigen Name',
       content: isCompact ? (
-        <Fragment>{proteinNames.cdAntigenNames.value}</Fragment>
+        <>{proteinNames.cdAntigenNames.value}</>
       ) : (
         <NameWithEvidence data={proteinNames.cdAntigenNames} />
       ),
@@ -252,7 +254,7 @@ const ProteinNamesView: React.FC<{
     infoData.push({
       title: 'INN Name',
       content: isCompact ? (
-        <Fragment>{proteinNames.innNames.value}</Fragment>
+        <>{proteinNames.innNames.value}</>
       ) : (
         <NameWithEvidence data={proteinNames.innNames} />
       ),

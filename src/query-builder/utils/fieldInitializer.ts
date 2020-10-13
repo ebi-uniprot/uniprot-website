@@ -12,24 +12,28 @@ const initializer = (
   field: SearchTermType,
   initialValue?: QueryBit
 ): string | [from: string, to: string] => {
+  // specific case for free text search
   if (field.id === 'id_all') {
     return initialValue?.id_all || '';
   }
+  // no value? bail
   if (!(initialValue && initialValue[field.id])) {
-    console.log(field.id, 'no initial value');
     return '';
   }
+  // parse and validate presence of queryBit
   const match = new RegExp(`^\\(${field.term}:(\\w*)\\)$`).exec(
     initialValue[field.id]
   );
+  // invalid? bail
   if (!match) {
-    console.log(field.id, 'invalid queryBit');
     return '';
   }
   const [, value] = match;
 
   // NOTE: is all the following basically just a clause value validator?
   // regular expression matching
+
+  // regex is present in the field description? try to match extracted value
   if (field.regex && field.regex !== undefined) {
     const { regex } = field;
     let re: RegExp;
@@ -38,15 +42,16 @@ const initializer = (
     } else {
       re = new RegExp(regex);
     }
+    // doesn't match regular expression? bail
     if (!re.test(value)) {
-      console.log(field.id, 'invalid value (regex)');
       return '';
     }
   }
-  // enum matching
+  // possible values are present in the field description? check is included
   if (field.values && Array.isArray(field.values)) {
-    if (field.values.map(({ value }) => value).includes(value)) {
-      console.log(field.id, 'invalid value (values)');
+    if (!field.values.map(({ value }) => value).includes(value)) {
+      // isn't included in possible values? bail
+      return '';
     }
   }
 

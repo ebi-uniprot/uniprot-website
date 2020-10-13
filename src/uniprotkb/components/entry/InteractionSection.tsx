@@ -2,11 +2,12 @@ import React, { FC, useRef, useEffect } from 'react';
 import { Card, Loader } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
 
-import EntrySection from '../../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 
-import { hasContent } from '../../utils';
+import { hasContent } from '../../../shared/utils/utils';
+
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import {
@@ -134,7 +135,7 @@ const InteractionSection: FC<{
   }
 
   return (
-    <div id={EntrySection.Interaction}>
+    <div id={EntrySectionIDs[EntrySection.Interaction]} data-entry-section>
       <Card title={EntrySection.Interaction}>
         {comments && (
           <FreeTextView

@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
-import { hasContent } from '../../utils';
-import EntrySection from '../../types/entrySection';
+
+import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FreeTextView from '../protein-data-views/FreeTextView';
+
+import { hasContent } from '../../../shared/utils/utils';
+
 import { CommentType, FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 
@@ -19,7 +22,10 @@ const ProteinProcessingSection: FC<{
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
   return (
-    <div id={EntrySection.ProteinProcessing}>
+    <div
+      id={EntrySectionIDs[EntrySection.ProteinProcessing]}
+      data-entry-section
+    >
       <Card title={EntrySection.ProteinProcessing}>
         <FeaturesView features={featuresData} sequence={sequence} />
         <FreeTextView

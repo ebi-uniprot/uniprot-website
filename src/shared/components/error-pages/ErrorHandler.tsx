@@ -6,6 +6,7 @@ import ServiceUnavailablePage from './ServiceUnavailablePage';
 const ErrorHandler: FC<{ status?: number }> = ({ status }) => {
   switch (status) {
     case 400:
+      return null;
     case 404:
       return <ResourceNotFoundPage />;
     case 500:

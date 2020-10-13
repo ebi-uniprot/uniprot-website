@@ -4,11 +4,11 @@ import { Location } from 'history';
 
 import ErrorComponent from './ErrorComponent';
 
-type Props = RouteComponentProps & {
+type ErrorBoundaryProps = RouteComponentProps & {
   children: React.ReactNode;
   fallback?: React.ReactNode;
 };
-type State = { error?: Error; location?: Location };
+type ErrorBoundaryState = { error?: Error; location?: Location };
 
 /**
  * Use this ErrorBoundary to wrap any unit of components which might, for any
@@ -18,10 +18,10 @@ type State = { error?: Error; location?: Location };
  * Provide `null` as a fallback to simply hide the error.
  * Will try to rerender on location change.
  */
-class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   static defaultProps = { fallback: <ErrorComponent /> };
 
-  constructor(props: Props) {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
 
     this.state = { location: props.location };
@@ -31,7 +31,10 @@ class ErrorBoundary extends Component<Props, State> {
     return { error };
   }
 
-  static getDerivedStateFromProps(nextProps: Props, prevState: State) {
+  static getDerivedStateFromProps(
+    nextProps: ErrorBoundaryProps,
+    prevState: ErrorBoundaryState
+  ) {
     if (
       nextProps.location.pathname === prevState.location?.pathname &&
       nextProps.location.search === prevState.location?.search

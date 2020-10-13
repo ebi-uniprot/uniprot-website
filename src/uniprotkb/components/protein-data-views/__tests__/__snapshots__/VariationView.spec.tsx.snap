@@ -7,26 +7,26 @@ exports[`VariationView component renders on data 1`] = `
       some title
     </h3>
     <protvista-manager
-      attributes="highlight displaystart displayend activefilters filters"
+      attributes="highlight displaystart displayend activefilters filters selectedid"
     >
       <div
         class="variation-view"
       >
         <protvista-navigation
-          length="7"
+          length="4"
         />
         <protvista-sequence
           filter-scroll="true"
           height="20"
-          length="7"
-          sequence="ABCDEFG"
+          length="4"
+          sequence="ABCD"
         />
         <protvista-filter
           for="variation-component"
         />
         <protvista-variation
           id="variation-component"
-          length="7"
+          length="4"
         />
       </div>
       <protvista-datatable

@@ -6,15 +6,18 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import './styles/single-column-layout.scss';
 
-const UniProtFooter = lazy(() =>
-  import(/* webpackChunkName: "footer" */ './UniProtFooter')
+const UniProtFooter = lazy(
+  () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
 );
 
-type Props = {
+type SingleColumnLayoutProps = {
   className?: string;
 };
 
-const SingleColumnLayout: FC<Props> = ({ children, className }) => (
+const SingleColumnLayout: FC<SingleColumnLayoutProps> = ({
+  children,
+  className,
+}) => (
   <div className={cn('single-column-layout', className)}>
     <main className="single-column-layout__main">
       <Suspense fallback={<Loader />}>

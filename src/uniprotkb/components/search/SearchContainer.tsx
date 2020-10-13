@@ -3,6 +3,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch } from 'franklin-sites';
 
+import useNS from '../../../shared/hooks/useNS';
+
 import { SearchResultsLocations } from '../../../app/config/urls';
 import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
@@ -18,8 +20,10 @@ const Search = () => {
     queryString.parse(history.location.search, { decode: true }).query
   );
 
+  const ns = useNS();
+
   const [selectedNamespace, setSelectedNamespace] = useState(
-    Namespace.uniprotkb
+    ns || Namespace.uniprotkb
   );
 
   const handleSubmit = (event: Event) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
 import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
@@ -27,30 +27,38 @@ const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
 
 // overview
-const AlignResultOverview = lazy(() =>
-  import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
+const AlignResultOverview = lazy(
+  () => import(/* webpackChunkName: "align-overview" */ './AlignResultOverview')
 );
 // phylogenetic-tree
-const AlignResultPhyloTree = lazy(() =>
-  import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
+const AlignResultPhyloTree = lazy(
+  () =>
+    import(/* webpackChunkName: "align-phylotree" */ './AlignResultPhyloTree')
 );
 // percent-identity-matrix
-const AlignResultPIM = lazy(() =>
-  import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
+const AlignResultPIM = lazy(
+  () => import(/* webpackChunkName: "align-pim" */ './AlignResultPIM')
 );
 // text-output
-const TextOutput = lazy(() =>
-  import(/* webpackChunkName: "text-output" */ '../../../components/TextOutput')
+const TextOutput = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "text-output" */ '../../../components/TextOutput'
+    )
 );
 // input-parameters
-const InputParameters = lazy(() =>
-  import(
-    /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
-  )
+const InputParameters = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "input-parameters" */ '../../../components/InputParameters'
+    )
 );
 // input-parameters
-const APIRequest = lazy(() =>
-  import(/* webpackChunkName: "api-request" */ '../../../components/APIRequest')
+const APIRequest = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "api-request" */ '../../../components/APIRequest'
+    )
 );
 
 enum TabLocation {
@@ -61,13 +69,6 @@ enum TabLocation {
   InputParameters = 'input-parameters',
   APIRequest = 'api-request',
 }
-
-type Match = {
-  params: {
-    id: string;
-    subPage?: TabLocation;
-  };
-};
 
 // custom hook to get data from the input parameters endpoint, input sequence
 // then parse it and merge it.
@@ -101,15 +102,20 @@ const useParamsData = (
   return paramsData;
 };
 
+type Params = {
+  id: string;
+  subPage?: TabLocation;
+};
+
 const AlignResult = () => {
   const history = useHistory();
-  const match = useRouteMatch(LocationToPath[Location.AlignResult]) as Match;
+  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult]);
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match.params.subPage) {
+    if (!match?.params?.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
@@ -117,32 +123,32 @@ const AlignResult = () => {
         })
       );
     }
-  }, [match.params.subPage, history]);
+  }, [match, history]);
 
   // get data from the align endpoint
   const { loading, data, error, status } = useDataApi<AlignResults>(
-    urls.resultUrl(match.params.id, 'aln-clustal_num')
+    urls.resultUrl(match?.params.id || '', 'aln-clustal_num')
   );
 
-  const inputParamsData = useParamsData(match.params.id);
+  const inputParamsData = useParamsData(match?.params.id || '');
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
 
   // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = (rowId: string) => {
-    const filtered = selectedEntries.filter((id) => id !== rowId);
-    setSelectedEntries(
-      filtered.length === selectedEntries.length
+  const handleSelectedEntries = useCallback((rowId: string) => {
+    setSelectedEntries((selectedEntries) => {
+      const filtered = selectedEntries.filter((id) => id !== rowId);
+      return filtered.length === selectedEntries.length
         ? [...selectedEntries, rowId]
-        : filtered
-    );
-  };
+        : filtered;
+    });
+  }, []);
 
   if (loading) {
     return <Loader />;
   }
 
-  if (error || !data) {
+  if (error || !data || !match) {
     return <ErrorHandler status={status} />;
   }
 
@@ -203,6 +209,8 @@ const AlignResult = () => {
               <AlignResultPhyloTree
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
+                selectedEntries={selectedEntries}
+                handleSelectedEntries={handleSelectedEntries}
               />
             </Suspense>
           </ErrorBoundary>
@@ -226,6 +234,8 @@ const AlignResult = () => {
               <AlignResultPIM
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
+                selectedEntries={selectedEntries}
+                handleSelectedEntries={handleSelectedEntries}
               />
             </Suspense>
           </ErrorBoundary>
