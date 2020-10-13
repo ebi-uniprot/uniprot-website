@@ -30,7 +30,9 @@ const RangeField: React.FC<{
           id={`from_input_${field.id}`}
           data-testid="range-field-from-input"
           type={field.dataType === DataType.date ? 'date' : 'number'}
-          onChange={(e) => setRange(([, to]) => [e.target.value, to])}
+          onChange={({ target: { value: from } }) =>
+            setRange(([, to]) => [from, to])
+          }
           placeholder="0"
           value={from}
         />
@@ -41,7 +43,9 @@ const RangeField: React.FC<{
           id={`to_input_${field.id}`}
           data-testid="range-field-to-input"
           type={field.dataType === DataType.date ? 'date' : 'number'}
-          onChange={(e) => setRange(([from]) => [from, e.target.value])}
+          onChange={({ target: { value: to } }) =>
+            setRange(([from]) => [from, to])
+          }
           placeholder="100"
           value={to}
         />

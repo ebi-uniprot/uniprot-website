@@ -10,6 +10,7 @@ exports[`Range field should render a range field 1`] = `
       data-testid="range-field-from-input"
       id="from_input_range_field"
       placeholder="0"
+      type="number"
       value=""
     />
   </label>
@@ -21,6 +22,7 @@ exports[`Range field should render a range field 1`] = `
       data-testid="range-field-to-input"
       id="to_input_range_field"
       placeholder="100"
+      type="number"
       value=""
     />
   </label>

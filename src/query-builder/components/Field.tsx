@@ -19,11 +19,13 @@ type FieldProps = {
 };
 
 const Field: FC<FieldProps> = ({ field, handleChange }: FieldProps) => {
-  const { dataType, fieldType } = field;
-
+  const { dataType, fieldType, autoComplete } = field;
   let GenericField: FC<FieldProps & { initialValue?: QueryBit }>;
 
   switch (true) {
+    case Boolean(autoComplete):
+      GenericField = AutocompleteField;
+      break;
     case dataType === DataType.enum || dataType === DataType.boolean:
       GenericField = EnumField;
       break;
@@ -34,13 +36,12 @@ const Field: FC<FieldProps> = ({ field, handleChange }: FieldProps) => {
     case dataType === DataType.string && fieldType === FieldType.evidence:
       GenericField = EvidenceField;
       break;
-    case dataType === DataType.string && field.autoComplete:
-      GenericField = AutocompleteField;
-      break;
     case dataType === DataType.string:
     case dataType === DataType.integer:
-    default:
       GenericField = TextField;
+      break;
+    default:
+      return null;
   }
 
   return (

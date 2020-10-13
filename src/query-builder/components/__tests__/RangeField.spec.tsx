@@ -30,14 +30,13 @@ describe('Range field', () => {
   });
 
   test('should handle from/to change', () => {
-    const { queryAllByTestId } = rendered;
-    const fromNodes = queryAllByTestId('range-field-from-input');
-    const toNodes = queryAllByTestId('range-field-to-input');
-    const index = 0;
-    fireEvent.change(fromNodes[index], { target: { value: 'val1' } });
-    fireEvent.change(toNodes[index], { target: { value: 'val1' } });
+    const { queryByTestId } = rendered;
+    const fromNode = queryByTestId('range-field-from-input');
+    const toNode = queryByTestId('range-field-to-input');
+    fireEvent.change(fromNode, { target: { value: '5' } });
+    fireEvent.change(toNode, { target: { value: '50' } });
     expect(props.handleChange).toHaveBeenCalledWith({
-      range_field: '(sites:[val1 TO val1])',
+      range_field: '(sites:[5 TO 50])',
     });
   });
 });

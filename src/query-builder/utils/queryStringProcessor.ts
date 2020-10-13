@@ -62,6 +62,7 @@ const getEmptyClause = (): Clause => ({
   id: '',
   searchTerm: {
     id: '',
+    term: '',
     label: '',
     itemType: ItemType.single,
     dataType: DataType.string,
