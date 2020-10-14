@@ -185,7 +185,7 @@ export const testData = [
   },
   {
     description:
-      'should handle an "All" query (eg without a specific field selected)',
+      'should handle an "All" query (e.g. without a specific field selected)',
     queryString: 'blah',
     clauses: [
       {

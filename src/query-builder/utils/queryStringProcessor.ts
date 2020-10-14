@@ -1,4 +1,10 @@
-import { Clause, Operator, ItemType, DataType } from '../types/searchTypes';
+import {
+  Clause,
+  Operator,
+  ItemType,
+  DataType,
+  FieldType,
+} from '../types/searchTypes';
 
 export const stringify = (clauses: Clause[] = []): string =>
   clauses.reduce((queryAccumulator: string, clause: Clause) => {
@@ -24,15 +30,17 @@ export const stringify = (clauses: Clause[] = []): string =>
 
 const clauseSplitter = / *(AND|OR|NOT) +/;
 const clauseMatcher = /^\(*(\w+):"?([^")]+)"?\)*$/;
-const splitClause = (clause: string) => {
+const splitClause = (
+  clause: string
+): [key: string | undefined, value: string] => {
   const match = clauseMatcher.exec(clause);
   if (!match) {
-    return ['All', clause];
+    return [undefined, clause];
   }
   return [match[1], match[2]];
 };
-// const quotedId = /:"[^") ]+"\)*$/;
-const evidenceKey = /^(\w\wev_)/;
+const quotedValue = /:"[^")]+"\)*$/;
+const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
 // const rangeValue = /^\[(.+) TO (.+)\]$/;
 // const getRangedValue = (value: string) => {
 //   const match = rangeValue.exec(value);
@@ -42,7 +50,7 @@ const evidenceKey = /^(\w\wev_)/;
 //   // eslint-disable-next-line consistent-return
 //   return { rangeFrom: match[1], rangeTo: match[2] };
 // };
-const searchTermReplacer = /(cc|ft(len)?)_/;
+// const searchTermReplacer = /(cc|ft(len)?)_/;
 
 const getEmptyClause = (): Clause => ({
   id: '',
@@ -52,6 +60,7 @@ const getEmptyClause = (): Clause => ({
     label: '',
     itemType: ItemType.single,
     dataType: DataType.string,
+    fieldType: FieldType.general,
   },
   queryBits: {},
   logicOperator: Operator.AND,
@@ -75,8 +84,7 @@ export const parse = (queryString = ''): Clause[] => {
         continue; // eslint-disable-line no-continue
       }
       // for every other item (even) should be the content of the clause
-      // const [key, value] = splitClause(chunk);
-      const [key] = splitClause(chunk);
+      const [key, value] = splitClause(chunk);
 
       // item type
       // if (key.startsWith('cc_')) {
@@ -87,17 +95,25 @@ export const parse = (queryString = ''): Clause[] => {
       //   currentClause.searchTerm.itemType = ItemType.database;
       // }
 
-      // evidence
-      if (evidenceKey.test(key)) {
-        // if it's an evidence key, mopdify the last inserted clause and skip
-        // const prevClause = clauses[clauses.length - 1];
-        // prevClause.searchTerm.hasEvidence = true;
-        // prevClause.queryInput.evidenceValue = value;
-        continue; // eslint-disable-line no-continue
+      // evidence or length
+      const evidenceOrLengthMatch = key && key.match(evidenceOrLengthKey);
+      if (evidenceOrLengthMatch) {
+        const correspondingClause = clauses.find(({ searchTerm }) =>
+          searchTerm.id.startsWith(evidenceOrLengthMatch[1])
+        );
+        if (correspondingClause) {
+          // if it's an evidence or length key, mopdify the last inserted
+          // corresponding clause and skip
+          const isQuoted = quotedValue.test(chunk);
+          correspondingClause.queryBits[key] = `(${key}:${
+            isQuoted ? '"' : ''
+          }${value}${isQuoted ? '"' : ''})`;
+          continue; // eslint-disable-line no-continue
+        }
       }
 
       // term
-      currentClause.searchTerm.term = key.replace(searchTermReplacer, '');
+      currentClause.searchTerm.term = key || 'All';
 
       // const range = getRangedValue(value);
       // if (range) {
@@ -116,12 +132,19 @@ export const parse = (queryString = ''): Clause[] => {
       //     currentClause.queryInput.stringValue = value;
       //   }
       // } else {
-      //   // "default"
-      //   currentClause.queryInput.stringValue = value;
-      //   if (quotedId.test(chunk)) {
-      //     // if it's an ID and not just a full-text
-      //     currentClause.queryInput.id = value;
-      //   }
+      // "default"
+      const isQuoted = quotedValue.test(chunk);
+      if (key) {
+        currentClause.queryBits[key] = `(${key}:${isQuoted ? '"' : ''}${value}${
+          isQuoted ? '"' : ''
+        })`;
+      } else {
+        currentClause.queryBits.id_all = value;
+      }
+      // if (quotedId.test(chunk)) {
+      //   // if it's an ID and not just a full-text
+      //   currentClause.queryBits.id = value;
+      // }
       // }
 
       clauses.push(currentClause);
