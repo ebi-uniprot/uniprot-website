@@ -6,6 +6,7 @@ import {
   FeatureData,
   LocationModifier,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import { Sequence } from '../components/Wrapped';
 
 export const findSequenceSegments = (seq: string) => {
   const ranges: number[][] = [];
@@ -133,3 +134,12 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
       start.modifier !== LocationModifier.UNKNOWN &&
       end.modifier !== LocationModifier.UNKNOWN
   );
+
+export const createGapFragments = (
+  processedFeatures: ProcessedFeature,
+  sequence: Sequence
+) => {
+  const { stringStart, stringEnd, sequence: seq } = sequence;
+
+  return processedFeatures;
+};

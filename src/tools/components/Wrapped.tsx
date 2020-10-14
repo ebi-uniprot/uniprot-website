@@ -8,7 +8,7 @@ import React, {
   SetStateAction,
   Dispatch,
 } from 'react';
-import { debounce } from 'lodash-es';
+import { debounce, cloneDeep } from 'lodash-es';
 import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
@@ -27,6 +27,7 @@ import {
 import {
   transformFeaturesPositions,
   getEndCoordinate,
+  createGapFragments,
 } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
@@ -37,6 +38,8 @@ export type Sequence = {
   sequence: string;
   start: number;
   end: number;
+  stringStart: number;
+  stringEnd: number;
   features?: FeatureData;
   accession?: string;
 };
@@ -104,15 +107,15 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         const features = activeSeq?.features?.filter(
           ({ type }) => type === annotation
         );
-        console.log('---');
-        console.log('annotation', annotation, 'for', activeSeq?.accession);
-        console.log(
-          'features',
-          features?.map(({ location }) => {
-            console.log(JSON.stringify(location, null, 2));
-          })
-        );
-        console.log('---');
+        // console.log('---');
+        // console.log('annotation', annotation, 'for', activeSeq?.accession);
+        // console.log(
+        //   'features',
+        //   features?.map(({ location }) => {
+        //     console.log(JSON.stringify(location, null, 2));
+        //   })
+        // );
+        // console.log('---');
         if (
           activeSeq &&
           activeSeq.start > 0 &&
@@ -122,6 +125,15 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         ) {
           let processedFeatures = processFeaturesData(features);
           processedFeatures = transformFeaturesPositions(processedFeatures);
+          const t = cloneDeep(activeSeq);
+          delete t.features;
+          console.log(
+            JSON.stringify(processedFeatures, null, 2),
+            JSON.stringify(t, null, 2)
+          );
+          console.log('-----');
+
+          // processedFeatures = processedFeatures.map(f => createGapFragments(f, activeSeq));
           node.data = processedFeatures;
           node.setAttribute('length', activeSeq.end - activeSeq.start);
           node.setAttribute('displaystart', activeSeq.start);
@@ -269,6 +281,8 @@ const Wrapped: FC<MSAViewProps> = ({
                 (omitInsertionsInCoords
                   ? getEndCoordinate(sequence, end)
                   : end),
+              stringStart: start,
+              stringEnd: end,
               features,
               accession,
             };
@@ -281,7 +295,9 @@ const Wrapped: FC<MSAViewProps> = ({
                 'start',
                 t.start,
                 'end',
-                t.end
+                t.end,
+                'features',
+                features
               );
             }
             return t;
