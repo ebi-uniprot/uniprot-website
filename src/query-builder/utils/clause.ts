@@ -1,8 +1,12 @@
 import { v1 } from 'uuid';
-import { isEqual } from 'lodash-es';
 
-import { removeProperty } from '../../shared/utils/utils';
-import { Operator, Clause, ItemType, DataType } from '../types/searchTypes';
+import {
+  Operator,
+  Clause,
+  ItemType,
+  DataType,
+  FieldType,
+} from '../types/searchTypes';
 
 export const createEmptyClause = (): Clause => ({
   id: v1(),
@@ -13,6 +17,7 @@ export const createEmptyClause = (): Clause => ({
     example: 'a4_human, P05067, cdc7 human',
     itemType: ItemType.single,
     dataType: DataType.string,
+    fieldType: FieldType.general,
     id: 'id_all',
   },
   queryBits: {},
@@ -28,7 +33,8 @@ export const createPreSelectedClauses = (): Clause[] => [
       example: 'ydj1',
       itemType: ItemType.single,
       dataType: DataType.string,
-      id: 'id_gene',
+      fieldType: FieldType.general,
+      id: 'gene_field',
     },
     queryBits: {},
   },
@@ -36,13 +42,15 @@ export const createPreSelectedClauses = (): Clause[] => [
     id: v1(),
     logicOperator: Operator.AND,
     searchTerm: {
-      id: 'id_taxonomy',
+      id: 'taxonomy_name',
       label: 'Taxonomy [OC]',
-      term: 'taxonomy',
       itemType: ItemType.single,
+      term: 'taxonomy_name',
       dataType: DataType.string,
-      autoComplete: '/uniprot/api/suggester?dict=taxonomy&query=?',
+      fieldType: FieldType.general,
       example: 'human',
+      autoComplete: '/uniprot/api/suggester?dict=taxonomy&query=?',
+      autoCompleteQueryTerm: 'taxonomy_id',
     },
     queryBits: {},
   },
@@ -50,18 +58,17 @@ export const createPreSelectedClauses = (): Clause[] => [
     id: v1(),
     logicOperator: Operator.AND,
     searchTerm: {
-      id: 'id_keyword',
+      id: 'keyword_field',
       label: 'Keyword [KW]',
       term: 'keyword',
       example: 'chromosomal',
       itemType: ItemType.single,
       dataType: DataType.string,
+      fieldType: FieldType.general,
       autoComplete: '/uniprot/api/suggester?dict=keyword&query=?',
+      autoCompleteQueryTerm: 'keyword',
     },
     queryBits: {},
   },
   createEmptyClause(),
 ];
-
-export const clausesAreEqual = (clause1: Clause, clause2: Clause) =>
-  isEqual(removeProperty(clause1, 'id'), removeProperty(clause2, 'id'));

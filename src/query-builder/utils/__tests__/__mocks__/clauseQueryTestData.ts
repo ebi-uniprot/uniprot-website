@@ -43,7 +43,7 @@ export const testData = [
   },
   {
     description: 'should parse autocomplete id',
-    queryString: '(organism_name:"blah blah")',
+    queryString: '(organism_id:9606)',
     clauses: [
       {
         searchTerm: {
@@ -225,7 +225,7 @@ export const testData = [
   },
   {
     description: 'should handle simple OR query with 2 clauses',
-    queryString: '((id:blah) OR (protein_name:"My protein"))',
+    queryString: '(id:blah) OR (protein_name:"My protein")',
     clauses: [
       {
         searchTerm: {
@@ -322,7 +322,7 @@ export const testData = [
   {
     description: 'should handle more complex query',
     queryString:
-      '(((ft_sites:my_site) AND (ftlen_sites:[10 TO 20]) AND (ftev_sites:automatic))AND (gene:my_gene))',
+      '((ft_sites:my_site) AND (ftlen_sites:[10 TO 20]) AND (ftev_sites:automatic)) AND (gene:my_gene)',
     clauses: [
       {
         searchTerm: {

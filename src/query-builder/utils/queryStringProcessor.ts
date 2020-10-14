@@ -1,19 +1,5 @@
 import { Clause, Operator, ItemType, DataType } from '../types/searchTypes';
 
-export const createTermString = (
-  term: string | undefined,
-  itemType: ItemType,
-  stringValue = ''
-) => {
-  if (term === undefined) {
-    throw new Error('term is undefined');
-  }
-  if (term === 'xref' && stringValue === '*') {
-    return 'database:';
-  }
-  return `${term}${term ? ':' : ''}`;
-};
-
 export const stringify = (clauses: Clause[] = []): string =>
   clauses.reduce((queryAccumulator: string, clause: Clause) => {
     const query = Object.values(clause.queryBits);
