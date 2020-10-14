@@ -2129,6 +2129,9 @@ exports[`Entry view should render 1`] = `
           <h3>
             Features
           </h3>
+          <p>
+            Showing features for chain.
+          </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
           >

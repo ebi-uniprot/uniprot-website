@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { html, TemplateResult } from 'lit-html';
 import { v1 } from 'uuid';
 import { Loader } from 'franklin-sites';
+import { uniq } from 'lodash-es';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
@@ -113,7 +114,14 @@ const FeaturesView: React.FC<FeatureProps> = ({
   );
   const ceDefined = navigationDefined && sequenceDefined && managerDefined;
 
-  const processedData = processFeaturesData(features, sequence);
+  const processedData = useMemo(() => processFeaturesData(features, sequence), [
+    features,
+    sequence,
+  ]);
+  const featureTypes = useMemo(
+    () => uniq(features.map(({ type }) => type.toLowerCase())),
+    [features]
+  );
 
   const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
     type: {
@@ -173,6 +181,7 @@ const FeaturesView: React.FC<FeatureProps> = ({
   return (
     <>
       <h3>Features</h3>
+      <p>Showing features for {featureTypes.join(', ')}.</p>
       <protvista-manager attributes="highlight displaystart displayend selectedid">
         {sequence && (
           <>
