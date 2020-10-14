@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { v1 } from 'uuid';
 
 import { MSAInput } from '../components/AlignmentView';
 import {
@@ -135,11 +136,80 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
       end.modifier !== LocationModifier.UNKNOWN
   );
 
-export const createGapFragments = (
-  processedFeatures: ProcessedFeature,
-  sequence: Sequence
-) => {
-  const { stringStart, stringEnd, sequence: seq } = sequence;
+export const createGappedFeature = (feature, sequence /* full sequence */) => {
+  const { start } = feature;
 
-  return processedFeatures;
+  // Gap positions in the full sequence
+  // Format: [start, end, length of gap, start index for debugging]
+  const gaps = [];
+  const fragments = []; // rectangular features to represent feature blocks
+
+  const regex = /[-]+/g;
+  let match;
+
+  while ((match = regex.exec(sequence)) !== null) {
+    // We need to keep track of how many gaps we have encountered
+    // so far in the sequence and account for those gaps in our feature
+    // poistions.
+    const prevoiusGaps = gaps.reduce((count, item) => count + item[2], 0); // number of previous gaps + length of current one
+
+    // Recording the gap details
+    gaps.push({
+      // start of the gap: index - previous gaps + 1 because index starts from 0
+      start: match.index - prevoiusGaps + 1,
+      // end of the gap: index - previous gaps + length of current gap
+      end: match.index - prevoiusGaps + match[0].length,
+      // length of current gap
+      length: match[0].length,
+      // index is the index of the first '-' found in the sequence. this index value
+      // is moved forward to the next match e.g. 2 and then 5 if sequence is '01-34-6'
+      rawIndex: match.index,
+    });
+  }
+
+  // Now that gaps positions and length are ready, we can move on to create the
+  // fragments that represent the feature itself rather the gaps.
+  //
+  // Calculating start: if this the first fragment we are creating, we need to
+  // take the start of the feature as the start of our fragment.
+  // If this is not the first fragment that we are creating, we need to find the
+  // end of previous gap -- where the previous gap ended in the sequence, and use
+  // that point + 1 as our starting point.
+  //
+  // Example: sequence '01-34--78'. feature [0,8]. gaps[[2,2],[5,6]].
+  // first fragment: start would be 0 which is the start of the feature.
+  // second fragment: start would be 2, which is the end of first gap, + 1
+  // thid fragment: start would be 6, whish is then eod of second gap, + 1
+  //
+  // Calculating end: the start of current gap -- remember we are creating the rectangular
+  // feature that is behind the gap right ahead of it. Current gap -- in the loop, points to
+  // the gap ahead.
+  gaps.forEach((nextGap, index) => {
+    const lastGap = gaps[index - 1];
+
+    fragments.push({
+      ...feature,
+      start: index === 0 ? start : lastGap.end + 1,
+      end: nextGap.start,
+      protvistaFeatureId: v1(),
+    });
+  });
+
+  // console.log("--- gaps:", gaps);
+  // console.log("--- frags:", fragments);
+
+  // If no fragments were created, then simply return the original feature
+  // without any modifications.
+  // If fragments were created, add them to the feature and then return the
+  // modified feature;
+  return fragments.length === 0
+    ? feature
+    : {
+        ...feature,
+        locations: [
+          {
+            fragments: fragments,
+          },
+        ],
+      };
 };

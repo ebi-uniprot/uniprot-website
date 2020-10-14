@@ -8,7 +8,7 @@ import React, {
   SetStateAction,
   Dispatch,
 } from 'react';
-import { debounce, cloneDeep } from 'lodash-es';
+import { debounce, flatten } from 'lodash-es';
 import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
@@ -27,7 +27,7 @@ import {
 import {
   transformFeaturesPositions,
   getEndCoordinate,
-  createGapFragments,
+  createGappedFeature,
 } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
@@ -107,15 +107,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         const features = activeSeq?.features?.filter(
           ({ type }) => type === annotation
         );
-        // console.log('---');
-        // console.log('annotation', annotation, 'for', activeSeq?.accession);
-        // console.log(
-        //   'features',
-        //   features?.map(({ location }) => {
-        //     console.log(JSON.stringify(location, null, 2));
-        //   })
-        // );
-        // console.log('---');
+
         if (
           activeSeq &&
           activeSeq.start > 0 &&
@@ -124,17 +116,17 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           features
         ) {
           let processedFeatures = processFeaturesData(features);
-          processedFeatures = transformFeaturesPositions(processedFeatures);
-          const t = cloneDeep(activeSeq);
-          delete t.features;
-          console.log(
-            JSON.stringify(processedFeatures, null, 2),
-            JSON.stringify(t, null, 2)
+          processedFeatures = transformFeaturesPositions(
+            processedFeatures
+          ).map((feature) =>
+            createGappedFeature(feature, activeSeq.fullSequence)
           );
-          console.log('-----');
 
-          // processedFeatures = processedFeatures.map(f => createGapFragments(f, activeSeq));
-          node.data = processedFeatures;
+          node.data = [
+            ...processedFeatures[0],
+            // { ...processedFeatures[0][0], start: 166, end: 177 },
+            // processedFeatures[0][1],
+          ];
           node.setAttribute('length', activeSeq.end - activeSeq.start);
           node.setAttribute('displaystart', activeSeq.start);
           node.setAttribute('displayend', activeSeq.end);
@@ -254,7 +246,7 @@ const Wrapped: FC<MSAViewProps> = ({
       return [];
     }
 
-    const numberRows = 4; // Math.ceil(alignmentLength / rowLength);
+    const numberRows = Math.ceil(alignmentLength / rowLength);
     const chunks = [...Array(numberRows).keys()].map((index) => {
       const start = index * rowLength;
       const end = Math.min(start + rowLength, alignmentLength);
@@ -271,6 +263,7 @@ const Wrapped: FC<MSAViewProps> = ({
             const t = {
               name: name || '',
               sequence: sequence.slice(start, end),
+              fullSequence: sequence,
               start:
                 from +
                 (omitInsertionsInCoords
@@ -286,20 +279,6 @@ const Wrapped: FC<MSAViewProps> = ({
               features,
               accession,
             };
-            // TODO revert
-            if (accession === 'P05067') {
-              console.log(
-                `chunk ${index}:`,
-                'seq',
-                t.sequence,
-                'start',
-                t.start,
-                'end',
-                t.end,
-                'features',
-                features
-              );
-            }
             return t;
           }
         ),
