@@ -137,7 +137,7 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
   );
 
 export const createGappedFeature = (feature, sequence /* full sequence */) => {
-  const { start } = feature;
+  const { start, end } = feature;
 
   // Gap positions in the full sequence
   // Format: [start, end, length of gap, start index for debugging]
@@ -147,11 +147,16 @@ export const createGappedFeature = (feature, sequence /* full sequence */) => {
   const regex = /[-]+/g;
   let match;
 
-  while ((match = regex.exec(sequence)) !== null) {
+  // We cut off the sequence from where the feature starts before searching for
+  // gaps. This is because gaps that come before the start of the feature don't
+  // count, but they will mess up with our search in the sequence, if they are
+  // not removed from the sequence. One should be subtracted from 'start' value
+  // because string functions work on a 0-based array.
+  while ((match = regex.exec(sequence.substring(start - 1))) !== null) {
     // We need to keep track of how many gaps we have encountered
     // so far in the sequence and account for those gaps in our feature
     // poistions.
-    const prevoiusGaps = gaps.reduce((count, item) => count + item[2], 0); // number of previous gaps + length of current one
+    const prevoiusGaps = gaps.reduce((count, gap) => count + gap.length, 0); // number of previous gaps + length of current one
 
     // Recording the gap details
     gaps.push({
@@ -184,16 +189,36 @@ export const createGappedFeature = (feature, sequence /* full sequence */) => {
   // Calculating end: the start of current gap -- remember we are creating the rectangular
   // feature that is behind the gap right ahead of it. Current gap -- in the loop, points to
   // the gap ahead.
-  gaps.forEach((nextGap, index) => {
-    const lastGap = gaps[index - 1];
+  gaps.forEach((gapAhead, index) => {
+    const lastGap = index === 0 ? gaps[0] : gaps[index - 1];
+
+    // Check here if the feature hasn't already ended before overlapping with this gap
+    // TODO is this right?
+    // if (index !== 0 && end >= lastGap.end) {
+    //   return;
+    // }
 
     fragments.push({
       ...feature,
       start: index === 0 ? start : lastGap.end + 1,
-      end: nextGap.start,
-      protvistaFeatureId: v1(),
+      end: end < gapAhead.start ? end : gapAhead.start - 1,
     });
   });
+
+  // Creating he last fragment after the last gap
+  if (gaps.length > 0) {
+    const veryLastGap = gaps[gaps.length - 1];
+    // if the end position of the last gap is smaller than the feature's end position
+    // TODO is thie 'if' redundant?
+    if (veryLastGap.end < end) {
+      fragments.push({
+        ...feature,
+        // Our starting point is the very end position of the very last gap
+        start: veryLastGap.end + 1,
+        end,
+      });
+    }
+  }
 
   // console.log("--- gaps:", gaps);
   // console.log("--- frags:", fragments);

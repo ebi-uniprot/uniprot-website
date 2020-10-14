@@ -123,7 +123,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           );
 
           node.data = [
-            ...processedFeatures[0],
+            ...processedFeatures,
             // { ...processedFeatures[0][0], start: 166, end: 177 },
             // processedFeatures[0][1],
           ];

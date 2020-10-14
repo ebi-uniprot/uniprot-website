@@ -61,12 +61,7 @@ describe('Tool sequences utils', () => {
 
   describe('createGappedFeature', () => {
     it('should return feature untouched as there are no insertions', () => {
-      const sequence = {
-        sequence: '1234567890',
-        start: 1,
-        end: 10,
-      };
-
+      const sequence = '1234567890';
       const feature = {
         start: 0,
         end: 16,
@@ -79,49 +74,39 @@ describe('Tool sequences utils', () => {
     });
 
     it('should return feature untouched as insertions are before feature/sequence start', () => {
-      const sequence = {
-        sequence: '-234567890',
-        start: 1,
-        end: 9,
-      };
-
+      const sequence = '-234567890';
       const feature = {
-        start: 1,
+        start: 2,
         end: 7,
       };
 
       expect(createGappedFeature(feature, sequence)).toEqual({
-        start: 1,
+        start: 2,
         end: 7,
       });
     });
 
-    // it('should return correct start, end and fragments', () => {
-    //   const sequence = {
-    //     sequence: '1-34567890',
-    //     start: 1,
-    //     end: 9,
-    //   };
+    it('should return correct start, end and fragments', () => {
+      const sequence = '1-34567890';
+      const feature = {
+        start: 1,
+        end: 9,
+      };
 
-    //   const feature = {
-    //     start: 0,
-    //     end: 16,
-    //   };
-
-    //   expect(createGappedFeature(feature, sequence)).toEqual({
-    //     start: 1,
-    //     end: 16,
-    //     locations: [
-    //       {
-    //         fragments: [
-    //           { start: 1, end: 1 },
-    //           { start: 2, end: 2, shape: 'line' },
-    //           { start: 3, end: 16 },
-    //         ],
-    //       },
-    //     ],
-    //   });
-    // });
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 1,
+        end: 9,
+        locations: [
+          {
+            fragments: [
+              { start: 1, end: 1 },
+              // { start: 2, end: 2, shape: 'line' },
+              { start: 3, end: 9 },
+            ],
+          },
+        ],
+      });
+    });
 
     // it('should return correct start, end and fragments', () => {
     //   const sequence = {
