@@ -136,7 +136,46 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
       end.modifier !== LocationModifier.UNKNOWN
   );
 
-export const createGappedFeature = (feature, sequence /* full sequence */) => {
+export const createGappedFeature = (feature, sequence) => {
+  /*
+  input: feature and sequence are both 1-based
+  */
+  const BLOCK = /(?<insertion>[-]+)|(?<protein>[^-]+)/g;
+
+  let proteinIndex = 1;
+  const fragments = [];
+
+  let match;
+  // eslint-disable-next-line no-cond-assign
+  while ((match = BLOCK.exec(sequence)) !== null) {
+    if (match?.groups?.protein) {
+      if (proteinIndex >= feature.start && proteinIndex <= feature.end) {
+        fragments.push({
+          start: match.index + 1,
+          end: match.index + Math.min(match[0].length, feature.end),
+        });
+      }
+      proteinIndex += match[0].length;
+    } else if (proteinIndex > feature.start && proteinIndex < feature.end) {
+      fragments.push({
+        start: match.index + 1,
+        end: match.index + match[0].length,
+        shape: 'line',
+      });
+    }
+  }
+  const gappedFeature = {
+    ...feature,
+    start: fragments[0].start,
+    end: fragments[fragments.length - 1].end,
+  };
+  if (fragments.length > 1) {
+    gappedFeature.locations = [{ fragments }];
+  }
+  return gappedFeature;
+};
+
+export const createGappedFeature2 = (feature, sequence /* full sequence */) => {
   const { start, end } = feature;
 
   // Gap positions in the full sequence
@@ -233,7 +272,7 @@ export const createGappedFeature = (feature, sequence /* full sequence */) => {
         ...feature,
         locations: [
           {
-            fragments: fragments,
+            fragments,
           },
         ],
       };

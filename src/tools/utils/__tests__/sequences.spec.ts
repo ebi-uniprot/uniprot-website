@@ -63,31 +63,31 @@ describe('Tool sequences utils', () => {
     it('should return feature untouched as there are no insertions', () => {
       const sequence = '1234567890';
       const feature = {
-        start: 0,
-        end: 16,
+        start: 1,
+        end: 10,
       };
 
       expect(createGappedFeature(feature, sequence)).toEqual({
-        start: 0,
-        end: 16,
+        start: 1,
+        end: 10,
       });
     });
 
-    it('should return feature untouched as insertions are before feature/sequence start', () => {
-      const sequence = '-234567890';
+    it('should return feature after insertion gap', () => {
+      const sequence = '-123456789';
       const feature = {
-        start: 2,
+        start: 1,
         end: 7,
       };
 
       expect(createGappedFeature(feature, sequence)).toEqual({
         start: 2,
-        end: 7,
+        end: 8,
       });
     });
 
     it('should return correct start, end and fragments', () => {
-      const sequence = '1-34567890';
+      const sequence = '1-23456789';
       const feature = {
         start: 1,
         end: 9,
@@ -95,13 +95,13 @@ describe('Tool sequences utils', () => {
 
       expect(createGappedFeature(feature, sequence)).toEqual({
         start: 1,
-        end: 9,
+        end: 10,
         locations: [
           {
             fragments: [
               { start: 1, end: 1 },
-              // { start: 2, end: 2, shape: 'line' },
-              { start: 3, end: 9 },
+              { start: 2, end: 2, shape: 'line' },
+              { start: 3, end: 10 },
             ],
           },
         ],
@@ -109,29 +109,15 @@ describe('Tool sequences utils', () => {
     });
 
     // it('should return correct start, end and fragments', () => {
-    //   const sequence = {
-    //     sequence: '1-34567890',
-    //     start: 101,
-    //     end: 109,
-    //   };
-
+    //   const sequence = '1-23456789';
     //   const feature = {
-    //     start: 101,
-    //     end: 116,
+    //     start: 3,
+    //     end: 5,
     //   };
 
     //   expect(createGappedFeature(feature, sequence)).toEqual({
-    //     start: 101,
-    //     end: 116,
-    //     locations: [
-    //       {
-    //         fragments: [
-    //           { start: 1, end: 1 },
-    //           { start: 2, end: 2, shape: 'line' },
-    //           { start: 3, end: 6 },
-    //         ],
-    //       },
-    //     ],
+    //     start: 4,
+    //     end: 6,
     //   });
     // });
 
@@ -162,32 +148,27 @@ describe('Tool sequences utils', () => {
     //   });
     // });
 
-    // it('should return correct start, end and fragments', () => {
-    //   const sequence = {
-    //     sequence: '--345--89-',
-    //     start: 1,
-    //     end: 5,
-    //   };
+    it('should return correct start, end and fragments', () => {
+      const sequence = '--123--45-';
+      const feature = {
+        start: 1,
+        end: 5,
+      };
 
-    //   const feature = {
-    //     start: 1,
-    //     end: 116,
-    //   };
-
-    //   expect(createGappedFeature(feature, sequence)).toEqual({
-    //     start: 1,
-    //     end: 116,
-    //     locations: [
-    //       {
-    //         fragments: [
-    //           { start: 3, end: 5 },
-    //           { start: 6, end: 7, shape: 'line' },
-    //           { start: 8, end: 9 },
-    //         ],
-    //       },
-    //     ],
-    //   });
-    // });
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 3,
+        end: 9,
+        locations: [
+          {
+            fragments: [
+              { start: 3, end: 5 },
+              { start: 6, end: 7, shape: 'line' },
+              { start: 8, end: 9 },
+            ],
+          },
+        ],
+      });
+    });
   });
 
   // TODO update the tests below / generate mockdata to cover edge cases
