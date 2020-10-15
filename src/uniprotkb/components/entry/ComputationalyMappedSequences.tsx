@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+/* eslint-disable react/no-unused-prop-types */
+import React from 'react';
 import { DataTable, DENSITY_COMPACT } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -32,45 +33,41 @@ type GeneCentricData = {
 const ComputationalyMappedSequences: React.FC<{ accession: string }> = ({
   accession,
 }) => {
-  const columns = useMemo(
-    () => [
-      {
-        label: 'Accession',
-        name: 'accession',
-        render: ({ accession, entryType }: ProteinEntryLight) => {
-          return (
-            <Link to={`/uniprotkb/${accession}`}>
-              <ReviewedUnreviewed
-                entryType={
-                  entryType.match(/TrEMBL/i)
-                    ? EntryType.UNREVIEWED
-                    : EntryType.REVIEWED
-                }
-              />
-              {accession}
-            </Link>
-          );
-        },
+  const columns = [
+    {
+      label: 'Accession',
+      name: 'accession',
+      render: ({ accession, entryType }: ProteinEntryLight) => {
+        return (
+          <Link to={`/uniprotkb/${accession}`}>
+            <ReviewedUnreviewed
+              entryType={
+                entryType.match(/TrEMBL/i)
+                  ? EntryType.UNREVIEWED
+                  : EntryType.REVIEWED
+              }
+            />
+            {accession}
+          </Link>
+        );
       },
-      {
-        label: 'Gene name',
-        name: 'gene_name',
-        render: ({ geneName }: ProteinEntryLight) => geneName,
-      },
-      {
-        label: 'Gene name type',
-        name: 'gene_name_type',
-        render: ({ geneNameType }: ProteinEntryLight) => geneNameType,
-      },
-      {
-        label: 'Length',
-        name: 'length',
-        render: ({ sequenceLength }: ProteinEntryLight) => sequenceLength,
-      },
-    ],
-
-    []
-  );
+    },
+    {
+      label: 'Gene name',
+      name: 'gene_name',
+      render: ({ geneName }: ProteinEntryLight) => geneName,
+    },
+    {
+      label: 'Gene name type',
+      name: 'gene_name_type',
+      render: ({ geneNameType }: ProteinEntryLight) => geneNameType,
+    },
+    {
+      label: 'Length',
+      name: 'length',
+      render: ({ sequenceLength }: ProteinEntryLight) => sequenceLength,
+    },
+  ];
 
   const dispatch = useDispatch();
 
