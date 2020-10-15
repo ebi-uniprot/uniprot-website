@@ -115,21 +115,26 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
           activeSeq.start !== activeSeq.end &&
           features
         ) {
-          let processedFeatures = processFeaturesData(features);
-          processedFeatures = transformFeaturesPositions(
-            processedFeatures
-          ).map((feature) =>
-            createGappedFeature(feature, activeSeq.fullSequence)
-          );
-
+          let processedFeatures = processFeaturesData(features)
+            // processedFeatures = transformFeaturesPositions(
+            //   processedFeatures
+            // )
+            .map((feature) =>
+              createGappedFeature(feature, activeSeq.fullSequence)
+            );
+          // .map(f => f.locations[0].fragments.map({...f, start: f.start - 1, end: f.end - 1 }))
+          // console.log("activeSeq:", activeSeq);
           node.data = [
             ...processedFeatures,
-            // { ...processedFeatures[0][0], start: 166, end: 177 },
+            // { ...processedFeatures[0][0], start: 0, end: 20 },
             // processedFeatures[0][1],
           ];
-          node.setAttribute('length', activeSeq.end - activeSeq.start);
-          node.setAttribute('displaystart', activeSeq.start);
-          node.setAttribute('displayend', activeSeq.end);
+          node.setAttribute(
+            'length',
+            activeSeq.stringEnd - activeSeq.stringStart
+          );
+          node.setAttribute('displaystart', activeSeq.stringStart);
+          node.setAttribute('displayend', activeSeq.stringEnd);
         }
       }
     },
@@ -265,12 +270,14 @@ const Wrapped: FC<MSAViewProps> = ({
               sequence: sequence.slice(start, end),
               fullSequence: sequence,
               start:
-                from +
+                from -
+                1 + // because 'from' value starts from 1 instead of 0
                 (omitInsertionsInCoords
                   ? getEndCoordinate(sequence, start)
                   : start),
               end:
-                from +
+                from -
+                1 + // because 'from' value starts from 1 instead of 0
                 (omitInsertionsInCoords
                   ? getEndCoordinate(sequence, end)
                   : end),
