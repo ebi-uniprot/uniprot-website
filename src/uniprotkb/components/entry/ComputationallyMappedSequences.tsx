@@ -121,7 +121,7 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
   }
 
   return (
-    <>
+    <div className="text-block">
       <h3>Computationally mapped potential isoform sequences</h3>
       <p>
         There are {filteredData.length} potential isoforms mapped to this entry
@@ -151,7 +151,7 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
           scrollDataAttribute="computationaly-mapped"
         />
       </div>
-    </>
+    </div>
   );
 };
 
