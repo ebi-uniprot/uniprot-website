@@ -97,9 +97,9 @@ export const parse = (queryString = ''): Clause[] => {
 
       // evidence or length
       const evidenceOrLengthMatch = key && key.match(evidenceOrLengthKey);
-      if (evidenceOrLengthMatch) {
+      if (key && evidenceOrLengthMatch) {
         const correspondingClause = clauses.find(({ searchTerm }) =>
-          searchTerm.id.startsWith(evidenceOrLengthMatch[1])
+          searchTerm.term.startsWith(evidenceOrLengthMatch[1])
         );
         if (correspondingClause) {
           // if it's an evidence or length key, mopdify the last inserted

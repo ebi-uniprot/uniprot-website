@@ -15,11 +15,7 @@ describe('search querystring stringifier', () => {
 // test by parsing then re-stringifying just to see if we end up with the same
 describe('search querystring parser', () => {
   testData
-    // .filter(
-    //   (o) =>
-    //     o.queryString ===
-    //     '((cc_cofactor_chebi:"CHEBI:12345") AND (ccev_cofactor_chebi:manual))'
-    // )
+    // .filter((o) => o.queryString.includes('(('))
     .forEach(({ description, queryString, clauses }) => {
       test(description, () => {
         // console.log(
