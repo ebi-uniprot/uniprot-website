@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render } from '@testing-library/react';
+import { cleanup, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import useDataApi from '../../../../shared/hooks/useDataApi';

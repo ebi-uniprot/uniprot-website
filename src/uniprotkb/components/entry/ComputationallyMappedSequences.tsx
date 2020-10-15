@@ -1,19 +1,13 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { useCallback, useMemo, useState } from 'react';
-import { DataTable, DENSITY_COMPACT } from 'franklin-sites';
+import { DataTable, DENSITY_COMPACT, Message } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { v1 } from 'uuid';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { ReviewedUnreviewed } from '../../../shared/components/entry/EntryTitle';
 import { EntryType } from '../../adapters/uniProtkbConverter';
-import {
-  MessageFormat,
-  MessageLevel,
-} from '../../../messages/types/messagesTypes';
-import { addMessage } from '../../../messages/state/messagesActions';
+import { MessageLevel } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -76,7 +70,6 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
   ];
 
   // Hooks
-  const dispatch = useDispatch();
   const history = useHistory();
   const { data, loading, error, status } = useDataApi<GeneCentricData>(
     apiUrls.genecentric(primaryAccession)
@@ -116,13 +109,10 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       // Fail silently, this just means there's no data
       return null;
     }
-    dispatch(
-      addMessage({
-        id: v1(),
-        content: `Could not load computationally mapped sequences: ${error.message}`,
-        format: MessageFormat.POP_UP,
-        level: MessageLevel.FAILURE,
-      })
+    return (
+      <Message level={MessageLevel.FAILURE}>
+        Could not load computationally mapped sequences: {error.message}
+      </Message>
     );
   }
 
