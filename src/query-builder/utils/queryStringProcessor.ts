@@ -41,16 +41,6 @@ const splitClause = (
 };
 const quotedValue = /:"[^")]+"\)*$/;
 const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
-// const rangeValue = /^\[(.+) TO (.+)\]$/;
-// const getRangedValue = (value: string) => {
-//   const match = rangeValue.exec(value);
-//   if (!match) {
-//     return;
-//   }
-//   // eslint-disable-next-line consistent-return
-//   return { rangeFrom: match[1], rangeTo: match[2] };
-// };
-// const searchTermReplacer = /(cc|ft(len)?)_/;
 
 const getEmptyClause = (): Clause => ({
   id: '',
@@ -86,15 +76,6 @@ export const parse = (queryString = ''): Clause[] => {
       // for every other item (even) should be the content of the clause
       const [key, value] = splitClause(chunk);
 
-      // item type
-      // if (key.startsWith('cc_')) {
-      //   currentClause.searchTerm.itemType = ItemType.comment;
-      // } else if (key.startsWith('ft')) {
-      //   currentClause.searchTerm.itemType = ItemType.feature;
-      // } else if (key === 'xref') {
-      //   currentClause.searchTerm.itemType = ItemType.database;
-      // }
-
       // evidence or length
       const evidenceOrLengthMatch = key && key.match(evidenceOrLengthKey);
       if (key && evidenceOrLengthMatch) {
@@ -115,37 +96,16 @@ export const parse = (queryString = ''): Clause[] => {
       // term
       currentClause.searchTerm.term = key || 'All';
 
-      // const range = getRangedValue(value);
-      // if (range) {
-      //   // range
-      //   currentClause.queryInput = range;
-      // } else if (currentClause.searchTerm.itemType === ItemType.database) {
-      //   //   // cross-references
-      //   if (value.includes('-')) {
-      //     // database references
-      //     const [prefix, ...rest] = value.split('-');
-      //     currentClause.searchTerm.valuePrefix = prefix;
-      //     currentClause.queryInput.stringValue = rest.join('-');
-      //   } else {
-      //     // any other references
-      //     currentClause.searchTerm.valuePrefix = 'any';
-      //     currentClause.queryInput.stringValue = value;
-      //   }
-      // } else {
       // "default"
-      const isQuoted = quotedValue.test(chunk);
       if (key) {
+        const isQuoted = quotedValue.test(chunk);
         currentClause.queryBits[key] = `(${key}:${isQuoted ? '"' : ''}${value}${
           isQuoted ? '"' : ''
         })`;
       } else {
+        // specific free-text search
         currentClause.queryBits.id_all = value;
       }
-      // if (quotedId.test(chunk)) {
-      //   // if it's an ID and not just a full-text
-      //   currentClause.queryBits.id = value;
-      // }
-      // }
 
       clauses.push(currentClause);
     }

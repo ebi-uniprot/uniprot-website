@@ -83,6 +83,25 @@ export const testData = [
     ],
   },
   {
+    description: 'should handle partial range',
+    queryString: '(ftlen_sites:[10 TO *])',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'ftlen_sites',
+          itemType: 'single',
+          term: 'ftlen_sites',
+          dataType: 'integer',
+          fieldType: 'range',
+          example: '[0 TO *]',
+        },
+        queryBits: {
+          ftlen_sites: '(ftlen_sites:[10 TO *])',
+        },
+      },
+    ],
+  },
+  {
     description: 'should handle date range',
     queryString: '(date_created:[2018-03-04 TO 2018-03-08])',
     clauses: [
