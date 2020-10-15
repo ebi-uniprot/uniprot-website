@@ -86,7 +86,7 @@ describe('Tool sequences utils', () => {
       });
     });
 
-    it('should return correct start, end and fragments', () => {
+    it('should return feature with fragments to accommodate a single gap inside the feature', () => {
       const sequence = '1-23456789';
       const feature = {
         start: 1,
@@ -108,47 +108,20 @@ describe('Tool sequences utils', () => {
       });
     });
 
-    // it('should return correct start, end and fragments', () => {
-    //   const sequence = '1-23456789';
-    //   const feature = {
-    //     start: 3,
-    //     end: 5,
-    //   };
+    it('should return correct start and end with no gaps', () => {
+      const sequence = '1-23456789';
+      const feature = {
+        start: 3,
+        end: 5,
+      };
 
-    //   expect(createGappedFeature(feature, sequence)).toEqual({
-    //     start: 4,
-    //     end: 6,
-    //   });
-    // });
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 4,
+        end: 6,
+      });
+    });
 
-    // it('should return correct start, end and fragments', () => {
-    //   const sequence = {
-    //     sequence: '1-34567890',
-    //     start: 101,
-    //     end: 109,
-    //   };
-
-    //   const feature = {
-    //     start: 1,
-    //     end: 116,
-    //   };
-
-    //   expect(createGappedFeature(feature, sequence)).toEqual({
-    //     start: 101,
-    //     end: 116,
-    //     locations: [
-    //       {
-    //         fragments: [
-    //           { start: 101, end: 101 },
-    //           { start: 102, end: 102, shape: 'line' },
-    //           { start: 103, end: 116 },
-    //         ],
-    //       },
-    //     ],
-    //   });
-    // });
-
-    it('should return correct start, end and fragments', () => {
+    it('should return feature with fragments with a single gap line', () => {
       const sequence = '--123--45-';
       const feature = {
         start: 1,
@@ -164,6 +137,30 @@ describe('Tool sequences utils', () => {
               { start: 3, end: 5 },
               { start: 6, end: 7, shape: 'line' },
               { start: 8, end: 9 },
+            ],
+          },
+        ],
+      });
+    });
+
+    it('should return feature with fragments with two gap lines', () => {
+      const sequence = '--123--45-678----9';
+      const feature = {
+        start: 2,
+        end: 8,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 4,
+        end: 13,
+        locations: [
+          {
+            fragments: [
+              { start: 4, end: 5 },
+              { start: 6, end: 7, shape: 'line' },
+              { start: 8, end: 9 },
+              { start: 10, end: 10, shape: 'line' },
+              { start: 11, end: 13 },
             ],
           },
         ],

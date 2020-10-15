@@ -149,10 +149,16 @@ export const createGappedFeature = (feature, sequence) => {
   // eslint-disable-next-line no-cond-assign
   while ((match = BLOCK.exec(sequence)) !== null) {
     if (match?.groups?.protein) {
-      if (proteinIndex >= feature.start && proteinIndex <= feature.end) {
+      if (
+        proteinIndex + match[0].length >= feature.start &&
+        proteinIndex <= feature.end
+      ) {
         fragments.push({
-          start: match.index + 1,
-          end: match.index + Math.min(match[0].length, feature.end),
+          // start: match.index + 1,
+          start: match.index + 1 + Math.max(0, feature.start - proteinIndex),
+          end:
+            match.index +
+            Math.min(match[0].length, feature.end - proteinIndex + 1),
         });
       }
       proteinIndex += match[0].length;
