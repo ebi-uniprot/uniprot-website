@@ -15,7 +15,7 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import { hasContent } from '../../../shared/utils/utils';
 
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
-import ComputationalyMappedSequences from './ComputationalyMappedSequences';
+import ComputationalyMappedSequences from './ComputationallyMappedSequences';
 
 const SequenceSection: FC<{
   data: SequenceUIModel;
@@ -28,7 +28,7 @@ const SequenceSection: FC<{
     <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
       <Card title={EntrySection.Sequence}>
         <SequenceView data={data} accession={primaryAccession} />
-        <ComputationalyMappedSequences accession={primaryAccession} />
+        <ComputationalyMappedSequences primaryAccession={primaryAccession} />
         {data.featuresData && (
           <FeaturesView
             features={data.featuresData}
