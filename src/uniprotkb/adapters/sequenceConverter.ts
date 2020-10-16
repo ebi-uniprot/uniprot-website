@@ -1,3 +1,4 @@
+import { groupBy } from 'lodash-es';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
 import {
   getKeywordsForCategories,
@@ -38,6 +39,8 @@ export type EntryAudit = {
   sequenceVersion: number;
 };
 
+export type IsoformNotes = { [key: string]: FreeTextComment[] };
+
 export type SequenceUIModel = {
   sequence: SequenceData;
   flag?: Flag;
@@ -54,11 +57,12 @@ export type SequenceUIModel = {
   lastUpdateDate?: string;
   entryAudit?: EntryAudit;
   molWeight?: number;
+  isoformNotes?: IsoformNotes;
 };
 
-const sequenceKeywords = [KeywordCategory.CODING_SEQUENCE_DIVERSITY];
+const keywordsCategories = [KeywordCategory.CODING_SEQUENCE_DIVERSITY];
 
-const sequenceFeatures = [
+const featuresCategories = [
   FeatureType.COMPBIAS,
   FeatureType.NON_STD,
   FeatureType.UNSURE,
@@ -130,12 +134,20 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
       (comment) => comment.commentType === CommentType.RNA_EDITING
     );
     sequenceData.rnaEditing = rnaEditing as RNAEditingComment[];
+
+    // Retrieve notes for isoforms
+    const notes = data.comments.filter(
+      (comment) =>
+        comment.commentType === CommentType.MISCELLANEOUS &&
+        (comment as FreeTextComment).molecule
+    ) as FreeTextComment[];
+    sequenceData.isoformNotes = groupBy(notes, 'molecule');
   }
 
   if (data.keywords) {
     const categoryKeywords = getKeywordsForCategories(
       data.keywords,
-      sequenceKeywords
+      keywordsCategories
     );
     if (categoryKeywords && Object.keys(categoryKeywords).length > 0) {
       sequenceData.keywordData = categoryKeywords;
@@ -143,7 +155,7 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
   }
   if (data.features) {
     const features = data.features.filter((feature) => {
-      return sequenceFeatures.includes(feature.type);
+      return featuresCategories.includes(feature.type);
     });
     sequenceData.featuresData = features;
     // Add VAR_SEQ to corresponding isoforms
