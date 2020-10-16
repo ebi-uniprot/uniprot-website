@@ -75,6 +75,8 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   setActiveId,
   selectedEntries,
   handleSelectedEntries,
+  trackStart,
+  trackEnd,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
@@ -103,39 +105,26 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && trackDefined && annotation) {
-        const features = activeSeq?.features?.filter(
-          ({ type }) => type === annotation
-        );
-
-        if (
-          activeSeq &&
-          activeSeq.start > 0 &&
-          activeSeq.end > 0 &&
-          activeSeq.start !== activeSeq.end &&
-          features
-        ) {
-          let processedFeatures = processFeaturesData(features)
-            // processedFeatures = transformFeaturesPositions(
-            //   processedFeatures
-            // )
-            .map((feature) =>
+      if (node && trackDefined) {
+        let processedFeatures = [];
+        if (annotation) {
+          const features = activeSeq?.features?.filter(
+            ({ type }) => type === annotation
+          );
+          if (
+            activeSeq &&
+            activeSeq.end > 0 &&
+            activeSeq.start !== activeSeq.end &&
+            features
+          ) {
+            processedFeatures = processFeaturesData(features);
+            processedFeatures = processedFeatures.map((feature) =>
               createGappedFeature(feature, activeSeq.fullSequence)
             );
-          // .map(f => f.locations[0].fragments.map({...f, start: f.start - 1, end: f.end - 1 }))
-          // console.log("activeSeq:", activeSeq);
-          node.data = [
-            ...processedFeatures,
-            // { ...processedFeatures[0][0], start: 0, end: 20 },
-            // processedFeatures[0][1],
-          ];
-          node.setAttribute(
-            'length',
-            activeSeq.stringEnd - activeSeq.stringStart
-          );
-          node.setAttribute('displaystart', activeSeq.stringStart);
-          node.setAttribute('displayend', activeSeq.stringEnd);
+            console.log(processedFeatures);
+          }
         }
+        node.data = processedFeatures;
       }
     },
     // TODO: replace this with fragments to have one big grid
@@ -187,7 +176,12 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
       </span>
       <span className="track-label annotation-label">{annotation}</span>
       <div className="track annotation-track">
-        <protvista-track ref={setFeatureTrackData} />
+        <protvista-track
+          ref={setFeatureTrackData}
+          displaystart={trackStart}
+          displayend={trackEnd}
+          length={trackEnd - trackStart + 1}
+        />
       </div>
     </>
   );
@@ -262,6 +256,8 @@ const Wrapped: FC<MSAViewProps> = ({
         // Might be able to avoid that by playing with sizes in the panel grid
         // and from within the Nightingale component
         id: `row-${index}-${rowLength}`,
+        trackStart: start + 1,
+        trackEnd: start + rowLength,
         sequences: alignment.map(
           ({ name, sequence, from, features, accession }) => {
             // TODO revert
@@ -281,8 +277,6 @@ const Wrapped: FC<MSAViewProps> = ({
                 (omitInsertionsInCoords
                   ? getEndCoordinate(sequence, end)
                   : end),
-              stringStart: start,
-              stringEnd: end,
               features,
               accession,
             };
@@ -300,7 +294,7 @@ const Wrapped: FC<MSAViewProps> = ({
       className="alignment-grid alignment-wrapped"
       data-testid="alignment-wrapped-view"
     >
-      {sequenceChunks.map(({ sequences, id }, index) => {
+      {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => {
         if (index < nItemsToRender) {
           return (
             <MSAWrappedRow
@@ -314,6 +308,8 @@ const Wrapped: FC<MSAViewProps> = ({
               setActiveId={setActiveId}
               selectedEntries={selectedEntries}
               handleSelectedEntries={handleSelectedEntries}
+              trackStart={trackStart}
+              trackEnd={trackEnd}
             />
           );
         }

@@ -154,17 +154,17 @@ export const createGappedFeature = (feature, sequence) => {
         proteinIndex <= feature.end
       ) {
         fragments.push({
-          start: match.index + Math.max(0, feature.start - proteinIndex),
+          start: match.index + 1 + Math.max(0, feature.start - proteinIndex),
           end:
             match.index +
-            Math.min(match[0].length - 1, feature.end - proteinIndex),
+            Math.min(match[0].length, feature.end - proteinIndex + 1),
         });
       }
       proteinIndex += match[0].length;
     } else if (proteinIndex > feature.start && proteinIndex < feature.end) {
       fragments.push({
-        start: match.index,
-        end: match.index + match[0].length - 1,
+        start: match.index + 1,
+        end: match.index + match[0].length,
         shape: 'line',
       });
     }
