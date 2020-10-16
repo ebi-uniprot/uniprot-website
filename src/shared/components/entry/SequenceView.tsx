@@ -96,7 +96,8 @@ export const SequenceInfo: React.FC<{
 
   return (
     <>
-      {dataToDisplay && <InfoList infoData={infoData} />}
+      <h4>Sequence information</h4>
+      {dataToDisplay && <InfoList infoData={infoData} columns />}
       <Sequence
         sequence={dataToDisplay.value}
         accession={isoformId}
@@ -203,7 +204,7 @@ export const IsoformInfo: React.FC<{
           </Link>
         </section>
       )}
-      <InfoList infoData={infoListData} />
+      <InfoList infoData={infoListData} columns />
     </Fragment>
   );
 };
@@ -390,7 +391,7 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
 
   return (
     <>
-      <InfoList infoData={sequenceInfoData} />
+      <InfoList infoData={sequenceInfoData} columns />
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}

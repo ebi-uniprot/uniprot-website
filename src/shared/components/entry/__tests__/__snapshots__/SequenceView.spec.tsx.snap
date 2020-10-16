@@ -2,8 +2,11 @@
 
 exports[`SequenceView component should render SequenceInfo with provided sequence info (canonical) 1`] = `
 <DocumentFragment>
+  <h4>
+    Sequence information
+  </h4>
   <div
-    class="info-list"
+    class="info-list info-list--columns"
   >
     <div
       class="info-list__item"
@@ -239,7 +242,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
 exports[`SequenceView component should render SequenceView 1`] = `
 <DocumentFragment>
   <div
-    class="info-list"
+    class="info-list info-list--columns"
   >
     <div
       class="info-list__item"
@@ -306,7 +309,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
      sequence. All positional information in this entry refers to it. This is also the sequence that appears in the downloadable versions of the entry.
   </p>
   <div
-    class="info-list"
+    class="info-list info-list--columns"
   >
     <div
       class="info-list__item"
@@ -363,8 +366,11 @@ exports[`SequenceView component should render SequenceView 1`] = `
       </div>
     </div>
   </div>
+  <h4>
+    Sequence information
+  </h4>
   <div
-    class="info-list"
+    class="info-list info-list--columns"
   >
     <div
       class="info-list__item"
