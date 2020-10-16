@@ -109,48 +109,58 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       // Fail silently, this just means there's no data
       return null;
     }
-    return (
-      <Message level={MessageLevel.FAILURE}>
-        Could not load computationally mapped sequences: {error.message}
-      </Message>
-    );
   }
 
-  if (loading || !filteredData) {
+  if (loading) {
     return null;
   }
 
   return (
     <div className="text-block">
       <h3>Computationally mapped potential isoform sequences</h3>
-      <p>
-        There are {filteredData.length} potential isoforms mapped to this entry
-      </p>
-      <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton selectedEntries={selectedEntries} />
-        <AddToBasketButton selectedEntries={selectedEntries} />
-        <button
-          type="button"
-          className="button tertiary"
-          onClick={handleViewAll}
-        >
-          View all
-        </button>
-      </div>
+      {error || !filteredData ? (
+        <Message level={MessageLevel.FAILURE}>
+          Could not load computationally mapped sequences
+          {error?.message && `: ${error.message}`}
+        </Message>
+      ) : (
+        <>
+          <p>
+            There {filteredData.length === 1 ? 'is' : 'are'}{' '}
+            {filteredData.length} potential isoform
+            {filteredData.length === 1 ? '' : 's'} mapped to this entry
+          </p>
+          {filteredData.length ? (
+            <>
+              <div className="button-group">
+                <BlastButton selectedEntries={selectedEntries} />
+                <AlignButton selectedEntries={selectedEntries} />
+                <AddToBasketButton selectedEntries={selectedEntries} />
+                <button
+                  type="button"
+                  className="button tertiary"
+                  onClick={handleViewAll}
+                >
+                  View all
+                </button>
+              </div>
 
-      <div data-loader-scroll="computationaly-mapped">
-        <DataTable
-          getIdKey={({ accession }: { accession: string }) => accession}
-          density={DENSITY_COMPACT}
-          columns={columns}
-          data={filteredData}
-          selectable
-          selected={selectedEntries}
-          onSelect={handleSelectedEntries}
-          scrollDataAttribute="computationaly-mapped"
-        />
-      </div>
+              <div data-loader-scroll="computationaly-mapped">
+                <DataTable
+                  getIdKey={({ accession }: { accession: string }) => accession}
+                  density={DENSITY_COMPACT}
+                  columns={columns}
+                  data={filteredData}
+                  selectable
+                  selected={selectedEntries}
+                  onSelect={handleSelectedEntries}
+                  scrollDataAttribute="computationaly-mapped"
+                />
+              </div>
+            </>
+          ) : null}
+        </>
+      )}
     </div>
   );
 };
