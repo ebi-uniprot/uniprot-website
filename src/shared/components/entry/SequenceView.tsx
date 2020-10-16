@@ -113,7 +113,7 @@ export const SequenceInfo: React.FC<{
 export const IsoformInfo: React.FC<{
   isoformData: Isoform;
   canonicalAccession: string;
-  isoformNotes: IsoformNotes;
+  isoformNotes?: IsoformNotes;
 }> = ({ isoformData, canonicalAccession, isoformNotes }) => {
   let note;
   const regex = new RegExp(isoformData.name.value, 'gi');
@@ -294,7 +294,7 @@ export const IsoformView: React.FC<{
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
   canonicalAccession: string;
-  isoformNotes: IsoformNotes;
+  isoformNotes?: IsoformNotes;
 }> = ({
   alternativeProducts,
   canonicalComponent,
