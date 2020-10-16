@@ -8,7 +8,7 @@ import React, {
   SetStateAction,
   Dispatch,
 } from 'react';
-import { debounce, flatten } from 'lodash-es';
+import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
@@ -23,12 +23,9 @@ import { ConservationOptions, MSAInput } from './AlignmentView';
 import {
   FeatureData,
   processFeaturesData,
+  ProcessedFeature,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import {
-  transformFeaturesPositions,
-  getEndCoordinate,
-  createGappedFeature,
-} from '../utils/sequences';
+import { getEndCoordinate, createGappedFeature } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 const widthOfAA = 20;
@@ -36,10 +33,9 @@ const widthOfAA = 20;
 export type Sequence = {
   name: string;
   sequence: string;
+  fullSequence: string;
   start: number;
   end: number;
-  stringStart: number;
-  stringEnd: number;
   features?: FeatureData;
   accession?: string;
 };
@@ -47,9 +43,11 @@ export type Sequence = {
 type Chunk = {
   id: string;
   sequences: Sequence[];
+  trackStart: number;
+  trackEnd: number;
 };
 
-export type MSAWrappedRowProps = {
+export type WrappedRowProps = {
   rowLength: number;
   highlightProperty: MsaColorScheme | undefined;
   conservationOptions: ConservationOptions;
@@ -59,13 +57,15 @@ export type MSAWrappedRowProps = {
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   selectedEntries?: string[];
   handleSelectedEntries?: (rowId: string) => void;
+  trackStart: number;
+  trackEnd: number;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
+const WrappedRow: FC<WrappedRowProps> = ({
   rowLength,
   highlightProperty,
   conservationOptions,
@@ -106,7 +106,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined) {
-        let processedFeatures = [];
+        let processedFeatures: ProcessedFeature[] = [];
         if (annotation) {
           const features = activeSeq?.features?.filter(
             ({ type }) => type === annotation
@@ -121,7 +121,6 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
             processedFeatures = processedFeatures.map((feature) =>
               createGappedFeature(feature, activeSeq.fullSequence)
             );
-            console.log(processedFeatures);
           }
         }
         node.data = processedFeatures;
@@ -259,29 +258,23 @@ const Wrapped: FC<MSAViewProps> = ({
         trackStart: start + 1,
         trackEnd: start + rowLength,
         sequences: alignment.map(
-          ({ name, sequence, from, features, accession }) => {
-            // TODO revert
-            const t = {
-              name: name || '',
-              sequence: sequence.slice(start, end),
-              fullSequence: sequence,
-              start:
-                from -
-                1 + // because 'from' value starts from 1 instead of 0
-                (omitInsertionsInCoords
-                  ? getEndCoordinate(sequence, start)
-                  : start),
-              end:
-                from -
-                1 + // because 'from' value starts from 1 instead of 0
-                (omitInsertionsInCoords
-                  ? getEndCoordinate(sequence, end)
-                  : end),
-              features,
-              accession,
-            };
-            return t;
-          }
+          ({ name, sequence, from, features, accession }) => ({
+            name: name || '',
+            sequence: sequence.slice(start, end),
+            fullSequence: sequence,
+            start:
+              from -
+              1 + // because 'from' value starts from 1 instead of 0
+              (omitInsertionsInCoords
+                ? getEndCoordinate(sequence, start)
+                : start),
+            end:
+              from -
+              1 + // because 'from' value starts from 1 instead of 0
+              (omitInsertionsInCoords ? getEndCoordinate(sequence, end) : end),
+            features,
+            accession,
+          })
         ),
       };
     });
@@ -297,7 +290,7 @@ const Wrapped: FC<MSAViewProps> = ({
       {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => {
         if (index < nItemsToRender) {
           return (
-            <MSAWrappedRow
+            <WrappedRow
               key={id}
               rowLength={rowLength}
               sequences={sequences}

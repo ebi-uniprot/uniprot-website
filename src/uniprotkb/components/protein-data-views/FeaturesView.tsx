@@ -55,6 +55,12 @@ type FeatureProps = {
   features: FeatureData;
 };
 
+type Fragment = {
+  start: number;
+  end: number;
+  shape?: string;
+};
+
 export type ProcessedFeature = {
   protvistaFeatureId?: string;
   featureId?: string;
@@ -66,6 +72,7 @@ export type ProcessedFeature = {
   description?: string;
   evidences?: Evidence[];
   sequence?: string;
+  locations?: { fragments: Fragment[] }[];
 };
 
 export const processFeaturesData = (

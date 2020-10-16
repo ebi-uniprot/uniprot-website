@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
-import HSPDetailPanel, { transformFeaturesPositions } from '../HSPDetailPanel';
+import HSPDetailPanel from '../HSPDetailPanel';
 import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
 import renderWithRouter from '../../../../../shared/__test-helpers__/RenderWithRouter';
 

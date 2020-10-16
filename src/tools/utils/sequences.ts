@@ -1,13 +1,10 @@
 /* eslint-disable camelcase */
-import { v1 } from 'uuid';
-
 import { MSAInput } from '../components/AlignmentView';
 import {
   ProcessedFeature,
   FeatureData,
   LocationModifier,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { Sequence } from '../components/Wrapped';
 
 export const findSequenceSegments = (seq: string) => {
   const ranges: number[][] = [];
@@ -114,13 +111,6 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
   });
 };
 
-export const transformFeaturesPositions = (features: ProcessedFeature[]) =>
-  features.map((feature) => ({
-    ...feature,
-    start: feature.start - 1,
-    end: feature.end - 1,
-  }));
-
 export const getNumberOfInsertions = (sequence: string, endPosition: number) =>
   (sequence.slice(0, endPosition).match(/-/g) || []).length;
 
@@ -136,7 +126,10 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
       end.modifier !== LocationModifier.UNKNOWN
   );
 
-export const createGappedFeature = (feature, sequence) => {
+export const createGappedFeature = (
+  feature: ProcessedFeature,
+  sequence: string
+) => {
   /*
   input: feature and sequence are both 1-based
   */

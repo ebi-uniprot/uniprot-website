@@ -16,7 +16,6 @@ import AlignLabel from '../align/components/results/AlignLabel';
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import { processFeaturesData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
-  transformFeaturesPositions,
   getFullAlignmentSegments,
   getEndCoordinate,
   createGappedFeature,
