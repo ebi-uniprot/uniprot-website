@@ -111,12 +111,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
           const features = activeSeq?.features?.filter(
             ({ type }) => type === annotation
           );
-          if (
-            activeSeq &&
-            activeSeq.end > 0 &&
-            activeSeq.start !== activeSeq.end &&
-            features
-          ) {
+          if (activeSeq && activeSeq.end > 0 && features) {
             processedFeatures = processFeaturesData(features);
             processedFeatures = processedFeatures.map((feature) =>
               createGappedFeature(feature, activeSeq.fullSequence)
