@@ -24,7 +24,7 @@ exports[`AdvancedSearch shallow components should render 1`] = `
       </button>
     </h2>
     <div
-      class="intro-content false"
+      class="intro-content"
     >
       <div
         class="intro-links"

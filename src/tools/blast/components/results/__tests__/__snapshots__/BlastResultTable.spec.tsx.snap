@@ -137,24 +137,27 @@ Hit length: 486"
                     <span
                       class="data-table__blast-hsp__blast-params"
                     >
-                      <span
-                        class="chip chip--compact primary"
+                      <button
+                        class="chip chip--compact hsp_identity primary"
                         title="Identity"
+                        type="button"
                       >
                         7.1%
-                      </span>
-                      <span
-                        class="chip chip--compact secondary"
+                      </button>
+                      <button
+                        class="chip chip--compact hsp_bit_score secondary"
                         title="Score"
+                        type="button"
                       >
                         41.5874
-                      </span>
-                      <span
-                        class="chip chip--compact secondary"
+                      </button>
+                      <button
+                        class="chip chip--compact hsp_expect secondary"
                         title="E-value"
+                        type="button"
                       >
                         0.0048
-                      </span>
+                      </button>
                     </span>
                   </div>
                 </div>
