@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
-import initializer from '../utils/fieldInitializer';
-
 import AutocompleteWrapper from './AutocompleteWrapper';
+
+import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
 const AutocompleteField: React.FC<{
   field: SearchTermType;
-  handleChange: (queryBit: QueryBit) => void;
+  handleChange: (queryBit: QueryBit, reset?: boolean) => void;
   initialValue?: QueryBit;
 }> = ({ field, handleChange, initialValue }) => {
   const [value, setValue] = useState(
@@ -24,10 +24,10 @@ const AutocompleteField: React.FC<{
   };
 
   useEffect(() => {
-    if (selectedId) {
-      handleChange({ [id]: `(${autoCompleteQueryTerm}:"${selectedId}")` });
+    if (selectedId && autoCompleteQueryTerm) {
+      handleChange({ [autoCompleteQueryTerm]: selectedId }, true);
     } else if (value) {
-      handleChange({ [id]: `(${term}:${value})` });
+      handleChange({ [term]: value }, true);
     }
   }, [id, term, autoCompleteQueryTerm, selectedId, value, handleChange]);
 

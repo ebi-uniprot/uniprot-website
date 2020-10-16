@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { QueryBit, SearchTermType } from '../types/searchTypes';
+
 import initializer from '../utils/fieldInitializer';
+
+import { QueryBit, SearchTermType } from '../types/searchTypes';
 
 const EvidenceField: React.FC<{
   field: SearchTermType;
@@ -12,8 +14,9 @@ const EvidenceField: React.FC<{
   );
 
   useEffect(() => {
-    if (value.length > 0) {
-      handleChange({ [field.id]: `(${field.term}:${value?.trim()})` });
+    const trimmed = value.trim();
+    if (trimmed) {
+      handleChange({ [field.term]: trimmed });
     }
   }, [field, value, handleChange]);
 

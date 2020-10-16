@@ -15,11 +15,11 @@ const RangeField: React.FC<{
   });
 
   useEffect(() => {
-    if (from.length || to.length) {
+    const fromTrimmed = from.trim();
+    const toTrimmed = to.trim();
+    if (fromTrimmed || toTrimmed) {
       handleChange({
-        [field.id]: `(${field.term}:[${from.trim() || '*'} TO ${
-          to.trim() || '*'
-        }])`,
+        [field.term]: `[${fromTrimmed || '*'} TO ${toTrimmed || '*'}]`,
       });
     }
   }, [field, handleChange, from, to]);

@@ -1,3 +1,5 @@
+import { v1 } from 'uuid';
+
 import {
   Clause,
   Operator,
@@ -8,19 +10,34 @@ import {
 
 export const stringify = (clauses: Clause[] = []): string =>
   clauses.reduce((queryAccumulator: string, clause: Clause) => {
-    const query = Object.values(clause.queryBits);
+    const query = Object.entries(clause.queryBits);
 
-    let queryJoined = query.join(` ${Operator.AND} `);
+    let queryJoined = query
+      .map(([key, value]) => {
+        const needsQuotes =
+          // contains ' ' or ':'
+          /[ :]/.test(value) &&
+          // but isn't of the form '[... TO ...]';
+          !(value.startsWith('[') && value.endsWith(']'));
+        const quote = needsQuotes ? '"' : '';
+
+        // free-text search
+        if (key === 'id_all') {
+          return `${quote}${value}${quote}`;
+        }
+        return `(${key}:${quote}${value}${quote})`;
+      })
+      .join(` ${Operator.AND} `);
     if (query.length > 1) {
       queryJoined = `(${queryJoined})`;
     }
 
     let logicOperator = '';
-    if (queryAccumulator.length > 0 && query.length > 0) {
+    if (queryAccumulator.length && query.length) {
       logicOperator = ` ${clause.logicOperator} `;
     } else if (
-      queryAccumulator.length === 0 &&
-      (clause.logicOperator as string) === Operator.NOT
+      !queryAccumulator.length &&
+      clause.logicOperator === Operator.NOT
     ) {
       logicOperator = `${clause.logicOperator} `;
     }
@@ -39,11 +56,10 @@ const splitClause = (
   }
   return [match[1], match[2]];
 };
-const quotedValue = /:"[^")]+"\)*$/;
 const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
 
 const getEmptyClause = (): Clause => ({
-  id: '',
+  id: v1(),
   searchTerm: {
     id: '',
     term: '',
@@ -85,10 +101,7 @@ export const parse = (queryString = ''): Clause[] => {
         if (correspondingClause) {
           // if it's an evidence or length key, mopdify the last inserted
           // corresponding clause and skip
-          const isQuoted = quotedValue.test(chunk);
-          correspondingClause.queryBits[key] = `(${key}:${
-            isQuoted ? '"' : ''
-          }${value}${isQuoted ? '"' : ''})`;
+          correspondingClause.queryBits[key] = value;
           continue; // eslint-disable-line no-continue
         }
       }
@@ -98,10 +111,7 @@ export const parse = (queryString = ''): Clause[] => {
 
       // "default"
       if (key) {
-        const isQuoted = quotedValue.test(chunk);
-        currentClause.queryBits[key] = `(${key}:${isQuoted ? '"' : ''}${value}${
-          isQuoted ? '"' : ''
-        })`;
+        currentClause.queryBits[key] = value;
       } else {
         // specific free-text search
         currentClause.queryBits.id_all = value;

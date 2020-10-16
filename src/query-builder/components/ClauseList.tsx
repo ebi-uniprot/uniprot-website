@@ -32,7 +32,11 @@ const ClauseItem: React.FC<{
   searchTerms: SearchTermType[];
   handleLogicChange: (clauseId: string, value: Operator) => void;
   handleFieldSelect: (clauseId: string, value: SearchTermType) => void;
-  handleQueryChange: (clauseId: string, updatedQueryBit: QueryBit) => void;
+  handleQueryChange: (
+    clauseId: string,
+    updatedQueryBit: QueryBit,
+    reset?: boolean
+  ) => void;
   removeClause: (clauseId: string) => void;
 }> = ({
   clause,
@@ -43,8 +47,8 @@ const ClauseItem: React.FC<{
   removeClause,
 }) => {
   const handleChange = useCallback(
-    (queryBit: QueryBit) => {
-      handleQueryChange(clause.id, queryBit);
+    (queryBit: QueryBit, reset?: boolean) => {
+      handleQueryChange(clause.id, queryBit, reset);
     },
     [clause.id, handleQueryChange]
   );
@@ -145,16 +149,18 @@ const ClauseList: React.FC<ClauseListProps> = ({
   );
 
   const handleQueryChange = useCallback(
-    (clauseId: string, updatedQueryBit: QueryBit) => {
+    (clauseId: string, updatedQueryBit: QueryBit, reset = false) => {
       setClauses((clauseList) =>
         clauseList.map((clause) => {
           if (clause.id === clauseId) {
             return {
               ...clause,
-              queryBits: {
-                ...clause.queryBits,
-                ...updatedQueryBit,
-              },
+              queryBits: reset
+                ? updatedQueryBit
+                : {
+                    ...clause.queryBits,
+                    ...updatedQueryBit,
+                  },
             };
           }
           return clause;

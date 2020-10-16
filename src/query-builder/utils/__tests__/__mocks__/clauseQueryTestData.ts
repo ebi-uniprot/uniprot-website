@@ -14,7 +14,7 @@ export const testData = [
           example: 'P53_HUMAN',
         },
         queryBits: {
-          id_field: '(id:"blah blah")',
+          id: 'blah blah',
         },
       },
     ],
@@ -36,7 +36,7 @@ export const testData = [
           autoCompleteQueryTerm: 'organism_id',
         },
         queryBits: {
-          organism_name_field: '(organism_name:"Homo sap")',
+          organism_name: 'Homo sap',
         },
       },
     ],
@@ -58,7 +58,7 @@ export const testData = [
           autoCompleteQueryTerm: 'organism_id',
         },
         queryBits: {
-          organism_name_field: '(organism_id:9606)',
+          organism_id: '9606',
         },
       },
     ],
@@ -77,7 +77,7 @@ export const testData = [
           example: '[0 TO 100]',
         },
         queryBits: {
-          ftlen_sites: '(ftlen_sites:[10 TO 100])',
+          ftlen_sites: '[10 TO 100]',
         },
       },
     ],
@@ -96,7 +96,7 @@ export const testData = [
           example: '[0 TO *]',
         },
         queryBits: {
-          ftlen_sites: '(ftlen_sites:[10 TO *])',
+          ftlen_sites: '[10 TO *]',
         },
       },
     ],
@@ -116,7 +116,7 @@ export const testData = [
           example: '[2018-03-04 TO 2018-03-08]',
         },
         queryBits: {
-          date_created: '(date_created:[2018-03-04 TO 2018-03-08])',
+          date_created: '[2018-03-04 TO 2018-03-08]',
         },
       },
     ],
@@ -158,7 +158,7 @@ export const testData = [
           ],
         },
         queryBits: {
-          existence: '(existence:predicted)',
+          existence: 'predicted',
         },
       },
     ],
@@ -178,7 +178,7 @@ export const testData = [
           valuePrefix: 'pdb-',
         },
         queryBits: {
-          xref_pdb: '(xref:pdb-Something)',
+          xref: 'pdb-Something',
         },
       },
     ],
@@ -197,7 +197,7 @@ export const testData = [
           valuePrefix: 'any',
         },
         queryBits: {
-          id_xref_any: '(xref:Something)',
+          xref: 'Something',
         },
       },
     ],
@@ -237,7 +237,7 @@ export const testData = [
           valuePrefix: 'embl',
         },
         queryBits: {
-          id_xref_embl: '(database:embl)',
+          database: 'embl',
         },
       },
     ],
@@ -257,7 +257,7 @@ export const testData = [
           example: 'P53_HUMAN',
         },
         queryBits: {
-          id_field: '(id:blah)',
+          id: 'blah',
         },
       },
       {
@@ -272,7 +272,7 @@ export const testData = [
         },
         logicOperator: 'OR',
         queryBits: {
-          protein_name_field: '(protein_name:"My protein")',
+          protein_name: 'My protein',
         },
       },
     ],
@@ -332,8 +332,8 @@ export const testData = [
           ],
         },
         queryBits: {
-          cc_cofactor_chebi: '(cc_cofactor_chebi:"CHEBI:12345")',
-          ccev_cofactor_chebi: '(ccev_cofactor_chebi:manual)',
+          cc_cofactor_chebi: 'CHEBI:12345',
+          ccev_cofactor_chebi: 'manual',
         },
       },
     ],
@@ -406,9 +406,9 @@ export const testData = [
           ],
         },
         queryBits: {
-          ft_sites: '(ft_sites:my_site)',
-          ftlen_sites: '(ftlen_sites:[10 TO 20])',
-          ftev_sites: '(ftev_sites:automatic)',
+          ft_sites: 'my_site',
+          ftlen_sites: '[10 TO 20]',
+          ftev_sites: 'automatic',
         },
       },
       {
@@ -423,7 +423,7 @@ export const testData = [
         },
         logicOperator: 'AND',
         queryBits: {
-          gene_field: '(gene:my_gene)',
+          gene: 'my_gene',
         },
       },
     ],

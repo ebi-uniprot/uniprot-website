@@ -6,8 +6,8 @@ import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
 
 const getStringValue = (value: string, prefix?: string) =>
   value.includes(' ')
-    ? `"${prefix ? `${prefix}` : ''}${value?.trim()}"`
-    : `${prefix ? `${prefix}` : ''}${value?.trim()}`;
+    ? `"${prefix || ''}${value?.trim()}"`
+    : `${prefix || ''}${value?.trim()}`;
 
 const TextField: React.FC<{
   field: SearchTermType;
@@ -19,26 +19,20 @@ const TextField: React.FC<{
   );
 
   useEffect(() => {
-    if (value.length > 0) {
+    const trimmed = value.trim();
+    if (trimmed.length) {
       if (field.term === 'All') {
-        handleChange({
-          [field.id]: value?.trim(),
-        });
+        handleChange({ id_all: trimmed });
       } else if (
         field.valuePrefix &&
-        field.term === 'database' &&
-        value.trim() === '*'
+        field.term === 'xref' &&
+        trimmed === '*'
       ) {
         // Query is faster with this hack
-        handleChange({
-          [field.id]: `(${field.term}:${field.valuePrefix})`,
-        });
+        handleChange({ xref: `${field.valuePrefix}` });
       } else {
         handleChange({
-          [field.id]: `(${field.term}:${getStringValue(
-            value,
-            field.valuePrefix
-          )})`,
+          [field.term]: getStringValue(value, field.valuePrefix),
         });
       }
     }

@@ -35,8 +35,15 @@ describe('Range field', () => {
     const toNode = queryByTestId('range-field-to-input');
     fireEvent.change(fromNode, { target: { value: '5' } });
     fireEvent.change(toNode, { target: { value: '50' } });
-    expect(props.handleChange).toHaveBeenCalledWith({
-      range_field: '(sites:[5 TO 50])',
-    });
+    expect(props.handleChange).toHaveBeenCalledWith({ sites: '[5 TO 50]' });
+  });
+
+  test('should handle from/to change with one missing bound', () => {
+    const { queryByTestId } = rendered;
+    const fromNode = queryByTestId('range-field-from-input');
+    const toNode = queryByTestId('range-field-to-input');
+    fireEvent.change(fromNode, { target: { value: '5' } });
+    fireEvent.change(toNode, { target: { value: '' } });
+    expect(props.handleChange).toHaveBeenCalledWith({ sites: '[5 TO *]' });
   });
 });

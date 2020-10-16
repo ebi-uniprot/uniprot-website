@@ -44,7 +44,7 @@ describe('EvidenceField component', () => {
       target: { value: 0 },
     });
     expect(props.handleChange).toBeCalledWith({
-      ccev_webresource: '(ccev_webresource:0)',
+      ccev_webresource: '0',
     });
   });
 

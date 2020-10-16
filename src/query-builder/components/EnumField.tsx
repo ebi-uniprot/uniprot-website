@@ -15,8 +15,9 @@ const EnumField: React.FC<{
   );
 
   useEffect(() => {
-    if (value.length > 0) {
-      handleChange({ [field.id]: `(${field.term}:${value?.trim()})` });
+    const trimmed = value.trim();
+    if (trimmed) {
+      handleChange({ [field.term]: trimmed });
     }
   }, [field, value, handleChange]);
 

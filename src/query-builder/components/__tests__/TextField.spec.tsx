@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, fireEvent } from '@testing-library/react';
+
 import TextField from '../../../query-builder/components/TextField';
 
 let rendered;
@@ -39,7 +41,7 @@ describe('TextField', () => {
     expect(inputElt.value).toBe('');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(props.handleChange).toBeCalledWith({
-      [props.field.id]: `(${props.field.term}:${updatedValue.trim()})`,
+      [props.field.term]: updatedValue.trim(),
     });
   });
 
@@ -49,7 +51,7 @@ describe('TextField', () => {
     const inputElt = getByPlaceholderText('P12345');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(props.handleChange).toBeCalledWith({
-      [props.field.id]: `(${props.field.term}:"${updatedValue.trim()}")`,
+      [props.field.term]: `"${updatedValue.trim()}"`,
     });
   });
 
@@ -59,7 +61,7 @@ describe('TextField', () => {
         id: 'all',
         label: 'All',
         itemType: 'single',
-        term: 'All',
+        term: 'id_all',
         description: 'Search by UniProtKB Accession',
         example: 'All',
       },
@@ -72,7 +74,7 @@ describe('TextField', () => {
     const inputElt = getByPlaceholderText('All');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsAll.handleChange).toBeCalledWith({
-      [propsAll.field.id]: updatedValue,
+      [propsAll.field.term]: `"${updatedValue}"`,
     });
   });
 
@@ -97,7 +99,7 @@ describe('TextField', () => {
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsPrefix.handleChange).toBeCalledWith({
       [propsPrefix.field
-        .id]: `(${propsPrefix.field.term}:\"${propsPrefix.field.valuePrefix}${updatedValue}\")`,
+        .term]: `"${propsPrefix.field.valuePrefix}${updatedValue}"`,
     });
   });
 
@@ -107,7 +109,7 @@ describe('TextField', () => {
         id: 'prefix',
         label: 'prefixed',
         itemType: 'single',
-        term: 'database',
+        term: 'xref',
         description: 'Search by UniProtKB Accession',
         example: 'Prefix',
         valuePrefix: 'embl',
@@ -119,7 +121,7 @@ describe('TextField', () => {
     const inputElt = getByPlaceholderText('Prefix');
     fireEvent.change(inputElt, { target: { value: '*' } });
     expect(propsPrefix.handleChange).toBeCalledWith({
-      [propsPrefix.field.id]: `(database:embl)`,
+      [propsPrefix.field.term]: propsPrefix.field.valuePrefix,
     });
   });
 });
