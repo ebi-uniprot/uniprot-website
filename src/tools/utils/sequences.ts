@@ -143,7 +143,7 @@ export const createGappedFeature = (feature, sequence) => {
   const BLOCK = /(?<insertion>[-]+)|(?<protein>[^-]+)/g;
 
   let proteinIndex = 1;
-  const fragments = [];
+  const fragments: { start: number; end: number; shape?: 'line' }[] = [];
 
   let match;
   // eslint-disable-next-line no-cond-assign
@@ -169,11 +169,12 @@ export const createGappedFeature = (feature, sequence) => {
       });
     }
   }
-  const gappedFeature = {
-    ...feature,
-    start: fragments[0].start,
-    end: fragments[fragments.length - 1].end,
-  };
+
+  const gappedFeature = { ...feature };
+  if (fragments.length) {
+    gappedFeature.start = fragments[0].start;
+    gappedFeature.end = fragments[fragments.length - 1]?.end;
+  }
   if (fragments.length > 1) {
     gappedFeature.locations = [{ fragments }];
   }

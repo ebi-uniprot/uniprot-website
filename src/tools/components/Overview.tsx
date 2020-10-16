@@ -19,6 +19,7 @@ import {
   transformFeaturesPositions,
   getFullAlignmentSegments,
   getEndCoordinate,
+  createGappedFeature,
 } from '../utils/sequences';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
@@ -149,24 +150,25 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const ceDefined =
     trackDefined && navigationDefined && msaDefined && managerDefined;
 
-  const features = useMemo(
+  const activeAlignment = useMemo(
     () =>
-      alignment.find(({ accession }) => accession && accession === activeId)
-        ?.features,
+      alignment.find(({ accession }) => accession && accession === activeId),
     [alignment, activeId]
   );
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined && features && annotation) {
+      if (node && ceDefined && activeAlignment?.features && annotation) {
         let processedFeatures = processFeaturesData(
-          features.filter(({ type }) => type === annotation)
+          activeAlignment.features.filter(({ type }) => type === annotation)
         );
-        processedFeatures = transformFeaturesPositions(processedFeatures);
+        processedFeatures = processedFeatures.map((f) =>
+          createGappedFeature(f, activeAlignment.sequence)
+        );
         node.data = processedFeatures;
       }
     },
-    [ceDefined, features, annotation]
+    [ceDefined, activeAlignment, annotation]
   );
 
   const overviewHeight = (alignment && alignment.length > 10
