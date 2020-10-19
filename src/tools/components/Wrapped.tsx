@@ -253,7 +253,7 @@ const Wrapped: FC<MSAViewProps> = ({
         trackStart: start + 1,
         trackEnd: start + rowLength,
         sequences: alignment.map(
-          ({ name, sequence, from, features, accession }) => ({
+          ({ name, sequence, from = 1, features, accession }) => ({
             name: name || '',
             sequence: sequence.slice(start, end),
             fullSequence: sequence,
