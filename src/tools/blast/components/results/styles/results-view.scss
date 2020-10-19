@@ -1,5 +1,27 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
 .is-stale {
   opacity: 0.5;
   pointer-events: none;
   user-select: none;
+}
+
+.blast-parameters-facet {
+  font-weight: bold;
+
+  &__title {
+    padding-left: 1ch;
+  }
+
+  .hsp_identity {
+    color: #{$colour-sapphire-blue};
+  }
+
+  .hsp_score {
+    color: #{$colour-coyote-brown};
+  }
+
+  .hsp_expect {
+    color: #{$colour-outer-space};
+  }
 }

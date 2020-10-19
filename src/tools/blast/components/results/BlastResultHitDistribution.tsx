@@ -3,7 +3,7 @@ import { Histogram, Loader } from 'franklin-sites';
 
 import { getDataPoints, getBounds } from '../../utils/blastFacetDataUtils';
 
-import { BlastHit } from '../../types/blastResults';
+import { BlastFacet, BlastHit } from '../../types/blastResults';
 
 import '../styles/BlastResultHitDistribution.scss';
 
@@ -29,7 +29,7 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
   ]);
   // logic to keep stale data available
   const valuesRef = useRef(values);
-  if (values.score.length || !loading) {
+  if (values[BlastFacet.SCORE].length || !loading) {
     valuesRef.current = values;
   }
 
@@ -40,11 +40,11 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
       getBounds(allHits),
       // see: https://en.wikipedia.org/wiki/Histogram#Square-root_choice
       // We chose the simplest implementation, 𝐤=⌈√𝐧⌉
-      Math.ceil(Math.sqrt(dataPoints.score.length)),
+      Math.ceil(Math.sqrt(dataPoints[BlastFacet.SCORE].length)),
     ];
   }, [allHits]);
 
-  if (loading && !valuesRef.current.score.length) {
+  if (loading && !valuesRef.current[BlastFacet.SCORE].length) {
     return <Loader />;
   }
 
