@@ -1,29 +1,53 @@
-import React, { FC, FormEvent, MouseEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { FC, FormEvent, MouseEvent, useState, useEffect } from 'react';
+import { useHistory, useRouteMatch, generatePath } from 'react-router-dom';
 import { PageIntro } from 'franklin-sites';
+
 import ClauseList from './ClauseList';
-import { Clause, SearchTermType } from '../types/searchTypes';
+
 import useDataApi from '../../shared/hooks/useDataApi';
-import apiUrls from '../../shared/config/apiUrls';
+
 import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
 import { stringify } from '../utils/queryStringProcessor';
+
+import apiUrls from '../../shared/config/apiUrls';
 import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
+
+import { Clause, SearchTermType } from '../types/searchTypes';
 
 import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/advanced-search.scss';
+import { LocationToPath, Location } from '../../app/config/urls';
 
 const AdvancedSearch: FC = () => {
   const history = useHistory();
+  const match = useRouteMatch<{ namespace?: Namespace }>(
+    LocationToPath[Location.QueryBuilder]
+  );
 
   // To be replaced by getting it from url
   const [clauses, setClauses] = useState<Clause[]>(createPreSelectedClauses());
-  const [namespace, setNamespace] = useState<Namespace>(Namespace.uniprotkb);
+
+  const namespace = match?.params?.namespace;
 
   const { data: searchTermsData } = useDataApi<SearchTermType[]>(
-    apiUrls.advancedSearchTerms(namespace)
+    namespace && apiUrls.advancedSearchTerms(namespace)
   );
 
-  if (!searchTermsData) {
+  // if URL doesn't finish with a namespace redirect to "uniprotkb" by default
+  useEffect(() => {
+    if (!namespace) {
+      history.replace(
+        history.createHref({
+          ...history.location,
+          pathname: generatePath(LocationToPath[Location.QueryBuilder], {
+            namespace: Namespace.uniprotkb,
+          }),
+        })
+      );
+    }
+  }, [history, namespace]);
+
+  if (!searchTermsData || !namespace) {
     return null;
   }
 
@@ -44,7 +68,7 @@ const AdvancedSearch: FC = () => {
     event.preventDefault();
     const queryString = stringify(clauses);
     history.push({
-      pathname: '/uniprotkb',
+      pathname: `/${namespace}`,
       search: queryString && `query=${queryString}`,
     });
   };
@@ -63,9 +87,17 @@ const AdvancedSearch: FC = () => {
             Searching in
             <select
               id="namespace-select"
-              onChange={(e) =>
-                setNamespace((e.target.value as unknown) as Namespace)
-              }
+              onChange={(e) => {
+                history.replace(
+                  history.createHref({
+                    ...history.location,
+                    pathname: generatePath(
+                      LocationToPath[Location.QueryBuilder],
+                      { namespace: e.target.value }
+                    ),
+                  })
+                );
+              }}
               value={namespace}
             >
               {Object.keys(NamespaceLabels).map((key) => (

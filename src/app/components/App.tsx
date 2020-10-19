@@ -185,7 +185,7 @@ const App = () => (
             />
             {/* Query builder */}
             <Route
-              path={LocationToPath[Location.UniProtKBQueryBuilder]}
+              path={LocationToPath[Location.QueryBuilder]}
               render={() => (
                 <SingleColumnLayout>
                   <AdvancedSearchPage />

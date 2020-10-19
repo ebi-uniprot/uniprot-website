@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import {
+  Link,
+  useRouteMatch,
+  useHistory,
+  generatePath,
+} from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -109,7 +114,8 @@ type Params = {
 
 const AlignResult = () => {
   const history = useHistory();
-  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult]);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult])!;
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
@@ -119,7 +125,10 @@ const AlignResult = () => {
       history.replace(
         history.createHref({
           ...history.location,
-          pathname: `${history.location.pathname}/${TabLocation.Overview}`,
+          pathname: generatePath(LocationToPath[Location.AlignResult], {
+            ...match.params,
+            subPage: TabLocation.Overview,
+          }),
         })
       );
     }

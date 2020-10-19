@@ -1,11 +1,14 @@
 import React, { useMemo } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, generatePath } from 'react-router-dom';
 import { Header } from 'franklin-sites';
 
 import SearchContainer from '../../../uniprotkb/components/search/SearchContainer';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
+import { Namespace } from '../../types/namespaces';
+
 import Logo from './svgs/uniprot-logo.svg';
+import useNS from '../../hooks/useNS';
 
 // NOTE: all of those paths should eventually come from the Location config object
 const tools = [
@@ -31,10 +34,10 @@ const tools = [
   },
 ];
 
-const links = [
+const links = (namespace: Namespace) => [
   {
     label: 'Query Builder',
-    path: LocationToPath[Location.UniProtKBQueryBuilder],
+    path: generatePath(LocationToPath[Location.QueryBuilder], { namespace }),
   },
   {
     label: 'API',
@@ -70,9 +73,11 @@ const links = [
 
 const UniProtHeader = () => {
   const advancedSearchMatch = useRouteMatch(
-    LocationToPath[Location.UniProtKBQueryBuilder]
+    LocationToPath[Location.QueryBuilder]
   );
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
+
+  const namespace = useNS() || Namespace.uniprotkb;
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
@@ -82,9 +87,9 @@ const UniProtHeader = () => {
   const displayedLinks = useMemo(
     () =>
       isHomePage
-        ? [...tools, ...links]
-        : [{ label: 'Tools', links: tools }, ...links],
-    [isHomePage]
+        ? [...tools, ...links(namespace)]
+        : [{ label: 'Tools', links: tools }, ...links(namespace)],
+    [isHomePage, namespace]
   );
 
   return (
