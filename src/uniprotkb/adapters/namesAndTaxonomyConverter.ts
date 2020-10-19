@@ -53,6 +53,8 @@ export type LineageData = {
 };
 
 export type NamesAndTaxonomyUIModel = {
+  primaryAccession?: string;
+  secondaryAccessions?: string[];
   proteinNamesData?: ProteinNamesData;
   geneNamesData?: GeneNamesData;
   organismData?: OrganismData;
@@ -69,6 +71,9 @@ export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
     EntrySection.NamesAndTaxonomy
   );
 
+  namesAndTaxonomyData.primaryAccession = data.primaryAccession;
+  namesAndTaxonomyData.secondaryAccessions = data.secondaryAccessions;
+
   if (data.proteinDescription) {
     namesAndTaxonomyData.proteinNamesData = data.proteinDescription;
   }
@@ -83,7 +88,7 @@ export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
   }
   if (data.uniProtKBCrossReferences) {
     namesAndTaxonomyData.proteomesData = data.uniProtKBCrossReferences.filter(
-      db => db.database === 'Proteomes'
+      (db) => db.database === 'Proteomes'
     );
   }
 

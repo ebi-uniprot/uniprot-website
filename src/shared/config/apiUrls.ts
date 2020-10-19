@@ -56,6 +56,8 @@ const apiUrls = {
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
   features: joinUrl(prodPrefix, '/proteins/api/features'),
   accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
+  genecentric: (accession: string) =>
+    joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
 
   entry: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/uniprotkb/accession', accession),

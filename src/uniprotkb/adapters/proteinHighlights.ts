@@ -30,11 +30,11 @@ const highlightToEntrySection: {
 } = {
   [highlightSection.domains]: { link: `#${EntrySection.Function}` },
   [highlightSection.PTM]: { link: `#${EntrySection.ProteinProcessing}` },
-  [highlightSection.variants]: { link: `#${EntrySection.PathologyAndBioTech}` },
+  [highlightSection.variants]: { link: `#${EntrySection.DiseaseAndDrugs}` },
   [highlightSection.activeSites]: { link: `#${EntrySection.Function}` },
   [highlightSection.isoforms]: { link: `#${EntrySection.Sequence}` },
   [highlightSection.structures]: { link: `#${EntrySection.Structure}` },
-  [highlightSection.disease]: { link: `#${EntrySection.PathologyAndBioTech}` },
+  [highlightSection.disease]: { link: `#${EntrySection.DiseaseAndDrugs}` },
   [highlightSection.interactions]: { link: `#${EntrySection.Interaction}` },
   [highlightSection.subcell]: { link: `#${EntrySection.SubCellularLocation}` },
   [highlightSection.publications]: {

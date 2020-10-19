@@ -24,7 +24,7 @@ exports[`BlastForm test Renders the form 1`] = `
       </button>
     </h2>
     <div
-      class="intro-content false"
+      class="intro-content"
     >
       <p>
         The Basic Local Alignment Search Tool (BLAST) finds regions of local similarity between sequences, which can be used to infer functional and evolutionary relationships between sequences as well as help identify members of gene families.
