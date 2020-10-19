@@ -64,14 +64,18 @@ const AdvancedSearch: FC = () => {
     const query = qs.parse(history.location.search, { decode: true })?.query;
     const parsedQuery =
       query && !Array.isArray(query) ? parse(query) : undefined;
+    // flatten all the endpoint-described clauses to be able to to look-up
     const flattened = flatten(searchTermsData);
+    // for each parsed clause, try to find the corresponding endpoint-described
+    // clause to merge its 'searchTerm' field
     for (const clause of parsedQuery || []) {
       const found = flattened.find(
         (item) => item.term === clause.searchTerm.term
       );
+      // if it exists, assign it 'searchTerm'
       if (found) {
         clause.searchTerm = found;
-      }
+      } // else, what? -> remove or ignore clause?
     }
 
     setClauses((clauses) =>
