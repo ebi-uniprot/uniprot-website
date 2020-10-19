@@ -124,7 +124,7 @@ exports[`ColumnConfiguration component should render all columns: Alternative Pr
     isoID1
   </h3>
   <div
-    class="info-list"
+    class="info-list info-list--columns"
   >
     <div
       class="info-list__item"

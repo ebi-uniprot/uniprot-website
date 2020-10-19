@@ -10,7 +10,10 @@ import numberView, {
 import { formatLargeNumber } from '../../utils/utils';
 import fetchData from '../../utils/fetchData';
 
-import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
+import {
+  IsoformNotes,
+  SequenceUIModel,
+} from '../../../uniprotkb/adapters/sequenceConverter';
 
 import externalUrls from '../../../uniprotkb/config/externalUrls';
 import apiUrls from '../../config/apiUrls';
@@ -23,6 +26,7 @@ import {
   AlternativeProductsComment,
 } from '../../../uniprotkb/types/commentTypes';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 
 export type SequenceData = {
   value: string;
@@ -92,7 +96,8 @@ export const SequenceInfo: React.FC<{
 
   return (
     <>
-      {dataToDisplay && <InfoList infoData={infoData} />}
+      <h4>Sequence information</h4>
+      {dataToDisplay && <InfoList infoData={infoData} columns />}
       <Sequence
         sequence={dataToDisplay.value}
         accession={isoformId}
@@ -109,7 +114,17 @@ export const SequenceInfo: React.FC<{
 export const IsoformInfo: React.FC<{
   isoformData: Isoform;
   canonicalAccession: string;
-}> = ({ isoformData, canonicalAccession }) => {
+  isoformNotes?: IsoformNotes;
+}> = ({ isoformData, canonicalAccession, isoformNotes }) => {
+  let note;
+  const regex = new RegExp(isoformData.name.value, 'gi');
+  for (const key in isoformNotes) {
+    if (key.match(regex)) {
+      note = isoformNotes[key];
+      break;
+    }
+  }
+
   const infoListData = [
     {
       title: 'Name',
@@ -118,6 +133,10 @@ export const IsoformInfo: React.FC<{
     {
       title: 'Synonyms',
       content: (isoformData?.synonyms ?? []).map((syn) => syn.value).join(', '),
+    },
+    {
+      title: 'Note',
+      content: note && <FreeTextView comments={note} showMolecule={false} />,
     },
     {
       title: 'Differences from canonical',
@@ -185,7 +204,7 @@ export const IsoformInfo: React.FC<{
           </Link>
         </section>
       )}
-      <InfoList infoData={infoListData} />
+      <InfoList infoData={infoListData} columns />
     </Fragment>
   );
 };
@@ -276,11 +295,13 @@ export const IsoformView: React.FC<{
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
   canonicalAccession: string;
+  isoformNotes?: IsoformNotes;
 }> = ({
   alternativeProducts,
   canonicalComponent,
   includeSequences = true,
   canonicalAccession,
+  isoformNotes,
 }) => {
   let isoformCountNode;
   const { isoforms, events } = alternativeProducts;
@@ -312,6 +333,7 @@ export const IsoformView: React.FC<{
           <IsoformInfo
             isoformData={isoform}
             canonicalAccession={canonicalAccession}
+            isoformNotes={isoformNotes}
           />
           {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
             <>
@@ -369,11 +391,12 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
 
   return (
     <>
-      <InfoList infoData={sequenceInfoData} />
+      <InfoList infoData={sequenceInfoData} columns />
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}
         canonicalAccession={accession}
+        isoformNotes={data.isoformNotes}
       />
     </>
   );

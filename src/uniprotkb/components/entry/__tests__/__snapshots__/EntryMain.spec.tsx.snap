@@ -2484,7 +2484,7 @@ exports[`Entry view should render 1`] = `
           class="card__content"
         >
           <div
-            class="info-list"
+            class="info-list info-list--columns"
           >
             <div
               class="info-list__item"
@@ -2526,7 +2526,7 @@ exports[`Entry view should render 1`] = `
             isoID1
           </h3>
           <div
-            class="info-list"
+            class="info-list info-list--columns"
           >
             <div
               class="info-list__item"
