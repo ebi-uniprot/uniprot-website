@@ -13,22 +13,15 @@ const initializer = (
   initialValue?: QueryBit
 ): string | [from: string, to: string] => {
   // specific case for free text search
-  if (field.id === 'id_all') {
-    return initialValue?.id_all || '';
+  if (field.term === 'All') {
+    return initialValue?.All || '';
   }
   // no value? bail
-  if (!(initialValue && initialValue[field.id])) {
+  if (!(initialValue && initialValue[field.term])) {
     return '';
   }
-  // parse and validate presence of queryBit
-  const match = new RegExp(`^\\(${field.term}:(\\w*)\\)$`).exec(
-    initialValue[field.id]
-  );
-  // invalid? bail
-  if (!match) {
-    return '';
-  }
-  const [, value] = match;
+
+  const value = initialValue[field.term];
 
   // NOTE: is all the following basically just a clause value validator?
   // regular expression matching

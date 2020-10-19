@@ -6,23 +6,27 @@ import {
   ItemType,
   DataType,
   FieldType,
+  SearchTermType,
 } from '../types/searchTypes';
+
+export const getAllTerm = (): SearchTermType => ({
+  label: 'All',
+  term: 'All',
+  example: 'a4_human, P05067, cdc7 human',
+  itemType: ItemType.single,
+  dataType: DataType.string,
+  fieldType: FieldType.general,
+  id: 'id_all',
+});
 
 export const createEmptyClause = (): Clause => ({
   id: v1(),
   logicOperator: Operator.AND,
-  searchTerm: {
-    label: 'All',
-    term: 'All',
-    example: 'a4_human, P05067, cdc7 human',
-    itemType: ItemType.single,
-    dataType: DataType.string,
-    fieldType: FieldType.general,
-    id: 'id_all',
-  },
+  searchTerm: getAllTerm(),
   queryBits: {},
 });
 
+// TODO: different default set depending on namespace
 export const createPreSelectedClauses = (): Clause[] => [
   {
     id: v1(),

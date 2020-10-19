@@ -16,11 +16,16 @@ import {
 type FieldProps = {
   field: SearchTermType;
   handleChange: (updatedQueryBit: QueryBit) => void;
+  initialValue?: QueryBit;
 };
 
-const Field: FC<FieldProps> = ({ field, handleChange }: FieldProps) => {
+const Field: FC<FieldProps> = ({
+  field,
+  handleChange,
+  initialValue,
+}: FieldProps) => {
   const { dataType, fieldType, autoComplete } = field;
-  let GenericField: FC<FieldProps & { initialValue?: QueryBit }>;
+  let GenericField: FC<FieldProps>;
 
   switch (true) {
     case Boolean(autoComplete):
@@ -48,13 +53,13 @@ const Field: FC<FieldProps> = ({ field, handleChange }: FieldProps) => {
     <GenericField
       field={field}
       handleChange={handleChange}
-      // test
-      // initialValue={{
-      //   id_gene: '(gene:ydj1)',
-      //   id_all: 'free text',
-      // }}
+      initialValue={initialValue}
     />
   );
+};
+
+Field.defaultProps = {
+  initialValue: undefined,
 };
 
 export default Field;

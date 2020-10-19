@@ -61,7 +61,7 @@ describe('TextField', () => {
         id: 'all',
         label: 'All',
         itemType: 'single',
-        term: 'id_all',
+        term: 'All',
         description: 'Search by UniProtKB Accession',
         example: 'All',
       },

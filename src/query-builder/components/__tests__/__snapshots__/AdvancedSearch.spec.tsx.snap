@@ -418,7 +418,7 @@ exports[`AdvancedSearch should render 1`] = `
           class="advanced-search__inputs"
         >
           <label
-            for="16"
+            for="4"
           >
             Taxonomy [OC]
             <div
@@ -629,7 +629,7 @@ exports[`AdvancedSearch should render 1`] = `
           class="advanced-search__inputs"
         >
           <label
-            for="17"
+            for="5"
           >
             Keyword [KW]
             <div

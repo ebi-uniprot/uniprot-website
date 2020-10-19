@@ -1,5 +1,6 @@
-import React, { FC, FormEvent, MouseEvent, useState, useEffect } from 'react';
+import React, { FC, FormEvent, useState, useEffect } from 'react';
 import { useHistory, useRouteMatch, generatePath } from 'react-router-dom';
+import qs from 'query-string';
 import { PageIntro } from 'franklin-sites';
 
 import ClauseList from './ClauseList';
@@ -7,7 +8,7 @@ import ClauseList from './ClauseList';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
-import { stringify } from '../utils/queryStringProcessor';
+import { stringify, parse } from '../utils/queryStringProcessor';
 
 import apiUrls from '../../shared/config/apiUrls';
 import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
@@ -18,6 +19,15 @@ import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/advanced-search.scss';
 import { LocationToPath, Location } from '../../app/config/urls';
 
+const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
+  return searchTermData.flatMap((searchTermDatum: SearchTermType) => {
+    if (searchTermDatum.items) {
+      return flatten(searchTermDatum.items);
+    }
+    return searchTermDatum;
+  });
+};
+
 const AdvancedSearch: FC = () => {
   const history = useHistory();
   const match = useRouteMatch<{ namespace?: Namespace }>(
@@ -25,7 +35,7 @@ const AdvancedSearch: FC = () => {
   );
 
   // To be replaced by getting it from url
-  const [clauses, setClauses] = useState<Clause[]>(createPreSelectedClauses());
+  const [clauses, setClauses] = useState<Clause[]>([]);
 
   const namespace = match?.params?.namespace;
 
@@ -47,6 +57,28 @@ const AdvancedSearch: FC = () => {
     }
   }, [history, namespace]);
 
+  useEffect(() => {
+    if (!searchTermsData) {
+      return;
+    }
+    const query = qs.parse(history.location.search, { decode: true })?.query;
+    const parsedQuery =
+      query && !Array.isArray(query) ? parse(query) : undefined;
+    const flattened = flatten(searchTermsData);
+    for (const clause of parsedQuery || []) {
+      const found = flattened.find(
+        (item) => item.term === clause.searchTerm.term
+      );
+      if (found) {
+        clause.searchTerm = found;
+      }
+    }
+
+    setClauses((clauses) =>
+      clauses.length ? clauses : parsedQuery || createPreSelectedClauses()
+    );
+  }, [history.location.search, searchTermsData]);
+
   if (!searchTermsData || !namespace) {
     return null;
   }
@@ -64,7 +96,7 @@ const AdvancedSearch: FC = () => {
     });
   };
 
-  const handleSubmitClick = (event: FormEvent | MouseEvent) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const queryString = stringify(clauses);
     history.push({
@@ -79,7 +111,7 @@ const AdvancedSearch: FC = () => {
 
       <form
         className="advanced-search"
-        onSubmit={handleSubmitClick}
+        onSubmit={handleSubmit}
         data-testid="advanced-search-form"
       >
         <fieldset>
@@ -90,7 +122,6 @@ const AdvancedSearch: FC = () => {
               onChange={(e) => {
                 history.replace(
                   history.createHref({
-                    ...history.location,
                     pathname: generatePath(
                       LocationToPath[Location.QueryBuilder],
                       { namespace: e.target.value }

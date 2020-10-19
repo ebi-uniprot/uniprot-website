@@ -217,7 +217,7 @@ export const testData = [
           example: 'a4_human, P05067, cdc7 human',
         },
         queryBits: {
-          id_all: 'blah',
+          All: 'blah',
         },
       },
     ],

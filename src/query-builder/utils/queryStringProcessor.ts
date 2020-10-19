@@ -7,6 +7,7 @@ import {
   DataType,
   FieldType,
 } from '../types/searchTypes';
+import { getAllTerm } from './clause';
 
 export const stringify = (clauses: Clause[] = []): string =>
   clauses.reduce((queryAccumulator: string, clause: Clause) => {
@@ -22,7 +23,7 @@ export const stringify = (clauses: Clause[] = []): string =>
         const quote = needsQuotes ? '"' : '';
 
         // free-text search
-        if (key === 'id_all') {
+        if (key === 'All') {
           return `${quote}${value}${quote}`;
         }
         return `(${key}:${quote}${value}${quote})`;
@@ -114,7 +115,8 @@ export const parse = (queryString = ''): Clause[] => {
         currentClause.queryBits[key] = value;
       } else {
         // specific free-text search
-        currentClause.queryBits.id_all = value;
+        currentClause.queryBits.All = value;
+        currentClause.searchTerm = getAllTerm();
       }
 
       clauses.push(currentClause);

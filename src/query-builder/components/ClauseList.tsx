@@ -78,7 +78,11 @@ const ClauseItem: React.FC<{
       {fieldItems.map((siblingTerm) => {
         return (
           <div className="advanced-search__inputs" key={siblingTerm.id}>
-            <Field field={siblingTerm} handleChange={handleChange} />
+            <Field
+              field={siblingTerm}
+              handleChange={handleChange}
+              initialValue={clause.queryBits}
+            />
           </div>
         );
       })}

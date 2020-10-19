@@ -21,13 +21,7 @@ const TextField: React.FC<{
   useEffect(() => {
     const trimmed = value.trim();
     if (trimmed.length) {
-      if (field.term === 'All') {
-        handleChange({ id_all: trimmed });
-      } else if (
-        field.valuePrefix &&
-        field.term === 'xref' &&
-        trimmed === '*'
-      ) {
+      if (field.valuePrefix && field.term === 'xref' && trimmed === '*') {
         // Query is faster with this hack
         handleChange({ xref: `${field.valuePrefix}` });
       } else {
