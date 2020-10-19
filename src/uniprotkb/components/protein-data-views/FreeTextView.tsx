@@ -6,6 +6,7 @@ import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
 type FreeTextProps = {
   comments?: FreeTextComment[];
   title?: string;
+  showMolecule?: boolean;
 };
 
 export const TextView: React.FC<{ comments: TextWithEvidence[] }> = ({
@@ -24,7 +25,11 @@ export const TextView: React.FC<{ comments: TextWithEvidence[] }> = ({
   </section>
 );
 
-const FreeTextView: React.FC<FreeTextProps> = ({ comments, title }) => {
+const FreeTextView: React.FC<FreeTextProps> = ({
+  comments,
+  title,
+  showMolecule = true,
+}) => {
   if (!comments || comments.length <= 0) {
     return null;
   }
@@ -33,7 +38,7 @@ const FreeTextView: React.FC<FreeTextProps> = ({ comments, title }) => {
       item.texts && (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
-          {item.molecule && <h5>{item.molecule}</h5>}
+          {showMolecule && item.molecule && <h5>{item.molecule}</h5>}
           <TextView comments={item.texts} />
         </Fragment>
       )
