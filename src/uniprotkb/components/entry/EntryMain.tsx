@@ -1,5 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Card } from 'franklin-sites';
+import { Card, HeroContainer } from 'franklin-sites';
 
 import Overview from '../protein-data-views/ProteinOverviewView';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -43,6 +43,15 @@ const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
         {sectionContent(transformedData)}
       </ErrorBoundary>
     ))}
+
+    <HeroContainer>
+      <em>
+        Any medical or genetic information present in this entry is provided for
+        research, educational and informational purposes only. It is not in any
+        way intended to be used as a substitute for professional medical advice,
+        diagnosis, treatment or care.
+      </em>
+    </HeroContainer>
   </>
 );
 

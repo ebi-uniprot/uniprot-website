@@ -768,16 +768,16 @@ ColumnConfiguration.set(Column.ccPtm, {
 ColumnConfiguration.set(Column.ccAllergen, {
   label: 'Allergenic Properties',
   render: (data) => {
-    const allergenData = data[
-      EntrySection.PathologyAndBioTech
-    ].commentsData.get(CommentType.ALLERGEN) as FreeTextComment[];
+    const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
+      CommentType.ALLERGEN
+    ) as FreeTextComment[];
     return allergenData && <FreeTextView comments={allergenData} />;
   },
 });
 ColumnConfiguration.set(Column.ccBiotechnology, {
   label: 'Biotechnological Use',
   render: (data) => {
-    const biotechData = data[EntrySection.PathologyAndBioTech].commentsData.get(
+    const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.BIOTECHNOLOGY
     ) as FreeTextComment[];
     return biotechData && <FreeTextView comments={biotechData} />;
@@ -786,18 +786,18 @@ ColumnConfiguration.set(Column.ccBiotechnology, {
 ColumnConfiguration.set(Column.ccDisruptionPhenotype, {
   label: 'Disruption Phenotype',
   render: (data) => {
-    const disruptionData = data[
-      EntrySection.PathologyAndBioTech
-    ].commentsData.get(CommentType.DISRUPTION_PHENOTYPE) as FreeTextComment[];
+    const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
+      CommentType.DISRUPTION_PHENOTYPE
+    ) as FreeTextComment[];
     return disruptionData && <FreeTextView comments={disruptionData} />;
   },
 });
 ColumnConfiguration.set(Column.ccDisease, {
   label: 'Disease Involvement',
   render: (data) => {
-    const diseaseComments = data[
-      EntrySection.PathologyAndBioTech
-    ].commentsData.get(CommentType.DISEASE) as DiseaseComment[];
+    const diseaseComments = data[EntrySection.DiseaseAndDrugs].commentsData.get(
+      CommentType.DISEASE
+    ) as DiseaseComment[];
     return (
       diseaseComments && (
         <DiseaseInvolvementView
@@ -815,7 +815,7 @@ ColumnConfiguration.set(
 ColumnConfiguration.set(Column.ccPharmaceutical, {
   label: 'Pharmaceutical Use',
   render: (data) => {
-    const pharmaData = data[EntrySection.PathologyAndBioTech].commentsData.get(
+    const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.PHARMACEUTICAL
     ) as FreeTextComment[];
     return pharmaData && <FreeTextView comments={pharmaData} />;
@@ -824,7 +824,7 @@ ColumnConfiguration.set(Column.ccPharmaceutical, {
 ColumnConfiguration.set(Column.ccToxicDose, {
   label: 'Toxic Dose',
   render: (data) => {
-    const toxicData = data[EntrySection.PathologyAndBioTech].commentsData.get(
+    const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.TOXIC_DOSE
     ) as FreeTextComment[];
     return toxicData && <FreeTextView comments={toxicData} />;

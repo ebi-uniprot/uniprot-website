@@ -18,7 +18,7 @@ import {
   FreeTextComment,
 } from '../../types/commentTypes';
 
-const PathologyAndBiotechSection: FC<{
+const DiseaseAndDrugsSection: FC<{
   data: UIModel;
   primaryAccession: string;
   sequence: string;
@@ -27,11 +27,8 @@ const PathologyAndBiotechSection: FC<{
     return null;
   }
   return (
-    <div
-      id={EntrySectionIDs[EntrySection.PathologyAndBioTech]}
-      data-entry-section
-    >
-      <Card title={EntrySection.PathologyAndBioTech}>
+    <div id={EntrySectionIDs[EntrySection.DiseaseAndDrugs]} data-entry-section>
+      <Card title={EntrySection.DiseaseAndDrugs}>
         <DiseaseInvolvementView
           comments={
             data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
@@ -84,4 +81,4 @@ const PathologyAndBiotechSection: FC<{
   );
 };
 
-export default PathologyAndBiotechSection;
+export default DiseaseAndDrugsSection;
