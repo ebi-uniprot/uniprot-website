@@ -47,23 +47,35 @@ const enrichParsed = (
   if (!parsed || sequenceInfo.loading) {
     return null;
   }
-  const sequences = Array.from(parsed.sequences) as Partial<EnrichedSequence>[];
+  // The keys here are the name (eg sp|P05067|A4_HUMAN) and used to quickly look up
+  // if the user's alignment is present
+  const nameToSequenceInfo: { [name: string]: ParsedSequenceAndFeatures } = {};
   for (const info of sequenceInfo.data.values()) {
-    const matchIndex = sequences.findIndex((s) => s.name === info.name);
-    if (matchIndex !== -1) {
-      const match = sequences[matchIndex];
-      sequences[matchIndex] = {
-        ...info,
-        features: removeFeaturesWithUnknownModifier(info.features),
-        ...match,
-        // not sure yet if that is needed or not
-        ...getFromToLength(match.sequence),
-        // or if those values are enough
-        from: 1,
-        to: match.sequence?.length || 0,
-        length: match.sequence?.length || 0,
-      };
+    if (info.name) {
+      nameToSequenceInfo[info.name] = info;
     }
+  }
+  const sequences = Array.from(parsed.sequences) as Partial<EnrichedSequence>[];
+  // Iterate over all of the sequences in the alignment
+  for (let index = 0; index < sequences.length; index += 1) {
+    const sequence = sequences[index];
+    let info;
+    let features;
+    if (sequence.name && nameToSequenceInfo[sequence.name]) {
+      info = nameToSequenceInfo[sequence.name];
+      features = removeFeaturesWithUnknownModifier(info?.features);
+    }
+    sequences[index] = {
+      ...info,
+      features: features ?? [],
+      ...sequence,
+      // not sure yet if that is needed or not
+      ...getFromToLength(sequence.sequence),
+      // or if those values are enough
+      // from: 1,
+      // to: sequence.sequence?.length || 0,
+      // length: sequence.sequence?.length || 0,
+    };
   }
   return { ...parsed, sequences } as ParsedAndEnriched;
 };
