@@ -8,13 +8,13 @@ import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 
 export const localFacets: BlastFacet[] = Object.values(BlastFacet);
 export const blastFacetToKeyName = {
-  [BlastFacet.SCORE]: 'hsp_score',
   [BlastFacet.IDENTITY]: 'hsp_identity',
+  [BlastFacet.SCORE]: 'hsp_score',
   [BlastFacet.EVALUE]: 'hsp_expect',
 };
 export const blastFacetToNiceName = {
-  [BlastFacet.SCORE]: 'Score',
   [BlastFacet.IDENTITY]: 'Identity',
+  [BlastFacet.SCORE]: 'Score',
   [BlastFacet.EVALUE]: 'E-Value',
 };
 

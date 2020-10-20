@@ -1,5 +1,6 @@
 import React, { FC, useRef, useMemo, useState } from 'react';
 import { Histogram, Loader } from 'franklin-sites';
+import cn from 'classnames';
 
 import { getDataPoints, getBounds } from '../../utils/blastFacetDataUtils';
 
@@ -79,7 +80,7 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
           return null;
         }
         return (
-          <div className="blast-result-hit-distribution" key={name}>
+          <div className={cn('blast-result-hit-distribution', name)} key={name}>
             <Histogram
               values={values}
               unfilteredValues={unfilteredValues[name]}
