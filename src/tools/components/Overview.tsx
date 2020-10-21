@@ -119,11 +119,11 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       const maxSequenceLength = Math.max(
         ...alignment.map((al) => al.sequence.length)
       );
-      if (displayEndValue < maxSequenceLength) {
-        setInitialDisplayEnd(displayEndValue);
-      } else {
-        setInitialDisplayEnd(maxSequenceLength);
+
+      if (typeof displayEnd === 'undefined') {
+        setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
       }
+
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
     [msaDefined, alignment, alignmentLength]
