@@ -13,6 +13,9 @@ import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import BlastResultSidebar from './BlastResultSidebar';
 import ResultButtons from '../../../components/ResultButtons';
+import BlastResultLocalFacets from './BlastResultLocalFacets';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import useDataApi, {
   UseDataAPIState,
@@ -39,11 +42,8 @@ import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
-// what we import are types, even if they are in adapter file
+import { TaxonomyEndpoint } from '../../../../uniprotkb/types/taxonomyTypes';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import BlastResultLocalFacets from './BlastResultLocalFacets';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import '../../../styles/ToolsResult.scss';
 
@@ -231,14 +231,14 @@ const BlastResult = () => {
   );
 
   // get data from taxonomy endpoint for all hits
-  const { loading: taxLoading, data: taxData } = useDataApi<Response['data']>(
+  const { loading: taxLoading, data: taxData } = useDataApi<TaxonomyEndpoint>(
     getTaxonomyURL(
       blastData?.hits.map((h) => h.hit_uni_ox),
       { size: blastData?.hits.length }
     )
   );
 
-  console.log(taxData);
+  console.log(taxLoading, taxData);
 
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =
