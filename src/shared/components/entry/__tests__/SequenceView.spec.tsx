@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import SequenceView, { SequenceInfo } from '../SequenceView';
 import SequenceUIDataJson from './__mocks__/sequenceUIData.json';
+import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
 describe('SequenceView component', () => {
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('SequenceView component', () => {
   });
 
   test('should render SequenceView', () => {
-    const { asFragment } = render(
+    const { asFragment } = renderWithRedux(
       <SequenceView data={SequenceUIDataJson} accession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -29,7 +29,7 @@ describe('SequenceView component', () => {
       molWeight: 100000,
       crc64: 'ABCSSDDD',
     };
-    const { asFragment } = render(
+    const { asFragment } = renderWithRedux(
       <SequenceInfo
         isoformId="Isoform"
         isoformSequence={isoformSequenceData}

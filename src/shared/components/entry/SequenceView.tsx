@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import numberView, {
@@ -27,6 +27,9 @@ import {
 } from '../../../uniprotkb/types/commentTypes';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
+import { Location, LocationToPath } from '../../../app/config/urls';
+import BlastButton from '../action-buttons/Blast';
+import AlignButton from '../action-buttons/Align';
 
 export type SequenceData = {
   value: string;
@@ -44,10 +47,12 @@ export const SequenceInfo: React.FC<{
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
-}> = ({ isoformId, isoformSequence, lastUpdateDate }) => {
+  isCanonical?: boolean;
+}> = ({ isoformId, isoformSequence, lastUpdateDate, isCanonical = false }) => {
   const [data, setData] = useState<UniProtkbAPIModel['sequence']>();
   const [isoformToFetch, setIsoformToFetch] = useState('');
 
+  const history = useHistory();
   useEffect(() => {
     if (!isoformToFetch) {
       return;
@@ -64,25 +69,14 @@ export const SequenceInfo: React.FC<{
 
   const dataToDisplay = data || isoformSequence;
 
-  if (!dataToDisplay) {
-    return (
-      <button
-        type="button"
-        className="button secondary"
-        onClick={() => setIsoformToFetch(isoformId)}
-      >
-        Load sequence
-      </button>
-    );
-  }
   const infoData = [
     {
       title: 'Length',
-      content: dataToDisplay.length,
+      content: dataToDisplay && dataToDisplay.length,
     },
     {
       title: 'Mass (Da)',
-      content: formatLargeNumber(dataToDisplay.molWeight),
+      content: dataToDisplay && formatLargeNumber(dataToDisplay.molWeight),
     },
     {
       title: 'Last updated',
@@ -90,24 +84,27 @@ export const SequenceInfo: React.FC<{
     },
     {
       title: 'Checksum',
-      content: dataToDisplay.crc64,
+      content: dataToDisplay && dataToDisplay.crc64,
     },
   ];
 
   return (
-    <>
-      <h4>Sequence information</h4>
-      {dataToDisplay && <InfoList infoData={infoData} columns />}
-      <Sequence
-        sequence={dataToDisplay.value}
-        accession={isoformId}
-        downloadUrl={apiUrls.sequenceFasta(isoformId)}
-        // These callbacks have been commented out as neither BLAST
-        // nor the basket have been implemented
-        // onBlastClick={() => {}}
-        // onAddToBasketClick={() => {}}
-      />
-    </>
+    <Sequence
+      sequence={dataToDisplay && dataToDisplay.value}
+      onShowSequence={() => setIsoformToFetch(isoformId)}
+      infoData={infoData}
+      accession={isoformId}
+      downloadUrl={apiUrls.sequenceFasta(isoformId)}
+      onBlastClick={() =>
+        history.push(LocationToPath[Location.Blast], {
+          parameters: { sequence: dataToDisplay && dataToDisplay.value },
+        })
+      }
+      // This callbacks has been commented out as
+      //  the basket is not yet implemented
+      // onAddToBasketClick={() => {}}
+      isCollapsible={!isCanonical}
+    />
   );
 };
 
@@ -378,6 +375,7 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
       isoformId={accession}
       isoformSequence={data.sequence}
       lastUpdateDate={data.lastUpdateDate}
+      isCanonical
     />
   );
 
@@ -389,8 +387,24 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
     return null;
   }
 
+  const allIsoformIds = data.alternativeProducts.isoforms
+    .map((isoform) => isoform.isoformIds)
+    .flat();
+
   return (
     <>
+      <div className="button-group">
+        <BlastButton
+          selectedEntries={allIsoformIds}
+          textSuffix={`${allIsoformIds.length} isoforms`}
+        />
+        <AlignButton
+          selectedEntries={allIsoformIds}
+          textSuffix={`${allIsoformIds.length} isoforms`}
+        />
+        {/* Missing Add to basket */}
+      </div>
+
       <InfoList infoData={sequenceInfoData} columns />
       <IsoformView
         alternativeProducts={data.alternativeProducts}
