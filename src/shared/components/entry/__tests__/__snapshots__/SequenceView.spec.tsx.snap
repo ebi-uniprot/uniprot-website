@@ -88,7 +88,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       class="dropdown-container"
     >
       <button
-        class="button dropdown"
+        class="button dropdown tertiary"
         type="button"
       >
         Tools
@@ -148,7 +148,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </div>
     </div>
     <a
-      class="button"
+      class="button tertiary"
       download=""
       href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/Isoform.fasta"
     >
@@ -166,7 +166,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       class="dropdown-container"
     >
       <button
-        class="button dropdown"
+        class="button dropdown tertiary"
         type="button"
       >
         Highlight
@@ -201,10 +201,10 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       </div>
     </div>
     <button
-      class="button"
+      class="button tertiary"
       type="button"
     >
-      Copy sequence
+      Copy FASTA
     </button>
   </div>
   <div
@@ -452,7 +452,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
       class="dropdown-container"
     >
       <button
-        class="button dropdown"
+        class="button dropdown tertiary"
         type="button"
       >
         Tools
@@ -512,7 +512,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
       </div>
     </div>
     <a
-      class="button"
+      class="button tertiary"
       download=""
       href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P05067.fasta"
     >
@@ -530,7 +530,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
       class="dropdown-container"
     >
       <button
-        class="button dropdown"
+        class="button dropdown tertiary"
         type="button"
       >
         Highlight
@@ -565,10 +565,10 @@ exports[`SequenceView component should render SequenceView 1`] = `
       </div>
     </div>
     <button
-      class="button"
+      class="button tertiary"
       type="button"
     >
-      Copy sequence
+      Copy FASTA
     </button>
   </div>
   <div
