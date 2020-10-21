@@ -13,7 +13,6 @@ import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
-import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
@@ -205,12 +204,6 @@ const Wrapped: FC<MSAViewProps> = ({
   const [size] = useSize(containerRef);
 
   const [rowLength, setRowLength] = useSafeState(0);
-  const nItemsToRender = useStaggeredRenderingHelper({
-    first: 4,
-    increment: +Infinity,
-    max: +Infinity,
-    delay: 500,
-  });
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
@@ -271,25 +264,20 @@ const Wrapped: FC<MSAViewProps> = ({
       className="alignment-grid alignment-wrapped"
       data-testid="alignment-wrapped-view"
     >
-      {sequenceChunks.map(({ sequences, id }, index) => {
-        if (index < nItemsToRender) {
-          return (
-            <MSAWrappedRow
-              key={id}
-              rowLength={rowLength}
-              sequences={sequences}
-              annotation={annotation}
-              highlightProperty={highlightProperty}
-              conservationOptions={conservationOptions}
-              activeId={activeId}
-              setActiveId={setActiveId}
-              selectedEntries={selectedEntries}
-              handleSelectedEntries={handleSelectedEntries}
-            />
-          );
-        }
-        return <div key={id} className="alignment-grid__placeholder" />;
-      })}
+      {sequenceChunks.map(({ sequences, id }) => (
+        <MSAWrappedRow
+          key={id}
+          rowLength={rowLength}
+          sequences={sequences}
+          annotation={annotation}
+          highlightProperty={highlightProperty}
+          conservationOptions={conservationOptions}
+          activeId={activeId}
+          setActiveId={setActiveId}
+          selectedEntries={selectedEntries}
+          handleSelectedEntries={handleSelectedEntries}
+        />
+      ))}
     </div>
   );
 };

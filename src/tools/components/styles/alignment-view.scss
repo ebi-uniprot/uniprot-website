@@ -11,9 +11,8 @@
   grid-template-columns: min-content minmax(0, 1fr) min-content;
   align-items: end;
 
-  &__placeholder {
-    height: 80px;
-    grid-column: span 3;
+  .loader-container {
+    grid-column: 1 / 4;
   }
 
   &.alignment-wrapped {
@@ -70,6 +69,7 @@
   .track {
     position: relative;
     grid-column: 2;
+    content-visibility: auto;
   }
 
   .right-coord {
