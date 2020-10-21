@@ -30,7 +30,10 @@ import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import toolsURLs from '../../../config/urls';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import {
+  getAccessionsURL,
+  getTaxonomyURL,
+} from '../../../../shared/config/apiUrls';
 
 import { BlastResults, BlastHit } from '../../types/blastResults';
 import Response from '../../../../uniprotkb/types/responseTypes';
@@ -227,18 +230,15 @@ const BlastResult = () => {
     )
   );
 
-  // list of all the accessions returned by the accessions endpoint
-  // const accessionsFilteredByServer = useMemo(
-  //   () =>
-  //     new Set(
-  //       (accessionsData &&
-  //         accessionsData.results.map(
-  //           ({ primaryAccession }) => primaryAccession
-  //         )) ||
-  //         []
-  //     ),
-  //   [accessionsData]
-  // );
+  // get data from taxonomy endpoint for all hits
+  const { loading: taxLoading, data: taxData } = useDataApi<Response['data']>(
+    getTaxonomyURL(
+      blastData?.hits.map((h) => h.hit_uni_ox),
+      { size: blastData?.hits.length }
+    )
+  );
+
+  console.log(taxData);
 
   // filter BLAST results according to facets (through accession endpoint and other BLAST facets facets)
   const filteredBlastData =

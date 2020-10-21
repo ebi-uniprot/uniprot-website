@@ -80,6 +80,8 @@ const apiUrls = {
       '/publications'
     ),
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
+  taxonomy: (taxIDs: string[]) =>
+    joinUrl(devPrefix, '/uniprot/api/taxonomy/taxonIds', taxIDs.join(',')),
 
   // TODO: move that to UniRef-specific file?
   uniref: {
@@ -219,6 +221,19 @@ export const getAccessionsURL = (
       sortColumn &&
       `${sortColumn} ${getApiSortDirection(SortDirection[sortDirection])}`,
   })}`;
+};
+
+export const getTaxonomyURL = (
+  taxIDs?: Array<string | number>,
+  { size }: { size?: number } = {}
+) => {
+  if (!(taxIDs && taxIDs.length)) {
+    return null;
+  }
+  return `${apiUrls.taxonomy(
+    // use set to dedupe, and sort to improve possible cache hit
+    Array.from(new Set(taxIDs.map((taxID) => `${taxID}`))).sort()
+  )}?${queryString.stringify({ size })}`;
 };
 
 type GetUniProtPublicationsQueryUrl = {
