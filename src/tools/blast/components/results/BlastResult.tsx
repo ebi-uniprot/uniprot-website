@@ -320,7 +320,7 @@ const BlastResult = () => {
   return (
     <SideBarLayout
       title={
-        <PageIntro title="BLAST Results" resultsCount={blastData.hits.length} />
+        <PageIntro title="BLAST Results" resultsCount={hitsFiltered.length} />
       }
       sidebar={sidebar}
       className="tools-result"

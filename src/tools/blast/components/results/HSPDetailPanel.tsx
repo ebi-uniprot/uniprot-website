@@ -55,7 +55,7 @@ export const convertHSPtoMSAInputs = (
       length: queryLength,
     },
     {
-      name: 'Match:',
+      name: `Match:${hitAccession}`,
       sequence: hsp_hseq,
       from: hsp_hit_from,
       to: hsp_hit_to,

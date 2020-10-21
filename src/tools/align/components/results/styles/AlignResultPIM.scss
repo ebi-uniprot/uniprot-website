@@ -35,6 +35,7 @@
   }
 
   &__cell {
+    max-width: 8ch;
     border-radius: 0.5ch;
     border: 1px solid transparent;
     // to center the inner text
