@@ -70,7 +70,7 @@ const enrichParsed = (
       features: features ?? [],
       ...sequence,
       // not sure yet if that is needed or not
-      // ...getFromToLength(sequence.sequence),
+      ...getFromToLength(sequence.sequence),
       // or if those values are enough
       from: 1,
       to: sequence.sequence?.length || 0,
