@@ -118,7 +118,7 @@ const AlignmentView: React.FC<{
     () =>
       alignment
         .map((sequence) => ({
-          label: sequence.accession,
+          label: sequence.name,
           id: sequence.accession,
           items: Array.from(
             new Set(sequence.features?.map((f) => f.type))
@@ -223,7 +223,9 @@ const AlignmentView: React.FC<{
             autocompletePlaceholder="Look for an annotation"
             label={
               annotationChanged.current
-                ? `Showing "${annotation}" in "${activeId}"`
+                ? `Showing "${annotation}" in "${
+                    annotationsPerEntry.find(({ id }) => id === activeId)?.label
+                  }"`
                 : 'Select annotation'
             }
             defaultActiveNodes={defaultActiveAnnotation}
