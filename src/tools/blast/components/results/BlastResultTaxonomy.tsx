@@ -1,11 +1,15 @@
 import React, { FC, useMemo, useState } from 'react';
-import { DoughnutChart, ChevronDownIcon } from 'franklin-sites';
+import { Loader, DoughnutChart, ChevronDownIcon } from 'franklin-sites';
 
 import { EnrichedData } from './BlastResult';
 
 import arrayOfLineagesToTree, {
+  taxonsToTree,
+  populateTree,
+  orderTree,
   TaxNode,
 } from '../../adapters/arrayOfLineagesToTree';
+import { TaxonomyEndpoint } from '../../../../uniprotkb/types/taxonomyTypes';
 
 import './styles/blast-result-taxonomy.scss';
 
@@ -48,7 +52,11 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
 const isDefined = (value: string | undefined): value is string =>
   value !== undefined;
 
-const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
+const BlastResultToolInput: FC<{
+  data: EnrichedData | null;
+  taxLoading: boolean;
+  taxData?: TaxonomyEndpoint;
+}> = ({ data, taxLoading, taxData }) => {
   const tree = useMemo(() => {
     const lineages = ((data || {}).hits || [])
       // extract lineages and do copy (to not mess up the original)
@@ -61,7 +69,20 @@ const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
     return arrayOfLineagesToTree(lineages);
   }, [data]);
 
-  if (!tree) {
+  const tree2 = useMemo(() => taxonsToTree(taxData?.results), [taxData]);
+  const populatedTree = useMemo(() => {
+    const populatedTree = populateTree(
+      tree2,
+      data?.hits.map((hit) => +hit.hit_uni_ox)
+    );
+    return populatedTree && orderTree(populatedTree);
+  }, [tree2, data]);
+
+  if (taxLoading) {
+    return <Loader />;
+  }
+
+  if (!tree || !populatedTree) {
     return null;
   }
 
@@ -70,7 +91,7 @@ const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
       Taxonomy tree of the results:
       <ul>
         <li>
-          <TaxItem taxNode={tree} ratio={1} />
+          <TaxItem taxNode={populatedTree} ratio={1} />
         </li>
       </ul>
     </section>

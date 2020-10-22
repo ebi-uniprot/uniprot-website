@@ -371,7 +371,11 @@ const BlastResult = () => {
           }
         >
           {actionBar}
-          <BlastResultTaxonomy data={data} />
+          <BlastResultTaxonomy
+            data={data}
+            taxLoading={taxLoading}
+            taxData={taxData}
+          />
         </Tab>
         <Tab
           id={TabLocation.HitDistribution}
