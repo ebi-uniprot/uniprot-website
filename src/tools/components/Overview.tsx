@@ -126,7 +126,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [msaDefined, alignment, alignmentLength]
+    [msaDefined, alignmentLength, alignment, displayEnd]
   );
 
   const trackDefined = useCustomElement(
@@ -181,6 +181,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   if (!ceDefined) {
     return <Loader />;
   }
+
   return (
     <section data-testid="alignment-view" className="alignment-grid">
       {/* first row */}

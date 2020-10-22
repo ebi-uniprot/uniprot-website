@@ -26,20 +26,6 @@ type ParsedAndEnriched = {
   sequences: EnrichedSequence[];
 };
 
-const dashesRE = {
-  start: /^-*/,
-  end: /-*$/,
-  any: /-*/g,
-};
-// calculate start and end of alignments without initial and final dashes
-const getFromToLength = (clustalSeq = '') => {
-  const trimmedStart = clustalSeq.replace(dashesRE.start, '');
-  const from = clustalSeq.length - trimmedStart.length + 1;
-  const trimmed = trimmedStart.replace(dashesRE.end, '');
-  const { length } = trimmed.replace(dashesRE.any, '');
-  return { from, to: from + trimmed.length, length };
-};
-
 const enrichParsed = (
   parsed: AlnClustalNum | null,
   sequenceInfo: SequenceInfo
@@ -69,12 +55,12 @@ const enrichParsed = (
       ...info,
       features: features ?? [],
       ...sequence,
-      // not sure yet if that is needed or not
-      ...getFromToLength(sequence.sequence),
-      // or if those values are enough
+      length: sequence.sequence?.length || 0,
+      // The following are really BLAST specific (corresponding to hsp_query_from, hsp_query_to
+      // and likewise for hit) but as we want the  alignment visualisation components to be
+      // generic for both BLAST and Align output we set these values.
       from: 1,
       to: sequence.sequence?.length || 0,
-      length: sequence.sequence?.length || 0,
     };
   }
   return { ...parsed, sequences } as ParsedAndEnriched;
