@@ -47,7 +47,7 @@ export const stringify = (clauses: Clause[] = []): string =>
   }, '');
 
 const clauseSplitter = / *(AND|OR|NOT) +/;
-const clauseMatcher = /^\(*(\w+):"?([^")]+)"?\)*$/;
+const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
 const splitClause = (
   clause: string
 ): [key: string | undefined, value: string] => {
