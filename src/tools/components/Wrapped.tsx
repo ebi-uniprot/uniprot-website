@@ -13,6 +13,7 @@ import { Loader } from 'franklin-sites';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
+import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
@@ -55,6 +56,7 @@ export type MSAWrappedRowProps = {
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   selectedEntries?: string[];
   handleSelectedEntries?: (rowId: string) => void;
+  delayRender: boolean;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -71,6 +73,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   setActiveId,
   selectedEntries,
   handleSelectedEntries,
+  delayRender,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
@@ -150,14 +153,16 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         ))}
       </div>
       <div className="track">
-        <protvista-msa
-          ref={setMSAAttributes}
-          length={rowLength}
-          height={sequences.length * sequenceHeight}
-          colorscheme={highlightProperty}
-          hidelabel
-          {...conservationOptions}
-        />
+        {delayRender ? undefined : (
+          <protvista-msa
+            ref={setMSAAttributes}
+            length={rowLength}
+            height={sequences.length * sequenceHeight}
+            colorscheme={highlightProperty}
+            hidelabel
+            {...conservationOptions}
+          />
+        )}
       </div>
       <span className="right-coord">
         {sequences.map((s) => (
@@ -168,7 +173,9 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
       </span>
       <span className="track-label annotation-label">{annotation}</span>
       <div className="track annotation-track">
-        <protvista-track ref={setFeatureTrackData} />
+        {delayRender ? undefined : (
+          <protvista-track ref={setFeatureTrackData} />
+        )}
       </div>
     </>
   );
@@ -204,6 +211,12 @@ const Wrapped: FC<MSAViewProps> = ({
   const [size] = useSize(containerRef);
 
   const [rowLength, setRowLength] = useSafeState(0);
+  const nItemsToRender = useStaggeredRenderingHelper({
+    first: 10,
+    increment: +Infinity,
+    max: +Infinity,
+    delay: 500,
+  });
   const debouncedSetRowLength = useMemo(
     () =>
       debounce((width: number) => {
@@ -264,7 +277,7 @@ const Wrapped: FC<MSAViewProps> = ({
       className="alignment-grid alignment-wrapped"
       data-testid="alignment-wrapped-view"
     >
-      {sequenceChunks.map(({ sequences, id }) => (
+      {sequenceChunks.map(({ sequences, id }, index) => (
         <MSAWrappedRow
           key={id}
           rowLength={rowLength}
@@ -276,6 +289,7 @@ const Wrapped: FC<MSAViewProps> = ({
           setActiveId={setActiveId}
           selectedEntries={selectedEntries}
           handleSelectedEntries={handleSelectedEntries}
+          delayRender={index >= nItemsToRender}
         />
       ))}
     </div>
