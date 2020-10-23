@@ -2491,7 +2491,7 @@ exports[`Entry view should render 1`] = `
               title="Run a BLAST job against isoID1"
               type="button"
             >
-              BLAST 1 isoforms
+              BLAST 1 isoform
             </button>
             <button
               class="button tertiary"
@@ -2499,7 +2499,7 @@ exports[`Entry view should render 1`] = `
               title="Select at least 2 entries to run an Align job"
               type="button"
             >
-              Align 1 isoforms
+              Align
             </button>
           </div>
           <div

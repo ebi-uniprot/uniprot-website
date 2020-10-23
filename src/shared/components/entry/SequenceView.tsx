@@ -396,11 +396,17 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
       <div className="button-group">
         <BlastButton
           selectedEntries={allIsoformIds}
-          textSuffix={`${allIsoformIds.length} isoforms`}
+          textSuffix={`${allIsoformIds.length} isoform${
+            allIsoformIds.length === 1 ? '' : 's'
+          }`}
         />
         <AlignButton
           selectedEntries={allIsoformIds}
-          textSuffix={`${allIsoformIds.length} isoforms`}
+          textSuffix={
+            allIsoformIds.length === 1
+              ? undefined
+              : `${allIsoformIds.length} isoforms`
+          }
         />
         {/* Missing Add to basket */}
       </div>
