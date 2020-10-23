@@ -28,6 +28,9 @@ import './styles/advanced-search.scss';
 
 const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
   return searchTermData.flatMap((searchTermDatum: SearchTermType) => {
+    if (searchTermDatum.siblings) {
+      return flatten(searchTermDatum.siblings);
+    }
     if (searchTermDatum.items) {
       return flatten(searchTermDatum.items);
     }
@@ -72,6 +75,7 @@ const AdvancedSearch: FC = () => {
     const query = qs.parse(history.location.search, { decode: true })?.query;
     const parsedQuery =
       query && !Array.isArray(query) ? parse(query) : undefined;
+
     // flatten all the endpoint-described clauses to be able to to look-up
     const flattened = flatten(searchTermsData);
     // for each parsed clause, try to find the corresponding endpoint-described

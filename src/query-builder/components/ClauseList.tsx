@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { TreeSelect } from 'franklin-sites';
 import LogicalOperator from './LogicalOperator';
 import Field from './Field';
@@ -6,26 +6,8 @@ import {
   Clause,
   SearchTermType,
   Operator,
-  ItemType,
   QueryBit,
 } from '../types/searchTypes';
-
-const modifyTree = (items: SearchTermType[]): SearchTermType[] => {
-  return items.map((item) => {
-    const { itemType } = item;
-    if (itemType === ItemType.siblingGroup) {
-      return {
-        ...item,
-        items: undefined,
-        siblings: item.items ? modifyTree(item.items) : undefined,
-      };
-    }
-    return {
-      ...item,
-      items: item.items ? modifyTree(item.items) : undefined,
-    };
-  });
-};
 
 const ClauseItem: React.FC<{
   clause: Clause;
@@ -113,11 +95,6 @@ const ClauseList: React.FC<ClauseListProps> = ({
   searchTerms,
   removeClause,
 }) => {
-  // Convert "items" to "siblings" for "sibling_group" types
-  const treeSelectData = useMemo(() => {
-    return modifyTree(searchTerms);
-  }, [searchTerms]);
-
   const handleFieldSelect = useCallback(
     (clauseId: string, searchTerm: SearchTermType) => {
       setClauses((clauseList) =>
@@ -180,7 +157,7 @@ const ClauseList: React.FC<ClauseListProps> = ({
         <MemoizedClauseItem
           key={`clause_${clause.id}`}
           clause={clause}
-          searchTerms={treeSelectData}
+          searchTerms={searchTerms}
           handleLogicChange={handleLogicChange}
           handleFieldSelect={handleFieldSelect}
           handleQueryChange={handleQueryChange}
