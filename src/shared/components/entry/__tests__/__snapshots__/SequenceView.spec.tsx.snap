@@ -2,34 +2,22 @@
 
 exports[`SequenceView component should render SequenceInfo with provided sequence info (canonical) 1`] = `
 <DocumentFragment>
-  <button
-    class="button secondary"
-    type="button"
-  >
-    Show sequence 
-  </button>
-</DocumentFragment>
-`;
-
-exports[`SequenceView component should render SequenceView 1`] = `
-<DocumentFragment>
   <div
     class="button-group"
   >
     <button
       class="button tertiary"
-      title="Run a BLAST job against P05067-1"
+      title="Run 2 BLAST jobs against the selected entries"
       type="button"
     >
-      BLAST 1 isoforms
+      BLAST 2 isoforms
     </button>
     <button
       class="button tertiary"
-      disabled=""
-      title="Select at least 2 entries to run an Align job"
+      title="Run an Align job against 2 entries"
       type="button"
     >
-      Align 1 isoforms
+      Align 2 isoforms
     </button>
   </div>
   <div
@@ -75,7 +63,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
   <p>
     This entry describes 
     <strong>
-      1
+      2
     </strong>
      isoforms produced by 
     <strong>
@@ -100,7 +88,7 @@ exports[`SequenceView component should render SequenceView 1`] = `
      sequence. All positional information in this entry refers to it. This is also the sequence that appears in the downloadable versions of the entry.
   </p>
   <div
-    class="info-list info-list--columns"
+    class="info-list info-list--columns info-list--compact"
   >
     <div
       class="info-list__item"
@@ -157,140 +145,324 @@ exports[`SequenceView component should render SequenceView 1`] = `
       </div>
     </div>
   </div>
-  <div
-    class="action-bar button-group"
+  <section
+    class="sequence-container"
   >
     <div
-      class="dropdown-container"
+      class="action-bar button-group"
     >
-      <button
-        class="button dropdown tertiary"
-        type="button"
-      >
-        Tools
-      </button>
       <div
-        class="dropdown-menu"
+        class="dropdown-container"
       >
-        <ul
-          class="no-bullet"
+        <button
+          class="button dropdown tertiary"
+          type="button"
         >
-          <li>
-            <button
-              class="button tertiary"
-              type="button"
-            >
-              BLAST
-            </button>
-          </li>
-          <li>
-            <a
-              href="//web.expasy.org/cgi-bin//protparam/protparam?P05067"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              ProtParam
-            </a>
-          </li>
-          <li>
-            <a
-              href="//web.expasy.org/cgi-bin//protscale/protscale.pl?P05067"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              ProtScale
-            </a>
-          </li>
-          <li>
-            <a
-              href="//web.expasy.org/cgi-bin//compute_pi/pi_tool?P05067"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Compute pI/Mw
-            </a>
-          </li>
-          <li>
-            <a
-              href="//web.expasy.org/cgi-bin//peptide_mass/peptide-mass.pl?P05067"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              PeptideMass
-            </a>
-          </li>
-          <li>
-            <a
-              href="//web.expasy.org/cgi-bin//peptide_cutter/peptidecutter.pl?P05067"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              PeptideCutter
-            </a>
-          </li>
-        </ul>
+          Tools
+        </button>
+        <div
+          class="dropdown-menu"
+        >
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                BLAST
+              </button>
+            </li>
+            <li>
+              <a
+                href="//web.expasy.org/cgi-bin//protparam/protparam?P05067"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                ProtParam
+              </a>
+            </li>
+            <li>
+              <a
+                href="//web.expasy.org/cgi-bin//protscale/protscale.pl?P05067"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                ProtScale
+              </a>
+            </li>
+            <li>
+              <a
+                href="//web.expasy.org/cgi-bin//compute_pi/pi_tool?P05067"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Compute pI/Mw
+              </a>
+            </li>
+            <li>
+              <a
+                href="//web.expasy.org/cgi-bin//peptide_mass/peptide-mass.pl?P05067"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                PeptideMass
+              </a>
+            </li>
+            <li>
+              <a
+                href="//web.expasy.org/cgi-bin//peptide_cutter/peptidecutter.pl?P05067"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                PeptideCutter
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <a
-      class="button tertiary"
-      download=""
-      href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P05067.fasta"
-    >
-      <svg
-        fill="currentColor"
-        viewBox="0 0 32 32"
+      <a
+        class="button tertiary"
+        download=""
+        href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P05067.fasta"
       >
-        <path
-          d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
-        />
-      </svg>
-      Download
-    </a>
-    <div
-      class="dropdown-container"
-    >
+        <svg
+          fill="currentColor"
+          viewBox="0 0 32 32"
+        >
+          <path
+            d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
+          />
+        </svg>
+        Download
+      </a>
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button dropdown tertiary"
+          type="button"
+        >
+          Highlight
+        </button>
+        <div
+          class="dropdown-menu"
+        >
+          <div
+            class="dropdown-menu__content"
+          >
+            <label
+              for="P05067-Polar"
+            >
+              <input
+                data-testid="sequence-highlight-checkbox"
+                id="P05067-Polar"
+                type="checkbox"
+              />
+              Polar
+            </label>
+            <label
+              for="P05067-Hydrophobic"
+            >
+              <input
+                data-testid="sequence-highlight-checkbox"
+                id="P05067-Hydrophobic"
+                type="checkbox"
+              />
+              Hydrophobic
+            </label>
+          </div>
+        </div>
+      </div>
       <button
-        class="button dropdown tertiary"
+        class="button tertiary"
         type="button"
       >
-        Highlight
+        Copy FASTA
       </button>
+    </div>
+    <div
+      class="info-list info-list--columns info-list--compact"
+    >
       <div
-        class="dropdown-menu"
+        class="info-list__item"
       >
         <div
-          class="dropdown-menu__content"
+          class="info-list__title"
         >
-          <label
-            for="P05067-Polar"
+          <h5
+            class="bold"
           >
-            <input
-              data-testid="sequence-highlight-checkbox"
-              id="P05067-Polar"
-              type="checkbox"
-            />
-            Polar
-          </label>
-          <label
-            for="P05067-Hydrophobic"
+            Length
+          </h5>
+        </div>
+        <div
+          class="info-list__content"
+        >
+          1234
+        </div>
+      </div>
+      <div
+        class="info-list__item"
+      >
+        <div
+          class="info-list__title"
+        >
+          <h5
+            class="bold"
           >
-            <input
-              data-testid="sequence-highlight-checkbox"
-              id="P05067-Hydrophobic"
-              type="checkbox"
-            />
-            Hydrophobic
-          </label>
+            Mass (Da)
+          </h5>
+        </div>
+        <div
+          class="info-list__content"
+        >
+          5,678
+        </div>
+      </div>
+      <div
+        class="info-list__item"
+      >
+        <div
+          class="info-list__title"
+        >
+          <h5
+            class="bold"
+          >
+            Last updated
+          </h5>
+        </div>
+        <div
+          class="info-list__content"
+        >
+          12/04/2010
+        </div>
+      </div>
+      <div
+        class="info-list__item"
+      >
+        <div
+          class="info-list__title"
+        >
+          <h5
+            class="bold"
+          >
+            Checksum
+          </h5>
+        </div>
+        <div
+          class="info-list__content"
+        >
+          ASSDFFFDSAASDDSDFSASDF
         </div>
       </div>
     </div>
-    <button
-      class="button tertiary"
-      type="button"
+    <div
+      class="sequence"
     >
-      Copy FASTA
-    </button>
-  </div>
+      <div
+        class="sequence__sequence"
+      >
+        <span
+          class="sequence__sequence__chunk"
+        >
+          <svg
+            height="30"
+            width="100"
+          >
+            <text
+              class="sequence__sequence__chunk__counter"
+              x="100"
+              y="10"
+            >
+              10
+            </text>
+            <text
+              class="sequence__sequence__chunk__sequence"
+              x="0"
+              y="20"
+            >
+              ATGHASOADS
+            </text>
+          </svg>
+        </span>
+        <span
+          class="sequence__sequence__chunk"
+        >
+          <svg
+            height="30"
+            width="100"
+          >
+            <text
+              class="sequence__sequence__chunk__counter"
+              x="100"
+              y="10"
+            >
+              20
+            </text>
+            <text
+              class="sequence__sequence__chunk__sequence"
+              x="0"
+              y="20"
+            >
+              DKDSAJALDS
+            </text>
+          </svg>
+        </span>
+        <span
+          class="sequence__sequence__chunk"
+        >
+          <svg
+            height="30"
+            width="100"
+          >
+            <text
+              class="sequence__sequence__chunk__counter"
+              x="100"
+              y="10"
+            >
+              30
+            </text>
+            <text
+              class="sequence__sequence__chunk__sequence"
+              x="0"
+              y="20"
+            >
+              AMCMnDSKMD
+            </text>
+          </svg>
+        </span>
+        <span
+          class="sequence__sequence__chunk"
+        >
+          <svg
+            height="30"
+            width="100"
+          >
+            <text
+              class="sequence__sequence__chunk__counter"
+              x="100"
+              y="10"
+            />
+            <text
+              class="sequence__sequence__chunk__sequence"
+              x="0"
+              y="20"
+            >
+              SKNCSAKN
+            </text>
+          </svg>
+        </span>
+      </div>
+    </div>
+  </section>
+  <hr />
+  <h3
+    id="P05067-2"
+  >
+    P05067-2
+  </h3>
   <div
     class="info-list info-list--columns info-list--compact"
   >
@@ -303,13 +475,13 @@ exports[`SequenceView component should render SequenceView 1`] = `
         <h5
           class="bold"
         >
-          Length
+          Name
         </h5>
       </div>
       <div
         class="info-list__content"
       >
-        1234
+        APP770-2
       </div>
     </div>
     <div
@@ -321,13 +493,13 @@ exports[`SequenceView component should render SequenceView 1`] = `
         <h5
           class="bold"
         >
-          Mass (Da)
+          Synonyms
         </h5>
       </div>
       <div
         class="info-list__content"
       >
-        5,678
+        PreA4 770-2
       </div>
     </div>
     <div
@@ -339,131 +511,21 @@ exports[`SequenceView component should render SequenceView 1`] = `
         <h5
           class="bold"
         >
-          Last updated
+          Note
         </h5>
       </div>
       <div
         class="info-list__content"
       >
-        12/04/2010
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          Checksum
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        ASSDFFFDSAASDDSDFSASDF
+        A not so major isoform.
       </div>
     </div>
   </div>
-  <div
-    class="sequence"
+  <button
+    class="button secondary"
+    type="button"
   >
-    <div
-      class="sequence__sequence"
-    >
-      <span
-        class="sequence__sequence__chunk"
-      >
-        <svg
-          height="30"
-          width="100"
-        >
-          <text
-            class="sequence__sequence__chunk__counter"
-            x="100"
-            y="10"
-          >
-            10
-          </text>
-          <text
-            class="sequence__sequence__chunk__sequence"
-            x="0"
-            y="20"
-          >
-            ATGHASOADS
-          </text>
-        </svg>
-      </span>
-      <span
-        class="sequence__sequence__chunk"
-      >
-        <svg
-          height="30"
-          width="100"
-        >
-          <text
-            class="sequence__sequence__chunk__counter"
-            x="100"
-            y="10"
-          >
-            20
-          </text>
-          <text
-            class="sequence__sequence__chunk__sequence"
-            x="0"
-            y="20"
-          >
-            DKDSAJALDS
-          </text>
-        </svg>
-      </span>
-      <span
-        class="sequence__sequence__chunk"
-      >
-        <svg
-          height="30"
-          width="100"
-        >
-          <text
-            class="sequence__sequence__chunk__counter"
-            x="100"
-            y="10"
-          >
-            30
-          </text>
-          <text
-            class="sequence__sequence__chunk__sequence"
-            x="0"
-            y="20"
-          >
-            AMCMnDSKMD
-          </text>
-        </svg>
-      </span>
-      <span
-        class="sequence__sequence__chunk"
-      >
-        <svg
-          height="30"
-          width="100"
-        >
-          <text
-            class="sequence__sequence__chunk__counter"
-            x="100"
-            y="10"
-          />
-          <text
-            class="sequence__sequence__chunk__sequence"
-            x="0"
-            y="20"
-          >
-            SKNCSAKN
-          </text>
-        </svg>
-      </span>
-    </div>
-  </div>
+    Show sequence 
+  </button>
 </DocumentFragment>
 `;

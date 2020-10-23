@@ -2545,7 +2545,7 @@ exports[`Entry view should render 1`] = `
             isoID1
           </h3>
           <div
-            class="info-list info-list--columns"
+            class="info-list info-list--columns info-list--compact"
           >
             <div
               class="info-list__item"

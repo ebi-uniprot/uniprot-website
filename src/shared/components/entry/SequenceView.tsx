@@ -201,7 +201,7 @@ export const IsoformInfo: React.FC<{
           </Link>
         </section>
       )}
-      <InfoList infoData={infoListData} columns />
+      <InfoList infoData={infoListData} columns isCompact />
     </Fragment>
   );
 };
