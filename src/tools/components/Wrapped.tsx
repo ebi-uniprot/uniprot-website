@@ -56,6 +56,7 @@ export type MSAWrappedRowProps = {
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   selectedEntries?: string[];
   handleSelectedEntries?: (rowId: string) => void;
+  delayRender: boolean;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -72,6 +73,7 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   setActiveId,
   selectedEntries,
   handleSelectedEntries,
+  delayRender,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
@@ -151,14 +153,16 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
         ))}
       </div>
       <div className="track">
-        <protvista-msa
-          ref={setMSAAttributes}
-          length={rowLength}
-          height={sequences.length * sequenceHeight}
-          colorscheme={highlightProperty}
-          hidelabel
-          {...conservationOptions}
-        />
+        {delayRender ? undefined : (
+          <protvista-msa
+            ref={setMSAAttributes}
+            length={rowLength}
+            height={sequences.length * sequenceHeight}
+            colorscheme={highlightProperty}
+            hidelabel
+            {...conservationOptions}
+          />
+        )}
       </div>
       <span className="right-coord">
         {sequences.map((s) => (
@@ -169,7 +173,9 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
       </span>
       <span className="track-label annotation-label">{annotation}</span>
       <div className="track annotation-track">
-        <protvista-track ref={setFeatureTrackData} />
+        {delayRender ? undefined : (
+          <protvista-track ref={setFeatureTrackData} />
+        )}
       </div>
     </>
   );
@@ -206,7 +212,7 @@ const Wrapped: FC<MSAViewProps> = ({
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({
-    first: 4,
+    first: 10,
     increment: +Infinity,
     max: +Infinity,
     delay: 500,
@@ -271,25 +277,21 @@ const Wrapped: FC<MSAViewProps> = ({
       className="alignment-grid alignment-wrapped"
       data-testid="alignment-wrapped-view"
     >
-      {sequenceChunks.map(({ sequences, id }, index) => {
-        if (index < nItemsToRender) {
-          return (
-            <MSAWrappedRow
-              key={id}
-              rowLength={rowLength}
-              sequences={sequences}
-              annotation={annotation}
-              highlightProperty={highlightProperty}
-              conservationOptions={conservationOptions}
-              activeId={activeId}
-              setActiveId={setActiveId}
-              selectedEntries={selectedEntries}
-              handleSelectedEntries={handleSelectedEntries}
-            />
-          );
-        }
-        return <div key={id} className="alignment-grid__placeholder" />;
-      })}
+      {sequenceChunks.map(({ sequences, id }, index) => (
+        <MSAWrappedRow
+          key={id}
+          rowLength={rowLength}
+          sequences={sequences}
+          annotation={annotation}
+          highlightProperty={highlightProperty}
+          conservationOptions={conservationOptions}
+          activeId={activeId}
+          setActiveId={setActiveId}
+          selectedEntries={selectedEntries}
+          handleSelectedEntries={handleSelectedEntries}
+          delayRender={index >= nItemsToRender}
+        />
+      ))}
     </div>
   );
 };

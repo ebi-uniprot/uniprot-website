@@ -143,7 +143,7 @@ const AlignmentView: React.FC<{
   );
   const annotationChanged = useRef(false);
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
-    MsaColorScheme.CLUSTAL
+    MsaColorScheme.CONSERVATION
   );
   const highlightChanged = useRef(false);
   const [activeId, setActiveId] = useState<string | undefined>(
@@ -211,7 +211,7 @@ const AlignmentView: React.FC<{
               ? `"${msaColorSchemeToString[highlightProperty]}" highlight`
               : 'Highlight properties'
           }
-          defaultActiveNodes={useMemo(() => [MsaColorScheme.CLUSTAL], [])}
+          defaultActiveNodes={useMemo(() => [MsaColorScheme.CONSERVATION], [])}
           className="tertiary"
         />
         {annotationsPerEntry.length && (
