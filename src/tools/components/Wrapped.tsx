@@ -106,19 +106,19 @@ const WrappedRow: FC<WrappedRowProps> = ({
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined) {
-        let processedFeatures: ProcessedFeature[] = [];
+        let features: ProcessedFeature[] = [];
         if (annotation) {
-          const features = activeSeq?.features?.filter(
+          const filteredFeatures = activeSeq?.features?.filter(
             ({ type }) => type === annotation
           );
-          if (activeSeq && activeSeq.end > 0 && features) {
-            processedFeatures = processFeaturesData(features);
-            processedFeatures = processedFeatures.map((feature) =>
+          if (activeSeq && activeSeq.end > 0 && filteredFeatures) {
+            // processedFeatures = processFeaturesData(features);
+            features = filteredFeatures.map((feature) =>
               createGappedFeature(feature, activeSeq.fullSequence)
             );
           }
         }
-        node.data = processedFeatures;
+        node.data = features;
       }
     },
     // TODO: replace this with fragments to have one big grid

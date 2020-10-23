@@ -74,6 +74,12 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlighPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
+      if (
+        typeof displaystart === 'undefined' ||
+        typeof displayend === 'undefined'
+      ) {
+        return;
+      }
       const displayStart = parseInt(displaystart, 10);
       const displayEnd = parseInt(displayend, 10);
       const start = tracksOffset + displayStart;
@@ -87,6 +93,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const managerRef = useCallback(
     (node): void => {
       if (node && initialDisplayEnd) {
+        // if (node && initialDisplayEnd && typeof displayEnd === 'undefined') {
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
           findHighlighPositions(detail)
         );
@@ -106,11 +113,40 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     'protvista-msa'
   );
 
+  const getMSAFeature = (feature, sequence, sequenceIndex) => {
+    const gappedFeature = createGappedFeature(feature, sequence);
+    return {
+      residues: { from: gappedFeature.start, to: gappedFeature.end },
+      sequences: { from: sequenceIndex, to: sequenceIndex },
+      id: feature.protvistaFeatureId,
+      borderColor: 'black',
+      fillColor: 'transparent',
+      mouseOverFillColor: 'black',
+    };
+  };
+
+  const selectedFeatures = useMemo(
+    () =>
+      alignment
+        .map(({ sequence, features = [] }, index) =>
+          features
+            .filter(({ type }) => type === annotation)
+            .map((feature) => getMSAFeature(feature, sequence, index))
+        )
+        .flat(),
+    [alignment, annotation]
+  );
+
   const setMSAAttributes = useCallback(
     (node): void => {
       if (!(node && msaDefined)) {
         return;
       }
+
+      node.features = selectedFeatures;
+      node.onFeatureClick = (id) => {
+        console.log('on feature click:', id);
+      };
 
       const singleBaseWidth =
         'getSingleBaseWidth' in node ? node.getSingleBaseWidth() : 15;
@@ -119,14 +155,12 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       const maxSequenceLength = Math.max(
         ...alignment.map((al) => al.sequence.length)
       );
-      if (displayEndValue < maxSequenceLength) {
-        setInitialDisplayEnd(displayEndValue);
-      } else {
-        setInitialDisplayEnd(maxSequenceLength);
+      if (typeof displayEnd === 'undefined') {
+        setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
       }
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [msaDefined, alignment, alignmentLength]
+    [msaDefined, selectedFeatures, alignmentLength, alignment, displayEnd]
   );
 
   const trackDefined = useCustomElement(
@@ -158,13 +192,9 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && ceDefined && activeAlignment?.features && annotation) {
-        let processedFeatures = processFeaturesData(
-          activeAlignment.features.filter(({ type }) => type === annotation)
-        );
-        processedFeatures = processedFeatures.map((f) =>
-          createGappedFeature(f, activeAlignment.sequence)
-        );
-        node.data = processedFeatures;
+        node.data = activeAlignment.features
+          .filter(({ type }) => type === annotation)
+          .map((f) => createGappedFeature(f, activeAlignment.sequence));
       }
     },
     [ceDefined, activeAlignment, annotation]
@@ -182,6 +212,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   if (!ceDefined) {
     return <Loader />;
   }
+
   return (
     <section data-testid="alignment-view" className="alignment-grid">
       {/* first row */}

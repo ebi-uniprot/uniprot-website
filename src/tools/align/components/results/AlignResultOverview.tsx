@@ -11,6 +11,7 @@ import {
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
+import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
 
 type AlignResultOverviewProps = {
   data: string;
@@ -54,7 +55,9 @@ const enrichParsed = (
       const match = sequences[matchIndex];
       sequences[matchIndex] = {
         ...info,
-        features: removeFeaturesWithUnknownModifier(info.features),
+        features: processFeaturesData(
+          removeFeaturesWithUnknownModifier(info.features)
+        ),
         ...match,
         // not sure yet if that is needed or not
         ...getFromToLength(match.sequence),
