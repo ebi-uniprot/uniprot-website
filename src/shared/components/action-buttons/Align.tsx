@@ -8,9 +8,10 @@ const ALIGN_LIMIT = 100;
 
 type AlignButtonProps = {
   selectedEntries: string[];
+  textSuffix?: string;
 };
 
-const AlignButton: FC<AlignButtonProps> = ({ selectedEntries }) => {
+const AlignButton: FC<AlignButtonProps> = ({ selectedEntries, textSuffix }) => {
   const n = selectedEntries.length;
 
   const disabled = n <= 1 || n > ALIGN_LIMIT;
@@ -31,7 +32,7 @@ const AlignButton: FC<AlignButtonProps> = ({ selectedEntries }) => {
       title={title}
       location={Location.Align}
     >
-      Align
+      Align{textSuffix && ` ${textSuffix}`}
     </ToolsButton>
   );
 };

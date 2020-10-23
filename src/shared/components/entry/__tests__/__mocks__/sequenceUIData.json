@@ -28,6 +28,24 @@
         },
         "isoformIds": ["P05067-1"],
         "isoformSequenceStatus": "Displayed"
+      },
+      {
+        "name": {
+          "value": "APP770-2"
+        },
+        "synonyms": [
+          {
+            "value": "PreA4 770-2"
+          }
+        ],
+        "note": {
+          "texts": [
+            {
+              "value": "A not so major isoform."
+            }
+          ]
+        },
+        "isoformIds": ["P05067-2"]
       }
     ],
     "note": {

@@ -8,9 +8,10 @@ const BLAST_LIMIT = 20;
 
 type BlastButtonProps = {
   selectedEntries: string[];
+  textSuffix?: string;
 };
 
-const BlastButton: FC<BlastButtonProps> = ({ selectedEntries }) => {
+const BlastButton: FC<BlastButtonProps> = ({ selectedEntries, textSuffix }) => {
   const n = selectedEntries.length;
 
   const disabled = !n || n > BLAST_LIMIT;
@@ -33,7 +34,7 @@ const BlastButton: FC<BlastButtonProps> = ({ selectedEntries }) => {
       title={title}
       location={Location.Blast}
     >
-      BLAST
+      BLAST{textSuffix && ` ${textSuffix}`}
     </ToolsButton>
   );
 };

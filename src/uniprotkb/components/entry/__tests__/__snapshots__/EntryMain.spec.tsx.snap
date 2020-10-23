@@ -2484,6 +2484,25 @@ exports[`Entry view should render 1`] = `
           class="card__content"
         >
           <div
+            class="button-group"
+          >
+            <button
+              class="button tertiary"
+              title="Run a BLAST job against isoID1"
+              type="button"
+            >
+              BLAST 1 isoform
+            </button>
+            <button
+              class="button tertiary"
+              disabled=""
+              title="Select at least 2 entries to run an Align job"
+              type="button"
+            >
+              Align
+            </button>
+          </div>
+          <div
             class="info-list info-list--columns"
           >
             <div
@@ -2526,7 +2545,7 @@ exports[`Entry view should render 1`] = `
             isoID1
           </h3>
           <div
-            class="info-list info-list--columns"
+            class="info-list info-list--columns info-list--compact"
           >
             <div
               class="info-list__item"
@@ -2587,7 +2606,7 @@ exports[`Entry view should render 1`] = `
             class="button secondary"
             type="button"
           >
-            Load sequence
+            Show sequence 
           </button>
           <h3>
             Sequence caution
