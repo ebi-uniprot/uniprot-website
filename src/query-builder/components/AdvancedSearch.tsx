@@ -1,5 +1,6 @@
 import React, { FC, FormEvent, useState, useEffect } from 'react';
 import { useHistory, useRouteMatch, generatePath } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { PageIntro } from 'franklin-sites';
 
@@ -10,14 +11,20 @@ import useDataApi from '../../shared/hooks/useDataApi';
 import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
 import { stringify, parse } from '../utils/queryStringProcessor';
 
+import { addMessage } from '../../messages/state/messagesActions';
+
 import apiUrls from '../../shared/config/apiUrls';
 import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
+import { LocationToPath, Location } from '../../app/config/urls';
 
+import {
+  MessageFormat,
+  MessageLevel,
+} from '../../messages/types/messagesTypes';
 import { Clause, SearchTermType } from '../types/searchTypes';
 
 import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/advanced-search.scss';
-import { LocationToPath, Location } from '../../app/config/urls';
 
 const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
   return searchTermData.flatMap((searchTermDatum: SearchTermType) => {
@@ -33,6 +40,7 @@ const AdvancedSearch: FC = () => {
   const match = useRouteMatch<{ namespace?: Namespace }>(
     LocationToPath[Location.QueryBuilder]
   );
+  const dispatch = useDispatch();
 
   // To be replaced by getting it from url
   const [clauses, setClauses] = useState<Clause[]>([]);
@@ -68,20 +76,36 @@ const AdvancedSearch: FC = () => {
     const flattened = flatten(searchTermsData);
     // for each parsed clause, try to find the corresponding endpoint-described
     // clause to merge its 'searchTerm' field
+    const validatedQuery: Clause[] = [];
     for (const clause of parsedQuery || []) {
       const found = flattened.find(
         (item) => item.term === clause.searchTerm.term
       );
       // if it exists, assign it 'searchTerm'
       if (found) {
-        clause.searchTerm = found;
-      } // else, what? -> remove or ignore clause?
+        validatedQuery.push({ ...clause, searchTerm: found });
+      } else {
+        dispatch(
+          addMessage({
+            id: clause.searchTerm.term,
+            content: `"${clause.searchTerm.term}" is not a valid query term for ${namespace}`,
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.FAILURE,
+          })
+        );
+      }
     }
 
-    setClauses((clauses) =>
-      clauses.length ? clauses : parsedQuery || createPreSelectedClauses()
-    );
-  }, [history.location.search, searchTermsData]);
+    setClauses((clauses) => {
+      if (clauses.length) {
+        return clauses;
+      }
+      if (validatedQuery.length) {
+        return validatedQuery;
+      }
+      return createPreSelectedClauses();
+    });
+  }, [dispatch, history.location.search, namespace, searchTermsData]);
 
   if (!searchTermsData || !namespace) {
     return null;
