@@ -397,6 +397,34 @@ exports[`Entry view should render 1`] = `
         <div
           class="card__content"
         >
+          <div
+            class="message message--warning"
+            role="status"
+          >
+            <div
+              class="message__side-border"
+            />
+            <svg
+              fill="currentColor"
+              height="1.125em"
+              viewBox="0 0 16 14"
+              width="1.125em"
+            >
+              <path
+                d="M9.54.87a1.8 1.8 0 00-3.08 0L.24 11.37A1.75 1.75 0 001.78 14h12.44a1.75 1.75 0 001.54-2.63L9.54.87zM7 4a1 1 0 112 0v4a1 1 0 11-2 0V4zm1 8a1 1 0 100-2 1 1 0 000 2z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <section
+              class="message__content"
+            >
+              <small>
+                <h4>
+                  Caution
+                </h4>
+              </small>
+            </section>
+          </div>
           <h3>
             catalytic activity
           </h3>
