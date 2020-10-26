@@ -8,7 +8,7 @@ import ClauseList from './ClauseList';
 
 import useDataApi from '../../shared/hooks/useDataApi';
 
-import { createEmptyClause, createPreSelectedClauses } from '../utils/clause';
+import { createEmptyClause, defaultQueryFor } from '../utils/clause';
 import { stringify, parse } from '../utils/queryStringProcessor';
 
 import { addMessage } from '../../messages/state/messagesActions';
@@ -50,9 +50,13 @@ const AdvancedSearch: FC = () => {
 
   const namespace = match?.params?.namespace;
 
-  const { data: searchTermsData } = useDataApi<SearchTermType[]>(
+  const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
     namespace && apiUrls.advancedSearchTerms(namespace)
   );
+
+  useEffect(() => {
+    setClauses([]);
+  }, [namespace]);
 
   // if URL doesn't finish with a namespace redirect to "uniprotkb" by default
   useEffect(() => {
@@ -69,45 +73,59 @@ const AdvancedSearch: FC = () => {
   }, [history, namespace]);
 
   useEffect(() => {
-    if (!searchTermsData) {
+    if (!(searchTermsData && namespace) || loading) {
       return;
-    }
-    const query = qs.parse(history.location.search, { decode: true })?.query;
-    const parsedQuery =
-      query && !Array.isArray(query) ? parse(query) : undefined;
-
-    // flatten all the endpoint-described clauses to be able to to look-up
-    const flattened = flatten(searchTermsData);
-    // for each parsed clause, try to find the corresponding endpoint-described
-    // clause to merge its 'searchTerm' field
-    const validatedQuery: Clause[] = [];
-    for (const clause of parsedQuery || []) {
-      const found = flattened.find(
-        (item) => item.term === clause.searchTerm.term
-      );
-      // if it exists, assign it 'searchTerm'
-      if (found) {
-        validatedQuery.push({ ...clause, searchTerm: found });
-      } else {
-        dispatch(
-          addMessage({
-            id: clause.searchTerm.term,
-            content: `"${clause.searchTerm.term}" is not a valid query term for ${namespace}`,
-            format: MessageFormat.POP_UP,
-            level: MessageLevel.FAILURE,
-          })
-        );
-      }
     }
 
     setClauses((clauses) => {
       if (clauses.length) {
         return clauses;
       }
+
+      // flatten all the endpoint-described clauses to be able to to look-up
+      const flattened = flatten(searchTermsData);
+      const parseAndMatchQuery = (
+        query?: string | string[] | null
+      ): Clause[] => {
+        const parsedQuery =
+          query && !Array.isArray(query) ? parse(query) : undefined;
+        // for each parsed clause, try to find the corresponding endpoint-described
+        // clause to merge its 'searchTerm' field
+        const validatedQuery: Clause[] = [];
+        for (const clause of parsedQuery || []) {
+          if (clause.searchTerm.term === 'All') {
+            validatedQuery.push(clause);
+            continue; // eslint-disable-line no-continue
+          }
+          const found = flattened.find(
+            (item) => item.term === clause.searchTerm.term
+          );
+          // if it exists, assign it 'searchTerm'
+          if (found) {
+            validatedQuery.push({ ...clause, searchTerm: found });
+          } else {
+            dispatch(
+              addMessage({
+                id: clause.searchTerm.term,
+                content: `"${clause.searchTerm.term}" is not a valid query term for ${namespace}`,
+                format: MessageFormat.POP_UP,
+                level: MessageLevel.FAILURE,
+              })
+            );
+          }
+        }
+        return validatedQuery;
+      };
+
+      const validatedQuery = parseAndMatchQuery(
+        qs.parse(history.location.search, { decode: true })?.query
+      );
+
       if (validatedQuery.length) {
         return validatedQuery;
       }
-      return createPreSelectedClauses();
+
+      return parseAndMatchQuery(defaultQueryFor(namespace));
     });
   }, [dispatch, history.location.search, namespace, searchTermsData]);
 
