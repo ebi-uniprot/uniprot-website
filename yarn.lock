@@ -7728,7 +7728,7 @@ listr2@^2.6.0:
     rxjs "^6.6.2"
     through "^2.3.8"
 
-lit-element@^2.2.0:
+lit-element@^2.2.0, lit-element@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/lit-element/-/lit-element-2.4.0.tgz#b22607a037a8fc08f5a80736dddf7f3f5d401452"
   integrity sha512-pBGLglxyhq/Prk2H91nA0KByq/hx/wssJBQFiYqXhGDvEnY31PRGYf1RglVzyLeRysu0IHm2K0P196uLLWmwFg==
@@ -9381,6 +9381,13 @@ protvista-feature-adapter@^3.0.0:
   dependencies:
     uuid "^8.1.0"
 
+protvista-feature-adapter@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/protvista-feature-adapter/-/protvista-feature-adapter-3.1.2.tgz#cd513916d138d53fce48527db6a8cb2e351a51c1"
+  integrity sha512-6BLaeWiy/V0cHVBZpPtNzZsxsGq4rkPODFfOhC4M0Xwl0Cf5h5C+/607idogehq5o5o8UnBEjSwzqY3Vcodagg==
+  dependencies:
+    uuid "^8.3.1"
+
 protvista-filter@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/protvista-filter/-/protvista-filter-3.0.0.tgz#bb57cffe4bbe94ef4d5011b64af91bea22a4c0f2"
@@ -9502,6 +9509,14 @@ protvista-tooltip@^2.18.3:
   integrity sha512-kdEUfhTY4DQOhPIcFSjy9YOOBbSUMC1aycthUHdYjmFGuhq0lx4Fn0lXHvQ8mLazzOJ3pZYcHW3jIGjI3q53fQ==
   dependencies:
     lit-element "^2.2.0"
+    lodash-es "^4.17.11"
+
+protvista-tooltip@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/protvista-tooltip/-/protvista-tooltip-3.1.2.tgz#2da11a28027ffdf686a560b857c3dffa815c6f84"
+  integrity sha512-X9H/oN1/1fbagRhOBfBO+5r2LLARl5QelSLNSpOgWh50iBcCyIU8P5iC6S3cCtNdb+VGssGB4+fHpOBv7nu7Lw==
+  dependencies:
+    lit-element "^2.4.0"
     lodash-es "^4.17.11"
 
 protvista-track@3.0.0, protvista-track@^3.0.0:

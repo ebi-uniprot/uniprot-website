@@ -3,12 +3,15 @@
 import React, {
   FC,
   useCallback,
+  useEffect,
   useMemo,
+  useRef,
   useState,
   Dispatch,
   SetStateAction,
 } from 'react';
 import { Loader } from 'franklin-sites';
+import { formatTooltip } from 'protvista-feature-adapter';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
@@ -52,6 +55,17 @@ export type BlastOverviewProps = {
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
+const findSequenceFeature = (protvistaFeatureId, alignment) => {
+  for (const sequence of alignment) {
+    const foundFeature = sequence.features.find(
+      (feature) => feature.protvistaFeatureId === protvistaFeatureId
+    );
+    if (foundFeature) {
+      return { sequence, feature: foundFeature };
+    }
+  }
+};
+
 const AlignOverview: FC<BlastOverviewProps> = ({
   alignment,
   alignmentLength,
@@ -65,11 +79,15 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   selectedEntries,
   handleSelectedEntries,
 }) => {
+  const tooltipRef = useRef();
+  const trackRef = useRef();
+
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
   const [displayEnd, setDisplayEnd] = useState<number>();
+  const [tooltipContent, setTooltipContent] = useState();
 
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlighPositions = useCallback(
@@ -89,6 +107,55 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     },
     [tracksOffset]
   );
+
+  const updateTooltip = useCallback(
+    ({ id, x, y, event }) => {
+      event.stopPropagation();
+      event.preventDefault();
+      console.log('in updatetooltip');
+      const { feature } = findSequenceFeature(id, alignment);
+      tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
+      setTooltipContent({ __html: formatTooltip(feature) });
+      const rect = trackRef.current.getBoundingClientRect();
+      // tooltipRef.current.x = event.layerX; // event.x;
+      tooltipRef.current.x = x - rect.x; // event.x;
+      tooltipRef.current.y = y - rect.y; // event.y;
+      // console.log(tooltipRef.current);
+    },
+    [alignment]
+  );
+
+  useEffect(() => {
+    const f = (e) => {
+      console.log('in closing fn');
+      // If click is inside of the tooltip, don't do anything
+      // if (tooltipContent && tooltipRef.current.contains(e.target)) {
+      if (tooltipRef.current.contains(e.target)) {
+        return;
+      }
+      setTooltipContent(null);
+      // tooltipRef.current.visible = false;
+    };
+    console.log('window.addEventListener(click, f)');
+    window.addEventListener('click', f);
+
+    const handleEvent = (event) => {
+      if (event.detail.eventtype === 'click') {
+        // console.log(event.detail.feature);
+        updateTooltip({
+          event,
+          id: event.detail.feature.protvistaFeatureId,
+          x: event.detail.coords[0],
+          y: event.detail.coords[1],
+        });
+      }
+    };
+    window.addEventListener('change', handleEvent);
+    return () => {
+      window.removeEventListener('change', handleEvent);
+      window.removeEventListener('click', f);
+    };
+  }, []);
 
   const managerRef = useCallback(
     (node): void => {
@@ -127,13 +194,11 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
   const selectedFeatures = useMemo(
     () =>
-      alignment
-        .map(({ sequence, features = [] }, index) =>
-          features
-            .filter(({ type }) => type === annotation)
-            .map((feature) => getMSAFeature(feature, sequence, index))
-        )
-        .flat(),
+      alignment.flatMap(({ sequence, features = [] }, index) =>
+        features
+          .filter(({ type }) => type === annotation)
+          .map((feature) => getMSAFeature(feature, sequence, index))
+      ),
     [alignment, annotation]
   );
 
@@ -144,8 +209,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       }
 
       node.features = selectedFeatures;
-      node.onFeatureClick = (id) => {
-        console.log('on feature click:', id);
+      node.onFeatureClick = ({ id, event }) => {
+        updateTooltip({ id, x: event.x, y: event.y, event });
       };
 
       const singleBaseWidth =
@@ -160,7 +225,14 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       }
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [msaDefined, selectedFeatures, alignmentLength, alignment, displayEnd]
+    [
+      msaDefined,
+      selectedFeatures,
+      updateTooltip,
+      alignmentLength,
+      alignment,
+      displayEnd,
+    ]
   );
 
   const trackDefined = useCustomElement(
@@ -179,9 +251,18 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
+  const tooltipDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-tooltip" */ 'protvista-tooltip'),
+    'protvista-tooltip'
+  );
 
   const ceDefined =
-    trackDefined && navigationDefined && msaDefined && managerDefined;
+    trackDefined &&
+    navigationDefined &&
+    msaDefined &&
+    managerDefined &&
+    tooltipDefined;
 
   const activeAlignment = useMemo(
     () =>
@@ -195,6 +276,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         node.data = activeAlignment.features
           .filter(({ type }) => type === annotation)
           .map((f) => createGappedFeature(f, activeAlignment.sequence));
+
+        node.test = 'test';
       }
     },
     [ceDefined, activeAlignment, annotation]
@@ -213,6 +296,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     return <Loader />;
   }
 
+  // console.log('visible', !!tooltipContent);
+
   return (
     <section data-testid="alignment-view" className="alignment-grid">
       {/* first row */}
@@ -228,12 +313,21 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
       {/* second row */}
       <span className="track-label">{annotation}</span>
-      <div className="track">
+      <div className="track" ref={trackRef}>
         <protvista-track
           ref={setFeatureTrackData}
           length={totalLength}
           layout="non-overlapping"
           highlight={highlightPosition}
+          // onClick={(e) => {
+          //   console.log(e.target, e.detail);
+          // }}
+        />
+        <protvista-tooltip
+          ref={tooltipRef}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={tooltipContent}
+          visible={!!tooltipContent}
         />
       </div>
 
