@@ -17,7 +17,6 @@ import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
-import { processFeaturesData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
   getFullAlignmentSegments,
   getEndCoordinate,
@@ -64,6 +63,7 @@ const findSequenceFeature = (protvistaFeatureId, alignment) => {
       return { sequence, feature: foundFeature };
     }
   }
+  return {};
 };
 
 const AlignOverview: FC<BlastOverviewProps> = ({
@@ -135,7 +135,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   );
 
   useEffect(() => {
-    const handleEvent = (event) => {
+    const handleEvent = (event: Event & { detail: any }) => {
+      console.log(event);
       if (event?.detail?.eventtype === 'click') {
         updateTooltip({
           event,
@@ -151,6 +152,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     return () => {
       window.removeEventListener('change', handleEvent);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -162,7 +164,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
     return () =>
       window.removeEventListener('click', tooltipCloseCallback, true);
-  }, [tooltipContent]);
+  }, [tooltipCloseCallback, tooltipContent]);
 
   const managerRef = useCallback(
     (node): void => {

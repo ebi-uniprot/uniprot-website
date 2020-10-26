@@ -11,7 +11,10 @@ import {
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum } from '../../types/alignResults';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
+import {
+  ProcessedFeature,
+  processFeaturesData,
+} from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
 
 type AlignResultOverviewProps = {
   data: string;
@@ -21,7 +24,8 @@ type AlignResultOverviewProps = {
 };
 
 type EnrichedSequence = AlnClustalNum['sequences'][0] &
-  ParsedSequenceAndFeatures & { from: number; to: number; length: number };
+  ParsedSequenceAndFeatures &
+  ProcessedFeature & { from: number; to: number; length: number };
 type ParsedAndEnriched = {
   conservation: AlnClustalNum['conservation'];
   sequences: EnrichedSequence[];

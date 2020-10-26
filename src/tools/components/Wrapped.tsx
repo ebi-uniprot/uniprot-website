@@ -22,7 +22,6 @@ import FeatureType from '../../uniprotkb/types/featureType';
 import { ConservationOptions, MSAInput } from './AlignmentView';
 import {
   FeatureData,
-  processFeaturesData,
   ProcessedFeature,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import { getEndCoordinate, createGappedFeature } from '../utils/sequences';
