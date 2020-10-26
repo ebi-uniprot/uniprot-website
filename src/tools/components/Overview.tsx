@@ -112,36 +112,31 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     ({ id, x, y, event }) => {
       event.stopPropagation();
       event.preventDefault();
-      console.log('in updatetooltip');
       const { feature } = findSequenceFeature(id, alignment);
       tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
       setTooltipContent({ __html: formatTooltip(feature) });
       const rect = trackRef.current.getBoundingClientRect();
-      // tooltipRef.current.x = event.layerX; // event.x;
       tooltipRef.current.x = x - rect.x; // event.x;
       tooltipRef.current.y = y - rect.y; // event.y;
-      // console.log(tooltipRef.current);
     },
     [alignment]
   );
 
-  useEffect(() => {
-    const f = (e) => {
-      console.log('in closing fn');
+  const tooltipCloseCallback = useCallback(
+    (e) => {
       // If click is inside of the tooltip, don't do anything
-      // if (tooltipContent && tooltipRef.current.contains(e.target)) {
       if (tooltipRef.current.contains(e.target)) {
         return;
       }
-      setTooltipContent(null);
-      // tooltipRef.current.visible = false;
-    };
-    console.log('window.addEventListener(click, f)');
-    window.addEventListener('click', f);
 
+      setTooltipContent(null);
+    },
+    [setTooltipContent]
+  );
+
+  useEffect(() => {
     const handleEvent = (event) => {
-      if (event.detail.eventtype === 'click') {
-        // console.log(event.detail.feature);
+      if (event?.detail?.eventtype === 'click') {
         updateTooltip({
           event,
           id: event.detail.feature.protvistaFeatureId,
@@ -150,12 +145,24 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         });
       }
     };
+
     window.addEventListener('change', handleEvent);
+
     return () => {
       window.removeEventListener('change', handleEvent);
-      window.removeEventListener('click', f);
     };
   }, []);
+
+  useEffect(() => {
+    if (tooltipContent) {
+      window.addEventListener('click', tooltipCloseCallback, true);
+    } else {
+      window.removeEventListener('click', tooltipCloseCallback, true);
+    }
+
+    return () =>
+      window.removeEventListener('click', tooltipCloseCallback, true);
+  }, [tooltipContent]);
 
   const managerRef = useCallback(
     (node): void => {
@@ -296,7 +303,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     return <Loader />;
   }
 
-  // console.log('visible', !!tooltipContent);
+  const tooltipVisibility = tooltipContent ? { visible: true } : {};
 
   return (
     <section data-testid="alignment-view" className="alignment-grid">
@@ -319,15 +326,12 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           length={totalLength}
           layout="non-overlapping"
           highlight={highlightPosition}
-          // onClick={(e) => {
-          //   console.log(e.target, e.detail);
-          // }}
         />
         <protvista-tooltip
           ref={tooltipRef}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={tooltipContent}
-          visible={!!tooltipContent}
+          {...tooltipVisibility}
         />
       </div>
 
