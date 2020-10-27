@@ -7,7 +7,8 @@ import React, {
   useRef,
   useCallback,
 } from 'react';
-import { TreeSelect } from 'franklin-sites';
+import { TreeSelect, Loader } from 'franklin-sites';
+import { formatTooltip } from 'protvista-feature-adapter';
 
 import Wrapped from './Wrapped';
 import Overview from './Overview';
@@ -18,7 +19,11 @@ import {
   msaColorSchemeToString,
 } from '../config/msaColorSchemes';
 
-import { getFullAlignmentLength } from '../utils/sequences';
+import useCustomElement from '../../shared/hooks/useCustomElement';
+import {
+  findSequenceFeature,
+  getFullAlignmentLength,
+} from '../utils/sequences';
 
 import FeatureType from '../../uniprotkb/types/featureType';
 import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
@@ -105,6 +110,15 @@ const AlignmentView: React.FC<{
   selectedEntries,
   handleSelectedEntries,
 }) => {
+  const [tooltipContent, setTooltipContent] = useState();
+  const tooltipRef = useRef();
+
+  const tooltipDefined = useCustomElement(
+    () =>
+      import(/* webpackChunkName: "protvista-tooltip" */ 'protvista-tooltip'),
+    'protvista-tooltip'
+  );
+
   const annotationChoices = useMemo(() => {
     const features = alignment
       .map(({ features }) => features)
@@ -197,6 +211,68 @@ const AlignmentView: React.FC<{
     setActiveId(accession);
   }, []);
 
+  const tooltipCloseCallback = useCallback(
+    (e) => {
+      // If click is inside of the tooltip, don't do anything
+      if (tooltipRef.current.contains(e.target)) {
+        return;
+      }
+      setTooltipContent(null);
+    },
+    [setTooltipContent]
+  );
+
+  const updateTooltip = useCallback(
+    ({ id, x, y, event }) => {
+      event.stopPropagation();
+      event.preventDefault();
+      const { feature } = findSequenceFeature(id, alignment);
+      tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
+      setTooltipContent({ __html: formatTooltip(feature) });
+      tooltipRef.current.x = x; // - rect.x; // event.x;
+      tooltipRef.current.y = y; // - rect.y; // event.y;
+    },
+    [alignment]
+  );
+  useEffect(() => {
+    if (tooltipContent) {
+      window.addEventListener('click', tooltipCloseCallback, true);
+    } else {
+      window.removeEventListener('click', tooltipCloseCallback, true);
+    }
+
+    return () =>
+      window.removeEventListener('click', tooltipCloseCallback, true);
+  }, [tooltipCloseCallback, tooltipContent]);
+
+  useEffect(() => {
+    const handleEvent = (event: Event & { detail: any }) => {
+      if (event?.detail?.eventtype === 'click') {
+        updateTooltip({
+          event,
+          id: event.detail.feature.protvistaFeatureId,
+          x: event.detail.coords[0],
+          y: event.detail.coords[1],
+        });
+      }
+    };
+
+    window.addEventListener('change', handleEvent);
+
+    return () => {
+      window.removeEventListener('change', handleEvent);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const tooltipVisibility = tooltipContent ? { visible: true } : {};
+
+  const defaultActiveNodes = useMemo(() => [MsaColorScheme.CONSERVATION], []);
+
+  if (!tooltipDefined) {
+    return <Loader />;
+  }
+
   return (
     <>
       <div className="button-group">
@@ -211,7 +287,7 @@ const AlignmentView: React.FC<{
               ? `"${msaColorSchemeToString[highlightProperty]}" highlight`
               : 'Highlight properties'
           }
-          defaultActiveNodes={useMemo(() => [MsaColorScheme.CONSERVATION], [])}
+          defaultActiveNodes={defaultActiveNodes}
           className="tertiary"
         />
         {annotationsPerEntry.length && (
@@ -255,6 +331,12 @@ const AlignmentView: React.FC<{
         </fieldset>
       </div>
       <div>
+        <protvista-tooltip
+          ref={tooltipRef}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={tooltipContent}
+          {...tooltipVisibility}
+        />
         <AlignmentComponent
           alignment={alignment}
           alignmentLength={alignmentLength}
@@ -263,6 +345,7 @@ const AlignmentView: React.FC<{
           totalLength={totalLength}
           annotation={annotation}
           activeId={activeId}
+          updateTooltip={updateTooltip}
           {...additionalAlignProps}
         />
       </div>

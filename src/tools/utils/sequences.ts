@@ -173,3 +173,15 @@ export const createGappedFeature = (
   }
   return gappedFeature;
 };
+
+export const findSequenceFeature = (protvistaFeatureId, alignment) => {
+  for (const sequence of alignment) {
+    const foundFeature = sequence.features.find(
+      (feature) => feature.protvistaFeatureId === protvistaFeatureId
+    );
+    if (foundFeature) {
+      return { sequence, feature: foundFeature };
+    }
+  }
+  return {};
+};

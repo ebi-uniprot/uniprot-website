@@ -11,7 +11,6 @@ import React, {
   SetStateAction,
 } from 'react';
 import { Loader } from 'franklin-sites';
-import { formatTooltip } from 'protvista-feature-adapter';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
@@ -54,18 +53,6 @@ export type BlastOverviewProps = {
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const findSequenceFeature = (protvistaFeatureId, alignment) => {
-  for (const sequence of alignment) {
-    const foundFeature = sequence.features.find(
-      (feature) => feature.protvistaFeatureId === protvistaFeatureId
-    );
-    if (foundFeature) {
-      return { sequence, feature: foundFeature };
-    }
-  }
-  return {};
-};
-
 const AlignOverview: FC<BlastOverviewProps> = ({
   alignment,
   alignmentLength,
@@ -78,17 +65,13 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   omitInsertionsInCoords,
   selectedEntries,
   handleSelectedEntries,
+  updateTooltip,
 }) => {
-  const tooltipRef = useRef();
-  const trackRef = useRef();
-
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
   const [displayEnd, setDisplayEnd] = useState<number>();
-  const [tooltipContent, setTooltipContent] = useState();
-
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlighPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
@@ -108,69 +91,9 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     [tracksOffset]
   );
 
-  const updateTooltip = useCallback(
-    ({ id, x, y, event }) => {
-      event.stopPropagation();
-      event.preventDefault();
-      const { feature } = findSequenceFeature(id, alignment);
-      tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
-      setTooltipContent({ __html: formatTooltip(feature) });
-      const rect = trackRef.current.getBoundingClientRect();
-
-      tooltipRef.current.x = x; // - rect.x; // event.x;
-      tooltipRef.current.y = y; // - rect.y; // event.y;
-    },
-    [alignment]
-  );
-
-  const tooltipCloseCallback = useCallback(
-    (e) => {
-      // If click is inside of the tooltip, don't do anything
-      if (tooltipRef.current.contains(e.target)) {
-        return;
-      }
-
-      setTooltipContent(null);
-    },
-    [setTooltipContent]
-  );
-
-  useEffect(() => {
-    const handleEvent = (event: Event & { detail: any }) => {
-      console.log(event);
-      if (event?.detail?.eventtype === 'click') {
-        updateTooltip({
-          event,
-          id: event.detail.feature.protvistaFeatureId,
-          x: event.detail.coords[0],
-          y: event.detail.coords[1],
-        });
-      }
-    };
-
-    window.addEventListener('change', handleEvent);
-
-    return () => {
-      window.removeEventListener('change', handleEvent);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (tooltipContent) {
-      window.addEventListener('click', tooltipCloseCallback, true);
-    } else {
-      window.removeEventListener('click', tooltipCloseCallback, true);
-    }
-
-    return () =>
-      window.removeEventListener('click', tooltipCloseCallback, true);
-  }, [tooltipCloseCallback, tooltipContent]);
-
   const managerRef = useCallback(
     (node): void => {
       if (node && initialDisplayEnd) {
-        // if (node && initialDisplayEnd && typeof displayEnd === 'undefined') {
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
           findHighlighPositions(detail)
         );
@@ -236,7 +159,14 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [msaDefined, alignmentLength, alignment, displayEnd]
+    [
+      msaDefined,
+      selectedFeatures,
+      alignmentLength,
+      alignment,
+      displayEnd,
+      updateTooltip,
+    ]
   );
 
   const trackDefined = useCustomElement(
@@ -255,18 +185,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-  const tooltipDefined = useCustomElement(
-    () =>
-      import(/* webpackChunkName: "protvista-tooltip" */ 'protvista-tooltip'),
-    'protvista-tooltip'
-  );
-
   const ceDefined =
-    trackDefined &&
-    navigationDefined &&
-    msaDefined &&
-    managerDefined &&
-    tooltipDefined;
+    trackDefined && navigationDefined && msaDefined && managerDefined;
 
   const activeAlignment = useMemo(
     () =>
@@ -300,16 +220,8 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     return <Loader />;
   }
 
-  const tooltipVisibility = tooltipContent ? { visible: true } : {};
-
   return (
     <section data-testid="alignment-view" className="alignment-grid">
-      <protvista-tooltip
-        ref={tooltipRef}
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={tooltipContent}
-        {...tooltipVisibility}
-      />{' '}
       {/* first row */}
       <span className="track-label">Overview</span>
       <div className="track">
@@ -322,7 +234,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       </div>
       {/* second row */}
       <span className="track-label">{annotation}</span>
-      <div className="track" ref={trackRef}>
+      <div className="track">
         <protvista-track
           ref={setFeatureTrackData}
           length={totalLength}
