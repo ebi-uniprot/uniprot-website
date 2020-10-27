@@ -54,3 +54,21 @@ export const getBEMClassName = ({
   }
   return className;
 };
+
+export const hasContent = (obj: Record<string | number | symbol, unknown>) => {
+  return Object.values(obj).some((val) => {
+    if (Array.isArray(val)) {
+      const valArray = val as unknown[];
+      return valArray.length > 0;
+    }
+    if (typeof val === 'object' && val) {
+      if (val instanceof Map) {
+        return Array.from(val.values()).some(
+          (value) => value && value.length > 0
+        );
+      }
+      return Object.values(val).length > 0;
+    }
+    return false;
+  });
+};

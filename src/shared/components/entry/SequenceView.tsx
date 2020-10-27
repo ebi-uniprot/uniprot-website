@@ -1,18 +1,22 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
-import idx from 'idx';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import numberView, { Unit } from './NumberView';
+import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import numberView, {
+  Unit,
+} from '../../../uniprotkb/components/protein-data-views/NumberView';
 
-import { formatLargeNumber } from '../../../shared/utils/utils';
-import fetchData from '../../../shared/utils/fetchData';
+import { formatLargeNumber } from '../../utils/utils';
+import fetchData from '../../utils/fetchData';
 
-import { SequenceUIModel } from '../../adapters/sequenceConverter';
+import {
+  IsoformNotes,
+  SequenceUIModel,
+} from '../../../uniprotkb/adapters/sequenceConverter';
 
-import externalUrls from '../../config/externalUrls';
-import apiUrls from '../../../shared/config/apiUrls';
+import externalUrls from '../../../uniprotkb/config/externalUrls';
+import apiUrls from '../../config/apiUrls';
 
 import {
   Isoform,
@@ -20,8 +24,12 @@ import {
   MassSpectrometryComment,
   RNAEditingComment,
   AlternativeProductsComment,
-} from '../../types/commentTypes';
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
+} from '../../../uniprotkb/types/commentTypes';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
+import { Location, LocationToPath } from '../../../app/config/urls';
+import BlastButton from '../action-buttons/Blast';
+import AlignButton from '../action-buttons/Align';
 
 export type SequenceData = {
   value: string;
@@ -39,10 +47,12 @@ export const SequenceInfo: React.FC<{
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
-}> = ({ isoformId, isoformSequence, lastUpdateDate }) => {
+  isCanonical?: boolean;
+}> = ({ isoformId, isoformSequence, lastUpdateDate, isCanonical = false }) => {
   const [data, setData] = useState<UniProtkbAPIModel['sequence']>();
   const [isoformToFetch, setIsoformToFetch] = useState('');
 
+  const history = useHistory();
   useEffect(() => {
     if (!isoformToFetch) {
       return;
@@ -59,25 +69,14 @@ export const SequenceInfo: React.FC<{
 
   const dataToDisplay = data || isoformSequence;
 
-  if (!dataToDisplay) {
-    return (
-      <button
-        type="button"
-        className="button secondary"
-        onClick={() => setIsoformToFetch(isoformId)}
-      >
-        Load sequence
-      </button>
-    );
-  }
   const infoData = [
     {
       title: 'Length',
-      content: dataToDisplay.length,
+      content: dataToDisplay && dataToDisplay.length,
     },
     {
       title: 'Mass (Da)',
-      content: formatLargeNumber(dataToDisplay.molWeight),
+      content: dataToDisplay && formatLargeNumber(dataToDisplay.molWeight),
     },
     {
       title: 'Last updated',
@@ -85,30 +84,44 @@ export const SequenceInfo: React.FC<{
     },
     {
       title: 'Checksum',
-      content: dataToDisplay.crc64,
+      content: dataToDisplay && dataToDisplay.crc64,
     },
   ];
 
   return (
-    <Fragment>
-      {dataToDisplay && <InfoList infoData={infoData} />}
-      <Sequence
-        sequence={dataToDisplay.value}
-        accession={isoformId}
-        downloadUrl={apiUrls.sequenceFasta(isoformId)}
-        // These callbacks have been commented out as neither BLAST
-        // nor the basket have been implemented
-        // onBlastClick={() => {}}
-        // onAddToBasketClick={() => {}}
-      />
-    </Fragment>
+    <Sequence
+      sequence={dataToDisplay && dataToDisplay.value}
+      onShowSequence={() => setIsoformToFetch(isoformId)}
+      infoData={infoData}
+      accession={isoformId}
+      downloadUrl={apiUrls.sequenceFasta(isoformId)}
+      onBlastClick={() =>
+        history.push(LocationToPath[Location.Blast], {
+          parameters: { sequence: dataToDisplay && dataToDisplay.value },
+        })
+      }
+      // This callbacks has been commented out as
+      //  the basket is not yet implemented
+      // onAddToBasketClick={() => {}}
+      isCollapsible={!isCanonical}
+    />
   );
 };
 
 export const IsoformInfo: React.FC<{
   isoformData: Isoform;
   canonicalAccession: string;
-}> = ({ isoformData, canonicalAccession }) => {
+  isoformNotes?: IsoformNotes;
+}> = ({ isoformData, canonicalAccession, isoformNotes }) => {
+  let note;
+  const regex = new RegExp(isoformData.name.value, 'gi');
+  for (const key in isoformNotes) {
+    if (key.match(regex)) {
+      note = isoformNotes[key];
+      break;
+    }
+  }
+
   const infoListData = [
     {
       title: 'Name',
@@ -116,9 +129,11 @@ export const IsoformInfo: React.FC<{
     },
     {
       title: 'Synonyms',
-      content: (idx(isoformData, (o) => o.synonyms) || [])
-        .map((syn) => syn.value)
-        .join(', '),
+      content: (isoformData?.synonyms ?? []).map((syn) => syn.value).join(', '),
+    },
+    {
+      title: 'Note',
+      content: note && <FreeTextView comments={note} showMolecule={false} />,
     },
     {
       title: 'Differences from canonical',
@@ -186,7 +201,7 @@ export const IsoformInfo: React.FC<{
           </Link>
         </section>
       )}
-      <InfoList infoData={infoListData} />
+      <InfoList infoData={infoListData} columns isCompact />
     </Fragment>
   );
 };
@@ -195,7 +210,7 @@ export const SequenceCautionView: React.FC<{
   data: SequenceCautionComment[];
 }> = ({ data }) => {
   return (
-    <Fragment>
+    <>
       {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
         <section
           className="text-block"
@@ -210,14 +225,14 @@ export const SequenceCautionView: React.FC<{
           {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
         </section>
       ))}
-    </Fragment>
+    </>
   );
 };
 
 export const MassSpectrometryView: React.FC<{
   data: MassSpectrometryComment[];
 }> = ({ data }) => (
-  <Fragment>
+  <>
     {data.map((item) => (
       <section className="text-block" key={`${item.molWeight}${item.method}`}>
         {item.molecule && <h3>{item.molecule}</h3>}
@@ -230,13 +245,13 @@ export const MassSpectrometryView: React.FC<{
         <UniProtKBEvidenceTag evidences={item.evidences} />
       </section>
     ))}
-  </Fragment>
+  </>
 );
 
 export const RNAEditingView: React.FC<{ data: RNAEditingComment[] }> = ({
   data,
 }) => (
-  <Fragment>
+  <>
     {data.map((item) => (
       <section
         className="text-block"
@@ -269,7 +284,7 @@ export const RNAEditingView: React.FC<{ data: RNAEditingComment[] }> = ({
         )}
       </section>
     ))}
-  </Fragment>
+  </>
 );
 
 export const IsoformView: React.FC<{
@@ -277,11 +292,13 @@ export const IsoformView: React.FC<{
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
   canonicalAccession: string;
+  isoformNotes?: IsoformNotes;
 }> = ({
   alternativeProducts,
   canonicalComponent,
   includeSequences = true,
   canonicalAccession,
+  isoformNotes,
 }) => {
   let isoformCountNode;
   const { isoforms, events } = alternativeProducts;
@@ -297,7 +314,7 @@ export const IsoformView: React.FC<{
   }
 
   let notesNode;
-  const texts = idx(alternativeProducts, (o) => o.note.texts);
+  const texts = alternativeProducts.note?.texts;
   if (texts) {
     notesNode = <p>{texts.map((text) => text.value).join(' ')}</p>;
   }
@@ -313,25 +330,26 @@ export const IsoformView: React.FC<{
           <IsoformInfo
             isoformData={isoform}
             canonicalAccession={canonicalAccession}
+            isoformNotes={isoformNotes}
           />
           {includeSequences && isoform.isoformSequenceStatus !== 'External' && (
-            <Fragment>
+            <>
               {canonicalComponent &&
               isoform.isoformSequenceStatus === 'Displayed'
                 ? canonicalComponent
                 : isoformComponent}
-            </Fragment>
+            </>
           )}
         </Fragment>
       );
     });
   }
   return (
-    <Fragment>
+    <>
       {isoformCountNode}
       {notesNode}
       {isoformsNode}
-    </Fragment>
+    </>
   );
 };
 
@@ -357,6 +375,7 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
       isoformId={accession}
       isoformSequence={data.sequence}
       lastUpdateDate={data.lastUpdateDate}
+      isCanonical
     />
   );
 
@@ -368,15 +387,38 @@ const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
     return null;
   }
 
+  const allIsoformIds = data.alternativeProducts.isoforms
+    .map((isoform) => isoform.isoformIds)
+    .flat();
+
   return (
-    <Fragment>
-      <InfoList infoData={sequenceInfoData} />
+    <>
+      <div className="button-group">
+        <BlastButton
+          selectedEntries={allIsoformIds}
+          textSuffix={`${allIsoformIds.length} isoform${
+            allIsoformIds.length === 1 ? '' : 's'
+          }`}
+        />
+        <AlignButton
+          selectedEntries={allIsoformIds}
+          textSuffix={
+            allIsoformIds.length === 1
+              ? undefined
+              : `${allIsoformIds.length} isoforms`
+          }
+        />
+        {/* Missing Add to basket */}
+      </div>
+
+      <InfoList infoData={sequenceInfoData} columns />
       <IsoformView
         alternativeProducts={data.alternativeProducts}
         canonicalComponent={canonicalComponent}
         canonicalAccession={accession}
+        isoformNotes={data.isoformNotes}
       />
-    </Fragment>
+    </>
   );
 };
 

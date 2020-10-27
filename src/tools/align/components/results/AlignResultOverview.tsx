@@ -31,20 +31,6 @@ type ParsedAndEnriched = {
   sequences: EnrichedSequence[];
 };
 
-const dashesRE = {
-  start: /^-*/,
-  end: /-*$/,
-  any: /-*/g,
-};
-// calculate start and end of alignments without initial and final dashes
-const getFromToLength = (clustalSeq = '') => {
-  const trimmedStart = clustalSeq.replace(dashesRE.start, '');
-  const from = clustalSeq.length - trimmedStart.length + 1;
-  const trimmed = trimmedStart.replace(dashesRE.end, '');
-  const { length } = trimmed.replace(dashesRE.any, '');
-  return { from, to: from + trimmed.length, length };
-};
-
 const enrichParsed = (
   parsed: AlnClustalNum | null,
   sequenceInfo: SequenceInfo
@@ -52,25 +38,37 @@ const enrichParsed = (
   if (!parsed || sequenceInfo.loading) {
     return null;
   }
-  const sequences = Array.from(parsed.sequences) as Partial<EnrichedSequence>[];
+  // The keys here are the name (eg sp|P05067|A4_HUMAN) and used to quickly look up
+  // if the user's alignment is present
+  const nameToSequenceInfo: { [name: string]: ParsedSequenceAndFeatures } = {};
   for (const info of sequenceInfo.data.values()) {
-    const matchIndex = sequences.findIndex((s) => s.name === info.name);
-    if (matchIndex !== -1) {
-      const match = sequences[matchIndex];
-      sequences[matchIndex] = {
-        ...info,
-        features: processFeaturesData(
-          removeFeaturesWithUnknownModifier(info.features)
-        ),
-        ...match,
-        // not sure yet if that is needed or not
-        ...getFromToLength(match.sequence),
-        // or if those values are enough
-        from: 1,
-        to: match.sequence?.length || 0,
-        length: match.sequence?.length || 0,
-      };
+    if (info.name) {
+      nameToSequenceInfo[info.name] = info;
     }
+  }
+  const sequences = Array.from(parsed.sequences) as Partial<EnrichedSequence>[];
+  // Iterate over all of the sequences in the alignment
+  for (let index = 0; index < sequences.length; index += 1) {
+    const sequence = sequences[index];
+    let info;
+    let features;
+    if (sequence.name && nameToSequenceInfo[sequence.name]) {
+      info = nameToSequenceInfo[sequence.name];
+      features = processFeaturesData(
+        removeFeaturesWithUnknownModifier(info?.features)
+      );
+    }
+    sequences[index] = {
+      ...info,
+      features: features ?? [],
+      ...sequence,
+      length: sequence.sequence?.length || 0,
+      // The following are really BLAST specific (corresponding to hsp_query_from, hsp_query_to
+      // and likewise for hit) but as we want the  alignment visualisation components to be
+      // generic for both BLAST and Align output we set these values.
+      from: 1,
+      to: sequence.sequence?.length || 0,
+    };
   }
   return { ...parsed, sequences } as ParsedAndEnriched;
 };

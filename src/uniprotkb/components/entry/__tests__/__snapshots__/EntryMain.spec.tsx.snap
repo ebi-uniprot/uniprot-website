@@ -397,6 +397,34 @@ exports[`Entry view should render 1`] = `
         <div
           class="card__content"
         >
+          <div
+            class="message message--warning"
+            role="status"
+          >
+            <div
+              class="message__side-border"
+            />
+            <svg
+              fill="currentColor"
+              height="1.125em"
+              viewBox="0 0 16 14"
+              width="1.125em"
+            >
+              <path
+                d="M9.54.87a1.8 1.8 0 00-3.08 0L.24 11.37A1.75 1.75 0 001.78 14h12.44a1.75 1.75 0 001.54-2.63L9.54.87zM7 4a1 1 0 112 0v4a1 1 0 11-2 0V4zm1 8a1 1 0 100-2 1 1 0 000 2z"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <section
+              class="message__content"
+            >
+              <small>
+                <h4>
+                  Caution
+                </h4>
+              </small>
+            </section>
+          </div>
           <h3>
             catalytic activity
           </h3>
@@ -1678,6 +1706,55 @@ exports[`Entry view should render 1`] = `
             </div>
           </div>
           <h3>
+            Accessions
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Primary accession
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                P21802
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Secondary accessions
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    P21802
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <h3>
             Proteome
           </h3>
         </div>
@@ -1816,7 +1893,7 @@ exports[`Entry view should render 1`] = `
   </div>
   <div
     data-entry-section="true"
-    id="pathology-and-biotech"
+    id="disease-and-drugs"
   >
     <div
       class="card"
@@ -1828,7 +1905,7 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Pathology & BioTech
+            Disease & Drugs
           </h2>
         </div>
         <div
@@ -2059,7 +2136,7 @@ exports[`Entry view should render 1`] = `
   </div>
   <div
     data-entry-section="true"
-    id="protein-processing"
+    id="ptm-processing"
   >
     <div
       class="card"
@@ -2071,7 +2148,7 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Protein Processing
+            PTM/Processing
           </h2>
         </div>
         <div
@@ -2080,6 +2157,9 @@ exports[`Entry view should render 1`] = `
           <h3>
             Features
           </h3>
+          <p>
+            Showing features for chain.
+          </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
           >
@@ -2425,14 +2505,33 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Sequence
+            Sequence & Isoforms
           </h2>
         </div>
         <div
           class="card__content"
         >
           <div
-            class="info-list"
+            class="button-group"
+          >
+            <button
+              class="button tertiary"
+              title="Run a BLAST job against isoID1"
+              type="button"
+            >
+              BLAST 1 isoform
+            </button>
+            <button
+              class="button tertiary"
+              disabled=""
+              title="Select at least 2 entries to run an Align job"
+              type="button"
+            >
+              Align
+            </button>
+          </div>
+          <div
+            class="info-list info-list--columns"
           >
             <div
               class="info-list__item"
@@ -2474,7 +2573,7 @@ exports[`Entry view should render 1`] = `
             isoID1
           </h3>
           <div
-            class="info-list"
+            class="info-list info-list--columns info-list--compact"
           >
             <div
               class="info-list__item"
@@ -2535,7 +2634,7 @@ exports[`Entry view should render 1`] = `
             class="button secondary"
             type="button"
           >
-            Load sequence
+            Show sequence 
           </button>
           <h3>
             Sequence caution
@@ -2798,6 +2897,15 @@ exports[`Entry view should render 1`] = `
         </div>
       </section>
     </div>
+  </div>
+  <div
+    class="hero-container"
+  >
+    <section>
+      <em>
+        Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
+      </em>
+    </section>
   </div>
 </DocumentFragment>
 `;

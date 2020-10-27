@@ -1,5 +1,4 @@
-import { MutableRefObject, useCallback, useEffect } from 'react';
-import useSafeState from './useSafeState';
+import { MutableRefObject, useCallback, useEffect, useState } from 'react';
 
 type ContainerElement = HTMLElement | SVGElement | SVGSVGElement;
 
@@ -17,7 +16,7 @@ type ContainerElement = HTMLElement | SVGElement | SVGSVGElement;
 function useSize<E extends ContainerElement = ContainerElement>(
   ref: MutableRefObject<E | undefined | null>
 ): [domRect: DOMRect | null, forceRefresh: () => void] {
-  const [rect, setRect] = useSafeState<DOMRect | null>(null);
+  const [rect, setRect] = useState<DOMRect | null>(null);
 
   const onResize = useCallback(() => {
     if (!ref.current) {

@@ -1,0 +1,179 @@
+{
+  "canonicalProtein": {
+    "accession": "P05067",
+    "entryType": "UniProtKB reviewed (Swiss-Prot)",
+    "sequenceLength": 770,
+    "geneName": "HGNC:620",
+    "geneNameType": "MOD"
+  },
+  "relatedProteins": [
+    {
+      "accession": "P05067-4",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 695,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "P05067-10",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 639,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "H7C0V9",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 485,
+      "geneName": "HGNC:620",
+      "geneNameType": "MOD"
+    },
+    {
+      "accession": "H7C0V9",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 485,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "E9PG40",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 714,
+      "geneName": "ENSG00000142192",
+      "geneNameType": "Ensembl"
+    },
+    {
+      "accession": "A0A0A0MRG2",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 660,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "H7C0V9",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 485,
+      "geneName": "ENSG00000142192",
+      "geneNameType": "Ensembl"
+    },
+    {
+      "accession": "P05067-2",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 305,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "P05067-7",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 733,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "P05067-11",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 746,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "H7C2L2",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 181,
+      "geneName": "HGNC:620",
+      "geneNameType": "MOD"
+    },
+    {
+      "accession": "P05067-6",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 714,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "A0A0A0MRG2",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 660,
+      "geneName": "ENSG00000142192",
+      "geneNameType": "Ensembl"
+    },
+    {
+      "accession": "H7C2L2",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 181,
+      "geneName": "ENSG00000142192",
+      "geneNameType": "Ensembl"
+    },
+    {
+      "accession": "P05067-9",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 752,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "P05067-3",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 677,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "A0A0A0MRG2",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 660,
+      "geneName": "HGNC:620",
+      "geneNameType": "MOD"
+    },
+    {
+      "accession": "P05067",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 770,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "E9PG40",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 714,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "P05067-5",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 696,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "H7C2L2",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 181,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "P05067",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 770,
+      "geneName": "ENSG00000142192",
+      "geneNameType": "Ensembl"
+    },
+    {
+      "accession": "P05067-8",
+      "entryType": "UniProtKB reviewed (Swiss-Prot)",
+      "sequenceLength": 751,
+      "geneName": "APP",
+      "geneNameType": "Gene name"
+    },
+    {
+      "accession": "E9PG40",
+      "entryType": "UniProtKB unreviewed (TrEMBL)",
+      "sequenceLength": 714,
+      "geneName": "HGNC:620",
+      "geneNameType": "MOD"
+    }
+  ]
+}

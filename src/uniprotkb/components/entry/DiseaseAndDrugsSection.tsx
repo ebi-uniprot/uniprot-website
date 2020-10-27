@@ -1,21 +1,24 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
+
+import XRefView from '../protein-data-views/XRefView';
+import VariationView from '../protein-data-views/VariationView';
+import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
 import KeywordView from '../protein-data-views/KeywordView';
 import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
-import { hasContent } from '../../utils';
+
+import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
+
 import {
   CommentType,
   DiseaseComment,
   FreeTextComment,
 } from '../../types/commentTypes';
-import XRefView from '../protein-data-views/XRefView';
-import VariationView from '../protein-data-views/VariationView';
-import FreeTextView from '../protein-data-views/FreeTextView';
 
-const PathologyAndBiotechSection: FC<{
+const DiseaseAndDrugsSection: FC<{
   data: UIModel;
   primaryAccession: string;
   sequence: string;
@@ -24,11 +27,8 @@ const PathologyAndBiotechSection: FC<{
     return null;
   }
   return (
-    <div
-      id={EntrySectionIDs[EntrySection.PathologyAndBioTech]}
-      data-entry-section
-    >
-      <Card title={EntrySection.PathologyAndBioTech}>
+    <div id={EntrySectionIDs[EntrySection.DiseaseAndDrugs]} data-entry-section>
+      <Card title={EntrySection.DiseaseAndDrugs}>
         <DiseaseInvolvementView
           comments={
             data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
@@ -81,4 +81,4 @@ const PathologyAndBiotechSection: FC<{
   );
 };
 
-export default PathologyAndBiotechSection;
+export default DiseaseAndDrugsSection;

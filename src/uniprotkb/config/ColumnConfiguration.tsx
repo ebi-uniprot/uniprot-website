@@ -1,7 +1,6 @@
 /* eslint-disable camelcase */
 import React, { Fragment } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
-import idx from 'idx';
 import { flatten } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
@@ -9,10 +8,10 @@ import SimpleView from '../components/protein-data-views/SimpleView';
 import ProteinNamesView, {
   ECNumbersView,
 } from '../components/protein-data-views/ProteinNamesView';
-import OrganismView, {
-  OrganismLineage,
-  OrganismId,
-} from '../components/protein-data-views/OrganismView';
+import TaxonomyView, {
+  TaxonomyLineage,
+  TaxonomyId,
+} from '../../shared/components/entry/TaxonomyView';
 import GeneNamesView, {
   geneAlternativeNamesView,
 } from '../components/protein-data-views/GeneNamesView';
@@ -26,7 +25,7 @@ import {
   MassSpectrometryView,
   RNAEditingView,
   IsoformView,
-} from '../components/protein-data-views/SequenceView';
+} from '../../shared/components/entry/SequenceView';
 import { Flag } from '../adapters/sequenceConverter';
 import FeatureType from '../types/featureType';
 import FreeTextView, {
@@ -57,10 +56,9 @@ import {
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
-import { ValueWithEvidence } from '../types/modelTypes';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
-import { ReviewedUnreviewed } from '../components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../shared/components/entry/EntryTitle';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import {
   databaseNameToCategory,
@@ -153,7 +151,7 @@ ColumnConfiguration.set(Column.organismName, {
   label: 'Organism',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <OrganismView data={organismData} />;
+    return organismData && <TaxonomyView data={organismData} />;
   },
 });
 
@@ -252,7 +250,7 @@ ColumnConfiguration.set(Column.organismId, {
   label: 'Organism',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <OrganismId taxonId={organismData.taxonId} />;
+    return organismData && <TaxonomyId taxonId={organismData.taxonId} />;
   },
 });
 
@@ -269,7 +267,7 @@ ColumnConfiguration.set(Column.lineage, {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
     return (
       organismData &&
-      organismData.lineage && <OrganismLineage lineage={organismData.lineage} />
+      organismData.lineage && <TaxonomyLineage lineage={organismData.lineage} />
     );
   },
 });
@@ -282,7 +280,7 @@ ColumnConfiguration.set(Column.virusHosts, {
         <Fragment>
           {virusHosts.map((host) => (
             <p key={host.taxonId}>
-              <OrganismView data={host} />
+              <TaxonomyView data={host} />
             </p>
           ))}
         </Fragment>
@@ -465,10 +463,7 @@ ColumnConfiguration.set(Column.ec, {
   label: 'EC Number',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    const ecNumbers = idx(
-      proteinNamesData,
-      (proteinName) => proteinName.recommendedName.ecNumbers
-    ) as ValueWithEvidence[];
+    const ecNumbers = proteinNamesData?.recommendedName?.ecNumbers;
     return ecNumbers && <ECNumbersView ecNumbers={ecNumbers} />;
   },
 });
@@ -773,16 +768,16 @@ ColumnConfiguration.set(Column.ccPtm, {
 ColumnConfiguration.set(Column.ccAllergen, {
   label: 'Allergenic Properties',
   render: (data) => {
-    const allergenData = data[
-      EntrySection.PathologyAndBioTech
-    ].commentsData.get(CommentType.ALLERGEN) as FreeTextComment[];
+    const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
+      CommentType.ALLERGEN
+    ) as FreeTextComment[];
     return allergenData && <FreeTextView comments={allergenData} />;
   },
 });
 ColumnConfiguration.set(Column.ccBiotechnology, {
   label: 'Biotechnological Use',
   render: (data) => {
-    const biotechData = data[EntrySection.PathologyAndBioTech].commentsData.get(
+    const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.BIOTECHNOLOGY
     ) as FreeTextComment[];
     return biotechData && <FreeTextView comments={biotechData} />;
@@ -791,18 +786,18 @@ ColumnConfiguration.set(Column.ccBiotechnology, {
 ColumnConfiguration.set(Column.ccDisruptionPhenotype, {
   label: 'Disruption Phenotype',
   render: (data) => {
-    const disruptionData = data[
-      EntrySection.PathologyAndBioTech
-    ].commentsData.get(CommentType.DISRUPTION_PHENOTYPE) as FreeTextComment[];
+    const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
+      CommentType.DISRUPTION_PHENOTYPE
+    ) as FreeTextComment[];
     return disruptionData && <FreeTextView comments={disruptionData} />;
   },
 });
 ColumnConfiguration.set(Column.ccDisease, {
   label: 'Disease Involvement',
   render: (data) => {
-    const diseaseComments = data[
-      EntrySection.PathologyAndBioTech
-    ].commentsData.get(CommentType.DISEASE) as DiseaseComment[];
+    const diseaseComments = data[EntrySection.DiseaseAndDrugs].commentsData.get(
+      CommentType.DISEASE
+    ) as DiseaseComment[];
     return (
       diseaseComments && (
         <DiseaseInvolvementView
@@ -820,7 +815,7 @@ ColumnConfiguration.set(
 ColumnConfiguration.set(Column.ccPharmaceutical, {
   label: 'Pharmaceutical Use',
   render: (data) => {
-    const pharmaData = data[EntrySection.PathologyAndBioTech].commentsData.get(
+    const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.PHARMACEUTICAL
     ) as FreeTextComment[];
     return pharmaData && <FreeTextView comments={pharmaData} />;
@@ -829,7 +824,7 @@ ColumnConfiguration.set(Column.ccPharmaceutical, {
 ColumnConfiguration.set(Column.ccToxicDose, {
   label: 'Toxic Dose',
   render: (data) => {
-    const toxicData = data[EntrySection.PathologyAndBioTech].commentsData.get(
+    const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.TOXIC_DOSE
     ) as FreeTextComment[];
     return toxicData && <FreeTextView comments={toxicData} />;
@@ -977,7 +972,7 @@ const getXrefColumn = (databaseName: string) => ({
     }
     const { xrefData } = data[entrySection];
     // Get the category for the database name in the section
-    const category = xrefData.find(
+    const category = xrefData?.find(
       (xrefCategory) =>
         xrefCategory.category === databaseNameToCategory.get(databaseName)
     );

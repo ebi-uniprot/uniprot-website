@@ -58,6 +58,7 @@ export type WrappedRowProps = {
   handleSelectedEntries?: (rowId: string) => void;
   trackStart: number;
   trackEnd: number;
+  delayRender: boolean;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -76,6 +77,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   handleSelectedEntries,
   trackStart,
   trackEnd,
+  delayRender,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
@@ -151,14 +153,16 @@ const WrappedRow: FC<WrappedRowProps> = ({
         ))}
       </div>
       <div className="track">
-        <protvista-msa
-          ref={setMSAAttributes}
-          length={rowLength}
-          height={sequences.length * sequenceHeight}
-          colorscheme={highlightProperty}
-          hidelabel
-          {...conservationOptions}
-        />
+        {delayRender ? undefined : (
+          <protvista-msa
+            ref={setMSAAttributes}
+            length={rowLength}
+            height={sequences.length * sequenceHeight}
+            colorscheme={highlightProperty}
+            hidelabel
+            {...conservationOptions}
+          />
+        )}
       </div>
       <span className="right-coord">
         {sequences.map((s) => (
@@ -169,12 +173,14 @@ const WrappedRow: FC<WrappedRowProps> = ({
       </span>
       <span className="track-label annotation-label">{annotation}</span>
       <div className="track annotation-track">
-        <protvista-track
-          ref={setFeatureTrackData}
-          displaystart={trackStart}
-          displayend={trackEnd}
-          length={trackEnd - trackStart + 1}
-        />
+        {delayRender ? undefined : (
+          <protvista-track
+            ref={setFeatureTrackData}
+            displaystart={trackStart}
+            displayend={trackEnd}
+            length={trackEnd - trackStart + 1}
+          />
+        )}
       </div>
     </>
   );
@@ -211,7 +217,7 @@ const Wrapped: FC<MSAViewProps> = ({
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({
-    first: 4,
+    first: 10,
     increment: +Infinity,
     max: +Infinity,
     delay: 500,
@@ -281,27 +287,23 @@ const Wrapped: FC<MSAViewProps> = ({
       className="alignment-grid alignment-wrapped"
       data-testid="alignment-wrapped-view"
     >
-      {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => {
-        if (index < nItemsToRender) {
-          return (
-            <WrappedRow
-              key={id}
-              rowLength={rowLength}
-              sequences={sequences}
-              annotation={annotation}
-              highlightProperty={highlightProperty}
-              conservationOptions={conservationOptions}
-              activeId={activeId}
-              setActiveId={setActiveId}
-              selectedEntries={selectedEntries}
-              handleSelectedEntries={handleSelectedEntries}
-              trackStart={trackStart}
-              trackEnd={trackEnd}
-            />
-          );
-        }
-        return <div key={id} className="alignment-grid__placeholder" />;
-      })}
+      {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => (
+        <WrappedRow
+          key={id}
+          rowLength={rowLength}
+          sequences={sequences}
+          annotation={annotation}
+          highlightProperty={highlightProperty}
+          conservationOptions={conservationOptions}
+          activeId={activeId}
+          setActiveId={setActiveId}
+          selectedEntries={selectedEntries}
+          handleSelectedEntries={handleSelectedEntries}
+          delayRender={index >= nItemsToRender}
+          trackStart={trackStart}
+          trackEnd={trackEnd}
+        />
+      ))}
     </div>
   );
 };

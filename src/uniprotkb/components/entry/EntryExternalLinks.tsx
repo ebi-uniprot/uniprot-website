@@ -50,7 +50,7 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
     XrefsGoupedByDatabase[]
   >();
   Object.values(EntrySection).forEach((entrySection) => {
-    transformedData[entrySection as EntrySection].xrefData.forEach(
+    transformedData[entrySection as EntrySection].xrefData?.forEach(
       ({ category, databases }) => {
         const currentDatabases = databaseCategoryToXrefsGoupedByDatabase.get(
           category

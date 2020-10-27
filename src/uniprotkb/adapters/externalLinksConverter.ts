@@ -1,4 +1,3 @@
-import idx from 'idx';
 import { UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { CommentType } from '../types/commentTypes';
@@ -18,17 +17,16 @@ const convertExternalLinks = (data: UniProtkbAPIModel) => {
     convertedData.commentsData.set(
       CommentType.WEB_RESOURCE,
       comments.filter(
-        comment => comment.commentType === CommentType.WEB_RESOURCE
+        (comment) => comment.commentType === CommentType.WEB_RESOURCE
       )
     );
   }
   if (uniProtKBCrossReferences) {
-    const commonName = idx(organism, o => o.commonName);
     convertedData.xrefData = getXrefsForSection(
       uniProtKBCrossReferences,
       EntrySection.ExternalLinks,
       genes,
-      commonName
+      organism?.commonName
     );
   }
 

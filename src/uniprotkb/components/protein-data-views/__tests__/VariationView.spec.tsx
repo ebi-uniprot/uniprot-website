@@ -48,9 +48,11 @@ describe('VariationView component', () => {
   });
 
   test('renders on data', async () => {
+    // protvista-variation-adapter is already mocked
+    // but we still need the call
     useDataApi.mockReturnValue({
       loading: false,
-      data: { sequence: 'ABCDEFG', features: [{}, {}] },
+      data: { features: [{}] },
     });
     await act(async () => {
       const { asFragment } = render(

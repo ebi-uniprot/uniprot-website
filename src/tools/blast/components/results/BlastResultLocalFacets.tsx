@@ -13,19 +13,21 @@ import {
   getDataPoints,
   getFacetBounds,
   filterBlastByFacets,
+  blastFacetToKeyName,
+  blastFacetToNiceName,
 } from '../../utils/blastFacetDataUtils';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
-import { BlastHit } from '../../types/blastResults';
+import { BlastFacet, BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 import Response from '../../../../uniprotkb/types/responseTypes';
 
 import './styles/results-view.scss';
 
 type LocalFacetProps = {
-  facet: string;
+  facet: BlastFacet;
   bounds: { min: number; max: number };
   facetBounds: { min: number; max: number };
   hitsFilteredByServer: BlastHit[];
@@ -91,8 +93,10 @@ const LocalFacet: FC<LocalFacetProps> = ({
   }
 
   return (
-    <li key={facet}>
-      <span>{facet}</span>
+    <li key={facet} className={blastFacetToKeyName[facet]}>
+      <span className="blast-parameters-facet__title">
+        {blastFacetToNiceName[facet]}
+      </span>
       <HistogramFilter
         height={50}
         min={bounds.min}
@@ -150,7 +154,7 @@ const BlastResultLocalFacets: FC<{
       getBounds(allHits),
       // see: https://en.wikipedia.org/wiki/Histogram#Square-root_choice
       // We chose the simplest implementation for the bin number, 𝐤=⌈√𝐧⌉
-      Math.ceil(Math.sqrt(dataPoints.score.length)),
+      Math.ceil(Math.sqrt(dataPoints[BlastFacet.SCORE].length)),
     ];
   }, [allHits]);
 
@@ -159,7 +163,9 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <div className={cn('blast-parameters-facet', isStale && 'is-stale')}>
+    <div
+      className={cn('facets', 'blast-parameters-facet', isStale && 'is-stale')}
+    >
       <ul className="no-bullet">
         <li>
           <span className="facet-name">Blast parameters</span>

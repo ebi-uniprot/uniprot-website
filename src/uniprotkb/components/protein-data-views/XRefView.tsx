@@ -1,8 +1,8 @@
 import React, { Fragment, FC } from 'react';
 import { v1 } from 'uuid';
-import idx from 'idx';
 import { sortBy } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
+
 import {
   databaseCategoryToString,
   databaseToDatabaseInfo,
@@ -112,7 +112,7 @@ const EMBLXref: FC<{
     );
   }
   return (
-    <Fragment>
+    <>
       (
       <ExternalLink url={processUrlTemplate(databaseInfo.uriLink, params)}>
         EMBL
@@ -150,7 +150,7 @@ const EMBLXref: FC<{
           properties.Status as keyof typeof EMBLXrefProperties
         ]}
       {isoformNode}
-    </Fragment>
+    </>
   );
 };
 
@@ -178,9 +178,9 @@ export const XRef: FC<XRefProps> = ({
   let isoformNode;
   if (isoformId) {
     isoformNode = (
-      <Fragment>
+      <>
         [<a href={`#${isoformId}`}>{isoformId}</a>]
-      </Fragment>
+      </>
     );
   }
 
@@ -218,12 +218,12 @@ export const XRef: FC<XRefProps> = ({
   }
 
   return (
-    <Fragment>
+    <>
       <ExternalLink url={processUrlTemplate(uriLink, params)}>
         {text}
       </ExternalLink>{' '}
       {propertiesNode} {isoformNode}
-    </Fragment>
+    </>
   );
 };
 
@@ -246,7 +246,6 @@ export const DatabaseList: FC<{
         id: v1(),
         content: (
           <ExternalLink
-            key={v1()}
             url={viewLink(primaryAccession)}
           >{`View protein in ${database}`}</ExternalLink>
         ),
@@ -281,9 +280,9 @@ const XRefsGroupedByCategory: FC<XRefsGroupedByCategoryProps> = ({
   databases,
   primaryAccession,
   crc64,
-}): JSX.Element => {
+}) => {
   const infoData = sortBy(databases, ({ database }) => [
-    idx(databaseToDatabaseInfo, (o) => o[database].implicit),
+    databaseToDatabaseInfo?.[database].implicit,
     database,
   ]).map((database): {
     title: string;
@@ -314,7 +313,7 @@ const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> 
   databases,
   primaryAccession,
   crc64,
-}): JSX.Element => {
+}) => {
   const { PDBDatabase, otherStructureDatabases } = partitionStructureDatabases(
     databases
   );
@@ -323,7 +322,7 @@ const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> 
     PDBViewNode = <PDBView xrefs={PDBDatabase.xrefs} noStructure />;
   }
   return (
-    <Fragment>
+    <>
       {PDBViewNode}
       {otherStructureDatabases && otherStructureDatabases.length && (
         <XRefsGroupedByCategory
@@ -332,7 +331,7 @@ const StructureXRefsGroupedByCategory: FC<StructureXRefsGroupedByCategoryProps> 
           crc64={crc64}
         />
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -342,16 +341,12 @@ type XRefViewProps = {
   crc64?: string;
 };
 
-const XRefView: FC<XRefViewProps> = ({
-  xrefs,
-  primaryAccession,
-  crc64,
-}): JSX.Element | null => {
+const XRefView: FC<XRefViewProps> = ({ xrefs, primaryAccession, crc64 }) => {
   if (!xrefs) {
     return null;
   }
   const nodes = xrefs.map(
-    ({ databases, category }): JSX.Element => {
+    ({ databases, category }, index): JSX.Element => {
       const xrefsNode =
         category === DatabaseCategory.STRUCTURE ? (
           <StructureXRefsGroupedByCategory
@@ -371,14 +366,15 @@ const XRefView: FC<XRefViewProps> = ({
         title = databaseCategoryToString[category];
       }
       return (
-        <Fragment key={v1()}>
+        // eslint-disable-next-line react/no-array-index-key
+        <Fragment key={index}>
           <h3>{title}</h3>
           {xrefsNode}
         </Fragment>
       );
     }
   );
-  return <Fragment>{nodes}</Fragment>;
+  return <>{nodes}</>;
 };
 
 export default XRefView;

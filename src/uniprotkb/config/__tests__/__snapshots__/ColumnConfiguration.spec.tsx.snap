@@ -124,7 +124,7 @@ exports[`ColumnConfiguration component should render all columns: Alternative Pr
     isoID1
   </h3>
   <div
-    class="info-list"
+    class="info-list info-list--columns info-list--compact"
   >
     <div
       class="info-list__item"
@@ -1797,37 +1797,41 @@ exports[`ColumnConfiguration component should render all columns: Score 1`] = `
 
 exports[`ColumnConfiguration component should render all columns: Sequence 1`] = `
 <DocumentFragment>
-  <div
-    class="sequence"
+  <section
+    class="sequence-container"
   >
     <div
-      class="sequence__sequence"
+      class="sequence"
     >
-      <span
-        class="sequence__sequence__chunk"
+      <div
+        class="sequence__sequence"
       >
-        <svg
-          height="30"
-          width="100"
+        <span
+          class="sequence__sequence__chunk"
         >
-          <text
-            class="sequence__sequence__chunk__counter"
-            x="100"
-            y="10"
+          <svg
+            height="30"
+            width="100"
           >
-            10
-          </text>
-          <text
-            class="sequence__sequence__chunk__sequence"
-            x="0"
-            y="20"
-          >
-            SAPSQDFMRF
-          </text>
-        </svg>
-      </span>
+            <text
+              class="sequence__sequence__chunk__counter"
+              x="100"
+              y="10"
+            >
+              10
+            </text>
+            <text
+              class="sequence__sequence__chunk__sequence"
+              x="0"
+              y="20"
+            >
+              SAPSQDFMRF
+            </text>
+          </svg>
+        </span>
+      </div>
     </div>
-  </div>
+  </section>
 </DocumentFragment>
 `;
 

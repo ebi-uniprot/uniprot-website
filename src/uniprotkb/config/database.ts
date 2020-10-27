@@ -40,7 +40,7 @@ export const {
 export const PDBMirrors = ['PDB', 'RCSB-PDB', 'PDBj', 'PDBsum'];
 
 export const PDBMirrorsInfo = PDBMirrors.map(
-  PDBMirror => databaseToDatabaseInfo[PDBMirror]
+  (PDBMirror) => databaseToDatabaseInfo[PDBMirror]
 );
 
 const databaseSelector = selectDatabases(databaseCategoryToNames);
@@ -106,7 +106,7 @@ entrySectionToDatabaseNames.set(EntrySection.NamesAndTaxonomy, [
   'Xenbase',
   'ZFIN',
 ]);
-entrySectionToDatabaseNames.set(EntrySection.PathologyAndBioTech, [
+entrySectionToDatabaseNames.set(EntrySection.DiseaseAndDrugs, [
   'DisGeNET',
   'GeneReviews',
   'MalaCards',
@@ -182,7 +182,7 @@ export const entrySectionToDatabaseCategoryOrder = getEntrySectionToDatabaseCate
 
 export const getDatabaseInfoByName = (dbName: string) =>
   databaseInfo.find(
-    dbInfo => dbInfo.name.toLowerCase() === dbName.toLowerCase()
+    (dbInfo) => dbInfo.name.toLowerCase() === dbName.toLowerCase()
   );
 
 // If each of the keys are present then show the values

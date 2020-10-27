@@ -1,7 +1,7 @@
 import EntrySection from '../types/entrySection';
 import convertFunction from './functionConverter';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
-import convertPathologyAndBiotech from './pathologyAndBiotechConverter';
+import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import {
   convertNamesAndTaxonomy,
   NamesAndTaxonomyUIModel,
@@ -18,7 +18,7 @@ import {
   SequenceUIModel,
   EntryAudit,
 } from './sequenceConverter';
-import { SequenceData } from '../components/protein-data-views/SequenceView';
+import { SequenceData } from '../../shared/components/entry/SequenceView';
 import { Keyword } from '../utils/KeywordsUtil';
 import convertInteraction from './interactionConverter';
 import convertFamilyAndDomains from './familyAndDomainsConverter';
@@ -42,9 +42,10 @@ export type UniProtkbAPIModel = {
   organism?: OrganismData;
   virusHosts?: OrganismData[];
   primaryAccession: string;
+  secondaryAccessions?: string[];
   uniProtkbId: string;
   proteinExistence: string;
-  entryType: EntryType;
+  entryType: Exclude<EntryType, EntryType.INACTIVE>;
   comments?: Comment[];
   keywords?: Keyword[];
   features?: FeatureData;
@@ -65,7 +66,7 @@ export type UniProtkbUIModel = {
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
-  [EntrySection.PathologyAndBioTech]: UIModel;
+  [EntrySection.DiseaseAndDrugs]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
@@ -121,7 +122,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Function]: convertFunction(dataCopy),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
-    [EntrySection.PathologyAndBioTech]: convertPathologyAndBiotech(dataCopy),
+    [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(dataCopy),
     [EntrySection.ProteinProcessing]: convertProteinProcessing(dataCopy),
     [EntrySection.Expression]: convertExpression(dataCopy),
     [EntrySection.Interaction]: convertInteraction(dataCopy),

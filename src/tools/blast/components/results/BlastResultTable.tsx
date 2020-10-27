@@ -1,11 +1,22 @@
 /* eslint-disable camelcase */
-import React, { FC, useCallback, useState, useRef, useMemo } from 'react';
+import React, {
+  useCallback,
+  useState,
+  useRef,
+  useMemo,
+  FC,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
+
+import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import { EnrichedBlastHit } from './BlastResult';
 
-import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTitle';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
@@ -19,6 +30,18 @@ import {
 
 import './styles/BlastResultTable.scss';
 
+const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
+  hsp_identity: 'Identity',
+  hsp_bit_score: 'Score',
+  hsp_expect: 'E-value',
+};
+
+const scoringColorDict: Partial<Record<keyof BlastHsp, string>> = {
+  hsp_identity: colors.sapphireBlue,
+  hsp_bit_score: colors.coyoteBrown,
+  hsp_expect: colors.outerSpace,
+};
+
 const BlastSummaryTrack: FC<{
   hsp: BlastHsp;
   extra?: UniProtkbAPIModel;
@@ -26,6 +49,9 @@ const BlastSummaryTrack: FC<{
   hitLength: number;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   hitAccession: string;
+  selectedScoring: keyof BlastHsp;
+  setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
+  maxScorings: Partial<Record<keyof BlastHsp, number>>;
 }> = ({
   hsp,
   queryLength,
@@ -33,14 +59,11 @@ const BlastSummaryTrack: FC<{
   setHspDetailPanel,
   hitAccession,
   extra,
+  selectedScoring,
+  setSelectedScoring,
+  maxScorings,
 }) => {
-  const {
-    hsp_query_from,
-    hsp_query_to,
-    hsp_identity,
-    hsp_bit_score,
-    hsp_expect,
-  } = hsp;
+  const { hsp_query_from, hsp_query_to } = hsp;
 
   const ceDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
@@ -54,33 +77,50 @@ const BlastSummaryTrack: FC<{
          * TODO - would be nice to add gaps
          * at some point
          */
+        let opacity = +hsp[selectedScoring];
+        const max = maxScorings[selectedScoring];
+        if (max !== undefined) {
+          switch (selectedScoring) {
+            case 'hsp_expect':
+              // invert scale and rescale for e-value
+              opacity = 1 - +hsp[selectedScoring] / (2 * max);
+              break;
+            case 'hsp_identity':
+              // rescale for percents
+              opacity /= 100;
+              break;
+            case 'hsp_bit_score':
+              opacity /= max;
+              break;
+            default:
+            //
+          }
+        }
+        const color = scoringColorDict[selectedScoring];
         // eslint-disable-next-line no-param-reassign
         node.data = [
           {
             start: 1,
-            end: hsp_query_from,
+            end: hsp.hsp_query_from,
             shape: 'line',
-            color: '#014371',
-            opacity: hsp_identity / 100,
+            color,
           },
           {
-            start: hsp_query_from,
-            end: hsp_query_to,
-            // franklin $colour-sapphire-blue
-            color: '#014371',
-            opacity: hsp_identity / 100,
+            start: hsp.hsp_query_from,
+            end: hsp.hsp_query_to,
+            color,
+            opacity,
           },
           {
-            start: hsp_query_to,
-            end: hitLength > hsp_query_to ? hitLength : hsp_query_to,
+            start: hsp.hsp_query_to,
+            end: hitLength > hsp.hsp_query_to ? hitLength : hsp.hsp_query_to,
             shape: 'line',
-            color: '#014371',
-            opacity: hsp_identity / 100,
+            color,
           },
         ];
       }
     },
-    [ceDefined, hsp_query_from, hsp_query_to, hsp_identity, hitLength]
+    [ceDefined, hsp, selectedScoring, hitLength, maxScorings]
   );
 
   return (
@@ -91,7 +131,7 @@ const BlastSummaryTrack: FC<{
           length={queryLength}
           height={10}
           ref={setTrackData}
-          title={`Start: ${hsp_query_from}\nEnd: ${hsp_query_to}\nHit Length: ${hitLength}`}
+          title={`Start: ${hsp_query_from}\nEnd: ${hsp_query_to}\nHit length: ${hitLength}`}
           onClick={() => {
             setHspDetailPanel({
               hsp,
@@ -105,9 +145,22 @@ const BlastSummaryTrack: FC<{
         />
       </section>
       <span className="data-table__blast-hsp__blast-params">
-        <Chip compact title="Identity">{`${hsp_identity}%`}</Chip>
-        <Chip compact title="Score">{`${hsp_bit_score}`}</Chip>
-        <Chip compact title="e-value">{`${hsp_expect}`}</Chip>
+        {Object.entries(scoringDict).map(([key, title]) => (
+          <Chip
+            key={key}
+            compact
+            title={title}
+            className={cn(
+              key,
+              key === selectedScoring ? 'primary' : 'secondary'
+            )}
+            onClick={() => setSelectedScoring(key as keyof BlastHsp)}
+          >
+            {`${hsp[key as keyof BlastHsp]}${
+              key === 'hsp_identity' ? '%' : ''
+            }`}
+          </Chip>
+        ))}
       </span>
     </div>
   );
@@ -120,6 +173,9 @@ const BlastSummaryHsps: FC<{
   hitAccession: string;
   extra?: UniProtkbAPIModel;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
+  selectedScoring: keyof BlastHsp;
+  setSelectedScoring: Dispatch<SetStateAction<keyof BlastHsp>>;
+  maxScorings: Partial<Record<keyof BlastHsp, number>>;
 }> = ({
   hsps,
   queryLength,
@@ -127,6 +183,9 @@ const BlastSummaryHsps: FC<{
   setHspDetailPanel,
   hitAccession,
   extra,
+  selectedScoring,
+  setSelectedScoring,
+  maxScorings,
 }) => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -144,6 +203,9 @@ const BlastSummaryHsps: FC<{
           hitAccession={hitAccession}
           extra={extra}
           setHspDetailPanel={setHspDetailPanel}
+          selectedScoring={selectedScoring}
+          setSelectedScoring={setSelectedScoring}
+          maxScorings={maxScorings}
         />
         {hspsOrderedByScore.length > 1 &&
           !collapsed &&
@@ -158,6 +220,9 @@ const BlastSummaryHsps: FC<{
                 hitAccession={hitAccession}
                 extra={extra}
                 setHspDetailPanel={setHspDetailPanel}
+                selectedScoring={selectedScoring}
+                setSelectedScoring={setSelectedScoring}
+                maxScorings={maxScorings}
               />
             ))}
       </div>
@@ -185,6 +250,10 @@ const BlastResultTable: FC<{
 }) => {
   // logic to keep stale data available
   const hitsRef = useRef<BlastHit[]>([]);
+
+  const [selectedScoring, setSelectedScoring] = useState<keyof BlastHsp>(
+    'hsp_identity'
+  );
 
   if (data?.hits.length) {
     hitsRef.current = data?.hits || [];
@@ -219,6 +288,27 @@ const BlastResultTable: FC<{
       }
     },
     [data, ceDefined]
+  );
+
+  const maxScorings: Partial<Record<keyof BlastHsp, number>> = useMemo(
+    () => ({
+      hsp_identity: Math.max(
+        ...(data?.hits.flatMap((hit) =>
+          hit.hit_hsps.map((hsp) => hsp.hsp_identity)
+        ) ?? [100])
+      ),
+      hsp_bit_score: Math.max(
+        ...(data?.hits.flatMap((hit) =>
+          hit.hit_hsps.map((hsp) => hsp.hsp_bit_score)
+        ) ?? [1])
+      ),
+      hsp_expect: Math.max(
+        ...(data?.hits.flatMap((hit) =>
+          hit.hit_hsps.map((hsp) => hsp.hsp_expect)
+        ) ?? [1])
+      ),
+    }),
+    [data]
   );
 
   const queryLen = data?.query_len;
@@ -279,7 +369,6 @@ const BlastResultTable: FC<{
             <protvista-navigation
               ref={queryColumnHeaderRef}
               length={queryLen}
-              height={10}
               title="Query"
             />
           </div>
@@ -294,11 +383,20 @@ const BlastResultTable: FC<{
             hitAccession={hit_acc}
             setHspDetailPanel={setHspDetailPanel}
             extra={extra}
+            selectedScoring={selectedScoring}
+            setSelectedScoring={setSelectedScoring}
+            maxScorings={maxScorings}
           />
         ),
       },
     ];
-  }, [queryLen, queryColumnHeaderRef, setHspDetailPanel]);
+  }, [
+    queryLen,
+    queryColumnHeaderRef,
+    setHspDetailPanel,
+    selectedScoring,
+    maxScorings,
+  ]);
 
   if (loading && !hitsRef.current.length) {
     return <Loader />;

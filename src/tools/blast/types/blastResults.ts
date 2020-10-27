@@ -72,7 +72,7 @@ export type BlastResults = {
 };
 
 export enum BlastFacet {
-  SCORE = 'score',
   IDENTITY = 'identity',
+  SCORE = 'score',
   EVALUE = 'evalue',
 }

@@ -1,14 +1,11 @@
-import React, { useCallback, FC } from 'react';
+import React, { useCallback, FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 import { html } from 'lit-html';
 import joinUrl from 'url-join';
 
 import { filterConfig, colorConfig } from 'protvista-uniprot';
-import {
-  ProteinsAPIVariation,
-  Feature as VariantFeature,
-} from 'protvista-variation-adapter/dist/es/variants';
-import { transformData } from 'protvista-variation-adapter';
+import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/variants';
+import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
@@ -26,22 +23,23 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
   return {
     positions: {
       label: 'Position(s)',
-      resolver: (d: VariantFeature) =>
-        d.begin === d.end ? d.begin : `${d.begin}-${d.end}`,
+      resolver: (d: TransformedVariant) =>
+        d.start === d.end ? d.start : `${d.start}-${d.end}`,
     },
     change: {
       label: 'Change',
-      resolver: (d: VariantFeature) => `${d.wildType}>${d.alternativeSequence}`,
+      resolver: (d: TransformedVariant) =>
+        `${d.wildType}>${d.alternativeSequence}`,
     },
     consequence: {
       label: 'Consequence',
       child: true,
-      resolver: (d: VariantFeature) => d.consequenceType,
+      resolver: (d: TransformedVariant) => d.consequenceType,
     },
     predictions: {
       label: 'Predictions',
       child: true,
-      resolver: (d: VariantFeature) =>
+      resolver: (d: TransformedVariant) =>
         html`${d.predictions?.map(
           (prediction) =>
             html`${prediction.predAlgorithmNameType}:
@@ -50,7 +48,7 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
     },
     description: {
       label: 'Description',
-      resolver: (d: VariantFeature) =>
+      resolver: (d: TransformedVariant) =>
         html`${d.descriptions?.map(
           (description) =>
             html`${description.value} (${description.sources.join(', ')})<br />`
@@ -59,17 +57,17 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
     somaticStatus: {
       label: 'Somatic',
       child: true,
-      resolver: (d: VariantFeature) => (d.somaticStatus === 1 ? 'Y' : 'N'),
+      resolver: (d: TransformedVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
     },
     hasDisease: {
       label: 'Disease association',
-      resolver: (d: VariantFeature) =>
+      resolver: (d: TransformedVariant) =>
         d.association && d.association.length > 0 ? 'Y' : 'N',
     },
     association: {
       label: 'Disease association',
       child: true,
-      resolver: (d: VariantFeature) => {
+      resolver: (d: TransformedVariant) => {
         if (!d.association) {
           return '';
         }
@@ -105,6 +103,14 @@ const VariationView: FC<{
     joinUrl(apiUrls.variation, primaryAccession)
   );
 
+  // We pass the transformed data to both the variation viewer and the
+  // data table as ids are set during the transformation - they are
+  // used for the selection between the 2 components
+  const transformedData = useMemo(
+    () => (data && data.features ? transformData(data) : undefined),
+    [data]
+  );
+
   const filterDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
     'protvista-filter'
@@ -130,8 +136,12 @@ const VariationView: FC<{
 
   const protvistaVariationRef = useCallback(
     (node) => {
-      if (node && variationDefined && data && data.features) {
-        const transformedData = transformData(data);
+      if (
+        node &&
+        variationDefined &&
+        transformedData &&
+        transformedData.variants
+      ) {
         // eslint-disable-next-line no-param-reassign
         node.colorConfig = colorConfig;
         // eslint-disable-next-line no-param-reassign
@@ -140,7 +150,7 @@ const VariationView: FC<{
         node.length = transformedData.sequence.length;
       }
     },
-    [variationDefined, data]
+    [variationDefined, transformedData]
   );
 
   const navigationDefined = useCustomElement(
@@ -176,10 +186,10 @@ const VariationView: FC<{
 
   if (
     status === 404 ||
-    !data ||
-    !data.sequence ||
-    !data.features ||
-    data.features.length <= 0
+    !transformedData ||
+    !transformedData.sequence ||
+    !transformedData.variants ||
+    transformedData.variants.length <= 0
   ) {
     return null;
   }
@@ -187,13 +197,13 @@ const VariationView: FC<{
   return (
     <div>
       {title && <h3>{title}</h3>}
-      <protvista-manager attributes="highlight displaystart displayend activefilters filters">
+      <protvista-manager attributes="highlight displaystart displayend activefilters filters selectedid">
         {hasTable && (
           <div className="variation-view">
-            <protvista-navigation length={data.sequence.length} />
+            <protvista-navigation length={transformedData.sequence.length} />
             <protvista-sequence
-              length={data.sequence.length}
-              sequence={data.sequence}
+              length={transformedData.sequence.length}
+              sequence={transformedData.sequence}
               height="20"
               filter-scroll
             />
@@ -203,13 +213,13 @@ const VariationView: FC<{
             />
             <protvista-variation
               id="variation-component"
-              length={data.sequence.length}
+              length={transformedData.sequence.length}
               ref={protvistaVariationRef}
             />
           </div>
         )}
         <FeaturesTableView
-          data={data.features}
+          data={transformedData.variants}
           getColumnConfig={getColumnConfig}
         />
       </protvista-manager>

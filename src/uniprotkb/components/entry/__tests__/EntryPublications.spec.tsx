@@ -25,16 +25,4 @@ describe('EntryPublications tests', () => {
     expect(useDataApi).toHaveBeenCalled();
     expect(await findByText(/ISOFORM APP751/)).toBeTruthy();
   });
-
-  it('should render the error', async () => {
-    useDataApi.mockImplementation(() => {
-      return {
-        loading: false,
-        error: new Error('my error'),
-        status: 400,
-      };
-    });
-    const { asFragment } = getRendered();
-    expect(asFragment()).toMatchSnapshot();
-  });
 });

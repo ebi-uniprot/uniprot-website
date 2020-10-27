@@ -91,7 +91,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
                   class="active"
                   type="button"
                 >
-                  Clustal
+                  Similarity
                 </button>
               </li>
               <li
@@ -101,7 +101,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
                   class=""
                   type="button"
                 >
-                  Similarity
+                  Clustal
                 </button>
               </li>
               <li
@@ -392,7 +392,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
                   class="active"
                   type="button"
                 >
-                  U6MKN0
+                  Match:U6MKN0
                 </button>
                 <ul
                   class=""
@@ -465,10 +465,12 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           class="track"
         >
           <protvista-msa
-            colorscheme="clustal"
+            calculate-conservation="true"
+            colorscheme="conservation"
             height="40"
             hidelabel="true"
             length="45"
+            overlay-conservation="true"
           />
         </div>
         <span
@@ -601,7 +603,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                       class="active"
                       type="button"
                     >
-                      Clustal
+                      Similarity
                     </button>
                   </li>
                   <li
@@ -611,7 +613,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                       class=""
                       type="button"
                     >
-                      Similarity
+                      Clustal
                     </button>
                   </li>
                   <li
@@ -902,7 +904,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                       class="active"
                       type="button"
                     >
-                      U6MKN0
+                      Match:U6MKN0
                     </button>
                     <ul
                       class=""
@@ -1020,10 +1022,12 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                   length="28"
                 />
                 <protvista-msa
-                  colorscheme="clustal"
+                  calculate-conservation="true"
+                  colorscheme="conservation"
                   height="40"
                   hidelabel="true"
                   length="28"
+                  overlay-conservation="true"
                 />
               </protvista-manager>
             </div>

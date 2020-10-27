@@ -116,8 +116,9 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
       setTooltipContent({ __html: formatTooltip(feature) });
       const rect = trackRef.current.getBoundingClientRect();
-      tooltipRef.current.x = x - rect.x; // event.x;
-      tooltipRef.current.y = y - rect.y; // event.y;
+
+      tooltipRef.current.x = x; // - rect.x; // event.x;
+      tooltipRef.current.y = y; // - rect.y; // event.y;
     },
     [alignment]
   );
@@ -218,7 +219,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       }
 
       node.features = selectedFeatures;
-      node.onFeatureClick = ({ id, event }) => {
+      node.onFeatureClick = ({ event, id }) => {
         updateTooltip({ id, x: event.x, y: event.y, event });
       };
 
@@ -232,16 +233,10 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       if (typeof displayEnd === 'undefined') {
         setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
       }
+
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [
-      msaDefined,
-      selectedFeatures,
-      updateTooltip,
-      alignmentLength,
-      alignment,
-      displayEnd,
-    ]
+    [msaDefined, alignmentLength, alignment, displayEnd]
   );
 
   const trackDefined = useCustomElement(
@@ -309,6 +304,12 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
   return (
     <section data-testid="alignment-view" className="alignment-grid">
+      <protvista-tooltip
+        ref={tooltipRef}
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={tooltipContent}
+        {...tooltipVisibility}
+      />{' '}
       {/* first row */}
       <span className="track-label">Overview</span>
       <div className="track">
@@ -319,7 +320,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           data={alignmentOverviewData}
         />
       </div>
-
       {/* second row */}
       <span className="track-label">{annotation}</span>
       <div className="track" ref={trackRef}>
@@ -329,14 +329,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           layout="non-overlapping"
           highlight={highlightPosition}
         />
-        <protvista-tooltip
-          ref={tooltipRef}
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={tooltipContent}
-          {...tooltipVisibility}
-        />
       </div>
-
       {/* third row */}
       <div className="track-label track-label--align-labels">
         {alignment.map((s) => (
