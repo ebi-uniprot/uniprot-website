@@ -78,53 +78,38 @@ const WrappedRow: FC<WrappedRowProps> = ({
   trackStart,
   trackEnd,
   delayRender,
+  activeAnnotation,
+  activeAlignment,
+  selectedFeatures,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
-
+  console.log(selectedFeatures);
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaDefined) {
+        node.features = selectedFeatures;
         node.data = sequences;
       }
     },
-    [msaDefined, sequences]
+    [msaDefined, selectedFeatures, sequences]
   );
 
   const trackDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
-
-  const activeSeq = useMemo(
-    () =>
-      sequences.find(({ accession }) => accession && accession === activeId),
-    [sequences, activeId]
-  );
-
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined) {
-        let features: ProcessedFeature[] = [];
-        if (annotation) {
-          const filteredFeatures = activeSeq?.features?.filter(
-            ({ type }) => type === annotation
-          );
-          if (activeSeq && activeSeq.end > 0 && filteredFeatures) {
-            // processedFeatures = processFeaturesData(features);
-            features = filteredFeatures.map((feature) =>
-              createGappedFeature(feature, activeSeq.fullSequence)
-            );
-          }
-        }
-        node.data = features;
+        node.data = activeAnnotation;
       }
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [trackDefined, annotation, activeSeq]
+    [activeAnnotation, trackDefined]
   );
 
   if (!(msaDefined && trackDefined)) {
@@ -211,6 +196,9 @@ const Wrapped: FC<MSAViewProps> = ({
   omitInsertionsInCoords = false,
   selectedEntries,
   handleSelectedEntries,
+  selectedFeatures,
+  activeAnnotation,
+  activeAlignment,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
@@ -302,6 +290,9 @@ const Wrapped: FC<MSAViewProps> = ({
           delayRender={index >= nItemsToRender}
           trackStart={trackStart}
           trackEnd={trackEnd}
+          activeAnnotation={activeAnnotation}
+          activeAlignment={activeAlignment}
+          selectedFeatures={selectedFeatures}
         />
       ))}
     </div>

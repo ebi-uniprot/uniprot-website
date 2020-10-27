@@ -21,6 +21,7 @@ import {
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
+  createGappedFeature,
   findSequenceFeature,
   getFullAlignmentLength,
   getMSAFeature,
@@ -166,6 +167,22 @@ const AlignmentView: React.FC<{
       .filter(({ accession }) => accession)
       .map(({ accession }) => accession)[0]
   );
+
+  const activeAlignment = useMemo(
+    () =>
+      alignment.find(({ accession }) => accession && accession === activeId),
+    [alignment, activeId]
+  );
+
+  console.log(activeAlignment);
+  const activeAnnotation = useMemo(
+    () =>
+      (activeAlignment?.features || [])
+        .filter(({ type }) => type === annotation)
+        .map((f) => createGappedFeature(f, activeAlignment?.sequence)),
+    [activeAlignment?.features, activeAlignment?.sequence, annotation]
+  );
+  console.log(activeAnnotation);
 
   useEffect(() => {
     // if no default value was available on first render, set it now
@@ -358,6 +375,8 @@ const AlignmentView: React.FC<{
           activeId={activeId}
           updateTooltip={updateTooltip}
           selectedFeatures={selectedFeatures}
+          activeAnnotation={activeAnnotation}
+          activeAlignment={activeAlignment}
           {...additionalAlignProps}
         />
       </div>

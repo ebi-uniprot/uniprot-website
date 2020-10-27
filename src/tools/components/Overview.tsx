@@ -67,6 +67,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   handleSelectedEntries,
   updateTooltip,
   selectedFeatures,
+  activeAnnotation,
 }) => {
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
@@ -167,23 +168,15 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const ceDefined =
     trackDefined && navigationDefined && msaDefined && managerDefined;
 
-  const activeAlignment = useMemo(
-    () =>
-      alignment.find(({ accession }) => accession && accession === activeId),
-    [alignment, activeId]
-  );
-
+  console.log(activeAnnotation);
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined && activeAlignment?.features && annotation) {
-        node.data = activeAlignment.features
-          .filter(({ type }) => type === annotation)
-          .map((f) => createGappedFeature(f, activeAlignment.sequence));
-
-        node.test = 'test';
+      if (node && ceDefined && activeAnnotation) {
+        console.log(activeAnnotation);
+        node.data = activeAnnotation;
       }
     },
-    [ceDefined, activeAlignment, annotation]
+    [activeAnnotation, ceDefined]
   );
 
   const overviewHeight = (alignment && alignment.length > 10
