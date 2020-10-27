@@ -83,6 +83,7 @@ describe('Sequence data converter', () => {
       },
       featuresData: [],
       flag: 'Fragment',
+      isoformNotes: {},
       keywordData: [],
       lastUpdateDate: '2017-01-21 v5',
       massSpectrometry: [

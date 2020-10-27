@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { noop } from 'lodash-es';
 
-import { MSAInput } from '../../../components/AlignmentView';
-import { Sequence } from '../../../components/Wrapped';
-import { ReviewedUnreviewed } from '../../../../uniprotkb/components/protein-data-views/UniProtKBTitle';
+import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTitle';
 
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
+import { MSAInput } from '../../../components/AlignmentView';
+import { Sequence } from '../../../components/Wrapped';
 
 import './styles/AlignLabel.scss';
 

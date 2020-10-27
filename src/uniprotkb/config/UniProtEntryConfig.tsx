@@ -1,8 +1,8 @@
 import React from 'react';
-import idx from 'idx';
+
 import FunctionSection from '../components/entry/FunctionSection';
 import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
-import PathologyAndBiotechSection from '../components/entry/PathologyAndBiotechSection';
+import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';
 import ProteinProcessingSection from '../components/entry/ProteinProcessingSection';
 import ExpressionSection from '../components/entry/ExpressionSection';
 import SubcellularLocationSection from '../components/entry/SubcellularLocationSection';
@@ -10,6 +10,7 @@ import SequenceSection from '../components/entry/SequenceSection';
 import InteractionSection from '../components/entry/InteractionSection';
 import FamilyAndDomainsSection from '../components/entry/FamilyAndDomainsSection';
 import StructureSection from '../components/entry/StructureSection';
+
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import EntrySection, { EntrySectionIDs } from '../types/entrySection';
@@ -54,14 +55,14 @@ const UniProtKBEntryConfig: {
     ),
   },
   {
-    name: EntrySection.PathologyAndBioTech,
-    id: EntrySectionIDs[EntrySection.PathologyAndBioTech],
+    name: EntrySection.DiseaseAndDrugs,
+    id: EntrySectionIDs[EntrySection.DiseaseAndDrugs],
     sectionContent: (data: UniProtkbUIModel): JSX.Element => (
-      <PathologyAndBiotechSection
-        data={data[EntrySection.PathologyAndBioTech]}
+      <DiseaseAndDrugsSection
+        data={data[EntrySection.DiseaseAndDrugs]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
-        key={EntrySection.PathologyAndBioTech}
+        key={EntrySection.DiseaseAndDrugs}
       />
     ),
   },
@@ -108,9 +109,7 @@ const UniProtKBEntryConfig: {
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
         key={EntrySection.Structure}
-        crc64={
-          idx(data, (o) => o[EntrySection.Sequence].sequence.crc64) || undefined
-        }
+        crc64={data[EntrySection.Sequence].sequence.crc64}
       />
     ),
   },

@@ -1,8 +1,23 @@
+@import '../../../../../node_modules/franklin-sites/src/styles/colours';
+
 .blast-result-hit-distribution {
   padding-top: 4rem;
   padding-left: 4rem;
   padding-right: 1rem;
   max-width: 60rem;
+  margin-bottom: 1rem;
+
+  &.identity {
+    --main-histogram-color: #{$colour-sapphire-blue};
+  }
+
+  &.score {
+    --main-histogram-color: #{$colour-coyote-brown};
+  }
+
+  &.evalue {
+    --main-histogram-color: #{$colour-outer-space};
+  }
 }
 
 .nbin-selection {

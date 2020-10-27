@@ -6,11 +6,16 @@ import {
 } from '../types/blastResults';
 import { SelectedFacet } from '../../../uniprotkb/types/resultsTypes';
 
-export const localFacets: string[] = Object.values(BlastFacet);
+export const localFacets: BlastFacet[] = Object.values(BlastFacet);
 export const blastFacetToKeyName = {
-  [BlastFacet.SCORE]: 'hsp_score',
   [BlastFacet.IDENTITY]: 'hsp_identity',
+  [BlastFacet.SCORE]: 'hsp_score',
   [BlastFacet.EVALUE]: 'hsp_expect',
+};
+export const blastFacetToNiceName = {
+  [BlastFacet.IDENTITY]: 'Identity',
+  [BlastFacet.SCORE]: 'Score',
+  [BlastFacet.EVALUE]: 'E-Value',
 };
 
 export type ParsedLocalFacet = { name: string; min: number; max: number };
@@ -19,7 +24,7 @@ const urlBoundsRE = /\[(.+) TO (.+)\]/;
 const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
   const output = [];
   for (const { name, value } of facets) {
-    if (!localFacets.includes(name)) {
+    if (!localFacets.includes(name as BlastFacet)) {
       // skip, it's just a server facet
       continue; // eslint-disable-line no-continue
     }
@@ -64,7 +69,8 @@ export const filterBlastByFacets = (
 ) => {
   const parsedFacets = parseLocalFacets(
     facets.filter(
-      ({ name }) => localFacets.includes(name) && name !== ignoredFacet
+      ({ name }) =>
+        localFacets.includes(name as BlastFacet) && name !== ignoredFacet
     )
   );
 

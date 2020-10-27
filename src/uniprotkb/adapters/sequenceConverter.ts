@@ -1,3 +1,4 @@
+import { groupBy } from 'lodash-es';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
 import {
   getKeywordsForCategories,
@@ -11,7 +12,7 @@ import {
   getJoinedXrefs,
 } from '../utils/xrefUtils';
 import EntrySection from '../types/entrySection';
-import { SequenceData } from '../components/protein-data-views/SequenceView';
+import { SequenceData } from '../../shared/components/entry/SequenceView';
 import {
   CommentType,
   AlternativeProductsComment,
@@ -38,27 +39,30 @@ export type EntryAudit = {
   sequenceVersion: number;
 };
 
+export type IsoformNotes = { [key: string]: FreeTextComment[] };
+
 export type SequenceUIModel = {
   sequence: SequenceData;
   flag?: Flag;
   status?: string;
   processing?: string;
-  keywordData: KeywordUIModel[];
+  keywordData?: KeywordUIModel[];
   alternativeProducts?: AlternativeProductsComment;
   sequenceCaution?: SequenceCautionComment[];
   massSpectrometry?: MassSpectrometryComment[];
   polymorphysm?: FreeTextComment[];
   rnaEditing?: RNAEditingComment[];
-  featuresData: FeatureData;
-  xrefData: XrefUIModel[];
+  featuresData?: FeatureData;
+  xrefData?: XrefUIModel[];
   lastUpdateDate?: string;
   entryAudit?: EntryAudit;
   molWeight?: number;
+  isoformNotes?: IsoformNotes;
 };
 
-const sequenceKeywords = [KeywordCategory.CODING_SEQUENCE_DIVERSITY];
+const keywordsCategories = [KeywordCategory.CODING_SEQUENCE_DIVERSITY, KeywordCategory.TECHNICAL_TERM];
 
-const sequenceFeatures = [
+const featuresCategories = [
   FeatureType.COMPBIAS,
   FeatureType.NON_STD,
   FeatureType.UNSURE,
@@ -111,53 +115,61 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
   // Trembl entries only have a canonical sequence
   if (data.comments) {
     const alternativeProducts = data.comments.find(
-      comment => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
+      (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
     );
     sequenceData.alternativeProducts = alternativeProducts as AlternativeProductsComment;
     const sequenceCaution = data.comments.filter(
-      comment => comment.commentType === CommentType.SEQUENCE_CAUTION
+      (comment) => comment.commentType === CommentType.SEQUENCE_CAUTION
     );
     sequenceData.sequenceCaution = sequenceCaution as SequenceCautionComment[];
     const massSpec = data.comments.filter(
-      comment => comment.commentType === CommentType.MASS_SPECTROMETRY
+      (comment) => comment.commentType === CommentType.MASS_SPECTROMETRY
     );
     sequenceData.massSpectrometry = massSpec as MassSpectrometryComment[];
     const polymorphysm = data.comments.filter(
-      comment => comment.commentType === CommentType.POLYMORPHISM
+      (comment) => comment.commentType === CommentType.POLYMORPHISM
     );
     sequenceData.polymorphysm = polymorphysm as FreeTextComment[];
     const rnaEditing = data.comments.filter(
-      comment => comment.commentType === CommentType.RNA_EDITING
+      (comment) => comment.commentType === CommentType.RNA_EDITING
     );
     sequenceData.rnaEditing = rnaEditing as RNAEditingComment[];
+
+    // Retrieve notes for isoforms
+    const notes = data.comments.filter(
+      (comment) =>
+        comment.commentType === CommentType.MISCELLANEOUS &&
+        (comment as FreeTextComment).molecule
+    ) as FreeTextComment[];
+    sequenceData.isoformNotes = groupBy(notes, 'molecule');
   }
 
   if (data.keywords) {
     const categoryKeywords = getKeywordsForCategories(
       data.keywords,
-      sequenceKeywords
+      keywordsCategories
     );
     if (categoryKeywords && Object.keys(categoryKeywords).length > 0) {
       sequenceData.keywordData = categoryKeywords;
     }
   }
   if (data.features) {
-    const features = data.features.filter(feature => {
-      return sequenceFeatures.includes(feature.type);
+    const features = data.features.filter((feature) => {
+      return featuresCategories.includes(feature.type);
     });
     sequenceData.featuresData = features;
     // Add VAR_SEQ to corresponding isoforms
     if (features && sequenceData.alternativeProducts) {
       const varSeqs = features.filter(
-        feature => feature.type === FeatureType.VAR_SEQ
+        (feature) => feature.type === FeatureType.VAR_SEQ
       );
       sequenceData.alternativeProducts.isoforms = sequenceData.alternativeProducts.isoforms.map(
-        isoform => {
+        (isoform) => {
           const varSeqsToAdd: FeatureData = [];
           if (isoform.sequenceIds && varSeqs.length !== 0) {
-            isoform.sequenceIds.forEach(sequenceId => {
+            isoform.sequenceIds.forEach((sequenceId) => {
               const varSeqToAdd = varSeqs.find(
-                varSeq => varSeq.featureId === sequenceId
+                (varSeq) => varSeq.featureId === sequenceId
               );
               if (varSeqToAdd) {
                 varSeqsToAdd.push(varSeqToAdd);
@@ -172,10 +184,12 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
   if (data.uniProtKBCrossReferences) {
     // Some EMBL xrefs need to be merged
     const joined = getJoinedXrefs(
-      data.uniProtKBCrossReferences.filter(xref => xref.database === 'EMBL')
+      data.uniProtKBCrossReferences.filter((xref) => xref.database === 'EMBL')
     );
     const newXrefs = [
-      ...data.uniProtKBCrossReferences.filter(xref => xref.database !== 'EMBL'),
+      ...data.uniProtKBCrossReferences.filter(
+        (xref) => xref.database !== 'EMBL'
+      ),
       ...joined,
     ];
     const xrefs = getXrefsForSection(

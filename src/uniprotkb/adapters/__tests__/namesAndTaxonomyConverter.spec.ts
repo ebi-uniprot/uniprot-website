@@ -76,6 +76,8 @@ describe('Names and taxonomy data converter', () => {
         synonyms: ['synonyms 1'],
         taxonId: 9606,
       },
+      primaryAccession: 'P21802',
+      secondaryAccessions: ['P21802'],
       proteinNamesData: {
         allergenName: {
           evidences: [

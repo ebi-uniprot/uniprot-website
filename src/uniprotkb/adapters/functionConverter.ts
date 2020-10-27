@@ -8,6 +8,7 @@ import {
   TemperatureDependenceComment,
   TextWithEvidence,
   Xref,
+  FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
 import FeatureType from '../types/featureType';
@@ -141,6 +142,16 @@ const convertFunction = (data: UniProtkbAPIModel) => {
   }
   convertedSection.commentsData.delete(
     CommentType.BIOPHYSICOCHEMICAL_PROPERTIES
+  );
+
+  // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
+  const miscellaneousComments = convertedSection.commentsData
+    ?.get(CommentType.MISCELLANEOUS)
+    ?.filter((comment) => !(comment as FreeTextComment).molecule);
+
+  convertedSection.commentsData.set(
+    CommentType.MISCELLANEOUS,
+    miscellaneousComments || []
   );
 
   if (data.uniProtKBCrossReferences) {

@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import UniProtKBCard from './UniProtKBCard';
+import UniRefCard from '../../../uniref/components/results/UniRefCard';
 
 import uniProtKbConverter, {
   UniProtkbUIModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
+import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 import { ViewMode } from '../../state/resultsInitialState';
 
@@ -15,6 +17,7 @@ import apiUrls, { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import ColumnConfiguration from '../../config/ColumnConfiguration';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useNS from '../../../shared/hooks/useNS';
 
 import getNextUrlFromResponse from '../../utils/queryUtils';
 import {
@@ -23,6 +26,7 @@ import {
   getSortableColumnToSortColumn,
 } from '../../utils/resultsUtils';
 
+import { Namespace } from '../../../shared/types/namespaces';
 import { SortDirection, ReceivedFieldData } from '../../types/resultsTypes';
 import { SortableColumn, Column } from '../../types/columnTypes';
 
@@ -34,28 +38,31 @@ type ResultsTableProps = {
   columns: Column[];
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
-} & RouteComponentProps;
+};
 
 const ResultsView: React.FC<ResultsTableProps> = ({
   selectedEntries,
   columns,
   viewMode,
   handleEntrySelection,
-  history,
-  location,
 }) => {
+  const namespace = useNS() || Namespace.uniprotkb;
+  const history = useHistory();
+  const location = useLocation();
+
   const { search: queryParamFromUrl } = location;
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
 
-  const initialApiUrl = getAPIQueryUrl(
+  const initialApiUrl = getAPIQueryUrl({
+    namespace,
     query,
     columns,
     selectedFacets,
     sortColumn,
-    sortDirection
-  );
+    sortDirection,
+  });
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
@@ -127,7 +134,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
 
     history.push(
       getLocationObjForParams({
-        pathname: '/uniprotkb',
+        pathname: `/${namespace}`,
         query,
         selectedFacets,
         sortColumn: sortableColumn,
@@ -141,17 +148,39 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   if (viewMode === ViewMode.CARD) {
     dataView = (
       <DataList
-        getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
-          primaryAccession
-        }
+        getIdKey={({
+          primaryAccession,
+          id,
+        }: {
+          primaryAccession?: string;
+          id: string;
+        }) => primaryAccession || id}
         data={allResults}
-        dataRenderer={(dataItem: UniProtkbAPIModel) => (
-          <UniProtKBCard
-            data={dataItem}
-            selected={selectedEntries.includes(dataItem.primaryAccession)}
-            handleEntrySelection={handleEntrySelection}
-          />
-        )}
+        dataRenderer={(dataItem: UniProtkbAPIModel | UniRefAPIModel) => {
+          switch (namespace) {
+            case Namespace.uniref: {
+              const data = dataItem as UniRefAPIModel;
+              return (
+                <UniRefCard
+                  data={data}
+                  selected={selectedEntries.includes(data.id)}
+                  handleEntrySelection={handleEntrySelection}
+                />
+              );
+            }
+            case Namespace.uniprotkb:
+            default: {
+              const data = dataItem as UniProtkbAPIModel;
+              return (
+                <UniProtKBCard
+                  data={data}
+                  selected={selectedEntries.includes(data.primaryAccession)}
+                  handleEntrySelection={handleEntrySelection}
+                />
+              );
+            }
+          }
+        }}
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
@@ -203,4 +232,4 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   return <div className="results-view">{dataView}</div>;
 };
 
-export default withRouter(ResultsView);
+export default ResultsView;

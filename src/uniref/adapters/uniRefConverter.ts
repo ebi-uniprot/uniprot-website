@@ -1,3 +1,5 @@
+import EntrySection from '../types/entrySection';
+
 enum GeneOntologyAspect {
   FUNCTION = 'GO Molecular Function',
   PROCESS = 'GO Biological Process',
@@ -34,7 +36,7 @@ type OverlapRegion = {
   start: number;
 };
 
-type UniRefMember = {
+export type UniRefMember = {
   seed: boolean;
   memberIdType: MemberIdType;
   memberId: string;
@@ -43,14 +45,14 @@ type UniRefMember = {
   sequenceLength: number;
   proteinName: string;
   accessions: string[];
-  uniRef50Id: string;
-  uniRef90Id: string;
-  uniRef100Id: string;
+  uniRef50Id?: string;
+  uniRef90Id?: string;
+  uniRef100Id?: string;
   uniParcId: string;
   overlapRegion: OverlapRegion;
 };
 
-type RepresentativeMember = UniRefMember & {
+export type RepresentativeMember = UniRefMember & {
   sequence: Sequence;
 };
 
@@ -84,5 +86,24 @@ export type UniRefAPIModel = {
   updated: string;
   name: string;
   id: string;
-  members: UniRefMember[];
+  // if 'members' is absent, it means only the representative member is member
+  members?: UniRefMember[];
 };
+
+export type UniRefUIModel = UniRefAPIModel & {
+  [EntrySection.Members]: { members: UniRefMember[] };
+  // use SequenceUIModel?
+  [EntrySection.Sequence]: {
+    sequence: UniRefAPIModel['representativeMember']['sequence'];
+  };
+};
+
+const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
+  ...data,
+  [EntrySection.Members]: {
+    members: [data.representativeMember, ...(data.members || [])],
+  },
+  [EntrySection.Sequence]: { sequence: data.representativeMember.sequence },
+});
+
+export default uniRefConverter;

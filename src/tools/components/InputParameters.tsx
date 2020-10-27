@@ -16,7 +16,9 @@ type InputParametersProps = {
 const InputParameters: FC<InputParametersProps> = ({ id, inputParamsData }) => {
   const { loading, data, error, status } = inputParamsData;
 
-  if (error || !data) return <ErrorHandler status={status} />;
+  if (error || !data) {
+    return <ErrorHandler status={status} />;
+  }
 
   return (
     <section>
