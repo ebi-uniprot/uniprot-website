@@ -66,6 +66,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   selectedEntries,
   handleSelectedEntries,
   updateTooltip,
+  selectedFeatures,
 }) => {
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
@@ -111,28 +112,6 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
-  );
-
-  const getMSAFeature = (feature, sequence, sequenceIndex) => {
-    const gappedFeature = createGappedFeature(feature, sequence);
-    return {
-      residues: { from: gappedFeature.start, to: gappedFeature.end },
-      sequences: { from: sequenceIndex, to: sequenceIndex },
-      id: feature.protvistaFeatureId,
-      borderColor: 'black',
-      fillColor: 'transparent',
-      mouseOverFillColor: 'black',
-    };
-  };
-
-  const selectedFeatures = useMemo(
-    () =>
-      alignment.flatMap(({ sequence, features = [] }, index) =>
-        features
-          .filter(({ type }) => type === annotation)
-          .map((feature) => getMSAFeature(feature, sequence, index))
-      ),
-    [alignment, annotation]
   );
 
   const setMSAAttributes = useCallback(

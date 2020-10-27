@@ -23,6 +23,7 @@ import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
   findSequenceFeature,
   getFullAlignmentLength,
+  getMSAFeature,
 } from '../utils/sequences';
 
 import FeatureType from '../../uniprotkb/types/featureType';
@@ -172,6 +173,16 @@ const AlignmentView: React.FC<{
       setAnnotation(annotationChoices[0]);
     }
   }, [annotation, annotationChoices]);
+
+  const selectedFeatures = useMemo(
+    () =>
+      alignment.flatMap(({ sequence, features = [] }, index) =>
+        features
+          .filter(({ type }) => type === annotation)
+          .map((feature) => getMSAFeature(feature, sequence, index))
+      ),
+    [alignment, annotation]
+  );
 
   const totalLength = getFullAlignmentLength(alignment, alignmentLength);
 
@@ -346,6 +357,7 @@ const AlignmentView: React.FC<{
           annotation={annotation}
           activeId={activeId}
           updateTooltip={updateTooltip}
+          selectedFeatures={selectedFeatures}
           {...additionalAlignProps}
         />
       </div>

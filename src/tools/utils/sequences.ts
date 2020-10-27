@@ -185,3 +185,15 @@ export const findSequenceFeature = (protvistaFeatureId, alignment) => {
   }
   return {};
 };
+
+export const getMSAFeature = (feature, sequence, sequenceIndex) => {
+  const gappedFeature = createGappedFeature(feature, sequence);
+  return {
+    residues: { from: gappedFeature.start, to: gappedFeature.end },
+    sequences: { from: sequenceIndex, to: sequenceIndex },
+    id: feature.protvistaFeatureId,
+    borderColor: 'black',
+    fillColor: 'transparent',
+    mouseOverFillColor: 'black',
+  };
+};
