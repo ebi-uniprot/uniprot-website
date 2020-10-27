@@ -118,7 +118,7 @@ const AlignmentView: React.FC<{
     () =>
       alignment
         .map((sequence) => ({
-          label: sequence.accession,
+          label: sequence.name,
           id: sequence.accession,
           items: Array.from(
             new Set(sequence.features?.map((f) => f.type))
@@ -143,7 +143,7 @@ const AlignmentView: React.FC<{
   );
   const annotationChanged = useRef(false);
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
-    MsaColorScheme.CLUSTAL
+    MsaColorScheme.CONSERVATION
   );
   const highlightChanged = useRef(false);
   const [activeId, setActiveId] = useState<string | undefined>(
@@ -211,7 +211,7 @@ const AlignmentView: React.FC<{
               ? `"${msaColorSchemeToString[highlightProperty]}" highlight`
               : 'Highlight properties'
           }
-          defaultActiveNodes={useMemo(() => [MsaColorScheme.CLUSTAL], [])}
+          defaultActiveNodes={useMemo(() => [MsaColorScheme.CONSERVATION], [])}
           className="tertiary"
         />
         {annotationsPerEntry.length && (
@@ -223,7 +223,9 @@ const AlignmentView: React.FC<{
             autocompletePlaceholder="Look for an annotation"
             label={
               annotationChanged.current
-                ? `Showing "${annotation}" in "${activeId}"`
+                ? `Showing "${annotation}" in "${
+                    annotationsPerEntry.find(({ id }) => id === activeId)?.label
+                  }"`
                 : 'Select annotation'
             }
             defaultActiveNodes={defaultActiveAnnotation}

@@ -106,6 +106,7 @@ const commentsCategories = [
   CommentType.ACTIVITY_REGULATION,
   CommentType.BIOPHYSICOCHEMICAL_PROPERTIES,
   CommentType.PATHWAY,
+  CommentType.CAUTION,
   CommentType.MISCELLANEOUS,
 ];
 
