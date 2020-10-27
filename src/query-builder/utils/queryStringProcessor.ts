@@ -9,9 +9,17 @@ import {
 } from '../types/searchTypes';
 import { getAllTerm } from './clause';
 
-export const stringify = (clauses: Clause[] = []): string =>
-  clauses.reduce((queryAccumulator: string, clause: Clause) => {
-    const query = Object.entries(clause.queryBits);
+export const stringify = (clauses: Clause[] = []): string => {
+  let queryAccumulator = '';
+  for (const clause of clauses) {
+    const query = Object.entries(clause.queryBits)
+      // filter out empty fields
+      .filter(([, value]) => value);
+
+    if (!query.length) {
+      // empty field, ignore it
+      continue; // eslint-disable-line no-continue
+    }
 
     let queryJoined = query
       .map(([key, value]) => {
@@ -43,8 +51,10 @@ export const stringify = (clauses: Clause[] = []): string =>
       logicOperator = `${clause.logicOperator} `;
     }
 
-    return `${queryAccumulator}${logicOperator}${queryJoined}`;
-  }, '');
+    queryAccumulator += `${logicOperator}${queryJoined}`;
+  }
+  return queryAccumulator;
+};
 
 const clauseSplitter = / *(AND|OR|NOT) +/;
 const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
