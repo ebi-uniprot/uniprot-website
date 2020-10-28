@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
-import HSPDetailPanel, { transformFeaturesPositions } from '../HSPDetailPanel';
+import HSPDetailPanel from '../HSPDetailPanel';
 import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
 import renderWithRouter from '../../../../../shared/__test-helpers__/RenderWithRouter';
 
@@ -47,7 +47,7 @@ describe('HSPDetailPanel', () => {
     const msa = container.querySelector('protvista-msa');
     expect(msa.data).toEqual([
       { name: 'Query', sequence: hsp.hsp_qseq },
-      { name: 'Match:', sequence: hsp.hsp_hseq },
+      { name: 'Match:U6MKN0', sequence: hsp.hsp_hseq },
     ]);
   });
 

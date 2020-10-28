@@ -62,12 +62,12 @@ export const msaColorSchemeToString = {
 
 export const colorSchemeTree = [
   {
-    label: msaColorSchemeToString[MsaColorScheme.CLUSTAL],
-    id: MsaColorScheme.CLUSTAL,
-  },
-  {
     label: msaColorSchemeToString[MsaColorScheme.CONSERVATION],
     id: MsaColorScheme.CONSERVATION,
+  },
+  {
+    label: msaColorSchemeToString[MsaColorScheme.CLUSTAL],
+    id: MsaColorScheme.CLUSTAL,
   },
   {
     label: 'Physical properties',

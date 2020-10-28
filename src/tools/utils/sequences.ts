@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-
 import { MSAInput } from '../components/AlignmentView';
 import {
   ProcessedFeature,
@@ -112,13 +111,6 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
   });
 };
 
-export const transformFeaturesPositions = (features: ProcessedFeature[]) =>
-  features.map((feature) => ({
-    ...feature,
-    start: feature.start - 1,
-    end: feature.end - 1,
-  }));
-
 export const getNumberOfInsertions = (sequence: string, endPosition: number) =>
   (sequence.slice(0, endPosition).match(/-/g) || []).length;
 
@@ -133,3 +125,51 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
       start.modifier !== LocationModifier.UNKNOWN &&
       end.modifier !== LocationModifier.UNKNOWN
   );
+
+export const createGappedFeature = (
+  feature: ProcessedFeature,
+  sequence: string
+) => {
+  /*
+  input: feature and sequence are both 1-based
+  */
+  const BLOCK = /(?<insertion>[-]+)|(?<protein>[^-]+)/g;
+
+  let proteinIndex = 1;
+  const fragments: { start: number; end: number; shape?: 'line' }[] = [];
+
+  let match;
+  // eslint-disable-next-line no-cond-assign
+  while ((match = BLOCK.exec(sequence)) !== null) {
+    if (match?.groups?.protein) {
+      if (
+        proteinIndex + match[0].length >= feature.start &&
+        proteinIndex <= feature.end
+      ) {
+        fragments.push({
+          start: match.index + 1 + Math.max(0, feature.start - proteinIndex),
+          end:
+            match.index +
+            Math.min(match[0].length, feature.end - proteinIndex + 1),
+        });
+      }
+      proteinIndex += match[0].length;
+    } else if (proteinIndex > feature.start && proteinIndex < feature.end) {
+      fragments.push({
+        start: match.index + 1,
+        end: match.index + match[0].length,
+        shape: 'line',
+      });
+    }
+  }
+
+  const gappedFeature = { ...feature };
+  if (fragments.length) {
+    gappedFeature.start = fragments[0].start;
+    gappedFeature.end = fragments[fragments.length - 1]?.end;
+  }
+  if (fragments.length > 1) {
+    gappedFeature.locations = [{ fragments }];
+  }
+  return gappedFeature;
+};

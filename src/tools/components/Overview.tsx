@@ -16,9 +16,9 @@ import AlignLabel from '../align/components/results/AlignLabel';
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import { processFeaturesData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
-  transformFeaturesPositions,
   getFullAlignmentSegments,
   getEndCoordinate,
+  createGappedFeature,
 } from '../utils/sequences';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
@@ -119,14 +119,14 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       const maxSequenceLength = Math.max(
         ...alignment.map((al) => al.sequence.length)
       );
-      if (displayEndValue < maxSequenceLength) {
-        setInitialDisplayEnd(displayEndValue);
-      } else {
-        setInitialDisplayEnd(maxSequenceLength);
+
+      if (typeof displayEnd === 'undefined') {
+        setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
       }
+
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [msaDefined, alignment, alignmentLength]
+    [msaDefined, alignmentLength, alignment, displayEnd]
   );
 
   const trackDefined = useCustomElement(
@@ -149,24 +149,25 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const ceDefined =
     trackDefined && navigationDefined && msaDefined && managerDefined;
 
-  const features = useMemo(
+  const activeAlignment = useMemo(
     () =>
-      alignment.find(({ accession }) => accession && accession === activeId)
-        ?.features,
+      alignment.find(({ accession }) => accession && accession === activeId),
     [alignment, activeId]
   );
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined && features && annotation) {
+      if (node && ceDefined && activeAlignment?.features && annotation) {
         let processedFeatures = processFeaturesData(
-          features.filter(({ type }) => type === annotation)
+          activeAlignment.features.filter(({ type }) => type === annotation)
         );
-        processedFeatures = transformFeaturesPositions(processedFeatures);
+        processedFeatures = processedFeatures.map((f) =>
+          createGappedFeature(f, activeAlignment.sequence)
+        );
         node.data = processedFeatures;
       }
     },
-    [ceDefined, features, annotation]
+    [ceDefined, activeAlignment, annotation]
   );
 
   const overviewHeight = (alignment && alignment.length > 10
@@ -181,6 +182,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   if (!ceDefined) {
     return <Loader />;
   }
+
   return (
     <section data-testid="alignment-view" className="alignment-grid">
       {/* first row */}

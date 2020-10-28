@@ -1,5 +1,30 @@
+@import '../../../../../../node_modules/franklin-sites/src/styles/colours';
+
 .is-stale {
   opacity: 0.5;
   pointer-events: none;
   user-select: none;
+}
+
+.blast-parameters-facet {
+  font-weight: bold;
+
+  &__title {
+    padding-left: 1ch;
+  }
+
+  .hsp_identity {
+    --main-histogram-color: #{$colour-sapphire-blue};
+    color: #{$colour-sapphire-blue};
+  }
+
+  .hsp_score {
+    --main-histogram-color: #{$colour-coyote-brown};
+    color: #{$colour-coyote-brown};
+  }
+
+  .hsp_expect {
+    --main-histogram-color: #{$colour-outer-space};
+    color: #{$colour-outer-space};
+  }
 }

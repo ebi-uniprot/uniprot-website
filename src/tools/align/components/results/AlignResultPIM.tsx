@@ -63,7 +63,7 @@ const AlignResultPIM: FC<AlignResultPIMProps> = ({
         className="align-result-pim__matrix"
         style={{
           //                    name column|value columns (as many as needed)
-          gridTemplateColumns: `max-content repeat(${parsed[0].values.length},1fr)`,
+          gridTemplateColumns: `max-content repeat(${parsed[0].values.length},fit-content(8ch))`,
         }}
       >
         {/* for every sequence in the alignment */}
