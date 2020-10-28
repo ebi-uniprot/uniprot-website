@@ -1,5 +1,10 @@
 import React, { FC, FormEvent, useState, useEffect } from 'react';
-import { useHistory, useRouteMatch, generatePath } from 'react-router-dom';
+import {
+  useHistory,
+  useRouteMatch,
+  generatePath,
+  useLocation,
+} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { PageIntro } from 'franklin-sites';
@@ -40,6 +45,7 @@ const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
 
 const AdvancedSearch: FC = () => {
   const history = useHistory();
+  const location = useLocation();
   const match = useRouteMatch<{ namespace?: Namespace }>(
     LocationToPath[Location.QueryBuilder]
   );
@@ -118,7 +124,7 @@ const AdvancedSearch: FC = () => {
       };
 
       const validatedQuery = parseAndMatchQuery(
-        qs.parse(history.location.search, { decode: true })?.query
+        qs.parse(location.search, { decode: true })?.query
       );
 
       if (validatedQuery.length) {
@@ -127,7 +133,7 @@ const AdvancedSearch: FC = () => {
 
       return parseAndMatchQuery(defaultQueryFor(namespace));
     });
-  }, [dispatch, history.location.search, namespace, searchTermsData]);
+  }, [dispatch, location.search, loading, namespace, searchTermsData]);
 
   if (!searchTermsData || !namespace) {
     return null;

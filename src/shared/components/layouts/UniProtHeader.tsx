@@ -1,16 +1,25 @@
 import React, { useMemo } from 'react';
-import { useRouteMatch, generatePath, useHistory } from 'react-router-dom';
+import {
+  useRouteMatch,
+  generatePath,
+  useHistory,
+  match,
+} from 'react-router-dom';
 import { History } from 'history';
 import qs from 'query-string';
 import { Header } from 'franklin-sites';
 
 import SearchContainer from '../../../uniprotkb/components/search/SearchContainer';
+
+import useNS from '../../hooks/useNS';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
 import Logo from './svgs/uniprot-logo.svg';
-import useNS from '../../hooks/useNS';
+
+type QBMatch = { namespace?: Namespace };
 
 // NOTE: all of those paths should eventually come from the Location config object
 const tools = [
@@ -36,9 +45,27 @@ const tools = [
   },
 ];
 
-const links = (namespace: Namespace, history: History, search: string) => {
-  // extract only the possible query key in the search string
-  const query = qs.parse(search, { decode: true })?.query;
+const links = (
+  history: History,
+  search: string,
+  queryBuilderMatch: match<QBMatch> | null,
+  namespace?: Namespace
+) => {
+  let query: string | string[] | undefined;
+  // only in the case we are not already on the query builder page
+  if (!queryBuilderMatch) {
+    // extract only the possible query key in the search string
+    query = qs.parse(search, { decode: true })?.query || undefined;
+  }
+  let ns = namespace;
+  if (!ns) {
+    if (queryBuilderMatch?.params.namespace) {
+      ns = queryBuilderMatch.params.namespace;
+    } else {
+      ns = Namespace.uniprotkb;
+    }
+  }
+
   return [
     {
       label: 'Query Builder',
@@ -46,7 +73,7 @@ const links = (namespace: Namespace, history: History, search: string) => {
         // only interested in "query"
         search: qs.stringify({ query }, { encode: false }),
         pathname: generatePath(LocationToPath[Location.QueryBuilder], {
-          namespace,
+          namespace: ns,
         }),
       }),
     },
@@ -90,8 +117,11 @@ const UniProtHeader = () => {
     LocationToPath[Location.QueryBuilder]
   );
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
+  const queryBuilderMatch = useRouteMatch<QBMatch>(
+    LocationToPath[Location.QueryBuilder]
+  );
 
-  const namespace = useNS() || Namespace.uniprotkb;
+  const namespace = useNS();
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
@@ -101,12 +131,12 @@ const UniProtHeader = () => {
   const displayedLinks = useMemo(
     () =>
       isHomePage
-        ? [...tools, ...links(namespace, history, search)]
+        ? [...tools, ...links(history, search, queryBuilderMatch, namespace)]
         : [
             { label: 'Tools', links: tools },
-            ...links(namespace, history, search),
+            ...links(history, search, queryBuilderMatch, namespace),
           ],
-    [isHomePage, namespace, history, search]
+    [isHomePage, namespace, history, search, queryBuilderMatch]
   );
 
   return (
