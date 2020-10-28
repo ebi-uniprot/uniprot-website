@@ -23,11 +23,9 @@ import { ConservationOptions, MSAInput } from './AlignmentView';
 import {
   FeatureData,
   processFeaturesData,
+  ProcessedFeature,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import {
-  transformFeaturesPositions,
-  getEndCoordinate,
-} from '../utils/sequences';
+import { getEndCoordinate, createGappedFeature } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 const widthOfAA = 20;
@@ -35,6 +33,7 @@ const widthOfAA = 20;
 export type Sequence = {
   name: string;
   sequence: string;
+  fullSequence: string;
   start: number;
   end: number;
   features?: FeatureData;
@@ -44,9 +43,11 @@ export type Sequence = {
 type Chunk = {
   id: string;
   sequences: Sequence[];
+  trackStart: number;
+  trackEnd: number;
 };
 
-export type MSAWrappedRowProps = {
+export type WrappedRowProps = {
   rowLength: number;
   highlightProperty: MsaColorScheme | undefined;
   conservationOptions: ConservationOptions;
@@ -56,6 +57,8 @@ export type MSAWrappedRowProps = {
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   selectedEntries?: string[];
   handleSelectedEntries?: (rowId: string) => void;
+  trackStart: number;
+  trackEnd: number;
   delayRender: boolean;
 };
 
@@ -63,7 +66,7 @@ export type MSAWrappedRowProps = {
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
+const WrappedRow: FC<WrappedRowProps> = ({
   rowLength,
   highlightProperty,
   conservationOptions,
@@ -73,6 +76,8 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
   setActiveId,
   selectedEntries,
   handleSelectedEntries,
+  trackStart,
+  trackEnd,
   delayRender,
 }) => {
   const msaDefined = useCustomElement(
@@ -102,24 +107,20 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && trackDefined && annotation) {
-        const features = activeSeq?.features?.filter(
-          ({ type }) => type === annotation
-        );
-        if (
-          activeSeq &&
-          activeSeq.start > 0 &&
-          activeSeq.end > 0 &&
-          activeSeq.start !== activeSeq.end &&
-          features
-        ) {
-          let processedFeatures = processFeaturesData(features);
-          processedFeatures = transformFeaturesPositions(processedFeatures);
-          node.data = processedFeatures;
-          node.setAttribute('length', activeSeq.end - activeSeq.start);
-          node.setAttribute('displaystart', activeSeq.start);
-          node.setAttribute('displayend', activeSeq.end);
+      if (node && trackDefined) {
+        let processedFeatures: ProcessedFeature[] = [];
+        if (annotation) {
+          const features = activeSeq?.features?.filter(
+            ({ type }) => type === annotation
+          );
+          if (activeSeq && activeSeq.end > 0 && features) {
+            processedFeatures = processFeaturesData(features);
+            processedFeatures = processedFeatures.map((feature) =>
+              createGappedFeature(feature, activeSeq.fullSequence)
+            );
+          }
         }
+        node.data = processedFeatures;
       }
     },
     // TODO: replace this with fragments to have one big grid
@@ -174,7 +175,12 @@ const MSAWrappedRow: FC<MSAWrappedRowProps> = ({
       <span className="track-label annotation-label">{annotation}</span>
       <div className="track annotation-track">
         {delayRender ? undefined : (
-          <protvista-track ref={setFeatureTrackData} />
+          <protvista-track
+            ref={setFeatureTrackData}
+            displaystart={trackStart}
+            displayend={trackEnd}
+            length={trackEnd - trackStart + 1}
+          />
         )}
       </div>
     </>
@@ -250,17 +256,22 @@ const Wrapped: FC<MSAViewProps> = ({
         // Might be able to avoid that by playing with sizes in the panel grid
         // and from within the Nightingale component
         id: `row-${index}-${rowLength}`,
+        trackStart: start + 1,
+        trackEnd: start + rowLength,
         sequences: alignment.map(
-          ({ name, sequence, from, features, accession }) => ({
+          ({ name, sequence, from = 1, features, accession }) => ({
             name: name || '',
             sequence: sequence.slice(start, end),
+            fullSequence: sequence,
             start:
-              from +
+              from -
+              1 + // because 'from' value starts from 1 instead of 0
               (omitInsertionsInCoords
                 ? getEndCoordinate(sequence, start)
                 : start),
             end:
-              from +
+              from -
+              1 + // because 'from' value starts from 1 instead of 0
               (omitInsertionsInCoords ? getEndCoordinate(sequence, end) : end),
             features,
             accession,
@@ -277,8 +288,8 @@ const Wrapped: FC<MSAViewProps> = ({
       className="alignment-grid alignment-wrapped"
       data-testid="alignment-wrapped-view"
     >
-      {sequenceChunks.map(({ sequences, id }, index) => (
-        <MSAWrappedRow
+      {sequenceChunks.map(({ sequences, id, trackStart, trackEnd }, index) => (
+        <WrappedRow
           key={id}
           rowLength={rowLength}
           sequences={sequences}
@@ -290,6 +301,8 @@ const Wrapped: FC<MSAViewProps> = ({
           selectedEntries={selectedEntries}
           handleSelectedEntries={handleSelectedEntries}
           delayRender={index >= nItemsToRender}
+          trackStart={trackStart}
+          trackEnd={trackEnd}
         />
       ))}
     </div>

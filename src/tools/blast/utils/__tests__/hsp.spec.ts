@@ -2,7 +2,6 @@ import {
   getFullAlignmentSegments,
   getFullAlignmentLength,
   getOffset,
-  transformFeaturesPositions,
 } from '../../../utils/sequences';
 import mockData from '../__mocks__/hspMocks.json';
 import { FeatureData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
@@ -42,16 +41,5 @@ describe.skip('HSP util tests', () => {
     expect(offset).toBe(771);
     offset = getOffset(shortQueryLongHit.hsp);
     expect(offset).toBe(40);
-  });
-
-  it('should remove all features outside of the query/match alignment', () => {
-    const { features } = mockData;
-
-    const filtered = transformFeaturesPositions(features);
-    expect(filtered).toHaveLength(1);
-    for (let i = 0; i < features.length; i++) {
-      expect(filtered[i].start).toEqual(features[i].start - 1);
-      expect(filtered[i].end).toEqual(features[i].end - 1);
-    }
   });
 });

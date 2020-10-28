@@ -3,7 +3,10 @@ import {
   getFullAlignmentSegments,
   getNumberOfInsertions,
   getEndCoordinate,
+  createGappedFeature,
 } from '../sequences';
+import featuresMock from '../__mocks__/features.json';
+import sequenceChunkPairsMock from '../__mocks__/sequences.json';
 
 describe('Tool sequences utils', () => {
   it('should find segments', () => {
@@ -53,6 +56,115 @@ describe('Tool sequences utils', () => {
     });
     it('should return just the index when no insertions (-) are present', () => {
       expect(getNumberOfInsertions(sequence, 3)).toEqual(0);
+    });
+  });
+
+  describe('createGappedFeature', () => {
+    it('should return feature untouched as there are no insertions', () => {
+      const sequence = '1234567890';
+      const feature = {
+        start: 1,
+        end: 10,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 1,
+        end: 10,
+      });
+    });
+
+    it('should return feature after insertion gap', () => {
+      const sequence = '-123456789';
+      const feature = {
+        start: 1,
+        end: 7,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 2,
+        end: 8,
+      });
+    });
+
+    it('should return feature with fragments to accommodate a single gap inside the feature', () => {
+      const sequence = '1-23456789';
+      const feature = {
+        start: 1,
+        end: 9,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 1,
+        end: 10,
+        locations: [
+          {
+            fragments: [
+              { start: 1, end: 1 },
+              { start: 2, end: 2, shape: 'line' },
+              { start: 3, end: 10 },
+            ],
+          },
+        ],
+      });
+    });
+
+    it('should return correct start and end with no gaps', () => {
+      const sequence = '1-23456789';
+      const feature = {
+        start: 3,
+        end: 5,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 4,
+        end: 6,
+      });
+    });
+
+    it('should return feature with fragments with a single gap line', () => {
+      const sequence = '--123--45-';
+      const feature = {
+        start: 1,
+        end: 5,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 3,
+        end: 9,
+        locations: [
+          {
+            fragments: [
+              { start: 3, end: 5 },
+              { start: 6, end: 7, shape: 'line' },
+              { start: 8, end: 9 },
+            ],
+          },
+        ],
+      });
+    });
+
+    it('should return feature with fragments with two gap lines', () => {
+      const sequence = '--123--45-678----9';
+      const feature = {
+        start: 2,
+        end: 8,
+      };
+
+      expect(createGappedFeature(feature, sequence)).toEqual({
+        start: 4,
+        end: 13,
+        locations: [
+          {
+            fragments: [
+              { start: 4, end: 5 },
+              { start: 6, end: 7, shape: 'line' },
+              { start: 8, end: 9 },
+              { start: 10, end: 10, shape: 'line' },
+              { start: 11, end: 13 },
+            ],
+          },
+        ],
+      });
     });
   });
 
