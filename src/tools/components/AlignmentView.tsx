@@ -174,7 +174,6 @@ const AlignmentView: React.FC<{
     [alignment, activeId]
   );
 
-  console.log(activeAlignment);
   const activeAnnotation = useMemo(
     () =>
       (activeAlignment?.features || [])
@@ -182,7 +181,6 @@ const AlignmentView: React.FC<{
         .map((f) => createGappedFeature(f, activeAlignment?.sequence)),
     [activeAlignment?.features, activeAlignment?.sequence, annotation]
   );
-  console.log(activeAnnotation);
 
   useEffect(() => {
     // if no default value was available on first render, set it now
@@ -262,6 +260,14 @@ const AlignmentView: React.FC<{
     },
     [alignment]
   );
+
+  const onMSAFeatureClick = useCallback(
+    ({ event, id }) => {
+      updateTooltip({ id, x: event.x, y: event.y, event });
+    },
+    [updateTooltip]
+  );
+
   useEffect(() => {
     if (tooltipContent) {
       window.addEventListener('click', tooltipCloseCallback, true);
@@ -373,7 +379,7 @@ const AlignmentView: React.FC<{
           totalLength={totalLength}
           annotation={annotation}
           activeId={activeId}
-          updateTooltip={updateTooltip}
+          onMSAFeatureClick={onMSAFeatureClick}
           selectedFeatures={selectedFeatures}
           activeAnnotation={activeAnnotation}
           activeAlignment={activeAlignment}

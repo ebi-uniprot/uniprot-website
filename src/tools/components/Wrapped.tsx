@@ -81,20 +81,27 @@ const WrappedRow: FC<WrappedRowProps> = ({
   activeAnnotation,
   activeAlignment,
   selectedFeatures,
+  onMSAFeatureClick,
 }) => {
   const msaDefined = useCustomElement(
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
-  console.log(selectedFeatures);
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaDefined) {
-        node.features = selectedFeatures;
+        node.features = selectedFeatures.map((f) => ({
+          ...f,
+          residues: {
+            from: f.residues.from - trackStart + 1,
+            to: f.residues.to - trackStart + 1,
+          },
+        }));
+        node.onFeatureClick = onMSAFeatureClick;
         node.data = sequences;
       }
     },
-    [msaDefined, selectedFeatures, sequences]
+    [msaDefined, onMSAFeatureClick, selectedFeatures, sequences, trackStart]
   );
 
   const trackDefined = useCustomElement(
@@ -199,6 +206,7 @@ const Wrapped: FC<MSAViewProps> = ({
   selectedFeatures,
   activeAnnotation,
   activeAlignment,
+  onMSAFeatureClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
@@ -293,6 +301,7 @@ const Wrapped: FC<MSAViewProps> = ({
           activeAnnotation={activeAnnotation}
           activeAlignment={activeAlignment}
           selectedFeatures={selectedFeatures}
+          onMSAFeatureClick={onMSAFeatureClick}
         />
       ))}
     </div>

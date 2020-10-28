@@ -65,7 +65,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   omitInsertionsInCoords,
   selectedEntries,
   handleSelectedEntries,
-  updateTooltip,
+  onMSAFeatureClick,
   selectedFeatures,
   activeAnnotation,
 }) => {
@@ -122,9 +122,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       }
 
       node.features = selectedFeatures;
-      node.onFeatureClick = ({ event, id }) => {
-        updateTooltip({ id, x: event.x, y: event.y, event });
-      };
+      node.onFeatureClick = onMSAFeatureClick;
 
       const singleBaseWidth =
         'getSingleBaseWidth' in node ? node.getSingleBaseWidth() : 15;
@@ -145,7 +143,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       alignmentLength,
       alignment,
       displayEnd,
-      updateTooltip,
+      onMSAFeatureClick,
     ]
   );
 
