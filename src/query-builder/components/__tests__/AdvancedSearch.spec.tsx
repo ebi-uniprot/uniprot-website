@@ -1,15 +1,17 @@
 import React from 'react';
+import { createMemoryHistory } from 'history';
 import { act, fireEvent, getAllByTestId } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import AdvancedSearch from '../../../query-builder/components/AdvancedSearch';
+
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
-import { createMemoryHistory } from 'history';
-import searchTermData from './__mocks__/configure_search-term.json';
 import apiUrls from '../../../shared/config/apiUrls';
 import { Namespace } from '../../../shared/types/namespaces';
+
+import searchTermData from './__mocks__/configure_search-term.json';
 
 const mock = new MockAdapter(axios);
 mock
