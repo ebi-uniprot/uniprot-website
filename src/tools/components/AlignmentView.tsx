@@ -178,8 +178,8 @@ const AlignmentView: React.FC<{
     () =>
       (activeAlignment?.features || [])
         .filter(({ type }) => type === annotation)
-        .map((f) => createGappedFeature(f, activeAlignment?.sequence)),
-    [activeAlignment?.features, activeAlignment?.sequence, annotation]
+        .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1)),
+    [activeAlignment, annotation]
   );
 
   useEffect(() => {
@@ -189,14 +189,21 @@ const AlignmentView: React.FC<{
     }
   }, [annotation, annotationChoices]);
 
-  const selectedFeatures = useMemo(
+  const selectedMSAFeatures = useMemo(
+    // This gets the features to display on all of the MSA sequences (ie not
+    // just the active. Notice the final filter(Boolean), this is to remove
+    // any features that occure before the start of the hit. This is only
+    // relevant to BLAST results (hsp_query_from or hsp_hit_from).
     () =>
       alignment.flatMap(({ sequence, features = [] }, index) =>
         features
           .filter(({ type }) => type === annotation)
-          .map((feature) => getMSAFeature(feature, sequence, index))
+          .map((feature) =>
+            getMSAFeature(feature, sequence, index, activeAlignment?.from)
+          )
+          .filter(Boolean)
       ),
-    [alignment, annotation]
+    [activeAlignment?.from, alignment, annotation]
   );
 
   const totalLength = getFullAlignmentLength(alignment, alignmentLength);
@@ -380,7 +387,7 @@ const AlignmentView: React.FC<{
           annotation={annotation}
           activeId={activeId}
           onMSAFeatureClick={onMSAFeatureClick}
-          selectedFeatures={selectedFeatures}
+          selectedMSAFeatures={selectedMSAFeatures}
           activeAnnotation={activeAnnotation}
           activeAlignment={activeAlignment}
           {...additionalAlignProps}

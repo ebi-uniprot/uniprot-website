@@ -24,7 +24,7 @@ import {
   FeatureData,
   ProcessedFeature,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { getEndCoordinate, createGappedFeature } from '../utils/sequences';
+import { getEndCoordinate } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 const widthOfAA = 20;
@@ -80,7 +80,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   delayRender,
   activeAnnotation,
   activeAlignment,
-  selectedFeatures,
+  selectedMSAFeatures,
   onMSAFeatureClick,
 }) => {
   const msaDefined = useCustomElement(
@@ -90,7 +90,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaDefined) {
-        node.features = selectedFeatures.map((f) => ({
+        node.features = selectedMSAFeatures.map((f) => ({
           ...f,
           residues: {
             from: f.residues.from - trackStart + 1,
@@ -101,7 +101,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
         node.data = sequences;
       }
     },
-    [msaDefined, onMSAFeatureClick, selectedFeatures, sequences, trackStart]
+    [msaDefined, onMSAFeatureClick, selectedMSAFeatures, sequences, trackStart]
   );
 
   const trackDefined = useCustomElement(
@@ -203,7 +203,7 @@ const Wrapped: FC<MSAViewProps> = ({
   omitInsertionsInCoords = false,
   selectedEntries,
   handleSelectedEntries,
-  selectedFeatures,
+  selectedMSAFeatures,
   activeAnnotation,
   activeAlignment,
   onMSAFeatureClick,
@@ -300,7 +300,7 @@ const Wrapped: FC<MSAViewProps> = ({
           trackEnd={trackEnd}
           activeAnnotation={activeAnnotation}
           activeAlignment={activeAlignment}
-          selectedFeatures={selectedFeatures}
+          selectedMSAFeatures={selectedMSAFeatures}
           onMSAFeatureClick={onMSAFeatureClick}
         />
       ))}

@@ -16,6 +16,7 @@ import AlignmentView, {
 
 import './styles/HSPDetailPanel.scss';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
+import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -61,7 +62,9 @@ export const convertHSPtoMSAInputs = (
       to: hsp_hit_to,
       length: hitLength,
       accession: hitAccession,
-      features: extra?.features,
+      features: processFeaturesData(
+        removeFeaturesWithUnknownModifier(extra?.features)
+      ),
     },
   ];
 };
@@ -76,25 +79,11 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
 }) => {
   const { hsp_align_len } = hsp;
 
-  // const totalLength = getFullAlignmentLength(hsp, queryLength, hitLength);
-
-  // Reset view when different hit is being viewed
-  // useEffect(() => {
-  //   setActiveView(View.overview);
-  //   setAnnotation(undefined);
-  //   setHighlightProperty(undefined);
-  // }, [hitAccession]);
-
   const { loading, data, status, error } = useDataApi<UniProtkbAccessionsAPI>(
     getAccessionsURL([hitAccession], { facets: [] })
   );
 
-  let apiData = extra || data?.results?.[0];
-  apiData = {
-    ...apiData,
-    features: removeFeaturesWithUnknownModifier(apiData?.features),
-  } as UniProtkbAPIModel;
-
+  const apiData = extra || data?.results?.[0];
   const recommendedName =
     apiData?.proteinDescription?.recommendedName?.fullName.value;
   const organism = apiData?.organism?.scientificName;

@@ -67,7 +67,7 @@ describe('Tool sequences utils', () => {
         end: 10,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 1,
         end: 10,
       });
@@ -80,7 +80,7 @@ describe('Tool sequences utils', () => {
         end: 7,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 2,
         end: 8,
       });
@@ -93,7 +93,7 @@ describe('Tool sequences utils', () => {
         end: 9,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 1,
         end: 10,
         locations: [
@@ -115,7 +115,7 @@ describe('Tool sequences utils', () => {
         end: 5,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 4,
         end: 6,
       });
@@ -128,7 +128,7 @@ describe('Tool sequences utils', () => {
         end: 5,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 3,
         end: 9,
         locations: [
@@ -150,7 +150,7 @@ describe('Tool sequences utils', () => {
         end: 8,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 4,
         end: 13,
         locations: [

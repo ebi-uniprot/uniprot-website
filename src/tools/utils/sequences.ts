@@ -128,16 +128,16 @@ export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
 
 export const createGappedFeature = (
   feature: ProcessedFeature,
-  sequence: string
+  sequence: string,
+  from: number
 ) => {
   /*
   input: feature and sequence are both 1-based
   */
   const BLOCK = /(?<insertion>[-]+)|(?<protein>[^-]+)/g;
 
-  let proteinIndex = 1;
+  let proteinIndex = from;
   const fragments: { start: number; end: number; shape?: 'line' }[] = [];
-
   let match;
   // eslint-disable-next-line no-cond-assign
   while ((match = BLOCK.exec(sequence)) !== null) {
@@ -163,31 +163,42 @@ export const createGappedFeature = (
     }
   }
 
-  const gappedFeature = { ...feature };
-  if (fragments.length) {
-    gappedFeature.start = fragments[0].start;
-    gappedFeature.end = fragments[fragments.length - 1]?.end;
+  if (!fragments.length) {
+    // At this point the feature start & end must be before the BLAST match's from.
+    return;
   }
+
+  const gappedFeature = {
+    ...feature,
+    start: fragments[0].start,
+    end: fragments[fragments.length - 1]?.end,
+  };
+
   if (fragments.length > 1) {
     gappedFeature.locations = [{ fragments }];
   }
+
   return gappedFeature;
 };
 
 export const findSequenceFeature = (protvistaFeatureId, alignment) => {
   for (const sequence of alignment) {
-    const foundFeature = sequence.features.find(
-      (feature) => feature.protvistaFeatureId === protvistaFeatureId
-    );
-    if (foundFeature) {
-      return { sequence, feature: foundFeature };
+    if (sequence?.features) {
+      const foundFeature = sequence.features.find(
+        (feature) => feature.protvistaFeatureId === protvistaFeatureId
+      );
+      if (foundFeature) {
+        return { sequence, feature: foundFeature };
+      }
     }
   }
-  return {};
 };
 
-export const getMSAFeature = (feature, sequence, sequenceIndex) => {
-  const gappedFeature = createGappedFeature(feature, sequence);
+export const getMSAFeature = (feature, sequence, sequenceIndex, from) => {
+  const gappedFeature = createGappedFeature(feature, sequence, from);
+  if (!gappedFeature) {
+    return;
+  }
   return {
     residues: { from: gappedFeature.start, to: gappedFeature.end },
     sequences: { from: sequenceIndex, to: sequenceIndex },

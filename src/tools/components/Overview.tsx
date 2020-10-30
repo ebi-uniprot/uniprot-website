@@ -16,11 +16,7 @@ import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
-import {
-  getFullAlignmentSegments,
-  getEndCoordinate,
-  createGappedFeature,
-} from '../utils/sequences';
+import { getFullAlignmentSegments, getEndCoordinate } from '../utils/sequences';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 import FeatureType from '../../uniprotkb/types/featureType';
@@ -66,7 +62,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   selectedEntries,
   handleSelectedEntries,
   onMSAFeatureClick,
-  selectedFeatures,
+  selectedMSAFeatures,
   activeAnnotation,
 }) => {
   const [highlightPosition, setHighlighPosition] = useState('');
@@ -121,7 +117,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         return;
       }
 
-      node.features = selectedFeatures;
+      node.features = selectedMSAFeatures;
       node.onFeatureClick = onMSAFeatureClick;
 
       const singleBaseWidth =
@@ -139,7 +135,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     },
     [
       msaDefined,
-      selectedFeatures,
+      selectedMSAFeatures,
       alignmentLength,
       alignment,
       displayEnd,
@@ -166,11 +162,9 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const ceDefined =
     trackDefined && navigationDefined && msaDefined && managerDefined;
 
-  console.log(activeAnnotation);
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && ceDefined && activeAnnotation) {
-        console.log(activeAnnotation);
         node.data = activeAnnotation;
       }
     },
