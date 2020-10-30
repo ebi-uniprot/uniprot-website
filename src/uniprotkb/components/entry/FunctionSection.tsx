@@ -151,7 +151,7 @@ const FunctionSection: FC<{
   return (
     <div id={EntrySectionIDs[EntrySection.Function]} data-entry-section>
       <Card title={EntrySection.Function}>
-        {data.commentsData.get(CommentType.CAUTION) && (
+        {data.commentsData.get(CommentType.CAUTION)?.length ? (
           <Message level="warning">
             <h4>Caution</h4>
             <FreeTextView
@@ -160,7 +160,7 @@ const FunctionSection: FC<{
               }
             />
           </Message>
-        )}
+        ) : undefined}
         <FreeTextView
           comments={
             data.commentsData.get(CommentType.FUNCTION) as FreeTextComment[]
