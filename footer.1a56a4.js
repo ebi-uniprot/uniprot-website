@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[21],{578:function(e,o,t){"use strict";t.r(o);var n=t(9),w=t.n(n),r=t(0),a=t.n(r);o.default=e=>a.a.createElement("footer",w()({},e,{style:{background:"#014371",color:"white",width:"100vw"}}),"footer")}}]);
-//# sourceMappingURL=footer.1a56a4.js.map
