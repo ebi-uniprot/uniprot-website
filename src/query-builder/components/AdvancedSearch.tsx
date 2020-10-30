@@ -8,6 +8,7 @@ import {
 import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { v1 } from 'uuid';
+import { frame } from 'timing-functions';
 import { PageIntro } from 'franklin-sites';
 
 import ClauseList from './ClauseList';
@@ -147,18 +148,21 @@ const AdvancedSearch: FC = () => {
       );
 
       if (invalidClauses.length) {
-        dispatch(
-          addMessage({
-            id: Array.isArray(query) ? query[0] : query ?? v1(),
-            content: `Found ${invalidClauses.length} invalid query term${
-              invalidClauses.length === 1 ? '' : 's'
-            } for ${namespace}: ${invalidClauses
-              .map((invalid) => `"${invalid.searchTerm.term}"`)
-              .join(', ')}`,
-            format: MessageFormat.POP_UP,
-            level: MessageLevel.FAILURE,
-          })
-        );
+        // wait for next frame because this was causing a React warning
+        frame().then(() => {
+          dispatch(
+            addMessage({
+              id: Array.isArray(query) ? query[0] : query ?? v1(),
+              content: `Found ${invalidClauses.length} invalid query term${
+                invalidClauses.length === 1 ? '' : 's'
+              } for ${namespace}: ${invalidClauses
+                .map((invalid) => `"${invalid.searchTerm.term}"`)
+                .join(', ')}`,
+              format: MessageFormat.POP_UP,
+              level: MessageLevel.FAILURE,
+            })
+          );
+        });
       }
 
       if (validatedQuery.length) {
