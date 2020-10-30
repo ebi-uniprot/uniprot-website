@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import qs from 'query-string';
+import { v1 } from 'uuid';
 import { PageIntro } from 'franklin-sites';
 
 import ClauseList from './ClauseList';
@@ -41,6 +42,54 @@ const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
     }
     return searchTermDatum;
   });
+};
+
+const parseAndMatchQuery = (
+  query: string | string[] | null | undefined,
+  possibleSearchTerms: SearchTermType[]
+): [valid: Clause[], invalid: Clause[]] => {
+  const parsedQuery = query && !Array.isArray(query) ? parse(query) : undefined;
+  // for each parsed clause, try to find the corresponding endpoint-described
+  // clause to merge its 'searchTerm' field
+  const validatedQuery: Clause[] = [];
+  const invalid: Clause[] = [];
+  for (const clause of parsedQuery || []) {
+    if (clause.searchTerm.term === 'All') {
+      validatedQuery.push(clause);
+      continue; // eslint-disable-line no-continue
+    }
+    const matching = possibleSearchTerms.filter(
+      ({ term }) => term === clause.searchTerm.term
+    );
+    // if it exists, assign it 'searchTerm'
+    if (matching.length) {
+      if (matching.length === 1) {
+        // only one search term matching
+        validatedQuery.push({ ...clause, searchTerm: matching[0] });
+      } else if (clause.searchTerm.term === 'xref') {
+        // specific case for crosss-references
+        const [prefix, ...rest] = clause.queryBits.xref.split('-');
+        const matchingXref = matching.find(
+          ({ valuePrefix }) => valuePrefix === `${prefix}-`
+        );
+        if (matchingXref) {
+          validatedQuery.push({
+            ...clause,
+            searchTerm: matchingXref,
+            queryBits: { xref: rest.join('-') },
+          });
+        } else {
+          // invalid xref prefix
+          invalid.push(clause);
+        }
+      } else {
+        invalid.push(clause);
+      }
+    } else {
+      invalid.push(clause);
+    }
+  }
+  return [validatedQuery, invalid];
 };
 
 const AdvancedSearch: FC = () => {
@@ -90,48 +139,33 @@ const AdvancedSearch: FC = () => {
 
       // flatten all the endpoint-described clauses to be able to to look-up
       const flattened = flatten(searchTermsData);
-      const parseAndMatchQuery = (
-        query?: string | string[] | null
-      ): Clause[] => {
-        const parsedQuery =
-          query && !Array.isArray(query) ? parse(query) : undefined;
-        // for each parsed clause, try to find the corresponding endpoint-described
-        // clause to merge its 'searchTerm' field
-        const validatedQuery: Clause[] = [];
-        for (const clause of parsedQuery || []) {
-          if (clause.searchTerm.term === 'All') {
-            validatedQuery.push(clause);
-            continue; // eslint-disable-line no-continue
-          }
-          const found = flattened.find(
-            (item) => item.term === clause.searchTerm.term
-          );
-          // if it exists, assign it 'searchTerm'
-          if (found) {
-            validatedQuery.push({ ...clause, searchTerm: found });
-          } else {
-            dispatch(
-              addMessage({
-                id: clause.searchTerm.term,
-                content: `"${clause.searchTerm.term}" is not a valid query term for ${namespace}`,
-                format: MessageFormat.POP_UP,
-                level: MessageLevel.FAILURE,
-              })
-            );
-          }
-        }
-        return validatedQuery;
-      };
 
-      const validatedQuery = parseAndMatchQuery(
-        qs.parse(location.search, { decode: true })?.query
+      const query = qs.parse(location.search, { decode: true })?.query;
+      const [validatedQuery, invalidClauses] = parseAndMatchQuery(
+        query,
+        flattened
       );
+
+      if (invalidClauses.length) {
+        dispatch(
+          addMessage({
+            id: Array.isArray(query) ? query[0] : query ?? v1(),
+            content: `Found ${invalidClauses.length} invalid query term${
+              invalidClauses.length === 1 ? '' : 's'
+            } for ${namespace}: ${invalidClauses
+              .map((invalid) => `"${invalid.searchTerm.term}"`)
+              .join(', ')}`,
+            format: MessageFormat.POP_UP,
+            level: MessageLevel.FAILURE,
+          })
+        );
+      }
 
       if (validatedQuery.length) {
         return validatedQuery;
       }
 
-      return parseAndMatchQuery(defaultQueryFor(namespace));
+      return parseAndMatchQuery(defaultQueryFor(namespace), flattened)[0];
     });
   }, [dispatch, location.search, loading, namespace, searchTermsData]);
 
