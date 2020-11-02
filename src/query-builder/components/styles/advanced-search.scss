@@ -3,29 +3,42 @@
 .advanced-search {
   &__clause {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    gap: 1vw;
+    margin-left: 2vw;
 
     & button {
       margin-bottom: 0;
-    }
 
-    & > div,
-    & > select,
-    & > a {
-      margin: 0 $gutter-size;
+      &.tertiary {
+        padding-bottom: 0.5em; // hacky align 🤷🏽‍♂️
+      }
     }
 
     .advanced-search__logic {
       flex: 0 1 6rem;
+      margin-bottom: 0;
+    }
+
+    .dropdown-container {
+      flex-shrink: 0;
+
+      button {
+        margin-right: 0;
+      }
     }
 
     .advanced-search__inputs {
       flex-grow: 2;
-      margin-bottom: 0.25rem;
       display: flex;
 
       label {
         width: 100%;
+      }
+
+      input,
+      select {
+        margin-bottom: 0;
       }
     }
   }
