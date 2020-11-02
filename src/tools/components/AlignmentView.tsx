@@ -176,9 +176,9 @@ const AlignmentView: React.FC<{
 
   const activeAnnotation = useMemo(
     () =>
-      (activeAlignment?.features || [])
-        .filter(({ type }) => type === annotation)
-        .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1)),
+      (activeAlignment?.features || []).filter(
+        ({ type }) => type === annotation
+      ),
     [activeAlignment, annotation]
   );
 

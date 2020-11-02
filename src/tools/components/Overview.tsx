@@ -16,7 +16,11 @@ import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
-import { getFullAlignmentSegments, getEndCoordinate } from '../utils/sequences';
+import {
+  getFullAlignmentSegments,
+  getEndCoordinate,
+  createGappedFeature,
+} from '../utils/sequences';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 import FeatureType from '../../uniprotkb/types/featureType';
@@ -64,6 +68,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   onMSAFeatureClick,
   selectedMSAFeatures,
   activeAnnotation,
+  activeAlignment,
 }) => {
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
@@ -165,10 +170,14 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && ceDefined && activeAnnotation) {
-        node.data = activeAnnotation;
+        node.data = activeAnnotation
+          // The Overview feature track always starts from the start of the protein
+          // hence the need to have `from` := 1
+          .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1))
+          .filter(Boolean);
       }
     },
-    [activeAnnotation, ceDefined]
+    [activeAlignment?.sequence, activeAnnotation, ceDefined]
   );
 
   const overviewHeight = (alignment && alignment.length > 10

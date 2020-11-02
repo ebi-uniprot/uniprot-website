@@ -162,7 +162,6 @@ export const createGappedFeature = (
       });
     }
   }
-
   if (!fragments.length) {
     // At this point the feature start & end must be before the BLAST match's from.
     return;
@@ -177,7 +176,6 @@ export const createGappedFeature = (
   if (fragments.length > 1) {
     gappedFeature.locations = [{ fragments }];
   }
-
   return gappedFeature;
 };
 

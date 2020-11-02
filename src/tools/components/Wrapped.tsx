@@ -24,7 +24,7 @@ import {
   FeatureData,
   ProcessedFeature,
 } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { getEndCoordinate } from '../utils/sequences';
+import { createGappedFeature, getEndCoordinate } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 const widthOfAA = 20;
@@ -111,12 +111,27 @@ const WrappedRow: FC<WrappedRowProps> = ({
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined) {
-        node.data = activeAnnotation;
+        node.data = activeAnnotation
+          .map((f) =>
+            createGappedFeature(
+              f,
+              activeAlignment?.sequence,
+              // We want to offset all of the features by `from`
+              // in the Wrapped view.
+              activeAlignment?.from
+            )
+          )
+          .filter(Boolean);
       }
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [activeAnnotation, trackDefined]
+    [
+      activeAlignment?.from,
+      activeAlignment?.sequence,
+      activeAnnotation,
+      trackDefined,
+    ]
   );
 
   if (!(msaDefined && trackDefined)) {
