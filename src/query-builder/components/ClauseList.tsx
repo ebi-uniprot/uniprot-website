@@ -103,6 +103,8 @@ const ClauseList: React.FC<ClauseListProps> = ({
             return {
               ...clause,
               searchTerm,
+              // reset queryBits on change of field
+              queryBits: {},
             };
           }
           return clause;
