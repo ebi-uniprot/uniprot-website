@@ -306,6 +306,24 @@ const AlignmentView: React.FC<{
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const className = '.main-content-and-footer';
+    const mainContentAndFooter = document.querySelector(className);
+    if (!mainContentAndFooter) {
+      throw Error(`Cannot find :${className}`);
+    }
+    const handleScroll = () => {
+      setTooltipContent(null);
+    };
+    mainContentAndFooter.addEventListener('scroll', handleScroll, {
+      passive: false,
+    });
+    // Cleanup
+    return () => {
+      mainContentAndFooter.removeEventListener('scroll', handleScroll);
+    };
+  }, [setTooltipContent]);
+
   const tooltipVisibility = tooltipContent ? { visible: true } : {};
 
   const defaultActiveNodes = useMemo(() => [MsaColorScheme.CONSERVATION], []);
