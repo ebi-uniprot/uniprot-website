@@ -36,7 +36,7 @@ const RangeField: React.FC<{
             setRange(([, to]) => [from, to])
           }
           placeholder="0"
-          value={from}
+          value={from === '*' ? '' : from}
         />
       </label>
       <label htmlFor={`to_input_${field.id}`}>
@@ -49,7 +49,7 @@ const RangeField: React.FC<{
             setRange(([from]) => [from, to])
           }
           placeholder="100"
-          value={to}
+          value={to === '*' ? '' : to}
         />
       </label>
     </>
