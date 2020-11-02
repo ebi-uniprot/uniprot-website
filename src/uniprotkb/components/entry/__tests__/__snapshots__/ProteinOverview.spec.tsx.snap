@@ -2,73 +2,47 @@
 
 exports[`ProteinOverview component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="info-list"
-  >
-    <div
-      class="info-list__item"
+  <section>
+    Amyloid-beta precursor protein · 
+    <a
+      href="/taxonomy/9606"
     >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          Evidence
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        IT exists
-      </div>
-    </div>
-    <div
-      class="info-list__item"
+      Homo sapiens
+    </a>
+     · 
+    <strong>
+      Gene:
+    </strong>
+     APP (A4, AD1) · 770 amino-acids · 1: Evidence at protein level · 
+    <span
+      title="Annotation Score"
     >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          Annotation score
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
+      <span
+        class="doughnut-chart--small colour-platinum"
       >
         <span
-          title="Annotation Score"
+          class="doughnut-chart--small__left-wrap"
         >
           <span
-            class="doughnut-chart--medium colour-platinum"
-          >
-            <span
-              class="doughnut-chart--medium__left-wrap"
-            >
-              <span
-                class="doughnut-chart--medium__left-wrap__loader colour-sea-blue"
-                style="transform: rotate(0deg);"
-              />
-            </span>
-            <span
-              class="doughnut-chart--medium__right-wrap"
-            >
-              <span
-                class="doughnut-chart--medium__right-wrap__loader colour-sea-blue"
-                style="transform: rotate(72deg);"
-              />
-            </span>
-            <span
-              class="doughnut-chart--medium__inner-circle"
-            >
-              1/5
-            </span>
-          </span>
+            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+            style="transform: rotate(180deg);"
+          />
         </span>
-      </div>
-    </div>
-  </div>
+        <span
+          class="doughnut-chart--small__right-wrap"
+        >
+          <span
+            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+            style="transform: rotate(180deg);"
+          />
+        </span>
+        <span
+          class="doughnut-chart--small__inner-circle"
+        >
+          5/5
+        </span>
+      </span>
+    </span>
+  </section>
 </DocumentFragment>
 `;

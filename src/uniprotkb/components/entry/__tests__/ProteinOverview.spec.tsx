@@ -1,18 +1,12 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import ProteinOverview from '../../protein-data-views/ProteinOverviewView';
-import ProteinNamesUIData from '../../__mocks__/proteinNamesUIData.json';
-import EntrySection from '../../../types/entrySection';
+import swissprotData from '../../__mocks__/swissprotEntry.json';
+import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
 describe('ProteinOverview component', () => {
   test('should render', () => {
-    const transformedData = {
-      proteinExistence: 'IT exists',
-      annotationScore: 12.4,
-    };
-    transformedData[EntrySection.NamesAndTaxonomy] = ProteinNamesUIData;
-    const { asFragment } = render(
-      <ProteinOverview transformedData={transformedData} />
+    const { asFragment } = renderWithRouter(
+      <ProteinOverview data={swissprotData} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

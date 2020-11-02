@@ -50,6 +50,8 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 
 enum TabLocation {
   Entry = 'entry',
@@ -158,7 +160,22 @@ const Entry: FC = () => {
   }
 
   return (
-    <SideBarLayout sidebar={sidebar} className="entry-page">
+    <SideBarLayout
+      sidebar={sidebar}
+      className="entry-page"
+      title={
+        <>
+          <h2>
+            <EntryTitle
+              mainTitle={data.primaryAccession}
+              optionalTitle={data.uniProtkbId}
+              entryType={data.entryType}
+            />
+          </h2>
+          <ProteinOverview data={data} />
+        </>
+      }
+    >
       <Tabs active={match.params?.subPage}>
         <Tab
           title={
