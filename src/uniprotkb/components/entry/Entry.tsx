@@ -1,16 +1,13 @@
 import React, { useMemo, FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import {
   InPageNav,
   Loader,
-  DisplayMenu,
-  PublicationIcon,
-  ExternalLinkIcon,
-  TremblIcon,
   DownloadIcon,
   DropdownButton,
-  ProtVistaIcon,
+  Tabs,
+  Tab,
 } from 'franklin-sites';
 
 import { fileFormatEntryDownload } from '../../types/resultsTypes';
@@ -54,9 +51,16 @@ import uniProtKbConverter, {
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
+enum TabLocation {
+  Entry = 'entry',
+  FeatureViewer = 'feature-viewer',
+  Publications = 'publications',
+  ExternalLinks = 'external-links',
+}
+
 const Entry: FC = () => {
   const dispatch = useDispatch();
-  const match = useRouteMatch<{ accession: string }>(
+  const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniProtKBEntry]
   );
 
@@ -124,112 +128,138 @@ const Entry: FC = () => {
     dispatch(addMessage(message));
   }
 
-  const displayMenuData = [
-    {
-      name: 'Entry',
-      icon: <TremblIcon />,
-      itemContent: (
-        <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
-      ),
-      path: '',
-      exact: true,
-      actionButtons: (
-        <div className="button-group">
-          <BlastButton selectedEntries={[match.params.accession]} />
-          <AlignButton
-            selectedEntries={[
-              match.params.accession,
-              ...listOfIsoformAccessions,
-            ]}
-          />
-          <DropdownButton
-            label={
-              <>
-                <DownloadIcon />
-                Download
-              </>
-            }
-            className="tertiary"
-            // onSelect={action('onSelect')}
-          >
-            <div className="dropdown-menu__content">
-              <ul>
-                {fileFormatEntryDownload.map((fileFormat) => (
-                  <li key={fileFormat}>
-                    <a
-                      href={apiUrls.entryDownload(
-                        transformedData.primaryAccession,
-                        fileFormat
-                      )}
-                    >
-                      {fileFormat}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </DropdownButton>
-          <AddToBasketButton selectedEntries={[match.params.accession]} />
-        </div>
-      ),
-      mainContent: <EntryMain transformedData={transformedData} />,
-    },
-    {
-      name: 'Feature viewer',
-      path: 'feature-viewer',
-      icon: <ProtVistaIcon />,
-      mainContent: <FeatureViewer accession={match.params.accession} />,
-    },
-    {
-      name: 'Publications',
-      path: 'publications',
-      icon: <PublicationIcon />,
-      itemContent: (
-        <EntryPublicationsFacets accession={match.params.accession} />
-      ),
-      mainContent: <EntryPublications accession={match.params.accession} />,
-    },
-    {
-      name: 'External links',
-      path: 'external-links',
-      icon: <ExternalLinkIcon />,
-      mainContent: <EntryExternalLinks transformedData={transformedData} />,
-    },
-  ];
+  const entrySidebar = (
+    <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
+  );
+
+  const publicationsSideBar = (
+    <EntryPublicationsFacets accession={match.params.accession} />
+  );
+
+  const emptySidebar = (
+    <div className="sidebar-layout__sidebar-content--empty" />
+  );
+
+  let sidebar;
+
+  switch (match.params?.subPage) {
+    case TabLocation.FeatureViewer:
+    case TabLocation.ExternalLinks:
+      sidebar = emptySidebar;
+      break;
+
+    case TabLocation.Publications:
+      sidebar = publicationsSideBar;
+      break;
+
+    default:
+      sidebar = entrySidebar;
+      break;
+  }
 
   return (
-    <SideBarLayout
-      sidebar={
-        <DisplayMenu
-          data={displayMenuData}
-          title={`Publications for ${match.params.accession}`}
-        />
-      }
-      actionButtons={
-        <Switch>
-          {displayMenuData.map((displayItem) => (
-            <Route
-              path={`${match.path}/${displayItem.path}`}
-              key={displayItem.name}
+    <SideBarLayout sidebar={sidebar} className="entry-page">
+      <Tabs active={match.params?.subPage}>
+        <Tab
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Entry}`,
+              })}
             >
-              {displayItem.actionButtons}
-            </Route>
-          ))}
-        </Switch>
-      }
-      className="entry-page"
-    >
-      <Switch>
-        {displayMenuData.map((displayItem) => (
-          <Route
-            path={`${match.path}/${displayItem.path}`}
-            key={displayItem.name}
-            exact={displayItem.exact}
-          >
-            {displayItem.mainContent}
-          </Route>
-        ))}
-      </Switch>
+              Entry
+            </Link>
+          }
+          id={TabLocation.Entry}
+        >
+          <>
+            <div className="button-group">
+              <BlastButton selectedEntries={[match.params.accession]} />
+              <AlignButton
+                selectedEntries={[
+                  match.params.accession,
+                  ...listOfIsoformAccessions,
+                ]}
+              />
+              <DropdownButton
+                label={
+                  <>
+                    <DownloadIcon />
+                    Download
+                  </>
+                }
+                className="tertiary"
+                // onSelect={action('onSelect')}
+              >
+                <div className="dropdown-menu__content">
+                  <ul>
+                    {fileFormatEntryDownload.map((fileFormat) => (
+                      <li key={fileFormat}>
+                        <a
+                          href={apiUrls.entryDownload(
+                            transformedData.primaryAccession,
+                            fileFormat
+                          )}
+                        >
+                          {fileFormat}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </DropdownButton>
+              <AddToBasketButton selectedEntries={[match.params.accession]} />
+            </div>
+            <EntryMain transformedData={transformedData} />
+          </>
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.FeatureViewer}`,
+              })}
+            >
+              Feature viewer
+            </Link>
+          }
+          id={TabLocation.FeatureViewer}
+        >
+          <FeatureViewer accession={match.params.accession} />
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Publications}`,
+              })}
+            >
+              Publications
+            </Link>
+          }
+          id={TabLocation.Publications}
+        >
+          <EntryPublications accession={match.params.accession} />
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/uniprotkb/${match.params.accession}/${TabLocation.ExternalLinks}`,
+              })}
+            >
+              External links
+            </Link>
+          }
+          id={TabLocation.ExternalLinks}
+        >
+          <EntryExternalLinks transformedData={transformedData} />
+        </Tab>
+      </Tabs>
     </SideBarLayout>
   );
 };
