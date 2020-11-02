@@ -86,8 +86,29 @@ const parseAndMatchQuery = (
       } else {
         invalid.push(clause);
       }
+      // else, didn't find any match
     } else {
-      invalid.push(clause);
+      // try to find a search term matching through the autoComplete field
+      const matchingAutoComplete = possibleSearchTerms.find(
+        ({ autoCompleteQueryTerm }) =>
+          autoCompleteQueryTerm &&
+          autoCompleteQueryTerm === clause.searchTerm.term
+      );
+      if (matchingAutoComplete) {
+        // set that clause to the corresponding autoComplete term field
+        validatedQuery.push({
+          ...clause,
+          searchTerm: matchingAutoComplete,
+          // and change queryBit key
+          queryBits: {
+            ...clause.queryBits,
+            [matchingAutoComplete.term]:
+              clause.queryBits[clause.searchTerm.term],
+          },
+        });
+      } else {
+        invalid.push(clause);
+      }
     }
   }
   return [validatedQuery, invalid];
