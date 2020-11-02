@@ -36,7 +36,7 @@ export type BlastHit = {
   hit_uni_de: string;
   hit_uni_os: string;
   hit_uni_ox: string;
-  hit_uni_gn: string;
+  hit_uni_gn?: string;
   hit_uni_pe: string;
   hit_uni_sv: string;
   hit_len: number;
