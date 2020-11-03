@@ -53,6 +53,7 @@ const evidenceUrls: { [key: string]: string } = {
   'MobiDB-lite': 'https://www.uniprot.org/help/MobiDB-lite',
   ProteomicsDB:
     'ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/proteomics_mapping/README',
+  EuropePMC: 'https://europepmc.org/abstract/MED/%value',
 };
 
 export default evidenceUrls;
