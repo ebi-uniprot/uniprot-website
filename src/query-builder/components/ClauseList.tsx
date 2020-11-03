@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
 import { TreeSelect } from 'franklin-sites';
+
 import LogicalOperator from './LogicalOperator';
 import Field from './Field';
+
 import {
   Clause,
   SearchTermType,
@@ -104,7 +106,9 @@ const ClauseList: React.FC<ClauseListProps> = ({
               ...clause,
               searchTerm,
               // reset queryBits on change of field
-              queryBits: {},
+              queryBits: searchTerm.values?.length
+                ? { [searchTerm.term]: searchTerm.values[0].value }
+                : {},
             };
           }
           return clause;
