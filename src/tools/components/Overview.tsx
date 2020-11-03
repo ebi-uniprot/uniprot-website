@@ -71,7 +71,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   >();
   const [displayEnd, setDisplayEnd] = useState<number>();
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
-  const findHighlighPositions = useCallback(
+  const findHighlightPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
       if (
         typeof displaystart === 'undefined' ||
@@ -93,7 +93,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     (node): void => {
       if (node && initialDisplayEnd) {
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
-          findHighlighPositions(detail)
+          findHighlightPositions(detail)
         );
         node.setAttribute('displaystart', 1);
         node.setAttribute('displayend', initialDisplayEnd);
@@ -103,7 +103,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         );
       }
     },
-    [initialDisplayEnd, findHighlighPositions, tracksOffset]
+    [initialDisplayEnd, findHighlightPositions, tracksOffset]
   );
 
   const msaDefined = useCustomElement(
