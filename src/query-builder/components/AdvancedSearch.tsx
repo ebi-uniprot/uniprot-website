@@ -213,10 +213,10 @@ const AdvancedSearch: FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const queryString = stringify(clauses);
+    const queryString = stringify(clauses) || '*';
     history.push({
       pathname: `/${namespace}`,
-      search: queryString && `query=${queryString}`,
+      search: `query=${queryString}`,
     });
   };
 
