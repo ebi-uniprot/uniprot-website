@@ -33,10 +33,17 @@ import { Clause, SearchTermType } from '../types/searchTypes';
 import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/advanced-search.scss';
 
-const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
-  return searchTermData.flatMap((searchTermDatum: SearchTermType) => {
+type STTWithParent = SearchTermType & {
+  parent?: STTWithParent;
+};
+
+const flatten = (searchTermData: STTWithParent[]): STTWithParent[] => {
+  return searchTermData.flatMap((searchTermDatum: STTWithParent) => {
     if (searchTermDatum.siblings) {
-      return flatten(searchTermDatum.siblings);
+      return flatten(searchTermDatum.siblings).map((st) => ({
+        ...st,
+        parent: searchTermDatum,
+      }));
     }
     if (searchTermDatum.items) {
       return flatten(searchTermDatum.items);
@@ -47,7 +54,7 @@ const flatten = (searchTermData: SearchTermType[]): SearchTermType[] => {
 
 const parseAndMatchQuery = (
   query: string | string[] | null | undefined,
-  possibleSearchTerms: SearchTermType[]
+  possibleSearchTerms: STTWithParent[]
 ): [valid: Clause[], invalid: Clause[]] => {
   const parsedQuery = query && !Array.isArray(query) ? parse(query) : undefined;
   // for each parsed clause, try to find the corresponding endpoint-described
@@ -66,7 +73,10 @@ const parseAndMatchQuery = (
     if (matching.length) {
       if (matching.length === 1) {
         // only one search term matching
-        validatedQuery.push({ ...clause, searchTerm: matching[0] });
+        validatedQuery.push({
+          ...clause,
+          searchTerm: matching[0].parent || matching[0],
+        });
       } else if (clause.searchTerm.term === 'xref') {
         // specific case for crosss-references
         const [prefix, ...rest] = clause.queryBits.xref.split('-');
@@ -163,6 +173,7 @@ const AdvancedSearch: FC = () => {
       const flattened = flatten(searchTermsData);
 
       const query = qs.parse(location.search, { decode: true })?.query;
+
       const [validatedQuery, invalidClauses] = parseAndMatchQuery(
         query,
         flattened
