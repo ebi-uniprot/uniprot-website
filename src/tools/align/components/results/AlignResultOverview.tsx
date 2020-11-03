@@ -53,10 +53,12 @@ const enrichParsed = (
     let info;
     let features;
     if (sequence.name && nameToSequenceInfo[sequence.name]) {
-      info = nameToSequenceInfo[sequence.name];
-      features = processFeaturesData(
-        removeFeaturesWithUnknownModifier(info?.features)
-      );
+      info = nameToSequenceInfo[sequence?.name];
+      if (info?.features) {
+        features = processFeaturesData(
+          removeFeaturesWithUnknownModifier(info.features)
+        );
+      }
     }
     sequences[index] = {
       ...info,
