@@ -99,7 +99,8 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     hitAccession,
     apiData
   );
-
+  const containerClass = 'hsp-detail-panel';
+  const containerSelector = `.${containerClass}`;
   let content;
   if (!apiData) {
     if (error) {
@@ -122,6 +123,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
             alignment={alignment}
             defaultView={View.overview}
             tool={Tool.blast}
+            containerSelector={containerSelector}
           />
         </div>
       </>
@@ -129,7 +131,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   }
 
   return (
-    <SlidingPanel position="bottom" className="hsp-detail-panel">
+    <SlidingPanel position="bottom" className={containerClass}>
       {content}
     </SlidingPanel>
   );

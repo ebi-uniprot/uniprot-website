@@ -111,6 +111,7 @@ const AlignmentView: React.FC<{
   tool,
   selectedEntries,
   handleSelectedEntries,
+  containerSelector,
 }) => {
   const [tooltipContent, setTooltipContent] = useState();
   const tooltipRef = useRef();
@@ -255,10 +256,13 @@ const AlignmentView: React.FC<{
     [setTooltipContent]
   );
 
+  if (tooltipRef?.current) {
+    tooltipRef.current.container = containerSelector;
+  }
+
   const updateTooltip = useCallback(
     ({ id, x, y, event }) => {
       event.stopPropagation();
-      event.preventDefault();
       const { feature } = findSequenceFeature(id, alignment);
       if (feature.evidences) {
         feature.evidences = feature.evidences.map((e) => ({
@@ -273,12 +277,18 @@ const AlignmentView: React.FC<{
           },
         }));
       }
+      let yOffset = 0;
+      if (containerSelector) {
+        const panel = document.querySelector(containerSelector);
+        const rect = panel?.getBoundingClientRect();
+        yOffset = rect.y;
+      }
       tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
       setTooltipContent({ __html: formatTooltip(feature) });
-      tooltipRef.current.x = x; // - rect.x; // event.x;
-      tooltipRef.current.y = y; // - rect.y; // event.y;
+      tooltipRef.current.x = x;
+      tooltipRef.current.y = y - yOffset;
     },
-    [alignment]
+    [alignment, containerSelector]
   );
 
   const onMSAFeatureClick = useCallback(

@@ -8,6 +8,7 @@ import React, {
 } from 'react';
 import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
+import { v1 } from 'uuid';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -149,12 +150,21 @@ const enrich = (
     return null;
   }
   const output: EnrichedData = { ...blastData };
-  output.hits = output.hits.map((hit) => ({
-    ...hit,
-    extra: (apiData.results as UniProtkbAPIModel[]).find(
+  output.hits = output.hits.map((hit) => {
+    const extra = (apiData.results as UniProtkbAPIModel[]).find(
       (entry) => hit.hit_acc === entry.primaryAccession
-    ),
-  }));
+    );
+    return {
+      ...hit,
+      extra: {
+        ...extra,
+        features: extra?.features?.map((f) => ({
+          ...f,
+          featureId: f.featureId || v1(),
+        })),
+      },
+    };
+  });
   return output;
 };
 
