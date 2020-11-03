@@ -63,6 +63,22 @@ exports[`Clause component should render a \`text\` field 1`] = `
 </DocumentFragment>
 `;
 
+exports[`Clause component should render a \`text\` field with initial value 1`] = `
+<DocumentFragment>
+  <label
+    for="input_accession"
+  >
+    UniProtKB AC
+    <input
+      id="input_accession"
+      placeholder="P12345"
+      type="text"
+      value="P12345"
+    />
+  </label>
+</DocumentFragment>
+`;
+
 exports[`Clause component should render an \`enum\` field 1`] = `
 <DocumentFragment>
   <label
