@@ -31,6 +31,7 @@ export const prepareFeatureForTooltip = (feature) => {
           value: e.id,
         });
       }
+      prepared.source = source;
     }
     return prepared;
   });
