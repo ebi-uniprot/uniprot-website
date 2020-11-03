@@ -33,6 +33,14 @@ export const defaultQueryFor = (namespace: Namespace) => {
   switch (namespace) {
     case Namespace.uniref:
       return '(name:) AND (taxonomy_name:) AND (identity:) AND (uniprot_id:) AND ';
+    case Namespace.uniparc:
+      return '(upid:) AND (uniprotkb:) AND (dbid:) AND (checksum:) AND ';
+    // case Namespace.proteomes:
+    //   return ''; // TODO
+    // case Namespace.publications:
+    //   return ''; // TODO
+    // case Namespace.keywords:
+    //   return ''; // TODO
     case Namespace.uniprotkb:
     default:
       return '(gene:) AND (taxonomy_name:) AND (keyword:) AND ';
