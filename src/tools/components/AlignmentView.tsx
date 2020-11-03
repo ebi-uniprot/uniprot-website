@@ -176,9 +176,9 @@ const AlignmentView: React.FC<{
 
   const activeAnnotation = useMemo(
     () =>
-      (activeAlignment?.features || [])
-        .filter(({ type }) => type === annotation)
-        .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1)),
+      (activeAlignment?.features || []).filter(
+        ({ type }) => type === annotation
+      ),
     [activeAlignment, annotation]
   );
 
@@ -318,6 +318,24 @@ const AlignmentView: React.FC<{
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    const className = '.main-content-and-footer';
+    const mainContentAndFooter = document.querySelector(className);
+    if (!mainContentAndFooter) {
+      throw Error(`Cannot find :${className}`);
+    }
+    const handleScroll = () => {
+      setTooltipContent(null);
+    };
+    mainContentAndFooter.addEventListener('scroll', handleScroll, {
+      passive: false,
+    });
+    // Cleanup
+    return () => {
+      mainContentAndFooter.removeEventListener('scroll', handleScroll);
+    };
+  }, [setTooltipContent]);
 
   const tooltipVisibility = tooltipContent ? { visible: true } : {};
 
