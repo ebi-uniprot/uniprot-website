@@ -20,10 +20,7 @@ import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import FeatureType from '../../uniprotkb/types/featureType';
 import { ConservationOptions, MSAInput } from './AlignmentView';
-import {
-  FeatureData,
-  ProcessedFeature,
-} from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import { createGappedFeature, getEndCoordinate } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 

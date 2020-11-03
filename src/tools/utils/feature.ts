@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
 import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
 
@@ -34,6 +34,5 @@ export const prepareFeatureForTooltip = (feature) => {
     }
     return prepared;
   });
-  console.log(cloned);
   return cloned;
 };

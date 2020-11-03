@@ -7,10 +7,7 @@ import extractAccession from './extractAccession';
 
 import { getAccessionsURL } from '../../../shared/config/apiUrls';
 
-import {
-  FeatureData,
-  ProcessedFeature,
-} from '../../../uniprotkb/components/protein-data-views/FeaturesView';
+import { ProcessedFeature } from '../../../uniprotkb/components/protein-data-views/FeaturesView';
 import { ParsedSequence } from '../../components/SequenceSearchLoader';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 

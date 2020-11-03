@@ -176,6 +176,7 @@ export const createGappedFeature = (
   if (fragments.length > 1) {
     gappedFeature.locations = [{ fragments }];
   }
+  // eslint-disable-next-line consistent-return
   return gappedFeature;
 };
 
@@ -190,12 +191,13 @@ export const findSequenceFeature = (protvistaFeatureId, alignment) => {
       }
     }
   }
+  return null;
 };
 
 export const getMSAFeature = (feature, sequence, sequenceIndex, from) => {
   const gappedFeature = createGappedFeature(feature, sequence, from);
   if (!gappedFeature) {
-    return;
+    return null;
   }
   return {
     residues: { from: gappedFeature.start, to: gappedFeature.end },
