@@ -1,6 +1,6 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { act, fireEvent, getAllByTestId } from '@testing-library/react';
+import { act, fireEvent, screen, getByText } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
@@ -49,17 +49,18 @@ describe('AdvancedSearch', () => {
     expect(clauses.length).toBe(3);
   });
 
-  test.skip('should select field', () => {
-    const { getByText, getByPlaceholderText } = rendered;
-    let accession = getByText(/UniProtKB AC/);
-    let searchField = getByPlaceholderText('P12345');
-    expect(accession).toBeFalsy();
-    expect(searchField).toBeFalsy();
-    fireEvent.click(getByText(/All/));
-    accession = getByText(/UniProtKB AC/);
-    fireEvent.click(accession);
-    searchField = getByPlaceholderText('P12345');
-    expect(searchField).toBeTruthy();
+  test('should select field', () => {
+    let entryNameField = screen.queryByPlaceholderText('P53_HUMAN');
+    expect(entryNameField).toBeFalsy();
+    const dropdownButton = screen.getByText(/All/, {
+      selector: '.button.dropdown',
+    });
+    const clause = dropdownButton.closest('[data-testid="search__clause"]');
+    fireEvent.click(dropdownButton);
+    let entryNameFieldOption = getByText(clause, /Entry Name \[ID\]/);
+    fireEvent.click(entryNameFieldOption);
+    entryNameField = screen.queryByPlaceholderText('P53_HUMAN');
+    expect(entryNameField).toBeTruthy();
   });
 
   test('should submit a simple query', () => {
@@ -71,7 +72,11 @@ describe('AdvancedSearch', () => {
     const reviewedLogic = getAllByTestId('advanced-search-logic-select');
     // Note this should be 1 as the first line shouldn't have one
     fireEvent.change(reviewedLogic[3], { target: { value: 'OR' } });
-    fireEvent.submit(getByTestId('advanced-search-form'));
+    // FIXME: These next lines are the ones triggering the warning even though
+    // FIXME: we are indeed using act...
+    act(() => {
+      fireEvent.submit(getByTestId('advanced-search-form'));
+    });
     expect(history.location.search).toBe('?query=(gene:zen) OR eve');
   });
 });
