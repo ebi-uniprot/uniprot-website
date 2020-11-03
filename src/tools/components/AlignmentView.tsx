@@ -260,6 +260,19 @@ const AlignmentView: React.FC<{
       event.stopPropagation();
       event.preventDefault();
       const { feature } = findSequenceFeature(id, alignment);
+      if (feature.evidences) {
+        feature.evidences = feature.evidences.map((e) => ({
+          ...e,
+          code: e.evidenceCode,
+          source: {
+            id: e.id,
+            code: e.evidenceCode,
+            name: e.source,
+            url: `https://pubmed.ncbi.nlm.nih.gov/${e.id}`,
+            alternativeUrl: `https://europepmc.org/article/MED/${e.id}`,
+          },
+        }));
+      }
       tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
       setTooltipContent({ __html: formatTooltip(feature) });
       tooltipRef.current.x = x; // - rect.x; // event.x;
