@@ -49,9 +49,11 @@ import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 
-import '../../../shared/components/entry/styles/entry-page.scss';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
+
+import '../../../shared/components/entry/styles/entry-page.scss';
+import '../../../shared/styles/sticky-tabs-container.scss';
 
 enum TabLocation {
   Entry = 'entry',
@@ -162,7 +164,7 @@ const Entry: FC = () => {
   return (
     <SideBarLayout
       sidebar={sidebar}
-      className="entry-page"
+      className="entry-page sticky-tabs-container"
       title={
         <>
           <h2>

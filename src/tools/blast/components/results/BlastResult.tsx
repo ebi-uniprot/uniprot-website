@@ -42,7 +42,7 @@ import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
-import '../../../styles/ToolsResult.scss';
+import '../../../../shared/styles/sticky-tabs-container.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -323,7 +323,7 @@ const BlastResult = () => {
         <PageIntro title="BLAST Results" resultsCount={hitsFiltered.length} />
       }
       sidebar={sidebar}
-      className="tools-result"
+      className="sticky-tabs-container"
     >
       <Tabs active={match.params?.subPage}>
         <Tab
