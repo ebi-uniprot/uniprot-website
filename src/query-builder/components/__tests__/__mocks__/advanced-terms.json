@@ -8027,7 +8027,7 @@
         "label": "Fragment",
         "itemType": "single",
         "term": "fragment",
-        "dataType": "enum",
+        "dataType": "boolean",
         "fieldType": "general",
         "example": "true",
         "values": [
