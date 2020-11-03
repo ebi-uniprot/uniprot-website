@@ -21,7 +21,6 @@ import {
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import {
-  createGappedFeature,
   findSequenceFeature,
   getFullAlignmentLength,
   getMSAFeature,
@@ -31,6 +30,7 @@ import FeatureType from '../../uniprotkb/types/featureType';
 import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 
 import './styles/AlignmentView.scss';
+import { prepareFeatureForTooltip } from '../utils/feature';
 
 export type ConservationOptions = {
   'calculate-conservation'?: true;
@@ -264,27 +264,15 @@ const AlignmentView: React.FC<{
     ({ id, x, y, event }) => {
       event.stopPropagation();
       const { feature } = findSequenceFeature(id, alignment);
-      if (feature.evidences) {
-        feature.evidences = feature.evidences.map((e) => ({
-          ...e,
-          code: e.evidenceCode,
-          source: {
-            id: e.id,
-            code: e.evidenceCode,
-            name: e.source,
-            url: `https://pubmed.ncbi.nlm.nih.gov/${e.id}`,
-            alternativeUrl: `https://europepmc.org/article/MED/${e.id}`,
-          },
-        }));
-      }
+      const preparedFeature = prepareFeatureForTooltip(feature);
       let yOffset = 0;
       if (containerSelector) {
         const panel = document.querySelector(containerSelector);
         const rect = panel?.getBoundingClientRect();
         yOffset = rect.y;
       }
-      tooltipRef.current.title = `${feature.type} ${feature.start}-${feature.end}`;
-      setTooltipContent({ __html: formatTooltip(feature) });
+      tooltipRef.current.title = `${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}`;
+      setTooltipContent({ __html: formatTooltip(preparedFeature) });
       tooltipRef.current.x = x;
       tooltipRef.current.y = y - yOffset;
     },
