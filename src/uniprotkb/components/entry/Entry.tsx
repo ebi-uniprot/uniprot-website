@@ -192,46 +192,44 @@ const Entry: FC = () => {
           }
           id={TabLocation.Entry}
         >
-          <>
-            <div className="button-group">
-              <BlastButton selectedEntries={[match.params.accession]} />
-              <AlignButton
-                selectedEntries={[
-                  match.params.accession,
-                  ...listOfIsoformAccessions,
-                ]}
-              />
-              <DropdownButton
-                label={
-                  <>
-                    <DownloadIcon />
-                    Download
-                  </>
-                }
-                className="tertiary"
-                // onSelect={action('onSelect')}
-              >
-                <div className="dropdown-menu__content">
-                  <ul>
-                    {fileFormatEntryDownload.map((fileFormat) => (
-                      <li key={fileFormat}>
-                        <a
-                          href={apiUrls.entryDownload(
-                            transformedData.primaryAccession,
-                            fileFormat
-                          )}
-                        >
-                          {fileFormat}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </DropdownButton>
-              <AddToBasketButton selectedEntries={[match.params.accession]} />
-            </div>
-            <EntryMain transformedData={transformedData} />
-          </>
+          <div className="button-group">
+            <BlastButton selectedEntries={[match.params.accession]} />
+            <AlignButton
+              selectedEntries={[
+                match.params.accession,
+                ...listOfIsoformAccessions,
+              ]}
+            />
+            <DropdownButton
+              label={
+                <>
+                  <DownloadIcon />
+                  Download
+                </>
+              }
+              className="tertiary"
+              // onSelect={action('onSelect')}
+            >
+              <div className="dropdown-menu__content">
+                <ul>
+                  {fileFormatEntryDownload.map((fileFormat) => (
+                    <li key={fileFormat}>
+                      <a
+                        href={apiUrls.entryDownload(
+                          transformedData.primaryAccession,
+                          fileFormat
+                        )}
+                      >
+                        {fileFormat}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </DropdownButton>
+            <AddToBasketButton selectedEntries={[match.params.accession]} />
+          </div>
+          <EntryMain transformedData={transformedData} />
         </Tab>
         <Tab
           title={
