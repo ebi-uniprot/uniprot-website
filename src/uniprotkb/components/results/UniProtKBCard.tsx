@@ -7,11 +7,11 @@ import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import KeywordCategory from '../../types/keywordCategory';
 import { KeywordList } from '../protein-data-views/KeywordView';
+import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import getProteinHighlights from '../../adapters/proteinHighlights';
 
 import './styles/uniprot-card.scss';
-import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 
 const UniProtKBCard: FC<{
   data: UniProtkbAPIModel;

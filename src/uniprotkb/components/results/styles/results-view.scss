@@ -10,4 +10,8 @@
   .data-table__header-cell {
     top: $action-buttons-height !important;
   }
+
+  .data-table__cell > .info-list {
+    margin: 0;
+  }
 }
