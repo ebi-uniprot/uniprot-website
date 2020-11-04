@@ -171,7 +171,7 @@ const BlastResult = () => {
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match?.params?.subPage) {
+    if (match && !match.params.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
@@ -278,7 +278,7 @@ const BlastResult = () => {
     return <ErrorHandler status={blastStatus} />;
   }
 
-  // Deciding what should be displayed on the sidebar
+  // sidebar option 1
   const facetsSidebar = (
     <>
       <ErrorBoundary>
@@ -290,12 +290,14 @@ const BlastResult = () => {
     </>
   );
 
+  // sidebar option 2
   const emptySidebar = (
     <div className="sidebar-layout__sidebar-content--empty" />
   );
-  let sidebar;
 
-  switch (match.params?.subPage) {
+  let sidebar: JSX.Element;
+  // Deciding what should be displayed on the sidebar
+  switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
@@ -325,7 +327,7 @@ const BlastResult = () => {
       sidebar={sidebar}
       className="sticky-tabs-container"
     >
-      <Tabs active={match.params?.subPage}>
+      <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
           title={

@@ -1,6 +1,6 @@
-import React, { useMemo, FC } from 'react';
+import React, { useMemo, useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useRouteMatch, useHistory } from 'react-router-dom';
 import {
   InPageNav,
   Loader,
@@ -64,9 +64,22 @@ enum TabLocation {
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniProtKBEntry]
   );
+
+  // if URL doesn't finish with "entry" redirect to /entry by default
+  useEffect(() => {
+    if (match && !match.params.subPage) {
+      history.replace(
+        history.createHref({
+          ...history.location,
+          pathname: `${history.location.pathname}/${TabLocation.Entry}`,
+        })
+      );
+    }
+  }, [match, history]);
 
   const { loading, data, status, error, redirectedTo } = useDataApi<
     UniProtkbAPIModel | UniProtkbInactiveEntryModel
@@ -114,7 +127,7 @@ const Entry: FC = () => {
     );
   }
 
-  if (error || !match?.params.accession || !transformedData || !match) {
+  if (error || !match?.params.accession || !transformedData) {
     return <ErrorHandler status={status} />;
   }
 
@@ -146,7 +159,7 @@ const Entry: FC = () => {
 
   let sidebar;
 
-  switch (match.params?.subPage) {
+  switch (match.params.subPage) {
     case TabLocation.FeatureViewer:
     case TabLocation.ExternalLinks:
       sidebar = emptySidebar;
@@ -178,7 +191,7 @@ const Entry: FC = () => {
         </>
       }
     >
-      <Tabs active={match.params?.subPage}>
+      <Tabs active={match.params.subPage}>
         <Tab
           title={
             <Link
