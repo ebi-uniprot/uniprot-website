@@ -83,7 +83,7 @@ const apiUrls = {
 
   // TODO: move that to UniRef-specific file?
   uniref: {
-    entry: (id: string) => joinUrl(devPrefix, '/uniprot/api/uniref', id),
+    entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
   },
 };
 

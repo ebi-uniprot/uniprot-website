@@ -43,7 +43,12 @@ export const Overview: FC<{
     // NOTE: add members composition?
   ];
 
-  return <InfoList infoData={infoListData} />;
+  return (
+    <section>
+      {transformedData.name && <p>{transformedData.name}</p>}
+      <p>other text</p>
+    </section>
+  );
 };
 
 export default Overview;

@@ -1,9 +1,6 @@
 import React, { FC, memo } from 'react';
 import { Card } from 'franklin-sites';
 
-import Overview from '../data-views/Overview';
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import UniRefEntryConfig from '../../config/UniRefEntryConfig';
@@ -21,12 +18,6 @@ function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   <>
-    <ErrorBoundary>
-      <Card title={<EntryTitle mainTitle={transformedData.id} />}>
-        <Overview transformedData={transformedData} />
-      </Card>
-    </ErrorBoundary>
-
     {UniRefEntryConfig.map(({ name, sectionContent }) => (
       <ErrorBoundary key={name}>
         {sectionContent(transformedData)}

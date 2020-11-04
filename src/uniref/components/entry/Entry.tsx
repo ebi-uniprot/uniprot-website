@@ -14,13 +14,13 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
 
-import BlastButton from '../../../shared/components/action-buttons/Blast';
-import AlignButton from '../../../shared/components/action-buttons/Align';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import UniRefEntryConfig from '../../config/UniRefEntryConfig';
 
@@ -36,6 +36,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniRefConverter, {
   UniRefAPIModel,
 } from '../../adapters/uniRefConverter';
+import { Facet } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -45,9 +46,13 @@ const Entry: FC = () => {
     LocationToPath[Location.UniRefEntry]
   );
 
+  const baseURL = apiUrls.uniref.entry(match?.params.accession);
   const { loading, data, status, error, redirectedTo } = useDataApi<
     UniRefAPIModel
-  >(apiUrls.uniref.entry(match?.params.accession || ''));
+  >(baseURL);
+  const facetsDataObject = useDataApi<Facet>(`${baseURL}/facets`);
+
+  console.log(facetsDataObject.data);
 
   if (error || !match?.params.accession) {
     return <ErrorHandler status={status} />;
@@ -84,41 +89,18 @@ const Entry: FC = () => {
       sidebar={
         <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
       }
-      actionButtons={
-        <div className="button-group">
-          <BlastButton selectedEntries={[match.params.accession]} />
-          <AlignButton selectedEntries={[]} />
-          {/* <DropdownButton
-            label={
-              <>
-                <DownloadIcon />
-                Download
-              </>
-            }
-            className="tertiary"
-            // onSelect={action('onSelect')}
-          >
-            <div className="dropdown-menu__content">
-              <ul>
-                {fileFormatEntryDownload.map((fileFormat) => (
-                  <li key={fileFormat}>
-                    <a
-                      href={apiUrls.entryDownload(
-                        transformedData.primaryAccession,
-                        fileFormat
-                      )}
-                    >
-                      {fileFormat}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </DropdownButton> */}
-          <AddToBasketButton selectedEntries={[match.params.accession]} />
-        </div>
-      }
       className="entry-page"
+      title={
+        <ErrorBoundary>
+          <h2>
+            <EntryTitle
+              mainTitle="UniRef"
+              optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
+            />
+          </h2>
+          <Overview transformedData={transformedData} />
+        </ErrorBoundary>
+      }
     >
       <EntryMain transformedData={transformedData} />
     </SideBarLayout>
