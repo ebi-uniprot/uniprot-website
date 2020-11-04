@@ -120,11 +120,13 @@ export const getEndCoordinate = (sequence: string, endPosition: number) =>
 // Jie has said that if it is unknown, you can ignore value
 // These erroneous features are temporary and will eventually be removed
 export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
-  features?.filter(
-    ({ location: { start, end } }) =>
-      start.modifier !== LocationModifier.UNKNOWN &&
-      end.modifier !== LocationModifier.UNKNOWN
-  );
+  features
+    ?.filter(
+      ({ location: { start, end } }) =>
+        start.modifier !== LocationModifier.UNKNOWN &&
+        end.modifier !== LocationModifier.UNKNOWN
+    )
+    .filter(Boolean);
 
 export const createGappedFeature = (
   feature: ProcessedFeature,

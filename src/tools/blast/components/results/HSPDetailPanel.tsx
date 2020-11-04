@@ -62,9 +62,11 @@ export const convertHSPtoMSAInputs = (
       to: hsp_hit_to,
       length: hitLength,
       accession: hitAccession,
-      features: processFeaturesData(
-        removeFeaturesWithUnknownModifier(extra?.features)
-      ),
+      features: extra
+        ? processFeaturesData(
+            removeFeaturesWithUnknownModifier(extra?.features)
+          )
+        : [],
     },
   ];
 };
