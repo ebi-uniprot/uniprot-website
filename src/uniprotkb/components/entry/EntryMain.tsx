@@ -1,8 +1,5 @@
 import React, { FC, memo } from 'react';
-import { Card, HeroContainer } from 'franklin-sites';
-
-import Overview from '../protein-data-views/ProteinOverviewView';
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import { HeroContainer } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -24,20 +21,6 @@ function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   <>
-    <ErrorBoundary>
-      <Card
-        title={
-          <EntryTitle
-            mainTitle={transformedData.primaryAccession}
-            optionalTitle={transformedData.uniProtkbId}
-            entryType={transformedData.entryType}
-          />
-        }
-      >
-        <Overview transformedData={transformedData} />
-      </Card>
-    </ErrorBoundary>
-
     {UniProtKBEntryConfig.map(({ name, sectionContent }) => (
       <ErrorBoundary key={name}>
         {sectionContent(transformedData)}

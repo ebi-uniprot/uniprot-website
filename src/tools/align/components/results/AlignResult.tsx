@@ -21,7 +21,7 @@ import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 
-import '../../../styles/ToolsResult.scss';
+import '../../../../shared/styles/sticky-tabs-container.scss';
 
 const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
@@ -115,7 +115,7 @@ const AlignResult = () => {
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match?.params?.subPage) {
+    if (match && !match.params.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
@@ -162,7 +162,7 @@ const AlignResult = () => {
   );
 
   return (
-    <SingleColumnLayout className="tools-result">
+    <SingleColumnLayout className="sticky-tabs-container">
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab
