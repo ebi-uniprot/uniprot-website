@@ -207,6 +207,7 @@ export const getMSAFeature = (feature, sequence, sequenceIndex, from) => {
     id: feature.protvistaFeatureId,
     borderColor: 'black',
     fillColor: 'transparent',
-    mouseOverFillColor: 'black',
+    mouseOverFillColor: 'transparent',
+    mouseOverBorderColor: 'blue',
   };
 };
