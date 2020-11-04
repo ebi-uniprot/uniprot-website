@@ -16,6 +16,17 @@ const initializer = (
   if (field.term === 'All') {
     return initialValue?.All || '';
   }
+
+  // Deal with autocomplete fields (they use 'autoCompleteQueryTerm')
+  // instead of 'term'
+  if (
+    initialValue &&
+    field.autoCompleteQueryTerm &&
+    initialValue[field.autoCompleteQueryTerm]
+  ) {
+    return initialValue[field.autoCompleteQueryTerm];
+  }
+
   // no value? bail
   if (!(initialValue && initialValue[field.term])) {
     return '';

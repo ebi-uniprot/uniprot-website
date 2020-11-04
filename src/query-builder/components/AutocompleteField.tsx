@@ -14,7 +14,9 @@ const AutocompleteField: React.FC<{
   const [value, setValue] = useState(
     () => initializer(field, initialValue) as string
   );
-  const [selectedId, setSelectedId] = useState<string | null>();
+  const [selectedId, setSelectedId] = useState<string | undefined>(
+    () => initializer(field, initialValue) as string
+  );
 
   const { autoComplete, term, label, id, autoCompleteQueryTerm } = field;
 

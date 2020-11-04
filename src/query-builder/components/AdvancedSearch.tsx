@@ -112,8 +112,12 @@ const parseAndMatchQuery = (
           // and change queryBit key
           queryBits: {
             ...clause.queryBits,
-            [matchingAutoComplete.term]:
-              clause.queryBits[clause.searchTerm.term],
+            [matchingAutoComplete.autoCompleteQueryTerm &&
+            clause.searchTerm.term.endsWith('_id')
+              ? matchingAutoComplete.autoCompleteQueryTerm
+              : matchingAutoComplete.term]: clause.queryBits[
+              clause.searchTerm.term
+            ],
           },
         });
       } else {
