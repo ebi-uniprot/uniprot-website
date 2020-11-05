@@ -31,7 +31,7 @@ import {
 import { Clause, SearchTermType } from '../types/searchTypes';
 
 import '../../uniprotkb/components/search/styles/search-container.scss';
-import './styles/advanced-search.scss';
+import './styles/query-builder.scss';
 
 type STTWithParent = SearchTermType & {
   parent?: STTWithParent;
@@ -128,7 +128,7 @@ const parseAndMatchQuery = (
   return [validatedQuery, invalid];
 };
 
-const AdvancedSearch: FC = () => {
+const QueryBuilder: FC = () => {
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch<{ namespace?: Namespace }>(
@@ -142,7 +142,7 @@ const AdvancedSearch: FC = () => {
   const namespace = match?.params?.namespace;
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
-    namespace && apiUrls.advancedSearchTerms(namespace)
+    namespace && apiUrls.queryBuilderTerms(namespace)
   );
 
   useEffect(() => {
@@ -240,9 +240,9 @@ const AdvancedSearch: FC = () => {
       <PageIntro title="Advanced search" />
 
       <form
-        className="advanced-search"
+        className="query-builder"
         onSubmit={handleSubmit}
-        data-testid="advanced-search-form"
+        data-testid="query-builder-form"
       >
         <fieldset>
           <label htmlFor="namespace-select">
@@ -277,12 +277,12 @@ const AdvancedSearch: FC = () => {
             searchTerms={searchTermsData}
           />
         </fieldset>
-        <div className="advanced-search__actions">
+        <div className="query-builder__actions">
           <button
             type="button"
             id="add-field"
             className="button tertiary"
-            data-testid="advanced-search-add-field"
+            data-testid="query-builder-add-field"
             onClick={addClause}
           >
             Add Field
@@ -296,4 +296,4 @@ const AdvancedSearch: FC = () => {
   );
 };
 
-export default AdvancedSearch;
+export default QueryBuilder;

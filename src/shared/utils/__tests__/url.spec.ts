@@ -42,7 +42,7 @@ describe('getLocationForPathname', () => {
     '/blast/ncbiblast-R12345678-123456-1234-12345678-ab1': Location.BlastResult,
     '/blast': Location.Blast,
     '/customise-table': Location.UniProtKBCustomiseTable,
-    '/advanced-search': Location.QueryBuilder,
+    '/query-builder': Location.QueryBuilder,
     '/tool-dashboard': Location.Dashboard,
   };
   it('should match pathname to the correct location', () => {

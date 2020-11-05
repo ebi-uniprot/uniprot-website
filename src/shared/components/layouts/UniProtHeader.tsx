@@ -113,9 +113,7 @@ const links = (
 const UniProtHeader = () => {
   const history = useHistory();
   const { search } = history.location;
-  const advancedSearchMatch = useRouteMatch(
-    LocationToPath[Location.QueryBuilder]
-  );
+
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
   const queryBuilderMatch = useRouteMatch<QBMatch>(
     LocationToPath[Location.QueryBuilder]
@@ -125,8 +123,8 @@ const UniProtHeader = () => {
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
-  // only show search if not on home page, or not on advanced search pafe
-  const shouldShowSearch = !(isHomePage || advancedSearchMatch);
+  // only show search if not on home page, or not on query builder page
+  const shouldShowSearch = !(isHomePage || queryBuilderMatch);
 
   const displayedLinks = useMemo(
     () =>

@@ -37,10 +37,10 @@ const UniProtKBEntryPage = lazy(
       /* webpackChunkName: "uniprotkb-entry" */ '../../uniprotkb/components/entry/Entry'
     )
 );
-const AdvancedSearchPage = lazy(
+const QueryBuilderPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "advanced-search" */ '../../query-builder/components/AdvancedSearch'
+      /* webpackChunkName: "query-builder" */ '../../query-builder/components/QueryBuilder'
     )
 );
 const CustomiseTablePage = lazy(
@@ -188,7 +188,7 @@ const App = () => (
               path={LocationToPath[Location.QueryBuilder]}
               render={() => (
                 <SingleColumnLayout>
-                  <AdvancedSearchPage />
+                  <QueryBuilderPage />
                 </SingleColumnLayout>
               )}
             />

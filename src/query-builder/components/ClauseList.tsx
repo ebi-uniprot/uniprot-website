@@ -45,7 +45,7 @@ const ClauseItem: React.FC<{
     : [clause.searchTerm];
 
   return (
-    <div className="advanced-search__clause" data-testid="search__clause">
+    <div className="query-builder__clause" data-testid="search__clause">
       <LogicalOperator
         value={clause.logicOperator}
         handleChange={(value: Operator) => handleLogicChange(clause.id, value)}
@@ -61,7 +61,7 @@ const ClauseItem: React.FC<{
       />
       {fieldItems.map((siblingTerm) => {
         return (
-          <div className="advanced-search__inputs" key={siblingTerm.id}>
+          <div className="query-builder__inputs" key={siblingTerm.id}>
             <Field
               field={siblingTerm}
               handleChange={handleChange}

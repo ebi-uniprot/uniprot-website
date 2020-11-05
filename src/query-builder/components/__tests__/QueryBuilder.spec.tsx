@@ -2,7 +2,7 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act, fireEvent, screen, getByText } from '@testing-library/react';
 
-import AdvancedSearch from '../../../query-builder/components/AdvancedSearch';
+import QueryBuilder from '../QueryBuilder';
 
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
@@ -15,14 +15,14 @@ jest.mock('../../../shared/hooks/useDataApi');
 
 // const mock = useDataApi;
 // mock
-//   .onGet(apiUrls.advancedSearchTerms(Namespace.uniprotkb))
+//   .onGet(apiUrls.queryBuilderTerms(Namespace.uniprotkb))
 //   .reply(200, searchTermData);
 
 let rendered;
 
 const history = createMemoryHistory();
 
-describe('AdvancedSearch', () => {
+describe('QueryBuilder', () => {
   beforeEach(async () => {
     resetUuidV1();
     useDataApi.mockReturnValue({
@@ -30,7 +30,7 @@ describe('AdvancedSearch', () => {
     });
 
     await act(async () => {
-      rendered = renderWithRedux(<AdvancedSearch />, { history });
+      rendered = renderWithRedux(<QueryBuilder />, { history });
     });
   });
 
@@ -41,7 +41,7 @@ describe('AdvancedSearch', () => {
 
   test('should add a clause', () => {
     const { getAllByTestId, getByTestId } = rendered;
-    fireEvent.click(getByTestId('advanced-search-add-field'));
+    fireEvent.click(getByTestId('query-builder-add-field'));
     const clauses = getAllByTestId('search__clause');
     expect(clauses.length).toBe(5);
   });
@@ -73,13 +73,13 @@ describe('AdvancedSearch', () => {
     fireEvent.change(input, { target: { value: 'zen' } });
     const all = getByPlaceholderText(/a4_human/);
     fireEvent.change(all, { target: { value: 'eve' } });
-    const reviewedLogic = getAllByTestId('advanced-search-logic-select');
+    const reviewedLogic = getAllByTestId('query-builder-logic-select');
     // Note this should be 1 as the first line shouldn't have one
     fireEvent.change(reviewedLogic[3], { target: { value: 'OR' } });
     // FIXME: These next lines are the ones triggering the warning even though
     // FIXME: we are indeed using act...
     act(() => {
-      fireEvent.submit(getByTestId('advanced-search-form'));
+      fireEvent.submit(getByTestId('query-builder-form'));
     });
     expect(history.location.search).toBe('?query=(gene:zen) OR eve');
   });

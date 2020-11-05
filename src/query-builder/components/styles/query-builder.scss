@@ -1,6 +1,6 @@
 @import '../../../shared/styles/settings';
 
-.advanced-search {
+.query-builder {
   &__clause {
     display: flex;
     align-items: flex-end;
@@ -19,7 +19,7 @@
       }
     }
 
-    .advanced-search__logic {
+    .query-builder__logic {
       flex: 0 0 8ch;
       margin-bottom: 0;
     }
@@ -32,7 +32,7 @@
       }
     }
 
-    .advanced-search__inputs {
+    .query-builder__inputs {
       flex-grow: 2;
       display: flex;
 

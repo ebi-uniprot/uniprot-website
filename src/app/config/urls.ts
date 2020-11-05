@@ -35,7 +35,7 @@ export const LocationToPath = {
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
   [Location.UniProtKBCustomiseTable]: '/customise-table',
-  [Location.QueryBuilder]: '/advanced-search/:namespace?',
+  [Location.QueryBuilder]: '/query-builder/:namespace?',
   [Location.Dashboard]: '/tool-dashboard',
   [Location.UniRefEntry]: '/uniref/:accession',
   [Location.UniRefResults]: '/uniref',
