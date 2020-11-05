@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
-import { Card } from 'franklin-sites';
-
-import SequenceView from '../../../shared/components/entry/SequenceView';
+import { Card, Sequence } from 'franklin-sites';
 
 import { hasContent } from '../../../shared/utils/utils';
 
@@ -19,7 +17,7 @@ const SequenceSection: FC<{
   return (
     <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
       <Card title={EntrySection.Sequence}>
-        <SequenceView data={data} accession={primaryAccession} />
+        <Sequence sequence={data.sequence.value} isCollapsible />
       </Card>
     </div>
   );

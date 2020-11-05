@@ -9,44 +9,47 @@ import { UniRefUIModel } from '../../adapters/uniRefConverter';
 export const Overview: FC<{
   transformedData: UniRefUIModel;
 }> = ({ transformedData }) => {
-  // const { proteinNamesData, geneNamesData, organismData } = transformedData[
-  //   EntrySection.NamesAndTaxonomy
+  // const infoListData = [
+  //   {
+  //     title: 'Name',
+  //     content: transformedData.name,
+  //   },
+  //   {
+  //     title: 'Common taxonomy',
+  //     content: transformedData.commonTaxonId && transformedData.commonTaxon && (
+  //       <TaxonomyView
+  //         data={{
+  //           taxonId: transformedData.commonTaxonId,
+  //           scientificName: transformedData.commonTaxon,
+  //         }}
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     title: 'Updated',
+  //     content: updated && (
+  //       <time dateTime={updated.toISOString()}>{transformedData.updated}</time>
+  //     ),
+  //   },
+  //   // NOTE: add seed information?
+  //   // NOTE: add members composition?
   // ];
 
-  const updated = transformedData.updated
-    ? new Date(transformedData.updated)
-    : undefined;
-
-  const infoListData = [
-    {
-      title: 'Name',
-      content: transformedData.name,
-    },
-    {
-      title: 'Common taxonomy',
-      content: transformedData.commonTaxonId && transformedData.commonTaxon && (
-        <TaxonomyView
-          data={{
-            taxonId: transformedData.commonTaxonId,
-            scientificName: transformedData.commonTaxon,
-          }}
-        />
-      ),
-    },
-    {
-      title: 'Updated',
-      content: updated && (
-        <time dateTime={updated.toISOString()}>{transformedData.updated}</time>
-      ),
-    },
-    // NOTE: add seed information?
-    // NOTE: add members composition?
-  ];
+  const { name } = transformedData;
+  const members = 'members ...';
+  const updated = (
+    <>
+      Updated:{' '}
+      <time dateTime={new Date(transformedData.updated).toISOString()}>
+        {transformedData.updated}
+      </time>
+    </>
+  );
+  const seed = <strong>Built on seed sequence {transformedData.seed}</strong>;
 
   return (
     <section>
-      {transformedData.name && <p>{transformedData.name}</p>}
-      <p>other text</p>
+      {name} · {members} · {updated} · {seed}
     </section>
   );
 };

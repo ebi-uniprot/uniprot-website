@@ -7,5 +7,5 @@ export default EntrySection;
 
 export const EntrySectionIDs = {
   [EntrySection.Members]: 'members',
-  [EntrySection.Sequence]: 'sequence',
+  [EntrySection.Sequence]: 'Representative sequence',
 };
