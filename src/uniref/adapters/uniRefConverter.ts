@@ -81,6 +81,8 @@ export type UniRefAPIModel = {
   commonTaxon: string;
   goTerms: GeneOntologyEntry[];
   representativeMember: RepresentativeMember;
+  // TODO: remove this comment once backend has added that field to the payload
+  seed: string;
   memberCount: number;
   entryType: EntryType;
   updated: string;
