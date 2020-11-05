@@ -40,13 +40,10 @@ const initializer = (
   // regex is present in the field description? try to match extracted value
   if (field.regex && field.regex !== undefined) {
     const { regex } = field;
-    let re: RegExp;
+
     const cleanRegex = regex.replace('(?i)', '');
-    if (regex.length !== cleanRegex.length) {
-      re = new RegExp(cleanRegex, 'i');
-    } else {
-      re = new RegExp(regex);
-    }
+    const re = new RegExp(cleanRegex, regex === cleanRegex ? undefined : 'i');
+
     // doesn't match regular expression? bail
     if (!re.test(value)) {
       return '';
