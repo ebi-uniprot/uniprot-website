@@ -1,8 +1,6 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act, fireEvent, screen, getByText } from '@testing-library/react';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 
 import AdvancedSearch from '../../../query-builder/components/AdvancedSearch';
 
@@ -10,13 +8,15 @@ import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 import apiUrls from '../../../shared/config/apiUrls';
 import { Namespace } from '../../../shared/types/namespaces';
-
 import searchTermData from './__mocks__/configure_search-term.json';
 
-const mock = new MockAdapter(axios);
-mock
-  .onGet(apiUrls.advancedSearchTerms(Namespace.uniprotkb))
-  .reply(200, searchTermData);
+import useDataApi from '../../../shared/hooks/useDataApi';
+jest.mock('../../../shared/hooks/useDataApi');
+
+// const mock = useDataApi;
+// mock
+//   .onGet(apiUrls.advancedSearchTerms(Namespace.uniprotkb))
+//   .reply(200, searchTermData);
 
 let rendered;
 
@@ -25,6 +25,10 @@ const history = createMemoryHistory();
 describe('AdvancedSearch', () => {
   beforeEach(async () => {
     resetUuidV1();
+    useDataApi.mockReturnValue({
+      data: searchTermData,
+    });
+
     await act(async () => {
       rendered = renderWithRedux(<AdvancedSearch />, { history });
     });
