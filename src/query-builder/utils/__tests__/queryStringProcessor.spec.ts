@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import { parse, stringify } from '../queryStringProcessor';
+
 import { testData } from './__mocks__/clauseQueryTestData';
 
 describe('search querystring stringifier', () => {
@@ -9,6 +10,11 @@ describe('search querystring stringifier', () => {
     test(description, () => {
       expect(stringify(clauses)).toBe(queryString);
     });
+  });
+
+  test('empty query', () => {
+    expect(stringify()).toBe('');
+    expect(stringify([])).toBe('');
   });
 });
 
@@ -18,5 +24,10 @@ describe('search querystring parser', () => {
     test(description, () => {
       expect(stringify(parse(queryString))).toEqual(queryString);
     });
+  });
+
+  test('empty query', () => {
+    expect(parse()).toEqual([]);
+    expect(parse('')).toEqual([]);
   });
 });

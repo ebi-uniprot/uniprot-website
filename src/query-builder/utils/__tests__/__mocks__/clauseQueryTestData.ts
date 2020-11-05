@@ -20,6 +20,27 @@ export const testData = [
     ],
   },
   {
+    description: 'should parse simple not query',
+    queryString: 'NOT (id:blah)',
+    clauses: [
+      {
+        searchTerm: {
+          id: 'id_field',
+          label: 'Entry Name [ID]',
+          itemType: 'single',
+          term: 'id',
+          dataType: 'string',
+          fieldType: 'general',
+          example: 'P53_HUMAN',
+        },
+        logicOperator: 'NOT',
+        queryBits: {
+          id: 'blah',
+        },
+      },
+    ],
+  },
+  {
     description: 'should parse autocomplete free text',
     queryString: '(organism_name:"Homo sap")',
     clauses: [

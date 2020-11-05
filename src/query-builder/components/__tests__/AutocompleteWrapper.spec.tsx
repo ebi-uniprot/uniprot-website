@@ -1,8 +1,11 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
+
+import { render, fireEvent, waitFor } from '@testing-library/react';
+
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import {
   mockSuggesterApi,
