@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, getByTestId } from '@testing-library/react';
 import EvidenceField from '../EvidenceField';
 
 let rendered;
@@ -21,17 +21,18 @@ describe('EvidenceField component', () => {
             groupName: 'foo',
             items: [
               {
-                code: 0,
+                code: 'bar_code',
                 name: 'bar',
               },
               {
-                code: 1,
+                code: 'baz_code',
                 name: 'baz',
               },
             ],
           },
         ],
       },
+      initialValue: { ccev_webresource: 'baz_code' },
     };
 
     rendered = render(<EvidenceField {...props} />);
@@ -44,12 +45,17 @@ describe('EvidenceField component', () => {
       target: { value: 0 },
     });
     expect(props.handleChange).toBeCalledWith({
-      ccev_webresource: '0',
+      ccev_webresource: 'baz_code',
     });
   });
 
   test('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('should initialise', () => {
+    const { getByTestId } = rendered;
+    expect(getByTestId('evidence-select').value).toBe('baz_code');
   });
 });

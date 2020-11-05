@@ -3,27 +3,27 @@
 exports[`Range field should render a range field 1`] = `
 <DocumentFragment>
   <label
-    for="from_input_range_field"
+    for="from_input_ftlen_sites"
   >
     From
     <input
       data-testid="range-field-from-input"
-      id="from_input_range_field"
+      id="from_input_ftlen_sites"
       placeholder="0"
       type="number"
-      value=""
+      value="11"
     />
   </label>
   <label
-    for="to_input_range_field"
+    for="to_input_ftlen_sites"
   >
     To
     <input
       data-testid="range-field-to-input"
-      id="to_input_range_field"
+      id="to_input_ftlen_sites"
       placeholder="100"
       type="number"
-      value=""
+      value="45"
     />
   </label>
 </DocumentFragment>

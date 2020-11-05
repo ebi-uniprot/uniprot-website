@@ -41,8 +41,9 @@ const initializer = (
   if (field.regex && field.regex !== undefined) {
     const { regex } = field;
     let re: RegExp;
-    if (regex.startsWith('(?i)')) {
-      re = new RegExp(regex.replace('(?i)', 'i'));
+    const cleanRegex = regex.replace('(?i)', '');
+    if (regex.length !== cleanRegex.length) {
+      re = new RegExp(cleanRegex, 'i');
     } else {
       re = new RegExp(regex);
     }

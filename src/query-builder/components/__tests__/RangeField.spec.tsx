@@ -9,17 +9,15 @@ describe('Range field', () => {
   beforeEach(() => {
     props = {
       field: {
-        id: 'range_field',
-        label: 'Any',
-        itemType: 'feature',
-        term: 'sites',
-        dataType: 'string',
-        hasRange: true,
-        description: 'Search by feature sites',
-        example: 'translocation',
-        queryInput: {},
+        id: 'ftlen_sites',
+        itemType: 'single',
+        term: 'ftlen_sites',
+        dataType: 'integer',
+        fieldType: 'range',
+        example: '[0 TO 100]',
       },
       handleChange: jest.fn(),
+      initialValue: { ftlen_sites: '[11 TO 45]' },
     };
     rendered = render(<RangeField {...props} />);
   });
@@ -35,7 +33,9 @@ describe('Range field', () => {
     const toNode = queryByTestId('range-field-to-input');
     fireEvent.change(fromNode, { target: { value: '5' } });
     fireEvent.change(toNode, { target: { value: '50' } });
-    expect(props.handleChange).toHaveBeenCalledWith({ sites: '[5 TO 50]' });
+    expect(props.handleChange).toHaveBeenCalledWith({
+      ftlen_sites: '[5 TO 50]',
+    });
   });
 
   test('should handle from/to change with one missing bound', () => {
@@ -44,6 +44,8 @@ describe('Range field', () => {
     const toNode = queryByTestId('range-field-to-input');
     fireEvent.change(fromNode, { target: { value: '5' } });
     fireEvent.change(toNode, { target: { value: '' } });
-    expect(props.handleChange).toHaveBeenCalledWith({ sites: '[5 TO *]' });
+    expect(props.handleChange).toHaveBeenCalledWith({
+      ftlen_sites: '[5 TO *]',
+    });
   });
 });

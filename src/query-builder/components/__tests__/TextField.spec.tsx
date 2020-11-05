@@ -124,4 +124,24 @@ describe('TextField', () => {
       [propsPrefix.field.term]: propsPrefix.field.valuePrefix,
     });
   });
+
+  test('should validate initial query with regex', () => {
+    const propsPrefix = {
+      field: {
+        id: 'proteome',
+        label: 'Proteome ID',
+        itemType: 'single',
+        term: 'proteome',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'UP000005640',
+        regex: '(?i)^UP[0-9]{9}$',
+      },
+      handleChange: jest.fn(),
+      initialValue: { proteome: 'UP000000000' },
+    };
+    const { getByDisplayValue } = render(<TextField {...propsPrefix} />);
+    const inputElt = getByDisplayValue('UP000000000');
+    expect(inputElt).toBeTruthy();
+  });
 });
