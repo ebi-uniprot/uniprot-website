@@ -45,10 +45,11 @@ const ProteinOverview: FC<{
           .map(
             (geneName) =>
               `${geneName.geneName?.value}${
-                geneName.synonyms &&
-                ` (${geneName.synonyms
-                  ?.map((synonym) => synonym.value)
-                  .join(', ')})`
+                geneName.synonyms
+                  ? ` (${geneName.synonyms
+                      ?.map((synonym) => synonym.value)
+                      .join(', ')})`
+                  : ''
               }`
           )
           .join(', ')}
