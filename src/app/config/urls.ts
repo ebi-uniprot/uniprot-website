@@ -18,7 +18,7 @@ export enum Location {
   PeptideSearch = 'PeptideSearch',
   PeptideSearchResult = 'PeptideSearchResult',
   UniProtKBCustomiseTable = 'UniProtKBCustomiseTable',
-  QueryBuilder = 'UniProtKBQueryBuilder',
+  QueryBuilder = 'QueryBuilder',
   Dashboard = 'Dashboard',
 }
 
