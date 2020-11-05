@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProteinOverview component should render 1`] = `
+<DocumentFragment>
+  <section>
+    Amyloid-beta precursor protein · 
+    <a
+      href="/taxonomy/9606"
+    >
+      Homo sapiens
+    </a>
+     · 
+    <strong>
+      Gene:
+    </strong>
+     APP (A4, AD1) · 770 amino-acids · 1: Evidence at protein level · 
+    <span
+      title="Annotation Score"
+    >
+      <span
+        class="doughnut-chart--small colour-platinum"
+      >
+        <span
+          class="doughnut-chart--small__left-wrap"
+        >
+          <span
+            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+            style="transform: rotate(180deg);"
+          />
+        </span>
+        <span
+          class="doughnut-chart--small__right-wrap"
+        >
+          <span
+            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+            style="transform: rotate(180deg);"
+          />
+        </span>
+        <span
+          class="doughnut-chart--small__inner-circle"
+        >
+          5/5
+        </span>
+      </span>
+    </span>
+  </section>
+</DocumentFragment>
+`;

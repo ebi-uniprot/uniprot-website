@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import {
   InPageNav,
   Loader,
-  DisplayMenu,
-  TremblIcon,
   // DropdownButton,
 } from 'franklin-sites';
 
@@ -81,16 +79,12 @@ const Entry: FC = () => {
     disabled: !hasContent(transformedData[section.name]),
   }));
 
-  const displayMenuData = [
-    {
-      name: 'Entry',
-      icon: <TremblIcon />,
-      itemContent: (
+  return (
+    <SideBarLayout
+      sidebar={
         <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
-      ),
-      path: '',
-      exact: true,
-      actionButtons: (
+      }
+      actionButtons={
         <div className="button-group">
           <BlastButton selectedEntries={[match.params.accession]} />
           <AlignButton selectedEntries={[]} />
@@ -123,44 +117,10 @@ const Entry: FC = () => {
           </DropdownButton> */}
           <AddToBasketButton selectedEntries={[match.params.accession]} />
         </div>
-      ),
-      mainContent: <EntryMain transformedData={transformedData} />,
-    },
-  ];
-
-  return (
-    <SideBarLayout
-      sidebar={
-        <DisplayMenu
-          data={displayMenuData}
-          title={`Publications for ${match.params.accession}`}
-        />
-      }
-      actionButtons={
-        <Switch>
-          {displayMenuData.map((displayItem) => (
-            <Route
-              path={`${match.path}/${displayItem.path}`}
-              key={displayItem.name}
-            >
-              {displayItem.actionButtons}
-            </Route>
-          ))}
-        </Switch>
       }
       className="entry-page"
     >
-      <Switch>
-        {displayMenuData.map((displayItem) => (
-          <Route
-            path={`${match.path}/${displayItem.path}`}
-            key={displayItem.name}
-            exact={displayItem.exact}
-          >
-            {displayItem.mainContent}
-          </Route>
-        ))}
-      </Switch>
+      <EntryMain transformedData={transformedData} />
     </SideBarLayout>
   );
 };

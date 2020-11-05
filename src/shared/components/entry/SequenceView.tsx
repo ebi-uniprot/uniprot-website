@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -6,14 +6,13 @@ import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-vie
 import numberView, {
   Unit,
 } from '../../../uniprotkb/components/protein-data-views/NumberView';
+import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
+import BlastButton from '../action-buttons/Blast';
+import AlignButton from '../action-buttons/Align';
 
 import { formatLargeNumber } from '../../utils/utils';
-import fetchData from '../../utils/fetchData';
 
-import {
-  IsoformNotes,
-  SequenceUIModel,
-} from '../../../uniprotkb/adapters/sequenceConverter';
+import useDataApi from '../../hooks/useDataApi';
 
 import externalUrls from '../../../uniprotkb/config/externalUrls';
 import apiUrls from '../../config/apiUrls';
@@ -26,10 +25,11 @@ import {
   AlternativeProductsComment,
 } from '../../../uniprotkb/types/commentTypes';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import { Location, LocationToPath } from '../../../app/config/urls';
-import BlastButton from '../action-buttons/Blast';
-import AlignButton from '../action-buttons/Align';
+import {
+  IsoformNotes,
+  SequenceUIModel,
+} from '../../../uniprotkb/adapters/sequenceConverter';
 
 export type SequenceData = {
   value: string;
@@ -49,25 +49,15 @@ export const SequenceInfo: React.FC<{
   lastUpdateDate?: string | null;
   isCanonical?: boolean;
 }> = ({ isoformId, isoformSequence, lastUpdateDate, isCanonical = false }) => {
-  const [data, setData] = useState<UniProtkbAPIModel['sequence']>();
-  const [isoformToFetch, setIsoformToFetch] = useState('');
+  const [isoformToFetch, setIsoformToFetch] = useState<string>();
 
   const history = useHistory();
-  useEffect(() => {
-    if (!isoformToFetch) {
-      return;
-    }
-    const fetchIsoformData = async () => {
-      const response = await fetchData<UniProtkbAPIModel>(
-        `${apiUrls.entry(isoformToFetch)}`
-      );
-      setData(response.data.sequence);
-    };
 
-    fetchIsoformData();
-  }, [isoformToFetch]);
+  const { data, loading } = useDataApi<UniProtkbAPIModel>(
+    isoformToFetch && apiUrls.entry(isoformToFetch)
+  );
 
-  const dataToDisplay = data || isoformSequence;
+  const dataToDisplay = data?.sequence || isoformSequence;
 
   const infoData = [
     {
@@ -104,6 +94,7 @@ export const SequenceInfo: React.FC<{
       //  the basket is not yet implemented
       // onAddToBasketClick={() => {}}
       isCollapsible={!isCanonical}
+      isLoading={loading}
     />
   );
 };

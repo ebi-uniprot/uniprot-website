@@ -24,7 +24,7 @@ export enum Location {
 
 export const LocationToPath = {
   [Location.Home]: '/',
-  [Location.UniProtKBEntry]: '/uniprotkb/:accession',
+  [Location.UniProtKBEntry]: '/uniprotkb/:accession/:subPage?',
   [Location.UniProtKBResults]: '/uniprotkb',
   [Location.AlignResult]: '/align/:id/:subPage?',
   [Location.Align]: '/align',
