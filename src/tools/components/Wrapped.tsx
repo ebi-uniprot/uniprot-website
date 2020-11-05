@@ -183,6 +183,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
             displaystart={trackStart}
             displayend={trackEnd}
             length={trackEnd - trackStart + 1}
+            layout="non-overlapping"
           />
         )}
       </div>
