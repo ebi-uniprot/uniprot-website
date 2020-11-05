@@ -18,6 +18,7 @@ export type UseDataAPIState<T> = {
   headers?: AxiosResponse['headers'];
   error?: AxiosError<{ messages?: string[] }>;
   redirectedTo?: string;
+  url?: string | null;
 };
 
 enum ActionType {
@@ -27,7 +28,7 @@ enum ActionType {
 }
 
 type Action<T> =
-  | { type: ActionType.INIT }
+  | { type: ActionType.INIT; url?: string }
   | {
       type: ActionType.SUCCESS;
       response?: AxiosResponse<T>;
@@ -46,10 +47,12 @@ const createReducer = <T>() => (
     case ActionType.INIT:
       return {
         loading: true,
+        url: action.url,
       };
     case ActionType.SUCCESS:
       // eslint-disable-next-line no-case-declarations
       const newState: UseDataAPIState<T> = {
+        ...state,
         loading: false,
         data: action.response && action.response.data,
         status: action.response && action.response.status,
@@ -73,6 +76,7 @@ const createReducer = <T>() => (
       return newState;
     case ActionType.ERROR:
       return {
+        ...state,
         loading: false,
         status: action.error.response && action.error.response.status,
         statusText: action.error.response && action.error.response.statusText,
@@ -98,7 +102,7 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
       return;
     }
 
-    dispatch({ type: ActionType.INIT });
+    dispatch({ type: ActionType.INIT, url });
 
     // variables to handle cancellation
     const source = axios.CancelToken.source();
@@ -140,6 +144,12 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
       );
     }
   }, [reduxDispatch, state.status, state.error]);
+
+  // when changing the URL, the state is set asynchronously, this is to set it
+  // to loading synchronously to avoid using previous data
+  if (state.url !== url) {
+    return { loading: true, url };
+  }
 
   return state;
 }

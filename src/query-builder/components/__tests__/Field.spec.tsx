@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+
 import Field from '../../../query-builder/components/Field';
 
-const handleInputChange = jest.fn();
-const handleRangeInputChange = jest.fn();
+const handleChange = jest.fn();
 
 describe('Clause component', () => {
   test('should render a `text` field', () => {
@@ -17,11 +17,26 @@ describe('Clause component', () => {
       id: 'id',
     };
     const { asFragment } = render(
+      <Field field={field} handleChange={handleChange} />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('should render a `text` field with initial value', () => {
+    const field = {
+      label: 'UniProtKB AC',
+      itemType: 'single',
+      term: 'accession',
+      dataType: 'string',
+      description: 'Search by UniProtKB Accession',
+      example: 'P12345',
+      id: 'id',
+    };
+    const { asFragment } = render(
       <Field
         field={field}
-        handleInputChange={handleInputChange}
-        handleRangeInputChange={handleRangeInputChange}
-        queryInput={{}}
+        handleChange={handleChange}
+        initialValue={{ accession: 'P12345' }}
       />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -39,12 +54,7 @@ describe('Clause component', () => {
       id: 'id',
     };
     const { asFragment } = render(
-      <Field
-        field={field}
-        handleInputChange={handleInputChange}
-        handleRangeInputChange={handleRangeInputChange}
-        queryInput={{}}
-      />
+      <Field field={field} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -53,7 +63,9 @@ describe('Clause component', () => {
     const field = {
       dataType: 'enum',
     };
-    const { asFragment } = render(<Field field={field} />);
+    const { asFragment } = render(
+      <Field field={field} handleChange={handleChange} />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -68,12 +80,7 @@ describe('Clause component', () => {
       id: 'id',
     };
     const { asFragment } = render(
-      <Field
-        field={field}
-        handleInputChange={handleInputChange}
-        handleRangeInputChange={handleRangeInputChange}
-        queryInput={{}}
-      />
+      <Field field={field} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -90,12 +97,7 @@ describe('Clause component', () => {
       id: 'id',
     };
     const { asFragment } = render(
-      <Field
-        field={field}
-        handleInputChange={handleInputChange}
-        handleRangeInputChange={handleRangeInputChange}
-        queryInput={{}}
-      />
+      <Field field={field} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -112,12 +114,7 @@ describe('Clause component', () => {
       id: 'id',
     };
     const { asFragment } = render(
-      <Field
-        field={field}
-        handleInputChange={handleInputChange}
-        handleRangeInputChange={handleRangeInputChange}
-        queryInput={{}}
-      />
+      <Field field={field} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -128,12 +125,7 @@ describe('Clause component', () => {
       dataType: 'whatever',
     };
     const { asFragment } = render(
-      <Field
-        field={field}
-        handleInputChange={handleInputChange}
-        handleRangeInputChange={handleRangeInputChange}
-        queryInput={{}}
-      />
+      <Field field={field} handleChange={handleChange} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

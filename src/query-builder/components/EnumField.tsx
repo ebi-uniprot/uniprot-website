@@ -1,22 +1,31 @@
-import React, { Fragment } from 'react';
-import { SearchTermType } from '../types/searchTypes';
+import React, { useEffect, useState } from 'react';
 
-type EnumFieldProps = {
+import initializer from '../utils/fieldInitializer';
+
+import { QueryBit, SearchTermType } from '../types/searchTypes';
+
+const EnumField: React.FC<{
   field: SearchTermType;
-  handleChange: (value: string) => void;
-  value: string | undefined;
-};
+  handleChange: (queryBit: QueryBit) => void;
+  initialValue?: QueryBit;
+}> = ({ field, handleChange, initialValue }) => {
+  // should initialValue be initialised to the first item?
+  const [value, setValue] = useState(
+    () => initializer(field, initialValue) as string
+  );
 
-const EnumField: React.FC<EnumFieldProps> = ({
-  field,
-  handleChange,
-  value,
-}) => (
-  <Fragment>
+  useEffect(() => {
+    const trimmed = value.trim();
+    if (trimmed) {
+      handleChange({ [field.term]: trimmed });
+    }
+  }, [field, value, handleChange]);
+
+  return (
     <label htmlFor={`select_${field.term}`}>
       {field.label}
       <select
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         id={`select_${field.term}`}
         data-testid="enum-field-select"
         value={value}
@@ -29,7 +38,7 @@ const EnumField: React.FC<EnumFieldProps> = ({
           ))}
       </select>
     </label>
-  </Fragment>
-);
+  );
+};
 
 export default EnumField;

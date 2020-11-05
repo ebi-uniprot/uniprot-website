@@ -6,7 +6,13 @@ import React, {
   lazy,
   Suspense,
 } from 'react';
-import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import {
+  Link,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+  generatePath,
+} from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -160,7 +166,8 @@ const enrich = (
 
 const BlastResult = () => {
   const history = useHistory();
-  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult]);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
@@ -175,7 +182,10 @@ const BlastResult = () => {
       history.replace(
         history.createHref({
           ...history.location,
-          pathname: `${history.location.pathname}/${TabLocation.Overview}`,
+          pathname: generatePath(LocationToPath[Location.AlignResult], {
+            ...match.params,
+            subPage: TabLocation.Overview,
+          }),
         })
       );
     }

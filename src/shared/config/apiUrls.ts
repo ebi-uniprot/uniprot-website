@@ -17,12 +17,10 @@ export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
 const apiUrls = {
-  // uniprotkb advanced search terms
-  advancedSearchTerms: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/search_terms'
-  ),
-  // Annotation evidence used by advanced search
+  // uniprotkb query builder terms
+  queryBuilderTerms: (namespace: Namespace) =>
+    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/search-fields`),
+  // Annotation evidence used by query builder
   evidences: {
     annotation: joinUrl(
       devPrefix,
@@ -32,8 +30,7 @@ const apiUrls = {
     // "itemType": "goterm",
     go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
   },
-  // Database cross references used by advanced search
-
+  // Database cross references used by query builder
   databaseXrefs: joinUrl(
     devPrefix,
     '/uniprot/api/configure/uniprotkb/databases'

@@ -14,12 +14,12 @@ exports[`EvidenceField component should render 1`] = `
         label="foo"
       >
         <option
-          value="0"
+          value="bar_code"
         >
           bar
         </option>
         <option
-          value="1"
+          value="baz_code"
         >
           baz
         </option>

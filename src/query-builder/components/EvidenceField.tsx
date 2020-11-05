@@ -1,43 +1,45 @@
-import React, { Fragment } from 'react';
-import { EvidenceDataPoint } from '../types/searchTypes';
+import React, { useEffect, useState } from 'react';
 
-type EvidenceFieldProps = {
-  value: string | undefined;
-  handleChange: (value: string) => void;
-  data: EvidenceDataPoint[];
-};
+import initializer from '../utils/fieldInitializer';
 
-const EvidenceField: React.FC<EvidenceFieldProps> = ({
-  value = '',
-  handleChange,
-  data = [],
-}) => {
-  if (!data) {
-    return null;
-  }
+import { QueryBit, SearchTermType } from '../types/searchTypes';
+
+const EvidenceField: React.FC<{
+  field: SearchTermType;
+  handleChange: (queryBit: QueryBit) => void;
+  initialValue?: QueryBit;
+}> = ({ field, handleChange, initialValue }) => {
+  const [value, setValue] = useState(
+    () => initializer(field, initialValue) as string
+  );
+
+  useEffect(() => {
+    const trimmed = value.trim();
+    if (trimmed) {
+      handleChange({ [field.term]: trimmed });
+    }
+  }, [field, value, handleChange]);
 
   return (
-    <Fragment>
-      <label htmlFor="evidence_select">
-        Evidence
-        <select
-          id="evidence_select"
-          data-testid="evidence-select"
-          value={value}
-          onChange={(e) => handleChange(e.target.value)}
-        >
-          {data.map((group) => (
-            <optgroup label={group.groupName} key={group.groupName}>
-              {group.items.map((item: { code: string; name: string }) => (
-                <option value={item.code} key={item.code}>
-                  {item.name}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-      </label>
-    </Fragment>
+    <label htmlFor="evidence_select">
+      Evidence
+      <select
+        id="evidence_select"
+        data-testid="evidence-select"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      >
+        {field.evidenceGroups?.map((group) => (
+          <optgroup label={group.groupName} key={group.groupName}>
+            {group.items.map((item: { code: string; name: string }) => (
+              <option value={item.code} key={item.code}>
+                {item.name}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+      </select>
+    </label>
   );
 };
 

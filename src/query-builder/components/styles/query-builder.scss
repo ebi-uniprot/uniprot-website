@@ -1,0 +1,57 @@
+@import '../../../shared/styles/settings';
+
+.query-builder {
+  &__clause {
+    display: flex;
+    align-items: flex-end;
+    gap: 1vw;
+    margin-left: 2vw;
+
+    &:not(:first-child) {
+      margin-top: 1em;
+    }
+
+    & button {
+      margin-bottom: 0;
+
+      &.tertiary {
+        padding-bottom: 0.5em; // hacky align 🤷🏽‍♂️
+      }
+    }
+
+    .query-builder__logic {
+      flex: 0 0 8ch;
+      margin-bottom: 0;
+    }
+
+    .dropdown-container {
+      flex-shrink: 0;
+
+      button {
+        margin-right: 0;
+      }
+    }
+
+    .query-builder__inputs {
+      flex-grow: 2;
+      display: flex;
+
+      label {
+        width: 100%;
+      }
+
+      input,
+      select {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__actions {
+    margin-top: 1em;
+
+    [type='submit'] {
+      float: right;
+    }
+  }
+}

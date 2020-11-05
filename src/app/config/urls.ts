@@ -18,7 +18,7 @@ export enum Location {
   PeptideSearch = 'PeptideSearch',
   PeptideSearchResult = 'PeptideSearchResult',
   UniProtKBCustomiseTable = 'UniProtKBCustomiseTable',
-  UniProtKBQueryBuilder = 'UniProtKBQueryBuilder',
+  QueryBuilder = 'QueryBuilder',
   Dashboard = 'Dashboard',
 }
 
@@ -35,7 +35,7 @@ export const LocationToPath = {
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
   [Location.UniProtKBCustomiseTable]: '/customise-table',
-  [Location.UniProtKBQueryBuilder]: '/advanced-search',
+  [Location.QueryBuilder]: '/query-builder/:namespace?',
   [Location.Dashboard]: '/tool-dashboard',
   [Location.UniRefEntry]: '/uniref/:accession',
   [Location.UniRefResults]: '/uniref',
