@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { getColorByType } from 'protvista-track';
 import { MSAInput } from '../components/AlignmentView';
 import {
   ProcessedFeature,
@@ -201,13 +202,14 @@ export const getMSAFeature = (feature, sequence, sequenceIndex, from) => {
   if (!gappedFeature) {
     return null;
   }
+  const borderColor = getColorByType(gappedFeature.type);
   return {
     residues: { from: gappedFeature.start, to: gappedFeature.end },
     sequences: { from: sequenceIndex, to: sequenceIndex },
     id: feature.protvistaFeatureId,
-    borderColor: 'black',
+    borderColor,
     fillColor: 'transparent',
     mouseOverFillColor: 'transparent',
-    mouseOverBorderColor: 'blue',
+    mouseOverBorderColor: borderColor,
   };
 };
