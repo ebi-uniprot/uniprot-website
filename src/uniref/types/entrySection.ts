@@ -1,11 +1,11 @@
 enum EntrySection {
   Members = 'Members',
-  Sequence = 'Sequence',
+  Sequence = 'Representative sequence',
 }
 
 export default EntrySection;
 
 export const EntrySectionIDs = {
   [EntrySection.Members]: 'members',
-  [EntrySection.Sequence]: 'Representative sequence',
+  [EntrySection.Sequence]: 'sequence',
 };
