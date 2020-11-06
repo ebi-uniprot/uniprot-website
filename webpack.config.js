@@ -210,6 +210,8 @@ module.exports = (env, argv) => {
     // END MODULE
     stats: {
       children: false,
+      assetsSort: '!size',
+      // groupAssetsByChunk: true,
     },
     // PLUGINS
     plugins: [
