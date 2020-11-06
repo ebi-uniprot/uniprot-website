@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`query parser and validator with autocomplete field 1`] = `
+Array [
+  Object {
+    "id": 0,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "taxonomy_id": "9606",
+    },
+    "searchTerm": Object {
+      "autoComplete": "/uniprot/api/suggester?dict=taxonomy&query=?",
+      "autoCompleteQueryTerm": "taxonomy_id",
+      "dataType": "string",
+      "example": "human",
+      "fieldType": "general",
+      "id": "taxonomy_name",
+      "itemType": "single",
+      "label": "Taxonomy [OC]",
+      "term": "taxonomy_name",
+    },
+  },
+]
+`;
+
+exports[`query parser and validator with one xref 1`] = `
+Array [
+  Object {
+    "id": 0,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "xref": "gluco-fructose",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "fieldType": "general",
+      "id": "xref_pdb",
+      "itemType": "single",
+      "label": "PDB",
+      "term": "xref",
+      "valuePrefix": "pdb-",
+    },
+  },
+]
+`;
+
+exports[`query parser and validator with valid and invalid fields 1`] = `
+Array [
+  Object {
+    "id": 0,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "gene": "ydj1",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "example": "ydj1",
+      "fieldType": "general",
+      "id": "gene_field",
+      "itemType": "single",
+      "label": "Gene Name [GN]",
+      "term": "gene",
+    },
+  },
+]
+`;
+
+exports[`query parser and validator with valid and invalid fields 2`] = `
+Array [
+  Object {
+    "id": 1,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "invalid": "blahblah",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "fieldType": "general",
+      "id": "",
+      "itemType": "single",
+      "label": "",
+      "term": "invalid",
+    },
+  },
+]
+`;
+
+exports[`query parser and validator with xrefs, one invalid 1`] = `
+Array [
+  Object {
+    "id": 0,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "xref": "gluco-fructose",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "fieldType": "general",
+      "id": "xref_pdb",
+      "itemType": "single",
+      "label": "PDB",
+      "term": "xref",
+      "valuePrefix": "pdb-",
+    },
+  },
+  Object {
+    "id": 1,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "xref": "some value",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "fieldType": "general",
+      "id": "xref_embl",
+      "itemType": "single",
+      "label": "EMBL",
+      "term": "xref",
+      "valuePrefix": "embl-",
+    },
+  },
+]
+`;
+
+exports[`query parser and validator with xrefs, one invalid 2`] = `
+Array [
+  Object {
+    "id": 2,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "xref": "invalid",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "fieldType": "general",
+      "id": "",
+      "itemType": "single",
+      "label": "",
+      "term": "xref",
+    },
+  },
+  Object {
+    "id": 3,
+    "logicOperator": "AND",
+    "queryBits": Object {
+      "xref": "xyz-value",
+    },
+    "searchTerm": Object {
+      "dataType": "string",
+      "fieldType": "general",
+      "id": "",
+      "itemType": "single",
+      "label": "",
+      "term": "xref",
+    },
+  },
+]
+`;

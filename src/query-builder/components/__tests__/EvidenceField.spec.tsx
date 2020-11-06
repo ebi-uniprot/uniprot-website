@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, getByTestId } from '@testing-library/react';
 import EvidenceField from '../EvidenceField';
 
 let rendered;
@@ -8,23 +8,31 @@ let props;
 describe('EvidenceField component', () => {
   beforeEach(() => {
     props = {
-      value: '',
       handleChange: jest.fn(),
-      data: [
-        {
-          groupName: 'foo',
-          items: [
-            {
-              code: 0,
-              name: 'bar',
-            },
-            {
-              code: 1,
-              name: 'baz',
-            },
-          ],
-        },
-      ],
+      field: {
+        id: 'ccev_webresource',
+        itemType: 'single',
+        term: 'ccev_webresource',
+        dataType: 'string',
+        fieldType: 'evidence',
+        example: 'manual',
+        evidenceGroups: [
+          {
+            groupName: 'foo',
+            items: [
+              {
+                code: 'bar_code',
+                name: 'bar',
+              },
+              {
+                code: 'baz_code',
+                name: 'baz',
+              },
+            ],
+          },
+        ],
+      },
+      initialValue: { ccev_webresource: 'baz_code' },
     };
 
     rendered = render(<EvidenceField {...props} />);
@@ -34,13 +42,20 @@ describe('EvidenceField component', () => {
     const { getByTestId } = rendered;
     const evidenceSelect = getByTestId('evidence-select');
     fireEvent.change(evidenceSelect, {
-      target: { value: props.data[0].items[0].code },
+      target: { value: 0 },
     });
-    expect(props.handleChange).toBeCalled();
+    expect(props.handleChange).toBeCalledWith({
+      ccev_webresource: 'baz_code',
+    });
   });
 
   test('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('should initialise', () => {
+    const { getByTestId } = rendered;
+    expect(getByTestId('evidence-select').value).toBe('baz_code');
   });
 });

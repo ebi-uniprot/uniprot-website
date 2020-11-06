@@ -46,12 +46,13 @@ describe('useDataApi hook', () => {
     mock.onGet(url).reply(200, 'some data');
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url,
       data: 'some data',
       status: 200,
     });
@@ -61,12 +62,13 @@ describe('useDataApi hook', () => {
     mock.onGet(url).networkError();
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url,
       error: new Error('Network Error'),
     });
   });
@@ -75,12 +77,13 @@ describe('useDataApi hook', () => {
     mock.onGet(url).timeout();
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url,
       error: new Error('timeout of 0ms exceeded'),
     });
   });
@@ -90,7 +93,7 @@ describe('useDataApi hook', () => {
     mock.onGet(url).reply(400, { messages: [message] });
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
@@ -108,6 +111,7 @@ describe('useDataApi hook', () => {
       error: new Error('Request failed with status code 400'),
       headers: undefined,
       loading: false,
+      url,
       status: 400,
       statusText: undefined,
     });
@@ -117,12 +121,13 @@ describe('useDataApi hook', () => {
     mock.onGet(url).reply(404);
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url,
       status: 404,
       error: new Error('Request failed with status code 404'),
     });
@@ -132,7 +137,7 @@ describe('useDataApi hook', () => {
     mock.onGet(url).reply(200, 'some data');
     const { result, unmount } = renderHook(() => useDataApi(url));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     unmount();
     // not sure how to test cancellation, but at least make sure there's no
@@ -147,24 +152,26 @@ describe('useDataApi hook', () => {
       { initialProps: { url } }
     );
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url,
       data: 'some data',
       status: 200,
     });
 
     rerender({ url: url2 });
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url: url2 });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url: url2,
       data: 'some other data',
       status: 200,
     });
@@ -178,16 +185,17 @@ describe('useDataApi hook', () => {
       { initialProps: { url } }
     );
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     rerender({ url: url2 });
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url: url2 });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url: url2,
       data: 'some other data',
       status: 200,
     });
@@ -199,11 +207,12 @@ describe('useDataApi hook', () => {
 
     const { result, waitForNextUpdate } = renderHook(() => useDataApi(url2));
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url: url2 });
 
     await waitForNextUpdate();
     expect(result.current).toEqual({
       loading: false,
+      url: url2,
       data: 'some data',
       status: 200,
       redirectedTo: url,
@@ -220,12 +229,13 @@ describe('useDataApiWithStale hook', () => {
       { initialProps: { url } }
     );
 
-    expect(result.current).toEqual({ loading: true });
+    expect(result.current).toEqual({ loading: true, url });
 
     await waitForNextUpdate();
 
     expect(result.current).toEqual({
       loading: false,
+      url,
       data: 'some data',
       status: 200,
     });
@@ -234,6 +244,7 @@ describe('useDataApiWithStale hook', () => {
 
     expect(result.current).toEqual({
       loading: true,
+      url: url2,
       data: 'some data',
       isStale: true,
     });
@@ -242,6 +253,7 @@ describe('useDataApiWithStale hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      url: url2,
       data: 'some other data',
       status: 200,
     });

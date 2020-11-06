@@ -1,36 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { SearchTermType } from '../types/searchTypes';
+import initializer from '../utils/fieldInitializer';
 
-type TextFieldProps = {
+import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
+
+const getStringValue = (value: string, prefix?: string) =>
+  value.includes(' ')
+    ? `"${prefix || ''}${value?.trim()}"`
+    : `${prefix || ''}${value?.trim()}`;
+
+const TextField: React.FC<{
   field: SearchTermType;
-  type: string;
-  value?: string;
-  handleChange: (value: string) => void;
-};
+  handleChange: (queryBit: QueryBit) => void;
+  initialValue?: QueryBit;
+}> = ({ field, handleChange, initialValue }) => {
+  const [value, setValue] = useState(
+    () => initializer(field, initialValue) as string
+  );
 
-const TextField = ({
-  field,
-  type,
-  handleChange,
-  value = '',
-}: TextFieldProps) => (
-  <div className="advanced-search__inputs" key={field.term}>
+  useEffect(() => {
+    const trimmed = value.trim();
+    if (trimmed.length) {
+      if (field.valuePrefix && field.term === 'xref' && trimmed === '*') {
+        // Query is faster with this hack
+        handleChange({ xref: `${field.valuePrefix}` });
+      } else {
+        handleChange({
+          [field.term]: getStringValue(value, field.valuePrefix),
+        });
+      }
+    }
+  }, [field, value, handleChange]);
+
+  return (
     <label htmlFor={`input_${field.term}`}>
       {field.label}
       <input
         id={`input_${field.term}`}
-        type={type}
+        type={field.dataType === DataType.integer ? 'number' : 'text'}
         value={value}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => setValue(e.target.value)}
         placeholder={field.example}
       />
     </label>
-  </div>
-);
-
-TextField.defaultProps = {
-  value: undefined,
+  );
 };
 
 export default TextField;
