@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { UniRefUIModel } from '../adapters/uniRefConverter';
 
@@ -75,13 +75,13 @@ ColumnConfiguration.set(UniRefColumn.organism, {
   },
 });
 
-ColumnConfiguration.set(UniRefColumn.identity, {
-  label: 'Identity',
-  render: (data) => {
-    // TODO where is this??
-    return <></>;
-  },
-});
+// TODO where is this??
+// ColumnConfiguration.set(UniRefColumn.identity, {
+//   label: 'Identity',
+//   render: (data) => {
+//     return <></>;
+//   },
+// });
 
 ColumnConfiguration.set(UniRefColumn.length, {
   label: 'Length',
