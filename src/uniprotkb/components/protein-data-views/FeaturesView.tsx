@@ -63,7 +63,7 @@ type Fragment = {
 };
 
 export type ProcessedFeature = {
-  protvistaFeatureId?: string;
+  protvistaFeatureId: string;
   featureId?: string;
   start: number;
   end: number;

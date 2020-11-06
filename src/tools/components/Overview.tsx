@@ -1,13 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, {
-  FC,
-  useCallback,
-  useMemo,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { Loader } from 'franklin-sites';
 
 import AlignmentOverview from './AlignmentOverview';
@@ -20,10 +13,7 @@ import {
   createGappedFeature,
 } from '../utils/sequences';
 
-import { MsaColorScheme } from '../config/msaColorSchemes';
-import FeatureType from '../../uniprotkb/types/featureType';
-
-import { MSAInput, ConservationOptions } from './AlignmentView';
+import { AlignmentComponentProps } from './AlignmentView';
 
 import './styles/alignment-view.scss';
 
@@ -33,25 +23,11 @@ type EventDetail = {
   displayend: string;
 };
 
-export type BlastOverviewProps = {
-  alignment: MSAInput[];
-  alignmentLength: number;
-  highlightProperty: MsaColorScheme | undefined;
-  conservationOptions: ConservationOptions;
-  totalLength: number;
-  annotation: FeatureType | undefined;
-  activeId?: string;
-  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  omitInsertionsInCoords?: boolean;
-  selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
-};
-
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const AlignOverview: FC<BlastOverviewProps> = ({
+const AlignOverview: FC<AlignmentComponentProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
@@ -167,7 +143,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
 
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined && activeAnnotation) {
+      if (node && ceDefined && activeAnnotation && activeAlignment?.sequence) {
         node.data = activeAnnotation
           // The Overview feature track always starts from the start of the protein
           // hence the need to have `from` := 1

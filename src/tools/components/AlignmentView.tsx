@@ -24,10 +24,11 @@ import {
   findSequenceFeature,
   getFullAlignmentLength,
   getMSAFeature,
+  MSAFeature,
 } from '../utils/sequences';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import { ProcessedFeature } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 
 import './styles/AlignmentView.scss';
 import { prepareFeatureForTooltip } from '../utils/feature';
@@ -54,16 +55,7 @@ export type MSAInput = {
   from: number;
   to: number;
   length: number;
-  features?: FeatureData;
-};
-
-export type Sequence = {
-  name: string;
-  sequence: string;
-  start: number;
-  end: number;
-  features?: FeatureData;
-  accession?: string;
+  features?: ProcessedFeature[];
 };
 
 type PossiblyEmptyMenuItem = {
@@ -83,10 +75,15 @@ type MenuItem = {
   }[];
 };
 
-const isNonEmptyMenuItem = (item: PossiblyEmptyMenuItem): item is MenuItem =>
-  Boolean(item.id && item.label && item.items.length);
+interface EventWithDetail extends Event {
+  detail?: {
+    eventtype: string;
+    feature: { protvistaFeatureId: string };
+    coords: number[];
+  };
+}
 
-export type MSAViewProps = {
+export type AlignmentComponentProps = {
   alignment: MSAInput[];
   alignmentLength: number;
   highlightProperty: MsaColorScheme | undefined;
@@ -94,8 +91,18 @@ export type MSAViewProps = {
   totalLength: number;
   annotation: FeatureType | undefined;
   activeId?: string;
-  setActiveId: Dispatch<SetStateAction<string | undefined>>;
+  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
+  omitInsertionsInCoords?: boolean;
+  selectedEntries?: string[];
+  handleSelectedEntries?: (rowId: string) => void;
+  selectedMSAFeatures?: MSAFeature[];
+  activeAnnotation: ProcessedFeature[];
+  activeAlignment?: MSAInput;
+  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
 };
+
+const isNonEmptyMenuItem = (item: PossiblyEmptyMenuItem): item is MenuItem =>
+  Boolean(item.id && item.label && item.items.length);
 
 const AlignmentView: React.FC<{
   alignment: MSAInput[];
@@ -104,6 +111,7 @@ const AlignmentView: React.FC<{
   tool: Tool;
   selectedEntries?: string[];
   handleSelectedEntries?: (rowId: string) => void;
+  containerSelector?: string;
 }> = ({
   alignment,
   alignmentLength,
@@ -113,8 +121,10 @@ const AlignmentView: React.FC<{
   handleSelectedEntries,
   containerSelector,
 }) => {
-  const [tooltipContent, setTooltipContent] = useState();
-  const tooltipRef = useRef();
+  const [tooltipContent, setTooltipContent] = useState<{
+    __html: string;
+  } | null>();
+  const tooltipRef = useRef<JSX.IntrinsicElements['protvista-tooltip']>();
 
   const tooltipDefined = useCustomElement(
     () =>
@@ -195,16 +205,23 @@ const AlignmentView: React.FC<{
     // just the active. Notice the final filter(Boolean), this is to remove
     // any features that occure before the start of the hit. This is only
     // relevant to BLAST results (hsp_query_from or hsp_hit_from).
-    () =>
-      alignment.flatMap(({ sequence, features = [] }, index) =>
-        features
-          .filter(({ type }) => type === annotation)
-          .map((feature) =>
-            getMSAFeature(feature, sequence, index, activeAlignment?.from)
-          )
-          .filter(Boolean)
-      ),
-    [activeAlignment?.from, alignment, annotation]
+    () => {
+      if (!activeAlignment) {
+        return;
+      }
+
+      // eslint-disable-next-line consistent-return
+      return alignment.flatMap(
+        ({ sequence, features = [] }, index) =>
+          features
+            .filter(({ type }) => type === annotation)
+            .map((feature) =>
+              getMSAFeature(feature, sequence, index, activeAlignment.from)
+            )
+            .filter(Boolean) as MSAFeature[]
+      );
+    },
+    [activeAlignment, alignment, annotation]
   );
 
   const totalLength = getFullAlignmentLength(alignment, alignmentLength);
@@ -251,6 +268,7 @@ const AlignmentView: React.FC<{
       if (tooltipRef.current.contains(e.target)) {
         return;
       }
+
       setTooltipContent(null);
     },
     [setTooltipContent]
@@ -263,13 +281,20 @@ const AlignmentView: React.FC<{
   const updateTooltip = useCallback(
     ({ id, x, y, event }) => {
       event.stopPropagation();
-      const { feature } = findSequenceFeature(id, alignment);
-      const preparedFeature = prepareFeatureForTooltip(feature);
+      const sequenceFeature = findSequenceFeature(id, alignment);
+
+      if (!sequenceFeature) {
+        return;
+      }
+
+      const preparedFeature = prepareFeatureForTooltip(sequenceFeature.feature);
       let yOffset = 0;
       if (containerSelector) {
         const panel = document.querySelector(containerSelector);
         const rect = panel?.getBoundingClientRect();
-        yOffset = rect.y;
+        if (rect?.y) {
+          yOffset = rect.y;
+        }
       }
       tooltipRef.current.title = `${preparedFeature.type} ${preparedFeature.start}-${preparedFeature.end}`;
       setTooltipContent({ __html: formatTooltip(preparedFeature) });
@@ -298,7 +323,7 @@ const AlignmentView: React.FC<{
   }, [tooltipCloseCallback, tooltipContent]);
 
   useEffect(() => {
-    const handleEvent = (event: Event & { detail: any }) => {
+    const handleEvent = (event: EventWithDetail) => {
       if (event?.detail?.eventtype === 'click') {
         updateTooltip({
           event,
@@ -314,8 +339,7 @@ const AlignmentView: React.FC<{
     return () => {
       window.removeEventListener('change', handleEvent);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [updateTooltip]);
 
   useEffect(() => {
     const className = '.main-content-and-footer';

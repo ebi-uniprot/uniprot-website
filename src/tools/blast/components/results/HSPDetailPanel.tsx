@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Loader, CloseIcon } from 'franklin-sites';
 import SlidingPanel from '../../../../shared/components/layouts/SlidingPanel';
 import { BlastHsp } from '../../types/blastResults';
@@ -84,8 +84,8 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   const { loading, data, status, error } = useDataApi<UniProtkbAccessionsAPI>(
     getAccessionsURL([hitAccession], { facets: [] })
   );
-
   const apiData = extra || data?.results?.[0];
+
   const recommendedName =
     apiData?.proteinDescription?.recommendedName?.fullName.value;
   const organism = apiData?.organism?.scientificName;
@@ -94,13 +94,12 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     .filter(Boolean)
     .join(' · ');
 
-  const alignment: MSAInput[] = convertHSPtoMSAInputs(
-    hsp,
-    queryLength,
-    hitLength,
-    hitAccession,
-    apiData
+  const alignment: MSAInput[] = useMemo(
+    () =>
+      convertHSPtoMSAInputs(hsp, queryLength, hitLength, hitAccession, apiData),
+    [apiData, hitAccession, hitLength, hsp, queryLength]
   );
+
   const containerClass = 'hsp-detail-panel';
   const containerSelector = `.${containerClass}`;
   let content;

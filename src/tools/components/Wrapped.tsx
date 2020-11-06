@@ -19,9 +19,17 @@ import useCustomElement from '../../shared/hooks/useCustomElement';
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { ConservationOptions, MSAInput } from './AlignmentView';
-import { FeatureData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { createGappedFeature, getEndCoordinate } from '../utils/sequences';
+import {
+  AlignmentComponentProps,
+  ConservationOptions,
+  MSAInput,
+} from './AlignmentView';
+import { ProcessedFeature } from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import {
+  createGappedFeature,
+  getEndCoordinate,
+  MSAFeature,
+} from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 const widthOfAA = 20;
@@ -32,7 +40,7 @@ export type Sequence = {
   fullSequence: string;
   start: number;
   end: number;
-  features?: FeatureData;
+  features?: ProcessedFeature[];
   accession?: string;
 };
 
@@ -56,6 +64,10 @@ export type WrappedRowProps = {
   trackStart: number;
   trackEnd: number;
   delayRender: boolean;
+  selectedMSAFeatures?: MSAFeature[];
+  activeAnnotation: ProcessedFeature[];
+  activeAlignment?: MSAInput;
+  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
@@ -87,7 +99,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaDefined) {
-        node.features = selectedMSAFeatures.map((f) => ({
+        node.features = selectedMSAFeatures?.map((f) => ({
           ...f,
           residues: {
             from: f.residues.from - trackStart + 1,
@@ -107,7 +119,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   );
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && trackDefined) {
+      if (node && trackDefined && activeAlignment?.sequence) {
         node.data = activeAnnotation
           .map((f) =>
             createGappedFeature(
@@ -191,21 +203,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   );
 };
 
-export type MSAViewProps = {
-  alignment: MSAInput[];
-  alignmentLength: number;
-  highlightProperty: MsaColorScheme | undefined;
-  conservationOptions: ConservationOptions;
-  totalLength: number;
-  annotation: FeatureType | undefined;
-  activeId?: string;
-  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  omitInsertionsInCoords?: boolean;
-  selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
-};
-
-const Wrapped: FC<MSAViewProps> = ({
+const Wrapped: FC<AlignmentComponentProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,

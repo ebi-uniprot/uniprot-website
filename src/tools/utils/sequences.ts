@@ -63,17 +63,6 @@ export type SegmentTrackData = {
   color: string;
 };
 
-export type FullAlignmentSegments = {
-  name?: string;
-  accession?: string;
-  sequence: string;
-  from: number;
-  to: number;
-  length: number;
-  features?: FeatureData;
-  trackData: SegmentTrackData[];
-};
-
 export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
   // franklin $colour-sapphire-blue
   const colour = '#014371';
@@ -87,28 +76,25 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
 
   return alignment.map((al) => {
     const offset = maxFrom - al.from > 0 ? maxFrom - al.from : 0;
-    return {
-      ...al,
-      trackData: [
-        {
-          start: offset,
-          end: offset + al.from - 1,
-          shape: 'line',
-          color: colour,
-        },
-        ...findSequenceSegments(al.sequence).map(([start, end]) => ({
-          start: offset + (al.from - 1) + start,
-          end: offset + (al.from - 1) + end,
-          color: colour,
-        })),
-        {
-          start: offset + al.to + countGaps(al.sequence) + 1,
-          end: offset + al.length + countGaps(al.sequence),
-          shape: 'line',
-          color: colour,
-        },
-      ],
-    };
+    return [
+      {
+        start: offset,
+        end: offset + al.from - 1,
+        shape: 'line',
+        color: colour,
+      },
+      ...findSequenceSegments(al.sequence).map(([start, end]) => ({
+        start: offset + (al.from - 1) + start,
+        end: offset + (al.from - 1) + end,
+        color: colour,
+      })),
+      {
+        start: offset + al.to + countGaps(al.sequence) + 1,
+        end: offset + al.length + countGaps(al.sequence),
+        shape: 'line',
+        color: colour,
+      },
+    ];
   });
 };
 
@@ -120,9 +106,9 @@ export const getEndCoordinate = (sequence: string, endPosition: number) =>
 
 // Jie has said that if it is unknown, you can ignore value
 // These erroneous features are temporary and will eventually be removed
-export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
+export const removeFeaturesWithUnknownModifier = (features: FeatureData = []) =>
   features
-    ?.filter(
+    .filter(
       ({ location: { start, end } }) =>
         start.modifier !== LocationModifier.UNKNOWN &&
         end.modifier !== LocationModifier.UNKNOWN
@@ -183,7 +169,10 @@ export const createGappedFeature = (
   return gappedFeature;
 };
 
-export const findSequenceFeature = (protvistaFeatureId, alignment) => {
+export const findSequenceFeature = (
+  protvistaFeatureId: string,
+  alignment: MSAInput[]
+) => {
   for (const sequence of alignment) {
     if (sequence?.features) {
       const foundFeature = sequence.features.find(
@@ -197,7 +186,22 @@ export const findSequenceFeature = (protvistaFeatureId, alignment) => {
   return null;
 };
 
-export const getMSAFeature = (feature, sequence, sequenceIndex, from) => {
+export type MSAFeature = {
+  residues: { from: number; to: number };
+  sequences: { from: number; to: number };
+  id: string;
+  borderColor: string;
+  fillColor: string;
+  mouseOverFillColor: string;
+  mouseOverBorderColor: string;
+};
+
+export const getMSAFeature = (
+  feature: ProcessedFeature,
+  sequence: string,
+  sequenceIndex: number,
+  from: number
+): MSAFeature | null => {
   const gappedFeature = createGappedFeature(feature, sequence, from);
   if (!gappedFeature) {
     return null;

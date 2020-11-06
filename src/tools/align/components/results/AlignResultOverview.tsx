@@ -23,9 +23,14 @@ type AlignResultOverviewProps = {
   handleSelectedEntries: (rowId: string) => void;
 };
 
-type EnrichedSequence = AlnClustalNum['sequences'][0] &
-  ParsedSequenceAndFeatures &
-  ProcessedFeature & { from: number; to: number; length: number };
+type EnrichedSequence = AlnClustalNum['sequences'][0] & {
+  accession: string;
+  from: number;
+  to: number;
+  length: number;
+  features: ProcessedFeature[];
+};
+
 type ParsedAndEnriched = {
   conservation: AlnClustalNum['conservation'];
   sequences: EnrichedSequence[];

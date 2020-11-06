@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
-import { v1 } from 'uuid';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -156,13 +155,7 @@ const enrich = (
     );
     return {
       ...hit,
-      extra: {
-        ...extra,
-        features: extra?.features?.map((f) => ({
-          ...f,
-          featureId: f.featureId || v1(),
-        })),
-      },
+      extra,
     };
   });
   return output;
