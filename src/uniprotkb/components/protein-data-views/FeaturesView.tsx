@@ -103,6 +103,7 @@ const FeaturesView: React.FC<FeatureProps> = ({
   features,
 }): JSX.Element | null => {
   const navigationDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
@@ -110,11 +111,13 @@ const FeaturesView: React.FC<FeatureProps> = ({
     'protvista-navigation'
   );
   const sequenceDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
     'protvista-sequence'
   );
   const managerDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
@@ -163,6 +166,7 @@ const FeaturesView: React.FC<FeatureProps> = ({
   });
 
   const trackDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );

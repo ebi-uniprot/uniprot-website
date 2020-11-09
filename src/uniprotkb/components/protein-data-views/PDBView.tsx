@@ -85,6 +85,7 @@ const PDBView: FC<{
   primaryAccession?: string;
 }> = ({ xrefs, noStructure = false, primaryAccession }) => {
   const structureDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-structure" */ 'protvista-structure'
@@ -92,11 +93,13 @@ const PDBView: FC<{
     'protvista-structure'
   );
   const managerDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
   const datatableDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'

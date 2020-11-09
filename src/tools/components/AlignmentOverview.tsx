@@ -24,6 +24,7 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   height,
 }) => {
   const ceDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );

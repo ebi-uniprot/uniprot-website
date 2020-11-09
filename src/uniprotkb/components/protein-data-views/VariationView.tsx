@@ -112,6 +112,7 @@ const VariationView: FC<{
   );
 
   const filterDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-filter" */ 'protvista-filter'),
     'protvista-filter'
   );
@@ -127,6 +128,7 @@ const VariationView: FC<{
   );
 
   const variationDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-variation" */ 'protvista-variation'
@@ -154,6 +156,7 @@ const VariationView: FC<{
   );
 
   const navigationDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
@@ -161,11 +164,13 @@ const VariationView: FC<{
     'protvista-navigation'
   );
   const sequenceDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-sequence" */ 'protvista-sequence'),
     'protvista-sequence'
   );
   const managerDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'

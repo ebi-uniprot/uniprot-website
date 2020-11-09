@@ -86,6 +86,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   );
 
   const msaDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
@@ -123,10 +124,12 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   );
 
   const trackDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
   const navigationDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
@@ -134,6 +137,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     'protvista-navigation'
   );
   const managerDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'

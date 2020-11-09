@@ -66,6 +66,7 @@ const BlastSummaryTrack: FC<{
   const { hsp_query_from, hsp_query_to } = hsp;
 
   const ceDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
@@ -266,6 +267,7 @@ const BlastResultTable: FC<{
   );
 
   const ceDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'

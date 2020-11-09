@@ -93,6 +93,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   onMSAFeatureClick,
 }) => {
   const msaDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
@@ -114,6 +115,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
   );
 
   const trackDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );

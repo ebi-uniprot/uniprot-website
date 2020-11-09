@@ -127,6 +127,7 @@ const AlignmentView: React.FC<{
   const tooltipRef = useRef<JSX.IntrinsicElements['protvista-tooltip']>();
 
   const tooltipDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-tooltip" */ 'protvista-tooltip'),
     'protvista-tooltip'
