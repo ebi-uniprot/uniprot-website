@@ -1,201 +1,86 @@
-import { Clause, Operator, itemType, dataType } from '../types/searchTypes';
+import { v1 } from 'uuid';
 
-type IPrefixMap = {
-  feature: string;
-  comment: string;
-  [key: string]: string;
-};
+import {
+  Clause,
+  Operator,
+  ItemType,
+  DataType,
+  FieldType,
+} from '../types/searchTypes';
+import { getAllTerm } from './clause';
 
-const doubleQuote = (string: string) => `"${string}"`;
+export const stringify = (clauses: Clause[] = []): string => {
+  let queryAccumulator = '';
+  for (const clause of clauses) {
+    const query = Object.entries(clause.queryBits)
+      // filter out empty fields
+      .filter(([, value]) => value);
 
-const getItemTypePrefix = (itemType: string) => {
-  const itemTypeToPrefixMap: IPrefixMap = {
-    feature: 'ft_',
-    comment: 'cc_',
-  };
-  return itemTypeToPrefixMap[itemType] || '';
-};
-
-const getItemTypeEvidencePrefix = (itemType: string) => {
-  const itemTypeToEvidencePrefixMap: IPrefixMap = {
-    feature: 'ftev_',
-    comment: 'ccev_',
-  };
-  return itemTypeToEvidencePrefixMap[itemType] || '';
-};
-
-const getItemTypeRangePrefix = (itemType: string) =>
-  itemType === 'feature' ? 'ftlen_' : '';
-
-const createTermString = (
-  term: string | undefined,
-  itemType: string,
-  id: string | undefined,
-  termSuffix: boolean | undefined,
-  stringValue = ''
-) => {
-  if (term === undefined) {
-    throw new Error('term is undefined');
-  }
-  if (term === 'xref' && stringValue === '*') {
-    return 'database:';
-  }
-  if (termSuffix) {
-    return id ? `${term}_id:` : `${term}_name:`;
-  }
-  const itemTypePrefix = getItemTypePrefix(itemType);
-  return `${itemTypePrefix}${term}${term ? ':' : ''}`;
-};
-
-const createValueString = (
-  term: string | undefined,
-  valuePrefix: string | undefined,
-  stringValue: string,
-  id: string | undefined
-) => {
-  if (term === undefined) {
-    throw new Error('term is undefined');
-  }
-  if (id) {
-    return doubleQuote(id);
-  }
-
-  let valueString = stringValue;
-  if (term === 'xref') {
-    if (!valuePrefix) {
-      throw new Error('valuePrefix not provided in xref query');
+    if (!query.length) {
+      // empty field, ignore it
+      continue; // eslint-disable-line no-continue
     }
-    // The API will run more quickly when all database entries are
-    // requested by the user if xref-X:* becomes database:X
-    else if (stringValue === '*') {
-      valueString = valuePrefix;
-    }
-    // We are testing for term=xref and valuePrefix=any because the
-    // search API expects the valuePrefix to be ommited in this case.
-    // eg xref:foo rather than xref_any:foo
-    else if (valuePrefix !== 'any') {
-      valueString = `${valuePrefix}-${stringValue}`;
-    }
-  }
 
-  return valueString.includes(' ') ? doubleQuote(valueString) : valueString;
-};
+    let queryJoined = query
+      .map(([key, value]) => {
+        const needsQuotes =
+          // contains ' ' or ':'
+          /[ :]/.test(value) &&
+          // but isn't of the form '[... TO ...]';
+          !(value.startsWith('[') && value.endsWith(']'));
+        const quote = needsQuotes ? '"' : '';
 
-const createSimpleSubquery = (clause: Clause) => {
-  if (clause.searchTerm.itemType === 'group') {
-    throw Error('Cannot create a query with a group term.');
-  }
-  const { itemType, term, valuePrefix, termSuffix } = clause.searchTerm;
-  const { stringValue = '', id } = clause.queryInput;
-  const stringValueTrimmed = stringValue.trim();
-  if (!stringValueTrimmed) {
-    throw new Error('Value not provided in query');
-  }
-  if (term === 'All') {
-    return stringValueTrimmed;
-  }
-  const termString = createTermString(
-    term,
-    itemType,
-    id,
-    termSuffix,
-    stringValueTrimmed
-  );
-  const valueString = createValueString(
-    term,
-    valuePrefix,
-    stringValueTrimmed,
-    id
-  );
-  return `(${termString}${valueString})`;
-};
-
-const createRangeSubquery = (clause: Clause) => {
-  const { term, itemType } = clause.searchTerm;
-  const { rangeFrom = '', rangeTo = '' } = clause.queryInput;
-  const itemTypeRangePrefix = getItemTypeRangePrefix(itemType);
-  return `(${itemTypeRangePrefix}${term}:[${rangeFrom.trim()} TO ${rangeTo.trim()}])`;
-};
-
-const getEvidenceSubquery = (clause: Clause) => {
-  const { evidenceValue = '' } = clause.queryInput;
-  const { term, itemType } = clause.searchTerm;
-  if (!evidenceValue) {
-    throw new Error('Evidence value not provided');
-  }
-  const itemTypeEvidencePrefix = getItemTypeEvidencePrefix(itemType);
-  return `(${itemTypeEvidencePrefix}${term}:${evidenceValue.trim()})`;
-};
-
-export const stringify = (clauses: Clause[] = []): string =>
-  clauses.reduce((queryAccumulator: string, clause: Clause) => {
-    const query = [];
-    const {
-      id,
-      stringValue = '',
-      rangeFrom = '',
-      rangeTo = '',
-      evidenceValue = '',
-    } = clause.queryInput;
-    if (id || stringValue.trim()) {
-      query.push(createSimpleSubquery(clause));
-    }
-    if (rangeFrom.trim() || rangeTo.trim()) {
-      query.push(createRangeSubquery(clause));
-    }
-    if (evidenceValue.trim()) {
-      query.push(getEvidenceSubquery(clause));
-    }
-    let queryJoined = query.join(` ${Operator.AND} `);
+        // free-text search
+        if (key === 'All') {
+          return `${quote}${value}${quote}`;
+        }
+        return `(${key}:${quote}${value}${quote})`;
+      })
+      .join(` ${Operator.AND} `);
     if (query.length > 1) {
       queryJoined = `(${queryJoined})`;
     }
 
     let logicOperator = '';
-    if (queryAccumulator.length > 0 && query.length > 0) {
+    if (queryAccumulator.length && query.length) {
       logicOperator = ` ${clause.logicOperator} `;
     } else if (
-      queryAccumulator.length === 0 &&
-      (clause.logicOperator as string) === Operator.NOT
+      !queryAccumulator.length &&
+      clause.logicOperator === Operator.NOT
     ) {
       logicOperator = `${clause.logicOperator} `;
     }
 
-    return `${queryAccumulator}${logicOperator}${queryJoined}`;
-  }, '');
+    queryAccumulator += `${logicOperator}${queryJoined}`;
+  }
+  return queryAccumulator;
+};
 
 const clauseSplitter = / *(AND|OR|NOT) +/;
-const clauseMatcher = /^\(*(\w+):"?([^")]+)"?\)*$/;
-const splitClause = (clause: string) => {
+const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
+const splitClause = (
+  clause: string
+): [key: string | undefined, value: string] => {
   const match = clauseMatcher.exec(clause);
   if (!match) {
-    return ['All', clause];
+    return [undefined, clause];
   }
   return [match[1], match[2]];
 };
-const quotedId = /:"[^") ]+"\)*$/;
-const evidenceKey = /^(\w\wev_)/;
-const rangeValue = /^\[(.+) TO (.+)\]$/;
-const getRangedValue = (value: string) => {
-  const match = rangeValue.exec(value);
-  if (!match) {
-    return;
-  }
-  // eslint-disable-next-line consistent-return
-  return { rangeFrom: match[1], rangeTo: match[2] };
-};
-const searchTermReplacer = /(cc|ft(len)?)_/;
+const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
 
 const getEmptyClause = (): Clause => ({
-  id: '',
+  id: v1(),
   searchTerm: {
     id: '',
+    term: '',
     label: '',
-    itemType: itemType.single,
-    dataType: dataType.string,
+    itemType: ItemType.single,
+    dataType: DataType.string,
+    fieldType: FieldType.general,
   },
+  queryBits: {},
   logicOperator: Operator.AND,
-  queryInput: {},
 });
 
 export const parse = (queryString = ''): Clause[] => {
@@ -218,50 +103,30 @@ export const parse = (queryString = ''): Clause[] => {
       // for every other item (even) should be the content of the clause
       const [key, value] = splitClause(chunk);
 
-      // item type
-      if (key.startsWith('cc_')) {
-        currentClause.searchTerm.itemType = itemType.comment;
-      } else if (key.startsWith('ft')) {
-        currentClause.searchTerm.itemType = itemType.feature;
-      } else if (key === 'xref') {
-        currentClause.searchTerm.itemType = itemType.database;
-      }
-
-      // evidence
-      if (evidenceKey.test(key)) {
-        // if it's an evidence key, mopdify the last inserted clause and skip
-        const prevClause = clauses[clauses.length - 1];
-        prevClause.searchTerm.hasEvidence = true;
-        prevClause.queryInput.evidenceValue = value;
-        continue; // eslint-disable-line no-continue
+      // evidence or length
+      const evidenceOrLengthMatch = key && key.match(evidenceOrLengthKey);
+      if (key && evidenceOrLengthMatch) {
+        const correspondingClause = clauses.find(({ searchTerm }) =>
+          searchTerm.term.startsWith(evidenceOrLengthMatch[1])
+        );
+        if (correspondingClause) {
+          // if it's an evidence or length key, mopdify the last inserted
+          // corresponding clause and skip
+          correspondingClause.queryBits[key] = value;
+          continue; // eslint-disable-line no-continue
+        }
       }
 
       // term
-      currentClause.searchTerm.term = key.replace(searchTermReplacer, '');
+      currentClause.searchTerm.term = key || 'All';
 
-      const range = getRangedValue(value);
-      if (range) {
-        // range
-        currentClause.queryInput = range;
-      } else if (currentClause.searchTerm.itemType === itemType.database) {
-        // cross-references
-        if (value.includes('-')) {
-          // database references
-          const [prefix, ...rest] = value.split('-');
-          currentClause.searchTerm.valuePrefix = prefix;
-          currentClause.queryInput.stringValue = rest.join('-');
-        } else {
-          // any other references
-          currentClause.searchTerm.valuePrefix = 'any';
-          currentClause.queryInput.stringValue = value;
-        }
+      // "default"
+      if (key) {
+        currentClause.queryBits[key] = value;
       } else {
-        // "default"
-        currentClause.queryInput.stringValue = value;
-        if (quotedId.test(chunk)) {
-          // if it's an ID and not just a full-text
-          currentClause.queryInput.id = value;
-        }
+        // specific free-text search
+        currentClause.queryBits.All = value;
+        currentClause.searchTerm = getAllTerm();
       }
 
       clauses.push(currentClause);

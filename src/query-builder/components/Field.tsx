@@ -1,97 +1,65 @@
-import React, { Fragment } from 'react';
+import React, { FC } from 'react';
+
 import RangeField from './RangeField';
 import EnumField from './EnumField';
 import TextField from './TextField';
-import AutocompleteWrapper from './AutocompleteWrapper';
-import { SearchTermType, Input } from '../types/searchTypes';
+import EvidenceField from './EvidenceField';
+import AutocompleteField from './AutocompleteField';
+
+import {
+  DataType,
+  FieldType,
+  QueryBit,
+  SearchTermType,
+} from '../types/searchTypes';
 
 type FieldProps = {
   field: SearchTermType;
-  handleInputChange: (value: string, id?: string) => void;
-  handleRangeInputChange: (value: string, from?: boolean) => void;
-  queryInput: Input;
+  handleChange: (updatedQueryBit: QueryBit) => void;
+  initialValue?: QueryBit;
 };
 
-const Field = ({
+const Field: FC<FieldProps> = ({
   field,
-  handleInputChange,
-  handleRangeInputChange,
-  queryInput,
+  handleChange,
+  initialValue,
 }: FieldProps) => {
-  const { dataType, hasRange } = field;
-  let node;
-  switch (dataType) {
-    case 'enum':
-      node = (
-        <EnumField
-          field={field}
-          handleChange={handleInputChange}
-          value={queryInput ? queryInput.stringValue : ''}
-        />
-      );
+  const { dataType, fieldType, autoComplete } = field;
+  let GenericField: FC<FieldProps>;
+
+  switch (true) {
+    case Boolean(autoComplete):
+      GenericField = AutocompleteField;
       break;
-    case 'date':
-      node = (
-        <RangeField
-          type="date"
-          field={field}
-          handleChange={handleRangeInputChange}
-          rangeFrom={queryInput.rangeFrom}
-          rangeTo={queryInput.rangeTo}
-        />
-      );
+    case dataType === DataType.enum || dataType === DataType.boolean:
+      GenericField = EnumField;
       break;
-    case 'string':
-      node = (
-        <Fragment>
-          {field.autoComplete ? (
-            <AutocompleteWrapper
-              url={field.autoComplete}
-              onSelect={handleInputChange}
-              title={field.label}
-              value={queryInput.stringValue}
-            />
-          ) : (
-            <TextField
-              field={field}
-              handleChange={handleInputChange}
-              type="text"
-              value={queryInput.stringValue}
-            />
-          )}
-          {hasRange && String(dataType) !== 'integer' && (
-            <RangeField
-              field={field}
-              handleChange={handleRangeInputChange}
-              type="text"
-              rangeFrom={queryInput.rangeFrom}
-              rangeTo={queryInput.rangeTo}
-            />
-          )}
-        </Fragment>
-      );
+    case dataType === DataType.date:
+    case dataType === DataType.integer && fieldType === FieldType.range:
+      GenericField = RangeField;
       break;
-    case 'integer':
-      if (hasRange) {
-        return RangeField({
-          field,
-          type: 'number',
-          handleChange: (value, isFrom) =>
-            handleRangeInputChange(value, isFrom),
-          rangeFrom: queryInput.rangeFrom,
-          rangeTo: queryInput.rangeTo,
-        });
-      }
-      return TextField({
-        field,
-        type: 'number',
-        handleChange: (value) => handleInputChange(value),
-        value: queryInput.stringValue,
-      });
+    case dataType === DataType.string && fieldType === FieldType.evidence:
+      GenericField = EvidenceField;
+      break;
+    case dataType === DataType.string:
+    case dataType === DataType.integer:
+      GenericField = TextField;
+      break;
     default:
       return null;
   }
-  return <div className="advanced-search__inputs">{node}</div>;
+
+  return (
+    <GenericField
+      field={field}
+      handleChange={handleChange}
+      initialValue={initialValue}
+    />
+  );
+};
+
+Field.defaultProps = {
+  initialValue: undefined,
 };
 
 export default Field;

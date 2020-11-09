@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useCallback, lazy, Suspense } from 'react';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import {
+  Link,
+  useRouteMatch,
+  useHistory,
+  generatePath,
+} from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
@@ -21,7 +26,7 @@ import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 
-import '../../../styles/ToolsResult.scss';
+import '../../../../shared/styles/sticky-tabs-container.scss';
 
 const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
@@ -109,17 +114,21 @@ type Params = {
 
 const AlignResult = () => {
   const history = useHistory();
-  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult]);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult])!;
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match?.params?.subPage) {
+    if (match && !match.params.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
-          pathname: `${history.location.pathname}/${TabLocation.Overview}`,
+          pathname: generatePath(LocationToPath[Location.AlignResult], {
+            ...match.params,
+            subPage: TabLocation.Overview,
+          }),
         })
       );
     }
@@ -162,7 +171,7 @@ const AlignResult = () => {
   );
 
   return (
-    <SingleColumnLayout className="tools-result">
+    <SingleColumnLayout className="sticky-tabs-container">
       <PageIntro title="Align Results" />
       <Tabs active={match.params.subPage}>
         <Tab

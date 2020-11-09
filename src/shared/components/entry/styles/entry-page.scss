@@ -4,4 +4,9 @@
     // of the page. It's the offset when scrolling to specific parts of the page
     scroll-margin-top: 3rem;
   }
+
+  &.sticky-tabs-container .tabs__header {
+    margin: 1rem 0.125rem;
+    width: calc(100% - 1rem);
+  }
 }

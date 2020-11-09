@@ -106,6 +106,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
         selectedRange={selectedRange}
         values={values[facet]}
         unfilteredValues={unfilteredValues}
+        unfilteredValuesShadow={0.1}
       />
     </li>
   );

@@ -1,23 +1,30 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
+
 import { fireEvent } from '@testing-library/react';
-import SequenceView from '../SequenceView';
-import SequenceUIDataJson from './__mocks__/sequenceUIData.json';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
-jest.mock('../../../utils/fetchData');
-import fetchData from '../../../utils/fetchData';
+import SequenceView from '../SequenceView';
 
-fetchData.mockImplementation(() => ({
-  data: {
-    sequence: {
-      length: 100,
-      molWeight: 100000,
-      crc64: 'ABCSSDDD',
-      value: 'MNOPQRSTUVWXYZ',
-    },
-  },
-}));
+import SequenceUIDataJson from './__mocks__/sequenceUIData.json';
+
+jest.mock('../../../hooks/useDataApi.ts');
+import useDataApi from '../../../hooks/useDataApi';
+
+useDataApi.mockImplementation((url) =>
+  url
+    ? {
+        data: {
+          sequence: {
+            length: 100,
+            molWeight: 100000,
+            crc64: 'ABCSSDDD',
+            value: 'MNOPQRSTUVWXYZ',
+          },
+        },
+      }
+    : {}
+);
 
 let rendered;
 const history = createMemoryHistory();

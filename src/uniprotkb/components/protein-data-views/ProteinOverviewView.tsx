@@ -1,53 +1,84 @@
 import React, { FC } from 'react';
-import { InfoList } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import AnnotationScoreDoughnutChart, {
+  DoughnutChartSize,
+} from './AnnotationScoreDoughnutChart';
 
-import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
-import EntrySection from '../../types/entrySection';
-import AnnotationScoreDoughnutChart from './AnnotationScoreDoughnutChart';
-import GeneNamesView from './GeneNamesView';
-
-import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const ProteinOverview: FC<{
-  transformedData: UniProtkbUIModel;
-}> = ({ transformedData }) => {
-  const { proteinExistence, annotationScore } = transformedData;
-  const { proteinNamesData, geneNamesData, organismData } = transformedData[
-    EntrySection.NamesAndTaxonomy
-  ];
+  data: UniProtkbAPIModel;
+}> = ({ data }) => {
+  let recommendedNameNode;
+  const recommendedName =
+    data.proteinDescription?.recommendedName?.fullName.value;
+  if (recommendedName) {
+    recommendedNameNode = `${recommendedName} · `;
+  }
 
-  const infoListData = [
-    {
-      title: 'Name',
-      content: proteinNamesData?.recommendedName?.fullName.value,
-    },
-    {
-      title: 'EC number',
-      content: proteinNamesData?.recommendedName?.ecNumbers?.map((ec) => (
-        <div key={ec.value}>{ec.value}</div>
-      )),
-    },
-    {
-      title: 'Organism',
-      content: organismData && <TaxonomyView data={organismData} />,
-    },
-    {
-      title: 'Gene',
-      content: geneNamesData && (
-        <GeneNamesView geneNamesData={geneNamesData} isCompact />
-      ),
-    },
-    {
-      title: 'Evidence',
-      content: proteinExistence,
-    },
-    {
-      title: 'Annotation score',
-      content: <AnnotationScoreDoughnutChart score={annotationScore} />,
-    },
-  ];
+  const ecNumberNode = data.proteinDescription?.recommendedName?.ecNumbers && (
+    <>
+      <strong>EC number:</strong>{' '}
+      {data.proteinDescription?.recommendedName?.ecNumbers
+        ?.map((ec) => ec.value)
+        .join(' ')}
+      {' · '}
+    </>
+  );
 
-  return <InfoList infoData={infoListData} />;
+  const organismNameNode = (
+    <>
+      <Link to={`/taxonomy/${data.organism?.taxonId}`}>
+        {data.organism?.scientificName}
+      </Link>
+      {' · '}
+    </>
+  );
+
+  let geneNameListNode;
+  if (data.genes) {
+    geneNameListNode = (
+      <>
+        <strong>Gene:</strong>{' '}
+        {data.genes
+          .filter((geneName) => geneName.geneName)
+          .map(
+            (geneName) =>
+              `${geneName.geneName?.value}${
+                geneName.synonyms
+                  ? ` (${geneName.synonyms
+                      ?.map((synonym) => synonym.value)
+                      .join(', ')})`
+                  : ''
+              }`
+          )
+          .join(', ')}
+        {' · '}
+      </>
+    );
+  }
+
+  const sequenceLengthNode = `${data.sequence.length} amino-acids · `;
+
+  const { annotationScore } = data;
+  const annotationScoreNode = (
+    <AnnotationScoreDoughnutChart
+      score={annotationScore}
+      size={DoughnutChartSize.small}
+    />
+  );
+
+  return (
+    <section>
+      {recommendedNameNode}
+      {organismNameNode}
+      {ecNumberNode}
+      {geneNameListNode}
+      {sequenceLengthNode}
+      {data.proteinExistence && `${data.proteinExistence} · `}
+      {annotationScoreNode}
+    </section>
+  );
 };
 
 export default ProteinOverview;

@@ -16,7 +16,7 @@ describe('LogicalOperator component', () => {
 
   test('should change evidence', () => {
     const { getByTestId } = rendered;
-    const select = getByTestId('advanced-search-logic-select');
+    const select = getByTestId('query-builder-logic-select');
     fireEvent.change(select, {
       target: { value: 'OR' },
     });

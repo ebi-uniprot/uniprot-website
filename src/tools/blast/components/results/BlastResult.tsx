@@ -6,7 +6,13 @@ import React, {
   lazy,
   Suspense,
 } from 'react';
-import { Link, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import {
+  Link,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+  generatePath,
+} from 'react-router-dom';
 import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
@@ -42,7 +48,7 @@ import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
-import '../../../styles/ToolsResult.scss';
+import '../../../../shared/styles/sticky-tabs-container.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);
@@ -163,7 +169,8 @@ const enrich = (
 
 const BlastResult = () => {
   const history = useHistory();
-  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult]);
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
@@ -174,11 +181,14 @@ const BlastResult = () => {
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
-    if (!match?.params?.subPage) {
+    if (match && !match.params.subPage) {
       history.replace(
         history.createHref({
           ...history.location,
-          pathname: `${history.location.pathname}/${TabLocation.Overview}`,
+          pathname: generatePath(LocationToPath[Location.AlignResult], {
+            ...match.params,
+            subPage: TabLocation.Overview,
+          }),
         })
       );
     }
@@ -281,7 +291,7 @@ const BlastResult = () => {
     return <ErrorHandler status={blastStatus} />;
   }
 
-  // Deciding what should be displayed on the sidebar
+  // sidebar option 1
   const facetsSidebar = (
     <>
       <ErrorBoundary>
@@ -293,12 +303,14 @@ const BlastResult = () => {
     </>
   );
 
+  // sidebar option 2
   const emptySidebar = (
     <div className="sidebar-layout__sidebar-content--empty" />
   );
-  let sidebar;
 
-  switch (match.params?.subPage) {
+  let sidebar: JSX.Element;
+  // Deciding what should be displayed on the sidebar
+  switch (match.params.subPage) {
     case TabLocation.TextOutput:
     case TabLocation.InputParameters:
     case TabLocation.APIRequest:
@@ -326,9 +338,9 @@ const BlastResult = () => {
         <PageIntro title="BLAST Results" resultsCount={hitsFiltered.length} />
       }
       sidebar={sidebar}
-      className="tools-result"
+      className="sticky-tabs-container"
     >
-      <Tabs active={match.params?.subPage}>
+      <Tabs active={match.params.subPage}>
         <Tab
           id={TabLocation.Overview}
           title={

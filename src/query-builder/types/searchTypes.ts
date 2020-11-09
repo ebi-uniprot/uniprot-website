@@ -4,64 +4,59 @@ export enum Operator {
   NOT = 'NOT',
 }
 
-export enum itemType {
-  comment = 'comment',
-  database = 'database',
-  feature = 'feature',
-  goterm = 'goterm',
+export enum ItemType {
   group = 'group',
-  groupDisplay = 'groupDisplay',
+  siblingGroup = 'sibling_group',
   single = 'single',
 }
 
-export enum dataType {
-  empty = '',
+export enum DataType {
+  boolean = 'boolean',
   date = 'date',
   enum = 'enum',
   integer = 'integer',
   string = 'string',
 }
 
+export enum FieldType {
+  evidence = 'evidence',
+  general = 'general',
+  range = 'range',
+}
+
+type EvidenceGroup = {
+  groupName: string;
+  items: { name: string; code: string }[];
+};
+
 export type SearchTermType = {
   id: string;
   label: string;
-  term?: string;
+  itemType: ItemType;
+  term: string;
+  dataType?: DataType;
+  fieldType?: FieldType;
   example?: string;
-  itemType: itemType;
-  dataType: dataType;
-  hasRange?: boolean;
-  hasEvidence?: boolean;
-  valuePrefix?: string;
-  termSuffix?: boolean;
   autoComplete?: string;
-  description?: string;
-  options?: {
-    name: string;
-    values: {
-      name: string;
-      label: string;
-    }[];
-  }[];
+  autoCompleteQueryTerm?: string;
+  regex?: string;
+  evidenceGroups?: EvidenceGroup[];
+  valuePrefix?: string;
   values?: {
     name: string;
     value: string;
   }[];
   items?: SearchTermType[];
+  siblings?: SearchTermType[];
 };
 
-export type Input = {
-  stringValue?: string;
-  rangeFrom?: string;
-  rangeTo?: string;
-  evidenceValue?: string;
-  id?: string;
-};
+export type QueryBit = Record<string, string>;
 
 export type Clause = {
   id: string;
   searchTerm: SearchTermType;
+  queryBits: QueryBit;
   logicOperator: Operator;
-  queryInput: Input;
 };
 
 export enum Evidence {

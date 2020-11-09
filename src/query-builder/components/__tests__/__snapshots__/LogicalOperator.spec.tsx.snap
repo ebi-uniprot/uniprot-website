@@ -3,8 +3,8 @@
 exports[`LogicalOperator component should render 1`] = `
 <DocumentFragment>
   <select
-    class="advanced-search__logic"
-    data-testid="advanced-search-logic-select"
+    class="query-builder__logic"
+    data-testid="query-builder-logic-select"
   >
     <option
       value="AND"

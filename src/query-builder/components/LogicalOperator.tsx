@@ -11,9 +11,9 @@ const LogicalOperator = ({
   handleChange: (value: Operator) => void;
 }) => (
   <select
-    className="advanced-search__logic"
+    className="query-builder__logic"
     value={value}
-    data-testid="advanced-search-logic-select"
+    data-testid="query-builder-logic-select"
     onChange={(e) => handleChange(e.target.value as Operator)}
   >
     {operators.map((op) => (
