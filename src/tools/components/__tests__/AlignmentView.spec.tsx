@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
+import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import AlignmentView, { Tool, View } from '../AlignmentView';
 
@@ -10,13 +11,15 @@ describe('AlignmentView', () => {
     let rendered;
     beforeEach(() => {
       const alignment = mockData.BLAST;
-      rendered = render(
-        <AlignmentView
-          alignment={alignment}
-          alignmentLength={alignment[0].length}
-          defaultView={View.overview}
-          tool={Tool.blast}
-        />
+      rendered = renderWithRedux(
+        <div className="main-content-and-footer">
+          <AlignmentView
+            alignment={alignment}
+            alignmentLength={alignment[0].length}
+            defaultView={View.overview}
+            tool={Tool.blast}
+          />
+        </div>
       );
     });
 
