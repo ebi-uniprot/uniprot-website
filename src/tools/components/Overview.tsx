@@ -184,7 +184,9 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
         />
       </div>
       {/* second row */}
-      <span className="track-label">{annotation}</span>
+      <span className="track-label" data-testid="track-label">
+        {annotation}
+      </span>
       <div className="track">
         <protvista-track
           ref={setFeatureTrackData}
