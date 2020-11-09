@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { UniRefUIModel } from '../adapters/uniRefConverter';
 
-enum UniRefColumn {
+export enum UniRefColumn {
   id = 'id',
   name = 'name',
   commonTaxon = 'common_taxon',

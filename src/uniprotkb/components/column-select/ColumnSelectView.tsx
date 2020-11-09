@@ -2,7 +2,7 @@ import React from 'react';
 import { AccordionSearch, Tabs, Tab, Bubble } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
-import { Column } from '../../types/columnTypes';
+import { UniProtKBColumn } from '../../types/columnTypes';
 import {
   ColumnSelectTab,
   FieldData,
@@ -30,7 +30,10 @@ const getTabTitle = (tabId: ColumnSelectTab, columns: SelectedColumn[]) => (
   </div>
 );
 
-const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
+const getFieldDataForColumns = (
+  columns: UniProtKBColumn[],
+  fieldData: FieldData
+) => {
   /*
   For each column (a string enum) searches through the result field structure
   to find the associated information:
@@ -54,9 +57,9 @@ const getFieldDataForColumns = (columns: Column[], fieldData: FieldData) => {
 };
 
 type ColumnSelectViewProps = {
-  selectedColumns: Column[];
+  selectedColumns: UniProtKBColumn[];
   fieldData: FieldData;
-  onSelect: (columnId: Column) => void;
+  onSelect: (columnId: UniProtKBColumn) => void;
   onDragDrop: (srcIndex: number, destIndex: number) => void;
   onReset: () => void;
 };
@@ -81,7 +84,9 @@ const ColumnSelectView: React.FC<ColumnSelectViewProps> = ({
       <Tab key={tabId} title={getTabTitle(tabId, selectedColumnsInTab)}>
         <AccordionSearch
           accordionData={Object.values(fieldData[tabId])}
-          onSelect={(_accordionId: string, itemId: Column) => onSelect(itemId)}
+          onSelect={(_accordionId: string, itemId: UniProtKBColumn) =>
+            onSelect(itemId)
+          }
           selected={selectedColumnsInTab}
           columns
         />

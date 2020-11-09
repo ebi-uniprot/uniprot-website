@@ -4,11 +4,11 @@ import { act } from 'react-dom/test-utils';
 import ResultsView from '../ResultsView';
 import { ViewMode } from '../../../state/resultsInitialState';
 import { render } from '@testing-library/react';
-import { Column } from '../../../types/columnTypes';
+import { UniProtKBColumn } from '../../../types/columnTypes';
 import '../../__mocks__/mockApi';
 
 const props = {
-  columns: [Column.accession],
+  columns: [UniProtKBColumn.accession],
   handleEntrySelection: jest.fn(),
   selectedEntries: [],
 };

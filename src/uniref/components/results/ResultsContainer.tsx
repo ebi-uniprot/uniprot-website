@@ -22,16 +22,16 @@ import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { Column } from '../../../uniprotkb/types/columnTypes';
 import Response from '../../types/responseTypes';
+import { UniRefColumn } from '../../config/ColumnConfiguration';
 
 // TODO: compare to the same component in UniProtKB and check to make this
 // TODO: component generic enough and shared across namespaces
 const Results: FC = () => {
   const namespace = Namespace.uniref;
 
-  const tableColumns = useSelector<RootState, Column[]>(
-    (state) => state.results.tableColumns
+  const tableColumns = useSelector<RootState, UniRefColumn[] | undefined>(
+    (state) => state.results.tableColumns[namespace] as UniRefColumn[]
   );
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
@@ -51,7 +51,8 @@ const Results: FC = () => {
    * this class as a functional component and put all url
    * parameters in the store.
    */
-  const columns: Column[] = viewMode === ViewMode.TABLE ? tableColumns : [];
+  const columns: UniRefColumn[] =
+    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : [];
 
   const initialApiUrl = getAPIQueryUrl({
     namespace: Namespace.uniref,

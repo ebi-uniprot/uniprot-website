@@ -5,11 +5,16 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { RootState, RootAction } from '../../../app/state/rootInitialState';
 import * as resultsActions from '../../state/resultsActions';
 import CustomiseTableView from './CustomiseTableView';
-import { Column } from '../../types/columnTypes';
+import { UniProtKBColumn } from '../../types/columnTypes';
+import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type CustomiseTableProps = {
-  tableColumns: Column[];
-  updateTableColumns: (columnIds: Column[]) => void;
+  tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
+  updateTableColumns: (
+    namespace: Namespace,
+    columnIds: UniProtKBColumn[]
+  ) => void;
 } & RouteComponentProps;
 
 const CustomiseTable: React.FC<CustomiseTableProps> = ({
@@ -17,15 +22,26 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
   updateTableColumns,
   history,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState(tableColumns);
+  // TODO this should come from the url
+  const namespace = Namespace.uniprotkb;
 
-  const handleChange = (columnIds: Column[]) => {
+  const [selectedColumns, setSelectedColumns] = useState(
+    tableColumns[namespace]
+  );
+
+  if (!selectedColumns) {
+    // TODO return an error here?
+    return null;
+  }
+
+  const handleChange = (columnIds: UniProtKBColumn[]) => {
     setSelectedColumns(columnIds);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateTableColumns(selectedColumns);
+    // TODO temporary casting to UniProtKBColumn to make TS happy
+    updateTableColumns(namespace, selectedColumns as UniProtKBColumn[]);
     history.goBack();
   };
 
@@ -34,8 +50,9 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
   };
 
   return (
+    // TODO temporary casting to UniProtKBColumn to make TS happy
     <CustomiseTableView
-      selectedColumns={selectedColumns}
+      selectedColumns={selectedColumns as UniProtKBColumn[]}
       onChange={handleChange}
       onSubmit={handleSubmit}
       onCancel={handleCancel}
@@ -50,8 +67,10 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
   bindActionCreators(
     {
-      updateTableColumns: (tableColumns: Column[]) =>
-        resultsActions.updateTableColumns(tableColumns),
+      updateTableColumns: (
+        namespace: Namespace,
+        tableColumns: UniProtKBColumn[]
+      ) => resultsActions.updateTableColumns(namespace, tableColumns),
     },
     dispatch
   );

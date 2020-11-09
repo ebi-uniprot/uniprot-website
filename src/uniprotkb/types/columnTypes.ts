@@ -1,4 +1,4 @@
-export enum Column {
+export enum UniProtKBColumn {
   structure3D = 'structure_3d',
   absorption = 'absorption',
   accession = 'accession',
@@ -302,11 +302,11 @@ export enum Column {
 }
 
 export type SortableColumn =
-  | Column.accession
-  | Column.annotationScore
-  | Column.geneNames
-  | Column.length
-  | Column.mass
-  | Column.id
-  | Column.proteinName
-  | Column.organismName;
+  | UniProtKBColumn.accession
+  | UniProtKBColumn.annotationScore
+  | UniProtKBColumn.geneNames
+  | UniProtKBColumn.length
+  | UniProtKBColumn.mass
+  | UniProtKBColumn.id
+  | UniProtKBColumn.proteinName
+  | UniProtKBColumn.organismName;

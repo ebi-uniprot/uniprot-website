@@ -3,13 +3,13 @@ import { render, fireEvent } from '@testing-library/react';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 import initialState from '../../../../app/state/rootInitialState';
 import CustomiseTableView from '../CustomiseTableView';
-import { Column } from '../../../types/columnTypes';
+import { UniProtKBColumn } from '../../../types/columnTypes';
 
 describe('CustomiseTableView component', () => {
   let props, renderedWithRedux;
   beforeEach(() => {
     props = {
-      selectedColumns: [Column.accession, Column.ccAllergen],
+      selectedColumns: [UniProtKBColumn.accession, UniProtKBColumn.ccAllergen],
       onChange: jest.fn(),
       onSubmit: jest.fn(),
       onCancel: jest.fn(),

@@ -1,4 +1,6 @@
-import { Column } from '../types/columnTypes';
+import { Namespace } from '../../shared/types/namespaces';
+import { UniRefColumn } from '../../uniref/config/ColumnConfiguration';
+import { UniProtKBColumn } from '../types/columnTypes';
 import { FieldData, ColumnSelectTab } from '../types/resultsTypes';
 
 export enum ViewMode {
@@ -7,24 +9,26 @@ export enum ViewMode {
 }
 
 export type ResultsState = {
-  tableColumns: Column[];
+  tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
   fields: {
     data: FieldData;
     isFetching: boolean;
   };
 };
 
-export const defaultTableColumns = [
-  Column.accession,
-  Column.reviewed,
-  Column.id,
-  Column.proteinName,
-  Column.geneNames,
-  Column.organismName,
+export const uniProtKBdefaultTableColumns = [
+  UniProtKBColumn.accession,
+  UniProtKBColumn.reviewed,
+  UniProtKBColumn.id,
+  UniProtKBColumn.proteinName,
+  UniProtKBColumn.geneNames,
+  UniProtKBColumn.organismName,
 ];
 
 const resultsInitialState = {
-  tableColumns: defaultTableColumns,
+  tableColumns: {
+    [Namespace.uniprotkb]: uniProtKBdefaultTableColumns,
+  },
   fields: {
     data: {
       [ColumnSelectTab.data]: [],

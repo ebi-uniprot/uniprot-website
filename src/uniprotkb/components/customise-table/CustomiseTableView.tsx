@@ -1,12 +1,12 @@
 import React from 'react';
 import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
-import { Column } from '../../types/columnTypes';
+import { UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/customise-table.scss';
 
 type CustomiseTableViewProps = {
-  selectedColumns: Column[];
-  onChange: (columndIds: Column[]) => void;
+  selectedColumns: UniProtKBColumn[];
+  onChange: (columndIds: UniProtKBColumn[]) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
 };

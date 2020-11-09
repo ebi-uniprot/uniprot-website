@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import ColumnSelectView from '../ColumnSelectView';
-import { Column } from '../../../types/columnTypes';
+import { UniProtKBColumn } from '../../../types/columnTypes';
 import structuredResultFieldsData from './__mocks__/structuredResultFieldsData.json';
 
 describe('ColumnSelectView component', () => {
@@ -9,7 +9,10 @@ describe('ColumnSelectView component', () => {
   let rendered;
   beforeEach(() => {
     props = {
-      selectedColumns: [Column.ccAllergen, Column.proteinExistence],
+      selectedColumns: [
+        UniProtKBColumn.ccAllergen,
+        UniProtKBColumn.proteinExistence,
+      ],
       fieldData: structuredResultFieldsData,
       onSelect: jest.fn(),
       onDragDrop: jest.fn(),
@@ -28,7 +31,7 @@ describe('ColumnSelectView component', () => {
     const content = queryAllByTestId('accordion-content');
     const listItemCheckbox = content[0].querySelector('li>label>input');
     fireEvent.click(listItemCheckbox);
-    expect(props.onSelect).toHaveBeenCalledWith(Column.accession);
+    expect(props.onSelect).toHaveBeenCalledWith(UniProtKBColumn.accession);
   });
 
   test('should call onReset but reset to default button is clicked', () => {

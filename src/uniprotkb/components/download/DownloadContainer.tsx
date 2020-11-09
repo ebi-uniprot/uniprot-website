@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { RootState } from '../../../app/state/rootInitialState';
 import DownloadView from './DownloadView';
-import { Column, SortableColumn } from '../../types/columnTypes';
+import { UniProtKBColumn, SortableColumn } from '../../types/columnTypes';
 import {
   FileFormat,
   fileFormatToContentType,
@@ -13,12 +13,14 @@ import {
 import { getDownloadUrl } from '../../../shared/config/apiUrls';
 import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
+import { Namespace } from '../../../shared/types/namespaces';
+import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
 
 type DownloadTableProps = {
-  tableColumns: Column[];
+  tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
   query: string;
   selectedFacets: SelectedFacet[];
   sortColumn: SortableColumn;
@@ -32,13 +34,16 @@ const Download: React.FC<DownloadTableProps> = ({
   tableColumns,
   query = '',
   selectedFacets = [],
-  sortColumn = Column.accession as SortableColumn,
+  sortColumn = UniProtKBColumn.accession as SortableColumn,
   sortDirection = SortDirection.ascend,
   selectedEntries = [],
   totalNumberResults = 0,
   onClose,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState(tableColumns);
+  const [selectedColumns, setSelectedColumns] = useState(
+    // TODO temporary casting to UniProtKBColumn to make TS happy
+    tableColumns[Namespace.uniprotkb] as UniProtKBColumn[]
+  );
   const [downloadAll, setDownloadAll] = useState(true);
   const [fileFormat, setFileFormat] = useState(FileFormat.fastaCanonical);
   const [compressed, setCompressed] = useState(true);
@@ -48,6 +53,12 @@ const Download: React.FC<DownloadTableProps> = ({
     contentType: '',
     data: '',
   });
+
+  if (!selectedColumns) {
+    // TODO could return an error here
+    return null;
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = getDownloadUrl({

@@ -15,6 +15,7 @@ import { ViewMode } from '../../state/resultsInitialState';
 
 import apiUrls, { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import ColumnConfiguration from '../../config/ColumnConfiguration';
+import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useNS from '../../../shared/hooks/useNS';
@@ -28,14 +29,14 @@ import {
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { SortDirection, ReceivedFieldData } from '../../types/resultsTypes';
-import { SortableColumn, Column } from '../../types/columnTypes';
+import { SortableColumn, UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: Column[];
+  columns: UniProtKBColumn[] | UniRefColumn[];
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
 };
@@ -70,10 +71,12 @@ const ResultsView: React.FC<ResultsTableProps> = ({
   }>({ total: 0, nextUrl: undefined });
   const [allResults, setAllResults] = useState<UniProtkbAPIModel[]>([]);
   const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
-    Map<Column, string>
+    Map<UniProtKBColumn, string>
   >();
 
-  const { data, headers } = useDataApi<{ results: UniProtkbAPIModel[] }>(url);
+  const { data, headers } = useDataApi<{
+    results: UniProtkbAPIModel[];
+  }>(url);
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     apiUrls.resultsFields
   );
@@ -189,28 +192,30 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     );
   } else {
     // viewMode === ViewMode.TABLE
-    const columnsToDisplay = columns.map((columnName) => {
-      const columnConfig = ColumnConfiguration.get(columnName);
-      if (columnConfig) {
+    const columnsToDisplay = (columns as UniProtKBColumn[]).map(
+      (columnName) => {
+        const columnConfig = ColumnConfiguration.get(columnName);
+        if (columnConfig) {
+          return {
+            label: columnConfig.label,
+            name: columnName,
+            render: (row: UniProtkbAPIModel) =>
+              columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
+            sortable: sortableColumnToSortColumn.has(columnName),
+            sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
+          };
+        }
         return {
-          label: columnConfig.label,
+          label: columnName,
           name: columnName,
-          render: (row: UniProtkbAPIModel) =>
-            columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
-          sortable: sortableColumnToSortColumn.has(columnName),
-          sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
+          render: () => (
+            <div className="warning">{`${columnName} has no config`}</div>
+          ),
+          sortable: false,
+          sorted: false,
         };
       }
-      return {
-        label: columnName,
-        name: columnName,
-        render: () => (
-          <div className="warning">{`${columnName} has no config`}</div>
-        ),
-        sortable: false,
-        sorted: false,
-      };
-    });
+    );
     dataView = (
       <DataTable
         getIdKey={({ primaryAccession }: { primaryAccession: string }) =>

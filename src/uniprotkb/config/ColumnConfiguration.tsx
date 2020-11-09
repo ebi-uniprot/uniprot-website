@@ -42,7 +42,7 @@ import {
   GoAspect,
   GoTerm,
 } from '../adapters/functionConverter';
-import { Column } from '../types/columnTypes';
+import { UniProtKBColumn } from '../types/columnTypes';
 import {
   CommentType,
   FreeTextComment,
@@ -101,14 +101,14 @@ const getGOColumnForAspect = (aspect: GoAspect) => {
 };
 
 export const ColumnConfiguration = new Map<
-  Column,
+  UniProtKBColumn,
   {
     label: string;
     render: (data: UniProtkbUIModel) => JSX.Element | string | undefined;
   }
 >();
 
-ColumnConfiguration.set(Column.accession, {
+ColumnConfiguration.set(UniProtKBColumn.accession, {
   label: 'Entry',
   render: (data: { primaryAccession: string; entryType: string }) => (
     <SimpleView
@@ -118,14 +118,14 @@ ColumnConfiguration.set(Column.accession, {
   ),
 });
 
-ColumnConfiguration.set(Column.id, {
+ColumnConfiguration.set(UniProtKBColumn.id, {
   label: 'Entry Name',
   render: (data: { uniProtkbId: string }) => (
     <SimpleView termValue={data.uniProtkbId} />
   ),
 });
 
-ColumnConfiguration.set(Column.proteinName, {
+ColumnConfiguration.set(UniProtKBColumn.proteinName, {
   label: 'Protein names',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -137,7 +137,7 @@ ColumnConfiguration.set(Column.proteinName, {
   },
 });
 
-ColumnConfiguration.set(Column.geneNames, {
+ColumnConfiguration.set(UniProtKBColumn.geneNames, {
   label: 'Gene Names',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -147,7 +147,7 @@ ColumnConfiguration.set(Column.geneNames, {
   },
 });
 
-ColumnConfiguration.set(Column.organismName, {
+ColumnConfiguration.set(UniProtKBColumn.organismName, {
   label: 'Organism',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
@@ -155,7 +155,7 @@ ColumnConfiguration.set(Column.organismName, {
   },
 });
 
-ColumnConfiguration.set(Column.length, {
+ColumnConfiguration.set(UniProtKBColumn.length, {
   label: 'Length',
   render: (data) => {
     const sequenceData = data[EntrySection.Sequence];
@@ -166,7 +166,7 @@ ColumnConfiguration.set(Column.length, {
   },
 });
 
-ColumnConfiguration.set(Column.genePrimary, {
+ColumnConfiguration.set(UniProtKBColumn.genePrimary, {
   label: 'Gene names (Primary)',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -187,7 +187,7 @@ ColumnConfiguration.set(Column.genePrimary, {
   },
 });
 
-ColumnConfiguration.set(Column.geneOln, {
+ColumnConfiguration.set(UniProtKBColumn.geneOln, {
   label: 'Gene names (Ordered locus)',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -207,7 +207,7 @@ ColumnConfiguration.set(Column.geneOln, {
   },
 });
 
-ColumnConfiguration.set(Column.geneOrf, {
+ColumnConfiguration.set(UniProtKBColumn.geneOrf, {
   label: 'Gene names (ORF)',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -227,7 +227,7 @@ ColumnConfiguration.set(Column.geneOrf, {
   },
 });
 
-ColumnConfiguration.set(Column.geneSynonym, {
+ColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   label: 'Gene names (Synonyms)',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -246,7 +246,7 @@ ColumnConfiguration.set(Column.geneSynonym, {
     );
   },
 });
-ColumnConfiguration.set(Column.organismId, {
+ColumnConfiguration.set(UniProtKBColumn.organismId, {
   label: 'Organism',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
@@ -254,14 +254,14 @@ ColumnConfiguration.set(Column.organismId, {
   },
 });
 
-ColumnConfiguration.set(Column.xrefProteomes, {
+ColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
   label: 'Proteomes',
   render: (data) => {
     const { proteomesData } = data[EntrySection.NamesAndTaxonomy];
     return proteomesData && <ProteomesView data={proteomesData} isCompact />;
   },
 });
-ColumnConfiguration.set(Column.lineage, {
+ColumnConfiguration.set(UniProtKBColumn.lineage, {
   label: 'Lineage',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
@@ -271,7 +271,7 @@ ColumnConfiguration.set(Column.lineage, {
     );
   },
 });
-ColumnConfiguration.set(Column.virusHosts, {
+ColumnConfiguration.set(UniProtKBColumn.virusHosts, {
   label: 'Virus hosts',
   render: (data) => {
     const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
@@ -288,7 +288,7 @@ ColumnConfiguration.set(Column.virusHosts, {
     );
   },
 });
-ColumnConfiguration.set(Column.ccAlternativeProducts, {
+ColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
   label: 'Alternative Products',
   render: (data) => {
     const sequenceData = data[EntrySection.Sequence];
@@ -303,7 +303,7 @@ ColumnConfiguration.set(Column.ccAlternativeProducts, {
     );
   },
 });
-ColumnConfiguration.set(Column.sequence, {
+ColumnConfiguration.set(UniProtKBColumn.sequence, {
   label: 'Sequence',
   render: (data) => {
     const sequenceData = data[EntrySection.Sequence];
@@ -317,7 +317,7 @@ ColumnConfiguration.set(Column.sequence, {
   },
 });
 
-ColumnConfiguration.set(Column.ftVarSeq, {
+ColumnConfiguration.set(UniProtKBColumn.ftVarSeq, {
   label: 'Alternative sequence',
   render: (data) => {
     const { featuresData } = data[EntrySection.Sequence];
@@ -328,7 +328,7 @@ ColumnConfiguration.set(Column.ftVarSeq, {
     );
   },
 });
-ColumnConfiguration.set(Column.fragment, {
+ColumnConfiguration.set(UniProtKBColumn.fragment, {
   label: 'Fragment',
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
@@ -344,7 +344,7 @@ ColumnConfiguration.set(Column.fragment, {
   },
 });
 // gene_location ,  "Invalid fields parameter value 'gene_location'"
-ColumnConfiguration.set(Column.mass, {
+ColumnConfiguration.set(UniProtKBColumn.mass, {
   label: 'Mass',
   render: (data) => {
     const { molWeight } = data[EntrySection.Sequence];
@@ -352,7 +352,7 @@ ColumnConfiguration.set(Column.mass, {
   },
 });
 
-ColumnConfiguration.set(Column.ccMassSpectrometry, {
+ColumnConfiguration.set(UniProtKBColumn.ccMassSpectrometry, {
   label: 'Mass Spectrometry',
   render: (data) => {
     const { massSpectrometry } = data[EntrySection.Sequence];
@@ -360,7 +360,7 @@ ColumnConfiguration.set(Column.ccMassSpectrometry, {
   },
 });
 
-ColumnConfiguration.set(Column.ftVariant, {
+ColumnConfiguration.set(UniProtKBColumn.ftVariant, {
   label: 'Variants',
   render: (data) => (
     <VariationView primaryAccession={data.primaryAccession} hasTable={false} />
@@ -368,13 +368,19 @@ ColumnConfiguration.set(Column.ftVariant, {
 });
 
 ColumnConfiguration.set(
-  Column.ftNonCon,
+  UniProtKBColumn.ftNonCon,
   getFeatureColumn(FeatureType.NON_CONS)
 );
-ColumnConfiguration.set(Column.ftNonStd, getFeatureColumn(FeatureType.NON_STD));
-ColumnConfiguration.set(Column.ftNonTer, getFeatureColumn(FeatureType.NON_TER));
+ColumnConfiguration.set(
+  UniProtKBColumn.ftNonStd,
+  getFeatureColumn(FeatureType.NON_STD)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftNonTer,
+  getFeatureColumn(FeatureType.NON_TER)
+);
 
-ColumnConfiguration.set(Column.ccPolymorphism, {
+ColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
   label: 'Polymorphysm',
   render: (data) => {
     const { polymorphysm } = data[EntrySection.Sequence];
@@ -382,14 +388,14 @@ ColumnConfiguration.set(Column.ccPolymorphism, {
   },
 });
 
-ColumnConfiguration.set(Column.ccRnaEditing, {
+ColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
   label: 'RNA Editing',
   render: (data) => {
     const { rnaEditing } = data[EntrySection.Sequence];
     return rnaEditing && <RNAEditingView data={rnaEditing} />;
   },
 });
-ColumnConfiguration.set(Column.errorGmodelPred, {
+ColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
   label: 'Sequence Caution',
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
@@ -398,18 +404,21 @@ ColumnConfiguration.set(Column.errorGmodelPred, {
 });
 
 ColumnConfiguration.set(
-  Column.ftConflict,
+  UniProtKBColumn.ftConflict,
   getFeatureColumn(FeatureType.CONFLICT)
 );
-ColumnConfiguration.set(Column.ftUnsure, getFeatureColumn(FeatureType.UNSURE));
-ColumnConfiguration.set(Column.sequenceVersion, {
+ColumnConfiguration.set(
+  UniProtKBColumn.ftUnsure,
+  getFeatureColumn(FeatureType.UNSURE)
+);
+ColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
   label: 'Sequence Version',
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
     return entryAudit && <span>{entryAudit.sequenceVersion}</span>;
   },
 });
-ColumnConfiguration.set(Column.absorption, {
+ColumnConfiguration.set(UniProtKBColumn.absorption, {
   label: 'Absorption',
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
@@ -423,15 +432,18 @@ ColumnConfiguration.set(Column.absorption, {
   },
 });
 ColumnConfiguration.set(
-  Column.ftActSite,
+  UniProtKBColumn.ftActSite,
   getFeatureColumn(FeatureType.ACT_SITE)
 );
 ColumnConfiguration.set(
-  Column.ftBinding,
+  UniProtKBColumn.ftBinding,
   getFeatureColumn(FeatureType.BINDING)
 );
-ColumnConfiguration.set(Column.ftCaBind, getFeatureColumn(FeatureType.CA_BIND));
-ColumnConfiguration.set(Column.ccCatalyticActivity, {
+ColumnConfiguration.set(
+  UniProtKBColumn.ftCaBind,
+  getFeatureColumn(FeatureType.CA_BIND)
+);
+ColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   label: 'Catalytic Activity',
   render: (data) => {
     const catalyticActivityComments = data[
@@ -446,7 +458,7 @@ ColumnConfiguration.set(Column.ccCatalyticActivity, {
     );
   },
 });
-ColumnConfiguration.set(Column.ccCofactor, {
+ColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
   label: 'Cofactor',
   render: (data) => {
     const cofactorComments = data[EntrySection.Function].commentsData.get(
@@ -456,10 +468,10 @@ ColumnConfiguration.set(Column.ccCofactor, {
   },
 });
 ColumnConfiguration.set(
-  Column.ftDnaBind,
+  UniProtKBColumn.ftDnaBind,
   getFeatureColumn(FeatureType.DNA_BIND)
 );
-ColumnConfiguration.set(Column.ec, {
+ColumnConfiguration.set(UniProtKBColumn.ec, {
   label: 'EC Number',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
@@ -467,7 +479,7 @@ ColumnConfiguration.set(Column.ec, {
     return ecNumbers && <ECNumbersView ecNumbers={ecNumbers} />;
   },
 });
-ColumnConfiguration.set(Column.ccActivityRegulation, {
+ColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
   label: 'Activity Regulation',
   render: (data) => {
     const activityRegulationComments = data[
@@ -480,7 +492,7 @@ ColumnConfiguration.set(Column.ccActivityRegulation, {
     );
   },
 });
-ColumnConfiguration.set(Column.ccFunction, {
+ColumnConfiguration.set(UniProtKBColumn.ccFunction, {
   label: 'Function',
   render: (data) => {
     const functionComments = data[EntrySection.Function].commentsData.get(
@@ -489,7 +501,7 @@ ColumnConfiguration.set(Column.ccFunction, {
     return functionComments && <FreeTextView comments={functionComments} />;
   },
 });
-ColumnConfiguration.set(Column.kinetics, {
+ColumnConfiguration.set(UniProtKBColumn.kinetics, {
   label: 'Kinetics',
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
@@ -502,12 +514,15 @@ ColumnConfiguration.set(Column.kinetics, {
     );
   },
 });
-ColumnConfiguration.set(Column.ftMetal, getFeatureColumn(FeatureType.METAL));
 ColumnConfiguration.set(
-  Column.ftNpBind,
+  UniProtKBColumn.ftMetal,
+  getFeatureColumn(FeatureType.METAL)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftNpBind,
   getFeatureColumn(FeatureType.NP_BINDL)
 );
-ColumnConfiguration.set(Column.ccPathway, {
+ColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
   render: (data) => {
     const pathwayComments = data[EntrySection.Function].commentsData.get(
@@ -516,7 +531,7 @@ ColumnConfiguration.set(Column.ccPathway, {
     return pathwayComments && <FreeTextView comments={pathwayComments} />;
   },
 });
-ColumnConfiguration.set(Column.phDependence, {
+ColumnConfiguration.set(UniProtKBColumn.phDependence, {
   label: 'pH Dependence',
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
@@ -529,7 +544,7 @@ ColumnConfiguration.set(Column.phDependence, {
     );
   },
 });
-ColumnConfiguration.set(Column.redoxPotential, {
+ColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
   label: 'Redox Potential',
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
@@ -542,8 +557,11 @@ ColumnConfiguration.set(Column.redoxPotential, {
     );
   },
 });
-ColumnConfiguration.set(Column.ftSite, getFeatureColumn(FeatureType.SITE));
-ColumnConfiguration.set(Column.tempDependence, {
+ColumnConfiguration.set(
+  UniProtKBColumn.ftSite,
+  getFeatureColumn(FeatureType.SITE)
+);
+ColumnConfiguration.set(UniProtKBColumn.tempDependence, {
   label: 'Temperature Dependence',
   render: (data) => {
     const { bioPhysicoChemicalProperties } = data[
@@ -558,7 +576,7 @@ ColumnConfiguration.set(Column.tempDependence, {
     );
   },
 });
-ColumnConfiguration.set(Column.annotationScore, {
+ColumnConfiguration.set(UniProtKBColumn.annotationScore, {
   label: 'Score',
   render: (data) => (
     <AnnotationScoreDoughnutChart
@@ -567,7 +585,7 @@ ColumnConfiguration.set(Column.annotationScore, {
     />
   ),
 });
-ColumnConfiguration.set(Column.ccSequenceCaution, {
+ColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   label: 'Sequence Caution',
   render: (data) => {
     const { sequenceCaution } = data[EntrySection.Sequence];
@@ -575,14 +593,14 @@ ColumnConfiguration.set(Column.ccSequenceCaution, {
   },
 });
 // feature ,
-ColumnConfiguration.set(Column.keyword, {
+ColumnConfiguration.set(UniProtKBColumn.keyword, {
   label: 'Keywords',
   render: (data) => {
     const keywords = getAllKeywords(data);
     return <KeywordList keywords={keywords} />;
   },
 });
-ColumnConfiguration.set(Column.keywordid, {
+ColumnConfiguration.set(UniProtKBColumn.keywordid, {
   label: 'Keyword IDs',
   render: (data) => {
     const keywords = getAllKeywords(data);
@@ -590,7 +608,7 @@ ColumnConfiguration.set(Column.keywordid, {
   },
 });
 // matched_text: this field is not provided anymore ,
-ColumnConfiguration.set(Column.ccMiscellaneous, {
+ColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
   label: 'Miscellaneous [CC]',
   render: (data) => {
     const miscellaneousComments = data[EntrySection.Function].commentsData.get(
@@ -601,17 +619,17 @@ ColumnConfiguration.set(Column.ccMiscellaneous, {
     );
   },
 });
-ColumnConfiguration.set(Column.proteinExistence, {
+ColumnConfiguration.set(UniProtKBColumn.proteinExistence, {
   label: 'Protein existence',
   render: (data) => data.proteinExistence,
 });
-ColumnConfiguration.set(Column.reviewed, {
+ColumnConfiguration.set(UniProtKBColumn.reviewed, {
   label: '',
   render: (data) => <ReviewedUnreviewed entryType={data.entryType} />,
 });
 // tools: UX review is this needed?? ,
 // uniparc_id: leo re-indexing today 02/12/2019,
-ColumnConfiguration.set(Column.ccInteraction, {
+ColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
   label: 'Interacts with',
   render: (data) => {
     const interactionComments = data[EntrySection.Interaction].commentsData.get(
@@ -646,7 +664,7 @@ ColumnConfiguration.set(Column.ccInteraction, {
     );
   },
 });
-ColumnConfiguration.set(Column.ccSubunit, {
+ColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
   label: 'Subunit structure',
   render: (data) => {
     const subunitComments = data[EntrySection.Interaction].commentsData.get(
@@ -655,7 +673,7 @@ ColumnConfiguration.set(Column.ccSubunit, {
     return subunitComments && <FreeTextView comments={subunitComments} />;
   },
 });
-ColumnConfiguration.set(Column.ccDevelopmentalStage, {
+ColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
   label: 'Developmental stage',
   render: (data) => {
     const developmentComments = data[EntrySection.Expression].commentsData.get(
@@ -666,7 +684,7 @@ ColumnConfiguration.set(Column.ccDevelopmentalStage, {
     );
   },
 });
-ColumnConfiguration.set(Column.ccInduction, {
+ColumnConfiguration.set(UniProtKBColumn.ccInduction, {
   label: 'Induction',
   render: (data) => {
     const inductionComments = data[EntrySection.Expression].commentsData.get(
@@ -675,7 +693,7 @@ ColumnConfiguration.set(Column.ccInduction, {
     return inductionComments && <FreeTextView comments={inductionComments} />;
   },
 });
-ColumnConfiguration.set(Column.ccTissueSpecificity, {
+ColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
   label: 'Tissue Specificity',
   render: (data) => {
     const tissueComment = data[EntrySection.Expression].commentsData.get(
@@ -684,10 +702,10 @@ ColumnConfiguration.set(Column.ccTissueSpecificity, {
     return tissueComment && <FreeTextView comments={tissueComment} />;
   },
 });
-ColumnConfiguration.set(Column.goP, getGOColumnForAspect(GoAspect.P));
-ColumnConfiguration.set(Column.goC, getGOColumnForAspect(GoAspect.C));
-ColumnConfiguration.set(Column.goF, getGOColumnForAspect(GoAspect.F));
-ColumnConfiguration.set(Column.go, {
+ColumnConfiguration.set(UniProtKBColumn.goP, getGOColumnForAspect(GoAspect.P));
+ColumnConfiguration.set(UniProtKBColumn.goC, getGOColumnForAspect(GoAspect.C));
+ColumnConfiguration.set(UniProtKBColumn.goF, getGOColumnForAspect(GoAspect.F));
+ColumnConfiguration.set(UniProtKBColumn.go, {
   label: 'Gene Ontology',
   render: (data) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
@@ -695,7 +713,7 @@ ColumnConfiguration.set(Column.go, {
     return allGOTerms && <GOTermsView data={allGOTerms} />;
   },
 });
-ColumnConfiguration.set(Column.goId, {
+ColumnConfiguration.set(UniProtKBColumn.goId, {
   label: 'Gene Ontology IDs',
   render: (data) => {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
@@ -716,7 +734,7 @@ ColumnConfiguration.set(Column.goId, {
     );
   },
 });
-ColumnConfiguration.set(Column.structure3D, {
+ColumnConfiguration.set(UniProtKBColumn.structure3D, {
   label: '3D structures',
   render: (data) => {
     const structureData = (data[EntrySection.Structure] as StructureUIModel)
@@ -738,7 +756,7 @@ ColumnConfiguration.set(Column.structure3D, {
     );
   },
 });
-ColumnConfiguration.set(Column.ccSubcellularLocation, {
+ColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
   label: 'Subcellular Location',
   render: (data) => {
     const subcellData = data[EntrySection.SubCellularLocation].commentsData.get(
@@ -747,7 +765,7 @@ ColumnConfiguration.set(Column.ccSubcellularLocation, {
     return subcellData && <SubcellularLocationView comments={subcellData} />;
   },
 });
-ColumnConfiguration.set(Column.ccDomain, {
+ColumnConfiguration.set(UniProtKBColumn.ccDomain, {
   label: 'Domain',
   render: (data) => {
     const domainData = data[EntrySection.FamilyAndDomains].commentsData.get(
@@ -756,7 +774,7 @@ ColumnConfiguration.set(Column.ccDomain, {
     return domainData && <FreeTextView comments={domainData} />;
   },
 });
-ColumnConfiguration.set(Column.ccPtm, {
+ColumnConfiguration.set(UniProtKBColumn.ccPtm, {
   label: 'Post-Translational Modification',
   render: (data) => {
     const ptmData = data[EntrySection.ProteinProcessing].commentsData.get(
@@ -765,7 +783,7 @@ ColumnConfiguration.set(Column.ccPtm, {
     return ptmData && <FreeTextView comments={ptmData} />;
   },
 });
-ColumnConfiguration.set(Column.ccAllergen, {
+ColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
   label: 'Allergenic Properties',
   render: (data) => {
     const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
@@ -774,7 +792,7 @@ ColumnConfiguration.set(Column.ccAllergen, {
     return allergenData && <FreeTextView comments={allergenData} />;
   },
 });
-ColumnConfiguration.set(Column.ccBiotechnology, {
+ColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
   label: 'Biotechnological Use',
   render: (data) => {
     const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
@@ -783,7 +801,7 @@ ColumnConfiguration.set(Column.ccBiotechnology, {
     return biotechData && <FreeTextView comments={biotechData} />;
   },
 });
-ColumnConfiguration.set(Column.ccDisruptionPhenotype, {
+ColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
   label: 'Disruption Phenotype',
   render: (data) => {
     const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
@@ -792,7 +810,7 @@ ColumnConfiguration.set(Column.ccDisruptionPhenotype, {
     return disruptionData && <FreeTextView comments={disruptionData} />;
   },
 });
-ColumnConfiguration.set(Column.ccDisease, {
+ColumnConfiguration.set(UniProtKBColumn.ccDisease, {
   label: 'Disease Involvement',
   render: (data) => {
     const diseaseComments = data[EntrySection.DiseaseAndDrugs].commentsData.get(
@@ -809,10 +827,10 @@ ColumnConfiguration.set(Column.ccDisease, {
   },
 });
 ColumnConfiguration.set(
-  Column.ftMutagen,
+  UniProtKBColumn.ftMutagen,
   getFeatureColumn(FeatureType.MUTAGEN)
 );
-ColumnConfiguration.set(Column.ccPharmaceutical, {
+ColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
   label: 'Pharmaceutical Use',
   render: (data) => {
     const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
@@ -821,7 +839,7 @@ ColumnConfiguration.set(Column.ccPharmaceutical, {
     return pharmaData && <FreeTextView comments={pharmaData} />;
   },
 });
-ColumnConfiguration.set(Column.ccToxicDose, {
+ColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   label: 'Toxic Dose',
   render: (data) => {
     const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
@@ -831,50 +849,74 @@ ColumnConfiguration.set(Column.ccToxicDose, {
   },
 });
 ColumnConfiguration.set(
-  Column.ftIntramem,
+  UniProtKBColumn.ftIntramem,
   getFeatureColumn(FeatureType.INTRAMEM)
 );
 ColumnConfiguration.set(
-  Column.ftTopDom,
+  UniProtKBColumn.ftTopDom,
   getFeatureColumn(FeatureType.TOPO_DOM)
 );
 ColumnConfiguration.set(
-  Column.ftTransmem,
+  UniProtKBColumn.ftTransmem,
   getFeatureColumn(FeatureType.TRANSMEM)
 );
-ColumnConfiguration.set(Column.ftChain, getFeatureColumn(FeatureType.CHAIN));
 ColumnConfiguration.set(
-  Column.ftCrosslnk,
+  UniProtKBColumn.ftChain,
+  getFeatureColumn(FeatureType.CHAIN)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftCrosslnk,
   getFeatureColumn(FeatureType.CROSSLNK)
 );
 ColumnConfiguration.set(
-  Column.ftDisulfide,
+  UniProtKBColumn.ftDisulfide,
   getFeatureColumn(FeatureType.DISULFID)
 );
 ColumnConfiguration.set(
-  Column.ftCarbohyd,
+  UniProtKBColumn.ftCarbohyd,
   getFeatureColumn(FeatureType.CARBOHYD)
 );
 ColumnConfiguration.set(
-  Column.ftInitMet,
+  UniProtKBColumn.ftInitMet,
   getFeatureColumn(FeatureType.INIT_MET)
 );
-ColumnConfiguration.set(Column.ftLipid, getFeatureColumn(FeatureType.LIPID));
-ColumnConfiguration.set(Column.ftModRes, getFeatureColumn(FeatureType.MOD_RES));
 ColumnConfiguration.set(
-  Column.ftPeptide,
+  UniProtKBColumn.ftLipid,
+  getFeatureColumn(FeatureType.LIPID)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftModRes,
+  getFeatureColumn(FeatureType.MOD_RES)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftPeptide,
   getFeatureColumn(FeatureType.PEPTIDE)
 );
-ColumnConfiguration.set(Column.ftPropep, getFeatureColumn(FeatureType.PROPEP));
-ColumnConfiguration.set(Column.ftSignal, getFeatureColumn(FeatureType.SIGNAL));
 ColumnConfiguration.set(
-  Column.ftTransit,
+  UniProtKBColumn.ftPropep,
+  getFeatureColumn(FeatureType.PROPEP)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftSignal,
+  getFeatureColumn(FeatureType.SIGNAL)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftTransit,
   getFeatureColumn(FeatureType.TRANSIT)
 );
-ColumnConfiguration.set(Column.ftStrand, getFeatureColumn(FeatureType.STRAND));
-ColumnConfiguration.set(Column.ftHelix, getFeatureColumn(FeatureType.HELIX));
-ColumnConfiguration.set(Column.ftTurn, getFeatureColumn(FeatureType.TURN));
-ColumnConfiguration.set(Column.litPubmedId, {
+ColumnConfiguration.set(
+  UniProtKBColumn.ftStrand,
+  getFeatureColumn(FeatureType.STRAND)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftHelix,
+  getFeatureColumn(FeatureType.HELIX)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftTurn,
+  getFeatureColumn(FeatureType.TURN)
+);
+ColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   label: 'PubMed ID',
   render: (data) => {
     let ids: Xref[] = [];
@@ -896,7 +938,7 @@ ColumnConfiguration.set(Column.litPubmedId, {
     );
   },
 });
-ColumnConfiguration.set(Column.mappedPubmedId, {
+ColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
   label: 'Mapped PubMed ID',
   render: () => {
     // TODO This is currently not implemented in the backend see TRM-23257
@@ -904,42 +946,51 @@ ColumnConfiguration.set(Column.mappedPubmedId, {
     return '';
   },
 });
-ColumnConfiguration.set(Column.dateCreated, {
+ColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
     return entryAudit && entryAudit.firstPublicDate;
   },
 });
-ColumnConfiguration.set(Column.dateModified, {
+ColumnConfiguration.set(UniProtKBColumn.dateModified, {
   label: 'Date Modified',
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
     return entryAudit && entryAudit.lastAnnotationUpdateDate;
   },
 });
-ColumnConfiguration.set(Column.dateSequenceModified, {
+ColumnConfiguration.set(UniProtKBColumn.dateSequenceModified, {
   label: 'Date Sequence Modified',
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
     return entryAudit && entryAudit.lastSequenceUpdateDate;
   },
 });
-ColumnConfiguration.set(Column.version, {
+ColumnConfiguration.set(UniProtKBColumn.version, {
   label: 'Version',
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
     return entryAudit && <Fragment>{entryAudit.entryVersion}</Fragment>;
   },
 });
-ColumnConfiguration.set(Column.ftCoiled, getFeatureColumn(FeatureType.COILED));
 ColumnConfiguration.set(
-  Column.ftCompbias,
+  UniProtKBColumn.ftCoiled,
+  getFeatureColumn(FeatureType.COILED)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftCompbias,
   getFeatureColumn(FeatureType.COMPBIAS)
 );
-ColumnConfiguration.set(Column.ftDomain, getFeatureColumn(FeatureType.DOMAIN));
-ColumnConfiguration.set(Column.ftMotif, getFeatureColumn(FeatureType.MOTIF));
-ColumnConfiguration.set(Column.proteinFamilies, {
+ColumnConfiguration.set(
+  UniProtKBColumn.ftDomain,
+  getFeatureColumn(FeatureType.DOMAIN)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftMotif,
+  getFeatureColumn(FeatureType.MOTIF)
+);
+ColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   label: 'Protein Families',
   render: (data) => {
     // TODO this actually seems to be a subset of this with a query on link?
@@ -950,9 +1001,15 @@ ColumnConfiguration.set(Column.proteinFamilies, {
     return familiesData && <FreeTextView comments={familiesData} />;
   },
 });
-ColumnConfiguration.set(Column.ftRegion, getFeatureColumn(FeatureType.REGION));
-ColumnConfiguration.set(Column.ftRepeat, getFeatureColumn(FeatureType.REPEAT));
-ColumnConfiguration.set(Column.ccSimilarity, {
+ColumnConfiguration.set(
+  UniProtKBColumn.ftRegion,
+  getFeatureColumn(FeatureType.REGION)
+);
+ColumnConfiguration.set(
+  UniProtKBColumn.ftRepeat,
+  getFeatureColumn(FeatureType.REPEAT)
+);
+ColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
   label: 'Sequence Similarities',
   render: (data) => {
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
@@ -961,7 +1018,10 @@ ColumnConfiguration.set(Column.ccSimilarity, {
     return familiesData && <FreeTextView comments={familiesData} />;
   },
 });
-ColumnConfiguration.set(Column.ftZnFing, getFeatureColumn(FeatureType.ZN_FING));
+ColumnConfiguration.set(
+  UniProtKBColumn.ftZnFing,
+  getFeatureColumn(FeatureType.ZN_FING)
+);
 const getXrefColumn = (databaseName: string) => ({
   label: `${databaseName} cross-reference`,
   render: (data: UniProtkbUIModel) => {
@@ -1001,7 +1061,7 @@ const getXrefColumn = (databaseName: string) => ({
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
 
 // Add all database cross-reference columns
-Object.values(Column)
+Object.values(UniProtKBColumn)
   .filter((col) => col.startsWith('dr_'))
   .forEach((colName) => {
     const databaseInfo = getDatabaseInfoByName(colName.substring(3));
