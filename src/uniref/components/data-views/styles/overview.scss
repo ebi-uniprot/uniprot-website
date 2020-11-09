@@ -1,0 +1,22 @@
+@import '../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.member-icons {
+  &.uniprotkb {
+    &.reviewed {
+      color: $colour-reviewed;
+    }
+
+    &.unreviewed {
+      color: $colour-unreviewed;
+    }
+  }
+
+  &.uniparc {
+    color: $colour-uniparc;
+  }
+
+  & svg {
+    width: 1em;
+    height: 1em;
+  }
+}

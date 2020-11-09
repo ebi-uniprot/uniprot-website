@@ -1,5 +1,4 @@
 import React, { FC, memo } from 'react';
-import { Card } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 

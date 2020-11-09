@@ -10,7 +10,7 @@ import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
 const SequenceSection: FC<{
   data: SequenceUIModel;
   primaryAccession: string;
-}> = ({ data, primaryAccession }) => {
+}> = ({ data }) => {
   if (!hasContent(data)) {
     return null;
   }

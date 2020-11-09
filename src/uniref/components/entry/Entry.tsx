@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import {
-  InPageNav,
+  Facets,
   Loader,
   // DropdownButton,
 } from 'franklin-sites';
@@ -22,12 +22,8 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
-import UniRefEntryConfig from '../../config/UniRefEntryConfig';
-
 import { addMessage } from '../../../messages/state/messagesActions';
 
-// check if we need it here too and move it to a shared folder if needed
-import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -46,15 +42,15 @@ const Entry: FC = () => {
     LocationToPath[Location.UniRefEntry]
   );
 
-  const baseURL = apiUrls.uniref.entry(match?.params.accession);
+  const accession = match?.params.accession;
+
+  const baseURL = apiUrls.uniref.entry(accession);
   const { loading, data, status, error, redirectedTo } = useDataApi<
     UniRefAPIModel
   >(baseURL);
-  const facetsDataObject = useDataApi<Facet>(`${baseURL}/facets`);
+  const facetData = useDataApi<Facet[]>(`${baseURL}/facets`);
 
-  console.log(facetsDataObject.data);
-
-  if (error || !match?.params.accession) {
+  if (error || !accession) {
     return <ErrorHandler status={status} />;
   }
 
@@ -78,16 +74,14 @@ const Entry: FC = () => {
 
   const transformedData = uniRefConverter(data);
 
-  const sections = UniRefEntryConfig.map((section) => ({
-    label: section.name,
-    id: section.id,
-    disabled: !hasContent(transformedData[section.name]),
-  }));
-
   return (
     <SideBarLayout
       sidebar={
-        <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
+        facetData.loading ? (
+          <Loader />
+        ) : (
+          <Facets data={facetData.data} queryStringKey="filter" />
+        )
       }
       className="entry-page"
       title={
@@ -98,7 +92,7 @@ const Entry: FC = () => {
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
           </h2>
-          <Overview transformedData={transformedData} />
+          <Overview transformedData={transformedData} facetData={facetData} />
         </ErrorBoundary>
       }
     >
