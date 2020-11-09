@@ -1,0 +1,75 @@
+[
+  {
+    "description": "Should return correctly formed feature with evidence",
+    "feature": {
+      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "start": 28,
+      "end": 189,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Other domain of interest",
+      "description": "E1",
+      "evidences": [
+        {
+          "evidenceCode": "ECO:0000255",
+          "source": "PROSITE-ProRule",
+          "id": "PRU01217"
+        }
+      ]
+    },
+    "tooltipFeature": {
+      "type": "Other domain of interest",
+      "start": 28,
+      "end": 189,
+      "description": "E1",
+      "evidences": [
+        {
+          "code": "ECO:0000255",
+          "source": {
+            "id": "PRU01217",
+            "name": "PROSITE-ProRule",
+            "url": "https://prosite.expasy.org/unirule/PRU01217"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "description": "Should return correctly formed feature without evidence",
+    "feature": {
+      "protvistaFeatureId": "72f1d160-225f-11eb-b210-87bf075e497c",
+      "start": 75,
+      "end": 226,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Other domain of interest",
+      "description": "Photolyase/cryptochrome alpha/beta"
+    },
+    "tooltipFeature": {
+      "type": "Other domain of interest",
+      "start": 75,
+      "end": 226,
+      "description": "Photolyase/cryptochrome alpha/beta"
+    }
+  },
+  {
+    "description": "Should return feature with featureId as ftId",
+    "feature": {
+      "protvistaFeatureId": "PRO_0000381966",
+      "featureId": "PRO_0000381966",
+      "start": 18,
+      "end": 286,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "chain",
+      "description": "N-APP"
+    },
+    "tooltipFeature": {
+      "type": "chain",
+      "start": 18,
+      "end": 286,
+      "description": "N-APP",
+      "ftId": "PRO_0000381966"
+    }
+  }
+]
