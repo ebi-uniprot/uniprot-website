@@ -46,7 +46,6 @@ export const convertHSPtoMSAInputs = (
     hsp_hit_to,
     hsp_hseq,
   } = hsp;
-
   return [
     {
       name: 'Query',

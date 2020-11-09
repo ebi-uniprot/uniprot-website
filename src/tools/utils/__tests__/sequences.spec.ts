@@ -4,6 +4,7 @@ import {
   getNumberOfInsertions,
   getEndCoordinate,
   createGappedFeature,
+  removeFeaturesWithUnknownModifier,
 } from '../sequences';
 import featuresMock from '../__mocks__/features.json';
 import sequenceChunkPairsMock from '../__mocks__/sequences.json';
@@ -165,6 +166,45 @@ describe('Tool sequences utils', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('', () => {
+    it('should remove feature with an UNKNOWN location', () => {
+      expect(
+        removeFeaturesWithUnknownModifier([
+          {
+            location: {
+              start: {
+                value: 1,
+                modifier: 'EXACT',
+              },
+              end: {
+                value: -1,
+                modifier: 'UNKNOWN',
+              },
+            },
+          },
+        ])
+      ).toHaveLength(0);
+    });
+    it('should return feature with EXACT locations', () => {
+      expect(
+        removeFeaturesWithUnknownModifier([
+          {
+            location: {
+              start: {
+                value: 1,
+                modifier: 'EXACT',
+              },
+              end: {
+                value: 2,
+                modifier: 'EXACT',
+              },
+            },
+          },
+        ])
+      ).toHaveLength(1);
     });
   });
 
