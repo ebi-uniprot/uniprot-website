@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Card, Sequence } from 'franklin-sites';
 
-import { hasContent } from '../../../shared/utils/utils';
+import { formatLargeNumber, hasContent } from '../../../shared/utils/utils';
 
 import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
@@ -14,10 +14,30 @@ const SequenceSection: FC<{
   if (!hasContent(data)) {
     return null;
   }
+
+  const infoData = [
+    {
+      title: 'Length',
+      content: data.sequence.length,
+    },
+    {
+      title: 'Mass (Da)',
+      content: formatLargeNumber(data.sequence.molWeight),
+    },
+    {
+      title: 'Checksum',
+      content: data.sequence.crc64,
+    },
+  ];
+
   return (
     <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
       <Card title={EntrySection.Sequence}>
-        <Sequence sequence={data.sequence.value} isCollapsible />
+        <Sequence
+          sequence={data.sequence.value}
+          infoData={infoData}
+          isCollapsible
+        />
       </Card>
     </div>
   );
