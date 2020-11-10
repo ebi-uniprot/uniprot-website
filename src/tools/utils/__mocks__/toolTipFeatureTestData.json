@@ -71,5 +71,121 @@
       "description": "N-APP",
       "ftId": "PRO_0000381966"
     }
+  },
+  {
+    "description": "Should return feature without description",
+    "feature": {
+      "protvistaFeatureId": "PRO_0000381966",
+      "featureId": "PRO_0000381966",
+      "start": 18,
+      "end": 286,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "chain"
+    },
+    "tooltipFeature": {
+      "type": "chain",
+      "start": 18,
+      "end": 286,
+      "ftId": "PRO_0000381966"
+    }
+  },
+  {
+    "description": "Should return correctly formed feature with evidence but without id or source",
+    "feature": {
+      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "start": 28,
+      "end": 189,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Other domain of interest",
+      "description": "E1",
+      "evidences": [
+        {
+          "evidenceCode": "ECO:0000255"
+        }
+      ]
+    },
+    "tooltipFeature": {
+      "type": "Other domain of interest",
+      "start": 28,
+      "end": 189,
+      "description": "E1",
+      "evidences": [
+        {
+          "code": "ECO:0000255"
+        }
+      ]
+    }
+  },
+  {
+    "description": "Should return correctly formed feature with evidence but with unknown source",
+    "feature": {
+      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "start": 28,
+      "end": 189,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Other domain of interest",
+      "description": "E1",
+      "evidences": [
+        {
+          "evidenceCode": "ECO:0000255",
+          "source": "foo",
+          "id": "PRU01217"
+        }
+      ]
+    },
+    "tooltipFeature": {
+      "type": "Other domain of interest",
+      "start": 28,
+      "end": 189,
+      "description": "E1",
+      "evidences": [
+        {
+          "code": "ECO:0000255",
+          "source": {
+            "id": "PRU01217",
+            "name": "foo"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "description": "Should return correctly formed feature with evidence and with alternate url when source is PubMed",
+    "feature": {
+      "protvistaFeatureId": "251179d6-225c-11eb-8a47-55ba8956ec3b",
+      "start": 28,
+      "end": 189,
+      "startModifier": "EXACT",
+      "endModifier": "EXACT",
+      "type": "Other domain of interest",
+      "description": "E1",
+      "evidences": [
+        {
+          "evidenceCode": "ECO:0000255",
+          "source": "PubMed",
+          "id": "PRU01217"
+        }
+      ]
+    },
+    "tooltipFeature": {
+      "type": "Other domain of interest",
+      "start": 28,
+      "end": 189,
+      "description": "E1",
+      "evidences": [
+        {
+          "code": "ECO:0000255",
+          "source": {
+            "alternativeUrl": "https://europepmc.org/abstract/MED/PRU01217",
+            "id": "PRU01217",
+            "name": "PubMed",
+            "url": "https://www.uniprot.org/citations/PRU01217"
+          }
+        }
+      ]
+    }
   }
 ]

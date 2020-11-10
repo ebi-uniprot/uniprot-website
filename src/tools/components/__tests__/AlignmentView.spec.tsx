@@ -45,13 +45,12 @@ describe('AlignmentView', () => {
     beforeEach(() => {
       resetUuidV1();
       const alignment = mockData.Align;
-      console.log(alignment[0]);
       rendered = renderWithRedux(
         <div className="main-content-and-footer">
           <AlignmentView
             alignment={alignment}
             alignmentLength={alignment[0].sequence.length}
-            defaultView={View.wrapped}
+            defaultView={View.overview}
             tool={Tool.align}
             selectedEntries={[]}
             handleSelectedEntries={handleSelectedEntries}
@@ -65,12 +64,12 @@ describe('AlignmentView', () => {
       expect(asFragment()).toMatchSnapshot();
     });
 
-    // it('should update annotation on selection', () => {
-    //   const { getByText, getByTestId } = rendered;
-    //   const regionButton = getByText('Nucleotide-binding region');
-    //   fireEvent.click(regionButton);
-    //   const trackLabel = getByTestId('track-label');
-    //   expect(trackLabel.textContent).toBe('Nucleotide-binding region');
-    // });
+    it('should update annotation on selection', () => {
+      const { getByText, getByTestId } = rendered;
+      const regionButton = getByText('Nucleotide-binding region');
+      fireEvent.click(regionButton);
+      const trackLabel = getByTestId('track-label');
+      expect(trackLabel.textContent).toBe('Nucleotide-binding region');
+    });
   });
 });

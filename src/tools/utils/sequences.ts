@@ -179,7 +179,7 @@ export const findSequenceFeature = (
         (feature) => feature.protvistaFeatureId === protvistaFeatureId
       );
       if (foundFeature) {
-        return { sequence, feature: foundFeature };
+        return foundFeature;
       }
     }
   }

@@ -5,9 +5,11 @@ import {
   getEndCoordinate,
   createGappedFeature,
   removeFeaturesWithUnknownModifier,
+  findSequenceFeature,
 } from '../sequences';
 import featuresMock from '../__mocks__/features.json';
 import sequenceChunkPairsMock from '../__mocks__/sequences.json';
+import { Align as alignment } from '../../components/__mocks__/msaMocks.json';
 
 describe('Tool sequences utils', () => {
   it('should find segments', () => {
@@ -169,7 +171,7 @@ describe('Tool sequences utils', () => {
     });
   });
 
-  describe('', () => {
+  describe('removeFeaturesWithUnknownModifier', () => {
     it('should remove feature with an UNKNOWN location', () => {
       expect(
         removeFeaturesWithUnknownModifier([
@@ -205,6 +207,27 @@ describe('Tool sequences utils', () => {
           },
         ])
       ).toHaveLength(1);
+    });
+    it('should return empty array if no features provided', () => {
+      expect(removeFeaturesWithUnknownModifier()).toEqual([]);
+    });
+  });
+  describe('findSequenceFeature', () => {
+    it('should find sequence feature', () => {
+      expect(findSequenceFeature('id1', alignment)).toEqual(
+        alignment[0].features[0]
+      );
+    });
+
+    it('should return null when it cannot find sequence feature', () => {
+      expect(findSequenceFeature('id100', alignment)).toBeNull();
+    });
+
+    it('should continue when an alignment does not contain features', () => {
+      alignment[1] = { ...alignment[1], features: null };
+      expect(findSequenceFeature('id1', alignment)).toEqual(
+        alignment[0].features[0]
+      );
     });
   });
 

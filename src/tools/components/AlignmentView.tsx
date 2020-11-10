@@ -288,7 +288,7 @@ const AlignmentView: React.FC<{
         return;
       }
 
-      const preparedFeature = prepareFeatureForTooltip(sequenceFeature.feature);
+      const preparedFeature = prepareFeatureForTooltip(sequenceFeature);
       let yOffset = 0;
       if (containerSelector) {
         const panel = document.querySelector(containerSelector);
@@ -367,7 +367,6 @@ const AlignmentView: React.FC<{
   if (!tooltipDefined) {
     return <Loader />;
   }
-  // console.log("+++", totalLength);
 
   return (
     <>

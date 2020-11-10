@@ -320,7 +320,7 @@
       "accession": "P05066",
       "features": [
         {
-          "protvistaFeatureId": "87519910-2336-11eb-92aa-bfb3fff0c9c0",
+          "protvistaFeatureId": "id1",
           "start": 75,
           "end": 226,
           "startModifier": "EXACT",
@@ -329,7 +329,7 @@
           "description": "Photolyase/cryptochrome alpha/beta"
         },
         {
-          "protvistaFeatureId": "87519911-2336-11eb-92aa-bfb3fff0c9c0",
+          "protvistaFeatureId": "id2",
           "start": 338,
           "end": 342,
           "startModifier": "EXACT",

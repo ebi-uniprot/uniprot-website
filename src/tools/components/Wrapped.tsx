@@ -74,7 +74,7 @@ export type WrappedRowProps = {
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const WrappedRow: FC<WrappedRowProps> = ({
+export const WrappedRow: FC<WrappedRowProps> = ({
   rowLength,
   highlightProperty,
   conservationOptions,
@@ -144,16 +144,13 @@ const WrappedRow: FC<WrappedRowProps> = ({
       trackDefined,
     ]
   );
-  console.log('before loader');
   if (!(msaDefined && trackDefined)) {
     return <Loader />;
   }
-  console.log('after loader');
   return (
     <>
       <div className="track-label track-label--align-labels">
         {sequences.map((s) => {
-          console.log('ACTIVE ID:', activeId, s.accession);
           return (
             <AlignLabel
               accession={s.accession}
@@ -170,13 +167,13 @@ const WrappedRow: FC<WrappedRowProps> = ({
               }
               active={!!activeId && setActiveId && activeId === s.accession}
             >
-              {s.name || ''}
+              {s.name}
             </AlignLabel>
           );
         })}
       </div>
       <div className="track">
-        {delayRender ? undefined : (
+        {!delayRender && (
           <protvista-msa
             ref={setMSAAttributes}
             length={rowLength}
@@ -196,7 +193,7 @@ const WrappedRow: FC<WrappedRowProps> = ({
       </span>
       <span className="track-label annotation-label">{annotation}</span>
       <div className="track annotation-track">
-        {delayRender ? undefined : (
+        {!delayRender && (
           <protvista-track
             ref={setFeatureTrackData}
             displaystart={trackStart}
@@ -272,8 +269,8 @@ const Wrapped: FC<AlignmentComponentProps> = ({
         trackStart: start + 1,
         trackEnd: start + rowLength,
         sequences: alignment.map(
-          ({ name, sequence, from = 1, features, accession }) => ({
-            name: name || '',
+          ({ name = '', sequence, from, features, accession }) => ({
+            name,
             sequence: sequence.slice(start, end),
             fullSequence: sequence,
             start:
@@ -294,8 +291,7 @@ const Wrapped: FC<AlignmentComponentProps> = ({
     });
     return chunks;
   }, [alignment, alignmentLength, omitInsertionsInCoords, rowLength]);
-  console.log('align:', alignment);
-  // console.log("seq chunks:", sequenceChunks);
+
   return (
     <div
       ref={containerRef}
