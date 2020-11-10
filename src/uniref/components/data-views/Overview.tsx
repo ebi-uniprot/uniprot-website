@@ -104,7 +104,7 @@ export const Overview: FC<
   const { name } = transformedData;
   const updated = (
     <>
-      Updated:{' '}
+      Updated:&nbsp;
       <time dateTime={new Date(transformedData.updated).toISOString()}>
         {transformedData.updated}
       </time>
