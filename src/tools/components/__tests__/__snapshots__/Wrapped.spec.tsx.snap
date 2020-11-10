@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Wrapped BLAST should render 1`] = `
+<DocumentFragment>
+  <div
+    class="alignment-grid alignment-wrapped"
+    data-testid="alignment-wrapped-view"
+  />
+</DocumentFragment>
+`;
+
+exports[`Wrapped BLAST should render with active sequence 1`] = `
+<DocumentFragment>
+  <div
+    class="alignment-grid alignment-wrapped"
+    data-testid="alignment-wrapped-view"
+  />
+</DocumentFragment>
+`;

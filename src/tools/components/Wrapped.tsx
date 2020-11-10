@@ -144,31 +144,36 @@ const WrappedRow: FC<WrappedRowProps> = ({
       trackDefined,
     ]
   );
-
+  console.log('before loader');
   if (!(msaDefined && trackDefined)) {
     return <Loader />;
   }
-
+  console.log('after loader');
   return (
     <>
       <div className="track-label track-label--align-labels">
-        {sequences.map((s) => (
-          <AlignLabel
-            accession={s.accession}
-            info={s}
-            loading={false}
-            key={s.name}
-            style={heightStyle}
-            checked={Boolean(
-              s.accession && selectedEntries?.includes(s.accession)
-            )}
-            onSequenceChecked={handleSelectedEntries}
-            onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
-            active={!!activeId && setActiveId && activeId === s.accession}
-          >
-            {s.name || ''}
-          </AlignLabel>
-        ))}
+        {sequences.map((s) => {
+          console.log('ACTIVE ID:', activeId, s.accession);
+          return (
+            <AlignLabel
+              accession={s.accession}
+              info={s}
+              loading={false}
+              key={s.name}
+              style={heightStyle}
+              checked={Boolean(
+                s.accession && selectedEntries?.includes(s.accession)
+              )}
+              onSequenceChecked={handleSelectedEntries}
+              onIdClick={
+                setActiveId ? () => setActiveId(s.accession) : undefined
+              }
+              active={!!activeId && setActiveId && activeId === s.accession}
+            >
+              {s.name || ''}
+            </AlignLabel>
+          );
+        })}
       </div>
       <div className="track">
         {delayRender ? undefined : (
@@ -289,7 +294,8 @@ const Wrapped: FC<AlignmentComponentProps> = ({
     });
     return chunks;
   }, [alignment, alignmentLength, omitInsertionsInCoords, rowLength]);
-
+  console.log('align:', alignment);
+  // console.log("seq chunks:", sequenceChunks);
   return (
     <div
       ref={containerRef}

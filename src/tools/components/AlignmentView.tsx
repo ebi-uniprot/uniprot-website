@@ -367,6 +367,7 @@ const AlignmentView: React.FC<{
   if (!tooltipDefined) {
     return <Loader />;
   }
+  // console.log("+++", totalLength);
 
   return (
     <>
