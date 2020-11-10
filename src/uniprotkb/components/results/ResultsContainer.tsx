@@ -21,15 +21,32 @@ import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 
-import { Namespace } from '../../../shared/types/namespaces';
 import { UniProtKBColumn } from '../../types/columnTypes';
 import Response from '../../types/responseTypes';
+import useNS from '../../../shared/hooks/useNS';
+import { Namespace } from '../../../shared/types/namespaces';
+import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
+
+type AllColumns = UniProtKBColumn[] | UniRefColumn[] | undefined;
+
+const getColumnsWithType = (columns: AllColumns, namespace: Namespace) => {
+  switch (namespace) {
+    case Namespace.uniprotkb:
+      return columns as UniProtKBColumn[];
+    case Namespace.uniref:
+      return columns as UniRefColumn[];
+    default:
+      return columns;
+  }
+};
 
 const Results: FC = () => {
-  const namespace = Namespace.uniprotkb; // This should come from the url
+  const namespace = useNS();
 
-  const tableColumns = useSelector<RootState, UniProtKBColumn[] | undefined>(
-    (state) => state.results.tableColumns[namespace] as UniProtKBColumn[]
+  const tableColumns = useSelector<RootState, AllColumns>((state) =>
+    namespace
+      ? getColumnsWithType(state.results.tableColumns[namespace], namespace)
+      : undefined
   );
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
@@ -49,7 +66,7 @@ const Results: FC = () => {
    * this class as a functional component and put all url
    * parameters in the store.
    */
-  const columns: UniProtKBColumn[] =
+  const columns: AllColumns =
     viewMode === ViewMode.TABLE && tableColumns ? tableColumns : [];
 
   const initialApiUrl = getAPIQueryUrl({
@@ -70,7 +87,7 @@ const Results: FC = () => {
     isStale,
   } = useDataApiWithStale<Response['data']>(initialApiUrl);
 
-  if (error || !(loading || data)) {
+  if (error || !(loading || data) || !namespace) {
     return <ErrorHandler status={status} />;
   }
 
