@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
@@ -11,7 +10,6 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 
 import { ViewMode } from '../../state/resultsInitialState';
-import { RootState } from '../../../app/state/rootInitialState';
 
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
@@ -27,27 +25,36 @@ import useNS from '../../../shared/hooks/useNS';
 import { Namespace } from '../../../shared/types/namespaces';
 import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
 
-type AllColumns = UniProtKBColumn[] | UniRefColumn[] | undefined;
+type AllColumns = UniProtKBColumn[] | UniRefColumn[];
 
-const getColumnsWithType = (columns: AllColumns, namespace: Namespace) => {
-  switch (namespace) {
-    case Namespace.uniprotkb:
-      return columns as UniProtKBColumn[];
-    case Namespace.uniref:
-      return columns as UniRefColumn[];
-    default:
-      return columns;
-  }
+// const getColumnsWithType = (columns: AllColumns, namespace: Namespace) => {
+//   switch (namespace) {
+//     case Namespace.uniprotkb:
+//       return columns as UniProtKBColumn[];
+//     case Namespace.uniref:
+//       return columns as UniRefColumn[];
+//     default:
+//       return columns;
+//   }
+// };
+
+const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
+  [Namespace.uniprotkb]: [
+    UniProtKBColumn.accession,
+    UniProtKBColumn.reviewed,
+    UniProtKBColumn.id,
+    UniProtKBColumn.proteinName,
+    UniProtKBColumn.geneNames,
+    UniProtKBColumn.organismName,
+  ],
+  [Namespace.uniref]: [UniRefColumn.id, UniRefColumn.name],
 };
 
 const Results: FC = () => {
   const namespace = useNS();
 
-  const tableColumns = useSelector<RootState, AllColumns>((state) =>
-    namespace
-      ? getColumnsWithType(state.results.tableColumns[namespace], namespace)
-      : undefined
-  );
+  // getColumnsWithType(state.results.tableColumns[namespace], namespace);
+
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
@@ -58,6 +65,10 @@ const Results: FC = () => {
     'view-mode',
     ViewMode.CARD
   );
+  const [tableColumns] = useLocalStorage<AllColumns>(
+    `table columns for ${namespace}`,
+    namespace ? defaultTableColumns[namespace] : []
+  );
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -66,7 +77,7 @@ const Results: FC = () => {
    * this class as a functional component and put all url
    * parameters in the store.
    */
-  const columns: AllColumns =
+  const columns =
     viewMode === ViewMode.TABLE && tableColumns ? tableColumns : [];
 
   const initialApiUrl = getAPIQueryUrl({

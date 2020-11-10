@@ -52,7 +52,7 @@ const CustomiseTablePage = lazy(
 const UniRefResultsPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniref-results" */ '../../uniref/components/results/ResultsContainer'
+      /* webpackChunkName: "uniref-results" */ '../../uniprotkb/components/results/ResultsContainer'
     )
 );
 const UniRefEntryPage = lazy(

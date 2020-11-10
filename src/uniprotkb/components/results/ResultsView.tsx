@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ type ResultsTableProps = {
   handleEntrySelection: (rowId: string) => void;
 };
 
-const ResultsView: React.FC<ResultsTableProps> = ({
+const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
   columns,
   viewMode,
@@ -192,8 +192,8 @@ const ResultsView: React.FC<ResultsTableProps> = ({
     );
   } else {
     // viewMode === ViewMode.TABLE
-    const columnsToDisplay = (columns as UniProtKBColumn[]).map(
-      (columnName) => {
+    const columnsToDisplay =
+      (columns as UniProtKBColumn[])?.map((columnName) => {
         const columnConfig = ColumnConfiguration.get(columnName);
         if (columnConfig) {
           return {
@@ -214,8 +214,7 @@ const ResultsView: React.FC<ResultsTableProps> = ({
           sortable: false,
           sorted: false,
         };
-      }
-    );
+      }) || [];
     dataView = (
       <DataTable
         getIdKey={({ primaryAccession }: { primaryAccession: string }) =>

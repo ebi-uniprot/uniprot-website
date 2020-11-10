@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import {
   moveItemInList,
@@ -20,7 +19,7 @@ type ColumnSelectProps = {
   isFetching: boolean;
   fieldData: FieldData;
   onChange: (columndIds: UniProtKBColumn[]) => void;
-} & RouteComponentProps;
+};
 
 export const entryField = {
   tabId: ColumnSelectTab.data,
@@ -44,7 +43,7 @@ export const removeFieldFromFieldsData = (
   ),
 });
 
-const ColumnSelect: React.FC<ColumnSelectProps> = ({
+const ColumnSelect: FC<ColumnSelectProps> = ({
   fetchFieldsIfNeeded,
   isFetching,
   fieldData,
@@ -124,8 +123,9 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
     dispatch
   );
 
-const ColumnSelectContainer = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ColumnSelect)
-);
+const ColumnSelectContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ColumnSelect);
 
 export default ColumnSelectContainer;

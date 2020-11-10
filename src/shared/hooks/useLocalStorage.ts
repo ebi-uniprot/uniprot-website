@@ -1,7 +1,10 @@
 import { useState, useRef, useCallback } from 'react';
 import { noop } from 'lodash-es';
 
-type Serializable = null | boolean | number | string | Record<string, unknown>;
+type JSONPrimitive = null | boolean | number | string;
+type JSONDict = { [key: string]: JSONPrimitive | JSONDict | JSONList };
+type JSONList = Array<JSONPrimitive | JSONList | JSONDict>;
+type JSONSerializable = JSONPrimitive | JSONDict | JSONList;
 
 const cancelIdleCallback = window.cancelIdleCallback || noop;
 // fallback: execute rightaway
@@ -14,7 +17,7 @@ type Output<T> = [
   deleteValue: () => void
 ];
 
-function useLocalStorage<T extends Serializable>(
+function useLocalStorage<T extends JSONSerializable>(
   key: string,
   initialValue: T | null = null
 ): Output<T> {
