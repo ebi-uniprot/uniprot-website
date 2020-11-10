@@ -385,7 +385,7 @@ const AlignmentView: React.FC<{
           defaultActiveNodes={defaultActiveNodes}
           className="tertiary"
         />
-        {annotationsPerEntry.length && (
+        {!!annotationsPerEntry.length && (
           <TreeSelect
             data={annotationsPerEntry}
             onSelect={handleAnnotationSelect}

@@ -153,7 +153,7 @@ exports[`WrappedRow should render 1`] = `
   <span
     class="track-label annotation-label"
   >
-    Other domain of interest
+    P05066:Other domain of interest
   </span>
   <div
     class="track annotation-track"

@@ -9,10 +9,10 @@ import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 describe('AlignmentView', () => {
   describe('BLAST', () => {
-    let rendered;
+    let rendered, alignment;
     beforeEach(() => {
       resetUuidV1();
-      const alignment = mockData.BLAST;
+      alignment = mockData.BLAST;
       rendered = renderWithRedux(
         <div className="main-content-and-footer">
           <AlignmentView
@@ -35,16 +35,18 @@ describe('AlignmentView', () => {
       const regionButton = getByText('Nucleotide-binding region');
       fireEvent.click(regionButton);
       const trackLabel = getByTestId('track-label');
-      expect(trackLabel.textContent).toBe('Nucleotide-binding region');
+      expect(trackLabel.textContent).toBe(
+        `${alignment[1].accession}:Nucleotide-binding region`
+      );
     });
   });
 
   describe('Align', () => {
-    let rendered;
+    let rendered, alignment;
     let handleSelectedEntries = jest.fn();
     beforeEach(() => {
       resetUuidV1();
-      const alignment = mockData.Align;
+      alignment = mockData.Align;
       rendered = renderWithRedux(
         <div className="main-content-and-footer">
           <AlignmentView
@@ -69,7 +71,9 @@ describe('AlignmentView', () => {
       const regionButton = getByText('Nucleotide-binding region');
       fireEvent.click(regionButton);
       const trackLabel = getByTestId('track-label');
-      expect(trackLabel.textContent).toBe('Nucleotide-binding region');
+      expect(trackLabel.textContent).toBe(
+        `${alignment[0].accession}:Nucleotide-binding region`
+      );
     });
   });
 });

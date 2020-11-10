@@ -184,17 +184,21 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
         />
       </div>
       {/* second row */}
-      <span className="track-label" data-testid="track-label">
-        {annotation}
-      </span>
-      <div className="track">
-        <protvista-track
-          ref={setFeatureTrackData}
-          length={totalLength}
-          layout="non-overlapping"
-          highlight={highlightPosition}
-        />
-      </div>
+      {!!annotation && (
+        <>
+          <span className="track-label" data-testid="track-label">
+            {`${activeAlignment?.accession}:${annotation}`}
+          </span>
+          <div className="track">
+            <protvista-track
+              ref={setFeatureTrackData}
+              length={totalLength}
+              layout="non-overlapping"
+              highlight={highlightPosition}
+            />
+          </div>
+        </>
+      )}
       {/* third row */}
       <div className="track-label track-label--align-labels">
         {alignment.map((s) => (

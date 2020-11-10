@@ -570,7 +570,7 @@ exports[`AlignmentView Align should render 1`] = `
           class="track-label"
           data-testid="track-label"
         >
-          Other domain of interest
+          P05066:Other domain of interest
         </span>
         <div
           class="track"
@@ -1262,7 +1262,7 @@ exports[`AlignmentView BLAST should render 1`] = `
           class="track-label"
           data-testid="track-label"
         >
-          Other domain of interest
+          P05066:Other domain of interest
         </span>
         <div
           class="track"

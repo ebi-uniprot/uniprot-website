@@ -191,18 +191,24 @@ export const WrappedRow: FC<WrappedRowProps> = ({
           </div>
         ))}
       </span>
-      <span className="track-label annotation-label">{annotation}</span>
-      <div className="track annotation-track">
-        {!delayRender && (
-          <protvista-track
-            ref={setFeatureTrackData}
-            displaystart={trackStart}
-            displayend={trackEnd}
-            length={trackEnd - trackStart + 1}
-            layout="non-overlapping"
-          />
-        )}
-      </div>
+      {!!annotation && (
+        <>
+          <span className="track-label annotation-label">
+            {`${activeAlignment?.accession}:${annotation}`}
+          </span>
+          <div className="track annotation-track">
+            {!delayRender && (
+              <protvista-track
+                ref={setFeatureTrackData}
+                displaystart={trackStart}
+                displayend={trackEnd}
+                length={trackEnd - trackStart + 1}
+                layout="non-overlapping"
+              />
+            )}
+          </div>
+        </>
+      )}
     </>
   );
 };
