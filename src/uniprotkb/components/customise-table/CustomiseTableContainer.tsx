@@ -6,7 +6,7 @@ import { RootState, RootAction } from '../../../app/state/rootInitialState';
 import * as resultsActions from '../../state/resultsActions';
 import CustomiseTableView from './CustomiseTableView';
 import { UniProtKBColumn } from '../../types/columnTypes';
-import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
+import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 
 type CustomiseTableProps = {

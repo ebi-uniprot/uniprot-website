@@ -2,41 +2,30 @@ import React, { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
-import ResultsView from './ResultsView';
-import ResultsButtons from './ResultsButtons';
-import ResultsFacets from './ResultsFacets';
-import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import ResultsView from '../../../uniprotkb/components/results/ResultsView';
+import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
+import ResultsFacets from '../../../uniprotkb/components/results/ResultsFacets';
+import NoResultsPage from '../error-pages/NoResultsPage';
+import ErrorHandler from '../error-pages/ErrorHandler';
+import SideBarLayout from '../layouts/SideBarLayout';
 
-import { ViewMode } from '../../state/resultsInitialState';
+import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
 
-import { getParamsFromURL } from '../../utils/resultsUtils';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 
-import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
-import infoMappings from '../../../shared/config/InfoMappings';
+import { getAPIQueryUrl } from '../../config/apiUrls';
+import infoMappings from '../../config/InfoMappings';
 
-import { UniProtKBColumn } from '../../types/columnTypes';
-import Response from '../../types/responseTypes';
-import useNS from '../../../shared/hooks/useNS';
-import { Namespace } from '../../../shared/types/namespaces';
-import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import Response from '../../../uniprotkb/types/responseTypes';
+import useNS from '../../hooks/useNS';
+import { Namespace } from '../../types/namespaces';
+import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 
-type AllColumns = UniProtKBColumn[] | UniRefColumn[];
-
-// const getColumnsWithType = (columns: AllColumns, namespace: Namespace) => {
-//   switch (namespace) {
-//     case Namespace.uniprotkb:
-//       return columns as UniProtKBColumn[];
-//     case Namespace.uniref:
-//       return columns as UniRefColumn[];
-//     default:
-//       return columns;
-//   }
-// };
+export type AllColumns = Array<UniProtKBColumn | UniRefColumn>;
 
 const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
   [Namespace.uniprotkb]: [
@@ -47,13 +36,18 @@ const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
     UniProtKBColumn.geneNames,
     UniProtKBColumn.organismName,
   ],
-  [Namespace.uniref]: [UniRefColumn.id, UniRefColumn.name],
+  [Namespace.uniref]: [
+    UniRefColumn.id,
+    UniRefColumn.name,
+    UniRefColumn.members,
+    UniRefColumn.organism,
+    UniRefColumn.length,
+    UniRefColumn.identity,
+  ],
 };
 
 const Results: FC = () => {
   const namespace = useNS();
-
-  // getColumnsWithType(state.results.tableColumns[namespace], namespace);
 
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
@@ -81,6 +75,7 @@ const Results: FC = () => {
     viewMode === ViewMode.TABLE && tableColumns ? tableColumns : [];
 
   const initialApiUrl = getAPIQueryUrl({
+    namespace,
     query,
     columns,
     selectedFacets,

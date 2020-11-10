@@ -1,5 +1,5 @@
 import { Namespace } from '../../shared/types/namespaces';
-import { UniRefColumn } from '../../uniref/config/ColumnConfiguration';
+import { UniRefColumn } from '../../uniref/config/UniRefColumnConfiguration';
 import { UniProtKBColumn } from '../types/columnTypes';
 import { FieldData, ColumnSelectTab } from '../types/resultsTypes';
 
@@ -9,6 +9,7 @@ export enum ViewMode {
 }
 
 export type ResultsState = {
+  // TODO delete this once column selection is updated
   tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
   fields: {
     data: FieldData;

@@ -9,13 +9,15 @@ import uniProtKbConverter, {
   UniProtkbUIModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
-import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 import { ViewMode } from '../../state/resultsInitialState';
 
 import apiUrls, { getAPIQueryUrl } from '../../../shared/config/apiUrls';
-import ColumnConfiguration from '../../config/ColumnConfiguration';
-import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
+import UniProtKBColumnConfiguration from '../../config/UniProtKBColumnConfiguration';
+import UniRefColumnConfiguration, {
+  UniRefColumn,
+} from '../../../uniref/config/UniRefColumnConfiguration';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useNS from '../../../shared/hooks/useNS';
@@ -33,12 +35,33 @@ import { SortableColumn, UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
+import { AllColumns } from '../../../shared/components/results/ResultsContainer';
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: UniProtKBColumn[] | UniRefColumn[];
+  columns: AllColumns;
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
+};
+
+const convertRow = (
+  row: UniProtkbAPIModel | UniRefLiteAPIModel,
+  namespace: Namespace
+) => {
+  switch (namespace) {
+    case Namespace.uniprotkb:
+      return uniProtKbConverter(row as UniProtkbAPIModel) as UniProtkbUIModel;
+    case Namespace.uniref:
+      return row as UniRefLiteAPIModel;
+    default:
+      return null;
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
+  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
+  [Namespace.uniref]: UniRefColumnConfiguration,
 };
 
 const ResultsView: FC<ResultsTableProps> = ({
@@ -71,7 +94,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   }>({ total: 0, nextUrl: undefined });
   const [allResults, setAllResults] = useState<UniProtkbAPIModel[]>([]);
   const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
-    Map<UniProtKBColumn, string>
+    Map<UniProtKBColumn | UniRefColumn, string>
   >();
 
   const { data, headers } = useDataApi<{
@@ -159,10 +182,10 @@ const ResultsView: FC<ResultsTableProps> = ({
           id: string;
         }) => primaryAccession || id}
         data={allResults}
-        dataRenderer={(dataItem: UniProtkbAPIModel | UniRefAPIModel) => {
+        dataRenderer={(dataItem: UniProtkbAPIModel | UniRefLiteAPIModel) => {
           switch (namespace) {
             case Namespace.uniref: {
-              const data = dataItem as UniRefAPIModel;
+              const data = dataItem as UniRefLiteAPIModel;
               return (
                 <UniRefCard
                   data={data}
@@ -193,14 +216,16 @@ const ResultsView: FC<ResultsTableProps> = ({
   } else {
     // viewMode === ViewMode.TABLE
     const columnsToDisplay =
-      (columns as UniProtKBColumn[])?.map((columnName) => {
-        const columnConfig = ColumnConfiguration.get(columnName);
+      columns.map((columnName) => {
+        const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
         if (columnConfig) {
           return {
             label: columnConfig.label,
             name: columnName,
-            render: (row: UniProtkbAPIModel) =>
-              columnConfig.render(uniProtKbConverter(row) as UniProtkbUIModel),
+            render: (row: UniProtkbAPIModel | UniRefLiteAPIModel) => {
+              const convertedRow = convertRow(row, namespace);
+              return columnConfig.render(convertedRow);
+            },
             sortable: sortableColumnToSortColumn.has(columnName),
             sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
           };

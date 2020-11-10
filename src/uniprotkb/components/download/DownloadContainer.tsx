@@ -14,7 +14,7 @@ import { getDownloadUrl } from '../../../shared/config/apiUrls';
 import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniRefColumn } from '../../../uniref/config/ColumnConfiguration';
+import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
