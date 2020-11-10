@@ -37,30 +37,40 @@ describe('AlignmentView', () => {
       const trackLabel = getByTestId('track-label');
       expect(trackLabel.textContent).toBe('Nucleotide-binding region');
     });
+  });
 
-    it('should show toolip on feature click', () => {
-      const { container, getByText } = rendered;
-      //   const feature = container.getElementByClassname('feature-group');
-      const track = container.querySelector('protvista-track');
-      console.log(track);
-      fireEvent.change(
-        window,
-        new CustomEvent('change', {
-          detail: {
-            eventtype: 'click',
-            feature: {
-              protvistaFeatureId: '7690a030-22a5-11eb-bbcb-e18b38a7b17f',
-            },
-            coords: [357, 933],
-          },
-        })
+  describe('Align', () => {
+    let rendered;
+    let handleSelectedEntries = jest.fn();
+    beforeEach(() => {
+      resetUuidV1();
+      const alignment = mockData.Align;
+      console.log(alignment[0]);
+      rendered = renderWithRedux(
+        <div className="main-content-and-footer">
+          <AlignmentView
+            alignment={alignment}
+            alignmentLength={alignment[0].sequence.length}
+            defaultView={View.wrapped}
+            tool={Tool.align}
+            selectedEntries={[]}
+            handleSelectedEntries={handleSelectedEntries}
+          />
+        </div>
       );
-      const tooltip = container.querySelector('protvista-tooltip');
-      console.log(tooltip);
-      console.log(tooltip.textContent);
-      expect(tooltip).toBeTruthy();
-      //   fireEvent.click(feature);
-      //   expect(getByText('Other domain of interest 75-226')).toBeTruthy();
     });
+
+    it('should render', () => {
+      const { asFragment } = rendered;
+      expect(asFragment()).toMatchSnapshot();
+    });
+
+    // it('should update annotation on selection', () => {
+    //   const { getByText, getByTestId } = rendered;
+    //   const regionButton = getByText('Nucleotide-binding region');
+    //   fireEvent.click(regionButton);
+    //   const trackLabel = getByTestId('track-label');
+    //   expect(trackLabel.textContent).toBe('Nucleotide-binding region');
+    // });
   });
 });
