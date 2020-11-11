@@ -166,6 +166,33 @@ describe('Tool sequences utils', () => {
         ],
       });
     });
+    it('should return feature with fragments where both ends are a single amino acid', () => {
+      const sequence = '1--23--45-678----9';
+      const feature = {
+        start: 1,
+        end: 9,
+      };
+
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+        start: 1,
+        end: 18,
+        locations: [
+          {
+            fragments: [
+              { start: 1, end: 1 },
+              { start: 2, end: 3, shape: 'line' },
+              { start: 4, end: 5 },
+              { start: 6, end: 7, shape: 'line' },
+              { start: 8, end: 9 },
+              { start: 10, end: 10, shape: 'line' },
+              { start: 11, end: 13 },
+              { start: 14, end: 17, shape: 'line' },
+              { start: 18, end: 18 },
+            ],
+          },
+        ],
+      });
+    });
   });
 
   // TODO update the tests below / generate mockdata to cover edge cases

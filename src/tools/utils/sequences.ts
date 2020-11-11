@@ -133,6 +133,7 @@ export const createGappedFeature = (
   /*
   input: feature and sequence are both 1-based
   */
+
   const BLOCK = /(?<insertion>[-]+)|(?<protein>[^-]+)/g;
 
   let proteinIndex = 1;
@@ -154,7 +155,7 @@ export const createGappedFeature = (
         });
       }
       proteinIndex += match[0].length;
-    } else if (proteinIndex > feature.start && proteinIndex < feature.end) {
+    } else if (proteinIndex > feature.start && proteinIndex <= feature.end) {
       fragments.push({
         start: match.index + 1,
         end: match.index + match[0].length,
