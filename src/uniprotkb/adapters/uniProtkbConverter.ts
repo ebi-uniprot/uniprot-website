@@ -31,10 +31,27 @@ import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
 
 export enum EntryType {
-  REVIEWED = 'UniProtKB reviewed (Swiss-Prot)',
-  UNREVIEWED = 'UniProtKB unreviewed (TrEMBL)',
-  INACTIVE = 'Inactive',
+  REVIEWED,
+  UNREVIEWED,
+  INACTIVE,
+  UNIPARC,
 }
+
+export const getEntryTypeFromString = (entryTypeString: string) => {
+  if (entryTypeString.match(/Swiss-Prot|^sp\|$|^sp$/gi)) {
+    return EntryType.REVIEWED;
+  }
+  if (entryTypeString.match(/TrEMBL|^tr\|$|^tr$/gi)) {
+    return EntryType.UNREVIEWED;
+  }
+  if (entryTypeString.match(/Inactive/gi)) {
+    return EntryType.INACTIVE;
+  }
+  if (entryTypeString.match(/UniParc/i)) {
+    return EntryType.UNIPARC;
+  }
+  return undefined;
+};
 
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
@@ -45,7 +62,7 @@ export type UniProtkbAPIModel = {
   secondaryAccessions?: string[];
   uniProtkbId: string;
   proteinExistence: string;
-  entryType: Exclude<EntryType, EntryType.INACTIVE>;
+  entryType: string;
   comments?: Comment[];
   keywords?: Keyword[];
   features?: FeatureData;
@@ -61,7 +78,7 @@ export type UniProtkbUIModel = {
   primaryAccession: string;
   uniProtkbId: string;
   proteinExistence: string;
-  entryType: EntryType;
+  entryType?: EntryType;
   annotationScore: number;
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
@@ -117,7 +134,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     primaryAccession: dataCopy.primaryAccession,
     uniProtkbId: dataCopy.uniProtkbId,
     proteinExistence: dataCopy.proteinExistence,
-    entryType: dataCopy.entryType,
+    entryType: getEntryTypeFromString(dataCopy.entryType),
     annotationScore: dataCopy.annotationScore,
     [EntrySection.Function]: convertFunction(dataCopy),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),

@@ -58,7 +58,7 @@ import AnnotationScoreDoughnutChart, {
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
-import { ReviewedUnreviewed } from '../../shared/components/entry/EntryTitle';
+import { EntryTypeIcon } from '../../shared/components/entry/EntryTitle';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import {
   databaseNameToCategory,
@@ -110,7 +110,7 @@ export const UniProtKBColumnConfiguration = new Map<
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   label: 'Entry',
-  render: (data: { primaryAccession: string; entryType: string }) => (
+  render: (data: { primaryAccession: string }) => (
     <SimpleView
       termValue={data.primaryAccession}
       linkTo={`/uniprotkb/${data.primaryAccession}`}
@@ -625,7 +625,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinExistence, {
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.reviewed, {
   label: '',
-  render: (data) => <ReviewedUnreviewed entryType={data.entryType} />,
+  render: (data) => <EntryTypeIcon entryType={data.entryType} />,
 });
 // tools: UX review is this needed?? ,
 // uniparc_id: leo re-indexing today 02/12/2019,

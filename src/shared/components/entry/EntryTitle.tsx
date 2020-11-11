@@ -5,24 +5,39 @@ import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/uniprotkb-title.scss';
 
-export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
-  entryType,
-}) =>
-  entryType === EntryType.REVIEWED ? (
-    <span
-      className="uniprot-title__status icon--reviewed"
-      title="This marks a reviewed entry"
-    >
-      <SwissProtIcon />
-    </span>
-  ) : (
-    <span
-      className="uniprot-title__status icon--unreviewed"
-      title="This marks an unreviewed entry"
-    >
-      <TremblIcon />
-    </span>
-  );
+export const EntryTypeIcon: FC<{ entryType?: EntryType }> = ({ entryType }) => {
+  if (entryType === EntryType.REVIEWED) {
+    return (
+      <span
+        className="uniprot-title__status icon--reviewed"
+        title="This marks a reviewed entry"
+      >
+        <SwissProtIcon />
+      </span>
+    );
+  }
+  if (entryType === EntryType.UNREVIEWED) {
+    return (
+      <span
+        className="uniprot-title__status icon--unreviewed"
+        title="This marks an unreviewed entry"
+      >
+        <TremblIcon />
+      </span>
+    );
+  }
+  // if (entryType === EntryType.UNIPARC) {
+  //   return (
+  //     <span
+  //       className="uniprot-title__status icon--unreviewed"
+  //       title="UniParc entry"
+  //     >
+  //       <UniParcIcon />
+  //     </span>
+  //   );
+  // }
+  return null;
+};
 
 const EntryTitle: FC<{
   mainTitle: string;
@@ -30,7 +45,7 @@ const EntryTitle: FC<{
   entryType?: EntryType;
 }> = ({ mainTitle, optionalTitle, entryType }) => (
   <span className="uniprot-title">
-    {entryType && <ReviewedUnreviewed entryType={entryType} />}
+    <EntryTypeIcon entryType={entryType} />
     {mainTitle}
     {optionalTitle && ` · ${optionalTitle}`}
   </span>

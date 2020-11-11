@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { EntryTypeIcon } from '../../shared/components/entry/EntryTitle';
+import { getEntryTypeFromString } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 export enum UniRefColumn {
@@ -61,16 +63,13 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
   render: ({ organismIds }) => {
     return (
-      <>
+      <ul className="no-bullet">
         {organismIds?.map((organismId) => (
-          <>
-            <Link to={`/taxonomy/${organismId}`} key={organismId}>
-              {organismId}
-            </Link>
-            <br />
-          </>
+          <li key={organismId}>
+            <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
+          </li>
         ))}
-      </>
+      </ul>
     );
   },
 });
@@ -78,36 +77,45 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
 UniRefColumnConfiguration.set(UniRefColumn.organism, {
   label: 'Organisms',
   render: ({ organisms }) => {
-    return organisms?.join(', ');
+    return (
+      <ul className="no-bullet">
+        {organisms?.map((organism) => (
+          <li key={organism}>{organism}</li>
+        ))}
+      </ul>
+    );
   },
 });
 
-// TODO where is this??
-// ColumnConfiguration.set(UniRefColumn.identity, {
-//   label: 'Identity',
-//   render: (data) => {
-//     return <></>;
-//   },
-// });
+UniRefColumnConfiguration.set(UniRefColumn.identity, {
+  label: 'Identity',
+  render: ({ entryType }) => {
+    return <>{entryType}</>;
+  },
+});
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
   label: 'Length',
   render: ({ sequenceLength }) => sequenceLength,
 });
 
-// TODO looks like representativeMember is not present in results
 UniRefColumnConfiguration.set(UniRefColumn.sequence, {
   label: 'Reference sequence',
   render: ({ sequence }) => {
-    return sequence;
+    return <span className="break-anywhere">{sequence}</span>;
   },
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.types, {
   label: 'Types',
-  render: ({ entryType }) => {
-    // Note: not sure this is the right one
-    return entryType;
+  render: ({ memberIdTypes }) => {
+    return (
+      <>
+        {memberIdTypes.map((memberType) => (
+          <EntryTypeIcon entryType={getEntryTypeFromString(memberType)} />
+        ))}
+      </>
+    );
   },
 });
 
@@ -115,16 +123,13 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
   label: 'Members',
   render: ({ members }) => {
     return (
-      <>
+      <ul className="no-bullet">
         {members?.map((member) => (
-          <>
-            <Link to={`/uniprotkb/${member}`} key={member}>
-              {member}
-            </Link>
-            <br />
-          </>
+          <li key={member}>
+            <Link to={`/uniprotkb/${member}`}>{member}</Link>
+          </li>
         ))}
-      </>
+      </ul>
     );
   },
 });
@@ -132,14 +137,17 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
 UniRefColumnConfiguration.set(UniRefColumn.count, {
   label: 'Size',
   render: ({ memberCount }) => {
-    return memberCount;
+    return (
+      <>
+        {memberCount} member{memberCount > 1 && 's'}
+      </>
+    );
   },
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.created, {
-  label: 'Date of creation',
+  label: 'Last updated',
   render: ({ updated }) => {
-    // Note this is actually an update , not creation
     return updated;
   },
 });

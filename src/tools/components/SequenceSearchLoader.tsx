@@ -29,7 +29,10 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { APISequenceData } from '../blast/types/apiSequenceData';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../uniprotkb/adapters/uniProtkbConverter';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim().toUpperCase();
@@ -60,9 +63,11 @@ const getURLForAccessionOrID = (input: string) => {
 // name as a NCBI ID formatted UniProt-style
 const nameFromEntry = (entry: APISequenceData) =>
   entry.uniProtkbId
-    ? `${entry.entryType === EntryType.REVIEWED ? 'sp' : 'tr'}|${
-        entry.primaryAccession
-      }|${entry.uniProtkbId}`
+    ? `${
+        getEntryTypeFromString(entry.entryType) === EntryType.REVIEWED
+          ? 'sp'
+          : 'tr'
+      }|${entry.primaryAccession}|${entry.uniProtkbId}`
     : '';
 
 export type ParsedSequence = {
@@ -115,7 +120,10 @@ const SequenceSearchLoader = forwardRef<
   }
 
   useEffect(() => {
-    if (!entry || entry.entryType === EntryType.INACTIVE) {
+    if (
+      !entry ||
+      getEntryTypeFromString(entry.entryType) === EntryType.INACTIVE
+    ) {
       return;
     }
 
@@ -196,7 +204,7 @@ const SequenceSearchLoader = forwardRef<
               [data] = data.results;
             }
 
-            if (data.entryType === EntryType.INACTIVE) {
+            if (getEntryTypeFromString(data.entryType) === EntryType.INACTIVE) {
               throw new Error('inactive, no sequence available');
             }
 

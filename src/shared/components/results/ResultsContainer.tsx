@@ -25,6 +25,8 @@ import useNS from '../../hooks/useNS';
 import { Namespace } from '../../types/namespaces';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 
+import './styles/results-table.scss';
+
 export type AllColumns = Array<UniProtKBColumn | UniRefColumn>;
 
 const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
@@ -37,12 +39,26 @@ const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
     UniProtKBColumn.organismName,
   ],
   [Namespace.uniref]: [
+    // UniRefColumn.id,
+    // UniRefColumn.name,
+    // UniRefColumn.count,
+    // UniRefColumn.organism,
+    // UniRefColumn.length,
+    // UniRefColumn.identity,
+
     UniRefColumn.id,
     UniRefColumn.name,
-    UniRefColumn.members,
+    UniRefColumn.commonTaxon,
+    UniRefColumn.commonTaxonid,
+    UniRefColumn.organismId,
     UniRefColumn.organism,
-    UniRefColumn.length,
     UniRefColumn.identity,
+    UniRefColumn.length,
+    UniRefColumn.sequence,
+    UniRefColumn.types,
+    UniRefColumn.members,
+    UniRefColumn.count,
+    UniRefColumn.created,
   ],
 };
 
