@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { noop } from 'lodash-es';
 
-import { EntryTypeIcon } from '../../../../shared/components/entry/EntryTitle';
-
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 import { MSAInput } from '../../../components/AlignmentView';
 import { Sequence } from '../../../components/Wrapped';
 
 import './styles/AlignLabel.scss';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 type AlignLabelProps = {
   accession?: string;

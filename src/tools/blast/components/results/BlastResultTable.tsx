@@ -16,8 +16,6 @@ import colors from '../../../../../node_modules/franklin-sites/src/styles/colour
 
 import { EnrichedBlastHit } from './BlastResult';
 
-import { EntryTypeIcon } from '../../../../shared/components/entry/EntryTitle';
-
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
@@ -26,6 +24,7 @@ import { HSPDetailPanelProps } from './HSPDetailPanel';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/BlastResultTable.scss';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',

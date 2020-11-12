@@ -58,7 +58,6 @@ import AnnotationScoreDoughnutChart, {
 } from '../components/protein-data-views/AnnotationScoreDoughnutChart';
 import { getAllKeywords } from '../utils/KeywordsUtil';
 import { KeywordList } from '../components/protein-data-views/KeywordView';
-import { EntryTypeIcon } from '../../shared/components/entry/EntryTitle';
 import { DatabaseList } from '../components/protein-data-views/XRefView';
 import {
   databaseNameToCategory,
@@ -72,6 +71,7 @@ import { StructureUIModel } from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
 import { GOTermsView } from '../components/protein-data-views/GOView';
 import externalUrls from './externalUrls';
+import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 
 const getFeatureColumn = (type: FeatureType) => {
   return {
