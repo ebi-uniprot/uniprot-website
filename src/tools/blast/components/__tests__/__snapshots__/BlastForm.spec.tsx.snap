@@ -228,7 +228,7 @@ exports[`BlastForm test Renders the form 1`] = `
           <label
             for="0"
           >
-            Restrict by taxonomy
+            Restrict by organism
             <div
               class="autocomplete-container"
             >
@@ -237,7 +237,7 @@ exports[`BlastForm test Renders the form 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="Enter taxonomy names or tax IDs"
+                  placeholder="Enter organism names or tax IDs"
                   type="text"
                   value=""
                 />
