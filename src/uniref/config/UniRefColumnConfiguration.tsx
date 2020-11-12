@@ -111,7 +111,7 @@ UniRefColumnConfiguration.set(UniRefColumn.types, {
     return (
       <>
         {memberIdTypes?.map((memberType) => (
-          <EntryTypeIcon entryType={memberType} />
+          <EntryTypeIcon entryType={memberType} key={memberType} />
         ))}
       </>
     );

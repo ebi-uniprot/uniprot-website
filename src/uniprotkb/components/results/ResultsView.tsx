@@ -58,6 +58,18 @@ const convertRow = (
   }
 };
 
+const getIdKey = (namespace: Namespace) => {
+  switch (namespace) {
+    case Namespace.uniprotkb:
+      return ({ primaryAccession }: { primaryAccession: string }) =>
+        primaryAccession;
+    case Namespace.uniref:
+      return ({ id }: { id: string }) => id;
+    default:
+      return null;
+  }
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
@@ -174,13 +186,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   if (viewMode === ViewMode.CARD) {
     dataView = (
       <DataList
-        getIdKey={({
-          primaryAccession,
-          id,
-        }: {
-          primaryAccession?: string;
-          id: string;
-        }) => primaryAccession || id}
+        getIdKey={getIdKey(namespace)}
         data={allResults}
         dataRenderer={(dataItem: UniProtkbAPIModel | UniRefLiteAPIModel) => {
           switch (namespace) {
@@ -242,9 +248,7 @@ const ResultsView: FC<ResultsTableProps> = ({
       }) || [];
     dataView = (
       <DataTable
-        getIdKey={({ primaryAccession }: { primaryAccession: string }) =>
-          primaryAccession
-        }
+        getIdKey={getIdKey(namespace)}
         columns={columnsToDisplay}
         data={allResults}
         selectable

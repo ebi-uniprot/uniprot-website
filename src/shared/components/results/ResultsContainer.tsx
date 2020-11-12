@@ -41,6 +41,7 @@ const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
   [Namespace.uniref]: [
     UniRefColumn.id,
     UniRefColumn.name,
+    UniRefColumn.types,
     UniRefColumn.count,
     UniRefColumn.organism,
     UniRefColumn.length,
