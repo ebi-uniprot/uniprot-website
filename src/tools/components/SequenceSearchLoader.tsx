@@ -54,7 +54,7 @@ const getURLForAccessionOrID = (input: string) => {
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
   });
 
-  return `${uniProtKBApiUrls.search}?${query}`;
+  return `${uniProtKBApiUrls.search()}?${query}`;
 };
 
 // name as a NCBI ID formatted UniProt-style
