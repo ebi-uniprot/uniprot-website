@@ -439,6 +439,7 @@ const BlastResult = () => {
             <InputParameters
               id={match.params.id}
               inputParamsData={inputParamsData}
+              jobType={jobType}
             />
           </Suspense>
         </Tab>

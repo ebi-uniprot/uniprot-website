@@ -286,6 +286,7 @@ const AlignResult = () => {
               <InputParameters
                 id={match.params.id}
                 inputParamsData={inputParamsData}
+                jobType={jobType}
               />
             </Suspense>
           </ErrorBoundary>
