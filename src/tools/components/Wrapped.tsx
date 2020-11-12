@@ -23,6 +23,7 @@ import {
   AlignmentComponentProps,
   ConservationOptions,
   MSAInput,
+  handleEvent,
 } from './AlignmentView';
 import { ProcessedFeature } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
@@ -191,29 +192,28 @@ export const WrappedRow: FC<WrappedRowProps> = ({
           </div>
         ))}
       </span>
-      {!!annotation && (
-        <>
-          <span className="track-label annotation-label">
-            {`${activeAlignment?.accession}:${annotation}`}
-          </span>
-          <div className="track annotation-track">
-            {!delayRender && (
-              <protvista-track
-                ref={setFeatureTrackData}
-                displaystart={trackStart}
-                displayend={trackEnd}
-                length={trackEnd - trackStart + 1}
-                layout="non-overlapping"
-              />
-            )}
-          </div>
-        </>
-      )}
+      <>
+        <span className="track-label annotation-label">
+          {!!annotation && `${activeAlignment?.accession}:${annotation}`}
+        </span>
+        <div className="track annotation-track">
+          {!!annotation && !delayRender && (
+            <protvista-track
+              ref={setFeatureTrackData}
+              displaystart={trackStart}
+              displayend={trackEnd}
+              length={trackEnd - trackStart + 1}
+              layout="non-overlapping"
+            />
+          )}
+        </div>
+      </>
     </>
   );
 };
 
 const Wrapped: FC<AlignmentComponentProps> = ({
+  updateTooltip,
   alignment,
   alignmentLength,
   highlightProperty,
@@ -231,6 +231,10 @@ const Wrapped: FC<AlignmentComponentProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
+
+  if (containerRef?.current) {
+    containerRef.current.addEventListener('change', handleEvent(updateTooltip));
+  }
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({

@@ -75,13 +75,11 @@ type MenuItem = {
   }[];
 };
 
-interface EventWithDetail extends Event {
-  detail?: {
-    eventtype: string;
-    feature: { protvistaFeatureId: string };
-    coords: number[];
-  };
-}
+type NightingaleChangeEvent = {
+  eventtype: string;
+  feature: { protvistaFeatureId: string };
+  coords: number[];
+};
 
 export type AlignmentComponentProps = {
   alignment: MSAInput[];
@@ -103,6 +101,31 @@ export type AlignmentComponentProps = {
 
 const isNonEmptyMenuItem = (item: PossiblyEmptyMenuItem): item is MenuItem =>
   Boolean(item.id && item.label && item.items.length);
+
+// export const handleEvent = (event: CustomEvent<NightingaleChangeEvent>) => {
+//   if (event?.detail?.eventtype === 'click') {
+//     updateTooltip({
+//       event,
+//       id: event.detail.feature.protvistaFeatureId,
+//       x: event.detail.coords[0],
+//       y: event.detail.coords[1],
+//     });
+//   }
+// };
+
+export const handleEvent = (updateTooltip) => (
+  event: CustomEvent<NightingaleChangeEvent>
+) => {
+  if (event?.detail?.eventtype === 'click') {
+    console.log('clicked');
+    updateTooltip({
+      event,
+      id: event.detail.feature.protvistaFeatureId,
+      x: event.detail.coords[0],
+      y: event.detail.coords[1],
+    });
+  }
+};
 
 const AlignmentView: React.FC<{
   alignment: MSAInput[];
@@ -324,22 +347,11 @@ const AlignmentView: React.FC<{
   }, [tooltipCloseCallback, tooltipContent]);
 
   useEffect(() => {
-    const handleEvent = (event: EventWithDetail) => {
-      if (event?.detail?.eventtype === 'click') {
-        updateTooltip({
-          event,
-          id: event.detail.feature.protvistaFeatureId,
-          x: event.detail.coords[0],
-          y: event.detail.coords[1],
-        });
-      }
-    };
-
-    window.addEventListener('change', handleEvent);
-
-    return () => {
-      window.removeEventListener('change', handleEvent);
-    };
+    // handleEvent(updateTooltip)()
+    // window.addEventListener('change', handleEvent);
+    // return () => {
+    //   window.removeEventListener('change', handleEvent);
+    // };
   }, [updateTooltip]);
 
   useEffect(() => {
@@ -433,6 +445,7 @@ const AlignmentView: React.FC<{
           {...tooltipVisibility}
         />
         <AlignmentComponent
+          updateTooltip={updateTooltip}
           alignment={alignment}
           alignmentLength={alignmentLength}
           highlightProperty={highlightProperty}

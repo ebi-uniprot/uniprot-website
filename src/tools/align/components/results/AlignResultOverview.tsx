@@ -9,7 +9,7 @@ import {
   SequenceInfo,
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
-import { AlnClustalNum } from '../../types/alignResults';
+import { AlnClustalNum, AlnClustalSequence } from '../../types/alignResults';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
 import {
   ProcessedFeature,
@@ -23,7 +23,7 @@ type AlignResultOverviewProps = {
   handleSelectedEntries: (rowId: string) => void;
 };
 
-type EnrichedSequence = AlnClustalNum['sequences'][0] & {
+type EnrichedSequence = AlnClustalSequence & {
   accession: string;
   from: number;
   to: number;
