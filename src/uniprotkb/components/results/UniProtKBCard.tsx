@@ -3,10 +3,7 @@ import React, { Fragment, FC } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
-import {
-  getEntryTypeFromString,
-  UniProtkbAPIModel,
-} from '../../adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
 import KeywordCategory from '../../types/keywordCategory';
 import { KeywordList } from '../protein-data-views/KeywordView';
@@ -62,7 +59,7 @@ const UniProtKBCard: FC<{
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
-              entryType={getEntryTypeFromString(data.entryType)}
+              entryType={data.entryType}
             />
           </h5>
           <ProteinOverview data={data} />

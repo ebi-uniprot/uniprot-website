@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTitle';
-import { getEntryTypeFromString } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 export enum UniRefColumn {
@@ -112,7 +111,7 @@ UniRefColumnConfiguration.set(UniRefColumn.types, {
     return (
       <>
         {memberIdTypes.map((memberType) => (
-          <EntryTypeIcon entryType={getEntryTypeFromString(memberType)} />
+          <EntryTypeIcon entryType={memberType} />
         ))}
       </>
     );

@@ -6,7 +6,6 @@ import { Link, useHistory } from 'react-router-dom';
 import apiUrls from '../../../shared/config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTitle';
-import { getEntryTypeFromString } from '../../adapters/uniProtkbConverter';
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
@@ -40,7 +39,7 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       render: ({ accession, entryType }: ProteinEntryLight) => {
         return (
           <Link to={`/uniprotkb/${accession}`}>
-            <EntryTypeIcon entryType={getEntryTypeFromString(entryType)} />
+            <EntryTypeIcon entryType={entryType} />
             {accession}
           </Link>
         );

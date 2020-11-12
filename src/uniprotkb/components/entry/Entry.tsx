@@ -47,7 +47,6 @@ import uniProtKbConverter, {
   EntryType,
   UniProtkbInactiveEntryModel,
   UniProtkbAPIModel,
-  getEntryTypeFromString,
 } from '../../adapters/uniProtkbConverter';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -185,7 +184,7 @@ const Entry: FC = () => {
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
-              entryType={getEntryTypeFromString(data.entryType)}
+              entryType={data.entryType}
             />
           </h2>
           <ProteinOverview data={data} />

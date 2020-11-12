@@ -1,12 +1,22 @@
 import React, { FC } from 'react';
 import { SwissProtIcon, TremblIcon } from 'franklin-sites';
 
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/uniprotkb-title.scss';
 
-export const EntryTypeIcon: FC<{ entryType?: EntryType }> = ({ entryType }) => {
-  if (entryType === EntryType.REVIEWED) {
+export const EntryTypeIcon: FC<{ entryType?: EntryType | string }> = ({
+  entryType,
+}) => {
+  let entryTypeToCheck = entryType;
+  if (typeof entryType === 'string') {
+    entryTypeToCheck = getEntryTypeFromString(entryType);
+  }
+
+  if (entryTypeToCheck === EntryType.REVIEWED) {
     return (
       <span
         className="uniprot-title__status icon--reviewed"
@@ -16,7 +26,7 @@ export const EntryTypeIcon: FC<{ entryType?: EntryType }> = ({ entryType }) => {
       </span>
     );
   }
-  if (entryType === EntryType.UNREVIEWED) {
+  if (entryTypeToCheck === EntryType.UNREVIEWED) {
     return (
       <span
         className="uniprot-title__status icon--unreviewed"
@@ -26,7 +36,7 @@ export const EntryTypeIcon: FC<{ entryType?: EntryType }> = ({ entryType }) => {
       </span>
     );
   }
-  // if (entryType === EntryType.UNIPARC) {
+  // if (entryTypeToCheck === EntryType.UNIPARC) {
   //   return (
   //     <span
   //       className="uniprot-title__status icon--unreviewed"
@@ -42,7 +52,7 @@ export const EntryTypeIcon: FC<{ entryType?: EntryType }> = ({ entryType }) => {
 const EntryTitle: FC<{
   mainTitle: string;
   optionalTitle?: string;
-  entryType?: EntryType;
+  entryType?: EntryType | string;
 }> = ({ mainTitle, optionalTitle, entryType }) => (
   <span className="uniprot-title">
     <EntryTypeIcon entryType={entryType} />

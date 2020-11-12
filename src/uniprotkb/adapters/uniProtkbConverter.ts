@@ -38,17 +38,17 @@ export enum EntryType {
 }
 
 export const getEntryTypeFromString = (entryTypeString: string) => {
-  if (entryTypeString.match(/Swiss-Prot|^sp\|$|^sp$/gi)) {
-    return EntryType.REVIEWED;
-  }
-  if (entryTypeString.match(/TrEMBL|^tr\|$|^tr$/gi)) {
-    return EntryType.UNREVIEWED;
-  }
   if (entryTypeString.match(/Inactive/gi)) {
     return EntryType.INACTIVE;
   }
   if (entryTypeString.match(/UniParc/i)) {
     return EntryType.UNIPARC;
+  }
+  if (entryTypeString.match(/TrEMBL|unreviewed|^tr\|$|^tr$/gi)) {
+    return EntryType.UNREVIEWED;
+  }
+  if (entryTypeString.match(/Swiss-Prot|reviewed|^sp\|$|^sp$/gi)) {
+    return EntryType.REVIEWED;
   }
   return undefined;
 };

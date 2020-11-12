@@ -5,7 +5,6 @@ import { noop } from 'lodash-es';
 
 import { EntryTypeIcon } from '../../../../shared/components/entry/EntryTitle';
 
-import { getEntryTypeFromString } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 import { MSAInput } from '../../../components/AlignmentView';
 import { Sequence } from '../../../components/Wrapped';
@@ -82,7 +81,7 @@ const AlignLabel: FC<AlignLabelProps> = ({
           checked={checked}
         />
       )}
-      <EntryTypeIcon entryType={getEntryTypeFromString(before)} />
+      <EntryTypeIcon entryType={before} />
       {before}
       {/* inject a link to the entry page */}
       <Link to={`/uniprotkb/${accession}`}>{accession}</Link>

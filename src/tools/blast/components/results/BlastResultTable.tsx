@@ -23,10 +23,7 @@ import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { HSPDetailPanelProps } from './HSPDetailPanel';
-import {
-  getEntryTypeFromString,
-  UniProtkbAPIModel,
-} from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/BlastResultTable.scss';
 
@@ -322,7 +319,7 @@ const BlastResultTable: FC<{
         name: 'accession',
         render: ({ hit_acc, hit_db }: BlastHit) => (
           <Link to={`/uniprotkb/${hit_acc}`}>
-            <EntryTypeIcon entryType={getEntryTypeFromString(hit_db)} />
+            <EntryTypeIcon entryType={hit_db} />
             {hit_acc}
           </Link>
         ),
