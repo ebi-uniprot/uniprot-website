@@ -2,10 +2,10 @@ import React from 'react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import ResultsView from '../ResultsView';
-import { ViewMode } from '../../../state/resultsInitialState';
+import { ViewMode } from '../../../../uniprotkb/state/resultsInitialState';
 import { render } from '@testing-library/react';
-import { UniProtKBColumn } from '../../../types/columnTypes';
-import '../../__mocks__/mockApi';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 const props = {
   columns: [UniProtKBColumn.accession],

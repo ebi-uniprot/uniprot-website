@@ -2,9 +2,9 @@ import React, { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
-import ResultsView from '../../../uniprotkb/components/results/ResultsView';
+import ResultsView from './ResultsView';
 import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
-import ResultsFacets from '../../../uniprotkb/components/results/ResultsFacets';
+import ResultsFacets from './ResultsFacets';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';

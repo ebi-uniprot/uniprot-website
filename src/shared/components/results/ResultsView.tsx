@@ -2,40 +2,46 @@ import React, { useState, useEffect, useRef, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { useHistory, useLocation } from 'react-router-dom';
 
-import UniProtKBCard from './UniProtKBCard';
+import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 
 import uniProtKbConverter, {
   UniProtkbUIModel,
   UniProtkbAPIModel,
-} from '../../adapters/uniProtkbConverter';
+} from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
-import { ViewMode } from '../../state/resultsInitialState';
+import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
 
-import apiUrls, { getAPIQueryUrl } from '../../../shared/config/apiUrls';
-import UniProtKBColumnConfiguration from '../../config/UniProtKBColumnConfiguration';
+import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
+import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../../../uniref/config/UniRefColumnConfiguration';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useNS from '../../../shared/hooks/useNS';
+import useDataApi from '../../hooks/useDataApi';
+import useNS from '../../hooks/useNS';
 
-import getNextUrlFromResponse from '../../utils/queryUtils';
+import getNextUrlFromResponse from '../../../uniprotkb/utils/queryUtils';
 import {
   getParamsFromURL,
   getLocationObjForParams,
   getSortableColumnToSortColumn,
-} from '../../utils/resultsUtils';
+} from '../../../uniprotkb/utils/resultsUtils';
 
-import { Namespace } from '../../../shared/types/namespaces';
-import { SortDirection, ReceivedFieldData } from '../../types/resultsTypes';
-import { SortableColumn, UniProtKBColumn } from '../../types/columnTypes';
+import { Namespace } from '../../types/namespaces';
+import {
+  SortDirection,
+  ReceivedFieldData,
+} from '../../../uniprotkb/types/resultsTypes';
+import {
+  SortableColumn,
+  UniProtKBColumn,
+} from '../../../uniprotkb/types/columnTypes';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import { AllColumns } from '../../../shared/components/results/ResultsContainer';
+import { AllColumns } from './ResultsContainer';
 
 type ResultsTableProps = {
   selectedEntries: string[];

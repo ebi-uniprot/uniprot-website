@@ -2,7 +2,7 @@ import React, { FC, ReactElement, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Facets } from 'franklin-sites';
 
-import { Facet } from '../../types/responseTypes';
+import { Facet } from '../../../uniprotkb/types/responseTypes';
 
 import './styles/results-view.scss';
 import { Location, LocationToPath } from '../../../app/config/urls';
