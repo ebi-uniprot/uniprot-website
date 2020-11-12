@@ -148,7 +148,7 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
   // when changing the URL, the state is set asynchronously, this is to set it
   // to loading synchronously to avoid using previous data
   if (state.url !== url) {
-    return { loading: true, url };
+    return { loading: Boolean(url), url };
   }
 
   return state;
