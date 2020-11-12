@@ -10,6 +10,7 @@ import React, {
 import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
 
+import useEventListener from '@use-it/event-listener';
 import Wrapped from './Wrapped';
 import Overview from './Overview';
 
@@ -97,27 +98,23 @@ export type AlignmentComponentProps = {
   activeAnnotation: ProcessedFeature[];
   activeAlignment?: MSAInput;
   onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
+  updateTooltip: UpdateTooltip;
 };
 
 const isNonEmptyMenuItem = (item: PossiblyEmptyMenuItem): item is MenuItem =>
   Boolean(item.id && item.label && item.items.length);
 
-// export const handleEvent = (event: CustomEvent<NightingaleChangeEvent>) => {
-//   if (event?.detail?.eventtype === 'click') {
-//     updateTooltip({
-//       event,
-//       id: event.detail.feature.protvistaFeatureId,
-//       x: event.detail.coords[0],
-//       y: event.detail.coords[1],
-//     });
-//   }
-// };
+type UpdateTooltip = (arg: {
+  id: string;
+  x: number;
+  y: number;
+  event: CustomEvent<NightingaleChangeEvent>;
+}) => void;
 
-export const handleEvent = (updateTooltip) => (
+export const handleEvent = (updateTooltip: UpdateTooltip) => (
   event: CustomEvent<NightingaleChangeEvent>
 ) => {
   if (event?.detail?.eventtype === 'click') {
-    console.log('clicked');
     updateTooltip({
       event,
       id: event.detail.feature.protvistaFeatureId,
@@ -302,7 +299,7 @@ const AlignmentView: React.FC<{
     tooltipRef.current.container = containerSelector;
   }
 
-  const updateTooltip = useCallback(
+  const updateTooltip: UpdateTooltip = useCallback(
     ({ id, x, y, event }) => {
       event.stopPropagation();
       const sequenceFeature = findSequenceFeature(id, alignment);
@@ -346,31 +343,26 @@ const AlignmentView: React.FC<{
       window.removeEventListener('click', tooltipCloseCallback, true);
   }, [tooltipCloseCallback, tooltipContent]);
 
-  useEffect(() => {
-    // handleEvent(updateTooltip)()
-    // window.addEventListener('change', handleEvent);
-    // return () => {
-    //   window.removeEventListener('change', handleEvent);
-    // };
-  }, [updateTooltip]);
-
-  useEffect(() => {
+  // Need to listen for scroll events to close the tooltip to prevent
+  // it from persisting and giving the appearance of floating, unanchored.
+  // Can see this in the Wrapped view specifically when the number of rows
+  // causes the page to scroll.
+  const mainContentAndFooter = useMemo(() => {
     const className = '.main-content-and-footer';
-    const mainContentAndFooter = document.querySelector(className);
-    if (!mainContentAndFooter) {
+    const el = document.querySelector(className);
+    // tooltip is here but we don't have
+    if (tooltipRef.current && !el) {
       throw Error(`Cannot find :${className}`);
     }
-    const handleScroll = () => {
+    return el;
+  }, [tooltipRef]);
+  useEventListener(
+    'scroll',
+    () => {
       setTooltipContent(null);
-    };
-    mainContentAndFooter.addEventListener('scroll', handleScroll, {
-      passive: false,
-    });
-    // Cleanup
-    return () => {
-      mainContentAndFooter.removeEventListener('scroll', handleScroll);
-    };
-  }, [setTooltipContent]);
+    },
+    mainContentAndFooter as HTMLElement
+  );
 
   const tooltipVisibility = tooltipContent ? { visible: true } : {};
 

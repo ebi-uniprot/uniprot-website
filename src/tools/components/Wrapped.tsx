@@ -11,6 +11,7 @@ import React, {
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
 
+import useEventListener from '@use-it/event-listener';
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
@@ -120,6 +121,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
+
   const setFeatureTrackData = useCallback(
     (node): void => {
       if (node && trackDefined && activeAlignment?.sequence) {
@@ -138,12 +140,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [
-      activeAlignment?.from,
-      activeAlignment?.sequence,
-      activeAnnotation,
-      trackDefined,
-    ]
+    [activeAlignment, activeAnnotation, trackDefined]
   );
   if (!(msaDefined && trackDefined)) {
     return <Loader />;
@@ -192,22 +189,20 @@ export const WrappedRow: FC<WrappedRowProps> = ({
           </div>
         ))}
       </span>
-      <>
-        <span className="track-label annotation-label">
-          {!!annotation && `${activeAlignment?.accession}:${annotation}`}
-        </span>
-        <div className="track annotation-track">
-          {!!annotation && !delayRender && (
-            <protvista-track
-              ref={setFeatureTrackData}
-              displaystart={trackStart}
-              displayend={trackEnd}
-              length={trackEnd - trackStart + 1}
-              layout="non-overlapping"
-            />
-          )}
-        </div>
-      </>
+      <span className="track-label annotation-label">
+        {annotation && `${activeAlignment?.accession}:${annotation}`}
+      </span>
+      <div className="track annotation-track">
+        {annotation && !delayRender && (
+          <protvista-track
+            ref={setFeatureTrackData}
+            displaystart={trackStart}
+            displayend={trackEnd}
+            length={trackEnd - trackStart + 1}
+            layout="non-overlapping"
+          />
+        )}
+      </div>
     </>
   );
 };
@@ -232,9 +227,11 @@ const Wrapped: FC<AlignmentComponentProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
 
-  if (containerRef?.current) {
-    containerRef.current.addEventListener('change', handleEvent(updateTooltip));
-  }
+  useEventListener(
+    'change',
+    handleEvent(updateTooltip) as (e: Event) => void,
+    containerRef?.current
+  );
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({

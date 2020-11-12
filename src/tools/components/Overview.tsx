@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
+import useEventListener from '@use-it/event-listener';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
@@ -13,7 +14,7 @@ import {
   createGappedFeature,
 } from '../utils/sequences';
 
-import { AlignmentComponentProps } from './AlignmentView';
+import { AlignmentComponentProps, handleEvent } from './AlignmentView';
 
 import './styles/alignment-view.scss';
 
@@ -43,7 +44,9 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   selectedMSAFeatures,
   activeAnnotation,
   activeAlignment,
+  updateTooltip,
 }) => {
+  const containerRef = useRef(null);
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
@@ -83,6 +86,12 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
       }
     },
     [initialDisplayEnd, findHighlightPositions, tracksOffset]
+  );
+
+  useEventListener(
+    'change',
+    handleEvent(updateTooltip) as (e: Event) => void,
+    containerRef?.current
   );
 
   const msaDefined = useCustomElement(
@@ -172,7 +181,11 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   }
 
   return (
-    <section data-testid="alignment-view" className="alignment-grid">
+    <section
+      data-testid="alignment-view"
+      className="alignment-grid"
+      ref={containerRef}
+    >
       {/* first row */}
       <span className="track-label">Overview</span>
       <div className="track">
@@ -184,21 +197,19 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
         />
       </div>
       {/* second row */}
-      {!!annotation && (
-        <>
-          <span className="track-label" data-testid="track-label">
-            {`${activeAlignment?.accession}:${annotation}`}
-          </span>
-          <div className="track">
-            <protvista-track
-              ref={setFeatureTrackData}
-              length={totalLength}
-              layout="non-overlapping"
-              highlight={highlightPosition}
-            />
-          </div>
-        </>
-      )}
+      <span className="track-label" data-testid="track-label">
+        {annotation && `${activeAlignment?.accession}:${annotation}`}
+      </span>
+      <div className="track">
+        {annotation && (
+          <protvista-track
+            ref={setFeatureTrackData}
+            length={totalLength}
+            layout="non-overlapping"
+            highlight={highlightPosition}
+          />
+        )}
+      </div>
       {/* third row */}
       <div className="track-label track-label--align-labels">
         {alignment.map((s) => (
