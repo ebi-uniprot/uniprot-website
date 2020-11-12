@@ -64,7 +64,7 @@ export type UniRefLiteAPIModel = {
   organismCount: number;
   representativeId: string;
   seedId: string;
-  memberIdTypes: string[];
+  memberIdTypes?: string[];
   members: string[];
   organismIds: number[];
   organisms: string[];

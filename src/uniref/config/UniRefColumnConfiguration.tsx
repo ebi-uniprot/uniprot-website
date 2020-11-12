@@ -110,7 +110,7 @@ UniRefColumnConfiguration.set(UniRefColumn.types, {
   render: ({ memberIdTypes }) => {
     return (
       <>
-        {memberIdTypes.map((memberType) => (
+        {memberIdTypes?.map((memberType) => (
           <EntryTypeIcon entryType={memberType} />
         ))}
       </>

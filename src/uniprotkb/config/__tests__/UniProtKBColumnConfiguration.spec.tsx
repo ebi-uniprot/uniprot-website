@@ -1,12 +1,12 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import ColumnConfiguration from '../UniProtKBColumnConfiguration';
+import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 import data from '../../__mocks__/entryModelData.json';
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 jest.mock('../../../tools/utils/storage');
 
-describe('ColumnConfiguration component', () => {
+describe('UniProtKBColumnConfiguration component', () => {
   let transformedData;
 
   beforeAll(() => {
@@ -18,7 +18,7 @@ describe('ColumnConfiguration component', () => {
   });
 
   test('should render all columns', () => {
-    ColumnConfiguration.forEach((column) => {
+    UniProtKBColumnConfiguration.forEach((column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
