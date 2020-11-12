@@ -190,7 +190,9 @@ export const WrappedRow: FC<WrappedRowProps> = ({
         ))}
       </span>
       <span className="track-label annotation-label">
-        {annotation && `${activeAlignment?.accession}:${annotation}`}
+        {annotation &&
+          activeAlignment?.accession &&
+          `${activeAlignment?.accession}:${annotation}`}
       </span>
       <div className="track annotation-track">
         {annotation && !delayRender && (
