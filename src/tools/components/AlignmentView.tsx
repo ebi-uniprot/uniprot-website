@@ -9,8 +9,8 @@ import React, {
 } from 'react';
 import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
-
 import useEventListener from '@use-it/event-listener';
+
 import Wrapped from './Wrapped';
 import Overview from './Overview';
 
@@ -350,7 +350,7 @@ const AlignmentView: React.FC<{
   const mainContentAndFooter = useMemo(() => {
     const className = '.main-content-and-footer';
     const el = document.querySelector(className);
-    // tooltip is here but we don't have
+    // tooltip is here but main-content-and-footer isn't
     if (tooltipRef.current && !el) {
       throw Error(`Cannot find :${className}`);
     }

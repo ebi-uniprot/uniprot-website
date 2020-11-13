@@ -10,8 +10,8 @@ import React, {
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
-
 import useEventListener from '@use-it/event-listener';
+
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
 import useStaggeredRenderingHelper from '../../shared/hooks/useStaggeredRenderingHelper';
@@ -19,7 +19,6 @@ import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
-import FeatureType from '../../uniprotkb/types/featureType';
 import {
   AlignmentComponentProps,
   ConservationOptions,
@@ -33,6 +32,8 @@ import {
   MSAFeature,
 } from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
+
+import FeatureType from '../../uniprotkb/types/featureType';
 
 const widthOfAA = 20;
 
