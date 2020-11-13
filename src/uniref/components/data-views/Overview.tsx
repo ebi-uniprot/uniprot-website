@@ -16,6 +16,12 @@ import { Facet } from '../../../uniprotkb/types/responseTypes';
 
 import './styles/overview.scss';
 
+enum MemberTypes {
+  Reviewed = 'uniprotkb_reviewed_swissprot',
+  Unreviewed = 'uniprotkb_unreviewed_trembl',
+  UniParc = 'uniparc',
+}
+
 type MemberIconsProps = { facetData: UseDataAPIState<Facet[]> };
 
 export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
@@ -33,20 +39,20 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
     (f) => f?.name === 'uniprot_member_id_type'
   )?.values;
   const uniProtReviewedCount = uniProtKBFacetValues?.find(
-    (fv) => fv.value === 'uniprotkb_reviewed_swissprot'
+    (fv) => fv.value === MemberTypes.Reviewed
   )?.count;
   const uniProtUnreviewedCount = uniProtKBFacetValues?.find(
-    (fv) => fv.value === 'uniprotkb_unreviewed_trembl'
+    (fv) => fv.value === MemberTypes.Unreviewed
   )?.count;
   const uniParcCount = facetData.data
     ?.find((f) => f?.name === 'member_id_type')
-    ?.values.find((fv) => fv.value === 'uniparc')?.count;
+    ?.values.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
   return (
     <>
       {uniProtReviewedCount && (
         <Link
-          to={`${location.pathname}?filter=uniprot_member_id_type:uniprotkb_reviewed_swissprot`}
+          to={`${location.pathname}?filter=uniprot_member_id_type:${MemberTypes.Reviewed}`}
           className="member-icons uniprotkb reviewed"
           title={`${uniProtReviewedCount} UniProtKB reviewed member${
             uniProtReviewedCount === 1 ? '' : 's'
@@ -57,7 +63,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       )}
       {uniProtUnreviewedCount && (
         <Link
-          to={`${location.pathname}?filter=uniprot_member_id_type:uniprotkb_unreviewed_trembl`}
+          to={`${location.pathname}?filter=uniprot_member_id_type:${MemberTypes.Unreviewed}`}
           className="member-icons uniprotkb unreviewed"
           title={`${uniProtUnreviewedCount} UniProtKB unreviewed member${
             uniProtUnreviewedCount === 1 ? '' : 's'
@@ -68,7 +74,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       )}
       {uniParcCount && (
         <Link
-          to={`${location.pathname}?filter=member_id_type:uniparc`}
+          to={`${location.pathname}?filter=member_id_type:${MemberTypes.UniParc}`}
           className="member-icons uniparc"
           title={`${uniParcCount} UniParc member${
             uniParcCount === 1 ? '' : 's'
