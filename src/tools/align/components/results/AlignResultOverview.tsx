@@ -9,8 +9,12 @@ import {
   SequenceInfo,
   ParsedSequenceAndFeatures,
 } from '../../utils/useSequenceInfo';
-import { AlnClustalNum } from '../../types/alignResults';
+import { AlnClustalNum, AlnClustalSequence } from '../../types/alignResults';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
+import {
+  ProcessedFeature,
+  processFeaturesData,
+} from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
 
 type AlignResultOverviewProps = {
   data: string;
@@ -19,8 +23,14 @@ type AlignResultOverviewProps = {
   handleSelectedEntries: (rowId: string) => void;
 };
 
-type EnrichedSequence = AlnClustalNum['sequences'][0] &
-  ParsedSequenceAndFeatures & { from: number; to: number; length: number };
+type EnrichedSequence = AlnClustalSequence & {
+  accession: string;
+  from: number;
+  to: number;
+  length: number;
+  features: ProcessedFeature[];
+};
+
 type ParsedAndEnriched = {
   conservation: AlnClustalNum['conservation'];
   sequences: EnrichedSequence[];
@@ -48,8 +58,12 @@ const enrichParsed = (
     let info;
     let features;
     if (sequence.name && nameToSequenceInfo[sequence.name]) {
-      info = nameToSequenceInfo[sequence.name];
-      features = removeFeaturesWithUnknownModifier(info?.features);
+      info = nameToSequenceInfo[sequence?.name];
+      if (info?.features) {
+        features = processFeaturesData(
+          removeFeaturesWithUnknownModifier(info.features)
+        );
+      }
     }
     sequences[index] = {
       ...info,

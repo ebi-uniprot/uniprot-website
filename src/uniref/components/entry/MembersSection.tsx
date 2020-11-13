@@ -18,6 +18,7 @@ const MembersSection: FC<{ data: { members: UniRefMember[] } }> = ({
   // NOTE: not sure if that what we should use here, or rather a generic version
   // NOTE: of what is in the search result pages
   const ceDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'

@@ -449,10 +449,10 @@ const BlastForm = () => {
             <FormSelect formValue={database} updateFormValue={setDatabase} />
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
-                placeholder="Enter taxonomy names or tax IDs"
+                placeholder="Enter organism names or tax IDs"
                 url={uniProtKBApiUrls.organismSuggester}
                 onSelect={updateTaxonFormValue}
-                title="Restrict by taxonomy"
+                title="Restrict by organism"
                 clearOnSelect
               />
             </section>

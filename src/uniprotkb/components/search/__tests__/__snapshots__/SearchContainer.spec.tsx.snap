@@ -17,7 +17,52 @@ exports[`Search shallow components should render 1`] = `
       </button>
       <div
         class="dropdown-menu"
-      />
+      >
+        <ul>
+          <li>
+            <button
+              type="button"
+            >
+              UniProtKB
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+            >
+              UniRef
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+            >
+              UniParc
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+            >
+              Proteomes
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+            >
+              Publications
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+            >
+              Keywords
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
     <input
       class="main-search__input"

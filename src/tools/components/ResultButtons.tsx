@@ -24,7 +24,7 @@ type ResubmitButtonProps<T extends JobTypes> = {
   inputParamsData?: PublicServerParameters[T];
 };
 
-const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
+export const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
   jobType,
   inputParamsData,
 }) => {

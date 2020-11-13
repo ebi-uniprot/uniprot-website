@@ -14,6 +14,7 @@ const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
   );
 
   useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-uniprot" */ 'protvista-uniprot'),
     'protvista-uniprot'

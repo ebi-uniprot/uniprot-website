@@ -1,11 +1,11 @@
 import React, { FC, useCallback, memo } from 'react';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
-import { FullAlignmentSegments, SegmentTrackData } from '../utils/sequences';
+import { SegmentTrackData } from '../utils/sequences';
 
 type AlignmentOverviewProps = {
   height: string;
-  data: FullAlignmentSegments[];
+  data: SegmentTrackData[][];
   length: number;
   highlight: string;
 };
@@ -24,6 +24,7 @@ const AlignmentOverviewTrack: FC<AlignmentOverviewTrackProps> = ({
   height,
 }) => {
   const ceDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
@@ -59,7 +60,7 @@ const AlignmentOverview: FC<AlignmentOverviewProps> = memo(
 
     return (
       <div>
-        {data.map(({ trackData }, index) => {
+        {data.map((trackData, index) => {
           return (
             <AlignmentOverviewTrack
               data={trackData}
