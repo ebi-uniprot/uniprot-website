@@ -155,12 +155,15 @@ const enrich = (
     return null;
   }
   const output: EnrichedData = { ...blastData };
-  output.hits = output.hits.map((hit) => ({
-    ...hit,
-    extra: (apiData.results as UniProtkbAPIModel[]).find(
+  output.hits = output.hits.map((hit) => {
+    const extra = (apiData.results as UniProtkbAPIModel[]).find(
       (entry) => hit.hit_acc === entry.primaryAccession
-    ),
-  }));
+    );
+    return {
+      ...hit,
+      extra,
+    };
+  });
   return output;
 };
 

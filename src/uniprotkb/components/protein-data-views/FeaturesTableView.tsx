@@ -55,6 +55,7 @@ const FeaturesTableView: FC<{
   };
 
   const datatableDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'

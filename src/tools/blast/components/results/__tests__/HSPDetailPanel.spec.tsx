@@ -25,13 +25,15 @@ describe('HSPDetailPanel', () => {
 
   beforeEach(async () => {
     rendered = renderWithRouter(
-      <HSPDetailPanel
-        hsp={hsp}
-        hitAccession={hit.hit_acc}
-        onClose={onClose}
-        hitLength={hit.hit_len}
-        queryLength={blastResultsMockData.query_len}
-      />
+      <div className="main-content-and-footer">
+        <HSPDetailPanel
+          hsp={hsp}
+          hitAccession={hit.hit_acc}
+          onClose={onClose}
+          hitLength={hit.hit_len}
+          queryLength={blastResultsMockData.query_len}
+        />
+      </div>
     );
     await rendered;
   });

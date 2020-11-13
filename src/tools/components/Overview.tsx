@@ -1,30 +1,20 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, {
-  FC,
-  useCallback,
-  useMemo,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
+import useEventListener from '@use-it/event-listener';
 
 import AlignmentOverview from './AlignmentOverview';
 import AlignLabel from '../align/components/results/AlignLabel';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
-import { processFeaturesData } from '../../uniprotkb/components/protein-data-views/FeaturesView';
 import {
   getFullAlignmentSegments,
   getEndCoordinate,
   createGappedFeature,
 } from '../utils/sequences';
 
-import { MsaColorScheme } from '../config/msaColorSchemes';
-import FeatureType from '../../uniprotkb/types/featureType';
-
-import { MSAInput, ConservationOptions } from './AlignmentView';
+import { AlignmentComponentProps, handleEvent } from './AlignmentView';
 
 import './styles/alignment-view.scss';
 
@@ -34,25 +24,11 @@ type EventDetail = {
   displayend: string;
 };
 
-export type BlastOverviewProps = {
-  alignment: MSAInput[];
-  alignmentLength: number;
-  highlightProperty: MsaColorScheme | undefined;
-  conservationOptions: ConservationOptions;
-  totalLength: number;
-  annotation: FeatureType | undefined;
-  activeId?: string;
-  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  omitInsertionsInCoords?: boolean;
-  selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
-};
-
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const AlignOverview: FC<BlastOverviewProps> = ({
+const AlignOverview: FC<AlignmentComponentProps> = ({
   alignment,
   alignmentLength,
   highlightProperty,
@@ -64,16 +40,27 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   omitInsertionsInCoords,
   selectedEntries,
   handleSelectedEntries,
+  onMSAFeatureClick,
+  selectedMSAFeatures,
+  activeAnnotation,
+  activeAlignment,
+  updateTooltip,
 }) => {
+  const containerRef = useRef(null);
   const [highlightPosition, setHighlighPosition] = useState('');
   const [initialDisplayEnd, setInitialDisplayEnd] = useState<
     number | undefined
   >();
   const [displayEnd, setDisplayEnd] = useState<number>();
-
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
-  const findHighlighPositions = useCallback(
+  const findHighlightPositions = useCallback(
     ({ displaystart, displayend }: EventDetail) => {
+      if (
+        typeof displaystart === 'undefined' ||
+        typeof displayend === 'undefined'
+      ) {
+        return;
+      }
       const displayStart = parseInt(displaystart, 10);
       const displayEnd = parseInt(displayend, 10);
       const start = tracksOffset + displayStart;
@@ -88,7 +75,7 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     (node): void => {
       if (node && initialDisplayEnd) {
         node.addEventListener('change', ({ detail }: { detail: EventDetail }) =>
-          findHighlighPositions(detail)
+          findHighlightPositions(detail)
         );
         node.setAttribute('displaystart', 1);
         node.setAttribute('displayend', initialDisplayEnd);
@@ -98,10 +85,17 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         );
       }
     },
-    [initialDisplayEnd, findHighlighPositions, tracksOffset]
+    [initialDisplayEnd, findHighlightPositions, tracksOffset]
+  );
+
+  useEventListener(
+    'change',
+    handleEvent(updateTooltip) as (e: Event) => void,
+    containerRef?.current
   );
 
   const msaDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
@@ -112,6 +106,9 @@ const AlignOverview: FC<BlastOverviewProps> = ({
         return;
       }
 
+      node.features = selectedMSAFeatures;
+      node.onFeatureClick = onMSAFeatureClick;
+
       const singleBaseWidth =
         'getSingleBaseWidth' in node ? node.getSingleBaseWidth() : 15;
       const displayEndValue = alignmentLength / (15 / singleBaseWidth);
@@ -119,21 +116,29 @@ const AlignOverview: FC<BlastOverviewProps> = ({
       const maxSequenceLength = Math.max(
         ...alignment.map((al) => al.sequence.length)
       );
-
       if (typeof displayEnd === 'undefined') {
         setInitialDisplayEnd(Math.min(displayEndValue, maxSequenceLength));
       }
 
       node.data = alignment.map(({ name, sequence }) => ({ name, sequence }));
     },
-    [msaDefined, alignmentLength, alignment, displayEnd]
+    [
+      msaDefined,
+      selectedMSAFeatures,
+      alignmentLength,
+      alignment,
+      displayEnd,
+      onMSAFeatureClick,
+    ]
   );
 
   const trackDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
   const navigationDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-navigation" */ 'protvista-navigation'
@@ -141,33 +146,25 @@ const AlignOverview: FC<BlastOverviewProps> = ({
     'protvista-navigation'
   );
   const managerDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-manager" */ 'protvista-manager'),
     'protvista-manager'
   );
-
   const ceDefined =
     trackDefined && navigationDefined && msaDefined && managerDefined;
 
-  const activeAlignment = useMemo(
-    () =>
-      alignment.find(({ accession }) => accession && accession === activeId),
-    [alignment, activeId]
-  );
-
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && ceDefined && activeAlignment?.features && annotation) {
-        let processedFeatures = processFeaturesData(
-          activeAlignment.features.filter(({ type }) => type === annotation)
-        );
-        processedFeatures = processedFeatures.map((f) =>
-          createGappedFeature(f, activeAlignment.sequence)
-        );
-        node.data = processedFeatures;
+      if (node && ceDefined && activeAnnotation && activeAlignment?.sequence) {
+        node.data = activeAnnotation
+          // The Overview feature track always starts from the start of the protein
+          // hence the need to have `from` := 1
+          .map((f) => createGappedFeature(f, activeAlignment?.sequence, 1))
+          .filter(Boolean);
       }
     },
-    [ceDefined, activeAlignment, annotation]
+    [activeAlignment?.sequence, activeAnnotation, ceDefined]
   );
 
   const overviewHeight = (alignment && alignment.length > 10
@@ -184,7 +181,11 @@ const AlignOverview: FC<BlastOverviewProps> = ({
   }
 
   return (
-    <section data-testid="alignment-view" className="alignment-grid">
+    <section
+      data-testid="alignment-view"
+      className="alignment-grid"
+      ref={containerRef}
+    >
       {/* first row */}
       <span className="track-label">Overview</span>
       <div className="track">
@@ -195,18 +196,20 @@ const AlignOverview: FC<BlastOverviewProps> = ({
           data={alignmentOverviewData}
         />
       </div>
-
       {/* second row */}
-      <span className="track-label">{annotation}</span>
+      <span className="track-label" data-testid="track-label">
+        {annotation && `${activeAlignment?.accession}:${annotation}`}
+      </span>
       <div className="track">
-        <protvista-track
-          ref={setFeatureTrackData}
-          length={totalLength}
-          layout="non-overlapping"
-          highlight={highlightPosition}
-        />
+        {annotation && (
+          <protvista-track
+            ref={setFeatureTrackData}
+            length={totalLength}
+            layout="non-overlapping"
+            highlight={highlightPosition}
+          />
+        )}
       </div>
-
       {/* third row */}
       <div className="track-label track-label--align-labels">
         {alignment.map((s) => (

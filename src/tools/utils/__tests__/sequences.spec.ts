@@ -4,9 +4,12 @@ import {
   getNumberOfInsertions,
   getEndCoordinate,
   createGappedFeature,
+  removeFeaturesWithUnknownModifier,
+  findSequenceFeature,
 } from '../sequences';
 import featuresMock from '../__mocks__/features.json';
 import sequenceChunkPairsMock from '../__mocks__/sequences.json';
+import { Align as alignment } from '../../components/__mocks__/msaMocks.json';
 
 describe('Tool sequences utils', () => {
   it('should find segments', () => {
@@ -67,7 +70,7 @@ describe('Tool sequences utils', () => {
         end: 10,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 1,
         end: 10,
       });
@@ -80,7 +83,7 @@ describe('Tool sequences utils', () => {
         end: 7,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 2,
         end: 8,
       });
@@ -93,7 +96,7 @@ describe('Tool sequences utils', () => {
         end: 9,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 1,
         end: 10,
         locations: [
@@ -115,7 +118,7 @@ describe('Tool sequences utils', () => {
         end: 5,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 4,
         end: 6,
       });
@@ -128,7 +131,7 @@ describe('Tool sequences utils', () => {
         end: 5,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 3,
         end: 9,
         locations: [
@@ -150,7 +153,7 @@ describe('Tool sequences utils', () => {
         end: 8,
       };
 
-      expect(createGappedFeature(feature, sequence)).toEqual({
+      expect(createGappedFeature(feature, sequence, 1)).toEqual({
         start: 4,
         end: 13,
         locations: [
@@ -192,6 +195,66 @@ describe('Tool sequences utils', () => {
           },
         ],
       });
+    });
+  });
+
+  describe('removeFeaturesWithUnknownModifier', () => {
+    it('should remove feature with an UNKNOWN location', () => {
+      expect(
+        removeFeaturesWithUnknownModifier([
+          {
+            location: {
+              start: {
+                value: 1,
+                modifier: 'EXACT',
+              },
+              end: {
+                value: -1,
+                modifier: 'UNKNOWN',
+              },
+            },
+          },
+        ])
+      ).toHaveLength(0);
+    });
+    it('should return feature with EXACT locations', () => {
+      expect(
+        removeFeaturesWithUnknownModifier([
+          {
+            location: {
+              start: {
+                value: 1,
+                modifier: 'EXACT',
+              },
+              end: {
+                value: 2,
+                modifier: 'EXACT',
+              },
+            },
+          },
+        ])
+      ).toHaveLength(1);
+    });
+    it('should return empty array if no features provided', () => {
+      expect(removeFeaturesWithUnknownModifier()).toEqual([]);
+    });
+  });
+  describe('findSequenceFeature', () => {
+    it('should find sequence feature', () => {
+      expect(findSequenceFeature('id1', alignment)).toEqual(
+        alignment[0].features[0]
+      );
+    });
+
+    it('should return null when it cannot find sequence feature', () => {
+      expect(findSequenceFeature('id100', alignment)).toBeNull();
+    });
+
+    it('should continue when an alignment does not contain features', () => {
+      alignment[1] = { ...alignment[1], features: null };
+      expect(findSequenceFeature('id1', alignment)).toEqual(
+        alignment[0].features[0]
+      );
     });
   });
 

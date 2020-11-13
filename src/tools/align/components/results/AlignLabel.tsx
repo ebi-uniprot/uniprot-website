@@ -8,14 +8,13 @@ import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTit
 import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 import { MSAInput } from '../../../components/AlignmentView';
-import { Sequence } from '../../../components/Wrapped';
 
 import './styles/AlignLabel.scss';
 
 type AlignLabelProps = {
   accession?: string;
   children: string;
-  info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
+  info?: Partial<ParsedSequenceAndFeatures | MSAInput>;
   loading: boolean;
   style?: CSSProperties;
   checked?: boolean;

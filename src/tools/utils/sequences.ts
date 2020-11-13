@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { getColorByType } from 'protvista-track';
 import { MSAInput } from '../components/AlignmentView';
 import {
   ProcessedFeature,
@@ -62,17 +63,6 @@ export type SegmentTrackData = {
   color: string;
 };
 
-export type FullAlignmentSegments = {
-  name?: string;
-  accession?: string;
-  sequence: string;
-  from: number;
-  to: number;
-  length: number;
-  features?: FeatureData;
-  trackData: SegmentTrackData[];
-};
-
 export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
   // franklin $colour-sapphire-blue
   const colour = '#014371';
@@ -86,28 +76,25 @@ export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
 
   return alignment.map((al) => {
     const offset = maxFrom - al.from > 0 ? maxFrom - al.from : 0;
-    return {
-      ...al,
-      trackData: [
-        {
-          start: offset,
-          end: offset + al.from - 1,
-          shape: 'line',
-          color: colour,
-        },
-        ...findSequenceSegments(al.sequence).map(([start, end]) => ({
-          start: offset + (al.from - 1) + start,
-          end: offset + (al.from - 1) + end,
-          color: colour,
-        })),
-        {
-          start: offset + al.to + countGaps(al.sequence) + 1,
-          end: offset + al.length + countGaps(al.sequence),
-          shape: 'line',
-          color: colour,
-        },
-      ],
-    };
+    return [
+      {
+        start: offset,
+        end: offset + al.from - 1,
+        shape: 'line',
+        color: colour,
+      },
+      ...findSequenceSegments(al.sequence).map(([start, end]) => ({
+        start: offset + (al.from - 1) + start,
+        end: offset + (al.from - 1) + end,
+        color: colour,
+      })),
+      {
+        start: offset + al.to + countGaps(al.sequence) + 1,
+        end: offset + al.length + countGaps(al.sequence),
+        shape: 'line',
+        color: colour,
+      },
+    ];
   });
 };
 
@@ -119,16 +106,19 @@ export const getEndCoordinate = (sequence: string, endPosition: number) =>
 
 // Jie has said that if it is unknown, you can ignore value
 // These erroneous features are temporary and will eventually be removed
-export const removeFeaturesWithUnknownModifier = (features?: FeatureData) =>
-  features?.filter(
-    ({ location: { start, end } }) =>
-      start.modifier !== LocationModifier.UNKNOWN &&
-      end.modifier !== LocationModifier.UNKNOWN
-  );
+export const removeFeaturesWithUnknownModifier = (features: FeatureData = []) =>
+  features
+    .filter(
+      ({ location: { start, end } }) =>
+        start.modifier !== LocationModifier.UNKNOWN &&
+        end.modifier !== LocationModifier.UNKNOWN
+    )
+    .filter(Boolean);
 
 export const createGappedFeature = (
   feature: ProcessedFeature,
-  sequence: string
+  sequence: string,
+  from: number
 ) => {
   /*
   input: feature and sequence are both 1-based
@@ -136,9 +126,8 @@ export const createGappedFeature = (
 
   const BLOCK = /(?<insertion>[-]+)|(?<protein>[^-]+)/g;
 
-  let proteinIndex = 1;
+  let proteinIndex = from;
   const fragments: { start: number; end: number; shape?: 'line' }[] = [];
-
   let match;
   // eslint-disable-next-line no-cond-assign
   while ((match = BLOCK.exec(sequence)) !== null) {
@@ -163,14 +152,69 @@ export const createGappedFeature = (
       });
     }
   }
-
-  const gappedFeature = { ...feature };
-  if (fragments.length) {
-    gappedFeature.start = fragments[0].start;
-    gappedFeature.end = fragments[fragments.length - 1]?.end;
+  if (!fragments.length) {
+    // At this point the feature start & end must be before the BLAST match's from.
+    return;
   }
+
+  const gappedFeature = {
+    ...feature,
+    start: fragments[0].start,
+    end: fragments[fragments.length - 1]?.end,
+  };
+
   if (fragments.length > 1) {
     gappedFeature.locations = [{ fragments }];
   }
+  // eslint-disable-next-line consistent-return
   return gappedFeature;
+};
+
+export const findSequenceFeature = (
+  protvistaFeatureId: string,
+  alignment: MSAInput[]
+) => {
+  for (const sequence of alignment) {
+    if (sequence?.features) {
+      const foundFeature = sequence.features.find(
+        (feature) => feature.protvistaFeatureId === protvistaFeatureId
+      );
+      if (foundFeature) {
+        return foundFeature;
+      }
+    }
+  }
+  return null;
+};
+
+export type MSAFeature = {
+  residues: { from: number; to: number };
+  sequences: { from: number; to: number };
+  id: string;
+  borderColor: string;
+  fillColor: string;
+  mouseOverFillColor: string;
+  mouseOverBorderColor: string;
+};
+
+export const getMSAFeature = (
+  feature: ProcessedFeature,
+  sequence: string,
+  sequenceIndex: number,
+  from: number
+): MSAFeature | null => {
+  const gappedFeature = createGappedFeature(feature, sequence, from);
+  if (!gappedFeature) {
+    return null;
+  }
+  const borderColor = getColorByType(gappedFeature.type);
+  return {
+    residues: { from: gappedFeature.start, to: gappedFeature.end },
+    sequences: { from: sequenceIndex, to: sequenceIndex },
+    id: feature.protvistaFeatureId,
+    borderColor,
+    fillColor: 'transparent',
+    mouseOverFillColor: 'transparent',
+    mouseOverBorderColor: borderColor,
+  };
 };
