@@ -1,17 +1,17 @@
 @import '../../../../../node_modules/franklin-sites/src/styles/colours';
 
 .member-icons {
-  &.uniprotkb {
-    &.reviewed {
+  &--uniprotkb {
+    &-reviewed {
       color: $colour-reviewed;
     }
 
-    &.unreviewed {
+    &-unreviewed {
       color: $colour-unreviewed;
     }
   }
 
-  &.uniparc {
+  &--uniparc {
     color: $colour-uniparc;
   }
 

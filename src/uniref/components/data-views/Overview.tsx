@@ -9,6 +9,8 @@ import {
 
 import { UseDataAPIState } from '../../../shared/hooks/useDataApi';
 
+import { getBEMClassName } from '../../../shared/utils/utils';
+
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
@@ -53,7 +55,10 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       {uniProtReviewedCount && (
         <Link
           to={`${location.pathname}?filter=uniprot_member_id_type:${MemberTypes.Reviewed}`}
-          className="member-icons uniprotkb reviewed"
+          className={getBEMClassName({
+            b: 'member-icons',
+            m: 'uniprotkb-reviewed',
+          })}
           title={`${uniProtReviewedCount} UniProtKB reviewed member${
             uniProtReviewedCount === 1 ? '' : 's'
           }`}
@@ -64,7 +69,10 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       {uniProtUnreviewedCount && (
         <Link
           to={`${location.pathname}?filter=uniprot_member_id_type:${MemberTypes.Unreviewed}`}
-          className="member-icons uniprotkb unreviewed"
+          className={getBEMClassName({
+            b: 'member-icons',
+            m: 'uniprotkb-unreviewed',
+          })}
           title={`${uniProtUnreviewedCount} UniProtKB unreviewed member${
             uniProtUnreviewedCount === 1 ? '' : 's'
           }`}
@@ -75,7 +83,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       {uniParcCount && (
         <Link
           to={`${location.pathname}?filter=member_id_type:${MemberTypes.UniParc}`}
-          className="member-icons uniparc"
+          className={getBEMClassName({ b: 'member-icons', m: 'uniparc' })}
           title={`${uniParcCount} UniParc member${
             uniParcCount === 1 ? '' : 's'
           }`}
