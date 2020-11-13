@@ -81,6 +81,8 @@ export type UniRefAPIModel = {
   commonTaxon: string;
   goTerms: GeneOntologyEntry[];
   representativeMember: RepresentativeMember;
+  // TODO: remove this comment once backend has added that field to the payload
+  seed: string;
   memberCount: number;
   entryType: EntryType;
   updated: string;
@@ -90,7 +92,10 @@ export type UniRefAPIModel = {
   members?: UniRefMember[];
 };
 
+export type Identity = 50 | 90 | 100;
+
 export type UniRefUIModel = UniRefAPIModel & {
+  identity: Identity;
   [EntrySection.Members]: { members: UniRefMember[] };
   // use SequenceUIModel?
   [EntrySection.Sequence]: {
@@ -100,6 +105,7 @@ export type UniRefUIModel = UniRefAPIModel & {
 
 const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
   ...data,
+  identity: +data.entryType.replace('UniRef', '') as Identity,
   [EntrySection.Members]: {
     members: [data.representativeMember, ...(data.members || [])],
   },
