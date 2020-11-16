@@ -162,65 +162,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         </button>
         <div
           class="dropdown-menu"
-        >
-          <ul
-            class="no-bullet"
-          >
-            <li>
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                BLAST
-              </button>
-            </li>
-            <li>
-              <a
-                href="//web.expasy.org/cgi-bin//protparam/protparam?P05067"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                ProtParam
-              </a>
-            </li>
-            <li>
-              <a
-                href="//web.expasy.org/cgi-bin//protscale/protscale.pl?P05067"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                ProtScale
-              </a>
-            </li>
-            <li>
-              <a
-                href="//web.expasy.org/cgi-bin//compute_pi/pi_tool?P05067"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Compute pI/Mw
-              </a>
-            </li>
-            <li>
-              <a
-                href="//web.expasy.org/cgi-bin//peptide_mass/peptide-mass.pl?P05067"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                PeptideMass
-              </a>
-            </li>
-            <li>
-              <a
-                href="//web.expasy.org/cgi-bin//peptide_cutter/peptidecutter.pl?P05067"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                PeptideCutter
-              </a>
-            </li>
-          </ul>
-        </div>
+        />
       </div>
       <a
         class="button tertiary"
@@ -248,32 +190,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         </button>
         <div
           class="dropdown-menu"
-        >
-          <div
-            class="dropdown-menu__content"
-          >
-            <label
-              for="P05067-Polar"
-            >
-              <input
-                data-testid="sequence-highlight-checkbox"
-                id="P05067-Polar"
-                type="checkbox"
-              />
-              Polar
-            </label>
-            <label
-              for="P05067-Hydrophobic"
-            >
-              <input
-                data-testid="sequence-highlight-checkbox"
-                id="P05067-Hydrophobic"
-                type="checkbox"
-              />
-              Hydrophobic
-            </label>
-          </div>
-        </div>
+        />
       </div>
       <button
         class="button tertiary"
