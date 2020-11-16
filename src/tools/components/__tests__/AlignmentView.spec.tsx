@@ -32,9 +32,13 @@ describe('AlignmentView', () => {
 
     it('should update annotation on selection', () => {
       const { getByText, getByTestId } = rendered;
+      const annotationMenu = getByText('Select annotation');
+      fireEvent.click(annotationMenu);
       const regionButton = getByText('Nucleotide-binding region');
       fireEvent.click(regionButton);
       const trackLabel = getByTestId('track-label');
+      // Need to get the 2nd alignment data as that's the match track with
+      // feature data
       expect(trackLabel.textContent).toBe(
         `${alignment[1].accession}:Nucleotide-binding region`
       );
@@ -68,6 +72,8 @@ describe('AlignmentView', () => {
 
     it('should update annotation on selection', () => {
       const { getByText, getByTestId } = rendered;
+      const annotationMenu = getByText('Select annotation');
+      fireEvent.click(annotationMenu);
       const regionButton = getByText('Nucleotide-binding region');
       fireEvent.click(regionButton);
       const trackLabel = getByTestId('track-label');
