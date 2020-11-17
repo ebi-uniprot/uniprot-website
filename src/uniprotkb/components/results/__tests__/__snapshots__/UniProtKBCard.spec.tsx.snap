@@ -107,7 +107,7 @@ exports[`UniProtKBCard component should render 1`] = `
         class="card__link"
       >
         <a
-          href="/uniprotkb/P21802#Sequence & Isoforms"
+          href="/uniprotkb/P21802#sequence"
         >
           1 isoform
         </a>
@@ -116,7 +116,7 @@ exports[`UniProtKBCard component should render 1`] = `
         class="card__link card__link--separator"
       >
         <a
-          href="/uniprotkb/P21802#Interaction"
+          href="/uniprotkb/P21802#interaction"
         >
           2 interactions
         </a>
@@ -125,7 +125,7 @@ exports[`UniProtKBCard component should render 1`] = `
         class="card__link card__link--separator"
       >
         <a
-          href="/uniprotkb/P21802#Disease & Drugs"
+          href="/uniprotkb/P21802#disease-and-drugs"
         >
           1 disease
         </a>
