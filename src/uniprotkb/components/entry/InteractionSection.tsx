@@ -93,6 +93,7 @@ const InteractionSection: FC<{
 }> = ({ data, primaryAccession }): JSX.Element | null => {
   const datatableContainer = useRef<HTMLInteractionDatatable>(null);
   const datatableDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-track" */ 'protvista-datatable'),
     'protvista-datatable'
@@ -118,6 +119,7 @@ const InteractionSection: FC<{
   }, [datatableDefined, data.commentsData, primaryAccession]);
 
   const interactionViewerDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(/* webpackChunkName: "protvista-track" */ 'interaction-viewer'),
     'interaction-viewer'

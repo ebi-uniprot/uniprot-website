@@ -18,6 +18,7 @@ const MembersSection: FC<{ data: { members: UniRefMember[] } }> = ({
   // NOTE: not sure if that what we should use here, or rather a generic version
   // NOTE: of what is in the search result pages
   const ceDefined = useCustomElement(
+    /* istanbul ignore next */
     () =>
       import(
         /* webpackChunkName: "protvista-datatable" */ 'protvista-datatable'
@@ -67,11 +68,14 @@ const MembersSection: FC<{ data: { members: UniRefMember[] } }> = ({
             label: 'Roles',
             // eslint-disable-next-line consistent-return
             resolver: (member: UniRefMember | RepresentativeMember) => {
+              if (member.seed && 'sequence' in member) {
+                return 'seed & representative';
+              }
               if (member.seed) {
-                return 'Seed';
+                return 'seed';
               }
               if ('sequence' in member) {
-                return 'Representative';
+                return 'representative';
               }
             },
           },

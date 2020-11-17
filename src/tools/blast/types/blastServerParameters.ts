@@ -187,6 +187,18 @@ export type WordSize =
 // Specify one or more TaxIDs so that the BLAST search becomes taxonomically aware.
 export type TaxIDs = string;
 
+// https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/taxidsfile
+// Specify one or more TaxIDs so that the BLAST search becomes taxonomically aware.
+export type TaxIDsFile = string; // path to a file
+
+// https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/excludedtaxids
+// TaxIDs excluded from the BLAST search.
+export type ExcludedTaxIDs = string;
+
+// https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/excludedtaxidsfile
+// TaxIDs excluded from the BLAST search.
+export type ExcludedTaxIDsFile = string; // path to a file
+
 // https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/parameterdetails/compstats
 // Use composition-based statistics.
 export type CompStats =
@@ -251,7 +263,10 @@ export type ServerParameters = {
   seqrange?: SeqRange;
   gapalign?: GapAlign; // gapped
   wordsize?: WordSize;
-  taxids?: TaxIDs; // taxons
+  taxids?: TaxIDs; // taxons included
+  taxidsfile?: TaxIDsFile; // taxons file included
+  excludedtaxids?: ExcludedTaxIDs; // taxons excluded
+  excludedtaxidsfile?: ExcludedTaxIDsFile; // taxons file excluded
   compstats?: CompStats;
   align?: Align;
   transltable?: TranslTable;

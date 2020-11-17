@@ -9,6 +9,8 @@ export enum Location {
   UniProtKBEntry = 'UniProtKBEntry',
   UniRefEntry = 'UniRefEntry',
   UniRefResults = 'UniRefResults',
+  UniParcEntry = 'UniParcEntry',
+  UniParcResults = 'UniParcResults',
   Align = 'Align',
   AlignResult = 'AlignResult',
   Blast = 'Blast',
@@ -39,12 +41,14 @@ export const LocationToPath = {
   [Location.Dashboard]: '/tool-dashboard',
   [Location.UniRefEntry]: '/uniref/:accession',
   [Location.UniRefResults]: '/uniref',
+  [Location.UniParcEntry]: '/uniparc/:accession',
+  [Location.UniParcResults]: '/uniparc',
 };
 
 export const SearchResultsLocations = {
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
-  [Namespace.uniparc]: '',
+  [Namespace.uniparc]: LocationToPath[Location.UniParcResults],
   [Namespace.proteomes]: '',
   [Namespace.publications]: '',
   [Namespace.keywords]: '',
