@@ -12,7 +12,7 @@ exports[`AlignmentView Align should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Highlight properties
@@ -25,7 +25,7 @@ exports[`AlignmentView Align should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Select annotation
@@ -298,7 +298,7 @@ exports[`AlignmentView BLAST should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Highlight properties
@@ -311,7 +311,7 @@ exports[`AlignmentView BLAST should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Select annotation

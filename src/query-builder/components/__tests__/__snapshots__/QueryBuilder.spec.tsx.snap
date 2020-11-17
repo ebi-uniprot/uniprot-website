@@ -105,7 +105,7 @@ exports[`QueryBuilder should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown"
+            class="button primary dropdown"
             type="button"
           >
             Gene Name [GN]
@@ -165,7 +165,7 @@ exports[`QueryBuilder should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown"
+            class="button primary dropdown"
             type="button"
           >
             Taxonomy [OC]
@@ -256,7 +256,7 @@ exports[`QueryBuilder should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown"
+            class="button primary dropdown"
             type="button"
           >
             Keyword [KW]
@@ -347,7 +347,7 @@ exports[`QueryBuilder should render 1`] = `
           class="dropdown-container"
         >
           <button
-            class="button dropdown"
+            class="button primary dropdown"
             type="button"
           >
             All

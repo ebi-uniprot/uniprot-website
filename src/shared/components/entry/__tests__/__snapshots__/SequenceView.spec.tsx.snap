@@ -155,7 +155,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Tools
@@ -183,7 +183,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Highlight

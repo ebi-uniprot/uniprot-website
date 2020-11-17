@@ -37,7 +37,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           class="dropdown-container"
         >
           <button
-            class="button dropdown tertiary"
+            class="button primary dropdown tertiary"
             type="button"
           >
             Highlight properties
@@ -50,7 +50,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           class="dropdown-container"
         >
           <button
-            class="button dropdown tertiary"
+            class="button primary dropdown tertiary"
             type="button"
           >
             Select annotation
@@ -197,7 +197,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               class="dropdown-container"
             >
               <button
-                class="button dropdown tertiary"
+                class="button primary dropdown tertiary"
                 type="button"
               >
                 Highlight properties
@@ -210,7 +210,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
               class="dropdown-container"
             >
               <button
-                class="button dropdown tertiary"
+                class="button primary dropdown tertiary"
                 type="button"
               >
                 Select annotation
