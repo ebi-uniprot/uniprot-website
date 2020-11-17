@@ -6,7 +6,6 @@ import { formatLargeNumber, hasContent } from '../../../shared/utils/utils';
 import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
 import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
-import { getSequenceSectionName } from '../../../uniprotkb/utils';
 
 const SequenceSection: FC<{
   data: SequenceUIModel;
