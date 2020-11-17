@@ -141,7 +141,7 @@ const UniProtHeader = () => {
     <Header
       links={displayedLinks}
       isNegative={isHomePage}
-      search={shouldShowSearch && <SearchContainer />}
+      search={shouldShowSearch ? <SearchContainer /> : undefined}
       logo={<Logo width={120} height={50} />}
     />
   );

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import {
-  InPageNav,
+  Facets,
   Loader,
   // DropdownButton,
 } from 'franklin-sites';
@@ -14,20 +14,16 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
 
-import BlastButton from '../../../shared/components/action-buttons/Blast';
-import AlignButton from '../../../shared/components/action-buttons/Align';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-
-import UniRefEntryConfig from '../../config/UniRefEntryConfig';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-// check if we need it here too and move it to a shared folder if needed
-import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -36,6 +32,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniRefConverter, {
   UniRefAPIModel,
 } from '../../adapters/uniRefConverter';
+import { Facet } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -45,11 +42,15 @@ const Entry: FC = () => {
     LocationToPath[Location.UniRefEntry]
   );
 
+  const accession = match?.params.accession;
+
+  const baseURL = apiUrls.uniref.entry(accession);
   const { loading, data, status, error, redirectedTo } = useDataApi<
     UniRefAPIModel
-  >(apiUrls.uniref.entry(match?.params.accession || ''));
+  >(baseURL);
+  const facetData = useDataApi<Facet[]>(`${baseURL}/facets`);
 
-  if (error || !match?.params.accession) {
+  if (error || !accession) {
     return <ErrorHandler status={status} />;
   }
 
@@ -73,52 +74,27 @@ const Entry: FC = () => {
 
   const transformedData = uniRefConverter(data);
 
-  const sections = UniRefEntryConfig.map((section) => ({
-    label: section.name,
-    id: section.id,
-    disabled: !hasContent(transformedData[section.name]),
-  }));
-
   return (
     <SideBarLayout
       sidebar={
-        <InPageNav sections={sections} rootElement=".sidebar-layout__content" />
-      }
-      actionButtons={
-        <div className="button-group">
-          <BlastButton selectedEntries={[match.params.accession]} />
-          <AlignButton selectedEntries={[]} />
-          {/* <DropdownButton
-            label={
-              <>
-                <DownloadIcon />
-                Download
-              </>
-            }
-            className="tertiary"
-            // onSelect={action('onSelect')}
-          >
-            <div className="dropdown-menu__content">
-              <ul>
-                {fileFormatEntryDownload.map((fileFormat) => (
-                  <li key={fileFormat}>
-                    <a
-                      href={apiUrls.entryDownload(
-                        transformedData.primaryAccession,
-                        fileFormat
-                      )}
-                    >
-                      {fileFormat}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </DropdownButton> */}
-          <AddToBasketButton selectedEntries={[match.params.accession]} />
-        </div>
+        facetData.loading ? (
+          <Loader />
+        ) : (
+          <Facets data={facetData.data} queryStringKey="filter" />
+        )
       }
       className="entry-page"
+      title={
+        <ErrorBoundary>
+          <h2>
+            <EntryTitle
+              mainTitle="UniRef"
+              optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
+            />
+          </h2>
+          <Overview transformedData={transformedData} facetData={facetData} />
+        </ErrorBoundary>
+      }
     >
       <EntryMain transformedData={transformedData} />
     </SideBarLayout>

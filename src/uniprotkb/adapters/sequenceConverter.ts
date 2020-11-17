@@ -60,7 +60,10 @@ export type SequenceUIModel = {
   isoformNotes?: IsoformNotes;
 };
 
-const keywordsCategories = [KeywordCategory.CODING_SEQUENCE_DIVERSITY, KeywordCategory.TECHNICAL_TERM];
+const keywordsCategories = [
+  KeywordCategory.CODING_SEQUENCE_DIVERSITY,
+  KeywordCategory.TECHNICAL_TERM,
+];
 
 const featuresCategories = [
   FeatureType.COMPBIAS,

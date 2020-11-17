@@ -11,7 +11,7 @@ import {
   AlternativeProductsComment,
 } from '../types/commentTypes';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
-import EntrySection from '../types/entrySection';
+import EntrySection, { EntrySectionIDs } from '../types/entrySection';
 
 enum highlightSection {
   domains = 'domain',
@@ -32,15 +32,33 @@ const highlightToEntrySection: {
     prefixResolver?: (data: UniProtkbAPIModel) => string;
   };
 } = {
-  [highlightSection.domains]: { link: `#${EntrySection.Function}` },
-  [highlightSection.PTM]: { link: `#${EntrySection.ProteinProcessing}` },
-  [highlightSection.variants]: { link: `#${EntrySection.DiseaseAndDrugs}` },
-  [highlightSection.activeSites]: { link: `#${EntrySection.Function}` },
-  [highlightSection.isoforms]: { link: `#${EntrySection.Sequence}` },
-  [highlightSection.structures]: { link: `#${EntrySection.Structure}` },
-  [highlightSection.disease]: { link: `#${EntrySection.DiseaseAndDrugs}` },
-  [highlightSection.interactions]: { link: `#${EntrySection.Interaction}` },
-  [highlightSection.subcell]: { link: `#${EntrySection.SubCellularLocation}` },
+  [highlightSection.domains]: {
+    link: `#${EntrySectionIDs[EntrySection.Function]}`,
+  },
+  [highlightSection.PTM]: {
+    link: `#${EntrySectionIDs[EntrySection.ProteinProcessing]}`,
+  },
+  [highlightSection.variants]: {
+    link: `#${EntrySectionIDs[EntrySection.DiseaseAndDrugs]}`,
+  },
+  [highlightSection.activeSites]: {
+    link: `#${EntrySectionIDs[EntrySection.Function]}`,
+  },
+  [highlightSection.isoforms]: {
+    link: `#${EntrySectionIDs[EntrySection.Sequence]}`,
+  },
+  [highlightSection.structures]: {
+    link: `#${EntrySectionIDs[EntrySection.Structure]}`,
+  },
+  [highlightSection.disease]: {
+    link: `#${EntrySectionIDs[EntrySection.DiseaseAndDrugs]}`,
+  },
+  [highlightSection.interactions]: {
+    link: `#${EntrySectionIDs[EntrySection.Interaction]}`,
+  },
+  [highlightSection.subcell]: {
+    link: `#${EntrySectionIDs[EntrySection.SubCellularLocation]}`,
+  },
   [highlightSection.publications]: {
     link: '/publications',
     prefixResolver: (data) =>

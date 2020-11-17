@@ -31,7 +31,6 @@ const alnClustalNum = (string?: string): AlnClustalNum | null => {
   try {
     const lines = string.split('\n');
     for (const line of lines) {
-      // console.log(line);
       if (
         (!line || CONSERVATION.test(line)) &&
         readingSequences &&

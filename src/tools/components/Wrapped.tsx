@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import { debounce } from 'lodash-es';
 import { Loader } from 'franklin-sites';
+import useEventListener from '@use-it/event-listener';
 
 import useSize from '../../shared/hooks/useSize';
 import useSafeState from '../../shared/hooks/useSafeState';
@@ -18,15 +19,21 @@ import useCustomElement from '../../shared/hooks/useCustomElement';
 
 import { MsaColorScheme } from '../config/msaColorSchemes';
 
-import FeatureType from '../../uniprotkb/types/featureType';
-import { ConservationOptions, MSAInput } from './AlignmentView';
 import {
-  FeatureData,
-  processFeaturesData,
-  ProcessedFeature,
-} from '../../uniprotkb/components/protein-data-views/FeaturesView';
-import { getEndCoordinate, createGappedFeature } from '../utils/sequences';
+  AlignmentComponentProps,
+  ConservationOptions,
+  MSAInput,
+  handleEvent,
+} from './AlignmentView';
+import { ProcessedFeature } from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import {
+  createGappedFeature,
+  getEndCoordinate,
+  MSAFeature,
+} from '../utils/sequences';
 import AlignLabel from '../align/components/results/AlignLabel';
+
+import FeatureType from '../../uniprotkb/types/featureType';
 
 const widthOfAA = 20;
 
@@ -36,7 +43,7 @@ export type Sequence = {
   fullSequence: string;
   start: number;
   end: number;
-  features?: FeatureData;
+  features?: ProcessedFeature[];
   accession?: string;
 };
 
@@ -60,13 +67,17 @@ export type WrappedRowProps = {
   trackStart: number;
   trackEnd: number;
   delayRender: boolean;
+  selectedMSAFeatures?: MSAFeature[];
+  activeAnnotation: ProcessedFeature[];
+  activeAlignment?: MSAInput;
+  onMSAFeatureClick: ({ event, id }: { event: Event; id: string }) => void;
 };
 
 // NOTE: hardcoded for now, might need to change that in the future if need be
 const sequenceHeight = 20;
 const heightStyle = { height: `${sequenceHeight}px` };
 
-const WrappedRow: FC<WrappedRowProps> = ({
+export const WrappedRow: FC<WrappedRowProps> = ({
   rowLength,
   highlightProperty,
   conservationOptions,
@@ -79,82 +90,89 @@ const WrappedRow: FC<WrappedRowProps> = ({
   trackStart,
   trackEnd,
   delayRender,
+  activeAnnotation,
+  activeAlignment,
+  selectedMSAFeatures,
+  onMSAFeatureClick,
 }) => {
   const msaDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-msa" */ 'protvista-msa'),
     'protvista-msa'
   );
-
   const setMSAAttributes = useCallback(
     (node): void => {
       if (node && msaDefined) {
+        node.features = selectedMSAFeatures?.map((f) => ({
+          ...f,
+          residues: {
+            from: f.residues.from - trackStart + 1,
+            to: f.residues.to - trackStart + 1,
+          },
+        }));
+        node.onFeatureClick = onMSAFeatureClick;
         node.data = sequences;
       }
     },
-    [msaDefined, sequences]
+    [msaDefined, onMSAFeatureClick, selectedMSAFeatures, sequences, trackStart]
   );
 
   const trackDefined = useCustomElement(
+    /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
     'protvista-track'
   );
 
-  const activeSeq = useMemo(
-    () =>
-      sequences.find(({ accession }) => accession && accession === activeId),
-    [sequences, activeId]
-  );
-
   const setFeatureTrackData = useCallback(
     (node): void => {
-      if (node && trackDefined) {
-        let processedFeatures: ProcessedFeature[] = [];
-        if (annotation) {
-          const features = activeSeq?.features?.filter(
-            ({ type }) => type === annotation
-          );
-          if (activeSeq && activeSeq.end > 0 && features) {
-            processedFeatures = processFeaturesData(features);
-            processedFeatures = processedFeatures.map((feature) =>
-              createGappedFeature(feature, activeSeq.fullSequence)
-            );
-          }
-        }
-        node.data = processedFeatures;
+      if (node && trackDefined && activeAlignment?.sequence) {
+        node.data = activeAnnotation
+          .map((f) =>
+            createGappedFeature(
+              f,
+              activeAlignment?.sequence,
+              // We want to offset all of the features by `from`
+              // in the Wrapped view.
+              activeAlignment?.from
+            )
+          )
+          .filter(Boolean);
       }
     },
     // TODO: replace this with fragments to have one big grid
     // -> to keep the right column of the right size to fit all possible values
-    [trackDefined, annotation, activeSeq]
+    [activeAlignment, activeAnnotation, trackDefined]
   );
-
   if (!(msaDefined && trackDefined)) {
     return <Loader />;
   }
-
   return (
     <>
       <div className="track-label track-label--align-labels">
-        {sequences.map((s) => (
-          <AlignLabel
-            accession={s.accession}
-            info={s}
-            loading={false}
-            key={s.name}
-            style={heightStyle}
-            checked={Boolean(
-              s.accession && selectedEntries?.includes(s.accession)
-            )}
-            onSequenceChecked={handleSelectedEntries}
-            onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
-            active={!!activeId && setActiveId && activeId === s.accession}
-          >
-            {s.name || ''}
-          </AlignLabel>
-        ))}
+        {sequences.map((s) => {
+          return (
+            <AlignLabel
+              accession={s.accession}
+              info={s}
+              loading={false}
+              key={s.name}
+              style={heightStyle}
+              checked={Boolean(
+                s.accession && selectedEntries?.includes(s.accession)
+              )}
+              onSequenceChecked={handleSelectedEntries}
+              onIdClick={
+                setActiveId ? () => setActiveId(s.accession) : undefined
+              }
+              active={!!activeId && setActiveId && activeId === s.accession}
+            >
+              {s.name}
+            </AlignLabel>
+          );
+        })}
       </div>
       <div className="track">
-        {delayRender ? undefined : (
+        {!delayRender && (
           <protvista-msa
             ref={setMSAAttributes}
             length={rowLength}
@@ -172,14 +190,19 @@ const WrappedRow: FC<WrappedRowProps> = ({
           </div>
         ))}
       </span>
-      <span className="track-label annotation-label">{annotation}</span>
+      <span className="track-label annotation-label">
+        {annotation &&
+          activeAlignment?.accession &&
+          `${activeAlignment?.accession}:${annotation}`}
+      </span>
       <div className="track annotation-track">
-        {delayRender ? undefined : (
+        {annotation && !delayRender && (
           <protvista-track
             ref={setFeatureTrackData}
             displaystart={trackStart}
             displayend={trackEnd}
             length={trackEnd - trackStart + 1}
+            layout="non-overlapping"
           />
         )}
       </div>
@@ -187,21 +210,8 @@ const WrappedRow: FC<WrappedRowProps> = ({
   );
 };
 
-export type MSAViewProps = {
-  alignment: MSAInput[];
-  alignmentLength: number;
-  highlightProperty: MsaColorScheme | undefined;
-  conservationOptions: ConservationOptions;
-  totalLength: number;
-  annotation: FeatureType | undefined;
-  activeId?: string;
-  setActiveId?: Dispatch<SetStateAction<string | undefined>>;
-  omitInsertionsInCoords?: boolean;
-  selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
-};
-
-const Wrapped: FC<MSAViewProps> = ({
+const Wrapped: FC<AlignmentComponentProps> = ({
+  updateTooltip,
   alignment,
   alignmentLength,
   highlightProperty,
@@ -212,9 +222,19 @@ const Wrapped: FC<MSAViewProps> = ({
   omitInsertionsInCoords = false,
   selectedEntries,
   handleSelectedEntries,
+  selectedMSAFeatures,
+  activeAnnotation,
+  activeAlignment,
+  onMSAFeatureClick,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size] = useSize(containerRef);
+
+  useEventListener(
+    'change',
+    handleEvent(updateTooltip) as (e: Event) => void,
+    containerRef?.current
+  );
 
   const [rowLength, setRowLength] = useSafeState(0);
   const nItemsToRender = useStaggeredRenderingHelper({
@@ -259,8 +279,8 @@ const Wrapped: FC<MSAViewProps> = ({
         trackStart: start + 1,
         trackEnd: start + rowLength,
         sequences: alignment.map(
-          ({ name, sequence, from = 1, features, accession }) => ({
-            name: name || '',
+          ({ name = '', sequence, from, features, accession }) => ({
+            name,
             sequence: sequence.slice(start, end),
             fullSequence: sequence,
             start:
@@ -303,6 +323,10 @@ const Wrapped: FC<MSAViewProps> = ({
           delayRender={index >= nItemsToRender}
           trackStart={trackStart}
           trackEnd={trackEnd}
+          activeAnnotation={activeAnnotation}
+          activeAlignment={activeAlignment}
+          selectedMSAFeatures={selectedMSAFeatures}
+          onMSAFeatureClick={onMSAFeatureClick}
         />
       ))}
     </div>

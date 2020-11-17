@@ -56,7 +56,7 @@ module.exports = (env, argv) => {
         axios: path.resolve('./node_modules/axios'),
         // point directly to the ES6 module entry point, to be processed by us
         'franklin-sites': fs.realpathSync(
-          `${__dirname}/node_modules/franklin-sites/src/components/index.js`
+          `${__dirname}/node_modules/franklin-sites/src/components/index.ts`
         ),
         // replace all usage of specific lodash submodules (from dependencies)
         // with their corresponding ES modules from lodash-es (less duplication)
@@ -210,6 +210,8 @@ module.exports = (env, argv) => {
     // END MODULE
     stats: {
       children: false,
+      assetsSort: '!size',
+      // groupAssetsByChunk: true,
     },
     // PLUGINS
     plugins: [

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Loader, CloseIcon } from 'franklin-sites';
 import SlidingPanel from '../../../../shared/components/layouts/SlidingPanel';
 import { BlastHsp } from '../../types/blastResults';
@@ -16,6 +16,7 @@ import AlignmentView, {
 
 import './styles/HSPDetailPanel.scss';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
+import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];
@@ -45,7 +46,6 @@ export const convertHSPtoMSAInputs = (
     hsp_hit_to,
     hsp_hseq,
   } = hsp;
-
   return [
     {
       name: 'Query',
@@ -61,7 +61,11 @@ export const convertHSPtoMSAInputs = (
       to: hsp_hit_to,
       length: hitLength,
       accession: hitAccession,
-      features: extra?.features,
+      features: extra
+        ? processFeaturesData(
+            removeFeaturesWithUnknownModifier(extra?.features)
+          )
+        : [],
     },
   ];
 };
@@ -76,24 +80,10 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
 }) => {
   const { hsp_align_len } = hsp;
 
-  // const totalLength = getFullAlignmentLength(hsp, queryLength, hitLength);
-
-  // Reset view when different hit is being viewed
-  // useEffect(() => {
-  //   setActiveView(View.overview);
-  //   setAnnotation(undefined);
-  //   setHighlightProperty(undefined);
-  // }, [hitAccession]);
-
   const { loading, data, status, error } = useDataApi<UniProtkbAccessionsAPI>(
     getAccessionsURL([hitAccession], { facets: [] })
   );
-
-  let apiData = extra || data?.results?.[0];
-  apiData = {
-    ...apiData,
-    features: removeFeaturesWithUnknownModifier(apiData?.features),
-  } as UniProtkbAPIModel;
+  const apiData = extra || data?.results?.[0];
 
   const recommendedName =
     apiData?.proteinDescription?.recommendedName?.fullName.value;
@@ -103,14 +93,14 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     .filter(Boolean)
     .join(' · ');
 
-  const alignment: MSAInput[] = convertHSPtoMSAInputs(
-    hsp,
-    queryLength,
-    hitLength,
-    hitAccession,
-    apiData
+  const alignment: MSAInput[] = useMemo(
+    () =>
+      convertHSPtoMSAInputs(hsp, queryLength, hitLength, hitAccession, apiData),
+    [apiData, hitAccession, hitLength, hsp, queryLength]
   );
 
+  const containerClass = 'hsp-detail-panel';
+  const containerSelector = `.${containerClass}`;
   let content;
   if (!apiData) {
     if (error) {
@@ -133,6 +123,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
             alignment={alignment}
             defaultView={View.overview}
             tool={Tool.blast}
+            containerSelector={containerSelector}
           />
         </div>
       </>
@@ -140,7 +131,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   }
 
   return (
-    <SlidingPanel position="bottom" className="hsp-detail-panel">
+    <SlidingPanel position="bottom" className={containerClass}>
       {content}
     </SlidingPanel>
   );

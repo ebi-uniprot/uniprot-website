@@ -19,6 +19,8 @@ import {
   MessageTag,
 } from '../../../messages/types/messagesTypes';
 
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 import FeatureViewer from './FeatureViewer';
 import EntryPublicationsFacets from './EntryPublicationsFacets';
 import EntryPublications from './EntryPublications';
@@ -31,6 +33,7 @@ import AddToBasketButton from '../../../shared/components/action-buttons/AddToBa
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ObsoleteEntryPage from '../../../shared/components/error-pages/ObsoleteEntryPage';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -48,9 +51,6 @@ import uniProtKbConverter, {
   UniProtkbInactiveEntryModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
-
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 import '../../../shared/styles/sticky-tabs-container.scss';
@@ -179,7 +179,7 @@ const Entry: FC = () => {
       sidebar={sidebar}
       className="entry-page sticky-tabs-container"
       title={
-        <>
+        <ErrorBoundary>
           <h2>
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -188,7 +188,7 @@ const Entry: FC = () => {
             />
           </h2>
           <ProteinOverview data={data} />
-        </>
+        </ErrorBoundary>
       }
     >
       <Tabs active={match.params.subPage}>

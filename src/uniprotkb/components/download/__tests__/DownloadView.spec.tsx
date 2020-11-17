@@ -6,6 +6,10 @@ import { FileFormat } from '../../../types/resultsTypes';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 import initialState from '../../../../app/state/rootInitialState';
 
+// FIXME: Doing network call through ColumnSelectContainer's logic and Redux
+// FIXME: logic. Might need to mock after removing Redux logic to load data.
+// NOTE: Causing error when no network available, when any 2 tests below run 🤷🏽‍♂️
+
 describe('DownloadView component', () => {
   let props, renderedWithRedux;
   beforeEach(() => {

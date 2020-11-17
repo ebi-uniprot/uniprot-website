@@ -1,6 +1,6 @@
 enum EntrySection {
   Members = 'Members',
-  Sequence = 'Sequence',
+  Sequence = 'Representative sequence',
 }
 
 export default EntrySection;

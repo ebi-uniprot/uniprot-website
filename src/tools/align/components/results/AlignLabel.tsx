@@ -5,7 +5,6 @@ import { noop } from 'lodash-es';
 
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 import { MSAInput } from '../../../components/AlignmentView';
-import { Sequence } from '../../../components/Wrapped';
 
 import './styles/AlignLabel.scss';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
@@ -13,7 +12,7 @@ import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 type AlignLabelProps = {
   accession?: string;
   children: string;
-  info?: ParsedSequenceAndFeatures | MSAInput | Sequence;
+  info?: Partial<ParsedSequenceAndFeatures | MSAInput>;
   loading: boolean;
   style?: CSSProperties;
   checked?: boolean;

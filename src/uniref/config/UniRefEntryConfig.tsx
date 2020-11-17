@@ -12,16 +12,6 @@ const UniRefEntryConfig: {
   sectionContent: (entryData: UniRefUIModel) => JSX.Element;
 }[] = [
   {
-    name: EntrySection.Members,
-    id: EntrySectionIDs[EntrySection.Members],
-    sectionContent: (data: UniRefUIModel): JSX.Element => (
-      <MembersSection
-        data={data[EntrySection.Members]}
-        key={EntrySection.Members}
-      />
-    ),
-  },
-  {
     name: EntrySection.Sequence,
     id: EntrySectionIDs[EntrySection.Sequence],
     sectionContent: (data: UniRefUIModel): JSX.Element => (
@@ -29,6 +19,16 @@ const UniRefEntryConfig: {
         data={data[EntrySection.Sequence]}
         primaryAccession={data.representativeMember.accessions[0]}
         key={EntrySection.Sequence}
+      />
+    ),
+  },
+  {
+    name: EntrySection.Members,
+    id: EntrySectionIDs[EntrySection.Members],
+    sectionContent: (data: UniRefUIModel): JSX.Element => (
+      <MembersSection
+        data={data[EntrySection.Members]}
+        key={EntrySection.Members}
       />
     ),
   },
