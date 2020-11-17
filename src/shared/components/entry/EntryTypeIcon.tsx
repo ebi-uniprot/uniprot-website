@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { SwissProtIcon, TremblIcon } from 'franklin-sites';
+import { SwissProtIcon, TremblIcon, UniParcIcon } from 'franklin-sites';
 
 import {
   EntryType,
@@ -35,16 +35,16 @@ export const EntryTypeIcon: FC<{
       </span>
     );
   }
-  // if (entryTypeToCheck === EntryType.UNIPARC) {
-  //   return (
-  //     <span
-  //       className="uniprot-title__status icon--unreviewed"
-  //       title={title || 'UniParc entry'}
-  //     >
-  //       <UniParcIcon />
-  //     </span>
-  //   );
-  // }
+  if (entryTypeToCheck === EntryType.UNIPARC) {
+    return (
+      <span
+        className="uniprot-title__status icon--unreviewed"
+        title={title || 'UniParc entry'}
+      >
+        <UniParcIcon />
+      </span>
+    );
+  }
   return null;
 };
 
