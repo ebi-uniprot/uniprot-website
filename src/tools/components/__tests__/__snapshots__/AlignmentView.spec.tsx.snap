@@ -124,7 +124,7 @@ exports[`AlignmentView Align should render 1`] = `
               type="checkbox"
             />
             <span
-              class="uniprot-title__status icon--reviewed"
+              class="entry-title__status icon--reviewed"
               title="This marks a reviewed entry"
             >
               <svg
@@ -154,7 +154,7 @@ exports[`AlignmentView Align should render 1`] = `
               type="checkbox"
             />
             <span
-              class="uniprot-title__status icon--reviewed"
+              class="entry-title__status icon--reviewed"
               title="This marks a reviewed entry"
             >
               <svg
@@ -184,7 +184,7 @@ exports[`AlignmentView Align should render 1`] = `
               type="checkbox"
             />
             <span
-              class="uniprot-title__status icon--reviewed"
+              class="entry-title__status icon--reviewed"
               title="This marks a reviewed entry"
             >
               <svg
@@ -214,7 +214,7 @@ exports[`AlignmentView Align should render 1`] = `
               type="checkbox"
             />
             <span
-              class="uniprot-title__status icon--reviewed"
+              class="entry-title__status icon--reviewed"
               title="This marks a reviewed entry"
             >
               <svg

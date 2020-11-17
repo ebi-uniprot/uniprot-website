@@ -115,7 +115,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 href="/uniprotkb/H7C0V9"
               >
                 <span
-                  class="uniprot-title__status icon--unreviewed"
+                  class="entry-title__status icon--unreviewed"
                   title="This marks an unreviewed entry"
                 >
                   <svg
@@ -162,7 +162,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 href="/uniprotkb/A0A0A0MRG2"
               >
                 <span
-                  class="uniprot-title__status icon--unreviewed"
+                  class="entry-title__status icon--unreviewed"
                   title="This marks an unreviewed entry"
                 >
                   <svg
@@ -209,7 +209,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 href="/uniprotkb/E9PG40"
               >
                 <span
-                  class="uniprot-title__status icon--unreviewed"
+                  class="entry-title__status icon--unreviewed"
                   title="This marks an unreviewed entry"
                 >
                   <svg
@@ -256,7 +256,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 href="/uniprotkb/H7C2L2"
               >
                 <span
-                  class="uniprot-title__status icon--unreviewed"
+                  class="entry-title__status icon--unreviewed"
                   title="This marks an unreviewed entry"
                 >
                   <svg

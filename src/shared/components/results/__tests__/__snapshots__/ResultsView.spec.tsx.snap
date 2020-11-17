@@ -36,10 +36,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -167,10 +167,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -298,10 +298,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -441,10 +441,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -572,10 +572,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -691,10 +691,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -822,10 +822,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -943,10 +943,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
+                        class="entry-title__status icon--unreviewed"
                         title="This marks an unreviewed entry"
                       >
                         <svg
@@ -1051,10 +1051,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
+                        class="entry-title__status icon--unreviewed"
                         title="This marks an unreviewed entry"
                       >
                         <svg
@@ -1159,10 +1159,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -1262,10 +1262,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -1401,10 +1401,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -1510,10 +1510,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -1659,10 +1659,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -1786,10 +1786,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -1895,10 +1895,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2038,10 +2038,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2169,10 +2169,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2312,10 +2312,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2443,10 +2443,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2558,10 +2558,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2689,10 +2689,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2832,10 +2832,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -2929,10 +2929,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg
@@ -3060,10 +3060,10 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--reviewed"
+                        class="entry-title__status icon--reviewed"
                         title="This marks a reviewed entry"
                       >
                         <svg

@@ -163,7 +163,7 @@ exports[`UniRefColumnConfiguration component should render all columns: Size 1`]
 exports[`UniRefColumnConfiguration component should render all columns: Types 1`] = `
 <DocumentFragment>
   <span
-    class="uniprot-title__status icon--unreviewed"
+    class="entry-title__status icon--unreviewed"
     title="UniParc entry"
   >
     <svg
@@ -182,7 +182,7 @@ exports[`UniRefColumnConfiguration component should render all columns: Types 1`
     </svg>
   </span>
   <span
-    class="uniprot-title__status icon--unreviewed"
+    class="entry-title__status icon--unreviewed"
     title="This marks an unreviewed entry"
   >
     <svg

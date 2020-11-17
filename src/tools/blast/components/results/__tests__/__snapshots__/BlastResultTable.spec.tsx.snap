@@ -78,7 +78,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
                 href="/uniprotkb/U6MKN0"
               >
                 <span
-                  class="uniprot-title__status icon--unreviewed"
+                  class="entry-title__status icon--unreviewed"
                   title="This marks an unreviewed entry"
                 >
                   <svg
