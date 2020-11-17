@@ -194,6 +194,14 @@ const FunctionSection: FC<{
           }
           title={CommentType.MISCELLANEOUS.toLowerCase()}
         />
+        <FreeTextView
+          comments={
+            data.commentsData.get(
+              CommentType.BIOTECHNOLOGY
+            ) as FreeTextComment[]
+          }
+          title={CommentType.BIOTECHNOLOGY.toLowerCase()}
+        />
         <BioPhysicoChemicalPropertiesView
           data={data.bioPhysicoChemicalProperties}
         />

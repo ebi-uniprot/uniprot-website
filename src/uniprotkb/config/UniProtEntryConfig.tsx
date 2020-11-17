@@ -62,6 +62,7 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.DiseaseAndDrugs]}
         primaryAccession={data.primaryAccession}
         sequence={data[EntrySection.Sequence].sequence.value}
+        taxId={data[EntrySection.NamesAndTaxonomy].organismData?.taxonId}
         key={EntrySection.DiseaseAndDrugs}
       />
     ),

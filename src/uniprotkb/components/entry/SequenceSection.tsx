@@ -16,6 +16,7 @@ import { hasContent } from '../../../shared/utils/utils';
 
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
 import ComputationalyMappedSequences from './ComputationallyMappedSequences';
+import { getSequenceSectionName } from '../../utils';
 
 const SequenceSection: FC<{
   data: SequenceUIModel;
@@ -26,7 +27,7 @@ const SequenceSection: FC<{
   }
   return (
     <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
-      <Card title={EntrySection.Sequence}>
+      <Card title={getSequenceSectionName(data)}>
         <SequenceView data={data} accession={primaryAccession} />
         <ComputationalyMappedSequences primaryAccession={primaryAccession} />
         {data.featuresData && (

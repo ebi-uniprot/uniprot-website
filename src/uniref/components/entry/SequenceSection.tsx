@@ -8,6 +8,7 @@ import { hasContent } from '../../../shared/utils/utils';
 import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
 import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
+import { getSequenceSectionName } from '../../../uniprotkb/utils';
 
 const SequenceSection: FC<{
   data: SequenceUIModel;
@@ -18,7 +19,7 @@ const SequenceSection: FC<{
   }
   return (
     <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
-      <Card title={EntrySection.Sequence}>
+      <Card title={getSequenceSectionName(data)}>
         <SequenceView data={data} accession={primaryAccession} />
       </Card>
     </div>

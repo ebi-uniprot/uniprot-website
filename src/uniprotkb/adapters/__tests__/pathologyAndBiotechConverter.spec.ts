@@ -51,7 +51,6 @@ describe('Disease and Drugs data converter', () => {
           ],
         ],
         ['ALLERGEN', []],
-        ['BIOTECHNOLOGY', []],
         [
           'DISRUPTION PHENOTYPE',
           [

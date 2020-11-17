@@ -67,9 +67,12 @@ export type UniProtkbUIModel = {
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
   [EntrySection.DiseaseAndDrugs]: UIModel;
+  [EntrySection.Phenotypes]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
+  [EntrySection.SequenceAndSingleIsoform]: SequenceUIModel;
+  [EntrySection.SequenceAndMultipleIsoforms]: SequenceUIModel;
   [EntrySection.Interaction]: UIModel;
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
@@ -123,11 +126,14 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
     [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(dataCopy),
+    [EntrySection.Phenotypes]: convertDiseaseAndDrugs(dataCopy),
     [EntrySection.ProteinProcessing]: convertProteinProcessing(dataCopy),
     [EntrySection.Expression]: convertExpression(dataCopy),
     [EntrySection.Interaction]: convertInteraction(dataCopy),
     [EntrySection.Structure]: convertStructure(dataCopy),
     [EntrySection.Sequence]: convertSequence(dataCopy),
+    [EntrySection.SequenceAndSingleIsoform]: convertSequence(dataCopy),
+    [EntrySection.SequenceAndMultipleIsoforms]: convertSequence(dataCopy),
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
     references: dataCopy.references || [],
