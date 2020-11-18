@@ -1,5 +1,3 @@
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
 type Name = {
   value: string;
 };
@@ -10,7 +8,7 @@ type ProteinName = {
 };
 
 export type APISequenceData = {
-  entryType: EntryType;
+  entryType: string;
   primaryAccession: string;
   uniProtkbId: string;
   entryAudit: {

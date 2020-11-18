@@ -1,36 +1,17 @@
 import React, { FC } from 'react';
-import { SwissProtIcon, TremblIcon } from 'franklin-sites';
 
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import EntryTypeIcon from './EntryTypeIcon';
 
-import './styles/uniprotkb-title.scss';
-
-export const ReviewedUnreviewed: FC<{ entryType: EntryType }> = ({
-  entryType,
-}) =>
-  entryType === EntryType.REVIEWED ? (
-    <span
-      className="uniprot-title__status icon--reviewed"
-      title="This marks a reviewed entry"
-    >
-      <SwissProtIcon />
-    </span>
-  ) : (
-    <span
-      className="uniprot-title__status icon--unreviewed"
-      title="This marks an unreviewed entry"
-    >
-      <TremblIcon />
-    </span>
-  );
+import './styles/entry-title.scss';
 
 const EntryTitle: FC<{
   mainTitle: string;
   optionalTitle?: string;
-  entryType?: EntryType;
+  entryType?: EntryType | string;
 }> = ({ mainTitle, optionalTitle, entryType }) => (
-  <span className="uniprot-title">
-    {entryType && <ReviewedUnreviewed entryType={entryType} />}
+  <span className="entry-title">
+    <EntryTypeIcon entryType={entryType} />
     {mainTitle}
     {optionalTitle && ` · ${optionalTitle}`}
   </span>

@@ -6,7 +6,7 @@ import {
   DND_DIRECTION_LEFT,
 } from 'react-beautiful-dnd-test-utils';
 import { ColumnSelectTab } from '../../../types/resultsTypes';
-import { Column } from '../../../types/columnTypes';
+import { UniProtKBColumn } from '../../../types/columnTypes';
 import ColumnSelectDragDrop from '../ColumnSelectDragDrop';
 
 // TODO: test that some other way, the testing library for react-beautiful-dnd
@@ -19,19 +19,19 @@ describe('ColumnSelectDragDrop component', () => {
         {
           tabId: ColumnSelectTab.data,
           accordionId: 'Names & Taxonomy',
-          itemId: Column.id,
+          itemId: UniProtKBColumn.id,
           label: 'Entry Name',
         },
         {
           tabId: ColumnSelectTab.data,
           accordionId: 'Names & Taxonomy',
-          itemId: Column.proteinName,
+          itemId: UniProtKBColumn.proteinName,
           label: 'Protein names',
         },
         {
           tabId: ColumnSelectTab.data,
           accordionId: 'Names & Taxonomy',
-          itemId: Column.geneNames,
+          itemId: UniProtKBColumn.geneNames,
           label: 'Gene Names',
         },
       ],

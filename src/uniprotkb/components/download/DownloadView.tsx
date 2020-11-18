@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import { Loader } from 'franklin-sites';
 import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
 import { FileFormat, fileFormatsWithColumns } from '../../types/resultsTypes';
-import { Column } from '../../types/columnTypes';
+import { UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/download.scss';
 
 type DownloadViewProps = {
-  selectedColumns: Column[];
+  selectedColumns: UniProtKBColumn[];
   onPreview: (nPreview: number) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
@@ -16,7 +16,7 @@ type DownloadViewProps = {
   compressed: boolean;
   preview: string;
   loadingPreview: boolean;
-  onSelectedColumnsChange: (columns: Column[]) => void;
+  onSelectedColumnsChange: (columns: UniProtKBColumn[]) => void;
   onFileFormatChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onDownloadAllChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCompressedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

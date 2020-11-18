@@ -29,10 +29,10 @@ exports[`UniProtKBCard component should render 1`] = `
           >
             <h5>
               <span
-                class="uniprot-title"
+                class="entry-title"
               >
                 <span
-                  class="uniprot-title__status icon--reviewed"
+                  class="entry-title__status icon--reviewed"
                   title="This marks a reviewed entry"
                 >
                   <svg

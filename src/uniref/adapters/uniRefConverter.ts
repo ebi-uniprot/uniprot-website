@@ -6,12 +6,6 @@ enum GeneOntologyAspect {
   COMPONENT = 'GO Cellular Component',
 }
 
-enum MemberIdType {
-  UNIPROTKB_REVIEWED = 'UniProtKB Reviewed (Swiss-Prot)',
-  UNIPROTKB_UNREVIEWED = 'UniProtKB Unreviewed (TrEMBL)',
-  UNIPARC = 'UniParc ID',
-}
-
 enum EntryType {
   UniRef100 = 'UniRef100',
   UniRef90 = 'UniRef90',
@@ -38,7 +32,7 @@ type OverlapRegion = {
 
 export type UniRefMember = {
   seed: boolean;
-  memberIdType: MemberIdType;
+  memberIdType: string;
   memberId: string;
   organismName: string;
   organismTaxId: number;
@@ -70,7 +64,7 @@ export type UniRefLiteAPIModel = {
   organismCount: number;
   representativeId: string;
   seedId: string;
-  memberIdTypes: MemberIdType;
+  memberIdTypes?: EntryType[];
   members: string[];
   organismIds: number[];
   organisms: string[];

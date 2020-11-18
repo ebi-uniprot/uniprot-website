@@ -4,13 +4,14 @@ import { ThunkDispatch } from 'redux-thunk';
 import fetchData from '../../shared/utils/fetchData';
 import { RootState } from '../../app/state/rootInitialState';
 import apiUrls from '../../shared/config/apiUrls';
-import { Column } from '../types/columnTypes';
+import { UniProtKBColumn } from '../types/columnTypes';
 import {
   ColumnSelectTab,
   FieldDatum,
   ReceivedFieldData,
   ReceivedField,
 } from '../types/resultsTypes';
+import { Namespace } from '../../shared/types/namespaces';
 
 export const UPDATE_COLUMN_SORT = 'UPDATE_COLUMN_SORT';
 export const SWITCH_VIEW_MODE = 'SWITCH_VIEW_MODE';
@@ -21,7 +22,7 @@ export const UPDATE_TABLE_COLUMNS = 'UPDATE_TABLE_COLUMNS';
 export const requestFields = () => action(REQUEST_FIELDS);
 
 export const prepareFields = (fields: ReceivedField[]) =>
-  fields.map(({ label, name }) => ({ id: name as Column, label }));
+  fields.map(({ label, name }) => ({ id: name as UniProtKBColumn, label }));
 
 export const prepareFieldData = (fieldData: ReceivedFieldData) => {
   const dataTab: FieldDatum[] = [];
@@ -77,7 +78,11 @@ export const fetchFieldsIfNeeded = () => (
   }
 };
 
-export const updateTableColumns = (tableColumns: Column[]) =>
+export const updateTableColumns = (
+  namespace: Namespace,
+  tableColumns: UniProtKBColumn[]
+) =>
   action(UPDATE_TABLE_COLUMNS, {
+    namespace,
     tableColumns,
   });

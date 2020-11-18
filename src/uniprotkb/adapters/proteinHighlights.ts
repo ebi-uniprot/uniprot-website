@@ -1,4 +1,8 @@
-import { UniProtkbAPIModel, EntryType } from './uniProtkbConverter';
+import {
+  UniProtkbAPIModel,
+  EntryType,
+  getEntryTypeFromString,
+} from './uniProtkbConverter';
 import FeatureType from '../types/featureType';
 import {
   CommentType,
@@ -58,7 +62,9 @@ const highlightToEntrySection: {
   [highlightSection.publications]: {
     link: '/publications',
     prefixResolver: (data) =>
-      data.entryType === EntryType.REVIEWED ? 'reviewed ' : '',
+      getEntryTypeFromString(data.entryType) === EntryType.REVIEWED
+        ? 'reviewed '
+        : '',
   },
 };
 

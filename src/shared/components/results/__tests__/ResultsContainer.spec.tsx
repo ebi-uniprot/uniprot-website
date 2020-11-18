@@ -5,12 +5,11 @@ import ResultsContainer from '../ResultsContainer';
 import { act } from 'react-dom/test-utils';
 import resultsInitialState, {
   ViewMode,
-} from '../../../state/resultsInitialState';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import '../../__mocks__/mockApi';
+} from '../../../../uniprotkb/state/resultsInitialState';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
-// FIXME:
-describe.skip('Results component', () => {
+describe('Results component', () => {
   afterEach(cleanup);
 
   test('should call to get results', async () => {
@@ -30,7 +29,7 @@ describe.skip('Results component', () => {
       const unreviewedButton = await findByText('Unreviewed (TrEMBL) (455)');
       fireEvent.click(unreviewedButton);
       expect(history.location.search).toEqual(
-        '?facets=reviewed:false&query=blah'
+        '?facets=reviewed%3Afalse&query=blah'
       );
     });
   });
@@ -46,9 +45,7 @@ describe.skip('Results component', () => {
     });
   });
 
-  // FIXME:
-  // NOTE: all the warnings about multiple same keys are coming from here
-  test.skip('should toggle card view to table', async () => {
+  test('should toggle card view to table', async () => {
     await act(async () => {
       const state = {
         results: {
@@ -74,8 +71,6 @@ describe.skip('Results component', () => {
     });
   });
 
-  // FIXME: Test failing if it is run on its own (with "test.only()")
-  // NOTE: Does that depend on an other test in this file? It shouldn't...
   test('should set sorting', async () => {
     const state = {
       results: { ...resultsInitialState, viewMode: ViewMode.TABLE },

@@ -1,36 +1,57 @@
 import React, { FC, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
-import ResultsButtons from './ResultsButtons';
+import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
 import ResultsFacets from './ResultsFacets';
-import NoResultsPage from '../../../shared/components/error-pages/NoResultsPage';
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
-import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
+import NoResultsPage from '../error-pages/NoResultsPage';
+import ErrorHandler from '../error-pages/ErrorHandler';
+import SideBarLayout from '../layouts/SideBarLayout';
 
-import { ViewMode } from '../../state/resultsInitialState';
-import { RootState } from '../../../app/state/rootInitialState';
+import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
 
-import { getParamsFromURL } from '../../utils/resultsUtils';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 
-import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
-import infoMappings from '../../../shared/config/InfoMappings';
+import { getAPIQueryUrl } from '../../config/apiUrls';
+import infoMappings from '../../config/InfoMappings';
 
-import { Namespace } from '../../../shared/types/namespaces';
-import { Column } from '../../types/columnTypes';
-import Response from '../../types/responseTypes';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import Response from '../../../uniprotkb/types/responseTypes';
+import useNS from '../../hooks/useNS';
+import { Namespace } from '../../types/namespaces';
+import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
+
+import './styles/results-table.scss';
+
+export type AllColumns = Array<UniProtKBColumn | UniRefColumn>;
+
+const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
+  [Namespace.uniprotkb]: [
+    UniProtKBColumn.accession,
+    UniProtKBColumn.reviewed,
+    UniProtKBColumn.id,
+    UniProtKBColumn.proteinName,
+    UniProtKBColumn.geneNames,
+    UniProtKBColumn.organismName,
+  ],
+  [Namespace.uniref]: [
+    UniRefColumn.id,
+    UniRefColumn.name,
+    UniRefColumn.types,
+    UniRefColumn.count,
+    UniRefColumn.organism,
+    UniRefColumn.length,
+    UniRefColumn.identity,
+  ],
+};
 
 const Results: FC = () => {
-  const namespace = Namespace.uniprotkb; // This should come from the url
+  const namespace = useNS();
 
-  const tableColumns = useSelector<RootState, Column[]>(
-    (state) => state.results.tableColumns
-  );
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
@@ -41,6 +62,10 @@ const Results: FC = () => {
     'view-mode',
     ViewMode.CARD
   );
+  const [tableColumns] = useLocalStorage<AllColumns>(
+    `table columns for ${namespace}`,
+    namespace ? defaultTableColumns[namespace] : []
+  );
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -49,9 +74,11 @@ const Results: FC = () => {
    * this class as a functional component and put all url
    * parameters in the store.
    */
-  const columns: Column[] = viewMode === ViewMode.TABLE ? tableColumns : [];
+  const columns =
+    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : [];
 
   const initialApiUrl = getAPIQueryUrl({
+    namespace,
     query,
     columns,
     selectedFacets,
@@ -69,7 +96,7 @@ const Results: FC = () => {
     isStale,
   } = useDataApiWithStale<Response['data']>(initialApiUrl);
 
-  if (error || !(loading || data)) {
+  if (error || !(loading || data) || !namespace) {
     return <ErrorHandler status={status} />;
   }
 
