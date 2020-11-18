@@ -6,7 +6,6 @@ import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 
 import uniProtKbConverter, {
-  UniProtkbUIModel,
   UniProtkbAPIModel,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
@@ -56,7 +55,7 @@ const convertRow = (
 ) => {
   switch (namespace) {
     case Namespace.uniprotkb:
-      return uniProtKbConverter(row as UniProtkbAPIModel) as UniProtkbUIModel;
+      return uniProtKbConverter(row as UniProtkbAPIModel);
     case Namespace.uniref:
       return row as UniRefLiteAPIModel;
     default:
@@ -76,6 +75,8 @@ const getIdKey = (namespace: Namespace) => {
   }
 };
 
+// TODO create a "Column" type to cover the different column types
+// and a Column renderer type with label: string and a render definition.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,

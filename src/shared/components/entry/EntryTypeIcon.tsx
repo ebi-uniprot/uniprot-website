@@ -40,7 +40,7 @@ export const EntryTypeIcon: FC<{
   if (entryTypeToCheck === EntryType.UNIPARC) {
     return (
       <span
-        className="entry-title__status icon--unreviewed"
+        className="entry-title__status icon--uniparc"
         title={title || 'UniParc entry'}
       >
         <UniParcIcon />

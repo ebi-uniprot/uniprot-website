@@ -163,7 +163,7 @@ exports[`UniRefColumnConfiguration component should render all columns: Size 1`]
 exports[`UniRefColumnConfiguration component should render all columns: Types 1`] = `
 <DocumentFragment>
   <span
-    class="entry-title__status icon--unreviewed"
+    class="entry-title__status icon--uniparc"
     title="UniParc entry"
   >
     <svg
