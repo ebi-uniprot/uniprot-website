@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniRefCard tests should render and match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <section
+      class=" card--has-hover"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="card__content"
+      >
+        <section
+          class="uniprot-card"
+        >
+          <section
+            class="uniprot-card__left"
+          >
+            <input
+              data-testid="up-card-checkbox"
+              type="checkbox"
+            />
+          </section>
+          <section
+            class="uniprot-card__right"
+          >
+            <h5>
+              <span
+                class="entry-title"
+              >
+                <span
+                  class="entry-title__status icon--unreviewed"
+                  title="This marks an unreviewed entry"
+                >
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 400 512"
+                  >
+                    <path
+                      d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                    />
+                  </svg>
+                </span>
+                UniRef100_B2R6V2
+              </span>
+            </h5>
+            <section>
+              Cluster: cDNA, FLJ93132, highly similar to Homo sapiens CDC7 cell division cycle 7 (S. cerevisiae) (CDC7), mRNA
+            </section>
+            <section>
+              <strong>
+                Members: 1
+              </strong>
+               ·  Sequence length: 574  ·  Identity: UniRef100
+            </section>
+          </section>
+        </section>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
