@@ -45,7 +45,6 @@ precacheAndRoute(self.__WB_MANIFEST); // eslint-disable-line
 
 /* routes: */
 
-declare const BASE_URL: string;
 // respond to all 'navigation' requests with this document (browsing)
 registerRoute(
   new NavigationRoute(createHandlerBoundToURL(`${BASE_URL}index.html`))
