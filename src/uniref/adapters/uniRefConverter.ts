@@ -1,3 +1,4 @@
+import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 import EntrySection from '../types/entrySection';
 
 enum GeneOntologyAspect {
@@ -6,7 +7,7 @@ enum GeneOntologyAspect {
   COMPONENT = 'GO Cellular Component',
 }
 
-enum EntryType {
+enum UniRefEntryType {
   UniRef100 = 'UniRef100',
   UniRef90 = 'UniRef90',
   UniRef50 = 'UniRef50',
@@ -55,7 +56,7 @@ export type UniRefLiteAPIModel = {
   commonTaxon: string;
   goTerms: GeneOntologyEntry[];
   memberCount: number;
-  entryType: EntryType;
+  entryType: UniRefEntryType;
   updated: string;
   name: string;
   id: string;
@@ -78,7 +79,7 @@ export type UniRefAPIModel = {
   // TODO: remove this comment once backend has added that field to the payload
   seed: string;
   memberCount: number;
-  entryType: EntryType;
+  entryType: UniRefEntryType;
   updated: string;
   name: string;
   id: string;

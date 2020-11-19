@@ -122,7 +122,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     apiUrls.resultsFields
   );
-  // TODO handle error
 
   const prevViewMode = useRef<ViewMode>();
   useEffect(() => {
