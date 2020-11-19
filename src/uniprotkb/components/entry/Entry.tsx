@@ -198,6 +198,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Entry}`,
+                hash: undefined,
               })}
             >
               Entry
@@ -249,6 +250,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.FeatureViewer}`,
+                hash: undefined,
               })}
             >
               Feature viewer
@@ -264,6 +266,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Publications}`,
+                hash: undefined,
               })}
             >
               Publications
@@ -279,6 +282,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.ExternalLinks}`,
+                hash: undefined,
               })}
             >
               External links
