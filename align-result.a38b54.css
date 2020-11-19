@@ -1,6 +1,0 @@
-.sliding-panel{box-shadow:0 0.125rem 0.25rem .125rem rgba(22,29,57,0.2);background-color:#fbfeff;border-radius:0.2rem;padding:0 1rem;position:fixed;z-index:9000}.sliding-panel__button-row{position:sticky;display:flex;justify-content:flex-end;padding:.5rem 0;background-color:#fbfeff;bottom:0}.sliding-panel--top,.sliding-panel--bottom{width:100vw;height:40vh;left:0}.sliding-panel--top{top:0}.sliding-panel--bottom{bottom:0}.sliding-panel--left,.sliding-panel--right{height:100vh;width:40vw;top:0}.sliding-panel--left{left:0}.sliding-panel--right{right:0}
-
-.tools-result .tabs__header{z-index:100;position:sticky;top:0;background:#fbfeff;border-bottom:none}
-
-
-/*# sourceMappingURL=align-result.a38b54.css.map*/

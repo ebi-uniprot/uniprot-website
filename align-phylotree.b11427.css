@@ -1,8 +1,0 @@
-@keyframes loading{from{opacity:0.5}to{opacity:1}}.align-label{white-space:nowrap;opacity:1;margin:0;outline:none;cursor:default}.align-label--invalid{cursor:not-allowed}.align-label--loading{animation:alternate loading 500ms infinite ease-in-out}.align-label--active{background-color:#d2dce3}.align-label--selectable{cursor:pointer;outline:initial}.align-label input[type='checkbox']{margin:0 0.4rem 0 0}
-
-.phylotree{width:100%;overflow:visible}.phylotree foreignObject{overflow:visible}.phylotree .link{fill:none;stroke:#014371;stroke-width:2px}.phylotree .link.nonsense{stroke:#f36968}.phylotree .link.hovered{stroke:#46d6fa;stroke-width:4px}.phylotree .end-link{fill:none;stroke:#d2dce3;stroke-width:1px}
-
-.align-result-phylotree .controls{float:right;display:flex;gap:5ch}
-
-
-/*# sourceMappingURL=align-phylotree.b11427.css.map*/

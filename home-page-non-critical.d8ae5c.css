@@ -1,6 +1,0 @@
-.block{width:100%;display:grid;grid-area:block}.block>*:first-child{grid-column-start:2}.block--1-col{grid-template-columns:auto 64rem auto}.block--2-col{grid-template-columns:auto repeat(2, 32rem) auto}.block--3-col{grid-template-columns:auto repeat(3, 16rem) auto}.block--4-col{grid-template-columns:auto repeat(4, 16rem) auto}
-
-.placeholder{opacity:0.5;display:flex;align-items:center;justify-content:center}
-
-
-/*# sourceMappingURL=home-page-non-critical.d8ae5c.css.map*/
