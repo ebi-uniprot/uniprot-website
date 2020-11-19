@@ -220,8 +220,7 @@ const Entry: FC = () => {
                   Download
                 </>
               }
-              className="tertiary"
-              // onSelect={action('onSelect')}
+              variant="tertiary"
             >
               <div className="dropdown-menu__content">
                 <ul>
