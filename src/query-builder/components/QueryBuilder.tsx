@@ -58,14 +58,12 @@ const QueryBuilder: FC = () => {
   // if URL doesn't finish with a namespace redirect to "uniprotkb" by default
   useEffect(() => {
     if (!namespace) {
-      history.replace(
-        history.createHref({
-          ...history.location,
-          pathname: generatePath(LocationToPath[Location.QueryBuilder], {
-            namespace: Namespace.uniprotkb,
-          }),
-        })
-      );
+      history.replace({
+        ...history.location,
+        pathname: generatePath(LocationToPath[Location.QueryBuilder], {
+          namespace: Namespace.uniprotkb,
+        }),
+      });
     }
   }, [history, namespace]);
 
@@ -153,14 +151,12 @@ const QueryBuilder: FC = () => {
             <select
               id="namespace-select"
               onChange={(e) => {
-                history.replace(
-                  history.createHref({
-                    pathname: generatePath(
-                      LocationToPath[Location.QueryBuilder],
-                      { namespace: e.target.value }
-                    ),
-                  })
-                );
+                history.replace({
+                  pathname: generatePath(
+                    LocationToPath[Location.QueryBuilder],
+                    { namespace: e.target.value }
+                  ),
+                });
               }}
               value={namespace}
             >

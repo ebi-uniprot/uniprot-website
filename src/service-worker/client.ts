@@ -14,9 +14,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
-declare const BASE_URL: string;
-declare const LIVE_RELOAD: boolean;
-
 interface Config {
   onUpdate?(registration: ServiceWorkerRegistration): void;
   onSuccess?(registration: ServiceWorkerRegistration): void;
@@ -113,7 +110,7 @@ export function register(config?: Config) {
   if (!LIVE_RELOAD && 'serviceWorker' in navigator) {
     // create-react-app specific code, keep it here for now
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(BASE_URL || '', window.location.href);
+    const publicUrl = new URL(BASE_URL || '');
 
     // Our service worker won't work if PUBLIC_URL is on a different origin
     // from what our page is served on. This might happen if a CDN is used to
