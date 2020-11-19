@@ -22,6 +22,7 @@ exports[`ServiceUnavailablePage component should render 1`] = `
         stroke="currentColor"
         viewBox="0 0 19 18"
         width="1.125em"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M14.93 11.14h0L12.8 9l2.13-2.14a1.9 1.9 0 000-2.67h0l-.63-.64a1.9 1.9 0 00-2.68 0h0L9.5 5.7 7.35 3.55a1.9 1.9 0 00-2.68 0h0l-.63.64a1.9 1.9 0 000 2.67h0L6.18 9l-2.14 2.14a1.9 1.9 0 000 2.67h0l.63.64a1.9 1.9 0 002.68 0L9.5 12.3l2.13 2.14a1.9 1.9 0 002.68 0l.63-.64a1.9 1.9 0 000-2.67zM17.5 9a8 8 0 11-16 0 8 8 0 0116 0z"

@@ -84,6 +84,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
                   <svg
                     fill="currentColor"
                     viewBox="0 0 400 512"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
