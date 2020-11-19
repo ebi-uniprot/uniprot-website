@@ -37,6 +37,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -60,6 +61,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -83,6 +85,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -106,6 +109,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -169,6 +173,7 @@ exports[`XRefView should render for Expression section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -192,6 +197,7 @@ exports[`XRefView should render for Expression section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -215,6 +221,7 @@ exports[`XRefView should render for Expression section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -238,6 +245,7 @@ exports[`XRefView should render for Expression section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -301,6 +309,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -324,6 +333,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -347,6 +357,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -370,6 +381,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -433,6 +445,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -456,6 +469,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -479,6 +493,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -502,6 +517,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -565,6 +581,7 @@ exports[`XRefView should render for Function section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -588,6 +605,7 @@ exports[`XRefView should render for Function section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -611,6 +629,7 @@ exports[`XRefView should render for Function section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -634,6 +653,7 @@ exports[`XRefView should render for Function section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -697,6 +717,7 @@ exports[`XRefView should render for Interaction section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -720,6 +741,7 @@ exports[`XRefView should render for Interaction section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -743,6 +765,7 @@ exports[`XRefView should render for Interaction section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -766,6 +789,7 @@ exports[`XRefView should render for Interaction section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -829,6 +853,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -852,6 +877,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -875,6 +901,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -898,6 +925,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -961,6 +989,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -984,6 +1013,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1007,6 +1037,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1030,6 +1061,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1093,6 +1125,7 @@ exports[`XRefView should render for Sequence section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1116,6 +1149,7 @@ exports[`XRefView should render for Sequence section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1139,6 +1173,7 @@ exports[`XRefView should render for Sequence section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1162,6 +1197,7 @@ exports[`XRefView should render for Sequence section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1225,6 +1261,7 @@ exports[`XRefView should render for Structure section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1248,6 +1285,7 @@ exports[`XRefView should render for Structure section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1271,6 +1309,7 @@ exports[`XRefView should render for Structure section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1294,6 +1333,7 @@ exports[`XRefView should render for Structure section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1357,6 +1397,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1380,6 +1421,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1403,6 +1445,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1426,6 +1469,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1465,6 +1509,7 @@ exports[`getPropertyLink should create snapshot 1`] = `
       fill="none"
       viewBox="0 0 16 16"
       width="12.5"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"

@@ -33,6 +33,7 @@ exports[`GeneNames should render gene_names 1`] = `
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -80,6 +81,7 @@ exports[`GeneNames should render gene_names 1`] = `
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -127,6 +129,7 @@ exports[`GeneNames should render gene_names 1`] = `
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -174,6 +177,7 @@ exports[`GeneNames should render gene_names 1`] = `
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
