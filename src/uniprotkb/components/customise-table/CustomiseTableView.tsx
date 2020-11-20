@@ -3,6 +3,7 @@ import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
 import { UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/customise-table.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type CustomiseTableViewProps = {
   selectedColumns: UniProtKBColumn[];
@@ -25,6 +26,7 @@ const CustomiseTableView: React.FC<CustomiseTableViewProps> = ({
     <ColumnSelectContainer
       onChange={onChange}
       selectedColumns={selectedColumns}
+      namespace={Namespace.uniprotkb}
     />
     <div className="button-group customise-table--cancel-submit-buttons">
       <button

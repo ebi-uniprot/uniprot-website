@@ -42,10 +42,8 @@ const apiUrls = {
     '/uniprot/api/configure/uniprotkb/databasefields'
   ),
   // All result fields except database cross reference fields
-  resultsFields: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/result-fields'
-  ),
+  resultsFields: (namespace: Namespace) =>
+    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),

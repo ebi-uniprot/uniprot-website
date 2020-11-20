@@ -1,25 +1,59 @@
 import React, { FC } from 'react';
 import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
 import { Loader } from 'franklin-sites';
 import {
   moveItemInList,
   removeItemFromList,
 } from '../../../shared/utils/utils';
-import { RootState, RootAction } from '../../../app/state/rootInitialState';
-import * as resultsActions from '../../state/resultsActions';
+import { RootState } from '../../../app/state/rootInitialState';
 import ColumnSelectView from './ColumnSelectView';
 import defaultColumns from '../../../shared/config/defaultColumns';
 import { UniProtKBColumn } from '../../types/columnTypes';
-import { ColumnSelectTab, FieldData } from '../../types/resultsTypes';
+import {
+  ColumnSelectTab,
+  FieldData,
+  FieldDatum,
+  ReceivedField,
+  ReceivedFieldData,
+} from '../../types/resultsTypes';
 import { Namespace } from '../../../shared/types/namespaces';
+import useDataApi from '../../../shared/hooks/useDataApi';
+import apiUrls from '../../../shared/config/apiUrls';
+
+export const prepareFields = (fields: ReceivedField[]) =>
+  fields.map(({ label, name }) => ({ id: name as UniProtKBColumn, label }));
+
+export const prepareFieldData = (fieldData: ReceivedFieldData) => {
+  const dataTab: FieldDatum[] = [];
+  const linksTab: FieldDatum[] = [];
+  const linksAdded: Record<string, boolean> = {};
+  fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
+    const group = {
+      id,
+      title: groupName,
+      items: prepareFields(fields),
+    };
+    if (isDatabaseGroup) {
+      if (!linksAdded[groupName]) {
+        linksTab.push(group);
+        linksAdded[groupName] = true;
+      }
+    } else {
+      dataTab.push(group);
+    }
+  });
+  return {
+    [ColumnSelectTab.data]: dataTab,
+    [ColumnSelectTab.links]: linksTab,
+  };
+};
 
 type ColumnSelectProps = {
   selectedColumns: UniProtKBColumn[];
   fetchFieldsIfNeeded: () => void;
   isFetching: boolean;
-  fieldData: FieldData;
   onChange: (columndIds: UniProtKBColumn[]) => void;
+  namespace: Namespace;
 };
 
 export const entryField = {
@@ -45,23 +79,19 @@ export const removeFieldFromFieldsData = (
 });
 
 const ColumnSelect: FC<ColumnSelectProps> = ({
-  fetchFieldsIfNeeded,
-  isFetching,
-  fieldData,
   selectedColumns,
   onChange,
+  namespace,
 }) => {
-  if (
-    isFetching ||
-    !fieldData ||
-    !fieldData[ColumnSelectTab.data] ||
-    !fieldData[ColumnSelectTab.data].length ||
-    !fieldData[ColumnSelectTab.links] ||
-    !fieldData[ColumnSelectTab.links].length
-  ) {
-    fetchFieldsIfNeeded();
+  const { loading, data } = useDataApi<ReceivedFieldData>(
+    namespace && apiUrls.resultsFields(namespace)
+  );
+
+  if (loading || !data) {
     return <Loader />;
   }
+
+  const fieldData = prepareFieldData(data);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -69,6 +99,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   const selectedColumnsWithoutEntry = selectedColumns.filter(
     (col) => col !== entryField.itemId
   );
+
   const FieldFromFieldsDataWithoutEntry = removeFieldFromFieldsData(
     entryField,
     fieldData
@@ -114,21 +145,8 @@ const mapStateToProps = (
   }
 ) => ({
   onChange: ownProps.onChange,
-  fieldData: state.results.fields.data,
-  isFetching: state.results.fields.isFetching,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    {
-      fetchFieldsIfNeeded: () => resultsActions.fetchFieldsIfNeeded(),
-    },
-    dispatch
-  );
-
-const ColumnSelectContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ColumnSelect);
+const ColumnSelectContainer = connect(mapStateToProps)(ColumnSelect);
 
 export default ColumnSelectContainer;

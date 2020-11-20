@@ -120,7 +120,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     results: UniProtkbAPIModel[];
   }>(url);
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields
+    apiUrls.resultsFields(namespace)
   );
 
   const prevViewMode = useRef<ViewMode>();
