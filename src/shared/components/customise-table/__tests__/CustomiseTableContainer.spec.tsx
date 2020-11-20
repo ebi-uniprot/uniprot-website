@@ -2,8 +2,8 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import CustomiseTableContainer from '../CustomiseTableContainer';
 import initialState from '../../../../app/state/rootInitialState';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import '../../__mocks__/mockApi';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 describe('CustomiseTableContainer component', () => {
   let renderedWithRedux, goBack;

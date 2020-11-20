@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import CustomiseTableView from './CustomiseTableView';
-import { UniProtKBColumn } from '../../types/columnTypes';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
-import { Namespace } from '../../../shared/types/namespaces';
-import { useTableColumnsFromLocalStorage } from '../../../shared/utils/localStorage';
+import { Namespace } from '../../types/namespaces';
+import { useTableColumnsFromLocalStorage } from '../../utils/localStorage';
 
 type CustomiseTableProps = {
   tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;

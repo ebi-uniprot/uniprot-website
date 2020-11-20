@@ -1,8 +1,8 @@
 import React from 'react';
-import { UniProtKBColumn } from '../../types/columnTypes';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 
-import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
-import { Namespace } from '../../../shared/types/namespaces';
+import ColumnSelect from '../column-select/ColumnSelect';
+import { Namespace } from '../../types/namespaces';
 import './styles/customise-table.scss';
 
 type CustomiseTableViewProps = {
