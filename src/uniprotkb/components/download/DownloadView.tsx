@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { Loader } from 'franklin-sites';
-import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
+import ColumnSelect from '../column-select/ColumnSelect';
 import { FileFormat, fileFormatsWithColumns } from '../../types/resultsTypes';
 import { UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/download.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type DownloadViewProps = {
   selectedColumns: UniProtKBColumn[];
@@ -130,9 +131,10 @@ const DownloadView: React.FC<DownloadViewProps> = ({
         {fileFormatsWithColumns.includes(fileFormat) && (
           <fieldset>
             <legend>Customize data</legend>
-            <ColumnSelectContainer
+            <ColumnSelect
               onChange={onSelectedColumnsChange}
               selectedColumns={selectedColumns}
+              namespace={Namespace.uniprotkb}
             />
           </fieldset>
         )}

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Dispatch, bindActionCreators } from 'redux';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { RootState, RootAction } from '../../../app/state/rootInitialState';
-import * as resultsActions from '../../state/resultsActions';
+import { sleep } from 'timing-functions';
 import CustomiseTableView from './CustomiseTableView';
 import { UniProtKBColumn } from '../../types/columnTypes';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
+import { useTableColumnsFromLocalStorage } from '../../../shared/utils/localStorage';
 
 type CustomiseTableProps = {
   tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
@@ -17,16 +15,16 @@ type CustomiseTableProps = {
   ) => void;
 } & RouteComponentProps;
 
-const CustomiseTable: React.FC<CustomiseTableProps> = ({
-  tableColumns,
-  updateTableColumns,
-  history,
-}) => {
+const CustomiseTable: React.FC<CustomiseTableProps> = ({ history }) => {
   // TODO this should come from the url
   const namespace = Namespace.uniprotkb;
 
+  const [
+    tableColumnsFromLocalStorage,
+    setTableColumnsFromLocalStorage,
+  ] = useTableColumnsFromLocalStorage(namespace);
   const [selectedColumns, setSelectedColumns] = useState(
-    tableColumns[namespace]
+    tableColumnsFromLocalStorage
   );
 
   if (!selectedColumns) {
@@ -38,10 +36,11 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
     setSelectedColumns(columnIds);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // TODO temporary casting to UniProtKBColumn to make TS happy
-    updateTableColumns(namespace, selectedColumns as UniProtKBColumn[]);
+    setTableColumnsFromLocalStorage(selectedColumns);
+    // TODO remove this hack when it's no longer in its own page
+    await sleep(500);
     history.goBack();
   };
 
@@ -60,23 +59,6 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  tableColumns: state.results.tableColumns,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    {
-      updateTableColumns: (
-        namespace: Namespace,
-        tableColumns: UniProtKBColumn[]
-      ) => resultsActions.updateTableColumns(namespace, tableColumns),
-    },
-    dispatch
-  );
-
-const CustomiseTableContainer = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CustomiseTable)
-);
+const CustomiseTableContainer = withRouter(CustomiseTable);
 
 export default CustomiseTableContainer;

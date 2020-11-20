@@ -1,5 +1,5 @@
 import React from 'react';
-import ColumnSelectContainer from '../column-select/ColumnSelectContainer';
+import ColumnSelect from '../column-select/ColumnSelect';
 import { UniProtKBColumn } from '../../types/columnTypes';
 
 import './styles/customise-table.scss';
@@ -23,7 +23,7 @@ const CustomiseTableView: React.FC<CustomiseTableViewProps> = ({
     className="customise-table"
     data-testid="customise-table-form"
   >
-    <ColumnSelectContainer
+    <ColumnSelect
       onChange={onChange}
       selectedColumns={selectedColumns}
       namespace={Namespace.uniprotkb}
