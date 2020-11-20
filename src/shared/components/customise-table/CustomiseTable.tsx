@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { useState, FC } from 'react';
 import { sleep } from 'timing-functions';
-import CustomiseTableView from './CustomiseTableView';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 import { Namespace } from '../../types/namespaces';
 import { useTableColumnsFromLocalStorage } from '../../utils/localStorage';
+import ColumnSelect from '../column-select/ColumnSelect';
 
 type CustomiseTableProps = {
-  tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
-  updateTableColumns: (
-    namespace: Namespace,
-    columnIds: UniProtKBColumn[]
-  ) => void;
-} & RouteComponentProps;
+  namespace: Namespace;
+};
 
-const CustomiseTable: React.FC<CustomiseTableProps> = ({ history }) => {
-  // TODO this should come from the url
-  const namespace = Namespace.uniprotkb;
-
+const CustomiseTable: FC<CustomiseTableProps> = ({
+  namespace = Namespace.uniprotkb,
+}) => {
   const [
     tableColumnsFromLocalStorage,
     setTableColumnsFromLocalStorage,
@@ -41,24 +35,42 @@ const CustomiseTable: React.FC<CustomiseTableProps> = ({ history }) => {
     setTableColumnsFromLocalStorage(selectedColumns);
     // TODO remove this hack when it's no longer in its own page
     await sleep(500);
-    history.goBack();
+    // TODO close modal
+    // history.goBack();
   };
 
   const handleCancel = () => {
-    history.goBack();
+    // TODO close modal
+    // history.goBack();
   };
 
   return (
-    // TODO temporary casting to UniProtKBColumn to make TS happy
-    <CustomiseTableView
-      selectedColumns={selectedColumns as UniProtKBColumn[]}
-      onChange={handleChange}
+    <form
       onSubmit={handleSubmit}
-      onCancel={handleCancel}
-    />
+      className="customise-table"
+      data-testid="customise-table-form"
+    >
+      <ColumnSelect
+        onChange={handleChange}
+        // TODO temporary casting to UniProtKBColumn to make TS happy
+        selectedColumns={selectedColumns as UniProtKBColumn[]}
+        namespace={Namespace.uniprotkb}
+      />
+      <div className="button-group customise-table--cancel-submit-buttons">
+        <button
+          className="button secondary"
+          type="button"
+          onClick={handleCancel}
+          data-testid="customise-table-cancel-button"
+        >
+          Cancel
+        </button>
+        <button className="button" type="submit">
+          Save
+        </button>
+      </div>
+    </form>
   );
 };
 
-const CustomiseTableContainer = withRouter(CustomiseTable);
-
-export default CustomiseTableContainer;
+export default CustomiseTable;

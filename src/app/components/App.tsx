@@ -46,7 +46,7 @@ const QueryBuilderPage = lazy(
 const CustomiseTablePage = lazy(
   () =>
     import(
-      /* webpackChunkName: "customise-table" */ '../../shared/components/customise-table/CustomiseTableContainer'
+      /* webpackChunkName: "customise-table" */ '../../shared/components/customise-table/CustomiseTable'
     )
 );
 const UniRefResultsPage = lazy(

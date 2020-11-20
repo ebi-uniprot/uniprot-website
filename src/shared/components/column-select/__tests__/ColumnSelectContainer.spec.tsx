@@ -15,11 +15,11 @@ import resultFields from '../../../__mocks__/resultFields.json';
 import '../../__mocks__/mockApi';
 import { Namespace } from '../../../../shared/types/namespaces';
 
-describe('ColumnSelectContainer component', () => {
+describe('ColumnSelect component', () => {
   // testing implementation?
   test('should call to get field data', async () => {
     const { getAllByTestId } = renderWithRedux(
-      <ColumnSelectContainer
+      <ColumnSelect
         onChange={jest.fn()}
         selectedColumns={initialState.results.tableColumns[Namespace.uniprotkb]}
       />
