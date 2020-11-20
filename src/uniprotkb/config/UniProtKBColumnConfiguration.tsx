@@ -73,6 +73,15 @@ import { GOTermsView } from '../components/protein-data-views/GOView';
 import externalUrls from './externalUrls';
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 
+export const defaultColumns = [
+  UniProtKBColumn.accession,
+  UniProtKBColumn.reviewed,
+  UniProtKBColumn.id,
+  UniProtKBColumn.proteinName,
+  UniProtKBColumn.geneNames,
+  UniProtKBColumn.organismName,
+];
+
 const getFeatureColumn = (type: FeatureType) => {
   return {
     label: type,

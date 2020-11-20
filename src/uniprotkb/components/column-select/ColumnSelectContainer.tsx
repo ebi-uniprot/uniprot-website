@@ -9,9 +9,10 @@ import {
 import { RootState, RootAction } from '../../../app/state/rootInitialState';
 import * as resultsActions from '../../state/resultsActions';
 import ColumnSelectView from './ColumnSelectView';
-import { uniProtKBdefaultTableColumns } from '../../state/resultsInitialState';
+import defaultColumns from '../../../shared/config/defaultColumns';
 import { UniProtKBColumn } from '../../types/columnTypes';
 import { ColumnSelectTab, FieldData } from '../../types/resultsTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 type ColumnSelectProps = {
   selectedColumns: UniProtKBColumn[];
@@ -96,7 +97,9 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
     <ColumnSelectView
       selectedColumns={selectedColumnsWithoutEntry}
       fieldData={FieldFromFieldsDataWithoutEntry}
-      onReset={() => onChange(uniProtKBdefaultTableColumns)}
+      onReset={() =>
+        onChange(defaultColumns[Namespace.uniprotkb] as UniProtKBColumn[])
+      }
       onSelect={handleSelect}
       onDragDrop={handleDragDrop}
     />

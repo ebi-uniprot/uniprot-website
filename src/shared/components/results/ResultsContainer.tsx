@@ -8,6 +8,7 @@ import ResultsFacets from './ResultsFacets';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';
+import { useTableColumnsFromLocalStorage } from '../../utils/localStorage';
 
 import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
 
@@ -19,35 +20,10 @@ import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import Response from '../../../uniprotkb/types/responseTypes';
 import useNS from '../../hooks/useNS';
-import { Namespace } from '../../types/namespaces';
-import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
 
 import './styles/results-table.scss';
-
-export type AllColumns = Array<UniProtKBColumn | UniRefColumn>;
-
-const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
-  [Namespace.uniprotkb]: [
-    UniProtKBColumn.accession,
-    UniProtKBColumn.reviewed,
-    UniProtKBColumn.id,
-    UniProtKBColumn.proteinName,
-    UniProtKBColumn.geneNames,
-    UniProtKBColumn.organismName,
-  ],
-  [Namespace.uniref]: [
-    UniRefColumn.id,
-    UniRefColumn.name,
-    UniRefColumn.types,
-    UniRefColumn.count,
-    UniRefColumn.organism,
-    UniRefColumn.length,
-    UniRefColumn.identity,
-  ],
-};
 
 const Results: FC = () => {
   const namespace = useNS();
@@ -62,10 +38,7 @@ const Results: FC = () => {
     'view-mode',
     ViewMode.CARD
   );
-  const [tableColumns] = useLocalStorage<AllColumns>(
-    `table columns for ${namespace}`,
-    namespace ? defaultTableColumns[namespace] : []
-  );
+  const [tableColumns] = useTableColumnsFromLocalStorage(namespace);
 
   /**
    * WARNING: horrible hack to get the switch between
