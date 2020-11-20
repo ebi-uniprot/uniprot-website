@@ -16,6 +16,7 @@ import AddToBasketButton from '../../../shared/components/action-buttons/AddToBa
 import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
 import { ViewMode } from '../../../shared/components/results/ResultsContainer';
+import { Namespace } from '../../../shared/types/namespaces';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -40,8 +41,15 @@ const ResultsButtons: FC<{
     () =>
       import(/* webpackChunkName: "download" */ '../download/DownloadContainer')
   );
+  const CustomiseComponent = lazy(
+    () =>
+      import(
+        /* webpackChunkName: "customise" */ '../../../shared/components/customise-table/CustomiseTable'
+      )
+  );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
 
   return (
     <>
@@ -59,6 +67,14 @@ const ResultsButtons: FC<{
             />
           </SlidingPanel>
         </Suspense>
+      )}
+      {displayCustomisePanel && (
+        <SlidingPanel position="right">
+          <CustomiseComponent
+            namespace={Namespace.uniprotkb}
+            onClose={() => setDisplayCustomisePanel(false)}
+          />
+        </SlidingPanel>
       )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
@@ -102,12 +118,14 @@ const ResultsButtons: FC<{
           </span>
         </button>
         {viewMode === ViewMode.TABLE && (
-          <Link to="/customise-table">
-            <button type="button" className="button tertiary">
-              <EditIcon />
-              Customize data
-            </button>
-          </Link>
+          <button
+            type="button"
+            className="button tertiary"
+            onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
+          >
+            <EditIcon />
+            Customize data
+          </button>
         )}
       </div>
     </>

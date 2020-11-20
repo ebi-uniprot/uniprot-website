@@ -8,10 +8,12 @@ import ColumnSelect from '../column-select/ColumnSelect';
 
 type CustomiseTableProps = {
   namespace: Namespace;
+  onClose: () => void;
 };
 
 const CustomiseTable: FC<CustomiseTableProps> = ({
   namespace = Namespace.uniprotkb,
+  onClose,
 }) => {
   const [
     tableColumnsFromLocalStorage,
@@ -35,13 +37,11 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
     setTableColumnsFromLocalStorage(selectedColumns);
     // TODO remove this hack when it's no longer in its own page
     await sleep(500);
-    // TODO close modal
-    // history.goBack();
+    onClose();
   };
 
   const handleCancel = () => {
-    // TODO close modal
-    // history.goBack();
+    onClose();
   };
 
   return (
