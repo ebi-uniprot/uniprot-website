@@ -5,7 +5,7 @@ import { waitFor } from '@testing-library/react';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
-import { ViewMode } from '../../../../uniprotkb/state/resultsInitialState';
+import { ViewMode } from '../ResultsContainer';
 
 describe('ResultsView component', () => {
   const props = {

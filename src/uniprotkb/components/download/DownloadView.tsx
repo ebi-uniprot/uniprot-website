@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Loader } from 'franklin-sites';
-import ColumnSelect from '../column-select/ColumnSelect';
 import { FileFormat, fileFormatsWithColumns } from '../../types/resultsTypes';
 import { UniProtKBColumn } from '../../types/columnTypes';
+import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 
 import './styles/download.scss';
 import { Namespace } from '../../../shared/types/namespaces';

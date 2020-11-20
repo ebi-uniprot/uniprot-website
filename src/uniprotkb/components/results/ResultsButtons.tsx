@@ -8,8 +8,6 @@ import {
 } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import { ViewMode } from '../../state/resultsInitialState';
-
 import SlidingPanel from '../../../shared/components/layouts/SlidingPanel';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -17,6 +15,7 @@ import AddToBasketButton from '../../../shared/components/action-buttons/AddToBa
 
 import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
+import { ViewMode } from '../../../shared/components/results/ResultsContainer';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;

@@ -1,9 +1,7 @@
 import React from 'react';
 import { waitFor } from '@testing-library/react';
 
-import ColumnSelectContainer, {
-  removeFieldFromFieldsData,
-} from '../ColumnSelectContainer';
+import ColumnSelect from '../ColumnSelect';
 
 import initialState from '../../../../app/state/rootInitialState';
 

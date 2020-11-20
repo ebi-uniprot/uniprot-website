@@ -10,8 +10,6 @@ import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';
 import { useTableColumnsFromLocalStorage } from '../../utils/localStorage';
 
-import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
-
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -24,6 +22,11 @@ import Response from '../../../uniprotkb/types/responseTypes';
 import useNS from '../../hooks/useNS';
 
 import './styles/results-table.scss';
+
+export enum ViewMode {
+  TABLE,
+  CARD,
+}
 
 const Results: FC = () => {
   const namespace = useNS();

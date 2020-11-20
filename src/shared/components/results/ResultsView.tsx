@@ -10,8 +10,6 @@ import uniProtKbConverter, {
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
-import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
-
 import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration, {
@@ -40,7 +38,8 @@ import {
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import { AllColumns } from './ResultsContainer';
+import { AllColumns } from '../../config/defaultColumns';
+import { ViewMode } from './ResultsContainer';
 
 type ResultsTableProps = {
   selectedEntries: string[];

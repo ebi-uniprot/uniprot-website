@@ -1,7 +1,8 @@
 import React from 'react';
 import { Bubble } from 'franklin-sites';
-import { getBEMClassName as bem } from '../../../../shared/utils/utils';
-import { UniProtKBColumn } from '../../../types/columnTypes';
+import { getBEMClassName as bem } from '../../../utils/utils';
+
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import {
   ColumnSelectTab,
   FieldData,
@@ -9,7 +10,7 @@ import {
   ReceivedFieldData,
   FieldDatum,
   SelectedColumn,
-} from '../../../types/resultsTypes';
+} from '../../../../uniprotkb/types/resultsTypes';
 
 export const entryField = {
   tabId: ColumnSelectTab.data,

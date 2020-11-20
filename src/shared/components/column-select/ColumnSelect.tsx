@@ -1,25 +1,25 @@
 import React, { FC, useCallback } from 'react';
 import { AccordionSearch, Tabs, Tab, Loader } from 'franklin-sites';
+import { moveItemInList, removeItemFromList } from '../../utils/utils';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import {
-  moveItemInList,
-  removeItemFromList,
-} from '../../../shared/utils/utils';
-import { UniProtKBColumn } from '../../types/columnTypes';
-import { ReceivedFieldData, ColumnSelectTab } from '../../types/resultsTypes';
-import { Namespace } from '../../../shared/types/namespaces';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import apiUrls from '../../../shared/config/apiUrls';
+  ReceivedFieldData,
+  ColumnSelectTab,
+} from '../../../uniprotkb/types/resultsTypes';
+import { Namespace } from '../../types/namespaces';
+import useDataApi from '../../hooks/useDataApi';
+import apiUrls from '../../config/apiUrls';
 
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
 import './styles/column-select.scss';
-import defaultColumns from '../../../shared/config/defaultColumns';
-import { prepareFieldData } from '../../state/resultsActions';
+import defaultColumns from '../../config/defaultColumns';
 import {
   entryField,
   removeFieldFromFieldsData,
   getFieldDataForColumns,
   getTabTitle,
+  prepareFieldData,
 } from './utils';
 
 type ColumnSelectProps = {

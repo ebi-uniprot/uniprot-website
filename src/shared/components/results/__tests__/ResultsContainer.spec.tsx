@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { cleanup, fireEvent } from '@testing-library/react';
-import ResultsContainer from '../ResultsContainer';
+import ResultsContainer, { ViewMode } from '../ResultsContainer';
 import { act } from 'react-dom/test-utils';
-import resultsInitialState, {
-  ViewMode,
-} from '../../../../uniprotkb/state/resultsInitialState';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
