@@ -20,6 +20,7 @@ exports[`ObsoleteEntryPage component should render deleted page 1`] = `
         height="1.125em"
         viewBox="0 0 18 18"
         width="1.125em"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           clip-rule="evenodd"
@@ -78,6 +79,7 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
         height="1.125em"
         viewBox="0 0 18 18"
         width="1.125em"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           clip-rule="evenodd"

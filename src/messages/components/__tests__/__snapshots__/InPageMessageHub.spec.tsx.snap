@@ -15,6 +15,7 @@ exports[`InPageMessageHub tests it should render and call dismiss 1`] = `
         height="1.125em"
         viewBox="0 0 18 18"
         width="1.125em"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           clip-rule="evenodd"
@@ -38,6 +39,7 @@ exports[`InPageMessageHub tests it should render and call dismiss 1`] = `
           height="10"
           viewBox="0 0 352 512"
           width="10"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"

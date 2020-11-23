@@ -35,10 +35,10 @@
     ],
     "coverageThreshold": {
       "global": {
-        "lines": 79,
-        "statements": 79,
-        "functions": 75,
-        "branches": 66
+        "lines": 82.25,
+        "statements": 82.12,
+        "functions": 80.49,
+        "branches": 71.49
       }
     },
     "transform": {
@@ -91,13 +91,13 @@
     "@geneontology/ribbon": "1.11.2",
     "@sentry/browser": "5.27.4",
     "@swissprot/rhea-reaction-visualizer": "0.0.18",
-    "@use-it/event-listener": "^0.1.5",
+    "@use-it/event-listener": "^0.1.6",
     "axios": "0.21.0",
     "classnames": "2.2.6",
     "core-js": "3.7.0",
     "d3": "5.16.0",
     "file-type": "16.0.1",
-    "franklin-sites": "0.0.84",
+    "franklin-sites": "0.0.85",
     "history": "4.10.1",
     "idb": "5.0.7",
     "interaction-viewer": "3.1.2",

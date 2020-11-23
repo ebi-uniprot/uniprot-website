@@ -14,9 +14,6 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
-declare const BASE_URL: string;
-declare const LIVE_RELOAD: boolean;
-
 interface Config {
   onUpdate?(registration: ServiceWorkerRegistration): void;
   onSuccess?(registration: ServiceWorkerRegistration): void;

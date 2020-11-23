@@ -1,6 +1,11 @@
 import React, { useMemo, useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useRouteMatch, useHistory } from 'react-router-dom';
+import {
+  Link,
+  useRouteMatch,
+  useHistory,
+  generatePath,
+} from 'react-router-dom';
 import {
   InPageNav,
   Loader,
@@ -72,12 +77,13 @@ const Entry: FC = () => {
   // if URL doesn't finish with "entry" redirect to /entry by default
   useEffect(() => {
     if (match && !match.params.subPage) {
-      history.replace(
-        history.createHref({
-          ...history.location,
-          pathname: `${history.location.pathname}/${TabLocation.Entry}`,
-        })
-      );
+      history.replace({
+        ...history.location,
+        pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+          accession: match.params.accession,
+          subPage: TabLocation.Entry,
+        }),
+      });
     }
   }, [match, history]);
 

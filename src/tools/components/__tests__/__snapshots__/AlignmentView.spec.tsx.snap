@@ -12,7 +12,7 @@ exports[`AlignmentView Align should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button primary dropdown"
+          class="button tertiary dropdown"
           type="button"
         >
           Highlight properties
@@ -25,7 +25,7 @@ exports[`AlignmentView Align should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button primary dropdown"
+          class="button tertiary dropdown"
           type="button"
         >
           Select annotation
@@ -130,6 +130,7 @@ exports[`AlignmentView Align should render 1`] = `
               <svg
                 fill="currentColor"
                 viewBox="0 0 426 512"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
@@ -160,6 +161,7 @@ exports[`AlignmentView Align should render 1`] = `
               <svg
                 fill="currentColor"
                 viewBox="0 0 426 512"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
@@ -190,6 +192,7 @@ exports[`AlignmentView Align should render 1`] = `
               <svg
                 fill="currentColor"
                 viewBox="0 0 426 512"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
@@ -220,6 +223,7 @@ exports[`AlignmentView Align should render 1`] = `
               <svg
                 fill="currentColor"
                 viewBox="0 0 426 512"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
@@ -298,7 +302,7 @@ exports[`AlignmentView BLAST should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button primary dropdown"
+          class="button tertiary dropdown"
           type="button"
         >
           Highlight properties
@@ -311,7 +315,7 @@ exports[`AlignmentView BLAST should render 1`] = `
         class="dropdown-container"
       >
         <button
-          class="button primary dropdown"
+          class="button tertiary dropdown"
           type="button"
         >
           Select annotation

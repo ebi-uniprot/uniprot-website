@@ -69,13 +69,13 @@ const links = (
   return [
     {
       label: 'Query Builder',
-      path: history.createHref({
+      path: {
         // only interested in "query"
         search: qs.stringify({ query }, { encode: false }),
         pathname: generatePath(LocationToPath[Location.QueryBuilder], {
           namespace: ns,
         }),
-      }),
+      },
     },
     {
       label: 'API',
