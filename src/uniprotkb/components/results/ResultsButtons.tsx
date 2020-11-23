@@ -75,16 +75,18 @@ const ResultsButtons: FC<{
         </Suspense>
       )}
       {displayCustomisePanel && (
-        <SlidingPanel position={Position.left} yScrollable>
-          <CustomiseComponent
-            namespace={Namespace.uniprotkb}
-            selectedColumns={tableColumns}
-            onSave={(columns: AllColumns) => {
-              onTableColumnsChange(columns);
-              setDisplayCustomisePanel(false);
-            }}
-          />
-        </SlidingPanel>
+        <Suspense fallback>
+          <SlidingPanel position={Position.left} yScrollable>
+            <CustomiseComponent
+              namespace={Namespace.uniprotkb}
+              selectedColumns={tableColumns}
+              onSave={(columns: AllColumns) => {
+                onTableColumnsChange(columns);
+                setDisplayCustomisePanel(false);
+              }}
+            />
+          </SlidingPanel>
+        </Suspense>
       )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />

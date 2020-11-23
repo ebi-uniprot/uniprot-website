@@ -35,7 +35,11 @@ export const removeFieldFromFieldsData = (
 });
 
 export const prepareFields = (fields: ReceivedField[]) =>
-  fields.map(({ label, name }) => ({ id: name as UniProtKBColumn, label }));
+  fields.map(({ label, name, id }) => ({
+    id: name,
+    label,
+    key: id,
+  }));
 
 export const prepareFieldData = (fieldData: ReceivedFieldData) => {
   const dataTab: FieldDatum[] = [];
