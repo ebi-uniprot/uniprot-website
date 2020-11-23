@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-
-import { RootState } from '../../../app/state/rootInitialState';
 import DownloadView from './DownloadView';
 import { UniProtKBColumn, SortableColumn } from '../../types/columnTypes';
 import {
@@ -13,14 +10,13 @@ import {
 import { getDownloadUrl } from '../../../shared/config/apiUrls';
 import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
-import { Namespace } from '../../../shared/types/namespaces';
-import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
+// import { Namespace } from '../../../shared/types/namespaces';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
 
 type DownloadTableProps = {
-  tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
+  // tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
   query: string;
   selectedFacets: SelectedFacet[];
   sortColumn: SortableColumn;
@@ -31,7 +27,7 @@ type DownloadTableProps = {
 };
 
 const Download: React.FC<DownloadTableProps> = ({
-  tableColumns,
+  // tableColumns,
   query = '',
   selectedFacets = [],
   sortColumn = UniProtKBColumn.accession as SortableColumn,
@@ -40,9 +36,10 @@ const Download: React.FC<DownloadTableProps> = ({
   totalNumberResults = 0,
   onClose,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState(
+  const [selectedColumns, setSelectedColumns] = useState<UniProtKBColumn[]>(
     // TODO temporary casting to UniProtKBColumn to make TS happy
-    tableColumns[Namespace.uniprotkb] as UniProtKBColumn[]
+    // tableColumns[Namespace.uniprotkb] as UniProtKBColumn[]
+    []
   );
   const [downloadAll, setDownloadAll] = useState(true);
   const [fileFormat, setFileFormat] = useState(FileFormat.fastaCanonical);
@@ -158,10 +155,4 @@ const Download: React.FC<DownloadTableProps> = ({
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  tableColumns: state.results.tableColumns,
-});
-
-const DownloadContainer = connect(mapStateToProps)(Download);
-
-export default DownloadContainer;
+export default Download;
