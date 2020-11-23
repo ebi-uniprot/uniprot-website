@@ -6,7 +6,6 @@ import {
   ListIcon,
   EditIcon,
 } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 
 import SlidingPanel from '../../../shared/components/layouts/SlidingPanel';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
@@ -17,6 +16,7 @@ import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
 import { ViewMode } from '../../../shared/components/results/ResultsContainer';
 import { Namespace } from '../../../shared/types/namespaces';
+import { AllColumns } from '../../../shared/config/defaultColumns';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -27,6 +27,8 @@ const ResultsButtons: FC<{
   sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
+  tableColumns?: AllColumns | null;
+  onTableColumnsChange: (columns: AllColumns) => void;
 }> = ({
   viewMode,
   setViewMode,
@@ -36,6 +38,8 @@ const ResultsButtons: FC<{
   sortDirection,
   selectedEntries,
   total,
+  tableColumns,
+  onTableColumnsChange,
 }) => {
   const DownloadComponent = lazy(
     () =>
@@ -72,7 +76,11 @@ const ResultsButtons: FC<{
         <SlidingPanel position="right">
           <CustomiseComponent
             namespace={Namespace.uniprotkb}
-            onClose={() => setDisplayCustomisePanel(false)}
+            selectedColumns={tableColumns}
+            onSave={(columns: AllColumns) => {
+              onTableColumnsChange(columns);
+              setDisplayCustomisePanel(false);
+            }}
           />
         </SlidingPanel>
       )}

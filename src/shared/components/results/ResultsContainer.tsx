@@ -41,7 +41,9 @@ const Results: FC = () => {
     'view-mode',
     ViewMode.CARD
   );
-  const [tableColumns] = useTableColumnsFromLocalStorage(namespace);
+  const [tableColumns, setTableColumns] = useTableColumnsFromLocalStorage(
+    namespace
+  );
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -112,6 +114,10 @@ const Results: FC = () => {
           sortColumn={sortColumn}
           sortDirection={sortDirection}
           total={total || 0}
+          tableColumns={tableColumns}
+          onTableColumnsChange={(columns) => {
+            setTableColumns(columns);
+          }}
         />
       }
       sidebar={

@@ -1,47 +1,35 @@
 import React, { useState, FC } from 'react';
-import { sleep } from 'timing-functions';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
+import { AllColumns } from '../../config/defaultColumns';
 import { Namespace } from '../../types/namespaces';
-import { useTableColumnsFromLocalStorage } from '../../utils/localStorage';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 type CustomiseTableProps = {
   namespace: Namespace;
-  onClose: () => void;
+  onSave: (selectedColumns: AllColumns) => void;
+  selectedColumns?: AllColumns | null;
 };
 
 const CustomiseTable: FC<CustomiseTableProps> = ({
   namespace = Namespace.uniprotkb,
-  onClose,
+  onSave,
+  selectedColumns: initialSelectedColumns,
 }) => {
-  const [
-    tableColumnsFromLocalStorage,
-    setTableColumnsFromLocalStorage,
-  ] = useTableColumnsFromLocalStorage(namespace);
   const [selectedColumns, setSelectedColumns] = useState(
-    tableColumnsFromLocalStorage
+    initialSelectedColumns || []
   );
 
-  if (!selectedColumns) {
-    // TODO return an error here?
-    return null;
-  }
-
   const handleChange = (columnIds: UniProtKBColumn[]) => {
-    setSelectedColumns(columnIds);
+    setSelectedColumns(columnIds as AllColumns);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTableColumnsFromLocalStorage(selectedColumns);
-    // TODO remove this hack when it's no longer in its own page
-    await sleep(500);
-    onClose();
+    onSave(selectedColumns);
   };
 
   const handleCancel = () => {
-    onClose();
+    onSave(initialSelectedColumns || []);
   };
 
   return (
@@ -54,7 +42,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
         onChange={handleChange}
         // TODO temporary casting to UniProtKBColumn to make TS happy
         selectedColumns={selectedColumns as UniProtKBColumn[]}
-        namespace={Namespace.uniprotkb}
+        namespace={namespace}
       />
       <div className="button-group customise-table--cancel-submit-buttons">
         <button
