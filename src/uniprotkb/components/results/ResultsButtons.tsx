@@ -7,7 +7,9 @@ import {
   EditIcon,
 } from 'franklin-sites';
 
-import SlidingPanel from '../../../shared/components/layouts/SlidingPanel';
+import SlidingPanel, {
+  Position,
+} from '../../../shared/components/layouts/SlidingPanel';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
@@ -59,7 +61,7 @@ const ResultsButtons: FC<{
     <>
       {displayDownloadPanel && (
         <Suspense fallback>
-          <SlidingPanel position="right">
+          <SlidingPanel position={Position.left} yScrollable>
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
@@ -73,7 +75,7 @@ const ResultsButtons: FC<{
         </Suspense>
       )}
       {displayCustomisePanel && (
-        <SlidingPanel position="right">
+        <SlidingPanel position={Position.left} yScrollable>
           <CustomiseComponent
             namespace={Namespace.uniprotkb}
             selectedColumns={tableColumns}

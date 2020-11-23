@@ -114,7 +114,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
     Map<UniProtKBColumn | UniRefColumn, string>
   >();
-
   const { data, headers } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);

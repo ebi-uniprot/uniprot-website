@@ -4,22 +4,31 @@ import cn from 'classnames';
 
 import './styles/sliding-panel.scss';
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
+export enum Position {
+  top = 'Top',
+  bottom = 'Bottom',
+  left = 'Left',
+  right = 'Right',
+}
 
 const SlidingPanel: FC<{
   position: Position;
   className?: string;
-}> = ({ children, position, className }) => {
+  yScrollable?: boolean;
+}> = ({ children, position, className, yScrollable = false }) => {
   const [props] = useSpring(() => ({
     opacity: 1,
-    marginRight: 0,
-    from: { opacity: 0, marginRight: -1000 },
+    [`margin${position}`]: 0,
+    from: { opacity: 0, [`margin${position}`]: -1000 },
   }));
 
   return (
     <animated.div
-      className={cn(`sliding-panel sliding-panel--${position}`, className)}
-      style={props}
+      className={cn(
+        `sliding-panel sliding-panel--${position.toLowerCase()}`,
+        className
+      )}
+      style={{ ...props, overflowY: yScrollable ? 'auto' : 'visible' }}
     >
       <div>{children}</div>
     </animated.div>
