@@ -44,18 +44,9 @@ describe('Results component', () => {
 
   test('should toggle card view to table', async () => {
     await act(async () => {
-      const state = {
-        results: {
-          viewMode: ViewMode.TABLE,
-          results: {
-            data: [{}],
-          },
-        },
-      };
       const { container, findByTestId, findByText } = renderWithRedux(
         <ResultsContainer />,
         {
-          initialState: state,
           route: '/uniprotkb?query=blah',
         }
       );
@@ -74,7 +65,6 @@ describe('Results component', () => {
     // NOTE: not sure act() should wrap that much code
     await act(async () => {
       const { history, findByText } = renderWithRedux(<ResultsContainer />, {
-        initialState: state,
         route: '/uniprotkb?query=blah',
       });
       let columnHeader = await findByText('Entry');
@@ -96,12 +86,7 @@ describe('Results component', () => {
   });
 
   test('should display no results page', async () => {
-    const state = {
-      results: {},
-    };
-
     const { findByTestId } = renderWithRedux(<ResultsContainer />, {
-      initialState: state,
       route: '/uniprotkb?query=noresult',
     });
 
