@@ -11,6 +11,7 @@ export enum Location {
   UniRefResults = 'UniRefResults',
   UniParcEntry = 'UniParcEntry',
   UniParcResults = 'UniParcResults',
+  TaxonomyEntry = 'TaxonomyEntry',
   Align = 'Align',
   AlignResult = 'AlignResult',
   Blast = 'Blast',
@@ -43,6 +44,7 @@ export const LocationToPath = {
   [Location.UniRefResults]: '/uniref',
   [Location.UniParcEntry]: '/uniparc/:accession',
   [Location.UniParcResults]: '/uniparc',
+  [Location.TaxonomyEntry]: '/taxonomy/:taxid',
 };
 
 export const SearchResultsLocations = {

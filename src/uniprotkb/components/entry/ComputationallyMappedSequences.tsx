@@ -1,16 +1,19 @@
 /* eslint-disable react/no-unused-prop-types */
 import React, { useCallback, useMemo, useState } from 'react';
-import { DataTable, DENSITY_COMPACT, Message } from 'franklin-sites';
+import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
-import apiUrls from '../../../shared/config/apiUrls';
-import useDataApi from '../../../shared/hooks/useDataApi';
-import { MessageLevel } from '../../../messages/types/messagesTypes';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
+import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import BlastButton from '../../../shared/components/action-buttons/Blast';
+
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+
+import useDataApi from '../../../shared/hooks/useDataApi';
+import apiUrls from '../../../shared/config/apiUrls';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+import { MessageLevel } from '../../../messages/types/messagesTypes';
 
 // NOTE: Jie told me this would be replaced by a different
 // format he called "FASTA" entry
@@ -32,35 +35,38 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const columns = [
-    {
-      label: 'Accession',
-      name: 'accession',
-      render: ({ accession, entryType }: ProteinEntryLight) => {
-        return (
-          <Link to={`/uniprotkb/${accession}`}>
-            <EntryTypeIcon entryType={entryType} />
-            {accession}
-          </Link>
-        );
+  const columns = useMemo(
+    () => [
+      {
+        label: 'Accession',
+        name: 'accession',
+        render: ({ accession, entryType }: ProteinEntryLight) => {
+          return (
+            <Link to={`/uniprotkb/${accession}`}>
+              <EntryTypeIcon entryType={entryType} />
+              {accession}
+            </Link>
+          );
+        },
       },
-    },
-    {
-      label: 'Gene name',
-      name: 'gene_name',
-      render: ({ geneName }: ProteinEntryLight) => geneName,
-    },
-    {
-      label: 'Gene name type',
-      name: 'gene_name_type',
-      render: ({ geneNameType }: ProteinEntryLight) => geneNameType,
-    },
-    {
-      label: 'Length',
-      name: 'length',
-      render: ({ sequenceLength }: ProteinEntryLight) => sequenceLength,
-    },
-  ];
+      {
+        label: 'Gene name',
+        name: 'gene_name',
+        render: ({ geneName }: ProteinEntryLight) => geneName,
+      },
+      {
+        label: 'Gene name type',
+        name: 'gene_name_type',
+        render: ({ geneNameType }: ProteinEntryLight) => geneNameType,
+      },
+      {
+        label: 'Length',
+        name: 'length',
+        render: ({ sequenceLength }: ProteinEntryLight) => sequenceLength,
+      },
+    ],
+    []
+  );
 
   // Hooks
   const history = useHistory();
@@ -128,17 +134,13 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
               <div className="button-group">
                 <BlastButton selectedEntries={selectedEntries} />
                 <AlignButton selectedEntries={selectedEntries} />
-                <AddToBasketButton selectedEntries={selectedEntries} />
-                <button
-                  type="button"
-                  className="button tertiary"
-                  onClick={handleViewAll}
-                >
+                <AddToBasket selectedEntries={selectedEntries} />
+                <Button variant="tertiary" onClick={handleViewAll}>
                   View all
-                </button>
+                </Button>
               </div>
 
-              <div data-loader-scroll="computationaly-mapped">
+              <div>
                 <DataTable
                   getIdKey={({ accession }: { accession: string }) => accession}
                   density={DENSITY_COMPACT}

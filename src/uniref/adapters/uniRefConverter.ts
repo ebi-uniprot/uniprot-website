@@ -26,25 +26,21 @@ type Sequence = {
   md5: string;
 };
 
-type OverlapRegion = {
-  end: number;
-  start: number;
-};
+type MemberIDType = 'UniParc' | 'UniProtKB ID';
 
 export type UniRefMember = {
   seed: boolean;
-  memberIdType: string;
+  memberIdType: MemberIDType;
   memberId: string;
   organismName: string;
   organismTaxId: number;
   sequenceLength: number;
   proteinName: string;
-  accessions: string[];
-  uniRef50Id?: string;
-  uniRef90Id?: string;
-  uniRef100Id?: string;
-  uniParcId: string;
-  overlapRegion: OverlapRegion;
+  accessions?: string[];
+  uniref50Id?: string;
+  uniref90Id?: string;
+  uniref100Id?: string;
+  uniparcId?: string;
 };
 
 export type RepresentativeMember = UniRefMember & {
