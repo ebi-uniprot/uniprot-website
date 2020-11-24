@@ -4,6 +4,9 @@ import { AllColumns } from '../../config/defaultColumns';
 import { Namespace } from '../../types/namespaces';
 import ColumnSelect from '../column-select/ColumnSelect';
 
+import './styles/customise-table.scss';
+import '../../styles/sticky.scss';
+
 type CustomiseTableProps = {
   namespace: Namespace;
   onSave: (selectedColumns: AllColumns) => void;
@@ -44,7 +47,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
         selectedColumns={selectedColumns as UniProtKBColumn[]}
         namespace={namespace}
       />
-      <div className="button-group customise-table--cancel-submit-buttons">
+      <div className="button-group sticky-bottom-right">
         <button
           className="button secondary"
           type="button"

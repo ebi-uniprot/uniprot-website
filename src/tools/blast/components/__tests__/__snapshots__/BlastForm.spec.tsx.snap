@@ -533,7 +533,7 @@ exports[`BlastForm test Renders the form 1`] = `
         </section>
       </details>
       <section
-        class="tools-form-section tools-form-section__main_actions"
+        class="tools-form-section sticky-bottom-right"
       >
         <section
           class="button-group tools-form-section__buttons"
