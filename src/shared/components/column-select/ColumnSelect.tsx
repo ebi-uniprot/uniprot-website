@@ -49,7 +49,6 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   const handleSelect = useCallback(
     (itemId: UniProtKBColumn) => {
       const index = selectedColumnsWithoutEntry.indexOf(itemId);
-      console.log(index, itemId, selectedColumnsWithoutEntry);
       handleChange(
         index >= 0
           ? removeItemFromList(selectedColumnsWithoutEntry, index)
