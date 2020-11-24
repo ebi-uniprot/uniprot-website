@@ -28,7 +28,7 @@ const SlidingPanel: FC<{
         `sliding-panel sliding-panel--${position.toLowerCase()}`,
         className
       )}
-      style={{ ...props, overflowY: yScrollable ? 'auto' : 'visible' }}
+      style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
     >
       <div>{children}</div>
     </animated.div>

@@ -46,7 +46,6 @@ describe('Results component', () => {
     await act(async () => {
       const state = {
         results: {
-          ...resultsInitialState,
           viewMode: ViewMode.TABLE,
           results: {
             data: [{}],
@@ -70,7 +69,7 @@ describe('Results component', () => {
 
   test('should set sorting', async () => {
     const state = {
-      results: { ...resultsInitialState, viewMode: ViewMode.TABLE },
+      results: { viewMode: ViewMode.TABLE },
     };
     // NOTE: not sure act() should wrap that much code
     await act(async () => {
@@ -98,7 +97,7 @@ describe('Results component', () => {
 
   test('should display no results page', async () => {
     const state = {
-      results: { ...resultsInitialState },
+      results: {},
     };
 
     const { findByTestId } = renderWithRedux(<ResultsContainer />, {

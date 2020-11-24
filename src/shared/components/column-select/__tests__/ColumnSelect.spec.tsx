@@ -1,0 +1,113 @@
+import React from 'react';
+import { fireEvent, waitFor } from '@testing-library/react';
+
+import ColumnSelect from '../ColumnSelect';
+import { removeFieldFromFieldsData } from '../utils';
+
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+
+import { Namespace } from '../../../types/namespaces';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import { ColumnSelectTab } from '../../../../uniprotkb/types/resultsTypes';
+
+import structuredResultFieldsData from './__mocks__/structuredResultFieldsData.json';
+import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+describe('ColumnSelect component', () => {
+  // testing implementation?
+  let rendered;
+  const onChange = jest.fn();
+  const selectedColumns = [
+    UniProtKBColumn.accession,
+    UniProtKBColumn.proteinName,
+    UniProtKBColumn.proteinExistence,
+  ];
+  const namespace = Namespace.uniprotkb;
+
+  beforeEach(async () => {
+    rendered = renderWithRedux(
+      <ColumnSelect
+        onChange={onChange}
+        selectedColumns={selectedColumns}
+        namespace={namespace}
+      />
+    );
+    await waitFor(() => rendered.getAllByTestId('accordion-search-list-item'));
+  });
+
+  test('should render', () => {
+    const { asFragment } = rendered;
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  test('should call to get field data and have the correct number of "data" list items', () => {
+    const { getAllByTestId } = rendered;
+    const items = getAllByTestId('accordion-search-list-item');
+    // Only "data" (ie not DB links) are visible so only count these
+    const nDataListItems = resultFields.reduce(
+      (accum, { fields, isDatabaseGroup }) =>
+        accum + (!isDatabaseGroup && fields.length),
+      0
+    );
+    expect(items.length).toBe(nDataListItems);
+  });
+
+  test('should call onSelect when unselected item is clicked and do so with selected columns and new item', () => {
+    const { getByText } = rendered;
+    const item = getByText('Gene Names');
+    fireEvent.click(item);
+    expect(onChange).toHaveBeenCalledWith([
+      ...selectedColumns,
+      UniProtKBColumn.geneNames,
+    ]);
+  });
+
+  test('should call onSelect when already selected item is clicked and do so with selected columns without clicked item', () => {
+    const { getAllByText } = rendered;
+    // Getting the 2nd item as the 1st one is the drag-and-drop button
+    const item = getAllByText('Protein existence')[1];
+    fireEvent.click(item);
+    expect(onChange).toHaveBeenCalledWith(
+      selectedColumns.filter((c) => c !== UniProtKBColumn.proteinExistence)
+    );
+  });
+});
+
+describe('removeFieldFromFieldsData', () => {
+  test('should remove field', () => {
+    const entryField = {
+      tabId: ColumnSelectTab.data,
+      accordionId: 'Names & Taxonomy',
+      itemId: UniProtKBColumn.accession,
+    };
+    expect(
+      removeFieldFromFieldsData(entryField, structuredResultFieldsData)
+    ).toEqual({
+      [ColumnSelectTab.data]: [
+        {
+          id: 'Names & Taxonomy',
+          title: 'title',
+          items: [
+            {
+              id: UniProtKBColumn.ccAllergen,
+              label: 'ccAllergen-label',
+            },
+          ],
+        },
+      ],
+      [ColumnSelectTab.links]: [
+        {
+          id: 'Sequence',
+          title: 'title',
+          items: [
+            {
+              id: UniProtKBColumn.xrefAbcd,
+              label: 'xrefAbcd-label',
+            },
+          ],
+        },
+      ],
+    });
+  });
+});
