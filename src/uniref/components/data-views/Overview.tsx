@@ -95,17 +95,17 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
   );
 };
 
-export const Seed: FC<{ seed: string }> = ({ seed }) => {
+export const Seed: FC<{ seedId: string }> = ({ seedId }) => {
   const path = generatePath(
     LocationToPath[
-      seed.startsWith('UPI') ? Location.UniParcEntry : Location.UniProtKBEntry
+      seedId.startsWith('UPI') ? Location.UniParcEntry : Location.UniProtKBEntry
     ],
-    { accession: seed }
+    { accession: seedId }
   );
 
   return (
     <strong>
-      Built on seed sequence <Link to={path}>{seed}</Link>
+      Built on seed sequence <Link to={path}>{seedId}</Link>
     </strong>
   );
 };
@@ -128,7 +128,7 @@ export const Overview: FC<
   return (
     <section>
       {name} · <MemberIcons facetData={facetData} /> · {updated} ·{' '}
-      <Seed seed={transformedData.seed || 'temporary placeholder'} />
+      <Seed seedId={transformedData.seedId} />
     </section>
   );
 };
