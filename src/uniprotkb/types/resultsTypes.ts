@@ -1,3 +1,4 @@
+import { Column } from '../../shared/config/columns';
 import { UniProtKBColumn } from './columnTypes';
 
 export enum SortDirection {
@@ -25,7 +26,7 @@ export enum ColumnSelectTab {
 export type SelectedColumn = {
   tabId: ColumnSelectTab;
   accordionId: string;
-  itemId: UniProtKBColumn;
+  itemId: Column;
   label: string;
 };
 

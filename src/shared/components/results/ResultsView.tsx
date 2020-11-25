@@ -38,12 +38,12 @@ import {
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import { AllColumns } from '../../config/defaultColumns';
+import { Column } from '../../config/columns';
 import { ViewMode } from './ResultsContainer';
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: AllColumns;
+  columns: Column[];
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
 };

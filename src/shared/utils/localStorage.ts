@@ -1,9 +1,9 @@
-import defaultTableColumns, { AllColumns } from '../config/defaultColumns';
+import { defaultColumns, Column } from '../config/columns';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { Namespace } from '../types/namespaces';
 
 export const useTableColumnsFromLocalStorage = (namespace?: Namespace) =>
-  useLocalStorage<AllColumns>(
+  useLocalStorage<Column[]>(
     `table columns for ${namespace}`,
-    namespace ? defaultTableColumns[namespace] : []
+    namespace ? defaultColumns[namespace] : []
   );

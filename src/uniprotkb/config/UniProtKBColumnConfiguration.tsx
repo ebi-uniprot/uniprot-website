@@ -82,6 +82,8 @@ export const defaultColumns = [
   UniProtKBColumn.organismName,
 ];
 
+export const mustHave = [UniProtKBColumn.accession];
+
 const getFeatureColumn = (type: FeatureType) => {
   return {
     label: type,

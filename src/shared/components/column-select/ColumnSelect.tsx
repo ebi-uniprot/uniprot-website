@@ -1,70 +1,70 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { AccordionSearch, Tabs, Tab, Loader } from 'franklin-sites';
-import { moveItemInList, removeItemFromList } from '../../utils/utils';
+import { difference } from 'lodash-es';
+
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import ColumnSelectDragDrop from './ColumnSelectDragDrop';
+
+import useNS from '../../hooks/useNS';
+import useDataApi from '../../hooks/useDataApi';
+
+import apiUrls from '../../config/apiUrls';
+import { Column, defaultColumns, mustHaveColumns } from '../../config/columns';
+
+import { moveItemInList, removeItemFromList } from '../../utils/utils';
+import { getFieldDataForColumns, getTabTitle, prepareFieldData } from './utils';
+
 import {
   ReceivedFieldData,
   ColumnSelectTab,
 } from '../../../uniprotkb/types/resultsTypes';
-import { Namespace } from '../../types/namespaces';
-import useDataApi from '../../hooks/useDataApi';
-import apiUrls from '../../config/apiUrls';
-
-import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
 import './styles/column-select.scss';
-import defaultColumns from '../../config/defaultColumns';
-import {
-  entryField,
-  removeFieldFromFieldsData,
-  getFieldDataForColumns,
-  getTabTitle,
-  prepareFieldData,
-} from './utils';
 
 type ColumnSelectProps = {
-  selectedColumns: UniProtKBColumn[];
-  onChange: (columndIds: UniProtKBColumn[]) => void;
-  namespace: Namespace;
+  selectedColumns: Column[];
+  onChange: (columndIds: Column[]) => void;
 };
 
-const ColumnSelect: FC<ColumnSelectProps> = ({
-  selectedColumns,
-  onChange,
-  namespace,
-}) => {
+const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
+  const namespace = useNS();
+  const [mustHaveNS, defaultColumnsNS] = useMemo(() => {
+    if (!namespace) {
+      return [[], []];
+    }
+    return [mustHaveColumns[namespace] || [], defaultColumns[namespace] || []];
+  }, [namespace]);
+
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const selectedColumnsWithoutEntry = selectedColumns.filter(
-    (col) => col !== entryField.itemId
-  );
+  const removableSelectedColumns = difference(selectedColumns, mustHaveNS);
   const handleChange = useCallback(
-    (columns: UniProtKBColumn[]) => {
-      onChange([entryField.itemId, ...columns]);
+    (columns: Column[]) => {
+      onChange([...mustHaveNS, ...columns]);
     },
-    [onChange]
+    [mustHaveNS, onChange]
   );
 
   const handleSelect = useCallback(
-    (itemId: UniProtKBColumn) => {
-      const index = selectedColumnsWithoutEntry.indexOf(itemId);
+    (itemId: Column) => {
+      const index = removableSelectedColumns.indexOf(itemId);
       handleChange(
         index >= 0
-          ? removeItemFromList(selectedColumnsWithoutEntry, index)
-          : [...selectedColumnsWithoutEntry, itemId]
+          ? removeItemFromList(removableSelectedColumns, index)
+          : [...removableSelectedColumns, itemId]
       );
     },
-    [handleChange, selectedColumnsWithoutEntry]
+    [handleChange, removableSelectedColumns]
   );
 
   const handleDragDrop = useCallback(
     (srcIndex: number, destIndex: number) => {
       handleChange(
-        moveItemInList(selectedColumnsWithoutEntry, srcIndex, destIndex)
+        moveItemInList(removableSelectedColumns, srcIndex, destIndex)
       );
     },
-    [handleChange, selectedColumnsWithoutEntry]
+    [handleChange, removableSelectedColumns]
   );
 
   const { loading, data } = useDataApi<ReceivedFieldData>(
@@ -78,8 +78,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   const fieldData = prepareFieldData(data);
 
   const fieldDataForSelectedColumns = getFieldDataForColumns(
-    selectedColumnsWithoutEntry,
-    removeFieldFromFieldsData(entryField, fieldData)
+    removableSelectedColumns,
+    fieldData
   );
 
   const tabs = [ColumnSelectTab.data, ColumnSelectTab.links].map((tabId) => {
@@ -111,9 +111,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
         className="button secondary"
         type="button"
         tabIndex={0}
-        onClick={() =>
-          onChange(defaultColumns[Namespace.uniprotkb] as UniProtKBColumn[])
-        }
+        onClick={() => onChange(defaultColumnsNS)}
         data-testid="column-select-reset-button"
       >
         Reset to default

@@ -2,7 +2,6 @@ import React from 'react';
 import { Bubble } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../../utils/utils';
 
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import {
   ColumnSelectTab,
   FieldData,
@@ -11,28 +10,7 @@ import {
   FieldDatum,
   SelectedColumn,
 } from '../../../../uniprotkb/types/resultsTypes';
-
-export const entryField = {
-  tabId: ColumnSelectTab.data,
-  accordionId: 'Names & Taxonomy',
-  itemId: UniProtKBColumn.accession,
-};
-
-export const removeFieldFromFieldsData = (
-  {
-    tabId,
-    accordionId,
-    itemId,
-  }: { tabId: ColumnSelectTab; accordionId: string; itemId: UniProtKBColumn },
-  fieldData: FieldData
-) => ({
-  ...fieldData,
-  [tabId]: fieldData[tabId].map((group) =>
-    group.id === accordionId
-      ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
-      : group
-  ),
-});
+import { Column } from '../../../config/columns';
 
 export const prepareFields = (fields: ReceivedField[]) =>
   fields.map(({ label, name, id }) => ({
@@ -90,7 +68,7 @@ export const getTabTitle = (
 );
 
 export const getFieldDataForColumns = (
-  columns: UniProtKBColumn[],
+  columns: Column[],
   fieldData: FieldData
 ) => {
   /*

@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import { Loader } from 'franklin-sites';
 import { FileFormat, fileFormatsWithColumns } from '../../types/resultsTypes';
-import { UniProtKBColumn } from '../../types/columnTypes';
 import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 
 import './styles/download.scss';
-import { Namespace } from '../../../shared/types/namespaces';
+import { Column } from '../../../shared/config/columns';
 
 type DownloadViewProps = {
-  selectedColumns: UniProtKBColumn[];
+  selectedColumns: Column[];
   onPreview: (nPreview: number) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   onCancel: () => void;
@@ -17,7 +16,7 @@ type DownloadViewProps = {
   compressed: boolean;
   preview: string;
   loadingPreview: boolean;
-  onSelectedColumnsChange: (columns: UniProtKBColumn[]) => void;
+  onSelectedColumnsChange: (columns: Column[]) => void;
   onFileFormatChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onDownloadAllChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCompressedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -134,7 +133,6 @@ const DownloadView: React.FC<DownloadViewProps> = ({
             <ColumnSelect
               onChange={onSelectedColumnsChange}
               selectedColumns={selectedColumns}
-              namespace={Namespace.uniprotkb}
             />
           </fieldset>
         )}

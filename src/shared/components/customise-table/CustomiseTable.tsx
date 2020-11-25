@@ -1,20 +1,17 @@
 import React, { useState, FC } from 'react';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { AllColumns } from '../../config/defaultColumns';
-import { Namespace } from '../../types/namespaces';
+import { Column } from '../../config/columns';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import './styles/customise-table.scss';
 import '../../styles/sticky.scss';
 
 type CustomiseTableProps = {
-  namespace: Namespace;
-  onSave: (selectedColumns: AllColumns) => void;
-  selectedColumns?: AllColumns | null;
+  onSave: (selectedColumns: Column[]) => void;
+  selectedColumns?: Column[] | null;
 };
 
 const CustomiseTable: FC<CustomiseTableProps> = ({
-  namespace = Namespace.uniprotkb,
   onSave,
   selectedColumns: initialSelectedColumns,
 }) => {
@@ -22,8 +19,8 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
     initialSelectedColumns || []
   );
 
-  const handleChange = (columnIds: UniProtKBColumn[]) => {
-    setSelectedColumns(columnIds as AllColumns);
+  const handleChange = (columnIds: Column[]) => {
+    setSelectedColumns(columnIds);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -45,14 +42,12 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
         onChange={handleChange}
         // TODO temporary casting to UniProtKBColumn to make TS happy
         selectedColumns={selectedColumns as UniProtKBColumn[]}
-        namespace={namespace}
       />
       <div className="button-group sticky-bottom-right">
         <button
           className="button secondary"
           type="button"
           onClick={handleCancel}
-          data-testid="customise-table-cancel-button"
         >
           Cancel
         </button>

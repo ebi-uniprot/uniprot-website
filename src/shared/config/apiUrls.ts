@@ -12,6 +12,7 @@ import {
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
 import { Namespace } from '../types/namespaces';
+import { Column } from './columns';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
@@ -130,7 +131,7 @@ const defaultFacets = new Map<Namespace, string[]>([
 type QueryUrlProps = {
   namespace?: Namespace;
   query?: string;
-  columns?: string[] | null;
+  columns?: Column[] | null;
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;

@@ -17,8 +17,7 @@ import AddToBasketButton from '../../../shared/components/action-buttons/AddToBa
 import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
 import { ViewMode } from '../../../shared/components/results/ResultsContainer';
-import { Namespace } from '../../../shared/types/namespaces';
-import { AllColumns } from '../../../shared/config/defaultColumns';
+import { Column } from '../../../shared/config/columns';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -29,8 +28,8 @@ const ResultsButtons: FC<{
   sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
-  tableColumns?: AllColumns | null;
-  onTableColumnsChange: (columns: AllColumns) => void;
+  tableColumns?: Column[] | null;
+  onTableColumnsChange: (columns: Column[]) => void;
 }> = ({
   viewMode,
   setViewMode,
@@ -78,9 +77,8 @@ const ResultsButtons: FC<{
         <Suspense fallback>
           <SlidingPanel position={Position.left} yScrollable>
             <CustomiseComponent
-              namespace={Namespace.uniprotkb}
               selectedColumns={tableColumns}
-              onSave={(columns: AllColumns) => {
+              onSave={(columns: Column[]) => {
                 onTableColumnsChange(columns);
                 setDisplayCustomisePanel(false);
               }}

@@ -10,6 +10,7 @@ import {
 import { getDownloadUrl } from '../../../shared/config/apiUrls';
 import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
+import { Column } from '../../../shared/config/columns';
 // import { Namespace } from '../../../shared/types/namespaces';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
@@ -36,7 +37,7 @@ const Download: React.FC<DownloadTableProps> = ({
   totalNumberResults = 0,
   onClose,
 }) => {
-  const [selectedColumns, setSelectedColumns] = useState<UniProtKBColumn[]>(
+  const [selectedColumns, setSelectedColumns] = useState<Column[]>(
     // TODO temporary casting to UniProtKBColumn to make TS happy
     // tableColumns[Namespace.uniprotkb] as UniProtKBColumn[]
     []

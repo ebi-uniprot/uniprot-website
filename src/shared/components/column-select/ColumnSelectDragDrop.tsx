@@ -3,13 +3,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { CloseIcon } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../utils/utils';
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import './styles/column-select-drag-drop.scss';
+import { Column } from '../../config/columns';
 
 type ColumnSelectDragDropProps = {
   columns: SelectedColumn[];
   onDragDrop: (srcIndex: number, destIndex: number) => void;
-  onRemove: (columnId: UniProtKBColumn) => void;
+  onRemove: (columnId: Column) => void;
 };
 
 const ColumnSelectDragDrop: React.FC<ColumnSelectDragDropProps> = ({
