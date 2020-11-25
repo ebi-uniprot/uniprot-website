@@ -18,10 +18,7 @@ type PreparedField = {
   key: string;
 };
 
-export const prepareFields = (
-  fields: ReceivedField[],
-  exclude: Column[] = []
-) => {
+export const prepareFields = (fields: ReceivedField[], exclude: Column[]) => {
   const prepared: PreparedField[] = [];
   fields.forEach(({ label, name, id }) => {
     if (!exclude.includes(name)) {
@@ -44,7 +41,7 @@ export const prepareFieldData = (
   const linksAdded: Record<string, boolean> = {};
   fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
     const items = prepareFields(fields, exclude);
-    if (items) {
+    if (items.length) {
       const group = {
         id,
         title: groupName,

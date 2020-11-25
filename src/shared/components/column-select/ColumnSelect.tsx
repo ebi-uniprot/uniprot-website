@@ -32,15 +32,17 @@ type ColumnSelectProps = {
 
 const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   const namespace = useNS();
-  const [mustHaveColumns, defaultColumns] = useMemo(() => {
-    if (!namespace) {
-      return [[], []];
-    }
-    return [
+
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
+  const [mustHaveColumns, defaultColumns] = useMemo(
+    () => [
       nsToMustHaveColumns[namespace] || [],
       nsToDefaultColumns[namespace] || [],
-    ];
-  }, [namespace]);
+    ],
+    [namespace]
+  );
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import CustomiseTable from '../CustomiseTable';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
@@ -7,7 +7,9 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { SearchResultsLocations } from '../../../../app/config/urls';
 import { Namespace } from '../../../types/namespaces';
 
-describe('CustomiseTable component with UniProtKB namespace', () => {
+const route = SearchResultsLocations[Namespace.uniprotkb];
+
+describe('CustomiseTable component', () => {
   let rendered;
   const onSave = jest.fn();
   const selectedColumns = [
@@ -19,9 +21,7 @@ describe('CustomiseTable component with UniProtKB namespace', () => {
   beforeEach(async () => {
     rendered = renderWithRedux(
       <CustomiseTable onSave={onSave} selectedColumns={selectedColumns} />,
-      {
-        route: SearchResultsLocations[Namespace.uniprotkb],
-      }
+      { route }
     );
     await waitFor(() => rendered.getAllByTestId('accordion-search-list-item'));
   });
@@ -51,18 +51,17 @@ describe('CustomiseTable component with UniProtKB namespace', () => {
   });
 });
 
-// describe('CustomiseTable component with UniRef namespace', () => {
-//   test('should deal well with no selectedColumns namespace', async () => {
-//       const rendered = renderWithRedux(
-//         <CustomiseTable
-//           namespace={Namespace.uniref}
-//           onSave={onSave}
-//           selectedColumns={}
-//         />
-//       );
-//       await waitFor(() =>
-//         rendered.getAllByTestId('accordion-search-list-item')
-//       );
-//     });
-//   });
-// });
+describe('CustomiseTable component with a subset of props', () => {
+  test('should call onSave prop with empty array when no initial selected columns are provided and cancel button is pressed', async () => {
+    const onSave = jest.fn();
+    let rendered;
+    await act(async () => {
+      rendered = renderWithRedux(<CustomiseTable onSave={onSave} />, {
+        route,
+      });
+    });
+    const cancelButton = rendered.getByText('Cancel');
+    fireEvent.click(cancelButton);
+    expect(onSave).toHaveBeenCalledWith([]);
+  });
+});

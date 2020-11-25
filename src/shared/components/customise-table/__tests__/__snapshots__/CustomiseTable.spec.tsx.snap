@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CustomiseTable component with UniProtKB namespace should render 1`] = `
+exports[`CustomiseTable component should render 1`] = `
 <DocumentFragment>
   <form
     class="customise-table"

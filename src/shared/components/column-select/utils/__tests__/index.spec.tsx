@@ -1,42 +1,85 @@
-import { removeFieldFromFieldsData } from '..';
+import { prepareFieldData, getFieldDataForColumns } from '..';
 import { UniProtKBColumn } from '../../../../../uniprotkb/types/columnTypes';
-import { ColumnSelectTab } from '../../../../../uniprotkb/types/resultsTypes';
-import structuredResultFieldsData from './__mocks__/structuredResultFieldsData.json';
+import fieldData from './__mocks__/fieldData.json';
 
-describe.skip('removeFieldFromFieldsData', () => {
-  test('should remove field', () => {
-    const entryField = {
-      tabId: ColumnSelectTab.data,
-      accordionId: 'Names & Taxonomy',
-      itemId: UniProtKBColumn.accession,
-    };
-    expect(
-      removeFieldFromFieldsData(entryField, structuredResultFieldsData)
-    ).toEqual({
-      [ColumnSelectTab.data]: [
+describe('prepareFieldData', () => {
+  test('should return prepared field data', () => {
+    expect(prepareFieldData(fieldData)).toEqual({
+      data: [
         {
-          id: 'Names & Taxonomy',
-          title: 'title',
+          id: 'names_&_taxonomy',
           items: [
             {
-              id: UniProtKBColumn.ccAllergen,
-              label: 'ccAllergen-label',
+              id: 'gene_names',
+              key: 'names_&_taxonomy/gene_names',
+              label: 'Gene Names',
             },
           ],
+          title: 'Names & Taxonomy',
         },
       ],
-      [ColumnSelectTab.links]: [
+      links: [
         {
-          id: 'Sequence',
-          title: 'title',
+          id: 'sequence',
           items: [
             {
-              id: UniProtKBColumn.xrefAbcd,
-              label: 'xrefAbcd-label',
+              id: 'xref_ccds',
+              key: 'sequence/ccds',
+              label: 'CCDS',
             },
           ],
+          title: 'Sequence',
         },
       ],
     });
+  });
+
+  test('should exclude column', () => {
+    expect(prepareFieldData(fieldData, UniProtKBColumn.geneNames)).toEqual({
+      links: [
+        {
+          id: 'sequence',
+          items: [
+            {
+              id: 'xref_ccds',
+              key: 'sequence/ccds',
+              label: 'CCDS',
+            },
+          ],
+          title: 'Sequence',
+        },
+      ],
+    });
+  });
+});
+
+describe('getFieldDataForColumns', () => {
+  const prepared = prepareFieldData(fieldData);
+  test('should get field data for "data" column', () => {
+    expect(
+      getFieldDataForColumns([UniProtKBColumn.geneNames], prepared)
+    ).toEqual([
+      {
+        accordionId: 'names_&_taxonomy',
+        itemId: 'gene_names',
+        label: 'Gene Names',
+        tabId: 'data',
+      },
+    ]);
+  });
+  test('should get field data for "links" column and deal with nonexistent data tab value', () => {
+    expect(
+      getFieldDataForColumns([UniProtKBColumn.xrefCcds], {
+        ...prepared,
+        data: undefined,
+      })
+    ).toEqual([
+      {
+        accordionId: 'sequence',
+        itemId: 'xref_ccds',
+        label: 'CCDS',
+        tabId: 'links',
+      },
+    ]);
   });
 });
