@@ -17,7 +17,10 @@ const UniRefEntryConfig: {
     sectionContent: (data: UniRefUIModel): JSX.Element => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
-        primaryAccession={data.representativeMember.accessions[0]}
+        primaryAccession={
+          data.representativeMember.accessions?.[0] ||
+          data.representativeMember.memberId
+        }
         key={EntrySection.Sequence}
       />
     ),
@@ -27,7 +30,9 @@ const UniRefEntryConfig: {
     id: EntrySectionIDs[EntrySection.Members],
     sectionContent: (data: UniRefUIModel): JSX.Element => (
       <MembersSection
-        data={data[EntrySection.Members]}
+        id={data.id}
+        identity={data.identity}
+        representativeMember={data.representativeMember}
         key={EntrySection.Members}
       />
     ),

@@ -82,11 +82,11 @@ export type UniRefAPIModel = {
   members?: UniRefMember[];
 };
 
-export type Identity = 50 | 90 | 100;
+export const identityLevels = [50, 90, 100] as const;
+export type Identity = typeof identityLevels[number];
 
 export type UniRefUIModel = UniRefAPIModel & {
   identity: Identity;
-  [EntrySection.Members]: { members: UniRefMember[] };
   // use SequenceUIModel?
   [EntrySection.Sequence]: {
     sequence: UniRefAPIModel['representativeMember']['sequence'];
@@ -96,9 +96,6 @@ export type UniRefUIModel = UniRefAPIModel & {
 const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
   ...data,
   identity: +data.entryType.replace('UniRef', '') as Identity,
-  [EntrySection.Members]: {
-    members: [data.representativeMember, ...(data.members || [])],
-  },
   [EntrySection.Sequence]: { sequence: data.representativeMember.sequence },
 });
 

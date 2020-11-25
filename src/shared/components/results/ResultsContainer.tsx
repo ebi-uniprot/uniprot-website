@@ -15,15 +15,15 @@ import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+import useNS from '../../hooks/useNS';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import Response from '../../../uniprotkb/types/responseTypes';
-import useNS from '../../hooks/useNS';
-import { Namespace } from '../../types/namespaces';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
+import Response from '../../../uniprotkb/types/responseTypes';
+import { Namespace } from '../../types/namespaces';
 
 import './styles/results-table.scss';
 

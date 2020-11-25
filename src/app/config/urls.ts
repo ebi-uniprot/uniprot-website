@@ -44,13 +44,23 @@ export const LocationToPath = {
   [Location.UniRefResults]: '/uniref',
   [Location.UniParcEntry]: '/uniparc/:accession',
   [Location.UniParcResults]: '/uniparc',
-  [Location.TaxonomyEntry]: '/taxonomy/:taxid',
+  [Location.TaxonomyEntry]: '/taxonomy/:accession',
 };
 
 export const SearchResultsLocations = {
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
   [Namespace.uniparc]: LocationToPath[Location.UniParcResults],
+  [Namespace.proteomes]: '',
+  [Namespace.publications]: '',
+  [Namespace.keywords]: '',
+};
+
+// All "entry" locations need to have a "accession" param in the pattern
+export const EntryLocations = {
+  [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
+  [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
+  [Namespace.uniparc]: LocationToPath[Location.UniParcEntry],
   [Namespace.proteomes]: '',
   [Namespace.publications]: '',
   [Namespace.keywords]: '',

@@ -15,7 +15,7 @@ import formatCitationData, {
   getCitationPubMedId,
 } from '../../adapters/literatureConverter';
 
-import getNextUrlFromResponse from '../../utils/queryUtils';
+import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
@@ -139,7 +139,6 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
         onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
         loaderComponent={<Loader />}
         hasMoreData={total > allResults.length}
-        scrollDataAttribute="sidebar-content"
       />
     </section>
   );

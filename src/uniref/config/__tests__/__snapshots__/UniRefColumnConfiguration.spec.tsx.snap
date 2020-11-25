@@ -164,7 +164,7 @@ exports[`UniRefColumnConfiguration component should render all columns: Types 1`
 <DocumentFragment>
   <span
     class="entry-title__status icon--uniparc"
-    title="UniParc entry"
+    title="This marks a UniParc entry"
   >
     <svg
       fill="currentColor"
@@ -184,7 +184,7 @@ exports[`UniRefColumnConfiguration component should render all columns: Types 1`
   </span>
   <span
     class="entry-title__status icon--unreviewed"
-    title="This marks an unreviewed entry"
+    title="This marks an unreviewed UniProtKB entry"
   >
     <svg
       fill="currentColor"

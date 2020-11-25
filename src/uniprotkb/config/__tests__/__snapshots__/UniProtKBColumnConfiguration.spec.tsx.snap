@@ -4,7 +4,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns 1`] = 
 <DocumentFragment>
   <span
     class="entry-title__status icon--reviewed"
-    title="This marks a reviewed entry"
+    title="This marks a reviewed UniProtKB entry"
   >
     <svg
       fill="currentColor"

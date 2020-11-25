@@ -4,7 +4,7 @@ exports[`EntryTypeIcon should return the correct icon if input is EntryType 1`] 
 <DocumentFragment>
   <span
     class="entry-title__status icon--reviewed"
-    title="This marks a reviewed entry"
+    title="This marks a reviewed UniProtKB entry"
   >
     <svg
       fill="currentColor"
@@ -23,7 +23,7 @@ exports[`EntryTypeIcon should return the correct icon if input is a string 1`] =
 <DocumentFragment>
   <span
     class="entry-title__status icon--unreviewed"
-    title="This marks an unreviewed entry"
+    title="This marks an unreviewed UniProtKB entry"
   >
     <svg
       fill="currentColor"

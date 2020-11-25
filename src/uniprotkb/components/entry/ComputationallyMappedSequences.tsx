@@ -140,18 +140,15 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
                 </Button>
               </div>
 
-              <div>
-                <DataTable
-                  getIdKey={({ accession }: { accession: string }) => accession}
-                  density={DENSITY_COMPACT}
-                  columns={columns}
-                  data={filteredData}
-                  selectable
-                  selected={selectedEntries}
-                  onSelect={handleSelectedEntries}
-                  scrollDataAttribute="computationaly-mapped"
-                />
-              </div>
+              <DataTable
+                getIdKey={({ accession }: { accession: string }) => accession}
+                density={DENSITY_COMPACT}
+                columns={columns}
+                data={filteredData}
+                selectable
+                selected={selectedEntries}
+                onSelect={handleSelectedEntries}
+              />
             </>
           ) : null}
         </>

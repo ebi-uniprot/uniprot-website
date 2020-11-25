@@ -13,11 +13,7 @@ const dataMock = {
   headers,
 };
 const getRendered = () =>
-  renderWithRouter(
-    <div data-loader-scroll="sidebar-content">
-      <EntryPublications accession="P05067" />
-    </div>
-  );
+  renderWithRouter(<EntryPublications accession="P05067" />);
 describe('EntryPublications tests', () => {
   it('should call useDataApi and render', async () => {
     useDataApi.mockImplementation(() => dataMock);

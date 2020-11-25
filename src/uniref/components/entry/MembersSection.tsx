@@ -1,18 +1,33 @@
-import React, { FC, useMemo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useState, useEffect, FC } from 'react';
 import { Link, generatePath } from 'react-router-dom';
-import { Card, DataTable, DENSITY_COMPACT } from 'franklin-sites';
+import { Card, DataTable, DENSITY_COMPACT, Loader } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import MemberLink from './MemberLink';
 
-import { hasContent } from '../../../shared/utils/utils';
+import useDataApi from '../../../shared/hooks/useDataApi';
+
+import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import { UniRefMember } from '../../adapters/uniRefConverter';
+import {
+  Identity,
+  UniRefMember,
+  UniRefAPIModel,
+} from '../../adapters/uniRefConverter';
+
+// OK so, if it's UniProt KB, use first accession as unique key and as first
+// column, if it's UniParc use ID (see entryname renderer lower for counterpart)
+const getKey = (member: UniRefMember) =>
+  member.memberIdType === 'UniProtKB ID' && member.accessions
+    ? member.accessions[0]
+    : member.memberId;
 
 type ColumDescriptor = {
   name: string;
@@ -22,34 +37,11 @@ type ColumDescriptor = {
   ) => undefined | string | number | boolean | JSX.Element;
 };
 
-// OK so, if it's UniProt KB, use first accession as unique key and as first
-// column, if it's UniParc use ID (see entryname renderer lower for counterpart)
-const getKey = (member: UniRefMember) =>
-  member.memberIdType === 'UniProtKB ID'
-    ? member.accessions?.[0]
-    : member.memberId;
-
 const columns: ColumDescriptor[] = [
   {
     name: 'members',
     label: 'Cluster Members',
-    render: (member) => {
-      const accession = getKey(member);
-      return (
-        <Link
-          to={generatePath(
-            LocationToPath[
-              member.memberIdType === 'UniParc'
-                ? Location.UniParcEntry
-                : Location.UniProtKBEntry
-            ],
-            { accession }
-          )}
-        >
-          {accession}
-        </Link>
-      );
-    },
+    render: (member) => <MemberLink accession={getKey(member)} />,
   },
   {
     name: 'entryNames',
@@ -58,13 +50,7 @@ const columns: ColumDescriptor[] = [
     // anything for UniParc...
     render: (member) =>
       member.memberIdType === 'UniProtKB ID' && (
-        <Link
-          to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-            accession: getKey(member),
-          })}
-        >
-          {member.memberId}
-        </Link>
+        <MemberLink accession={getKey(member)}>{member.memberId}</MemberLink>
       ),
   },
   {
@@ -88,7 +74,7 @@ const columns: ColumDescriptor[] = [
     render: ({ organismName, organismTaxId }) => (
       <Link
         to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          taxid: organismTaxId,
+          accession: organismTaxId,
         })}
       >
         {organismName}
@@ -101,7 +87,7 @@ const columns: ColumDescriptor[] = [
     render: ({ organismTaxId }) => (
       <Link
         to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          taxid: organismTaxId,
+          accession: organismTaxId,
         })}
       >
         {organismTaxId}
@@ -170,10 +156,142 @@ const columns: ColumDescriptor[] = [
   },
 ];
 
-const MembersSection: FC<{ data: { members: UniRefMember[] } }> = ({
-  data,
+export const RelatedClusters = memo(
+  ({
+    identity,
+    id,
+  }: {
+    identity: Identity;
+    id: string;
+    // eslint-disable-next-line consistent-return
+  }) => {
+    // TODO: remove this when backend has found out a way to present this
+    return null;
+    const pathname = LocationToPath[Location.UniRefResults];
+    // TODO: check when backend has implemented it if "cluster" is the correct
+    // TODO: field name for that query
+    const baseSearchString = `query=(cluster:${id})`;
+    // "Expand" to related *lower* identity clusters, redirect to entry page
+    // "List" related *higher* identity clusters
+
+    // eslint-disable-next-line default-case
+    switch (identity) {
+      case 50:
+        return (
+          <>
+            List component clusters with{' '}
+            <Link
+              to={{
+                pathname,
+                search: `${baseSearchString} AND (identity:0.9)`,
+              }}
+            >
+              90%
+            </Link>{' '}
+            or{' '}
+            <Link
+              to={{
+                pathname,
+                search: `${baseSearchString} AND (identity:1.0)`,
+              }}
+            >
+              100%
+            </Link>{' '}
+            identity
+          </>
+        );
+      case 90:
+        return (
+          <>
+            Expand cluster to{' '}
+            <Link
+              to={{
+                pathname,
+                search: `${baseSearchString} AND (identity:0.5)&direct`,
+              }}
+            >
+              50%
+            </Link>{' '}
+            identity · List component clusters with{' '}
+            <Link
+              to={{
+                pathname,
+                search: `${baseSearchString} AND (identity:1.0)`,
+              }}
+            >
+              100%
+            </Link>{' '}
+            identity
+          </>
+        );
+      case 100:
+        return (
+          <>
+            Expand cluster to{' '}
+            <Link
+              to={{
+                pathname,
+                search: `${baseSearchString} AND (identity:0.5)&direct`,
+              }}
+            >
+              50%
+            </Link>{' '}
+            or{' '}
+            <Link
+              to={{
+                pathname,
+                search: `${baseSearchString} AND (identity:0.9)&direct`,
+              }}
+            >
+              90%
+            </Link>{' '}
+            identity
+          </>
+        );
+    }
+  }
+);
+
+type Props = {
+  id: string;
+  identity: Identity;
+  representativeMember: UniRefMember;
+};
+
+export const MembersSection: FC<Props> = ({
+  id,
+  identity,
+  representativeMember,
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+
+  const initialApiUrl = apiUrls.uniref.entry(id);
+  const [url, setUrl] = useState(initialApiUrl);
+  const [metadata, setMetadata] = useState<{
+    total: number;
+    nextUrl: string | undefined;
+  }>({ total: 1, nextUrl: undefined });
+  const [allResults, setAllResults] = useState([representativeMember]);
+
+  const { data, headers, loading } = useDataApi<UniRefAPIModel>(url);
+
+  useEffect(() => {
+    setAllResults([representativeMember]);
+    setMetadata({ total: 1, nextUrl: undefined });
+    setUrl(initialApiUrl);
+  }, [initialApiUrl, representativeMember]);
+
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
+    const { members = [] } = data;
+    setAllResults((allMembers) => [...allMembers, ...members]);
+    setMetadata(() => ({
+      total: +headers['x-totalrecords'],
+      nextUrl: getNextUrlFromResponse(headers.link),
+    }));
+  }, [data, headers]);
 
   // Note: this function is duplicated in ResultsContainer.tsx
   const handleSelectedEntries = useCallback((rowId: string) => {
@@ -185,30 +303,34 @@ const MembersSection: FC<{ data: { members: UniRefMember[] } }> = ({
     });
   }, []);
 
-  if (!hasContent(data)) {
-    return null;
+  const { total, nextUrl } = metadata;
+
+  if (allResults.length === 0 && loading) {
+    return <Loader />;
   }
 
   return (
     <div id={EntrySectionIDs[EntrySection.Members]} data-entry-section>
       <Card title={EntrySection.Members}>
+        <div>
+          <RelatedClusters identity={identity} id={id} />
+        </div>
         <div className="button-group">
           <BlastButton selectedEntries={selectedEntries} />
           <AlignButton selectedEntries={selectedEntries} />
           <AddToBasket selectedEntries={selectedEntries} />
         </div>
-        <div data-loader-scroll="uniref-members">
-          <DataTable
-            columns={columns}
-            data={data.members}
-            getIdKey={getKey}
-            density={DENSITY_COMPACT}
-            scrollDataAttribute="uniref-members"
-            selectable
-            selected={selectedEntries}
-            onSelect={handleSelectedEntries}
-          />
-        </div>
+        <DataTable
+          hasMoreData={total > allResults.length}
+          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+          columns={columns}
+          data={allResults}
+          getIdKey={getKey}
+          density={DENSITY_COMPACT}
+          selectable
+          selected={selectedEntries}
+          onSelect={handleSelectedEntries}
+        />
       </Card>
     </div>
   );
