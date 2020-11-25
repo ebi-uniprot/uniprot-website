@@ -19,7 +19,9 @@ import {
   CofactorComment,
 } from '../../adapters/functionConverter';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import {
   CommentType,
   CatalyticActivityComment,
@@ -149,8 +151,8 @@ const FunctionSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySectionIDs[EntrySection.Function]} data-entry-section>
-      <Card title={EntrySection.Function}>
+    <div id={EntrySection.Function} data-entry-section>
+      <Card title={getEntrySectionNameAndId(EntrySection.Function).name}>
         {data.commentsData.get(CommentType.CAUTION)?.length ? (
           <Message level="warning">
             <h4>Caution</h4>

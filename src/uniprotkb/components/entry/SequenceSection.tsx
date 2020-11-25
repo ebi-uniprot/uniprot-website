@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -16,7 +18,6 @@ import { hasContent } from '../../../shared/utils/utils';
 
 import { SequenceUIModel } from '../../adapters/sequenceConverter';
 import ComputationalyMappedSequences from './ComputationallyMappedSequences';
-import { getSequenceSectionName } from '../../utils';
 
 const SequenceSection: FC<{
   data: SequenceUIModel;
@@ -25,9 +26,18 @@ const SequenceSection: FC<{
   if (!hasContent(data)) {
     return null;
   }
+  const numberOfIsoforms = data?.alternativeProducts?.isoforms.length;
   return (
-    <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
-      <Card title={getSequenceSectionName(data)}>
+    <div id={EntrySection.Sequence} data-entry-section>
+      <Card
+        title={
+          getEntrySectionNameAndId(
+            EntrySection.Sequence,
+            undefined,
+            numberOfIsoforms
+          ).name
+        }
+      >
         <SequenceView data={data} accession={primaryAccession} />
         <ComputationalyMappedSequences primaryAccession={primaryAccession} />
         {data.featuresData && (

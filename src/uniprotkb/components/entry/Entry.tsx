@@ -11,7 +11,9 @@ import {
 } from 'franklin-sites';
 
 import { fileFormatEntryDownload } from '../../types/resultsTypes';
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import {
   MessageLevel,
   MessageFormat,
@@ -39,11 +41,7 @@ import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import {
-  hasExternalLinks,
-  getListOfIsoformAccessions,
-  getSequenceSectionName,
-} from '../../utils';
+import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -96,40 +94,29 @@ const Entry: FC = () => {
   );
 
   const sections = useMemo(() => {
-    if (transformedData) {
-      const items = UniProtKBEntryConfig.map((section) => ({
-        label: section.name,
-        id: section.id,
-        disabled:
-          section.name === EntrySection.ExternalLinks
-            ? !hasExternalLinks(transformedData)
-            : !hasContent(transformedData[section.name]),
-      }));
-
-      let index;
-      // Switching the section's label between 'Disease & Drugs' and 'Phenotypes' depending to the TaxID
-      if (
-        transformedData[EntrySection.NamesAndTaxonomy].organismData?.taxonId !==
-        9606
-      ) {
-        index = items.findIndex(
-          (item) => item.label === EntrySection.DiseaseAndDrugs
+    return (
+      transformedData &&
+      UniProtKBEntryConfig.map((section) => {
+        const taxId =
+          transformedData[EntrySection.NamesAndTaxonomy].organismData?.taxonId;
+        const numberOfIsoforms =
+          transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
+            .length;
+        const nameAndId = getEntrySectionNameAndId(
+          section.id,
+          taxId,
+          numberOfIsoforms
         );
-        items[index].label = EntrySection.Phenotypes;
-        items[index].id = EntrySectionIDs[EntrySection.Phenotypes];
-      }
-
-      // Switching the section's label between 'Sequence', 'Sequence & Isoform' and 'Sequence & Isoforms'
-      // depending on the data
-      index = items.findIndex((item) => item.label === EntrySection.Sequence);
-      items[index].label = getSequenceSectionName(
-        transformedData[EntrySection.Sequence]
-      );
-
-      return items;
-    }
-
-    return false;
+        return {
+          label: nameAndId.name,
+          id: nameAndId.id,
+          disabled:
+            nameAndId.id === EntrySection.ExternalLinks
+              ? !hasExternalLinks(transformedData)
+              : !hasContent(transformedData[nameAndId.id]),
+        };
+      })
+    );
   }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(

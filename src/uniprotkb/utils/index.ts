@@ -9,12 +9,10 @@ import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 
 import { Property, PropertyKey } from '../types/modelTypes';
 import { CommentType } from '../types/commentTypes';
-import { SequenceUIModel } from '../adapters/sequenceConverter';
-import EntrySection from '../types/entrySection';
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
-  UniProtKBEntryConfig.some(({ name }) => {
-    const data = transformedData[name];
+  UniProtKBEntryConfig.some(({ id }) => {
+    const data = transformedData[id];
     return Boolean(data.xrefData?.length);
   });
 
@@ -81,19 +79,3 @@ export const getPropertyValue = (
 // The regex that matches uniprot accession. Taken from:
 // https://www.uniprot.org/help/accession_numbers
 export const uniProtKBAccessionRegEx = /[OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2}/i;
-
-export const getSequenceSectionName = (
-  sequenceData: SequenceUIModel
-): EntrySection => {
-  const numberOfIsoforms = sequenceData?.alternativeProducts?.isoforms.length;
-  // Note: each entry will have at least one isoform -- the canonical one.
-  if (!!numberOfIsoforms && numberOfIsoforms > 2) {
-    return EntrySection.SequenceAndMultipleIsoforms;
-  }
-
-  if (!!numberOfIsoforms && numberOfIsoforms === 2) {
-    return EntrySection.SequenceAndSingleIsoform;
-  }
-
-  return EntrySection.Sequence;
-};

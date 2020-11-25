@@ -71,8 +71,6 @@ export type UniProtkbUIModel = {
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
-  [EntrySection.SequenceAndSingleIsoform]: SequenceUIModel;
-  [EntrySection.SequenceAndMultipleIsoforms]: SequenceUIModel;
   [EntrySection.Interaction]: UIModel;
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
@@ -109,7 +107,6 @@ export const convertXrefProperties = (xrefs: Xref[]) =>
 
 const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
   const dataCopy = { ...data };
-
   if (dataCopy.uniProtKBCrossReferences) {
     dataCopy.uniProtKBCrossReferences = convertXrefProperties(
       dataCopy.uniProtKBCrossReferences
@@ -132,8 +129,6 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Interaction]: convertInteraction(dataCopy),
     [EntrySection.Structure]: convertStructure(dataCopy),
     [EntrySection.Sequence]: convertSequence(dataCopy),
-    [EntrySection.SequenceAndSingleIsoform]: convertSequence(dataCopy),
-    [EntrySection.SequenceAndMultipleIsoforms]: convertSequence(dataCopy),
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
     references: dataCopy.references || [],

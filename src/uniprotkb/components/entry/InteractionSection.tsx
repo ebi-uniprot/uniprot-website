@@ -2,7 +2,9 @@ import React, { FC, useRef, useEffect } from 'react';
 import { Card, Loader } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import XRefView from '../protein-data-views/XRefView';
 
@@ -137,8 +139,8 @@ const InteractionSection: FC<{
   }
 
   return (
-    <div id={EntrySectionIDs[EntrySection.Interaction]} data-entry-section>
-      <Card title={EntrySection.Interaction}>
+    <div id={EntrySection.Interaction} data-entry-section>
+      <Card title={getEntrySectionNameAndId(EntrySection.Interaction).name}>
         {comments && (
           <FreeTextView
             comments={comments}

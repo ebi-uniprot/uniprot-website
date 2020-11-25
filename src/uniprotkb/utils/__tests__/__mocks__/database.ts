@@ -410,14 +410,14 @@ export const expectedDatabaseNameToCategory = [
 ];
 
 export const expectedEntrySectionToDatabaseCategoryOrder = [
-  ['Expression', ['GEP', 'ORG']],
-  ['Family & Domains', ['PLG', 'FMD', 'PFAM']],
-  ['Function', ['EAP', 'PFAM', 'CHEMISTRY']],
-  ['Interaction', ['PPI', 'CHEMISTRY']],
-  ['Names & Taxonomy', ['ORG', 'GMA']],
-  ['Disease & Drugs', ['ORG', 'CHEMISTRY', 'PMD', 'PFAM']],
-  ['PTM/Processing', ['PROTEOMIC', '2DG', 'PTM']],
-  ['Sequence', ['SEQ', 'GMA']],
-  ['Structure', ['3DS', 'OTHER']],
-  ['External Links', ['OTHER', 'PAM', 'ORG', '3DS']],
+  ['expression', ['GEP', 'ORG']],
+  ['family-and-domains', ['PLG', 'FMD', 'PFAM']],
+  ['function', ['EAP', 'PFAM', 'CHEMISTRY']],
+  ['interaction', ['PPI', 'CHEMISTRY']],
+  ['names-and-taxonomy', ['ORG', 'GMA']],
+  ['disease-and-drugs', ['ORG', 'CHEMISTRY', 'PMD', 'PFAM']],
+  ['ptm-processing', ['PROTEOMIC', '2DG', 'PTM']],
+  ['sequence', ['SEQ', 'GMA']],
+  ['structure', ['3DS', 'OTHER']],
+  ['external-links', ['OTHER', 'PAM', 'ORG', '3DS']],
 ];

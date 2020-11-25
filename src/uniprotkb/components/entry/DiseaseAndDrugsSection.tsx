@@ -7,7 +7,9 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
 import KeywordView from '../protein-data-views/KeywordView';
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
@@ -27,13 +29,13 @@ const DiseaseAndDrugsSection: FC<{
   if (!hasContent(data)) {
     return null;
   }
-
-  const taxonomyBasedSection =
-    taxId === 9606 ? EntrySection.DiseaseAndDrugs : EntrySection.Phenotypes;
-
+  const nameAndId = getEntrySectionNameAndId(
+    EntrySection.DiseaseAndDrugs,
+    taxId
+  );
   return (
-    <div id={EntrySectionIDs[taxonomyBasedSection]} data-entry-section>
-      <Card title={taxonomyBasedSection}>
+    <div id={nameAndId.id} data-entry-section>
+      <Card title={nameAndId.name}>
         <DiseaseInvolvementView
           comments={
             data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
