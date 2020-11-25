@@ -8,7 +8,6 @@ import ResultsFacets from './ResultsFacets';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';
-import { useTableColumnsFromLocalStorage } from '../../utils/localStorage';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
@@ -17,6 +16,7 @@ import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
+import { Column, nsToDefaultColumns } from '../../config/columns';
 
 import Response from '../../../uniprotkb/types/responseTypes';
 import useNS from '../../hooks/useNS';
@@ -37,12 +37,15 @@ const Results: FC = () => {
   );
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );
-  const [tableColumns, setTableColumns] = useTableColumnsFromLocalStorage(
-    namespace
+
+  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
+    `table columns for ${namespace}`,
+    namespace ? nsToDefaultColumns[namespace] : []
   );
 
   /**
