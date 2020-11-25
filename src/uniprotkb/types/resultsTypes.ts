@@ -38,9 +38,8 @@ export type FieldDatum = {
     sortField?: string;
   }[];
 };
-// Partial<Record<Namespace, Column[]>>
+
 export type FieldData = Partial<Record<ColumnSelectTab, FieldDatum[]>>;
-// [tab in ColumnSelectTab]?: FieldDatum[];
 
 export type ReceivedField = {
   name: Column;
