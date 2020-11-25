@@ -9,7 +9,11 @@ import useNS from '../../hooks/useNS';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
-import { Column, defaultColumns, mustHaveColumns } from '../../config/columns';
+import {
+  Column,
+  nsToMustHaveColumns,
+  nsToDefaultColumns,
+} from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
 import { getFieldDataForColumns, getTabTitle, prepareFieldData } from './utils';
@@ -28,22 +32,25 @@ type ColumnSelectProps = {
 
 const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   const namespace = useNS();
-  const [mustHaveNS, defaultColumnsNS] = useMemo(() => {
+  const [mustHaveColumns, defaultColumns] = useMemo(() => {
     if (!namespace) {
       return [[], []];
     }
-    return [mustHaveColumns[namespace] || [], defaultColumns[namespace] || []];
+    return [
+      nsToMustHaveColumns[namespace] || [],
+      nsToDefaultColumns[namespace] || [],
+    ];
   }, [namespace]);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const removableSelectedColumns = difference(selectedColumns, mustHaveNS);
+  const removableSelectedColumns = difference(selectedColumns, mustHaveColumns);
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([...mustHaveNS, ...columns]);
+      onChange([...mustHaveColumns, ...columns]);
     },
-    [mustHaveNS, onChange]
+    [mustHaveColumns, onChange]
   );
 
   const handleSelect = useCallback(
@@ -75,21 +82,24 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
     return <Loader />;
   }
 
-  const fieldData = prepareFieldData(data);
+  // Exclude mustHaveColumns in the tabs as users can't toggle selection
+  const fieldData = prepareFieldData(data, mustHaveColumns);
 
   const fieldDataForSelectedColumns = getFieldDataForColumns(
     removableSelectedColumns,
     fieldData
   );
-
-  const tabs = [ColumnSelectTab.data, ColumnSelectTab.links].map((tabId) => {
+  const tabs = Object.entries(fieldData).map(([tabId, tabData]) => {
     const selectedColumnsInTab = fieldDataForSelectedColumns.filter(
       (item) => item.tabId === tabId
     );
     return (
-      <Tab key={tabId} title={getTabTitle(tabId, selectedColumnsInTab)}>
+      <Tab
+        key={tabId}
+        title={getTabTitle(tabId as ColumnSelectTab, selectedColumnsInTab)}
+      >
         <AccordionSearch
-          accordionData={Object.values(fieldData[tabId])}
+          accordionData={tabData}
           onSelect={(_accordionId: string, itemId: UniProtKBColumn) =>
             handleSelect(itemId)
           }
@@ -111,7 +121,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
         className="button secondary"
         type="button"
         tabIndex={0}
-        onClick={() => onChange(defaultColumnsNS)}
+        onClick={() => onChange(defaultColumns)}
         data-testid="column-select-reset-button"
       >
         Reset to default

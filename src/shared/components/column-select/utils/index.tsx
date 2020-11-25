@@ -12,36 +12,62 @@ import {
 } from '../../../../uniprotkb/types/resultsTypes';
 import { Column } from '../../../config/columns';
 
-export const prepareFields = (fields: ReceivedField[]) =>
-  fields.map(({ label, name, id }) => ({
-    id: name,
-    label,
-    key: id,
-  }));
+type PreparedField = {
+  id: Column;
+  label: string;
+  key: string;
+};
 
-export const prepareFieldData = (fieldData: ReceivedFieldData) => {
+export const prepareFields = (
+  fields: ReceivedField[],
+  exclude: Column[] = []
+) => {
+  const prepared: PreparedField[] = [];
+  fields.forEach(({ label, name, id }) => {
+    if (!exclude.includes(name)) {
+      prepared.push({
+        id: name,
+        label,
+        key: id,
+      } as PreparedField);
+    }
+  });
+  return prepared;
+};
+
+export const prepareFieldData = (
+  fieldData: ReceivedFieldData,
+  exclude: Column[] = [] // Exclude any columns which should not be user-selectable eg accession
+) => {
   const dataTab: FieldDatum[] = [];
   const linksTab: FieldDatum[] = [];
   const linksAdded: Record<string, boolean> = {};
   fieldData.forEach(({ groupName, fields, isDatabaseGroup, id }) => {
-    const group = {
-      id,
-      title: groupName,
-      items: prepareFields(fields),
-    };
-    if (isDatabaseGroup) {
-      if (!linksAdded[groupName]) {
-        linksTab.push(group);
-        linksAdded[groupName] = true;
+    const items = prepareFields(fields, exclude);
+    if (items) {
+      const group = {
+        id,
+        title: groupName,
+        items,
+      };
+      if (isDatabaseGroup) {
+        if (!linksAdded[groupName]) {
+          linksTab.push(group);
+          linksAdded[groupName] = true;
+        }
+      } else {
+        dataTab.push(group);
       }
-    } else {
-      dataTab.push(group);
     }
   });
-  return {
-    [ColumnSelectTab.data]: dataTab,
-    [ColumnSelectTab.links]: linksTab,
-  };
+  const prepared: FieldData = {};
+  if (dataTab.length) {
+    prepared[ColumnSelectTab.data] = dataTab;
+  }
+  if (linksTab.length) {
+    prepared[ColumnSelectTab.links] = linksTab;
+  }
+  return prepared;
 };
 
 export const getTabTitle = (
@@ -80,12 +106,17 @@ export const getFieldDataForColumns = (
     -label
   */
   const selected: SelectedColumn[] = new Array(columns.length);
-  [ColumnSelectTab.data, ColumnSelectTab.links].forEach((tabId) => {
-    fieldData[tabId].forEach(({ id: accordionId, items }) => {
+  Object.entries(fieldData).forEach(([tabId, tabData = []]) => {
+    tabData.forEach(({ id: accordionId, items }) => {
       items.forEach(({ id: itemId, label }) => {
         const index = columns.indexOf(itemId);
         if (index >= 0) {
-          selected[index] = { tabId, accordionId, itemId, label };
+          selected[index] = {
+            tabId: tabId as ColumnSelectTab,
+            accordionId,
+            itemId,
+            label,
+          };
         }
       });
     });

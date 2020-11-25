@@ -3,7 +3,7 @@ import { UniProtKBColumn } from '../../../../../uniprotkb/types/columnTypes';
 import { ColumnSelectTab } from '../../../../../uniprotkb/types/resultsTypes';
 import structuredResultFieldsData from './__mocks__/structuredResultFieldsData.json';
 
-describe('removeFieldFromFieldsData', () => {
+describe.skip('removeFieldFromFieldsData', () => {
   test('should remove field', () => {
     const entryField = {
       tabId: ColumnSelectTab.data,

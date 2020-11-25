@@ -1,7 +1,7 @@
 import React, { useState, FC } from 'react';
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { Column } from '../../config/columns';
 import ColumnSelect from '../column-select/ColumnSelect';
+
+import { Column } from '../../config/columns';
 
 import './styles/customise-table.scss';
 import '../../styles/sticky.scss';
@@ -41,7 +41,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
       <ColumnSelect
         onChange={handleChange}
         // TODO temporary casting to UniProtKBColumn to make TS happy
-        selectedColumns={selectedColumns as UniProtKBColumn[]}
+        selectedColumns={selectedColumns}
       />
       <div className="button-group sticky-bottom-right">
         <button

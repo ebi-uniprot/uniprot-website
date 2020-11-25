@@ -10,6 +10,7 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
+import { SearchResultsLocations } from '../../../../app/config/urls';
 
 describe('ColumnSelect component', () => {
   // testing implementation?
@@ -24,11 +25,10 @@ describe('ColumnSelect component', () => {
 
   beforeEach(async () => {
     rendered = renderWithRedux(
-      <ColumnSelect
-        onChange={onChange}
-        selectedColumns={selectedColumns}
-        namespace={namespace}
-      />
+      <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
+      {
+        route: SearchResultsLocations[namespace],
+      }
     );
     await waitFor(() => rendered.getAllByTestId('accordion-search-list-item'));
   });
@@ -41,11 +41,12 @@ describe('ColumnSelect component', () => {
   test('should call to get field data and have the correct number of "data" list items', () => {
     const { getAllByTestId } = rendered;
     const items = getAllByTestId('accordion-search-list-item');
-    // Only "data" (ie not DB links) are visible so only count these
+    // Only "data" (ie not DB links) are visible so only count these and subtract one for the
+    // accession column which shouldn't be listed as the user can't deslect this
     const nDataListItems = resultFields.reduce(
       (accum, { fields, isDatabaseGroup }) =>
         accum + (!isDatabaseGroup && fields.length),
-      0
+      -1
     );
     expect(items.length).toBe(nDataListItems);
   });

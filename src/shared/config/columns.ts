@@ -12,12 +12,12 @@ import {
 
 export type Column = UniProtKBColumn | UniRefColumn;
 
-export const defaultColumns: Partial<Record<Namespace, Column[]>> = {
+export const nsToDefaultColumns: Partial<Record<Namespace, Column[]>> = {
   [Namespace.uniprotkb]: defaultUniProtKBColumns,
   [Namespace.uniref]: defaultUniRefColumns,
 };
 
-export const mustHaveColumns: Partial<Record<Namespace, Column[]>> = {
+export const nsToMustHaveColumns: Partial<Record<Namespace, Column[]>> = {
   [Namespace.uniprotkb]: mustHaveUniProtKB,
   [Namespace.uniref]: mustHaveUniRef,
 };

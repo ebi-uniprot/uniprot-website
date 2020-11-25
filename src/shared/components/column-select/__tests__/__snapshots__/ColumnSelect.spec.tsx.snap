@@ -222,21 +222,6 @@ exports[`ColumnSelect component should render 1`] = `
                   data-testid="accordion-search-list-item"
                 >
                   <label
-                    for="checkbox-accession"
-                  >
-                    <input
-                      class="accordion-search__list__item-checkbox"
-                      id="checkbox-accession"
-                      type="checkbox"
-                    />
-                    Entry
-                  </label>
-                </li>
-                <li
-                  class="accordion-search__list__item"
-                  data-testid="accordion-search-list-item"
-                >
-                  <label
                     for="checkbox-id"
                   >
                     <input
