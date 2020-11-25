@@ -22,7 +22,9 @@ export const getEntrySectionNameAndId = (
   section: EntrySection,
   taxId?: number,
   numberOfIsoforms?: number
+  // eslint-disable-next-line consistent-return
 ) => {
+  // eslint-disable-next-line default-case
   switch (section) {
     case EntrySection.Function:
       return {
@@ -81,7 +83,7 @@ export const getEntrySectionNameAndId = (
             id: EntrySection.Phenotypes,
           };
 
-    case EntrySection.Sequence:
+    case EntrySection.Sequence: {
       let name = 'Sequence';
       // Note: each entry will have at least one isoform -- the canonical one.
       if (!!numberOfIsoforms && numberOfIsoforms > 2) {
@@ -93,6 +95,7 @@ export const getEntrySectionNameAndId = (
       }
 
       return { name, id: EntrySection.Sequence };
+    }
   }
 };
 
