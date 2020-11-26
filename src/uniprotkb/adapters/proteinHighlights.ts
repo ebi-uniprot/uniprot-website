@@ -33,31 +33,31 @@ const highlightToEntrySection: {
   };
 } = {
   [highlightSection.domains]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Function).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Function).id}`,
   },
   [highlightSection.PTM]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.ProteinProcessing).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.ProteinProcessing).id}`,
   },
   [highlightSection.variants]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).id}`,
   },
   [highlightSection.activeSites]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Function).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Function).id}`,
   },
   [highlightSection.isoforms]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Sequence).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Sequence).id}`,
   },
   [highlightSection.structures]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Structure).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Structure).id}`,
   },
   [highlightSection.disease]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).id}`,
   },
   [highlightSection.interactions]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Interaction).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Interaction).id}`,
   },
   [highlightSection.subcell]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.SubCellularLocation).id}`,
   },
   [highlightSection.publications]: {
     link: '/publications',
