@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { downloadFileInNewTab } from '../../shared/utils/utils';
 
 import toolsURLs, { ResultFormat } from '../config/urls';
 
@@ -109,13 +110,7 @@ const ResultDownload = memo<ResultDownloadProps>(
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const link = document.createElement('a');
-      link.href = toolsURLs(jobType).resultUrl(id, fileFormat);
-      link.target = '_blank';
-      link.setAttribute('download', '');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      downloadFileInNewTab(toolsURLs(jobType).resultUrl(id, fileFormat));
       onToggleDisplay();
     };
 

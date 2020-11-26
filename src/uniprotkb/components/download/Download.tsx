@@ -11,6 +11,7 @@ import { getDownloadUrl } from '../../../shared/config/apiUrls';
 import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
 import { Column } from '../../../shared/config/columns';
+import { downloadFileInNewTab } from '../../../shared/utils/utils';
 // import { Namespace } from '../../../shared/types/namespaces';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
@@ -69,13 +70,7 @@ const Download: React.FC<DownloadTableProps> = ({
       compressed,
       selectedAccessions: downloadAll ? [] : selectedEntries,
     });
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = '_blank';
-    link.setAttribute('download', '');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadFileInNewTab(url);
     onClose();
   };
   const nSelectedEntries = selectedEntries.length;
