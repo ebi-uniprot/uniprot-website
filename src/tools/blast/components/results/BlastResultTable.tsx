@@ -16,19 +16,15 @@ import colors from '../../../../../node_modules/franklin-sites/src/styles/colour
 
 import { EnrichedBlastHit } from './BlastResult';
 
-import { ReviewedUnreviewed } from '../../../../shared/components/entry/EntryTitle';
-
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { HSPDetailPanelProps } from './HSPDetailPanel';
-import {
-  EntryType,
-  UniProtkbAPIModel,
-} from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/BlastResultTable.scss';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -322,27 +318,12 @@ const BlastResultTable: FC<{
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ hit_acc, hit_db }: BlastHit) => {
-          let reviewImg;
-          switch (hit_db) {
-            case 'SP':
-              reviewImg = <ReviewedUnreviewed entryType={EntryType.REVIEWED} />;
-              break;
-            case 'TR':
-              reviewImg = (
-                <ReviewedUnreviewed entryType={EntryType.UNREVIEWED} />
-              );
-              break;
-            default:
-              reviewImg = null;
-          }
-          return (
-            <Link to={`/uniprotkb/${hit_acc}`}>
-              {reviewImg}
-              {hit_acc}
-            </Link>
-          );
-        },
+        render: ({ hit_acc, hit_db }: BlastHit) => (
+          <Link to={`/uniprotkb/${hit_acc}`}>
+            <EntryTypeIcon entryType={hit_db} />
+            {hit_acc}
+          </Link>
+        ),
         width: '8rem',
       },
       {

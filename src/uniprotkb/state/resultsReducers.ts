@@ -21,7 +21,9 @@ const resultsReducers = (
     case resultsActions.UPDATE_TABLE_COLUMNS: {
       return {
         ...state,
-        tableColumns: action.payload.tableColumns,
+        tableColumns: {
+          [action.payload.namespace]: action.payload.tableColumns,
+        },
       };
     }
     default:

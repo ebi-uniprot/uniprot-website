@@ -155,7 +155,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Tools
@@ -172,6 +172,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         <svg
           fill="currentColor"
           viewBox="0 0 32 32"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
@@ -183,7 +184,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         class="dropdown-container"
       >
         <button
-          class="button dropdown tertiary"
+          class="button primary dropdown tertiary"
           type="button"
         >
           Highlight

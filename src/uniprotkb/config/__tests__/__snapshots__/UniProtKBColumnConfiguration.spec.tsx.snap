@@ -1,14 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ColumnConfiguration component should render all columns 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns 1`] = `
 <DocumentFragment>
   <span
-    class="uniprot-title__status icon--reviewed"
+    class="entry-title__status icon--reviewed"
     title="This marks a reviewed entry"
   >
     <svg
       fill="currentColor"
       viewBox="0 0 426 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
@@ -18,9 +19,9 @@ exports[`ColumnConfiguration component should render all columns 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: 3D structures 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: 3D structures 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Absorption 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Absorption 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -46,6 +47,7 @@ exports[`ColumnConfiguration component should render all columns: Absorption 1`]
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -76,6 +78,7 @@ exports[`ColumnConfiguration component should render all columns: Absorption 1`]
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -97,11 +100,11 @@ exports[`ColumnConfiguration component should render all columns: Absorption 1`]
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Activity Regulation 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Activity Regulation 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Allergenic Properties 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Allergenic Properties 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Alternative Products 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Alternative Products 1`] = `
 <DocumentFragment>
   <p>
     This entry describes 
@@ -184,11 +187,11 @@ exports[`ColumnConfiguration component should render all columns: Alternative Pr
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Alternative sequence 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Alternative sequence 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Biotechnological Use 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Biotechnological Use 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Catalytic Activity 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Catalytic Activity 1`] = `
 <DocumentFragment>
   <span
     class="text-block"
@@ -209,6 +212,7 @@ exports[`ColumnConfiguration component should render all columns: Catalytic Acti
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -245,6 +249,7 @@ exports[`ColumnConfiguration component should render all columns: Catalytic Acti
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -266,7 +271,7 @@ exports[`ColumnConfiguration component should render all columns: Catalytic Acti
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Cofactor 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Cofactor 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -285,6 +290,7 @@ exports[`ColumnConfiguration component should render all columns: Cofactor 1`] =
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -319,6 +325,7 @@ exports[`ColumnConfiguration component should render all columns: Cofactor 1`] =
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -341,29 +348,29 @@ exports[`ColumnConfiguration component should render all columns: Cofactor 1`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: DNA-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: DNA-binding region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Date Created 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Date Created 1`] = `
 <DocumentFragment>
   2015-08-02
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Date Modified 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Date Modified 1`] = `
 <DocumentFragment>
   2016-04-24
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Date Sequence Modified 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Date Sequence Modified 1`] = `
 <DocumentFragment>
   2017-01-21
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Developmental stage 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Developmental stage 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Disease Involvement 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Disease Involvement 1`] = `
 <DocumentFragment>
   <h3>
     DiseaseEntry Id (someAcron)
@@ -383,6 +390,7 @@ exports[`ColumnConfiguration component should render all columns: Disease Involv
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -472,6 +480,7 @@ exports[`ColumnConfiguration component should render all columns: Disease Involv
             fill="none"
             viewBox="0 0 16 16"
             width="12.5"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -490,7 +499,7 @@ exports[`ColumnConfiguration component should render all columns: Disease Involv
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Disruption Phenotype 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Disruption Phenotype 1`] = `
 <DocumentFragment>
   <h5>
     Isoform 4
@@ -511,6 +520,7 @@ exports[`ColumnConfiguration component should render all columns: Disruption Phe
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -532,9 +542,9 @@ exports[`ColumnConfiguration component should render all columns: Disruption Phe
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Domain 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Domain 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: EC Number 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: EC Number 1`] = `
 <DocumentFragment>
   1.2.3.4 
   <button
@@ -549,6 +559,7 @@ exports[`ColumnConfiguration component should render all columns: EC Number 1`] 
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -569,7 +580,7 @@ exports[`ColumnConfiguration component should render all columns: EC Number 1`] 
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Entry 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Entry 1`] = `
 <DocumentFragment>
   <a
     href="/uniprotkb/P21802"
@@ -579,7 +590,7 @@ exports[`ColumnConfiguration component should render all columns: Entry 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Entry Name 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Entry Name 1`] = `
 <DocumentFragment>
   <span>
     uniprot_id
@@ -587,15 +598,15 @@ exports[`ColumnConfiguration component should render all columns: Entry Name 1`]
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Fragment 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Fragment 1`] = `
 <DocumentFragment>
   Fragment
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Function 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Function 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Gene Names 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene Names 1`] = `
 <DocumentFragment>
   <div
     class="info-list info-list--no-title"
@@ -628,6 +639,7 @@ exports[`ColumnConfiguration component should render all columns: Gene Names 1`]
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -675,6 +687,7 @@ exports[`ColumnConfiguration component should render all columns: Gene Names 1`]
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -722,6 +735,7 @@ exports[`ColumnConfiguration component should render all columns: Gene Names 1`]
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -769,6 +783,7 @@ exports[`ColumnConfiguration component should render all columns: Gene Names 1`]
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -792,13 +807,13 @@ exports[`ColumnConfiguration component should render all columns: Gene Names 1`]
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Gene Ontology - Biological Process 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology - Biological Process 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Gene Ontology - Cellular Component 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology - Cellular Component 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Gene Ontology - Molecular Function 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology - Molecular Function 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Gene Ontology 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -810,7 +825,7 @@ exports[`ColumnConfiguration component should render all columns: Gene Ontology 
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Gene Ontology IDs 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology IDs 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -822,7 +837,7 @@ exports[`ColumnConfiguration component should render all columns: Gene Ontology 
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Gene names (ORF) 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (ORF) 1`] = `
 <DocumentFragment>
   some orf 
   <button
@@ -837,6 +852,7 @@ exports[`ColumnConfiguration component should render all columns: Gene names (OR
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -857,7 +873,7 @@ exports[`ColumnConfiguration component should render all columns: Gene names (OR
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Gene names (Ordered locus) 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (Ordered locus) 1`] = `
 <DocumentFragment>
   some locus 
   <button
@@ -872,6 +888,7 @@ exports[`ColumnConfiguration component should render all columns: Gene names (Or
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -892,7 +909,7 @@ exports[`ColumnConfiguration component should render all columns: Gene names (Or
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Gene names (Primary) 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (Primary) 1`] = `
 <DocumentFragment>
   <div>
     some Gene
@@ -900,7 +917,7 @@ exports[`ColumnConfiguration component should render all columns: Gene names (Pr
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Gene names (Synonyms) 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (Synonyms) 1`] = `
 <DocumentFragment>
   some Syn 
   <button
@@ -915,6 +932,7 @@ exports[`ColumnConfiguration component should render all columns: Gene names (Sy
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -935,9 +953,9 @@ exports[`ColumnConfiguration component should render all columns: Gene names (Sy
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Induction 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Induction 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Interacts with 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Interacts with 1`] = `
 <DocumentFragment>
   <div>
     <a
@@ -956,7 +974,7 @@ exports[`ColumnConfiguration component should render all columns: Interacts with
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Keyword IDs 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Keyword IDs 1`] = `
 <DocumentFragment>
   <a
     href="/keywords/KW-11111"
@@ -966,7 +984,7 @@ exports[`ColumnConfiguration component should render all columns: Keyword IDs 1`
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Keywords 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Keywords 1`] = `
 <DocumentFragment>
   <a
     href="/keywords/KW-11111"
@@ -976,7 +994,7 @@ exports[`ColumnConfiguration component should render all columns: Keywords 1`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Kinetics 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Kinetics 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1002,6 +1020,7 @@ exports[`ColumnConfiguration component should render all columns: Kinetics 1`] =
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1041,6 +1060,7 @@ exports[`ColumnConfiguration component should render all columns: Kinetics 1`] =
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -1063,27 +1083,27 @@ exports[`ColumnConfiguration component should render all columns: Kinetics 1`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Length 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Length 1`] = `
 <DocumentFragment>
   10 AA
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Lineage 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Lineage 1`] = `
 <DocumentFragment>
   lineage 1
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Mapped PubMed ID 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Mapped PubMed ID 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Mass 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Mass 1`] = `
 <DocumentFragment>
   1,185 Da
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Mass Spectrometry 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Mass Spectrometry 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1104,6 +1124,7 @@ exports[`ColumnConfiguration component should render all columns: Mass Spectrome
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1125,11 +1146,11 @@ exports[`ColumnConfiguration component should render all columns: Mass Spectrome
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Miscellaneous [CC] 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Miscellaneous [CC] 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Nucleotide-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Nucleotide-binding region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Organism 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Organism 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -1139,7 +1160,7 @@ exports[`ColumnConfiguration component should render all columns: Organism 1`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Organism 2`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Organism 2`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -1157,6 +1178,7 @@ exports[`ColumnConfiguration component should render all columns: Organism 2`] =
       fill="none"
       viewBox="0 0 16 16"
       width="12.5"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1171,31 +1193,31 @@ exports[`ColumnConfiguration component should render all columns: Organism 2`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Other binding site 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Other binding site 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Other domain of interest 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Other domain of interest 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Other site of interest 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Other site of interest 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Pathway 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Pathway 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Pharmaceutical Use 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Pharmaceutical Use 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Polymorphysm 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Polymorphysm 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Post-Translational Modification 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Post-Translational Modification 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Post-translationally modified residue 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Post-translationally modified residue 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Protein Families 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Protein Families 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Protein existence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Protein existence 1`] = `
 <DocumentFragment>
   1: Evidence at protein level
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Protein names 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Protein names 1`] = `
 <DocumentFragment>
   <div
     class="info-list info-list--no-title"
@@ -1228,6 +1250,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1275,6 +1298,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1322,6 +1346,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1373,6 +1398,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1403,6 +1429,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1485,6 +1512,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1534,6 +1562,7 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1589,9 +1618,9 @@ exports[`ColumnConfiguration component should render all columns: Protein names 
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Proteomes 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Proteomes 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: PubMed ID 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: PubMed ID 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1644,7 +1673,7 @@ exports[`ColumnConfiguration component should render all columns: PubMed ID 1`] 
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: RNA Editing 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: RNA Editing 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1665,6 +1694,7 @@ exports[`ColumnConfiguration component should render all columns: RNA Editing 1`
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1699,6 +1729,7 @@ exports[`ColumnConfiguration component should render all columns: RNA Editing 1`
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1722,7 +1753,7 @@ exports[`ColumnConfiguration component should render all columns: RNA Editing 1`
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Redox Potential 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Redox Potential 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1740,6 +1771,7 @@ exports[`ColumnConfiguration component should render all columns: Redox Potentia
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1761,7 +1793,7 @@ exports[`ColumnConfiguration component should render all columns: Redox Potentia
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Score 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Score 1`] = `
 <DocumentFragment>
   <span
     title="Annotation Score"
@@ -1795,7 +1827,7 @@ exports[`ColumnConfiguration component should render all columns: Score 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Sequence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence 1`] = `
 <DocumentFragment>
   <section
     class="sequence-container"
@@ -1835,7 +1867,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence 1`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Sequence Caution 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Caution 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1852,6 +1884,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence Cauti
         fill="none"
         viewBox="0 0 16 16"
         width="12.5"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1876,6 +1909,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence Cauti
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1897,7 +1931,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence Cauti
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Sequence Caution 2`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Caution 2`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1914,6 +1948,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence Cauti
         fill="none"
         viewBox="0 0 16 16"
         width="12.5"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1938,6 +1973,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence Cauti
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1959,9 +1995,9 @@ exports[`ColumnConfiguration component should render all columns: Sequence Cauti
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Sequence Similarities 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Similarities 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Sequence Version 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Version 1`] = `
 <DocumentFragment>
   <span>
     5
@@ -1969,7 +2005,7 @@ exports[`ColumnConfiguration component should render all columns: Sequence Versi
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Subcellular Location 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Subcellular Location 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1994,6 +2030,7 @@ exports[`ColumnConfiguration component should render all columns: Subcellular Lo
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -2024,6 +2061,7 @@ exports[`ColumnConfiguration component should render all columns: Subcellular Lo
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -2058,6 +2096,7 @@ exports[`ColumnConfiguration component should render all columns: Subcellular Lo
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -2080,9 +2119,9 @@ exports[`ColumnConfiguration component should render all columns: Subcellular Lo
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Subunit structure 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Subunit structure 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Temperature Dependence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Temperature Dependence 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -2100,6 +2139,7 @@ exports[`ColumnConfiguration component should render all columns: Temperature De
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -2121,13 +2161,13 @@ exports[`ColumnConfiguration component should render all columns: Temperature De
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Tissue Specificity 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Tissue Specificity 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Toxic Dose 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Toxic Dose 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Uncertainty in sequence 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Uncertainty in sequence 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: Variants 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Variants 1`] = `
 <DocumentFragment>
   <div
     class="loader-container"
@@ -2137,6 +2177,7 @@ exports[`ColumnConfiguration component should render all columns: Variants 1`] =
       height="100"
       viewBox="0 0 100 100"
       width="100"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
@@ -2184,13 +2225,13 @@ exports[`ColumnConfiguration component should render all columns: Variants 1`] =
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Version 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Version 1`] = `
 <DocumentFragment>
   20
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: Virus hosts 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: Virus hosts 1`] = `
 <DocumentFragment>
   <p>
     <a
@@ -2202,41 +2243,41 @@ exports[`ColumnConfiguration component should render all columns: Virus hosts 1`
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: active site 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: active site 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: calcium-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: calcium-binding region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: chain 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: chain 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: coiled-coil region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: coiled-coil region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: compositionally biased region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: compositionally biased region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: cross-link 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: cross-link 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: disulfide bond 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: disulfide bond 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: glycosylation site 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: glycosylation site 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: helix 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: helix 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: initiator methionine 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: initiator methionine 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: intramembrane region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: intramembrane region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: lipid moiety-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: lipid moiety-binding region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: metal ion-binding site 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: metal ion-binding site 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: mutagenesis site 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: mutagenesis site 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: non-consecutive residues 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: non-consecutive residues 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: non-standard amino acid 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: non-standard amino acid 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: non-terminal residue 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: non-terminal residue 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: pH Dependence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render all columns: pH Dependence 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -2254,6 +2295,7 @@ exports[`ColumnConfiguration component should render all columns: pH Dependence 
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -2275,28 +2317,28 @@ exports[`ColumnConfiguration component should render all columns: pH Dependence 
 </DocumentFragment>
 `;
 
-exports[`ColumnConfiguration component should render all columns: peptide 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: peptide 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: propeptide 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: propeptide 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: region of interest 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: region of interest 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: repeat 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: repeat 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: sequence conflict 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: sequence conflict 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: short sequence motif 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: short sequence motif 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: signal peptide 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: signal peptide 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: strand 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: strand 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: topological domain 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: topological domain 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: transit peptide 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: transit peptide 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: transmembrane region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: transmembrane region 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: turn 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: turn 1`] = `<DocumentFragment />`;
 
-exports[`ColumnConfiguration component should render all columns: zinc finger region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: zinc finger region 1`] = `<DocumentFragment />`;

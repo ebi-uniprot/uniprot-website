@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 
-import ResultsFacets from '../../../../uniprotkb/components/results/ResultsFacets';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 
 import Response from '../../../../uniprotkb/types/responseTypes';
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';

@@ -1,0 +1,8 @@
+.entry-title {
+  position: relative;
+
+  &__status {
+    display: inline-flex;
+    align-self: center;
+  }
+}

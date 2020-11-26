@@ -10,11 +10,12 @@ import initialState from '../../../../app/state/rootInitialState';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
 import { ColumnSelectTab } from '../../../types/resultsTypes';
-import { Column } from '../../../types/columnTypes';
+import { UniProtKBColumn } from '../../../types/columnTypes';
 
 import structuredResultFieldsData from './__mocks__/structuredResultFieldsData.json';
 import resultFields from '../../../__mocks__/resultFields.json';
 import '../../__mocks__/mockApi';
+import { Namespace } from '../../../../shared/types/namespaces';
 
 describe('ColumnSelectContainer component', () => {
   // testing implementation?
@@ -22,7 +23,7 @@ describe('ColumnSelectContainer component', () => {
     const { getAllByTestId } = renderWithRedux(
       <ColumnSelectContainer
         onChange={jest.fn()}
-        selectedColumns={initialState.results.tableColumns}
+        selectedColumns={initialState.results.tableColumns[Namespace.uniprotkb]}
       />
     );
     const items = await waitFor(() =>
@@ -40,7 +41,7 @@ describe('ColumnSelectContainer component', () => {
     const entryField = {
       tabId: ColumnSelectTab.data,
       accordionId: 'Names & Taxonomy',
-      itemId: Column.accession,
+      itemId: UniProtKBColumn.accession,
     };
     expect(
       removeFieldFromFieldsData(entryField, structuredResultFieldsData)
@@ -51,7 +52,7 @@ describe('ColumnSelectContainer component', () => {
           title: 'title',
           items: [
             {
-              id: Column.ccAllergen,
+              id: UniProtKBColumn.ccAllergen,
               label: 'ccAllergen-label',
             },
           ],
@@ -63,7 +64,7 @@ describe('ColumnSelectContainer component', () => {
           title: 'title',
           items: [
             {
-              id: Column.xrefAbcd,
+              id: UniProtKBColumn.xrefAbcd,
               label: 'xrefAbcd-label',
             },
           ],

@@ -5,13 +5,12 @@ import { Link, useHistory } from 'react-router-dom';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
-import { ReviewedUnreviewed } from '../../../shared/components/entry/EntryTitle';
-import { EntryType } from '../../adapters/uniProtkbConverter';
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import { Location, LocationToPath } from '../../../app/config/urls';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 // NOTE: Jie told me this would be replaced by a different
 // format he called "FASTA" entry
@@ -40,13 +39,7 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       render: ({ accession, entryType }: ProteinEntryLight) => {
         return (
           <Link to={`/uniprotkb/${accession}`}>
-            <ReviewedUnreviewed
-              entryType={
-                entryType.match(/TrEMBL/i)
-                  ? EntryType.UNREVIEWED
-                  : EntryType.REVIEWED
-              }
-            />
+            <EntryTypeIcon entryType={entryType} />
             {accession}
           </Link>
         );

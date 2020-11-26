@@ -1,6 +1,10 @@
 import { formatFASTA } from 'franklin-sites';
 
-import { UniProtkbAPIModel, EntryType } from './uniProtkbConverter';
+import {
+  UniProtkbAPIModel,
+  EntryType,
+  getEntryTypeFromString,
+} from './uniProtkbConverter';
 import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
 type Subset = { start: number; end: number };
@@ -30,7 +34,7 @@ const entryToFASTAWithHeaders = (
 
   try {
     let db;
-    switch (entry.entryType) {
+    switch (getEntryTypeFromString(entry.entryType)) {
       case EntryType.REVIEWED:
         db = 'sp';
         break;

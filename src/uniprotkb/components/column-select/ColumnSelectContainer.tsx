@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Loader } from 'franklin-sites';
 import {
   moveItemInList,
@@ -10,22 +9,22 @@ import {
 import { RootState, RootAction } from '../../../app/state/rootInitialState';
 import * as resultsActions from '../../state/resultsActions';
 import ColumnSelectView from './ColumnSelectView';
-import { defaultTableColumns } from '../../state/resultsInitialState';
-import { Column } from '../../types/columnTypes';
+import { uniProtKBdefaultTableColumns } from '../../state/resultsInitialState';
+import { UniProtKBColumn } from '../../types/columnTypes';
 import { ColumnSelectTab, FieldData } from '../../types/resultsTypes';
 
 type ColumnSelectProps = {
-  selectedColumns: Column[];
+  selectedColumns: UniProtKBColumn[];
   fetchFieldsIfNeeded: () => void;
   isFetching: boolean;
   fieldData: FieldData;
-  onChange: (columndIds: Column[]) => void;
-} & RouteComponentProps;
+  onChange: (columndIds: UniProtKBColumn[]) => void;
+};
 
 export const entryField = {
   tabId: ColumnSelectTab.data,
   accordionId: 'Names & Taxonomy',
-  itemId: Column.accession,
+  itemId: UniProtKBColumn.accession,
 };
 
 export const removeFieldFromFieldsData = (
@@ -33,18 +32,18 @@ export const removeFieldFromFieldsData = (
     tabId,
     accordionId,
     itemId,
-  }: { tabId: ColumnSelectTab; accordionId: string; itemId: Column },
+  }: { tabId: ColumnSelectTab; accordionId: string; itemId: UniProtKBColumn },
   fieldData: FieldData
 ) => ({
   ...fieldData,
-  [tabId]: fieldData[tabId].map(group =>
+  [tabId]: fieldData[tabId].map((group) =>
     group.id === accordionId
       ? { ...group, items: group.items.filter(({ id }) => id !== itemId) }
       : group
   ),
 });
 
-const ColumnSelect: React.FC<ColumnSelectProps> = ({
+const ColumnSelect: FC<ColumnSelectProps> = ({
   fetchFieldsIfNeeded,
   isFetching,
   fieldData,
@@ -67,18 +66,18 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
   const selectedColumnsWithoutEntry = selectedColumns.filter(
-    col => col !== entryField.itemId
+    (col) => col !== entryField.itemId
   );
   const FieldFromFieldsDataWithoutEntry = removeFieldFromFieldsData(
     entryField,
     fieldData
   );
 
-  const handleChange = (columns: Column[]) => {
+  const handleChange = (columns: UniProtKBColumn[]) => {
     onChange([entryField.itemId, ...columns]);
   };
 
-  const handleSelect = (itemId: Column) => {
+  const handleSelect = (itemId: UniProtKBColumn) => {
     const index = selectedColumnsWithoutEntry.indexOf(itemId);
     handleChange(
       index >= 0
@@ -97,7 +96,7 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
     <ColumnSelectView
       selectedColumns={selectedColumnsWithoutEntry}
       fieldData={FieldFromFieldsDataWithoutEntry}
-      onReset={() => onChange(defaultTableColumns)}
+      onReset={() => onChange(uniProtKBdefaultTableColumns)}
       onSelect={handleSelect}
       onDragDrop={handleDragDrop}
     />
@@ -107,8 +106,8 @@ const ColumnSelect: React.FC<ColumnSelectProps> = ({
 const mapStateToProps = (
   state: RootState,
   ownProps: {
-    onChange: (columndIds: Column[]) => void;
-    selectedColumns: Column[];
+    onChange: (columndIds: UniProtKBColumn[]) => void;
+    selectedColumns: UniProtKBColumn[];
   }
 ) => ({
   onChange: ownProps.onChange,
@@ -124,8 +123,9 @@ const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
     dispatch
   );
 
-const ColumnSelectContainer = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ColumnSelect)
-);
+const ColumnSelectContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ColumnSelect);
 
 export default ColumnSelectContainer;

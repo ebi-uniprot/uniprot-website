@@ -1,3 +1,4 @@
+import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 import EntrySection from '../types/entrySection';
 
 enum GeneOntologyAspect {
@@ -6,13 +7,7 @@ enum GeneOntologyAspect {
   COMPONENT = 'GO Cellular Component',
 }
 
-enum MemberIdType {
-  UNIPROTKB_REVIEWED = 'UniProtKB Reviewed (Swiss-Prot)',
-  UNIPROTKB_UNREVIEWED = 'UniProtKB Unreviewed (TrEMBL)',
-  UNIPARC = 'UniParc ID',
-}
-
-enum EntryType {
+enum UniRefEntryType {
   UniRef100 = 'UniRef100',
   UniRef90 = 'UniRef90',
   UniRef50 = 'UniRef50',
@@ -38,7 +33,7 @@ type OverlapRegion = {
 
 export type UniRefMember = {
   seed: boolean;
-  memberIdType: MemberIdType;
+  memberIdType: string;
   memberId: string;
   organismName: string;
   organismTaxId: number;
@@ -61,7 +56,7 @@ export type UniRefLiteAPIModel = {
   commonTaxon: string;
   goTerms: GeneOntologyEntry[];
   memberCount: number;
-  entryType: EntryType;
+  entryType: UniRefEntryType;
   updated: string;
   name: string;
   id: string;
@@ -70,7 +65,7 @@ export type UniRefLiteAPIModel = {
   organismCount: number;
   representativeId: string;
   seedId: string;
-  memberIdTypes: MemberIdType;
+  memberIdTypes?: EntryType[];
   members: string[];
   organismIds: number[];
   organisms: string[];
@@ -81,10 +76,9 @@ export type UniRefAPIModel = {
   commonTaxon: string;
   goTerms: GeneOntologyEntry[];
   representativeMember: RepresentativeMember;
-  // TODO: remove this comment once backend has added that field to the payload
-  seed: string;
+  seedId: string;
   memberCount: number;
-  entryType: EntryType;
+  entryType: UniRefEntryType;
   updated: string;
   name: string;
   id: string;

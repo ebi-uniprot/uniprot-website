@@ -36,18 +36,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -167,18 +168,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -298,18 +300,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -441,18 +444,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -572,18 +576,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -691,18 +696,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -822,18 +828,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -943,15 +950,16 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
+                        class="entry-title__status icon--unreviewed"
                         title="This marks an unreviewed entry"
                       >
                         <svg
                           fill="currentColor"
                           viewBox="0 0 400 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
@@ -1051,15 +1059,16 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
+                        class="entry-title__status icon--unreviewed"
                         title="This marks an unreviewed entry"
                       >
                         <svg
                           fill="currentColor"
                           viewBox="0 0 400 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
@@ -1159,18 +1168,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -1262,18 +1272,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -1401,18 +1412,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -1510,18 +1522,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -1659,18 +1672,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -1786,18 +1800,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -1895,18 +1910,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2038,18 +2054,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2169,18 +2186,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2312,18 +2330,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2443,18 +2462,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2558,18 +2578,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2689,18 +2710,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2832,18 +2854,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -2929,18 +2952,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>
@@ -3060,18 +3084,19 @@ exports[`ResultsView component should render cards 1`] = `
                 >
                   <h5>
                     <span
-                      class="uniprot-title"
+                      class="entry-title"
                     >
                       <span
-                        class="uniprot-title__status icon--unreviewed"
-                        title="This marks an unreviewed entry"
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed entry"
                       >
                         <svg
                           fill="currentColor"
-                          viewBox="0 0 400 512"
+                          viewBox="0 0 426 512"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                            d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
                           />
                         </svg>
                       </span>

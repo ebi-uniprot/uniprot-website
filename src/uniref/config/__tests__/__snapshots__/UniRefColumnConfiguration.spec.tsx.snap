@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniRefColumnConfiguration component should render all columns: Cluster ID 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniref/UniRef90_Q28I25"
+  >
+    UniRef90_Q28I25
+  </a>
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Cluster name 1`] = `
+<DocumentFragment>
+  Cluster: CDC7 cell division cycle 7
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Common taxon 1`] = `
+<DocumentFragment>
+  Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Common taxon ID 1`] = `
+<DocumentFragment>
+  <a
+    href="/taxonomy/8364"
+  >
+    8364
+  </a>
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Identity 1`] = `
+<DocumentFragment>
+  UniRef90
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Last updated 1`] = `<DocumentFragment />`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Length 1`] = `
+<DocumentFragment>
+  483
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Members 1`] = `
+<DocumentFragment>
+  <ul
+    class="no-bullet"
+  >
+    <li>
+      <a
+        href="/uniprotkb/Q28I25"
+      >
+        Q28I25
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A6I8RXP7"
+      >
+        A0A6I8RXP7
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A6I8SV39"
+      >
+        A0A6I8SV39
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A6I8QDI3"
+      >
+        A0A6I8QDI3
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/A0A6I8QHP6"
+      >
+        A0A6I8QHP6
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/B7ZUP5"
+      >
+        B7ZUP5
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/UPI0012F6CEF4"
+      >
+        UPI0012F6CEF4
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/UPI0012F702BF"
+      >
+        UPI0012F702BF
+      </a>
+    </li>
+    <li>
+      <a
+        href="/uniprotkb/UPI0012F66615"
+      >
+        UPI0012F66615
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Organism IDs 1`] = `
+<DocumentFragment>
+  <ul
+    class="no-bullet"
+  >
+    <li>
+      <a
+        href="/taxonomy/8364"
+      >
+        8364
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Organisms 1`] = `
+<DocumentFragment>
+  <ul
+    class="no-bullet"
+  >
+    <li>
+      Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Reference sequence 1`] = `
+<DocumentFragment>
+  <span
+    class="break-anywhere"
+  />
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Size 1`] = `
+<DocumentFragment>
+  9 members
+</DocumentFragment>
+`;
+
+exports[`UniRefColumnConfiguration component should render all columns: Types 1`] = `
+<DocumentFragment>
+  <span
+    class="entry-title__status icon--uniparc"
+    title="UniParc entry"
+  >
+    <svg
+      fill="currentColor"
+      viewBox="0 0 12 16"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 4.98V3.56C0 1.59 2.55 0 5.69 0c3.14 0 5.69 1.6 5.69 3.56v1.42c0 1.96-2.55 3.55-5.7 3.55C2.56 8.53 0 6.94 0 4.98z"
+      />
+      <path
+        d="M11.35 7.11c-.29 1.8-2.71 3.2-5.66 3.2S.3 8.91.03 7.11a2.28 2.28 0 00-.03.36v1.42c0 1.96 2.55 3.55 5.69 3.55 3.14 0 5.69-1.59 5.69-3.55V7.47a2.26 2.26 0 00-.03-.36z"
+      />
+      <path
+        d="M5.69 13.87c2.95 0 5.37-1.4 5.66-3.2.02.11.03.23.03.35v1.42c0 1.97-2.55 3.56-5.7 3.56C2.56 16 0 14.4 0 12.44v-1.42c0-.12.01-.24.03-.35.28 1.8 2.7 3.2 5.66 3.2z"
+      />
+    </svg>
+  </span>
+  <span
+    class="entry-title__status icon--unreviewed"
+    title="This marks an unreviewed entry"
+  >
+    <svg
+      fill="currentColor"
+      viewBox="0 0 400 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+      />
+    </svg>
+  </span>
+</DocumentFragment>
+`;

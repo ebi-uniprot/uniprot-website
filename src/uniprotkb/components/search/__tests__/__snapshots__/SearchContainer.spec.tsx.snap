@@ -5,12 +5,13 @@ exports[`Search shallow components should render 1`] = `
   <form
     class="main-search"
     data-testid="main-search-form"
+    style="--main-button-color: #00639a;"
   >
     <div
       class="dropdown-container"
     >
       <button
-        class="button dropdown"
+        class="button primary dropdown"
         type="button"
       >
         UniProtKB
@@ -26,7 +27,7 @@ exports[`Search shallow components should render 1`] = `
       value=""
     />
     <button
-      class="button"
+      class="button primary"
       type="submit"
     >
       Search

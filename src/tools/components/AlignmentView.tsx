@@ -387,7 +387,7 @@ const AlignmentView: React.FC<{
               : 'Highlight properties'
           }
           defaultActiveNodes={defaultActiveNodes}
-          className="tertiary"
+          variant="tertiary"
         />
         {!!annotationsPerEntry.length && (
           <TreeSelect
@@ -404,7 +404,7 @@ const AlignmentView: React.FC<{
                 : 'Select annotation'
             }
             defaultActiveNodes={defaultActiveAnnotation}
-            className="tertiary"
+            variant="tertiary"
           />
         )}
         <fieldset className="msa-view-choice">

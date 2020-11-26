@@ -1,16 +1,15 @@
 import React from 'react';
-import { MemoryRouter as Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import ResultsView from '../ResultsView';
-import { ViewMode } from '../../../state/resultsInitialState';
-import { render, waitFor } from '@testing-library/react';
-import { Column } from '../../../types/columnTypes';
+import { waitFor } from '@testing-library/react';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import '../../__mocks__/mockApi';
+import '../../../../uniprotkb/components/__mocks__/mockApi';
+import { ViewMode } from '../../../../uniprotkb/state/resultsInitialState';
 
 describe('ResultsView component', () => {
   const props = {
-    columns: [Column.accession],
+    columns: [UniProtKBColumn.accession],
     handleEntrySelection: jest.fn(),
     selectedEntries: [],
   };
