@@ -2589,6 +2589,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2627,6 +2628,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2665,6 +2667,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -2705,6 +2708,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2744,6 +2748,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2789,6 +2794,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -2831,6 +2837,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2870,6 +2877,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -3016,6 +3024,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3091,6 +3100,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -3138,6 +3148,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -3189,6 +3200,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         height="12"
                         viewBox="0 0 10 15"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10 0H0v15l5-5 5 5V0z"
@@ -3221,6 +3233,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         height="12"
                         viewBox="0 0 10 15"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10 0H0v15l5-5 5 5V0z"
@@ -3303,6 +3316,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     fill="none"
                     viewBox="0 0 16 16"
                     width="12.5"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3423,6 +3437,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               height="100"
               viewBox="0 0 100 100"
               width="100"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <g
                 fill="none"
@@ -3593,6 +3608,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3639,6 +3655,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3685,6 +3702,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3775,6 +3793,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -3858,6 +3877,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3883,6 +3903,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3929,6 +3950,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3953,6 +3975,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -3978,6 +4001,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4003,6 +4027,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4028,6 +4053,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4083,6 +4109,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4107,6 +4134,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4153,6 +4181,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4177,6 +4206,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4202,6 +4232,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4248,6 +4279,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4272,6 +4304,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4318,6 +4351,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4343,6 +4377,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4368,6 +4403,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4393,6 +4429,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4439,6 +4476,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4485,6 +4523,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -4536,7 +4575,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="dropdown-container"
               >
                 <button
-                  class="button dropdown tertiary"
+                  class="button primary dropdown tertiary"
                   type="button"
                 >
                   Tools
@@ -4553,6 +4592,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <svg
                   fill="currentColor"
                   viewBox="0 0 32 32"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
@@ -4564,7 +4604,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 class="dropdown-container"
               >
                 <button
-                  class="button dropdown tertiary"
+                  class="button primary dropdown tertiary"
                   type="button"
                 >
                   Highlight
@@ -4735,6 +4775,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
