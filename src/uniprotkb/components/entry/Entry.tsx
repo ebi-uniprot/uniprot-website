@@ -94,14 +94,13 @@ const Entry: FC = () => {
   );
 
   const sections = useMemo(() => {
-    return (
-      transformedData &&
-      UniProtKBEntryConfig.map((section) => {
-        const taxId =
-          transformedData[EntrySection.NamesAndTaxonomy].organismData?.taxonId;
-        const numberOfIsoforms =
-          transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
-            .length;
+    if (transformedData) {
+      const taxId =
+        transformedData[EntrySection.NamesAndTaxonomy].organismData?.taxonId;
+      const numberOfIsoforms =
+        transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
+          .length;
+      return UniProtKBEntryConfig.map((section) => {
         const nameAndId = getEntrySectionNameAndId(
           section.id,
           taxId,
@@ -115,8 +114,9 @@ const Entry: FC = () => {
               ? !hasExternalLinks(transformedData)
               : !hasContent(transformedData[nameAndId.id]),
         };
-      })
-    );
+      });
+    }
+    return false;
   }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(
