@@ -11,8 +11,8 @@ import { Property, PropertyKey } from '../types/modelTypes';
 import { CommentType } from '../types/commentTypes';
 
 export const hasExternalLinks = (transformedData: UniProtkbUIModel) =>
-  UniProtKBEntryConfig.some(({ name }) => {
-    const data = transformedData[name];
+  UniProtKBEntryConfig.some(({ id }) => {
+    const data = transformedData[id];
     return Boolean(data.xrefData?.length);
   });
 

@@ -3,7 +3,9 @@ import { Card } from 'franklin-sites';
 
 import { hasContent } from '../../../shared/utils/utils';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import FreeTextView from '../protein-data-views/FreeTextView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -19,8 +21,8 @@ const ExpressionSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySectionIDs[EntrySection.Expression]} data-entry-section>
-      <Card title={EntrySection.Expression}>
+    <div id={EntrySection.Expression} data-entry-section>
+      <Card title={getEntrySectionNameAndId(EntrySection.Expression).name}>
         <FreeTextView
           comments={
             data.commentsData.get(

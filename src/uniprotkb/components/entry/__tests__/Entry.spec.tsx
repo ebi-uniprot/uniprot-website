@@ -11,6 +11,7 @@ import apiUrls, {
 } from '../../../../shared/config/apiUrls';
 import joinUrl from 'url-join';
 import entryData from '../../../__mocks__/entryModelData.json';
+import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
 import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
 import entryPublicationsData from './__mocks__/entryPublicationsData.json';
@@ -18,6 +19,7 @@ import entryPublicationsData from './__mocks__/entryPublicationsData.json';
 const { primaryAccession } = entryData;
 const { primaryAccession: deleteEntryAccession } = deletedEntryData;
 const { primaryAccession: demergedEntryAccession } = demergedEntryData;
+const { primaryAccession: nonHumanEntryAccession } = nonHumanEntryData;
 const mock = new MockAdapter(axios);
 
 const filteredUrl = getUniProtPublicationsQueryUrl({
@@ -28,6 +30,7 @@ const filteredUrl = getUniProtPublicationsQueryUrl({
 mock.onGet(apiUrls.entry(deleteEntryAccession)).reply(200, deletedEntryData);
 mock.onGet(apiUrls.entry(demergedEntryAccession)).reply(200, demergedEntryData);
 mock.onGet(apiUrls.entry(primaryAccession)).reply(200, entryData);
+mock.onGet(apiUrls.entry(nonHumanEntryAccession)).reply(200, nonHumanEntryData);
 mock
   .onGet(
     getUniProtPublicationsQueryUrl({

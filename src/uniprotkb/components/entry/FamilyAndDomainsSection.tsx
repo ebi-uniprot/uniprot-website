@@ -6,7 +6,9 @@ import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import { CommentType, FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { hasContent } from '../../../shared/utils/utils';
@@ -20,8 +22,10 @@ const FamilyAndDomainsSection: FC<{
     return null;
   }
   return (
-    <div id={EntrySectionIDs[EntrySection.FamilyAndDomains]} data-entry-section>
-      <Card title={EntrySection.FamilyAndDomains}>
+    <div id={EntrySection.FamilyAndDomains} data-entry-section>
+      <Card
+        title={getEntrySectionNameAndId(EntrySection.FamilyAndDomains).name}
+      >
         <FeaturesView features={data.featuresData} sequence={sequence} />
         <FreeTextView
           comments={

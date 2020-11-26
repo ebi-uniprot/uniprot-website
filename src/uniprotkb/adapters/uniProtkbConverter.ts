@@ -84,6 +84,7 @@ export type UniProtkbUIModel = {
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
   [EntrySection.SubCellularLocation]: UIModel;
   [EntrySection.DiseaseAndDrugs]: UIModel;
+  [EntrySection.Phenotypes]: UIModel;
   [EntrySection.ProteinProcessing]: UIModel;
   [EntrySection.Expression]: UIModel;
   [EntrySection.Sequence]: SequenceUIModel;
@@ -123,7 +124,6 @@ export const convertXrefProperties = (xrefs: Xref[]) =>
 
 const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
   const dataCopy = { ...data };
-
   if (dataCopy.uniProtKBCrossReferences) {
     dataCopy.uniProtKBCrossReferences = convertXrefProperties(
       dataCopy.uniProtKBCrossReferences
@@ -140,6 +140,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
     [EntrySection.DiseaseAndDrugs]: convertDiseaseAndDrugs(dataCopy),
+    [EntrySection.Phenotypes]: convertDiseaseAndDrugs(dataCopy),
     [EntrySection.ProteinProcessing]: convertProteinProcessing(dataCopy),
     [EntrySection.Expression]: convertExpression(dataCopy),
     [EntrySection.Interaction]: convertInteraction(dataCopy),
