@@ -4,7 +4,9 @@ import { v1 } from 'uuid';
 import { groupBy } from 'lodash-es';
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 import XRefView from '../protein-data-views/XRefView';
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import { XrefUIModel, XrefsGoupedByDatabase } from '../../utils/xrefUtils';
 import { CommentType, WebResourceComment } from '../../types/commentTypes';
 import { DatabaseCategory } from '../../types/databaseRefs';
@@ -78,8 +80,8 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
   }));
 
   return (
-    <div id={EntrySectionIDs[EntrySection.ExternalLinks]} data-entry-section>
-      <Card title={EntrySection.ExternalLinks}>
+    <div id={EntrySection.ExternalLinks} data-entry-section>
+      <Card title={getEntrySectionNameAndId(EntrySection.ExternalLinks).name}>
         {webResourceComments && (
           <Fragment>
             <h3>Web resources</h3>
