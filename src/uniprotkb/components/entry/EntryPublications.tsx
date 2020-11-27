@@ -8,6 +8,7 @@ import { LiteratureForProteinAPI } from '../../types/literatureTypes';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -32,6 +33,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     total: number;
     nextUrl: string | undefined;
   }>({ total: 0, nextUrl: undefined });
+  usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
     results: LiteratureForProteinAPI[];

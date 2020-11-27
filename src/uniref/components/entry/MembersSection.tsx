@@ -21,6 +21,7 @@ import {
   UniRefMember,
   UniRefAPIModel,
 } from '../../adapters/uniRefConverter';
+import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -271,6 +272,7 @@ export const MembersSection: FC<Props> = ({
     total: number;
     nextUrl: string | undefined;
   }>({ total: 1, nextUrl: undefined });
+  usePrefetch(metadata.nextUrl);
   const [allResults, setAllResults] = useState([representativeMember]);
 
   const { data, headers, loading } = useDataApi<UniRefAPIModel>(url);

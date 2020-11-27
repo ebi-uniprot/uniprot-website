@@ -23,6 +23,7 @@ import UniRefColumnConfiguration, {
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
+import usePrefetch from '../../hooks/usePrefetch';
 
 import getNextUrlFromResponse from '../../utils/queryUtils';
 import {
@@ -119,6 +120,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     total: number;
     nextUrl: string | undefined;
   }>({ total: 0, nextUrl: undefined });
+  usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<
     Array<UniProtkbAPIModel | UniRefAPIModel>
   >([]);
