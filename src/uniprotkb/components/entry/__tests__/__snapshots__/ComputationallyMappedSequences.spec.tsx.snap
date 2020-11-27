@@ -54,247 +54,246 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         View all
       </button>
     </div>
-    <div
-      data-loader-scroll="computationaly-mapped"
+    <table
+      class="data-table data-table--compact  "
     >
-      <table
-        class="data-table data-table--compact  "
+      <thead
+        class="data-table__header"
       >
-        <thead
-          class="data-table__header"
+        <tr
+          class="data-table__row"
         >
-          <tr
-            class="data-table__row"
+          <th
+            class="data-table__header-cell data-table__header-cell--checkbox"
           >
-            <th
-              class="data-table__header-cell data-table__header-cell--checkbox"
+             
+          </th>
+          <th
+            class="data-table__header-cell "
+            style="width: auto;"
+          >
+            Accession
+          </th>
+          <th
+            class="data-table__header-cell "
+            style="width: auto;"
+          >
+            Gene name
+          </th>
+          <th
+            class="data-table__header-cell "
+            style="width: auto;"
+          >
+            Gene name type
+          </th>
+          <th
+            class="data-table__header-cell "
+            style="width: auto;"
+          >
+            Length
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="data-table__table__body"
+      >
+        <tr>
+          <td
+            class="data-table__cell "
+          >
+            <input
+              aria-label="H7C0V9"
+              type="checkbox"
+            />
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            <a
+              href="/uniprotkb/H7C0V9"
             >
-               
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: auto;"
-            >
-              Accession
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: auto;"
-            >
-              Gene name
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: auto;"
-            >
-              Gene name type
-            </th>
-            <th
-              class="data-table__header-cell "
-              style="width: auto;"
-            >
-              Length
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          class="data-table__table__body"
-        >
-          <tr>
-            <td
-              class="data-table__cell "
-            >
-              <input
-                aria-label="H7C0V9"
-                type="checkbox"
-              />
-            </td>
-            <td
-              class="data-table__cell  "
-            >
-              <a
-                href="/uniprotkb/H7C0V9"
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
-                <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed entry"
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 400 512"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 400 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                    />
-                  </svg>
-                </span>
-                H7C0V9
-              </a>
-            </td>
-            <td
-              class="data-table__cell  "
+                  <path
+                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                  />
+                </svg>
+              </span>
+              H7C0V9
+            </a>
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            APP
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            Gene name
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            485
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="data-table__cell data-table__cell--odd "
+          >
+            <input
+              aria-label="A0A0A0MRG2"
+              type="checkbox"
+            />
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            <a
+              href="/uniprotkb/A0A0A0MRG2"
             >
-              APP
-            </td>
-            <td
-              class="data-table__cell  "
-            >
-              Gene name
-            </td>
-            <td
-              class="data-table__cell  "
-            >
-              485
-            </td>
-          </tr>
-          <tr>
-            <td
-              class="data-table__cell data-table__cell--odd "
-            >
-              <input
-                aria-label="A0A0A0MRG2"
-                type="checkbox"
-              />
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              <a
-                href="/uniprotkb/A0A0A0MRG2"
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
-                <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed entry"
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 400 512"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 400 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                    />
-                  </svg>
-                </span>
-                A0A0A0MRG2
-              </a>
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
+                  <path
+                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                  />
+                </svg>
+              </span>
+              A0A0A0MRG2
+            </a>
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            APP
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            Gene name
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            660
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="data-table__cell "
+          >
+            <input
+              aria-label="E9PG40"
+              type="checkbox"
+            />
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            <a
+              href="/uniprotkb/E9PG40"
             >
-              APP
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              Gene name
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              660
-            </td>
-          </tr>
-          <tr>
-            <td
-              class="data-table__cell "
-            >
-              <input
-                aria-label="E9PG40"
-                type="checkbox"
-              />
-            </td>
-            <td
-              class="data-table__cell  "
-            >
-              <a
-                href="/uniprotkb/E9PG40"
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
-                <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed entry"
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 400 512"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 400 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                    />
-                  </svg>
-                </span>
-                E9PG40
-              </a>
-            </td>
-            <td
-              class="data-table__cell  "
+                  <path
+                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                  />
+                </svg>
+              </span>
+              E9PG40
+            </a>
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            APP
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            Gene name
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            714
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="data-table__cell data-table__cell--odd "
+          >
+            <input
+              aria-label="H7C2L2"
+              type="checkbox"
+            />
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            <a
+              href="/uniprotkb/H7C2L2"
             >
-              APP
-            </td>
-            <td
-              class="data-table__cell  "
-            >
-              Gene name
-            </td>
-            <td
-              class="data-table__cell  "
-            >
-              714
-            </td>
-          </tr>
-          <tr>
-            <td
-              class="data-table__cell data-table__cell--odd "
-            >
-              <input
-                aria-label="H7C2L2"
-                type="checkbox"
-              />
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              <a
-                href="/uniprotkb/H7C2L2"
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
               >
-                <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed entry"
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 400 512"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    fill="currentColor"
-                    viewBox="0 0 400 512"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                    />
-                  </svg>
-                </span>
-                H7C2L2
-              </a>
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              APP
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              Gene name
-            </td>
-            <td
-              class="data-table__cell data-table__cell--odd  "
-            >
-              181
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                  <path
+                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
+                  />
+                </svg>
+              </span>
+              H7C2L2
+            </a>
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            APP
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            Gene name
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            181
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="data-loader__loading"
+    />
   </div>
 </DocumentFragment>
 `;
