@@ -5,18 +5,20 @@ import {
   TableIcon,
   ListIcon,
   EditIcon,
+  Button,
 } from 'franklin-sites';
-import { Link } from 'react-router-dom';
 
-import { ViewMode } from '../../state/resultsInitialState';
-
-import SlidingPanel from '../../../shared/components/layouts/SlidingPanel';
+import SlidingPanel, {
+  Position,
+} from '../../../shared/components/layouts/SlidingPanel';
 import BlastButton from '../../../shared/components/action-buttons/Blast';
 import AlignButton from '../../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
 
 import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
 import { SortableColumn } from '../../types/columnTypes';
+import { ViewMode } from '../../../shared/components/results/ResultsContainer';
+import { Column } from '../../../shared/config/columns';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -27,6 +29,8 @@ const ResultsButtons: FC<{
   sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
+  tableColumns?: Column[] | null;
+  onTableColumnsChange: (columns: Column[]) => void;
 }> = ({
   viewMode,
   setViewMode,
@@ -36,19 +40,28 @@ const ResultsButtons: FC<{
   sortDirection,
   selectedEntries,
   total,
+  tableColumns,
+  onTableColumnsChange,
 }) => {
   const DownloadComponent = lazy(
     () =>
       import(/* webpackChunkName: "download" */ '../download/DownloadContainer')
   );
+  const CustomiseComponent = lazy(
+    () =>
+      import(
+        /* webpackChunkName: "customise" */ '../../../shared/components/customise-table/CustomiseTable'
+      )
+  );
 
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
 
   return (
     <>
       {displayDownloadPanel && (
         <Suspense fallback>
-          <SlidingPanel position="right">
+          <SlidingPanel position={Position.left} yScrollable>
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
@@ -61,25 +74,39 @@ const ResultsButtons: FC<{
           </SlidingPanel>
         </Suspense>
       )}
+      {displayCustomisePanel && (
+        <Suspense fallback>
+          <SlidingPanel position={Position.left} yScrollable>
+            <CustomiseComponent
+              selectedColumns={tableColumns}
+              onSave={(columns: Column[]) => {
+                onTableColumnsChange(columns);
+                setDisplayCustomisePanel(false);
+              }}
+            />
+          </SlidingPanel>
+        </Suspense>
+      )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
         <AlignButton selectedEntries={selectedEntries} />
-        <button
+        <Button
           type="button"
-          className="button tertiary"
+          variant="tertiary"
           onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
         >
           <DownloadIcon />
           Download
-        </button>
+        </Button>
         <AddToBasketButton selectedEntries={selectedEntries} />
-        <button type="button" className="button tertiary">
+        <Button type="button" variant="tertiary">
           <StatisticsIcon />
           Statistics
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="button tertiary large-icon"
+          variant="tertiary"
+          className="large-icon"
           onClick={() =>
             setViewMode(
               viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
@@ -101,14 +128,16 @@ const ResultsButtons: FC<{
           >
             <ListIcon />
           </span>
-        </button>
+        </Button>
         {viewMode === ViewMode.TABLE && (
-          <Link to="/customise-table">
-            <button type="button" className="button tertiary">
-              <EditIcon />
-              Customize data
-            </button>
-          </Link>
+          <Button
+            type="button"
+            variant="tertiary"
+            onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
+          >
+            <EditIcon />
+            Customize data
+          </Button>
         )}
       </div>
     </>

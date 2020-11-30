@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -21,6 +20,18 @@ export enum UniRefColumn {
   count = 'count',
   created = 'created',
 }
+
+export const defaultColumns = [
+  UniRefColumn.id,
+  UniRefColumn.name,
+  UniRefColumn.types,
+  UniRefColumn.count,
+  UniRefColumn.organism,
+  UniRefColumn.length,
+  UniRefColumn.identity,
+];
+
+export const mustHave = [UniRefColumn.id];
 
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,

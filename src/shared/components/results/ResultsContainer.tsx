@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
@@ -9,73 +9,67 @@ import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';
 
-import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
-
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+  getSortableColumnToSortColumn,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
+import useDataApi from '../../hooks/useDataApi';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNS from '../../hooks/useNS';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
+import { Column, nsToDefaultColumns } from '../../config/columns';
 
-import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
-import { UniRefColumn } from '../../../uniparc/config/UniParcColumnConfiguration';
-import Response from '../../../uniprotkb/types/responseTypes';
 import { Namespace } from '../../types/namespaces';
+import Response from '../../../uniprotkb/types/responseTypes';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import './styles/results-table.scss';
 
-export type AllColumns = Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
-
-const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
-  [Namespace.uniprotkb]: [
-    UniProtKBColumn.accession,
-    UniProtKBColumn.reviewed,
-    UniProtKBColumn.id,
-    UniProtKBColumn.proteinName,
-    UniProtKBColumn.geneNames,
-    UniProtKBColumn.organismName,
-  ],
-  [Namespace.uniref]: [
-    UniRefColumn.id,
-    UniRefColumn.name,
-    UniRefColumn.types,
-    UniRefColumn.count,
-    UniRefColumn.organism,
-    UniRefColumn.length,
-    UniRefColumn.identity,
-  ],
-  [Namespace.uniparc]: [
-    UniParcColumn.uniParcId,
-    UniParcColumn.name,
-    UniParcColumn.types,
-    UniParcColumn.count,
-    UniParcColumn.organism,
-    UniParcColumn.length,
-    UniParcColumn.identity,
-  ],
-};
+export enum ViewMode {
+  TABLE,
+  CARD,
+}
 
 const Results: FC = () => {
-  const namespace = useNS();
+  const namespace = useNS() || Namespace.uniprotkb;
+  const history = useHistory();
 
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
-
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
+    Map<Column, string>
+  >();
+
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );
-  const [tableColumns] = useLocalStorage<AllColumns>(
+
+  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}`,
-    namespace ? defaultTableColumns[namespace] : []
+    namespace ? nsToDefaultColumns[namespace] : []
   );
+
+  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
+    apiUrls.resultsFields(namespace)
+  );
+
+  useEffect(() => {
+    if (!dataResultFields) {
+      return;
+    }
+    setSortableColumnToSortColumn(
+      getSortableColumnToSortColumn(dataResultFields)
+    );
+  }, [dataResultFields]);
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -127,6 +121,29 @@ const Results: FC = () => {
         : filtered
     );
   };
+
+  if (!sortableColumnToSortColumn || !sortableColumnToSortColumn.size) {
+    return <Loader />;
+  }
+
+  const handleTableColumnsChange = (columns: Column[]) => {
+    if (
+      sortColumn &&
+      !columns.some(
+        (column) => sortableColumnToSortColumn?.get(column) === sortColumn
+      )
+    ) {
+      history.push(
+        getLocationObjForParams({
+          pathname: `/${namespace}`,
+          query,
+          selectedFacets,
+        })
+      );
+    }
+    setTableColumns(columns);
+  };
+
   const { name, links, info } = infoMappings[namespace];
 
   return (
@@ -146,6 +163,8 @@ const Results: FC = () => {
           sortColumn={sortColumn}
           sortDirection={sortDirection}
           total={total || 0}
+          tableColumns={tableColumns}
+          onTableColumnsChange={handleTableColumnsChange}
         />
       }
       sidebar={
@@ -161,6 +180,7 @@ const Results: FC = () => {
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
         viewMode={viewMode ?? ViewMode.CARD}
+        sortableColumnToSortColumn={sortableColumnToSortColumn}
       />
     </SideBarLayout>
   );

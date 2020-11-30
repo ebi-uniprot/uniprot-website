@@ -1,27 +1,56 @@
 /* eslint-disable camelcase */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 
 import { UniParcAPIModel } from '../adapters/uniParcConverter';
 
-export enum UniParc {
-  id = 'id',
-  geneNames = 'geneNames',
-  commonTaxon = 'common_taxon',
-  commonTaxonid = 'common_taxonid',
-  organismId = 'organism_id',
+import { Location, LocationToPath } from '../../app/config/urls';
+
+export enum UniParcColumn {
+  // Names & taxonomy
+  upi = 'upi',
+  gene = 'gene',
+  organismID = 'organism_id',
   organism = 'organism',
-  identity = 'identity',
+  protein = 'protein',
+  proteome = 'proteome',
+  // Sequences
+  checksum = 'checksum',
   length = 'length',
   sequence = 'sequence',
-  types = 'types',
-  members = 'members',
-  count = 'count',
-  created = 'created',
+  // Miscellaneous
+  accession = 'accession',
+  // Date of
+  firstSeen = 'first_seen',
+  lastSeen = 'last_seen',
+  // Family & domains
+  cdd = 'CDD',
+  gene3D = 'Gene3D',
+  hamap = 'HAMAP',
+  panther = 'PANTHER',
+  pfam = 'Pfam',
+  pirsf = 'PIRSF',
+  prints = 'PRINTS',
+  prosite = 'PROSITE',
+  sfld = 'SFLD',
+  smart = 'SMART',
+  supfam = 'SUPFAM',
+  tigrfams = 'TIGRFAMs',
 }
 
-export const UniRefColumnConfiguration = new Map<
-  UniRefColumn,
+export const defaultColumns = [
+  UniParcColumn.upi,
+  UniParcColumn.organism,
+  UniParcColumn.length,
+  UniParcColumn.accession,
+  UniParcColumn.firstSeen,
+  UniParcColumn.lastSeen,
+];
+
+export const mustHave = [UniParcColumn.upi];
+
+export const UniParcColumnConfiguration = new Map<
+  UniParcColumn,
   {
     label: string;
     render: (
@@ -30,125 +59,279 @@ export const UniRefColumnConfiguration = new Map<
   }
 >();
 
-UniRefColumnConfiguration.set(UniRefColumn.id, {
+UniParcColumnConfiguration.set(UniParcColumn.upi, {
   label: 'Entry',
-  render: ({ id }) => {
-    return <Link to={`/uniref/${id}`}>{id}</Link>;
-  },
+  render: ({ uniParcId }) => (
+    <Link
+      to={generatePath(LocationToPath[Location.UniParcEntry], {
+        accession: uniParcId,
+      })}
+    >
+      {uniParcId}
+    </Link>
+  ),
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.name, {
-  label: 'Cluster name',
-  render: ({ name }) => {
-    return name;
-  },
+UniParcColumnConfiguration.set(UniParcColumn.gene, {
+  label: 'Gene names',
+  // render: ({ name }) => {
+  //   return name;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
-  label: 'Common taxon',
-  render: ({ commonTaxon }) => {
-    return commonTaxon;
-  },
-});
-
-UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
-  label: 'Common taxon ID',
-  render: ({ commonTaxonId }) => {
-    return <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>;
-  },
-});
-
-UniRefColumnConfiguration.set(UniRefColumn.organismId, {
+UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   label: 'Organism IDs',
-  render: ({ organismIds }) => {
-    return (
-      <ul className="no-bullet">
-        {organismIds?.map((organismId) => (
-          <li key={organismId}>
-            <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
-          </li>
-        ))}
-      </ul>
-    );
-  },
+  // render: ({ taxonomies }) => {
+  //   return taxonomies;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.organism, {
+UniParcColumnConfiguration.set(UniParcColumn.organism, {
   label: 'Organisms',
-  render: ({ organisms }) => {
-    return (
-      <ul className="no-bullet">
-        {organisms?.map((organism) => (
-          <li key={organism}>{organism}</li>
-        ))}
-      </ul>
-    );
-  },
+  // render: ({ taxonomies }) => {
+  //   return taxonomies;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.identity, {
-  label: 'Identity',
-  render: ({ entryType }) => {
-    return <>{entryType}</>;
-  },
+UniParcColumnConfiguration.set(UniParcColumn.protein, {
+  label: 'Protein names',
+  // render: ({ name }) => {
+  //   return name;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.length, {
+UniParcColumnConfiguration.set(UniParcColumn.proteome, {
+  label: 'Proteomes',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.checksum, {
+  label: 'Checksum',
+  render: ({ sequence: { crc64 } }) => crc64,
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.length, {
   label: 'Length',
-  render: ({ sequenceLength }) => sequenceLength,
+  render: ({ sequence: { length } }) => length,
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.sequence, {
-  label: 'Reference sequence',
-  render: ({ sequence }) => {
-    return <span className="break-anywhere">{sequence}</span>;
-  },
+UniParcColumnConfiguration.set(UniParcColumn.sequence, {
+  label: 'Sequence',
+  render: ({ sequence: { value } }) => value,
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.types, {
-  label: 'Types',
-  render: ({ memberIdTypes }) => {
-    return (
-      <>
-        {memberIdTypes?.map((memberType) => (
-          <EntryTypeIcon entryType={memberType} key={memberType} />
-        ))}
-      </>
-    );
-  },
+UniParcColumnConfiguration.set(UniParcColumn.accession, {
+  label: 'UniProtKB',
+  // render: ({ name }) => {
+  //   return name;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.members, {
-  label: 'Members',
-  render: ({ members }) => {
-    return (
-      <ul className="no-bullet">
-        {members?.map((member) => (
-          <li key={member}>
-            <Link to={`/uniprotkb/${member}`}>{member}</Link>
-          </li>
-        ))}
-      </ul>
-    );
-  },
+UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
+  label: 'First seen',
+  // render: ({ name }) => {
+  //   return name;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.count, {
-  label: 'Size',
-  render: ({ memberCount }) => {
-    return (
-      <>
-        {memberCount} member{memberCount > 1 && 's'}
-      </>
-    );
-  },
+UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
+  label: 'Last seen',
+  // render: ({ name }) => {
+  //   return name;
+  // },
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.created, {
-  label: 'Last updated',
-  render: ({ updated }) => {
-    return updated;
-  },
+UniParcColumnConfiguration.set(UniParcColumn.cdd, {
+  label: 'CDD',
+  // render: ({ name }) => {
+  //   return name;
+  // },
 });
 
-export default UniRefColumnConfiguration;
+UniParcColumnConfiguration.set(UniParcColumn.gene3D, {
+  label: 'Gene3D',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.hamap, {
+  label: 'HAMAP',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.panther, {
+  label: 'PANTHER',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.pfam, {
+  label: 'Pfam',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.pirsf, {
+  label: 'PIRSF',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.prints, {
+  label: 'PRINTS',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.prosite, {
+  label: 'PROSITE',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.sfld, {
+  label: 'SFLD',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.smart, {
+  label: 'SMART',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.supfam, {
+  label: 'SUPFAM',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+UniParcColumnConfiguration.set(UniParcColumn.tigrfams, {
+  label: 'TIGRFAMs',
+  // render: ({ name }) => {
+  //   return name;
+  // },
+});
+
+// UniParcColumnConfiguration.set(UniParcColumn.commonTaxon, {
+//   label: 'Common taxon',
+//   render: ({ commonTaxon }) => {
+//     return commonTaxon;
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.commonTaxonid, {
+//   label: 'Common taxon ID',
+//   render: ({ commonTaxonId }) => {
+//     return <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>;
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.organismId, {
+//   label: 'Organism IDs',
+//   render: ({ organismIds }) => {
+//     return (
+//       <ul className="no-bullet">
+//         {organismIds?.map((organismId) => (
+//           <li key={organismId}>
+//             <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
+//           </li>
+//         ))}
+//       </ul>
+//     );
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.organism, {
+//   label: 'Organisms',
+//   render: ({ organisms }) => {
+//     return (
+//       <ul className="no-bullet">
+//         {organisms?.map((organism) => (
+//           <li key={organism}>{organism}</li>
+//         ))}
+//       </ul>
+//     );
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.identity, {
+//   label: 'Identity',
+//   render: ({ entryType }) => {
+//     return <>{entryType}</>;
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.length, {
+//   label: 'Length',
+//   render: ({ sequenceLength }) => sequenceLength,
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.sequence, {
+//   label: 'Reference sequence',
+//   render: ({ sequence }) => {
+//     return <span className="break-anywhere">{sequence}</span>;
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.types, {
+//   label: 'Types',
+//   render: ({ memberIdTypes }) => {
+//     return (
+//       <>
+//         {memberIdTypes?.map((memberType) => (
+//           <EntryTypeIcon entryType={memberType} key={memberType} />
+//         ))}
+//       </>
+//     );
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.members, {
+//   label: 'Members',
+//   render: ({ members }) => {
+//     return (
+//       <ul className="no-bullet">
+//         {members?.map((member) => (
+//           <li key={member}>
+//             <Link to={`/uniprotkb/${member}`}>{member}</Link>
+//           </li>
+//         ))}
+//       </ul>
+//     );
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.count, {
+//   label: 'Size',
+//   render: ({ memberCount }) => {
+//     return (
+//       <>
+//         {memberCount} member{memberCount > 1 && 's'}
+//       </>
+//     );
+//   },
+// });
+
+// UniParcColumnConfiguration.set(UniParcColumn.created, {
+//   label: 'Last updated',
+//   render: ({ updated }) => {
+//     return updated;
+//   },
+// });
+
+export default UniParcColumnConfiguration;

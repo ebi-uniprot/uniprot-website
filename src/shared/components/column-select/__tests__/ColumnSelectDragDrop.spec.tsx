@@ -5,9 +5,9 @@ import {
   DND_DRAGGABLE_DATA_ATTR,
   DND_DIRECTION_LEFT,
 } from 'react-beautiful-dnd-test-utils';
-import { ColumnSelectTab } from '../../../types/resultsTypes';
-import { UniProtKBColumn } from '../../../types/columnTypes';
 import ColumnSelectDragDrop from '../ColumnSelectDragDrop';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import { ColumnSelectTab } from '../../../../uniprotkb/types/resultsTypes';
 
 // TODO: test that some other way, the testing library for react-beautiful-dnd
 // TODO: seems to be outdated (or will soon be) because it's firing warnings

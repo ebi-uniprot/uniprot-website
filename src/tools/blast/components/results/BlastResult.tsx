@@ -48,7 +48,7 @@ import BlastResultLocalFacets from './BlastResultLocalFacets';
 import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
 import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
-import '../../../../shared/styles/sticky-tabs-container.scss';
+import '../../../../shared/styles/sticky.scss';
 
 const jobType = JobTypes.BLAST;
 const urls = toolsURLs(jobType);

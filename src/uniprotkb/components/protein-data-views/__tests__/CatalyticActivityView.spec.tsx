@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import CatalyticActivityView, {
   getRheaId,
   isRheaReactionReference,
@@ -35,11 +35,13 @@ describe('CatalyticActivityView component', () => {
 });
 
 describe('RheaReactionVisualizer component', () => {
-  test('should render RheaReactionVisualizer', () => {
-    const { asFragment } = render(
-      <RheaReactionVisualizer rheaId={12345} show={false} />
-    );
-    expect(asFragment()).toMatchSnapshot();
+  test('should render RheaReactionVisualizer', async () => {
+    await act(async () => {
+      const { asFragment } = render(
+        <RheaReactionVisualizer rheaId={12345} show={false} />
+      );
+      expect(asFragment()).toMatchSnapshot();
+    });
   });
 });
 
@@ -67,7 +69,12 @@ describe('isRheaReactReference function', () => {
 
 describe('ReactionDirection component', () => {
   const { physiologicalReactions } = catalyticActivityUIDataJson[0];
-  test('should render ReactionDirection when one physiologicalReactions is present ', () => {
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test('should render ReactionDirection when one physiologicalReactions is present', () => {
     const { asFragment } = renderWithRedux(
       <ReactionDirection
         physiologicalReactions={physiologicalReactions.slice(0, 1)}
@@ -76,7 +83,7 @@ describe('ReactionDirection component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards) ', () => {
+  test('should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards)', () => {
     const { asFragment, getAllByTestId } = renderWithRedux(
       <ReactionDirection physiologicalReactions={physiologicalReactions} />
     );
@@ -86,7 +93,8 @@ describe('ReactionDirection component', () => {
     expect(directions[1].textContent).toBe('backward');
   });
 
-  test('should not render a ReactionDirection when more than two physiologicalReactions are present ', () => {
+  test('should not render a ReactionDirection when more than two physiologicalReactions are present and to have raised the approriate error in the console', () => {
+    console.error = jest.fn();
     const { asFragment } = renderWithRedux(
       <ReactionDirection
         physiologicalReactions={[
@@ -96,6 +104,9 @@ describe('ReactionDirection component', () => {
       />
     );
     expect(asFragment().childElementCount).toEqual(0);
+    expect(console.error).toHaveBeenCalledWith(
+      'More than two physiological reactions encountered when rendering catalytic activity'
+    );
   });
 });
 

@@ -60,7 +60,7 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import '../../../shared/styles/sticky-tabs-container.scss';
+import '../../../shared/styles/sticky.scss';
 
 enum TabLocation {
   Entry = 'entry',

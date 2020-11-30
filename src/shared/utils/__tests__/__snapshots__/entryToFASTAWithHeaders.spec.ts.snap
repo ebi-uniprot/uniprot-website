@@ -1,11 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`entryToFASTAWithHeaders should output a FASTA string with UniProt-style headers 1`] = `
+exports[`entryToFASTAWithHeaders UniProtKB entry should handle reviewed entries 1`] = `
 ">sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
 SAPSQDFMRF"
 `;
 
-exports[`entryToFASTAWithHeaders should output a FASTA with subset 1`] = `
-">sp|P21802|uniprot_id|1-1,3-5 rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
-SPSQ"
+exports[`entryToFASTAWithHeaders UniProtKB entry should handle unreviewed entries 1`] = `
+">tr|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+SAPSQDFMRF"
+`;
+
+exports[`entryToFASTAWithHeaders fallback gracefully when lacking metadata should handle invalid entry types 1`] = `
+">??|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+SAPSQDFMRF"
+`;
+
+exports[`entryToFASTAWithHeaders fallback gracefully when lacking metadata should handle only sequence data 1`] = `
+">
+SAPSQDFMRF"
+`;
+
+exports[`entryToFASTAWithHeaders modification should handle subsets 1`] = `
+">sp|P21802|uniprot_id|5-7 rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5
+QDF"
+`;
+
+exports[`entryToFASTAWithHeaders should handle UniParc entries 1`] = `
+">UPI0000000001 status=true
+MGAAASIQTT VNTLSERISS KLEQEANA"
 `;

@@ -26,7 +26,7 @@ import { AlignResults } from '../../types/alignResults';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/alignServerParameters';
 
-import '../../../../shared/styles/sticky-tabs-container.scss';
+import '../../../../shared/styles/sticky.scss';
 
 const jobType = JobTypes.ALIGN;
 const urls = toolsURLs(jobType);
