@@ -11,7 +11,7 @@ import uniProtKBApiUrls from '../../config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import entryToFASTAWithHeaders from '../../../uniprotkb/adapters/entryToFASTAWithHeaders';
+import entryToFASTAWithHeaders from '../../utils/entryToFASTAWithHeaders';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 

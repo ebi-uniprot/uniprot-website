@@ -1,6 +1,6 @@
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
-import modelData from '../../__mocks__/entryModelData.json';
+import modelData from '../../../uniprotkb/__mocks__/entryModelData.json';
 
 describe('entryToFASTAWithHeaders', () => {
   it('should output a FASTA string with UniProt-style headers', () => {

@@ -4,7 +4,7 @@ import {
   UniProtkbAPIModel,
   EntryType,
   getEntryTypeFromString,
-} from './uniProtkbConverter';
+} from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
