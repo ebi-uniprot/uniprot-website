@@ -1,4 +1,4 @@
-import { UniProtKBColumn } from './columnTypes';
+import { Column } from '../../shared/config/columns';
 
 export enum SortDirection {
   ascend = 'ascend',
@@ -25,7 +25,7 @@ export enum ColumnSelectTab {
 export type SelectedColumn = {
   tabId: ColumnSelectTab;
   accordionId: string;
-  itemId: UniProtKBColumn;
+  itemId: Column;
   label: string;
 };
 
@@ -33,18 +33,16 @@ export type FieldDatum = {
   id: string;
   title: string;
   items: {
-    id: UniProtKBColumn;
+    id: Column;
     label: string;
     sortField?: string;
   }[];
 };
 
-export type FieldData = {
-  [tab in ColumnSelectTab]: FieldDatum[];
-};
+export type FieldData = Partial<Record<ColumnSelectTab, FieldDatum[]>>;
 
 export type ReceivedField = {
-  name: UniProtKBColumn;
+  name: Column;
   label: string;
   id: string;
   sortField?: string;

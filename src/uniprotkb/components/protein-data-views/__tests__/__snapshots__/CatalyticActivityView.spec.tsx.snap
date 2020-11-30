@@ -173,7 +173,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
 </DocumentFragment>
 `;
 
-exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present  1`] = `
+exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present 1`] = `
 <DocumentFragment>
   This reaction proceeds in the 
   <span
@@ -215,7 +215,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
 </DocumentFragment>
 `;
 
-exports[`ReactionDirection component should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards)  1`] = `
+exports[`ReactionDirection component should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards) 1`] = `
 <DocumentFragment>
   This reaction proceeds in the 
   <span

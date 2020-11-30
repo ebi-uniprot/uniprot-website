@@ -18,7 +18,7 @@ describe('getPreviewFileFormat', () => {
   });
 });
 
-describe('DownloadContainer component', () => {
+describe.skip('DownloadContainer component', () => {
   let renderedWithRedux;
 
   const onCloseMock = jest.fn();

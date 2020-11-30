@@ -19,7 +19,6 @@ export enum Location {
   IDMapResult = 'IDMapResult',
   PeptideSearch = 'PeptideSearch',
   PeptideSearchResult = 'PeptideSearchResult',
-  UniProtKBCustomiseTable = 'UniProtKBCustomiseTable',
   QueryBuilder = 'QueryBuilder',
   Dashboard = 'Dashboard',
 }
@@ -36,7 +35,6 @@ export const LocationToPath = {
   [Location.IDMap]: '/idmap',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.UniProtKBCustomiseTable]: '/customise-table',
   [Location.QueryBuilder]: '/query-builder/:namespace?',
   [Location.Dashboard]: '/tool-dashboard',
   [Location.UniRefEntry]: '/uniref/:accession',

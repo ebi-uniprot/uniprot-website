@@ -8,3 +8,9 @@
     background: $colour-sky-white;
   }
 }
+
+.sticky-bottom-right {
+  float: right;
+  position: sticky;
+  bottom: 0;
+}

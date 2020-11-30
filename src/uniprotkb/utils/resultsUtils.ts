@@ -87,7 +87,9 @@ export const getSortableColumnToSortColumn = (
   const sortableColumnToSortColumn = new Map<UniProtKBColumn, string>();
   resultFields.forEach(({ fields }) => {
     fields.forEach(({ name, sortField }) => {
-      if (sortField) sortableColumnToSortColumn.set(name, sortField);
+      if (sortField) {
+        sortableColumnToSortColumn.set(name as UniProtKBColumn, sortField);
+      }
     });
   });
   return sortableColumnToSortColumn;
