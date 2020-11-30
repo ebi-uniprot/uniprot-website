@@ -61,6 +61,18 @@ const UniRefEntryPage = lazy(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
+const UniParcResultsPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
+    )
+);
+const UniParcEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-entry" */ '../../uniref/components/entry/Entry'
+    )
+);
 const BlastResult = lazy(
   () =>
     import(

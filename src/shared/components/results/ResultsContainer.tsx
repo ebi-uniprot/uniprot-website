@@ -22,12 +22,13 @@ import infoMappings from '../../config/InfoMappings';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import { UniRefColumn } from '../../../uniref/config/UniRefColumnConfiguration';
+import { UniRefColumn } from '../../../uniparc/config/UniParcColumnConfiguration';
 import Response from '../../../uniprotkb/types/responseTypes';
 import { Namespace } from '../../types/namespaces';
 
 import './styles/results-table.scss';
 
-export type AllColumns = Array<UniProtKBColumn | UniRefColumn>;
+export type AllColumns = Array<UniProtKBColumn | UniRefColumn | UniParcColumn>;
 
 const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
   [Namespace.uniprotkb]: [
@@ -46,6 +47,15 @@ const defaultTableColumns: Partial<Record<Namespace, AllColumns>> = {
     UniRefColumn.organism,
     UniRefColumn.length,
     UniRefColumn.identity,
+  ],
+  [Namespace.uniparc]: [
+    UniParcColumn.uniParcId,
+    UniParcColumn.name,
+    UniParcColumn.types,
+    UniParcColumn.count,
+    UniParcColumn.organism,
+    UniParcColumn.length,
+    UniParcColumn.identity,
   ],
 };
 
