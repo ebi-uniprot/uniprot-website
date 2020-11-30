@@ -5,6 +5,7 @@ import {
   TableIcon,
   ListIcon,
   EditIcon,
+  Button,
 } from 'franklin-sites';
 
 import SlidingPanel, {
@@ -89,22 +90,23 @@ const ResultsButtons: FC<{
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
         <AlignButton selectedEntries={selectedEntries} />
-        <button
+        <Button
           type="button"
-          className="button tertiary"
+          variant="tertiary"
           onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
         >
           <DownloadIcon />
           Download
-        </button>
+        </Button>
         <AddToBasketButton selectedEntries={selectedEntries} />
-        <button type="button" className="button tertiary">
+        <Button type="button" variant="tertiary">
           <StatisticsIcon />
           Statistics
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="button tertiary large-icon"
+          variant="tertiary"
+          className="large-icon"
           onClick={() =>
             setViewMode(
               viewMode === ViewMode.CARD ? ViewMode.TABLE : ViewMode.CARD
@@ -126,16 +128,16 @@ const ResultsButtons: FC<{
           >
             <ListIcon />
           </span>
-        </button>
+        </Button>
         {viewMode === ViewMode.TABLE && (
-          <button
+          <Button
             type="button"
-            className="button tertiary"
+            variant="tertiary"
             onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
           >
             <EditIcon />
             Customize data
-          </button>
+          </Button>
         )}
       </div>
     </>
