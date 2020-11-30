@@ -18,19 +18,17 @@ type PreparedField = {
   key: string;
 };
 
-export const prepareFields = (fields: ReceivedField[], exclude: Column[]) => {
-  const prepared: PreparedField[] = [];
-  fields.forEach(({ label, name, id }) => {
-    if (!exclude.includes(name)) {
-      prepared.push({
-        id: name,
-        label,
-        key: id,
-      } as PreparedField);
-    }
-  });
-  return prepared;
-};
+export const prepareFields = (fields: ReceivedField[], exclude: Column[]) =>
+  fields
+    .filter(({ name }) => !exclude.includes(name))
+    .map(
+      ({ label, name, id }) =>
+        ({
+          id: name,
+          label,
+          key: id,
+        } as PreparedField)
+    );
 
 export const prepareFieldData = (
   fieldData: ReceivedFieldData,

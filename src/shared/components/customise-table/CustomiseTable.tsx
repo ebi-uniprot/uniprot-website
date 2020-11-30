@@ -38,11 +38,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
       className="customise-table"
       data-testid="customise-table-form"
     >
-      <ColumnSelect
-        onChange={handleChange}
-        // TODO temporary casting to UniProtKBColumn to make TS happy
-        selectedColumns={selectedColumns}
-      />
+      <ColumnSelect onChange={handleChange} selectedColumns={selectedColumns} />
       <div className="button-group sticky-bottom-right">
         <button
           className="button secondary"
