@@ -12,6 +12,7 @@ import {
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
 import { Namespace } from '../types/namespaces';
+import { Column } from './columns';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
@@ -42,10 +43,8 @@ const apiUrls = {
     '/uniprot/api/configure/uniprotkb/databasefields'
   ),
   // All result fields except database cross reference fields
-  resultsFields: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/result-fields'
-  ),
+  resultsFields: (namespace: Namespace) =>
+    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
@@ -136,7 +135,7 @@ const defaultFacets = new Map<Namespace, string[]>([
 type QueryUrlProps = {
   namespace?: Namespace;
   query?: string;
-  columns?: string[] | null;
+  columns?: Column[] | null;
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;

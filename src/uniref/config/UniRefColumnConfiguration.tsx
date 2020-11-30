@@ -22,6 +22,18 @@ export enum UniRefColumn {
   created = 'created',
 }
 
+export const defaultColumns = [
+  UniRefColumn.id,
+  UniRefColumn.name,
+  UniRefColumn.types,
+  UniRefColumn.count,
+  UniRefColumn.organism,
+  UniRefColumn.length,
+  UniRefColumn.identity,
+];
+
+export const mustHave = [UniRefColumn.id];
+
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,
   {

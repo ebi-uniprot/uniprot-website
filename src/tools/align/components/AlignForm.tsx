@@ -46,6 +46,7 @@ import {
 } from '../../../messages/types/messagesTypes';
 
 import '../../styles/ToolsForm.scss';
+import '../../../shared/styles/sticky.scss';
 
 const ALIGN_LIMIT = 100;
 
@@ -354,7 +355,7 @@ const AlignForm = () => {
               ))}
             </section>
           </details>
-          <section className="tools-form-section tools-form-section__main_actions">
+          <section className="tools-form-section sticky-bottom-right">
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
                 <>

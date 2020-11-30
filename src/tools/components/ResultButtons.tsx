@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';
 
-import SlidingPanel from '../../shared/components/layouts/SlidingPanel';
+import SlidingPanel, {
+  Position,
+} from '../../shared/components/layouts/SlidingPanel';
 import BlastButton from '../../shared/components/action-buttons/Blast';
 import AlignButton from '../../shared/components/action-buttons/Align';
 import AddToBasketButton from '../../shared/components/action-buttons/AddToBasket';
@@ -122,7 +124,7 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
     <>
       {displayDownloadPanel && (
         <Suspense fallback={null}>
-          <SlidingPanel position="right">
+          <SlidingPanel position={Position.right}>
             <ResultDownload
               jobType={jobType}
               id={jobId}

@@ -61,6 +61,7 @@ import {
 } from '../../../messages/types/messagesTypes';
 
 import '../../styles/ToolsForm.scss';
+import '../../../shared/styles/sticky.scss';
 
 const BLAST_LIMIT = 20;
 
@@ -519,7 +520,7 @@ const BlastForm = () => {
               ))}
             </section>
           </details>
-          <section className="tools-form-section tools-form-section__main_actions">
+          <section className="tools-form-section sticky-bottom-right">
             <section className="button-group tools-form-section__buttons">
               {sending && !reducedMotion && (
                 <>

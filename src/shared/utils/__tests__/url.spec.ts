@@ -41,7 +41,6 @@ describe('getLocationForPathname', () => {
     '/uniprotkb': Location.UniProtKBResults,
     '/blast/ncbiblast-R12345678-123456-1234-12345678-ab1': Location.BlastResult,
     '/blast': Location.Blast,
-    '/customise-table': Location.UniProtKBCustomiseTable,
     '/query-builder': Location.QueryBuilder,
     '/tool-dashboard': Location.Dashboard,
   };

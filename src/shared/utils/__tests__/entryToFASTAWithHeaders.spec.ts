@@ -1,20 +1,52 @@
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
-import modelData from '../../../uniprotkb/__mocks__/entryModelData.json';
+import uniProtKBModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
+import uniParcModelData from '../../../uniparc/__mocks__/entryModelData.json';
 
 describe('entryToFASTAWithHeaders', () => {
-  it('should output a FASTA string with UniProt-style headers', () => {
-    const fasta = entryToFASTAWithHeaders(modelData);
-    expect(fasta).toMatchSnapshot();
+  describe('UniProtKB entry', () => {
+    it('should handle reviewed entries', () => {
+      expect(entryToFASTAWithHeaders(uniProtKBModelData)).toMatchSnapshot();
+    });
+
+    it('should handle unreviewed entries', () => {
+      expect(
+        entryToFASTAWithHeaders({
+          ...uniProtKBModelData,
+          entryType: 'UniProtKB unreviewed (TrEMBL)',
+        })
+      ).toMatchSnapshot();
+    });
   });
 
-  it('should output a FASTA with subset', () => {
-    const fasta = entryToFASTAWithHeaders(modelData, {
-      subsets: [
-        { start: 1, end: 1 },
-        { start: 3, end: 5 },
-      ],
+  it('should handle UniParc entries', () => {
+    expect(entryToFASTAWithHeaders(uniParcModelData)).toMatchSnapshot();
+  });
+
+  describe('fallback gracefully when lacking metadata', () => {
+    it('should handle only sequence data', () => {
+      expect(
+        entryToFASTAWithHeaders({ sequence: uniProtKBModelData.sequence })
+      ).toMatchSnapshot();
     });
-    expect(fasta).toMatchSnapshot();
+
+    it('should handle invalid entry types', () => {
+      expect(
+        entryToFASTAWithHeaders({
+          ...uniProtKBModelData,
+          entryType: 'blabla',
+        })
+      ).toMatchSnapshot();
+    });
+  });
+
+  describe('modification', () => {
+    it('should handle subsets', () => {
+      expect(
+        entryToFASTAWithHeaders(uniProtKBModelData, {
+          subsets: [{ start: 5, end: 7 }],
+        })
+      ).toMatchSnapshot();
+    });
   });
 });

@@ -16,6 +16,7 @@ const usePrefetch: UsePrefetch = support
         link.setAttribute('rel', 'prefetch');
         link.setAttribute('as', 'fetch');
         link.setAttribute('crossorigin', 'anonymous');
+        link.dataset.testid = 'prefetch';
         return link;
       }, []);
 

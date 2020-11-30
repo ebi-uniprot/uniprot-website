@@ -4,14 +4,17 @@ import ResultsView from '../ResultsView';
 import { waitFor } from '@testing-library/react';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
-import { ViewMode } from '../../../../uniprotkb/state/resultsInitialState';
+import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
+import { ViewMode } from '../ResultsContainer';
 
 describe('ResultsView component', () => {
   const props = {
     columns: [UniProtKBColumn.accession],
     handleEntrySelection: jest.fn(),
     selectedEntries: [],
+    sortableColumnToSortColumn: getSortableColumnToSortColumn(resultFields),
   };
   const renderWithProps = async (props) => {
     let rendered;

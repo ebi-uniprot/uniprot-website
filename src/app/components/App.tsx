@@ -43,12 +43,6 @@ const QueryBuilderPage = lazy(
       /* webpackChunkName: "query-builder" */ '../../query-builder/components/QueryBuilder'
     )
 );
-const CustomiseTablePage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "customise-table" */ '../../uniprotkb/components/customise-table/CustomiseTableContainer'
-    )
-);
 const UniRefResultsPage = lazy(
   () =>
     import(
@@ -141,14 +135,6 @@ const App = () => (
             <Route
               path={LocationToPath[Location.UniRefResults]}
               component={UniRefResultsPage}
-            />
-            <Route
-              path={LocationToPath[Location.UniProtKBCustomiseTable]}
-              render={() => (
-                <SingleColumnLayout>
-                  <CustomiseTablePage />
-                </SingleColumnLayout>
-              )}
             />
             {/* Tools */}
             <Route
