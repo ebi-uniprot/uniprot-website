@@ -31,8 +31,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const [allResults, setAllResults] = useState<LiteratureForProteinAPI[]>([]);
   const [metaData, setMetaData] = useState<{
     total: number;
-    nextUrl: string | undefined;
-  }>({ total: 0, nextUrl: undefined });
+    nextUrl?: string;
+  }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
@@ -52,8 +52,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: headers['x-totalrecords'],
-      nextUrl: getNextUrlFromResponse(headers.link),
+      total: +(headers?.['x-totalrecords'] || 0),
+      nextUrl: getNextUrlFromResponse(headers?.link),
     }));
   }, [data, headers]);
 

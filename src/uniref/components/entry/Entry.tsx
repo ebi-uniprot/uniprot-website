@@ -45,7 +45,7 @@ const Entry: FC = () => {
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.uniref.entry(accession);
-  const { loading, data, status, error, redirectedTo } = useDataApi<
+  const { loading, data, status, error, redirectedTo, headers } = useDataApi<
     UniRefAPIModel
   >(baseURL);
   const facetData = useDataApi<Facet[]>(`${baseURL}/facets`);
@@ -96,7 +96,7 @@ const Entry: FC = () => {
         </ErrorBoundary>
       }
     >
-      <EntryMain transformedData={transformedData} />
+      <EntryMain transformedData={transformedData} metadata={headers} />
     </SideBarLayout>
   );
 };

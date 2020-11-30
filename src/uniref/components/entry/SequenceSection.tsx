@@ -3,7 +3,9 @@ import { Card, Sequence } from 'franklin-sites';
 
 import { formatLargeNumber, hasContent } from '../../../shared/utils/utils';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 
 import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
 
@@ -31,8 +33,8 @@ const SequenceSection: FC<{
   ];
 
   return (
-    <div id={EntrySectionIDs[EntrySection.Sequence]} data-entry-section>
-      <Card title={EntrySection.Sequence}>
+    <div id={EntrySection.Sequence}>
+      <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
         <Sequence
           sequence={data.sequence.value}
           infoData={infoData}

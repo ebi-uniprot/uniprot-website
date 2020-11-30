@@ -19,6 +19,7 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 type ToolsButtonProps = {
   selectedEntries: string[];
@@ -49,11 +50,18 @@ const ToolsButton: FC<ToolsButtonProps> = ({
 
     try {
       const sequences = await Promise.all(
-        entries.map((accession) =>
-          fetchData<UniProtkbAPIModel>(
-            uniProtKBApiUrls.entry(accession)
-          ).then((response) => entryToFASTAWithHeaders(response.data))
-        )
+        entries.map((accession) => {
+          const url = accession.startsWith('UPI')
+            ? uniProtKBApiUrls.uniparc.entry(accession)
+            : uniProtKBApiUrls.entry(accession);
+          if (!url) {
+            return;
+          }
+          // eslint-disable-next-line consistent-return
+          return fetchData<UniProtkbAPIModel | UniParcAPIModel>(
+            url
+          ).then((response) => entryToFASTAWithHeaders(response.data));
+        })
       );
 
       if (entries !== entriesRef.current) {
@@ -61,7 +69,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
         return;
       }
       history.push(LocationToPath[location], {
-        parameters: { sequence: sequences.join('\n\n') },
+        parameters: { sequence: sequences.filter(Boolean).join('\n\n') },
       });
     } catch (err) {
       if (entries !== entriesRef.current) {

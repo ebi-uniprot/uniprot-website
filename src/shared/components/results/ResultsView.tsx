@@ -118,8 +118,8 @@ const ResultsView: FC<ResultsTableProps> = ({
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
-    nextUrl: string | undefined;
-  }>({ total: 0, nextUrl: undefined });
+    nextUrl?: string;
+  }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<
     Array<UniProtkbAPIModel | UniRefAPIModel>
@@ -168,8 +168,8 @@ const ResultsView: FC<ResultsTableProps> = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: +headers['x-totalrecords'],
-      nextUrl: getNextUrlFromResponse(headers.link),
+      total: +(headers?.['x-totalrecords'] || 0),
+      nextUrl: getNextUrlFromResponse(headers?.link),
     }));
   }, [data, headers]);
 

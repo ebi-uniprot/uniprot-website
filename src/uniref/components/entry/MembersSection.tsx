@@ -11,15 +11,17 @@ import MemberLink from './MemberLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
-import apiUrls from '../../../shared/config/apiUrls';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   Identity,
   UniRefMember,
   UniRefAPIModel,
+  RepresentativeMember,
 } from '../../adapters/uniRefConverter';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
@@ -256,32 +258,45 @@ export const RelatedClusters = memo(
 type Props = {
   id: string;
   identity: Identity;
-  representativeMember: UniRefMember;
+  representativeMember: RepresentativeMember;
+  members?: UniRefMember[];
+  metadata?: Record<string, string>;
 };
 
 export const MembersSection: FC<Props> = ({
   id,
   identity,
   representativeMember,
+  members = [],
+  metadata: propMetadata,
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const initialApiUrl = apiUrls.uniref.entry(id);
-  const [url, setUrl] = useState(initialApiUrl);
+  const [url, setUrl] = useState<string>();
   const [metadata, setMetadata] = useState<{
     total: number;
-    nextUrl: string | undefined;
-  }>({ total: 1, nextUrl: undefined });
+    nextUrl?: string;
+  }>(() => ({
+    total: +(propMetadata?.['x-totalrecords'] || 1),
+    nextUrl: getNextUrlFromResponse(propMetadata?.link),
+  }));
   usePrefetch(metadata.nextUrl);
-  const [allResults, setAllResults] = useState([representativeMember]);
+  const [allResults, setAllResults] = useState(() => [
+    representativeMember,
+    ...members,
+  ]);
 
   const { data, headers, loading } = useDataApi<UniRefAPIModel>(url);
 
+  // reset everything when it looks like we changed entry
   useEffect(() => {
-    setAllResults([representativeMember]);
-    setMetadata({ total: 1, nextUrl: undefined });
-    setUrl(initialApiUrl);
-  }, [initialApiUrl, representativeMember]);
+    setUrl(undefined);
+    setMetadata({
+      total: +(propMetadata?.['x-totalrecords'] || 1),
+      nextUrl: getNextUrlFromResponse(propMetadata?.link),
+    });
+    setAllResults([representativeMember, ...members]);
+  }, [members, propMetadata, representativeMember]);
 
   useEffect(() => {
     if (!data) {
@@ -290,8 +305,8 @@ export const MembersSection: FC<Props> = ({
     const { members = [] } = data;
     setAllResults((allMembers) => [...allMembers, ...members]);
     setMetadata(() => ({
-      total: +headers['x-totalrecords'],
-      nextUrl: getNextUrlFromResponse(headers.link),
+      total: +(headers?.['x-totalrecords'] || 1),
+      nextUrl: getNextUrlFromResponse(headers?.link),
     }));
   }, [data, headers]);
 
@@ -312,8 +327,8 @@ export const MembersSection: FC<Props> = ({
   }
 
   return (
-    <div id={EntrySectionIDs[EntrySection.Members]} data-entry-section>
-      <Card title={EntrySection.Members}>
+    <div id={EntrySection.Members}>
+      <Card title={getEntrySectionNameAndId(EntrySection.Members).name}>
         <div>
           <RelatedClusters identity={identity} id={id} />
         </div>
