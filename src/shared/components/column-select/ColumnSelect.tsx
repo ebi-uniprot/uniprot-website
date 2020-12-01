@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo } from 'react';
-import { AccordionSearch, Tabs, Tab, Loader } from 'franklin-sites';
+import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
 import { difference } from 'lodash-es';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
@@ -119,15 +119,14 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
         onDragDrop={handleDragDrop}
         onRemove={handleSelect}
       />
-      <button
-        className="button secondary"
-        type="button"
+      <Button
+        variant="secondary"
         tabIndex={0}
         onClick={() => onChange(defaultColumns)}
         data-testid="column-select-reset-button"
       >
         Reset to default
-      </button>
+      </Button>
       <Tabs>{tabs}</Tabs>
     </div>
   );

@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import SubcellularLocationView from '../protein-data-views/SubcellularLocationView';
@@ -22,11 +24,10 @@ const SubcellularLocationSection: FC<{
     return null;
   }
   return (
-    <div
-      id={EntrySectionIDs[EntrySection.SubCellularLocation]}
-      data-entry-section
-    >
-      <Card title={EntrySection.SubCellularLocation}>
+    <div id={EntrySection.SubCellularLocation} data-entry-section>
+      <Card
+        title={getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}
+      >
         <SubcellularLocationView
           comments={
             data.commentsData.get(

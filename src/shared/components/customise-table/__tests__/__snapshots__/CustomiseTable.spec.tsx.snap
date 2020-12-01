@@ -2548,7 +2548,7 @@ exports[`CustomiseTable component should render 1`] = `
         Cancel
       </button>
       <button
-        class="button"
+        class="button primary"
         type="submit"
       >
         Save

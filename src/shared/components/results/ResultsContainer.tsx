@@ -1,5 +1,5 @@
-import React, { FC, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
@@ -9,12 +9,16 @@ import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';
 
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+  getSortableColumnToSortColumn,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
 
@@ -22,6 +26,9 @@ import Response from '../../../uniprotkb/types/responseTypes';
 import useNS from '../../hooks/useNS';
 
 import './styles/results-table.scss';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
+import useDataApi from '../../hooks/useDataApi';
+import { Namespace } from '../../types/namespaces';
 
 export enum ViewMode {
   TABLE,
@@ -29,14 +36,17 @@ export enum ViewMode {
 }
 
 const Results: FC = () => {
-  const namespace = useNS();
+  const namespace = useNS() || Namespace.uniprotkb;
+  const history = useHistory();
 
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
-
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
+    Map<Column, string>
+  >();
 
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
@@ -47,6 +57,19 @@ const Results: FC = () => {
     `table columns for ${namespace}`,
     namespace ? nsToDefaultColumns[namespace] : []
   );
+
+  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
+    apiUrls.resultsFields(namespace)
+  );
+
+  useEffect(() => {
+    if (!dataResultFields) {
+      return;
+    }
+    setSortableColumnToSortColumn(
+      getSortableColumnToSortColumn(dataResultFields)
+    );
+  }, [dataResultFields]);
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -98,6 +121,29 @@ const Results: FC = () => {
         : filtered
     );
   };
+
+  if (!sortableColumnToSortColumn || !sortableColumnToSortColumn.size) {
+    return <Loader />;
+  }
+
+  const handleTableColumnsChange = (columns: Column[]) => {
+    if (
+      sortColumn &&
+      !columns.some(
+        (column) => sortableColumnToSortColumn?.get(column) === sortColumn
+      )
+    ) {
+      history.push(
+        getLocationObjForParams({
+          pathname: `/${namespace}`,
+          query,
+          selectedFacets,
+        })
+      );
+    }
+    setTableColumns(columns);
+  };
+
   const { name, links, info } = infoMappings[namespace];
 
   return (
@@ -118,9 +164,7 @@ const Results: FC = () => {
           sortDirection={sortDirection}
           total={total || 0}
           tableColumns={tableColumns}
-          onTableColumnsChange={(columns) => {
-            setTableColumns(columns);
-          }}
+          onTableColumnsChange={handleTableColumnsChange}
         />
       }
       sidebar={
@@ -136,6 +180,7 @@ const Results: FC = () => {
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
         viewMode={viewMode ?? ViewMode.CARD}
+        sortableColumnToSortColumn={sortableColumnToSortColumn}
       />
     </SideBarLayout>
   );

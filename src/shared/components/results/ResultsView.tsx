@@ -10,11 +10,9 @@ import uniProtKbConverter, {
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
-import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
+import { getAPIQueryUrl } from '../../config/apiUrls';
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import UniRefColumnConfiguration, {
-  UniRefColumn,
-} from '../../../uniref/config/UniRefColumnConfiguration';
+import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
@@ -23,29 +21,23 @@ import getNextUrlFromResponse from '../../../uniprotkb/utils/queryUtils';
 import {
   getParamsFromURL,
   getLocationObjForParams,
-  getSortableColumnToSortColumn,
 } from '../../../uniprotkb/utils/resultsUtils';
 
 import { Namespace } from '../../types/namespaces';
-import {
-  SortDirection,
-  ReceivedFieldData,
-} from '../../../uniprotkb/types/resultsTypes';
-import {
-  SortableColumn,
-  UniProtKBColumn,
-} from '../../../uniprotkb/types/columnTypes';
+import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { Column } from '../../config/columns';
+import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import { Column } from '../../config/columns';
-import { ViewMode } from './ResultsContainer';
 
 type ResultsTableProps = {
   selectedEntries: string[];
   columns: Column[];
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
+  sortableColumnToSortColumn: Map<Column, string>;
 };
 
 const convertRow = (
@@ -87,6 +79,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   columns,
   viewMode,
   handleEntrySelection,
+  sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const history = useHistory();
@@ -111,15 +104,9 @@ const ResultsView: FC<ResultsTableProps> = ({
     nextUrl: string | undefined;
   }>({ total: 0, nextUrl: undefined });
   const [allResults, setAllResults] = useState<UniProtkbAPIModel[]>([]);
-  const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
-    Map<UniProtKBColumn | UniRefColumn, string>
-  >();
   const { data, headers } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);
-  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace)
-  );
 
   const prevViewMode = useRef<ViewMode>();
   useEffect(() => {
@@ -144,19 +131,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     }));
   }, [data, headers]);
 
-  useEffect(() => {
-    if (!dataResultFields) return;
-    setSortableColumnToSortColumn(
-      getSortableColumnToSortColumn(dataResultFields)
-    );
-  }, [dataResultFields]);
-
-  if (
-    allResults.length === 0 ||
-    !sortableColumnToSortColumn ||
-    sortableColumnToSortColumn.size === 0 ||
-    prevViewMode.current !== viewMode
-  ) {
+  if (allResults.length === 0 || prevViewMode.current !== viewMode) {
     return <Loader />;
   }
 

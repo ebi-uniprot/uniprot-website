@@ -7,7 +7,9 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
 import KeywordView from '../protein-data-views/KeywordView';
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 
 import { hasContent } from '../../../shared/utils/utils';
 import { UIModel } from '../../adapters/sectionConverter';
@@ -22,13 +24,18 @@ const DiseaseAndDrugsSection: FC<{
   data: UIModel;
   primaryAccession: string;
   sequence: string;
-}> = ({ data, primaryAccession, sequence }): JSX.Element | null => {
+  taxId: number | undefined;
+}> = ({ data, primaryAccession, sequence, taxId }): JSX.Element | null => {
   if (!hasContent(data)) {
     return null;
   }
+  const nameAndId = getEntrySectionNameAndId(
+    EntrySection.DiseaseAndDrugs,
+    taxId
+  );
   return (
-    <div id={EntrySectionIDs[EntrySection.DiseaseAndDrugs]} data-entry-section>
-      <Card title={EntrySection.DiseaseAndDrugs}>
+    <div id={nameAndId.id} data-entry-section>
+      <Card title={nameAndId.name}>
         <DiseaseInvolvementView
           comments={
             data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
@@ -41,14 +48,6 @@ const DiseaseAndDrugsSection: FC<{
             data.commentsData.get(CommentType.ALLERGEN) as FreeTextComment[]
           }
           title={CommentType.ALLERGEN.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(
-              CommentType.BIOTECHNOLOGY
-            ) as FreeTextComment[]
-          }
-          title={CommentType.BIOTECHNOLOGY.toLowerCase()}
         />
         <FreeTextView
           comments={

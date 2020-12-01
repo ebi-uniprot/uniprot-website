@@ -16,7 +16,9 @@ import {
 } from 'franklin-sites';
 
 import { fileFormatEntryDownload } from '../../types/resultsTypes';
-import EntrySection from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import {
   MessageLevel,
   MessageFormat,
@@ -97,19 +99,31 @@ const Entry: FC = () => {
     [data]
   );
 
-  const sections = useMemo(
-    () =>
-      transformedData &&
-      UniProtKBEntryConfig.map((section) => ({
-        label: section.name,
-        id: section.id,
-        disabled:
-          section.name === EntrySection.ExternalLinks
-            ? !hasExternalLinks(transformedData)
-            : !hasContent(transformedData[section.name]),
-      })),
-    [transformedData]
-  );
+  const sections = useMemo(() => {
+    if (transformedData) {
+      const taxId =
+        transformedData[EntrySection.NamesAndTaxonomy].organismData?.taxonId;
+      const numberOfIsoforms =
+        transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
+          .length;
+      return UniProtKBEntryConfig.map((section) => {
+        const nameAndId = getEntrySectionNameAndId(
+          section.id,
+          taxId,
+          numberOfIsoforms
+        );
+        return {
+          label: nameAndId.name,
+          id: nameAndId.id,
+          disabled:
+            nameAndId.id === EntrySection.ExternalLinks
+              ? !hasExternalLinks(transformedData)
+              : !hasContent(transformedData[nameAndId.id]),
+        };
+      });
+    }
+    return false;
+  }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),

@@ -1,4 +1,5 @@
 import React, { useState, FC } from 'react';
+import { Button } from 'franklin-sites';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import { Column } from '../../config/columns';
@@ -38,22 +39,12 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
       className="customise-table"
       data-testid="customise-table-form"
     >
-      <ColumnSelect
-        onChange={handleChange}
-        // TODO temporary casting to UniProtKBColumn to make TS happy
-        selectedColumns={selectedColumns}
-      />
+      <ColumnSelect onChange={handleChange} selectedColumns={selectedColumns} />
       <div className="button-group sticky-bottom-right">
-        <button
-          className="button secondary"
-          type="button"
-          onClick={handleCancel}
-        >
+        <Button variant="secondary" type="button" onClick={handleCancel}>
           Cancel
-        </button>
-        <button className="button" type="submit">
-          Save
-        </button>
+        </Button>
+        <Button type="submit">Save</Button>
       </div>
     </form>
   );

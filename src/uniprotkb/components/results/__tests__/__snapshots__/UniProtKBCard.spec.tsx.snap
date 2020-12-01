@@ -126,7 +126,7 @@ exports[`UniProtKBCard component should render 1`] = `
         class="card__link card__link--separator"
       >
         <a
-          href="/uniprotkb/P21802#disease-and-drugs"
+          href="/uniprotkb/P21802#phenotypes"
         >
           1 disease
         </a>
