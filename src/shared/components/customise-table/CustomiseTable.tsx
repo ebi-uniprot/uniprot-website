@@ -40,7 +40,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
       data-testid="customise-table-form"
     >
       <ColumnSelect onChange={handleChange} selectedColumns={selectedColumns} />
-      <div className="button-group sticky-bottom-right">
+      <div className="button-group sticky-bottom-right sliding-panel__button-row">
         <Button variant="secondary" type="button" onClick={handleCancel}>
           Cancel
         </Button>

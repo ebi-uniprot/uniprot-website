@@ -223,13 +223,13 @@ const Download: React.FC<DownloadProps> = ({
           </label>
         </fieldset>
         {fileFormatsWithColumns.includes(fileFormat) && (
-          <fieldset>
+          <Fragment>
             <legend>Customize data</legend>
             <ColumnSelect
               onChange={setSelectedColumns}
               selectedColumns={selectedColumns}
             />
-          </fieldset>
+          </Fragment>
         )}
         <section className="button-group sliding-panel__button-row sticky-bottom-right">
           <button
