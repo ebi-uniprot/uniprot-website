@@ -10,10 +10,7 @@ import useNS from '../../hooks/useNS';
 import { getDownloadUrl } from '../../config/apiUrls';
 import { Column } from '../../config/columns';
 
-import {
-  UniProtKBColumn,
-  SortableColumn,
-} from '../../../uniprotkb/types/columnTypes';
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import {
   FileFormat,
   fileFormatToContentType,
@@ -43,8 +40,8 @@ const Download: React.FC<DownloadProps> = ({
   query = '',
   selectedFacets = [],
   selectedColumns: initialSelectedColumns = [],
-  sortColumn = UniProtKBColumn.accession as SortableColumn,
-  sortDirection = SortDirection.ascend,
+  sortColumn,
+  sortDirection,
   selectedEntries = [],
   totalNumberResults = 0,
   onClose,
