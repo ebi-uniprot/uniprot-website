@@ -1,26 +1,29 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import { Loader } from 'franklin-sites';
 
-import { urlsAreEqual } from '../../../shared/utils/url';
-import fetchData from '../../../shared/utils/fetchData';
-import { downloadFileInNewTab } from '../../../shared/utils/utils';
-import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
-import useNS from '../../../shared/hooks/useNS';
+import { urlsAreEqual } from '../../utils/url';
+import fetchData from '../../utils/fetchData';
+import { downloadFileInNewTab } from '../../utils/utils';
+import ColumnSelect from '../column-select/ColumnSelect';
+import useNS from '../../hooks/useNS';
 
-import { getDownloadUrl } from '../../../shared/config/apiUrls';
-import { Column } from '../../../shared/config/columns';
+import { getDownloadUrl } from '../../config/apiUrls';
+import { Column } from '../../config/columns';
 
-import { UniProtKBColumn, SortableColumn } from '../../types/columnTypes';
+import {
+  UniProtKBColumn,
+  SortableColumn,
+} from '../../../uniprotkb/types/columnTypes';
 import {
   FileFormat,
   fileFormatToContentType,
   fileFormatsWithColumns,
   SelectedFacet,
   SortDirection,
-} from '../../types/resultsTypes';
+} from '../../../uniprotkb/types/resultsTypes';
 
 import './styles/download.scss';
-import '../../../shared/styles/sticky.scss';
+import '../../styles/sticky.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;

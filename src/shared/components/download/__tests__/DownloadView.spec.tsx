@@ -1,8 +1,8 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import DownloadView from '../DownloadView';
-import { FileFormat } from '../../../types/resultsTypes';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import { FileFormat } from '../../../../uniprotkb/types/resultsTypes';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 import initialState from '../../../../app/state/rootInitialState';
 
 // FIXME: Doing network call through ColumnSelect's logic and Redux

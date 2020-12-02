@@ -44,7 +44,10 @@ const ResultsButtons: FC<{
   onTableColumnsChange,
 }) => {
   const DownloadComponent = lazy(
-    () => import(/* webpackChunkName: "download" */ '../download/Download')
+    () =>
+      import(
+        /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
+      )
   );
   const CustomiseComponent = lazy(
     () =>
