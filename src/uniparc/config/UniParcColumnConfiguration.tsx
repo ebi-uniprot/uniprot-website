@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 
 import { UniParcAPIModel } from '../adapters/uniParcConverter';
@@ -53,9 +53,7 @@ export const UniParcColumnConfiguration = new Map<
   UniParcColumn,
   {
     label: string;
-    render: (
-      data: UniParcAPIModel
-    ) => JSX.Element | string | number | undefined;
+    render: (data: UniParcAPIModel) => ReactNode;
   }
 >();
 

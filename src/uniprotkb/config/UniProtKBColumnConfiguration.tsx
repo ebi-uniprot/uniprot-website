@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
 import { flatten } from 'lodash-es';
 import { Link } from 'react-router-dom';
@@ -115,9 +115,7 @@ export const UniProtKBColumnConfiguration = new Map<
   UniProtKBColumn,
   {
     label: string;
-    render: (
-      data: UniProtkbUIModel
-    ) => JSX.Element | string | number | undefined;
+    render: (data: UniProtkbUIModel) => ReactNode;
   }
 >();
 

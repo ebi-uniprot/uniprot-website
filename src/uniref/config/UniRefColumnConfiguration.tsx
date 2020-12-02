@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
@@ -38,9 +38,7 @@ export const UniRefColumnConfiguration = new Map<
   UniRefColumn,
   {
     label: string;
-    render: (
-      data: UniRefLiteAPIModel
-    ) => JSX.Element | string | number | undefined;
+    render: (data: UniRefLiteAPIModel) => ReactNode;
   }
 >();
 
