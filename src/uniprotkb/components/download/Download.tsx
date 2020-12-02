@@ -1,5 +1,15 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import { Loader } from 'franklin-sites';
+
+import { urlsAreEqual } from '../../../shared/utils/url';
+import fetchData from '../../../shared/utils/fetchData';
+import { downloadFileInNewTab } from '../../../shared/utils/utils';
+import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
+import useNS from '../../../shared/hooks/useNS';
+
+import { getDownloadUrl } from '../../../shared/config/apiUrls';
+import { Column } from '../../../shared/config/columns';
+
 import { UniProtKBColumn, SortableColumn } from '../../types/columnTypes';
 import {
   FileFormat,
@@ -8,13 +18,6 @@ import {
   SelectedFacet,
   SortDirection,
 } from '../../types/resultsTypes';
-import { getDownloadUrl } from '../../../shared/config/apiUrls';
-import { urlsAreEqual } from '../../../shared/utils/url';
-import fetchData from '../../../shared/utils/fetchData';
-import { Column } from '../../../shared/config/columns';
-import { downloadFileInNewTab } from '../../../shared/utils/utils';
-import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
-// import { Namespace } from '../../../shared/types/namespaces';
 
 import './styles/download.scss';
 
@@ -24,7 +27,7 @@ export const getPreviewFileFormat = (fileFormat: FileFormat) =>
 type DownloadProps = {
   query: string;
   selectedFacets: SelectedFacet[];
-  selectedColumns: Column[];
+  selectedColumns?: Column[];
   sortColumn: SortableColumn;
   sortDirection: SortDirection;
   selectedEntries: string[];
@@ -42,6 +45,7 @@ const Download: React.FC<DownloadProps> = ({
   totalNumberResults = 0,
   onClose,
 }) => {
+  const namespace = useNS();
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(
     initialSelectedColumns
   );
@@ -54,6 +58,9 @@ const Download: React.FC<DownloadProps> = ({
     contentType: '',
     data: '',
   });
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,6 +73,7 @@ const Download: React.FC<DownloadProps> = ({
       fileFormat,
       compressed,
       selectedAccessions: downloadAll ? [] : selectedEntries,
+      namespace,
     });
     downloadFileInNewTab(url);
     onClose();
@@ -93,6 +101,7 @@ const Download: React.FC<DownloadProps> = ({
     compressed: false,
     size: nPreview,
     selectedAccessions: downloadAll ? [] : selectedEntries,
+    namespace,
   });
   const handlePreview = useCallback(() => {
     setLoadingPreview(true);

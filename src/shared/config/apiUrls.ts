@@ -237,6 +237,19 @@ export const getUniProtPublicationsQueryUrl = ({
     size,
   })}`;
 
+type GetDownloadUrlProps = {
+  query: string;
+  columns: string[];
+  selectedFacets: SelectedFacet[];
+  sortColumn: SortableColumn;
+  sortDirection: SortDirection;
+  fileFormat: FileFormat;
+  compressed: boolean;
+  size?: number;
+  selectedAccessions: string[];
+  namespace: Namespace;
+};
+
 export const getDownloadUrl = ({
   query,
   columns,
@@ -247,18 +260,14 @@ export const getDownloadUrl = ({
   compressed = false,
   size,
   selectedAccessions = [],
-}: {
-  query: string;
-  columns: string[];
-  selectedFacets: SelectedFacet[];
-  sortColumn: SortableColumn;
-  sortDirection: SortDirection;
-  fileFormat: FileFormat;
-  compressed: boolean;
-  size?: number;
-  selectedAccessions: string[];
-}) => {
-  const parameters: {
+  namespace,
+}: GetDownloadUrlProps) => {
+  // If the consumer of this fn has passed specified a size we have to use the search endpoint
+  // otherwise use download/stream which is much quicker but doesn't allow specification of size
+  const endpoint = size
+    ? apiUrls.search(namespace)
+    : apiUrls.download(namespace);
+  type Parameters = {
     query: string;
     format: string;
     fields?: string;
@@ -267,7 +276,8 @@ export const getDownloadUrl = ({
     size?: number;
     compressed?: boolean;
     download: true;
-  } = {
+  };
+  const parameters: Parameters = {
     query: selectedAccessions.length
       ? createAccessionsQueryString(selectedAccessions)
       : `${query}${createFacetsQueryString(selectedFacets)}`,
@@ -293,7 +303,7 @@ export const getDownloadUrl = ({
   if (compressed) {
     parameters.compressed = true;
   }
-  return `${apiUrls.download}?${queryString.stringify(parameters)}`;
+  return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 
 export const literatureApiUrls = {
