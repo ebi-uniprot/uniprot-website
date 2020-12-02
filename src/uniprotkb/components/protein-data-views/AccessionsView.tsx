@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
+
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
 const AccessionsView: React.FC<{ data: NamesAndTaxonomyUIModel }> = ({
@@ -15,10 +16,9 @@ const AccessionsView: React.FC<{ data: NamesAndTaxonomyUIModel }> = ({
         title: `Secondary accessions`,
         content: data.secondaryAccessions && (
           <ExpandableList descriptionString="accessions">
-            {data.secondaryAccessions.map((accession) => ({
-              id: accession,
-              content: accession,
-            }))}
+            {data.secondaryAccessions.map((accession) => (
+              <Fragment key={accession}>{accession}</Fragment>
+            ))}
           </ExpandableList>
         ),
       },
