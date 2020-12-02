@@ -1666,7 +1666,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: PubMe
         data-testid="expandable-message"
         type="button"
       >
-        More items
+        2 more items
       </button>
     </li>
   </ul>

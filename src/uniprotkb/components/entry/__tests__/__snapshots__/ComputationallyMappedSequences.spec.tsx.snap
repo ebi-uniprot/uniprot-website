@@ -294,6 +294,9 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           </tr>
         </tbody>
       </table>
+      <div
+        class="data-loader__loading"
+      />
     </div>
   </div>
 </DocumentFragment>

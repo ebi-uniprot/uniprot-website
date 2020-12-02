@@ -3188,6 +3188,9 @@ exports[`ResultsView component should render cards 1`] = `
           </section>
         </div>
       </section>
+      <div
+        class="data-loader__loading"
+      />
     </div>
   </div>
 </DocumentFragment>
@@ -3703,6 +3706,9 @@ exports[`ResultsView component should render table 1`] = `
           </tr>
         </tbody>
       </table>
+      <div
+        class="data-loader__loading"
+      />
     </div>
   </div>
 </DocumentFragment>

@@ -1,6 +1,5 @@
 import React, { Fragment, FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { v1 } from 'uuid';
 import {
   ProteinNames,
   ProteinNamesData,
@@ -152,11 +151,6 @@ const getInfoListForNames = (
   return infoData;
 };
 
-type ListElement = {
-  id: string;
-  content: JSX.Element;
-};
-
 const ProteinNamesView: React.FC<{
   proteinNames?: ProteinNamesData;
   isCompact?: boolean;
@@ -178,17 +172,13 @@ const ProteinNamesView: React.FC<{
       title: 'Alternative names',
       content: (
         <ExpandableList descriptionString="alternative names">
-          {proteinNames.alternativeNames.map(
-            (alternativeName): ListElement => ({
-              id: v1(),
-              content: (
-                <ProteinNamesViewFlat
-                  names={alternativeName}
-                  includeEvidence={!isCompact}
-                />
-              ),
-            })
-          )}
+          {proteinNames.alternativeNames.map((alternativeName, index) => (
+            <ProteinNamesViewFlat
+              key={index} // eslint-disable-line react/no-array-index-key
+              names={alternativeName}
+              includeEvidence={!isCompact}
+            />
+          ))}
         </ExpandableList>
       ),
     });
@@ -198,12 +188,10 @@ const ProteinNamesView: React.FC<{
       title: `Cleaved into ${proteinNames.contains.length} chains`,
       content: (
         <ExpandableList descriptionString="chains">
-          {proteinNames.contains.map(
-            (contains): ListElement => ({
-              id: v1(),
-              content: <ProteinDescriptionView proteinDescription={contains} />,
-            })
-          )}
+          {proteinNames.contains.map((contains, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <ProteinDescriptionView key={index} proteinDescription={contains} />
+          ))}
         </ExpandableList>
       ),
     });
@@ -213,17 +201,13 @@ const ProteinNamesView: React.FC<{
       title: 'Submission names',
       content: (
         <ExpandableList descriptionString="submission names">
-          {proteinNames.submissionNames.map(
-            (submission): ListElement => ({
-              id: v1(),
-              content: (
-                <ProteinNamesViewFlat
-                  names={submission}
-                  includeEvidence={!isCompact}
-                />
-              ),
-            })
-          )}
+          {proteinNames.submissionNames.map((submission, index) => (
+            <ProteinNamesViewFlat
+              key={index} // eslint-disable-line react/no-array-index-key
+              names={submission}
+              includeEvidence={!isCompact}
+            />
+          ))}
         </ExpandableList>
       ),
     });
