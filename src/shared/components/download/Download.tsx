@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { Loader, CodeBlock } from 'franklin-sites';
+import { Loader, CodeBlock, Button } from 'franklin-sites';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
@@ -229,23 +229,17 @@ const Download: React.FC<DownloadProps> = ({
           </Fragment>
         )}
         <section className="button-group sliding-panel__button-row sticky-bottom-right">
-          <button
-            className="button secondary"
-            type="button"
-            onClick={() => onClose()}
-          >
+          <Button variant="secondary" type="button" onClick={() => onClose()}>
             Cancel
-          </button>
-          <button
-            className="button secondary"
+          </Button>
+          <Button
+            variant="secondary"
             type="button"
             onClick={() => handlePreview()}
           >
             Preview {nPreview}
-          </button>
-          <button className="button" type="submit">
-            Download
-          </button>
+          </Button>
+          <Button type="submit">Download</Button>
         </section>
       </form>
       {previewNode}
