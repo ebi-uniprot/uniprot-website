@@ -12,15 +12,18 @@ import { Column } from '../../config/columns';
 
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import {
-  FileFormat,
-  fileFormatToContentType,
-  fileFormatsWithColumns,
   SelectedFacet,
   SortDirection,
 } from '../../../uniprotkb/types/resultsTypes';
+import {
+  fileFormatsWithColumns,
+  fileFormatToContentType,
+  nsToFileFormatsResultsDownload,
+} from '../../config/resultsDownload';
 
 import './styles/download.scss';
 import '../../styles/sticky.scss';
+import { ContentType, FileFormat } from '../../types/resultsDownload';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -47,11 +50,15 @@ const Download: React.FC<DownloadProps> = ({
   onClose,
 }) => {
   const namespace = useNS();
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
+  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(
     initialSelectedColumns
   );
   const [downloadAll, setDownloadAll] = useState(true);
-  const [fileFormat, setFileFormat] = useState(FileFormat.fastaCanonical);
+  const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
   const [loadingPreview, setLoadingPreview] = useState(false);
   const [preview, setPreview] = useState({
@@ -59,9 +66,6 @@ const Download: React.FC<DownloadProps> = ({
     contentType: '',
     data: '',
   });
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -107,16 +111,16 @@ const Download: React.FC<DownloadProps> = ({
   const handlePreview = useCallback(() => {
     setLoadingPreview(true);
     const headers: Record<string, string> = {};
-    const accept = fileFormatToContentType.get(previewFileFormat);
+    const accept = fileFormatToContentType[previewFileFormat];
     if (accept) {
       headers.Accept = accept;
     }
     fetchData<string>(previewUrl, headers)
       .then((response) => {
-        const contentType = response.headers?.['content-type'] as FileFormat;
+        const contentType = response.headers?.['content-type'] as ContentType;
         setPreview({
           data:
-            contentType === fileFormatToContentType.get(FileFormat.json)
+            contentType === fileFormatToContentType[FileFormat.json]
               ? JSON.stringify(response.data, null, 2)
               : response.data,
           url: response.config.url ?? '',
@@ -131,7 +135,7 @@ const Download: React.FC<DownloadProps> = ({
   const previewContent =
     urlsAreEqual(preview.url, previewUrl, ['compressed']) &&
     preview.data &&
-    preview.contentType === fileFormatToContentType.get(previewFileFormat)
+    preview.contentType === fileFormatToContentType[previewFileFormat]
       ? preview.data
       : '';
 
@@ -186,7 +190,7 @@ const Download: React.FC<DownloadProps> = ({
               value={fileFormat}
               onChange={(e) => setFileFormat(e.target.value as FileFormat)}
             >
-              {Object.values(FileFormat).map((format) => (
+              {fileFormats.map((format) => (
                 <option value={format} key={format}>
                   {format}
                 </option>

@@ -5,14 +5,16 @@ import {
   getApiSortDirection,
   SortDirection,
   SelectedFacet,
-  FileFormat,
-  fileFormatsWithColumns,
-  fileFormatToUrlParameter,
 } from '../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
 import { Namespace } from '../types/namespaces';
 import { Column } from './columns';
+import { FileFormat } from '../types/resultsDownload';
+import {
+  fileFormatToUrlParameter,
+  fileFormatsWithColumns,
+} from './resultsDownload';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
@@ -64,11 +66,9 @@ const apiUrls = {
       ? `${apiUrls.search()}?${queryString.stringify({
           query: `accession:${accession}`,
           includeIsoform: true,
-          format: fileFormatToUrlParameter.get(
-            FileFormat.fastaCanonicalIsoform
-          ),
+          format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
         })}`
-      : `${apiUrls.entry(accession)}.${fileFormatToUrlParameter.get(format)}`,
+      : `${apiUrls.entry(accession)}.${fileFormatToUrlParameter[format]}`,
   entryPublications: (accession: string) =>
     joinUrl(
       devPrefix,
@@ -282,7 +282,7 @@ export const getDownloadUrl = ({
       ? createAccessionsQueryString(selectedAccessions)
       : `${query}${createFacetsQueryString(selectedFacets)}`,
     // fallback to json if something goes wrong
-    format: fileFormatToUrlParameter.get(fileFormat) || 'json',
+    format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,
   };
   const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
