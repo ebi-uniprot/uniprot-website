@@ -1,5 +1,4 @@
 import React, { Fragment, FC } from 'react';
-import { v1 } from 'uuid';
 import { sortBy } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 
@@ -238,34 +237,24 @@ export const DatabaseList: FC<{
 }) => {
   // This step is needed as some databases (eg InterPro) have an additional link:
   // "View protein in InterPro" at the top of the xref links.
-  let viewItem;
   const viewLink = viewProteinLinkDatabases.get(database);
-  if (viewLink) {
-    viewItem = [
-      {
-        id: v1(),
-        content: (
-          <ExternalLink
-            url={viewLink(primaryAccession)}
-          >{`View protein in ${database}`}</ExternalLink>
-        ),
-      },
-    ];
-  }
-  const xrefItems = xrefs.map((xref): { id: string; content: JSX.Element } => ({
-    id: v1(),
-    content: (
-      <XRef
-        database={database}
-        xref={xref}
-        primaryAccession={primaryAccession}
-        crc64={crc64}
-      />
-    ),
-  }));
   return (
     <ExpandableList descriptionString={`${database} links`}>
-      {viewItem ? viewItem.concat(xrefItems) : xrefItems}
+      {viewLink && (
+        <ExternalLink
+          key="view-link"
+          url={viewLink(primaryAccession)}
+        >{`View protein in ${database}`}</ExternalLink>
+      )}
+      {xrefs.map((xref, index) => (
+        <XRef
+          key={index} // eslint-disable-line react/no-array-index-key
+          database={database}
+          xref={xref}
+          primaryAccession={primaryAccession}
+          crc64={crc64}
+        />
+      ))}
     </ExpandableList>
   );
 };

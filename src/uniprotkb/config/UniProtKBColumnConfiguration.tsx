@@ -741,13 +741,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
     return (
       allGOTerms && (
         <section className="text-block">
-          <ExpandableList descriptionString="terms">
-            {allGOTerms
-              .filter(({ id }: GoTerm) => id)
-              .map(({ id }: GoTerm) => ({
-                id,
-                content: id && <a href={externalUrls.QuickGO(id)}>{id}</a>,
-              }))}
+          <ExpandableList descriptionString="terms" displayNumberOfHiddenItems>
+            {allGOTerms.map(
+              ({ id }: GoTerm) =>
+                id && (
+                  <a key={id} href={externalUrls.QuickGO(id)}>
+                    {id}
+                  </a>
+                )
+            )}
           </ExpandableList>
         </section>
       )
@@ -949,11 +951,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
       }, []);
     }
     return (
-      <ExpandableList>
-        {ids.map((xref) => ({
-          id: xref.id,
-          content: <Link to={`citations/${xref.id}`}>{xref.id}</Link>,
-        }))}
+      <ExpandableList displayNumberOfHiddenItems>
+        {ids.map((xref) => (
+          <Link key={xref.id} to={`citations/${xref.id}`}>
+            {xref.id}
+          </Link>
+        ))}
       </ExpandableList>
     );
   },

@@ -1,5 +1,4 @@
-import React from 'react';
-import { v1 } from 'uuid';
+import React, { Fragment } from 'react';
 
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { DiseaseComment } from '../../types/commentTypes';
@@ -49,10 +48,10 @@ export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = (
         title: 'Note',
         content: (
           <ExpandableList descriptionString="notes">
-            {texts.map((text) => ({
-              id: v1(),
-              content: text.value,
-            }))}
+            {texts.map((text, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>{text.value}</Fragment>
+            ))}
           </ExpandableList>
         ),
       });

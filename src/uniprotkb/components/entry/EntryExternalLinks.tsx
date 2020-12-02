@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Card, ExpandableList, ExternalLink } from 'franklin-sites';
-import { v1 } from 'uuid';
 import { groupBy } from 'lodash-es';
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 import XRefView from '../protein-data-views/XRefView';
@@ -86,12 +85,12 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
           <Fragment>
             <h3>Web resources</h3>
             <ExpandableList descriptionString="alternative names">
-              {webResourceComments.map((comment) => ({
-                id: v1(),
-                content: (
-                  <WebResourceLink comment={comment as WebResourceComment} />
-                ),
-              }))}
+              {webResourceComments.map((comment, index) => (
+                <WebResourceLink
+                  key={index} // eslint-disable-line react/no-array-index-key
+                  comment={comment as WebResourceComment}
+                />
+              ))}
             </ExpandableList>
           </Fragment>
         )}
