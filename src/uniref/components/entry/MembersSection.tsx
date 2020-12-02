@@ -263,11 +263,13 @@ type Props = {
   metadata?: Record<string, string>;
 };
 
+const emptyMembers: UniRefMember[] = [];
+
 export const MembersSection: FC<Props> = ({
   id,
   identity,
   representativeMember,
-  members = [],
+  members = emptyMembers,
   metadata: propMetadata,
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);

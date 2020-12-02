@@ -148,6 +148,14 @@ const App = () => (
               path={LocationToPath[Location.UniRefResults]}
               component={UniRefResultsPage}
             />
+            <Route
+              path={LocationToPath[Location.UniParcEntry]}
+              component={UniParcEntryPage}
+            />
+            <Route
+              path={LocationToPath[Location.UniParcResults]}
+              component={UniParcResultsPage}
+            />
             {/* Tools */}
             <Route
               path={LocationToPath[Location.BlastResult]}
