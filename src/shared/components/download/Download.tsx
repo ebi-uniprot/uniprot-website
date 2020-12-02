@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { Loader } from 'franklin-sites';
+import { Loader, CodeBlock } from 'franklin-sites';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
@@ -146,9 +146,9 @@ const Download: React.FC<DownloadProps> = ({
       <div className="preview">
         <h4>Preview</h4>
         <div className="preview__container">
-          <pre className="preview__inner" data-testid="download-preview">
+          <CodeBlock lightMode data-testid="download-preview">
             {previewContent}
-          </pre>
+          </CodeBlock>
         </div>
       </div>
     );
