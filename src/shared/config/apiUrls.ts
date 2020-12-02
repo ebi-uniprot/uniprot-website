@@ -48,7 +48,8 @@ const apiUrls = {
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
-  download: joinUrl(devPrefix, '/uniprot/api/uniprotkb/stream'),
+  download: (namespace: Namespace) =>
+    joinUrl(devPrefix, `/uniprot/api/${namespace}/stream`),
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
   features: joinUrl(prodPrefix, '/proteins/api/features'),
   accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),

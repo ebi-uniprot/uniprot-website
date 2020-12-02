@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import DownloadView from './DownloadView';
+import React, { Fragment, useCallback, useState } from 'react';
+import { Loader } from 'franklin-sites';
 import { UniProtKBColumn, SortableColumn } from '../../types/columnTypes';
 import {
   FileFormat,
   fileFormatToContentType,
+  fileFormatsWithColumns,
   SelectedFacet,
   SortDirection,
 } from '../../types/resultsTypes';
@@ -12,15 +13,18 @@ import { urlsAreEqual } from '../../../shared/utils/url';
 import fetchData from '../../../shared/utils/fetchData';
 import { Column } from '../../../shared/config/columns';
 import { downloadFileInNewTab } from '../../../shared/utils/utils';
+import ColumnSelect from '../../../shared/components/column-select/ColumnSelect';
 // import { Namespace } from '../../../shared/types/namespaces';
+
+import './styles/download.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
 
-type DownloadTableProps = {
-  // tableColumns: Partial<Record<Namespace, UniProtKBColumn[] | UniRefColumn[]>>;
+type DownloadProps = {
   query: string;
   selectedFacets: SelectedFacet[];
+  selectedColumns: Column[];
   sortColumn: SortableColumn;
   sortDirection: SortDirection;
   selectedEntries: string[];
@@ -28,10 +32,10 @@ type DownloadTableProps = {
   onClose: () => void;
 };
 
-const Download: React.FC<DownloadTableProps> = ({
-  // tableColumns,
+const Download: React.FC<DownloadProps> = ({
   query = '',
   selectedFacets = [],
+  selectedColumns: initialSelectedColumns = [],
   sortColumn = UniProtKBColumn.accession as SortableColumn,
   sortDirection = SortDirection.ascend,
   selectedEntries = [],
@@ -39,9 +43,7 @@ const Download: React.FC<DownloadTableProps> = ({
   onClose,
 }) => {
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(
-    // TODO temporary casting to UniProtKBColumn to make TS happy
-    // tableColumns[Namespace.uniprotkb] as UniProtKBColumn[]
-    []
+    initialSelectedColumns
   );
   const [downloadAll, setDownloadAll] = useState(true);
   const [fileFormat, setFileFormat] = useState(FileFormat.fastaCanonical);
@@ -52,11 +54,6 @@ const Download: React.FC<DownloadTableProps> = ({
     contentType: '',
     data: '',
   });
-
-  if (!selectedColumns) {
-    // TODO could return an error here
-    return null;
-  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,6 +70,13 @@ const Download: React.FC<DownloadTableProps> = ({
     downloadFileInNewTab(url);
     onClose();
   };
+
+  const handleDownloadAllChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setDownloadAll(e.target.value === 'true');
+
+  const handleCompressedChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setCompressed(e.target.value === 'true');
+
   const nSelectedEntries = selectedEntries.length;
   const nPreview = Math.min(
     10,
@@ -86,19 +90,17 @@ const Download: React.FC<DownloadTableProps> = ({
     sortColumn,
     sortDirection,
     fileFormat: previewFileFormat,
-    compressed,
+    compressed: false,
     size: nPreview,
     selectedAccessions: downloadAll ? [] : selectedEntries,
   });
-  const handlePreview = () => {
+  const handlePreview = useCallback(() => {
     setLoadingPreview(true);
-
     const headers: Record<string, string> = {};
     const accept = fileFormatToContentType.get(previewFileFormat);
     if (accept) {
       headers.Accept = accept;
     }
-
     fetchData<string>(previewUrl, headers)
       .then((response) => {
         const contentType = response.headers?.['content-type'] as FileFormat;
@@ -111,43 +113,133 @@ const Download: React.FC<DownloadTableProps> = ({
           contentType,
         });
       })
-      .catch((e) => {
-        // eslint-disable-next-line no-console
-        console.error(e);
-      })
       .finally(() => {
         setLoadingPreview(false);
       });
-  };
-  const showPreview =
+  }, [previewFileFormat, previewUrl]);
+
+  const previewContent =
     urlsAreEqual(preview.url, previewUrl, ['compressed']) &&
     preview.data &&
-    preview.contentType === fileFormatToContentType.get(previewFileFormat);
+    preview.contentType === fileFormatToContentType.get(previewFileFormat)
+      ? preview.data
+      : '';
+
+  let previewNode;
+  if (loadingPreview) {
+    previewNode = <Loader />;
+  } else if (previewContent && previewContent.length) {
+    previewNode = (
+      <div className="preview">
+        <h4>Preview</h4>
+        <div className="preview__container">
+          <pre className="preview__inner" data-testid="download-preview">
+            {previewContent}
+          </pre>
+        </div>
+      </div>
+    );
+  }
   return (
-    <DownloadView
-      onSubmit={handleSubmit}
-      onCancel={onClose}
-      onPreview={handlePreview}
-      selectedColumns={selectedColumns}
-      downloadAll={downloadAll}
-      fileFormat={fileFormat}
-      compressed={compressed}
-      onSelectedColumnsChange={setSelectedColumns}
-      nSelectedEntries={nSelectedEntries}
-      onDownloadAllChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-        setDownloadAll(e.target.value === 'true')
-      }
-      onFileFormatChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-        setFileFormat(e.target.value as FileFormat)
-      }
-      onCompressedChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-        setCompressed(e.target.value === 'true')
-      }
-      preview={showPreview ? preview.data : ''}
-      loadingPreview={loadingPreview}
-      nPreview={nPreview}
-      totalNumberResults={totalNumberResults}
-    />
+    <Fragment>
+      <form onSubmit={handleSubmit} data-testid="download-form">
+        <h2>Download</h2>
+        <label htmlFor="data-selection-false">
+          <input
+            id="data-selection-false"
+            type="radio"
+            name="data-selection"
+            value="false"
+            checked={!downloadAll}
+            onChange={handleDownloadAllChange}
+            disabled={nSelectedEntries === 0}
+          />
+          Download selected ({nSelectedEntries})
+        </label>
+        <label htmlFor="data-selection-true">
+          <input
+            id="data-selection-true"
+            type="radio"
+            name="data-selection"
+            value="true"
+            checked={downloadAll}
+            onChange={handleDownloadAllChange}
+          />
+          Download all ({totalNumberResults})
+        </label>
+        <fieldset>
+          <label>
+            Format
+            <select
+              id="file-format-select"
+              data-testid="file-format-select"
+              value={fileFormat}
+              onChange={(e) => setFileFormat(e.target.value as FileFormat)}
+            >
+              {Object.values(FileFormat).map((format) => (
+                <option value={format} key={format}>
+                  {format}
+                </option>
+              ))}
+            </select>
+          </label>
+        </fieldset>
+        <fieldset>
+          <legend>Compressed</legend>
+          <label htmlFor="compressed-true">
+            <input
+              id="compressed-true"
+              type="radio"
+              name="compressed"
+              value="true"
+              checked={compressed}
+              onChange={handleCompressedChange}
+            />
+            Yes
+          </label>
+          <label htmlFor="compressed-false">
+            <input
+              id="compressed-false"
+              type="radio"
+              name="compressed"
+              value="false"
+              checked={!compressed}
+              onChange={handleCompressedChange}
+            />
+            No
+          </label>
+        </fieldset>
+        {fileFormatsWithColumns.includes(fileFormat) && (
+          <fieldset>
+            <legend>Customize data</legend>
+            <ColumnSelect
+              onChange={setSelectedColumns}
+              selectedColumns={selectedColumns}
+            />
+          </fieldset>
+        )}
+        <section className="button-group side-panel__button-row">
+          <button
+            className="button secondary"
+            type="button"
+            onClick={() => onClose()}
+          >
+            Cancel
+          </button>
+          <button
+            className="button secondary"
+            type="button"
+            onClick={() => handlePreview()}
+          >
+            Preview {nPreview}
+          </button>
+          <button className="button" type="submit">
+            Download
+          </button>
+        </section>
+      </form>
+      {previewNode}
+    </Fragment>
   );
 };
 

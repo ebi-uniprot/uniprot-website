@@ -64,6 +64,7 @@ const ResultsButtons: FC<{
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
+              selectedColumns={tableColumns}
               sortColumn={sortColumn}
               sortDirection={sortDirection}
               selectedEntries={selectedEntries}
