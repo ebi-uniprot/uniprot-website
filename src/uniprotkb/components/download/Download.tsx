@@ -20,6 +20,7 @@ import {
 } from '../../types/resultsTypes';
 
 import './styles/download.scss';
+import '../../../shared/styles/sticky.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -227,7 +228,7 @@ const Download: React.FC<DownloadProps> = ({
             />
           </fieldset>
         )}
-        <section className="button-group side-panel__button-row">
+        <section className="button-group sliding-panel__button-row sticky-bottom-right">
           <button
             className="button secondary"
             type="button"

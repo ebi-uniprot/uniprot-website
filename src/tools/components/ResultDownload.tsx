@@ -142,7 +142,7 @@ const ResultDownload = memo<ResultDownloadProps>(
                 ))}
               </select>
             </legend>
-            <section className="button-group side-panel__button-row">
+            <section className="button-group sliding-panel__button-row">
               <button
                 className="button secondary"
                 type="button"
