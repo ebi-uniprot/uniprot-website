@@ -115,7 +115,9 @@ export const UniProtKBColumnConfiguration = new Map<
   UniProtKBColumn,
   {
     label: string;
-    render: (data: UniProtkbUIModel) => JSX.Element | string | undefined;
+    render: (
+      data: UniProtkbUIModel
+    ) => JSX.Element | string | number | undefined;
   }
 >();
 
@@ -182,7 +184,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
         {geneNamesData &&
           geneNamesData.map((geneData) => {
             return (
@@ -193,7 +195,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
               )
             );
           })}
-      </Fragment>
+      </ExpandableList>
     );
   },
 });
@@ -203,7 +205,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
         {geneNamesData &&
           geneNamesData.map(
             (geneData) =>
@@ -213,7 +215,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
                 </Fragment>
               )
           )}
-      </Fragment>
+      </ExpandableList>
     );
   },
 });
@@ -223,7 +225,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
         {geneNamesData &&
           geneNamesData.map(
             (geneData) =>
@@ -233,7 +235,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
                 </Fragment>
               )
           )}
-      </Fragment>
+      </ExpandableList>
     );
   },
 });
@@ -243,7 +245,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
         {geneNamesData &&
           geneNamesData.map(
             (geneData) =>
@@ -253,7 +255,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
                 </Fragment>
               )
           )}
-      </Fragment>
+      </ExpandableList>
     );
   },
 });
@@ -288,13 +290,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
     const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
       virusHosts && (
-        <Fragment>
+        <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
           {virusHosts.map((host) => (
             <p key={host.taxonId}>
-              <TaxonomyView data={host} />
+              <TaxonomyView key={host.taxonId} data={host} />
             </p>
           ))}
-        </Fragment>
+        </ExpandableList>
       )
     );
   },
@@ -332,11 +334,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVarSeq, {
   label: 'Alternative sequence',
   render: (data) => {
     const { featuresData } = data[EntrySection.Sequence];
-    return (
-      <Fragment>
-        {featuresData && <FeaturesView features={featuresData} />}
-      </Fragment>
-    );
+    return featuresData && <FeaturesView features={featuresData} />;
   },
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
@@ -351,7 +349,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
         Flag.FRAGMENTS_PRECURSOR,
         Flag.FRAGMENT_PRECURSOR,
       ].includes(flag);
-    return flag && <Fragment>{isFragment ? flag : 'N'}</Fragment>;
+    return flag && (isFragment ? flag : 'N');
   },
 });
 // gene_location ,  "Invalid fields parameter value 'gene_location'"
@@ -648,7 +646,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     ) as InteractionComment[];
     return (
       interactionComments && (
-        <Fragment>
+        <ExpandableList displayNumberOfHiddenItems>
           {interactionComments.map((interactionCC) =>
             interactionCC.interactions.map((interaction) => (
               <div
@@ -670,7 +668,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
               </div>
             ))
           )}
-        </Fragment>
+        </ExpandableList>
       )
     );
   },
@@ -741,7 +739,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
     return (
       allGOTerms && (
         <section className="text-block">
-          <ExpandableList descriptionString="terms" displayNumberOfHiddenItems>
+          <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
             {allGOTerms.map(
               ({ id }: GoTerm) =>
                 id && (
@@ -763,17 +761,17 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
       .structures;
     return (
       structureData && (
-        <Fragment>
+        <>
           {Object.entries(structureData).map(([method, xrefs]) => (
             <div key={method}>
               {xrefs && (
-                <Fragment>
-                  {method}: {(xrefs as Xref[]).length}
-                </Fragment>
+                <>
+                  {method}: {xrefs.length}
+                </>
               )}
             </div>
           ))}
-        </Fragment>
+        </>
       )
     );
   },
@@ -951,7 +949,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
       }, []);
     }
     return (
-      <ExpandableList displayNumberOfHiddenItems>
+      <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
         {ids.map((xref) => (
           <Link key={xref.id} to={`citations/${xref.id}`}>
             {xref.id}
@@ -971,31 +969,21 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',
-  render: (data) => {
-    const { entryAudit } = data[EntrySection.Sequence];
-    return entryAudit && entryAudit.firstPublicDate;
-  },
+  render: (data) => data[EntrySection.Sequence]?.entryAudit?.firstPublicDate,
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateModified, {
   label: 'Date Modified',
-  render: (data) => {
-    const { entryAudit } = data[EntrySection.Sequence];
-    return entryAudit && entryAudit.lastAnnotationUpdateDate;
-  },
+  render: (data) =>
+    data[EntrySection.Sequence]?.entryAudit?.lastAnnotationUpdateDate,
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateSequenceModified, {
   label: 'Date Sequence Modified',
-  render: (data) => {
-    const { entryAudit } = data[EntrySection.Sequence];
-    return entryAudit && entryAudit.lastSequenceUpdateDate;
-  },
+  render: (data) =>
+    data[EntrySection.Sequence]?.entryAudit?.lastSequenceUpdateDate,
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
   label: 'Version',
-  render: (data) => {
-    const { entryAudit } = data[EntrySection.Sequence];
-    return entryAudit && <Fragment>{entryAudit.entryVersion}</Fragment>;
-  },
+  render: (data) => data[EntrySection.Sequence]?.entryAudit?.entryVersion,
 });
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCoiled,

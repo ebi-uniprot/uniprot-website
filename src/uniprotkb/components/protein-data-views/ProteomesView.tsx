@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
-import { InfoList } from 'franklin-sites';
+import React from 'react';
+import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
+
 import { Xref } from '../../types/commentTypes';
 
 const ProteomesId: React.FC<{ id?: string }> = ({ id }) => (
@@ -10,7 +11,7 @@ const ProteomesId: React.FC<{ id?: string }> = ({ id }) => (
 const ProteomesComponents: React.FC<{
   components?: { [key: string]: string };
 }> = ({ components }) => (
-  <Fragment>{components && Object.values(components).join(', ')}</Fragment>
+  <>{components && Object.values(components).join(', ')}</>
 );
 
 const ProteomesView: React.FC<{ data?: Xref[]; isCompact?: boolean }> = ({
@@ -21,10 +22,10 @@ const ProteomesView: React.FC<{ data?: Xref[]; isCompact?: boolean }> = ({
     return null;
   }
   return (
-    <Fragment>
-      {data.map(proteome => (
+    <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
+      {data.map((proteome) => (
         <InfoList
-          key={proteome.id}
+          key={`${proteome.id}-${proteome.properties?.Component}`}
           isCompact={isCompact}
           infoData={[
             {
@@ -38,7 +39,7 @@ const ProteomesView: React.FC<{ data?: Xref[]; isCompact?: boolean }> = ({
           ]}
         />
       ))}
-    </Fragment>
+    </ExpandableList>
   );
 };
 

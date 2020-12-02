@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { ExpandableList } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 
@@ -75,13 +76,13 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
   render: ({ organismIds }) => {
     return (
-      <ul className="no-bullet">
+      <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
         {organismIds?.map((organismId) => (
-          <li key={organismId}>
-            <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
-          </li>
+          <Link key={organismId} to={`/taxonomy/${organismId}`}>
+            {organismId}
+          </Link>
         ))}
-      </ul>
+      </ExpandableList>
     );
   },
 });
@@ -90,11 +91,11 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
   label: 'Organisms',
   render: ({ organisms }) => {
     return (
-      <ul className="no-bullet">
+      <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
         {organisms?.map((organism) => (
-          <li key={organism}>{organism}</li>
+          <Fragment key={organism}>{organism}</Fragment>
         ))}
-      </ul>
+      </ExpandableList>
     );
   },
 });
@@ -135,13 +136,13 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
   label: 'Members',
   render: ({ members }) => {
     return (
-      <ul className="no-bullet">
+      <ExpandableList descriptionString="members" displayNumberOfHiddenItems>
         {members?.map((member) => (
-          <li key={member}>
-            <Link to={`/uniprotkb/${member}`}>{member}</Link>
-          </li>
+          <Link key={member} to={`/uniprotkb/${member}`}>
+            {member}
+          </Link>
         ))}
-      </ul>
+      </ExpandableList>
     );
   },
 });
