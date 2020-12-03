@@ -1,9 +1,12 @@
 import { cleanup, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import React from 'react';
+
+import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
+
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
+
 import data from './__mocks__/genecentric.json';
 
 jest.mock('../../../../shared/hooks/useDataApi');
