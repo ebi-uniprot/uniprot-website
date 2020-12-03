@@ -32,8 +32,8 @@ type DownloadProps = {
   query: string;
   selectedFacets: SelectedFacet[];
   selectedColumns?: Column[];
-  sortColumn: SortableColumn;
-  sortDirection: SortDirection;
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
   selectedEntries: string[];
   totalNumberResults: number;
   onClose: () => void;

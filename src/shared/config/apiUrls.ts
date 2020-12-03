@@ -241,8 +241,8 @@ type GetDownloadUrlProps = {
   query: string;
   columns: string[];
   selectedFacets: SelectedFacet[];
-  sortColumn: SortableColumn;
-  sortDirection: SortDirection;
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
   fileFormat: FileFormat;
   compressed: boolean;
   size?: number;
