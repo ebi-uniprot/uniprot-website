@@ -163,7 +163,7 @@ const Results: FC = () => {
           sortColumn={sortColumn}
           sortDirection={sortDirection}
           total={total || 0}
-          tableColumns={tableColumns}
+          tableColumns={tableColumns as Column[]}
           onTableColumnsChange={handleTableColumnsChange}
         />
       }

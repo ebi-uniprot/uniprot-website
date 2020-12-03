@@ -29,7 +29,7 @@ const ResultsButtons: FC<{
   sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
-  tableColumns?: Column[];
+  tableColumns: Column[];
   onTableColumnsChange: (columns: Column[]) => void;
 }> = ({
   viewMode,
