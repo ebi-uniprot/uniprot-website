@@ -301,5 +301,3 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
   </div>
 </DocumentFragment>
 `;
-
-exports[`Computationally mapped isoforms Should return nothing if 404 1`] = `<DocumentFragment />`;

@@ -101,12 +101,12 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
     );
   }, [history, filteredData]);
 
-  if (!data?.relatedProteins || (error && status === 404)) {
-    // Fail silently, this just means there's no data
+  if (loading) {
     return null;
   }
 
-  if (loading) {
+  if (!data?.relatedProteins || (error && status === 404)) {
+    // Fail silently, this just means there's no data
     return null;
   }
 
