@@ -10,10 +10,6 @@ import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 import * as utils from '../../../utils/utils';
 
-// FIXME: Doing network call through ColumnSelect's logic and Redux
-// FIXME: logic. Might need to mock after removing Redux logic to load data.
-// NOTE: Causing error when no network available, when any 2 tests below run 🤷🏽‍♂️
-
 describe('getPreviewFileFormat', () => {
   test('should replace excel file format with tsv', () => {
     expect(getPreviewFileFormat(FileFormat.excel)).toEqual(FileFormat.tsv);
