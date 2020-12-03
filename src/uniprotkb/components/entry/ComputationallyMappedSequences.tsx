@@ -24,7 +24,8 @@ type ProteinEntryLight = {
 
 type GeneCentricData = {
   canonicalProtein: ProteinEntryLight;
-  relatedProteins: ProteinEntryLight[];
+  relatedProteins?: ProteinEntryLight[];
+  proteomeId: string;
 };
 
 const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
@@ -78,17 +79,20 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
     });
   }, []);
 
-  const filteredData = useMemo(() => {
-    if (!data) {
-      return null;
-    }
-    return data.relatedProteins.filter(
-      ({ accession, geneNameType }) =>
-        geneNameType === 'Gene name' && !accession.startsWith(primaryAccession)
-    );
-  }, [primaryAccession, data]);
+  const filteredData = useMemo(
+    () =>
+      data?.relatedProteins?.filter(
+        ({ accession, geneNameType }) =>
+          geneNameType === 'Gene name' &&
+          !accession.startsWith(primaryAccession)
+      ),
+    [primaryAccession, data]
+  );
 
   const handleViewAll = useCallback(() => {
+    if (!filteredData) {
+      return;
+    }
     const queryString = filteredData
       ?.map(({ accession }) => `accession:${accession}`)
       .join(' OR ');
@@ -97,11 +101,9 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
     );
   }, [history, filteredData]);
 
-  if (error) {
-    if (status === 404) {
-      // Fail silently, this just means there's no data
-      return null;
-    }
+  if (!data?.relatedProteins || (error && status === 404)) {
+    // Fail silently, this just means there's no data
+    return null;
   }
 
   if (loading) {
