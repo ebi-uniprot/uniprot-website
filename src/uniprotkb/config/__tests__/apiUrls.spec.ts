@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import apiUrls, {
   getAPIQueryUrl,
   createFacetsQueryString,
