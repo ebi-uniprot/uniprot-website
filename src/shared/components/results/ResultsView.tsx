@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, generatePath } from 'react-router-dom';
 
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
@@ -8,7 +8,10 @@ import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import {
+  UniRefAPIModel,
+  UniRefLiteAPIModel,
+} from '../../../uniref/adapters/uniRefConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
@@ -16,12 +19,14 @@ import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfig
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
+import usePrefetch from '../../hooks/usePrefetch';
 
-import getNextUrlFromResponse from '../../../uniprotkb/utils/queryUtils';
+import getNextUrlFromResponse from '../../utils/queryUtils';
 import {
   getParamsFromURL,
   getLocationObjForParams,
 } from '../../../uniprotkb/utils/resultsUtils';
+import { EntryLocations } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
@@ -86,9 +91,13 @@ const ResultsView: FC<ResultsTableProps> = ({
   const location = useLocation();
 
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
-    queryParamFromUrl
-  );
+  const {
+    query,
+    selectedFacets,
+    sortColumn,
+    sortDirection,
+    direct,
+  } = getParamsFromURL(queryParamFromUrl);
 
   const initialApiUrl = getAPIQueryUrl({
     namespace,
@@ -101,9 +110,13 @@ const ResultsView: FC<ResultsTableProps> = ({
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
-    nextUrl: string | undefined;
-  }>({ total: 0, nextUrl: undefined });
-  const [allResults, setAllResults] = useState<UniProtkbAPIModel[]>([]);
+    nextUrl?: string;
+  }>(() => ({ total: 0, nextUrl: undefined }));
+  usePrefetch(metaData.nextUrl);
+  const [allResults, setAllResults] = useState<
+    Array<UniProtkbAPIModel | UniRefAPIModel>
+  >([]);
+
   const { data, headers } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);
@@ -112,6 +125,21 @@ const ResultsView: FC<ResultsTableProps> = ({
   useEffect(() => {
     prevViewMode.current = viewMode;
   });
+
+  // redirect to entry directly when only 1 result and query marked as "direct"
+  useEffect(() => {
+    if (direct && metaData.total === 1 && allResults.length === 1) {
+      const uniqueItem = allResults[0];
+      history.replace({
+        pathname: generatePath(EntryLocations[namespace], {
+          accession:
+            'primaryAccession' in uniqueItem
+              ? uniqueItem.primaryAccession
+              : uniqueItem.id,
+        }),
+      });
+    }
+  }, [history, direct, metaData, allResults, namespace]);
 
   useEffect(() => {
     setAllResults([]);
@@ -126,8 +154,8 @@ const ResultsView: FC<ResultsTableProps> = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: headers['x-totalrecords'],
-      nextUrl: getNextUrlFromResponse(headers.link),
+      total: +(headers?.['x-totalrecords'] || 0),
+      nextUrl: getNextUrlFromResponse(headers?.link),
     }));
   }, [data, headers]);
 
@@ -195,7 +223,6 @@ const ResultsView: FC<ResultsTableProps> = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
-        scrollDataAttribute="sidebar-content"
       />
     );
   } else {
@@ -237,7 +264,6 @@ const ResultsView: FC<ResultsTableProps> = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
-        scrollDataAttribute="sidebar-content"
       />
     );
   }

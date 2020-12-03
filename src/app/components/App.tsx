@@ -28,7 +28,7 @@ const HomePage = lazy(
 const UniProtKBResultsPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniprotkb-results" */ '../../shared/components/results/ResultsContainer'
+      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
     )
 );
 const UniProtKBEntryPage = lazy(
@@ -46,7 +46,7 @@ const QueryBuilderPage = lazy(
 const UniRefResultsPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniref-results" */ '../../shared/components/results/ResultsContainer'
+      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
     )
 );
 const UniRefEntryPage = lazy(

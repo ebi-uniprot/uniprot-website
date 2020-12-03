@@ -33,7 +33,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               >
                 <span
                   class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed entry"
+                  title="This marks an unreviewed UniProtKB entry"
                 >
                   <svg
                     fill="currentColor"

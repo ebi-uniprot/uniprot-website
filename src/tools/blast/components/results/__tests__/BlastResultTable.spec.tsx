@@ -18,9 +18,7 @@ let component;
 describe('BlastResultTable tests', () => {
   beforeEach(() => {
     component = renderWithRedux(
-      <div data-loader-scroll="sidebar-content">
-        <BlastResultTable data={blastResultsMockData} />
-      </div>
+      <BlastResultTable data={blastResultsMockData} />
     );
   });
 

@@ -81,6 +81,10 @@ const apiUrls = {
   uniref: {
     entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
   },
+  uniparc: {
+    entry: (id?: string) =>
+      id && joinUrl(devPrefix, '/uniprot/api/uniparc', id),
+  },
 };
 
 export default apiUrls;

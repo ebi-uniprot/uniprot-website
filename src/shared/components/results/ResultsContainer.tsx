@@ -16,19 +16,19 @@ import {
 } from '../../../uniprotkb/utils/resultsUtils';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
+import useDataApi from '../../hooks/useDataApi';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+import useNS from '../../hooks/useNS';
 
 import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
 
+import { Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
-import useNS from '../../hooks/useNS';
+import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import './styles/results-table.scss';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
-import useDataApi from '../../hooks/useDataApi';
-import { Namespace } from '../../types/namespaces';
 
 export enum ViewMode {
   TABLE,

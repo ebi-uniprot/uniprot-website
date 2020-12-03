@@ -23,7 +23,7 @@ export const getEntrySectionNameAndId = (
   taxId?: number,
   numberOfIsoforms?: number
   // eslint-disable-next-line consistent-return
-) => {
+): EntrySectionNameAndId => {
   // eslint-disable-next-line default-case
   switch (section) {
     case EntrySection.Function:

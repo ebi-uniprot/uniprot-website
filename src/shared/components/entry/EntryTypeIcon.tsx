@@ -10,18 +10,25 @@ import './styles/entry-type-icon.scss';
 
 export const EntryTypeIcon: FC<{
   entryType?: EntryType | string;
+  entryAccession?: string;
+  entryId?: string;
   title?: string;
-}> = ({ entryType, title }) => {
+}> = ({ entryType, entryAccession, entryId, title }) => {
   let entryTypeToCheck = entryType;
   if (typeof entryType === 'string') {
     entryTypeToCheck = getEntryTypeFromString(entryType);
+  }
+  if (!entryTypeToCheck && entryAccession && entryId) {
+    entryTypeToCheck = entryId.startsWith(`${entryAccession}_`)
+      ? EntryType.UNREVIEWED
+      : EntryType.REVIEWED;
   }
 
   if (entryTypeToCheck === EntryType.REVIEWED) {
     return (
       <span
         className="entry-title__status icon--reviewed"
-        title={title || 'This marks a reviewed entry'}
+        title={title || 'This marks a reviewed UniProtKB entry'}
       >
         <SwissProtIcon />
       </span>
@@ -31,7 +38,7 @@ export const EntryTypeIcon: FC<{
     return (
       <span
         className="entry-title__status icon--unreviewed"
-        title={title || 'This marks an unreviewed entry'}
+        title={title || 'This marks an unreviewed UniProtKB entry'}
       >
         <TremblIcon />
       </span>
@@ -41,7 +48,7 @@ export const EntryTypeIcon: FC<{
     return (
       <span
         className="entry-title__status icon--uniparc"
-        title={title || 'UniParc entry'}
+        title={title || 'This marks a UniParc entry'}
       >
         <UniParcIcon />
       </span>

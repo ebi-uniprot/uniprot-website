@@ -125,7 +125,7 @@ exports[`AlignmentView Align should render 1`] = `
             />
             <span
               class="entry-title__status icon--reviewed"
-              title="This marks a reviewed entry"
+              title="This marks a reviewed UniProtKB entry"
             >
               <svg
                 fill="currentColor"
@@ -156,7 +156,7 @@ exports[`AlignmentView Align should render 1`] = `
             />
             <span
               class="entry-title__status icon--reviewed"
-              title="This marks a reviewed entry"
+              title="This marks a reviewed UniProtKB entry"
             >
               <svg
                 fill="currentColor"
@@ -187,7 +187,7 @@ exports[`AlignmentView Align should render 1`] = `
             />
             <span
               class="entry-title__status icon--reviewed"
-              title="This marks a reviewed entry"
+              title="This marks a reviewed UniProtKB entry"
             >
               <svg
                 fill="currentColor"
@@ -218,7 +218,7 @@ exports[`AlignmentView Align should render 1`] = `
             />
             <span
               class="entry-title__status icon--reviewed"
-              title="This marks a reviewed entry"
+              title="This marks a reviewed UniProtKB entry"
             >
               <svg
                 fill="currentColor"

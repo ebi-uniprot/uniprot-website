@@ -26,25 +26,21 @@ type Sequence = {
   md5: string;
 };
 
-type OverlapRegion = {
-  end: number;
-  start: number;
-};
+type MemberIDType = 'UniParc' | 'UniProtKB ID';
 
 export type UniRefMember = {
   seed: boolean;
-  memberIdType: string;
+  memberIdType: MemberIDType;
   memberId: string;
   organismName: string;
   organismTaxId: number;
   sequenceLength: number;
   proteinName: string;
-  accessions: string[];
-  uniRef50Id?: string;
-  uniRef90Id?: string;
-  uniRef100Id?: string;
-  uniParcId: string;
-  overlapRegion: OverlapRegion;
+  accessions?: string[];
+  uniref50Id?: string;
+  uniref90Id?: string;
+  uniref100Id?: string;
+  uniparcId?: string;
 };
 
 export type RepresentativeMember = UniRefMember & {
@@ -86,11 +82,11 @@ export type UniRefAPIModel = {
   members?: UniRefMember[];
 };
 
-export type Identity = 50 | 90 | 100;
+export const identityLevels = [50, 90, 100] as const;
+export type Identity = typeof identityLevels[number];
 
 export type UniRefUIModel = UniRefAPIModel & {
   identity: Identity;
-  [EntrySection.Members]: { members: UniRefMember[] };
   // use SequenceUIModel?
   [EntrySection.Sequence]: {
     sequence: UniRefAPIModel['representativeMember']['sequence'];
@@ -100,9 +96,6 @@ export type UniRefUIModel = UniRefAPIModel & {
 const uniRefConverter = (data: UniRefAPIModel): UniRefUIModel => ({
   ...data,
   identity: +data.entryType.replace('UniRef', '') as Identity,
-  [EntrySection.Members]: {
-    members: [data.representativeMember, ...(data.members || [])],
-  },
   [EntrySection.Sequence]: { sequence: data.representativeMember.sequence },
 });
 

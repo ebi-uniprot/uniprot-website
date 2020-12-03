@@ -20,9 +20,7 @@ describe('ResultsView component', () => {
     let rendered;
     await act(async () => {
       rendered = renderWithRedux(
-        <div data-loader-scroll="sidebar-content">
-          <ResultsView viewMode={ViewMode.TABLE} {...props} />
-        </div>
+        <ResultsView viewMode={ViewMode.TABLE} {...props} />
       );
     });
     return rendered;

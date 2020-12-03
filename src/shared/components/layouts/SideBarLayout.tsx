@@ -24,10 +24,7 @@ const SideBarLayout: FC<SideBarLayoutProps> = ({
     <section className="sidebar-layout__sidebar">
       <ErrorBoundary>{sidebar}</ErrorBoundary>
     </section>
-    <section
-      className="sidebar-layout__content"
-      data-loader-scroll="sidebar-content"
-    >
+    <section className="sidebar-layout__content">
       <ErrorBoundary>
         <section className="sidebar-layout__title">{title}</section>
       </ErrorBoundary>
