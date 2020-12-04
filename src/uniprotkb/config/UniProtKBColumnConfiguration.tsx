@@ -82,7 +82,7 @@ export const defaultColumns = [
   UniProtKBColumn.organismName,
 ];
 
-export const mustHave = [UniProtKBColumn.accession];
+export const primaryKeyColumn = UniProtKBColumn.accession;
 
 const getFeatureColumn = (type: FeatureType) => {
   return {

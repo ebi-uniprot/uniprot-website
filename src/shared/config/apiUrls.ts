@@ -109,9 +109,9 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     )
     .join(' AND ');
 
-export const createAccessionsQueryString = (accessions: string[]) =>
-  accessions
-    .map((accession) => `accession:${accession}`)
+export const createSelectedQueryString = (ids: string[], idField: Column) =>
+  ids
+    .map((id) => `${idField}:${id}`)
     .sort() // to improve possible cache hit
     .join(' OR ');
 
@@ -246,7 +246,8 @@ type GetDownloadUrlProps = {
   fileFormat: FileFormat;
   compressed: boolean;
   size?: number;
-  selectedAccessions: string[];
+  selected: string[];
+  selectedIdField: Column;
   namespace: Namespace;
 };
 
@@ -259,7 +260,8 @@ export const getDownloadUrl = ({
   fileFormat,
   compressed = false,
   size,
-  selectedAccessions = [],
+  selected = [],
+  selectedIdField,
   namespace,
 }: GetDownloadUrlProps) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
@@ -278,8 +280,8 @@ export const getDownloadUrl = ({
     download: true;
   };
   const parameters: Parameters = {
-    query: selectedAccessions.length
-      ? createAccessionsQueryString(selectedAccessions)
+    query: selected.length
+      ? createSelectedQueryString(selected, selectedIdField)
       : `${query}${createFacetsQueryString(selectedFacets)}`,
     // fallback to json if something goes wrong
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
@@ -297,7 +299,7 @@ export const getDownloadUrl = ({
   if (isColumnFileFormat && columns) {
     parameters.fields = columns.join(',');
   }
-  if (size && !selectedAccessions.length) {
+  if (size && !selected.length) {
     parameters.size = size;
   }
   if (compressed) {

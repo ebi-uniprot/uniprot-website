@@ -8,7 +8,7 @@ import ColumnSelect from '../column-select/ColumnSelect';
 import useNS from '../../hooks/useNS';
 
 import { getDownloadUrl } from '../../config/apiUrls';
-import { Column } from '../../config/columns';
+import { Column, nsToPrimaryKeyColumn } from '../../config/columns';
 
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import {
@@ -67,6 +67,8 @@ const Download: React.FC<DownloadProps> = ({
     data: '',
   });
 
+  const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const url = getDownloadUrl({
@@ -77,7 +79,8 @@ const Download: React.FC<DownloadProps> = ({
       sortDirection,
       fileFormat,
       compressed,
-      selectedAccessions: downloadAll ? [] : selectedEntries,
+      selected: downloadAll ? [] : selectedEntries,
+      selectedIdField,
       namespace,
     });
     downloadFileInNewTab(url);
@@ -105,7 +108,8 @@ const Download: React.FC<DownloadProps> = ({
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
-    selectedAccessions: downloadAll ? [] : selectedEntries,
+    selected: downloadAll ? [] : selectedEntries,
+    selectedIdField,
     namespace,
   });
   const handlePreview = useCallback(() => {
