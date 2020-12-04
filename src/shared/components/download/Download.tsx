@@ -30,7 +30,7 @@ export const getPreviewFileFormat = (fileFormat: FileFormat) =>
 
 type DownloadProps = {
   query: string;
-  selectedFacets: SelectedFacet[];
+  selectedFacets?: SelectedFacet[];
   selectedColumns?: Column[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
@@ -40,13 +40,13 @@ type DownloadProps = {
 };
 
 const Download: React.FC<DownloadProps> = ({
-  query = '',
+  query,
   selectedFacets = [],
   selectedColumns: initialSelectedColumns = [],
   sortColumn,
   sortDirection,
   selectedEntries = [],
-  totalNumberResults = 0,
+  totalNumberResults,
   onClose,
 }) => {
   const namespace = useNS();

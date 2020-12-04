@@ -33,7 +33,6 @@ describe('Download component', () => {
     rendered = renderWithRouter(
       <Download
         query={query}
-        selectedFacets={[]}
         selectedColumns={[
           UniProtKBColumn.accession,
           UniProtKBColumn.reviewed,
