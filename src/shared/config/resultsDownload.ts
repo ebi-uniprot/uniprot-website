@@ -33,6 +33,7 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
 
 export const fileFormatsWithColumns = [FileFormat.tsv, FileFormat.excel];
 
+// TODO when all namespaces have been implemented remove the Partial utility type
 export const nsToFileFormatsResultsDownload: Partial<Record<
   Namespace,
   FileFormat[]
