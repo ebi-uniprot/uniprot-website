@@ -5,142 +5,172 @@ exports[`HomePage component (non-critical part) should render 1`] = `
   <div
     class="block block--4-col"
   >
-    <div
-      class="tile"
+    <button
+      class="tile tile-gradient"
+      style="--tile-background: #00639a; width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
       >
-        UniProtKB
-      </h3>
-      <p
+        <test-file-stub />
+      </section>
+      <section
         class="tile__content"
       >
-        This is a short description of what the resource is/provides.
-      </p>
-    </div>
-    <div
-      class="tile tile--proteomes"
+        <h3
+          class="tile__header"
+        >
+          UniProtKB
+        </h3>
+        <h5
+          class="tile__subtitle"
+        >
+          UniProt Knowledgebase
+        </h5>
+        <small
+          class="tile__description"
+        >
+          <section>
+            <span>
+              <h6>
+                Reviewed
+              </h6>
+              SwissProt
+            </span>
+            <span>
+              <h6>
+                Unreviewed
+              </h6>
+              TrEMBL
+            </span>
+          </section>
+        </small>
+      </section>
+    </button>
+    <button
+      class="tile tile-gradient"
+      style="--tile-background: #990000; width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
       >
-        Proteomes
-      </h3>
-      <p
+        <test-file-stub />
+      </section>
+      <section
         class="tile__content"
       >
-        Sets of proteins for reference and other species of interest.
-      </p>
-    </div>
-    <div
-      class="tile tile--uniref"
+        <h3
+          class="tile__header"
+        >
+          Species
+        </h3>
+        <h5
+          class="tile__subtitle"
+        >
+          Proteomes
+        </h5>
+        <small
+          class="tile__description"
+        >
+          Protein sets for species with sequenced genomes from across the tree of life.
+        </small>
+      </section>
+    </button>
+    <button
+      class="tile tile-gradient"
+      style="--tile-background: #f2994c; width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
       >
-        UniRef
-      </h3>
-      <p
+        <test-file-stub />
+      </section>
+      <section
         class="tile__content"
       >
-        Clusters of protein sequences at 100%, 90% & 50% similarity
-      </p>
-    </div>
-    <div
-      class="tile tile--uniparc"
+        <h3
+          class="tile__header"
+        >
+          Protein Clusters
+        </h3>
+        <h5
+          class="tile__subtitle"
+        >
+          UniRef
+        </h5>
+        <small
+          class="tile__description"
+        >
+          Clusters of protein sequences at 100%, 90% & 50% identity.
+        </small>
+      </section>
+    </button>
+    <button
+      class="tile tile-gradient"
+      style="--tile-background: #88c19d; width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
       >
-        UniParc
-      </h3>
-      <p
+        <test-file-stub />
+      </section>
+      <section
         class="tile__content"
       >
-        Non-redundant archive of protein sequences publicly available (UniProt, RefSeq, Ensembl,...)
-      </p>
-    </div>
+        <h3
+          class="tile__header"
+        >
+          Sequence Archive
+        </h3>
+        <h5
+          class="tile__subtitle"
+        >
+          UniParc
+        </h5>
+        <small
+          class="tile__description"
+        >
+          Non-redundant archive of publicly available protein sequences seen across different databases.
+        </small>
+      </section>
+    </button>
   </div>
   <div
-    class="block block--4-col"
+    class="hero-container"
   >
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+    <section>
+      <h4>
+        Supporting Data
+      </h4>
+      <h5>
         Literature Citations
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         Taxonomy
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         Subcellular locations
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         Cross-ref databases
-      </h3>
-    </div>
-  </div>
-  <div
-    class="block block--4-col"
-  >
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         Diseases
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         Keywords
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         UniRule
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
-    >
-      <h3
-        class="tile__header"
-      >
+      </h5>
+      <h5>
         SAAS
-      </h3>
-    </div>
+      </h5>
+    </section>
   </div>
   <div
     class="hero-container"
@@ -157,64 +187,115 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </section>
   </div>
   <div
-    class="block block--4-col"
+    class="hero-container"
   >
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
+    <section>
+      <h4>
+        Analysis Tools
+      </h4>
+      <div
+        class="block block--4-col"
       >
-        BLAST
-      </h3>
-      <p
-        class="tile__content"
-      >
-        The Basic Local Alignment Search Tool finds regions of local similarity between sequences.
-      </p>
-    </div>
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
-      >
-        ALIGN
-      </h3>
-      <p
-        class="tile__content"
-      >
-        Align two or more protein sequences with the Clust Omega program.
-      </p>
-    </div>
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
-      >
-        Retrieve/ID Mapping
-      </h3>
-      <p
-        class="tile__content"
-      >
-        Retrieve and/or convert non UniProt identifiers to download lists for use on this website.
-      </p>
-    </div>
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
-      >
-        Peptide Search
-      </h3>
-      <p
-        class="tile__content"
-      >
-        Find all UniProtKB sequences that exactly match a query peptide sequence.
-      </p>
-    </div>
+        <button
+          class="tile tile-gradient"
+          style="width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          >
+            <test-file-stub />
+          </section>
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              BLAST
+            </h3>
+            <small
+              class="tile__description"
+            >
+              Search with a sequence to find homologs through pairwise sequence alignment.
+            </small>
+          </section>
+        </button>
+        <button
+          class="tile tile-gradient"
+          style="width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          />
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              ALIGN
+            </h3>
+            <small
+              class="tile__description"
+            >
+              Align two or more protein sequences with Clustal Omega to find conserved regions.
+            </small>
+          </section>
+        </button>
+        <button
+          class="tile tile-gradient"
+          style="width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          >
+            <test-file-stub />
+          </section>
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              Search with Lists / Map IDs
+            </h3>
+            <small
+              class="tile__description"
+            >
+              Find proteins with lists of UniProt IDs or convert from/to other database IDs.
+            </small>
+          </section>
+        </button>
+        <button
+          class="tile tile-gradient"
+          style="width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          >
+            <test-file-stub />
+          </section>
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              Search Peptides
+            </h3>
+            <small
+              class="tile__description"
+            >
+              Search with a peptide sequence to find all UniPro proteins that contain exact matches.
+            </small>
+          </section>
+        </button>
+      </div>
+    </section>
   </div>
   <div
     class="hero-container"
@@ -231,50 +312,95 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </section>
   </div>
   <div
-    class="block block--3-col"
+    class="hero-container"
   >
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
+    <section>
+      <h4>
+        Download and APIs
+      </h4>
+      <div
+        class="block block--4-col"
       >
-        Programmatic access
-      </h3>
-      <p
-        class="tile__content"
-      >
-        Query UniProt data using APIs providing REST, SPARQL and Java services.
-      </p>
-    </div>
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
-      >
-        FTP Download
-      </h3>
-      <p
-        class="tile__content"
-      >
-        Get the UniProt data directly.
-      </p>
-    </div>
-    <div
-      class="tile"
-    >
-      <h3
-        class="tile__header"
-      >
-        Technical Documentation
-      </h3>
-      <p
-        class="tile__content"
-      >
-        Access extensive technical documents to help you use UniProt to its full potential.
-      </p>
-    </div>
+        <button
+          class="tile tile-gradient"
+          style="--tile-background: #4e5a71; width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          >
+            <test-file-stub />
+          </section>
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              FTP Download
+            </h3>
+            <small
+              class="tile__description"
+            >
+              Get UniProt data for the latest release.
+            </small>
+          </section>
+        </button>
+        <button
+          class="tile tile-gradient"
+          style="--tile-background: #4e5a71; width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          >
+            <test-file-stub />
+          </section>
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              Technical Documentation
+            </h3>
+            <small
+              class="tile__description"
+            >
+              Manuals, schemas and ontology descriptions.
+            </small>
+          </section>
+        </button>
+        <button
+          class="tile tile-gradient"
+          style="--tile-background: #4e5a71; width: 100%;"
+          type="button"
+        >
+          <section
+            class="tile__background-image"
+          >
+            <test-file-stub />
+          </section>
+          <section
+            class="tile__content"
+          >
+            <h3
+              class="tile__header"
+            >
+              Programmatic access
+            </h3>
+            <small
+              class="tile__description"
+            >
+              REST API, SPARQL API, JAVA API.
+            </small>
+          </section>
+        </button>
+        <section>
+          Join our Google group and learn more.
+        </section>
+      </div>
+    </section>
   </div>
 </DocumentFragment>
 `;
