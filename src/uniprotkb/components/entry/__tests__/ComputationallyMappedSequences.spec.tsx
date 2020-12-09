@@ -1,9 +1,12 @@
 import { cleanup, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import React from 'react';
+
+import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
+
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
-import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
+
 import data from './__mocks__/genecentric.json';
 
 jest.mock('../../../../shared/hooks/useDataApi');
@@ -20,13 +23,32 @@ describe('Computationally mapped isoforms', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  test('Should return nothing while loading', () => {
+    useDataApi.mockReturnValue({ loading: true });
+
+    const { container } = renderWithRedux(
+      <ComputationalyMappedSequences primaryAccession="P05067" />
+    );
+    expect(container.firstChild).toBeNull();
+  });
+
   test('Should return nothing if 404', () => {
     useDataApi.mockReturnValue({ loading: false, status: 404, error: {} });
 
-    const { asFragment } = renderWithRedux(
+    const { container } = renderWithRedux(
       <ComputationalyMappedSequences primaryAccession="P05067" />
     );
-    expect(asFragment()).toMatchSnapshot();
+    expect(container.firstChild).toBeNull();
+  });
+
+  test('Should return nothing if no related proteins in data', () => {
+    const { relatedProteins: _, ...partialData } = data;
+    useDataApi.mockReturnValue({ loading: false, data: partialData });
+
+    const { container } = renderWithRedux(
+      <ComputationalyMappedSequences primaryAccession="P05067" />
+    );
+    expect(container.firstChild).toBeNull();
   });
 
   test('Should go to results with all accessions', async () => {
