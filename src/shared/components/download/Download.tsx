@@ -158,100 +158,98 @@ const Download: React.FC<DownloadProps> = ({
 
   return (
     <Fragment>
-      <form data-testid="download-form">
-        <h2>Download</h2>
-        <label htmlFor="data-selection-false">
-          <input
-            id="data-selection-false"
-            type="radio"
-            name="data-selection"
-            value="false"
-            checked={!downloadAll}
-            onChange={handleDownloadAllChange}
-            disabled={nSelectedEntries === 0}
-          />
-          Download selected ({nSelectedEntries})
-        </label>
-        <label htmlFor="data-selection-true">
-          <input
-            id="data-selection-true"
-            type="radio"
-            name="data-selection"
-            value="true"
-            checked={downloadAll}
-            onChange={handleDownloadAllChange}
-          />
-          Download all (<LongNumber>{totalNumberResults}</LongNumber>)
-        </label>
-        <fieldset>
-          <label>
-            Format
-            <select
-              id="file-format-select"
-              data-testid="file-format-select"
-              value={fileFormat}
-              onChange={(e) => setFileFormat(e.target.value as FileFormat)}
-            >
-              {fileFormats.map((format) => (
-                <option value={format} key={format}>
-                  {format}
-                </option>
-              ))}
-            </select>
-          </label>
-        </fieldset>
-        <fieldset>
-          <legend>Compressed</legend>
-          <label htmlFor="compressed-true">
-            <input
-              id="compressed-true"
-              type="radio"
-              name="compressed"
-              value="true"
-              checked={compressed}
-              onChange={handleCompressedChange}
-            />
-            Yes
-          </label>
-          <label htmlFor="compressed-false">
-            <input
-              id="compressed-false"
-              type="radio"
-              name="compressed"
-              value="false"
-              checked={!compressed}
-              onChange={handleCompressedChange}
-            />
-            No
-          </label>
-        </fieldset>
-        {fileFormatsWithColumns.includes(fileFormat) && (
-          <Fragment>
-            <legend>Customize data</legend>
-            <ColumnSelect
-              onChange={setSelectedColumns}
-              selectedColumns={selectedColumns}
-            />
-          </Fragment>
-        )}
-        <section className="button-group sliding-panel__button-row sticky-bottom-right">
-          <Button variant="secondary" type="button" onClick={() => onClose()}>
-            Cancel
-          </Button>
-          <Button variant="secondary" type="button" onClick={handlePreview}>
-            Preview {nPreview}
-          </Button>
-          <a
-            href={downloadUrl}
-            className="button"
-            target="_blank"
-            rel="noreferrer"
-            onClick={onClose}
+      <h2>Download</h2>
+      <label htmlFor="data-selection-false">
+        <input
+          id="data-selection-false"
+          type="radio"
+          name="data-selection"
+          value="false"
+          checked={!downloadAll}
+          onChange={handleDownloadAllChange}
+          disabled={nSelectedEntries === 0}
+        />
+        Download selected ({nSelectedEntries})
+      </label>
+      <label htmlFor="data-selection-true">
+        <input
+          id="data-selection-true"
+          type="radio"
+          name="data-selection"
+          value="true"
+          checked={downloadAll}
+          onChange={handleDownloadAllChange}
+        />
+        Download all (<LongNumber>{totalNumberResults}</LongNumber>)
+      </label>
+      <fieldset>
+        <label>
+          Format
+          <select
+            id="file-format-select"
+            data-testid="file-format-select"
+            value={fileFormat}
+            onChange={(e) => setFileFormat(e.target.value as FileFormat)}
           >
-            Download
-          </a>
-        </section>
-      </form>
+            {fileFormats.map((format) => (
+              <option value={format} key={format}>
+                {format}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Compressed</legend>
+        <label htmlFor="compressed-true">
+          <input
+            id="compressed-true"
+            type="radio"
+            name="compressed"
+            value="true"
+            checked={compressed}
+            onChange={handleCompressedChange}
+          />
+          Yes
+        </label>
+        <label htmlFor="compressed-false">
+          <input
+            id="compressed-false"
+            type="radio"
+            name="compressed"
+            value="false"
+            checked={!compressed}
+            onChange={handleCompressedChange}
+          />
+          No
+        </label>
+      </fieldset>
+      {fileFormatsWithColumns.includes(fileFormat) && (
+        <Fragment>
+          <legend>Customize data</legend>
+          <ColumnSelect
+            onChange={setSelectedColumns}
+            selectedColumns={selectedColumns}
+          />
+        </Fragment>
+      )}
+      <section className="button-group sliding-panel__button-row sticky-bottom-right">
+        <Button variant="secondary" type="button" onClick={() => onClose()}>
+          Cancel
+        </Button>
+        <Button variant="secondary" type="button" onClick={handlePreview}>
+          Preview {nPreview}
+        </Button>
+        <a
+          href={downloadUrl}
+          className="button"
+          target="_blank"
+          rel="noreferrer"
+          onClick={onClose}
+        >
+          Download
+        </a>
+      </section>
       {previewNode}
     </Fragment>
   );

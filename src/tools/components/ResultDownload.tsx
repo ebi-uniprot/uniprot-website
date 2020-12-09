@@ -121,39 +121,37 @@ const ResultDownload = memo<ResultDownloadProps>(
             page will not affect the download set.
           </p>
         )}
-        <form>
-          <fieldset>
-            <legend>
-              Format
-              <select
-                id="file-format-select"
-                data-testid="file-format-select"
-                value={fileFormat}
-                onChange={(e) => updateFileFormat(e)}
-              >
-                {options[jobType].map(({ format, description }) => (
-                  <option value={format} key={format}>
-                    {description}
-                  </option>
-                ))}
-              </select>
-            </legend>
-            <section className="button-group sliding-panel__button-row">
-              <Button variant="secondary" onClick={onToggleDisplay}>
-                Cancel
-              </Button>
-              <a
-                href={downloadUrl}
-                className="button"
-                target="_blank"
-                rel="noreferrer"
-                onClick={onToggleDisplay}
-              >
-                Download
-              </a>
-            </section>
-          </fieldset>
-        </form>
+        <fieldset>
+          <legend>
+            Format
+            <select
+              id="file-format-select"
+              data-testid="file-format-select"
+              value={fileFormat}
+              onChange={(e) => updateFileFormat(e)}
+            >
+              {options[jobType].map(({ format, description }) => (
+                <option value={format} key={format}>
+                  {description}
+                </option>
+              ))}
+            </select>
+          </legend>
+          <section className="button-group sliding-panel__button-row">
+            <Button variant="secondary" onClick={onToggleDisplay}>
+              Cancel
+            </Button>
+            <a
+              href={downloadUrl}
+              className="button"
+              target="_blank"
+              rel="noreferrer"
+              onClick={onToggleDisplay}
+            >
+              Download
+            </a>
+          </section>
+        </fieldset>
       </>
     );
   }
