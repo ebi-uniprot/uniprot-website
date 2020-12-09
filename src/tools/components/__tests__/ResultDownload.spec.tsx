@@ -7,10 +7,10 @@ describe('Blast results download', () => {
   jest.spyOn(document.body, 'appendChild');
   const nDownloadedExplanationRe = /The download file will contain/;
 
-  it('should change the format; download the correct resource/format; not display explanation when table results have not been filtered', () => {
+  it('should change the format; download link have the correct resource/format; not display explanation when table results have not been filtered', () => {
     const onCloseMock = jest.fn();
 
-    const { getByTestId, queryByText } = render(
+    const { getByTestId, queryByText, getAllByText } = render(
       <ResultDownload
         jobType={JobTypes.BLAST}
         id="1234"
@@ -22,15 +22,13 @@ describe('Blast results download', () => {
     );
     const select = getByTestId('file-format-select');
     fireEvent.change(select, { target: { value: 'accs' } });
-    const submit = getByTestId('submit-blast');
-    fireEvent.click(submit);
+    const downloadLink = getAllByText('Download')[1];
+    fireEvent.click(downloadLink);
     expect(onCloseMock).toHaveBeenCalled();
-    expect(document.body.appendChild).toHaveBeenLastCalledWith(
-      expect.objectContaining({
-        href:
-          'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/result/1234/accs',
-      })
+    expect(downloadLink.href).toEqual(
+      'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/result/1234/accs'
     );
+
     const nDownloadExplanation = queryByText(nDownloadedExplanationRe);
     expect(nDownloadExplanation).toBeNull();
   });

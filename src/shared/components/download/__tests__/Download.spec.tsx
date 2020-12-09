@@ -8,7 +8,6 @@ import { SearchResultsLocations } from '../../../../app/config/urls';
 import { Namespace } from '../../../types/namespaces';
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
-import * as utils from '../../../utils/utils';
 
 describe('getPreviewFileFormat', () => {
   test('should replace excel file format with tsv', () => {
@@ -26,10 +25,7 @@ describe('Download component', () => {
   const query = 'nod2';
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   const onCloseMock = jest.fn();
-  let downloadFileInNewTab;
-
   beforeEach(() => {
-    downloadFileInNewTab = jest.spyOn(utils, 'downloadFileInNewTab');
     rendered = renderWithRouter(
       <Download
         query={query}
@@ -49,7 +45,7 @@ describe('Download component', () => {
   });
 
   afterEach(() => {
-    downloadFileInNewTab.mockRestore();
+    jest.resetAllMocks();
   });
 
   test('should call onClose when cancel button is clicked', () => {
@@ -59,22 +55,22 @@ describe('Download component', () => {
     expect(onCloseMock).toHaveBeenCalled();
   });
 
-  test('should call onClose and downloadFileInNewTab with JSON format when format is selected and Download button is clicked', () => {
+  test('should call onClose and download link have href with JSON format when format is selected and Download button is clicked', () => {
     const { getAllByText, getByTestId } = rendered;
     const formatSelect = getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
-    fireEvent.click(getAllByText('Download')[1]);
-    expect(downloadFileInNewTab).toHaveBeenCalledWith(
-      expect.stringContaining('format=json')
-    );
+    const downloadLink = getAllByText('Download')[1];
+    fireEvent.click(downloadLink);
+    expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
     expect(onCloseMock).toHaveBeenCalled();
   });
 
-  test('should call onClose and downloadFileInNewTab without compressed=true when selected false in the form and Download button is clicked', () => {
+  test('should call onClose and download link to have href without compressed=true when selected false in the form and Download button is clicked', () => {
     const { getAllByText, getByLabelText } = rendered;
     fireEvent.click(getByLabelText('No'));
-    fireEvent.click(getAllByText('Download')[1]);
-    expect(downloadFileInNewTab).toHaveBeenCalledWith(
+    const downloadLink = getAllByText('Download')[1];
+    fireEvent.click(downloadLink);
+    expect(downloadLink.href).toEqual(
       expect.not.stringContaining('compressed')
     );
     expect(onCloseMock).toHaveBeenCalled();
