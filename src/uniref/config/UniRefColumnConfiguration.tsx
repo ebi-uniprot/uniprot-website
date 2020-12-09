@@ -37,7 +37,7 @@ export const mustHave = [UniRefColumn.id];
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,
   {
-    label: string;
+    label: ReactNode;
     render: (data: UniRefLiteAPIModel) => ReactNode;
   }
 >();

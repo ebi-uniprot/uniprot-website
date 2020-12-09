@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import React, { Fragment, ReactNode } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
-import { flatten } from 'lodash-es';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 
 import SimpleView from '../components/protein-data-views/SimpleView';
 import ProteinNamesView, {
@@ -15,7 +14,7 @@ import TaxonomyView, {
 import GeneNamesView, {
   geneAlternativeNamesView,
 } from '../components/protein-data-views/GeneNamesView';
-import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import { EntryType, UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import numberView, { Unit } from '../components/protein-data-views/NumberView';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/FeaturesView';
@@ -72,6 +71,7 @@ import SubcellularLocationView from '../components/protein-data-views/Subcellula
 import { GOTermsView } from '../components/protein-data-views/GOView';
 import externalUrls from './externalUrls';
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import { Location, LocationToPath } from '../../app/config/urls';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -114,14 +114,14 @@ const getGOColumnForAspect = (aspect: GoAspect) => {
 export const UniProtKBColumnConfiguration = new Map<
   UniProtKBColumn,
   {
-    label: string;
+    label: ReactNode;
     render: (data: UniProtkbUIModel) => ReactNode;
   }
 >();
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   label: 'Entry',
-  render: (data: { primaryAccession: string }) => (
+  render: (data) => (
     <SimpleView
       termValue={data.primaryAccession}
       linkTo={`/uniprotkb/${data.primaryAccession}`}
@@ -131,9 +131,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
   label: 'Entry Name',
-  render: (data: { uniProtkbId: string }) => (
-    <SimpleView termValue={data.uniProtkbId} />
-  ),
+  render: (data) => <SimpleView termValue={data.uniProtkbId} />,
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
@@ -168,18 +166,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.organismName, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
   label: 'Length',
-  render: (data) => {
-    const sequenceData = data[EntrySection.Sequence];
-    return (
-      sequenceData.sequence &&
-      numberView({ value: sequenceData.sequence.length, unit: Unit.AA })
-    );
+  render(data) {
+    const { sequence } = data[EntrySection.Sequence];
+    return sequence && numberView({ value: sequence.length, unit: Unit.AA });
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
   label: 'Gene names (Primary)',
-  render: (data) => {
+  render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
       <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
@@ -200,7 +195,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
   label: 'Gene names (Ordered locus)',
-  render: (data) => {
+  render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
       <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
@@ -209,7 +204,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
             (geneData) =>
               geneData.orderedLocusNames && (
                 <Fragment key={geneData.orderedLocusNames.join('')}>
-                  {geneAlternativeNamesView(geneData.orderedLocusNames, false)}
+                  {geneAlternativeNamesView(geneData.orderedLocusNames)}
                 </Fragment>
               )
           )}
@@ -220,7 +215,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
   label: 'Gene names (ORF)',
-  render: (data) => {
+  render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
       <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
@@ -229,7 +224,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
             (geneData) =>
               geneData.orfNames && (
                 <Fragment key={geneData.orfNames.join('')}>
-                  {geneAlternativeNamesView(geneData.orfNames, false)}
+                  {geneAlternativeNamesView(geneData.orfNames)}
                 </Fragment>
               )
           )}
@@ -240,7 +235,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   label: 'Gene names (Synonyms)',
-  render: (data) => {
+  render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
       <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
@@ -249,7 +244,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
             (geneData) =>
               geneData.synonyms && (
                 <Fragment key={geneData.synonyms.join('')}>
-                  {geneAlternativeNamesView(geneData.synonyms, false)}
+                  {geneAlternativeNamesView(geneData.synonyms)}
                 </Fragment>
               )
           )}
@@ -257,6 +252,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organismId, {
   label: 'Organism',
   render: (data) => {
@@ -272,16 +268,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.xrefProteomes, {
     return proteomesData && <ProteomesView data={proteomesData} isCompact />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
   label: 'Lineage',
-  render: (data) => {
+  render(data) {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      organismData &&
-      organismData.lineage && <TaxonomyLineage lineage={organismData.lineage} />
+      organismData?.lineage && (
+        <TaxonomyLineage lineage={organismData.lineage} />
+      )
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
   label: 'Virus hosts',
   render: (data) => {
@@ -299,14 +298,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
   label: 'Alternative Products',
-  render: (data) => {
-    const sequenceData = data[EntrySection.Sequence];
+  render(data) {
+    const { alternativeProducts } = data[EntrySection.Sequence];
     return (
-      sequenceData.alternativeProducts && (
+      alternativeProducts && (
         <IsoformView
-          alternativeProducts={sequenceData.alternativeProducts}
+          alternativeProducts={alternativeProducts}
           includeSequences={false}
           canonicalAccession={data.primaryAccession}
         />
@@ -314,6 +314,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAlternativeProducts, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequence, {
   label: 'Sequence',
   render: (data) => {
@@ -335,6 +336,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVarSeq, {
     return featuresData && <FeaturesView features={featuresData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   label: 'Fragment',
   render: (data) => {
@@ -350,6 +352,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
     return flag && (isFragment ? flag : 'N');
   },
 });
+
 // gene_location ,  "Invalid fields parameter value 'gene_location'"
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mass, {
   label: 'Mass',
@@ -402,6 +405,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccRnaEditing, {
     return rnaEditing && <RNAEditingView data={rnaEditing} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
   label: 'Sequence Caution',
   render: (data) => {
@@ -418,6 +422,7 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftUnsure,
   getFeatureColumn(FeatureType.UNSURE)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
   label: 'Sequence Version',
   render: (data) => {
@@ -425,6 +430,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
     return entryAudit && <span>{entryAudit.sequenceVersion}</span>;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
   label: 'Absorption',
   render: (data) => {
@@ -438,6 +444,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftActSite,
   getFeatureColumn(FeatureType.ACT_SITE)
@@ -450,6 +457,7 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCaBind,
   getFeatureColumn(FeatureType.CA_BIND)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   label: 'Catalytic Activity',
   render: (data) => {
@@ -465,6 +473,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
   label: 'Cofactor',
   render: (data) => {
@@ -474,10 +483,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
     return cofactorComments && <CofactorView cofactors={cofactorComments} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDnaBind,
   getFeatureColumn(FeatureType.DNA_BIND)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   label: 'EC Number',
   render: (data) => {
@@ -486,6 +497,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
     return ecNumbers && <ECNumbersView ecNumbers={ecNumbers} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
   label: 'Activity Regulation',
   render: (data) => {
@@ -499,6 +511,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
   label: 'Function',
   render: (data) => {
@@ -508,6 +521,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
     return functionComments && <FreeTextView comments={functionComments} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
   label: 'Kinetics',
   render: (data) => {
@@ -521,6 +535,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMetal,
   getFeatureColumn(FeatureType.METAL)
@@ -529,6 +544,7 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNpBind,
   getFeatureColumn(FeatureType.NP_BINDL)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
   render: (data) => {
@@ -538,6 +554,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
     return pathwayComments && <FreeTextView comments={pathwayComments} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
   label: 'pH Dependence',
   render: (data) => {
@@ -551,6 +568,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.phDependence, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
   label: 'Redox Potential',
   render: (data) => {
@@ -564,10 +582,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftSite,
   getFeatureColumn(FeatureType.SITE)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
   label: 'Temperature Dependence',
   render: (data) => {
@@ -583,6 +603,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
   label: 'Score',
   render: (data) => (
@@ -592,6 +613,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.annotationScore, {
     />
   ),
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
   label: 'Sequence Caution',
   render: (data) => {
@@ -599,22 +621,17 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSequenceCaution, {
     return sequenceCaution && <SequenceCautionView data={sequenceCaution} />;
   },
 });
-// feature ,
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.keyword, {
   label: 'Keywords',
-  render: (data) => {
-    const keywords = getAllKeywords(data);
-    return <KeywordList keywords={keywords} />;
-  },
+  render: (data) => <KeywordList keywords={getAllKeywords(data)} />,
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.keywordid, {
   label: 'Keyword IDs',
-  render: (data) => {
-    const keywords = getAllKeywords(data);
-    return <KeywordList keywords={keywords} idOnly />;
-  },
+  render: (data) => <KeywordList keywords={getAllKeywords(data)} idOnly />,
 });
-// matched_text: this field is not provided anymore ,
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
   label: 'Miscellaneous [CC]',
   render: (data) => {
@@ -626,16 +643,41 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinExistence, {
   label: 'Protein existence',
   render: (data) => data.proteinExistence,
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.reviewed, {
   label: '',
   render: (data) => <EntryTypeIcon entryType={data.entryType} />,
 });
-// tools: UX review is this needed?? ,
-// uniparc_id: leo re-indexing today 02/12/2019,
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
+  label: (
+    <>
+      <EntryTypeIcon entryType={EntryType.UNIPARC} />
+      UniParc
+    </>
+  ),
+  render(data) {
+    const accession = data.extraAttributes?.uniParcId as string | undefined;
+    console.log({ accession });
+    return (
+      accession && (
+        <Link
+          to={generatePath(LocationToPath[Location.UniParcEntry], {
+            accession,
+          })}
+        >
+          {accession}
+        </Link>
+      )
+    );
+  },
+});
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
   label: 'Interacts with',
   render: (data) => {
@@ -671,6 +713,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
   label: 'Subunit structure',
   render: (data) => {
@@ -680,6 +723,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
     return subunitComments && <FreeTextView comments={subunitComments} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
   label: 'Developmental stage',
   render: (data) => {
@@ -691,6 +735,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
   label: 'Induction',
   render: (data) => {
@@ -700,6 +745,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
     return inductionComments && <FreeTextView comments={inductionComments} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
   label: 'Tissue Specificity',
   render: (data) => {
@@ -709,6 +755,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
     return tissueComment && <FreeTextView comments={tissueComment} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goP,
   getGOColumnForAspect(GoAspect.P)
@@ -721,37 +768,40 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.goF,
   getGOColumnForAspect(GoAspect.F)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
   label: 'Gene Ontology',
-  render: (data) => {
+  render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-    const allGOTerms = goTerms && flatten(Object.values(goTerms));
-    return allGOTerms && <GOTermsView data={allGOTerms} />;
+    return goTerms && <GOTermsView data={Object.values(goTerms).flat()} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
   label: 'Gene Ontology IDs',
-  render: (data) => {
+  render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-    const allGOTerms = goTerms && flatten(Object.values(goTerms));
     return (
-      allGOTerms && (
+      goTerms && (
         <section className="text-block">
           <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-            {allGOTerms.map(
-              ({ id }: GoTerm) =>
-                id && (
-                  <a key={id} href={externalUrls.QuickGO(id)}>
-                    {id}
-                  </a>
-                )
-            )}
+            {Object.values(goTerms)
+              .flat()
+              .map(
+                ({ id }: GoTerm) =>
+                  id && (
+                    <a key={id} href={externalUrls.QuickGO(id)}>
+                      {id}
+                    </a>
+                  )
+              )}
           </ExpandableList>
         </section>
       )
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
   label: '3D structures',
   render: (data) => {
@@ -774,6 +824,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
   label: 'Subcellular Location',
   render: (data) => {
@@ -783,6 +834,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
     return subcellData && <SubcellularLocationView comments={subcellData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
   label: 'Domain',
   render: (data) => {
@@ -792,6 +844,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
     return domainData && <FreeTextView comments={domainData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
   label: 'Post-Translational Modification',
   render: (data) => {
@@ -801,6 +854,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
     return ptmData && <FreeTextView comments={ptmData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
   label: 'Allergenic Properties',
   render: (data) => {
@@ -810,6 +864,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
     return allergenData && <FreeTextView comments={allergenData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
   label: 'Biotechnological Use',
   render: (data) => {
@@ -819,6 +874,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
     return biotechData && <FreeTextView comments={biotechData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
   label: 'Disruption Phenotype',
   render: (data) => {
@@ -828,6 +884,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
     return disruptionData && <FreeTextView comments={disruptionData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
   label: 'Disease Involvement',
   render: (data) => {
@@ -844,10 +901,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMutagen,
   getFeatureColumn(FeatureType.MUTAGEN)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
   label: 'Pharmaceutical Use',
   render: (data) => {
@@ -857,6 +916,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
     return pharmaData && <FreeTextView comments={pharmaData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   label: 'Toxic Dose',
   render: (data) => {
@@ -866,6 +926,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
     return toxicData && <FreeTextView comments={toxicData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftIntramem,
   getFeatureColumn(FeatureType.INTRAMEM)
@@ -934,6 +995,7 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTurn,
   getFeatureColumn(FeatureType.TURN)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   label: 'PubMed ID',
   render: (data) => {
@@ -957,6 +1019,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
     );
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
   label: 'Mapped PubMed ID',
   render: () => {
@@ -965,6 +1028,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
     return '';
   },
 });
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',
   render: (data) => data[EntrySection.Sequence]?.entryAudit?.firstPublicDate,
@@ -999,6 +1063,7 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMotif,
   getFeatureColumn(FeatureType.MOTIF)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
   label: 'Protein Families',
   render: (data) => {
@@ -1010,6 +1075,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     return familiesData && <FreeTextView comments={familiesData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftRegion,
   getFeatureColumn(FeatureType.REGION)
@@ -1018,6 +1084,7 @@ UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftRepeat,
   getFeatureColumn(FeatureType.REPEAT)
 );
+
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
   label: 'Sequence Similarities',
   render: (data) => {
@@ -1027,10 +1094,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
     return familiesData && <FreeTextView comments={familiesData} />;
   },
 });
+
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftZnFing,
   getFeatureColumn(FeatureType.ZN_FING)
 );
+
 const getXrefColumn = (databaseName: string) => ({
   label: `${databaseName} cross-reference`,
   render: (data: UniProtkbUIModel) => {
@@ -1063,6 +1132,7 @@ const getXrefColumn = (databaseName: string) => ({
   },
 });
 
+// TODO: review below if fields are still needed
 // sc_epred:  can't see in current website
 // organelle: can't see in current website
 // cc_caution
