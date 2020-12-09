@@ -3,6 +3,8 @@ import { useSpring, animated } from 'react-spring';
 import cn from 'classnames';
 import { upperFirst } from 'lodash-es';
 
+import ErrorBoundary from '../error-component/ErrorBoundary';
+
 import './styles/sliding-panel.scss';
 
 export enum Position {
@@ -29,7 +31,9 @@ const SlidingPanel: FC<{
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
       style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
     >
-      <div>{children}</div>
+      <ErrorBoundary>
+        <div>{children}</div>
+      </ErrorBoundary>
     </animated.div>
   );
 };

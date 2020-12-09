@@ -32,7 +32,7 @@ export const defaultColumns = [
   UniRefColumn.identity,
 ];
 
-export const mustHave = [UniRefColumn.id];
+export const primaryKeyColumn = UniRefColumn.id;
 
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,

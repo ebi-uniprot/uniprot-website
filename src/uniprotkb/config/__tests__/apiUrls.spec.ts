@@ -1,11 +1,8 @@
-/**
- * @jest-environment node
- */
 import apiUrls, {
   getAPIQueryUrl,
   createFacetsQueryString,
 } from '../../../shared/config/apiUrls';
-import { FileFormat } from '../../types/resultsTypes';
+import { FileFormat } from '../../../shared/types/resultsDownload';
 
 describe('getQueryUrl', () => {
   test('should generate facet url', () => {

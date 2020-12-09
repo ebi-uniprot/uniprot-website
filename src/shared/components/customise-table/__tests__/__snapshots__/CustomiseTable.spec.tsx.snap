@@ -2539,7 +2539,7 @@ exports[`CustomiseTable component should render 1`] = `
       </div>
     </div>
     <div
-      class="button-group sticky-bottom-right"
+      class="button-group sticky-bottom-right sliding-panel__button-row"
     >
       <button
         class="button secondary"
