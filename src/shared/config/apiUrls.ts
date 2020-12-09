@@ -5,14 +5,16 @@ import {
   getApiSortDirection,
   SortDirection,
   SelectedFacet,
-  FileFormat,
-  fileFormatsWithColumns,
-  fileFormatToUrlParameter,
 } from '../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../uniprotkb/types/columnTypes';
 import { BlastFacet } from '../../tools/blast/types/blastResults';
 import { Namespace } from '../types/namespaces';
 import { Column } from './columns';
+import { FileFormat } from '../types/resultsDownload';
+import {
+  fileFormatToUrlParameter,
+  fileFormatsWithColumns,
+} from './resultsDownload';
 
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
@@ -48,7 +50,8 @@ const apiUrls = {
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
-  download: joinUrl(devPrefix, '/uniprot/api/uniprotkb/stream'),
+  download: (namespace: Namespace) =>
+    joinUrl(devPrefix, `/uniprot/api/${namespace}/stream`),
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
   features: joinUrl(prodPrefix, '/proteins/api/features'),
   accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
@@ -63,11 +66,9 @@ const apiUrls = {
       ? `${apiUrls.search()}?${queryString.stringify({
           query: `accession:${accession}`,
           includeIsoform: true,
-          format: fileFormatToUrlParameter.get(
-            FileFormat.fastaCanonicalIsoform
-          ),
+          format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
         })}`
-      : `${apiUrls.entry(accession)}.${fileFormatToUrlParameter.get(format)}`,
+      : `${apiUrls.entry(accession)}.${fileFormatToUrlParameter[format]}`,
   entryPublications: (accession: string) =>
     joinUrl(
       devPrefix,
@@ -112,9 +113,9 @@ export const createFacetsQueryString = (facets: SelectedFacet[]) =>
     )
     .join(' AND ');
 
-export const createAccessionsQueryString = (accessions: string[]) =>
-  accessions
-    .map((accession) => `accession:${accession}`)
+export const createSelectedQueryString = (ids: string[], idField: Column) =>
+  ids
+    .map((id) => `${idField}:${id}`)
     .sort() // to improve possible cache hit
     .join(' OR ');
 
@@ -240,6 +241,20 @@ export const getUniProtPublicationsQueryUrl = ({
     size,
   })}`;
 
+type GetDownloadUrlProps = {
+  query: string;
+  columns: string[];
+  selectedFacets: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  fileFormat: FileFormat;
+  compressed: boolean;
+  size?: number;
+  selected: string[];
+  selectedIdField: Column;
+  namespace: Namespace;
+};
+
 export const getDownloadUrl = ({
   query,
   columns,
@@ -249,19 +264,16 @@ export const getDownloadUrl = ({
   fileFormat,
   compressed = false,
   size,
-  selectedAccessions = [],
-}: {
-  query: string;
-  columns: string[];
-  selectedFacets: SelectedFacet[];
-  sortColumn: SortableColumn;
-  sortDirection: SortDirection;
-  fileFormat: FileFormat;
-  compressed: boolean;
-  size?: number;
-  selectedAccessions: string[];
-}) => {
-  const parameters: {
+  selected = [],
+  selectedIdField,
+  namespace,
+}: GetDownloadUrlProps) => {
+  // If the consumer of this fn has passed specified a size we have to use the search endpoint
+  // otherwise use download/stream which is much quicker but doesn't allow specification of size
+  const endpoint = size
+    ? apiUrls.search(namespace)
+    : apiUrls.download(namespace);
+  type Parameters = {
     query: string;
     format: string;
     fields?: string;
@@ -270,12 +282,13 @@ export const getDownloadUrl = ({
     size?: number;
     compressed?: boolean;
     download: true;
-  } = {
-    query: selectedAccessions.length
-      ? createAccessionsQueryString(selectedAccessions)
+  };
+  const parameters: Parameters = {
+    query: selected.length
+      ? createSelectedQueryString(selected, selectedIdField)
       : `${query}${createFacetsQueryString(selectedFacets)}`,
     // fallback to json if something goes wrong
-    format: fileFormatToUrlParameter.get(fileFormat) || 'json',
+    format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,
   };
   const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
@@ -290,13 +303,13 @@ export const getDownloadUrl = ({
   if (isColumnFileFormat && columns) {
     parameters.fields = columns.join(',');
   }
-  if (size && !selectedAccessions.length) {
+  if (size && !selected.length) {
     parameters.size = size;
   }
   if (compressed) {
     parameters.compressed = true;
   }
-  return `${apiUrls.download}?${queryString.stringify(parameters)}`;
+  return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 
 export const literatureApiUrls = {

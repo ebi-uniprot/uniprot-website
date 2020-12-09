@@ -47,12 +47,12 @@ export const defaultColumns = [
   UniParcColumn.lastSeen,
 ];
 
-export const mustHave = [UniParcColumn.upi];
+export const primaryKeyColumn = UniParcColumn.upi;
 
 export const UniParcColumnConfiguration = new Map<
   UniParcColumn,
   {
-    label: string;
+    label: ReactNode;
     render: (data: UniParcAPIModel) => ReactNode;
   }
 >();

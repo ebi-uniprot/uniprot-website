@@ -124,7 +124,7 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
     <>
       {displayDownloadPanel && (
         <Suspense fallback={null}>
-          <SlidingPanel position={Position.right}>
+          <SlidingPanel position={Position.left}>
             <ResultDownload
               jobType={jobType}
               id={jobId}

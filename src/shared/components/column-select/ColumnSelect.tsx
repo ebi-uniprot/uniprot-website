@@ -1,6 +1,5 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
-import { difference } from 'lodash-es';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
@@ -11,7 +10,7 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls';
 import {
   Column,
-  nsToMustHaveColumns,
+  nsToPrimaryKeyColumn,
   nsToDefaultColumns,
 } from '../../config/columns';
 
@@ -36,10 +35,10 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   if (!namespace) {
     throw new Error('No namespace provided');
   }
-  const [mustHaveColumns, defaultColumns] = useMemo(
+  const [primaryKeyColumn, defaultColumns] = useMemo(
     () => [
-      nsToMustHaveColumns[namespace] || [],
-      nsToDefaultColumns[namespace] || [],
+      nsToPrimaryKeyColumn[namespace] as Column,
+      nsToDefaultColumns[namespace] as Column[],
     ],
     [namespace]
   );
@@ -47,12 +46,14 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const removableSelectedColumns = difference(selectedColumns, mustHaveColumns);
+  const removableSelectedColumns = selectedColumns.filter(
+    (column) => column !== primaryKeyColumn
+  );
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([...mustHaveColumns, ...columns]);
+      onChange([primaryKeyColumn as Column, ...columns]);
     },
-    [mustHaveColumns, onChange]
+    [primaryKeyColumn, onChange]
   );
 
   const handleSelect = useCallback(
@@ -84,8 +85,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
     return <Loader />;
   }
 
-  // Exclude mustHaveColumns in the tabs as users can't toggle selection
-  const fieldData = prepareFieldData(data, mustHaveColumns);
+  // Exclude the primaryKeyColumn in the tabs as users can't toggle selection
+  const fieldData = prepareFieldData(data, primaryKeyColumn);
 
   const fieldDataForSelectedColumns = getFieldDataForColumns(
     removableSelectedColumns,
