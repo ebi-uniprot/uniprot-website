@@ -3,7 +3,6 @@ import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
-import { downloadFileInNewTab } from '../../utils/utils';
 import ColumnSelect from '../column-select/ColumnSelect';
 import useNS from '../../hooks/useNS';
 
@@ -69,23 +68,18 @@ const Download: React.FC<DownloadProps> = ({
 
   const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const url = getDownloadUrl({
-      query,
-      columns: selectedColumns,
-      selectedFacets,
-      sortColumn,
-      sortDirection,
-      fileFormat,
-      compressed,
-      selected: downloadAll ? [] : selectedEntries,
-      selectedIdField,
-      namespace,
-    });
-    downloadFileInNewTab(url);
-    onClose();
-  };
+  const downloadUrl = getDownloadUrl({
+    query,
+    columns: selectedColumns,
+    selectedFacets,
+    sortColumn,
+    sortDirection,
+    fileFormat,
+    compressed,
+    selected: downloadAll ? [] : selectedEntries,
+    selectedIdField,
+    namespace,
+  });
 
   const handleDownloadAllChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
@@ -158,9 +152,10 @@ const Download: React.FC<DownloadProps> = ({
       </div>
     );
   }
+
   return (
     <Fragment>
-      <form onSubmit={handleSubmit} data-testid="download-form">
+      <form data-testid="download-form">
         <h2>Download</h2>
         <label htmlFor="data-selection-false">
           <input
@@ -240,14 +235,18 @@ const Download: React.FC<DownloadProps> = ({
           <Button variant="secondary" type="button" onClick={() => onClose()}>
             Cancel
           </Button>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={handlePreview}
-          >
+          <Button variant="secondary" type="button" onClick={handlePreview}>
             Preview {nPreview}
           </Button>
-          <Button type="submit">Download</Button>
+          <a
+            href={downloadUrl}
+            className="button"
+            target="_blank"
+            rel="noreferrer"
+            onClick={onClose}
+          >
+            Download
+          </a>
         </section>
       </form>
       {previewNode}

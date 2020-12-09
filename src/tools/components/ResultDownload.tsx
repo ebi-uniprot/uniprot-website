@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { downloadFileInNewTab } from '../../shared/utils/utils';
+import { Button } from 'franklin-sites';
 
 import toolsURLs, { ResultFormat } from '../config/urls';
 
@@ -108,11 +108,7 @@ const ResultDownload = memo<ResultDownloadProps>(
       setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      downloadFileInNewTab(toolsURLs(jobType).resultUrl(id, fileFormat));
-      onToggleDisplay();
-    };
+    const downloadUrl = toolsURLs(jobType).resultUrl(id, fileFormat);
 
     return (
       <>
@@ -125,7 +121,7 @@ const ResultDownload = memo<ResultDownloadProps>(
             page will not affect the download set.
           </p>
         )}
-        <form onSubmit={handleSubmit}>
+        <form>
           <fieldset>
             <legend>
               Format
@@ -143,20 +139,18 @@ const ResultDownload = memo<ResultDownloadProps>(
               </select>
             </legend>
             <section className="button-group sliding-panel__button-row">
-              <button
-                className="button secondary"
-                type="button"
-                onClick={() => onToggleDisplay()}
-              >
+              <Button variant="secondary" onClick={onToggleDisplay}>
                 Cancel
-              </button>
-              <button
-                type="submit"
-                className="button button-primary"
-                data-testid="submit-blast"
+              </Button>
+              <a
+                href={downloadUrl}
+                className="button"
+                target="_blank"
+                rel="noreferrer"
+                onClick={onToggleDisplay}
               >
                 Download
-              </button>
+              </a>
             </section>
           </fieldset>
         </form>
