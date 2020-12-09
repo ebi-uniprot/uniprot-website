@@ -106,6 +106,9 @@ const Download: React.FC<DownloadProps> = ({
     selectedIdField,
     namespace,
   });
+  // TODO this should useDataApi but this hook requires modification to
+  // change the headers so whenever this is done replace fetchData with
+  // useDataApi
   const handlePreview = useCallback(() => {
     setLoadingPreview(true);
     const headers: Record<string, string> = {};

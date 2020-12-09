@@ -72,13 +72,3 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) => {
     return false;
   });
 };
-
-export const downloadFileInNewTab = (url: string) => {
-  const link = document.createElement('a');
-  link.href = url;
-  link.target = '_blank';
-  link.setAttribute('download', '');
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
