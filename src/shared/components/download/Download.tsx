@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
-import { Loader, CodeBlock, Button } from 'franklin-sites';
+import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
@@ -183,7 +183,7 @@ const Download: React.FC<DownloadProps> = ({
             checked={downloadAll}
             onChange={handleDownloadAllChange}
           />
-          Download all ({totalNumberResults})
+          Download all (<LongNumber>{totalNumberResults}</LongNumber>)
         </label>
         <fieldset>
           <label>
