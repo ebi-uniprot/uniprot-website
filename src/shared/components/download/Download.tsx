@@ -243,7 +243,7 @@ const Download: React.FC<DownloadProps> = ({
           <Button
             variant="secondary"
             type="button"
-            onClick={() => handlePreview()}
+            onClick={handlePreview}
           >
             Preview {nPreview}
           </Button>
