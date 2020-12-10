@@ -3,20 +3,13 @@ import { v1 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import fetchData from '../../utils/fetchData';
-
 import useSafeState from '../../hooks/useSafeState';
 
-import uniProtKBApiUrls from '../../config/apiUrls';
+import getFASTAFromAccession from '../../utils/getFASTAFromAccession';
+
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import entryToFASTAWithHeaders from '../../utils/entryToFASTAWithHeaders';
-
 import { addMessage } from '../../../messages/state/messagesActions';
-
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
-import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 import {
   MessageFormat,
@@ -28,50 +21,6 @@ type ToolsButtonProps = {
   disabled: boolean;
   title: string;
   location: Location;
-};
-
-export const getFastaFromAccession = async (
-  accession?: string
-): Promise<string | void> => {
-  if (!accession) {
-    return;
-  }
-  let url;
-  if (accession.startsWith('UniRef')) {
-    // UniRef
-    // Find representative sequence and use it instead
-    const uniRefURL = uniProtKBApiUrls.uniref.entry(accession);
-    if (!uniRefURL) {
-      return;
-    }
-    const uniRefResponse = await fetchData<undefined | UniRefAPIModel>(
-      uniRefURL
-    );
-    // might be either a UniProtKB or UniParc entry,
-    // so just send it through this same function again recursively to process
-    // eslint-disable-next-line consistent-return
-    return getFastaFromAccession(
-      uniRefResponse.data?.representativeMember.accessions?.[0]
-    );
-  }
-  if (accession.startsWith('UPI')) {
-    // UniParc
-    url = uniProtKBApiUrls.uniparc.entry(accession);
-  } else {
-    // UniProtKB
-    url = uniProtKBApiUrls.entry(accession);
-  }
-  if (!url) {
-    return;
-  }
-  const response = await fetchData<
-    undefined | UniProtkbAPIModel | UniParcAPIModel
-  >(url);
-  if (!response.data) {
-    return;
-  }
-  // eslint-disable-next-line consistent-return
-  return entryToFASTAWithHeaders(response.data);
 };
 
 const ToolsButton: FC<ToolsButtonProps> = ({
@@ -95,7 +44,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
     const entries = entriesRef.current;
 
     try {
-      const sequences = await Promise.all(entries.map(getFastaFromAccession));
+      const sequences = await Promise.all(entries.map(getFASTAFromAccession));
 
       if (entries !== entriesRef.current) {
         // it means that by the time we get here, the selection has changed
