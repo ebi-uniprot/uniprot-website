@@ -22,6 +22,15 @@ afterAll(() => {
 });
 
 describe('getFASTAFromAccession', () => {
+  it('should handle no accession', async () => {
+    expect(await getFASTAFromAccession()).toBeUndefined();
+  });
+
+  it('should not throw if no data', async () => {
+    mock.onGet(/api\/uniprotkb\/accession\/P-non-existing$/).reply(204);
+    expect(await getFASTAFromAccession('P-non-existing')).toBeUndefined();
+  });
+
   it('should handle UniProtKB entry', async () => {
     mock.onGet(/api\/uniprotkb\/accession\/P05067$/).reply(200, mockUniProtKB);
     expect(await getFASTAFromAccession('P05067')).toMatchSnapshot();
