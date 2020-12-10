@@ -41,6 +41,7 @@ describe('getFASTAFromAccession', () => {
     expect(await getFASTAFromAccession('UPI0000000001')).toMatchSnapshot();
   });
 
+  // TODO: uncomment and add a mock json payload once UniRef API has stabilised
   it.skip('should handle UniRef entry', async () => {
     // mock.onGet(/api\/uniref\/......$/).reply(200, mockUniRef);
     // expect(await getFASTAFromAccession('......')).toMatchSnapshot();
