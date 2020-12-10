@@ -54,14 +54,16 @@ const Search = () => {
   }, [location]);
 
   return (
-    <MainSearch
-      namespaces={NamespaceLabels}
-      searchTerm={searchTerm}
-      onChange={setSearchTerm}
-      onSubmit={handleSubmit}
-      onNamespaceChange={setNamespace}
-      selectedNamespace={selectedNamespace}
-    />
+    <section className="header-content">
+      <MainSearch
+        namespaces={NamespaceLabels}
+        searchTerm={searchTerm}
+        onChange={setSearchTerm}
+        onSubmit={handleSubmit}
+        onNamespaceChange={setNamespace}
+        selectedNamespace={selectedNamespace}
+      />
+    </section>
   );
 };
 

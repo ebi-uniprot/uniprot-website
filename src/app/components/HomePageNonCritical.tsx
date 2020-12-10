@@ -5,8 +5,8 @@ import Block from './Block';
 import PlaceHolder from './PlaceHolder';
 
 const HomePageNonCritical = () => (
-  <>
-    <Block columns="4">
+  <section className="content-section">
+    <Block>
       <Tile title="UniProtKB" />
       <Tile
         title="Proteomes"
@@ -24,22 +24,22 @@ const HomePageNonCritical = () => (
         description="Non-redundant archive of protein sequences publicly available (UniProt, RefSeq, Ensembl,...)"
       />
     </Block>
-    <Block columns="4">
+    <Block>
       <Tile title="Literature Citations" small />
       <Tile title="Taxonomy" small />
       <Tile title="Subcellular locations" small />
       <Tile title="Cross-ref databases" small />
     </Block>
-    <Block columns="4">
+    <Block>
       <Tile title="Diseases" small />
       <Tile title="Keywords" small />
       <Tile title="UniRule" small />
       <Tile title="SAAS" small />
     </Block>
-    <HeroContainer title="News">
+    <HeroContainer title="News" className="uniprot-grid">
       <PlaceHolder />
     </HeroContainer>
-    <Block columns="4">
+    <Block>
       <Tile
         title="BLAST"
         description="The Basic Local Alignment Search Tool finds regions of local similarity between sequences."
@@ -57,10 +57,10 @@ const HomePageNonCritical = () => (
         description="Find all UniProtKB sequences that exactly match a query peptide sequence."
       />
     </Block>
-    <HeroContainer title="Need Help?">
+    <HeroContainer title="Need Help?" className="uniprot-grid">
       <PlaceHolder />
     </HeroContainer>
-    <Block columns="3">
+    <Block>
       <Tile
         title="Programmatic access"
         description="Query UniProt data using APIs providing REST, SPARQL and Java services."
@@ -71,7 +71,7 @@ const HomePageNonCritical = () => (
         description="Access extensive technical documents to help you use UniProt to its full potential."
       />
     </Block>
-  </>
+  </section>
 );
 
 export default HomePageNonCritical;

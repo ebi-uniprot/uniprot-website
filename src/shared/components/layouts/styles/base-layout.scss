@@ -3,19 +3,32 @@
 $header-height: 70px;
 
 .base-layout {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  // width: 100vw;
+
+  .header {
+    width: 100vw;
+  }
 
   .header:not(.header--negative) > .header__logo svg g {
     fill: white;
     height: $header-height;
   }
-
-  .main-content-and-footer {
-    width: 100%;
-    flex: 1;
-    overflow-y: scroll;
-  }
 }
+
+// .base-layout {
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+
+//   .header:not(.header--negative) > .header__logo svg g {
+//     fill: white;
+//     height: $header-height;
+//   }
+
+//   .main-content-and-footer {
+//     width: 100%;
+//     flex: 1;
+//     overflow-y: scroll;
+//   }
+// }
