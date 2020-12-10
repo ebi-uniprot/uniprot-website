@@ -663,7 +663,6 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
   ),
   render(data) {
     const accession = data.extraAttributes?.uniParcId as string | undefined;
-    console.log({ accession });
     return (
       accession && (
         <Link
