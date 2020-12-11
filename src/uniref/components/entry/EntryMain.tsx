@@ -8,6 +8,7 @@ import { UniRefUIModel } from '../../adapters/uniRefConverter';
 
 type EntryMainProps = {
   transformedData: UniRefUIModel;
+  metadata?: Record<string, string>;
 };
 
 function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
@@ -15,11 +16,11 @@ function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
   return prevProps.transformedData.id === nextProps.transformedData.id;
 }
 
-const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
+const EntryMain: FC<EntryMainProps> = ({ transformedData, metadata }) => (
   <>
     {UniRefEntryConfig.map(({ name, sectionContent }) => (
       <ErrorBoundary key={name}>
-        {sectionContent(transformedData)}
+        {sectionContent(transformedData, metadata)}
       </ErrorBoundary>
     ))}
   </>

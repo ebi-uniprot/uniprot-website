@@ -4,31 +4,39 @@ import MembersSection from '../components/entry/MembersSection';
 import SequenceSection from '../components/entry/SequenceSection';
 
 import { UniRefUIModel } from '../adapters/uniRefConverter';
-import EntrySection, { EntrySectionIDs } from '../types/entrySection';
+import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
 
 const UniRefEntryConfig: {
-  name: EntrySection;
-  id: typeof EntrySectionIDs[EntrySection];
-  sectionContent: (entryData: UniRefUIModel) => JSX.Element;
+  name: string;
+  id: EntrySection;
+  sectionContent: (
+    entryData: UniRefUIModel,
+    metadata?: Record<string, string>
+  ) => JSX.Element;
 }[] = [
   {
-    name: EntrySection.Sequence,
-    id: EntrySectionIDs[EntrySection.Sequence],
-    sectionContent: (data: UniRefUIModel): JSX.Element => (
+    ...getEntrySectionNameAndId(EntrySection.Sequence),
+    sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
-        primaryAccession={data.representativeMember.accessions[0]}
+        primaryAccession={
+          data.representativeMember.accessions?.[0] ||
+          data.representativeMember.memberId
+        }
         key={EntrySection.Sequence}
       />
     ),
   },
   {
-    name: EntrySection.Members,
-    id: EntrySectionIDs[EntrySection.Members],
-    sectionContent: (data: UniRefUIModel): JSX.Element => (
+    ...getEntrySectionNameAndId(EntrySection.Members),
+    sectionContent: (data, metadata) => (
       <MembersSection
-        data={data[EntrySection.Members]}
+        id={data.id}
+        identity={data.identity}
+        representativeMember={data.representativeMember}
+        members={data.members}
         key={EntrySection.Members}
+        metadata={metadata}
       />
     ),
   },

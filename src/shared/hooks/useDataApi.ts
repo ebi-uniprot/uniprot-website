@@ -15,7 +15,7 @@ export type UseDataAPIState<T> = {
   data?: T;
   status?: AxiosResponse['status'];
   statusText?: AxiosResponse['statusText'];
-  headers?: AxiosResponse['headers'];
+  headers?: Record<string, string>;
   error?: AxiosError<{ messages?: string[] }>;
   redirectedTo?: string;
   url?: string | null;

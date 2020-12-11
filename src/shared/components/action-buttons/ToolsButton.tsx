@@ -3,15 +3,11 @@ import { v1 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import fetchData from '../../utils/fetchData';
-
 import useSafeState from '../../hooks/useSafeState';
 
-import uniProtKBApiUrls from '../../config/apiUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import getFASTAFromAccession from '../../utils/getFASTAFromAccession';
 
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import entryToFASTAWithHeaders from '../../../uniprotkb/adapters/entryToFASTAWithHeaders';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -48,20 +44,14 @@ const ToolsButton: FC<ToolsButtonProps> = ({
     const entries = entriesRef.current;
 
     try {
-      const sequences = await Promise.all(
-        entries.map((accession) =>
-          fetchData<UniProtkbAPIModel>(
-            uniProtKBApiUrls.entry(accession)
-          ).then((response) => entryToFASTAWithHeaders(response.data))
-        )
-      );
+      const sequences = await Promise.all(entries.map(getFASTAFromAccession));
 
       if (entries !== entriesRef.current) {
         // it means that by the time we get here, the selection has changed
         return;
       }
       history.push(LocationToPath[location], {
-        parameters: { sequence: sequences.join('\n\n') },
+        parameters: { sequence: sequences.filter(Boolean).join('\n\n') },
       });
     } catch (err) {
       if (entries !== entriesRef.current) {

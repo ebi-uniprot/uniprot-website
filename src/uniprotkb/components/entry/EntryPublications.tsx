@@ -8,6 +8,7 @@ import { LiteratureForProteinAPI } from '../../types/literatureTypes';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -15,7 +16,7 @@ import formatCitationData, {
   getCitationPubMedId,
 } from '../../adapters/literatureConverter';
 
-import getNextUrlFromResponse from '../../utils/queryUtils';
+import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
@@ -30,8 +31,9 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const [allResults, setAllResults] = useState<LiteratureForProteinAPI[]>([]);
   const [metaData, setMetaData] = useState<{
     total: number;
-    nextUrl: string | undefined;
-  }>({ total: 0, nextUrl: undefined });
+    nextUrl?: string;
+  }>(() => ({ total: 0, nextUrl: undefined }));
+  usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
     results: LiteratureForProteinAPI[];
@@ -50,8 +52,8 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: headers['x-totalrecords'],
-      nextUrl: getNextUrlFromResponse(headers.link),
+      total: +(headers?.['x-totalrecords'] || 0),
+      nextUrl: getNextUrlFromResponse(headers?.link),
     }));
   }, [data, headers]);
 
@@ -139,7 +141,6 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
         onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
         loaderComponent={<Loader />}
         hasMoreData={total > allResults.length}
-        scrollDataAttribute="sidebar-content"
       />
     </section>
   );

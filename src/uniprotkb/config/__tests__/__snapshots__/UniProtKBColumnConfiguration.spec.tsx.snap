@@ -4,11 +4,12 @@ exports[`UniProtKBColumnConfiguration component should render all columns 1`] = 
 <DocumentFragment>
   <span
     class="entry-title__status icon--reviewed"
-    title="This marks a reviewed entry"
+    title="This marks a reviewed UniProtKB entry"
   >
     <svg
       fill="currentColor"
       viewBox="0 0 426 512"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
@@ -46,6 +47,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -76,6 +78,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -209,6 +212,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -245,6 +249,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -285,6 +290,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -319,6 +325,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -383,6 +390,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disea
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -472,6 +480,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disea
             fill="none"
             viewBox="0 0 16 16"
             width="12.5"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -511,6 +520,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disru
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -549,6 +559,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: EC Nu
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -628,6 +639,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -675,6 +687,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -722,6 +735,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -769,6 +783,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -837,6 +852,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -872,6 +888,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -915,6 +932,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -1002,6 +1020,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1041,6 +1060,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -1104,6 +1124,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Mass 
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1157,6 +1178,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Organ
       fill="none"
       viewBox="0 0 16 16"
       width="12.5"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1228,6 +1250,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1275,6 +1298,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1322,6 +1346,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1373,6 +1398,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1403,6 +1429,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1485,6 +1512,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1534,6 +1562,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1637,7 +1666,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: PubMe
         data-testid="expandable-message"
         type="button"
       >
-        More items
+        2 more items
       </button>
     </li>
   </ul>
@@ -1665,6 +1694,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: RNA E
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1699,6 +1729,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: RNA E
             height="12"
             viewBox="0 0 10 15"
             width="12"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M10 0H0v15l5-5 5 5V0z"
@@ -1740,6 +1771,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Redox
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1852,6 +1884,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
         fill="none"
         viewBox="0 0 16 16"
         width="12.5"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1876,6 +1909,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1914,6 +1948,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
         fill="none"
         viewBox="0 0 16 16"
         width="12.5"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1938,6 +1973,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -1994,6 +2030,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -2024,6 +2061,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -2058,6 +2096,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
           height="12"
           viewBox="0 0 10 15"
           width="12"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             d="M10 0H0v15l5-5 5 5V0z"
@@ -2100,6 +2139,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Tempe
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -2137,6 +2177,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Varia
       height="100"
       viewBox="0 0 100 100"
       width="100"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <g
         fill="none"
@@ -2254,6 +2295,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: pH De
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"

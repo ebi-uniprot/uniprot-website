@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 export enum UniRefColumn {
@@ -19,6 +21,18 @@ export enum UniRefColumn {
   count = 'count',
   created = 'created',
 }
+
+export const defaultColumns = [
+  UniRefColumn.id,
+  UniRefColumn.name,
+  UniRefColumn.types,
+  UniRefColumn.count,
+  UniRefColumn.organism,
+  UniRefColumn.length,
+  UniRefColumn.identity,
+];
+
+export const primaryKeyColumn = UniRefColumn.id;
 
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,

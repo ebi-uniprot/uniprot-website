@@ -11,7 +11,7 @@ import {
   AlternativeProductsComment,
 } from '../types/commentTypes';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
-import EntrySection, { EntrySectionIDs } from '../types/entrySection';
+import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
 
 enum highlightSection {
   domains = 'domain',
@@ -33,31 +33,31 @@ const highlightToEntrySection: {
   };
 } = {
   [highlightSection.domains]: {
-    link: `#${EntrySectionIDs[EntrySection.Function]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Function).id}`,
   },
   [highlightSection.PTM]: {
-    link: `#${EntrySectionIDs[EntrySection.ProteinProcessing]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.ProteinProcessing).id}`,
   },
   [highlightSection.variants]: {
-    link: `#${EntrySectionIDs[EntrySection.DiseaseAndDrugs]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).id}`,
   },
   [highlightSection.activeSites]: {
-    link: `#${EntrySectionIDs[EntrySection.Function]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Function).id}`,
   },
   [highlightSection.isoforms]: {
-    link: `#${EntrySectionIDs[EntrySection.Sequence]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Sequence).id}`,
   },
   [highlightSection.structures]: {
-    link: `#${EntrySectionIDs[EntrySection.Structure]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Structure).id}`,
   },
   [highlightSection.disease]: {
-    link: `#${EntrySectionIDs[EntrySection.DiseaseAndDrugs]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).id}`,
   },
   [highlightSection.interactions]: {
-    link: `#${EntrySectionIDs[EntrySection.Interaction]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.Interaction).id}`,
   },
   [highlightSection.subcell]: {
-    link: `#${EntrySectionIDs[EntrySection.SubCellularLocation]}`,
+    link: `#${getEntrySectionNameAndId(EntrySection.SubCellularLocation).id}`,
   },
   [highlightSection.publications]: {
     link: '/publications',

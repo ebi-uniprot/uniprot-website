@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColumnSelectDragDrop component should render 1`] = `
+<DocumentFragment>
+  <div
+    class="column-select-drag-drop__list"
+    data-rbd-droppable-context-id="0"
+    data-rbd-droppable-id="droppable"
+  >
+    <div
+      aria-describedby="rbd-hidden-text-0-hidden-text-0"
+      class="button column-select-drag-drop__list__item"
+      data-rbd-drag-handle-context-id="0"
+      data-rbd-drag-handle-draggable-id="id"
+      data-rbd-draggable-context-id="0"
+      data-rbd-draggable-id="id"
+      draggable="false"
+      role="button"
+      tabindex="0"
+    >
+      Entry Name
+      <button
+        class="column-select-drag-drop__list__item__button"
+        data-testid="column-select-dnd-remove-button"
+        type="button"
+      >
+        <svg
+          class="column-select-drag-drop__list__item__button__icon"
+          fill="currentColor"
+          viewBox="0 0 352 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      aria-describedby="rbd-hidden-text-0-hidden-text-0"
+      class="button column-select-drag-drop__list__item"
+      data-rbd-drag-handle-context-id="0"
+      data-rbd-drag-handle-draggable-id="protein_name"
+      data-rbd-draggable-context-id="0"
+      data-rbd-draggable-id="protein_name"
+      draggable="false"
+      role="button"
+      tabindex="0"
+    >
+      Protein names
+      <button
+        class="column-select-drag-drop__list__item__button"
+        data-testid="column-select-dnd-remove-button"
+        type="button"
+      >
+        <svg
+          class="column-select-drag-drop__list__item__button__icon"
+          fill="currentColor"
+          viewBox="0 0 352 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      aria-describedby="rbd-hidden-text-0-hidden-text-0"
+      class="button column-select-drag-drop__list__item"
+      data-rbd-drag-handle-context-id="0"
+      data-rbd-drag-handle-draggable-id="gene_names"
+      data-rbd-draggable-context-id="0"
+      data-rbd-draggable-id="gene_names"
+      draggable="false"
+      role="button"
+      tabindex="0"
+    >
+      Gene Names
+      <button
+        class="column-select-drag-drop__list__item__button"
+        data-testid="column-select-dnd-remove-button"
+        type="button"
+      >
+        <svg
+          class="column-select-drag-drop__list__item__button__icon"
+          fill="currentColor"
+          viewBox="0 0 352 512"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,11 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { cleanup, fireEvent } from '@testing-library/react';
-import ResultsContainer from '../ResultsContainer';
+import ResultsContainer, { ViewMode } from '../ResultsContainer';
 import { act } from 'react-dom/test-utils';
-import resultsInitialState, {
-  ViewMode,
-} from '../../../../uniprotkb/state/resultsInitialState';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
@@ -47,19 +44,9 @@ describe('Results component', () => {
 
   test('should toggle card view to table', async () => {
     await act(async () => {
-      const state = {
-        results: {
-          ...resultsInitialState,
-          viewMode: ViewMode.TABLE,
-          results: {
-            data: [{}],
-          },
-        },
-      };
       const { container, findByTestId, findByText } = renderWithRedux(
         <ResultsContainer />,
         {
-          initialState: state,
           route: '/uniprotkb?query=blah',
         }
       );
@@ -73,12 +60,11 @@ describe('Results component', () => {
 
   test('should set sorting', async () => {
     const state = {
-      results: { ...resultsInitialState, viewMode: ViewMode.TABLE },
+      results: { viewMode: ViewMode.TABLE },
     };
     // NOTE: not sure act() should wrap that much code
     await act(async () => {
       const { history, findByText } = renderWithRedux(<ResultsContainer />, {
-        initialState: state,
         route: '/uniprotkb?query=blah',
       });
       let columnHeader = await findByText('Entry');
@@ -100,12 +86,7 @@ describe('Results component', () => {
   });
 
   test('should display no results page', async () => {
-    const state = {
-      results: { ...resultsInitialState },
-    };
-
     const { findByTestId } = renderWithRedux(<ResultsContainer />, {
-      initialState: state,
       route: '/uniprotkb?query=noresult',
     });
 

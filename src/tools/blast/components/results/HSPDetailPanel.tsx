@@ -2,7 +2,9 @@
 /* eslint-disable camelcase */
 import React, { FC, useMemo } from 'react';
 import { Loader, CloseIcon } from 'franklin-sites';
-import SlidingPanel from '../../../../shared/components/layouts/SlidingPanel';
+import SlidingPanel, {
+  Position,
+} from '../../../../shared/components/layouts/SlidingPanel';
 import { BlastHsp } from '../../types/blastResults';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
@@ -131,7 +133,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   }
 
   return (
-    <SlidingPanel position="bottom" className={containerClass}>
+    <SlidingPanel position={Position.bottom} className={containerClass}>
       {content}
     </SlidingPanel>
   );

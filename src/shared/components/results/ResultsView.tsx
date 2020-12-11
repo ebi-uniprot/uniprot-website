@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, generatePath } from 'react-router-dom';
 
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
@@ -8,45 +8,41 @@ import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import {
+  UniRefAPIModel,
+  UniRefLiteAPIModel,
+} from '../../../uniref/adapters/uniRefConverter';
 
-import { ViewMode } from '../../../uniprotkb/state/resultsInitialState';
-
-import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
+import { getAPIQueryUrl } from '../../config/apiUrls';
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import UniRefColumnConfiguration, {
-  UniRefColumn,
-} from '../../../uniref/config/UniRefColumnConfiguration';
+import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
+import usePrefetch from '../../hooks/usePrefetch';
 
-import getNextUrlFromResponse from '../../../uniprotkb/utils/queryUtils';
+import getNextUrlFromResponse from '../../utils/queryUtils';
 import {
   getParamsFromURL,
   getLocationObjForParams,
-  getSortableColumnToSortColumn,
 } from '../../../uniprotkb/utils/resultsUtils';
+import { EntryLocations } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
-import {
-  SortDirection,
-  ReceivedFieldData,
-} from '../../../uniprotkb/types/resultsTypes';
-import {
-  SortableColumn,
-  UniProtKBColumn,
-} from '../../../uniprotkb/types/columnTypes';
+import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { Column } from '../../config/columns';
+import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import { AllColumns } from './ResultsContainer';
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: AllColumns;
+  columns: Column[];
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
+  sortableColumnToSortColumn: Map<Column, string>;
 };
 
 const convertRow = (
@@ -88,15 +84,20 @@ const ResultsView: FC<ResultsTableProps> = ({
   columns,
   viewMode,
   handleEntrySelection,
+  sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const history = useHistory();
   const location = useLocation();
 
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
-    queryParamFromUrl
-  );
+  const {
+    query,
+    selectedFacets,
+    sortColumn,
+    sortDirection,
+    direct,
+  } = getParamsFromURL(queryParamFromUrl);
 
   const initialApiUrl = getAPIQueryUrl({
     namespace,
@@ -109,24 +110,36 @@ const ResultsView: FC<ResultsTableProps> = ({
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
-    nextUrl: string | undefined;
-  }>({ total: 0, nextUrl: undefined });
-  const [allResults, setAllResults] = useState<UniProtkbAPIModel[]>([]);
-  const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
-    Map<UniProtKBColumn | UniRefColumn, string>
-  >();
+    nextUrl?: string;
+  }>(() => ({ total: 0, nextUrl: undefined }));
+  usePrefetch(metaData.nextUrl);
+  const [allResults, setAllResults] = useState<
+    Array<UniProtkbAPIModel | UniRefAPIModel>
+  >([]);
 
   const { data, headers } = useDataApi<{
     results: UniProtkbAPIModel[];
   }>(url);
-  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields
-  );
 
   const prevViewMode = useRef<ViewMode>();
   useEffect(() => {
     prevViewMode.current = viewMode;
   });
+
+  // redirect to entry directly when only 1 result and query marked as "direct"
+  useEffect(() => {
+    if (direct && metaData.total === 1 && allResults.length === 1) {
+      const uniqueItem = allResults[0];
+      history.replace({
+        pathname: generatePath(EntryLocations[namespace], {
+          accession:
+            'primaryAccession' in uniqueItem
+              ? uniqueItem.primaryAccession
+              : uniqueItem.id,
+        }),
+      });
+    }
+  }, [history, direct, metaData, allResults, namespace]);
 
   useEffect(() => {
     setAllResults([]);
@@ -141,24 +154,12 @@ const ResultsView: FC<ResultsTableProps> = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: headers['x-totalrecords'],
-      nextUrl: getNextUrlFromResponse(headers.link),
+      total: +(headers?.['x-totalrecords'] || 0),
+      nextUrl: getNextUrlFromResponse(headers?.link),
     }));
   }, [data, headers]);
 
-  useEffect(() => {
-    if (!dataResultFields) return;
-    setSortableColumnToSortColumn(
-      getSortableColumnToSortColumn(dataResultFields)
-    );
-  }, [dataResultFields]);
-
-  if (
-    allResults.length === 0 ||
-    !sortableColumnToSortColumn ||
-    sortableColumnToSortColumn.size === 0 ||
-    prevViewMode.current !== viewMode
-  ) {
+  if (allResults.length === 0 || prevViewMode.current !== viewMode) {
     return <Loader />;
   }
 
@@ -222,7 +223,6 @@ const ResultsView: FC<ResultsTableProps> = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
-        scrollDataAttribute="sidebar-content"
       />
     );
   } else {
@@ -264,7 +264,6 @@ const ResultsView: FC<ResultsTableProps> = ({
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={<Loader />}
-        scrollDataAttribute="sidebar-content"
       />
     );
   }

@@ -15,16 +15,19 @@ const facetsAsArray = (facetString: string): SelectedFacet[] => {
     };
   });
 };
+
 export type URLResultParams = {
   query: string;
   selectedFacets: SelectedFacet[];
   sortColumn: SortableColumn;
   sortDirection: SortDirection;
   activeFacet?: string;
+  direct?: boolean;
 };
+
 export const getParamsFromURL = (url: string): URLResultParams => {
-  const urlParams = queryStringModule.parse(url);
-  const { query, facets, sort, dir, activeFacet } = urlParams;
+  const urlParams = queryStringModule.parse(url, { parseBooleans: true });
+  const { query, facets, sort, dir, activeFacet, direct } = urlParams;
 
   let selectedFacets: SelectedFacet[] = [];
   if (facets && typeof facets === 'string') {
@@ -39,6 +42,7 @@ export const getParamsFromURL = (url: string): URLResultParams => {
     selectedFacets,
     sortColumn: sort as SortableColumn,
     sortDirection: sortDirection && SortDirection[sortDirection],
+    direct: Boolean(direct),
   };
 };
 
@@ -87,7 +91,9 @@ export const getSortableColumnToSortColumn = (
   const sortableColumnToSortColumn = new Map<UniProtKBColumn, string>();
   resultFields.forEach(({ fields }) => {
     fields.forEach(({ name, sortField }) => {
-      if (sortField) sortableColumnToSortColumn.set(name, sortField);
+      if (sortField) {
+        sortableColumnToSortColumn.set(name as UniProtKBColumn, sortField);
+      }
     });
   });
   return sortableColumnToSortColumn;

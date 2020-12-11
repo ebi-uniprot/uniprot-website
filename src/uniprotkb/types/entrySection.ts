@@ -1,29 +1,102 @@
-enum EntrySection {
-  Function = 'Function',
-  FamilyAndDomains = 'Family & Domains',
-  Expression = 'Expression',
-  Interaction = 'Interaction',
-  NamesAndTaxonomy = 'Names & Taxonomy',
-  DiseaseAndDrugs = 'Disease & Drugs',
-  ProteinProcessing = 'PTM/Processing',
-  Sequence = 'Sequence & Isoforms',
-  Structure = 'Structure',
-  SubCellularLocation = 'Subcellular Location',
-  ExternalLinks = 'External Links',
+export enum EntrySection {
+  Function = 'function',
+  FamilyAndDomains = 'family-and-domains',
+  Expression = 'expression',
+  Interaction = 'interaction',
+  NamesAndTaxonomy = 'names-and-taxonomy',
+  DiseaseAndDrugs = 'disease-and-drugs',
+  Phenotypes = 'phenotypes',
+  ProteinProcessing = 'ptm-processing',
+  Sequence = 'sequence',
+  Structure = 'structure',
+  SubCellularLocation = 'subcellular-location',
+  ExternalLinks = 'external-links',
 }
 
-export default EntrySection;
-
-export const EntrySectionIDs = {
-  [EntrySection.Function]: 'function',
-  [EntrySection.FamilyAndDomains]: 'family-and-domains',
-  [EntrySection.Expression]: 'expression',
-  [EntrySection.Interaction]: 'interaction',
-  [EntrySection.NamesAndTaxonomy]: 'names-and-taxonomy',
-  [EntrySection.DiseaseAndDrugs]: 'disease-and-drugs',
-  [EntrySection.ProteinProcessing]: 'ptm-processing',
-  [EntrySection.Sequence]: 'sequence',
-  [EntrySection.Structure]: 'structure',
-  [EntrySection.SubCellularLocation]: 'subcellular-location',
-  [EntrySection.ExternalLinks]: 'external-links',
+export type EntrySectionNameAndId = {
+  name: string;
+  id: EntrySection;
 };
+
+export const getEntrySectionNameAndId = (
+  section: EntrySection,
+  taxId?: number,
+  numberOfIsoforms?: number
+  // eslint-disable-next-line consistent-return
+): EntrySectionNameAndId => {
+  // eslint-disable-next-line default-case
+  switch (section) {
+    case EntrySection.Function:
+      return {
+        name: 'Function',
+        id: EntrySection.Function,
+      };
+    case EntrySection.FamilyAndDomains:
+      return {
+        name: 'Family & Domains',
+        id: EntrySection.FamilyAndDomains,
+      };
+    case EntrySection.Expression:
+      return {
+        name: 'Expression',
+        id: EntrySection.Expression,
+      };
+    case EntrySection.Interaction:
+      return {
+        name: 'Interaction',
+        id: EntrySection.Interaction,
+      };
+    case EntrySection.NamesAndTaxonomy:
+      return {
+        name: 'Names & Taxonomy',
+        id: EntrySection.NamesAndTaxonomy,
+      };
+    case EntrySection.ProteinProcessing:
+      return {
+        name: 'PTM/Processing',
+        id: EntrySection.ProteinProcessing,
+      };
+    case EntrySection.Structure:
+      return {
+        name: 'Structure',
+        id: EntrySection.Structure,
+      };
+    case EntrySection.SubCellularLocation:
+      return {
+        name: 'Subcellular Location',
+        id: EntrySection.SubCellularLocation,
+      };
+    case EntrySection.ExternalLinks:
+      return {
+        name: 'External Links',
+        id: EntrySection.ExternalLinks,
+      };
+    case EntrySection.DiseaseAndDrugs:
+    case EntrySection.Phenotypes:
+      return taxId && taxId === 9606
+        ? {
+            name: 'Disease & Drugs',
+            id: EntrySection.DiseaseAndDrugs,
+          }
+        : {
+            name: 'Phenotypes',
+            id: EntrySection.Phenotypes,
+          };
+
+    case EntrySection.Sequence: {
+      let name = 'Sequence';
+      // Note: each entry will have at least one isoform -- the canonical one.
+      if (!!numberOfIsoforms && numberOfIsoforms > 2) {
+        name = 'Sequence & Isoforms';
+      }
+
+      if (!!numberOfIsoforms && numberOfIsoforms === 2) {
+        name = 'Sequence & Isoform';
+      }
+
+      return { name, id: EntrySection.Sequence };
+    }
+  }
+};
+
+export default EntrySection;

@@ -29,6 +29,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -64,6 +65,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -112,6 +114,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -147,6 +150,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
         height="12"
         viewBox="0 0 10 15"
         width="12"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M10 0H0v15l5-5 5 5V0z"
@@ -169,7 +173,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
 </DocumentFragment>
 `;
 
-exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present  1`] = `
+exports[`ReactionDirection component should render ReactionDirection when one physiologicalReactions is present 1`] = `
 <DocumentFragment>
   This reaction proceeds in the 
   <span
@@ -190,6 +194,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -210,7 +215,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
 </DocumentFragment>
 `;
 
-exports[`ReactionDirection component should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards)  1`] = `
+exports[`ReactionDirection component should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards) 1`] = `
 <DocumentFragment>
   This reaction proceeds in the 
   <span
@@ -230,6 +235,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -265,6 +271,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
       height="12"
       viewBox="0 0 10 15"
       width="12"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M10 0H0v15l5-5 5 5V0z"
@@ -305,6 +312,7 @@ exports[`ZoomModalContent component should render 1`] = `
         height="100"
         viewBox="0 0 100 100"
         width="100"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <g
           fill="none"

@@ -108,6 +108,7 @@ const commentsCategories = [
   CommentType.PATHWAY,
   CommentType.CAUTION,
   CommentType.MISCELLANEOUS,
+  CommentType.BIOTECHNOLOGY,
 ];
 
 const convertFunction = (data: UniProtkbAPIModel) => {

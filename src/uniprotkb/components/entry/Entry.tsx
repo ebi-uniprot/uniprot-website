@@ -15,8 +15,9 @@ import {
   Tab,
 } from 'franklin-sites';
 
-import { fileFormatEntryDownload } from '../../types/resultsTypes';
-import EntrySection from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import {
   MessageLevel,
   MessageFormat,
@@ -48,6 +49,7 @@ import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
+import { fileFormatEntryDownload } from '../../config/download';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -58,7 +60,7 @@ import uniProtKbConverter, {
 } from '../../adapters/uniProtkbConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import '../../../shared/styles/sticky-tabs-container.scss';
+import '../../../shared/styles/sticky.scss';
 
 enum TabLocation {
   Entry = 'entry',
@@ -97,19 +99,31 @@ const Entry: FC = () => {
     [data]
   );
 
-  const sections = useMemo(
-    () =>
-      transformedData &&
-      UniProtKBEntryConfig.map((section) => ({
-        label: section.name,
-        id: section.id,
-        disabled:
-          section.name === EntrySection.ExternalLinks
-            ? !hasExternalLinks(transformedData)
-            : !hasContent(transformedData[section.name]),
-      })),
-    [transformedData]
-  );
+  const sections = useMemo(() => {
+    if (transformedData) {
+      const taxId =
+        transformedData[EntrySection.NamesAndTaxonomy].organismData?.taxonId;
+      const numberOfIsoforms =
+        transformedData[EntrySection.Sequence].alternativeProducts?.isoforms
+          .length;
+      return UniProtKBEntryConfig.map((section) => {
+        const nameAndId = getEntrySectionNameAndId(
+          section.id,
+          taxId,
+          numberOfIsoforms
+        );
+        return {
+          label: nameAndId.name,
+          id: nameAndId.id,
+          disabled:
+            nameAndId.id === EntrySection.ExternalLinks
+              ? !hasExternalLinks(transformedData)
+              : !hasContent(transformedData[nameAndId.id]),
+        };
+      });
+    }
+    return false;
+  }, [transformedData]);
 
   const listOfIsoformAccessions = useMemo(
     () => getListOfIsoformAccessions(data),
@@ -204,6 +218,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Entry}`,
+                hash: undefined,
               })}
             >
               Entry
@@ -226,8 +241,7 @@ const Entry: FC = () => {
                   Download
                 </>
               }
-              className="tertiary"
-              // onSelect={action('onSelect')}
+              variant="tertiary"
             >
               <div className="dropdown-menu__content">
                 <ul>
@@ -256,6 +270,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.FeatureViewer}`,
+                hash: undefined,
               })}
             >
               Feature viewer
@@ -271,6 +286,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.Publications}`,
+                hash: undefined,
               })}
             >
               Publications
@@ -286,6 +302,7 @@ const Entry: FC = () => {
               to={(location) => ({
                 ...location,
                 pathname: `/uniprotkb/${match.params.accession}/${TabLocation.ExternalLinks}`,
+                hash: undefined,
               })}
             >
               External links

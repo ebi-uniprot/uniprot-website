@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { generatePath, Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   SpinnerIcon,
   TremblIcon,
@@ -7,11 +7,11 @@ import {
   UniParcIcon,
 } from 'franklin-sites';
 
+import MemberLink from '../entry/MemberLink';
+
 import { UseDataAPIState } from '../../../shared/hooks/useDataApi';
 
 import { getBEMClassName } from '../../../shared/utils/utils';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
 import { Facet } from '../../../uniprotkb/types/responseTypes';
@@ -95,18 +95,18 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
   );
 };
 
-export const Seed: FC<{ seed: string }> = ({ seed }) => {
-  const path = generatePath(
-    LocationToPath[
-      seed.startsWith('UPI') ? Location.UniParcEntry : Location.UniProtKBEntry
-    ],
-    { accession: seed }
-  );
+export const Seed: FC<{ seedId: string }> = ({ seedId }) => (
+  <strong>
+    Built on seed sequence <MemberLink accession={seedId} />
+  </strong>
+);
 
+export const Updated: FC<{ updated: string }> = ({ updated }) => {
+  const date = new Date(updated);
   return (
-    <strong>
-      Built on seed sequence <Link to={path}>{seed}</Link>
-    </strong>
+    <>
+      Updated:&nbsp;<time dateTime={date.toISOString()}>{updated}</time>
+    </>
   );
 };
 
@@ -114,23 +114,12 @@ export const Overview: FC<
   MemberIconsProps & {
     transformedData: UniRefUIModel;
   }
-> = ({ transformedData, facetData }) => {
-  const { name } = transformedData;
-  const updated = (
-    <>
-      Updated:&nbsp;
-      <time dateTime={new Date(transformedData.updated).toISOString()}>
-        {transformedData.updated}
-      </time>
-    </>
-  );
-
-  return (
-    <section>
-      {name} · <MemberIcons facetData={facetData} /> · {updated} ·{' '}
-      <Seed seed={transformedData.seed || 'temporary placeholder'} />
-    </section>
-  );
-};
+> = ({ transformedData, facetData }) => (
+  <section>
+    {transformedData.name} · <MemberIcons facetData={facetData} /> ·{' '}
+    <Updated updated={transformedData.updated} /> ·{' '}
+    <Seed seedId={transformedData.seedId} />
+  </section>
+);
 
 export default Overview;

@@ -44,6 +44,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -80,6 +81,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -118,6 +120,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -152,6 +155,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -198,6 +202,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -228,6 +233,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -273,6 +279,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -312,6 +319,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -350,6 +358,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -387,6 +396,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -424,6 +434,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -450,6 +461,7 @@ exports[`Entry view should render 1`] = `
               height="100"
               viewBox="0 0 100 100"
               width="100"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <g
                 fill="none"
@@ -530,6 +542,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -605,6 +618,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -652,6 +666,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -699,6 +714,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -750,6 +766,7 @@ exports[`Entry view should render 1`] = `
                         height="12"
                         viewBox="0 0 10 15"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10 0H0v15l5-5 5 5V0z"
@@ -780,6 +797,7 @@ exports[`Entry view should render 1`] = `
                         height="12"
                         viewBox="0 0 10 15"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10 0H0v15l5-5 5 5V0z"
@@ -862,6 +880,7 @@ exports[`Entry view should render 1`] = `
                         height="12"
                         viewBox="0 0 10 15"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M10 0H0v15l5-5 5 5V0z"
@@ -911,6 +930,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -997,6 +1017,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -1044,6 +1065,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -1091,6 +1113,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -1138,6 +1161,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -1196,6 +1220,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -1246,6 +1271,7 @@ exports[`Entry view should render 1`] = `
                     fill="none"
                     viewBox="0 0 16 16"
                     width="12.5"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1401,6 +1427,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -1431,6 +1458,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -1465,6 +1493,7 @@ exports[`Entry view should render 1`] = `
                   height="12"
                   viewBox="0 0 10 15"
                   width="12"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M10 0H0v15l5-5 5 5V0z"
@@ -1529,6 +1558,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1618,6 +1648,7 @@ exports[`Entry view should render 1`] = `
                     fill="none"
                     viewBox="0 0 16 16"
                     width="12.5"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1657,6 +1688,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -1683,6 +1715,7 @@ exports[`Entry view should render 1`] = `
               height="100"
               viewBox="0 0 100 100"
               width="100"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <g
                 fill="none"
@@ -1869,6 +1902,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -1915,6 +1949,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -2021,6 +2056,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -2067,6 +2103,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -2102,7 +2139,7 @@ exports[`Entry view should render 1`] = `
           <h2
             class="card__title"
           >
-            Sequence & Isoforms
+            Sequence
           </h2>
         </div>
         <div
@@ -2251,6 +2288,7 @@ exports[`Entry view should render 1`] = `
                 fill="none"
                 viewBox="0 0 16 16"
                 width="12.5"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -2275,6 +2313,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2315,6 +2354,7 @@ exports[`Entry view should render 1`] = `
                 height="12"
                 viewBox="0 0 10 15"
                 width="12"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   d="M10 0H0v15l5-5 5 5V0z"
@@ -2355,6 +2395,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -2389,6 +2430,7 @@ exports[`Entry view should render 1`] = `
                     height="12"
                     viewBox="0 0 10 15"
                     width="12"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M10 0H0v15l5-5 5 5V0z"
@@ -2445,6 +2487,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -2468,6 +2511,7 @@ exports[`Entry view should render 1`] = `
                         fill="none"
                         viewBox="0 0 16 16"
                         width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
                           d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
@@ -2486,6 +2530,2264 @@ exports[`Entry view should render 1`] = `
                       Q9NXB0-1
                     </a>
                     ]
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    class="hero-container"
+  >
+    <section>
+      <em>
+        Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
+      </em>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Entry view should render for non-human entry 1`] = `
+<DocumentFragment>
+  <div
+    data-entry-section="true"
+    id="function"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Function
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <section
+            class="text-block"
+          >
+            One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </section>
+          <h3>
+            catalytic activity
+          </h3>
+          <span
+            class="text-block"
+          >
+            <strong />
+             an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </span>
+          <h3>
+            cofactor
+          </h3>
+          <section
+            class="text-block"
+          >
+            <span>
+              a divalent metal cation 
+              <button
+                aria-controls="<UUID>"
+                aria-expanded="false"
+                class="evidence-tag svg-colour-reviewed"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="12"
+                  viewBox="0 0 10 15"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10 0H0v15l5-5 5 5V0z"
+                  />
+                </svg>
+                <span
+                  class="evidence-tag__label"
+                  title=""
+                >
+                  1 publication
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="<UUID>"
+              />
+            </span>
+          </section>
+          <h3
+            style="text-transform: capitalize;"
+          >
+            miscellaneous
+          </h3>
+          <section
+            class="text-block"
+          >
+            DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </section>
+          <h3
+            style="text-transform: capitalize;"
+          >
+            biotechnology
+          </h3>
+          <section
+            class="text-block"
+          >
+            5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </section>
+          <h3>
+            Kinetics
+          </h3>
+          <section
+            class="text-block"
+          >
+            <ul
+              class="no-bullet"
+            >
+              <li>
+                K
+                <sub>
+                  M
+                </sub>
+                =340uM for A antigen type 1 penta-MU 
+                <button
+                  aria-controls="<UUID>"
+                  aria-expanded="false"
+                  class="evidence-tag svg-colour-reviewed"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="12"
+                    viewBox="0 0 10 15"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 0H0v15l5-5 5 5V0z"
+                    />
+                  </svg>
+                  <span
+                    class="evidence-tag__label"
+                    title=""
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="<UUID>"
+                />
+              </li>
+            </ul>
+          </section>
+          <section
+            class="text-block"
+          />
+          <h3>
+            pH Dependence
+          </h3>
+          <section
+            class="text-block"
+          >
+            Optimum pH is 8.0.
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </section>
+          <h3
+            style="text-transform: capitalize;"
+          >
+            activity regulation
+          </h3>
+          <section
+            class="text-block"
+          >
+            Inhibited by EDTA
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </section>
+          <h3>
+            Features
+          </h3>
+          <p>
+            Showing features for other domain of interest, region of interest, metal ion-binding site, other binding site.
+          </p>
+          <protvista-manager
+            attributes="highlight displaystart displayend selectedid"
+          >
+            <protvista-navigation
+              length="772"
+            />
+            <protvista-track
+              layout="non-overlapping"
+              length="772"
+            />
+            <protvista-sequence
+              height="20"
+              length="772"
+              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+            />
+            <protvista-datatable
+              filter-scroll="true"
+            />
+            <div
+              class="evidence-tag-content false"
+            />
+          </protvista-manager>
+          <div
+            class="GoRibbon"
+          >
+            <h3>
+              GO Annotations
+            </h3>
+          </div>
+          <h3>
+            Keywords
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Molecular function
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <a
+                  href="/keywords/KW-0326"
+                >
+                   #Glycosidase
+                </a>
+                 
+                <a
+                  href="/keywords/KW-0378"
+                >
+                   #Hydrolase
+                </a>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Ligand
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <a
+                  href="/keywords/KW-0479"
+                >
+                   #Metal-binding
+                </a>
+              </div>
+            </div>
+          </div>
+          <h3>
+            Enzyme and pathway databases
+          </h3>
+          <div
+            class="info-list info-list--columns"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  ENZYME
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://enzyme.expasy.org/EC/3.5.1.-"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Search...
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    data-entry-section="true"
+    id="names-and-taxonomy"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Names & Taxonomy
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <h3>
+            Protein names
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Recommended name
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                A type blood N-acetyl-alpha-D-galactosamine deacetylase 
+                <button
+                  aria-controls="<UUID>"
+                  aria-expanded="false"
+                  class="evidence-tag svg-colour-reviewed"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="12"
+                    viewBox="0 0 10 15"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 0H0v15l5-5 5 5V0z"
+                    />
+                  </svg>
+                  <span
+                    class="evidence-tag__label"
+                    title=""
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="<UUID>"
+                />
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  EC number
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                3.5.1.- 
+                <button
+                  aria-controls="<UUID>"
+                  aria-expanded="false"
+                  class="evidence-tag svg-colour-reviewed"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <svg
+                    fill="currentColor"
+                    height="12"
+                    viewBox="0 0 10 15"
+                    width="12"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10 0H0v15l5-5 5 5V0z"
+                    />
+                  </svg>
+                  <span
+                    class="evidence-tag__label"
+                    title=""
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="<UUID>"
+                />
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Alternative names
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    CBM32 
+                    <button
+                      aria-controls="<UUID>"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <svg
+                        fill="currentColor"
+                        height="12"
+                        viewBox="0 0 10 15"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0H0v15l5-5 5 5V0z"
+                        />
+                      </svg>
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="<UUID>"
+                    />
+                  </li>
+                  <li>
+                    FpGalNAc deacetylase (FpGalNAcDeAc 
+                    <button
+                      aria-controls="<UUID>"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <svg
+                        fill="currentColor"
+                        height="12"
+                        viewBox="0 0 10 15"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0H0v15l5-5 5 5V0z"
+                        />
+                      </svg>
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="<UUID>"
+                    />
+                    ) 
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <h3>
+            Organism names
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Organism
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <a
+                  href="/taxonomy/292800"
+                >
+                  Flavonifractor plautii (Fusobacterium plautii)
+                </a>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Taxonomic identifier
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <a
+                  href="/taxonomy/292800"
+                >
+                  292800 
+                </a>
+                <a
+                  class="external-link"
+                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=292800"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  NCBI
+                  <svg
+                    fill="none"
+                    viewBox="0 0 16 16"
+                    width="12.5"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                      fill="currentColor"
+                    />
+                    <path
+                      d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Taxonomic lineage
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                Bacteria &gt; Firmicutes &gt; Clostridia &gt; Clostridiales &gt; Ruminococcaceae &gt; Flavonifractor
+              </div>
+            </div>
+          </div>
+          <h3>
+            Accessions
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Primary accession
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                P0DTR4
+              </div>
+            </div>
+          </div>
+          <h3>
+            Proteome
+          </h3>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    data-entry-section="true"
+    id="phenotypes"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Phenotypes
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <h3>
+            Features
+          </h3>
+          <p>
+            Showing features for mutagenesis site.
+          </p>
+          <protvista-manager
+            attributes="highlight displaystart displayend selectedid"
+          >
+            <protvista-navigation
+              length="772"
+            />
+            <protvista-track
+              layout="non-overlapping"
+              length="772"
+            />
+            <protvista-sequence
+              height="20"
+              length="772"
+              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+            />
+            <protvista-datatable
+              filter-scroll="true"
+            />
+            <div
+              class="evidence-tag-content false"
+            />
+          </protvista-manager>
+          <div
+            class="loader-container"
+          >
+            <svg
+              class="loader"
+              height="100"
+              viewBox="0 0 100 100"
+              width="100"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
+                  stroke="#3ca3ca"
+                  stroke-linecap="square"
+                  stroke-width="2"
+                />
+                <circle
+                  cx="9"
+                  cy="50"
+                  fill="#3ca3ca"
+                  r="6"
+                />
+                <circle
+                  cx="30"
+                  cy="34"
+                  fill="#3ca3ca"
+                  r="6"
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  fill="#3ca3ca"
+                  r="6"
+                />
+                <circle
+                  cx="70"
+                  cy="66"
+                  fill="#3ca3ca"
+                  r="6"
+                />
+                <circle
+                  cx="91"
+                  cy="50"
+                  fill="#3ca3ca"
+                  r="6"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    data-entry-section="true"
+    id="ptm-processing"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            PTM/Processing
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <h3>
+            Features
+          </h3>
+          <p>
+            Showing features for signal peptide, chain.
+          </p>
+          <protvista-manager
+            attributes="highlight displaystart displayend selectedid"
+          >
+            <protvista-navigation
+              length="772"
+            />
+            <protvista-track
+              layout="non-overlapping"
+              length="772"
+            />
+            <protvista-sequence
+              height="20"
+              length="772"
+              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+            />
+            <protvista-datatable
+              filter-scroll="true"
+            />
+            <div
+              class="evidence-tag-content false"
+            />
+          </protvista-manager>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    data-entry-section="true"
+    id="structure"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Structure
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <protvista-manager
+            attributes="pdb-id"
+          >
+            <protvista-structure
+              accession="P0DTR4"
+              pdb-id="6N1A"
+            />
+            <protvista-datatable
+              filter-scroll="true"
+              nodeselect="true"
+              noscrolltorow="true"
+              selectedid="6N1A"
+            />
+          </protvista-manager>
+          <h3>
+            3D structure databases
+          </h3>
+          <div
+            class="info-list info-list--columns"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  ModBase
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Search...
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  PDBe-KB
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://pdbe-kb.org/proteins/P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Search...
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  SWISS-MODEL-Workspace
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://swissmodel.expasy.org/interactive/?ac=P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Submit a new modelling project...
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    data-entry-section="true"
+    id="family-and-domains"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Family & Domains
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <h3>
+            Features
+          </h3>
+          <p>
+            Showing features for other domain of interest, region of interest.
+          </p>
+          <protvista-manager
+            attributes="highlight displaystart displayend selectedid"
+          >
+            <protvista-navigation
+              length="772"
+            />
+            <protvista-track
+              layout="non-overlapping"
+              length="772"
+            />
+            <protvista-sequence
+              height="20"
+              length="772"
+              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+            />
+            <protvista-datatable
+              filter-scroll="true"
+            />
+            <div
+              class="evidence-tag-content false"
+            />
+          </protvista-manager>
+          <h3
+            style="text-transform: capitalize;"
+          >
+            domain
+          </h3>
+          <section
+            class="text-block"
+          >
+            The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
+            <button
+              aria-controls="<UUID>"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <svg
+                fill="currentColor"
+                height="12"
+                viewBox="0 0 10 15"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 0H0v15l5-5 5 5V0z"
+                />
+              </svg>
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="<UUID>"
+            />
+          </section>
+          <h3>
+            Keywords
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Domain
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <a
+                  href="/keywords/KW-0732"
+                >
+                   #Signal
+                </a>
+              </div>
+            </div>
+          </div>
+          <h3>
+            Family and domain databases
+          </h3>
+          <div
+            class="info-list info-list--columns"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Gene3D
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://www.cathdb.info/superfamily/2.115.10.20"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      2.115.10.20
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      1 hit 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://www.cathdb.info/superfamily/2.60.120.260"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      2.60.120.260
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      2 hits 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  InterPro
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/interpro/protein/P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      View protein in InterPro
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/interpro/entry/IPR003343"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      IPR003343
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     Big_2 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/interpro/entry/IPR000421"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      IPR000421
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     FA58C 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/interpro/entry/IPR008979"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      IPR008979
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     Galactose-bd-like_sf 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ebi.ac.uk/interpro/entry/IPR023296"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      IPR023296
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     Glyco_hydro_beta-prop_sf 
+                  </li>
+                  <li>
+                    <button
+                      class="button tertiary expandable-list__action"
+                      data-testid="expandable-message"
+                      type="button"
+                    >
+                      More InterPro links
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  PROSITE
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=P0DTR4&output=nice"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      View protein in PROSITE
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://prosite.expasy.org/doc/PS50022"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PS50022
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     FA58C_3 1 hit 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Pfam
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://pfam.xfam.org/protein/P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      View protein in Pfam
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://pfam.xfam.org/family/PF02368"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PF02368
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     Big_2 1 hit 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://pfam.xfam.org/family/PF00754"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      PF00754
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     F5_F8_type_C 1 hit 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  SMART
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://smart.embl.de/smart/show_motifs.pl?ID=P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      View protein in SMART
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://smart.embl.de/smart/do_annotation.pl?DOMAIN=SM00635"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SM00635
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     BID_2 1 hit 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  SUPFAM
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SSF49373
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     SSF49373 1 hit 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49785"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SSF49785
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     SSF49785 1 hit 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF50939"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SSF50939
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     SSF50939 1 hit 
+                  </li>
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      SSF75005
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     SSF75005 1 hit 
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  MobiDB
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://mobidb.bio.unipd.it/entries/P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Search...
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  ProtoNet
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P0DTR4"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      Search...
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    data-entry-section="true"
+    id="sequence"
+  >
+    <div
+      class="card"
+    >
+      <section>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Sequence
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        >
+          <section
+            class="sequence-container"
+          >
+            <div
+              class="action-bar button-group"
+            >
+              <div
+                class="dropdown-container"
+              >
+                <button
+                  class="button primary dropdown tertiary"
+                  type="button"
+                >
+                  Tools
+                </button>
+                <div
+                  class="dropdown-menu"
+                />
+              </div>
+              <a
+                class="button tertiary"
+                download=""
+                href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P0DTR4.fasta"
+              >
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 32 32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
+                  />
+                </svg>
+                Download
+              </a>
+              <div
+                class="dropdown-container"
+              >
+                <button
+                  class="button primary dropdown tertiary"
+                  type="button"
+                >
+                  Highlight
+                </button>
+                <div
+                  class="dropdown-menu"
+                />
+              </div>
+              <button
+                class="button tertiary"
+                type="button"
+              >
+                Copy FASTA
+              </button>
+            </div>
+            <div
+              class="info-list info-list--columns info-list--compact"
+            >
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Length
+                  </h5>
+                </div>
+                <div
+                  class="info-list__content"
+                >
+                  772
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Mass (Da)
+                  </h5>
+                </div>
+                <div
+                  class="info-list__content"
+                >
+                  84,441
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Last updated
+                  </h5>
+                </div>
+                <div
+                  class="info-list__content"
+                >
+                  2019-11-13 v1
+                </div>
+              </div>
+              <div
+                class="info-list__item"
+              >
+                <div
+                  class="info-list__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Checksum
+                  </h5>
+                </div>
+                <div
+                  class="info-list__content"
+                >
+                  55C1AD3F8018D0D7
+                </div>
+              </div>
+            </div>
+            <div
+              class="sequence"
+            >
+              <div
+                class="sequence__sequence"
+              >
+                <svg>
+                  <text>
+                    M
+                  </text>
+                </svg>
+              </div>
+            </div>
+          </section>
+          <h3>
+            Keywords
+          </h3>
+          <div
+            class="info-list"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Technical term
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <a
+                  href="/keywords/KW-0002"
+                >
+                   #3D-structure
+                </a>
+              </div>
+            </div>
+          </div>
+          <h3>
+            Sequence databases
+          </h3>
+          <div
+            class="info-list info-list--columns"
+          >
+            <div
+              class="info-list__item"
+            >
+              <div
+                class="info-list__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  RefSeq
+                </h5>
+              </div>
+              <div
+                class="info-list__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://www.ncbi.nlm.nih.gov/protein/WP_009260926.1"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      WP_009260926.1
+                      <svg
+                        fill="none"
+                        viewBox="0 0 16 16"
+                        width="12.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </a>
+                     NZ_WKPQ01000044.1 
                   </li>
                 </ul>
               </div>

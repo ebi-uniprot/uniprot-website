@@ -21,10 +21,8 @@ function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   <>
-    {UniProtKBEntryConfig.map(({ name, sectionContent }) => (
-      <ErrorBoundary key={name}>
-        {sectionContent(transformedData)}
-      </ErrorBoundary>
+    {UniProtKBEntryConfig.map(({ id, sectionContent }) => (
+      <ErrorBoundary key={id}>{sectionContent(transformedData)}</ErrorBoundary>
     ))}
 
     <HeroContainer>

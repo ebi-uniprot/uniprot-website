@@ -1,27 +1,39 @@
 import React, { FC } from 'react';
 import { useSpring, animated } from 'react-spring';
 import cn from 'classnames';
+import { upperFirst } from 'lodash-es';
+
+import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import './styles/sliding-panel.scss';
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
+export enum Position {
+  top = 'top',
+  bottom = 'bottom',
+  left = 'left',
+  right = 'right',
+}
 
 const SlidingPanel: FC<{
   position: Position;
   className?: string;
-}> = ({ children, position, className }) => {
+  yScrollable?: boolean;
+}> = ({ children, position, className, yScrollable = false }) => {
+  const margin = `margin${upperFirst(position)}`;
   const [props] = useSpring(() => ({
     opacity: 1,
-    marginRight: 0,
-    from: { opacity: 0, marginRight: -1000 },
+    [margin]: 0,
+    from: { opacity: 0, [margin]: -1000 },
   }));
 
   return (
     <animated.div
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
-      style={props}
+      style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
     >
-      <div>{children}</div>
+      <ErrorBoundary>
+        <div>{children}</div>
+      </ErrorBoundary>
     </animated.div>
   );
 };

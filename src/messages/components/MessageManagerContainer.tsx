@@ -1,25 +1,16 @@
-import React, { FC, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { FC, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { bindActionCreators, Dispatch } from 'redux';
 import { groupBy } from 'lodash-es';
 import * as actions from '../state/messagesActions';
-import { MessageType, MessageFormat } from '../types/messagesTypes';
-import { RootAction, RootState } from '../../app/state/rootInitialState';
+import { MessageFormat } from '../types/messagesTypes';
+import { RootState } from '../../app/state/rootInitialState';
 import InPageMessageHub from './InPageMessageHub';
 import PopUpMessageHub from './PopupMessageHub';
 import { Location } from '../../app/config/urls';
 import { getLocationForPathname } from '../../shared/utils/url';
 
-type MessageManagerContainerProps = {
-  activeMessages: MessageType[];
-  deleteMessage: (id: string) => void;
-};
-
-const MessageManager: FC<MessageManagerContainerProps> = ({
-  activeMessages,
-  deleteMessage,
-}) => {
+const MessageManager: FC = () => {
   // MessageManager is a part of the base layout and as this has been extracted from the page component
   // (eg HomePage, EntryPage,...) and we can't get the match path using react-router's withRouter. useLocation
   // provides paths and not a match pattern. Eg:
@@ -28,7 +19,10 @@ const MessageManager: FC<MessageManagerContainerProps> = ({
   // The getLocationForPathname will find the location by searching over LocationToPath in app/config/urls
   const { pathname } = useLocation();
   const currentLocation = getLocationForPathname(pathname) as Location;
-
+  const dispatch = useDispatch();
+  const activeMessages = useSelector(
+    (state: RootState) => state.messages.active
+  );
   const {
     true: omitAndDeleteMessages = [],
     false: restActiveMessages = [],
@@ -38,6 +32,11 @@ const MessageManager: FC<MessageManagerContainerProps> = ({
       !!omitAndDeleteAtLocations &&
       omitAndDeleteAtLocations.length > 0 &&
       omitAndDeleteAtLocations.includes(currentLocation)
+  );
+
+  const deleteMessage = useCallback(
+    (id: string) => dispatch(actions.deleteMessage(id)),
+    [dispatch]
   );
 
   useEffect(() => {
@@ -65,23 +64,4 @@ const MessageManager: FC<MessageManagerContainerProps> = ({
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    activeMessages: state.messages.active,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<RootAction>) =>
-  bindActionCreators(
-    {
-      deleteMessage: (id: string) => actions.deleteMessage(id),
-    },
-    dispatch
-  );
-
-const MessageManagerContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MessageManager);
-
-export default MessageManagerContainer;
+export default MessageManager;

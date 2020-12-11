@@ -20,7 +20,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 import uniProtKBApiUrls from '../../shared/config/apiUrls';
 import uniParcApiUrls from '../../uniparc/config/apiUrls';
 
-import entryToFASTAWithHeaders from '../../uniprotkb/adapters/entryToFASTAWithHeaders';
+import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import { uniProtKBAccessionRegEx } from '../../uniprotkb/utils';
 import fetchData from '../../shared/utils/fetchData';
 
@@ -57,7 +57,7 @@ const getURLForAccessionOrID = (input: string) => {
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
   });
 
-  return `${uniProtKBApiUrls.search}?${query}`;
+  return `${uniProtKBApiUrls.search()}?${query}`;
 };
 
 // name as a NCBI ID formatted UniProt-style

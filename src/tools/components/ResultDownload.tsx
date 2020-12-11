@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { Button } from 'franklin-sites';
 
 import toolsURLs, { ResultFormat } from '../config/urls';
 
@@ -107,17 +108,7 @@ const ResultDownload = memo<ResultDownloadProps>(
       setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      const link = document.createElement('a');
-      link.href = toolsURLs(jobType).resultUrl(id, fileFormat);
-      link.target = '_blank';
-      link.setAttribute('download', '');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      onToggleDisplay();
-    };
+    const downloadUrl = toolsURLs(jobType).resultUrl(id, fileFormat);
 
     return (
       <>
@@ -130,41 +121,37 @@ const ResultDownload = memo<ResultDownloadProps>(
             page will not affect the download set.
           </p>
         )}
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <legend>
-              Format
-              <select
-                id="file-format-select"
-                data-testid="file-format-select"
-                value={fileFormat}
-                onChange={(e) => updateFileFormat(e)}
-              >
-                {options[jobType].map(({ format, description }) => (
-                  <option value={format} key={format}>
-                    {description}
-                  </option>
-                ))}
-              </select>
-            </legend>
-            <section className="button-group side-panel__button-row">
-              <button
-                className="button secondary"
-                type="button"
-                onClick={() => onToggleDisplay()}
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="button button-primary"
-                data-testid="submit-blast"
-              >
-                Download
-              </button>
-            </section>
-          </fieldset>
-        </form>
+        <fieldset>
+          <legend>
+            Format
+            <select
+              id="file-format-select"
+              data-testid="file-format-select"
+              value={fileFormat}
+              onChange={(e) => updateFileFormat(e)}
+            >
+              {options[jobType].map(({ format, description }) => (
+                <option value={format} key={format}>
+                  {description}
+                </option>
+              ))}
+            </select>
+          </legend>
+          <section className="button-group sliding-panel__button-row">
+            <Button variant="secondary" onClick={onToggleDisplay}>
+              Cancel
+            </Button>
+            <a
+              href={downloadUrl}
+              className="button"
+              target="_blank"
+              rel="noreferrer"
+              onClick={onToggleDisplay}
+            >
+              Download
+            </a>
+          </section>
+        </fieldset>
       </>
     );
   }

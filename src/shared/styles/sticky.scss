@@ -1,0 +1,16 @@
+@import '../../../node_modules/franklin-sites/src/styles/colours';
+
+.sticky-tabs-container {
+  & .tabs__header {
+    z-index: 100;
+    position: sticky;
+    top: 0;
+    background: $colour-sky-white;
+  }
+}
+
+.sticky-bottom-right {
+  float: right;
+  position: sticky;
+  bottom: 0;
+}

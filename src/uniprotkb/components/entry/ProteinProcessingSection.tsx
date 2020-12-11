@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import { Card } from 'franklin-sites';
 
-import EntrySection, { EntrySectionIDs } from '../../types/entrySection';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../types/entrySection';
 import FeaturesView from '../protein-data-views/FeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
@@ -22,11 +24,10 @@ const ProteinProcessingSection: FC<{
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
   return (
-    <div
-      id={EntrySectionIDs[EntrySection.ProteinProcessing]}
-      data-entry-section
-    >
-      <Card title={EntrySection.ProteinProcessing}>
+    <div id={EntrySection.ProteinProcessing} data-entry-section>
+      <Card
+        title={getEntrySectionNameAndId(EntrySection.ProteinProcessing).name}
+      >
         <FeaturesView features={featuresData} sequence={sequence} />
         <FreeTextView
           comments={commentsData.get(CommentType.PTM) as FreeTextComment[]}
