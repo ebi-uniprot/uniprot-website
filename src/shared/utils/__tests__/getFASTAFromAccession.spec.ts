@@ -23,27 +23,32 @@ afterAll(() => {
 
 describe('getFASTAFromAccession', () => {
   it('should handle no accession', async () => {
-    expect(await getFASTAFromAccession()).toBeUndefined();
+    await expect(getFASTAFromAccession()).resolves.toBeUndefined();
   });
 
-  it('should not throw if no data', async () => {
-    mock.onGet(/api\/uniprotkb\/accession\/P-non-existing$/).reply(204);
-    expect(await getFASTAFromAccession('P-non-existing')).toBeUndefined();
+  it('should throw if protein not existing', async () => {
+    mock.onGet(/api\/uniprotkb\/accession\/O00000$/).reply(404, {
+      url: 'http://www.ebi.ac.uk/uniprot/api/uniprotkb/accession/O00000',
+      messages: ['Resource not found'],
+    });
+    await expect(getFASTAFromAccession('O00000')).rejects.toThrow();
   });
 
   it('should handle UniProtKB entry', async () => {
     mock.onGet(/api\/uniprotkb\/accession\/P05067$/).reply(200, mockUniProtKB);
-    expect(await getFASTAFromAccession('P05067')).toMatchSnapshot();
+    await expect(getFASTAFromAccession('P05067')).resolves.toMatchSnapshot();
   });
 
   it('should handle UniParc entry', async () => {
     mock.onGet(/api\/uniparc\/UPI0000000001$/).reply(200, mockUniParc);
-    expect(await getFASTAFromAccession('UPI0000000001')).toMatchSnapshot();
+    await expect(
+      getFASTAFromAccession('UPI0000000001')
+    ).resolves.toMatchSnapshot();
   });
 
   // TODO: uncomment and add a mock json payload once UniRef API has stabilised
   it.skip('should handle UniRef entry', async () => {
     // mock.onGet(/api\/uniref\/......$/).reply(200, mockUniRef);
-    // expect(await getFASTAFromAccession('......')).toMatchSnapshot();
+    // await expect(getFASTAFromAccession('......')).resolves.toMatchSnapshot();
   });
 });

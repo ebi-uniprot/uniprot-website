@@ -47,6 +47,8 @@ const getFASTAFromAccession = async (
   if (!response.data) {
     return;
   }
+  // TODO: handle inactive entries (see P00001) valid response, status code: 200
+  // TODO: handle here? or in entryToFASTAWithHeader?
   // eslint-disable-next-line consistent-return
   return entryToFASTAWithHeaders(response.data);
 };
