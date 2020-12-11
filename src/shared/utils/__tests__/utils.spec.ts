@@ -47,7 +47,7 @@ test('removeProperty removes only specified property and returns a deep copy of 
 
 test('formatLargeNumber', () => {
   const number = 999999;
-  expect(formatLargeNumber(number)).toEqual('999,999,999'); // Broken
+  expect(formatLargeNumber(number)).toEqual('999,999'); // Fixed
 });
 
 describe('getBEMClassName', () => {
