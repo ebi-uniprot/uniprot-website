@@ -3,15 +3,11 @@ import { v1 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import fetchData from '../../utils/fetchData';
-
 import useSafeState from '../../hooks/useSafeState';
 
-import uniProtKBApiUrls from '../../config/apiUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import getFASTAFromAccession from '../../utils/getFASTAFromAccession';
 
-import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import entryToFASTAWithHeaders from '../../utils/entryToFASTAWithHeaders';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -19,7 +15,6 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
-import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 type ToolsButtonProps = {
   selectedEntries: string[];
@@ -49,20 +44,7 @@ const ToolsButton: FC<ToolsButtonProps> = ({
     const entries = entriesRef.current;
 
     try {
-      const sequences = await Promise.all(
-        entries.map((accession) => {
-          const url = accession.startsWith('UPI')
-            ? uniProtKBApiUrls.uniparc.entry(accession)
-            : uniProtKBApiUrls.entry(accession);
-          if (!url) {
-            return;
-          }
-          // eslint-disable-next-line consistent-return
-          return fetchData<UniProtkbAPIModel | UniParcAPIModel>(
-            url
-          ).then((response) => entryToFASTAWithHeaders(response.data));
-        })
-      );
+      const sequences = await Promise.all(entries.map(getFASTAFromAccession));
 
       if (entries !== entriesRef.current) {
         // it means that by the time we get here, the selection has changed
