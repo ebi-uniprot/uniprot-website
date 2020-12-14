@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { InfoList } from 'franklin-sites';
+import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { Xref } from '../../types/commentTypes';
@@ -22,10 +22,10 @@ const ProteomesView: FC<{ data?: Xref[]; isCompact?: boolean }> = ({
     return null;
   }
   return (
-    <>
+    <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
       {data.map((proteome) => (
         <InfoList
-          key={proteome.id}
+          key={`${proteome.id}-${proteome.properties?.Component}`}
           isCompact={isCompact}
           infoData={[
             {
@@ -39,7 +39,7 @@ const ProteomesView: FC<{ data?: Xref[]; isCompact?: boolean }> = ({
           ]}
         />
       ))}
-    </>
+    </ExpandableList>
   );
 };
 

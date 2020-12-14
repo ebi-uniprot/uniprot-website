@@ -1,5 +1,5 @@
-import { FC, ReactNode } from 'react';
-import { InfoList } from 'franklin-sites';
+import { FC, Fragment } from 'react';
+import { InfoList, ExpandableList } from 'franklin-sites';
 
 import { NameWithEvidence } from './ProteinNamesView';
 
@@ -9,15 +9,17 @@ import { ValueWithEvidence } from '../../types/modelTypes';
 
 export const geneAlternativeNamesView = (
   alternativeNames: ValueWithEvidence[],
-  firstComma = true
+  firstComma?: boolean
 ) => (
   <>
     {firstComma && ', '}
-    {alternativeNames
-      .map<ReactNode>((altName) => (
+    {alternativeNames.map((altName, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        {index ? ', ' : undefined}
         <NameWithEvidence data={altName} key={altName.value} />
-      ))
-      .reduce((prev, curr) => [prev, ', ', curr])}
+      </Fragment>
+    ))}
   </>
 );
 
@@ -26,36 +28,32 @@ const GeneNamesView: FC<{
   isCompact?: boolean;
   noTitles?: boolean;
 }> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
-  <>
+  <ExpandableList descriptionString="gene names">
     {geneNamesData.map((geneNames, index) => {
       const infoData = [
         {
           title: 'Name',
           content: geneNames.geneName && (
-            <>
-              <NameWithEvidence data={geneNames.geneName} />
-            </>
+            <NameWithEvidence data={geneNames.geneName} />
           ),
         },
       ];
       if (geneNames.synonyms) {
         infoData.push({
           title: 'Synonyms',
-          content: <>{geneAlternativeNamesView(geneNames.synonyms, false)}</>,
+          content: geneAlternativeNamesView(geneNames.synonyms),
         });
       }
       if (geneNames.orfNames) {
         infoData.push({
           title: 'ORF names',
-          content: <>{geneAlternativeNamesView(geneNames.orfNames, false)}</>,
+          content: geneAlternativeNamesView(geneNames.orfNames),
         });
       }
       if (geneNames.orderedLocusNames) {
         infoData.push({
           title: 'Ordered locus names',
-          content: (
-            <>{geneAlternativeNamesView(geneNames.orderedLocusNames, false)}</>
-          ),
+          content: geneAlternativeNamesView(geneNames.orderedLocusNames),
         });
       }
       return (
@@ -68,7 +66,7 @@ const GeneNamesView: FC<{
         />
       );
     })}
-  </>
+  </ExpandableList>
 );
 
 export default GeneNamesView;

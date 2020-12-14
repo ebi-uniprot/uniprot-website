@@ -100,35 +100,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -232,35 +250,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -364,47 +400,69 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0469"
-                    >
-                       #Meiosis
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0498"
-                    >
-                       #Mitosis
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -508,35 +566,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -640,23 +716,33 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -760,35 +846,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -888,29 +992,45 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0678"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Repressor
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0678"
+                        >
+                           #Repressor
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0417"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Keratinization
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0804"
-                    >
-                       #Transcription
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0805"
-                    >
-                       #Transcription regulation
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0417"
+                        >
+                           #Keratinization
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0804"
+                        >
+                           #Transcription
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0805"
+                        >
+                           #Transcription regulation
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1009,17 +1129,25 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1118,17 +1246,25 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1228,11 +1364,17 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1332,47 +1474,69 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0159"
-                    >
-                       #Chromosome partition
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0469"
-                    >
-                       #Meiosis
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0498"
-                    >
-                       #Mitosis
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0159"
+                        >
+                           #Chromosome partition
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1472,17 +1636,25 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1586,53 +1758,81 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0347"
-                    >
-                       #Helicase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0209"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Deafness
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0225"
-                    >
-                       #Disease mutation
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-1010"
-                    >
-                       #Non-syndromic deafness
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0209"
+                        >
+                           #Deafness
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0225"
+                        >
+                           #Disease mutation
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-1010"
+                        >
+                           #Non-syndromic deafness
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1732,35 +1932,49 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0227"
-                    >
-                       #DNA damage
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0234"
-                    >
-                       #DNA repair
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0227"
+                        >
+                           #DNA damage
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0234"
+                        >
+                           #DNA repair
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1860,17 +2074,25 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -1974,47 +2196,69 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0469"
-                    >
-                       #Meiosis
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0498"
-                    >
-                       #Mitosis
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -2118,35 +2362,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0347"
-                    >
-                       #Helicase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -2250,47 +2512,69 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0469"
-                    >
-                       #Meiosis
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0498"
-                    >
-                       #Mitosis
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -2394,35 +2678,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0347"
-                    >
-                       #Helicase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -2522,23 +2824,33 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0498"
-                    >
-                       #Mitosis
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -2642,35 +2954,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0347"
-                    >
-                       #Helicase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -2774,47 +3104,69 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0418"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0723"
-                    >
-                       #Serine/threonine-protein kinase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0808"
-                    >
-                       #Transferase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0132"
-                    >
-                       #Cell division
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0469"
-                    >
-                       #Meiosis
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0749"
-                    >
-                       #Sporulation
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0749"
+                        >
+                           #Sporulation
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -3016,35 +3368,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0347"
-                    >
-                       #Helicase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
@@ -3148,35 +3518,53 @@ exports[`ResultsView component should render cards 1`] = `
                 </section>
                 <section>
                   <small>
-                    <a
-                      href="/keywords/KW-0238"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #DNA-binding
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0347"
-                    >
-                       #Helicase
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
                      · 
-                    <a
-                      href="/keywords/KW-0131"
+                    <ul
+                      class="expandable-list no-bullet"
                     >
-                       #Cell cycle
-                    </a>
-                     
-                    <a
-                      href="/keywords/KW-0235"
-                    >
-                       #DNA replication
-                    </a>
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                         
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
                   </small>
                 </section>
               </section>
