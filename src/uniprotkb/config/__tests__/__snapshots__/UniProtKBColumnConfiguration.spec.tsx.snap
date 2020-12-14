@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniProtKBColumnConfiguration component should render column "absorption" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "absorption": absorption 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -79,7 +79,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "accession" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
   <a
     href="/uniprotkb/P21802"
@@ -89,7 +89,7 @@ exports[`UniProtKBColumnConfiguration component should render column "accession"
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "annotation_score" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "annotation_score": annotation_score 1`] = `
 <DocumentFragment>
   <span
     title="Annotation Score"
@@ -123,11 +123,11 @@ exports[`UniProtKBColumnConfiguration component should render column "annotation
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_activity_regulation" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_activity_regulation": cc_activity_regulation 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_allergen" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_allergen": cc_allergen 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_alternative_products" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_alternative_products": cc_alternative_products 1`] = `
 <DocumentFragment>
   <p>
     This entry describes 
@@ -210,9 +210,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_alterna
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_biotechnology" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_biotechnology": cc_biotechnology 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_catalytic_activity" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_catalytic_activity": cc_catalytic_activity 1`] = `
 <DocumentFragment>
   <span
     class="text-block"
@@ -292,7 +292,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor": cc_cofactor 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -369,9 +369,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_developmental_stage" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_developmental_stage": cc_developmental_stage 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_disease" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_disease": cc_disease 1`] = `
 <DocumentFragment>
   <h3>
     DiseaseEntry Id (someAcron)
@@ -500,7 +500,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_disruption_phenotype" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_disruption_phenotype": cc_disruption_phenotype 1`] = `
 <DocumentFragment>
   <h5>
     Isoform 4
@@ -543,13 +543,13 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_domain" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_domain": cc_domain 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_function" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_function": cc_function 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_induction" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_induction": cc_induction 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_interaction" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_interaction": cc_interaction 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -576,7 +576,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_interac
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_mass_spectrometry" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_mass_spectrometry": cc_mass_spectrometry 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -619,17 +619,17 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_mass_sp
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_miscellaneous" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_miscellaneous": cc_miscellaneous 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_pathway" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_pathway": cc_pathway 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_pharmaceutical" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_pharmaceutical": cc_pharmaceutical 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_polymorphism" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_polymorphism": cc_polymorphism 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_ptm" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_ptm": cc_ptm 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_rna_editing" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_rna_editing": cc_rna_editing 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -709,7 +709,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_sequence_caution" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_sequence_caution": cc_sequence_caution 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -773,9 +773,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_similarity" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_similarity": cc_similarity 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_subcellular_location" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_subcellular_location": cc_subcellular_location 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -889,31 +889,31 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_subunit" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_subunit": cc_subunit 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_tissue_specificity" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_tissue_specificity": cc_tissue_specificity 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "cc_toxic_dose" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_toxic_dose": cc_toxic_dose 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "date_created" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "date_created": date_created 1`] = `
 <DocumentFragment>
   2015-08-02
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "date_modified" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "date_modified": date_modified 1`] = `
 <DocumentFragment>
   2016-04-24
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "date_sequence_modified" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "date_sequence_modified": date_sequence_modified 1`] = `
 <DocumentFragment>
   2017-01-21
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "ec" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`] = `
 <DocumentFragment>
   1.2.3.4 
   <button
@@ -949,7 +949,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ec" 1`] = 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "error_gmodel_pred" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "error_gmodel_pred": error_gmodel_pred 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1013,89 +1013,89 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "family" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "family": family 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "fragment" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "fragment": fragment 1`] = `
 <DocumentFragment>
   Fragment
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_act_site" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_act_site": ft_act_site 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_binding" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_binding": ft_binding 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_ca_bind" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_ca_bind": ft_ca_bind 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_carbohyd" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_carbohyd": ft_carbohyd 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_chain" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_coiled" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_coiled": ft_coiled 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_compbias" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_compbias": ft_compbias 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_conflict" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_conflict": ft_conflict 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_crosslnk" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_crosslnk": ft_crosslnk 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_disulfide" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_disulfide": ft_disulfide 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_dna_bind" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_dna_bind": ft_dna_bind 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_domain" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_domain": ft_domain 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_helix" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_helix": ft_helix 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_init_met" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_init_met": ft_init_met 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_intramem" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_intramem": ft_intramem 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_lipid" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_lipid": ft_lipid 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_metal" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_metal": ft_metal 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_mod_res" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_mod_res": ft_mod_res 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_motif" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_motif": ft_motif 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_mutagen" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_mutagen": ft_mutagen 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_non_con" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_con": ft_non_con 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_non_std" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_std": ft_non_std 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_non_ter" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_ter": ft_non_ter 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_np_bind" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_np_bind": ft_np_bind 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_peptide" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_peptide": ft_peptide 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_propep" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_propep": ft_propep 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_region" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_region": ft_region 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_repeat" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_repeat": ft_repeat 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_signal" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_signal": ft_signal 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_site" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_site": ft_site 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_strand" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_strand": ft_strand 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_top_dom" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_top_dom": ft_top_dom 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_transit" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_transit": ft_transit 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_transmem" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_transmem": ft_transmem 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_turn" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_turn": ft_turn 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_unsure" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_unsure": ft_unsure 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_var_seq" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_var_seq": ft_var_seq 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_variant" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "ft_variant": ft_variant 1`] = `
 <DocumentFragment>
   <div
     class="loader-container"
@@ -1153,9 +1153,9 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_variant
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing": ft_zn_fing 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "gene_names" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1362,7 +1362,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "gene_oln" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "gene_oln": gene_oln 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1404,7 +1404,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_oln" 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "gene_orf" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "gene_orf": gene_orf 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1446,7 +1446,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_orf" 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "gene_primary" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "gene_primary": gene_primary 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1460,7 +1460,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_prima
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "gene_synonym" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "gene_synonym": gene_synonym 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1502,7 +1502,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "go" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1514,11 +1514,11 @@ exports[`UniProtKBColumnConfiguration component should render column "go" 1`] = 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_c" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "go_c": go_c 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_f" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "go_f": go_f 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_id" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1530,9 +1530,9 @@ exports[`UniProtKBColumnConfiguration component should render column "go_id" 1`]
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "go_p" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "go_p": go_p 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "id" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <span>
     uniprot_id
@@ -1540,7 +1540,7 @@ exports[`UniProtKBColumnConfiguration component should render column "id" 1`] = 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "keyword" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "keyword": keyword 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1556,7 +1556,7 @@ exports[`UniProtKBColumnConfiguration component should render column "keyword" 1
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "keywordid" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "keywordid": keywordid 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1572,7 +1572,7 @@ exports[`UniProtKBColumnConfiguration component should render column "keywordid"
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "kinetics" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "kinetics": kinetics 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1661,19 +1661,19 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics" 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "length" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "length": length 1`] = `
 <DocumentFragment>
   10 AA
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "lineage" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
   lineage 1
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed_id" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed_id": lit_pubmed_id 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -1726,15 +1726,15 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "mapped_pubmed_id" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "mapped_pubmed_id": mapped_pubmed_id 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "mass" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "mass": mass 1`] = `
 <DocumentFragment>
   1,185 Da
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "organism_id" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -1767,7 +1767,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_i
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "organism_name" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "organism_name": organism_name 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -1777,7 +1777,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "ph_dependence" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "ph_dependence": ph_dependence 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1817,13 +1817,13 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "protein_existence" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "protein_existence": protein_existence 1`] = `
 <DocumentFragment>
   1: Evidence at protein level
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "protein_name" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
   <div
     class="info-list info-list--no-title"
@@ -2224,7 +2224,7 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_na
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "redox_potential" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "redox_potential": redox_potential 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -2264,7 +2264,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "reviewed" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "reviewed": reviewed 1`] = `
 <DocumentFragment>
   <span
     class="entry-title__status icon--reviewed"
@@ -2283,7 +2283,7 @@ exports[`UniProtKBColumnConfiguration component should render column "reviewed" 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "sequence" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
   <section
     class="sequence-container"
@@ -2323,7 +2323,7 @@ exports[`UniProtKBColumnConfiguration component should render column "sequence" 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "sequence_version" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "sequence_version": sequence_version 1`] = `
 <DocumentFragment>
   <span>
     5
@@ -2331,9 +2331,9 @@ exports[`UniProtKBColumnConfiguration component should render column "sequence_v
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "structure_3d" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "structure_3d": structure_3d 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "temp_dependence" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "temp_dependence": temp_dependence 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -2373,15 +2373,15 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "uniparc_id" 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render column "version" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "version": version 1`] = `
 <DocumentFragment>
   20
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "virus_hosts" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "virus_hosts": virus_hosts 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -2399,7 +2399,7 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes" 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"

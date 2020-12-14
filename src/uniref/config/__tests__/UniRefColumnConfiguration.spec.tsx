@@ -36,7 +36,7 @@ describe('UniRefColumnConfiguration component', () => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(data)}</MemoryRouter>
       );
-      expect(asFragment()).toMatchSnapshot();
+      expect(asFragment()).toMatchSnapshot(key);
     });
   }
 });

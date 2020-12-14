@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniRefColumnConfiguration component should render column "common_taxon" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "common_taxon": common_taxon 1`] = `
 <DocumentFragment>
   Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "common_taxonid" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/8364"
@@ -16,15 +16,15 @@ exports[`UniRefColumnConfiguration component should render column "common_taxoni
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "count" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "count": count 1`] = `
 <DocumentFragment>
   9 members
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "created" 1`] = `<DocumentFragment />`;
+exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `<DocumentFragment />`;
 
-exports[`UniRefColumnConfiguration component should render column "id" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a
     href="/uniref/UniRef90_Q28I25"
@@ -34,19 +34,19 @@ exports[`UniRefColumnConfiguration component should render column "id" 1`] = `
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "identity" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "identity": identity 1`] = `
 <DocumentFragment>
   UniRef90
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "length" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "length": length 1`] = `
 <DocumentFragment>
   483
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "members" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "members": members 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -99,13 +99,13 @@ exports[`UniRefColumnConfiguration component should render column "members" 1`] 
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "name" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "name": name 1`] = `
 <DocumentFragment>
   Cluster: CDC7 cell division cycle 7
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "organism" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "organism": organism 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -117,7 +117,7 @@ exports[`UniRefColumnConfiguration component should render column "organism" 1`]
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "organism_id" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -133,7 +133,7 @@ exports[`UniRefColumnConfiguration component should render column "organism_id" 
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "sequence" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
   <span
     class="break-anywhere"
@@ -141,7 +141,7 @@ exports[`UniRefColumnConfiguration component should render column "sequence" 1`]
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "types" 1`] = `
+exports[`UniRefColumnConfiguration component should render column "types": types 1`] = `
 <DocumentFragment>
   <span
     class="entry-title__status icon--uniparc"
