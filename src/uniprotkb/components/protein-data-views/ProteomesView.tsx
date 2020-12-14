@@ -1,4 +1,4 @@
-import { Fragment, FC } from 'react';
+import { FC } from 'react';
 import { InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ const ProteomesId: FC<{ id?: string }> = ({ id }) => (
 const ProteomesComponents: FC<{
   components?: { [key: string]: string };
 }> = ({ components }) => (
-  <Fragment>{components && Object.values(components).join(', ')}</Fragment>
+  <>{components && Object.values(components).join(', ')}</>
 );
 
 const ProteomesView: FC<{ data?: Xref[]; isCompact?: boolean }> = ({

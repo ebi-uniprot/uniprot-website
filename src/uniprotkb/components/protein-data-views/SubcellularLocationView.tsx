@@ -1,8 +1,9 @@
 import { FC } from 'react';
-import { v1 } from 'uuid';
+
+import { TextView } from './FreeTextView';
+
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { TextView } from './FreeTextView';
 
 const SubcellularLocationView: FC<{
   comments?: SubcellularLocationComment[];
@@ -13,12 +14,9 @@ const SubcellularLocationView: FC<{
   return (
     <>
       {comments.map(
-        (subcellData) =>
+        (subcellData, index) =>
           subcellData.subcellularLocations && (
-            <section
-              className="text-block"
-              key={subcellData.molecule ? subcellData.molecule : v1()}
-            >
+            <section className="text-block" key={subcellData.molecule || index}>
               <h3>{subcellData.molecule}</h3>
               {subcellData.subcellularLocations.map((subcellularLocation) => (
                 <div

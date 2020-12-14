@@ -1,5 +1,4 @@
 import { FC, ReactNode } from 'react';
-import { v1 } from 'uuid';
 import { InfoList } from 'franklin-sites';
 
 import { NameWithEvidence } from './ProteinNamesView';
@@ -28,7 +27,7 @@ const GeneNamesView: FC<{
   noTitles?: boolean;
 }> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
   <>
-    {geneNamesData.map((geneNames) => {
+    {geneNamesData.map((geneNames, index) => {
       const infoData = [
         {
           title: 'Name',
@@ -62,7 +61,7 @@ const GeneNamesView: FC<{
       return (
         <InfoList
           infoData={infoData}
-          key={geneNames.geneName ? geneNames.geneName.value : v1()}
+          key={geneNames.geneName?.value || index}
           isCompact={isCompact}
           highlightFirstItem={isCompact}
           noTitles={noTitles}
