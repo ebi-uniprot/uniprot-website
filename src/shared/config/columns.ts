@@ -2,22 +2,24 @@ import { Namespace } from '../types/namespaces';
 import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 import {
   defaultColumns as defaultUniProtKBColumns,
-  mustHave as mustHaveUniProtKB,
+  primaryKeyColumn as primaryKeyColumnUniProtKB,
 } from '../../uniprotkb/config/UniProtKBColumnConfiguration';
 import {
   UniRefColumn,
   defaultColumns as defaultUniRefColumns,
-  mustHave as mustHaveUniRef,
+  primaryKeyColumn as primaryKeyColumnUniRef,
 } from '../../uniref/config/UniRefColumnConfiguration';
 
 export type Column = UniProtKBColumn | UniRefColumn;
 
+// TODO when all namespaces have been implemented remove the Partial utility type
 export const nsToDefaultColumns: Partial<Record<Namespace, Column[]>> = {
   [Namespace.uniprotkb]: defaultUniProtKBColumns,
   [Namespace.uniref]: defaultUniRefColumns,
 };
 
-export const nsToMustHaveColumns: Partial<Record<Namespace, Column[]>> = {
-  [Namespace.uniprotkb]: mustHaveUniProtKB,
-  [Namespace.uniref]: mustHaveUniRef,
+// TODO when all namespaces have been implemented remove the Partial utility type
+export const nsToPrimaryKeyColumn: Partial<Record<Namespace, Column>> = {
+  [Namespace.uniprotkb]: primaryKeyColumnUniProtKB,
+  [Namespace.uniref]: primaryKeyColumnUniRef,
 };

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
@@ -163,7 +163,7 @@ const Results: FC = () => {
           sortColumn={sortColumn}
           sortDirection={sortDirection}
           total={total || 0}
-          tableColumns={tableColumns}
+          tableColumns={tableColumns as Column[]}
           onTableColumnsChange={handleTableColumnsChange}
         />
       }

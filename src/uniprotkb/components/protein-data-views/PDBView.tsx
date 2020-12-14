@@ -1,4 +1,4 @@
-import React, { useCallback, FC } from 'react';
+import { useCallback, FC } from 'react';
 import { TemplateResult, html } from 'lit-html';
 import { Loader } from 'franklin-sites';
 

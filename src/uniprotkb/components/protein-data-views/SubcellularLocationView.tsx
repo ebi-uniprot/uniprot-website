@@ -1,8 +1,9 @@
-import React, { FC, Fragment } from 'react';
-import { v1 } from 'uuid';
+import { FC } from 'react';
+
+import { TextView } from './FreeTextView';
+
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { TextView } from './FreeTextView';
 
 const SubcellularLocationView: FC<{
   comments?: SubcellularLocationComment[];
@@ -11,21 +12,18 @@ const SubcellularLocationView: FC<{
     return null;
   }
   return (
-    <Fragment>
+    <>
       {comments.map(
-        subcellData =>
+        (subcellData, index) =>
           subcellData.subcellularLocations && (
-            <section
-              className="text-block"
-              key={subcellData.molecule ? subcellData.molecule : v1()}
-            >
+            <section className="text-block" key={subcellData.molecule || index}>
               <h3>{subcellData.molecule}</h3>
-              {subcellData.subcellularLocations.map(subcellularLocation => (
+              {subcellData.subcellularLocations.map((subcellularLocation) => (
                 <div
-                  key={`${
-                    subcellularLocation.location.value
-                  }${subcellularLocation.topology &&
-                    subcellularLocation.topology.value}`}
+                  key={`${subcellularLocation.location.value}${
+                    subcellularLocation.topology &&
+                    subcellularLocation.topology.value
+                  }`}
                 >
                   <strong>{subcellularLocation.location.value}</strong>{' '}
                   {subcellularLocation.location.evidences && (
@@ -34,14 +32,14 @@ const SubcellularLocationView: FC<{
                     />
                   )}
                   {subcellularLocation.topology && (
-                    <Fragment>
+                    <>
                       {`: ${subcellularLocation.topology.value} `}
                       {subcellularLocation.topology.evidences && (
                         <UniProtKBEvidenceTag
                           evidences={subcellularLocation.topology.evidences}
                         />
                       )}
-                    </Fragment>
+                    </>
                   )}
                 </div>
               ))}
@@ -51,7 +49,7 @@ const SubcellularLocationView: FC<{
             </section>
           )
       )}
-    </Fragment>
+    </>
   );
 };
 

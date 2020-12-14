@@ -1,4 +1,3 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
 import { act, fireEvent, screen, getByText } from '@testing-library/react';
 

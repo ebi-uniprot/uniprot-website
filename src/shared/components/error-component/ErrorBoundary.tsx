@@ -1,12 +1,12 @@
-import React, { Component, ErrorInfo } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Location } from 'history';
 
 import ErrorComponent from './ErrorComponent';
 
 type ErrorBoundaryProps = RouteComponentProps & {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
 };
 type ErrorBoundaryState = { error?: Error; location?: Location };
 

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, FC } from 'react';
+import { Fragment, FC } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 

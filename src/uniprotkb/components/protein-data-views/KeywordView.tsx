@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment, FC } from 'react';
 import { InfoList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -14,14 +14,14 @@ type KeywordItempProps = {
   value?: string;
 };
 
-export const KeywordItem: React.FC<KeywordItempProps> = ({ id, value }) => {
+export const KeywordItem: FC<KeywordItempProps> = ({ id, value }) => {
   if (!id || !value) {
     return null;
   }
   return <Link to={`/keywords/${id}`}>{` #${value}`}</Link>;
 };
 
-export const KeywordList: React.FC<KeywordListProps> = ({
+export const KeywordList: FC<KeywordListProps> = ({
   keywords,
   idOnly = false,
 }) => {
@@ -45,9 +45,7 @@ export const KeywordList: React.FC<KeywordListProps> = ({
   return <>{nodes}</>;
 };
 
-const KeywordView: React.FC<{ keywords: KeywordUIModel[] }> = ({
-  keywords,
-}) => {
+const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
   if (!keywords || keywords.length <= 0) {
     return null;
   }

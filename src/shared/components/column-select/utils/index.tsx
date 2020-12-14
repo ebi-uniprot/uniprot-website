@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bubble } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../../utils/utils';
 
@@ -18,21 +17,19 @@ type PreparedField = {
   key: string;
 };
 
-export const prepareFields = (fields: ReceivedField[], exclude: Column[]) =>
-  fields
-    .filter(({ name }) => !exclude.includes(name))
-    .map(
-      ({ label, name, id }) =>
-        ({
-          id: name,
-          label,
-          key: id,
-        } as PreparedField)
-    );
+export const prepareFields = (fields: ReceivedField[], exclude?: Column) =>
+  (exclude ? fields.filter(({ name }) => !exclude.includes(name)) : fields).map(
+    ({ label, name, id }) =>
+      ({
+        id: name,
+        label,
+        key: id,
+      } as PreparedField)
+  );
 
 export const prepareFieldData = (
   fieldData: ReceivedFieldData,
-  exclude: Column[] = [] // Exclude any columns which should not be user-selectable eg accession
+  exclude?: Column // Exclude primaryKeyColumn which should not be user-selectable eg accession
 ) => {
   const dataTab: FieldDatum[] = [];
   const linksTab: FieldDatum[] = [];

@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import InPageMessageHub from '../InPageMessageHub';
 import { MessageFormat, MessageLevel } from '../../types/messagesTypes';

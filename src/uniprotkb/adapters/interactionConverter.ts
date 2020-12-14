@@ -12,14 +12,13 @@ export type Interactant = {
   intActId: string;
 };
 
-export const convertInteraction = (data: UniProtkbAPIModel) => {
-  return convertSection(
+export const convertInteraction = (data: UniProtkbAPIModel) =>
+  convertSection(
     data,
     commentsCategories,
     undefined,
     undefined,
     EntrySection.Interaction
   );
-};
 
 export default convertInteraction;

@@ -1,4 +1,4 @@
-import React, { FC, lazy, useState, Suspense } from 'react';
+import { FC, lazy, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';
@@ -124,7 +124,7 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
     <>
       {displayDownloadPanel && (
         <Suspense fallback={null}>
-          <SlidingPanel position={Position.right}>
+          <SlidingPanel position={Position.left}>
             <ResultDownload
               jobType={jobType}
               id={jobId}

@@ -50,7 +50,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </button>
     <button
       class="tile tile-gradient"
-      style="--tile-background: #990000; width: 100%;"
+      style="--tile-background: #e56358; width: 100%;"
       type="button"
     >
       <section
@@ -198,7 +198,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       >
         <button
           class="tile tile-gradient"
-          style="width: 100%;"
+          style="--tile-background: #00A6D5; width: 100%;"
           type="button"
         >
           <section
@@ -223,7 +223,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         </button>
         <button
           class="tile tile-gradient"
-          style="width: 100%;"
+          style="--tile-background: #B8CE48; width: 100%;"
           type="button"
         >
           <section
@@ -246,7 +246,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         </button>
         <button
           class="tile tile-gradient"
-          style="width: 100%;"
+          style="--tile-background: #357B92; width: 100%;"
           type="button"
         >
           <section
@@ -271,7 +271,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         </button>
         <button
           class="tile tile-gradient"
-          style="width: 100%;"
+          style="--tile-background: #A748BD; width: 100%;"
           type="button"
         >
           <section

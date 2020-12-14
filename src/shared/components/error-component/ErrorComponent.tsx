@@ -1,4 +1,3 @@
-import React from 'react';
 import { Message } from 'franklin-sites';
 
 import './styles/error-component.scss';

@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 
 import AlignmentView, { View, Tool } from '../../../components/AlignmentView';

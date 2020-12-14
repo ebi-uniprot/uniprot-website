@@ -55,9 +55,9 @@ export const convertSection = (
     );
   }
   if (sectionFeatures && features) {
-    convertedData.featuresData = features.filter((feature) => {
-      return sectionFeatures.includes(feature.type);
-    });
+    convertedData.featuresData = features.filter((feature) =>
+      sectionFeatures.includes(feature.type)
+    );
   }
   if (section && uniProtKBCrossReferences) {
     // These are needed because the implicit database GPCRDB depends on the existence of a similarity

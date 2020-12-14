@@ -1,4 +1,3 @@
-import React from 'react';
 import { v1 } from 'uuid';
 import MessageManagerContainer from '../MessageManagerContainer';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';

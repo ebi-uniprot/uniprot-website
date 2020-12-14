@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
@@ -32,7 +31,7 @@ export const defaultColumns = [
   UniRefColumn.identity,
 ];
 
-export const mustHave = [UniRefColumn.id];
+export const primaryKeyColumn = UniRefColumn.id;
 
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,
@@ -46,65 +45,53 @@ export const UniRefColumnConfiguration = new Map<
 
 UniRefColumnConfiguration.set(UniRefColumn.id, {
   label: 'Cluster ID',
-  render: ({ id }) => {
-    return <Link to={`/uniref/${id}`}>{id}</Link>;
-  },
+  render: ({ id }) => <Link to={`/uniref/${id}`}>{id}</Link>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
   label: 'Cluster name',
-  render: ({ name }) => {
-    return name;
-  },
+  render: ({ name }) => name,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
   label: 'Common taxon',
-  render: ({ commonTaxon }) => {
-    return commonTaxon;
-  },
+  render: ({ commonTaxon }) => commonTaxon,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
   label: 'Common taxon ID',
-  render: ({ commonTaxonId }) => {
-    return <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>;
-  },
+  render: ({ commonTaxonId }) => (
+    <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
-  render: ({ organismIds }) => {
-    return (
-      <ul className="no-bullet">
-        {organismIds?.map((organismId) => (
-          <li key={organismId}>
-            <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
-          </li>
-        ))}
-      </ul>
-    );
-  },
+  render: ({ organismIds }) => (
+    <ul className="no-bullet">
+      {organismIds?.map((organismId) => (
+        <li key={organismId}>
+          <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
+        </li>
+      ))}
+    </ul>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organism, {
   label: 'Organisms',
-  render: ({ organisms }) => {
-    return (
-      <ul className="no-bullet">
-        {organisms?.map((organism) => (
-          <li key={organism}>{organism}</li>
-        ))}
-      </ul>
-    );
-  },
+  render: ({ organisms }) => (
+    <ul className="no-bullet">
+      {organisms?.map((organism) => (
+        <li key={organism}>{organism}</li>
+      ))}
+    </ul>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.identity, {
   label: 'Identity',
-  render: ({ entryType }) => {
-    return <>{entryType}</>;
-  },
+  render: ({ entryType }) => <>{entryType}</>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
@@ -114,55 +101,45 @@ UniRefColumnConfiguration.set(UniRefColumn.length, {
 
 UniRefColumnConfiguration.set(UniRefColumn.sequence, {
   label: 'Reference sequence',
-  render: ({ sequence }) => {
-    return <span className="break-anywhere">{sequence}</span>;
-  },
+  render: ({ sequence }) => <span className="break-anywhere">{sequence}</span>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.types, {
   label: 'Types',
-  render: ({ memberIdTypes }) => {
-    return (
-      <>
-        {memberIdTypes?.map((memberType) => (
-          <EntryTypeIcon entryType={memberType} key={memberType} />
-        ))}
-      </>
-    );
-  },
+  render: ({ memberIdTypes }) => (
+    <>
+      {memberIdTypes?.map((memberType) => (
+        <EntryTypeIcon entryType={memberType} key={memberType} />
+      ))}
+    </>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.members, {
   label: 'Members',
-  render: ({ members }) => {
-    return (
-      <ul className="no-bullet">
-        {members?.map((member) => (
-          <li key={member}>
-            <Link to={`/uniprotkb/${member}`}>{member}</Link>
-          </li>
-        ))}
-      </ul>
-    );
-  },
+  render: ({ members }) => (
+    <ul className="no-bullet">
+      {members?.map((member) => (
+        <li key={member}>
+          <Link to={`/uniprotkb/${member}`}>{member}</Link>
+        </li>
+      ))}
+    </ul>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.count, {
   label: 'Size',
-  render: ({ memberCount }) => {
-    return (
-      <>
-        {memberCount} member{memberCount > 1 && 's'}
-      </>
-    );
-  },
+  render: ({ memberCount }) => (
+    <>
+      {memberCount} member{memberCount > 1 && 's'}
+    </>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.created, {
   label: 'Last updated',
-  render: ({ updated }) => {
-    return updated;
-  },
+  render: ({ updated }) => updated,
 });
 
 export default UniRefColumnConfiguration;

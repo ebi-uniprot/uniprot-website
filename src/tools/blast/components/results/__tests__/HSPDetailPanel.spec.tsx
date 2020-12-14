@@ -1,4 +1,3 @@
-import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
 import HSPDetailPanel from '../HSPDetailPanel';

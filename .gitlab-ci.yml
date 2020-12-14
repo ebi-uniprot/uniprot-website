@@ -17,9 +17,6 @@ variables:
     - yarn
 
 test:
-  only:
-    refs:
-      - master
   image: buildkite/puppeteer
   stage: test
   before_script:

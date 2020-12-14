@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
+import { FC, useCallback, useMemo, useRef, useState } from 'react';
 import { Loader } from 'franklin-sites';
 import useEventListener from '@use-it/event-listener';
 
@@ -172,9 +172,10 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     : 30
   ).toString();
 
-  const alignmentOverviewData = useMemo(() => {
-    return alignment ? getFullAlignmentSegments(alignment) : [];
-  }, [alignment]);
+  const alignmentOverviewData = useMemo(
+    () => (alignment ? getFullAlignmentSegments(alignment) : []),
+    [alignment]
+  );
 
   if (!ceDefined) {
     return <Loader />;

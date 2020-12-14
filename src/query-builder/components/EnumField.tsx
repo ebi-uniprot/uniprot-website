@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-const EnumField: React.FC<{
+const EnumField: FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;

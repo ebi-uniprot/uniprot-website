@@ -1,7 +1,5 @@
-import React, { Fragment } from 'react';
-
 const UniProtKBInfo = () => (
-  <Fragment>
+  <>
     <p>
       The UniProt Knowledgebase (UniProtKB) is the central hub for the
       collection of functional information on proteins, with accurate,
@@ -19,7 +17,7 @@ const UniProtKBInfo = () => (
       Unreviewed (TrEMBL) - Computationally analyzed Records that await full
       manual annotation.
     </p>
-  </Fragment>
+  </>
 );
 
 export default UniProtKBInfo;

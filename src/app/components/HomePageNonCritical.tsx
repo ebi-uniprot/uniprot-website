@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tile, HeroContainer } from 'franklin-sites';
 
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';

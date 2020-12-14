@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import LogicalOperator from '../../../query-builder/components/LogicalOperator';
 

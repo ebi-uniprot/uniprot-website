@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 // NOTE: this dependency is quite big (because of "amigo2-instance-data"), so
 // NOTE: you can lazy load this module to avoid blocking the rest of the page

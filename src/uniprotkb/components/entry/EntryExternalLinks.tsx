@@ -1,8 +1,11 @@
-import React, { Fragment } from 'react';
+import { FC } from 'react';
 import { Card, ExpandableList, ExternalLink } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
-import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+
 import XRefView from '../protein-data-views/XRefView';
+
+import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
+
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
@@ -22,7 +25,7 @@ type WebResourceLinkProps = {
   comment: WebResourceComment;
 };
 
-const WebResourceLink: React.FC<WebResourceLinkProps> = ({ comment }) => {
+const WebResourceLink: FC<WebResourceLinkProps> = ({ comment }) => {
   const { note, resourceName, resourceUrl } = comment;
   const noteNode = note && ` (${note})`;
   return (
@@ -33,7 +36,7 @@ const WebResourceLink: React.FC<WebResourceLinkProps> = ({ comment }) => {
   );
 };
 
-const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
+const EntryExternalLinks: FC<EntryExternalLinksProps> = ({
   transformedData,
 }) => {
   const {
@@ -82,7 +85,7 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
     <div id={EntrySection.ExternalLinks} data-entry-section>
       <Card title={getEntrySectionNameAndId(EntrySection.ExternalLinks).name}>
         {webResourceComments && (
-          <Fragment>
+          <>
             <h3>Web resources</h3>
             <ExpandableList descriptionString="alternative names">
               {webResourceComments.map((comment, index) => (
@@ -92,7 +95,7 @@ const EntryExternalLinks: React.FC<EntryExternalLinksProps> = ({
                 />
               ))}
             </ExpandableList>
-          </Fragment>
+          </>
         )}
         <XRefView
           xrefs={xrefData}

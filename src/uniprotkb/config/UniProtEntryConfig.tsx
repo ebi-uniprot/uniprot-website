@@ -1,5 +1,3 @@
-import React from 'react';
-
 import FunctionSection from '../components/entry/FunctionSection';
 import NamesAndTaxonomySection from '../components/entry/NamesAndTaxonomySection';
 import DiseaseAndDrugsSection from '../components/entry/DiseaseAndDrugsSection';

@@ -1,4 +1,4 @@
-import React, { FC, lazy, useState, Suspense } from 'react';
+import { FC, lazy, useState, Suspense } from 'react';
 import {
   DownloadIcon,
   StatisticsIcon,
@@ -29,7 +29,7 @@ const ResultsButtons: FC<{
   sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
-  tableColumns?: Column[] | null;
+  tableColumns: Column[];
   onTableColumnsChange: (columns: Column[]) => void;
 }> = ({
   viewMode,
@@ -45,7 +45,9 @@ const ResultsButtons: FC<{
 }) => {
   const DownloadComponent = lazy(
     () =>
-      import(/* webpackChunkName: "download" */ '../download/DownloadContainer')
+      import(
+        /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
+      )
   );
   const CustomiseComponent = lazy(
     () =>
@@ -65,6 +67,7 @@ const ResultsButtons: FC<{
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
+              selectedColumns={tableColumns}
               sortColumn={sortColumn}
               sortDirection={sortDirection}
               selectedEntries={selectedEntries}

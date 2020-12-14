@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import MockAdapter from 'axios-mock-adapter';

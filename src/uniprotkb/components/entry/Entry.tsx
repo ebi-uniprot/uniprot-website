@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, FC } from 'react';
+import { useMemo, useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Link,
@@ -15,7 +15,6 @@ import {
   Tab,
 } from 'franklin-sites';
 
-import { fileFormatEntryDownload } from '../../types/resultsTypes';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
@@ -50,6 +49,7 @@ import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
+import { fileFormatEntryDownload } from '../../config/download';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 

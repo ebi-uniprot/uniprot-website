@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState, FC } from 'react';
 import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -43,7 +43,7 @@ type SequenceViewProps = {
   data: SequenceUIModel;
 };
 
-export const SequenceInfo: React.FC<{
+export const SequenceInfo: FC<{
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
@@ -99,7 +99,7 @@ export const SequenceInfo: React.FC<{
   );
 };
 
-export const IsoformInfo: React.FC<{
+export const IsoformInfo: FC<{
   isoformData: Isoform;
   canonicalAccession: string;
   isoformNotes?: IsoformNotes;
@@ -197,30 +197,26 @@ export const IsoformInfo: React.FC<{
   );
 };
 
-export const SequenceCautionView: React.FC<{
+export const SequenceCautionView: FC<{
   data: SequenceCautionComment[];
-}> = ({ data }) => {
-  return (
-    <>
-      {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
-        <section
-          className="text-block"
-          key={`${sequenceCautionType}-${sequence}`}
-        >
-          {`The sequence `}
-          <ExternalLink url={externalUrls.ENA(sequence)}>
-            {sequence}
-          </ExternalLink>
-          {` differs from that shown. Reason: ${sequenceCautionType} `}
-          {note}
-          {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
-        </section>
-      ))}
-    </>
-  );
-};
+}> = ({ data }) => (
+  <>
+    {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
+      <section
+        className="text-block"
+        key={`${sequenceCautionType}-${sequence}`}
+      >
+        {`The sequence `}
+        <ExternalLink url={externalUrls.ENA(sequence)}>{sequence}</ExternalLink>
+        {` differs from that shown. Reason: ${sequenceCautionType} `}
+        {note}
+        {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+      </section>
+    ))}
+  </>
+);
 
-export const MassSpectrometryView: React.FC<{
+export const MassSpectrometryView: FC<{
   data: MassSpectrometryComment[];
 }> = ({ data }) => (
   <>
@@ -239,9 +235,7 @@ export const MassSpectrometryView: React.FC<{
   </>
 );
 
-export const RNAEditingView: React.FC<{ data: RNAEditingComment[] }> = ({
-  data,
-}) => (
+export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
   <>
     {data.map((item) => (
       <section
@@ -278,7 +272,7 @@ export const RNAEditingView: React.FC<{ data: RNAEditingComment[] }> = ({
   </>
 );
 
-export const IsoformView: React.FC<{
+export const IsoformView: FC<{
   alternativeProducts: AlternativeProductsComment;
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
@@ -344,7 +338,7 @@ export const IsoformView: React.FC<{
   );
 };
 
-const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
+const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
   const sequenceInfoData = [
     {
       title: 'Sequence status',

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import {
@@ -45,9 +45,14 @@ const Entry: FC = () => {
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.uniref.entry(accession);
-  const { loading, data, status, error, redirectedTo, headers } = useDataApi<
-    UniRefAPIModel
-  >(baseURL);
+  const {
+    loading,
+    data,
+    status,
+    error,
+    redirectedTo,
+    headers,
+  } = useDataApi<UniRefAPIModel>(baseURL);
   const facetData = useDataApi<Facet[]>(`${baseURL}/facets`);
 
   if (error || !accession) {

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, FC } from 'react';
 import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -27,10 +27,11 @@ type ProteinEntryLight = {
 
 type GeneCentricData = {
   canonicalProtein: ProteinEntryLight;
-  relatedProteins: ProteinEntryLight[];
+  relatedProteins?: ProteinEntryLight[];
+  proteomeId: string;
 };
 
-const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
+const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   primaryAccession,
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
@@ -40,14 +41,12 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ accession, entryType }: ProteinEntryLight) => {
-          return (
-            <Link to={`/uniprotkb/${accession}`}>
-              <EntryTypeIcon entryType={entryType} />
-              {accession}
-            </Link>
-          );
-        },
+        render: ({ accession, entryType }: ProteinEntryLight) => (
+          <Link to={`/uniprotkb/${accession}`}>
+            <EntryTypeIcon entryType={entryType} />
+            {accession}
+          </Link>
+        ),
       },
       {
         label: 'Gene name',
@@ -84,17 +83,20 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
     });
   }, []);
 
-  const filteredData = useMemo(() => {
-    if (!data) {
-      return null;
-    }
-    return data.relatedProteins.filter(
-      ({ accession, geneNameType }) =>
-        geneNameType === 'Gene name' && !accession.startsWith(primaryAccession)
-    );
-  }, [primaryAccession, data]);
+  const filteredData = useMemo(
+    () =>
+      data?.relatedProteins?.filter(
+        ({ accession, geneNameType }) =>
+          geneNameType === 'Gene name' &&
+          !accession.startsWith(primaryAccession)
+      ),
+    [primaryAccession, data]
+  );
 
   const handleViewAll = useCallback(() => {
+    if (!filteredData) {
+      return;
+    }
     const queryString = filteredData
       ?.map(({ accession }) => `accession:${accession}`)
       .join(' OR ');
@@ -103,14 +105,12 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
     );
   }, [history, filteredData]);
 
-  if (error) {
-    if (status === 404) {
-      // Fail silently, this just means there's no data
-      return null;
-    }
+  if (loading) {
+    return null;
   }
 
-  if (loading) {
+  if (!data?.relatedProteins || (error && status === 404)) {
+    // Fail silently, this just means there's no data
     return null;
   }
 

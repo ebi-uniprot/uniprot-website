@@ -1,4 +1,4 @@
-import React, { Fragment, useState, FC } from 'react';
+import { Fragment, useState, FC } from 'react';
 import { Loader } from 'franklin-sites';
 import cn from 'classnames';
 

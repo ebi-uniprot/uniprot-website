@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { groupBy } from 'lodash-es';
 import { ExternalLink, EvidenceTag, EvidenceTagIcon } from 'franklin-sites';
@@ -102,7 +102,7 @@ const UniProtKBEvidenceTag: FC<{ evidences: Evidence[] }> = ({ evidences }) => {
       );
     }
   );
-  return <Fragment>{evidenceTags}</Fragment>;
+  return <>{evidenceTags}</>;
 };
 
 export const UniProtProtvistaEvidenceTag = (

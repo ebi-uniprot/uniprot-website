@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
 import { flatten } from 'lodash-es';
 import { Link } from 'react-router-dom';
@@ -82,34 +82,30 @@ export const defaultColumns = [
   UniProtKBColumn.organismName,
 ];
 
-export const mustHave = [UniProtKBColumn.accession];
+export const primaryKeyColumn = UniProtKBColumn.accession;
 
-const getFeatureColumn = (type: FeatureType) => {
-  return {
-    label: type,
-    render: (data: UniProtkbUIModel) => {
-      const { featuresData } = data[EntrySection.Sequence];
-      return (
-        featuresData && (
-          <FeaturesView
-            features={featuresData.filter((feature) => feature.type === type)}
-          />
-        )
-      );
-    },
-  };
-};
+const getFeatureColumn = (type: FeatureType) => ({
+  label: type,
+  render: (data: UniProtkbUIModel) => {
+    const { featuresData } = data[EntrySection.Sequence];
+    return (
+      featuresData && (
+        <FeaturesView
+          features={featuresData.filter((feature) => feature.type === type)}
+        />
+      )
+    );
+  },
+});
 
-const getGOColumnForAspect = (aspect: GoAspect) => {
-  return {
-    label: `Gene Ontology - ${aspect}`,
-    render: (data: UniProtkbUIModel) => {
-      const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-      const goProcessTerms = goTerms && goTerms.get(aspect);
-      return goProcessTerms && <GOTermsView data={goProcessTerms} />;
-    },
-  };
-};
+const getGOColumnForAspect = (aspect: GoAspect) => ({
+  label: `Gene Ontology - ${aspect}`,
+  render: (data: UniProtkbUIModel) => {
+    const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
+    const goProcessTerms = goTerms && goTerms.get(aspect);
+    return goProcessTerms && <GOTermsView data={goProcessTerms} />;
+  },
+});
 
 export const UniProtKBColumnConfiguration = new Map<
   UniProtKBColumn,
@@ -182,18 +178,17 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <>
         {geneNamesData &&
-          geneNamesData.map((geneData) => {
-            return (
+          geneNamesData.map(
+            (geneData) =>
               geneData.geneName && (
                 <div key={geneData.geneName.value}>
                   {geneData.geneName.value}
                 </div>
               )
-            );
-          })}
-      </Fragment>
+          )}
+      </>
     );
   },
 });
@@ -203,7 +198,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <>
         {geneNamesData &&
           geneNamesData.map(
             (geneData) =>
@@ -213,7 +208,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
                 </Fragment>
               )
           )}
-      </Fragment>
+      </>
     );
   },
 });
@@ -223,7 +218,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <>
         {geneNamesData &&
           geneNamesData.map(
             (geneData) =>
@@ -233,7 +228,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
                 </Fragment>
               )
           )}
-      </Fragment>
+      </>
     );
   },
 });
@@ -243,7 +238,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
     return (
-      <Fragment>
+      <>
         {geneNamesData &&
           geneNamesData.map(
             (geneData) =>
@@ -253,7 +248,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
                 </Fragment>
               )
           )}
-      </Fragment>
+      </>
     );
   },
 });
@@ -288,13 +283,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
     const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
       virusHosts && (
-        <Fragment>
+        <>
           {virusHosts.map((host) => (
             <p key={host.taxonId}>
               <TaxonomyView data={host} />
             </p>
           ))}
-        </Fragment>
+        </>
       )
     );
   },
@@ -332,11 +327,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVarSeq, {
   label: 'Alternative sequence',
   render: (data) => {
     const { featuresData } = data[EntrySection.Sequence];
-    return (
-      <Fragment>
-        {featuresData && <FeaturesView features={featuresData} />}
-      </Fragment>
-    );
+    return <>{featuresData && <FeaturesView features={featuresData} />}</>;
   },
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
@@ -351,7 +342,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
         Flag.FRAGMENTS_PRECURSOR,
         Flag.FRAGMENT_PRECURSOR,
       ].includes(flag);
-    return flag && <Fragment>{isFragment ? flag : 'N'}</Fragment>;
+    return flag && <>{isFragment ? flag : 'N'}</>;
   },
 });
 // gene_location ,  "Invalid fields parameter value 'gene_location'"
@@ -648,7 +639,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
     ) as InteractionComment[];
     return (
       interactionComments && (
-        <Fragment>
+        <>
           {interactionComments.map((interactionCC) =>
             interactionCC.interactions.map((interaction) => (
               <div
@@ -670,7 +661,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
               </div>
             ))
           )}
-        </Fragment>
+        </>
       )
     );
   },
@@ -763,17 +754,17 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.structure3D, {
       .structures;
     return (
       structureData && (
-        <Fragment>
+        <>
           {Object.entries(structureData).map(([method, xrefs]) => (
             <div key={method}>
               {xrefs && (
-                <Fragment>
+                <>
                   {method}: {(xrefs as Xref[]).length}
-                </Fragment>
+                </>
               )}
             </div>
           ))}
-        </Fragment>
+        </>
       )
     );
   },
@@ -963,11 +954,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
   label: 'Mapped PubMed ID',
-  render: () => {
+  render: () =>
     // TODO This is currently not implemented in the backend see TRM-23257
     // depending on the format, this could use the same processing as PubMed ID
-    return '';
-  },
+    '',
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',
@@ -994,7 +984,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
   label: 'Version',
   render: (data) => {
     const { entryAudit } = data[EntrySection.Sequence];
-    return entryAudit && <Fragment>{entryAudit.entryVersion}</Fragment>;
+    return entryAudit && <>{entryAudit.entryVersion}</>;
   },
 });
 UniProtKBColumnConfiguration.set(

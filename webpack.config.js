@@ -110,6 +110,7 @@ module.exports = (env, argv) => {
         // Stylesheets
         {
           test: /\.(css|sass|scss)$/,
+          sideEffects: true,
           include: [
             path.resolve(__dirname, 'src'),
             // We use realpathSync otherwise doesn't work with symlinks

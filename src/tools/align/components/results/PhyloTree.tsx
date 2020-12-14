@@ -1,5 +1,5 @@
 // See https://observablehq.com/@mbostock/tree-of-life for original inspiration
-import React, { useEffect, useRef, useMemo, FC } from 'react';
+import { useEffect, useRef, useMemo, FC } from 'react';
 import { debounce } from 'lodash-es';
 import { cluster, hierarchy, select, max, easeQuadOut } from 'd3';
 import { Message } from 'franklin-sites';

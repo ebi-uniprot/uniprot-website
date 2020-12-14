@@ -6,8 +6,8 @@ type STTWithParent = SearchTermType & {
   parent?: STTWithParent;
 };
 
-const flatten = (searchTermData: STTWithParent[]): STTWithParent[] => {
-  return searchTermData.flatMap((searchTermDatum: STTWithParent) => {
+const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
+  searchTermData.flatMap((searchTermDatum: STTWithParent) => {
     if (searchTermDatum.siblings) {
       return flatten(searchTermDatum.siblings).map((st) => ({
         ...st,
@@ -19,7 +19,6 @@ const flatten = (searchTermData: STTWithParent[]): STTWithParent[] => {
     }
     return searchTermDatum;
   });
-};
 
 const parseAndMatchQuery = (
   query: string | string[] | null | undefined,
