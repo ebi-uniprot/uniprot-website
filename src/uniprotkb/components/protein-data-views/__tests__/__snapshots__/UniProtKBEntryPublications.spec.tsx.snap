@@ -9,19 +9,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids 1`] = `
     <div
       class="message__side-border"
     />
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="1.125em"
-      stroke="currentColor"
-      viewBox="0 0 19 18"
       width="1.125em"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M14.93 11.14h0L12.8 9l2.13-2.14a1.9 1.9 0 000-2.67h0l-.63-.64a1.9 1.9 0 00-2.68 0h0L9.5 5.7 7.35 3.55a1.9 1.9 0 00-2.68 0h0l-.63.64a1.9 1.9 0 000 2.67h0L6.18 9l-2.14 2.14a1.9 1.9 0 000 2.67h0l.63.64a1.9 1.9 0 002.68 0L9.5 12.3l2.13 2.14a1.9 1.9 0 002.68 0l.63-.64a1.9 1.9 0 000-2.67zM17.5 9a8 8 0 11-16 0 8 8 0 0116 0z"
-        stroke-width="2"
-      />
-    </svg>
+    />
     <section
       class="message__content"
     >
@@ -87,21 +78,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         <section
           class="publication__columns__side__item"
         >
-          <svg
-            fill="none"
+          <test-file-stub
             height="2em"
-            viewBox="0 0 16 16"
             width="1.875em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect />
-            <path
-              clip-rule="evenodd"
-              d="M3 0a3 3 0 00-3 3v10a3 3 0 003 3h13V0H3zm10.5 3h-9v4h9V3zM.5 13A2.5 2.5 0 013 10.5h12.5V12h-12a1 1 0 100 2h12v1.5H3A2.5 2.5 0 01.5 13z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
+          />
           <ul
             class="no-bullet"
           >
@@ -159,17 +139,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   >
                     2
                   </span>
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="15"
-                    viewBox="0 0 30 22"
                     width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.65 6.68V7.7a.14.14 0 010 .11c-.13 1.42-.47 2.81-1.01 4.13a15.73 15.73 0 01-2.7 4.54 15.87 15.87 0 01-3.96 3.4c-1.45.86-3 1.53-4.63 1.98 0 0 2.84-4.15 5.8-8.2h-.3a6.82 6.82 0 116.8-6.98zm16.35 0v1.13c-.13 1.42-.48 2.81-1.02 4.13a15.73 15.73 0 01-2.68 4.56 15.86 15.86 0 01-3.96 3.33 18.29 18.29 0 01-4.68 1.99s2.83-4.13 5.79-8.18h-.3A6.82 6.82 0 1130 6.68z"
-                    />
-                  </svg>
+                  />
                 </section>
               </a>
             </section>
@@ -242,21 +215,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         <section
           class="publication__columns__side__item"
         >
-          <svg
-            fill="none"
+          <test-file-stub
             height="2em"
-            viewBox="0 0 16 16"
             width="1.875em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect />
-            <path
-              clip-rule="evenodd"
-              d="M3 0a3 3 0 00-3 3v10a3 3 0 003 3h13V0H3zm10.5 3h-9v4h9V3zM.5 13A2.5 2.5 0 013 10.5h12.5V12h-12a1 1 0 100 2h12v1.5H3A2.5 2.5 0 01.5 13z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
+          />
           <ul
             class="no-bullet"
           >
@@ -314,17 +276,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   >
                     6
                   </span>
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="15"
-                    viewBox="0 0 30 22"
                     width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.65 6.68V7.7a.14.14 0 010 .11c-.13 1.42-.47 2.81-1.01 4.13a15.73 15.73 0 01-2.7 4.54 15.87 15.87 0 01-3.96 3.4c-1.45.86-3 1.53-4.63 1.98 0 0 2.84-4.15 5.8-8.2h-.3a6.82 6.82 0 116.8-6.98zm16.35 0v1.13c-.13 1.42-.48 2.81-1.02 4.13a15.73 15.73 0 01-2.68 4.56 15.86 15.86 0 01-3.96 3.33 18.29 18.29 0 01-4.68 1.99s2.83-4.13 5.79-8.18h-.3A6.82 6.82 0 1130 6.68z"
-                    />
-                  </svg>
+                  />
                 </section>
               </a>
             </section>
@@ -421,21 +376,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
         <section
           class="publication__columns__side__item"
         >
-          <svg
-            fill="none"
+          <test-file-stub
             height="2em"
-            viewBox="0 0 16 16"
             width="1.875em"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect />
-            <path
-              clip-rule="evenodd"
-              d="M3 0a3 3 0 00-3 3v10a3 3 0 003 3h13V0H3zm10.5 3h-9v4h9V3zM.5 13A2.5 2.5 0 013 10.5h12.5V12h-12a1 1 0 100 2h12v1.5H3A2.5 2.5 0 01.5 13z"
-              fill="currentColor"
-              fill-rule="evenodd"
-            />
-          </svg>
+          />
           <ul
             class="no-bullet"
           >
@@ -493,17 +437,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   >
                     1
                   </span>
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="15"
-                    viewBox="0 0 30 22"
                     width="15"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M13.65 6.68V7.7a.14.14 0 010 .11c-.13 1.42-.47 2.81-1.01 4.13a15.73 15.73 0 01-2.7 4.54 15.87 15.87 0 01-3.96 3.4c-1.45.86-3 1.53-4.63 1.98 0 0 2.84-4.15 5.8-8.2h-.3a6.82 6.82 0 116.8-6.98zm16.35 0v1.13c-.13 1.42-.48 2.81-1.02 4.13a15.73 15.73 0 01-2.68 4.56 15.86 15.86 0 01-3.96 3.33 18.29 18.29 0 01-4.68 1.99s2.83-4.13 5.79-8.18h-.3A6.82 6.82 0 1130 6.68z"
-                    />
-                  </svg>
+                  />
                 </section>
               </a>
             </section>

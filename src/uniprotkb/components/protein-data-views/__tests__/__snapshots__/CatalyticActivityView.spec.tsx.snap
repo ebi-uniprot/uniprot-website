@@ -18,23 +18,16 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       forward
     </span>
     <button
-      aria-controls="<UUID>"
+      aria-controls="0"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -45,7 +38,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="0"
     />
      and the 
     <span
@@ -54,23 +47,16 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       backward
     </span>
     <button
-      aria-controls="<UUID>"
+      aria-controls="1"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -81,7 +67,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="1"
     />
      directions 
   </span>
@@ -103,23 +89,16 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       forward
     </span>
     <button
-      aria-controls="<UUID>"
+      aria-controls="2"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -130,7 +109,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="2"
     />
      and the 
     <span
@@ -139,23 +118,16 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       backward
     </span>
     <button
-      aria-controls="<UUID>"
+      aria-controls="3"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -166,7 +138,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="3"
     />
      directions 
   </span>
@@ -183,23 +155,16 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
   </span>
    direction 
   <button
-    aria-controls="<UUID>"
+    aria-controls="4"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -210,7 +175,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="4"
   />
 </DocumentFragment>
 `;
@@ -224,23 +189,16 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     forward
   </span>
   <button
-    aria-controls="<UUID>"
+    aria-controls="5"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -251,7 +209,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="5"
   />
    and the 
   <span
@@ -260,23 +218,16 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     backward
   </span>
   <button
-    aria-controls="<UUID>"
+    aria-controls="6"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -287,7 +238,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="6"
   />
    directions 
 </DocumentFragment>
@@ -307,55 +258,11 @@ exports[`ZoomModalContent component should render 1`] = `
     <div
       class="loader-container"
     >
-      <svg
-        class="loader"
+      <test-file-stub
+        classname="loader"
         height="100"
-        viewBox="0 0 100 100"
         width="100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          fill="none"
-          fill-rule="evenodd"
-        >
-          <path
-            d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-            stroke="#3ca3ca"
-            stroke-linecap="square"
-            stroke-width="2"
-          />
-          <circle
-            cx="9"
-            cy="50"
-            fill="#3ca3ca"
-            r="6"
-          />
-          <circle
-            cx="30"
-            cy="34"
-            fill="#3ca3ca"
-            r="6"
-          />
-          <circle
-            cx="50"
-            cy="50"
-            fill="#3ca3ca"
-            r="6"
-          />
-          <circle
-            cx="70"
-            cy="66"
-            fill="#3ca3ca"
-            r="6"
-          />
-          <circle
-            cx="91"
-            cy="50"
-            fill="#3ca3ca"
-            r="6"
-          />
-        </g>
-      </svg>
+      />
     </div>
   </div>
 </DocumentFragment>

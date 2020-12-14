@@ -33,23 +33,16 @@ exports[`Entry view should render 1`] = `
             </strong>
              some reaction
             <button
-              aria-controls="<UUID>"
+              aria-controls="0"
               aria-expanded="false"
               class="evidence-tag svg-colour-unreviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -60,7 +53,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="0"
             />
             This reaction proceeds in the 
             <span
@@ -70,23 +63,16 @@ exports[`Entry view should render 1`] = `
             </span>
              direction 
             <button
-              aria-controls="<UUID>"
+              aria-controls="1"
               aria-expanded="false"
               class="evidence-tag svg-colour-unreviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -97,7 +83,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="1"
             />
           </span>
           <h3>
@@ -109,23 +95,16 @@ exports[`Entry view should render 1`] = `
             <span>
               Cofactor Name 
               <button
-                aria-controls="<UUID>"
+                aria-controls="2"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-unreviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -136,7 +115,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="2"
               />
             </span>
             <section
@@ -144,23 +123,16 @@ exports[`Entry view should render 1`] = `
             >
               value2
               <button
-                aria-controls="<UUID>"
+                aria-controls="3"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-unreviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -171,7 +143,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="3"
               />
             </section>
           </section>
@@ -191,23 +163,16 @@ exports[`Entry view should render 1`] = `
             >
               value1
               <button
-                aria-controls="<UUID>"
+                aria-controls="4"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-reviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -218,27 +183,20 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="4"
               />
             </section>
             <button
-              aria-controls="<UUID>"
+              aria-controls="5"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -249,7 +207,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="5"
             />
           </section>
           <h3>
@@ -268,23 +226,16 @@ exports[`Entry view should render 1`] = `
                 </sub>
                 =2.0999999046325684uM for sub1 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="6"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -295,7 +246,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="6"
                 />
               </li>
             </ul>
@@ -308,23 +259,16 @@ exports[`Entry view should render 1`] = `
             >
               value1
               <button
-                aria-controls="<UUID>"
+                aria-controls="7"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-reviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -335,7 +279,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="7"
               />
             </section>
           </section>
@@ -347,23 +291,16 @@ exports[`Entry view should render 1`] = `
           >
             value1
             <button
-              aria-controls="<UUID>"
+              aria-controls="8"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -374,7 +311,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="8"
             />
           </section>
           <h3>
@@ -385,23 +322,16 @@ exports[`Entry view should render 1`] = `
           >
             value1
             <button
-              aria-controls="<UUID>"
+              aria-controls="9"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -412,7 +342,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="9"
             />
           </section>
           <h3>
@@ -423,23 +353,16 @@ exports[`Entry view should render 1`] = `
           >
             value1
             <button
-              aria-controls="<UUID>"
+              aria-controls="10"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -450,61 +373,17 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="10"
             />
           </section>
           <div
             class="loader-container"
           >
-            <svg
-              class="loader"
+            <test-file-stub
+              classname="loader"
               height="100"
-              viewBox="0 0 100 100"
               width="100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <path
-                  d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-                  stroke="#3ca3ca"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="9"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="30"
-                  cy="34"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="70"
-                  cy="66"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="91"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-              </g>
-            </svg>
+            />
           </div>
           <h3>
             Enzyme and pathway databases
@@ -538,21 +417,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -607,23 +474,16 @@ exports[`Entry view should render 1`] = `
               >
                 rec full Name 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="11"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -634,7 +494,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="11"
                 />
               </div>
             </div>
@@ -655,23 +515,16 @@ exports[`Entry view should render 1`] = `
               >
                 1.2.3.4 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="12"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -682,7 +535,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="12"
                 />
               </div>
             </div>
@@ -703,23 +556,16 @@ exports[`Entry view should render 1`] = `
               >
                 recommended short name 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="13"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -730,7 +576,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="13"
                 />
               </div>
             </div>
@@ -755,23 +601,16 @@ exports[`Entry view should render 1`] = `
                   <li>
                     a full alt Name 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="14"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-reviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -782,27 +621,20 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="14"
                     />
                      (short alt name1 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="15"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-reviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -813,7 +645,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="15"
                     />
                     ) 
                   </li>
@@ -869,23 +701,16 @@ exports[`Entry view should render 1`] = `
                   <li>
                     sub full Name 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="16"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-reviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -896,7 +721,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="16"
                     />
                   </li>
                 </ul>
@@ -919,23 +744,16 @@ exports[`Entry view should render 1`] = `
               >
                 biotech 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="17"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -946,7 +764,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="17"
                 />
               </div>
             </div>
@@ -1010,23 +828,16 @@ exports[`Entry view should render 1`] = `
                   >
                     some Gene 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="18"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -1037,7 +848,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="18"
                     />
                   </div>
                 </div>
@@ -1058,23 +869,16 @@ exports[`Entry view should render 1`] = `
                   >
                     some Syn 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="19"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -1085,7 +889,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="19"
                     />
                   </div>
                 </div>
@@ -1106,23 +910,16 @@ exports[`Entry view should render 1`] = `
                   >
                     some orf 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="20"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-reviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -1133,7 +930,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="20"
                     />
                   </div>
                 </div>
@@ -1154,23 +951,16 @@ exports[`Entry view should render 1`] = `
                   >
                     some locus 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="21"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -1181,7 +971,7 @@ exports[`Entry view should render 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="21"
                     />
                   </div>
                 </div>
@@ -1215,23 +1005,16 @@ exports[`Entry view should render 1`] = `
                   scientific name (common name)
                 </a>
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="22"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-unreviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -1242,7 +1025,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="22"
                 />
               </div>
             </div>
@@ -1273,21 +1056,9 @@ exports[`Entry view should render 1`] = `
                   target="_blank"
                 >
                   NCBI
-                  <svg
-                    fill="none"
-                    viewBox="0 0 16 16"
+                  <test-file-stub
                     width="12.5"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  />
                 </a>
               </div>
             </div>
@@ -1425,23 +1196,16 @@ exports[`Entry view should render 1`] = `
               </strong>
                
               <button
-                aria-controls="<UUID>"
+                aria-controls="23"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-unreviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -1452,27 +1216,20 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="23"
               />
               : topology value 
               <button
-                aria-controls="<UUID>"
+                aria-controls="24"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-unreviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -1483,7 +1240,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="24"
               />
             </div>
             <section
@@ -1491,23 +1248,16 @@ exports[`Entry view should render 1`] = `
             >
               value
               <button
-                aria-controls="<UUID>"
+                aria-controls="25"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-unreviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -1518,7 +1268,7 @@ exports[`Entry view should render 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="25"
               />
             </section>
           </section>
@@ -1556,23 +1306,16 @@ exports[`Entry view should render 1`] = `
             class="text-block"
           >
             <button
-              aria-controls="<UUID>"
+              aria-controls="26"
               aria-expanded="false"
               class="evidence-tag svg-colour-unreviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -1583,7 +1326,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="26"
             />
           </span>
           <div
@@ -1653,21 +1396,9 @@ exports[`Entry view should render 1`] = `
                   target="_blank"
                 >
                   3124
-                  <svg
-                    fill="none"
-                    viewBox="0 0 16 16"
+                  <test-file-stub
                     width="12.5"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  />
                 </a>
                   
               </div>
@@ -1686,23 +1417,16 @@ exports[`Entry view should render 1`] = `
           >
             value
             <button
-              aria-controls="<UUID>"
+              aria-controls="27"
               aria-expanded="false"
               class="evidence-tag svg-colour-unreviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -1713,61 +1437,17 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="27"
             />
           </section>
           <div
             class="loader-container"
           >
-            <svg
-              class="loader"
+            <test-file-stub
+              classname="loader"
               height="100"
-              viewBox="0 0 100 100"
               width="100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <path
-                  d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-                  stroke="#3ca3ca"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="9"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="30"
-                  cy="34"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="70"
-                  cy="66"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="91"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-              </g>
-            </svg>
+            />
           </div>
         </div>
       </section>
@@ -1907,21 +1587,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -1954,21 +1622,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       Submit a new modelling project...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -2067,21 +1723,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -2114,21 +1758,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -2299,41 +1931,22 @@ exports[`Entry view should render 1`] = `
               target="_blank"
             >
               sequence
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              differs from that shown. Reason: Erroneous initiation Text note
             <button
-              aria-controls="<UUID>"
+              aria-controls="28"
               aria-expanded="false"
               class="evidence-tag svg-colour-unreviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2344,7 +1957,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="28"
             />
           </section>
           <h3>
@@ -2358,23 +1971,16 @@ exports[`Entry view should render 1`] = `
             </h3>
             Molecular mass is 2.1 Da. Determined by LSI. note value
             <button
-              aria-controls="<UUID>"
+              aria-controls="29"
               aria-expanded="false"
               class="evidence-tag svg-colour-unreviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2385,7 +1991,7 @@ exports[`Entry view should render 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="29"
             />
           </section>
           <h3>
@@ -2399,23 +2005,16 @@ exports[`Entry view should render 1`] = `
               <span>
                 rna position 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="30"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-unreviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -2426,7 +2025,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="30"
                 />
               </span>
             </div>
@@ -2434,23 +2033,16 @@ exports[`Entry view should render 1`] = `
               <span>
                 value 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="31"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-unreviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -2461,7 +2053,7 @@ exports[`Entry view should render 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="31"
                 />
               </span>
             </div>
@@ -2498,21 +2090,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       id value
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      
                     <a
@@ -2522,21 +2102,9 @@ exports[`Entry view should render 1`] = `
                       target="_blank"
                     >
                       description value
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      [
                     <a
@@ -2593,23 +2161,16 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
             <button
-              aria-controls="<UUID>"
+              aria-controls="32"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2620,7 +2181,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="32"
             />
           </section>
           <h3>
@@ -2632,23 +2193,16 @@ exports[`Entry view should render for non-human entry 1`] = `
             <strong />
              an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
             <button
-              aria-controls="<UUID>"
+              aria-controls="33"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2659,7 +2213,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="33"
             />
           </span>
           <h3>
@@ -2671,23 +2225,16 @@ exports[`Entry view should render for non-human entry 1`] = `
             <span>
               a divalent metal cation 
               <button
-                aria-controls="<UUID>"
+                aria-controls="34"
                 aria-expanded="false"
                 class="evidence-tag svg-colour-reviewed"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="12"
-                  viewBox="0 0 10 15"
                   width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M10 0H0v15l5-5 5 5V0z"
-                  />
-                </svg>
+                />
                 <span
                   class="evidence-tag__label"
                   title=""
@@ -2698,7 +2245,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="<UUID>"
+                id="34"
               />
             </span>
           </section>
@@ -2712,23 +2259,16 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
             <button
-              aria-controls="<UUID>"
+              aria-controls="35"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2739,7 +2279,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="35"
             />
           </section>
           <h3
@@ -2752,23 +2292,16 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
             <button
-              aria-controls="<UUID>"
+              aria-controls="36"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2779,7 +2312,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="36"
             />
           </section>
           <h3>
@@ -2798,23 +2331,16 @@ exports[`Entry view should render for non-human entry 1`] = `
                 </sub>
                 =340uM for A antigen type 1 penta-MU 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="37"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -2825,7 +2351,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="37"
                 />
               </li>
             </ul>
@@ -2841,23 +2367,16 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             Optimum pH is 8.0.
             <button
-              aria-controls="<UUID>"
+              aria-controls="38"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2868,7 +2387,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="38"
             />
           </section>
           <h3
@@ -2881,23 +2400,16 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             Inhibited by EDTA
             <button
-              aria-controls="<UUID>"
+              aria-controls="39"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -2908,7 +2420,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="39"
             />
           </section>
           <h3>
@@ -3049,21 +2561,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -3118,23 +2618,16 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="49"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -3145,7 +2638,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="49"
                 />
               </div>
             </div>
@@ -3166,23 +2659,16 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 3.5.1.- 
                 <button
-                  aria-controls="<UUID>"
+                  aria-controls="50"
                   aria-expanded="false"
                   class="evidence-tag svg-colour-reviewed"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
-                  <svg
-                    fill="currentColor"
+                  <test-file-stub
                     height="12"
-                    viewBox="0 0 10 15"
                     width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
+                  />
                   <span
                     class="evidence-tag__label"
                     title=""
@@ -3193,7 +2679,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="<UUID>"
+                  id="50"
                 />
               </div>
             </div>
@@ -3218,23 +2704,16 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="51"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-reviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -3245,29 +2724,22 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="51"
                     />
                   </li>
                   <li>
                     FpGalNAc deacetylase (FpGalNAcDeAc 
                     <button
-                      aria-controls="<UUID>"
+                      aria-controls="52"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-reviewed"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
-                      <svg
-                        fill="currentColor"
+                      <test-file-stub
                         height="12"
-                        viewBox="0 0 10 15"
                         width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10 0H0v15l5-5 5 5V0z"
-                        />
-                      </svg>
+                      />
                       <span
                         class="evidence-tag__label"
                         title=""
@@ -3278,7 +2750,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="<UUID>"
+                      id="52"
                     />
                     ) 
                   </li>
@@ -3341,21 +2813,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                   target="_blank"
                 >
                   NCBI
-                  <svg
-                    fill="none"
-                    viewBox="0 0 16 16"
+                  <test-file-stub
                     width="12.5"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  />
                 </a>
               </div>
             </div>
@@ -3464,55 +2924,11 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="loader-container"
           >
-            <svg
-              class="loader"
+            <test-file-stub
+              classname="loader"
               height="100"
-              viewBox="0 0 100 100"
               width="100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <path
-                  d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-                  stroke="#3ca3ca"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="9"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="30"
-                  cy="34"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="70"
-                  cy="66"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="91"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-              </g>
-            </svg>
+            />
           </div>
         </div>
       </section>
@@ -3636,21 +3052,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -3683,21 +3087,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -3730,21 +3122,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Submit a new modelling project...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -3814,23 +3194,16 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
             <button
-              aria-controls="<UUID>"
+              aria-controls="63"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -3841,7 +3214,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="63"
             />
           </section>
           <h3>
@@ -3911,21 +3284,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       2.115.10.20
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       1 hit 
                   </li>
@@ -3937,21 +3298,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       2.60.120.260
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       2 hits 
                   </li>
@@ -3984,21 +3333,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       View protein in InterPro
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                   </li>
                   <li>
@@ -4009,21 +3346,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       IPR003343
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      Big_2 
                   </li>
@@ -4035,21 +3360,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       IPR000421
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      FA58C 
                   </li>
@@ -4061,21 +3374,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       IPR008979
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      Galactose-bd-like_sf 
                   </li>
@@ -4087,21 +3388,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       IPR023296
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      Glyco_hydro_beta-prop_sf 
                   </li>
@@ -4143,21 +3432,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       View protein in PROSITE
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                   </li>
                   <li>
@@ -4168,21 +3445,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       PS50022
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      FA58C_3 1 hit 
                   </li>
@@ -4215,21 +3480,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       View protein in Pfam
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                   </li>
                   <li>
@@ -4240,21 +3493,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       PF02368
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      Big_2 1 hit 
                   </li>
@@ -4266,21 +3507,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       PF00754
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      F5_F8_type_C 1 hit 
                   </li>
@@ -4313,21 +3542,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       View protein in SMART
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                   </li>
                   <li>
@@ -4338,21 +3555,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       SM00635
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      BID_2 1 hit 
                   </li>
@@ -4385,21 +3590,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       SSF49373
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      SSF49373 1 hit 
                   </li>
@@ -4411,21 +3604,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       SSF49785
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      SSF49785 1 hit 
                   </li>
@@ -4437,21 +3618,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       SSF50939
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      SSF50939 1 hit 
                   </li>
@@ -4463,21 +3632,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       SSF75005
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      SSF75005 1 hit 
                   </li>
@@ -4510,21 +3667,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -4557,21 +3702,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -4627,15 +3760,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 download=""
                 href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P0DTR4.fasta"
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 32 32"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
-                  />
-                </svg>
+                <test-file-stub />
                 Download
               </a>
               <div
@@ -4815,21 +3940,9 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       WP_009260926.1
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      NZ_WKPQ01000044.1 
                   </li>
