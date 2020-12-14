@@ -9,31 +9,28 @@ const HomePageNonCritical = () => (
       <Tile title="UniProtKB" />
       <Tile
         title="Proteomes"
-        namespace="proteomes"
         description="Sets of proteins for reference and other species of interest."
       />
       <Tile
         title="UniRef"
-        namespace="uniref"
         description="Clusters of protein sequences at 100%, 90% &amp; 50% similarity"
       />
       <Tile
         title="UniParc"
-        namespace="uniparc"
         description="Non-redundant archive of protein sequences publicly available (UniProt, RefSeq, Ensembl,...)"
       />
     </Block>
     <Block columns="4">
-      <Tile title="Literature Citations" small />
-      <Tile title="Taxonomy" small />
-      <Tile title="Subcellular locations" small />
-      <Tile title="Cross-ref databases" small />
+      <Tile title="Literature Citations" />
+      <Tile title="Taxonomy" />
+      <Tile title="Subcellular locations" />
+      <Tile title="Cross-ref databases" />
     </Block>
     <Block columns="4">
-      <Tile title="Diseases" small />
-      <Tile title="Keywords" small />
-      <Tile title="UniRule" small />
-      <Tile title="SAAS" small />
+      <Tile title="Diseases" />
+      <Tile title="Keywords" />
+      <Tile title="UniRule" />
+      <Tile title="SAAS" />
     </Block>
     <HeroContainer title="News">
       <PlaceHolder />
