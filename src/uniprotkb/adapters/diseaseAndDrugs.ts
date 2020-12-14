@@ -17,14 +17,13 @@ const commentsCategories = [
   CommentType.PHARMACEUTICAL,
 ];
 
-const convertDiseaseAndDrugs = (data: UniProtkbAPIModel) => {
-  return convertSection(
+const convertDiseaseAndDrugs = (data: UniProtkbAPIModel) =>
+  convertSection(
     data,
     commentsCategories,
     keywordsCategories,
     featuresCategories,
     EntrySection.DiseaseAndDrugs
   );
-};
 
 export default convertDiseaseAndDrugs;

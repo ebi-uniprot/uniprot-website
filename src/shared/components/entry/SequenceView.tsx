@@ -199,26 +199,22 @@ export const IsoformInfo: React.FC<{
 
 export const SequenceCautionView: React.FC<{
   data: SequenceCautionComment[];
-}> = ({ data }) => {
-  return (
-    <>
-      {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
-        <section
-          className="text-block"
-          key={`${sequenceCautionType}-${sequence}`}
-        >
-          {`The sequence `}
-          <ExternalLink url={externalUrls.ENA(sequence)}>
-            {sequence}
-          </ExternalLink>
-          {` differs from that shown. Reason: ${sequenceCautionType} `}
-          {note}
-          {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
-        </section>
-      ))}
-    </>
-  );
-};
+}> = ({ data }) => (
+  <>
+    {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
+      <section
+        className="text-block"
+        key={`${sequenceCautionType}-${sequence}`}
+      >
+        {`The sequence `}
+        <ExternalLink url={externalUrls.ENA(sequence)}>{sequence}</ExternalLink>
+        {` differs from that shown. Reason: ${sequenceCautionType} `}
+        {note}
+        {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+      </section>
+    ))}
+  </>
+);
 
 export const MassSpectrometryView: React.FC<{
   data: MassSpectrometryComment[];

@@ -41,14 +41,12 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ accession, entryType }: ProteinEntryLight) => {
-          return (
-            <Link to={`/uniprotkb/${accession}`}>
-              <EntryTypeIcon entryType={entryType} />
-              {accession}
-            </Link>
-          );
-        },
+        render: ({ accession, entryType }: ProteinEntryLight) => (
+          <Link to={`/uniprotkb/${accession}`}>
+            <EntryTypeIcon entryType={entryType} />
+            {accession}
+          </Link>
+        ),
       },
       {
         label: 'Gene name',

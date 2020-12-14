@@ -8,18 +8,16 @@ import { ValueWithEvidence } from '../../types/modelTypes';
 export const geneAlternativeNamesView = (
   alternativeNames: ValueWithEvidence[],
   firstComma = true
-) => {
-  return (
-    <Fragment>
-      {firstComma && ', '}
-      {alternativeNames
-        .map<React.ReactNode>((altName) => (
-          <NameWithEvidence data={altName} key={altName.value} />
-        ))
-        .reduce((prev, curr) => [prev, ', ', curr])}
-    </Fragment>
-  );
-};
+) => (
+  <Fragment>
+    {firstComma && ', '}
+    {alternativeNames
+      .map<React.ReactNode>((altName) => (
+        <NameWithEvidence data={altName} key={altName.value} />
+      ))
+      .reduce((prev, curr) => [prev, ', ', curr])}
+  </Fragment>
+);
 
 const GeneNamesView: React.FC<{
   geneNamesData: GeneNamesData;

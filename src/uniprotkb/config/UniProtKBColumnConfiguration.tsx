@@ -84,32 +84,28 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = UniProtKBColumn.accession;
 
-const getFeatureColumn = (type: FeatureType) => {
-  return {
-    label: type,
-    render: (data: UniProtkbUIModel) => {
-      const { featuresData } = data[EntrySection.Sequence];
-      return (
-        featuresData && (
-          <FeaturesView
-            features={featuresData.filter((feature) => feature.type === type)}
-          />
-        )
-      );
-    },
-  };
-};
+const getFeatureColumn = (type: FeatureType) => ({
+  label: type,
+  render: (data: UniProtkbUIModel) => {
+    const { featuresData } = data[EntrySection.Sequence];
+    return (
+      featuresData && (
+        <FeaturesView
+          features={featuresData.filter((feature) => feature.type === type)}
+        />
+      )
+    );
+  },
+});
 
-const getGOColumnForAspect = (aspect: GoAspect) => {
-  return {
-    label: `Gene Ontology - ${aspect}`,
-    render: (data: UniProtkbUIModel) => {
-      const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-      const goProcessTerms = goTerms && goTerms.get(aspect);
-      return goProcessTerms && <GOTermsView data={goProcessTerms} />;
-    },
-  };
-};
+const getGOColumnForAspect = (aspect: GoAspect) => ({
+  label: `Gene Ontology - ${aspect}`,
+  render: (data: UniProtkbUIModel) => {
+    const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
+    const goProcessTerms = goTerms && goTerms.get(aspect);
+    return goProcessTerms && <GOTermsView data={goProcessTerms} />;
+  },
+});
 
 export const UniProtKBColumnConfiguration = new Map<
   UniProtKBColumn,
@@ -184,15 +180,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
     return (
       <Fragment>
         {geneNamesData &&
-          geneNamesData.map((geneData) => {
-            return (
+          geneNamesData.map(
+            (geneData) =>
               geneData.geneName && (
                 <div key={geneData.geneName.value}>
                   {geneData.geneName.value}
                 </div>
               )
-            );
-          })}
+          )}
       </Fragment>
     );
   },
@@ -963,11 +958,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
   label: 'Mapped PubMed ID',
-  render: () => {
+  render: () =>
     // TODO This is currently not implemented in the backend see TRM-23257
     // depending on the format, this could use the same processing as PubMed ID
-    return '';
-  },
+    '',
 });
 UniProtKBColumnConfiguration.set(UniProtKBColumn.dateCreated, {
   label: 'Date Created',

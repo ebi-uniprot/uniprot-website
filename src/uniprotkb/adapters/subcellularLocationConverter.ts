@@ -10,14 +10,13 @@ const keywordsCategories = [KeywordCategory.CELLULAR_COMPONENT];
 
 const featuresCategories = [FeatureType.TOPO_DOM, FeatureType.TRANSMEM];
 
-const convertSubcellularLocation = (data: UniProtkbAPIModel) => {
-  return convertSection(
+const convertSubcellularLocation = (data: UniProtkbAPIModel) =>
+  convertSection(
     data,
     commentCategories,
     keywordsCategories,
     featuresCategories,
     undefined
   );
-};
 
 export default convertSubcellularLocation;

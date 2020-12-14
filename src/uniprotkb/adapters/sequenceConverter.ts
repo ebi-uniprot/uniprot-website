@@ -157,9 +157,9 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
     }
   }
   if (data.features) {
-    const features = data.features.filter((feature) => {
-      return featuresCategories.includes(feature.type);
-    });
+    const features = data.features.filter((feature) =>
+      featuresCategories.includes(feature.type)
+    );
     sequenceData.featuresData = features;
     // Add VAR_SEQ to corresponding isoforms
     if (features && sequenceData.alternativeProducts) {

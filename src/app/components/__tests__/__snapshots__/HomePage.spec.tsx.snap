@@ -7,12 +7,6 @@ exports[`HomePage component should render 1`] = `
       class="hero-header"
     >
       <div
-        class="hero-header__top"
-      >
-        <div />
-        <div />
-      </div>
-      <div
         class="hero-header__title"
       >
         <h1>

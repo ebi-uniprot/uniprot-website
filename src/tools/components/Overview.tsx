@@ -172,9 +172,10 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     : 30
   ).toString();
 
-  const alignmentOverviewData = useMemo(() => {
-    return alignment ? getFullAlignmentSegments(alignment) : [];
-  }, [alignment]);
+  const alignmentOverviewData = useMemo(
+    () => (alignment ? getFullAlignmentSegments(alignment) : []),
+    [alignment]
+  );
 
   if (!ceDefined) {
     return <Loader />;

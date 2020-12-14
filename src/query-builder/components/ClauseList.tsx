@@ -59,17 +59,15 @@ const ClauseItem: React.FC<{
         label={clause.searchTerm.label}
         autocomplete
       />
-      {fieldItems.map((siblingTerm) => {
-        return (
-          <div className="query-builder__inputs" key={siblingTerm.id}>
-            <Field
-              field={siblingTerm}
-              handleChange={handleChange}
-              initialValue={clause.queryBits}
-            />
-          </div>
-        );
-      })}
+      {fieldItems.map((siblingTerm) => (
+        <div className="query-builder__inputs" key={siblingTerm.id}>
+          <Field
+            field={siblingTerm}
+            handleChange={handleChange}
+            initialValue={clause.queryBits}
+          />
+        </div>
+      ))}
       <button
         type="button"
         className="button tertiary button-remove"

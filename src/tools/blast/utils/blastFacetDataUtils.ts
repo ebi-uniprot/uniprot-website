@@ -99,13 +99,13 @@ export const filterBlastHitForResults = (
   min: number,
   max: number,
   facet: BlastFacet
-) => {
-  return hits.filter((hit) => {
-    return hit.hit_hsps
-      .map((hsp) => hsp[blastFacetToKeyName[facet] as keyof BlastHsp])
-      .filter((score) => score >= min && score <= max).length;
-  });
-};
+) =>
+  hits.filter(
+    (hit) =>
+      hit.hit_hsps
+        .map((hsp) => hsp[blastFacetToKeyName[facet] as keyof BlastHsp])
+        .filter((score) => score >= min && score <= max).length
+  );
 
 export const filterBlastDataForResults = (
   data: BlastResults,

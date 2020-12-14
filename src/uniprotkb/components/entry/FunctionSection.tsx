@@ -32,42 +32,38 @@ const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
 
-export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => {
-  return (
-    <>
-      <section className="text-block">
-        {`Abs(max) = ${data.approximate && '~'}${data.max}nm`}
-      </section>
-      <section className="text-block">
-        {data.note && <TextView comments={data.note.texts} />}
-        {data.evidences && <UniProtKBEvidenceTag evidences={data.evidences} />}
-      </section>
-    </>
-  );
-};
+export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => (
+  <>
+    <section className="text-block">
+      {`Abs(max) = ${data.approximate && '~'}${data.max}nm`}
+    </section>
+    <section className="text-block">
+      {data.note && <TextView comments={data.note.texts} />}
+      {data.evidences && <UniProtKBEvidenceTag evidences={data.evidences} />}
+    </section>
+  </>
+);
 
-export const KineticsView: FC<{ data: KineticParameters }> = ({ data }) => {
-  return (
-    <>
-      <section className="text-block">
-        {data.michaelisConstants && (
-          <ul className="no-bullet">
-            {data.michaelisConstants.map((km) => (
-              <li key={km.constant}>
-                K<sub>M</sub>
-                {`=${km.constant}${km.unit} for ${km.substrate} `}
-                <UniProtKBEvidenceTag evidences={km.evidences} />
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-      <section className="text-block">
-        {data.note && <TextView comments={data.note.texts} />}
-      </section>
-    </>
-  );
-};
+export const KineticsView: FC<{ data: KineticParameters }> = ({ data }) => (
+  <>
+    <section className="text-block">
+      {data.michaelisConstants && (
+        <ul className="no-bullet">
+          {data.michaelisConstants.map((km) => (
+            <li key={km.constant}>
+              K<sub>M</sub>
+              {`=${km.constant}${km.unit} for ${km.substrate} `}
+              <UniProtKBEvidenceTag evidences={km.evidences} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+    <section className="text-block">
+      {data.note && <TextView comments={data.note.texts} />}
+    </section>
+  </>
+);
 
 const BioPhysicoChemicalPropertiesView: FC<{
   data: BioPhysicoChemicalProperties;

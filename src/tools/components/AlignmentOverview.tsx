@@ -60,18 +60,16 @@ const AlignmentOverview: FC<AlignmentOverviewProps> = memo(
 
     return (
       <div>
-        {data.map((trackData, index) => {
-          return (
-            <AlignmentOverviewTrack
-              data={trackData}
-              height={singleTrackHeight}
-              length={length}
-              highlight={highlight}
-              // eslint-disable-next-line react/no-array-index-key
-              key={index}
-            />
-          );
-        })}
+        {data.map((trackData, index) => (
+          <AlignmentOverviewTrack
+            data={trackData}
+            height={singleTrackHeight}
+            length={length}
+            highlight={highlight}
+            // eslint-disable-next-line react/no-array-index-key
+            key={index}
+          />
+        ))}
       </div>
     );
   }

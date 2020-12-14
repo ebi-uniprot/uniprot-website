@@ -10,8 +10,7 @@ const apiUrls = {
 
 export default apiUrls;
 
-export const getAPIQueryUrl = (query: string) => {
-  return `${apiUrls.search}?${queryString.stringify({
+export const getAPIQueryUrl = (query: string) =>
+  `${apiUrls.search}?${queryString.stringify({
     query: `${query}`,
   })}`;
-};

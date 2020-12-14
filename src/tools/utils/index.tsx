@@ -11,9 +11,8 @@ import { Location, jobTypeToPath } from '../../app/config/urls';
 
 import { Job } from '../types/toolsJob';
 
-const parseXML = (xml: string) => {
-  return new window.DOMParser().parseFromString(xml, 'text/xml');
-};
+const parseXML = (xml: string) =>
+  new window.DOMParser().parseFromString(xml, 'text/xml');
 
 type ServerError = {
   response?: { data?: string };

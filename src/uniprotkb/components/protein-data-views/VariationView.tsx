@@ -19,80 +19,79 @@ import { Evidence } from '../../types/modelTypes';
 
 import './styles/variation-view.scss';
 
-const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => {
-  return {
-    positions: {
-      label: 'Position(s)',
-      resolver: (d: TransformedVariant) =>
-        d.start === d.end ? d.start : `${d.start}-${d.end}`,
-    },
-    change: {
-      label: 'Change',
-      resolver: (d: TransformedVariant) =>
-        `${d.wildType}>${d.alternativeSequence}`,
-    },
-    consequence: {
-      label: 'Consequence',
-      child: true,
-      resolver: (d: TransformedVariant) => d.consequenceType,
-    },
-    predictions: {
-      label: 'Predictions',
-      child: true,
-      resolver: (d: TransformedVariant) =>
-        html`${d.predictions?.map(
-          (prediction) =>
-            html`${prediction.predAlgorithmNameType}:
-              ${prediction.predictionValType} (${prediction.score})<br />`
-        )}`,
-    },
-    description: {
-      label: 'Description',
-      resolver: (d: TransformedVariant) =>
-        html`${d.descriptions?.map(
-          (description) =>
-            html`${description.value} (${description.sources.join(', ')})<br />`
-        )}`,
-    },
-    somaticStatus: {
-      label: 'Somatic',
-      child: true,
-      resolver: (d: TransformedVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
-    },
-    hasDisease: {
-      label: 'Disease association',
-      resolver: (d: TransformedVariant) =>
-        d.association && d.association.length > 0 ? 'Y' : 'N',
-    },
-    association: {
-      label: 'Disease association',
-      child: true,
-      resolver: (d: TransformedVariant) => {
-        if (!d.association) {
-          return '';
-        }
-        return d.association.map((association) => {
-          return html`
-            <p>
-              ${association.name}
-              ${association.evidences &&
-              UniProtProtvistaEvidenceTag(
-                association.evidences.map((evidence) => {
-                  return {
+const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
+  positions: {
+    label: 'Position(s)',
+    resolver: (d: TransformedVariant) =>
+      d.start === d.end ? d.start : `${d.start}-${d.end}`,
+  },
+  change: {
+    label: 'Change',
+    resolver: (d: TransformedVariant) =>
+      `${d.wildType}>${d.alternativeSequence}`,
+  },
+  consequence: {
+    label: 'Consequence',
+    child: true,
+    resolver: (d: TransformedVariant) => d.consequenceType,
+  },
+  predictions: {
+    label: 'Predictions',
+    child: true,
+    resolver: (d: TransformedVariant) =>
+      html`${d.predictions?.map(
+        (prediction) =>
+          html`${prediction.predAlgorithmNameType}:
+            ${prediction.predictionValType} (${prediction.score})<br />`
+      )}`,
+  },
+  description: {
+    label: 'Description',
+    resolver: (d: TransformedVariant) =>
+      html`${d.descriptions?.map(
+        (description) =>
+          html`${description.value} (${description.sources.join(', ')})<br />`
+      )}`,
+  },
+  somaticStatus: {
+    label: 'Somatic',
+    child: true,
+    resolver: (d: TransformedVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
+  },
+  hasDisease: {
+    label: 'Disease association',
+    resolver: (d: TransformedVariant) =>
+      d.association && d.association.length > 0 ? 'Y' : 'N',
+  },
+  association: {
+    label: 'Disease association',
+    child: true,
+    resolver: (d: TransformedVariant) => {
+      if (!d.association) {
+        return '';
+      }
+      return d.association.map(
+        (association) => html`
+          <p>
+            ${association.name}
+            ${association.evidences &&
+            UniProtProtvistaEvidenceTag(
+              association.evidences.map(
+                (evidence) =>
+                  ({
                     evidenceCode: evidence.code,
                     source: evidence.source.name,
                     id: evidence.source.id,
-                  } as Evidence;
-                }),
-                evidenceTagCallback
-              )}
-            </p>
-          `;
-        });
-      },
+                  } as Evidence)
+              ),
+              evidenceTagCallback
+            )}
+          </p>
+        `
+      );
     },
-  };
-};
+  },
+});
 
 const VariationView: FC<{
   primaryAccession: string;
