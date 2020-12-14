@@ -1,4 +1,3 @@
-import React from 'react';
 import EntryPublications from '../EntryPublications';
 import mockPublicationsData from './__mocks__/entryPublicationsData.json';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';

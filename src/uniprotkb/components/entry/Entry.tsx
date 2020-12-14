@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, FC } from 'react';
+import { useMemo, useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Link,

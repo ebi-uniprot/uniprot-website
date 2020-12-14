@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 import { HistogramFilter } from 'franklin-sites';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import DiseaseInvolvement from '../DiseaseInvolvementView';
 import DiseaseInvolvementUIDataJson from './__mocks__/diseaseInvolvementUIData.json';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import RangeField from '../../../query-builder/components/RangeField';
 

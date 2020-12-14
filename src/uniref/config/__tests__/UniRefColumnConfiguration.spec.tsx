@@ -1,7 +1,9 @@
-import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import UniProtKBColumnConfiguration from '../UniRefColumnConfiguration';
+
+import UniRefColumnConfiguration from '../UniRefColumnConfiguration';
+
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+
 jest.mock('../../../tools/utils/storage');
 
 const data = {
@@ -29,12 +31,12 @@ const data = {
 };
 
 describe('UniRefColumnConfiguration component', () => {
-  test('should render all columns', () => {
-    UniProtKBColumnConfiguration.forEach((column) => {
+  for (const [key, column] of UniRefColumnConfiguration) {
+    test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(data)}</MemoryRouter>
       );
-      expect(asFragment()).toMatchSnapshot(column.label);
+      expect(asFragment()).toMatchSnapshot();
     });
-  });
+  }
 });

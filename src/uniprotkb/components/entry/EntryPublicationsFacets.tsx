@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Facets, Loader } from 'franklin-sites';
 import { useLocation } from 'react-router-dom';
 

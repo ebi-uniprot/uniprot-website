@@ -1,4 +1,3 @@
-import React from 'react';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 import UniRefCard from '../UniRefCard';
 import data from '../../../__mocks__/UniRefResultsData.json';

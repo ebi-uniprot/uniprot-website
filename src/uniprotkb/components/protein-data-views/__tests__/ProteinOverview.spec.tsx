@@ -1,5 +1,3 @@
-import React from 'react';
-
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
 import ProteinOverview from '../ProteinOverviewView';

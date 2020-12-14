@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Loader } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';

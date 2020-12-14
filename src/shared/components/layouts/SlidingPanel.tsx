@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useSpring, animated } from 'react-spring';
 import cn from 'classnames';
 import { upperFirst } from 'lodash-es';

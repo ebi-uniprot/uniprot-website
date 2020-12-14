@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
 import { NameWithEvidence } from './ProteinNamesView';
@@ -10,22 +10,20 @@ import { ValueWithEvidence } from '../../types/modelTypes';
 export const geneAlternativeNamesView = (
   alternativeNames: ValueWithEvidence[],
   firstComma?: boolean
-) => {
-  return (
-    <>
-      {firstComma && ', '}
-      {alternativeNames.map((altName, index) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <Fragment key={index}>
-          {index ? ', ' : undefined}
-          <NameWithEvidence data={altName} key={altName.value} />
-        </Fragment>
-      ))}
-    </>
-  );
-};
+) => (
+  <>
+    {firstComma && ', '}
+    {alternativeNames.map((altName, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        {index ? ', ' : undefined}
+        <NameWithEvidence data={altName} key={altName.value} />
+      </Fragment>
+    ))}
+  </>
+);
 
-const GeneNamesView: React.FC<{
+const GeneNamesView: FC<{
   geneNamesData: GeneNamesData;
   isCompact?: boolean;
   noTitles?: boolean;

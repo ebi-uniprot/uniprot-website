@@ -1,5 +1,3 @@
-import React from 'react';
-
 import UniProtKBInfo from '../../uniprotkb/components/results/UniProtKBInfo';
 import BlastInfo from '../../tools/blast/components/BlastFormInfo';
 import AlignInfo from '../../tools/align/components/AlignFormInfo';

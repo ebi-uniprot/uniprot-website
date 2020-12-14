@@ -1,4 +1,7 @@
 /* eslint-disable camelcase */
+// TODO: remove this when implementing
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React, { ReactNode } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 

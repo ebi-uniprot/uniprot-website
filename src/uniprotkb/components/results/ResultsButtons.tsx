@@ -1,4 +1,4 @@
-import React, { FC, lazy, useState, Suspense } from 'react';
+import { FC, lazy, useState, Suspense } from 'react';
 import {
   DownloadIcon,
   StatisticsIcon,

@@ -1,20 +1,20 @@
-import React from 'react';
+import { FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { Xref } from '../../types/commentTypes';
 
-const ProteomesId: React.FC<{ id?: string }> = ({ id }) => (
+const ProteomesId: FC<{ id?: string }> = ({ id }) => (
   <Link to={`/proteomes/${id}`}>{id}</Link>
 );
 
-const ProteomesComponents: React.FC<{
+const ProteomesComponents: FC<{
   components?: { [key: string]: string };
 }> = ({ components }) => (
   <>{components && Object.values(components).join(', ')}</>
 );
 
-const ProteomesView: React.FC<{ data?: Xref[]; isCompact?: boolean }> = ({
+const ProteomesView: FC<{ data?: Xref[]; isCompact?: boolean }> = ({
   data,
   isCompact = false,
 }) => {

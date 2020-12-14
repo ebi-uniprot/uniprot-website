@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
@@ -9,7 +9,7 @@ const getStringValue = (value: string, prefix?: string) =>
     ? `"${prefix || ''}${value?.trim()}"`
     : `${prefix || ''}${value?.trim()}`;
 
-const TextField: React.FC<{
+const TextField: FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;

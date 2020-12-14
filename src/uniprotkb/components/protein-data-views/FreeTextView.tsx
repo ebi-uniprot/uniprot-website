@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment, FC } from 'react';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
@@ -9,7 +9,7 @@ type FreeTextProps = {
   showMolecule?: boolean;
 };
 
-export const TextView: React.FC<{ comments: TextWithEvidence[] }> = ({
+export const TextView: FC<{ comments: TextWithEvidence[] }> = ({
   comments,
 }) => (
   <section className="text-block">
@@ -25,7 +25,7 @@ export const TextView: React.FC<{ comments: TextWithEvidence[] }> = ({
   </section>
 );
 
-const FreeTextView: React.FC<FreeTextProps> = ({
+const FreeTextView: FC<FreeTextProps> = ({
   comments,
   title,
   showMolecule = true,

@@ -1,4 +1,3 @@
-import React from 'react';
 import ObsoleteEntryPage from '../ObsoleteEntryPage';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';

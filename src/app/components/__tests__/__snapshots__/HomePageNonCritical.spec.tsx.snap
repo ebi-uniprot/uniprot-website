@@ -5,142 +5,245 @@ exports[`HomePage component (non-critical part) should render 1`] = `
   <div
     class="block block--4-col"
   >
-    <div
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        UniProtKB
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        This is a short description of what the resource is/provides.
-      </p>
-    </div>
-    <div
-      class="tile tile--proteomes"
+        <h3
+          class="tile__header"
+        >
+          UniProtKB
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        Proteomes
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Sets of proteins for reference and other species of interest.
-      </p>
-    </div>
-    <div
-      class="tile tile--uniref"
+        <h3
+          class="tile__header"
+        >
+          Proteomes
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Sets of proteins for reference and other species of interest.
+        </small>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        UniRef
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Clusters of protein sequences at 100%, 90% & 50% similarity
-      </p>
-    </div>
-    <div
-      class="tile tile--uniparc"
+        <h3
+          class="tile__header"
+        >
+          UniRef
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Clusters of protein sequences at 100%, 90% & 50% similarity
+        </small>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        UniParc
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Non-redundant archive of protein sequences publicly available (UniProt, RefSeq, Ensembl,...)
-      </p>
-    </div>
+        <h3
+          class="tile__header"
+        >
+          UniParc
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Non-redundant archive of protein sequences publicly available (UniProt, RefSeq, Ensembl,...)
+        </small>
+      </section>
+    </button>
   </div>
   <div
     class="block block--4-col"
   >
-    <div
-      class="tile tile--small"
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        Literature Citations
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
+        <h3
+          class="tile__header"
+        >
+          Literature Citations
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        Taxonomy
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
+        <h3
+          class="tile__header"
+        >
+          Taxonomy
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        Subcellular locations
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
+        <h3
+          class="tile__header"
+        >
+          Subcellular locations
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        Cross-ref databases
-      </h3>
-    </div>
+        <h3
+          class="tile__header"
+        >
+          Cross-ref databases
+        </h3>
+      </section>
+    </button>
   </div>
   <div
     class="block block--4-col"
   >
-    <div
-      class="tile tile--small"
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        Diseases
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
+        <h3
+          class="tile__header"
+        >
+          Diseases
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        Keywords
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
+        <h3
+          class="tile__header"
+        >
+          Keywords
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        UniRule
-      </h3>
-    </div>
-    <div
-      class="tile tile--small"
+        <h3
+          class="tile__header"
+        >
+          UniRule
+        </h3>
+      </section>
+    </button>
+    <button
+      class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
+      <section
+        class="tile__background-image"
+      />
+      <section
+        class="tile__content"
       >
-        SAAS
-      </h3>
-    </div>
+        <h3
+          class="tile__header"
+        >
+          SAAS
+        </h3>
+      </section>
+    </button>
   </div>
   <div
     class="hero-container"
@@ -159,62 +262,98 @@ exports[`HomePage component (non-critical part) should render 1`] = `
   <div
     class="block block--4-col"
   >
-    <div
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        BLAST
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        The Basic Local Alignment Search Tool finds regions of local similarity between sequences.
-      </p>
-    </div>
-    <div
+        <h3
+          class="tile__header"
+        >
+          BLAST
+        </h3>
+        <small
+          class="tile__description"
+        >
+          The Basic Local Alignment Search Tool finds regions of local similarity between sequences.
+        </small>
+      </section>
+    </button>
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        ALIGN
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Align two or more protein sequences with the Clust Omega program.
-      </p>
-    </div>
-    <div
+        <h3
+          class="tile__header"
+        >
+          ALIGN
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Align two or more protein sequences with the Clust Omega program.
+        </small>
+      </section>
+    </button>
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        Retrieve/ID Mapping
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Retrieve and/or convert non UniProt identifiers to download lists for use on this website.
-      </p>
-    </div>
-    <div
+        <h3
+          class="tile__header"
+        >
+          Retrieve/ID Mapping
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Retrieve and/or convert non UniProt identifiers to download lists for use on this website.
+        </small>
+      </section>
+    </button>
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        Peptide Search
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Find all UniProtKB sequences that exactly match a query peptide sequence.
-      </p>
-    </div>
+        <h3
+          class="tile__header"
+        >
+          Peptide Search
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Find all UniProtKB sequences that exactly match a query peptide sequence.
+        </small>
+      </section>
+    </button>
   </div>
   <div
     class="hero-container"
@@ -233,48 +372,75 @@ exports[`HomePage component (non-critical part) should render 1`] = `
   <div
     class="block block--3-col"
   >
-    <div
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        Programmatic access
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Query UniProt data using APIs providing REST, SPARQL and Java services.
-      </p>
-    </div>
-    <div
+        <h3
+          class="tile__header"
+        >
+          Programmatic access
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Query UniProt data using APIs providing REST, SPARQL and Java services.
+        </small>
+      </section>
+    </button>
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        FTP Download
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Get the UniProt data directly.
-      </p>
-    </div>
-    <div
+        <h3
+          class="tile__header"
+        >
+          FTP Download
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Get the UniProt data directly.
+        </small>
+      </section>
+    </button>
+    <button
       class="tile"
+      style="width: 100%;"
+      type="button"
     >
-      <h3
-        class="tile__header"
-      >
-        Technical Documentation
-      </h3>
-      <p
+      <section
+        class="tile__background-image"
+      />
+      <section
         class="tile__content"
       >
-        Access extensive technical documents to help you use UniProt to its full potential.
-      </p>
-    </div>
+        <h3
+          class="tile__header"
+        >
+          Technical Documentation
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Access extensive technical documents to help you use UniProt to its full potential.
+        </small>
+      </section>
+    </button>
   </div>
 </DocumentFragment>
 `;

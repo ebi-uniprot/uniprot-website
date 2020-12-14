@@ -1,4 +1,3 @@
-import React from 'react';
 import { act } from 'react-dom/test-utils';
 import ResultsView from '../ResultsView';
 import { waitFor } from '@testing-library/react';

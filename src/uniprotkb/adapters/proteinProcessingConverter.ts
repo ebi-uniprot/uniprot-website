@@ -23,14 +23,13 @@ const featuresCategories = [
 
 const proteinProcessingComments = [CommentType.PTM];
 
-const convertProteinProcessing = (data: UniProtkbAPIModel) => {
-  return convertSection(
+const convertProteinProcessing = (data: UniProtkbAPIModel) =>
+  convertSection(
     data,
     proteinProcessingComments,
     keywordsCategories,
     featuresCategories,
     EntrySection.ProteinProcessing
   );
-};
 
 export default convertProteinProcessing;

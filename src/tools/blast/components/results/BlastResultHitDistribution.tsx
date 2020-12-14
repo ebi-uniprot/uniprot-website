@@ -1,4 +1,4 @@
-import React, { FC, useRef, useMemo, useState } from 'react';
+import { FC, useRef, useMemo, useState } from 'react';
 import { Histogram, Loader } from 'franklin-sites';
 import cn from 'classnames';
 

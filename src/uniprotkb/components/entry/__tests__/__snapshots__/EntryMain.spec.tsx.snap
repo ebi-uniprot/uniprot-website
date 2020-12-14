@@ -986,202 +986,208 @@ exports[`Entry view should render 1`] = `
           <h3>
             Gene names
           </h3>
-          <div
-            class="info-list"
+          <ul
+            class="expandable-list no-bullet"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="info-list"
               >
-                <h5
-                  class="bold"
-                >
-                  Name
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                some Gene 
-                <button
-                  aria-controls="<UUID>"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-unreviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <svg
-                    fill="currentColor"
-                    height="12"
-                    viewBox="0 0 10 15"
-                    width="12"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
-                    />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 automatic annotation
-                  </span>
-                </button>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="<UUID>"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="info-list__item"
                 >
-                  Synonyms
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                some Syn 
-                <button
-                  aria-controls="<UUID>"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-unreviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <svg
-                    fill="currentColor"
-                    height="12"
-                    viewBox="0 0 10 15"
-                    width="12"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="info-list__title"
                   >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
+                    <h5
+                      class="bold"
+                    >
+                      Name
+                    </h5>
+                  </div>
+                  <div
+                    class="info-list__content"
+                  >
+                    some Gene 
+                    <button
+                      aria-controls="<UUID>"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <svg
+                        fill="currentColor"
+                        height="12"
+                        viewBox="0 0 10 15"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0H0v15l5-5 5 5V0z"
+                        />
+                      </svg>
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="<UUID>"
                     />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 automatic annotation
-                  </span>
-                </button>
+                  </div>
+                </div>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="<UUID>"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="info-list__item"
                 >
-                  ORF names
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                some orf 
-                <button
-                  aria-controls="<UUID>"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <svg
-                    fill="currentColor"
-                    height="12"
-                    viewBox="0 0 10 15"
-                    width="12"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="info-list__title"
                   >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
+                    <h5
+                      class="bold"
+                    >
+                      Synonyms
+                    </h5>
+                  </div>
+                  <div
+                    class="info-list__content"
+                  >
+                    some Syn 
+                    <button
+                      aria-controls="<UUID>"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <svg
+                        fill="currentColor"
+                        height="12"
+                        viewBox="0 0 10 15"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0H0v15l5-5 5 5V0z"
+                        />
+                      </svg>
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="<UUID>"
                     />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 publication
-                  </span>
-                </button>
+                  </div>
+                </div>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="<UUID>"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="info-list__item"
                 >
-                  Ordered locus names
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                some locus 
-                <button
-                  aria-controls="<UUID>"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-unreviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <svg
-                    fill="currentColor"
-                    height="12"
-                    viewBox="0 0 10 15"
-                    width="12"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    class="info-list__title"
                   >
-                    <path
-                      d="M10 0H0v15l5-5 5 5V0z"
+                    <h5
+                      class="bold"
+                    >
+                      ORF names
+                    </h5>
+                  </div>
+                  <div
+                    class="info-list__content"
+                  >
+                    some orf 
+                    <button
+                      aria-controls="<UUID>"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <svg
+                        fill="currentColor"
+                        height="12"
+                        viewBox="0 0 10 15"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0H0v15l5-5 5 5V0z"
+                        />
+                      </svg>
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 publication
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="<UUID>"
                     />
-                  </svg>
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 automatic annotation
-                  </span>
-                </button>
+                  </div>
+                </div>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="<UUID>"
-                />
+                  class="info-list__item"
+                >
+                  <div
+                    class="info-list__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      Ordered locus names
+                    </h5>
+                  </div>
+                  <div
+                    class="info-list__content"
+                  >
+                    some locus 
+                    <button
+                      aria-controls="<UUID>"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <svg
+                        fill="currentColor"
+                        height="12"
+                        viewBox="0 0 10 15"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10 0H0v15l5-5 5 5V0z"
+                        />
+                      </svg>
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="<UUID>"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Organism names
           </h3>
@@ -1380,6 +1386,9 @@ exports[`Entry view should render 1`] = `
           <h3>
             Proteome
           </h3>
+          <ul
+            class="expandable-list no-bullet"
+          />
         </div>
       </section>
     </div>
@@ -2012,11 +2021,17 @@ exports[`Entry view should render 1`] = `
               <div
                 class="info-list__content"
               >
-                <a
-                  href="/keywords/KW-11111"
+                <ul
+                  class="expandable-list no-bullet"
                 >
-                   #keyword value
-                </a>
+                  <li>
+                    <a
+                      href="/keywords/KW-11111"
+                    >
+                       #keyword value
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -2952,17 +2967,25 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="info-list__content"
               >
-                <a
-                  href="/keywords/KW-0326"
+                <ul
+                  class="expandable-list no-bullet"
                 >
-                   #Glycosidase
-                </a>
-                 
-                <a
-                  href="/keywords/KW-0378"
-                >
-                   #Hydrolase
-                </a>
+                  <li>
+                    <a
+                      href="/keywords/KW-0326"
+                    >
+                       #Glycosidase
+                    </a>
+                  </li>
+                  <li>
+                     
+                    <a
+                      href="/keywords/KW-0378"
+                    >
+                       #Hydrolase
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
             <div
@@ -2980,11 +3003,17 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="info-list__content"
               >
-                <a
-                  href="/keywords/KW-0479"
+                <ul
+                  class="expandable-list no-bullet"
                 >
-                   #Metal-binding
-                </a>
+                  <li>
+                    <a
+                      href="/keywords/KW-0479"
+                    >
+                       #Metal-binding
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -3377,6 +3406,9 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             Proteome
           </h3>
+          <ul
+            class="expandable-list no-bullet"
+          />
         </div>
       </section>
     </div>
@@ -3833,11 +3865,17 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="info-list__content"
               >
-                <a
-                  href="/keywords/KW-0732"
+                <ul
+                  class="expandable-list no-bullet"
                 >
-                   #Signal
-                </a>
+                  <li>
+                    <a
+                      href="/keywords/KW-0732"
+                    >
+                       #Signal
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -4731,11 +4769,17 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="info-list__content"
               >
-                <a
-                  href="/keywords/KW-0002"
+                <ul
+                  class="expandable-list no-bullet"
                 >
-                   #3D-structure
-                </a>
+                  <li>
+                    <a
+                      href="/keywords/KW-0002"
+                    >
+                       #3D-structure
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

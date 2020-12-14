@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Loader, CloseIcon } from 'franklin-sites';
 import SlidingPanel, {
   Position,

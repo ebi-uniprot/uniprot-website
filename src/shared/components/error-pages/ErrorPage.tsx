@@ -1,8 +1,8 @@
-import React, { ReactNode, ReactElement } from 'react';
+import { ReactNode, ReactElement, FC } from 'react';
 
 import './styles/error-pages.scss';
 
-const ErrorPage: React.FC<{
+const ErrorPage: FC<{
   artwork: ReactElement;
   message: ReactNode;
   testid?: string;

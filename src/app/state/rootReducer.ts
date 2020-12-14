@@ -10,8 +10,7 @@ const appReducer = combineReducers<RootState>({
   tools: toolsReducers,
 });
 
-const rootReducer: Reducer<RootState, RootAction> = (state, action) => {
-  return appReducer(state, action);
-};
+const rootReducer: Reducer<RootState, RootAction> = (state, action) =>
+  appReducer(state, action);
 
 export default rootReducer;

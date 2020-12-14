@@ -1,4 +1,3 @@
-import React from 'react';
 import { Tile, HeroContainer } from 'franklin-sites';
 
 import Block from './Block';

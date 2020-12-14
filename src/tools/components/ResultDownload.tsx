@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import { memo, useState, ChangeEvent } from 'react';
 import { Button } from 'franklin-sites';
 
 import toolsURLs, { ResultFormat } from '../config/urls';
@@ -104,7 +104,7 @@ const ResultDownload = memo<ResultDownloadProps>(
   }) => {
     const [fileFormat, setFileFormat] = useState(defaultFormat[jobType]);
 
-    const updateFileFormat = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const updateFileFormat = (e: ChangeEvent<HTMLSelectElement>) => {
       setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
     };
 

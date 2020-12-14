@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 
 import AutocompleteWrapper from './AutocompleteWrapper';
 
@@ -6,7 +6,7 @@ import initializer from '../utils/fieldInitializer';
 
 import { QueryBit, SearchTermType } from '../types/searchTypes';
 
-const AutocompleteField: React.FC<{
+const AutocompleteField: FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit, reset?: boolean) => void;
   initialValue?: QueryBit;

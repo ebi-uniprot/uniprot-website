@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react';
-
+import { Fragment, FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { DiseaseComment } from '../../types/commentTypes';
+
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import { databaseToDatabaseInfo } from '../../config/database';
 import { XRef } from './XRefView';
+
+import { DiseaseComment } from '../../types/commentTypes';
+import { databaseToDatabaseInfo } from '../../config/database';
 
 type DiseaseInvolvementEntryProps = {
   comment: DiseaseComment[][0];
@@ -17,7 +18,7 @@ type DiseaseInvolvementProps = {
   includeTitle?: boolean;
 };
 
-export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = ({
+export const DiseaseInvolvementEntry: FC<DiseaseInvolvementEntryProps> = ({
   comment,
   accession,
 }) => {
@@ -89,7 +90,7 @@ export const DiseaseInvolvementEntry: React.FC<DiseaseInvolvementEntryProps> = (
   );
 };
 
-export const DiseaseInvolvementView: React.FC<DiseaseInvolvementProps> = ({
+export const DiseaseInvolvementView: FC<DiseaseInvolvementProps> = ({
   comments,
   primaryAccession: accession,
   includeTitle = false,

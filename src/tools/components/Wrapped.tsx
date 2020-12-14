@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
-import React, {
+import {
   FC,
   useCallback,
   useMemo,
@@ -149,27 +149,23 @@ export const WrappedRow: FC<WrappedRowProps> = ({
   return (
     <>
       <div className="track-label track-label--align-labels">
-        {sequences.map((s) => {
-          return (
-            <AlignLabel
-              accession={s.accession}
-              info={s}
-              loading={false}
-              key={s.name}
-              style={heightStyle}
-              checked={Boolean(
-                s.accession && selectedEntries?.includes(s.accession)
-              )}
-              onSequenceChecked={handleSelectedEntries}
-              onIdClick={
-                setActiveId ? () => setActiveId(s.accession) : undefined
-              }
-              active={!!activeId && setActiveId && activeId === s.accession}
-            >
-              {s.name}
-            </AlignLabel>
-          );
-        })}
+        {sequences.map((s) => (
+          <AlignLabel
+            accession={s.accession}
+            info={s}
+            loading={false}
+            key={s.name}
+            style={heightStyle}
+            checked={Boolean(
+              s.accession && selectedEntries?.includes(s.accession)
+            )}
+            onSequenceChecked={handleSelectedEntries}
+            onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
+            active={!!activeId && setActiveId && activeId === s.accession}
+          >
+            {s.name}
+          </AlignLabel>
+        ))}
       </div>
       <div className="track">
         {!delayRender && (

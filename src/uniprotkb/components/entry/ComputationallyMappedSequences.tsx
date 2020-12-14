@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, FC } from 'react';
 import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ type GeneCentricData = {
   proteomeId: string;
 };
 
-const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
+const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   primaryAccession,
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
@@ -41,14 +41,12 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ accession, entryType }: ProteinEntryLight) => {
-          return (
-            <Link to={`/uniprotkb/${accession}`}>
-              <EntryTypeIcon entryType={entryType} />
-              {accession}
-            </Link>
-          );
-        },
+        render: ({ accession, entryType }: ProteinEntryLight) => (
+          <Link to={`/uniprotkb/${accession}`}>
+            <EntryTypeIcon entryType={entryType} />
+            {accession}
+          </Link>
+        ),
       },
       {
         label: 'Gene name',

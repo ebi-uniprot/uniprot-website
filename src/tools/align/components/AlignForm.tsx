@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useCallback,
   FormEvent,
@@ -6,6 +6,8 @@ import React, {
   useMemo,
   useRef,
   FC,
+  Dispatch,
+  SetStateAction,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -52,7 +54,7 @@ const ALIGN_LIMIT = 100;
 
 const FormSelect: FC<{
   formValue: AlignFormValue;
-  updateFormValue: React.Dispatch<React.SetStateAction<AlignFormValue>>;
+  updateFormValue: Dispatch<SetStateAction<AlignFormValue>>;
 }> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
@@ -347,9 +349,7 @@ const AlignForm = () => {
                   key={(stateItem as AlignFormValue).fieldName}
                   formValue={stateItem as AlignFormValue}
                   updateFormValue={
-                    setStateItem as React.Dispatch<
-                      React.SetStateAction<AlignFormValue>
-                    >
+                    setStateItem as Dispatch<SetStateAction<AlignFormValue>>
                   }
                 />
               ))}

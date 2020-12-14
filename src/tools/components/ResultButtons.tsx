@@ -1,4 +1,4 @@
-import React, { FC, lazy, useState, Suspense } from 'react';
+import { FC, lazy, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Loader } from 'franklin-sites';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
