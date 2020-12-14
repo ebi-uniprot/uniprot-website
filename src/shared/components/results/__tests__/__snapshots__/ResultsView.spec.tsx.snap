@@ -39,15 +39,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     O00311 · CDC7_HUMAN
                   </span>
@@ -171,15 +163,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q9Z0H0 · CDC7_MOUSE
                   </span>
@@ -303,15 +287,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P06243 · CDC7_YEAST
                   </span>
@@ -447,15 +423,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P41892 · CDC7_SCHPO
                   </span>
@@ -579,15 +547,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q54DK3 · CDC7_DICDI
                   </span>
@@ -699,15 +659,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P50582 · HSK1_SCHPO
                   </span>
@@ -831,15 +783,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q8NEY8 · PPHLN_HUMAN
                   </span>
@@ -953,15 +897,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--unreviewed"
                       title="This marks an unreviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 400 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     X2JCT3 · X2JCT3_DROME
                   </span>
@@ -1062,15 +998,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--unreviewed"
                       title="This marks an unreviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 400 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q9W3Y1 · Q9W3Y1_DROME
                   </span>
@@ -1171,15 +1099,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q8NFT6 · DBF4B_HUMAN
                   </span>
@@ -1275,15 +1195,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P32325 · DBF4_YEAST
                   </span>
@@ -1415,15 +1327,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q9UBU7 · DBF4A_HUMAN
                   </span>
@@ -1525,15 +1429,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P49736 · MCM2_HUMAN
                   </span>
@@ -1675,15 +1571,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q9BW66 · CINP_HUMAN
                   </span>
@@ -1803,15 +1691,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q9QZ41 · DBF4A_MOUSE
                   </span>
@@ -1913,15 +1793,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q8SR83 · CDC72_ENCCU
                   </span>
@@ -2057,15 +1929,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P97310 · MCM2_MOUSE
                   </span>
@@ -2189,15 +2053,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q8SR85 · CDC71_ENCCU
                   </span>
@@ -2333,15 +2189,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P55861 · MCM2_XENLA
                   </span>
@@ -2465,15 +2313,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P87027 · SPG1_SCHPO
                   </span>
@@ -2581,15 +2421,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q5XK83 · MCM4A_XENLA
                   </span>
@@ -2713,15 +2545,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     Q9UQY9 · SPO4_SCHPO
                   </span>
@@ -2857,15 +2681,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     O74473 · CDC11_SCHPO
                   </span>
@@ -2955,15 +2771,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P30664 · MCM4B_XENLA
                   </span>
@@ -3087,15 +2895,7 @@ exports[`ResultsView component should render cards 1`] = `
                       class="entry-title__status icon--reviewed"
                       title="This marks a reviewed UniProtKB entry"
                     >
-                      <svg
-                        fill="currentColor"
-                        viewBox="0 0 426 512"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-                        />
-                      </svg>
+                      <test-file-stub />
                     </span>
                     P33991 · MCM4_HUMAN
                   </span>

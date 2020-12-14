@@ -33,21 +33,9 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -57,21 +45,9 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -81,21 +57,9 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -105,21 +69,9 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -169,21 +121,9 @@ exports[`XRefView should render for Expression section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -193,21 +133,9 @@ exports[`XRefView should render for Expression section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -217,21 +145,9 @@ exports[`XRefView should render for Expression section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -241,21 +157,9 @@ exports[`XRefView should render for Expression section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -305,21 +209,9 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -329,21 +221,9 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -353,21 +233,9 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -377,21 +245,9 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -441,21 +297,9 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -465,21 +309,9 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -489,21 +321,9 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -513,21 +333,9 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -577,21 +385,9 @@ exports[`XRefView should render for Function section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -601,21 +397,9 @@ exports[`XRefView should render for Function section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -625,21 +409,9 @@ exports[`XRefView should render for Function section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -649,21 +421,9 @@ exports[`XRefView should render for Function section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -713,21 +473,9 @@ exports[`XRefView should render for Interaction section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -737,21 +485,9 @@ exports[`XRefView should render for Interaction section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -761,21 +497,9 @@ exports[`XRefView should render for Interaction section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -785,21 +509,9 @@ exports[`XRefView should render for Interaction section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -849,21 +561,9 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -873,21 +573,9 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -897,21 +585,9 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -921,21 +597,9 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -985,21 +649,9 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1009,21 +661,9 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1033,21 +673,9 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -1057,21 +685,9 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -1121,21 +737,9 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1145,21 +749,9 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1169,21 +761,9 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -1193,21 +773,9 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -1257,21 +825,9 @@ exports[`XRefView should render for Sequence section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1281,21 +837,9 @@ exports[`XRefView should render for Sequence section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1305,21 +849,9 @@ exports[`XRefView should render for Sequence section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -1329,21 +861,9 @@ exports[`XRefView should render for Sequence section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -1393,21 +913,9 @@ exports[`XRefView should render for Structure section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1417,21 +925,9 @@ exports[`XRefView should render for Structure section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1441,21 +937,9 @@ exports[`XRefView should render for Structure section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -1465,21 +949,9 @@ exports[`XRefView should render for Structure section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -1529,21 +1001,9 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               target="_blank"
             >
               EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1553,21 +1013,9 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               target="_blank"
             >
               GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
              | 
             <a
@@ -1577,21 +1025,9 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               target="_blank"
             >
               DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             ) 
             <a
@@ -1601,21 +1037,9 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               target="_blank"
             >
               1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
+              <test-file-stub
                 width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
+              />
             </a>
             [
             <a
@@ -1641,21 +1065,9 @@ exports[`getPropertyLink should create snapshot 1`] = `
     target="_blank"
   >
     ENSG00000142192
-    <svg
-      fill="none"
-      viewBox="0 0 16 16"
+    <test-file-stub
       width="12.5"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-        fill="currentColor"
-      />
-      <path
-        d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-        fill="currentColor"
-      />
-    </svg>
+    />
   </a>
 </DocumentFragment>
 `;

@@ -6,15 +6,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns 1`] = 
     class="entry-title__status icon--reviewed"
     title="This marks a reviewed UniProtKB entry"
   >
-    <svg
-      fill="currentColor"
-      viewBox="0 0 426 512"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M432 144H288V0l144 144zM113 404l66 35-13-74 54-52-74-11-33-67-33 67-74 11 53 52-12 74 66-35zm-81 88v20h200l-119-63-81 43zm114-190l-33-67-33 67-48 7v29l27 27-12 74 66-35 66 35-13-74 54-52-74-11zm110-126V0H32v269l21-3 60-121 60 121 133 19-97 94 23 133h200V176H256z"
-      />
-    </svg>
+    <test-file-stub />
   </span>
 </DocumentFragment>
 `;
@@ -36,23 +28,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
     >
       value1
       <button
-        aria-controls="<UUID>"
+        aria-controls="18"
         aria-expanded="false"
         class="evidence-tag svg-colour-reviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -63,27 +48,20 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="18"
       />
     </section>
     <button
-      aria-controls="<UUID>"
+      aria-controls="19"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -94,7 +72,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="19"
     />
   </section>
 </DocumentFragment>
@@ -201,23 +179,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
     </strong>
      some reaction
     <button
-      aria-controls="<UUID>"
+      aria-controls="20"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -228,7 +199,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="20"
     />
     This reaction proceeds in the 
     <span
@@ -238,23 +209,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
     </span>
      direction 
     <button
-      aria-controls="<UUID>"
+      aria-controls="21"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -265,7 +229,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="21"
     />
   </span>
 </DocumentFragment>
@@ -279,23 +243,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
     <span>
       Cofactor Name 
       <button
-        aria-controls="<UUID>"
+        aria-controls="22"
         aria-expanded="false"
         class="evidence-tag svg-colour-unreviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -306,7 +263,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="22"
       />
     </span>
     <section
@@ -314,23 +271,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
     >
       value2
       <button
-        aria-controls="<UUID>"
+        aria-controls="23"
         aria-expanded="false"
         class="evidence-tag svg-colour-unreviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -341,7 +291,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="23"
       />
     </section>
   </section>
@@ -379,23 +329,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disea
     class="text-block"
   >
     <button
-      aria-controls="<UUID>"
+      aria-controls="35"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -406,7 +349,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disea
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="35"
     />
   </span>
   <div
@@ -476,21 +419,9 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disea
           target="_blank"
         >
           3124
-          <svg
-            fill="none"
-            viewBox="0 0 16 16"
+          <test-file-stub
             width="12.5"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-              fill="currentColor"
-            />
-            <path
-              d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-              fill="currentColor"
-            />
-          </svg>
+          />
         </a>
           
       </div>
@@ -509,23 +440,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disru
   >
     value
     <button
-      aria-controls="<UUID>"
+      aria-controls="34"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -536,7 +460,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disru
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="34"
     />
   </section>
 </DocumentFragment>
@@ -548,23 +472,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: EC Nu
 <DocumentFragment>
   1.2.3.4 
   <button
-    aria-controls="<UUID>"
+    aria-controls="24"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -575,7 +492,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: EC Nu
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="24"
   />
 </DocumentFragment>
 `;
@@ -628,23 +545,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       >
         some Gene 
         <button
-          aria-controls="<UUID>"
+          aria-controls="7"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -655,7 +565,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="7"
         />
       </div>
     </div>
@@ -676,23 +586,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       >
         some Syn 
         <button
-          aria-controls="<UUID>"
+          aria-controls="8"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -703,7 +606,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="8"
         />
       </div>
     </div>
@@ -724,23 +627,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       >
         some orf 
         <button
-          aria-controls="<UUID>"
+          aria-controls="9"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -751,7 +647,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="9"
         />
       </div>
     </div>
@@ -772,23 +668,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
       >
         some locus 
         <button
-          aria-controls="<UUID>"
+          aria-controls="10"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -799,7 +688,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="10"
         />
       </div>
     </div>
@@ -841,23 +730,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
 <DocumentFragment>
   some orf 
   <button
-    aria-controls="<UUID>"
+    aria-controls="12"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -868,7 +750,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="12"
   />
 </DocumentFragment>
 `;
@@ -877,23 +759,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
 <DocumentFragment>
   some locus 
   <button
-    aria-controls="<UUID>"
+    aria-controls="11"
     aria-expanded="false"
     class="evidence-tag svg-colour-unreviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -904,7 +779,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="11"
   />
 </DocumentFragment>
 `;
@@ -921,23 +796,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
 <DocumentFragment>
   some Syn 
   <button
-    aria-controls="<UUID>"
+    aria-controls="13"
     aria-expanded="false"
     class="evidence-tag svg-colour-unreviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -948,7 +816,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="13"
   />
 </DocumentFragment>
 `;
@@ -1009,23 +877,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
         </sub>
         =2.0999999046325684uM for sub1 
         <button
-          aria-controls="<UUID>"
+          aria-controls="25"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1036,7 +897,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="25"
         />
       </li>
     </ul>
@@ -1049,23 +910,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
     >
       value1
       <button
-        aria-controls="<UUID>"
+        aria-controls="26"
         aria-expanded="false"
         class="evidence-tag svg-colour-reviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -1076,7 +930,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="26"
       />
     </section>
   </section>
@@ -1113,23 +967,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Mass 
     </h3>
     Molecular mass is 2.1 Da. Determined by LSI. note value
     <button
-      aria-controls="<UUID>"
+      aria-controls="14"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -1140,7 +987,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Mass 
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="14"
     />
   </section>
 </DocumentFragment>
@@ -1174,21 +1021,9 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Organ
     target="_blank"
   >
     NCBI
-    <svg
-      fill="none"
-      viewBox="0 0 16 16"
+    <test-file-stub
       width="12.5"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-        fill="currentColor"
-      />
-      <path
-        d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-        fill="currentColor"
-      />
-    </svg>
+    />
   </a>
 </DocumentFragment>
 `;
@@ -1239,23 +1074,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
       >
         rec full Name 
         <button
-          aria-controls="<UUID>"
+          aria-controls="0"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1266,7 +1094,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="0"
         />
       </div>
     </div>
@@ -1287,23 +1115,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
       >
         1.2.3.4 
         <button
-          aria-controls="<UUID>"
+          aria-controls="1"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1314,7 +1135,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="1"
         />
       </div>
     </div>
@@ -1335,23 +1156,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
       >
         recommended short name 
         <button
-          aria-controls="<UUID>"
+          aria-controls="2"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1362,7 +1176,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="2"
         />
       </div>
     </div>
@@ -1387,23 +1201,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
           <li>
             a full alt Name 
             <button
-              aria-controls="<UUID>"
+              aria-controls="3"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -1414,27 +1221,20 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="3"
             />
              (short alt name1 
             <button
-              aria-controls="<UUID>"
+              aria-controls="4"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -1445,7 +1245,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="4"
             />
             ) 
           </li>
@@ -1501,23 +1301,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
           <li>
             sub full Name 
             <button
-              aria-controls="<UUID>"
+              aria-controls="5"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
               type="button"
             >
-              <svg
-                fill="currentColor"
+              <test-file-stub
                 height="12"
-                viewBox="0 0 10 15"
                 width="12"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M10 0H0v15l5-5 5 5V0z"
-                />
-              </svg>
+              />
               <span
                 class="evidence-tag__label"
                 title=""
@@ -1528,7 +1321,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="<UUID>"
+              id="5"
             />
           </li>
         </ul>
@@ -1551,23 +1344,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
       >
         biotech 
         <button
-          aria-controls="<UUID>"
+          aria-controls="6"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1578,7 +1364,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="6"
         />
       </div>
     </div>
@@ -1683,23 +1469,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: RNA E
       <span>
         rna position 
         <button
-          aria-controls="<UUID>"
+          aria-controls="15"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1710,7 +1489,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: RNA E
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="15"
         />
       </span>
     </div>
@@ -1718,23 +1497,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: RNA E
       <span>
         value 
         <button
-          aria-controls="<UUID>"
+          aria-controls="16"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -1745,7 +1517,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: RNA E
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="16"
         />
       </span>
     </div>
@@ -1760,23 +1532,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Redox
   >
     value1
     <button
-      aria-controls="<UUID>"
+      aria-controls="28"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -1787,7 +1552,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Redox
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="28"
     />
   </section>
 </DocumentFragment>
@@ -1880,41 +1645,22 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
       target="_blank"
     >
       sequence
-      <svg
-        fill="none"
-        viewBox="0 0 16 16"
+      <test-file-stub
         width="12.5"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-          fill="currentColor"
-        />
-        <path
-          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-          fill="currentColor"
-        />
-      </svg>
+      />
     </a>
      differs from that shown. Reason: Erroneous initiation Text note
     <button
-      aria-controls="<UUID>"
+      aria-controls="17"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -1925,7 +1671,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="17"
     />
   </section>
 </DocumentFragment>
@@ -1944,41 +1690,22 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
       target="_blank"
     >
       sequence
-      <svg
-        fill="none"
-        viewBox="0 0 16 16"
+      <test-file-stub
         width="12.5"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-          fill="currentColor"
-        />
-        <path
-          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-          fill="currentColor"
-        />
-      </svg>
+      />
     </a>
      differs from that shown. Reason: Erroneous initiation Text note
     <button
-      aria-controls="<UUID>"
+      aria-controls="30"
       aria-expanded="false"
       class="evidence-tag svg-colour-unreviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -1989,7 +1716,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="30"
     />
   </section>
 </DocumentFragment>
@@ -2019,23 +1746,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
       </strong>
        
       <button
-        aria-controls="<UUID>"
+        aria-controls="31"
         aria-expanded="false"
         class="evidence-tag svg-colour-unreviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -2046,27 +1766,20 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="31"
       />
       : topology value 
       <button
-        aria-controls="<UUID>"
+        aria-controls="32"
         aria-expanded="false"
         class="evidence-tag svg-colour-unreviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -2077,7 +1790,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="32"
       />
     </div>
     <section
@@ -2085,23 +1798,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
     >
       value
       <button
-        aria-controls="<UUID>"
+        aria-controls="33"
         aria-expanded="false"
         class="evidence-tag svg-colour-unreviewed"
         data-testid="evidence-tag-trigger"
         type="button"
       >
-        <svg
-          fill="currentColor"
+        <test-file-stub
           height="12"
-          viewBox="0 0 10 15"
           width="12"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M10 0H0v15l5-5 5 5V0z"
-          />
-        </svg>
+        />
         <span
           class="evidence-tag__label"
           title=""
@@ -2112,7 +1818,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Subce
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="<UUID>"
+        id="33"
       />
     </section>
   </section>
@@ -2128,23 +1834,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Tempe
   >
     value1
     <button
-      aria-controls="<UUID>"
+      aria-controls="29"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -2155,7 +1854,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Tempe
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="29"
     />
   </section>
 </DocumentFragment>
@@ -2172,55 +1871,11 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Varia
   <div
     class="loader-container"
   >
-    <svg
-      class="loader"
+    <test-file-stub
+      classname="loader"
       height="100"
-      viewBox="0 0 100 100"
       width="100"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-        fill-rule="evenodd"
-      >
-        <path
-          d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-          stroke="#3ca3ca"
-          stroke-linecap="square"
-          stroke-width="2"
-        />
-        <circle
-          cx="9"
-          cy="50"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="30"
-          cy="34"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="50"
-          cy="50"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="70"
-          cy="66"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="91"
-          cy="50"
-          fill="#3ca3ca"
-          r="6"
-        />
-      </g>
-    </svg>
+    />
   </div>
 </DocumentFragment>
 `;
@@ -2284,23 +1939,16 @@ exports[`UniProtKBColumnConfiguration component should render all columns: pH De
   >
     value1
     <button
-      aria-controls="<UUID>"
+      aria-controls="27"
       aria-expanded="false"
       class="evidence-tag svg-colour-reviewed"
       data-testid="evidence-tag-trigger"
       type="button"
     >
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="12"
-        viewBox="0 0 10 15"
         width="12"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M10 0H0v15l5-5 5 5V0z"
-        />
-      </svg>
+      />
       <span
         class="evidence-tag__label"
         title=""
@@ -2311,7 +1959,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: pH De
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="<UUID>"
+      id="27"
     />
   </section>
 </DocumentFragment>

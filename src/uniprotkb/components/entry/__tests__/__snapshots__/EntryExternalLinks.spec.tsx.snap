@@ -36,21 +36,9 @@ exports[`Entry - External Links view should render 1`] = `
                 target="_blank"
               >
                 resource name (Note text)
-                <svg
-                  fill="none"
-                  viewBox="0 0 16 16"
+                <test-file-stub
                   width="12.5"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                    fill="currentColor"
-                  />
-                  <path
-                    d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                    fill="currentColor"
-                  />
-                </svg>
+                />
               </a>
             </li>
           </ul>
@@ -86,21 +74,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -140,21 +116,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -187,21 +151,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -241,21 +193,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       id value
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      
                     <a
@@ -265,21 +205,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       description value
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                      [
                     <a
@@ -325,21 +253,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>
@@ -372,21 +288,9 @@ exports[`Entry - External Links view should render 1`] = `
                       target="_blank"
                     >
                       Submit a new modelling project...
-                      <svg
-                        fill="none"
-                        viewBox="0 0 16 16"
+                      <test-file-stub
                         width="12.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                          fill="currentColor"
-                        />
-                      </svg>
+                      />
                     </a>
                       
                   </li>

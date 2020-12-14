@@ -22,23 +22,16 @@ exports[`GeneNames should render gene_names 1`] = `
       >
         some Gene 
         <button
-          aria-controls="<UUID>"
+          aria-controls="0"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -49,7 +42,7 @@ exports[`GeneNames should render gene_names 1`] = `
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="0"
         />
       </div>
     </div>
@@ -70,23 +63,16 @@ exports[`GeneNames should render gene_names 1`] = `
       >
         some Syn 
         <button
-          aria-controls="<UUID>"
+          aria-controls="1"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -97,7 +83,7 @@ exports[`GeneNames should render gene_names 1`] = `
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="1"
         />
       </div>
     </div>
@@ -118,23 +104,16 @@ exports[`GeneNames should render gene_names 1`] = `
       >
         some orf 
         <button
-          aria-controls="<UUID>"
+          aria-controls="2"
           aria-expanded="false"
           class="evidence-tag svg-colour-reviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -145,7 +124,7 @@ exports[`GeneNames should render gene_names 1`] = `
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="2"
         />
       </div>
     </div>
@@ -166,23 +145,16 @@ exports[`GeneNames should render gene_names 1`] = `
       >
         some locus 
         <button
-          aria-controls="<UUID>"
+          aria-controls="3"
           aria-expanded="false"
           class="evidence-tag svg-colour-unreviewed"
           data-testid="evidence-tag-trigger"
           type="button"
         >
-          <svg
-            fill="currentColor"
+          <test-file-stub
             height="12"
-            viewBox="0 0 10 15"
             width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
+          />
           <span
             class="evidence-tag__label"
             title=""
@@ -193,7 +165,7 @@ exports[`GeneNames should render gene_names 1`] = `
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="<UUID>"
+          id="3"
         />
       </div>
     </div>
