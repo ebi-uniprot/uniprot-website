@@ -1,4 +1,3 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
 
 import { fireEvent } from '@testing-library/react';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import BlastResultTable from '../BlastResultTable';
 
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';

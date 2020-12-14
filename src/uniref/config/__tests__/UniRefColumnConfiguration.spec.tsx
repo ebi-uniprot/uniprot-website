@@ -1,4 +1,3 @@
-import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import UniProtKBColumnConfiguration from '../UniRefColumnConfiguration';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';

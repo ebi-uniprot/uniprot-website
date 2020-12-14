@@ -1,11 +1,13 @@
-import React, { Fragment, FC } from 'react';
+import { Fragment, FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
+
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
 import {
   ProteinNames,
   ProteinNamesData,
   ProteinDescription,
 } from '../../adapters/namesAndTaxonomyConverter';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 import { ValueWithEvidence } from '../../types/modelTypes';
 
 export const NameWithEvidence: FC<{ data: ValueWithEvidence }> = ({ data }) => (
@@ -151,7 +153,7 @@ const getInfoListForNames = (
   return infoData;
 };
 
-const ProteinNamesView: React.FC<{
+const ProteinNamesView: FC<{
   proteinNames?: ProteinNamesData;
   isCompact?: boolean;
   noTitles?: boolean;

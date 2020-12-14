@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, {
+import {
   useCallback,
   useState,
   useRef,

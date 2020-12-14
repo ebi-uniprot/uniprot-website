@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import { useCallback, memo, FC, Dispatch, SetStateAction } from 'react';
 import { TreeSelect } from 'franklin-sites';
 
 import LogicalOperator from './LogicalOperator';
@@ -11,7 +11,7 @@ import {
   QueryBit,
 } from '../types/searchTypes';
 
-const ClauseItem: React.FC<{
+const ClauseItem: FC<{
   clause: Clause;
   searchTerms: SearchTermType[];
   handleLogicChange: (clauseId: string, value: Operator) => void;
@@ -80,16 +80,16 @@ const ClauseItem: React.FC<{
   );
 };
 
-const MemoizedClauseItem = React.memo(ClauseItem);
+const MemoizedClauseItem = memo(ClauseItem);
 
 type ClauseListProps = {
   clauses: Clause[];
-  setClauses: React.Dispatch<React.SetStateAction<Clause[]>>;
+  setClauses: Dispatch<SetStateAction<Clause[]>>;
   searchTerms: SearchTermType[];
   removeClause: (clauseId: string) => void;
 };
 
-const ClauseList: React.FC<ClauseListProps> = ({
+const ClauseList: FC<ClauseListProps> = ({
   clauses,
   setClauses,
   searchTerms,

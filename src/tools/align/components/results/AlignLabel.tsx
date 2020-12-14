@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, useCallback, MouseEvent } from 'react';
+import { FC, CSSProperties, useCallback, MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { noop } from 'lodash-es';

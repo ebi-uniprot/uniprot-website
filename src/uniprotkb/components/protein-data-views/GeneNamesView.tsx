@@ -1,68 +1,61 @@
-import React, { Fragment } from 'react';
+import { FC, ReactNode } from 'react';
 import { v1 } from 'uuid';
 import { InfoList } from 'franklin-sites';
-import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
+
 import { NameWithEvidence } from './ProteinNamesView';
+
+import { GeneNamesData } from '../../adapters/namesAndTaxonomyConverter';
+
 import { ValueWithEvidence } from '../../types/modelTypes';
 
 export const geneAlternativeNamesView = (
   alternativeNames: ValueWithEvidence[],
   firstComma = true
 ) => (
-  <Fragment>
+  <>
     {firstComma && ', '}
     {alternativeNames
-      .map<React.ReactNode>((altName) => (
+      .map<ReactNode>((altName) => (
         <NameWithEvidence data={altName} key={altName.value} />
       ))
       .reduce((prev, curr) => [prev, ', ', curr])}
-  </Fragment>
+  </>
 );
 
-const GeneNamesView: React.FC<{
+const GeneNamesView: FC<{
   geneNamesData: GeneNamesData;
   isCompact?: boolean;
   noTitles?: boolean;
 }> = ({ geneNamesData, isCompact = false, noTitles = false }) => (
-  <Fragment>
+  <>
     {geneNamesData.map((geneNames) => {
       const infoData = [
         {
           title: 'Name',
           content: geneNames.geneName && (
-            <Fragment>
+            <>
               <NameWithEvidence data={geneNames.geneName} />
-            </Fragment>
+            </>
           ),
         },
       ];
       if (geneNames.synonyms) {
         infoData.push({
           title: 'Synonyms',
-          content: (
-            <Fragment>
-              {geneAlternativeNamesView(geneNames.synonyms, false)}
-            </Fragment>
-          ),
+          content: <>{geneAlternativeNamesView(geneNames.synonyms, false)}</>,
         });
       }
       if (geneNames.orfNames) {
         infoData.push({
           title: 'ORF names',
-          content: (
-            <Fragment>
-              {geneAlternativeNamesView(geneNames.orfNames, false)}
-            </Fragment>
-          ),
+          content: <>{geneAlternativeNamesView(geneNames.orfNames, false)}</>,
         });
       }
       if (geneNames.orderedLocusNames) {
         infoData.push({
           title: 'Ordered locus names',
           content: (
-            <Fragment>
-              {geneAlternativeNamesView(geneNames.orderedLocusNames, false)}
-            </Fragment>
+            <>{geneAlternativeNamesView(geneNames.orderedLocusNames, false)}</>
           ),
         });
       }
@@ -76,7 +69,7 @@ const GeneNamesView: React.FC<{
         />
       );
     })}
-  </Fragment>
+  </>
 );
 
 export default GeneNamesView;

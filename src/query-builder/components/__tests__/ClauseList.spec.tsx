@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import ClauseList from '../../../query-builder/components/ClauseList';
 import { createEmptyClause } from '../../utils/clause';

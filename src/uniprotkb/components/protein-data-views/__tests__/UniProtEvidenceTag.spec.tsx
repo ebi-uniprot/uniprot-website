@@ -1,4 +1,3 @@
-import React from 'react';
 import UniProtKBEvidenceTag, {
   UniProtProtvistaEvidenceTag,
 } from '../UniProtKBEvidenceTag';

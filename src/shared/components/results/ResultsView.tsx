@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FC } from 'react';
+import { useState, useEffect, useRef, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { useHistory, useLocation, generatePath } from 'react-router-dom';
 

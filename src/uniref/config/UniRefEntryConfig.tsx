@@ -1,5 +1,3 @@
-import React from 'react';
-
 import MembersSection from '../components/entry/MembersSection';
 import SequenceSection from '../components/entry/SequenceSection';
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import HomePage from '../HomePage';

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { InfoList, ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -43,7 +43,7 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
   );
 };
 
-export const TaxonomyListView: React.FC<{
+export const TaxonomyListView: FC<{
   data?: OrganismData;
   hosts?: OrganismData[];
 }> = ({ data, hosts }): JSX.Element | null => {

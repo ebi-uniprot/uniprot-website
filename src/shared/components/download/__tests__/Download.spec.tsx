@@ -1,4 +1,3 @@
-import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import Download, { getPreviewFileFormat } from '../Download';
 import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';

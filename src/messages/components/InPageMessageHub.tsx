@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Message } from 'franklin-sites';
 import { MessageType } from '../types/messagesTypes';
 

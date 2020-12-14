@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 

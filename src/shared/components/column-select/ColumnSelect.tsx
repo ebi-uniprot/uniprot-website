@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';

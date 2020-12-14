@@ -1,4 +1,4 @@
-import React, { FC, useCallback, memo } from 'react';
+import { FC, useCallback, memo } from 'react';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
 import { SegmentTrackData } from '../utils/sequences';

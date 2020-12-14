@@ -1,4 +1,4 @@
-import React, {
+import {
   FC,
   useState,
   useEffect,
@@ -7,6 +7,8 @@ import React, {
   MouseEvent,
   useMemo,
   useRef,
+  Dispatch,
+  SetStateAction,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -81,7 +83,7 @@ const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
 
 const FormSelect: FC<{
   formValue: BlastFormValue;
-  updateFormValue: React.Dispatch<React.SetStateAction<BlastFormValue>>;
+  updateFormValue: Dispatch<SetStateAction<BlastFormValue>>;
 }> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
@@ -512,9 +514,7 @@ const BlastForm = () => {
                   key={(stateItem as BlastFormValue).fieldName}
                   formValue={stateItem as BlastFormValue}
                   updateFormValue={
-                    setStateItem as React.Dispatch<
-                      React.SetStateAction<BlastFormValue>
-                    >
+                    setStateItem as Dispatch<SetStateAction<BlastFormValue>>
                   }
                 />
               ))}

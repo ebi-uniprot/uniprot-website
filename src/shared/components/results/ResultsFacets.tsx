@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useMemo } from 'react';
+import { FC, ReactElement, useMemo } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { Facets } from 'franklin-sites';
 

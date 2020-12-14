@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import React from 'react';
 import { Link } from 'react-router-dom';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';

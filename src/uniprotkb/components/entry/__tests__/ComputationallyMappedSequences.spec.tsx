@@ -1,6 +1,5 @@
 import { cleanup, fireEvent } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import React from 'react';
 
 import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
 

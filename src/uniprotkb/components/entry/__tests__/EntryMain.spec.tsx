@@ -1,6 +1,5 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
 enableFetchMocks();
-import React from 'react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import EntryMain from '../EntryMain';

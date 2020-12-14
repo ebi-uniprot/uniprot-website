@@ -1,4 +1,3 @@
-import React from 'react';
 import { Bubble } from 'franklin-sites';
 import { getBEMClassName as bem } from '../../../utils/utils';
 

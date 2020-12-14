@@ -1,4 +1,4 @@
-import React, { FC, lazy, Suspense } from 'react';
+import { FC, lazy, Suspense } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';

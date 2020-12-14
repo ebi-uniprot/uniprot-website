@@ -1,11 +1,4 @@
-import React, {
-  Fragment,
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-  FC,
-} from 'react';
+import { Fragment, useState, useCallback, useRef, useEffect, FC } from 'react';
 import { useModal, ModalBackdrop, Window, Loader } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';

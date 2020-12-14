@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense, CSSProperties } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
 
@@ -92,7 +92,7 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const reportBugLinkStyles: React.CSSProperties = {
+const reportBugLinkStyles: CSSProperties = {
   fontSize: '.8rem',
   lineHeight: '1.5rem',
   display: 'block',

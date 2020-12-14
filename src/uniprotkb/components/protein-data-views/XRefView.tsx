@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import { Fragment, FC } from 'react';
 import { sortBy } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 

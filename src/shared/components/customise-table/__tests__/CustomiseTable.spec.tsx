@@ -1,4 +1,3 @@
-import React from 'react';
 import { act, fireEvent, waitFor } from '@testing-library/react';
 import CustomiseTable from '../CustomiseTable';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';

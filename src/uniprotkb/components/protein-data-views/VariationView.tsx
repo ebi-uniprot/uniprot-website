@@ -1,4 +1,4 @@
-import React, { useCallback, FC, useMemo } from 'react';
+import { useCallback, FC, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 import { html } from 'lit-html';
 import joinUrl from 'url-join';

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import { useCallback, useState, FC, ChangeEvent } from 'react';
 import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import { urlsAreEqual } from '../../utils/url';
@@ -38,7 +38,7 @@ type DownloadProps = {
   onClose: () => void;
 };
 
-const Download: React.FC<DownloadProps> = ({
+const Download: FC<DownloadProps> = ({
   query,
   selectedFacets = [],
   selectedColumns: initialSelectedColumns = [],
@@ -81,10 +81,10 @@ const Download: React.FC<DownloadProps> = ({
     namespace,
   });
 
-  const handleDownloadAllChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
 
-  const handleCompressedChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
   const nSelectedEntries = selectedEntries.length;
@@ -157,7 +157,7 @@ const Download: React.FC<DownloadProps> = ({
   }
 
   return (
-    <Fragment>
+    <>
       <h2>Download</h2>
       <label htmlFor="data-selection-false">
         <input
@@ -225,13 +225,13 @@ const Download: React.FC<DownloadProps> = ({
         </label>
       </fieldset>
       {fileFormatsWithColumns.includes(fileFormat) && (
-        <Fragment>
+        <>
           <legend>Customize data</legend>
           <ColumnSelect
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
           />
-        </Fragment>
+        </>
       )}
       <section className="button-group sliding-panel__button-row sticky-bottom-right">
         <Button variant="secondary" type="button" onClick={() => onClose()}>
@@ -251,7 +251,7 @@ const Download: React.FC<DownloadProps> = ({
         </a>
       </section>
       {previewNode}
-    </Fragment>
+    </>
   );
 };
 

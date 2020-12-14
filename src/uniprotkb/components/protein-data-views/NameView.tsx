@@ -1,5 +1,3 @@
-import React from 'react';
-
 type NameViewProps = {
   name?: string | null;
   shortName?: string | null;

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
-import React, {
+import {
   FC,
   useCallback,
   useMemo,

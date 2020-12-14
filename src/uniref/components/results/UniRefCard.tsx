@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 

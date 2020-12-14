@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import { cleanup, fireEvent } from '@testing-library/react';
 import ResultsContainer, { ViewMode } from '../ResultsContainer';

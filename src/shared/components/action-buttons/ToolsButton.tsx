@@ -1,4 +1,4 @@
-import React, { FC, useRef, useCallback, useEffect } from 'react';
+import { FC, useRef, useCallback, useEffect } from 'react';
 import { v1 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';

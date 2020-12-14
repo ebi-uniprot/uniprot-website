@@ -1,4 +1,4 @@
-import React, { lazy, FC, Suspense } from 'react';
+import { lazy, FC, Suspense } from 'react';
 import { Loader } from 'franklin-sites';
 import cn from 'classnames';
 

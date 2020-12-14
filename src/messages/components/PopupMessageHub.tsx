@@ -1,10 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { Message } from 'franklin-sites';
 import { useTransition, animated } from 'react-spring';
+
 import { MessageType } from '../types/messagesTypes';
 import './styles/popup-message-hub.scss';
 
-const PopUpMessageHub: React.FC<{
+const PopUpMessageHub: FC<{
   messages: MessageType[];
   onDismiss: (id: string) => void;
 }> = ({ messages, onDismiss }) => {

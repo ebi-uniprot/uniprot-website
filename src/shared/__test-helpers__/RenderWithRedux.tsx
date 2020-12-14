@@ -1,12 +1,13 @@
 /* eslint-disable */
-import React from 'react';
+import { Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { render } from '@testing-library/react';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createMemoryHistory, MemoryHistory } from 'history';
-import rootReducer from '../../app/state/rootReducer';
 import { Router, Route } from 'react-router-dom';
+
+import rootReducer from '../../app/state/rootReducer';
 
 type RenderOptions = {
   route?: string;
@@ -17,7 +18,7 @@ type RenderOptions = {
 };
 
 const renderWithRedux = (
-  ui: React.Component,
+  ui: Component,
   {
     route = '',
     history = createMemoryHistory({ initialEntries: [route] }),

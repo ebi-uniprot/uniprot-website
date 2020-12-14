@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, FC } from 'react';
 import { html, TemplateResult } from 'lit-html';
 import { v1 } from 'uuid';
 import { Loader } from 'franklin-sites';
@@ -98,7 +98,7 @@ export const processFeaturesData = (
     })
   );
 
-const FeaturesView: React.FC<FeatureProps> = ({
+const FeaturesView: FC<FeatureProps> = ({
   sequence,
   features,
 }): JSX.Element | null => {

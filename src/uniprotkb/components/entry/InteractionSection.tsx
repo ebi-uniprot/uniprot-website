@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import { Card, Loader } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
 

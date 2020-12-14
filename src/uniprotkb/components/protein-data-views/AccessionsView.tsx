@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react';
+import { Fragment, FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 
 import { NamesAndTaxonomyUIModel } from '../../adapters/namesAndTaxonomyConverter';
 
-const AccessionsView: React.FC<{ data: NamesAndTaxonomyUIModel }> = ({
-  data,
-}) => (
+const AccessionsView: FC<{ data: NamesAndTaxonomyUIModel }> = ({ data }) => (
   <InfoList
     infoData={[
       {

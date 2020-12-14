@@ -17,7 +17,7 @@
     "removeComments": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "types": ["jest", "node"],
     "skipLibCheck": true
   },

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { DoughnutChart } from 'franklin-sites';
 
 export const annotationScoreToBin = (annotationScore: number) => {
