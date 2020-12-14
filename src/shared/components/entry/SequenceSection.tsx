@@ -1,16 +1,22 @@
 import { FC } from 'react';
 import { Card, Sequence } from 'franklin-sites';
 
-import { formatLargeNumber, hasContent } from '../../../shared/utils/utils';
+import { formatLargeNumber, hasContent } from '../../utils/utils';
 
 import EntrySection, {
   getEntrySectionNameAndId,
-} from '../../types/entrySection';
+} from '../../../uniref/types/entrySection';
 
-import { SequenceUIModel } from '../../../uniprotkb/adapters/sequenceConverter';
+export type Sequence = {
+  value: string;
+  length: number;
+  molWeight: number;
+  crc64: string;
+  md5: string;
+};
 
 const SequenceSection: FC<{
-  data: SequenceUIModel;
+  data: Sequence;
   primaryAccession: string;
 }> = ({ data }) => {
   if (!hasContent(data)) {
@@ -20,26 +26,22 @@ const SequenceSection: FC<{
   const infoData = [
     {
       title: 'Length',
-      content: data.sequence.length,
+      content: data.length,
     },
     {
       title: 'Mass (Da)',
-      content: formatLargeNumber(data.sequence.molWeight),
+      content: formatLargeNumber(data.molWeight),
     },
     {
       title: 'Checksum',
-      content: data.sequence.crc64,
+      content: data.crc64,
     },
   ];
 
   return (
     <div id={EntrySection.Sequence}>
       <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
-        <Sequence
-          sequence={data.sequence.value}
-          infoData={infoData}
-          isCollapsible
-        />
+        <Sequence sequence={data.value} infoData={infoData} isCollapsible />
       </Card>
     </div>
   );

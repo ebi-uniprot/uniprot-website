@@ -55,6 +55,12 @@ const UniRefEntryPage = lazy(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
+const UniParcEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/entry/Entry'
+    )
+);
 const BlastResult = lazy(
   () =>
     import(
@@ -135,6 +141,10 @@ const App = () => (
             <Route
               path={LocationToPath[Location.UniRefResults]}
               component={UniRefResultsPage}
+            />
+            <Route
+              path={LocationToPath[Location.UniParcEntry]}
+              component={UniParcEntryPage}
             />
             {/* Tools */}
             <Route

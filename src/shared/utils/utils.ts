@@ -68,5 +68,5 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
       }
       return Object.values(val).length > 0;
     }
-    return false;
+    return typeof val !== 'undefined';
   });
