@@ -24,7 +24,7 @@ const renderWithRouter = (
   );
   return {
     ...renderOutput,
-    rerenderWithRouter: (ui: React.ReactNode) =>
+    rerenderWithRouter: (ui: ReactNode) =>
       renderOutput.rerender(
         <Router history={history}>
           {path ? <Route path={path} render={() => ui} /> : ui}
