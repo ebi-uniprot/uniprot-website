@@ -1,6 +1,5 @@
 export enum EntrySection {
   Sequence = 'sequence',
-  Entries = 'entries',
 }
 
 export type EntrySectionNameAndId = {
@@ -18,11 +17,6 @@ export const getEntrySectionNameAndId = (
       return {
         name: 'Sequence',
         id: EntrySection.Sequence,
-      };
-    case EntrySection.Entries:
-      return {
-        name: 'Entries',
-        id: EntrySection.Entries,
       };
   }
 };

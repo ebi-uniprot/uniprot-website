@@ -17,7 +17,6 @@ export type Sequence = {
 
 const SequenceSection: FC<{
   data: Sequence;
-  primaryAccession: string;
 }> = ({ data }) => {
   if (!hasContent(data)) {
     return null;

@@ -17,10 +17,6 @@ const UniRefEntryConfig: {
     sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence].sequence}
-        primaryAccession={
-          data.representativeMember.accessions?.[0] ||
-          data.representativeMember.memberId
-        }
         key={EntrySection.Sequence}
       />
     ),

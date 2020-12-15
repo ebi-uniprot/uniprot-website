@@ -17,23 +17,8 @@ const UniParcEntryConfig: {
     sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
-        primaryAccession={data.uniParcId}
         key={EntrySection.Sequence}
       />
-    ),
-  },
-  {
-    ...getEntrySectionNameAndId(EntrySection.Entries),
-    sectionContent: (data, metadata) => (
-      <></>
-      // <MembersSection
-      //   id={data.id}
-      //   identity={data.identity}
-      //   representativeMember={data.representativeMember}
-      //   members={data.members}
-      //   key={EntrySection.Members}
-      //   metadata={metadata}
-      // />
     ),
   },
 ];
