@@ -1,4 +1,4 @@
-import { Sequence } from '../../shared/components/entry/SequenceSection';
+import { Sequence } from '../../shared/types/sequence';
 
 export type XRefProperty = {
   key: string; // should replace with union of possibilities?

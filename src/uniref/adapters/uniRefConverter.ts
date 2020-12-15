@@ -1,4 +1,4 @@
-import { Sequence } from '../../shared/components/entry/SequenceSection';
+import { Sequence } from '../../shared/types/sequence';
 import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 import EntrySection from '../types/entrySection';
 

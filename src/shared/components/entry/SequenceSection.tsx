@@ -1,22 +1,15 @@
 import { FC } from 'react';
 import { Card, Sequence } from 'franklin-sites';
 
+import { Sequence as SequenceType } from '../../types/sequence';
 import { formatLargeNumber, hasContent } from '../../utils/utils';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../../uniref/types/entrySection';
 
-export type Sequence = {
-  value: string;
-  length: number;
-  molWeight: number;
-  crc64: string;
-  md5: string;
-};
-
 const SequenceSection: FC<{
-  data: Sequence;
+  data: SequenceType;
 }> = ({ data }) => {
   if (!hasContent(data)) {
     return null;
