@@ -101,6 +101,7 @@ UniRefColumnConfiguration.set(UniRefColumn.length, {
 
 UniRefColumnConfiguration.set(UniRefColumn.sequence, {
   label: 'Reference sequence',
+  // NOTE: not consistent with the way it's represented in UniProtKB column
   render: ({ sequence }) => <span className="break-anywhere">{sequence}</span>,
 });
 
@@ -139,7 +140,9 @@ UniRefColumnConfiguration.set(UniRefColumn.count, {
 
 UniRefColumnConfiguration.set(UniRefColumn.created, {
   label: 'Last updated',
-  render: ({ updated }) => updated,
+  render: ({ updated }) => (
+    <time dateTime={new Date(updated).toISOString()}>{updated}</time>
+  ),
 });
 
 export default UniRefColumnConfiguration;

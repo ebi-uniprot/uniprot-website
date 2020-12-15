@@ -11,6 +11,7 @@ const data = {
   name: 'Cluster: CDC7 cell division cycle 7',
   entryType: 'UniRef90',
   sequenceLength: 483,
+  updated: '2013-06-26',
   memberCount: 9,
   memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
   members: [

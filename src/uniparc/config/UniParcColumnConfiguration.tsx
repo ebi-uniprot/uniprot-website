@@ -1,9 +1,7 @@
 /* eslint-disable camelcase */
-// TODO: remove this when implementing
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Link, generatePath } from 'react-router-dom';
+import { ExpandableList } from 'franklin-sites';
 
 import { UniParcAPIModel } from '../adapters/uniParcConverter';
 
@@ -75,37 +73,39 @@ UniParcColumnConfiguration.set(UniParcColumn.upi, {
 
 UniParcColumnConfiguration.set(UniParcColumn.gene, {
   label: 'Gene names',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   label: 'Organism IDs',
-  // render: ({ taxonomies }) => {
-  //   return taxonomies;
-  // },
+  render: (data) => (
+    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
+      {data.taxonomies.map(({ taxonId }) => (
+        <Link key={taxonId} to={`/taxonomy/${taxonId}`}>
+          {taxonId}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.organism, {
   label: 'Organisms',
-  // render: ({ taxonomies }) => {
-  //   return taxonomies;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.protein, {
   label: 'Protein names',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.proteome, {
   label: 'Proteomes',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.checksum, {
@@ -120,219 +120,110 @@ UniParcColumnConfiguration.set(UniParcColumn.length, {
 
 UniParcColumnConfiguration.set(UniParcColumn.sequence, {
   label: 'Sequence',
-  render: ({ sequence: { value } }) => value,
+  // NOTE: not consistent with the way it's represented in UniProtKB column
+  render: ({ sequence }) => (
+    <span className="break-anywhere">{sequence.value}</span>
+  ),
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.accession, {
   label: 'UniProtKB',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
   label: 'First seen',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  render({ uniParcCrossReferences }) {
+    const created = uniParcCrossReferences.map(({ created }) => created).sort();
+    const firstSeen = created[0];
+    return (
+      <time dateTime={new Date(firstSeen).toISOString()}>{firstSeen}</time>
+    );
+  },
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
   label: 'Last seen',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  render({ uniParcCrossReferences }) {
+    const lastUpdated = uniParcCrossReferences
+      .map(({ lastUpdated }) => lastUpdated)
+      .sort();
+    const lastSeen = lastUpdated[lastUpdated.length - 1];
+    return <time dateTime={new Date(lastSeen).toISOString()}>{lastSeen}</time>;
+  },
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.cdd, {
   label: 'CDD',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.gene3D, {
   label: 'Gene3D',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.hamap, {
   label: 'HAMAP',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.panther, {
   label: 'PANTHER',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.pfam, {
   label: 'Pfam',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.pirsf, {
   label: 'PIRSF',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.prints, {
   label: 'PRINTS',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.prosite, {
   label: 'PROSITE',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.sfld, {
   label: 'SFLD',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.smart, {
   label: 'SMART',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.supfam, {
   label: 'SUPFAM',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.tigrfams, {
   label: 'TIGRFAMs',
-  // render: ({ name }) => {
-  //   return name;
-  // },
+  // TODO:
+  render: () => null,
 });
-
-// UniParcColumnConfiguration.set(UniParcColumn.commonTaxon, {
-//   label: 'Common taxon',
-//   render: ({ commonTaxon }) => {
-//     return commonTaxon;
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.commonTaxonid, {
-//   label: 'Common taxon ID',
-//   render: ({ commonTaxonId }) => {
-//     return <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>;
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.organismId, {
-//   label: 'Organism IDs',
-//   render: ({ organismIds }) => {
-//     return (
-//       <ul className="no-bullet">
-//         {organismIds?.map((organismId) => (
-//           <li key={organismId}>
-//             <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
-//           </li>
-//         ))}
-//       </ul>
-//     );
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.organism, {
-//   label: 'Organisms',
-//   render: ({ organisms }) => {
-//     return (
-//       <ul className="no-bullet">
-//         {organisms?.map((organism) => (
-//           <li key={organism}>{organism}</li>
-//         ))}
-//       </ul>
-//     );
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.identity, {
-//   label: 'Identity',
-//   render: ({ entryType }) => {
-//     return <>{entryType}</>;
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.length, {
-//   label: 'Length',
-//   render: ({ sequenceLength }) => sequenceLength,
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.sequence, {
-//   label: 'Reference sequence',
-//   render: ({ sequence }) => {
-//     return <span className="break-anywhere">{sequence}</span>;
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.types, {
-//   label: 'Types',
-//   render: ({ memberIdTypes }) => {
-//     return (
-//       <>
-//         {memberIdTypes?.map((memberType) => (
-//           <EntryTypeIcon entryType={memberType} key={memberType} />
-//         ))}
-//       </>
-//     );
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.members, {
-//   label: 'Members',
-//   render: ({ members }) => {
-//     return (
-//       <ul className="no-bullet">
-//         {members?.map((member) => (
-//           <li key={member}>
-//             <Link to={`/uniprotkb/${member}`}>{member}</Link>
-//           </li>
-//         ))}
-//       </ul>
-//     );
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.count, {
-//   label: 'Size',
-//   render: ({ memberCount }) => {
-//     return (
-//       <>
-//         {memberCount} member{memberCount > 1 && 's'}
-//       </>
-//     );
-//   },
-// });
-
-// UniParcColumnConfiguration.set(UniParcColumn.created, {
-//   label: 'Last updated',
-//   render: ({ updated }) => {
-//     return updated;
-//   },
-// });
 
 export default UniParcColumnConfiguration;

@@ -22,7 +22,15 @@ exports[`UniRefColumnConfiguration component should render column "count": count
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `<DocumentFragment />`;
+exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `
+<DocumentFragment>
+  <time
+    datetime="2013-06-26T00:00:00.000Z"
+  >
+    2013-06-26
+  </time>
+</DocumentFragment>
+`;
 
 exports[`UniRefColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
