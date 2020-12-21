@@ -105,7 +105,8 @@ const ResultsView: FC<ResultsTableProps> = ({
     namespace,
     query,
     columns: namespace === Namespace.uniparc ? undefined : columns,
-    selectedFacets,
+    // Not really interested in the facets here, so try to reduce payload
+    facets: null,
     sortColumn,
     sortDirection,
   });
