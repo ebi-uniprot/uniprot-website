@@ -1,5 +1,5 @@
 import { Fragment, FC } from 'react';
-import { InfoList } from 'franklin-sites';
+import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
@@ -28,21 +28,24 @@ export const KeywordList: FC<KeywordListProps> = ({
   if (!keywords) {
     return null;
   }
-  const nodes = keywords.map((keyword, index) => {
-    const { id, name } = keyword;
-    if (!id || !name) {
-      return null;
-    }
-    return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
-        <KeywordItem id={id} value={idOnly ? id : name} />
-        {index < keywords.length - 1 && ' '}
-      </Fragment>
-    );
-  });
 
-  return <>{nodes}</>;
+  return (
+    <ExpandableList descriptionString={idOnly ? 'keyword IDs' : 'keywords'}>
+      {keywords.map((keyword, index) => {
+        const { id, name } = keyword;
+        if (!id || !name) {
+          return null;
+        }
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            {index ? ' ' : undefined}
+            <KeywordItem id={id} value={idOnly ? id : name} />
+          </Fragment>
+        );
+      })}
+    </ExpandableList>
+  );
 };
 
 const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {

@@ -16,19 +16,10 @@ exports[`EntryPublication facets tests should handle errors 1`] = `
       <div
         class="message__side-border"
       />
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="1.125em"
-        stroke="currentColor"
-        viewBox="0 0 19 18"
         width="1.125em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M14.93 11.14h0L12.8 9l2.13-2.14a1.9 1.9 0 000-2.67h0l-.63-.64a1.9 1.9 0 00-2.68 0h0L9.5 5.7 7.35 3.55a1.9 1.9 0 00-2.68 0h0l-.63.64a1.9 1.9 0 000 2.67h0L6.18 9l-2.14 2.14a1.9 1.9 0 000 2.67h0l.63.64a1.9 1.9 0 002.68 0L9.5 12.3l2.13 2.14a1.9 1.9 0 002.68 0l.63-.64a1.9 1.9 0 000-2.67zM17.5 9a8 8 0 11-16 0 8 8 0 0116 0z"
-          stroke-width="2"
-        />
-      </svg>
+      />
       <section
         class="message__content"
       >
@@ -51,55 +42,11 @@ exports[`EntryPublication facets tests should handle loading 1`] = `
   <div
     class="loader-container"
   >
-    <svg
-      class="loader"
+    <test-file-stub
+      classname="loader"
       height="100"
-      viewBox="0 0 100 100"
       width="100"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-        fill-rule="evenodd"
-      >
-        <path
-          d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-          stroke="#3ca3ca"
-          stroke-linecap="square"
-          stroke-width="2"
-        />
-        <circle
-          cx="9"
-          cy="50"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="30"
-          cy="34"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="50"
-          cy="50"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="70"
-          cy="66"
-          fill="#3ca3ca"
-          r="6"
-        />
-        <circle
-          cx="91"
-          cy="50"
-          fill="#3ca3ca"
-          r="6"
-        />
-      </g>
-    </svg>
+    />
   </div>
 </DocumentFragment>
 `;

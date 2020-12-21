@@ -33,23 +33,16 @@ Array [
 exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 <DocumentFragment>
   <button
-    aria-controls="<UUID>"
+    aria-controls="2"
     aria-expanded="false"
     class="evidence-tag svg-colour-unreviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -60,7 +53,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="2"
   />
 </DocumentFragment>
 `;
@@ -68,23 +61,16 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
 exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] = `
 <DocumentFragment>
   <button
-    aria-controls="<UUID>"
+    aria-controls="0"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -95,7 +81,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="0"
   />
 </DocumentFragment>
 `;
@@ -103,23 +89,16 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
 exports[`UniProtKBEvidenceTag components should render publications count 1`] = `
 <DocumentFragment>
   <button
-    aria-controls="<UUID>"
+    aria-controls="1"
     aria-expanded="false"
     class="evidence-tag svg-colour-reviewed"
     data-testid="evidence-tag-trigger"
     type="button"
   >
-    <svg
-      fill="currentColor"
+    <test-file-stub
       height="12"
-      viewBox="0 0 10 15"
       width="12"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M10 0H0v15l5-5 5 5V0z"
-      />
-    </svg>
+    />
     <span
       class="evidence-tag__label"
       title=""
@@ -130,7 +109,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="<UUID>"
+    id="1"
   />
 </DocumentFragment>
 `;

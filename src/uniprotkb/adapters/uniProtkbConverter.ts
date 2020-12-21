@@ -72,6 +72,8 @@ export type UniProtkbAPIModel = {
   entryAudit?: EntryAudit;
   references?: Reference[];
   lineages?: LineageData[];
+  // How is that defined? What goes in this?
+  extraAttributes?: Record<string, unknown>;
 };
 
 export type UniProtkbUIModel = {
@@ -93,6 +95,7 @@ export type UniProtkbUIModel = {
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
   references?: Reference[];
+  extraAttributes: UniProtkbAPIModel['extraAttributes'];
 };
 
 export enum InactiveReasonType {
@@ -149,6 +152,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
     references: dataCopy.references || [],
+    extraAttributes: data.extraAttributes,
   };
 };
 

@@ -2,201 +2,179 @@
 
 exports[`GeneNames should render gene_names 1`] = `
 <DocumentFragment>
-  <div
-    class="info-list"
+  <ul
+    class="expandable-list no-bullet"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="info-list"
       >
-        <h5
-          class="bold"
-        >
-          Name
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some Gene 
-        <button
-          aria-controls="<UUID>"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <svg
-            fill="currentColor"
-            height="12"
-            viewBox="0 0 10 15"
-            width="12"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
-            />
-          </svg>
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
         <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="<UUID>"
-        />
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+          class="info-list__item"
         >
-          Synonyms
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some Syn 
-        <button
-          aria-controls="<UUID>"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <svg
-            fill="currentColor"
-            height="12"
-            viewBox="0 0 10 15"
-            width="12"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="info-list__title"
           >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
+            <h5
+              class="bold"
+            >
+              Name
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some Gene 
+            <button
+              aria-controls="0"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-unreviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 automatic annotation
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="0"
             />
-          </svg>
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
+          </div>
+        </div>
         <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="<UUID>"
-        />
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+          class="info-list__item"
         >
-          ORF names
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some orf 
-        <button
-          aria-controls="<UUID>"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-reviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <svg
-            fill="currentColor"
-            height="12"
-            viewBox="0 0 10 15"
-            width="12"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="info-list__title"
           >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
+            <h5
+              class="bold"
+            >
+              Synonyms
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some Syn 
+            <button
+              aria-controls="1"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-unreviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 automatic annotation
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="1"
             />
-          </svg>
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 publication
-          </span>
-        </button>
+          </div>
+        </div>
         <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="<UUID>"
-        />
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+          class="info-list__item"
         >
-          Ordered locus names
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some locus 
-        <button
-          aria-controls="<UUID>"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <svg
-            fill="currentColor"
-            height="12"
-            viewBox="0 0 10 15"
-            width="12"
-            xmlns="http://www.w3.org/2000/svg"
+          <div
+            class="info-list__title"
           >
-            <path
-              d="M10 0H0v15l5-5 5 5V0z"
+            <h5
+              class="bold"
+            >
+              ORF names
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some orf 
+            <button
+              aria-controls="2"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="2"
             />
-          </svg>
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
+          </div>
+        </div>
         <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="<UUID>"
-        />
+          class="info-list__item"
+        >
+          <div
+            class="info-list__title"
+          >
+            <h5
+              class="bold"
+            >
+              Ordered locus names
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some locus 
+            <button
+              aria-controls="3"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-unreviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 automatic annotation
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="3"
+            />
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
