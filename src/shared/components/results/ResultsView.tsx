@@ -104,7 +104,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns,
+    columns: namespace === Namespace.uniparc ? undefined : columns,
     selectedFacets,
     sortColumn,
     sortDirection,

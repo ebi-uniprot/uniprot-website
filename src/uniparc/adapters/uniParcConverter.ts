@@ -41,7 +41,7 @@ export type SequenceFeature = {
 
 export type UniParcAPIModel = {
   uniParcId: string;
-  uniParcCrossReferences: UniParcXRef[];
+  uniParcCrossReferences?: UniParcXRef[];
   taxonomies: { taxonId: number }[];
   sequenceFeatures: SequenceFeature[];
   sequence: Sequence;
