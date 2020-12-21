@@ -25,7 +25,7 @@ const HomePageNonCritical = () => (
   <>
     <section className="uniprot-grid uniprot-grid--centered">
       <Tile
-        title="UniProtKB"
+        title="Proteins"
         className="uniprot-grid-cell--span-3"
         subtitle="UniProt Knowledgebase"
         description={

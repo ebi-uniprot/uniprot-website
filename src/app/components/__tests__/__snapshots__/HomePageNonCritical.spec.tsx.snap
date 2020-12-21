@@ -21,7 +21,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <h3
           class="tile__header"
         >
-          UniProtKB
+          Proteins
         </h3>
         <h5
           class="tile__subtitle"
