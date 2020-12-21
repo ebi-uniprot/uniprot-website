@@ -132,6 +132,7 @@ const defaultFacets = new Map<Namespace, string[]>([
     ],
   ],
   [Namespace.uniref, ['identity']],
+  [Namespace.uniparc, ['database']],
 ]);
 type QueryUrlProps = {
   namespace?: Namespace;
