@@ -7,46 +7,50 @@ exports[`HomePage component should render 1`] = `
       class="hero-header"
     >
       <div
-        class="hero-header__title"
+        class="hero-header__content"
       >
         <h1>
           Find your protein
         </h1>
-      </div>
-      <div
-        class="hero-header__content"
-      >
-        <form
-          class="main-search"
-          data-testid="main-search-form"
-          style="--main-button-color: #00639a;"
+        <section
+          class="uniprot-grid uniprot-grid--centered"
         >
-          <div
-            class="dropdown-container"
+          <section
+            class="uniprot-grid-cell--span-12"
           >
-            <button
-              class="button primary dropdown"
-              type="button"
+            <form
+              class="main-search"
+              data-testid="main-search-form"
+              style="--main-button-color: #00639a;"
             >
-              UniProtKB
-            </button>
-            <div
-              class="dropdown-menu"
-            />
-          </div>
-          <input
-            class="main-search__input"
-            data-testid="main-search-input"
-            type="text"
-            value=""
-          />
-          <button
-            class="button primary"
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
+              <div
+                class="dropdown-container"
+              >
+                <button
+                  class="button primary dropdown"
+                  type="button"
+                >
+                  UniProtKB
+                </button>
+                <div
+                  class="dropdown-menu"
+                />
+              </div>
+              <input
+                class="main-search__input"
+                data-testid="main-search-input"
+                type="text"
+                value=""
+              />
+              <button
+                class="button primary"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+          </section>
+        </section>
       </div>
       <div
         class="hero-header__footer"

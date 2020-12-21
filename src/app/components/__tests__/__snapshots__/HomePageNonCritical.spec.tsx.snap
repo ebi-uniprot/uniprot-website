@@ -2,11 +2,11 @@
 
 exports[`HomePage component (non-critical part) should render 1`] = `
 <DocumentFragment>
-  <div
-    class="block block--4-col"
+  <section
+    class="uniprot-grid uniprot-grid--centered"
   >
     <button
-      class="tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #00639a; width: 100%;"
       type="button"
     >
@@ -49,7 +49,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       </section>
     </button>
     <button
-      class="tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #e56358; width: 100%;"
       type="button"
     >
@@ -79,7 +79,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       </section>
     </button>
     <button
-      class="tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #f2994c; width: 100%;"
       type="button"
     >
@@ -109,7 +109,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       </section>
     </button>
     <button
-      class="tile tile-gradient"
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #88c19d; width: 100%;"
       type="button"
     >
@@ -138,14 +138,18 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         </small>
       </section>
     </button>
-  </div>
+  </section>
   <div
-    class="hero-container"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
   >
-    <section>
-      <h4>
-        Supporting Data
-      </h4>
+    <h3
+      class="uniprot-grid-cell--span-12"
+    >
+      Supporting Data
+    </h3>
+    <section
+      class="uniprot-grid-cell--span-12"
+    >
       <h5>
         Literature Citations
       </h5>
@@ -173,12 +177,16 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </section>
   </div>
   <div
-    class="hero-container"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
   >
-    <section>
-      <h4>
-        News
-      </h4>
+    <h3
+      class="uniprot-grid-cell--span-12"
+    >
+      News
+    </h3>
+    <section
+      class="uniprot-grid-cell--span-12"
+    >
       <div
         class="placeholder"
       >
@@ -187,219 +195,215 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </section>
   </div>
   <div
-    class="hero-container"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
   >
-    <section>
-      <h4>
-        Analysis Tools
-      </h4>
-      <div
-        class="block block--4-col"
-      >
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #00A6D5; width: 100%;"
-          type="button"
-        >
-          <section
-            class="tile__background-image"
-          >
-            <test-file-stub />
-          </section>
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              BLAST
-            </h3>
-            <small
-              class="tile__description"
-            >
-              Search with a sequence to find homologs through pairwise sequence alignment.
-            </small>
-          </section>
-        </button>
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #B8CE48; width: 100%;"
-          type="button"
-        >
-          <section
-            class="tile__background-image"
-          />
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              ALIGN
-            </h3>
-            <small
-              class="tile__description"
-            >
-              Align two or more protein sequences with Clustal Omega to find conserved regions.
-            </small>
-          </section>
-        </button>
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #357B92; width: 100%;"
-          type="button"
-        >
-          <section
-            class="tile__background-image"
-          >
-            <test-file-stub />
-          </section>
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              Search with Lists / Map IDs
-            </h3>
-            <small
-              class="tile__description"
-            >
-              Find proteins with lists of UniProt IDs or convert from/to other database IDs.
-            </small>
-          </section>
-        </button>
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #A748BD; width: 100%;"
-          type="button"
-        >
-          <section
-            class="tile__background-image"
-          >
-            <test-file-stub />
-          </section>
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              Search Peptides
-            </h3>
-            <small
-              class="tile__description"
-            >
-              Search with a peptide sequence to find all UniPro proteins that contain exact matches.
-            </small>
-          </section>
-        </button>
-      </div>
-    </section>
-  </div>
-  <div
-    class="hero-container"
-  >
-    <section>
-      <h4>
-        Need Help?
-      </h4>
-      <div
-        class="placeholder"
+    <h3
+      class="uniprot-grid-cell--span-12"
+    >
+      Analysis Tools
+    </h3>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #00A6D5; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
       >
         <test-file-stub />
-      </div>
-    </section>
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
+        >
+          BLAST
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Search with a sequence to find homologs through pairwise sequence alignment.
+        </small>
+      </section>
+    </button>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #B8CE48; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
+        >
+          ALIGN
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Align two or more protein sequences with Clustal Omega to find conserved regions.
+        </small>
+      </section>
+    </button>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #357B92; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
+        >
+          Search with Lists / Map IDs
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Find proteins with lists of UniProt IDs or convert from/to other database IDs.
+        </small>
+      </section>
+    </button>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #A748BD; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
+        >
+          Search Peptides
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Search with a peptide sequence to find all UniPro proteins that contain exact matches.
+        </small>
+      </section>
+    </button>
   </div>
   <div
-    class="hero-container"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
   >
-    <section>
-      <h4>
-        Download and APIs
-      </h4>
-      <div
-        class="block block--4-col"
+    <h3
+      class="uniprot-grid-cell--span-12"
+    >
+      Need Help?
+    </h3>
+    <div
+      class="placeholder"
+    >
+      <test-file-stub />
+    </div>
+  </div>
+  <div
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
+  >
+    <h3
+      class="uniprot-grid-cell--span-12"
+    >
+      Download and APIs
+    </h3>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
       >
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #4e5a71; width: 100%;"
-          type="button"
+        <test-file-stub />
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
         >
-          <section
-            class="tile__background-image"
-          >
-            <test-file-stub />
-          </section>
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              FTP Download
-            </h3>
-            <small
-              class="tile__description"
-            >
-              Get UniProt data for the latest release.
-            </small>
-          </section>
-        </button>
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #4e5a71; width: 100%;"
-          type="button"
+          FTP Download
+        </h3>
+        <small
+          class="tile__description"
         >
-          <section
-            class="tile__background-image"
-          >
-            <test-file-stub />
-          </section>
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              Technical Documentation
-            </h3>
-            <small
-              class="tile__description"
-            >
-              Manuals, schemas and ontology descriptions.
-            </small>
-          </section>
-        </button>
-        <button
-          class="tile tile-gradient"
-          style="--tile-background: #4e5a71; width: 100%;"
-          type="button"
+          Get UniProt data for the latest release.
+        </small>
+      </section>
+    </button>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
         >
-          <section
-            class="tile__background-image"
-          >
-            <test-file-stub />
-          </section>
-          <section
-            class="tile__content"
-          >
-            <h3
-              class="tile__header"
-            >
-              Programmatic access
-            </h3>
-            <small
-              class="tile__description"
-            >
-              REST API, SPARQL API, JAVA API.
-            </small>
-          </section>
-        </button>
-        <section>
-          Join our Google group and learn more.
-        </section>
-      </div>
+          Technical Documentation
+        </h3>
+        <small
+          class="tile__description"
+        >
+          Manuals, schemas and ontology descriptions.
+        </small>
+      </section>
+    </button>
+    <button
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+      type="button"
+    >
+      <section
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </section>
+      <section
+        class="tile__content"
+      >
+        <h3
+          class="tile__header"
+        >
+          Programmatic access
+        </h3>
+        <small
+          class="tile__description"
+        >
+          REST API, SPARQL API, JAVA API.
+        </small>
+      </section>
+    </button>
+    <section
+      class="uniprot-grid-cell--span-3"
+    >
+      Join our Google group and learn more.
     </section>
   </div>
 </DocumentFragment>

@@ -2540,13 +2540,11 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
-    class="hero-container"
+    class="hero-container hero-container--side-padding"
   >
-    <section>
-      <em>
-        Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
-      </em>
-    </section>
+    <em>
+      Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
+    </em>
   </div>
 </DocumentFragment>
 `;
@@ -4798,13 +4796,11 @@ exports[`Entry view should render for non-human entry 1`] = `
     </div>
   </div>
   <div
-    class="hero-container"
+    class="hero-container hero-container--side-padding"
   >
-    <section>
-      <em>
-        Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
-      </em>
-    </section>
+    <em>
+      Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
+    </em>
   </div>
 </DocumentFragment>
 `;

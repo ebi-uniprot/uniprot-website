@@ -10,6 +10,7 @@ import ArchiveIllustration from '../../svg/archive_illustration.svg';
 
 // Tools
 import BlastIllustration from '../../svg/blast_illustration.svg';
+import AlignIllustration from '../../svg/align_illustration.svg';
 import IDMappingIllustration from '../../svg/id-mapping_illustration.svg';
 import PeptideSearchIllustration from '../../svg/peptide_search_illustration.svg';
 
@@ -21,136 +22,161 @@ import TechDocIllustration from '../../svg/tech_doc_illustration.svg';
 import PlaceHolder from './PlaceHolder';
 
 const HomePageNonCritical = () => (
-  <section className="uniprot-grid">
-    <Tile
-      title="UniProtKB"
-      className="uniprot-grid-cell--span-3"
-      subtitle="UniProt Knowledgebase"
-      description={
-        <section>
-          <span>
-            <h6>Reviewed</h6>SwissProt
-          </span>
-          <span>
-            <h6>Unreviewed</h6>TrEMBL
-          </span>
-        </section>
-      }
-      backgroundImage={<UniProtKBIllustration />}
-      backgroundColor={colors.seaBlue}
-      gradient
-    />
-    <Tile
-      title="Species"
-      className="uniprot-grid-cell--span-3"
-      subtitle="Proteomes"
-      description="Protein sets for species with sequenced genomes from across the tree of life."
-      backgroundImage={<SpeciesIllustration />}
-      backgroundColor={colors.proteomes}
-      gradient
-    />
-    <Tile
-      title="Protein Clusters"
-      className="uniprot-grid-cell--span-3"
-      subtitle="UniRef"
-      description="Clusters of protein sequences at 100%, 90% &amp; 50% identity."
-      backgroundImage={<ClusterIllustration />}
-      backgroundColor={colors.uniref}
-      gradient
-    />
-    <Tile
-      title="Sequence Archive"
-      className="uniprot-grid-cell--span-3"
-      subtitle="UniParc"
-      description="Non-redundant archive of publicly available protein sequences seen across different databases."
-      backgroundImage={<ArchiveIllustration />}
-      backgroundColor={colors.uniparc}
-      gradient
-    />
+  <>
+    <section className="uniprot-grid uniprot-grid--centered">
+      <Tile
+        title="UniProtKB"
+        className="uniprot-grid-cell--span-3"
+        subtitle="UniProt Knowledgebase"
+        description={
+          <section>
+            <span>
+              <h6>Reviewed</h6>SwissProt
+            </span>
+            <span>
+              <h6>Unreviewed</h6>TrEMBL
+            </span>
+          </section>
+        }
+        backgroundImage={<UniProtKBIllustration />}
+        backgroundColor={colors.seaBlue}
+        gradient
+      />
+      <Tile
+        title="Species"
+        className="uniprot-grid-cell--span-3"
+        subtitle="Proteomes"
+        description="Protein sets for species with sequenced genomes from across the tree of life."
+        backgroundImage={<SpeciesIllustration />}
+        backgroundColor={colors.proteomes}
+        gradient
+      />
+      <Tile
+        title="Protein Clusters"
+        className="uniprot-grid-cell--span-3"
+        subtitle="UniRef"
+        description="Clusters of protein sequences at 100%, 90% &amp; 50% identity."
+        backgroundImage={<ClusterIllustration />}
+        backgroundColor={colors.uniref}
+        gradient
+      />
+      <Tile
+        title="Sequence Archive"
+        className="uniprot-grid-cell--span-3"
+        subtitle="UniParc"
+        description="Non-redundant archive of publicly available protein sequences seen across different databases."
+        backgroundImage={<ArchiveIllustration />}
+        backgroundColor={colors.uniparc}
+        gradient
+      />
+    </section>
 
-    <HeroContainer title="Supporting Data">
-      <h5>Literature Citations</h5>
-      <h5>Taxonomy</h5>
-      <h5>Subcellular locations</h5>
-      <h5>Cross-ref databases</h5>
-      <h5>Diseases</h5>
-      <h5>Keywords</h5>
-      <h5>UniRule</h5>
-      <h5>SAAS</h5>
-    </HeroContainer>
-    <HeroContainer title="News">
-      <PlaceHolder />
-    </HeroContainer>
-    <HeroContainer title="Analysis Tools">
-      <section className="uniprot-grid">
-        <Tile
-          title="BLAST"
-          className="uniprot-grid-cell--span-3"
-          description="Search with a sequence to find homologs through pairwise sequence alignment."
-          backgroundImage={<BlastIllustration />}
-          backgroundColor={colors.blast}
-          gradient
-        />
-        <Tile
-          title="ALIGN"
-          className="uniprot-grid-cell--span-3"
-          description="Align two or more protein sequences with Clustal Omega to find conserved regions."
-          backgroundColor={colors.align}
-          gradient
-        />
-        <Tile
-          title="Search with Lists / Map IDs"
-          className="uniprot-grid-cell--span-3"
-          description="Find proteins with lists of UniProt IDs or convert from/to other database IDs."
-          backgroundImage={<IDMappingIllustration />}
-          backgroundColor={colors.idMapping}
-          gradient
-        />
-        <Tile
-          title="Search Peptides"
-          className="uniprot-grid-cell--span-3"
-          description="Search with a peptide sequence to find all UniPro proteins that contain exact matches."
-          backgroundImage={<PeptideSearchIllustration />}
-          backgroundColor={colors.peptideSearch}
-          gradient
-        />
+    <HeroContainer
+      title="Supporting Data"
+      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      titleClassName="uniprot-grid-cell--span-12"
+    >
+      <section className="uniprot-grid-cell--span-12">
+        <h5>Literature Citations</h5>
+        <h5>Taxonomy</h5>
+        <h5>Subcellular locations</h5>
+        <h5>Cross-ref databases</h5>
+        <h5>Diseases</h5>
+        <h5>Keywords</h5>
+        <h5>UniRule</h5>
+        <h5>SAAS</h5>
       </section>
     </HeroContainer>
-    <HeroContainer title="Need Help?">
-      <PlaceHolder />
-    </HeroContainer>
-    <HeroContainer title="Download and APIs">
-      <section className="uniprot-grid">
-        <Tile
-          title="FTP Download"
-          className="uniprot-grid-cell--span-3"
-          description="Get UniProt data for the latest release."
-          backgroundImage={<FTPIllustration />}
-          backgroundColor={colors.independence}
-          gradient
-        />
-        <Tile
-          title="Technical Documentation"
-          className="uniprot-grid-cell--span-3"
-          description="Manuals, schemas and ontology descriptions."
-          backgroundImage={<TechDocIllustration />}
-          backgroundColor={colors.independence}
-          gradient
-        />
-        <Tile
-          title="Programmatic access"
-          className="uniprot-grid-cell--span-3"
-          description="REST API, SPARQL API, JAVA API."
-          backgroundImage={<ProgrammaticIllustration />}
-          backgroundColor={colors.independence}
-          gradient
-        />
-        <section className="uniprot-grid-cell--span-3">
-          Join our Google group and learn more.
-        </section>
+
+    <HeroContainer
+      title="News"
+      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      titleClassName="uniprot-grid-cell--span-12"
+    >
+      <section className="uniprot-grid-cell--span-12">
+        <PlaceHolder />
       </section>
     </HeroContainer>
-  </section>
+
+    <HeroContainer
+      title="Analysis Tools"
+      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      titleClassName="uniprot-grid-cell--span-12"
+    >
+      <Tile
+        title="BLAST"
+        className="uniprot-grid-cell--span-3"
+        description="Search with a sequence to find homologs through pairwise sequence alignment."
+        backgroundImage={<BlastIllustration />}
+        backgroundColor={colors.blast}
+        gradient
+      />
+      <Tile
+        title="ALIGN"
+        className="uniprot-grid-cell--span-3"
+        description="Align two or more protein sequences with Clustal Omega to find conserved regions."
+        backgroundImage={<AlignIllustration />}
+        backgroundColor={colors.align}
+        gradient
+      />
+      <Tile
+        title="Search with Lists / Map IDs"
+        className="uniprot-grid-cell--span-3"
+        description="Find proteins with lists of UniProt IDs or convert from/to other database IDs."
+        backgroundImage={<IDMappingIllustration />}
+        backgroundColor={colors.idMapping}
+        gradient
+      />
+      <Tile
+        title="Search Peptides"
+        className="uniprot-grid-cell--span-3"
+        description="Search with a peptide sequence to find all UniPro proteins that contain exact matches."
+        backgroundImage={<PeptideSearchIllustration />}
+        backgroundColor={colors.peptideSearch}
+        gradient
+      />
+    </HeroContainer>
+    <HeroContainer
+      title="Need Help?"
+      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      titleClassName="uniprot-grid-cell--span-12"
+    >
+      <PlaceHolder />
+    </HeroContainer>
+    <HeroContainer
+      title="Download and APIs"
+      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      titleClassName="uniprot-grid-cell--span-12"
+    >
+      <Tile
+        title="FTP Download"
+        className="uniprot-grid-cell--span-3"
+        description="Get UniProt data for the latest release."
+        backgroundImage={<FTPIllustration />}
+        backgroundColor={colors.independence}
+        gradient
+      />
+      <Tile
+        title="Technical Documentation"
+        className="uniprot-grid-cell--span-3"
+        description="Manuals, schemas and ontology descriptions."
+        backgroundImage={<TechDocIllustration />}
+        backgroundColor={colors.independence}
+        gradient
+      />
+      <Tile
+        title="Programmatic access"
+        className="uniprot-grid-cell--span-3"
+        description="REST API, SPARQL API, JAVA API."
+        backgroundImage={<ProgrammaticIllustration />}
+        backgroundColor={colors.independence}
+        gradient
+      />
+      <section className="uniprot-grid-cell--span-3">
+        Join our Google group and learn more.
+      </section>
+    </HeroContainer>
+  </>
 );
 
 export default HomePageNonCritical;

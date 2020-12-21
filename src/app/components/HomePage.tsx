@@ -25,7 +25,9 @@ const HomePage = () => (
     <main>
       <ErrorBoundary>
         <HeroHeader title="Find your protein" footer={mission}>
-          <SearchContainer />
+          <section className="uniprot-grid uniprot-grid--centered">
+            <SearchContainer className="uniprot-grid-cell--span-12" />
+          </section>
         </HeroHeader>
       </ErrorBoundary>
 
