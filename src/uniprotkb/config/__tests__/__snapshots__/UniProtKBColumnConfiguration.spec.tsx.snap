@@ -1,19 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniProtKBColumnConfiguration component should render all columns 1`] = `
-<DocumentFragment>
-  <span
-    class="entry-title__status icon--reviewed"
-    title="This marks a reviewed UniProtKB entry"
-  >
-    <test-file-stub />
-  </span>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: 3D structures 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Absorption 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "absorption": absorption 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -78,11 +65,55 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Activity Regulation 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "accession": accession 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniprotkb/P21802"
+  >
+    P21802
+  </a>
+</DocumentFragment>
+`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Allergenic Properties 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "annotation_score": annotation_score 1`] = `
+<DocumentFragment>
+  <span
+    title="Annotation Score"
+  >
+    <span
+      class="doughnut-chart--medium colour-platinum"
+    >
+      <span
+        class="doughnut-chart--medium__left-wrap"
+      >
+        <span
+          class="doughnut-chart--medium__left-wrap__loader colour-sea-blue"
+          style="transform: rotate(0deg);"
+        />
+      </span>
+      <span
+        class="doughnut-chart--medium__right-wrap"
+      >
+        <span
+          class="doughnut-chart--medium__right-wrap__loader colour-sea-blue"
+          style="transform: rotate(72deg);"
+        />
+      </span>
+      <span
+        class="doughnut-chart--medium__inner-circle"
+      >
+        1/5
+      </span>
+    </span>
+  </span>
+</DocumentFragment>
+`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Alternative Products 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_activity_regulation": cc_activity_regulation 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_allergen": cc_allergen 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_alternative_products": cc_alternative_products 1`] = `
 <DocumentFragment>
   <p>
     This entry describes 
@@ -165,11 +196,9 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Alter
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Alternative sequence 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_biotechnology": cc_biotechnology 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Biotechnological Use 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Catalytic Activity 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_catalytic_activity": cc_catalytic_activity 1`] = `
 <DocumentFragment>
   <span
     class="text-block"
@@ -235,7 +264,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Cofactor 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_cofactor": cc_cofactor 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -298,29 +327,9 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: DNA-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_developmental_stage": cc_developmental_stage 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Date Created 1`] = `
-<DocumentFragment>
-  2015-08-02
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Date Modified 1`] = `
-<DocumentFragment>
-  2016-04-24
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Date Sequence Modified 1`] = `
-<DocumentFragment>
-  2017-01-21
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Developmental stage 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Disease Involvement 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_disease": cc_disease 1`] = `
 <DocumentFragment>
   <h3>
     DiseaseEntry Id (someAcron)
@@ -430,7 +439,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disea
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Disruption Phenotype 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_disruption_phenotype": cc_disruption_phenotype 1`] = `
 <DocumentFragment>
   <h5>
     Isoform 4
@@ -466,9 +475,316 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disru
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Domain 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "cc_domain": cc_domain 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: EC Number 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "cc_function": cc_function 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_induction": cc_induction 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_interaction": cc_interaction 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <div>
+        <a
+          href="/uniprotkb/P12345"
+        >
+          P12345
+        </a>
+      </div>
+    </li>
+    <li>
+      <div>
+        <a
+          href="/uniprotkb/P12345"
+        >
+          P12345
+        </a>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_mass_spectrometry": cc_mass_spectrometry 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    <h3>
+      isoform 1
+    </h3>
+    Molecular mass is 2.1 Da. Determined by LSI. note value
+    <button
+      aria-controls="14"
+      aria-expanded="false"
+      class="evidence-tag svg-colour-unreviewed"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+        title=""
+      >
+        1 automatic annotation
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="14"
+    />
+  </section>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_miscellaneous": cc_miscellaneous 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_pathway": cc_pathway 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_pharmaceutical": cc_pharmaceutical 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_polymorphism": cc_polymorphism 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_ptm": cc_ptm 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_rna_editing": cc_rna_editing 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    <div>
+      Edited at positions 
+      <span>
+        rna position 
+        <button
+          aria-controls="15"
+          aria-expanded="false"
+          class="evidence-tag svg-colour-unreviewed"
+          data-testid="evidence-tag-trigger"
+          type="button"
+        >
+          <test-file-stub
+            height="12"
+            width="12"
+          />
+          <span
+            class="evidence-tag__label"
+            title=""
+          >
+            1 automatic annotation
+          </span>
+        </button>
+        <div
+          class="evidence-tag-content "
+          data-testid="evidence-tag-content"
+          id="15"
+        />
+      </span>
+    </div>
+    <div>
+      <span>
+        value 
+        <button
+          aria-controls="16"
+          aria-expanded="false"
+          class="evidence-tag svg-colour-unreviewed"
+          data-testid="evidence-tag-trigger"
+          type="button"
+        >
+          <test-file-stub
+            height="12"
+            width="12"
+          />
+          <span
+            class="evidence-tag__label"
+            title=""
+          >
+            1 automatic annotation
+          </span>
+        </button>
+        <div
+          class="evidence-tag-content "
+          data-testid="evidence-tag-content"
+          id="16"
+        />
+      </span>
+    </div>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_sequence_caution": cc_sequence_caution 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    The sequence 
+    <a
+      class="external-link"
+      href="//www.ebi.ac.uk/ena/data/view/sequence"
+      rel="noopener"
+      target="_blank"
+    >
+      sequence
+      <test-file-stub
+        width="12.5"
+      />
+    </a>
+     differs from that shown. Reason: Erroneous initiation Text note
+    <button
+      aria-controls="30"
+      aria-expanded="false"
+      class="evidence-tag svg-colour-unreviewed"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+        title=""
+      >
+        1 automatic annotation
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="30"
+    />
+  </section>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_similarity": cc_similarity 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_subcellular_location": cc_subcellular_location 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    <h3>
+      molecule value
+    </h3>
+    <div>
+      <strong>
+        location value
+      </strong>
+       
+      <button
+        aria-controls="31"
+        aria-expanded="false"
+        class="evidence-tag svg-colour-unreviewed"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+          title=""
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="31"
+      />
+      : topology value 
+      <button
+        aria-controls="32"
+        aria-expanded="false"
+        class="evidence-tag svg-colour-unreviewed"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+          title=""
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="32"
+      />
+    </div>
+    <section
+      class="text-block"
+    >
+      value
+      <button
+        aria-controls="33"
+        aria-expanded="false"
+        class="evidence-tag svg-colour-unreviewed"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+          title=""
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="33"
+      />
+    </section>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_subunit": cc_subunit 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_tissue_specificity": cc_tissue_specificity 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "cc_toxic_dose": cc_toxic_dose 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "date_created": date_created 1`] = `
+<DocumentFragment>
+  2015-08-02
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "date_modified": date_modified 1`] = `
+<DocumentFragment>
+  2016-04-24
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "date_sequence_modified": date_sequence_modified 1`] = `
+<DocumentFragment>
+  2017-01-21
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`] = `
 <DocumentFragment>
   1.2.3.4 
   <button
@@ -497,17 +813,478 @@ exports[`UniProtKBColumnConfiguration component should render all columns: EC Nu
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Entry 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "error_gmodel_pred": error_gmodel_pred 1`] = `
 <DocumentFragment>
-  <a
-    href="/uniprotkb/P21802"
+  <section
+    class="text-block"
   >
-    P21802
-  </a>
+    The sequence 
+    <a
+      class="external-link"
+      href="//www.ebi.ac.uk/ena/data/view/sequence"
+      rel="noopener"
+      target="_blank"
+    >
+      sequence
+      <test-file-stub
+        width="12.5"
+      />
+    </a>
+     differs from that shown. Reason: Erroneous initiation Text note
+    <button
+      aria-controls="17"
+      aria-expanded="false"
+      class="evidence-tag svg-colour-unreviewed"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+        title=""
+      >
+        1 automatic annotation
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="17"
+    />
+  </section>
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Entry Name 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "family": family 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "fragment": fragment 1`] = `
+<DocumentFragment>
+  Fragment
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_act_site": ft_act_site 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_binding": ft_binding 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_ca_bind": ft_ca_bind 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_carbohyd": ft_carbohyd 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_chain": ft_chain 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_coiled": ft_coiled 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_compbias": ft_compbias 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_conflict": ft_conflict 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_crosslnk": ft_crosslnk 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_disulfide": ft_disulfide 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_dna_bind": ft_dna_bind 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_domain": ft_domain 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_helix": ft_helix 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_init_met": ft_init_met 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_intramem": ft_intramem 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_lipid": ft_lipid 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_metal": ft_metal 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_mod_res": ft_mod_res 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_motif": ft_motif 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_mutagen": ft_mutagen 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_con": ft_non_con 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_std": ft_non_std 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_non_ter": ft_non_ter 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_np_bind": ft_np_bind 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_peptide": ft_peptide 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_propep": ft_propep 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_region": ft_region 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_repeat": ft_repeat 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_signal": ft_signal 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_site": ft_site 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_strand": ft_strand 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_top_dom": ft_top_dom 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_transit": ft_transit 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_transmem": ft_transmem 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_turn": ft_turn 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_unsure": ft_unsure 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_var_seq": ft_var_seq 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_variant": ft_variant 1`] = `
+<DocumentFragment>
+  <div
+    class="loader-container"
+  >
+    <test-file-stub
+      classname="loader"
+      height="100"
+      width="100"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing": ft_zn_fing 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <div
+        class="info-list info-list--no-title"
+      >
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__title"
+          >
+            <h5
+              class="bold"
+            >
+              Name
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some Gene 
+            <button
+              aria-controls="7"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-unreviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 automatic annotation
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="7"
+            />
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__title"
+          >
+            <h5
+              class="bold"
+            >
+              Synonyms
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some Syn 
+            <button
+              aria-controls="8"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-unreviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 automatic annotation
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="8"
+            />
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__title"
+          >
+            <h5
+              class="bold"
+            >
+              ORF names
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some orf 
+            <button
+              aria-controls="9"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="9"
+            />
+          </div>
+        </div>
+        <div
+          class="info-list__item"
+        >
+          <div
+            class="info-list__title"
+          >
+            <h5
+              class="bold"
+            >
+              Ordered locus names
+            </h5>
+          </div>
+          <div
+            class="info-list__content"
+          >
+            some locus 
+            <button
+              aria-controls="10"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-unreviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 automatic annotation
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="10"
+            />
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "gene_oln": gene_oln 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      some locus 
+      <button
+        aria-controls="11"
+        aria-expanded="false"
+        class="evidence-tag svg-colour-unreviewed"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+          title=""
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="11"
+      />
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "gene_orf": gene_orf 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      some orf 
+      <button
+        aria-controls="12"
+        aria-expanded="false"
+        class="evidence-tag svg-colour-reviewed"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+          title=""
+        >
+          1 publication
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="12"
+      />
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "gene_primary": gene_primary 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <div>
+        some Gene
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "gene_synonym": gene_synonym 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      some Syn 
+      <button
+        aria-controls="13"
+        aria-expanded="false"
+        class="evidence-tag svg-colour-unreviewed"
+        data-testid="evidence-tag-trigger"
+        type="button"
+      >
+        <test-file-stub
+          height="12"
+          width="12"
+        />
+        <span
+          class="evidence-tag__label"
+          title=""
+        >
+          1 automatic annotation
+        </span>
+      </button>
+      <div
+        class="evidence-tag-content "
+        data-testid="evidence-tag-content"
+        id="13"
+      />
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "go": go 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    <ul
+      class="expandable-list no-bullet"
+    />
+  </section>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "go_c": go_c 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "go_f": go_f 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "go_id": go_id 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    <ul
+      class="expandable-list no-bullet"
+    />
+  </section>
+</DocumentFragment>
+`;
+
+exports[`UniProtKBColumnConfiguration component should render column "go_p": go_p 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <span>
     uniprot_id
@@ -515,354 +1292,39 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Entry
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Fragment 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "keyword": keyword 1`] = `
 <DocumentFragment>
-  Fragment
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Function 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene Names 1`] = `
-<DocumentFragment>
-  <div
-    class="info-list info-list--no-title"
+  <ul
+    class="expandable-list no-bullet"
   >
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
+    <li>
+      <a
+        href="/keywords/KW-11111"
       >
-        <h5
-          class="bold"
-        >
-          Name
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some Gene 
-        <button
-          aria-controls="7"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <test-file-stub
-            height="12"
-            width="12"
-          />
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
-        <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="7"
-        />
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          Synonyms
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some Syn 
-        <button
-          aria-controls="8"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <test-file-stub
-            height="12"
-            width="12"
-          />
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
-        <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="8"
-        />
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          ORF names
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some orf 
-        <button
-          aria-controls="9"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-reviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <test-file-stub
-            height="12"
-            width="12"
-          />
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 publication
-          </span>
-        </button>
-        <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="9"
-        />
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          Ordered locus names
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        some locus 
-        <button
-          aria-controls="10"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <test-file-stub
-            height="12"
-            width="12"
-          />
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
-        <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="10"
-        />
-      </div>
-    </div>
-  </div>
+         #keyword value
+      </a>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology - Biological Process 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology - Cellular Component 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology - Molecular Function 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "keywordid": keywordid 1`] = `
 <DocumentFragment>
-  <section
-    class="text-block"
+  <ul
+    class="expandable-list no-bullet"
   >
-    <ul
-      class="expandable-list no-bullet"
-    />
-  </section>
+    <li>
+      <a
+        href="/keywords/KW-11111"
+      >
+         #KW-11111
+      </a>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene Ontology IDs 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    <ul
-      class="expandable-list no-bullet"
-    />
-  </section>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (ORF) 1`] = `
-<DocumentFragment>
-  some orf 
-  <button
-    aria-controls="12"
-    aria-expanded="false"
-    class="evidence-tag svg-colour-reviewed"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-      title=""
-    >
-      1 publication
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="12"
-  />
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (Ordered locus) 1`] = `
-<DocumentFragment>
-  some locus 
-  <button
-    aria-controls="11"
-    aria-expanded="false"
-    class="evidence-tag svg-colour-unreviewed"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-      title=""
-    >
-      1 automatic annotation
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="11"
-  />
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (Primary) 1`] = `
-<DocumentFragment>
-  <div>
-    some Gene
-  </div>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Gene names (Synonyms) 1`] = `
-<DocumentFragment>
-  some Syn 
-  <button
-    aria-controls="13"
-    aria-expanded="false"
-    class="evidence-tag svg-colour-unreviewed"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-      title=""
-    >
-      1 automatic annotation
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="13"
-  />
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Induction 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Interacts with 1`] = `
-<DocumentFragment>
-  <div>
-    <a
-      href="/uniprotkb/P12345"
-    >
-      P12345
-    </a>
-  </div>
-  <div>
-    <a
-      href="/uniprotkb/P12345"
-    >
-      P12345
-    </a>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Keyword IDs 1`] = `
-<DocumentFragment>
-  <a
-    href="/keywords/KW-11111"
-  >
-     #KW-11111
-  </a>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Keywords 1`] = `
-<DocumentFragment>
-  <a
-    href="/keywords/KW-11111"
-  >
-     #keyword value
-  </a>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Kinetics 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "kinetics": kinetics 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -937,77 +1399,80 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Kinet
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Length 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "length": length 1`] = `
 <DocumentFragment>
   10 AA
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Lineage 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
   lineage 1
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Mapped PubMed ID 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed_id": lit_pubmed_id 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/citations/12345"
+      >
+        12345
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/6789"
+      >
+        6789
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12348"
+      >
+        12348
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/12346"
+      >
+        12346
+      </a>
+    </li>
+    <li>
+      <a
+        href="/citations/123415"
+      >
+        123415
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        2 more IDs
+      </button>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Mass 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "mapped_pubmed_id": mapped_pubmed_id 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render column "mass": mass 1`] = `
 <DocumentFragment>
   1,185 Da
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Mass Spectrometry 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    <h3>
-      isoform 1
-    </h3>
-    Molecular mass is 2.1 Da. Determined by LSI. note value
-    <button
-      aria-controls="14"
-      aria-expanded="false"
-      class="evidence-tag svg-colour-unreviewed"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-        title=""
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="14"
-    />
-  </section>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Miscellaneous [CC] 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Nucleotide-binding region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Organism 1`] = `
-<DocumentFragment>
-  <a
-    href="/taxonomy/9606"
-  >
-    scientific name (common name)  (synonyms 1)
-  </a>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Organism 2`] = `
+exports[`UniProtKBColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -1028,31 +1493,56 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Organ
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Other binding site 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "organism_name": organism_name 1`] = `
+<DocumentFragment>
+  <a
+    href="/taxonomy/9606"
+  >
+    scientific name (common name)  (synonyms 1)
+  </a>
+</DocumentFragment>
+`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Other domain of interest 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "ph_dependence": ph_dependence 1`] = `
+<DocumentFragment>
+  <section
+    class="text-block"
+  >
+    value1
+    <button
+      aria-controls="27"
+      aria-expanded="false"
+      class="evidence-tag svg-colour-reviewed"
+      data-testid="evidence-tag-trigger"
+      type="button"
+    >
+      <test-file-stub
+        height="12"
+        width="12"
+      />
+      <span
+        class="evidence-tag__label"
+        title=""
+      >
+        1 automatic annotation
+      </span>
+    </button>
+    <div
+      class="evidence-tag-content "
+      data-testid="evidence-tag-content"
+      id="27"
+    />
+  </section>
+</DocumentFragment>
+`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Other site of interest 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Pathway 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Pharmaceutical Use 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Polymorphysm 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Post-Translational Modification 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Post-translationally modified residue 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Protein Families 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Protein existence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "protein_existence": protein_existence 1`] = `
 <DocumentFragment>
   1: Evidence at protein level
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Protein names 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
   <div
     class="info-list info-list--no-title"
@@ -1404,128 +1894,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Prote
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Proteomes 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: PubMed ID 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      <a
-        href="/citations/12345"
-      >
-        12345
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/6789"
-      >
-        6789
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/12348"
-      >
-        12348
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/12346"
-      >
-        12346
-      </a>
-    </li>
-    <li>
-      <a
-        href="/citations/123415"
-      >
-        123415
-      </a>
-    </li>
-    <li>
-      <button
-        class="button tertiary expandable-list__action"
-        data-testid="expandable-message"
-        type="button"
-      >
-        2 more items
-      </button>
-    </li>
-  </ul>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: RNA Editing 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    <div>
-      Edited at positions 
-      <span>
-        rna position 
-        <button
-          aria-controls="15"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <test-file-stub
-            height="12"
-            width="12"
-          />
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
-        <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="15"
-        />
-      </span>
-    </div>
-    <div>
-      <span>
-        value 
-        <button
-          aria-controls="16"
-          aria-expanded="false"
-          class="evidence-tag svg-colour-unreviewed"
-          data-testid="evidence-tag-trigger"
-          type="button"
-        >
-          <test-file-stub
-            height="12"
-            width="12"
-          />
-          <span
-            class="evidence-tag__label"
-            title=""
-          >
-            1 automatic annotation
-          </span>
-        </button>
-        <div
-          class="evidence-tag-content "
-          data-testid="evidence-tag-content"
-          id="16"
-        />
-      </span>
-    </div>
-  </section>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Redox Potential 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "redox_potential": redox_potential 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1558,41 +1927,18 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Redox
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Score 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "reviewed": reviewed 1`] = `
 <DocumentFragment>
   <span
-    title="Annotation Score"
+    class="entry-title__status icon--reviewed"
+    title="This marks a reviewed UniProtKB entry"
   >
-    <span
-      class="doughnut-chart--medium colour-platinum"
-    >
-      <span
-        class="doughnut-chart--medium__left-wrap"
-      >
-        <span
-          class="doughnut-chart--medium__left-wrap__loader colour-sea-blue"
-          style="transform: rotate(0deg);"
-        />
-      </span>
-      <span
-        class="doughnut-chart--medium__right-wrap"
-      >
-        <span
-          class="doughnut-chart--medium__right-wrap__loader colour-sea-blue"
-          style="transform: rotate(72deg);"
-        />
-      </span>
-      <span
-        class="doughnut-chart--medium__inner-circle"
-      >
-        1/5
-      </span>
-    </span>
+    <test-file-stub />
   </span>
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Sequence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
   <section
     class="sequence-container"
@@ -1632,99 +1978,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Caution 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    The sequence 
-    <a
-      class="external-link"
-      href="//www.ebi.ac.uk/ena/data/view/sequence"
-      rel="noopener"
-      target="_blank"
-    >
-      sequence
-      <test-file-stub
-        width="12.5"
-      />
-    </a>
-     differs from that shown. Reason: Erroneous initiation Text note
-    <button
-      aria-controls="17"
-      aria-expanded="false"
-      class="evidence-tag svg-colour-unreviewed"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-        title=""
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="17"
-    />
-  </section>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Caution 2`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    The sequence 
-    <a
-      class="external-link"
-      href="//www.ebi.ac.uk/ena/data/view/sequence"
-      rel="noopener"
-      target="_blank"
-    >
-      sequence
-      <test-file-stub
-        width="12.5"
-      />
-    </a>
-     differs from that shown. Reason: Erroneous initiation Text note
-    <button
-      aria-controls="30"
-      aria-expanded="false"
-      class="evidence-tag svg-colour-unreviewed"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-        title=""
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="30"
-    />
-  </section>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Similarities 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Sequence Version 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "sequence_version": sequence_version 1`] = `
 <DocumentFragment>
   <span>
     5
@@ -1732,102 +1986,9 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Subcellular Location 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
-  >
-    <h3>
-      molecule value
-    </h3>
-    <div>
-      <strong>
-        location value
-      </strong>
-       
-      <button
-        aria-controls="31"
-        aria-expanded="false"
-        class="evidence-tag svg-colour-unreviewed"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-          title=""
-        >
-          1 automatic annotation
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="31"
-      />
-      : topology value 
-      <button
-        aria-controls="32"
-        aria-expanded="false"
-        class="evidence-tag svg-colour-unreviewed"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-          title=""
-        >
-          1 automatic annotation
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="32"
-      />
-    </div>
-    <section
-      class="text-block"
-    >
-      value
-      <button
-        aria-controls="33"
-        aria-expanded="false"
-        class="evidence-tag svg-colour-unreviewed"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-          title=""
-        >
-          1 automatic annotation
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="33"
-      />
-    </section>
-  </section>
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "structure_3d": structure_3d 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Subunit structure 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Temperature Dependence 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "temp_dependence": temp_dependence 1`] = `
 <DocumentFragment>
   <section
     class="text-block"
@@ -1860,133 +2021,36 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Tempe
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Tissue Specificity 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Toxic Dose 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Uncertainty in sequence 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Variants 1`] = `
-<DocumentFragment>
-  <div
-    class="loader-container"
-  >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
-  </div>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Version 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "version": version 1`] = `
 <DocumentFragment>
   20
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Virus hosts 1`] = `
+exports[`UniProtKBColumnConfiguration component should render column "virus_hosts": virus_hosts 1`] = `
 <DocumentFragment>
-  <p>
-    <a
-      href="/taxonomy/9606"
-    >
-      scientific name (common name)  (synonyms 1)
-    </a>
-  </p>
-</DocumentFragment>
-`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: active site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: calcium-binding region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: chain 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: coiled-coil region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: compositionally biased region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: cross-link 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: disulfide bond 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: glycosylation site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: helix 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: initiator methionine 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: intramembrane region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: lipid moiety-binding region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: metal ion-binding site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: mutagenesis site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: non-consecutive residues 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: non-standard amino acid 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: non-terminal residue 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: pH Dependence 1`] = `
-<DocumentFragment>
-  <section
-    class="text-block"
+  <ul
+    class="expandable-list no-bullet"
   >
-    value1
-    <button
-      aria-controls="27"
-      aria-expanded="false"
-      class="evidence-tag svg-colour-reviewed"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-        title=""
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="27"
-    />
-  </section>
+    <li>
+      <p>
+        <a
+          href="/taxonomy/9606"
+        >
+          scientific name (common name)  (synonyms 1)
+        </a>
+      </p>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: peptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: propeptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: region of interest 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: repeat 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: sequence conflict 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: short sequence motif 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: signal peptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: strand 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: topological domain 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: transit peptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: transmembrane region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: turn 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: zinc finger region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;

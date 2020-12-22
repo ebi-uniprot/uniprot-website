@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "Gene3D": Gene3D 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "HAMAP": HAMAP 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "PANTHER": PANTHER 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRSF 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "PRINTS": PRINTS 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "PROSITE": PROSITE 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "SFLD": SFLD 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "SMART": SMART 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "accession": accession 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "checksum": checksum 1`] = `
+<DocumentFragment>
+  28FE89850863372D
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "first_seen": first_seen 1`] = `
+<DocumentFragment>
+  <time
+    datetime="1988-11-01T00:00:00.000Z"
+  >
+    1988-11-01
+  </time>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "gene": gene 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
+<DocumentFragment>
+  <time
+    datetime="2020-12-02T00:00:00.000Z"
+  >
+    2020-12-02
+  </time>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "length": length 1`] = `
+<DocumentFragment>
+  250
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "organism": organism 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "organism_id": organism_id 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/taxonomy/10243"
+      >
+        10243
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10245"
+      >
+        10245
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/32630"
+      >
+        32630
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/397342"
+      >
+        397342
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10254"
+      >
+        10254
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/32606"
+      >
+        32606
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "protein": protein 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "proteome": proteome 1`] = `<DocumentFragment />`;
+
+exports[`UniParcColumnConfiguration component should render column "sequence": sequence 1`] = `
+<DocumentFragment>
+  <span
+    class="break-anywhere"
+  >
+    MGAAASIQTTVNTLSERISSKLEQEANA
+  </span>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "upi": upi 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniparc/UPI0000000001"
+  >
+    UPI0000000001
+  </a>
+</DocumentFragment>
+`;

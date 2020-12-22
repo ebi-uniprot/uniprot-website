@@ -384,3 +384,40 @@ exports[`QueryBuilder should render 1`] = `
   </form>
 </DocumentFragment>
 `;
+
+exports[`QueryBuilder should render loading 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+  >
+    <h2>
+      <button
+        class="dropdown"
+        type="button"
+      >
+        <test-file-stub
+          height="20"
+          width="20"
+        />
+         Advanced search
+      </button>
+    </h2>
+    <div
+      class="intro-content"
+    >
+      <div
+        class="intro-links"
+      />
+    </div>
+  </div>
+  <div
+    class="loader-container"
+  >
+    <test-file-stub
+      classname="loader"
+      height="100"
+      width="100"
+    />
+  </div>
+</DocumentFragment>
+`;

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { v1 } from 'uuid';
 import { frame } from 'timing-functions';
-import { PageIntro } from 'franklin-sites';
+import { PageIntro, Loader } from 'franklin-sites';
 
 import ClauseList from './ClauseList';
 
@@ -109,6 +109,15 @@ const QueryBuilder: FC = () => {
       return parseAndMatchQuery(defaultQueryFor(namespace), searchTermsData)[0];
     });
   }, [dispatch, location.search, loading, namespace, searchTermsData]);
+
+  if (loading) {
+    return (
+      <>
+        <PageIntro title="Advanced search" />
+        <Loader />
+      </>
+    );
+  }
 
   if (!searchTermsData || !namespace) {
     return null;

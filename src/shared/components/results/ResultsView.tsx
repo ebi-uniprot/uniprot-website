@@ -8,14 +8,13 @@ import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import {
-  UniRefAPIModel,
-  UniRefLiteAPIModel,
-} from '../../../uniref/adapters/uniRefConverter';
+import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
+import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
@@ -37,6 +36,8 @@ import { ViewMode } from './ResultsContainer';
 import './styles/warning.scss';
 import './styles/results-view.scss';
 
+type APIModel = UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+
 type ResultsTableProps = {
   selectedEntries: string[];
   columns: Column[];
@@ -45,15 +46,14 @@ type ResultsTableProps = {
   sortableColumnToSortColumn: Map<Column, string>;
 };
 
-const convertRow = (
-  row: UniProtkbAPIModel | UniRefLiteAPIModel,
-  namespace: Namespace
-) => {
+const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
     case Namespace.uniprotkb:
       return uniProtKbConverter(row as UniProtkbAPIModel);
     case Namespace.uniref:
       return row as UniRefLiteAPIModel;
+    case Namespace.uniparc:
+      return row as UniParcAPIModel;
     default:
       return null;
   }
@@ -62,21 +62,23 @@ const convertRow = (
 const getIdKey = (namespace: Namespace) => {
   switch (namespace) {
     case Namespace.uniprotkb:
-      return ({ primaryAccession }: { primaryAccession: string }) =>
-        primaryAccession;
+      return (data: UniProtkbAPIModel) => data.primaryAccession;
     case Namespace.uniref:
-      return ({ id }: { id: string }) => id;
+      return (data: UniRefLiteAPIModel) => data.id;
+    case Namespace.uniparc:
+      return (data: UniParcAPIModel) => data.uniParcId;
     default:
       return null;
   }
 };
 
-// TODO create a "Column" type to cover the different column types
+// TODO: create a "Column" type to cover the different column types
 // and a Column renderer type with label: string and a render definition.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
   [Namespace.uniref]: UniRefColumnConfiguration,
+  [Namespace.uniparc]: UniParcColumnConfiguration,
 };
 
 const ResultsView: FC<ResultsTableProps> = ({
@@ -113,12 +115,10 @@ const ResultsView: FC<ResultsTableProps> = ({
     nextUrl?: string;
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
-  const [allResults, setAllResults] = useState<
-    Array<UniProtkbAPIModel | UniRefAPIModel>
-  >([]);
+  const [allResults, setAllResults] = useState<APIModel[]>([]);
 
   const { data, headers } = useDataApi<{
-    results: UniProtkbAPIModel[];
+    results: APIModel[];
   }>(url);
 
   const prevViewMode = useRef<ViewMode>();
@@ -130,13 +130,19 @@ const ResultsView: FC<ResultsTableProps> = ({
   useEffect(() => {
     if (direct && metaData.total === 1 && allResults.length === 1) {
       const uniqueItem = allResults[0];
+      let accession = '';
+      if ('primaryAccession' in uniqueItem) {
+        // UniProtKB
+        accession = uniqueItem.primaryAccession;
+      } else if ('representativeId' in uniqueItem) {
+        // UniRef
+        accession = uniqueItem.id;
+      } else if ('uniParcId' in uniqueItem) {
+        // UniParc
+        accession = uniqueItem.uniParcId;
+      }
       history.replace({
-        pathname: generatePath(EntryLocations[namespace], {
-          accession:
-            'primaryAccession' in uniqueItem
-              ? uniqueItem.primaryAccession
-              : uniqueItem.id,
-        }),
+        pathname: generatePath(EntryLocations[namespace], { accession }),
       });
     }
   }, [history, direct, metaData, allResults, namespace]);
@@ -195,7 +201,7 @@ const ResultsView: FC<ResultsTableProps> = ({
       <DataList
         getIdKey={getIdKey(namespace)}
         data={allResults}
-        dataRenderer={(dataItem: UniProtkbAPIModel | UniRefLiteAPIModel) => {
+        dataRenderer={(dataItem: APIModel) => {
           switch (namespace) {
             case Namespace.uniref: {
               const data = dataItem as UniRefLiteAPIModel;
@@ -207,6 +213,16 @@ const ResultsView: FC<ResultsTableProps> = ({
                 />
               );
             }
+            // case Namespace.uniparc: {
+            //   const data = dataItem as UniParcAPIModel;
+            //   return (
+            //     <UniParcCard
+            //       data={data}
+            //       selected={selectedEntries.includes(data.uniParcId)}
+            //       handleEntrySelection={handleEntrySelection}
+            //     />
+            //   );
+            // }
             case Namespace.uniprotkb:
             default: {
               const data = dataItem as UniProtkbAPIModel;
@@ -234,7 +250,7 @@ const ResultsView: FC<ResultsTableProps> = ({
           return {
             label: columnConfig.label,
             name: columnName,
-            render: (row: UniProtkbAPIModel | UniRefLiteAPIModel) => {
+            render: (row: APIModel) => {
               const convertedRow = convertRow(row, namespace);
               return columnConfig.render(convertedRow);
             },

@@ -24,13 +24,22 @@ const history = createMemoryHistory();
 describe('QueryBuilder', () => {
   beforeEach(async () => {
     resetUuidV1();
-    useDataApi.mockReturnValue({
-      data: searchTermData,
-    });
+    useDataApi.mockReturnValue({ data: searchTermData });
 
     await act(async () => {
       rendered = renderWithRedux(<QueryBuilder />, { history });
     });
+  });
+
+  // only exception where we want different payload
+  test('should render loading', async () => {
+    useDataApi.mockReturnValue({ loading: true });
+
+    await act(async () => {
+      rendered = renderWithRedux(<QueryBuilder />, { history });
+    });
+
+    expect(rendered.asFragment()).toMatchSnapshot();
   });
 
   test('should render', () => {
