@@ -261,6 +261,77 @@
       "database": "Pfam",
       "databaseId": "PF02442",
       "locations": [{ "start": 1, "end": 200 }]
+    },
+    {
+      "database": "Gene3D",
+      "databaseId": "G3DSA:1.10.630.10",
+      "interproGroup": {
+        "id": "IPR036396",
+        "name": "Cytochrome P450 superfamily"
+      },
+      "locations": [{ "start": 5, "end": 402 }]
+    },
+    {
+      "database": "PRINTS",
+      "databaseId": "PR00359",
+      "interproGroup": {
+        "id": "IPR002397",
+        "name": "Cytochrome P450, B-class"
+      },
+      "locations": [
+        { "start": 89, "end": 100 },
+        { "start": 135, "end": 151 },
+        { "start": 152, "end": 167 },
+        { "start": 193, "end": 215 }
+      ]
+    },
+    {
+      "database": "SUPFAM",
+      "databaseId": "SSF48264",
+      "interproGroup": {
+        "id": "IPR036396",
+        "name": "Cytochrome P450 superfamily"
+      },
+      "locations": [{ "start": 13, "end": 402 }]
+    },
+    {
+      "database": "TIGRFAMs",
+      "databaseId": "TIGR02656",
+      "interproGroup": { "id": "IPR002387", "name": "Plastocyanin" },
+      "locations": [{ "start": 21, "end": 107 }]
+    },
+    {
+      "database": "CDD",
+      "databaseId": "cd05247",
+      "interproGroup": { "id": "IPR005886", "name": "UDP-glucose 4-epimerase" },
+      "locations": [{ "start": 4, "end": 341 }]
+    },
+    {
+      "database": "PIRSF",
+      "databaseId": "PIRSF000806",
+      "interproGroup": {
+        "id": "IPR016267",
+        "name": "UTP--glucose-1-phosphate uridylyltransferase"
+      },
+      "locations": [{ "start": 1, "end": 473 }]
+    },
+    {
+      "database": "PANTHER",
+      "databaseId": "PTHR11552",
+      "interproGroup": {
+        "id": "IPR012132",
+        "name": "Glucose-methanol-choline oxidoreductase"
+      },
+      "locations": [{ "start": 5, "end": 572 }]
+    },
+    {
+      "database": "PROSITE",
+      "databaseId": "PS00624",
+      "interproGroup": {
+        "id": "IPR000172",
+        "name": "Glucose-methanol-choline oxidoreductase, N-terminal"
+      },
+      "locations": [{ "start": 263, "end": 277 }]
     }
   ],
   "taxonomies": [

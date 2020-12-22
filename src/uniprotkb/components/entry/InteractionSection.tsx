@@ -15,7 +15,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import {
   getIntActQueryUrl,
   getIntActQueryForAccessionUrl,
-} from '../../config/externalUrls';
+} from '../../../shared/config/externalUrls';
 
 import {
   CommentType,

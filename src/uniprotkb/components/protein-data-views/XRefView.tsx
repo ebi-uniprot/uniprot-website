@@ -21,7 +21,7 @@ import {
 } from '../../types/databaseRefs';
 import PDBView from './PDBView';
 import EMBLXrefProperties from '../../config/emblXrefPropertiesData.json';
-import externalUrls from '../../config/externalUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 export const processUrlTemplate = (
   urlTemplate: string,

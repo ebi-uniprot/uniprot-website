@@ -3,7 +3,7 @@ import { ExpandableList } from 'franklin-sites';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
-import externalUrls from '../../config/externalUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { GoTerm, GroupedGoTerms } from '../../adapters/functionConverter';
 

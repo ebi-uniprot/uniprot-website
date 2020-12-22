@@ -89,6 +89,11 @@ const ResultsView: FC<ResultsTableProps> = ({
   sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
+  const prevNamespace = useRef<Namespace>();
+  useEffect(() => {
+    prevNamespace.current = namespace;
+  });
+
   const history = useHistory();
   const location = useLocation();
 
@@ -104,8 +109,10 @@ const ResultsView: FC<ResultsTableProps> = ({
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns,
+    columns: namespace === Namespace.uniparc ? undefined : columns,
     selectedFacets,
+    // Not really interested in the facets here, so try to reduce payload
+    facets: null,
     sortColumn,
     sortDirection,
   });
@@ -165,7 +172,12 @@ const ResultsView: FC<ResultsTableProps> = ({
     }));
   }, [data, headers]);
 
-  if (allResults.length === 0 || prevViewMode.current !== viewMode) {
+  if (
+    allResults.length === 0 ||
+    // tweaks to avoid having stale data passed to the wrong components
+    prevViewMode.current !== viewMode ||
+    prevNamespace.current !== namespace
+  ) {
     return <Loader />;
   }
 

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import SimpleView from '../../../uniprotkb/components/protein-data-views/SimpleView';
 
-import externalUrls from '../../../uniprotkb/config/externalUrls';
+import externalUrls from '../../config/externalUrls';
 
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';

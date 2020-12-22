@@ -1,8 +1,5 @@
-import apiUrls, {
-  getAPIQueryUrl,
-  createFacetsQueryString,
-} from '../../../shared/config/apiUrls';
-import { FileFormat } from '../../../shared/types/resultsDownload';
+import apiUrls, { getAPIQueryUrl, createFacetsQueryString } from '../apiUrls';
+import { FileFormat } from '../../types/resultsDownload';
 
 describe('getQueryUrl', () => {
   test('should generate facet url', () => {

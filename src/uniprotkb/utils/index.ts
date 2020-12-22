@@ -1,7 +1,6 @@
 import UniProtKBEntryConfig from '../config/UniProtEntryConfig';
 
 import {
-  UniProtkbInactiveEntryModel,
   UniProtkbUIModel,
   UniProtkbAPIModel,
 } from '../adapters/uniProtkbConverter';
@@ -33,9 +32,7 @@ export const flattenGeneNameData = (geneNamesData: GeneNamesData) => {
   return Array.from(geneNames);
 };
 
-export const getListOfIsoformAccessions = (
-  data?: UniProtkbAPIModel | UniProtkbInactiveEntryModel
-) => {
+export const getListOfIsoformAccessions = (data?: UniProtkbAPIModel) => {
   // will push all isoform accessions in this variable
   const out: string[] = [];
   if (!(data && 'comments' in data && data.comments)) {
