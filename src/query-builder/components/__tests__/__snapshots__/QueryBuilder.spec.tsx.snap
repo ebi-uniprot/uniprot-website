@@ -58,6 +58,11 @@ exports[`QueryBuilder should render 1`] = `
             Proteomes
           </option>
           <option
+            value="taxonomy"
+          >
+            Taxonomy
+          </option>
+          <option
             value="publications"
           >
             Publications

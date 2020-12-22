@@ -14,7 +14,7 @@ import { formatLargeNumber } from '../../utils/utils';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import externalUrls from '../../../uniprotkb/config/externalUrls';
+import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
 
 import {

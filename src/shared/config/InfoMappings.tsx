@@ -44,6 +44,14 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
+  [Namespace.taxonomy]: {
+    name: 'Taxonomy',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
   [Namespace.publications]: {
     name: 'Publications',
     info: null,

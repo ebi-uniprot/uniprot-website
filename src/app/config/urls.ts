@@ -11,7 +11,10 @@ export enum Location {
   UniRefResults = 'UniRefResults',
   UniParcEntry = 'UniParcEntry',
   UniParcResults = 'UniParcResults',
+  ProteomesEntry = 'ProteomesEntry',
+  ProteomesResults = 'ProteomesResults',
   TaxonomyEntry = 'TaxonomyEntry',
+  TaxonomyResults = 'TaxonomyResults',
   Align = 'Align',
   AlignResult = 'AlignResult',
   Blast = 'Blast',
@@ -42,14 +45,18 @@ export const LocationToPath = {
   [Location.UniRefResults]: '/uniref',
   [Location.UniParcEntry]: '/uniparc/:accession',
   [Location.UniParcResults]: '/uniparc',
+  [Location.ProteomesEntry]: '/proteomes/:accession',
+  [Location.ProteomesResults]: '/proteomes',
   [Location.TaxonomyEntry]: '/taxonomy/:accession',
+  [Location.TaxonomyResults]: '/taxonomy/',
 };
 
 export const SearchResultsLocations = {
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
   [Namespace.uniparc]: LocationToPath[Location.UniParcResults],
-  [Namespace.proteomes]: '',
+  [Namespace.proteomes]: LocationToPath[Location.ProteomesResults],
+  [Namespace.taxonomy]: LocationToPath[Location.TaxonomyResults],
   [Namespace.publications]: '',
   [Namespace.keywords]: '',
 };
@@ -59,7 +66,8 @@ export const EntryLocations = {
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
   [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
   [Namespace.uniparc]: LocationToPath[Location.UniParcEntry],
-  [Namespace.proteomes]: '',
+  [Namespace.proteomes]: LocationToPath[Location.ProteomesEntry],
+  [Namespace.taxonomy]: LocationToPath[Location.TaxonomyEntry],
   [Namespace.publications]: '',
   [Namespace.keywords]: '',
 };

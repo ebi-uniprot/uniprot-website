@@ -69,7 +69,7 @@ import VariationView from '../components/protein-data-views/VariationView';
 import { StructureUIModel } from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
 import { GOTermsView } from '../components/protein-data-views/GOView';
-import externalUrls from './externalUrls';
+import externalUrls from '../../shared/config/externalUrls';
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import { Location, LocationToPath } from '../../app/config/urls';
 

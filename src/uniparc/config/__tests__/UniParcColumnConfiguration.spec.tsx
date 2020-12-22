@@ -1,6 +1,8 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import UniParcColumnConfiguration from '../UniParcColumnConfiguration';
+import UniParcColumnConfiguration, {
+  UniParcColumn,
+} from '../UniParcColumnConfiguration';
 
 import uniParcConverter from '../../adapters/uniParcConverter';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
@@ -24,4 +26,30 @@ describe('UniParcColumnConfiguration component', () => {
       expect(asFragment()).toMatchSnapshot(key);
     });
   }
+
+  describe('edge cases', () => {
+    test('should render empty "first seen" column when no xref', () => {
+      const { container } = renderWithRedux(
+        <MemoryRouter>
+          {UniParcColumnConfiguration.get(UniParcColumn.firstSeen).render({
+            ...transformedData,
+            uniParcCrossReferences: undefined,
+          })}
+        </MemoryRouter>
+      );
+      expect(container.children).toHaveLength(0);
+    });
+  });
+
+  test('should render empty "last seen" column when no xref', () => {
+    const { container } = renderWithRedux(
+      <MemoryRouter>
+        {UniParcColumnConfiguration.get(UniParcColumn.lastSeen).render({
+          ...transformedData,
+          uniParcCrossReferences: undefined,
+        })}
+      </MemoryRouter>
+    );
+    expect(container.children).toHaveLength(0);
+  });
 });

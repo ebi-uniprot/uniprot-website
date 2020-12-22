@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'development') {
 const HomePage = lazy(
   () => import(/* webpackChunkName: "home-page" */ './HomePage')
 );
-const UniProtKBResultsPage = lazy(
+const GenericResultsPage = lazy(
   () =>
     import(
       /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
@@ -43,22 +43,10 @@ const QueryBuilderPage = lazy(
       /* webpackChunkName: "query-builder" */ '../../query-builder/components/QueryBuilder'
     )
 );
-const UniRefResultsPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
-    )
-);
 const UniRefEntryPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
-    )
-);
-const UniParcResultsPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
     )
 );
 const UniParcEntryPage = lazy(
@@ -67,6 +55,18 @@ const UniParcEntryPage = lazy(
       /* webpackChunkName: "uniparc-entry" */ '../../uniref/components/entry/Entry'
     )
 );
+// const ProteomesEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
+//     )
+// );
+// const TaxonomyEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "taxonomy-entry" */ '../../taxonomy/components/entry/Entry'
+//     )
+// );
 const BlastResult = lazy(
   () =>
     import(
@@ -138,7 +138,7 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.UniProtKBResults]}
-              component={UniProtKBResultsPage}
+              component={GenericResultsPage}
             />
             <Route
               path={LocationToPath[Location.UniRefEntry]}
@@ -146,7 +146,7 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.UniRefResults]}
-              component={UniRefResultsPage}
+              component={GenericResultsPage}
             />
             <Route
               path={LocationToPath[Location.UniParcEntry]}
@@ -154,7 +154,23 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.UniParcResults]}
-              component={UniParcResultsPage}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.ProteomesEntry]}
+              component={ProteomesEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.ProteomesResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.TaxonomyEntry]}
+              component={TaxonomyEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.TaxonomyResults]}
+              component={GenericResultsPage}
             />
             {/* Tools */}
             <Route
