@@ -18,14 +18,16 @@ const UniProtFooter = lazy(
 );
 
 const mission =
-  'The mission of UniProt is to provide the scientific community with a comprehensive, high-quality and freely accessible resource of protein sequence and functional information.';
+  'UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information.';
 
 const HomePage = () => (
   <>
     <main>
       <ErrorBoundary>
         <HeroHeader title="Find your protein" footer={mission}>
-          <SearchContainer />
+          <section className="uniprot-grid uniprot-grid--centered">
+            <SearchContainer className="uniprot-grid-cell--span-12" />
+          </section>
         </HeroHeader>
       </ErrorBoundary>
 

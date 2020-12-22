@@ -1,0 +1,1 @@
+All SVGs are optimised by this tool https://jakearchibald.github.io/svgomg/

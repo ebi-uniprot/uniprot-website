@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FC } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch } from 'franklin-sites';
@@ -10,7 +10,7 @@ import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import './styles/search-container.scss';
 
-const Search = () => {
+const Search: FC<{ className?: string }> = ({ className }) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -54,14 +54,17 @@ const Search = () => {
   }, [location]);
 
   return (
-    <MainSearch
-      namespaces={NamespaceLabels}
-      searchTerm={searchTerm}
-      onChange={setSearchTerm}
-      onSubmit={handleSubmit}
-      onNamespaceChange={setNamespace}
-      selectedNamespace={selectedNamespace}
-    />
+    // TODO This section is temporary, move to MainSearch
+    <section className={className}>
+      <MainSearch
+        namespaces={NamespaceLabels}
+        searchTerm={searchTerm}
+        onChange={setSearchTerm}
+        onSubmit={handleSubmit}
+        onNamespaceChange={setNamespace}
+        selectedNamespace={selectedNamespace}
+      />
+    </section>
   );
 };
 
