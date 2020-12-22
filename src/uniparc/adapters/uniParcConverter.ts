@@ -1,11 +1,4 @@
-// Same than in UniRef -> generalise?
-type Sequence = {
-  value: string;
-  length: number;
-  molWeight: number;
-  crc64: string;
-  md5: string;
-};
+import { Sequence } from '../../shared/types/sequence';
 
 export type XRefProperty = {
   key: string; // should replace with union of possibilities?

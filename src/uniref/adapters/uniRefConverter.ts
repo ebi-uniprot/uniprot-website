@@ -1,3 +1,4 @@
+import { Sequence } from '../../shared/types/sequence';
 import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 import EntrySection from '../types/entrySection';
 
@@ -16,14 +17,6 @@ enum UniRefEntryType {
 type GeneOntologyEntry = {
   aspect: GeneOntologyAspect;
   goId: string;
-};
-
-type Sequence = {
-  value: string;
-  length: number;
-  molWeight: number;
-  crc64: string;
-  md5: string;
 };
 
 type MemberIDType = 'UniParc' | 'UniProtKB ID';
