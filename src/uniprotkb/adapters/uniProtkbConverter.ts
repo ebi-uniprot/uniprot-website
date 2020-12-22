@@ -63,6 +63,7 @@ export type UniProtkbAPIModel = {
   uniProtkbId: string;
   proteinExistence: string;
   entryType: string;
+  inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];
   features?: FeatureData;
@@ -81,6 +82,7 @@ export type UniProtkbUIModel = {
   uniProtkbId: string;
   proteinExistence: string;
   entryType?: EntryType;
+  inactiveReason?: InactiveEntryReason;
   annotationScore: number;
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
@@ -109,14 +111,6 @@ export type InactiveEntryReason = {
   mergeDemergeTo: string[] | [];
 };
 
-export type UniProtkbInactiveEntryModel = {
-  annotationScore: number;
-  entryType: EntryType.INACTIVE;
-  inactiveReason: InactiveEntryReason;
-  primaryAccession: string;
-  uniProtkbId: string;
-};
-
 export const convertXrefProperties = (xrefs: Xref[]) =>
   xrefs.map((xref) => ({
     ...xref,
@@ -139,6 +133,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     proteinExistence: dataCopy.proteinExistence,
     entryType: getEntryTypeFromString(dataCopy.entryType),
     annotationScore: dataCopy.annotationScore,
+    inactiveReason: dataCopy.inactiveReason,
     [EntrySection.Function]: convertFunction(dataCopy),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
