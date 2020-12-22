@@ -12,6 +12,7 @@ import {
 } from '../adapters/uniParcConverter';
 
 import externalUrls from '../../shared/config/externalUrls';
+import intlCollator from '../../shared/utils/collator';
 import { Location, LocationToPath } from '../../app/config/urls';
 
 export enum UniParcColumn {
@@ -64,18 +65,6 @@ export const UniParcColumnConfiguration = new Map<
     render: (data: UniParcAPIModel) => ReactNode;
   }
 >();
-
-/* NOTE:
-  is this a good thing to do? I'd assume order is not important and might make
-  things easier in the case of user looking for a specific value within a list
- */
-// alphabetical sort helper
-const intlCollator = new Intl.Collator('en-UK', {
-  // a ≠ b, a ≠ á, a = A
-  sensitivity: 'accent',
-  // "1" < "2" < "10"
-  numeric: true,
-});
 
 const genericPropertyGetter = (
   data: UniParcAPIModel,
@@ -175,6 +164,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
   /* TODO:
     Not in the payload! Defaulting to taxon IDs as it's important because this
     column is one of the default columns
+
    */
   render: (data) => (
     <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
