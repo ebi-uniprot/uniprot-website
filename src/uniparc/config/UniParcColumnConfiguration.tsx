@@ -174,9 +174,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
   label: 'Organisms',
   /* TODO:
     Not in the payload! Defaulting to taxon IDs as it's important because this
-    column is one of the default columnsimport externalUrls from '../../shared/config/externalUrls';
-import externalUrls from '../../shared/config/externalUrls';
-
+    column is one of the default columns
    */
   render: (data) => (
     <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
