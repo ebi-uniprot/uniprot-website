@@ -247,20 +247,21 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
   render: ({ uniParcCrossReferences }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
       {uniParcCrossReferences
-        ?.filter(
-          (xref): xref is UniParcXRef =>
-            xref.database.startsWith('UniProtKB') && xref.active === true
+        ?.filter((xref): xref is UniParcXRef =>
+          xref.database.startsWith('UniProtKB')
         )
         .map((xref) => (
           <Link
             // id might be repeated because it's referring to different versions
             key={`${xref.id}-${xref.version}`}
+            // TODO: handle link to obsolete entry by linking to version page
             to={generatePath(LocationToPath[Location.UniProtKBEntry], {
               accession: xref.id,
             })}
           >
             <EntryTypeIcon entryType={xref.database} />
             {xref.id}
+            {xref.active ? '' : `.${xref.version} (obsolete)`}
           </Link>
         ))}
     </ExpandableList>

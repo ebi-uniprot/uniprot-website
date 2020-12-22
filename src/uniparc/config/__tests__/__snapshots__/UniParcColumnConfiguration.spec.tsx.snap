@@ -331,7 +331,7 @@ exports[`UniParcColumnConfiguration component should render column "accession": 
         >
           <test-file-stub />
         </span>
-        P07612
+        P07612.1 (obsolete)
       </a>
     </li>
     <li>
