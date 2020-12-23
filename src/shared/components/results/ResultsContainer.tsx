@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
-import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
+import ResultsButtons from './ResultsButtons';
 import ResultsFacets from './ResultsFacets';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
