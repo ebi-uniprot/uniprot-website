@@ -145,14 +145,12 @@ const Download: FC<DownloadProps> = ({
     previewNode = <Loader />;
   } else if (previewContent && previewContent.length) {
     previewNode = (
-      <div className="preview">
+      <>
         <h4>Preview</h4>
-        <div className="preview__container">
-          <CodeBlock lightMode data-testid="download-preview">
-            {previewContent}
-          </CodeBlock>
-        </div>
-      </div>
+        <CodeBlock lightMode data-testid="download-preview">
+          {previewContent}
+        </CodeBlock>
+      </>
     );
   }
 
@@ -250,7 +248,7 @@ const Download: FC<DownloadProps> = ({
           Download
         </a>
       </section>
-      {previewNode}
+      {previewNode && <div className="preview">{previewNode}</div>}
     </>
   );
 };
