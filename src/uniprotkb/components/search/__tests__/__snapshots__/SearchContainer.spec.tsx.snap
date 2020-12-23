@@ -14,7 +14,9 @@ exports[`Search shallow components should render 1`] = `
         <button
           class="button primary dropdown"
           type="button"
-        />
+        >
+          UniProtKB
+        </button>
         <div
           class="dropdown-menu"
         />
@@ -32,6 +34,37 @@ exports[`Search shallow components should render 1`] = `
         Search
       </button>
     </form>
+    <section
+      class="search-container-footer"
+    >
+      <section>
+        Examples: 
+        <button
+          type="button"
+        >
+          p53
+        </button>
+        , 
+        <button
+          type="button"
+        >
+          Human EGFR
+        </button>
+        , 
+        <button
+          type="button"
+        >
+          Albumin
+        </button>
+      </section>
+      <section>
+        <a
+          href="/uploadlists"
+        >
+          Search with a list of IDs
+        </a>
+      </section>
+    </section>
   </section>
 </DocumentFragment>
 `;

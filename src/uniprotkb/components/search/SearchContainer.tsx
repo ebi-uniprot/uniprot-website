@@ -15,7 +15,6 @@ import './styles/search-container.scss';
 // Keep partial until all are added
 const examples: Partial<Record<Namespace, string[]>> = {
   [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
-  [Namespace.uniref]: [''],
 };
 
 const Search: FC<{
@@ -77,18 +76,22 @@ const Search: FC<{
       {includeFooter && (
         <section className="search-container-footer">
           <section>
-            Examples:{' '}
-            {examples[namespace]
-              ?.map<React.ReactNode>((example) => (
-                <button
-                  type="button"
-                  onClick={() => loadExample(example)}
-                  key={example}
-                >
-                  {example}
-                </button>
-              ))
-              .reduce((prev, curr) => [prev, ', ', curr])}
+            {examples[namespace] && (
+              <>
+                Examples:{' '}
+                {examples[namespace]
+                  ?.map<React.ReactNode>((example) => (
+                    <button
+                      type="button"
+                      onClick={() => loadExample(example)}
+                      key={example}
+                    >
+                      {example}
+                    </button>
+                  ))
+                  .reduce((prev, curr) => [prev, ', ', curr])}
+              </>
+            )}
           </section>
           <section>
             <Link to={LocationToPath[Location.UploadList]}>

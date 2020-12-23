@@ -22,11 +22,15 @@ const UniProtFooter = lazy(
 const mission =
   'UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information.';
 
+// TODO remove "Partial" once all namespaces are added
 const namespaceFindYour: Partial<Record<Namespace, string>> = {
   [Namespace.uniprotkb]: 'protein',
   [Namespace.uniref]: 'protein cluster',
   [Namespace.uniparc]: 'protein sequence',
   [Namespace.proteomes]: 'proteome',
+  [Namespace.taxonomy]: 'taxon',
+  [Namespace.publications]: 'publication',
+  [Namespace.keywords]: 'keyword',
 };
 
 const HomePage = () => {
