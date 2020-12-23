@@ -11,7 +11,7 @@ import ArchiveIllustration from '../../svg/archive_illustration.svg';
 // Tools
 import BlastIllustration from '../../svg/blast_illustration.svg';
 import AlignIllustration from '../../svg/align_illustration.svg';
-import IDMappingIllustration from '../../svg/id-mapping_illustration.svg';
+import UploadListIllustration from '../../svg/id-mapping_illustration.svg';
 import PeptideSearchIllustration from '../../svg/peptide_search_illustration.svg';
 
 // Technical corner
@@ -123,7 +123,7 @@ const HomePageNonCritical = () => (
         title="Search with Lists / Map IDs"
         className="uniprot-grid-cell--span-3"
         description="Find proteins with lists of UniProt IDs or convert from/to other database IDs."
-        backgroundImage={<IDMappingIllustration />}
+        backgroundImage={<UploadListIllustration />}
         backgroundColor={colors.idMapping}
         gradient
       />

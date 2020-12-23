@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import {
   useRouteMatch,
   generatePath,
@@ -121,6 +121,10 @@ const UniProtHeader = () => {
 
   const namespace = useNS();
 
+  const [selectedNamespace, setSelectedNamespace] = useState(
+    namespace || Namespace.uniprotkb
+  );
+
   const isHomePage = Boolean(homeMatch?.isExact);
 
   // only show search if not on home page, or not on query builder page
@@ -141,7 +145,16 @@ const UniProtHeader = () => {
     <Header
       links={displayedLinks}
       isNegative={isHomePage}
-      search={shouldShowSearch ? <SearchContainer /> : undefined}
+      search={
+        shouldShowSearch ? (
+          <SearchContainer
+            namespace={selectedNamespace}
+            onNamespaceChange={(namespace: Namespace) =>
+              setSelectedNamespace(namespace)
+            }
+          />
+        ) : undefined
+      }
       logo={<Logo width={120} height={50} />}
     />
   );
