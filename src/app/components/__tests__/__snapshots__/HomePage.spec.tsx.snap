@@ -49,6 +49,37 @@ exports[`HomePage component should render 1`] = `
                 Search
               </button>
             </form>
+            <section
+              class="search-container-footer"
+            >
+              <section>
+                Examples: 
+                <button
+                  type="button"
+                >
+                  p53
+                </button>
+                , 
+                <button
+                  type="button"
+                >
+                  Human EGFR
+                </button>
+                , 
+                <button
+                  type="button"
+                >
+                  Albumin
+                </button>
+              </section>
+              <section>
+                <a
+                  href="/uploadlists"
+                >
+                  Search with a list of IDs
+                </a>
+              </section>
+            </section>
           </section>
         </section>
       </div>

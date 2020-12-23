@@ -14,9 +14,7 @@ exports[`Search shallow components should render 1`] = `
         <button
           class="button primary dropdown"
           type="button"
-        >
-          UniProtKB
-        </button>
+        />
         <div
           class="dropdown-menu"
         />

@@ -1,16 +1,29 @@
 import { useState, useEffect, FC } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch } from 'franklin-sites';
 
-import useNS from '../../../shared/hooks/useNS';
-
-import { SearchResultsLocations } from '../../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  SearchResultsLocations,
+} from '../../../app/config/urls';
 import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import './styles/search-container.scss';
 
-const Search: FC<{ className?: string }> = ({ className }) => {
+// Keep partial until all are added
+const examples: Partial<Record<Namespace, string[]>> = {
+  [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
+  [Namespace.uniref]: [''],
+};
+
+const Search: FC<{
+  className?: string;
+  includeFooter?: boolean;
+  namespace: Namespace;
+  onNamespaceChange: (namespace: Namespace) => void;
+}> = ({ className, includeFooter = false, namespace, onNamespaceChange }) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -18,12 +31,6 @@ const Search: FC<{ className?: string }> = ({ className }) => {
   const [searchTerm, setSearchTerm] = useState(
     // initialise with whatever is already in the URL
     queryString.parse(history.location.search, { decode: true }).query
-  );
-
-  const ns = useNS();
-
-  const [selectedNamespace, setSelectedNamespace] = useState(
-    ns || Namespace.uniprotkb
   );
 
   const handleSubmit = (event: Event) => {
@@ -38,13 +45,17 @@ const Search: FC<{ className?: string }> = ({ className }) => {
 
     // push a new location to the history containing the modified search term
     history.push({
-      pathname: SearchResultsLocations[selectedNamespace],
+      pathname: SearchResultsLocations[namespace],
       search: stringifiedSearch,
     });
   };
 
   const setNamespace = (namespace: Namespace) => {
-    setSelectedNamespace(namespace);
+    onNamespaceChange(namespace);
+  };
+
+  const loadExample = (example: string) => {
+    setSearchTerm(example);
   };
 
   // reset the text content when there is a navigation to reflect what is in the
@@ -54,7 +65,6 @@ const Search: FC<{ className?: string }> = ({ className }) => {
   }, [location]);
 
   return (
-    // TODO This section is temporary, move to MainSearch
     <section className={className}>
       <MainSearch
         namespaces={NamespaceLabels}
@@ -62,8 +72,31 @@ const Search: FC<{ className?: string }> = ({ className }) => {
         onChange={setSearchTerm}
         onSubmit={handleSubmit}
         onNamespaceChange={setNamespace}
-        selectedNamespace={selectedNamespace}
+        selectedNamespace={namespace}
       />
+      {includeFooter && (
+        <section className="search-container-footer">
+          <section>
+            Examples:{' '}
+            {examples[namespace]
+              ?.map<React.ReactNode>((example) => (
+                <button
+                  type="button"
+                  onClick={() => loadExample(example)}
+                  key={example}
+                >
+                  {example}
+                </button>
+              ))
+              .reduce((prev, curr) => [prev, ', ', curr])}
+          </section>
+          <section>
+            <Link to={LocationToPath[Location.UploadList]}>
+              Search with a list of IDs
+            </Link>
+          </section>
+        </section>
+      )}
     </section>
   );
 };
