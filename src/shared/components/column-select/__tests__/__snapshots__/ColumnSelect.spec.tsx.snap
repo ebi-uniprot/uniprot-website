@@ -12,7 +12,6 @@ exports[`ColumnSelect component should render 1`] = `
     >
       <div
         aria-describedby="rbd-hidden-text-0-hidden-text-0"
-        class="button column-select-drag-drop__list__item"
         data-rbd-drag-handle-context-id="0"
         data-rbd-drag-handle-draggable-id="protein_name"
         data-rbd-draggable-context-id="0"
@@ -21,20 +20,18 @@ exports[`ColumnSelect component should render 1`] = `
         role="button"
         tabindex="0"
       >
-        Protein names
         <button
-          class="column-select-drag-drop__list__item__button"
-          data-testid="column-select-dnd-remove-button"
+          class="chip"
           type="button"
         >
+          Protein names
           <test-file-stub
-            classname="column-select-drag-drop__list__item__button__icon"
+            data-testid="remove-icon"
           />
         </button>
       </div>
       <div
         aria-describedby="rbd-hidden-text-0-hidden-text-0"
-        class="button column-select-drag-drop__list__item"
         data-rbd-drag-handle-context-id="0"
         data-rbd-drag-handle-draggable-id="protein_existence"
         data-rbd-draggable-context-id="0"
@@ -43,14 +40,13 @@ exports[`ColumnSelect component should render 1`] = `
         role="button"
         tabindex="0"
       >
-        Protein existence
         <button
-          class="column-select-drag-drop__list__item__button"
-          data-testid="column-select-dnd-remove-button"
+          class="chip"
           type="button"
         >
+          Protein existence
           <test-file-stub
-            classname="column-select-drag-drop__list__item__button__icon"
+            data-testid="remove-icon"
           />
         </button>
       </div>

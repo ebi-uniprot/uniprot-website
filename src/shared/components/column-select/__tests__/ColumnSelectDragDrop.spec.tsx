@@ -61,7 +61,7 @@ describe('ColumnSelectDragDrop component', () => {
 
   test('should call onRemove', () => {
     const { getAllByTestId } = rendered;
-    const removeButtons = getAllByTestId('column-select-dnd-remove-button');
+    const removeButtons = getAllByTestId('remove-icon');
     const removeButton = removeButtons[0];
     fireEvent.click(removeButton);
     expect(props.onRemove).toHaveBeenCalledTimes(1);
