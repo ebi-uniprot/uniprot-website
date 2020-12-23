@@ -4,10 +4,11 @@
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "prettier/react",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "plugin:uniprot-website/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react-hooks"],
+  "plugins": ["@typescript-eslint", "react-hooks", "uniprot-website"],
   "env": {
     "browser": true,
     "es6": true,
