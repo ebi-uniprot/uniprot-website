@@ -8,17 +8,18 @@ import {
   Button,
 } from 'franklin-sites';
 
-import SlidingPanel, {
-  Position,
-} from '../../../shared/components/layouts/SlidingPanel';
-import BlastButton from '../../../shared/components/action-buttons/Blast';
-import AlignButton from '../../../shared/components/action-buttons/Align';
-import AddToBasketButton from '../../../shared/components/action-buttons/AddToBasket';
+import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+import BlastButton from '../action-buttons/Blast';
+import AlignButton from '../action-buttons/Align';
+import AddToBasketButton from '../action-buttons/AddToBasket';
 
-import { SortDirection, SelectedFacet } from '../../types/resultsTypes';
-import { SortableColumn } from '../../types/columnTypes';
-import { ViewMode } from '../../../shared/components/results/ResultsContainer';
-import { Column } from '../../../shared/config/columns';
+import {
+  SortDirection,
+  SelectedFacet,
+} from '../../../uniprotkb/types/resultsTypes';
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { ViewMode } from './ResultsContainer';
+import { Column } from '../../config/columns';
 
 const ResultsButtons: FC<{
   viewMode: ViewMode;
@@ -44,15 +45,12 @@ const ResultsButtons: FC<{
   onTableColumnsChange,
 }) => {
   const DownloadComponent = lazy(
-    () =>
-      import(
-        /* webpackChunkName: "download" */ '../../../shared/components/download/Download'
-      )
+    () => import(/* webpackChunkName: "download" */ '../download/Download')
   );
   const CustomiseComponent = lazy(
     () =>
       import(
-        /* webpackChunkName: "customise" */ '../../../shared/components/customise-table/CustomiseTable'
+        /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
       )
   );
 

@@ -84,8 +84,8 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
-  [JobTypes.IDMAP]: {
-    name: 'ID mapping',
+  [JobTypes.UPLOAD_LIST]: {
+    name: 'Upload list',
     info: null,
     links: [
       { title: 'Help', destination: '' },

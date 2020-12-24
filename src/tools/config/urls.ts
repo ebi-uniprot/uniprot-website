@@ -30,7 +30,7 @@ export type ResultFormat = {
     | 'ffdp-subject-jpeg'
     | 'parameters' // in XML
     | 'json';
-  [JobTypes.IDMAP]: never; // TODO
+  [JobTypes.UPLOAD_LIST]: never; // TODO
   [JobTypes.PEPTIDE_SEARCH]: never; // TODO
 };
 
@@ -43,7 +43,7 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
     case JobTypes.BLAST:
       baseURL = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
-    case JobTypes.IDMAP:
+    case JobTypes.UPLOAD_LIST:
       baseURL = ''; // TODO
       break;
     case JobTypes.PEPTIDE_SEARCH:

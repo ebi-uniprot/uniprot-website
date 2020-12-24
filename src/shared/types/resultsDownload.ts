@@ -10,6 +10,7 @@ export enum ContentType {
   json = 'application/json',
 }
 export enum FileFormat {
+  fasta = 'FASTA',
   fastaCanonical = 'FASTA (canonical)',
   fastaCanonicalIsoform = 'FASTA (canonical & isoform)',
   fastaRepresentative = 'FASTA (representative)',
