@@ -1,10 +1,10 @@
 const { RuleTester } = require('eslint');
 
-const rule = require('../use-generate-path');
+const rule = require('../use-config-location');
 
 // TODO: fix config to accept jsx syntax
 // This is failing for now
-new RuleTester(require('./config')).run('use-generate-path', rule, {
+new RuleTester(require('./config')).run('use-config-location', rule, {
   valid: [
     {
       code: 'const a = 1;',

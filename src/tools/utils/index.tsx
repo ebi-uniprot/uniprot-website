@@ -1,3 +1,4 @@
+/* eslint-disable uniprot-website/use-config-location */
 import { Link, generatePath } from 'react-router-dom';
 
 import {

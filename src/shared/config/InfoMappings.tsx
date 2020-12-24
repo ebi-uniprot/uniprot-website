@@ -52,8 +52,8 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
-  [Namespace.publications]: {
-    name: 'Publications',
+  [Namespace.citations]: {
+    name: 'Literature citations',
     info: null,
     links: [
       { title: 'Help', destination: '' },

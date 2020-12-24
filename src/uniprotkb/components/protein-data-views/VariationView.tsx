@@ -181,7 +181,9 @@ const VariationView: FC<{
     sequenceDefined &&
     managerDefined;
 
-  if (loading || !ceDefined) return <Loader />;
+  if (loading || !ceDefined) {
+    return <Loader />;
+  }
 
   if (error && status !== 404) {
     // TODO: use in-page error message

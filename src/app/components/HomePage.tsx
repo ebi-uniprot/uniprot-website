@@ -28,7 +28,7 @@ const namespaceFindYour: Record<Namespace, string> = {
   [Namespace.uniparc]: 'protein sequence',
   [Namespace.proteomes]: 'proteome',
   [Namespace.taxonomy]: 'taxon',
-  [Namespace.publications]: 'publication',
+  [Namespace.citations]: 'publication',
   [Namespace.keywords]: 'keyword',
 };
 

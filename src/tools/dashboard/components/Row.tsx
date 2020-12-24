@@ -131,6 +131,7 @@ const NiceStatus: FC<NiceStatusProps> = ({ job, jobLink }) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
+      // eslint-disable-next-line uniprot-website/use-config-location
       const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
       if (
         // not a blast job, or
