@@ -31,13 +31,13 @@ exports[`ObsoleteEntryPage component should render deleted page 1`] = `
           >
             The protein sequence for this entry is available in 
             <a
-              href="/uniparc/?query=I8FBX0"
+              href="/uniparc?query=I8FBX0"
             >
               UniParc
             </a>
             . For previous versions of this entry, please look at its 
             <a
-              href="/uniprot/I8FBX0?version=*"
+              href="/uniprotkb/I8FBX0?version=*"
             >
               history
             </a>
@@ -93,7 +93,7 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
             </a>
             . [ 
             <a
-              href="/uniprot/?query=replaces:Q00007"
+              href="/uniprotkb?query=replaces:Q00007"
             >
               List
             </a>
@@ -102,13 +102,13 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
           <p>
             The protein sequence for this entry is available in 
             <a
-              href="/uniparc/?query=Q00007"
+              href="/uniparc?query=Q00007"
             >
               UniParc
             </a>
             . For previous versions of this entry, please look at its 
             <a
-              href="/uniprot/Q00007?version=*"
+              href="/uniprotkb/Q00007?version=*"
             >
               history
             </a>
