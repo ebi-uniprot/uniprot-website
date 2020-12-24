@@ -187,7 +187,9 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const updateColumnSort = (column: SortableColumn) => {
     const sortableColumn = sortableColumnToSortColumn.get(column);
-    if (!sortableColumn) return;
+    if (!sortableColumn) {
+      return;
+    }
 
     // Change sort direction
     const updatedSortDirection =

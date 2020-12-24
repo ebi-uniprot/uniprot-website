@@ -29,7 +29,9 @@ function useSafeState<S>(
   // "fake" setState that we'll return to the user of the hook
   // it will check if mounted before calling the actual setState
   const customSetState = useCallback((newStateOrSetter) => {
-    if (!isMounted.current) return;
+    if (!isMounted.current) {
+      return;
+    }
     setState(newStateOrSetter);
   }, []);
 

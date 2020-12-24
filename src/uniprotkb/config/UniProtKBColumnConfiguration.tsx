@@ -694,7 +694,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                   'Itself'
                 ) : (
                   <Link
-                    to={`/uniprotkb/${interaction.interactantOne.uniProtkbAccession}`}
+                    to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+                      accession: interaction.interactantOne.uniProtkbAccession,
+                    })}
                   >
                     {interaction.interactantOne.uniProtkbAccession}
                   </Link>

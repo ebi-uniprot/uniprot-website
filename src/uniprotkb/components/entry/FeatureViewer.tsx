@@ -20,9 +20,13 @@ const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
     'protvista-uniprot'
   );
 
-  if (loading) return <Loader />;
+  if (loading) {
+    return <Loader />;
+  }
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   return (
     <section>

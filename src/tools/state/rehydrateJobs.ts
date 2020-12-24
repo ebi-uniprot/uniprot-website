@@ -19,7 +19,9 @@ const rehydrateJobs = async (dispatch: Dispatch) => {
     persistedJobs[persistedJob.internalID] = persistedJob;
   }
 
-  if (!Object.keys(persistedJobs).length) return;
+  if (!Object.keys(persistedJobs).length) {
+    return;
+  }
 
   // Wait for browser idleness
   await schedule();
