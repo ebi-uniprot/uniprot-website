@@ -23,6 +23,7 @@ import useNS from '../../hooks/useNS';
 import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
+import { SearchResultsLocations } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
@@ -136,7 +137,7 @@ const Results: FC = () => {
     ) {
       history.push(
         getLocationObjForParams({
-          pathname: `/${namespace}`,
+          pathname: SearchResultsLocations[namespace],
           query,
           selectedFacets,
         })

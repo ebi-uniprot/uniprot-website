@@ -23,7 +23,11 @@ import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
-import { LocationToPath, Location } from '../../app/config/urls';
+import {
+  LocationToPath,
+  Location,
+  SearchResultsLocations,
+} from '../../app/config/urls';
 
 import {
   MessageFormat,
@@ -140,7 +144,7 @@ const QueryBuilder: FC = () => {
     event.preventDefault();
     const queryString = stringify(clauses) || '*';
     history.push({
-      pathname: `/${namespace}`,
+      pathname: SearchResultsLocations[namespace],
       search: `query=${queryString}`,
     });
   };

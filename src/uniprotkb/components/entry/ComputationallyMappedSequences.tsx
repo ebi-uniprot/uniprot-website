@@ -105,9 +105,10 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
     const queryString = filteredData
       ?.map(({ accession }) => `accession:${accession}`)
       .join(' OR ');
-    history.push(
-      `${LocationToPath[Location.UniProtKBResults]}?query=(${queryString})`
-    );
+    history.push({
+      pathname: LocationToPath[Location.UniProtKBResults],
+      search: `query=(${queryString})`,
+    });
   }, [history, filteredData]);
 
   if (loading) {

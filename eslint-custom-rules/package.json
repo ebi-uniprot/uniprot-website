@@ -4,6 +4,6 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "node rules/__tests__/*.spec.js"
+    "test": "node rules/__tests__/runner.js"
   }
 }

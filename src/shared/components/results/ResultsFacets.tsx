@@ -4,8 +4,9 @@ import { Facets } from 'franklin-sites';
 
 import { Facet } from '../../../uniprotkb/types/responseTypes';
 
-import './styles/results-view.scss';
 import { Location, LocationToPath } from '../../../app/config/urls';
+
+import './styles/results-view.scss';
 
 const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
   facets,
@@ -18,12 +19,14 @@ const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
     if (!match || match.params.subPage === 'taxonomy') {
       return;
     }
+    // TODO: will change with proper implementation of taxonomy facets
     // eslint-disable-next-line consistent-return
     return new Map([
       [
         'other_organism',
         <Link
           className="button tertiary expandable-list__action"
+          // eslint-disable-next-line uniprot-website/use-config-location
           to={(location) => ({
             ...location,
             pathname: location.pathname.replace(

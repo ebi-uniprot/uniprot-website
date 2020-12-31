@@ -1,15 +1,17 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import { Fragment, FC } from 'react';
+import { useCallback, Fragment, FC } from 'react';
 import { Card } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory, generatePath } from 'react-router-dom';
 
-import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
-import KeywordCategory from '../../types/keywordCategory';
+import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../protein-data-views/KeywordView';
 import ProteinOverview from '../protein-data-views/ProteinOverviewView';
-import EntryTitle from '../../../shared/components/entry/EntryTitle';
+
 import getProteinHighlights from '../../adapters/proteinHighlights';
+import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
+import { Location, LocationToPath } from '../../../app/config/urls';
+import KeywordCategory from '../../types/keywordCategory';
+
+import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 import './styles/uniprot-card.scss';
 
@@ -19,6 +21,15 @@ const UniProtKBCard: FC<{
   handleEntrySelection: (rowId: string) => void;
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
+
+  const handleCardClick = useCallback(() => {
+    history.push(
+      generatePath(LocationToPath[Location.UniProtKBEntry], {
+        accession: data.primaryAccession,
+      })
+    );
+  }, [history, data.primaryAccession]);
+
   const highlights = getProteinHighlights(data);
 
   let keywordsNode;
@@ -40,10 +51,7 @@ const UniProtKBCard: FC<{
   }
 
   return (
-    <Card
-      links={highlights}
-      onClick={() => history.push(`/uniprotkb/${data.primaryAccession}`)}
-    >
+    <Card links={highlights} onClick={handleCardClick}>
       <section className="uniprot-card">
         <section className="uniprot-card__left">
           <input

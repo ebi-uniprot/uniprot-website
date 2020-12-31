@@ -184,10 +184,7 @@ const Actions: FC<ActionsProps> = ({ job, onDelete }) => {
         title="resubmit this job"
         onClick={(event) => {
           event.stopPropagation();
-          const formPath = jobTypeToPath(job.type);
-          if (formPath) {
-            history.push(formPath, { parameters: job.parameters });
-          }
+          history.push(jobTypeToPath(job.type), { parameters: job.parameters });
         }}
       >
         <ReSubmitIcon />
