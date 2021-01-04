@@ -288,7 +288,6 @@ UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
 
 UniParcColumnConfiguration.set(UniParcColumn.cdd, {
   label: 'CDD',
-  // TODO:
   render: familyAndDomainRenderer('CDD', 'CDDEntry'),
 });
 
