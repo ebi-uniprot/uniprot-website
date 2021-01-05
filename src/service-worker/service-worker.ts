@@ -27,7 +27,7 @@ const WEEK = 7 * DAY;
 cleanupOutdatedCaches();
 
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  if (event.data?.type === 'SKIP_WAITING') {
     // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
     clientsClaim();
     self.skipWaiting();

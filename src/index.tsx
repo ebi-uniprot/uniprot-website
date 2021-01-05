@@ -54,7 +54,7 @@ if ('serviceWorker' in navigator) {
   ).then((serviceWorkerModule) => {
     serviceWorkerModule.register(config);
     // switch commented lines if we want to enable/disable service worker
-    // if that implies a change from what is currently deployed (-> if an issue)
+    // Use in case of emergency! (if something wrong with caching in production)
     // serviceWorkerModule.unregister();
   });
 }
