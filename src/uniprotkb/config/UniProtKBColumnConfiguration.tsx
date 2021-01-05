@@ -694,7 +694,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                   'Itself'
                 ) : (
                   <Link
-                    to={`/uniprotkb/${interaction.interactantOne.uniProtkbAccession}`}
+                    to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+                      accession: interaction.interactantOne.uniProtkbAccession,
+                    })}
                   >
                     {interaction.interactantOne.uniProtkbAccession}
                   </Link>
@@ -1005,7 +1007,12 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
     return (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
         {ids.map((xref) => (
-          <Link key={xref.id} to={`citations/${xref.id}`}>
+          <Link
+            key={xref.id}
+            to={generatePath(LocationToPath[Location.CitationsEntry], {
+              accession: xref.id,
+            })}
+          >
             {xref.id}
           </Link>
         ))}

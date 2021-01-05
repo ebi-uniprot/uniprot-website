@@ -1,6 +1,6 @@
 import { Fragment, useState, FC } from 'react';
 import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, generatePath } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import numberView, {
@@ -134,7 +134,11 @@ export const IsoformInfo: FC<{
             ({ location, alternativeSequence, evidences }) => (
               <li key={`${location.start.value}-${location.end.value}`}>
                 <Link
-                  to={`/blast/accession/${canonicalAccession}/positions/${location.start.value}-${location.end.value}`}
+                  to={{
+                    pathname: LocationToPath[Location.Blast],
+                    // TODO: this needs to be implemented on the BLAST form page
+                    search: `about=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
+                  }}
                 >{`${location.start.value}-${location.end.value}: `}</Link>
                 {alternativeSequence && alternativeSequence.originalSequence
                   ? `${alternativeSequence.originalSequence}  → ${
@@ -183,10 +187,12 @@ export const IsoformInfo: FC<{
           external isoforms */}
           <Link
             className="button secondary"
-            to={`/uniprotkb/${isoformData.isoformIds[0].substring(
-              0,
-              isoformData.isoformIds[0].length - 2
-            )}`}
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: isoformData.isoformIds[0].substring(
+                0,
+                isoformData.isoformIds[0].length - 2
+              ),
+            })}
           >
             View isoform
           </Link>

@@ -1,8 +1,10 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import { Card } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory, generatePath } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
@@ -15,8 +17,14 @@ const UniRefCard: FC<{
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
 
+  const handleCardClick = useCallback(() => {
+    history.push(
+      generatePath(LocationToPath[Location.UniRefEntry], { accession: data.id })
+    );
+  }, [history, data.id]);
+
   return (
-    <Card onClick={() => history.push(`/uniref/${data.id}`)}>
+    <Card onClick={handleCardClick}>
       <section className="uniprot-card">
         <section className="uniprot-card__left">
           <input
