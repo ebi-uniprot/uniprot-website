@@ -32,6 +32,7 @@
     ],
     "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/prefer-interface": "off",
+    "curly": ["error", "all"],
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "jsx-a11y/label-has-associated-control": "off",
