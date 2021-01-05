@@ -3,16 +3,16 @@ import {
   precacheAndRoute,
   createHandlerBoundToURL,
 } from 'workbox-precaching';
-import { skipWaiting, clientsClaim } from 'workbox-core';
+import { clientsClaim } from 'workbox-core';
 import { registerRoute, NavigationRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-
-import { NewerDataPlugin } from './plugins/check-version';
+import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 
 import * as patterns from './url-patterns';
-import { CHANNEL_NAME } from './cross-env-constants';
+
+declare const self: ServiceWorkerGlobalScope;
 
 // Refer to https://developers.google.com/web/tools/workbox/reference-docs/latest/
 // for documentation about this whole file's use of workbox
@@ -22,22 +22,22 @@ const HOUR = 60 * MINUTE;
 const DAY = 24 * HOUR;
 const WEEK = 7 * DAY;
 
-const channel = new BroadcastChannel(CHANNEL_NAME);
-
 // cleans caches that are not needed anymore
 // see: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-precaching#.cleanupOutdatedCaches
 cleanupOutdatedCaches();
 
-// https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.skipWaiting
-skipWaiting();
-// https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
-clientsClaim();
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
+    clientsClaim();
+    self.skipWaiting();
+  }
+});
 
-// eslint-disable-next-line
-// @ts-ignore
-precacheAndRoute(self.__WB_MANIFEST); // eslint-disable-line
-// 'self.__WB_MANIFEST' is the injection point for the webpack InjectManifest
-// plugin, injecting a list of all necessary assets to precache.
+// eslint-disable-next-line no-underscore-dangle
+precacheAndRoute(self.__WB_MANIFEST);
+// this argument is the injection point for the webpack InjectManifest plugin,
+// injecting a list of all necessary assets to precache.
 
 // routing recipes
 // ORDER MATTERS!
@@ -58,9 +58,8 @@ registerRoute(
     cacheName: 'external-APIs',
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200, 204] }),
-      new NewerDataPlugin({
-        channel,
-        headers: [
+      new BroadcastUpdatePlugin({
+        headersToCheck: [
           'InterPro-Version',
           'InterPro-Version-Minor',
           'Content-Length',
@@ -114,9 +113,9 @@ registerRoute(
 
 // fonts - Cache First
 registerRoute(
-  patterns.googleFontsStylesheets,
+  patterns.googleFontsFiles,
   new CacheFirst({
-    cacheName: 'fonts',
+    cacheName: 'google-fonts-files',
     plugins: [
       new CacheableResponsePlugin({ statuses: [0, 200] }),
       new ExpirationPlugin({
@@ -136,9 +135,14 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: 'APIs',
     plugins: [
-      new NewerDataPlugin({
-        channel,
-        headers: ['X-UniProt-Release', 'X-Release', 'Content-Length'],
+      new BroadcastUpdatePlugin({
+        headersToCheck: [
+          'X-UniProt-Release',
+          'X-Release',
+          // NOTE: "Content-Length" doesn't work for that now as it is
+          // NOTE: inconsistently set by the server
+          // 'Content-Length',
+        ],
       }),
       new ExpirationPlugin({
         maxEntries: 750,

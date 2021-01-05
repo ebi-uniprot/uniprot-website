@@ -19,6 +19,7 @@
     "module": "esnext",
     "jsx": "react-jsx",
     "types": ["jest", "node"],
+    "lib": ["ES2020", "WebWorker", "DOM", "DOM.Iterable"],
     "skipLibCheck": true
   },
   "include": ["src"],
