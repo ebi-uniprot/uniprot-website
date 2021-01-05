@@ -116,7 +116,9 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
     fetchData<T>(url, undefined, source.token).then(
       // handle ok
       (response: AxiosResponse) => {
-        if (didCancel) return;
+        if (didCancel) {
+          return;
+        }
         dispatch({ type: ActionType.SUCCESS, response, originalURL: url });
       },
       // catch error

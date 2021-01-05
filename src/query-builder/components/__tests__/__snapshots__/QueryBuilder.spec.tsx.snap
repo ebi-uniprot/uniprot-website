@@ -63,9 +63,9 @@ exports[`QueryBuilder should render 1`] = `
             Taxonomy
           </option>
           <option
-            value="publications"
+            value="citations"
           >
-            Publications
+            Literature citations
           </option>
           <option
             value="keywords"

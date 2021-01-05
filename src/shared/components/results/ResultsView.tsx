@@ -25,7 +25,10 @@ import {
   getParamsFromURL,
   getLocationObjForParams,
 } from '../../../uniprotkb/utils/resultsUtils';
-import { EntryLocations } from '../../../app/config/urls';
+import {
+  EntryLocations,
+  SearchResultsLocations,
+} from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
@@ -187,7 +190,9 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const updateColumnSort = (column: SortableColumn) => {
     const sortableColumn = sortableColumnToSortColumn.get(column);
-    if (!sortableColumn) return;
+    if (!sortableColumn) {
+      return;
+    }
 
     // Change sort direction
     const updatedSortDirection =
@@ -197,7 +202,7 @@ const ResultsView: FC<ResultsTableProps> = ({
 
     history.push(
       getLocationObjForParams({
-        pathname: `/${namespace}`,
+        pathname: SearchResultsLocations[namespace],
         query,
         selectedFacets,
         sortColumn: sortableColumn,

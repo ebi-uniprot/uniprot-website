@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { InfoList, ExternalLink } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 
 import SimpleView from '../../../uniprotkb/components/protein-data-views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
@@ -23,7 +24,11 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   }
   return (
     <>
-      <Link to={`taxonomy/${taxonId}`}>{`${taxonId} `}</Link>
+      <Link
+        to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+          accession: taxonId,
+        })}
+      >{`${taxonId} `}</Link>
       <ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>
     </>
   );
@@ -56,7 +61,11 @@ export const TaxonomyListView: FC<{
       title: 'Organism',
       content: (
         <>
-          <Link to={`/taxonomy/${data.taxonId}`}>
+          <Link
+            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+              accession: data.taxonId,
+            })}
+          >
             {`${data.scientificName} (${data.commonName})`}
           </Link>
           {data.evidences && data.evidences.length && (

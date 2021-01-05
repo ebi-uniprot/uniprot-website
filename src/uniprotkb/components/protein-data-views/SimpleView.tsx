@@ -8,6 +8,7 @@ type SimpleViewProps = {
 
 const SimpleView: FC<SimpleViewProps> = ({ termValue, linkTo }) => {
   if (typeof linkTo !== 'undefined') {
+    // eslint-disable-next-line uniprot-website/use-config-location
     return <Link to={linkTo}>{termValue}</Link>;
   }
   return <span>{termValue}</span>;

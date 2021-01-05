@@ -45,6 +45,7 @@ const LocalFacet: FC<LocalFacetProps> = ({
   optimisedBinNumber,
 }) => {
   const history = useHistory();
+  const { pathname } = useLocation();
 
   // handle modifying querystring to reflect the chosen values in the URL
   const handleChange = ([min, max]: [min: number, max: number]) => {
@@ -64,10 +65,8 @@ const LocalFacet: FC<LocalFacetProps> = ({
     }
 
     history.replace(
-      getLocationObjForParams({
-        pathname: history.location.pathname,
-        selectedFacets: nextFacets,
-      })
+      // eslint-disable-next-line uniprot-website/use-config-location
+      getLocationObjForParams({ pathname, selectedFacets: nextFacets })
     );
   };
 
