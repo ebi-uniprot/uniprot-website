@@ -49,7 +49,7 @@ const QueryBuilder: FC = () => {
   // To be replaced by getting it from url
   const [clauses, setClauses] = useState<Clause[]>([]);
 
-  const namespace = match?.params?.namespace;
+  const namespace = match?.params?.namespace || Namespace.uniprotkb;
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
     namespace && apiUrls.queryBuilderTerms(namespace)
@@ -60,16 +60,16 @@ const QueryBuilder: FC = () => {
   }, [namespace]);
 
   // if URL doesn't finish with a namespace redirect to "uniprotkb" by default
-  useEffect(() => {
-    if (!namespace) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.QueryBuilder], {
-          namespace: Namespace.uniprotkb,
-        }),
-      });
-    }
-  }, [history, namespace]);
+  // useEffect(() => {
+  //   if (!namespace) {
+  //     history.replace({
+  //       ...history.location,
+  //       pathname: generatePath(LocationToPath[Location.QueryBuilder], {
+  //         namespace: Namespace.uniprotkb,
+  //       }),
+  //     });
+  //   }
+  // }, [history, namespace]);
 
   useEffect(() => {
     if (!(searchTermsData && namespace) || loading) {
