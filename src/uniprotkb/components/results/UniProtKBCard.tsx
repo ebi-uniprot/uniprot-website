@@ -44,7 +44,7 @@ const UniProtKBCard: FC<{
       keywordsNode = categorisedKewywords.map((keywordCategory, index) => (
         <Fragment key={keywordCategory.category}>
           {index > 0 && ' · '}
-          <KeywordList keywords={keywordCategory.keywords} />
+          <KeywordList keywords={keywordCategory.keywords} inline />
         </Fragment>
       ));
     }

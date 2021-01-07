@@ -1,14 +1,18 @@
 import { Fragment, FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link, generatePath } from 'react-router-dom';
+import cn from 'classnames';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
 
+import './styles/keyword-view.scss';
+
 type KeywordListProps = {
   keywords: Keyword[];
   idOnly?: boolean;
+  inline?: boolean;
 };
 
 type KeywordItempProps = {
@@ -31,14 +35,18 @@ export const KeywordItem: FC<KeywordItempProps> = ({ id, value }) => {
 
 export const KeywordList: FC<KeywordListProps> = ({
   keywords,
-  idOnly = false,
+  idOnly,
+  inline,
 }) => {
   if (!keywords) {
     return null;
   }
 
   return (
-    <ExpandableList descriptionString={idOnly ? 'keyword IDs' : 'keywords'}>
+    <ExpandableList
+      descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
+      className={cn({ 'keyword-view--inline': inline })}
+    >
       {keywords.map((keyword, index) => {
         const { id, name } = keyword;
         if (!id || !name) {
@@ -47,7 +55,6 @@ export const KeywordList: FC<KeywordListProps> = ({
         return (
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={index}>
-            {index ? ' ' : undefined}
             <KeywordItem id={id} value={idOnly ? id : name} />
           </Fragment>
         );
@@ -57,7 +64,7 @@ export const KeywordList: FC<KeywordListProps> = ({
 };
 
 const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
-  if (!keywords || keywords.length <= 0) {
+  if (!keywords?.length) {
     return null;
   }
   const infoData = keywords.map((keywordCategory) => ({
