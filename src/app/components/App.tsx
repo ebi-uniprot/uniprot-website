@@ -3,6 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 
@@ -11,7 +12,6 @@ import history from '../../shared/utils/browserHistory';
 import { Location, LocationToPath } from '../config/urls';
 
 import './styles/app.scss';
-import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 
 if (process.env.NODE_ENV !== 'development') {
   import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
@@ -35,12 +35,6 @@ const UniProtKBEntryPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniprotkb-entry" */ '../../uniprotkb/components/entry/Entry'
-    )
-);
-const QueryBuilderPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "query-builder" */ '../../query-builder/components/QueryBuilder'
     )
 );
 const UniRefEntryPage = lazy(
@@ -202,15 +196,6 @@ const App = () => (
               render={() => (
                 <SingleColumnLayout>
                   <Dashboard />
-                </SingleColumnLayout>
-              )}
-            />
-            {/* Query builder */}
-            <Route
-              path={LocationToPath[Location.QueryBuilder]}
-              render={() => (
-                <SingleColumnLayout>
-                  <QueryBuilderPage />
                 </SingleColumnLayout>
               )}
             />
