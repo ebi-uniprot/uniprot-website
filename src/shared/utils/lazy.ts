@@ -15,7 +15,7 @@ const lazy = <T extends ComponentType<any>>(
   const load = () => {
     // first time we try to load the chunk in the factory?
     if (!promise) {
-      // call the factory and keep the resulting promise
+      // no, then call the factory and keep the resulting promise
       promise = factory();
     }
     // otherwise, or after calling the factory only once, return its promise
