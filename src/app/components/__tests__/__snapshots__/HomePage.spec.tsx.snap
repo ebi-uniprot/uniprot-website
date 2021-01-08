@@ -55,18 +55,21 @@ exports[`HomePage component should render 1`] = `
               <section>
                 Examples: 
                 <button
+                  class="button tertiary"
                   type="button"
                 >
                   p53
                 </button>
                 , 
                 <button
+                  class="button tertiary"
                   type="button"
                 >
                   Human EGFR
                 </button>
                 , 
                 <button
+                  class="button tertiary"
                   type="button"
                 >
                   Albumin
@@ -74,6 +77,7 @@ exports[`HomePage component should render 1`] = `
               </section>
               <section>
                 <a
+                  class="button tertiary"
                   href="/uploadlists"
                 >
                   Search with a list of IDs
