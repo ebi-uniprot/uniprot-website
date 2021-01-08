@@ -1,4 +1,4 @@
-import { useCallback, Fragment, FC, MouseEvent } from 'react';
+import { useMemo, useCallback, Fragment, FC, MouseEvent } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory, generatePath } from 'react-router-dom';
 
@@ -40,23 +40,26 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
     [history, data.primaryAccession]
   );
 
-  const highlights = getProteinHighlights(data);
+  const highlights = useMemo(() => getProteinHighlights(data), [data]);
 
-  let keywordsNode;
-  if (data.keywords) {
+  const keywordsNode = useMemo(() => {
+    if (!data.keywords) {
+      return null;
+    }
+
     const categorisedKeywords = getKeywordsForCategories(data.keywords, [
       KeywordCategory.MOLECULAR_FUNCTION,
       KeywordCategory.BIOLOGICAL_PROCESS,
       KeywordCategory.DISEASE,
     ]);
 
-    keywordsNode = categorisedKeywords.map((keywordCategory, index) => (
+    return categorisedKeywords.map((keywordCategory, index) => (
       <Fragment key={keywordCategory.category}>
         {index > 0 && ' · '}
         <KeywordList keywords={keywordCategory.keywords} inline />
       </Fragment>
     ));
-  }
+  }, [data.keywords]);
 
   return (
     <Card links={highlights} onClick={handleCardClick}>
