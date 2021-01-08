@@ -1,10 +1,11 @@
-import { useMemo, useState, Suspense, lazy } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Header } from 'franklin-sites';
 
 import SlidingPanel, { Position } from './SlidingPanel';
 import SearchContainer from '../../../uniprotkb/components/search/SearchContainer';
 
+import lazy from '../../utils/lazy';
 import useNS from '../../hooks/useNS';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -91,7 +92,14 @@ const UniProtHeader = () => {
 
   const displayedLinks = useMemo(() => {
     const queryBuilderButton = {
-      label: 'Query Builder',
+      label: (
+        <span
+          onPointerOver={QueryBuilder.preload}
+          onFocus={QueryBuilder.preload}
+        >
+          Query Builder
+        </span>
+      ),
       onClick: () => setDisplayQueryBuilder((flag) => !flag),
     };
     return isHomePage
