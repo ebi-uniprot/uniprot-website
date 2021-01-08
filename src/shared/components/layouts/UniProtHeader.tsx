@@ -79,7 +79,7 @@ const links = (
     },
     {
       label: 'API',
-      links: [
+      items: [
         {
           label: 'Programmatic access',
           path: '/',
@@ -88,7 +88,7 @@ const links = (
     },
     {
       label: 'Help',
-      links: [
+      items: [
         {
           label: 'Help',
           path: '/',
@@ -135,7 +135,7 @@ const UniProtHeader = () => {
       isHomePage
         ? [...tools, ...links(history, search, queryBuilderMatch, namespace)]
         : [
-            { label: 'Tools', links: tools },
+            { label: 'Tools', items: tools },
             ...links(history, search, queryBuilderMatch, namespace),
           ],
     [isHomePage, namespace, history, search, queryBuilderMatch]
@@ -143,7 +143,7 @@ const UniProtHeader = () => {
 
   return (
     <Header
-      links={displayedLinks}
+      items={displayedLinks}
       isNegative={isHomePage}
       search={
         shouldShowSearch ? (
