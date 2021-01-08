@@ -38,7 +38,7 @@ const SlidingPanel: FC<{
   useEffect(() => {
     if (onClickOutside) {
       const handleClickOutside = (e: MouseEvent) => {
-        if (!node?.current?.contains(e.target as Node)) {
+        if (node?.current && !node.current.contains(e.target as Node)) {
           onClickOutside();
         }
       };
