@@ -129,6 +129,7 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
       pathname: SearchResultsLocations[namespace],
       search: `query=${queryString}`,
     });
+    onCancel();
   };
 
   return (
