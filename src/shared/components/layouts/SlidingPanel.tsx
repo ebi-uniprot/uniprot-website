@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import cn from 'classnames';
 import { upperFirst } from 'lodash-es';
@@ -18,7 +18,15 @@ const SlidingPanel: FC<{
   position: Position;
   className?: string;
   yScrollable?: boolean;
-}> = ({ children, position, className, yScrollable = false }) => {
+  onClickOutside?: (arg: void) => void;
+}> = ({
+  children,
+  position,
+  className,
+  onClickOutside,
+  yScrollable = false,
+}) => {
+  const node = useRef<HTMLDivElement>(null);
   const margin = `margin${upperFirst(position)}`;
   const [props] = useSpring(() => ({
     opacity: 1,
@@ -26,10 +34,27 @@ const SlidingPanel: FC<{
     from: { opacity: 0, [margin]: -1000 },
   }));
 
+  // eslint-disable-next-line consistent-return
+  useEffect(() => {
+    if (onClickOutside) {
+      const handleClickOutside = (e: MouseEvent) => {
+        if (!node?.current?.contains(e.target as Node)) {
+          onClickOutside();
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [onClickOutside]);
+
   return (
     <animated.div
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
       style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
+      ref={node}
     >
       <ErrorBoundary>
         <div>{children}</div>

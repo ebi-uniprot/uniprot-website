@@ -61,7 +61,11 @@ const ResultsButtons: FC<{
     <>
       {displayDownloadPanel && (
         <Suspense fallback>
-          <SlidingPanel position={Position.left} yScrollable>
+          <SlidingPanel
+            position={Position.left}
+            yScrollable
+            onClickOutside={() => setDisplayDownloadPanel(false)}
+          >
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
@@ -77,7 +81,11 @@ const ResultsButtons: FC<{
       )}
       {displayCustomisePanel && (
         <Suspense fallback>
-          <SlidingPanel position={Position.left} yScrollable>
+          <SlidingPanel
+            position={Position.left}
+            yScrollable
+            onClickOutside={() => setDisplayCustomisePanel(false)}
+          >
             <CustomiseComponent
               selectedColumns={tableColumns}
               onSave={(columns: Column[]) => {
