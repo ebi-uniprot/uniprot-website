@@ -151,189 +151,185 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
 `;
 
 exports[`HSPDetailPanel should initially render overview 1`] = `
-<DocumentFragment>
-  <div
-    class="main-content-and-footer"
-  >
+<div
+  class="sliding-panel sliding-panel--bottom hsp-detail-panel"
+  data-testid="sliding-panel"
+  style="opacity: 0; margin-bottom: -1000px; overflow-y: initial;"
+>
+  <div>
     <div
-      class="sliding-panel sliding-panel--bottom hsp-detail-panel"
-      style="opacity: 0; margin-bottom: -1000px; overflow-y: initial;"
+      class="hsp-detail-panel__header"
     >
-      <div>
+      <h4>
+        U6MKN0 · rec full Name · scientific name
+      </h4>
+      <button
+        type="button"
+      >
+        <test-file-stub
+          height="16"
+          width="16"
+        />
+      </button>
+    </div>
+    <div
+      class="hsp-detail-panel__body"
+    >
+      <div
+        class="button-group"
+      >
         <div
-          class="hsp-detail-panel__header"
+          class="dropdown-container"
         >
-          <h4>
-            U6MKN0 · rec full Name · scientific name
-          </h4>
           <button
+            class="button tertiary dropdown"
             type="button"
           >
-            <test-file-stub
-              height="16"
-              width="16"
-            />
+            Highlight properties
           </button>
+          <div
+            class="dropdown-menu"
+          />
         </div>
         <div
-          class="hsp-detail-panel__body"
+          class="dropdown-container"
         >
+          <button
+            class="button tertiary dropdown"
+            type="button"
+          >
+            Select annotation
+          </button>
           <div
-            class="button-group"
+            class="dropdown-menu"
+          />
+        </div>
+        <fieldset
+          class="msa-view-choice"
+        >
+          View:
+          <label>
+            <input
+              checked=""
+              name="view"
+              type="radio"
+            />
+            Overview
+          </label>
+          <label>
+            <input
+              name="view"
+              type="radio"
+            />
+            Wrapped
+          </label>
+        </fieldset>
+      </div>
+      <div>
+        <protvista-tooltip />
+        <section
+          class="alignment-grid"
+          data-testid="alignment-view"
+        >
+          <span
+            class="track-label"
+          >
+            Overview
+          </span>
+          <div
+            class="track"
+          >
+            <div>
+              <protvista-track
+                height="15"
+                highlight="418:446"
+                layout="non-overlapping"
+                length="486"
+              />
+              <protvista-track
+                height="15"
+                highlight="418:446"
+                layout="non-overlapping"
+                length="486"
+              />
+            </div>
+          </div>
+          <span
+            class="track-label"
+            data-testid="track-label"
+          >
+            U6MKN0:chain
+          </span>
+          <div
+            class="track"
+          >
+            <protvista-track
+              highlight="418:446"
+              layout="non-overlapping"
+              length="486"
+            />
+          </div>
+          <div
+            class="track-label track-label--align-labels"
+          >
+            <span
+              class="align-label"
+            >
+              Query
+            </span>
+            <button
+              class="align-label"
+              style="height: 20px;"
+              tabindex="-1"
+              type="button"
+            >
+              Match:
+              <a
+                href="/uniprotkb/U6MKN0"
+              >
+                U6MKN0
+              </a>
+              
+            </button>
+          </div>
+          <div
+            class="track"
+          >
+            <protvista-manager
+              attributes="displaystart displayend"
+              displayend="28"
+              displaystart="1"
+            >
+              <protvista-navigation
+                length="28"
+              />
+              <protvista-msa
+                calculate-conservation="true"
+                colorscheme="conservation"
+                height="40"
+                hidelabel="true"
+                length="28"
+                overlay-conservation="true"
+              />
+            </protvista-manager>
+          </div>
+          <span
+            class="right-coord"
           >
             <div
-              class="dropdown-container"
+              style="height: 20px;"
             >
-              <button
-                class="button tertiary dropdown"
-                type="button"
-              >
-                Highlight properties
-              </button>
-              <div
-                class="dropdown-menu"
-              />
+              28
             </div>
             <div
-              class="dropdown-container"
+              style="height: 20px;"
             >
-              <button
-                class="button tertiary dropdown"
-                type="button"
-              >
-                Select annotation
-              </button>
-              <div
-                class="dropdown-menu"
-              />
+              28
             </div>
-            <fieldset
-              class="msa-view-choice"
-            >
-              View:
-              <label>
-                <input
-                  checked=""
-                  name="view"
-                  type="radio"
-                />
-                Overview
-              </label>
-              <label>
-                <input
-                  name="view"
-                  type="radio"
-                />
-                Wrapped
-              </label>
-            </fieldset>
-          </div>
-          <div>
-            <protvista-tooltip />
-            <section
-              class="alignment-grid"
-              data-testid="alignment-view"
-            >
-              <span
-                class="track-label"
-              >
-                Overview
-              </span>
-              <div
-                class="track"
-              >
-                <div>
-                  <protvista-track
-                    height="15"
-                    highlight="418:446"
-                    layout="non-overlapping"
-                    length="486"
-                  />
-                  <protvista-track
-                    height="15"
-                    highlight="418:446"
-                    layout="non-overlapping"
-                    length="486"
-                  />
-                </div>
-              </div>
-              <span
-                class="track-label"
-                data-testid="track-label"
-              >
-                U6MKN0:chain
-              </span>
-              <div
-                class="track"
-              >
-                <protvista-track
-                  highlight="418:446"
-                  layout="non-overlapping"
-                  length="486"
-                />
-              </div>
-              <div
-                class="track-label track-label--align-labels"
-              >
-                <span
-                  class="align-label"
-                >
-                  Query
-                </span>
-                <button
-                  class="align-label"
-                  style="height: 20px;"
-                  tabindex="-1"
-                  type="button"
-                >
-                  Match:
-                  <a
-                    href="/uniprotkb/U6MKN0"
-                  >
-                    U6MKN0
-                  </a>
-                </button>
-              </div>
-              <div
-                class="track"
-              >
-                <protvista-manager
-                  attributes="displaystart displayend"
-                  displayend="28"
-                  displaystart="1"
-                >
-                  <protvista-navigation
-                    length="28"
-                  />
-                  <protvista-msa
-                    calculate-conservation="true"
-                    colorscheme="conservation"
-                    height="40"
-                    hidelabel="true"
-                    length="28"
-                    overlay-conservation="true"
-                  />
-                </protvista-manager>
-              </div>
-              <span
-                class="right-coord"
-              >
-                <div
-                  style="height: 20px;"
-                >
-                  28
-                </div>
-                <div
-                  style="height: 20px;"
-                >
-                  28
-                </div>
-              </span>
-            </section>
-          </div>
-        </div>
+          </span>
+        </section>
       </div>
     </div>
   </div>
-</DocumentFragment>
+</div>
 `;

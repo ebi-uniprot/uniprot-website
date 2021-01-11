@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
 import HSPDetailPanel from '../HSPDetailPanel';
 import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
@@ -24,23 +24,21 @@ describe('HSPDetailPanel', () => {
 
   beforeEach(async () => {
     rendered = renderWithRouter(
-      <div className="main-content-and-footer">
-        <HSPDetailPanel
-          hsp={hsp}
-          hitAccession={hit.hit_acc}
-          onClose={onClose}
-          hitLength={hit.hit_len}
-          queryLength={blastResultsMockData.query_len}
-        />
-      </div>
+      <HSPDetailPanel
+        hsp={hsp}
+        hitAccession={hit.hit_acc}
+        onClose={onClose}
+        hitLength={hit.hit_len}
+        queryLength={blastResultsMockData.query_len}
+      />
     );
     await rendered;
   });
 
-  it('should initially render overview', async () => {
-    const { asFragment, getByTestId } = rendered;
-    expect(await getByTestId('alignment-view')).toBeTruthy();
-    expect(asFragment()).toMatchSnapshot();
+  it.only('should initially render overview', async () => {
+    expect(await screen.getByTestId('alignment-view')).toBeTruthy();
+    const slidingPanel = await screen.findByTestId('sliding-panel');
+    expect(slidingPanel).toMatchSnapshot();
   });
 
   it('should load correct query and match sequence data', async () => {
@@ -53,12 +51,14 @@ describe('HSPDetailPanel', () => {
   });
 
   it('should change to wrapped and render when wrapped view is clicked', async () => {
-    const { getByText, findByTestId, asFragment } = rendered;
-    const wrappedButton = getByText('Wrapped');
+    const { findByTestId } = rendered;
+    const wrappedButton = screen.getByText('Wrapped');
     fireEvent.click(wrappedButton);
     expect(await findByTestId('alignment-wrapped-view')).toBeTruthy();
     // skip the top level div, as it contains the dynamically injected style
     // that might be different across different runs ("sliding" effect)
-    expect(asFragment().firstElementChild.firstElementChild).toMatchSnapshot();
+    expect(await screen.findByTestId('alignment-wrapped-view')).toBeTruthy();
+    const slidingPanel = await screen.findByTestId('sliding-panel');
+    expect(slidingPanel).toMatchSnapshot();
   });
 });

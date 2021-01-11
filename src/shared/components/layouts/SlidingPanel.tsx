@@ -29,6 +29,7 @@ const SlidingPanel: FC<{
 
   return createPortal(
     <animated.div
+      data-testid="sliding-panel"
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
       style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
     >
