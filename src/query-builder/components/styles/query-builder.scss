@@ -49,9 +49,9 @@
 
   &__actions {
     margin-top: 1em;
+  }
 
-    [type='submit'] {
-      float: right;
-    }
+  &__add-field.button {
+    margin-right: auto;
   }
 }
