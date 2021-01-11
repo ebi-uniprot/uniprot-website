@@ -31,8 +31,6 @@ export enum Location {
   UploadListResult = 'UploadListResult',
   PeptideSearch = 'PeptideSearch',
   PeptideSearchResult = 'PeptideSearchResult',
-  // Other
-  QueryBuilder = 'QueryBuilder',
 }
 
 export const LocationToPath = {
@@ -63,8 +61,6 @@ export const LocationToPath = {
   [Location.UploadList]: '/uploadlists',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  // Other
-  [Location.QueryBuilder]: '/query-builder/:namespace?',
 };
 
 export const SearchResultsLocations = {

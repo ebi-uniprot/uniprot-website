@@ -368,19 +368,23 @@ exports[`QueryBuilder should render 1`] = `
       </div>
     </fieldset>
     <div
-      class="query-builder__actions"
+      class="query-builder__actions button-group sliding-panel__button-row"
     >
       <button
-        class="button tertiary"
+        class="button tertiary query-builder__add-field"
         data-testid="query-builder-add-field"
-        id="add-field"
         type="button"
       >
         Add Field
       </button>
       <button
-        class="button"
-        id="submit-query"
+        class="button secondary"
+        type="button"
+      >
+        Cancel
+      </button>
+      <button
+        class="button primary"
         type="submit"
       >
         Search
