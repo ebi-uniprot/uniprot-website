@@ -1,8 +1,11 @@
 import { fireEvent, screen } from '@testing-library/react';
-import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
+
 import HSPDetailPanel from '../HSPDetailPanel';
-import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
+
 import renderWithRouter from '../../../../../shared/__test-helpers__/RenderWithRouter';
+
+import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
+import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
 
 jest.mock('../../../../../shared/hooks/useDataApi', () => jest.fn());
 jest.mock('../../../../../shared/hooks/useSize', () => jest.fn());
@@ -13,17 +16,16 @@ const dataMock = {
   loading: false,
   data: { results: [modelData] },
 };
-useDataApi.mockImplementation(() => dataMock);
-useSize.mockImplementation(() => [{ width: 1000 }]);
+(useDataApi as jest.Mock).mockImplementation(() => dataMock);
+(useSize as jest.Mock).mockImplementation(() => [{ width: 1000 }]);
 
 describe('HSPDetailPanel', () => {
-  let rendered;
   const onClose = jest.fn();
   const hit = blastResultsMockData.hits[0];
   const hsp = hit.hit_hsps[0];
 
   beforeEach(async () => {
-    rendered = renderWithRouter(
+    await renderWithRouter(
       <HSPDetailPanel
         hsp={hsp}
         hitAccession={hit.hit_acc}
@@ -32,7 +34,6 @@ describe('HSPDetailPanel', () => {
         queryLength={blastResultsMockData.query_len}
       />
     );
-    await rendered;
   });
 
   it('should initially render overview', async () => {
@@ -51,10 +52,9 @@ describe('HSPDetailPanel', () => {
   });
 
   it('should change to wrapped and render when wrapped view is clicked', async () => {
-    const { findByTestId } = rendered;
     const wrappedButton = screen.getByText('Wrapped');
     fireEvent.click(wrappedButton);
-    expect(await findByTestId('alignment-wrapped-view')).toBeTruthy();
+    expect(await screen.findByTestId('alignment-wrapped-view')).toBeTruthy();
     // skip the top level div, as it contains the dynamically injected style
     // that might be different across different runs ("sliding" effect)
     expect(await screen.findByTestId('alignment-wrapped-view')).toBeTruthy();
