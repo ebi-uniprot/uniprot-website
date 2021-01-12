@@ -167,6 +167,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const namespace = useNS() || Namespace.uniprotkb;
   const prevNamespace = useRef<Namespace>();
   useEffect(() => {
+    // will set it *after* the current render
     prevNamespace.current = namespace;
   });
 
@@ -200,7 +201,13 @@ const ResultsView: FC<ResultsTableProps> = ({
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<APIModel[]>([]);
 
-  const { data, headers } = useDataApi<{
+  useEffect(() => {
+    setAllResults([]);
+    setMetaData({ total: 0, nextUrl: undefined });
+    setUrl(initialApiUrl);
+  }, [initialApiUrl]);
+
+  const { data, loading, headers } = useDataApi<{
     results: APIModel[];
   }>(url);
 
@@ -224,12 +231,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   }, [history, direct, metaData, allResults, namespace, getIdKey]);
 
   useEffect(() => {
-    setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
-    setUrl(initialApiUrl);
-  }, [initialApiUrl]);
-
-  useEffect(() => {
     if (!data) {
       return;
     }
@@ -242,10 +243,12 @@ const ResultsView: FC<ResultsTableProps> = ({
   }, [data, headers]);
 
   if (
-    allResults.length === 0 ||
-    // tweaks to avoid having stale data passed to the wrong components
-    prevViewMode.current !== viewMode ||
-    prevNamespace.current !== namespace
+    // if loading the first page of results
+    (loading && url === initialApiUrl) ||
+    // or we just switched namespace (a bit hacky workaround to force unmount)
+    prevNamespace.current !== namespace ||
+    // or we just switched view mode (hacky too)
+    prevViewMode.current !== viewMode
   ) {
     return <Loader />;
   }
