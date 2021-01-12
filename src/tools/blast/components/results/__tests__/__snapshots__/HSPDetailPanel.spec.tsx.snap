@@ -1,150 +1,144 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`HSPDetailPanel should change to wrapped and render when wrapped view is clicked 1`] = `
-<div
-  class="sliding-panel sliding-panel--bottom hsp-detail-panel"
-  data-testid="sliding-panel"
-  style="opacity: 0.048076354392837695; margin-bottom: -951.9236456071621px; overflow-y: initial;"
->
-  <div>
-    <div
-      class="hsp-detail-panel__header"
+<div>
+  <div
+    class="hsp-detail-panel__header"
+  >
+    <h4>
+      U6MKN0 · rec full Name · scientific name
+    </h4>
+    <button
+      type="button"
     >
-      <h4>
-        U6MKN0 · rec full Name · scientific name
-      </h4>
-      <button
-        type="button"
-      >
-        <test-file-stub
-          height="16"
-          width="16"
-        />
-      </button>
-    </div>
+      <test-file-stub
+        height="16"
+        width="16"
+      />
+    </button>
+  </div>
+  <div
+    class="hsp-detail-panel__body"
+  >
     <div
-      class="hsp-detail-panel__body"
+      class="button-group"
     >
       <div
-        class="button-group"
+        class="dropdown-container"
+      >
+        <button
+          class="button tertiary dropdown"
+          type="button"
+        >
+          Highlight properties
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button tertiary dropdown"
+          type="button"
+        >
+          Select annotation
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <fieldset
+        class="msa-view-choice"
+      >
+        View:
+        <label>
+          <input
+            checked=""
+            name="view"
+            type="radio"
+          />
+          Overview
+        </label>
+        <label>
+          <input
+            name="view"
+            type="radio"
+          />
+          Wrapped
+        </label>
+      </fieldset>
+    </div>
+    <div>
+      <protvista-tooltip />
+      <div
+        class="alignment-grid alignment-wrapped"
+        data-testid="alignment-wrapped-view"
       >
         <div
-          class="dropdown-container"
+          class="track-label track-label--align-labels"
         >
+          <span
+            class="align-label"
+          >
+            Query
+          </span>
           <button
-            class="button tertiary dropdown"
+            class="align-label"
+            style="height: 20px;"
+            tabindex="-1"
             type="button"
           >
-            Highlight properties
+            Match:
+            <a
+              href="/uniprotkb/U6MKN0"
+            >
+              U6MKN0
+            </a>
+            
           </button>
-          <div
-            class="dropdown-menu"
-          />
         </div>
         <div
-          class="dropdown-container"
+          class="track"
         >
-          <button
-            class="button tertiary dropdown"
-            type="button"
-          >
-            Select annotation
-          </button>
-          <div
-            class="dropdown-menu"
+          <protvista-msa
+            calculate-conservation="true"
+            colorscheme="conservation"
+            height="40"
+            hidelabel="true"
+            length="45"
+            overlay-conservation="true"
           />
         </div>
-        <fieldset
-          class="msa-view-choice"
+        <span
+          class="right-coord"
         >
-          View:
-          <label>
-            <input
-              checked=""
-              name="view"
-              type="radio"
-            />
-            Overview
-          </label>
-          <label>
-            <input
-              name="view"
-              type="radio"
-            />
-            Wrapped
-          </label>
-        </fieldset>
-      </div>
-      <div>
-        <protvista-tooltip />
+          <div
+            style="height: 20px;"
+          >
+            30
+          </div>
+          <div
+            style="height: 20px;"
+          >
+            445
+          </div>
+        </span>
+        <span
+          class="track-label annotation-label"
+        >
+          U6MKN0:chain
+        </span>
         <div
-          class="alignment-grid alignment-wrapped"
-          data-testid="alignment-wrapped-view"
+          class="track annotation-track"
         >
-          <div
-            class="track-label track-label--align-labels"
-          >
-            <span
-              class="align-label"
-            >
-              Query
-            </span>
-            <button
-              class="align-label"
-              style="height: 20px;"
-              tabindex="-1"
-              type="button"
-            >
-              Match:
-              <a
-                href="/uniprotkb/U6MKN0"
-              >
-                U6MKN0
-              </a>
-              
-            </button>
-          </div>
-          <div
-            class="track"
-          >
-            <protvista-msa
-              calculate-conservation="true"
-              colorscheme="conservation"
-              height="40"
-              hidelabel="true"
-              length="45"
-              overlay-conservation="true"
-            />
-          </div>
-          <span
-            class="right-coord"
-          >
-            <div
-              style="height: 20px;"
-            >
-              30
-            </div>
-            <div
-              style="height: 20px;"
-            >
-              445
-            </div>
-          </span>
-          <span
-            class="track-label annotation-label"
-          >
-            U6MKN0:chain
-          </span>
-          <div
-            class="track annotation-track"
-          >
-            <protvista-track
-              displayend="45"
-              displaystart="1"
-              layout="non-overlapping"
-              length="45"
-            />
-          </div>
+          <protvista-track
+            displayend="45"
+            displaystart="1"
+            layout="non-overlapping"
+            length="45"
+          />
         </div>
       </div>
     </div>
