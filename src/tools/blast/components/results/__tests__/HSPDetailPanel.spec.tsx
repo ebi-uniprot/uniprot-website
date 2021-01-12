@@ -35,16 +35,16 @@ describe('HSPDetailPanel', () => {
     await rendered;
   });
 
-  it.only('should initially render overview', async () => {
+  it('should initially render overview', async () => {
     expect(await screen.getByTestId('alignment-view')).toBeTruthy();
     const slidingPanel = await screen.findByTestId('sliding-panel');
     expect(slidingPanel).toMatchSnapshot();
   });
 
   it('should load correct query and match sequence data', async () => {
-    const { container } = rendered;
-    const msa = container.querySelector('protvista-msa');
-    expect(msa.data).toEqual([
+    const slidingPanel = await screen.findByTestId('sliding-panel');
+    const msa = slidingPanel.querySelector('protvista-msa');
+    expect((msa as any).data).toEqual([
       { name: 'Query', sequence: hsp.hsp_qseq },
       { name: 'Match:U6MKN0', sequence: hsp.hsp_hseq },
     ]);

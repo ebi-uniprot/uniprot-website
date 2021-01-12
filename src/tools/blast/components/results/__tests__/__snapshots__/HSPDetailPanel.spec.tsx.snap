@@ -3,7 +3,8 @@
 exports[`HSPDetailPanel should change to wrapped and render when wrapped view is clicked 1`] = `
 <div
   class="sliding-panel sliding-panel--bottom hsp-detail-panel"
-  style="opacity: 0; margin-bottom: -1000px; overflow-y: initial;"
+  data-testid="sliding-panel"
+  style="opacity: 0.048076354392837695; margin-bottom: -951.9236456071621px; overflow-y: initial;"
 >
   <div>
     <div
@@ -100,6 +101,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
               >
                 U6MKN0
               </a>
+              
             </button>
           </div>
           <div
