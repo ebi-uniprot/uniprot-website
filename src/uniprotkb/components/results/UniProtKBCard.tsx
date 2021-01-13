@@ -13,11 +13,11 @@ import KeywordCategory from '../../types/keywordCategory';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
-import './styles/uniprot-card.scss';
+import '../../../shared/components/results/styles/result-card.scss';
 
 const UniProtKBCard: FC<{
   data: UniProtkbAPIModel;
-  selected: boolean;
+  selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
@@ -52,8 +52,8 @@ const UniProtKBCard: FC<{
 
   return (
     <Card links={highlights} onClick={handleCardClick}>
-      <section className="uniprot-card">
-        <section className="uniprot-card__left">
+      <section className="result-card">
+        <section className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
@@ -62,7 +62,7 @@ const UniProtKBCard: FC<{
             data-testid="up-card-checkbox"
           />
         </section>
-        <section className="uniprot-card__right">
+        <section className="result-card__right">
           <h5>
             <EntryTitle
               mainTitle={data.primaryAccession}

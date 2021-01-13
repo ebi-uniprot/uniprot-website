@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Card } from 'franklin-sites';
+import { Card, LongNumber } from 'franklin-sites';
 import { useHistory, generatePath } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -8,11 +8,11 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
-import '../../../uniprotkb/components/results/styles/uniprot-card.scss';
+import '../../../shared/components/results/styles/result-card.scss';
 
 const UniRefCard: FC<{
   data: UniRefLiteAPIModel;
-  selected: boolean;
+  selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
@@ -25,8 +25,8 @@ const UniRefCard: FC<{
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="uniprot-card">
-        <section className="uniprot-card__left">
+      <section className="result-card">
+        <section className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
@@ -35,15 +35,23 @@ const UniRefCard: FC<{
             data-testid="up-card-checkbox"
           />
         </section>
-        <section className="uniprot-card__right">
+        <section className="result-card__right">
           <h5>
             <EntryTitle mainTitle={data.id} entryType={data.memberIdTypes} />
           </h5>
           <section>{data.name}</section>
           <section>
-            <strong>Members: {data.memberCount}</strong>
-            {' · '} Sequence length: {data.sequenceLength} {' · '} Identity:{' '}
-            {data.entryType}
+            <strong className="result-card__info-bit">
+              Members: {data.memberCount}
+            </strong>
+            {' · '}
+            <span className="result-card__info-bit">
+              Sequence length: <LongNumber>{data.sequenceLength}</LongNumber>
+            </span>
+            {' · '}
+            <span className="result-card__info-bit">
+              Identity: {data.entryType}
+            </span>
           </section>
         </section>
       </section>
