@@ -18,14 +18,8 @@ const SlidingPanel: FC<{
   position: Position;
   className?: string;
   yScrollable?: boolean;
-  onClickOutside?: (arg: void) => void;
-}> = ({
-  children,
-  position,
-  className,
-  onClickOutside,
-  yScrollable = false,
-}) => {
+  onClose: (arg: void) => void;
+}> = ({ children, position, className, onClose, yScrollable = false }) => {
   const node = useRef<HTMLDivElement>(null);
   const margin = `margin${upperFirst(position)}`;
   const [props] = useSpring(() => ({
@@ -34,21 +28,23 @@ const SlidingPanel: FC<{
     from: { opacity: 0, [margin]: -1000 },
   }));
 
-  // eslint-disable-next-line consistent-return
-  useEffect(() => {
-    if (onClickOutside) {
-      const handleClickOutside = (e: MouseEvent) => {
-        if (node?.current && !node.current.contains(e.target as Node)) {
-          onClickOutside();
-        }
-      };
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
-      document.addEventListener('mousedown', handleClickOutside);
-      return () => {
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }
-  }, [onClickOutside]);
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (node?.current && !node.current.contains(e.target as Node)) {
+        e.stopPropagation();
+        e.preventDefault();
+        onCloseRef.current();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
 
   return (
     <animated.div

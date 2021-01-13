@@ -136,7 +136,7 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
     <SlidingPanel
       position={Position.bottom}
       className={containerClass}
-      onClickOutside={onClose}
+      onClose={onClose}
     >
       {content}
     </SlidingPanel>

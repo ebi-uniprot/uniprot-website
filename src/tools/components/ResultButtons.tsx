@@ -126,7 +126,7 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
         <Suspense fallback={null}>
           <SlidingPanel
             position={Position.left}
-            onClickOutside={() => setDisplayDownloadPanel(false)}
+            onClose={() => setDisplayDownloadPanel(false)}
           >
             <ResultDownload
               jobType={jobType}

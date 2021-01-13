@@ -64,7 +64,7 @@ const ResultsButtons: FC<{
           <SlidingPanel
             position={Position.left}
             yScrollable
-            onClickOutside={() => setDisplayDownloadPanel(false)}
+            onClose={() => setDisplayDownloadPanel(false)}
           >
             <DownloadComponent
               query={query}
@@ -84,7 +84,7 @@ const ResultsButtons: FC<{
           <SlidingPanel
             position={Position.left}
             yScrollable
-            onClickOutside={() => setDisplayCustomisePanel(false)}
+            onClose={() => setDisplayCustomisePanel(false)}
           >
             <CustomiseComponent
               selectedColumns={tableColumns}
