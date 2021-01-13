@@ -106,6 +106,10 @@ type ResultButtonsProps<T extends JobTypes> = {
   isTableResultsFiltered?: boolean;
 };
 
+const ResultDownload = lazy(
+  () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
+);
+
 const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
   jobType,
   jobId,
@@ -114,10 +118,6 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
   nHits,
   isTableResultsFiltered,
 }) => {
-  const ResultDownload = lazy(
-    () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
-  );
-
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (

@@ -1,4 +1,5 @@
 import { FC, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useSpring, animated } from 'react-spring';
 import cn from 'classnames';
 import { upperFirst } from 'lodash-es';
@@ -46,8 +47,9 @@ const SlidingPanel: FC<{
     };
   }, []);
 
-  return (
+  return createPortal(
     <animated.div
+      data-testid="sliding-panel"
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
       style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
       ref={node}
@@ -55,7 +57,8 @@ const SlidingPanel: FC<{
       <ErrorBoundary>
         <div>{children}</div>
       </ErrorBoundary>
-    </animated.div>
+    </animated.div>,
+    document.body
   );
 };
 

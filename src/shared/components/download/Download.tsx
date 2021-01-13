@@ -1,28 +1,29 @@
 import { useCallback, useState, FC, ChangeEvent } from 'react';
 import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
+import ColumnSelect from '../column-select/ColumnSelect';
+
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
-import ColumnSelect from '../column-select/ColumnSelect';
 import useNS from '../../hooks/useNS';
 
 import { getDownloadUrl } from '../../config/apiUrls';
 import { Column, nsToPrimaryKeyColumn } from '../../config/columns';
-
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import {
-  SelectedFacet,
-  SortDirection,
-} from '../../../uniprotkb/types/resultsTypes';
 import {
   fileFormatsWithColumns,
   fileFormatToContentType,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 
+import {
+  SelectedFacet,
+  SortDirection,
+} from '../../../uniprotkb/types/resultsTypes';
+import { ContentType, FileFormat } from '../../types/resultsDownload';
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+
 import './styles/download.scss';
 import '../../styles/sticky.scss';
-import { ContentType, FileFormat } from '../../types/resultsDownload';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -232,10 +233,10 @@ const Download: FC<DownloadProps> = ({
         </>
       )}
       <section className="button-group sliding-panel__button-row sticky-bottom-right">
-        <Button variant="secondary" type="button" onClick={() => onClose()}>
+        <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="secondary" type="button" onClick={handlePreview}>
+        <Button variant="secondary" onClick={handlePreview}>
           Preview {nPreview}
         </Button>
         <a
