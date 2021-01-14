@@ -10,18 +10,30 @@ import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
 import '../../../uniprotkb/components/results/styles/uniprot-card.scss';
 
-const UniRefCard: FC<{
+const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
+
+type Props = {
   data: UniRefLiteAPIModel;
   selected: boolean;
   handleEntrySelection: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }): JSX.Element => {
+};
+
+const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
-  const handleCardClick = useCallback(() => {
-    history.push(
-      generatePath(LocationToPath[Location.UniRefEntry], { accession: data.id })
-    );
-  }, [history, data.id]);
+  const handleCardClick = useCallback(
+    (event: MouseEvent) => {
+      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+        return;
+      }
+      history.push(
+        generatePath(LocationToPath[Location.UniRefEntry], {
+          accession: data.id,
+        })
+      );
+    },
+    [history, data.id]
+  );
 
   return (
     <Card onClick={handleCardClick}>
@@ -30,7 +42,6 @@ const UniRefCard: FC<{
           <input
             type="checkbox"
             checked={selected}
-            onClick={(e) => e.stopPropagation()}
             onChange={() => handleEntrySelection(data.id)}
             data-testid="up-card-checkbox"
           />
