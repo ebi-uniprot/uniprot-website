@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { createPortal } from 'react-dom';
 import { useSpring, animated } from 'react-spring';
 import cn from 'classnames';
 import { upperFirst } from 'lodash-es';
@@ -26,15 +27,17 @@ const SlidingPanel: FC<{
     from: { opacity: 0, [margin]: -1000 },
   }));
 
-  return (
+  return createPortal(
     <animated.div
+      data-testid="sliding-panel"
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
       style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
     >
       <ErrorBoundary>
         <div>{children}</div>
       </ErrorBoundary>
-    </animated.div>
+    </animated.div>,
+    document.body
   );
 };
 
