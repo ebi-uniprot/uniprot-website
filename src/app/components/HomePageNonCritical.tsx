@@ -1,4 +1,4 @@
-import { Tile, HeroContainer, InfoListItem } from 'franklin-sites';
+import { Tile, HeroContainer, DecoratedListItem } from 'franklin-sites';
 
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
@@ -80,45 +80,45 @@ const HomePageNonCritical = () => (
         <h3>Supporting Data</h3>
       </div>
       <div className="uniprot-grid-cell--span-3">
-        <InfoListItem>
+        <DecoratedListItem compact altStyle>
           <h5>Taxonomy</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
       <div className="uniprot-grid-cell--span-3">
-        <InfoListItem>
+        <DecoratedListItem compact altStyle>
           <h5>Subcellular locations</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
       <div className="uniprot-grid-cell--span-3">
-        <InfoListItem>
+        <DecoratedListItem compact altStyle>
           <h5>UniRule automatic annotation</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
       <div
         className="uniprot-grid-cell--span-3"
         style={{ display: 'inline-flex' }}
       >
-        <InfoListItem inline>
+        <DecoratedListItem compact altStyle inline>
           <h5>Diseases</h5>
-        </InfoListItem>
-        <InfoListItem inline>
+        </DecoratedListItem>
+        <DecoratedListItem compact altStyle inline>
           <h5>Keywords</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
       <div className="uniprot-grid-cell--span-3">
-        <InfoListItem>
+        <DecoratedListItem compact altStyle>
           <h5>Literature Citations</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
       <div className="uniprot-grid-cell--span-3">
-        <InfoListItem>
+        <DecoratedListItem compact altStyle>
           <h5>Cross-referenced databases</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
       <div className="uniprot-grid-cell--span-3">
-        <InfoListItem>
+        <DecoratedListItem compact altStyle>
           <h5>ARBA automatic annotation</h5>
-        </InfoListItem>
+        </DecoratedListItem>
       </div>
     </HeroContainer>
 
