@@ -1,9 +1,11 @@
 /* eslint-disable camelcase */
 import { Fragment, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+
+import { Location, LocationToPath } from '../../app/config/urls';
 
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
@@ -45,7 +47,13 @@ export const UniRefColumnConfiguration = new Map<
 
 UniRefColumnConfiguration.set(UniRefColumn.id, {
   label: 'Cluster ID',
-  render: ({ id }) => <Link to={`/uniref/${id}`}>{id}</Link>,
+  render: ({ id }) => (
+    <Link
+      to={generatePath(LocationToPath[Location.UniRefEntry], { accession: id })}
+    >
+      {id}
+    </Link>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
@@ -61,7 +69,13 @@ UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
   label: 'Common taxon ID',
   render: ({ commonTaxonId }) => (
-    <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>
+    <Link
+      to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+        accession: commonTaxonId,
+      })}
+    >
+      {commonTaxonId}
+    </Link>
   ),
 });
 
@@ -70,7 +84,12 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   render: ({ organismIds }) => (
     <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
       {organismIds?.map((organismId) => (
-        <Link key={organismId} to={`/taxonomy/${organismId}`}>
+        <Link
+          key={organismId}
+          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+            accession: organismId,
+          })}
+        >
           {organismId}
         </Link>
       ))}
@@ -121,7 +140,12 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
   render: ({ members }) => (
     <ExpandableList descriptionString="members" displayNumberOfHiddenItems>
       {members?.map((member) => (
-        <Link key={member} to={`/uniprotkb/${member}`}>
+        <Link
+          key={member}
+          to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+            accession: member,
+          })}
+        >
           {member}
         </Link>
       ))}

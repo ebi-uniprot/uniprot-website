@@ -21,6 +21,16 @@ import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { ViewMode } from './ResultsContainer';
 import { Column } from '../../config/columns';
 
+const DownloadComponent = lazy(
+  () => import(/* webpackChunkName: "download" */ '../download/Download')
+);
+const CustomiseComponent = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
+    )
+);
+
 const ResultsButtons: FC<{
   viewMode: ViewMode;
   setViewMode: (viewMode: ViewMode) => void;
@@ -44,24 +54,18 @@ const ResultsButtons: FC<{
   tableColumns,
   onTableColumnsChange,
 }) => {
-  const DownloadComponent = lazy(
-    () => import(/* webpackChunkName: "download" */ '../download/Download')
-  );
-  const CustomiseComponent = lazy(
-    () =>
-      import(
-        /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
-      )
-  );
-
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
 
   return (
     <>
       {displayDownloadPanel && (
-        <Suspense fallback>
-          <SlidingPanel position={Position.left} yScrollable>
+        <Suspense fallback={null}>
+          <SlidingPanel
+            position={Position.left}
+            yScrollable
+            onClose={() => setDisplayDownloadPanel(false)}
+          >
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
@@ -76,8 +80,12 @@ const ResultsButtons: FC<{
         </Suspense>
       )}
       {displayCustomisePanel && (
-        <Suspense fallback>
-          <SlidingPanel position={Position.left} yScrollable>
+        <Suspense fallback={null}>
+          <SlidingPanel
+            position={Position.left}
+            yScrollable
+            onClose={() => setDisplayCustomisePanel(false)}
+          >
             <CustomiseComponent
               selectedColumns={tableColumns}
               onSave={(columns: Column[]) => {

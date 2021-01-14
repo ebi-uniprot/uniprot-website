@@ -4,10 +4,11 @@
     "plugin:@typescript-eslint/recommended",
     "prettier",
     "prettier/react",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
+    "plugin:uniprot-website/recommended"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "react-hooks"],
+  "plugins": ["@typescript-eslint", "react-hooks", "uniprot-website"],
   "env": {
     "browser": true,
     "es6": true,
@@ -31,6 +32,7 @@
     ],
     "@typescript-eslint/no-use-before-define": ["error"],
     "@typescript-eslint/prefer-interface": "off",
+    "curly": ["error", "all"],
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "jsx-a11y/label-has-associated-control": "off",

@@ -140,41 +140,188 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </button>
   </section>
   <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed supporting-data-section"
   >
-    <h3
-      class="uniprot-grid-cell--span-12"
+    <div
+      class="uniprot-grid-cell--span-3"
     >
-      Supporting Data
-    </h3>
-    <section
-      class="uniprot-grid-cell--span-12"
+      <h3>
+        Supporting Data
+      </h3>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
     >
-      <h5>
-        Literature Citations
-      </h5>
-      <h5>
-        Taxonomy
-      </h5>
-      <h5>
-        Subcellular locations
-      </h5>
-      <h5>
-        Cross-ref databases
-      </h5>
-      <h5>
-        Diseases
-      </h5>
-      <h5>
-        Keywords
-      </h5>
-      <h5>
-        UniRule
-      </h5>
-      <h5>
-        SAAS
-      </h5>
-    </section>
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            Taxonomy
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            Subcellular locations
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            UniRule automatic annotation
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
+      style="display: inline-flex;"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            Diseases
+          </h5>
+        </div>
+      </div>
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            Keywords
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            Literature Citations
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            Cross-referenced databases
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3"
+    >
+      <div
+        class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          />
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <h5>
+            ARBA automatic annotation
+          </h5>
+        </div>
+      </div>
+    </div>
   </div>
   <div
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
