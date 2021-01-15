@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect, FC, Fragment } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button } from 'franklin-sites';
@@ -80,16 +80,15 @@ const Search: FC<{
               <>
                 Examples:{' '}
                 {examples[namespace]?.map((example, index) => (
-                  <>
+                  <Fragment key={example}>
                     {index === 0 ? null : ', '}
                     <Button
-                      key={example}
                       variant="tertiary"
                       onClick={() => loadExample(example)}
                     >
                       {example}
                     </Button>
-                  </>
+                  </Fragment>
                 ))}
               </>
             )}
