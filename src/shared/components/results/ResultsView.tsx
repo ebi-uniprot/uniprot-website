@@ -2,8 +2,10 @@ import { useState, useEffect, useRef, useMemo, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { useHistory, useLocation, generatePath } from 'react-router-dom';
 
+// card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
+import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -12,6 +14,7 @@ import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
+// columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
@@ -103,15 +106,15 @@ const cardRenderer = (
         />
       );
     }
-    // case Namespace.uniparc: {
-    //   return (cardData: UniParcAPIModel) => (
-    //     <UniParcCard
-    //       data={cardData}
-    //       selected={selectedEntries.includes(getIdKey(cardData))}
-    //       handleEntrySelection={handleEntrySelection}
-    //     />
-    //   );
-    // }
+    case Namespace.uniparc: {
+      return (cardData: UniParcAPIModel) => (
+        <UniParcCard
+          data={cardData}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
     default:
       return () => (
         <div className="warning">{`${namespace} has no card renderer yet`}</div>

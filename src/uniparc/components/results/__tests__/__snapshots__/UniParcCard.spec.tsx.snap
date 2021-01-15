@@ -32,34 +32,54 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 class="entry-title"
               >
                 <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed UniProtKB entry"
+                  class="entry-title__status icon--uniparc"
+                  title="This marks a UniParc entry"
                 >
                   <test-file-stub />
                 </span>
-                UniRef100_B2R6V2
+                UPI0000000001
               </span>
             </h5>
             <section>
-              Cluster: cDNA, FLJ93132, highly similar to Homo sapiens CDC7 cell division cycle 7 (S. cerevisiae) (CDC7), mRNA
-            </section>
-            <section>
-              <strong
-                class="result-card__info-bit"
-              >
-                Members: 1
-              </strong>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                Sequence length: 574
+                Organisms: 6
               </span>
                · 
               <span
                 class="result-card__info-bit"
               >
-                Identity: UniRef100
+                UniprotKB entries: 2 reviewed and 6 unreviewed
+              </span>
+            </section>
+            <section>
+              <span
+                class="result-card__info-bit"
+              >
+                First seen: 
+                <time
+                  datetime="1988-11-01T00:00:00.000Z"
+                >
+                  1988-11-01
+                </time>
+              </span>
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Last seen: 
+                <time
+                  datetime="2020-12-02T00:00:00.000Z"
+                >
+                  2020-12-02
+                </time>
+              </span>
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Sequence length: 250
               </span>
             </section>
           </section>
