@@ -2,8 +2,10 @@ import { useState, useEffect, useRef, useMemo, FC } from 'react';
 import { DataTable, DataList, Loader } from 'franklin-sites';
 import { useHistory, useLocation, generatePath } from 'react-router-dom';
 
+// card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
+import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -12,6 +14,7 @@ import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
+// columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
@@ -103,15 +106,15 @@ const cardRenderer = (
         />
       );
     }
-    // case Namespace.uniparc: {
-    //   return (cardData: UniParcAPIModel) => (
-    //     <UniParcCard
-    //       data={cardData}
-    //       selected={selectedEntries.includes(getIdKey(cardData))}
-    //       handleEntrySelection={handleEntrySelection}
-    //     />
-    //   );
-    // }
+    case Namespace.uniparc: {
+      return (cardData: UniParcAPIModel) => (
+        <UniParcCard
+          data={cardData}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
     default:
       return () => (
         <div className="warning">{`${namespace} has no card renderer yet`}</div>
@@ -167,6 +170,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const namespace = useNS() || Namespace.uniprotkb;
   const prevNamespace = useRef<Namespace>();
   useEffect(() => {
+    // will set it *after* the current render
     prevNamespace.current = namespace;
   });
 
@@ -200,7 +204,13 @@ const ResultsView: FC<ResultsTableProps> = ({
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<APIModel[]>([]);
 
-  const { data, headers } = useDataApi<{
+  useEffect(() => {
+    setAllResults([]);
+    setMetaData({ total: 0, nextUrl: undefined });
+    setUrl(initialApiUrl);
+  }, [initialApiUrl]);
+
+  const { data, loading, headers } = useDataApi<{
     results: APIModel[];
   }>(url);
 
@@ -224,12 +234,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   }, [history, direct, metaData, allResults, namespace, getIdKey]);
 
   useEffect(() => {
-    setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
-    setUrl(initialApiUrl);
-  }, [initialApiUrl]);
-
-  useEffect(() => {
     if (!data) {
       return;
     }
@@ -242,10 +246,12 @@ const ResultsView: FC<ResultsTableProps> = ({
   }, [data, headers]);
 
   if (
-    allResults.length === 0 ||
-    // tweaks to avoid having stale data passed to the wrong components
-    prevViewMode.current !== viewMode ||
-    prevNamespace.current !== namespace
+    // if loading the first page of results
+    (loading && url === initialApiUrl) ||
+    // or we just switched namespace (a bit hacky workaround to force unmount)
+    prevNamespace.current !== namespace ||
+    // or we just switched view mode (hacky too)
+    prevViewMode.current !== viewMode
   ) {
     return <Loader />;
   }

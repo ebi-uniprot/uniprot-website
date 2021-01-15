@@ -18,10 +18,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -29,7 +29,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -157,10 +157,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -168,7 +168,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -296,10 +296,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -307,7 +307,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -449,10 +449,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -460,7 +460,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -588,10 +588,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -599,7 +599,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -708,10 +708,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -719,7 +719,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -847,10 +847,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -858,7 +858,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -975,10 +975,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -986,7 +986,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1083,10 +1083,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1094,7 +1094,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1191,10 +1191,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1202,7 +1202,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1293,10 +1293,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1304,7 +1304,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1442,10 +1442,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1453,7 +1453,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1551,10 +1551,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1562,7 +1562,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1716,10 +1716,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1727,7 +1727,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1846,10 +1846,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1857,7 +1857,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -1955,10 +1955,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -1966,7 +1966,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2108,10 +2108,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2119,7 +2119,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2247,10 +2247,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2258,7 +2258,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2400,10 +2400,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2411,7 +2411,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2539,10 +2539,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2550,7 +2550,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2655,10 +2655,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2666,7 +2666,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2794,10 +2794,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2805,7 +2805,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -2947,10 +2947,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -2958,7 +2958,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -3037,10 +3037,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -3048,7 +3048,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span
@@ -3176,10 +3176,10 @@ exports[`ResultsView component should render cards 1`] = `
             class="card__content"
           >
             <section
-              class="uniprot-card"
+              class="result-card"
             >
               <section
-                class="uniprot-card__left"
+                class="result-card__left"
               >
                 <input
                   data-testid="up-card-checkbox"
@@ -3187,7 +3187,7 @@ exports[`ResultsView component should render cards 1`] = `
                 />
               </section>
               <section
-                class="uniprot-card__right"
+                class="result-card__right"
               >
                 <h5>
                   <span

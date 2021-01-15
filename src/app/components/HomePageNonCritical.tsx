@@ -1,4 +1,4 @@
-import { Tile, HeroContainer } from 'franklin-sites';
+import { Tile, HeroContainer, DecoratedListItem } from 'franklin-sites';
 
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
@@ -72,20 +72,54 @@ const HomePageNonCritical = () => (
     </section>
 
     <HeroContainer
-      title="Supporting Data"
-      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed supporting-data-section"
       titleClassName="uniprot-grid-cell--span-12"
+      noSidePadding
     >
-      <section className="uniprot-grid-cell--span-12">
-        <h5>Literature Citations</h5>
-        <h5>Taxonomy</h5>
-        <h5>Subcellular locations</h5>
-        <h5>Cross-ref databases</h5>
-        <h5>Diseases</h5>
-        <h5>Keywords</h5>
-        <h5>UniRule</h5>
-        <h5>SAAS</h5>
-      </section>
+      <div className="uniprot-grid-cell--span-3">
+        <h3>Supporting Data</h3>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <DecoratedListItem compact altStyle>
+          <h5>Taxonomy</h5>
+        </DecoratedListItem>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <DecoratedListItem compact altStyle>
+          <h5>Subcellular locations</h5>
+        </DecoratedListItem>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <DecoratedListItem compact altStyle>
+          <h5>UniRule automatic annotation</h5>
+        </DecoratedListItem>
+      </div>
+      <div
+        className="uniprot-grid-cell--span-3"
+        style={{ display: 'inline-flex' }}
+      >
+        <DecoratedListItem compact altStyle inline>
+          <h5>Diseases</h5>
+        </DecoratedListItem>
+        <DecoratedListItem compact altStyle inline>
+          <h5>Keywords</h5>
+        </DecoratedListItem>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <DecoratedListItem compact altStyle>
+          <h5>Literature Citations</h5>
+        </DecoratedListItem>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <DecoratedListItem compact altStyle>
+          <h5>Cross-referenced databases</h5>
+        </DecoratedListItem>
+      </div>
+      <div className="uniprot-grid-cell--span-3">
+        <DecoratedListItem compact altStyle>
+          <h5>ARBA automatic annotation</h5>
+        </DecoratedListItem>
+      </div>
     </HeroContainer>
 
     <HeroContainer

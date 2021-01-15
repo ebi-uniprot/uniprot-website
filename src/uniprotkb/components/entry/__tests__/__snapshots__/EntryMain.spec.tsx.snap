@@ -388,45 +388,47 @@ exports[`Entry view should render 1`] = `
           <h3>
             Enzyme and pathway databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  ENZYME
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    ENZYME
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://enzyme.expasy.org/EC/1.2.3.4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://enzyme.expasy.org/EC/1.2.3.4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -454,353 +456,371 @@ exports[`Entry view should render 1`] = `
           <h3>
             Protein names
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
-                >
-                  Recommended name
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                rec full Name 
-                <button
-                  aria-controls="11"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 automatic annotation
-                  </span>
-                </button>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="11"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="decorated-list-item__title"
                 >
-                  EC number
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                1.2.3.4 
-                <button
-                  aria-controls="12"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
+                  <h5
+                    class="bold"
                   >
-                    1 automatic annotation
-                  </span>
-                </button>
+                    Recommended name
+                  </h5>
+                </div>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="12"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="decorated-list-item__content"
                 >
-                  Short names
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                recommended short name 
-                <button
-                  aria-controls="13"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
+                  rec full Name 
+                  <button
+                    aria-controls="11"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-reviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
                   >
-                    1 automatic annotation
-                  </span>
-                </button>
-                <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="13"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Alternative names
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    a full alt Name 
-                    <button
-                      aria-controls="14"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="14"
+                    <test-file-stub
+                      height="12"
+                      width="12"
                     />
-                     (short alt name1 
-                    <button
-                      aria-controls="15"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
+                    <span
+                      class="evidence-tag__label"
+                      title=""
                     >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="15"
-                    />
-                    ) 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Cleaved into 1 chains
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    containsrec full Name (containsrecommended short name)  
-                    <strong>
-                      Alternative names: 
-                    </strong>
-                    containsa full alt Name (containsshort alt name1) 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Submission names
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    sub full Name 
-                    <button
-                      aria-controls="16"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="16"
-                    />
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Biotech name
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                biotech 
-                <button
-                  aria-controls="17"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
+                      1 automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="11"
                   />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 automatic annotation
-                  </span>
-                </button>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="17"
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    EC number
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  1.2.3.4 
+                  <button
+                    aria-controls="12"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-reviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      1 automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="12"
+                  />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Short names
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  recommended short name 
+                  <button
+                    aria-controls="13"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-reviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      1 automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="13"
+                  />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Alternative names
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      a full alt Name 
+                      <button
+                        aria-controls="14"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="14"
+                      />
+                       (short alt name1 
+                      <button
+                        aria-controls="15"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="15"
+                      />
+                      ) 
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Cleaved into 1 chains
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      containsrec full Name (containsrecommended short name)  
+                      <strong>
+                        Alternative names: 
+                      </strong>
+                      containsa full alt Name (containsshort alt name1) 
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Submission names
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      sub full Name 
+                      <button
+                        aria-controls="16"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="16"
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Biotech name
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  biotech 
+                  <button
+                    aria-controls="17"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-reviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      1 automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="17"
+                  />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    CD Antigen Name
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 />
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  CD Antigen Name
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    INN Name
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                />
               </div>
-              <div
-                class="info-list__content"
-              />
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  INN Name
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              />
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Gene names
           </h3>
@@ -808,352 +828,372 @@ exports[`Entry view should render 1`] = `
             class="expandable-list no-bullet"
           >
             <li>
-              <div
+              <ul
                 class="info-list"
               >
-                <div
-                  class="info-list__item"
-                >
+                <li>
                   <div
-                    class="info-list__title"
+                    class="decorated-list-item"
                   >
-                    <h5
-                      class="bold"
-                    >
-                      Name
-                    </h5>
-                  </div>
-                  <div
-                    class="info-list__content"
-                  >
-                    some Gene 
-                    <button
-                      aria-controls="18"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-unreviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
                     <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="18"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="info-list__item"
-                >
-                  <div
-                    class="info-list__title"
-                  >
-                    <h5
-                      class="bold"
+                      class="decorated-list-item__title"
                     >
-                      Synonyms
-                    </h5>
-                  </div>
-                  <div
-                    class="info-list__content"
-                  >
-                    some Syn 
-                    <button
-                      aria-controls="19"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-unreviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
+                      <h5
+                        class="bold"
                       >
-                        1 automatic annotation
-                      </span>
-                    </button>
+                        Name
+                      </h5>
+                    </div>
                     <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="19"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="info-list__item"
-                >
-                  <div
-                    class="info-list__title"
-                  >
-                    <h5
-                      class="bold"
+                      class="decorated-list-item__content"
                     >
-                      ORF names
-                    </h5>
-                  </div>
-                  <div
-                    class="info-list__content"
-                  >
-                    some orf 
-                    <button
-                      aria-controls="20"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
+                      some Gene 
+                      <button
+                        aria-controls="18"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
                       >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="20"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="info-list__item"
-                >
-                  <div
-                    class="info-list__title"
-                  >
-                    <h5
-                      class="bold"
-                    >
-                      Ordered locus names
-                    </h5>
-                  </div>
-                  <div
-                    class="info-list__content"
-                  >
-                    some locus 
-                    <button
-                      aria-controls="21"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-unreviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="18"
                       />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 automatic annotation
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="21"
-                    />
+                    </div>
                   </div>
-                </div>
-              </div>
+                </li>
+                <li>
+                  <div
+                    class="decorated-list-item"
+                  >
+                    <div
+                      class="decorated-list-item__title"
+                    >
+                      <h5
+                        class="bold"
+                      >
+                        Synonyms
+                      </h5>
+                    </div>
+                    <div
+                      class="decorated-list-item__content"
+                    >
+                      some Syn 
+                      <button
+                        aria-controls="19"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="19"
+                      />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    class="decorated-list-item"
+                  >
+                    <div
+                      class="decorated-list-item__title"
+                    >
+                      <h5
+                        class="bold"
+                      >
+                        ORF names
+                      </h5>
+                    </div>
+                    <div
+                      class="decorated-list-item__content"
+                    >
+                      some orf 
+                      <button
+                        aria-controls="20"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 publication
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="20"
+                      />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div
+                    class="decorated-list-item"
+                  >
+                    <div
+                      class="decorated-list-item__title"
+                    >
+                      <h5
+                        class="bold"
+                      >
+                        Ordered locus names
+                      </h5>
+                    </div>
+                    <div
+                      class="decorated-list-item__content"
+                    >
+                      some locus 
+                      <button
+                        aria-controls="21"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="21"
+                      />
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </li>
           </ul>
           <h3>
             Organism names
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
-                >
-                  Organism
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <a
-                  href="/taxonomy/9606"
-                >
-                  scientific name (common name)
-                </a>
-                <button
-                  aria-controls="22"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-unreviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 automatic annotation
-                  </span>
-                </button>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="22"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="decorated-list-item__title"
                 >
-                  Taxonomic identifier
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <a
-                  href="/taxonomy/9606"
+                  <h5
+                    class="bold"
+                  >
+                    Organism
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  9606 
-                </a>
-                <a
-                  class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  NCBI
-                  <test-file-stub
-                    width="12.5"
-                  />
-                </a>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Taxonomic lineage
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                lineage 1
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Virus hosts
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <p>
                   <a
                     href="/taxonomy/9606"
                   >
-                    scientific name (common name)  (synonyms 1)
+                    scientific name (common name)
                   </a>
-                </p>
+                  <button
+                    aria-controls="22"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-unreviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      1 automatic annotation
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="22"
+                  />
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Taxonomic identifier
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <a
+                    href="/taxonomy/9606"
+                  >
+                    9606 
+                  </a>
+                  <a
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    NCBI
+                    <test-file-stub
+                      width="12.5"
+                    />
+                  </a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Taxonomic lineage
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  lineage 1
+                </div>
+              </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Virus hosts
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <p>
+                    <a
+                      href="/taxonomy/9606"
+                    >
+                      scientific name (common name)  (synonyms 1)
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
           <h3>
             Accessions
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Primary accession
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                P21802
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    Primary accession
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  Secondary accessions
-                </h5>
+                  P21802
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    P21802
-                  </li>
-                </ul>
+                  <h5
+                    class="bold"
+                  >
+                    Secondary accessions
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      P21802
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Proteome
           </h3>
@@ -1329,81 +1369,87 @@ exports[`Entry view should render 1`] = `
               id="26"
             />
           </span>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Note
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    Note
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    value2
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      value2
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Description
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                some description
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    Description
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  See also
-                </h5>
+                  some description
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <a
-                  class="external-link"
-                  href="https://www.omim.org/entry/3124"
-                  rel="noopener"
-                  target="_blank"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  3124
-                  <test-file-stub
-                    width="12.5"
-                  />
-                </a>
-                  
+                  <h5
+                    class="bold"
+                  >
+                    See also
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <a
+                    class="external-link"
+                    href="https://www.omim.org/entry/3124"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    3124
+                    <test-file-stub
+                      width="12.5"
+                    />
+                  </a>
+                    
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3
             style="text-transform: capitalize;"
           >
@@ -1558,80 +1604,84 @@ exports[`Entry view should render 1`] = `
           <h3>
             3D structure databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  ModBase
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    ModBase
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    SWISS-MODEL-Workspace
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  SWISS-MODEL-Workspace
-                </h5>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://swissmodel.expasy.org/interactive/?ac=P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Submit a new modelling project...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://swissmodel.expasy.org/interactive/?ac=P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Submit a new modelling project...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -1659,115 +1709,121 @@ exports[`Entry view should render 1`] = `
           <h3>
             Keywords
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Domain
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    Domain
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-11111"
-                    >
-                       #keyword value
-                    </a>
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        href="/keywords/KW-11111"
+                      >
+                         #keyword value
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Family and domain databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  MobiDB
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    MobiDB
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://mobidb.bio.unipd.it/entries/P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://mobidb.bio.unipd.it/entries/P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    ProtoNet
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  ProtoNet
-                </h5>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -1811,28 +1867,30 @@ exports[`Entry view should render 1`] = `
               Align
             </button>
           </div>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Sequence status
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    Sequence status
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  Fragment
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                Fragment
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <p>
             This entry describes 
             <strong>
@@ -1853,64 +1911,70 @@ exports[`Entry view should render 1`] = `
           >
             isoID1
           </h3>
-          <div
-            class="info-list info-list--columns info-list--compact"
+          <ul
+            class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item decorated-list-item--compact"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Name
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                name
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    Name
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  Synonyms
-                </h5>
+                  name
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item decorated-list-item--compact"
               >
-                syn value
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Note
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    Synonyms
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  syn value
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item decorated-list-item--compact"
               >
-                value1
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Note
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  value1
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <button
             class="button secondary"
             type="button"
@@ -2061,63 +2125,65 @@ exports[`Entry view should render 1`] = `
           <h3>
             Genome annotation databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Ensembl
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    Ensembl
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/id/id value"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      id value
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/id/description value"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      description value
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     [
-                    <a
-                      href="#Q9NXB0-1"
-                    >
-                      Q9NXB0-1
-                    </a>
-                    ]
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ensembl.org/id/id value"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        id value
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       
+                      <a
+                        class="external-link"
+                        href="https://www.ensembl.org/id/description value"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        description value
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       [
+                      <a
+                        href="#Q9NXB0-1"
+                      >
+                        Q9NXB0-1
+                      </a>
+                      ]
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -2459,115 +2525,121 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             Keywords
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Molecular function
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    Molecular function
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        href="/keywords/KW-0326"
+                      >
+                         #Glycosidase
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/keywords/KW-0378"
+                      >
+                         #Hydrolase
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0326"
-                    >
-                       #Glycosidase
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/keywords/KW-0378"
-                    >
-                       #Hydrolase
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    Ligand
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  Ligand
-                </h5>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        href="/keywords/KW-0479"
+                      >
+                         #Metal-binding
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      href="/keywords/KW-0479"
-                    >
-                       #Metal-binding
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Enzyme and pathway databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  ENZYME
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    ENZYME
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://enzyme.expasy.org/EC/3.5.1.-"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://enzyme.expasy.org/EC/3.5.1.-"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -2595,271 +2667,285 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             Protein names
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
-                >
-                  Recommended name
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                A type blood N-acetyl-alpha-D-galactosamine deacetylase 
-                <button
-                  aria-controls="49"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 publication
-                  </span>
-                </button>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="49"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="decorated-list-item__title"
                 >
-                  EC number
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                3.5.1.- 
-                <button
-                  aria-controls="50"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
+                  <h5
+                    class="bold"
                   >
-                    1 publication
-                  </span>
-                </button>
+                    Recommended name
+                  </h5>
+                </div>
                 <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="50"
-                />
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  class="decorated-list-item__content"
                 >
-                  Alternative names
-                </h5>
+                  A type blood N-acetyl-alpha-D-galactosamine deacetylase 
+                  <button
+                    aria-controls="49"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-reviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
+                    />
+                    <span
+                      class="evidence-tag__label"
+                      title=""
+                    >
+                      1 publication
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="49"
+                  />
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    CBM32 
-                    <button
-                      aria-controls="51"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
-                    >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="51"
+                  <h5
+                    class="bold"
+                  >
+                    EC number
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  3.5.1.- 
+                  <button
+                    aria-controls="50"
+                    aria-expanded="false"
+                    class="evidence-tag svg-colour-reviewed"
+                    data-testid="evidence-tag-trigger"
+                    type="button"
+                  >
+                    <test-file-stub
+                      height="12"
+                      width="12"
                     />
-                  </li>
-                  <li>
-                    FpGalNAc deacetylase (FpGalNAcDeAc 
-                    <button
-                      aria-controls="52"
-                      aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
-                      data-testid="evidence-tag-trigger"
-                      type="button"
+                    <span
+                      class="evidence-tag__label"
+                      title=""
                     >
-                      <test-file-stub
-                        height="12"
-                        width="12"
-                      />
-                      <span
-                        class="evidence-tag__label"
-                        title=""
-                      >
-                        1 publication
-                      </span>
-                    </button>
-                    <div
-                      class="evidence-tag-content "
-                      data-testid="evidence-tag-content"
-                      id="52"
-                    />
-                    ) 
-                  </li>
-                </ul>
+                      1 publication
+                    </span>
+                  </button>
+                  <div
+                    class="evidence-tag-content "
+                    data-testid="evidence-tag-content"
+                    id="50"
+                  />
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+            <li>
+              <div
+                class="decorated-list-item"
+              >
+                <div
+                  class="decorated-list-item__title"
+                >
+                  <h5
+                    class="bold"
+                  >
+                    Alternative names
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      CBM32 
+                      <button
+                        aria-controls="51"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 publication
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="51"
+                      />
+                    </li>
+                    <li>
+                      FpGalNAc deacetylase (FpGalNAcDeAc 
+                      <button
+                        aria-controls="52"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 publication
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="52"
+                      />
+                      ) 
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
           <h3>
             Organism names
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Organism
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    Organism
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <a
+                    href="/taxonomy/292800"
+                  >
+                    Flavonifractor plautii (Fusobacterium plautii)
+                  </a>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <a
-                  href="/taxonomy/292800"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Flavonifractor plautii (Fusobacterium plautii)
-                </a>
+                  <h5
+                    class="bold"
+                  >
+                    Taxonomic identifier
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <a
+                    href="/taxonomy/292800"
+                  >
+                    292800 
+                  </a>
+                  <a
+                    class="external-link"
+                    href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=292800"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    NCBI
+                    <test-file-stub
+                      width="12.5"
+                    />
+                  </a>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Taxonomic identifier
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <a
-                  href="/taxonomy/292800"
+                  <h5
+                    class="bold"
+                  >
+                    Taxonomic lineage
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  292800 
-                </a>
-                <a
-                  class="external-link"
-                  href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=292800"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  NCBI
-                  <test-file-stub
-                    width="12.5"
-                  />
-                </a>
+                  Bacteria &gt; Firmicutes &gt; Clostridia &gt; Clostridiales &gt; Ruminococcaceae &gt; Flavonifractor
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  Taxonomic lineage
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                Bacteria &gt; Firmicutes &gt; Clostridia &gt; Clostridiales &gt; Ruminococcaceae &gt; Flavonifractor
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Accessions
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Primary accession
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    Primary accession
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  P0DTR4
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                P0DTR4
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Proteome
           </h3>
@@ -3020,115 +3106,121 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             3D structure databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  ModBase
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    ModBase
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
+                  <h5
+                    class="bold"
+                  >
+                    PDBe-KB
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://pdbe-kb.org/proteins/P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  PDBe-KB
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    SWISS-MODEL-Workspace
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://pdbe-kb.org/proteins/P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://swissmodel.expasy.org/interactive/?ac=P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Submit a new modelling project...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  SWISS-MODEL-Workspace
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://swissmodel.expasy.org/interactive/?ac=P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Submit a new modelling project...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -3217,498 +3309,516 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             Keywords
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Domain
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    Domain
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0732"
-                    >
-                       #Signal
-                    </a>
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        href="/keywords/KW-0732"
+                      >
+                         #Signal
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Family and domain databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Gene3D
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    Gene3D
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://www.cathdb.info/superfamily/2.115.10.20"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        2.115.10.20
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        1 hit 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://www.cathdb.info/superfamily/2.60.120.260"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        2.60.120.260
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        2 hits 
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.cathdb.info/superfamily/2.115.10.20"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      2.115.10.20
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      1 hit 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.cathdb.info/superfamily/2.60.120.260"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      2.60.120.260
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      2 hits 
-                  </li>
-                </ul>
+                  <h5
+                    class="bold"
+                  >
+                    InterPro
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ebi.ac.uk/interpro/protein/P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        View protein in InterPro
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ebi.ac.uk/interpro/entry/IPR003343"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        IPR003343
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       Big_2 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ebi.ac.uk/interpro/entry/IPR000421"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        IPR000421
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       FA58C 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ebi.ac.uk/interpro/entry/IPR008979"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        IPR008979
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       Galactose-bd-like_sf 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ebi.ac.uk/interpro/entry/IPR023296"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        IPR023296
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       Glyco_hydro_beta-prop_sf 
+                    </li>
+                    <li>
+                      <button
+                        class="button tertiary expandable-list__action"
+                        data-testid="expandable-message"
+                        type="button"
+                      >
+                        More InterPro links
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  InterPro
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    PROSITE
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=P0DTR4&output=nice"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        View protein in PROSITE
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://prosite.expasy.org/doc/PS50022"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        PS50022
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       FA58C_3 1 hit 
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ebi.ac.uk/interpro/protein/P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      View protein in InterPro
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ebi.ac.uk/interpro/entry/IPR003343"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      IPR003343
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     Big_2 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ebi.ac.uk/interpro/entry/IPR000421"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      IPR000421
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     FA58C 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ebi.ac.uk/interpro/entry/IPR008979"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      IPR008979
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     Galactose-bd-like_sf 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ebi.ac.uk/interpro/entry/IPR023296"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      IPR023296
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     Glyco_hydro_beta-prop_sf 
-                  </li>
-                  <li>
-                    <button
-                      class="button tertiary expandable-list__action"
-                      data-testid="expandable-message"
-                      type="button"
-                    >
-                      More InterPro links
-                    </button>
-                  </li>
-                </ul>
+                  <h5
+                    class="bold"
+                  >
+                    Pfam
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://pfam.xfam.org/protein/P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        View protein in Pfam
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://pfam.xfam.org/family/PF02368"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        PF02368
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       Big_2 1 hit 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://pfam.xfam.org/family/PF00754"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        PF00754
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       F5_F8_type_C 1 hit 
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  PROSITE
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    SMART
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://smart.embl.de/smart/show_motifs.pl?ID=P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        View protein in SMART
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://smart.embl.de/smart/do_annotation.pl?DOMAIN=SM00635"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        SM00635
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       BID_2 1 hit 
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://prosite.expasy.org/cgi-bin/prosite/PSScan.cgi?seq=P0DTR4&output=nice"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      View protein in PROSITE
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://prosite.expasy.org/doc/PS50022"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      PS50022
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     FA58C_3 1 hit 
-                  </li>
-                </ul>
+                  <h5
+                    class="bold"
+                  >
+                    SUPFAM
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        SSF49373
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       SSF49373 1 hit 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49785"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        SSF49785
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       SSF49785 1 hit 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF50939"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        SSF50939
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       SSF50939 1 hit 
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        SSF75005
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       SSF75005 1 hit 
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
+            </li>
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Pfam
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    MobiDB
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://mobidb.bio.unipd.it/entries/P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://pfam.xfam.org/protein/P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      View protein in Pfam
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://pfam.xfam.org/family/PF02368"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      PF02368
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     Big_2 1 hit 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://pfam.xfam.org/family/PF00754"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      PF00754
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     F5_F8_type_C 1 hit 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    ProtoNet
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  SMART
-                </h5>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P0DTR4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://smart.embl.de/smart/show_motifs.pl?ID=P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      View protein in SMART
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://smart.embl.de/smart/do_annotation.pl?DOMAIN=SM00635"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SM00635
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     BID_2 1 hit 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  SUPFAM
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49373"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SSF49373
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     SSF49373 1 hit 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF49785"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SSF49785
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     SSF49785 1 hit 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF50939"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SSF50939
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     SSF50939 1 hit 
-                  </li>
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF75005"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      SSF75005
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     SSF75005 1 hit 
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  MobiDB
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://mobidb.bio.unipd.it/entries/P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  ProtoNet
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
@@ -3780,82 +3890,90 @@ exports[`Entry view should render for non-human entry 1`] = `
                 Copy FASTA
               </button>
             </div>
-            <div
-              class="info-list info-list--columns info-list--compact"
+            <ul
+              class="info-list info-list--columns"
             >
-              <div
-                class="info-list__item"
-              >
+              <li>
                 <div
-                  class="info-list__title"
+                  class="decorated-list-item decorated-list-item--compact"
                 >
-                  <h5
-                    class="bold"
+                  <div
+                    class="decorated-list-item__title"
                   >
-                    Length
-                  </h5>
-                </div>
-                <div
-                  class="info-list__content"
-                >
-                  772
-                </div>
-              </div>
-              <div
-                class="info-list__item"
-              >
-                <div
-                  class="info-list__title"
-                >
-                  <h5
-                    class="bold"
+                    <h5
+                      class="bold"
+                    >
+                      Length
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
                   >
-                    Mass (Da)
-                  </h5>
+                    772
+                  </div>
                 </div>
+              </li>
+              <li>
                 <div
-                  class="info-list__content"
+                  class="decorated-list-item decorated-list-item--compact"
                 >
-                  84,441
-                </div>
-              </div>
-              <div
-                class="info-list__item"
-              >
-                <div
-                  class="info-list__title"
-                >
-                  <h5
-                    class="bold"
+                  <div
+                    class="decorated-list-item__title"
                   >
-                    Last updated
-                  </h5>
-                </div>
-                <div
-                  class="info-list__content"
-                >
-                  2019-11-13 v1
-                </div>
-              </div>
-              <div
-                class="info-list__item"
-              >
-                <div
-                  class="info-list__title"
-                >
-                  <h5
-                    class="bold"
+                    <h5
+                      class="bold"
+                    >
+                      Mass (Da)
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
                   >
-                    Checksum
-                  </h5>
+                    84,441
+                  </div>
                 </div>
+              </li>
+              <li>
                 <div
-                  class="info-list__content"
+                  class="decorated-list-item decorated-list-item--compact"
                 >
-                  55C1AD3F8018D0D7
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      Last updated
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    2019-11-13 v1
+                  </div>
                 </div>
-              </div>
-            </div>
+              </li>
+              <li>
+                <div
+                  class="decorated-list-item decorated-list-item--compact"
+                >
+                  <div
+                    class="decorated-list-item__title"
+                  >
+                    <h5
+                      class="bold"
+                    >
+                      Checksum
+                    </h5>
+                  </div>
+                  <div
+                    class="decorated-list-item__content"
+                  >
+                    55C1AD3F8018D0D7
+                  </div>
+                </div>
+              </li>
+            </ul>
             <div
               class="sequence"
             >
@@ -3873,80 +3991,84 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3>
             Keywords
           </h3>
-          <div
+          <ul
             class="info-list"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Technical term
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    Technical term
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      href="/keywords/KW-0002"
-                    >
-                       #3D-structure
-                    </a>
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        href="/keywords/KW-0002"
+                      >
+                         #3D-structure
+                      </a>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Sequence databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  RefSeq
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    RefSeq
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ncbi.nlm.nih.gov/protein/WP_009260926.1"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      WP_009260926.1
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     NZ_WKPQ01000044.1 
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ncbi.nlm.nih.gov/protein/WP_009260926.1"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        WP_009260926.1
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       NZ_WKPQ01000044.1 
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
