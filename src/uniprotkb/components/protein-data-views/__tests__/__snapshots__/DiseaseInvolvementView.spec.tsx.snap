@@ -11,123 +11,129 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
   <span
     class="text-block"
   />
-  <div
+  <ul
     class="info-list"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          Note
-        </h5>
+          <h5
+            class="bold"
+          >
+            Note
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              Some disease note
+            </li>
+          </ul>
+        </div>
       </div>
+    </li>
+    <li>
       <div
-        class="info-list__content"
+        class="decorated-list-item"
       >
-        <ul
-          class="expandable-list no-bullet"
+        <div
+          class="decorated-list-item__title"
         >
-          <li>
-            Some disease note
-          </li>
-        </ul>
+          <h5
+            class="bold"
+          >
+            Description
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          Some description
+        </div>
       </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
+    </li>
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          Description
-        </h5>
+          <h5
+            class="bold"
+          >
+            See also
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          (
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/ena/data/view/some ref id"
+            rel="noopener"
+            target="_blank"
+          >
+            EMBL
+            <test-file-stub
+              width="12.5"
+            />
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="https://www.ncbi.nlm.nih.gov/protein/some ref id"
+            rel="noopener"
+            target="_blank"
+          >
+            GenBank
+            <test-file-stub
+              width="12.5"
+            />
+          </a>
+           | 
+          <a
+            class="external-link"
+            href="http://getentry.ddbj.nig.ac.jp/getentry/dad/some ref id"
+            rel="noopener"
+            target="_blank"
+          >
+            DDBJ
+            <test-file-stub
+              width="12.5"
+            />
+          </a>
+          ) 
+          <a
+            class="external-link"
+            href="//www.ebi.ac.uk/ena/data/view/some ref id"
+            rel="noopener"
+            target="_blank"
+          >
+            some ref id
+            <test-file-stub
+              width="12.5"
+            />
+          </a>
+          [
+          <a
+            href="#some isoform"
+          >
+            some isoform
+          </a>
+          ]
+        </div>
       </div>
-      <div
-        class="info-list__content"
-      >
-        Some description
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
-        >
-          See also
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        (
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/ena/data/view/some ref id"
-          rel="noopener"
-          target="_blank"
-        >
-          EMBL
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         | 
-        <a
-          class="external-link"
-          href="https://www.ncbi.nlm.nih.gov/protein/some ref id"
-          rel="noopener"
-          target="_blank"
-        >
-          GenBank
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         | 
-        <a
-          class="external-link"
-          href="http://getentry.ddbj.nig.ac.jp/getentry/dad/some ref id"
-          rel="noopener"
-          target="_blank"
-        >
-          DDBJ
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        ) 
-        <a
-          class="external-link"
-          href="//www.ebi.ac.uk/ena/data/view/some ref id"
-          rel="noopener"
-          target="_blank"
-        >
-          some ref id
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        [
-        <a
-          href="#some isoform"
-        >
-          some isoform
-        </a>
-        ]
-      </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;

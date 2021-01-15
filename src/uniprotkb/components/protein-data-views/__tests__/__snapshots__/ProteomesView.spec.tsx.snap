@@ -6,50 +6,54 @@ exports[`ProteomesEntryView component should render 1`] = `
     class="expandable-list no-bullet"
   >
     <li>
-      <div
+      <ul
         class="info-list"
       >
-        <div
-          class="info-list__item"
-        >
+        <li>
           <div
-            class="info-list__title"
+            class="decorated-list-item"
           >
-            <h5
-              class="bold"
+            <div
+              class="decorated-list-item__title"
             >
-              Identifier
-            </h5>
-          </div>
-          <div
-            class="info-list__content"
-          >
-            <a
-              href="/proteomes/UP000005640"
+              <h5
+                class="bold"
+              >
+                Identifier
+              </h5>
+            </div>
+            <div
+              class="decorated-list-item__content"
             >
-              UP000005640
-            </a>
+              <a
+                href="/proteomes/UP000005640"
+              >
+                UP000005640
+              </a>
+            </div>
           </div>
-        </div>
-        <div
-          class="info-list__item"
-        >
+        </li>
+        <li>
           <div
-            class="info-list__title"
+            class="decorated-list-item"
           >
-            <h5
-              class="bold"
+            <div
+              class="decorated-list-item__title"
             >
-              Component
-            </h5>
+              <h5
+                class="bold"
+              >
+                Component
+              </h5>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              Chromosome 21
+            </div>
           </div>
-          <div
-            class="info-list__content"
-          >
-            Chromosome 21
-          </div>
-        </div>
-      </div>
+        </li>
+      </ul>
     </li>
   </ul>
 </DocumentFragment>

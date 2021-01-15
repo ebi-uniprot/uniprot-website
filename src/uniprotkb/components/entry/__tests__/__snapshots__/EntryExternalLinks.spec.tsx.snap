@@ -45,259 +45,271 @@ exports[`Entry - External Links view should render 1`] = `
           <h3>
             Enzyme and pathway databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  ENZYME
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    ENZYME
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://enzyme.expasy.org/EC/1.2.3.4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://enzyme.expasy.org/EC/1.2.3.4"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Family and domain databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  MobiDB
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    MobiDB
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://mobidb.bio.unipd.it/entries/P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://mobidb.bio.unipd.it/entries/P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    ProtoNet
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  ProtoNet
-                </h5>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             Genome annotation databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  Ensembl
-                </h5>
-              </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
+                  <h5
+                    class="bold"
+                  >
+                    Ensembl
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/id/id value"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      id value
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     
-                    <a
-                      class="external-link"
-                      href="https://www.ensembl.org/id/description value"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      description value
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                     [
-                    <a
-                      href="#Q9NXB0-1"
-                    >
-                      Q9NXB0-1
-                    </a>
-                    ]
-                  </li>
-                </ul>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://www.ensembl.org/id/id value"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        id value
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       
+                      <a
+                        class="external-link"
+                        href="https://www.ensembl.org/id/description value"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        description value
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                       [
+                      <a
+                        href="#Q9NXB0-1"
+                      >
+                        Q9NXB0-1
+                      </a>
+                      ]
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </div>
+            </li>
+          </ul>
           <h3>
             3D structure databases
           </h3>
-          <div
+          <ul
             class="info-list info-list--columns"
           >
-            <div
-              class="info-list__item"
-            >
+            <li>
               <div
-                class="info-list__title"
+                class="decorated-list-item"
               >
-                <h5
-                  class="bold"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  ModBase
-                </h5>
+                  <h5
+                    class="bold"
+                  >
+                    ModBase
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
+                >
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Search...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
+            </li>
+            <li>
               <div
-                class="info-list__content"
+                class="decorated-list-item"
               >
-                <ul
-                  class="expandable-list no-bullet"
+                <div
+                  class="decorated-list-item__title"
                 >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Search...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div
-              class="info-list__item"
-            >
-              <div
-                class="info-list__title"
-              >
-                <h5
-                  class="bold"
+                  <h5
+                    class="bold"
+                  >
+                    SWISS-MODEL-Workspace
+                  </h5>
+                </div>
+                <div
+                  class="decorated-list-item__content"
                 >
-                  SWISS-MODEL-Workspace
-                </h5>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://swissmodel.expasy.org/interactive/?ac=P21802"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Submit a new modelling project...
+                        <test-file-stub
+                          width="12.5"
+                        />
+                      </a>
+                        
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div
-                class="info-list__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://swissmodel.expasy.org/interactive/?ac=P21802"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Submit a new modelling project...
-                      <test-file-stub
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
     </div>
