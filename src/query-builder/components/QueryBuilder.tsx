@@ -1,10 +1,18 @@
-import { FC, FormEvent, useState, useEffect } from 'react';
+import {
+  FC,
+  FormEvent,
+  useState,
+  useEffect,
+  useMemo,
+  CSSProperties,
+} from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { v1 } from 'uuid';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
+import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import ClauseList from './ClauseList';
 
@@ -33,6 +41,11 @@ import './styles/query-builder.scss';
 type Props = {
   onCancel: () => void;
 };
+interface Style extends CSSProperties {
+  // TODO: define and extend the supported custom properties in franklin
+  // TODO: find a way to expose them globally when using franklin elements
+  '--main-button-color': string;
+}
 
 const QueryBuilder: FC<Props> = ({ onCancel }) => {
   const history = useHistory();
@@ -44,6 +57,13 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
   const urlNamespace = useNS() || Namespace.uniprotkb;
 
   const [namespace, setNamespace] = useState(urlNamespace);
+  const style = useMemo<Style>(
+    () => ({
+      // change color of all buttons within this element to match the namespace
+      '--main-button-color': (colors as Record<string, string>)[namespace],
+    }),
+    [namespace]
+  );
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
     namespace && apiUrls.queryBuilderTerms(namespace)
@@ -140,6 +160,7 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
         className="query-builder"
         onSubmit={handleSubmit}
         data-testid="query-builder-form"
+        style={style}
       >
         <fieldset>
           <label htmlFor="namespace-select">
