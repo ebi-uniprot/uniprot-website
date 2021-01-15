@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/app/components/styles/place-holder.scss"],"names":[],"mappings":"AAAA,aACE,WAAY,CACZ,YAAa,CACb,kBAAmB,CACnB,sBAAuB","file":"home-page-non-critical.4012ea.css","sourcesContent":[".placeholder {\n  opacity: 0.5;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n"],"sourceRoot":""}

@@ -1,0 +1,10 @@
+.column-select-drag-drop__list{background:#e4e8eb;display:flex;padding:0.5rem;overflow:auto;white-space:nowrap;margin-bottom:1rem}.column-select-drag-drop__list .chip{--main-chip-color: #00639a}.column-select-drag-drop__list .chip:hover{--main-chip-color: #00a6d5}.column-select-drag-drop__list .chip--dragging{--main-chip-color: #00a6d5}
+
+.column-select{margin-bottom:1rem}.column-select__tab-title:first-letter{text-transform:capitalize}.column-select__tab-title__count{margin-left:0.5rem}.column-select__tab-title__count--visible{visibility:visible}.column-select__tab-title__count--hidden{visibility:hidden}
+
+.preview{width:100%;display:inline-block}.preview .codeblock{overflow:auto;display:flex;flex-direction:column;width:100%;border:1px solid black}.preview .codeblock code{padding:0.5rem;height:17.5rem}
+
+.sticky-tabs-container .tabs__header{z-index:100;position:sticky;top:0;background:#fbfeff}.sticky-bottom-right{float:right;position:sticky;bottom:0}
+
+
+/*# sourceMappingURL=download.b9bf16.css.map*/

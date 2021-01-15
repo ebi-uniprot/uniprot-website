@@ -1,4 +1,0 @@
-.query-builder__clause{display:flex;align-items:flex-end;gap:1vw;margin-left:2vw}.query-builder__clause:not(:first-child){margin-top:1em}.query-builder__clause button{margin-bottom:0}.query-builder__clause button.tertiary{padding-bottom:0.5em}.query-builder__clause .query-builder__logic{flex:0 0 8ch;margin-bottom:0}.query-builder__clause .dropdown-container{flex-shrink:0}.query-builder__clause .dropdown-container button{margin-right:0}.query-builder__clause .query-builder__inputs{flex-grow:2;display:flex}.query-builder__clause .query-builder__inputs label{width:100%}.query-builder__clause .query-builder__inputs input,.query-builder__clause .query-builder__inputs select{margin-bottom:0}.query-builder__actions{margin-top:1em}.query-builder__actions [type='submit']{float:right}
-
-
-/*# sourceMappingURL=query-builder.684bdd.css.map*/
