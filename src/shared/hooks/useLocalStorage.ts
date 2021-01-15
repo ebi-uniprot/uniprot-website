@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { noop } from 'lodash-es';
 
 type JSONPrimitive = null | boolean | number | string;
@@ -11,9 +11,24 @@ const cancelIdleCallback = window.cancelIdleCallback || noop;
 const requestIdleCallback =
   window.requestIdleCallback || ((fn: () => unknown) => fn());
 
+const initialiser = <T extends JSONSerializable>(
+  key: string,
+  initialValue: T | null = null
+): T | null => {
+  const stored = window.localStorage.getItem(key);
+  let parsed = null;
+  try {
+    parsed = JSON.parse(stored || '');
+    return parsed;
+  } catch {
+    window.localStorage.setItem(key, JSON.stringify(initialValue));
+    return initialValue;
+  }
+};
+
 type Output<T> = [
   value: T | null,
-  setValue: (value: T | null) => void,
+  setValue: (value: T | null | ((currentValue: T | null) => T | null)) => void,
   deleteValue: () => void
 ];
 
@@ -25,17 +40,11 @@ function useLocalStorage<T extends JSONSerializable>(
 
   const handle = useRef<number>();
 
-  const [state, setState] = useState<State>(() => {
-    const stored = window.localStorage.getItem(key);
-    let parsed = null;
-    try {
-      parsed = JSON.parse(stored || '');
-      return parsed;
-    } catch {
-      window.localStorage.setItem(key, JSON.stringify(initialValue));
-      return initialValue;
-    }
-  });
+  const [state, setState] = useState<State>(null);
+
+  useEffect(() => {
+    setState(initialiser(key, initialValue));
+  }, [key, initialValue]);
 
   const setValue = useCallback(
     (value: State | ((prevState: State) => State)) => {

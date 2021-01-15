@@ -1,28 +1,24 @@
-import axios from 'axios';
-import { cleanup, fireEvent } from '@testing-library/react';
-import ResultsContainer, { ViewMode } from '../ResultsContainer';
+import { screen, fireEvent } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
+
+import ResultsContainer from '../ResultsContainer';
+
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
+// TODO: in this file, fix incorrect use of `act()` when wrapping everything
+
 describe('Results component', () => {
-  afterEach(cleanup);
-
-  test('should call to get results', async () => {
-    const getSpy = jest.spyOn(axios, 'get');
-    await act(async () =>
-      renderWithRedux(<ResultsContainer />, { route: '/uniprotkb?query=blah' })
-    );
-    expect(getSpy).toHaveBeenCalled();
-  });
-
   test('should select a facet', async () => {
     await act(async () => {
-      const { findByText, history } = renderWithRedux(<ResultsContainer />, {
+      const { history } = renderWithRedux(<ResultsContainer />, {
         route: '/uniprotkb?query=blah',
       });
       expect(history.location.search).toEqual('?query=blah');
-      const unreviewedButton = await findByText('Unreviewed (TrEMBL) (455)');
+      const unreviewedButton = await screen.findByText(
+        'Unreviewed (TrEMBL) (455)'
+      );
       fireEvent.click(unreviewedButton);
       expect(history.location.search).toEqual(
         '?facets=reviewed%3Afalse&query=blah'
@@ -32,10 +28,12 @@ describe('Results component', () => {
 
   test('should deselect a facet', async () => {
     await act(async () => {
-      const { findByText, history } = renderWithRedux(<ResultsContainer />, {
+      const { history } = renderWithRedux(<ResultsContainer />, {
         route: '/uniprotkb?query=blah&facets=reviewed:false',
       });
-      const unreviewedButton = await findByText('Unreviewed (TrEMBL) (455)');
+      const unreviewedButton = await screen.findByText(
+        'Unreviewed (TrEMBL) (455)'
+      );
       fireEvent.click(unreviewedButton);
       expect(history.location.search).toEqual('?query=blah');
     });
@@ -43,53 +41,50 @@ describe('Results component', () => {
 
   test('should toggle card view to table', async () => {
     await act(async () => {
-      const { container, findByTestId, findByText } = renderWithRedux(
-        <ResultsContainer />,
-        {
-          route: '/uniprotkb?query=blah',
-        }
-      );
-      const toggle = await findByTestId('table-card-toggle');
-      expect(container.querySelector('div')).toBeNull;
+      renderWithRedux(<ResultsContainer />, { route: '/uniprotkb?query=blah' });
+      const toggle = await screen.findByTestId('table-card-toggle');
       fireEvent.click(toggle);
-      const table = await findByText('Entry');
+      const table = await screen.findByText('Entry');
       expect(table).toBeTruthy;
     });
   });
 
   test('should set sorting', async () => {
-    const state = {
-      results: { viewMode: ViewMode.TABLE },
-    };
-    // NOTE: not sure act() should wrap that much code
-    await act(async () => {
-      const { history, findByText } = renderWithRedux(<ResultsContainer />, {
-        route: '/uniprotkb?query=blah',
-      });
-      let columnHeader = await findByText('Entry');
-      fireEvent.click(columnHeader);
-      expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=ascend'
-      );
-      columnHeader = await findByText('Entry');
-      fireEvent.click(columnHeader);
-      expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=descend'
-      );
-      columnHeader = await findByText('Entry');
-      fireEvent.click(columnHeader);
-      expect(history.location.search).toBe(
-        '?query=blah&sort=accession&dir=ascend'
-      );
+    const { history } = renderWithRedux(<ResultsContainer />, {
+      route: '/uniprotkb?query=blah',
     });
+    let columnHeader = await screen.findByText('Entry');
+    act(() => {
+      fireEvent.click(columnHeader);
+    });
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=ascend'
+    );
+    columnHeader = await screen.findByText('Entry');
+    act(() => {
+      fireEvent.click(columnHeader);
+    });
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=descend'
+    );
+    columnHeader = await screen.findByText('Entry');
+    act(() => {
+      fireEvent.click(columnHeader);
+    });
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=ascend'
+    );
   });
 
   test('should display no results page', async () => {
-    const { findByTestId } = renderWithRedux(<ResultsContainer />, {
-      route: '/uniprotkb?query=noresult',
-    });
+    await act(async () => {
+      renderWithRedux(<ResultsContainer />, {
+        route: '/uniprotkb?query=noresult',
+      });
 
-    const page = await findByTestId('no-results-page');
-    expect(page).toBeTruthy();
+      const page = await screen.findByTestId('no-results-page');
+
+      expect(page).toBeTruthy();
+    });
   });
 });
