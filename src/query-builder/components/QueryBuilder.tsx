@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
   useMemo,
+  useRef,
   CSSProperties,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -39,7 +40,14 @@ import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
 
 type Props = {
+  /**
+   * Will be called when clicking on cancel button, or outside the panel
+   */
   onCancel: () => void;
+  /**
+   * Add the wanted field into the form when rendering
+   */
+  fieldToAdd?: string;
 };
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
@@ -47,7 +55,7 @@ interface Style extends CSSProperties {
   '--main-button-color': string;
 }
 
-const QueryBuilder: FC<Props> = ({ onCancel }) => {
+const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -87,7 +95,8 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
 
       const [validatedQuery, invalidClauses] = parseAndMatchQuery(
         query,
-        searchTermsData
+        searchTermsData,
+        fieldToAdd
       );
 
       if (invalidClauses.length) {
@@ -108,13 +117,39 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
         });
       }
 
+      // TODO handle star query to fallback to default value
       if (validatedQuery.length) {
         return validatedQuery;
       }
 
       return parseAndMatchQuery(defaultQueryFor(namespace), searchTermsData)[0];
     });
-  }, [dispatch, location.search, loading, namespace, searchTermsData]);
+  }, [
+    dispatch,
+    location.search,
+    loading,
+    namespace,
+    searchTermsData,
+    fieldToAdd,
+  ]);
+
+  const focusedFlag = useRef(false);
+  useEffect(() => {
+    if (!fieldToAdd || !clauses.length || focusedFlag.current) {
+      return;
+    }
+    const focusCandidates = document.querySelectorAll<HTMLInputElement>(
+      `form [data-field="${fieldToAdd}"] input[type="text"]`
+    );
+    console.log(
+      `form [data-field="${fieldToAdd}"] input[type="text"]`,
+      focusCandidates
+    );
+    if (focusCandidates.length) {
+      focusedFlag.current = true;
+      focusCandidates[focusCandidates.length - 1].focus();
+    }
+  }, [fieldToAdd, clauses]);
 
   if (loading) {
     return (

@@ -1,10 +1,21 @@
-import { FC, ReactElement, useMemo } from 'react';
+import {
+  FC,
+  ReactElement,
+  Suspense,
+  useMemo,
+  useState,
+  useCallback,
+} from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Facets } from 'franklin-sites';
+import cn from 'classnames';
+import { Facets, Button } from 'franklin-sites';
 
-import { Facet } from '../../../uniprotkb/types/responseTypes';
+import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+import QueryBuilder from '../../../query-builder/components/QueryBuilder';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+
+import { Facet } from '../../../uniprotkb/types/responseTypes';
 
 import './styles/results-view.scss';
 
@@ -41,8 +52,46 @@ const ResultsFacets: FC<{ facets: Facet[]; isStale?: boolean }> = ({
     ]);
   }, [match]);
 
+  const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
+  const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
+
   return (
     <div className={isStale ? 'is-stale' : undefined}>
+      <div className={cn('facets')}>
+        <ul className="no-bullet">
+          <li>
+            <span className="facet-name">Taxonomy</span>
+
+            <ul className="expandable-list no-bullet">
+              <li>
+                <Link to={(location) => location /* same without this */}>
+                  Homo sapiens
+                </Link>
+              </li>
+              <li>
+                <Button
+                  variant="tertiary"
+                  className="expandable-list__action"
+                  onClick={() => setDisplayQueryBuilder(true)}
+                >
+                  Filter by taxonomy
+                </Button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        {displayQueryBuilder && (
+          <Suspense fallback={null}>
+            <SlidingPanel
+              position={Position.left}
+              yScrollable
+              onClose={handleClose}
+            >
+              <QueryBuilder onCancel={handleClose} fieldToAdd="taxonomy_name" />
+            </SlidingPanel>
+          </Suspense>
+        )}
+      </div>
       <Facets data={facets} extraActionsFor={extraActionsFor} />
     </div>
   );
