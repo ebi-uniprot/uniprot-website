@@ -11,6 +11,7 @@ export enum EntrySection {
   Structure = 'structure',
   SubCellularLocation = 'subcellular-location',
   ExternalLinks = 'external-links',
+  SimilarProteins = 'similar-proteins',
 }
 
 export type EntrySectionNameAndId = {
@@ -95,6 +96,12 @@ export const getEntrySectionNameAndId = (
       }
 
       return { name, id: EntrySection.Sequence };
+    }
+    case EntrySection.SimilarProteins: {
+      return {
+        name: 'Similar Proteins',
+        id: EntrySection.Sequence,
+      };
     }
   }
 };

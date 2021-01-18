@@ -29,6 +29,8 @@ import Comment, { Xref } from '../types/commentTypes';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
+import convertAllAccessions from './allAccessionsConverter';
+import { XrefUIModel } from '../utils/xrefUtils';
 
 export enum EntryType {
   REVIEWED,
@@ -96,6 +98,10 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
+  [EntrySection.SimilarProteins]: {
+    isoforms: string[];
+    xrefData?: XrefUIModel[]; // Dummy, not used
+  };
   references?: Reference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
 };
@@ -146,6 +152,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Sequence]: convertSequence(dataCopy),
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
+    [EntrySection.SimilarProteins]: convertAllAccessions(dataCopy),
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
   };

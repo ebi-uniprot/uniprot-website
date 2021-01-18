@@ -12,6 +12,7 @@ import StructureSection from '../components/entry/StructureSection';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import EntrySection from '../types/entrySection';
+import SimilarProteins from '../components/entry/SimilarProteins';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;
@@ -121,6 +122,16 @@ const UniProtKBEntryConfig: {
         data={data[EntrySection.Sequence]}
         primaryAccession={data.primaryAccession}
         key={EntrySection.Sequence}
+      />
+    ),
+  },
+  {
+    id: EntrySection.SimilarProteins,
+    sectionContent: (data) => (
+      <SimilarProteins
+        isoforms={data[EntrySection.SimilarProteins]}
+        primaryAccession={data.primaryAccession}
+        key={EntrySection.SimilarProteins}
       />
     ),
   },
