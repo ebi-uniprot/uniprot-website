@@ -29,7 +29,7 @@ import Comment, { Xref } from '../types/commentTypes';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
-import convertAllAccessions from './allAccessionsConverter';
+import extractIsoforms from './extractIsoformsConverter';
 import { XrefUIModel } from '../utils/xrefUtils';
 
 export enum EntryType {
@@ -152,7 +152,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Sequence]: convertSequence(dataCopy),
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
-    [EntrySection.SimilarProteins]: convertAllAccessions(dataCopy),
+    [EntrySection.SimilarProteins]: extractIsoforms(dataCopy),
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
   };

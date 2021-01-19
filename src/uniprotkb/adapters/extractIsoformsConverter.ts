@@ -1,7 +1,7 @@
 import { AlternativeProductsComment, CommentType } from '../types/commentTypes';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 
-const convertAllAccessions = (data: UniProtkbAPIModel) => {
+const extractIsoforms = (data: UniProtkbAPIModel) => {
   const alternativeProducts = data.comments?.find(
     (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
   ) as AlternativeProductsComment;
@@ -11,4 +11,4 @@ const convertAllAccessions = (data: UniProtkbAPIModel) => {
   return { isoforms: isoforms || [] };
 };
 
-export default convertAllAccessions;
+export default extractIsoforms;
