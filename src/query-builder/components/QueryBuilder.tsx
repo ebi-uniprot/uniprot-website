@@ -91,7 +91,11 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
         return clauses;
       }
 
-      const query = qs.parse(location.search, { decode: true })?.query;
+      let query = qs.parse(location.search, { decode: true })?.query;
+      if (query === '*') {
+        // if the query is a star query, don't parse it, default to example form
+        query = null;
+      }
 
       const [validatedQuery, invalidClauses] = parseAndMatchQuery(
         query,
@@ -117,7 +121,6 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
         });
       }
 
-      // TODO handle star query to fallback to default value
       if (validatedQuery.length) {
         return validatedQuery;
       }
@@ -133,7 +136,9 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
     fieldToAdd,
   ]);
 
+  // Has the input corresponding to the added field been focused already?
   const focusedFlag = useRef(false);
+  // Effect to focus *only once* the added field whenever it gets added
   useEffect(() => {
     if (!fieldToAdd || !clauses.length || focusedFlag.current) {
       return;
@@ -141,12 +146,9 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
     const focusCandidates = document.querySelectorAll<HTMLInputElement>(
       `form [data-field="${fieldToAdd}"] input[type="text"]`
     );
-    console.log(
-      `form [data-field="${fieldToAdd}"] input[type="text"]`,
-      focusCandidates
-    );
     if (focusCandidates.length) {
       focusedFlag.current = true;
+      // Focus the last one if there was multiple
       focusCandidates[focusCandidates.length - 1].focus();
     }
   }, [fieldToAdd, clauses]);

@@ -170,7 +170,7 @@ const Results: FC = () => {
         />
       }
       sidebar={
-        loading ? (
+        loading && !data?.facets ? (
           <Loader />
         ) : (
           <ResultsFacets facets={data?.facets || []} isStale={isStale} />
