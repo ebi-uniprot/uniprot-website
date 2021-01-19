@@ -71,7 +71,7 @@ UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
   render: ({ commonTaxonId }) => (
     <Link
       to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-        accession: commonTaxonId,
+        accession: `${commonTaxonId}`,
       })}
     >
       {commonTaxonId}
@@ -87,7 +87,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
         <Link
           key={organismId}
           to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: organismId,
+            accession: `${organismId}`,
           })}
         >
           {organismId}

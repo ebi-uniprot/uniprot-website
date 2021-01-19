@@ -42,31 +42,31 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           class="publication__authors"
         >
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Satpute-Krishnan P.\\""
           >
             Satpute-Krishnan P.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"DeGiorgis J.A.\\""
           >
             DeGiorgis J.A.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Conley M.P.\\""
           >
             Conley M.P.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Jang M.\\""
           >
             Jang M.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Bearer E.L.\\""
           >
             Bearer E.L.
           </a>
@@ -107,8 +107,16 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               <small>
                 <a
                   href="//dx.doi.org/10.1073/pnas.0607527103"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537(2006)
+                  Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537(
+                  <time
+                    datetime="2006-01-01T00:00:00.000Z"
+                  >
+                    2006
+                  </time>
+                  )
                 </a>
               </small>
             </li>
@@ -167,43 +175,43 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           class="publication__authors"
         >
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Seamster P.E.\\""
           >
             Seamster P.E.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Loewenberg M.\\""
           >
             Loewenberg M.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Pascal J.\\""
           >
             Pascal J.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Chauviere A.\\""
           >
             Chauviere A.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Gonzales A.\\""
           >
             Gonzales A.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Cristini V.\\""
           >
             Cristini V.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Bearer E.L.\\""
           >
             Bearer E.L.
           </a>
@@ -244,8 +252,16 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               <small>
                 <a
                   href="//dx.doi.org/10.1088/1478-3975/9/5/055005"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  Phys. Biol. 9:055005-055005(2012)
+                  Phys. Biol. 9:055005-055005(
+                  <time
+                    datetime="2012-01-01T00:00:00.000Z"
+                  >
+                    2012
+                  </time>
+                  )
                 </a>
               </small>
             </li>
@@ -304,55 +320,55 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           class="publication__authors"
         >
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Baumkotter F.\\""
           >
             Baumkotter F.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Schmidt N.\\""
           >
             Schmidt N.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Vargas C.\\""
           >
             Vargas C.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Schilling S.\\""
           >
             Schilling S.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Weber R.\\""
           >
             Weber R.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Wagner K.\\""
           >
             Wagner K.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Fiedler S.\\""
           >
             Fiedler S.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Klug W.\\""
           >
             Klug W.
           </a>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Radzimanowski J.\\""
           >
             Radzimanowski J.
           </a>
@@ -364,7 +380,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           </button>
           , 
           <a
-            href="/"
+            href="/uniprotkb?query=lit_author:\\"Kins S.\\""
           >
             Kins S.
           </a>
@@ -405,8 +421,16 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               <small>
                 <a
                   href="//dx.doi.org/10.1523/jneurosci.0180-14.2014"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  J. Neurosci. 34:11159-11172(2014)
+                  J. Neurosci. 34:11159-11172(
+                  <time
+                    datetime="2014-01-01T00:00:00.000Z"
+                  >
+                    2014
+                  </time>
+                  )
                 </a>
               </small>
             </li>

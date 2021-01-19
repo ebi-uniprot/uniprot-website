@@ -4,6 +4,7 @@ import blastResultsMockData from '../../../../__mocks__/server-jobs/example-trun
 import renderWithRedux from '../../../../../shared/__test-helpers__/RenderWithRedux';
 
 import { fireEvent } from '@testing-library/react';
+import { BlastResults } from '../../../types/blastResults';
 
 // import useCustomElement from '../../../../../shared/hooks/useCustomElement';
 // jest.mock('/shared/hooks/useCustomElement', () => ({
@@ -16,7 +17,13 @@ let component;
 describe('BlastResultTable tests', () => {
   beforeEach(() => {
     component = renderWithRedux(
-      <BlastResultTable data={blastResultsMockData} />
+      <BlastResultTable
+        data={blastResultsMockData as BlastResults}
+        selectedEntries={[]}
+        handleSelectedEntries={() => {}}
+        setHspDetailPanel={() => {}}
+        loading={false}
+      />
     );
   });
 

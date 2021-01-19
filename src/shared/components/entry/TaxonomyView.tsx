@@ -26,7 +26,7 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
     <>
       <Link
         to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: taxonId,
+          accession: `${taxonId}`,
         })}
       >{`${taxonId} `}</Link>
       <ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>
@@ -63,7 +63,7 @@ export const TaxonomyListView: FC<{
         <>
           <Link
             to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: data.taxonId,
+              accession: `${data.taxonId}`,
             })}
           >
             {`${data.scientificName} (${data.commonName})`}

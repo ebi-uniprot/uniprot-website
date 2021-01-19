@@ -5,11 +5,11 @@ export type Citation = {
   authors?: string[];
   citationCrossReferences?: Xref[];
   title?: string;
-  publicationDate?: number;
+  publicationDate?: string;
   journal?: string;
-  firstPage?: number;
-  lastPage?: number;
-  volume?: number;
+  firstPage?: string;
+  lastPage?: string;
+  volume?: string;
   completeAuthorList?: boolean;
   literatureAbstract?: string;
   authoringGroup?: string[];

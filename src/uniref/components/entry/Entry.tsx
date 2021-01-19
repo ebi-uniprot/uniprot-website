@@ -85,7 +85,9 @@ const Entry: FC = () => {
         facetData.loading ? (
           <Loader />
         ) : (
-          <Facets data={facetData.data} queryStringKey="filter" />
+          facetData.data && (
+            <Facets data={facetData.data} queryStringKey="filter" />
+          )
         )
       }
       className="entry-page"

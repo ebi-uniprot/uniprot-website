@@ -6,15 +6,16 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { Xref } from '../../types/commentTypes';
 
-const ProteomesId: FC<{ id?: string }> = ({ id }) => (
-  <Link
-    to={generatePath(LocationToPath[Location.ProteomesEntry], {
-      accession: id,
-    })}
-  >
-    {id}
-  </Link>
-);
+const ProteomesId: FC<{ id?: string }> = ({ id }) =>
+  id ? (
+    <Link
+      to={generatePath(LocationToPath[Location.ProteomesEntry], {
+        accession: id,
+      })}
+    >
+      {id}
+    </Link>
+  ) : null;
 
 const ProteomesComponents: FC<{
   components?: { [key: string]: string };
