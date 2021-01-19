@@ -5,10 +5,10 @@ const convertAllAccessions = (data: UniProtkbAPIModel) => {
   const alternativeProducts = data.comments?.find(
     (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
   ) as AlternativeProductsComment;
-  const isoforms = alternativeProducts.isoforms
+  const isoforms = alternativeProducts?.isoforms
     .map((isoform) => isoform.isoformIds.map((isoformId) => isoformId))
     .flat();
-  return { isoforms };
+  return { isoforms: isoforms || [] };
 };
 
 export default convertAllAccessions;

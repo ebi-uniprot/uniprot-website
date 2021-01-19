@@ -100,7 +100,7 @@ export const getEntrySectionNameAndId = (
     case EntrySection.SimilarProteins: {
       return {
         name: 'Similar Proteins',
-        id: EntrySection.Sequence,
+        id: EntrySection.SimilarProteins,
       };
     }
   }
