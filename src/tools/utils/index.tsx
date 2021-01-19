@@ -67,7 +67,7 @@ export const getJobMessage = ({
   }
 
   let href;
-  if ('remoteID' in job) {
+  if ('remoteID' in job && job.remoteID) {
     const pathTemplate = jobTypeToPath(job.type, true);
     if (pathTemplate) {
       href = generatePath(pathTemplate, {

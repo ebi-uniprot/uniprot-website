@@ -1006,16 +1006,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
     }
     return (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-        {ids.map((xref) => (
-          <Link
-            key={xref.id}
-            to={generatePath(LocationToPath[Location.CitationsEntry], {
-              accession: xref.id,
-            })}
-          >
-            {xref.id}
-          </Link>
-        ))}
+        {ids.map(
+          (xref) =>
+            xref.id && (
+              <Link
+                key={xref.id}
+                to={generatePath(LocationToPath[Location.CitationsEntry], {
+                  accession: xref.id,
+                })}
+              >
+                {xref.id}
+              </Link>
+            )
+        )}
       </ExpandableList>
     );
   },

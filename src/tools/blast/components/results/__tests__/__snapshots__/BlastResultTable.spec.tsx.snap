@@ -161,9 +161,6 @@ Hit length: 486"
         </tr>
       </tbody>
     </table>
-    <div
-      class="data-loader__loading"
-    />
   </div>
 </DocumentFragment>
 `;

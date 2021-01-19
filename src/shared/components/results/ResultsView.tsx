@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef, useMemo, FC } from 'react';
-import { DataTable, DataList, Loader } from 'franklin-sites';
+import {
+  DataTableWithLoader,
+  DataListWithLoader,
+  Loader,
+} from 'franklin-sites';
 import { useHistory, useLocation, generatePath } from 'react-router-dom';
 
 // card renderers for card views
@@ -289,7 +293,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     <div className="results-view">
       {viewMode === ViewMode.CARD ? (
         // Card view
-        <DataList
+        <DataListWithLoader
           getIdKey={getIdKey}
           data={allResults}
           dataRenderer={cardRenderer(
@@ -303,7 +307,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         />
       ) : (
         // Column view
-        <DataTable
+        <DataTableWithLoader
           getIdKey={getIdKey}
           columns={getColumnsToDisplay(
             namespace,
