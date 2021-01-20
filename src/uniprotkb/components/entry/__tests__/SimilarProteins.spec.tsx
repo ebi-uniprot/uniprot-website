@@ -26,12 +26,12 @@ describe('SimilarProteins tests', () => {
   it('should call useDataApi and render', async () => {
     const { findByText } = getRendered();
     expect(useDataApi).toHaveBeenCalled();
-    expect(await findByText(/P12023/)).toBeTruthy();
+    expect(await findByText(/0FGN2/)).toBeTruthy();
   });
 
   it('should change tabs', async () => {
     const { getByText, findByText } = getRendered();
-    fireEvent.click(getByText('UniRef100'));
-    expect(await findByText(/I0FGN2/)).toBeTruthy();
+    fireEvent.click(getByText('50% identity'));
+    expect(await findByText(/P12023/)).toBeTruthy();
   });
 });
