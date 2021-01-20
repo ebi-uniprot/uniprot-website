@@ -15,7 +15,7 @@ import { getBEMClassName } from '../../../shared/utils/utils';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
-import { Facet } from '../../../uniprotkb/types/responseTypes';
+import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import './styles/overview.scss';
 
@@ -25,7 +25,7 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-type FacetData = UseDataAPIState<Facet[]>;
+type FacetData = UseDataAPIState<FacetObject[]>;
 type MemberIconsProps = { facetData: FacetData; id: string };
 
 export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {

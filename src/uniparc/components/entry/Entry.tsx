@@ -31,7 +31,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
-// import { Facet } from '../../../uniprotkb/types/responseTypes';
+// import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 
@@ -52,7 +52,7 @@ const Entry: FC = () => {
     redirectedTo,
     headers,
   } = useDataApi<UniParcAPIModel>(baseURL);
-  // const facetData = useDataApi<Facet[]>(`${baseURL}/facets`);
+  // const facetData = useDataApi<FacetObject[]>(`${baseURL}/facets`);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;

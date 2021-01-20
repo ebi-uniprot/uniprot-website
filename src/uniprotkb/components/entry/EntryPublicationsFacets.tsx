@@ -10,7 +10,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import { getParamsFromURL } from '../../utils/resultsUtils';
 
-import { Facet } from '../../types/responseTypes';
+import { FacetObject } from '../../types/responseTypes';
 
 import './styles/entry-publications-facets.scss';
 
@@ -25,7 +25,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   });
 
   const { loading, data, status, error, isStale } = useDataApiWithStale<{
-    facets: Facet[];
+    facets: FacetObject[];
   }>(url);
 
   if (error) {
