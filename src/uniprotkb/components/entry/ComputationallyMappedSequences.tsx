@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { useCallback, useMemo, useState, FC } from 'react';
+import { useCallback, useMemo, useState, FC, ReactNode } from 'react';
 import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
 import { Link, generatePath, useHistory } from 'react-router-dom';
 
@@ -15,15 +15,20 @@ import apiUrls from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
+import { Sequence } from '../../../shared/types/sequence';
+import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
+import { ProteinExistence } from '../../../tools/blast/types/apiSequenceData';
 
-// NOTE: Jie told me this would be replaced by a different
-// format he called "FASTA" entry
 type ProteinEntryLight = {
-  accession: string;
+  id: string;
+  sequence: Sequence;
   entryType: string;
-  sequenceLength: number;
+  uniProtkbId: string;
+  proteinName: string;
+  organism: OrganismData;
   geneName: string;
-  geneNameType: string;
+  proteinExistence: ProteinExistence;
+  sequenceVersion: number;
 };
 
 type GeneCentricData = {
@@ -37,12 +42,18 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const columns = useMemo(
+  const columns = useMemo<
+    Array<{
+      label: string;
+      name: string;
+      render: (data: ProteinEntryLight) => ReactNode;
+    }>
+  >(
     () => [
       {
-        label: 'Accession',
+        label: 'Entry',
         name: 'accession',
-        render: ({ accession, entryType }: ProteinEntryLight) => (
+        render: ({ id: accession, entryType }) => (
           <Link
             to={generatePath(LocationToPath[Location.UniProtKBEntry], {
               accession,
@@ -54,19 +65,19 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
         ),
       },
       {
-        label: 'Gene name',
-        name: 'gene_name',
-        render: ({ geneName }: ProteinEntryLight) => geneName,
+        label: 'Entry name',
+        name: 'uniProtkbId',
+        render: ({ uniProtkbId }) => uniProtkbId,
       },
       {
-        label: 'Gene name type',
-        name: 'gene_name_type',
-        render: ({ geneNameType }: ProteinEntryLight) => geneNameType,
+        label: 'Gene name',
+        name: 'gene_name',
+        render: ({ geneName }) => geneName,
       },
       {
         label: 'Length',
         name: 'length',
-        render: ({ sequenceLength }: ProteinEntryLight) => sequenceLength,
+        render: ({ sequence }) => sequence.length,
       },
     ],
     []
@@ -91,9 +102,7 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   const filteredData = useMemo(
     () =>
       data?.relatedProteins?.filter(
-        ({ accession, geneNameType }) =>
-          geneNameType === 'Gene name' &&
-          !accession.startsWith(primaryAccession)
+        ({ id }) => !id.startsWith(primaryAccession)
       ),
     [primaryAccession, data]
   );
@@ -103,7 +112,7 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
       return;
     }
     const queryString = filteredData
-      ?.map(({ accession }) => `accession:${accession}`)
+      ?.map(({ id }) => `accession:${id}`)
       .join(' OR ');
     history.push({
       pathname: LocationToPath[Location.UniProtKBResults],
@@ -147,13 +156,14 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
               </div>
 
               <DataTable
-                getIdKey={({ accession }: { accession: string }) => accession}
+                getIdKey={({ id }: { id: string }) => id}
                 density={DENSITY_COMPACT}
                 columns={columns}
                 data={filteredData}
                 selectable
                 selected={selectedEntries}
                 onSelect={handleSelectedEntries}
+                hasMoreData={false}
               />
             </>
           ) : null}
