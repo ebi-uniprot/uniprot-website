@@ -1,6 +1,6 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
 import { FC, useMemo } from 'react';
-import { groupBy, sortBy } from 'lodash-es';
+import { groupBy } from 'lodash-es';
 import { generatePath, Link } from 'react-router-dom';
 import { getClustersForProteins } from '../../../shared/config/apiUrls';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -31,9 +31,8 @@ const SimilarProteins: FC<{
       const { results } = data;
       // Remove all items with only 1 member as it will be canonical/isoform
       const filtered = results.filter((item) => item.members.length > 1);
-      const ordered = sortBy(filtered, 'entryType');
 
-      const clusterTypeGroups = groupBy(ordered, 'entryType');
+      const clusterTypeGroups = groupBy(filtered, 'entryType');
       // Note: thought we could use Dictionary<T> here but lodash doesn't
       // seem to export it
       const allClusterTypesGroups: {
@@ -68,7 +67,7 @@ const SimilarProteins: FC<{
     <div id={EntrySection.SimilarProteins}>
       <Card title={nameAndId.name}>
         <Tabs>
-          {Object.keys(clusterData).map((clusterType) => (
+          {Object.values(UniRefEntryType).map((clusterType) => (
             <Tab
               id={clusterType}
               title={`${
