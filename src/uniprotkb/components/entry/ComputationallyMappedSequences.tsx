@@ -42,7 +42,11 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const columns = useMemo(
+  const columns = useMemo<Array<
+    label: string;
+    name: string;
+    render: (data: ProteinEntryLight) => ReactNode;
+  >>(
     () => [
       {
         label: 'Entry',
