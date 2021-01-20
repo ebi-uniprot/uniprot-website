@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { useCallback, useMemo, useState, FC } from 'react';
+import { useCallback, useMemo, useState, FC, ReactNode } from 'react';
 import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
 import { Link, generatePath, useHistory } from 'react-router-dom';
 
@@ -42,16 +42,18 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const columns = useMemo<Array<
-    label: string;
-    name: string;
-    render: (data: ProteinEntryLight) => ReactNode;
-  >>(
+  const columns = useMemo<
+    Array<{
+      label: string;
+      name: string;
+      render: (data: ProteinEntryLight) => ReactNode;
+    }>
+  >(
     () => [
       {
         label: 'Entry',
         name: 'accession',
-        render: ({ id: accession, entryType }: ProteinEntryLight) => (
+        render: ({ id: accession, entryType }) => (
           <Link
             to={generatePath(LocationToPath[Location.UniProtKBEntry], {
               accession,
@@ -65,17 +67,17 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
       {
         label: 'Entry name',
         name: 'uniProtkbId',
-        render: ({ uniProtkbId }: ProteinEntryLight) => uniProtkbId,
+        render: ({ uniProtkbId }) => uniProtkbId,
       },
       {
         label: 'Gene name',
         name: 'gene_name',
-        render: ({ geneName }: ProteinEntryLight) => geneName,
+        render: ({ geneName }) => geneName,
       },
       {
         label: 'Length',
         name: 'length',
-        render: ({ sequence }: ProteinEntryLight) => sequence.length,
+        render: ({ sequence }) => sequence.length,
       },
     ],
     []
