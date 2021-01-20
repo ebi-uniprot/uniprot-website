@@ -17,6 +17,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Sequence } from '../../../shared/types/sequence';
 import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
+import { ProteinExistence } from '../../../tools/blast/types/apiSequenceData';
 
 type ProteinEntryLight = {
   id: string;
@@ -26,8 +27,7 @@ type ProteinEntryLight = {
   proteinName: string;
   organism: OrganismData;
   geneName: string;
-  proteinExistence: string;
-  flagType: string;
+  proteinExistence: ProteinExistence;
   sequenceVersion: number;
 };
 
