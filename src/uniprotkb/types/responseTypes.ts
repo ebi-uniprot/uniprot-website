@@ -12,7 +12,7 @@ export type FacetObject = {
 type Response = {
   data: {
     results: UniProtkbAPIModel[];
-    facets?: Facet[];
+    facets?: FacetObject[];
   };
   headers: {
     ['x-totalrecords']: string;

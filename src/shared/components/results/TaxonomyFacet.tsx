@@ -26,7 +26,7 @@ const TaxonomyFacet: FC = () => {
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   return (
-    <>
+    <div>
       <span className="facet-name">Taxonomy</span>
       <ul className="expandable-list no-bullet">
         {interestingClauses.map((clause) => {
@@ -75,7 +75,7 @@ const TaxonomyFacet: FC = () => {
           </SlidingPanel>
         </Suspense>
       )}
-    </>
+    </div>
   );
 };
 

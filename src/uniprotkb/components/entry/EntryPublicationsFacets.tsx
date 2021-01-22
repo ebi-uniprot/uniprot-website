@@ -41,9 +41,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   }
 
   return (
-    <div className={isStale ? 'is-stale' : undefined}>
-      <Facets data={data.facets} />
-    </div>
+    <Facets data={data.facets} className={isStale ? 'is-stale' : undefined} />
   );
 };
 
