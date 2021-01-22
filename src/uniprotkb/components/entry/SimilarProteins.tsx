@@ -26,6 +26,7 @@ const SimilarProteins: FC<{
   const { loading, data, error } = useDataApi<{
     results: UniRefLiteAPIModel[];
   }>(searchUrl);
+
   const clusterData = useMemo(() => {
     if (data) {
       const { results } = data;
@@ -67,63 +68,74 @@ const SimilarProteins: FC<{
     <div id={EntrySection.SimilarProteins}>
       <Card title={nameAndId.name}>
         <Tabs>
-          {Object.values(UniRefEntryType).map((clusterType) => (
-            <Tab
-              id={clusterType}
-              title={`${
-                UniRefEntryTypeToPercent[clusterType as UniRefEntryType]
-              } identity`}
-              key={clusterType}
-            >
-              {Object.keys(clusterData[clusterType]).map((representativeId) => (
-                <section key={representativeId} className="text-block">
-                  <h4>{representativeId}</h4>
-                  {clusterData[clusterType][representativeId].map((row) => (
-                    <section key={row.id}>
-                      <h5>
-                        <Link
-                          to={generatePath(
-                            LocationToPath[Location.UniRefEntry],
-                            {
-                              accession: row.id,
-                            }
-                          )}
-                        >
-                          {row.id}
-                        </Link>
-                      </h5>
-                      <ul className="no-bullet">
-                        {/* Note: move following to its own component  */}
-                        {row.members
-                          ?.filter((member) => member !== representativeId)
-                          .map((member) => (
-                            <li key={member}>
-                              <Link
-                                to={generatePath(
-                                  LocationToPath[Location.UniProtKBEntry],
-                                  {
-                                    accession: member,
-                                  }
-                                )}
-                              >
-                                {member}
-                              </Link>
-                            </li>
-                          ))}
-                        {row.members &&
-                          row.memberCount > row.members?.length && (
-                            <li>{row.memberCount} more</li>
-                          )}
-                      </ul>
-                    </section>
-                  ))}
-                  <hr />
-                </section>
-              ))}
-              {/* TODO: check with backend what query should be generated here */}
-              <Button>View all</Button>
-            </Tab>
-          ))}
+          {Object.values(UniRefEntryType).map(
+            (clusterType) =>
+              clusterData[clusterType] && (
+                <Tab
+                  id={clusterType}
+                  title={`${
+                    UniRefEntryTypeToPercent[clusterType as UniRefEntryType]
+                  } identity`}
+                  key={clusterType}
+                >
+                  {Object.keys(clusterData[clusterType]).map(
+                    (representativeId) => (
+                      <section key={representativeId} className="text-block">
+                        <h4>{representativeId}</h4>
+                        {clusterData[clusterType][representativeId].map(
+                          (row) => (
+                            <section key={row.id}>
+                              <h5>
+                                <Link
+                                  to={generatePath(
+                                    LocationToPath[Location.UniRefEntry],
+                                    {
+                                      accession: row.id,
+                                    }
+                                  )}
+                                >
+                                  {row.id}
+                                </Link>
+                              </h5>
+                              <ul className="no-bullet">
+                                {/* Note: move following to its own component  */}
+                                {row.members
+                                  ?.filter(
+                                    (member) => member !== representativeId
+                                  )
+                                  .map((member) => (
+                                    <li key={member}>
+                                      <Link
+                                        to={generatePath(
+                                          LocationToPath[
+                                            Location.UniProtKBEntry
+                                          ],
+                                          {
+                                            accession: member,
+                                          }
+                                        )}
+                                      >
+                                        {member}
+                                      </Link>
+                                    </li>
+                                  ))}
+                                {row.members &&
+                                  row.memberCount > row.members?.length && (
+                                    <li>{row.memberCount} more</li>
+                                  )}
+                              </ul>
+                            </section>
+                          )
+                        )}
+                        <hr />
+                      </section>
+                    )
+                  )}
+                  {/* TODO: check with backend what query should be generated here */}
+                  <Button>View all</Button>
+                </Tab>
+              )
+          )}
         </Tabs>
       </Card>
     </div>
