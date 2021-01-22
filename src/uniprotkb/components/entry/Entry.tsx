@@ -115,13 +115,21 @@ const Entry: FC = () => {
           taxId,
           numberOfIsoforms
         );
+        let disabled = true;
+        switch (nameAndId.id) {
+          case EntrySection.ExternalLinks:
+            disabled = !hasExternalLinks(transformedData);
+            break;
+          case EntrySection.SimilarProteins:
+            disabled = false;
+            break;
+          default:
+            disabled = !hasContent(transformedData[nameAndId.id]);
+        }
         return {
           label: nameAndId.name,
           id: nameAndId.id,
-          disabled:
-            nameAndId.id === EntrySection.ExternalLinks
-              ? !hasExternalLinks(transformedData)
-              : !hasContent(transformedData[nameAndId.id]),
+          disabled,
         };
       });
     }

@@ -2189,6 +2189,15 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
+    class="loader-container"
+  >
+    <test-file-stub
+      classname="loader"
+      height="100"
+      width="100"
+    />
+  </div>
+  <div
     class="hero-container hero-container--side-padding"
   >
     <em>
@@ -4072,6 +4081,15 @@ exports[`Entry view should render for non-human entry 1`] = `
         </div>
       </section>
     </div>
+  </div>
+  <div
+    class="loader-container"
+  >
+    <test-file-stub
+      classname="loader"
+      height="100"
+      width="100"
+    />
   </div>
   <div
     class="hero-container hero-container--side-padding"
