@@ -15,7 +15,7 @@ import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
+import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -285,7 +285,7 @@ export const MembersSection: FC<Props> = ({
     nextUrl?: string;
   }>(() => ({
     total: +(propMetadata?.['x-totalrecords'] || 1),
-    nextUrl: getNextUrlFromResponse(propMetadata?.link),
+    nextUrl: getNextURLFromHeaders(propMetadata),
   }));
   usePrefetch(metadata.nextUrl);
   const [allResults, setAllResults] = useState(() => [
@@ -300,7 +300,7 @@ export const MembersSection: FC<Props> = ({
     setUrl(undefined);
     setMetadata({
       total: +(propMetadata?.['x-totalrecords'] || 1),
-      nextUrl: getNextUrlFromResponse(propMetadata?.link),
+      nextUrl: getNextURLFromHeaders(propMetadata),
     });
     setAllResults([representativeMember, ...members]);
   }, [members, propMetadata, representativeMember]);
@@ -313,7 +313,7 @@ export const MembersSection: FC<Props> = ({
     setAllResults((allMembers) => [...allMembers, ...members]);
     setMetadata(() => ({
       total: +(headers?.['x-totalrecords'] || 1),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 

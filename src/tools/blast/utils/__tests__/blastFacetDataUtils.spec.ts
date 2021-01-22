@@ -5,6 +5,8 @@ import {
   getFacetBounds,
 } from '../blastFacetDataUtils';
 
+import { BlastResults, BlastHit } from '../../types/blastResults';
+
 const a = { hit_hsps: [{ hsp_score: 100, hsp_identity: 10, hsp_expect: 0.1 }] };
 const b = { hit_hsps: [{ hsp_score: 102, hsp_identity: 11, hsp_expect: 0.2 }] };
 const c = {
@@ -13,9 +15,22 @@ const c = {
     { hsp_score: 105, hsp_identity: 12, hsp_expect: 0.3 },
   ],
 };
-const blastHits = [a, b, c];
+const blastHits = [a, b, c] as BlastHit[];
+const blastResults = { hits: blastHits } as BlastResults;
 
 describe('filterBlastDataForResults', () => {
+  it('should return unfiltered hits if no hits or no facets', () => {
+    const facet = [
+      {
+        name: 'score',
+        value: '[100 TO 101]',
+      },
+    ];
+    expect(
+      filterBlastDataForResults({ hits: [] } as BlastResults, facet)
+    ).toEqual({ hits: [] });
+  });
+
   it('should filter hits by score facet', () => {
     const facet = [
       {
@@ -23,7 +38,7 @@ describe('filterBlastDataForResults', () => {
         value: '[100 TO 101]',
       },
     ];
-    expect(filterBlastDataForResults({ hits: blastHits }, facet)).toEqual({
+    expect(filterBlastDataForResults(blastResults, facet)).toEqual({
       hits: [a, c],
       alignments: 2,
     });
@@ -40,9 +55,57 @@ describe('filterBlastDataForResults', () => {
         value: '[10 TO 10]',
       },
     ];
-    expect(filterBlastDataForResults({ hits: blastHits }, facet)).toEqual({
+    expect(filterBlastDataForResults(blastResults, facet)).toEqual({
       hits: [a],
       alignments: 1,
+    });
+  });
+
+  it('should ignore incorrect facets value', () => {
+    let facet = [
+      {
+        name: 'score',
+        value: 'incorrect score',
+      },
+    ];
+    expect(filterBlastDataForResults(blastResults, facet)).toEqual({
+      hits: blastHits,
+      alignments: 3,
+    });
+
+    facet = [
+      {
+        name: 'score',
+        value: '[0 TO hundred]',
+      },
+    ];
+    expect(filterBlastDataForResults(blastResults, facet)).toEqual({
+      hits: blastHits,
+      alignments: 3,
+    });
+
+    facet = [
+      {
+        name: 'score',
+        value: '[zero TO 100]',
+      },
+    ];
+    expect(filterBlastDataForResults(blastResults, facet)).toEqual({
+      hits: blastHits,
+      alignments: 3,
+    });
+  });
+
+  it('should ignore incorrect facet names', () => {
+    const facet = [
+      {
+        name: 'skore',
+        value: '[10 TO 10]',
+      },
+    ];
+    expect(filterBlastDataForResults(blastResults, facet)).toEqual({
+      hits: blastHits,
+      alignments: 3,
     });
   });
 });
@@ -53,6 +116,28 @@ describe('getDataPoints', () => {
       score: [100, 102, 101, 105],
       identity: [10, 11, 12, 12],
       evalue: [0.1, 0.2, 0.3, 0.3],
+    });
+  });
+
+  it('should extract the valid data points', () => {
+    expect(
+      getDataPoints([
+        {
+          hit_hsps: [
+            {
+              hsp_score: undefined,
+              hsp_identity: 'not a number',
+              hsp_expect: null,
+            },
+          ],
+        },
+        b,
+        c,
+      ] as BlastHit[])
+    ).toEqual({
+      score: [102, 101, 105],
+      identity: [11, 12, 12],
+      evalue: [0.2, 0.3, 0.3],
     });
   });
 });
