@@ -1474,6 +1474,11 @@
   resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-visualizer/-/rhea-reaction-visualizer-0.0.18.tgz#f8cf2eb96bcec81d9bcd6384023f4b023325e778"
   integrity sha512-WjxzKC4Q4Tr9hKihtMblz5VdVVssCpa5VXzF0Olo7n6bcfdDLorgBuW+udaWkaGYSIsM2bP/fzF28QxifW2n6w==
 
+"@swissprot/swissbiopics-visualizer@^0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@swissprot/swissbiopics-visualizer/-/swissbiopics-visualizer-0.0.22.tgz#86ff1f3d467bcfa4d7000c4f89afc9c9ad98b573"
+  integrity sha512-Iw3cG9yQgWrR6qQHQRBhaehU7966ykB185apREy2UeUdJu1GIwLkSwx/im30SZ0Agg/j9LzuJSwEu9zfRTEAZA==
+
 "@testing-library/dom@^7.28.1":
   version "7.29.4"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.29.4.tgz#1647c2b478789621ead7a50614ad81ab5ae5b86c"
