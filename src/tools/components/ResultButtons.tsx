@@ -1,4 +1,4 @@
-import React, { FC, lazy, useState, Suspense } from 'react';
+import { FC, lazy, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';
@@ -106,6 +106,10 @@ type ResultButtonsProps<T extends JobTypes> = {
   isTableResultsFiltered?: boolean;
 };
 
+const ResultDownload = lazy(
+  () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
+);
+
 const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
   jobType,
   jobId,
@@ -114,17 +118,16 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
   nHits,
   isTableResultsFiltered,
 }) => {
-  const ResultDownload = lazy(
-    () => import(/* webpackChunkName: "result-download" */ './ResultDownload')
-  );
-
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   return (
     <>
       {displayDownloadPanel && (
         <Suspense fallback={null}>
-          <SlidingPanel position={Position.left}>
+          <SlidingPanel
+            position={Position.left}
+            onClose={() => setDisplayDownloadPanel(false)}
+          >
             <ResultDownload
               jobType={jobType}
               id={jobId}

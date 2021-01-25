@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable uniprot-website/use-config-location */
 import { Link, generatePath } from 'react-router-dom';
 
 import {
@@ -11,9 +11,8 @@ import { Location, jobTypeToPath } from '../../app/config/urls';
 
 import { Job } from '../types/toolsJob';
 
-const parseXML = (xml: string) => {
-  return new window.DOMParser().parseFromString(xml, 'text/xml');
-};
+const parseXML = (xml: string) =>
+  new window.DOMParser().parseFromString(xml, 'text/xml');
 
 type ServerError = {
   response?: { data?: string };

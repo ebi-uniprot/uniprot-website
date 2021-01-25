@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState, FC } from 'react';
 import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, generatePath } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import numberView, {
@@ -14,7 +14,7 @@ import { formatLargeNumber } from '../../utils/utils';
 
 import useDataApi from '../../hooks/useDataApi';
 
-import externalUrls from '../../../uniprotkb/config/externalUrls';
+import externalUrls from '../../config/externalUrls';
 import apiUrls from '../../config/apiUrls';
 
 import {
@@ -43,7 +43,7 @@ type SequenceViewProps = {
   data: SequenceUIModel;
 };
 
-export const SequenceInfo: React.FC<{
+export const SequenceInfo: FC<{
   isoformId: string;
   isoformSequence?: SequenceData;
   lastUpdateDate?: string | null;
@@ -99,7 +99,7 @@ export const SequenceInfo: React.FC<{
   );
 };
 
-export const IsoformInfo: React.FC<{
+export const IsoformInfo: FC<{
   isoformData: Isoform;
   canonicalAccession: string;
   isoformNotes?: IsoformNotes;
@@ -134,7 +134,11 @@ export const IsoformInfo: React.FC<{
             ({ location, alternativeSequence, evidences }) => (
               <li key={`${location.start.value}-${location.end.value}`}>
                 <Link
-                  to={`/blast/accession/${canonicalAccession}/positions/${location.start.value}-${location.end.value}`}
+                  to={{
+                    pathname: LocationToPath[Location.Blast],
+                    // TODO: this needs to be implemented on the BLAST form page
+                    search: `about=${canonicalAccession}[${location.start.value}-${location.end.value}]`,
+                  }}
                 >{`${location.start.value}-${location.end.value}: `}</Link>
                 {alternativeSequence && alternativeSequence.originalSequence
                   ? `${alternativeSequence.originalSequence}  → ${
@@ -183,10 +187,12 @@ export const IsoformInfo: React.FC<{
           external isoforms */}
           <Link
             className="button secondary"
-            to={`/uniprotkb/${isoformData.isoformIds[0].substring(
-              0,
-              isoformData.isoformIds[0].length - 2
-            )}`}
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: isoformData.isoformIds[0].substring(
+                0,
+                isoformData.isoformIds[0].length - 2
+              ),
+            })}
           >
             View isoform
           </Link>
@@ -197,30 +203,26 @@ export const IsoformInfo: React.FC<{
   );
 };
 
-export const SequenceCautionView: React.FC<{
+export const SequenceCautionView: FC<{
   data: SequenceCautionComment[];
-}> = ({ data }) => {
-  return (
-    <>
-      {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
-        <section
-          className="text-block"
-          key={`${sequenceCautionType}-${sequence}`}
-        >
-          {`The sequence `}
-          <ExternalLink url={externalUrls.ENA(sequence)}>
-            {sequence}
-          </ExternalLink>
-          {` differs from that shown. Reason: ${sequenceCautionType} `}
-          {note}
-          {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
-        </section>
-      ))}
-    </>
-  );
-};
+}> = ({ data }) => (
+  <>
+    {data.map(({ sequence, sequenceCautionType, note, evidences }) => (
+      <section
+        className="text-block"
+        key={`${sequenceCautionType}-${sequence}`}
+      >
+        {`The sequence `}
+        <ExternalLink url={externalUrls.ENA(sequence)}>{sequence}</ExternalLink>
+        {` differs from that shown. Reason: ${sequenceCautionType} `}
+        {note}
+        {evidences && <UniProtKBEvidenceTag evidences={evidences} />}
+      </section>
+    ))}
+  </>
+);
 
-export const MassSpectrometryView: React.FC<{
+export const MassSpectrometryView: FC<{
   data: MassSpectrometryComment[];
 }> = ({ data }) => (
   <>
@@ -239,9 +241,7 @@ export const MassSpectrometryView: React.FC<{
   </>
 );
 
-export const RNAEditingView: React.FC<{ data: RNAEditingComment[] }> = ({
-  data,
-}) => (
+export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
   <>
     {data.map((item) => (
       <section
@@ -278,7 +278,7 @@ export const RNAEditingView: React.FC<{ data: RNAEditingComment[] }> = ({
   </>
 );
 
-export const IsoformView: React.FC<{
+export const IsoformView: FC<{
   alternativeProducts: AlternativeProductsComment;
   canonicalComponent?: JSX.Element;
   includeSequences?: boolean;
@@ -344,7 +344,7 @@ export const IsoformView: React.FC<{
   );
 };
 
-const SequenceView: React.FC<SequenceViewProps> = ({ accession, data }) => {
+const SequenceView: FC<SequenceViewProps> = ({ accession, data }) => {
   const sequenceInfoData = [
     {
       title: 'Sequence status',

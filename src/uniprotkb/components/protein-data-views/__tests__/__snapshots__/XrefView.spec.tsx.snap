@@ -3,1632 +3,1080 @@
 exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for Expression section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for ExternalLinks section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for FamilyAndDomains section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for Function section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for Interaction section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for Phenotypes section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for ProteinProcessing section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for Sequence section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for Structure section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
 exports[`XRefView should render for SubCellularLocation section 1`] = `
 <DocumentFragment>
   <h3 />
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          EMBL
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        <ul
-          class="expandable-list no-bullet"
+          <h5
+            class="bold"
+          >
+            EMBL
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          <li>
-            (
-            <a
-              class="external-link"
-              href="https://www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              EMBL
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              (
+              <a
+                class="external-link"
+                href="https://www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                EMBL
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="https://www.ncbi.nlm.nih.gov/protein/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              GenBank
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="https://www.ncbi.nlm.nih.gov/protein/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                GenBank
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-             | 
-            <a
-              class="external-link"
-              href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              DDBJ
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+               | 
+              <a
+                class="external-link"
+                href="http://getentry.ddbj.nig.ac.jp/getentry/dad/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                DDBJ
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            ) 
-            <a
-              class="external-link"
-              href="//www.ebi.ac.uk/ena/data/view/1234"
-              rel="noopener"
-              target="_blank"
-            >
-              1234
-              <svg
-                fill="none"
-                viewBox="0 0 16 16"
-                width="12.5"
-                xmlns="http://www.w3.org/2000/svg"
+              </a>
+              ) 
+              <a
+                class="external-link"
+                href="//www.ebi.ac.uk/ena/data/view/1234"
+                rel="noopener"
+                target="_blank"
               >
-                <path
-                  d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-                  fill="currentColor"
+                1234
+                <test-file-stub
+                  width="12.5"
                 />
-                <path
-                  d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-                  fill="currentColor"
-                />
-              </svg>
-            </a>
-            [
-            <a
-              href="#ABCD"
-            >
-              ABCD
-            </a>
-            ]
-          </li>
-        </ul>
+              </a>
+              [
+              <a
+                href="#ABCD"
+              >
+                ABCD
+              </a>
+              ]
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
 </DocumentFragment>
 `;
 
@@ -1641,21 +1089,9 @@ exports[`getPropertyLink should create snapshot 1`] = `
     target="_blank"
   >
     ENSG00000142192
-    <svg
-      fill="none"
-      viewBox="0 0 16 16"
+    <test-file-stub
       width="12.5"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M16 0h-6v2h3.071L7 8.071l1.414 1.414L14 3.9V6h2V0z"
-        fill="currentColor"
-      />
-      <path
-        d="M7 2H0v14h14V9h-2v5H2V4h5V2z"
-        fill="currentColor"
-      />
-    </svg>
+    />
   </a>
 </DocumentFragment>
 `;

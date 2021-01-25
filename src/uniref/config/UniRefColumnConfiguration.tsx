@@ -1,8 +1,11 @@
 /* eslint-disable camelcase */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Fragment, ReactNode } from 'react';
+import { Link, generatePath } from 'react-router-dom';
+import { ExpandableList } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+
+import { Location, LocationToPath } from '../../app/config/urls';
 
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
@@ -37,74 +40,77 @@ export const primaryKeyColumn = UniRefColumn.id;
 export const UniRefColumnConfiguration = new Map<
   UniRefColumn,
   {
-    label: string;
-    render: (
-      data: UniRefLiteAPIModel
-    ) => JSX.Element | string | number | undefined;
+    label: ReactNode;
+    render: (data: UniRefLiteAPIModel) => ReactNode;
   }
 >();
 
 UniRefColumnConfiguration.set(UniRefColumn.id, {
   label: 'Cluster ID',
-  render: ({ id }) => {
-    return <Link to={`/uniref/${id}`}>{id}</Link>;
-  },
+  render: ({ id }) => (
+    <Link
+      to={generatePath(LocationToPath[Location.UniRefEntry], { accession: id })}
+    >
+      {id}
+    </Link>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
   label: 'Cluster name',
-  render: ({ name }) => {
-    return name;
-  },
+  render: ({ name }) => name,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
   label: 'Common taxon',
-  render: ({ commonTaxon }) => {
-    return commonTaxon;
-  },
+  render: ({ commonTaxon }) => commonTaxon,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
   label: 'Common taxon ID',
-  render: ({ commonTaxonId }) => {
-    return <Link to={`/taxonomy/${commonTaxonId}`}>{commonTaxonId}</Link>;
-  },
+  render: ({ commonTaxonId }) => (
+    <Link
+      to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+        accession: commonTaxonId,
+      })}
+    >
+      {commonTaxonId}
+    </Link>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
-  render: ({ organismIds }) => {
-    return (
-      <ul className="no-bullet">
-        {organismIds?.map((organismId) => (
-          <li key={organismId}>
-            <Link to={`/taxonomy/${organismId}`}>{organismId}</Link>
-          </li>
-        ))}
-      </ul>
-    );
-  },
+  render: ({ organismIds }) => (
+    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
+      {organismIds?.map((organismId) => (
+        <Link
+          key={organismId}
+          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+            accession: organismId,
+          })}
+        >
+          {organismId}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organism, {
   label: 'Organisms',
-  render: ({ organisms }) => {
-    return (
-      <ul className="no-bullet">
-        {organisms?.map((organism) => (
-          <li key={organism}>{organism}</li>
-        ))}
-      </ul>
-    );
-  },
+  render: ({ organisms }) => (
+    <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
+      {organisms?.map((organism) => (
+        <Fragment key={organism}>{organism}</Fragment>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.identity, {
   label: 'Identity',
-  render: ({ entryType }) => {
-    return <>{entryType}</>;
-  },
+  render: ({ entryType }) => <>{entryType}</>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
@@ -114,55 +120,53 @@ UniRefColumnConfiguration.set(UniRefColumn.length, {
 
 UniRefColumnConfiguration.set(UniRefColumn.sequence, {
   label: 'Reference sequence',
-  render: ({ sequence }) => {
-    return <span className="break-anywhere">{sequence}</span>;
-  },
+  // NOTE: not consistent with the way it's represented in UniProtKB column
+  render: ({ sequence }) => <span className="break-anywhere">{sequence}</span>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.types, {
   label: 'Types',
-  render: ({ memberIdTypes }) => {
-    return (
-      <>
-        {memberIdTypes?.map((memberType) => (
-          <EntryTypeIcon entryType={memberType} key={memberType} />
-        ))}
-      </>
-    );
-  },
+  render: ({ memberIdTypes }) => (
+    <>
+      {memberIdTypes?.map((memberType) => (
+        <EntryTypeIcon entryType={memberType} key={memberType} />
+      ))}
+    </>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.members, {
   label: 'Members',
-  render: ({ members }) => {
-    return (
-      <ul className="no-bullet">
-        {members?.map((member) => (
-          <li key={member}>
-            <Link to={`/uniprotkb/${member}`}>{member}</Link>
-          </li>
-        ))}
-      </ul>
-    );
-  },
+  render: ({ members }) => (
+    <ExpandableList descriptionString="members" displayNumberOfHiddenItems>
+      {members?.map((member) => (
+        <Link
+          key={member}
+          to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+            accession: member,
+          })}
+        >
+          {member}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.count, {
   label: 'Size',
-  render: ({ memberCount }) => {
-    return (
-      <>
-        {memberCount} member{memberCount > 1 && 's'}
-      </>
-    );
-  },
+  render: ({ memberCount }) => (
+    <>
+      {memberCount} member{memberCount > 1 && 's'}
+    </>
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.created, {
   label: 'Last updated',
-  render: ({ updated }) => {
-    return updated;
-  },
+  render: ({ updated }) => (
+    <time dateTime={new Date(updated).toISOString()}>{updated}</time>
+  ),
 });
 
 export default UniRefColumnConfiguration;

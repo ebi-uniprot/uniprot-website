@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import EntryTypeIcon from './EntryTypeIcon';

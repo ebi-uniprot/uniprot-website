@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -10,7 +10,7 @@ type RenderOptions = {
   path?: string;
 };
 const renderWithRouter = (
-  ui: React.ReactNode,
+  ui: ReactNode,
   {
     route = '',
     path,
@@ -24,7 +24,7 @@ const renderWithRouter = (
   );
   return {
     ...renderOutput,
-    rerenderWithRouter: (ui: React.ReactNode) =>
+    rerenderWithRouter: (ui: ReactNode) =>
       renderOutput.rerender(
         <Router history={history}>
           {path ? <Route path={path} render={() => ui} /> : ui}

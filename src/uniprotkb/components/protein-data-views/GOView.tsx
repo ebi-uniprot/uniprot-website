@@ -1,10 +1,13 @@
-import React, { Fragment } from 'react';
+import { Fragment, FC } from 'react';
 import { ExpandableList } from 'franklin-sites';
-import { GoTerm, GroupedGoTerms } from '../../adapters/functionConverter';
-import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-import externalUrls from '../../config/externalUrls';
 
-export const GOTermsView: React.FC<{ data: GoTerm[] }> = ({ data }) => (
+import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import externalUrls from '../../../shared/config/externalUrls';
+
+import { GoTerm, GroupedGoTerms } from '../../adapters/functionConverter';
+
+export const GOTermsView: FC<{ data: GoTerm[] }> = ({ data }) => (
   <section className="text-block">
     <ExpandableList descriptionString="terms">
       {data
@@ -24,7 +27,7 @@ export const GOTermsView: React.FC<{ data: GoTerm[] }> = ({ data }) => (
   </section>
 );
 
-const GOView: React.FC<{ data: GroupedGoTerms }> = ({ data }) => (
+const GOView: FC<{ data: GroupedGoTerms }> = ({ data }) => (
   <>
     {Array.from(data.entries()).map(([aspect, terms]) => (
       <section className="text-block" key={aspect}>

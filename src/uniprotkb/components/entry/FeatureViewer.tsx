@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Loader } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -20,9 +20,13 @@ const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
     'protvista-uniprot'
   );
 
-  if (loading) return <Loader />;
+  if (loading) {
+    return <Loader />;
+  }
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   return (
     <section>

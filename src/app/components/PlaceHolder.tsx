@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import PlaceHolderSVG from './svgs/place-holder.svg';
 import './styles/place-holder.scss';
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
-import React, { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState, FC } from 'react';
 import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, generatePath, useHistory } from 'react-router-dom';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -13,6 +13,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../../shared/config/apiUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 
 // NOTE: Jie told me this would be replaced by a different
@@ -31,7 +32,7 @@ type GeneCentricData = {
   proteomeId: string;
 };
 
-const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
+const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   primaryAccession,
 }) => {
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
@@ -41,14 +42,16 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ accession, entryType }: ProteinEntryLight) => {
-          return (
-            <Link to={`/uniprotkb/${accession}`}>
-              <EntryTypeIcon entryType={entryType} />
-              {accession}
-            </Link>
-          );
-        },
+        render: ({ accession, entryType }: ProteinEntryLight) => (
+          <Link
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession,
+            })}
+          >
+            <EntryTypeIcon entryType={entryType} />
+            {accession}
+          </Link>
+        ),
       },
       {
         label: 'Gene name',
@@ -102,9 +105,10 @@ const ComputationalyMappedSequences: React.FC<{ primaryAccession: string }> = ({
     const queryString = filteredData
       ?.map(({ accession }) => `accession:${accession}`)
       .join(' OR ');
-    history.push(
-      `${LocationToPath[Location.UniProtKBResults]}?query=(${queryString})`
-    );
+    history.push({
+      pathname: LocationToPath[Location.UniProtKBResults],
+      search: `query=(${queryString})`,
+    });
   }, [history, filteredData]);
 
   if (loading) {

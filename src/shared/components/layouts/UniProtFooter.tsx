@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
 const UniProtFooter: FC<HTMLAttributes<HTMLElement>> = (props) => (
   <footer

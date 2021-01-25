@@ -1,19 +1,23 @@
-import React, { FC, FormEvent, useState, useEffect } from 'react';
 import {
-  useHistory,
-  useRouteMatch,
-  generatePath,
-  useLocation,
-} from 'react-router-dom';
+  FC,
+  FormEvent,
+  useState,
+  useEffect,
+  useMemo,
+  CSSProperties,
+} from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import qs from 'query-string';
 import { v1 } from 'uuid';
 import { frame } from 'timing-functions';
-import { PageIntro } from 'franklin-sites';
+import { PageIntro, Loader, Button } from 'franklin-sites';
+import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
 import ClauseList from './ClauseList';
 
 import useDataApi from '../../shared/hooks/useDataApi';
+import useNS from '../../shared/hooks/useNS';
 
 import { createEmptyClause, defaultQueryFor } from '../utils/clause';
 import { stringify } from '../utils/queryStringProcessor';
@@ -23,7 +27,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
-import { LocationToPath, Location } from '../../app/config/urls';
+import { SearchResultsLocations } from '../../app/config/urls';
 
 import {
   MessageFormat,
@@ -34,18 +38,32 @@ import { Clause, SearchTermType } from '../types/searchTypes';
 import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
 
-const QueryBuilder: FC = () => {
+type Props = {
+  onCancel: () => void;
+};
+interface Style extends CSSProperties {
+  // TODO: define and extend the supported custom properties in franklin
+  // TODO: find a way to expose them globally when using franklin elements
+  '--main-button-color': string;
+}
+
+const QueryBuilder: FC<Props> = ({ onCancel }) => {
   const history = useHistory();
   const location = useLocation();
-  const match = useRouteMatch<{ namespace?: Namespace }>(
-    LocationToPath[Location.QueryBuilder]
-  );
   const dispatch = useDispatch();
 
-  // To be replaced by getting it from url
   const [clauses, setClauses] = useState<Clause[]>([]);
 
-  const namespace = match?.params?.namespace;
+  const urlNamespace = useNS() || Namespace.uniprotkb;
+
+  const [namespace, setNamespace] = useState(urlNamespace);
+  const style = useMemo<Style>(
+    () => ({
+      // change color of all buttons within this element to match the namespace
+      '--main-button-color': (colors as Record<string, string>)[namespace],
+    }),
+    [namespace]
+  );
 
   const { loading, data: searchTermsData } = useDataApi<SearchTermType[]>(
     namespace && apiUrls.queryBuilderTerms(namespace)
@@ -54,18 +72,6 @@ const QueryBuilder: FC = () => {
   useEffect(() => {
     setClauses([]);
   }, [namespace]);
-
-  // if URL doesn't finish with a namespace redirect to "uniprotkb" by default
-  useEffect(() => {
-    if (!namespace) {
-      history.replace({
-        ...history.location,
-        pathname: generatePath(LocationToPath[Location.QueryBuilder], {
-          namespace: Namespace.uniprotkb,
-        }),
-      });
-    }
-  }, [history, namespace]);
 
   useEffect(() => {
     if (!(searchTermsData && namespace) || loading) {
@@ -110,6 +116,15 @@ const QueryBuilder: FC = () => {
     });
   }, [dispatch, location.search, loading, namespace, searchTermsData]);
 
+  if (loading) {
+    return (
+      <>
+        <PageIntro title="Advanced search" />
+        <Loader />
+      </>
+    );
+  }
+
   if (!searchTermsData || !namespace) {
     return null;
   }
@@ -131,9 +146,10 @@ const QueryBuilder: FC = () => {
     event.preventDefault();
     const queryString = stringify(clauses) || '*';
     history.push({
-      pathname: `/${namespace}`,
+      pathname: SearchResultsLocations[namespace],
       search: `query=${queryString}`,
     });
+    onCancel();
   };
 
   return (
@@ -144,20 +160,14 @@ const QueryBuilder: FC = () => {
         className="query-builder"
         onSubmit={handleSubmit}
         data-testid="query-builder-form"
+        style={style}
       >
         <fieldset>
           <label htmlFor="namespace-select">
             Searching in
             <select
               id="namespace-select"
-              onChange={(e) => {
-                history.replace({
-                  pathname: generatePath(
-                    LocationToPath[Location.QueryBuilder],
-                    { namespace: e.target.value }
-                  ),
-                });
-              }}
+              onChange={(e) => setNamespace(e.target.value as Namespace)}
               value={namespace}
             >
               {Object.keys(NamespaceLabels).map((key) => (
@@ -176,19 +186,19 @@ const QueryBuilder: FC = () => {
             searchTerms={searchTermsData}
           />
         </fieldset>
-        <div className="query-builder__actions">
-          <button
-            type="button"
-            id="add-field"
-            className="button tertiary"
+        <div className="query-builder__actions button-group sliding-panel__button-row">
+          <Button
+            variant="tertiary"
+            className="query-builder__add-field"
             data-testid="query-builder-add-field"
             onClick={addClause}
           >
             Add Field
-          </button>
-          <button type="submit" id="submit-query" className="button">
-            Search
-          </button>
+          </Button>
+          <Button variant="secondary" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit">Search</Button>
         </div>
       </form>
     </>

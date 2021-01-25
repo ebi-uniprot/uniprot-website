@@ -16,7 +16,6 @@ exports[`CustomiseTable component should render 1`] = `
       >
         <div
           aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          class="button column-select-drag-drop__list__item"
           data-rbd-drag-handle-context-id="0"
           data-rbd-drag-handle-draggable-id="protein_name"
           data-rbd-draggable-context-id="0"
@@ -25,27 +24,18 @@ exports[`CustomiseTable component should render 1`] = `
           role="button"
           tabindex="0"
         >
-          Protein names
           <button
-            class="column-select-drag-drop__list__item__button"
-            data-testid="column-select-dnd-remove-button"
+            class="chip"
             type="button"
           >
-            <svg
-              class="column-select-drag-drop__list__item__button__icon"
-              fill="currentColor"
-              viewBox="0 0 352 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
-              />
-            </svg>
+            Protein names
+            <test-file-stub
+              data-testid="remove-icon"
+            />
           </button>
         </div>
         <div
           aria-describedby="rbd-hidden-text-0-hidden-text-0"
-          class="button column-select-drag-drop__list__item"
           data-rbd-drag-handle-context-id="0"
           data-rbd-drag-handle-draggable-id="protein_existence"
           data-rbd-draggable-context-id="0"
@@ -54,22 +44,14 @@ exports[`CustomiseTable component should render 1`] = `
           role="button"
           tabindex="0"
         >
-          Protein existence
           <button
-            class="column-select-drag-drop__list__item__button"
-            data-testid="column-select-dnd-remove-button"
+            class="chip"
             type="button"
           >
-            <svg
-              class="column-select-drag-drop__list__item__button__icon"
-              fill="currentColor"
-              viewBox="0 0 352 512"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M243 256l100-100c12-12 12-32 0-45l-22-22a31 31 0 00-45 0L176 189 76 89a31 31 0 00-45 0L9 111a31 31 0 000 45l100 100L9 356a31 31 0 000 45l22 22c13 12 33 12 45 0l100-100 100 100c12 12 32 12 45 0l22-22c12-13 12-33 0-45L243 256z"
-              />
-            </svg>
+            Protein existence
+            <test-file-stub
+              data-testid="remove-icon"
+            />
           </button>
         </div>
       </div>
@@ -89,7 +71,7 @@ exports[`CustomiseTable component should render 1`] = `
           role="tablist"
         >
           <div
-            aria-controls="<UUID>"
+            aria-controls="0"
             class="tabs__header__item tabs__header__item--active"
             data-target="0"
             data-testid="tab-title"
@@ -112,7 +94,7 @@ exports[`CustomiseTable component should render 1`] = `
             </div>
           </div>
           <div
-            aria-controls="<UUID>"
+            aria-controls="0"
             class="tabs__header__item"
             data-target="1"
             data-testid="tab-title"
@@ -137,7 +119,7 @@ exports[`CustomiseTable component should render 1`] = `
         </div>
         <div
           data-testid="tab-content"
-          id="<UUID>"
+          id="0"
           role="tabpanel"
         >
           <div
@@ -157,17 +139,10 @@ exports[`CustomiseTable component should render 1`] = `
                 data-testid="search-input-suffix"
                 role="presentation"
               >
-                <svg
-                  fill="currentColor"
+                <test-file-stub
                   height="14"
-                  viewBox="0 0 512 512"
                   width="14"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M505 443L405 343c-4-4-10-7-17-7h-16a208 208 0 10-36 36v16c0 7 3 13 7 17l100 100c9 9 24 9 34 0l28-28c9-10 9-25 0-34zM208 336a128 128 0 110-256 128 128 0 010 256z"
-                  />
-                </svg>
+                />
               </span>
             </span>
           </div>
@@ -200,18 +175,11 @@ exports[`CustomiseTable component should render 1`] = `
                       1
                     </span>
                   </span>
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -422,18 +390,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -748,18 +709,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1068,18 +1022,11 @@ exports[`CustomiseTable component should render 1`] = `
                       1
                     </span>
                   </span>
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1305,18 +1252,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1376,18 +1316,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1462,18 +1395,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1578,18 +1504,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1724,18 +1643,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -1825,18 +1737,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -2046,18 +1951,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -2147,18 +2045,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -2218,18 +2109,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -2319,18 +2203,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div
@@ -2495,18 +2372,11 @@ exports[`CustomiseTable component should render 1`] = `
                 <div
                   class="accordion__title__side"
                 >
-                  <svg
-                    class="accordion__title__side__chevron"
-                    fill="currentColor"
+                  <test-file-stub
+                    classname="accordion__title__side__chevron"
                     height="16"
-                    viewBox="0 0 512 311"
                     width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M236 302L9 75a28 28 0 010-40L35 9C46-2 64-2 75 9l181 180L437 9c11-11 29-11 40 0l26 26c11 11 11 29 0 40L276 302a28 28 0 01-40 0z"
-                    />
-                  </svg>
+                  />
                 </div>
               </div>
               <div

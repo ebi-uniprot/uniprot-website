@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import FreeTextView from '../protein-data-views/FreeTextView';

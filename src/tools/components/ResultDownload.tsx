@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import { memo, useState, ChangeEvent } from 'react';
 import { Button } from 'franklin-sites';
 
 import toolsURLs, { ResultFormat } from '../config/urls';
@@ -73,14 +73,14 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
       ext: 'jpg',
     },
   ] as DownloadOptions<JobTypes.BLAST>[],
-  [JobTypes.IDMAP]: [],
+  [JobTypes.UPLOAD_LIST]: [],
   [JobTypes.PEPTIDE_SEARCH]: [],
 };
 
 const defaultFormat: Record<JobTypes, ResultFormat[JobTypes]> = {
   [JobTypes.ALIGN]: 'aln-clustal_num',
   [JobTypes.BLAST]: 'out',
-  [JobTypes.IDMAP]: 'out', // TODO: check after implementing
+  [JobTypes.UPLOAD_LIST]: 'out', // TODO: check after implementing
   [JobTypes.PEPTIDE_SEARCH]: 'out', // TODO: check after implementing
 };
 
@@ -104,7 +104,7 @@ const ResultDownload = memo<ResultDownloadProps>(
   }) => {
     const [fileFormat, setFileFormat] = useState(defaultFormat[jobType]);
 
-    const updateFileFormat = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const updateFileFormat = (e: ChangeEvent<HTMLSelectElement>) => {
       setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
     };
 

@@ -35,11 +35,13 @@ const entryToFASTAWithHeaders = (
 
   try {
     if ('uniParcId' in entry) {
-      sequence = `>${
-        entry.uniParcId
-      } status=${entry.uniParcCrossReferences.some(
-        (xref) => xref.active
-      )}\n${sequence}`;
+      sequence = `>${entry.uniParcId}${
+        entry.uniParcCrossReferences
+          ? ` status=${entry.uniParcCrossReferences.some(
+              (xref) => xref.active
+            )}`
+          : ''
+      } \n${sequence}`;
     } else {
       let db;
       switch (getEntryTypeFromString(entry.entryType)) {

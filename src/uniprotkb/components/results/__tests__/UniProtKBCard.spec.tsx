@@ -1,34 +1,35 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import { MemoryRouter as Router } from 'react-router-dom';
+import { screen, fireEvent } from '@testing-library/react';
+
 import UniProtKBCard from '../UniProtKBCard';
+
+import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+
+import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
+
 import data from '../../../__mocks__/entryModelData.json';
 
 const handleEntrySelection = jest.fn();
 
-let item;
+let rendered;
 
 describe('UniProtKBCard component', () => {
   beforeEach(() => {
-    item = render(
-      <Router>
-        <UniProtKBCard
-          data={data}
-          selectedEntries={{}}
-          handleEntrySelection={handleEntrySelection}
-        />
-      </Router>
+    rendered = renderWithRouter(
+      <UniProtKBCard
+        // TODO: check mock data to see if it fits model, something's off...
+        data={data as UniProtkbAPIModel}
+        handleEntrySelection={handleEntrySelection}
+      />
     );
   });
 
   test('should render', () => {
-    const { asFragment } = item;
+    const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should select a row', () => {
-    const { getByTestId } = item;
-    const checkbox = getByTestId('up-card-checkbox');
+    const checkbox = screen.getByTestId('up-card-checkbox');
     fireEvent.click(checkbox);
     expect(handleEntrySelection).toHaveBeenCalled();
   });

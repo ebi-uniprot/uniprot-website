@@ -34,10 +34,13 @@ module.exports = (env, argv) => {
       chunkFilename: '[name].[chunkhash:6].js',
     },
     devtool: (() => {
+      // no sourcemap for tests
       if (isTest) return;
-      if (isLiveReload) return 'inline-sourcemap';
-      if (isDev) return 'eval-source-map';
-      // else, prod
+      // live reload, slowest first build, fast rebuild, full original source
+      if (isLiveReload) return 'eval-source-map';
+      // dev, slow everything, but original source
+      if (isDev) return 'source-map';
+      // else, prod, slow everything, but original source
       return 'source-map';
     })(),
     resolve: {
@@ -234,12 +237,13 @@ module.exports = (env, argv) => {
       !isLiveReload &&
         new (require('workbox-webpack-plugin').InjectManifest)({
           swSrc: `${__dirname}/src/service-worker/service-worker.ts`,
-          // TODO: remove following line whenever we manage to reduce size of entrypoint
-          maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10MB
-          dontCacheBustURLsMatching: /\.[\da-f]{6}\.[\w]{2,5}$/i,
-          // exclude from precaching because one browser will never need all fonts
-          // formats at the same time, will cache later whichever is actually used
-          exclude: [/fonts/],
+          // TODO: remove limit when we manage to reduce size of entrypoint
+          // For now, 2MB in production (Litemol chunk is 1.3M!), 10M in dev
+          maximumFileSizeToCacheInBytes: 1024 * 1024 * 2 * (isDev ? 5 : 1),
+          // exclude fonts from precaching because one specific browser will
+          // never need all fonts formats at the same time, will cache later
+          // whichever is actually used. Exclude sourcemaps too.
+          exclude: [/fonts/, /\.map$/],
         }),
       !isLiveReload &&
         !isTest &&
@@ -255,23 +259,7 @@ module.exports = (env, argv) => {
         }),
     ].filter(Boolean),
     // END PLUGINS
-  };
-
-  if (isLiveReload) {
-    config.devServer = {
-      contentBase: path.join(__dirname, 'build'),
-      compress: true,
-      host: 'localhost',
-      port: 0,
-      historyApiFallback: true,
-      stats: 'minimal',
-      // use a browser specified in the user's environment, otherwise use default
-      open: process.env.BROWSER || true,
-    };
-  }
-
-  if (!isDev) {
-    config.optimization = {
+    optimization: {
       runtimeChunk: true,
       // when updating webpack check this URL to adapt the different default
       // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
@@ -318,6 +306,19 @@ module.exports = (env, argv) => {
           },
         },
       },
+    },
+  };
+
+  if (isLiveReload) {
+    config.devServer = {
+      contentBase: path.join(__dirname, 'build'),
+      compress: true,
+      host: 'localhost',
+      port: 0,
+      historyApiFallback: true,
+      stats: 'minimal',
+      // use a browser specified in the user's environment, otherwise use default
+      open: process.env.BROWSER || true,
     };
   }
 

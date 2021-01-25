@@ -4,3 +4,13 @@
   margin-top: 0.2rem;
   font-size: 0.9rem;
 }
+
+.search-container-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+
+  .button {
+    margin-bottom: 0.3em;
+  }
+}

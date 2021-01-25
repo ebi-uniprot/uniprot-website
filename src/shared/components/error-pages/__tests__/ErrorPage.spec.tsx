@@ -1,4 +1,3 @@
-import React from 'react';
 import ErrorPage from '../ErrorPage';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 

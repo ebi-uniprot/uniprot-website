@@ -1,4 +1,4 @@
-import React, {
+import {
   memo,
   useLayoutEffect,
   useRef,
@@ -131,6 +131,7 @@ const NiceStatus: FC<NiceStatusProps> = ({ job, jobLink }) => {
     case Status.NOT_FOUND:
       return <>Job not found on the server</>;
     case Status.FINISHED: {
+      // eslint-disable-next-line uniprot-website/use-config-location
       const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
       if (
         // not a blast job, or
@@ -183,10 +184,7 @@ const Actions: FC<ActionsProps> = ({ job, onDelete }) => {
         title="resubmit this job"
         onClick={(event) => {
           event.stopPropagation();
-          const formPath = jobTypeToPath(job.type);
-          if (formPath) {
-            history.push(formPath, { parameters: job.parameters });
-          }
+          history.push(jobTypeToPath(job.type), { parameters: job.parameters });
         }}
       >
         <ReSubmitIcon />

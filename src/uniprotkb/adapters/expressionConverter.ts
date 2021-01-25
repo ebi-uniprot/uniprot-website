@@ -12,14 +12,13 @@ const commentsCategories = [
   CommentType.INDUCTION,
 ];
 
-const convertExpression = (data: UniProtkbAPIModel) => {
-  return convertSection(
+const convertExpression = (data: UniProtkbAPIModel) =>
+  convertSection(
     data,
     commentsCategories,
     keywordsCategories,
     undefined,
     EntrySection.Expression
   );
-};
 
 export default convertExpression;

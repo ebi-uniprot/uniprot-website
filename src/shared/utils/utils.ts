@@ -8,9 +8,8 @@ export function removeProperty<
   return objWithoutProperty;
 }
 
-export const formatLargeNumber = (x: number) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
+export const formatLargeNumber = (x: number) =>
+  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
 export function moveItemInList<T>(
   list: T[],
@@ -55,8 +54,8 @@ export const getBEMClassName = ({
   return className;
 };
 
-export const hasContent = (obj: Record<string | number | symbol, unknown>) => {
-  return Object.values(obj).some((val) => {
+export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
+  Object.values(obj).some((val) => {
     if (Array.isArray(val)) {
       const valArray = val as unknown[];
       return valArray.length > 0;
@@ -69,6 +68,5 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) => {
       }
       return Object.values(val).length > 0;
     }
-    return false;
+    return typeof val !== 'undefined';
   });
-};

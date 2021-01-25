@@ -1,5 +1,3 @@
-import React from 'react';
-
 import UniProtKBInfo from '../../uniprotkb/components/results/UniProtKBInfo';
 import BlastInfo from '../../tools/blast/components/BlastFormInfo';
 import AlignInfo from '../../tools/align/components/AlignFormInfo';
@@ -46,8 +44,16 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
-  [Namespace.publications]: {
-    name: 'Publications',
+  [Namespace.taxonomy]: {
+    name: 'Taxonomy',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.citations]: {
+    name: 'Literature citations',
     info: null,
     links: [
       { title: 'Help', destination: '' },
@@ -78,8 +84,8 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
-  [JobTypes.IDMAP]: {
-    name: 'ID mapping',
+  [JobTypes.UPLOAD_LIST]: {
+    name: 'Upload list',
     info: null,
     links: [
       { title: 'Help', destination: '' },

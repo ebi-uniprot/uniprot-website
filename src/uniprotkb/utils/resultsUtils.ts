@@ -6,15 +6,14 @@ import {
   ReceivedFieldData,
 } from '../types/resultsTypes';
 
-const facetsAsArray = (facetString: string): SelectedFacet[] => {
-  return facetString.split(',').map((stringItem) => {
+const facetsAsArray = (facetString: string): SelectedFacet[] =>
+  facetString.split(',').map((stringItem) => {
     const [name, value] = stringItem.split(':');
     return {
       name,
       value,
     };
   });
-};
 
 export type URLResultParams = {
   query: string;

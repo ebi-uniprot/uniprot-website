@@ -83,7 +83,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
         } as ServerParameters[T];
       }
       break;
-    case JobTypes.IDMAP:
+    case JobTypes.UPLOAD_LIST:
       //
       break;
     case JobTypes.PEPTIDE_SEARCH:
@@ -174,7 +174,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
         } as FormParameters[T];
       }
       break;
-    case JobTypes.IDMAP:
+    case JobTypes.UPLOAD_LIST:
       //
       break;
     case JobTypes.PEPTIDE_SEARCH:

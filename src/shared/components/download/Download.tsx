@@ -1,28 +1,29 @@
-import React, { Fragment, useCallback, useState } from 'react';
+import { useCallback, useState, FC, ChangeEvent } from 'react';
 import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
+
+import ColumnSelect from '../column-select/ColumnSelect';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
-import ColumnSelect from '../column-select/ColumnSelect';
 import useNS from '../../hooks/useNS';
 
 import { getDownloadUrl } from '../../config/apiUrls';
 import { Column, nsToPrimaryKeyColumn } from '../../config/columns';
-
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import {
-  SelectedFacet,
-  SortDirection,
-} from '../../../uniprotkb/types/resultsTypes';
 import {
   fileFormatsWithColumns,
   fileFormatToContentType,
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 
+import {
+  SelectedFacet,
+  SortDirection,
+} from '../../../uniprotkb/types/resultsTypes';
+import { ContentType, FileFormat } from '../../types/resultsDownload';
+import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+
 import './styles/download.scss';
 import '../../styles/sticky.scss';
-import { ContentType, FileFormat } from '../../types/resultsDownload';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -38,7 +39,7 @@ type DownloadProps = {
   onClose: () => void;
 };
 
-const Download: React.FC<DownloadProps> = ({
+const Download: FC<DownloadProps> = ({
   query,
   selectedFacets = [],
   selectedColumns: initialSelectedColumns = [],
@@ -81,10 +82,10 @@ const Download: React.FC<DownloadProps> = ({
     namespace,
   });
 
-  const handleDownloadAllChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
     setDownloadAll(e.target.value === 'true');
 
-  const handleCompressedChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
   const nSelectedEntries = selectedEntries.length;
@@ -145,19 +146,17 @@ const Download: React.FC<DownloadProps> = ({
     previewNode = <Loader />;
   } else if (previewContent && previewContent.length) {
     previewNode = (
-      <div className="preview">
+      <>
         <h4>Preview</h4>
-        <div className="preview__container">
-          <CodeBlock lightMode data-testid="download-preview">
-            {previewContent}
-          </CodeBlock>
-        </div>
-      </div>
+        <CodeBlock lightMode data-testid="download-preview">
+          {previewContent}
+        </CodeBlock>
+      </>
     );
   }
 
   return (
-    <Fragment>
+    <>
       <h2>Download</h2>
       <label htmlFor="data-selection-false">
         <input
@@ -225,19 +224,19 @@ const Download: React.FC<DownloadProps> = ({
         </label>
       </fieldset>
       {fileFormatsWithColumns.includes(fileFormat) && (
-        <Fragment>
+        <>
           <legend>Customize data</legend>
           <ColumnSelect
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
           />
-        </Fragment>
+        </>
       )}
       <section className="button-group sliding-panel__button-row sticky-bottom-right">
-        <Button variant="secondary" type="button" onClick={() => onClose()}>
+        <Button variant="secondary" onClick={onClose}>
           Cancel
         </Button>
-        <Button variant="secondary" type="button" onClick={handlePreview}>
+        <Button variant="secondary" onClick={handlePreview}>
           Preview {nPreview}
         </Button>
         <a
@@ -250,8 +249,8 @@ const Download: React.FC<DownloadProps> = ({
           Download
         </a>
       </section>
-      {previewNode}
-    </Fragment>
+      {previewNode && <div className="preview">{previewNode}</div>}
+    </>
   );
 };
 

@@ -1,9 +1,11 @@
 import { FileFormat, ContentType } from '../types/resultsDownload';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniProtKB } from '../../uniprotkb/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniRef } from '../../uniref/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniParc } from '../../uniparc/config/download';
 import { Namespace } from '../types/namespaces';
 
 export const fileFormatToContentType: Record<FileFormat, ContentType> = {
+  [FileFormat.fasta]: ContentType.fasta,
   [FileFormat.fastaCanonical]: ContentType.fasta,
   [FileFormat.fastaCanonicalIsoform]: ContentType.fasta,
   [FileFormat.fastaRepresentative]: ContentType.fasta,
@@ -18,6 +20,7 @@ export const fileFormatToContentType: Record<FileFormat, ContentType> = {
 };
 
 export const fileFormatToUrlParameter: Record<FileFormat, string> = {
+  [FileFormat.fasta]: 'fasta',
   [FileFormat.fastaCanonical]: 'fasta',
   [FileFormat.fastaCanonicalIsoform]: 'fasta',
   [FileFormat.fastaRepresentative]: 'fasta',
@@ -34,10 +37,10 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
 export const fileFormatsWithColumns = [FileFormat.tsv, FileFormat.excel];
 
 // TODO when all namespaces have been implemented remove the Partial utility type
-export const nsToFileFormatsResultsDownload: Partial<Record<
-  Namespace,
-  FileFormat[]
->> = {
+export const nsToFileFormatsResultsDownload: Partial<
+  Record<Namespace, FileFormat[]>
+> = {
   [Namespace.uniprotkb]: fileFormatsResultsDownloadUniProtKB,
   [Namespace.uniref]: fileFormatsResultsDownloadUniRef,
+  [Namespace.uniparc]: fileFormatsResultsDownloadUniParc,
 };

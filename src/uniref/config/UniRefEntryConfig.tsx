@@ -1,7 +1,5 @@
-import React from 'react';
-
 import MembersSection from '../components/entry/MembersSection';
-import SequenceSection from '../components/entry/SequenceSection';
+import SequenceSection from '../../shared/components/entry/SequenceSection';
 
 import { UniRefUIModel } from '../adapters/uniRefConverter';
 import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
@@ -18,11 +16,7 @@ const UniRefEntryConfig: {
     ...getEntrySectionNameAndId(EntrySection.Sequence),
     sectionContent: (data) => (
       <SequenceSection
-        data={data[EntrySection.Sequence]}
-        primaryAccession={
-          data.representativeMember.accessions?.[0] ||
-          data.representativeMember.memberId
-        }
+        data={data[EntrySection.Sequence].sequence}
         key={EntrySection.Sequence}
       />
     ),

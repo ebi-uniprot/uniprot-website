@@ -6,7 +6,7 @@ import {
   getEntrySectionToDatabaseCategoryOrder,
 } from '../utils/database';
 import databaseInfoJson from './databaseInfo.json';
-import externalUrls from './externalUrls';
+import externalUrls from '../../shared/config/externalUrls';
 
 const databaseInfo: DatabaseInfo = databaseInfoJson;
 

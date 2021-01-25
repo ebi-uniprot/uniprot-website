@@ -1,8 +1,9 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense, CSSProperties } from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { FranklinSite, Loader } from 'franklin-sites';
 
 import BaseLayout from '../../shared/components/layouts/BaseLayout';
+import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 import GDPR from '../../shared/components/gdpr/GDPR';
 
@@ -11,7 +12,6 @@ import history from '../../shared/utils/browserHistory';
 import { Location, LocationToPath } from '../config/urls';
 
 import './styles/app.scss';
-import SingleColumnLayout from '../../shared/components/layouts/SingleColumnLayout';
 
 if (process.env.NODE_ENV !== 'development') {
   import(/* webpackChunkName: "sentry" */ '@sentry/browser').then((module) => {
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'development') {
 const HomePage = lazy(
   () => import(/* webpackChunkName: "home-page" */ './HomePage')
 );
-const UniProtKBResultsPage = lazy(
+const GenericResultsPage = lazy(
   () =>
     import(
       /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
@@ -37,24 +37,30 @@ const UniProtKBEntryPage = lazy(
       /* webpackChunkName: "uniprotkb-entry" */ '../../uniprotkb/components/entry/Entry'
     )
 );
-const QueryBuilderPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "query-builder" */ '../../query-builder/components/QueryBuilder'
-    )
-);
-const UniRefResultsPage = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
-    )
-);
 const UniRefEntryPage = lazy(
   () =>
     import(
       /* webpackChunkName: "uniref-entry" */ '../../uniref/components/entry/Entry'
     )
 );
+const UniParcEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/entry/Entry'
+    )
+);
+// const ProteomesEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
+//     )
+// );
+// const TaxonomyEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "taxonomy-entry" */ '../../taxonomy/components/entry/Entry'
+//     )
+// );
 const BlastResult = lazy(
   () =>
     import(
@@ -92,7 +98,7 @@ const ResourceNotFoundPage = lazy(
     )
 );
 
-const reportBugLinkStyles: React.CSSProperties = {
+const reportBugLinkStyles: CSSProperties = {
   fontSize: '.8rem',
   lineHeight: '1.5rem',
   display: 'block',
@@ -126,7 +132,7 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.UniProtKBResults]}
-              component={UniProtKBResultsPage}
+              component={GenericResultsPage}
             />
             <Route
               path={LocationToPath[Location.UniRefEntry]}
@@ -134,7 +140,31 @@ const App = () => (
             />
             <Route
               path={LocationToPath[Location.UniRefResults]}
-              component={UniRefResultsPage}
+              component={GenericResultsPage}
+            />
+            <Route
+              path={LocationToPath[Location.UniParcEntry]}
+              component={UniParcEntryPage}
+            />
+            <Route
+              path={LocationToPath[Location.UniParcResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.ProteomesEntry]}
+              component={ProteomesEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.ProteomesResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.TaxonomyEntry]}
+              component={TaxonomyEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.TaxonomyResults]}
+              component={GenericResultsPage}
             />
             {/* Tools */}
             <Route
@@ -166,15 +196,6 @@ const App = () => (
               render={() => (
                 <SingleColumnLayout>
                   <Dashboard />
-                </SingleColumnLayout>
-              )}
-            />
-            {/* Query builder */}
-            <Route
-              path={LocationToPath[Location.QueryBuilder]}
-              render={() => (
-                <SingleColumnLayout>
-                  <QueryBuilderPage />
                 </SingleColumnLayout>
               )}
             />

@@ -4,7 +4,7 @@ import { JobTypes } from '../types/toolsJobTypes';
 const validServerID = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
   [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
-  [JobTypes.IDMAP]: /./,
+  [JobTypes.UPLOAD_LIST]: /./,
   [JobTypes.PEPTIDE_SEARCH]: /./,
 };
 

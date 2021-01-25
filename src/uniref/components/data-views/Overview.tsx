@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { FC } from 'react';
+import { Link, generatePath } from 'react-router-dom';
 import {
   SpinnerIcon,
   TremblIcon,
@@ -12,6 +12,7 @@ import MemberLink from '../entry/MemberLink';
 import { UseDataAPIState } from '../../../shared/hooks/useDataApi';
 
 import { getBEMClassName } from '../../../shared/utils/utils';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
 import { Facet } from '../../../uniprotkb/types/responseTypes';
@@ -24,11 +25,10 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-type MemberIconsProps = { facetData: UseDataAPIState<Facet[]> };
+type FacetData = UseDataAPIState<Facet[]>;
+type MemberIconsProps = { facetData: FacetData; id: string };
 
-export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
-  const location = useLocation();
-
+export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
   if (facetData.loading) {
     return (
       <span className="member-icons">
@@ -50,11 +50,18 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
     ?.find((f) => f?.name === 'member_id_type')
     ?.values.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
+  const pathname = generatePath(LocationToPath[Location.UniRefEntry], {
+    accession: id,
+  });
+
   return (
     <>
       {uniProtReviewedCount && (
         <Link
-          to={`${location.pathname}?filter=uniprot_member_id_type:${MemberTypes.Reviewed}`}
+          to={{
+            pathname,
+            search: `filter=uniprot_member_id_type:${MemberTypes.Reviewed}`,
+          }}
           className={getBEMClassName({
             b: 'member-icons',
             m: 'uniprotkb-reviewed',
@@ -68,7 +75,10 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       )}
       {uniProtUnreviewedCount && (
         <Link
-          to={`${location.pathname}?filter=uniprot_member_id_type:${MemberTypes.Unreviewed}`}
+          to={{
+            pathname,
+            search: `filter=uniprot_member_id_type:${MemberTypes.Unreviewed}`,
+          }}
           className={getBEMClassName({
             b: 'member-icons',
             m: 'uniprotkb-unreviewed',
@@ -82,7 +92,10 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData }) => {
       )}
       {uniParcCount && (
         <Link
-          to={`${location.pathname}?filter=member_id_type:${MemberTypes.UniParc}`}
+          to={{
+            pathname,
+            search: `filter=member_id_type:${MemberTypes.UniParc}`,
+          }}
           className={getBEMClassName({ b: 'member-icons', m: 'uniparc' })}
           title={`${uniParcCount} UniParc member${
             uniParcCount === 1 ? '' : 's'
@@ -110,13 +123,13 @@ export const Updated: FC<{ updated: string }> = ({ updated }) => {
   );
 };
 
-export const Overview: FC<
-  MemberIconsProps & {
-    transformedData: UniRefUIModel;
-  }
-> = ({ transformedData, facetData }) => (
+export const Overview: FC<{
+  facetData: FacetData;
+  transformedData: UniRefUIModel;
+}> = ({ transformedData, facetData }) => (
   <section>
-    {transformedData.name} · <MemberIcons facetData={facetData} /> ·{' '}
+    {transformedData.name} ·{' '}
+    <MemberIcons facetData={facetData} id={transformedData.id} /> ·{' '}
     <Updated updated={transformedData.updated} /> ·{' '}
     <Seed seedId={transformedData.seedId} />
   </section>

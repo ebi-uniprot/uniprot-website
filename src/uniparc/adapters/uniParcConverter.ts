@@ -1,11 +1,4 @@
-// Same than in UniRef -> generalise?
-type Sequence = {
-  value: string;
-  length: number;
-  molWeight: number;
-  crc64: string;
-  md5: string;
-};
+import { Sequence } from '../../shared/types/sequence';
 
 export type XRefProperty = {
   key: string; // should replace with union of possibilities?
@@ -19,7 +12,7 @@ export type UniParcXRef = {
   database: string; // should replace with union of possibilities?
   id: string;
   lastUpdated: string;
-  properties: XRefProperty[];
+  properties?: XRefProperty[];
   version: number;
   versionI: number; // 🤔 what is this?
 };
@@ -32,7 +25,7 @@ export type SequenceFeatureLocation = {
 export type SequenceFeature = {
   database: string; // should replace with union of possibilities?
   databaseId: string;
-  interproGroup: {
+  interproGroup?: {
     id: string;
     name: string;
   };
@@ -41,9 +34,9 @@ export type SequenceFeature = {
 
 export type UniParcAPIModel = {
   uniParcId: string;
-  uniParcCrossReferences: UniParcXRef[];
+  uniParcCrossReferences?: UniParcXRef[];
   taxonomies: { taxonId: number }[];
-  sequenceFeatures: SequenceFeature[];
+  sequenceFeatures?: SequenceFeature[];
   sequence: Sequence;
 };
 

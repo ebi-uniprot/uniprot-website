@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState, useEffect, FC } from 'react';
+import { memo, useCallback, useState, useEffect, FC } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 import { Card, DataTable, DENSITY_COMPACT, Loader } from 'franklin-sites';
 

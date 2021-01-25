@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import { FC, memo } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 

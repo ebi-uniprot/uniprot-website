@@ -17,14 +17,13 @@ const featuresCategories = [
 
 const familyAndDomainsComments = [CommentType.DOMAIN, CommentType.SIMILARITY];
 
-const convertFamilyAndDomains = (data: UniProtkbAPIModel) => {
-  return convertSection(
+const convertFamilyAndDomains = (data: UniProtkbAPIModel) =>
+  convertSection(
     data,
     familyAndDomainsComments,
     keywordsCategories,
     featuresCategories,
     EntrySection.FamilyAndDomains
   );
-};
 
 export default convertFamilyAndDomains;

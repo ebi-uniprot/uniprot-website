@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
-import React, { FC, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 import { Loader, CloseIcon } from 'franklin-sites';
 import SlidingPanel, {
   Position,
@@ -133,7 +133,11 @@ const HSPDetailPanel: FC<HSPDetailPanelProps> = ({
   }
 
   return (
-    <SlidingPanel position={Position.bottom} className={containerClass}>
+    <SlidingPanel
+      position={Position.bottom}
+      className={containerClass}
+      onClose={onClose}
+    >
       {content}
     </SlidingPanel>
   );

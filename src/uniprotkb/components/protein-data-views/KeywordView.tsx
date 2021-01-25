@@ -1,12 +1,18 @@
-import React, { Fragment } from 'react';
-import { InfoList } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Fragment, FC } from 'react';
+import { InfoList, ExpandableList } from 'franklin-sites';
+import { Link, generatePath } from 'react-router-dom';
+import cn from 'classnames';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
+
+import './styles/keyword-view.scss';
 
 type KeywordListProps = {
   keywords: Keyword[];
   idOnly?: boolean;
+  inline?: boolean;
 };
 
 type KeywordItempProps = {
@@ -14,41 +20,51 @@ type KeywordItempProps = {
   value?: string;
 };
 
-export const KeywordItem: React.FC<KeywordItempProps> = ({ id, value }) => {
+export const KeywordItem: FC<KeywordItempProps> = ({ id, value }) => {
   if (!id || !value) {
     return null;
   }
-  return <Link to={`/keywords/${id}`}>{` #${value}`}</Link>;
+  return (
+    <Link
+      to={generatePath(LocationToPath[Location.KeywordsEntry], {
+        accession: id,
+      })}
+    >{` #${value}`}</Link>
+  );
 };
 
-export const KeywordList: React.FC<KeywordListProps> = ({
+export const KeywordList: FC<KeywordListProps> = ({
   keywords,
-  idOnly = false,
+  idOnly,
+  inline,
 }) => {
   if (!keywords) {
     return null;
   }
-  const nodes = keywords.map((keyword, index) => {
-    const { id, name } = keyword;
-    if (!id || !name) {
-      return null;
-    }
-    return (
-      // eslint-disable-next-line react/no-array-index-key
-      <Fragment key={index}>
-        <KeywordItem id={id} value={idOnly ? id : name} />
-        {index < keywords.length - 1 && ' '}
-      </Fragment>
-    );
-  });
 
-  return <>{nodes}</>;
+  return (
+    <ExpandableList
+      descriptionString={idOnly ? 'keyword IDs' : 'keywords'}
+      className={cn({ 'keyword-view--inline': inline })}
+    >
+      {keywords.map((keyword, index) => {
+        const { id, name } = keyword;
+        if (!id || !name) {
+          return null;
+        }
+        return (
+          // eslint-disable-next-line react/no-array-index-key
+          <Fragment key={index}>
+            <KeywordItem id={id} value={idOnly ? id : name} />
+          </Fragment>
+        );
+      })}
+    </ExpandableList>
+  );
 };
 
-const KeywordView: React.FC<{ keywords: KeywordUIModel[] }> = ({
-  keywords,
-}) => {
-  if (!keywords || keywords.length <= 0) {
+const KeywordView: FC<{ keywords: KeywordUIModel[] }> = ({ keywords }) => {
+  if (!keywords?.length) {
     return null;
   }
   const infoData = keywords.map((keywordCategory) => ({

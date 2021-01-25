@@ -37,7 +37,7 @@ export const defaultQueryFor = (namespace: Namespace) => {
       return '(upid:) AND (uniprotkb:) AND (dbid:) AND (checksum:) AND ';
     // case Namespace.proteomes:
     //   return ''; // TODO
-    // case Namespace.publications:
+    // case Namespace.citations:
     //   return ''; // TODO
     // case Namespace.keywords:
     //   return ''; // TODO

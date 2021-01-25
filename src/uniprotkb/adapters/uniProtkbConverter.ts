@@ -63,6 +63,7 @@ export type UniProtkbAPIModel = {
   uniProtkbId: string;
   proteinExistence: string;
   entryType: string;
+  inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];
   features?: FeatureData;
@@ -72,6 +73,8 @@ export type UniProtkbAPIModel = {
   entryAudit?: EntryAudit;
   references?: Reference[];
   lineages?: LineageData[];
+  // How is that defined? What goes in this?
+  extraAttributes?: Record<string, unknown>;
 };
 
 export type UniProtkbUIModel = {
@@ -79,6 +82,7 @@ export type UniProtkbUIModel = {
   uniProtkbId: string;
   proteinExistence: string;
   entryType?: EntryType;
+  inactiveReason?: InactiveEntryReason;
   annotationScore: number;
   [EntrySection.Function]: UIModel;
   [EntrySection.NamesAndTaxonomy]: NamesAndTaxonomyUIModel;
@@ -93,6 +97,7 @@ export type UniProtkbUIModel = {
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
   references?: Reference[];
+  extraAttributes: UniProtkbAPIModel['extraAttributes'];
 };
 
 export enum InactiveReasonType {
@@ -104,14 +109,6 @@ export enum InactiveReasonType {
 export type InactiveEntryReason = {
   inactiveReasonType: InactiveReasonType;
   mergeDemergeTo: string[] | [];
-};
-
-export type UniProtkbInactiveEntryModel = {
-  annotationScore: number;
-  entryType: EntryType.INACTIVE;
-  inactiveReason: InactiveEntryReason;
-  primaryAccession: string;
-  uniProtkbId: string;
 };
 
 export const convertXrefProperties = (xrefs: Xref[]) =>
@@ -136,6 +133,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     proteinExistence: dataCopy.proteinExistence,
     entryType: getEntryTypeFromString(dataCopy.entryType),
     annotationScore: dataCopy.annotationScore,
+    inactiveReason: dataCopy.inactiveReason,
     [EntrySection.Function]: convertFunction(dataCopy),
     [EntrySection.NamesAndTaxonomy]: convertNamesAndTaxonomy(dataCopy),
     [EntrySection.SubCellularLocation]: convertSubcellularLocation(dataCopy),
@@ -149,6 +147,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
     references: dataCopy.references || [],
+    extraAttributes: data.extraAttributes,
   };
 };
 

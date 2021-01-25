@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import KeywordView from '../KeywordView';

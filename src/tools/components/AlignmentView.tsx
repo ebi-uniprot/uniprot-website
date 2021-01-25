@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useEffect,
   useMemo,
@@ -6,6 +6,7 @@ import React, {
   SetStateAction,
   useRef,
   useCallback,
+  FC,
 } from 'react';
 import { TreeSelect, Loader } from 'franklin-sites';
 import { formatTooltip } from 'protvista-feature-adapter';
@@ -124,7 +125,7 @@ export const handleEvent = (updateTooltip: UpdateTooltip) => (
   }
 };
 
-const AlignmentView: React.FC<{
+const AlignmentView: FC<{
   alignment: MSAInput[];
   alignmentLength: number;
   defaultView?: View;

@@ -132,6 +132,7 @@ const defaultFacets = new Map<Namespace, string[]>([
     ],
   ],
   [Namespace.uniref, ['identity']],
+  [Namespace.uniparc, ['database']],
 ]);
 type QueryUrlProps = {
   namespace?: Namespace;
@@ -140,7 +141,7 @@ type QueryUrlProps = {
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
-  facets?: string[];
+  facets?: string[] | null;
   size?: number;
 };
 export const getAPIQueryUrl = ({
@@ -154,7 +155,8 @@ export const getAPIQueryUrl = ({
   size,
 }: QueryUrlProps = {}) => {
   let facetField = facets;
-  if (!facetField) {
+  // if null or empty list, don't set default, only for undefined
+  if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }
   return `${apiUrls.search(namespace)}?${queryString.stringify({

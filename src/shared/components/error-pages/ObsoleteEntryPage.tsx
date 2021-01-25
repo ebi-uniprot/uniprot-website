@@ -1,10 +1,14 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Message } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
+
 import {
   InactiveEntryReason,
   InactiveReasonType,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
+
 import ArtWork from './svgs/obsolete-entry.svg';
 
 import './styles/error-pages.scss';
@@ -14,9 +18,26 @@ const DeletedEntryMessage: FC<{ accession: string }> = ({ accession }) => (
     <h4>This entry is obsolete</h4>
     <p data-testid="deleted-entry-message">
       The protein sequence for this entry is available in{' '}
-      <Link to={`/uniparc/?query=${accession}`}>UniParc</Link>. For previous
-      versions of this entry, please look at its{' '}
-      <Link to={`/uniprot/${accession}?version=*`}>history</Link>.
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniParcResults],
+          search: `query=${accession}`,
+        }}
+      >
+        UniParc
+      </Link>
+      . For previous versions of this entry, please look at its{' '}
+      <Link
+        to={{
+          pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+            accession,
+          }),
+          search: 'version=*',
+        }}
+      >
+        history
+      </Link>
+      .
     </p>
   </Message>
 );
@@ -39,20 +60,51 @@ const DemergedEntryMessage: FC<{
         }
 
         a.push(
-          <Link to={`/uniprotkb/${c}`} key={c}>
+          <Link
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: c,
+            })}
+            key={c}
+          >
             {c}
           </Link>
         );
 
         return a;
       }, [])}
-      . [ <Link to={`/uniprot/?query=replaces:${accession}`}>List</Link> ]
+      . [{' '}
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=replaces:${accession}`,
+        }}
+      >
+        List
+      </Link>{' '}
+      ]
     </p>
     <p>
       The protein sequence for this entry is available in{' '}
-      <Link to={`/uniparc/?query=${accession}`}>UniParc</Link>. For previous
-      versions of this entry, please look at its{' '}
-      <Link to={`/uniprot/${accession}?version=*`}>history</Link>.
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniParcResults],
+          search: `query=${accession}`,
+        }}
+      >
+        UniParc
+      </Link>
+      . For previous versions of this entry, please look at its{' '}
+      <Link
+        to={{
+          pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+            accession,
+          }),
+          search: `version=*`,
+        }}
+      >
+        history
+      </Link>
+      .
     </p>
   </Message>
 );

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { uniq } from 'lodash-es';
 import { useLocation } from 'react-router-dom';
 import { Loader, Publication, DataList } from 'franklin-sites';

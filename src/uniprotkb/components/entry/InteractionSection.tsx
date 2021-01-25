@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react';
+import { FC, useRef, useEffect } from 'react';
 import { Card, Loader } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
 
@@ -15,7 +15,7 @@ import useCustomElement from '../../../shared/hooks/useCustomElement';
 import {
   getIntActQueryUrl,
   getIntActQueryForAccessionUrl,
-} from '../../config/externalUrls';
+} from '../../../shared/config/externalUrls';
 
 import {
   CommentType,

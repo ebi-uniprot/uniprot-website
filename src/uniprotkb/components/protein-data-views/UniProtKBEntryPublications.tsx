@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from 'react';
+import { FC } from 'react';
 import { Publication, Loader, Message } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -32,7 +32,7 @@ const UniProtKBEntryPublications: FC<{
 
   const { results } = data;
   return (
-    <Fragment>
+    <>
       {results &&
         results
           .map((literatureItem) => ({
@@ -49,7 +49,7 @@ const UniProtKBEntryPublications: FC<{
               journalInfo={journalInfo}
             />
           ))}
-    </Fragment>
+    </>
   );
 };
 

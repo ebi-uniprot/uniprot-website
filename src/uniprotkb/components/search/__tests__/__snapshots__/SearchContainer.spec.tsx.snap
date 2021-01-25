@@ -2,36 +2,73 @@
 
 exports[`Search shallow components should render 1`] = `
 <DocumentFragment>
-  <form
-    class="main-search"
-    data-testid="main-search-form"
-    style="--main-button-color: #00639a;"
-  >
-    <div
-      class="dropdown-container"
+  <section>
+    <form
+      class="main-search"
+      data-testid="main-search-form"
+      style="--main-button-color: #00639a;"
     >
-      <button
-        class="button primary dropdown"
-        type="button"
-      >
-        UniProtKB
-      </button>
       <div
-        class="dropdown-menu"
+        class="dropdown-container"
+      >
+        <button
+          class="button primary dropdown"
+          type="button"
+        >
+          UniProtKB
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <input
+        class="main-search__input"
+        data-testid="main-search-input"
+        type="text"
+        value=""
       />
-    </div>
-    <input
-      class="main-search__input"
-      data-testid="main-search-input"
-      type="text"
-      value=""
-    />
-    <button
-      class="button primary"
-      type="submit"
+      <button
+        class="button primary"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+    <section
+      class="search-container-footer"
     >
-      Search
-    </button>
-  </form>
+      <section>
+        Examples: 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          p53
+        </button>
+        , 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          Human EGFR
+        </button>
+        , 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          Albumin
+        </button>
+      </section>
+      <section>
+        <a
+          class="button tertiary"
+          href="/uploadlists"
+        >
+          Search with a list of IDs
+        </a>
+      </section>
+    </section>
+  </section>
 </DocumentFragment>
 `;

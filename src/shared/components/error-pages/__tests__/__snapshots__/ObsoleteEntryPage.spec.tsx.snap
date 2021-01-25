@@ -15,19 +15,10 @@ exports[`ObsoleteEntryPage component should render deleted page 1`] = `
       <div
         class="message__side-border"
       />
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="1.125em"
-        viewBox="0 0 18 18"
         width="1.125em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M18 9A9 9 0 110 9a9 9 0 0118 0zM8 4a1 1 0 112 0v6a1 1 0 11-2 0V4zm1 9a1 1 0 100 2 1 1 0 000-2z"
-          fill-rule="evenodd"
-        />
-      </svg>
+      />
       <section
         class="message__content"
       >
@@ -40,13 +31,13 @@ exports[`ObsoleteEntryPage component should render deleted page 1`] = `
           >
             The protein sequence for this entry is available in 
             <a
-              href="/uniparc/?query=I8FBX0"
+              href="/uniparc?query=I8FBX0"
             >
               UniParc
             </a>
             . For previous versions of this entry, please look at its 
             <a
-              href="/uniprot/I8FBX0?version=*"
+              href="/uniprotkb/I8FBX0?version=*"
             >
               history
             </a>
@@ -74,19 +65,10 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
       <div
         class="message__side-border"
       />
-      <svg
-        fill="currentColor"
+      <test-file-stub
         height="1.125em"
-        viewBox="0 0 18 18"
         width="1.125em"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          clip-rule="evenodd"
-          d="M18 9A9 9 0 110 9a9 9 0 0118 0zM8 4a1 1 0 112 0v6a1 1 0 11-2 0V4zm1 9a1 1 0 100 2 1 1 0 000-2z"
-          fill-rule="evenodd"
-        />
-      </svg>
+      />
       <section
         class="message__content"
       >
@@ -111,7 +93,7 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
             </a>
             . [ 
             <a
-              href="/uniprot/?query=replaces:Q00007"
+              href="/uniprotkb?query=replaces:Q00007"
             >
               List
             </a>
@@ -120,13 +102,13 @@ exports[`ObsoleteEntryPage component should render demerged page 1`] = `
           <p>
             The protein sequence for this entry is available in 
             <a
-              href="/uniparc/?query=Q00007"
+              href="/uniparc?query=Q00007"
             >
               UniParc
             </a>
             . For previous versions of this entry, please look at its 
             <a
-              href="/uniprot/Q00007?version=*"
+              href="/uniprotkb/Q00007?version=*"
             >
               history
             </a>

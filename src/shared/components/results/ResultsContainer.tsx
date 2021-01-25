@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
-import ResultsButtons from '../../../uniprotkb/components/results/ResultsButtons';
+import ResultsButtons from './ResultsButtons';
 import ResultsFacets from './ResultsFacets';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
@@ -23,6 +23,7 @@ import useNS from '../../hooks/useNS';
 import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
+import { SearchResultsLocations } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
@@ -84,10 +85,11 @@ const Results: FC = () => {
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns,
+    columns: namespace === Namespace.uniparc ? undefined : columns,
     selectedFacets,
     sortColumn,
     sortDirection,
+    // Not really interested in the list of results here, try to reduce payload
     size: 1, // TODO: change to 0 whenever the API accepts it
   });
 
@@ -135,7 +137,7 @@ const Results: FC = () => {
     ) {
       history.push(
         getLocationObjForParams({
-          pathname: `/${namespace}`,
+          pathname: SearchResultsLocations[namespace],
           query,
           selectedFacets,
         })

@@ -36,15 +36,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         title="Select at least one entry to add to the basket"
         type="button"
       >
-        <svg
-          fill="currentColor"
-          viewBox="0 0 576 512"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M576 216v16c0 13-11 24-24 24h-8l-26 183c-3 23-24 41-48 41H106c-24 0-45-18-48-41L32 256h-8c-13 0-24-11-24-24v-16c0-13 11-24 24-24h67L198 45a32 32 0 0152 38l-80 109h236L326 83a32 32 0 0152-38l107 147h67c13 0 24 11 24 24zM312 392V280a24 24 0 10-48 0v112a24 24 0 1048 0zm112 0V280a24 24 0 10-48 0v112a24 24 0 1048 0zm-224 0V280a24 24 0 10-48 0v112a24 24 0 1048 0z"
-          />
-        </svg>
+        <test-file-stub />
         Add
       </button>
       <button
@@ -116,15 +108,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 class="entry-title__status icon--unreviewed"
                 title="This marks an unreviewed UniProtKB entry"
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 400 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                  />
-                </svg>
+                <test-file-stub />
               </span>
               H7C0V9
             </a>
@@ -164,15 +148,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 class="entry-title__status icon--unreviewed"
                 title="This marks an unreviewed UniProtKB entry"
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 400 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                  />
-                </svg>
+                <test-file-stub />
               </span>
               A0A0A0MRG2
             </a>
@@ -212,15 +188,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 class="entry-title__status icon--unreviewed"
                 title="This marks an unreviewed UniProtKB entry"
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 400 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                  />
-                </svg>
+                <test-file-stub />
               </span>
               E9PG40
             </a>
@@ -260,15 +228,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
                 class="entry-title__status icon--unreviewed"
                 title="This marks an unreviewed UniProtKB entry"
               >
-                <svg
-                  fill="currentColor"
-                  viewBox="0 0 400 512"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M400 144H256V0l144 144zm-176 32V0H0v512h400V176H224z"
-                  />
-                </svg>
+                <test-file-stub />
               </span>
               H7C2L2
             </a>

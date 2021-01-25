@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useRef, ReactElement } from 'react';
-import fileType from 'file-type/browser';
+
 import useDragNDropFile from './useDragNDropFile';
 
 type UseTextFileInputProps = {
@@ -8,6 +8,10 @@ type UseTextFileInputProps = {
   onError?: (error: TypeError) => void;
   dndOverlay: ReactElement;
 };
+
+// Magic regular expression to catch some non-writable characters
+// Avoid handling unicode for now as might not be supported enough
+const writableRE = /[\w\s-=+*;><"'/\\.#:;|,]/gi;
 
 /**
  * given a file input element, sets up all event handlers to handle drag-n-drop
@@ -29,29 +33,25 @@ const useTextFileInput = ({
       return;
     }
     let didCancel = false;
-    let fr: FileReader;
-    fileType.fromBlob(file).then((fileResult) => {
-      if (didCancel) {
-        return;
-      }
-      // if recognised any kind of specific format, then it's not plain text
-      if (fileResult) {
-        onErrorRef.current?.(
-          new TypeError(
-            `The file "${file.name}" doesn't appear to be in the correct format. It needs to be a plain text file.`
-          )
-        );
-        return;
-      }
 
-      fr = new FileReader();
-      fr.onload = () => {
-        if (!didCancel) {
-          onFileContentRef.current(fr.result as string);
+    const fr = new FileReader();
+    fr.onload = () => {
+      if (!didCancel) {
+        const text = fr.result as string;
+        const NumberOKCharacters = text.match(writableRE)?.length ?? 0;
+        if (NumberOKCharacters / text.length < 0.9) {
+          // more than 90% of characters are not writable, bail
+          onErrorRef.current?.(
+            new TypeError(
+              `The file "${file.name}" doesn't appear to be in the correct format. It needs to be a plain text file.`
+            )
+          );
+        } else {
+          onFileContentRef.current(text);
         }
-      };
-      fr.readAsText(file);
-    });
+      }
+    };
+    fr.readAsText(file);
 
     // eslint-disable-next-line consistent-return
     return () => {

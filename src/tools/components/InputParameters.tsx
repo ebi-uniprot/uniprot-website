@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Loader, CodeBlock, InfoList } from 'franklin-sites';
 
 import ErrorHandler from '../../shared/components/error-pages/ErrorHandler';
@@ -57,7 +57,7 @@ const InputParameters: FC<InputParametersProps> = ({
               )
               .map(([key, value]) => ({
                 title: key,
-                content: <CodeBlock lightMode>{value}</CodeBlock>,
+                content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
               }))}
           />
         )}

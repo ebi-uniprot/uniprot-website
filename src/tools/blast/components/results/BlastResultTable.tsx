@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, {
+import {
   useCallback,
   useState,
   useRef,
@@ -9,22 +9,23 @@ import React, {
   SetStateAction,
 } from 'react';
 import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
 
-import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
-
-import { EnrichedBlastHit } from './BlastResult';
+import { HSPDetailPanelProps } from './HSPDetailPanel';
+import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
+import { Location, LocationToPath } from '../../../../app/config/urls';
+
+import { EnrichedBlastHit } from './BlastResult';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
-import { HSPDetailPanelProps } from './HSPDetailPanel';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
+import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
 import './styles/BlastResultTable.scss';
-import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {
   hsp_identity: 'Identity',
@@ -319,7 +320,11 @@ const BlastResultTable: FC<{
         label: 'Accession',
         name: 'accession',
         render: ({ hit_acc, hit_db }: BlastHit) => (
-          <Link to={`/uniprotkb/${hit_acc}`}>
+          <Link
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: hit_acc,
+            })}
+          >
             <EntryTypeIcon entryType={hit_db} />
             {hit_acc}
           </Link>
@@ -342,7 +347,13 @@ const BlastResultTable: FC<{
         label: 'Organism',
         name: 'organism',
         render: ({ hit_uni_ox, hit_uni_os }: BlastHit) => (
-          <Link to={`/taxonomy/${hit_uni_ox}`}>{hit_uni_os}</Link>
+          <Link
+            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+              accession: hit_uni_ox,
+            })}
+          >
+            {hit_uni_os}
+          </Link>
         ),
         ellipsis: true,
       },

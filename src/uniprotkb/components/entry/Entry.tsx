@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, FC } from 'react';
+import { useMemo, useEffect, FC } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   Link,
@@ -55,7 +55,6 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import uniProtKbConverter, {
   EntryType,
-  UniProtkbInactiveEntryModel,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 
@@ -89,15 +88,19 @@ const Entry: FC = () => {
     }
   }, [match, history]);
 
-  const { loading, data, status, error, redirectedTo } = useDataApi<
-    UniProtkbAPIModel | UniProtkbInactiveEntryModel
-  >(apiUrls.entry(match?.params.accession || ''));
-
-  const transformedData = useMemo(
-    () =>
-      data && data.entryType !== EntryType.INACTIVE && uniProtKbConverter(data),
-    [data]
+  const {
+    loading,
+    data,
+    status,
+    error,
+    redirectedTo,
+  } = useDataApi<UniProtkbAPIModel>(
+    apiUrls.entry(match?.params.accession || '')
   );
+
+  const transformedData = useMemo(() => data && uniProtKbConverter(data), [
+    data,
+  ]);
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -134,7 +137,11 @@ const Entry: FC = () => {
     return <Loader />;
   }
 
-  if (data && data.entryType === EntryType.INACTIVE) {
+  if (
+    transformedData &&
+    transformedData.entryType === EntryType.INACTIVE &&
+    transformedData.inactiveReason
+  ) {
     if (!match) {
       return <ErrorHandler />;
     }
@@ -142,7 +149,7 @@ const Entry: FC = () => {
     return (
       <ObsoleteEntryPage
         accession={match.params.accession}
-        details={data.inactiveReason}
+        details={transformedData.inactiveReason}
       />
     );
   }

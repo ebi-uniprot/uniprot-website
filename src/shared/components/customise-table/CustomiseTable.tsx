@@ -1,5 +1,6 @@
-import React, { useState, FC } from 'react';
+import { useState, FC, FormEvent } from 'react';
 import { Button } from 'franklin-sites';
+
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import { Column } from '../../config/columns';
@@ -24,7 +25,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
     setSelectedColumns(columnIds);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSave(selectedColumns);
   };

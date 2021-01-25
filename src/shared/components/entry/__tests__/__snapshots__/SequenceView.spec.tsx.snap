@@ -20,46 +20,50 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
       Align 2 isoforms
     </button>
   </div>
-  <div
+  <ul
     class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Sequence status
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
           Sequence status
-        </h5>
+        </div>
       </div>
+    </li>
+    <li>
       <div
-        class="info-list__content"
+        class="decorated-list-item"
       >
-        Sequence status
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Sequence processing
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
           Sequence processing
-        </h5>
+        </div>
       </div>
-      <div
-        class="info-list__content"
-      >
-        Sequence processing
-      </div>
-    </div>
-  </div>
+    </li>
+  </ul>
   <p>
     This entry describes 
     <strong>
@@ -87,64 +91,70 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
     </strong>
      sequence. All positional information in this entry refers to it. This is also the sequence that appears in the downloadable versions of the entry.
   </p>
-  <div
-    class="info-list info-list--columns info-list--compact"
+  <ul
+    class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item decorated-list-item--compact"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          Name
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        APP770
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+          <h5
+            class="bold"
+          >
+            Name
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          Synonyms
-        </h5>
+          APP770
+        </div>
       </div>
+    </li>
+    <li>
       <div
-        class="info-list__content"
+        class="decorated-list-item decorated-list-item--compact"
       >
-        PreA4 770
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          Note
-        </h5>
+          <h5
+            class="bold"
+          >
+            Synonyms
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          PreA4 770
+        </div>
       </div>
+    </li>
+    <li>
       <div
-        class="info-list__content"
+        class="decorated-list-item decorated-list-item--compact"
       >
-        A major isoform.
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Note
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          A major isoform.
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
   <section
     class="sequence-container"
   >
@@ -169,15 +179,7 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         download=""
         href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P05067.fasta"
       >
-        <svg
-          fill="currentColor"
-          viewBox="0 0 32 32"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M27.6 21h3.9v7.7H.5v-7.8h3.9v4h23.2v-4zm-3.9-9.7L16 22.9 8.2 11.3h5.9V1.6h3.8v9.7h5.9z"
-          />
-        </svg>
+        <test-file-stub />
         Download
       </a>
       <div
@@ -200,82 +202,90 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
         Copy FASTA
       </button>
     </div>
-    <div
-      class="info-list info-list--columns info-list--compact"
+    <ul
+      class="info-list info-list--columns"
     >
-      <div
-        class="info-list__item"
-      >
+      <li>
         <div
-          class="info-list__title"
+          class="decorated-list-item decorated-list-item--compact"
         >
-          <h5
-            class="bold"
+          <div
+            class="decorated-list-item__title"
           >
-            Length
-          </h5>
-        </div>
-        <div
-          class="info-list__content"
-        >
-          1234
-        </div>
-      </div>
-      <div
-        class="info-list__item"
-      >
-        <div
-          class="info-list__title"
-        >
-          <h5
-            class="bold"
+            <h5
+              class="bold"
+            >
+              Length
+            </h5>
+          </div>
+          <div
+            class="decorated-list-item__content"
           >
-            Mass (Da)
-          </h5>
+            1234
+          </div>
         </div>
+      </li>
+      <li>
         <div
-          class="info-list__content"
+          class="decorated-list-item decorated-list-item--compact"
         >
-          5,678
-        </div>
-      </div>
-      <div
-        class="info-list__item"
-      >
-        <div
-          class="info-list__title"
-        >
-          <h5
-            class="bold"
+          <div
+            class="decorated-list-item__title"
           >
-            Last updated
-          </h5>
-        </div>
-        <div
-          class="info-list__content"
-        >
-          12/04/2010
-        </div>
-      </div>
-      <div
-        class="info-list__item"
-      >
-        <div
-          class="info-list__title"
-        >
-          <h5
-            class="bold"
+            <h5
+              class="bold"
+            >
+              Mass (Da)
+            </h5>
+          </div>
+          <div
+            class="decorated-list-item__content"
           >
-            Checksum
-          </h5>
+            5,678
+          </div>
         </div>
+      </li>
+      <li>
         <div
-          class="info-list__content"
+          class="decorated-list-item decorated-list-item--compact"
         >
-          ASSDFFFDSAASDDSDFSASDF
+          <div
+            class="decorated-list-item__title"
+          >
+            <h5
+              class="bold"
+            >
+              Last updated
+            </h5>
+          </div>
+          <div
+            class="decorated-list-item__content"
+          >
+            12/04/2010
+          </div>
         </div>
-      </div>
-    </div>
+      </li>
+      <li>
+        <div
+          class="decorated-list-item decorated-list-item--compact"
+        >
+          <div
+            class="decorated-list-item__title"
+          >
+            <h5
+              class="bold"
+            >
+              Checksum
+            </h5>
+          </div>
+          <div
+            class="decorated-list-item__content"
+          >
+            ASSDFFFDSAASDDSDFSASDF
+          </div>
+        </div>
+      </li>
+    </ul>
     <div
       class="sequence"
     >
@@ -381,64 +391,70 @@ exports[`SequenceView component should render SequenceInfo with provided sequenc
   >
     P05067-2
   </h3>
-  <div
-    class="info-list info-list--columns info-list--compact"
+  <ul
+    class="info-list info-list--columns"
   >
-    <div
-      class="info-list__item"
-    >
+    <li>
       <div
-        class="info-list__title"
+        class="decorated-list-item decorated-list-item--compact"
       >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          Name
-        </h5>
-      </div>
-      <div
-        class="info-list__content"
-      >
-        APP770-2
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+          <h5
+            class="bold"
+          >
+            Name
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
         >
-          Synonyms
-        </h5>
+          APP770-2
+        </div>
       </div>
+    </li>
+    <li>
       <div
-        class="info-list__content"
+        class="decorated-list-item decorated-list-item--compact"
       >
-        PreA4 770-2
-      </div>
-    </div>
-    <div
-      class="info-list__item"
-    >
-      <div
-        class="info-list__title"
-      >
-        <h5
-          class="bold"
+        <div
+          class="decorated-list-item__title"
         >
-          Note
-        </h5>
+          <h5
+            class="bold"
+          >
+            Synonyms
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          PreA4 770-2
+        </div>
       </div>
+    </li>
+    <li>
       <div
-        class="info-list__content"
+        class="decorated-list-item decorated-list-item--compact"
       >
-        A not so major isoform.
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Note
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          A not so major isoform.
+        </div>
       </div>
-    </div>
-  </div>
+    </li>
+  </ul>
   <button
     class="button secondary"
     type="button"

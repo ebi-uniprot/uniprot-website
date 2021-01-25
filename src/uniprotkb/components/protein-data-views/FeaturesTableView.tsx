@@ -1,4 +1,4 @@
-import React, { useCallback, useState, FC } from 'react';
+import { useCallback, useState, FC } from 'react';
 import { TemplateResult } from 'lit-html';
 import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
 import { TransformedVariant } from 'protvista-variation-adapter';
@@ -40,9 +40,10 @@ const FeaturesTableView: FC<{
   ) => FeatureColumns;
 }> = ({ data, getColumnConfig }) => {
   const [showEvidenceTagData, setShowEvidenceTagData] = useState(false);
-  const [selectedEvidenceData, setSelectedEvidenceData] = useState<
-    EvidenceData
-  >();
+  const [
+    selectedEvidenceData,
+    setSelectedEvidenceData,
+  ] = useState<EvidenceData>();
   const [selectedReferences, setSelectedReferences] = useState<Evidence[]>();
 
   const evidenceTagCallback: FeaturesTableCallback = (

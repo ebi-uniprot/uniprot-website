@@ -1,4 +1,3 @@
-import React from 'react';
 import { Message } from 'franklin-sites';
 import ErrorPage from './ErrorPage';
 import ArtWork from './svgs/503.svg';

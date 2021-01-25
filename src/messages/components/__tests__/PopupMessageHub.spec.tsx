@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import PopupMessageHub from '../PopupMessageHub';
 import { MessageFormat, MessageLevel } from '../../types/messagesTypes';

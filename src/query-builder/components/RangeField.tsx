@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 
 import initializer from '../utils/fieldInitializer';
 
 import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
 
-const RangeField: React.FC<{
+const RangeField: FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
   initialValue?: QueryBit;

@@ -1,10 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { CloseIcon } from 'franklin-sites';
+import { Chip } from 'franklin-sites';
+import cn from 'classnames';
+
 import { getBEMClassName as bem } from '../../utils/utils';
+
 import { SelectedColumn } from '../../../uniprotkb/types/resultsTypes';
-import './styles/column-select-drag-drop.scss';
 import { Column } from '../../config/columns';
+
+import './styles/column-select-drag-drop.scss';
 
 type ColumnSelectDragDropProps = {
   columns: SelectedColumn[];
@@ -12,7 +16,7 @@ type ColumnSelectDragDropProps = {
   onRemove: (columnId: Column) => void;
 };
 
-const ColumnSelectDragDrop: React.FC<ColumnSelectDragDropProps> = ({
+const ColumnSelectDragDrop: FC<ColumnSelectDragDropProps> = ({
   columns,
   onDragDrop,
   onRemove,
@@ -35,36 +39,27 @@ const ColumnSelectDragDrop: React.FC<ColumnSelectDragDropProps> = ({
           {...droppableProvided.droppableProps}
         >
           {columns.map(({ itemId, label }, index) => (
-            <Draggable key={itemId} draggableId={itemId} index={index}>
+            <Draggable
+              key={itemId}
+              draggableId={itemId}
+              index={index}
+              disableInteractiveElementBlocking
+            >
               {(draggableProvided, snapshot) => (
                 <div
                   ref={draggableProvided.innerRef}
                   {...draggableProvided.draggableProps}
                   {...draggableProvided.dragHandleProps}
-                  className={`button ${bem({
-                    b: 'column-select-drag-drop',
-                    e: ['list', 'item'],
-                    m: snapshot.isDragging && 'dragging',
-                  })}`}
-                  style={draggableProvided.draggableProps.style}
                 >
-                  {label}
-                  <button
-                    type="button"
-                    data-testid="column-select-dnd-remove-button"
-                    className={bem({
-                      b: 'column-select-drag-drop',
-                      e: ['list', 'item', 'button'],
+                  <Chip
+                    disabled={false}
+                    onRemove={() => onRemove(itemId)}
+                    className={cn({
+                      'chip--dragging': snapshot.isDragging,
                     })}
-                    onClick={() => onRemove(itemId)}
                   >
-                    <CloseIcon
-                      className={bem({
-                        b: 'column-select-drag-drop',
-                        e: ['list', 'item', 'button', 'icon'],
-                      })}
-                    />
-                  </button>
+                    {label}
+                  </Chip>
                 </div>
               )}
             </Draggable>
