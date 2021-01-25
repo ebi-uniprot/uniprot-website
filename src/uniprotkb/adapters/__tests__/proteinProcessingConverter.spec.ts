@@ -29,7 +29,7 @@ describe('Protein processing data converter', () => {
             start: { modifier: 'EXACT', value: 2 },
             sequence: 'sequence 1',
           },
-          type: 'chain',
+          type: 'Chain',
         },
       ],
       commentsData: new Map([['PTM', []]]),

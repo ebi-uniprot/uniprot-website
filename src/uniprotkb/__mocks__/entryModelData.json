@@ -937,7 +937,7 @@
   ],
   "features": [
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 2,
