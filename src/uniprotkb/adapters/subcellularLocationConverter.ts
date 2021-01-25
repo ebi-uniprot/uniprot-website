@@ -1,8 +1,9 @@
 import KeywordCategory from '../types/keywordCategory';
 import FeatureType from '../types/featureType';
-import { convertSection } from './sectionConverter';
+import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { CommentType } from '../types/commentTypes';
+import { OrganismData } from './namesAndTaxonomyConverter';
 
 const commentCategories = [CommentType.SUBCELLULAR_LOCATION];
 
@@ -10,13 +11,21 @@ const keywordsCategories = [KeywordCategory.CELLULAR_COMPONENT];
 
 const featuresCategories = [FeatureType.TOPO_DOM, FeatureType.TRANSMEM];
 
-const convertSubcellularLocation = (data: UniProtkbAPIModel) =>
-  convertSection(
+export type SubcellularLocationUIModel = {
+  organismData?: OrganismData;
+} & UIModel;
+
+const convertSubcellularLocation = (data: UniProtkbAPIModel) => {
+  const subcellularLocationData: SubcellularLocationUIModel = convertSection(
     data,
     commentCategories,
     keywordsCategories,
     featuresCategories,
     undefined
   );
-
+  if (data.organism) {
+    subcellularLocationData.organismData = data.organism;
+  }
+  return subcellularLocationData;
+};
 export default convertSubcellularLocation;
