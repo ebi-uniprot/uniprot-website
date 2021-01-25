@@ -1,4 +1,4 @@
-import { useMemo, useState, Suspense } from 'react';
+import { useMemo, useState, Suspense, useCallback } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Header } from 'franklin-sites';
 
@@ -107,6 +107,8 @@ const UniProtHeader = () => {
       : [{ label: 'Tools', items: tools }, queryBuilderButton, ...restOfItems];
   }, [isHomePage]);
 
+  const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
+
   return (
     <>
       <Header
@@ -126,8 +128,12 @@ const UniProtHeader = () => {
       />
       {displayQueryBuilder && (
         <Suspense fallback={null}>
-          <SlidingPanel position={Position.left} yScrollable>
-            <QueryBuilder onCancel={() => setDisplayQueryBuilder(false)} />
+          <SlidingPanel
+            position={Position.left}
+            yScrollable
+            onClose={handleClose}
+          >
+            <QueryBuilder onCancel={handleClose} />
           </SlidingPanel>
         </Suspense>
       )}

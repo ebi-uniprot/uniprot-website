@@ -8,11 +8,17 @@ enum GeneOntologyAspect {
   COMPONENT = 'GO Cellular Component',
 }
 
-enum UniRefEntryType {
+export enum UniRefEntryType {
   UniRef100 = 'UniRef100',
   UniRef90 = 'UniRef90',
   UniRef50 = 'UniRef50',
 }
+
+export const UniRefEntryTypeToPercent = {
+  UniRef100: '100%',
+  UniRef90: '90%',
+  UniRef50: '50%',
+};
 
 type GeneOntologyEntry = {
   aspect: GeneOntologyAspect;

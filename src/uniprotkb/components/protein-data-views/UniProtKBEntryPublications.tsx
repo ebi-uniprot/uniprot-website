@@ -9,6 +9,12 @@ import formatCitationData from '../../adapters/literatureConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { LiteratureAPI } from '../../types/literatureTypes';
+import { Location, LocationToPath } from '../../../app/config/urls';
+
+const linkBuilder = (author: string) => ({
+  pathname: LocationToPath[Location.UniProtKBResults],
+  search: `query=lit_author:"${author}"`,
+});
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];
@@ -47,6 +53,7 @@ const UniProtKBEntryPublications: FC<{
               pubmedId={pubmedId}
               statistics={statistics}
               journalInfo={journalInfo}
+              linkBuilder={linkBuilder}
             />
           ))}
     </>

@@ -1,161 +1,86 @@
-/* eslint-disable no-console */
-// This file is a modified template from what is generated in the
-// create-react-app project. Used here as a reference of good practice.
+import { Workbox } from 'workbox-window';
 
-// This optional code is used to register a service worker.
-// register() is not called by default.
+// No need to test if serviceWorker is supported, we tested that before loading
+// this chunk so we are sure it exists by now
 
-// This lets the app load faster on subsequent visits in production, and gives
-// it offline capabilities. However, it also means that developers (and users)
-// will only see deployed updates on subsequent visits to a page, after all the
-// existing tabs open on the page have been closed, since previously cached
-// resources are updated in the background.
+// See format reference here https://developers.google.com/web/tools/workbox/modules/workbox-broadcast-update#message_format
+type UpdatePayload = {
+  cacheName: string;
+  updatedURL: string;
+};
 
-// To learn more about the benefits of this model and instructions on how to
-// opt-in, read https://bit.ly/CRA-PWA
+// helper function to drop all entries of a specific cache
+const dropCache = async (cacheName: string) => {
+  const cache = await caches.open(cacheName);
+  const keys = await caches.keys();
+  await Promise.all(keys.map((key) => cache.delete(key)));
+};
 
-interface Config {
-  onUpdate?(registration: ServiceWorkerRegistration): void;
-  onSuccess?(registration: ServiceWorkerRegistration): void;
-}
+export type SWConfig = {
+  onWaiting?: (acceptCallback: () => void) => void;
+};
 
-const isLocalhost = Boolean(
-  window.location.hostname === 'localhost' ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === '[::1]' ||
-    // 127.0.0.0/8 are considered localhost for IPv4.
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
-);
+export function register(config: SWConfig) {
+  if (LIVE_RELOAD) {
+    return;
+  }
 
-function registerValidSW(swUrl: string, config?: Config) {
-  navigator.serviceWorker
-    .register(swUrl)
-    .then((registration) => {
-      // eslint-disable-next-line no-param-reassign
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
-        if (installingWorker == null) {
-          return;
-        }
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === 'installed') {
-            if (navigator.serviceWorker.controller) {
-              // At this point, the updated precached content has been fetched,
-              // but the previous service worker will still serve the older
-              // content until all client tabs are closed.
-              console.log(
-                'New content is available and will be used when all ' +
-                  'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
-              );
+  const workbox = new Workbox(`${BASE_URL}service-worker.js`);
 
-              // Execute callback
-              if (config && config.onUpdate) {
-                config.onUpdate(registration);
-              }
-            } else {
-              // At this point, everything has been precached.
-              // It's the perfect time to display a
-              // "Content is cached for offline use." message.
-              console.log('Content is cached for offline use...');
-
-              // Execute callback
-              if (config && config.onSuccess) {
-                config.onSuccess(registration);
-              }
-            }
-          }
-        };
-      };
-    })
-    .catch((error) => {
-      console.error('Error during service worker registration:', error);
-    });
-}
-
-function checkValidServiceWorker(swUrl: string, config?: Config) {
-  // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl, {
-    headers: { 'Service-Worker': 'script' },
-  })
-    .then((response) => {
-      // Ensure service worker exists, and that we really are getting a JS file.
-      const contentType = response.headers.get('content-type');
-      if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf('javascript') === -1)
-      ) {
-        // No service worker found. Probably a different app. Reload the page.
-        navigator.serviceWorker.ready.then((registration) => {
-          registration.unregister().then(() => {
-            window.location.reload();
-          });
-        });
-      } else {
-        // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, config);
-      }
-    })
-    .catch(() => {
-      console.log(
-        'No internet connection found. App is running in offline mode.'
-      );
-    });
-}
-
-/* == Main exports below == */
-
-export function register(config?: Config) {
-  if (!LIVE_RELOAD && 'serviceWorker' in navigator) {
-    // create-react-app specific code, keep it here for now
-    // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(BASE_URL || '', window.location.href);
-
-    // Our service worker won't work if PUBLIC_URL is on a different origin
-    // from what our page is served on. This might happen if a CDN is used to
-    // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-    if (publicUrl.origin !== window.location.origin) {
+  // Data cache management
+  workbox.addEventListener('message', ({ data }) => {
+    if (
+      !(
+        data &&
+        data.type === 'CACHE_UPDATED' &&
+        data.meta === 'workbox-broadcast-update'
+      )
+    ) {
       return;
     }
+    // Now, we're sure it's a message from 'workbox-broadcast-update' library
+    const { cacheName, updatedURL } = data.payload as UpdatePayload;
+    // eslint-disable-next-line no-console
+    console.log(
+      `An update to "${updatedURL}" caused the whole "${cacheName}" cache to be dropped`
+    );
+    dropCache(cacheName);
+  });
 
-    window.addEventListener('load', () => {
-      const swUrl = `${publicUrl}service-worker.js`;
-
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still
-        // exists or not.
-        checkValidServiceWorker(swUrl, config);
-
-        // Add some additional logging to localhost, pointing developers to the
-        // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
-          console.log(
-            'This web app is being served cache-first by a service ' +
-              'worker. To learn more, visit https://bit.ly/CRA-PWA'
-          );
-        });
-      } else {
-        // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
+  // Helper function, ask sw to skip waiting, and reload page when controlling
+  const skipWaiting = () => {
+    workbox.addEventListener('controlling', () => {
+      window.location.reload();
     });
-  }
-}
 
-// NOTE: Something went horribly wrong with caching? use the following function
-// and re-release asap! You can then spend time fixing whatever issue there was.
+    workbox.messageSkipWaiting();
+  };
+
+  // See here for related documentation
+  // https://developers.google.com/web/tools/workbox/guides/advanced-recipes#offer_a_page_reload_for_users
+  workbox.addEventListener('waiting', () => {
+    if (config.onWaiting) {
+      config.onWaiting(skipWaiting);
+    } else {
+      skipWaiting();
+    }
+  });
+
+  workbox.register();
+}
 
 // will remove any existing service worker.
 // Might be needed if an issue is detected after deployement.
 export function unregister() {
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready
-      .then((registration) => {
-        registration.unregister();
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
+  if (LIVE_RELOAD) {
+    return;
   }
+  navigator.serviceWorker.ready
+    .then((registration) => {
+      registration.unregister();
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
 }

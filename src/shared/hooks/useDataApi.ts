@@ -10,6 +10,11 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 
+// TODO: possible improvement:
+// See https://developers.google.com/web/tools/workbox/modules/workbox-broadcast-update#using_broadcast_update
+// Listen for a service worker message saying that there is new data to get
+// fresher data from cache and replace the data within this custom hook
+
 export type UseDataAPIState<T> = {
   loading: boolean;
   data?: T;

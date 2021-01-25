@@ -6,174 +6,182 @@ exports[`GeneNames should render gene_names 1`] = `
     class="expandable-list no-bullet"
   >
     <li>
-      <div
+      <ul
         class="info-list"
       >
-        <div
-          class="info-list__item"
-        >
+        <li>
           <div
-            class="info-list__title"
+            class="decorated-list-item"
           >
-            <h5
-              class="bold"
-            >
-              Name
-            </h5>
-          </div>
-          <div
-            class="info-list__content"
-          >
-            some Gene 
-            <button
-              aria-controls="0"
-              aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-                title=""
-              >
-                1 automatic annotation
-              </span>
-            </button>
             <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="0"
-            />
-          </div>
-        </div>
-        <div
-          class="info-list__item"
-        >
-          <div
-            class="info-list__title"
-          >
-            <h5
-              class="bold"
+              class="decorated-list-item__title"
             >
-              Synonyms
-            </h5>
-          </div>
-          <div
-            class="info-list__content"
-          >
-            some Syn 
-            <button
-              aria-controls="1"
-              aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-                title=""
+              <h5
+                class="bold"
               >
-                1 automatic annotation
-              </span>
-            </button>
+                Name
+              </h5>
+            </div>
             <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="1"
-            />
-          </div>
-        </div>
-        <div
-          class="info-list__item"
-        >
-          <div
-            class="info-list__title"
-          >
-            <h5
-              class="bold"
+              class="decorated-list-item__content"
             >
-              ORF names
-            </h5>
-          </div>
-          <div
-            class="info-list__content"
-          >
-            some orf 
-            <button
-              aria-controls="2"
-              aria-expanded="false"
-              class="evidence-tag svg-colour-reviewed"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-                title=""
+              some Gene 
+              <button
+                aria-controls="0"
+                aria-expanded="false"
+                class="evidence-tag svg-colour-unreviewed"
+                data-testid="evidence-tag-trigger"
+                type="button"
               >
-                1 publication
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="2"
-            />
-          </div>
-        </div>
-        <div
-          class="info-list__item"
-        >
-          <div
-            class="info-list__title"
-          >
-            <h5
-              class="bold"
-            >
-              Ordered locus names
-            </h5>
-          </div>
-          <div
-            class="info-list__content"
-          >
-            some locus 
-            <button
-              aria-controls="3"
-              aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                  title=""
+                >
+                  1 automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="0"
               />
-              <span
-                class="evidence-tag__label"
-                title=""
-              >
-                1 automatic annotation
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="3"
-            />
+            </div>
           </div>
-        </div>
-      </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title"
+            >
+              <h5
+                class="bold"
+              >
+                Synonyms
+              </h5>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              some Syn 
+              <button
+                aria-controls="1"
+                aria-expanded="false"
+                class="evidence-tag svg-colour-unreviewed"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                  title=""
+                >
+                  1 automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="1"
+              />
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title"
+            >
+              <h5
+                class="bold"
+              >
+                ORF names
+              </h5>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              some orf 
+              <button
+                aria-controls="2"
+                aria-expanded="false"
+                class="evidence-tag svg-colour-reviewed"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                  title=""
+                >
+                  1 publication
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="2"
+              />
+            </div>
+          </div>
+        </li>
+        <li>
+          <div
+            class="decorated-list-item"
+          >
+            <div
+              class="decorated-list-item__title"
+            >
+              <h5
+                class="bold"
+              >
+                Ordered locus names
+              </h5>
+            </div>
+            <div
+              class="decorated-list-item__content"
+            >
+              some locus 
+              <button
+                aria-controls="3"
+                aria-expanded="false"
+                class="evidence-tag svg-colour-unreviewed"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
+                />
+                <span
+                  class="evidence-tag__label"
+                  title=""
+                >
+                  1 automatic annotation
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="3"
+              />
+            </div>
+          </div>
+        </li>
+      </ul>
     </li>
   </ul>
 </DocumentFragment>

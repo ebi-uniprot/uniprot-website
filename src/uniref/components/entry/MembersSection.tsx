@@ -1,6 +1,11 @@
 import { memo, useCallback, useState, useEffect, FC } from 'react';
 import { Link, generatePath } from 'react-router-dom';
-import { Card, DataTable, DENSITY_COMPACT, Loader } from 'franklin-sites';
+import {
+  Card,
+  DataTableWithLoader,
+  DENSITY_COMPACT,
+  Loader,
+} from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -77,7 +82,7 @@ const columns: ColumDescriptor[] = [
     render: ({ organismName, organismTaxId }) => (
       <Link
         to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: organismTaxId,
+          accession: `${organismTaxId}`,
         })}
       >
         {organismName}
@@ -90,7 +95,7 @@ const columns: ColumDescriptor[] = [
     render: ({ organismTaxId }) => (
       <Link
         to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: organismTaxId,
+          accession: `${organismTaxId}`,
         })}
       >
         {organismTaxId}
@@ -339,7 +344,7 @@ export const MembersSection: FC<Props> = ({
           <AlignButton selectedEntries={selectedEntries} />
           <AddToBasket selectedEntries={selectedEntries} />
         </div>
-        <DataTable
+        <DataTableWithLoader
           hasMoreData={total > allResults.length}
           onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
           columns={columns}

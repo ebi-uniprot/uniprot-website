@@ -1,16 +1,12 @@
 import { FC, useState, useEffect } from 'react';
 import { uniq } from 'lodash-es';
 import { useLocation } from 'react-router-dom';
-import { Loader, Publication, DataList } from 'franklin-sites';
+import { Loader, Publication, DataListWithLoader } from 'franklin-sites';
 
-import { LiteratureForProteinAPI } from '../../types/literatureTypes';
-
-import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
+import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
-
-import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
 import formatCitationData, {
   getCitationPubMedId,
@@ -18,6 +14,15 @@ import formatCitationData, {
 
 import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
 import { getParamsFromURL } from '../../utils/resultsUtils';
+import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
+import { Location, LocationToPath } from '../../../app/config/urls';
+
+import { LiteratureForProteinAPI } from '../../types/literatureTypes';
+
+const linkBuilder = (author: string) => ({
+  pathname: LocationToPath[Location.UniProtKBResults],
+  search: `query=lit_author:"${author}"`,
+});
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
@@ -70,7 +75,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   return (
     <section>
       <h2>Publications for {accession}</h2>
-      <DataList
+      <DataListWithLoader
         getIdKey={(item: LiteratureForProteinAPI) => {
           const {
             reference: { citation },
@@ -134,6 +139,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
                 statistics={statistics}
                 pubmedId={pubmedId}
                 journalInfo={journalInfo}
+                linkBuilder={linkBuilder}
               />
             )
           );

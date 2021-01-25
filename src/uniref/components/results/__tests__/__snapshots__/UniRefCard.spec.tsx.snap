@@ -14,10 +14,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         class="card__content"
       >
         <section
-          class="uniprot-card"
+          class="result-card"
         >
           <section
-            class="uniprot-card__left"
+            class="result-card__left"
           >
             <input
               data-testid="up-card-checkbox"
@@ -25,7 +25,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             />
           </section>
           <section
-            class="uniprot-card__right"
+            class="result-card__right"
           >
             <h5>
               <span
@@ -44,10 +44,23 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               Cluster: cDNA, FLJ93132, highly similar to Homo sapiens CDC7 cell division cycle 7 (S. cerevisiae) (CDC7), mRNA
             </section>
             <section>
-              <strong>
+              <strong
+                class="result-card__info-bit"
+              >
                 Members: 1
               </strong>
-               ·  Sequence length: 574  ·  Identity: UniRef100
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Sequence length: 574
+              </span>
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Identity: UniRef100
+              </span>
             </section>
           </section>
         </section>

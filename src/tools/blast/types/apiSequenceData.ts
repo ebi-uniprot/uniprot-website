@@ -7,6 +7,14 @@ type ProteinName = {
   shortNames?: Name[];
 };
 
+export enum ProteinExistence {
+  ProteinLevel = '1. Experimental evidence at protein level',
+  TranscriptLevel = '2. Experimental evidence at transcript level',
+  Inferred = '3. Protein inferred from homology',
+  Predicted = '4. Protein predicted',
+  Uncertain = '5. Protein uncertain',
+}
+
 export type APISequenceData = {
   entryType: string;
   primaryAccession: string;
@@ -20,7 +28,7 @@ export type APISequenceData = {
     taxonId: number;
     lineage: string[];
   };
-  proteinExistence: string;
+  proteinExistence: ProteinExistence;
   proteinDescription: {
     recommendedName: ProteinName;
     alternativeNames: ProteinName[];

@@ -64,19 +64,19 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
             class="data-table__header-cell "
             style="width: auto;"
           >
-            Accession
+            Entry
+          </th>
+          <th
+            class="data-table__header-cell "
+            style="width: auto;"
+          >
+            Entry name
           </th>
           <th
             class="data-table__header-cell "
             style="width: auto;"
           >
             Gene name
-          </th>
-          <th
-            class="data-table__header-cell "
-            style="width: auto;"
-          >
-            Gene name type
           </th>
           <th
             class="data-table__header-cell "
@@ -89,6 +89,86 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
       <tbody
         class="data-table__table__body"
       >
+        <tr>
+          <td
+            class="data-table__cell "
+          >
+            <input
+              aria-label="A0A0A0MRG2"
+              type="checkbox"
+            />
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            <a
+              href="/uniprotkb/A0A0A0MRG2"
+            >
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
+              >
+                <test-file-stub />
+              </span>
+              A0A0A0MRG2
+            </a>
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            A0A0A0MRG2_HUMAN
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            APP
+          </td>
+          <td
+            class="data-table__cell  "
+          >
+            660
+          </td>
+        </tr>
+        <tr>
+          <td
+            class="data-table__cell data-table__cell--odd "
+          >
+            <input
+              aria-label="E9PG40"
+              type="checkbox"
+            />
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            <a
+              href="/uniprotkb/E9PG40"
+            >
+              <span
+                class="entry-title__status icon--unreviewed"
+                title="This marks an unreviewed UniProtKB entry"
+              >
+                <test-file-stub />
+              </span>
+              E9PG40
+            </a>
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            E9PG40_HUMAN
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            APP
+          </td>
+          <td
+            class="data-table__cell data-table__cell--odd  "
+          >
+            714
+          </td>
+        </tr>
         <tr>
           <td
             class="data-table__cell "
@@ -116,97 +196,17 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <td
             class="data-table__cell  "
           >
-            APP
+            H7C0V9_HUMAN
           </td>
           <td
             class="data-table__cell  "
           >
-            Gene name
+            APP
           </td>
           <td
             class="data-table__cell  "
           >
             485
-          </td>
-        </tr>
-        <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
-            <input
-              aria-label="A0A0A0MRG2"
-              type="checkbox"
-            />
-          </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
-            <a
-              href="/uniprotkb/A0A0A0MRG2"
-            >
-              <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
-              >
-                <test-file-stub />
-              </span>
-              A0A0A0MRG2
-            </a>
-          </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
-            APP
-          </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
-            Gene name
-          </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
-            660
-          </td>
-        </tr>
-        <tr>
-          <td
-            class="data-table__cell "
-          >
-            <input
-              aria-label="E9PG40"
-              type="checkbox"
-            />
-          </td>
-          <td
-            class="data-table__cell  "
-          >
-            <a
-              href="/uniprotkb/E9PG40"
-            >
-              <span
-                class="entry-title__status icon--unreviewed"
-                title="This marks an unreviewed UniProtKB entry"
-              >
-                <test-file-stub />
-              </span>
-              E9PG40
-            </a>
-          </td>
-          <td
-            class="data-table__cell  "
-          >
-            APP
-          </td>
-          <td
-            class="data-table__cell  "
-          >
-            Gene name
-          </td>
-          <td
-            class="data-table__cell  "
-          >
-            714
           </td>
         </tr>
         <tr>
@@ -236,12 +236,12 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <td
             class="data-table__cell data-table__cell--odd  "
           >
-            APP
+            H7C2L2_HUMAN
           </td>
           <td
             class="data-table__cell data-table__cell--odd  "
           >
-            Gene name
+            APP
           </td>
           <td
             class="data-table__cell data-table__cell--odd  "
@@ -251,9 +251,6 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         </tr>
       </tbody>
     </table>
-    <div
-      class="data-loader__loading"
-    />
   </div>
 </DocumentFragment>
 `;

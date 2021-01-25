@@ -1,4 +1,4 @@
-import { useCallback, Fragment, FC } from 'react';
+import { useMemo, useCallback, Fragment, FC, MouseEvent } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory, generatePath } from 'react-router-dom';
 
@@ -13,56 +13,66 @@ import KeywordCategory from '../../types/keywordCategory';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
-import './styles/uniprot-card.scss';
+import '../../../shared/components/results/styles/result-card.scss';
 
-const UniProtKBCard: FC<{
+const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
+
+type Props = {
   data: UniProtkbAPIModel;
-  selected: boolean;
+  selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }): JSX.Element => {
+};
+
+const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
-  const handleCardClick = useCallback(() => {
-    history.push(
-      generatePath(LocationToPath[Location.UniProtKBEntry], {
-        accession: data.primaryAccession,
-      })
-    );
-  }, [history, data.primaryAccession]);
+  const handleCardClick = useCallback(
+    (event: MouseEvent) => {
+      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+        return;
+      }
+      history.push(
+        generatePath(LocationToPath[Location.UniProtKBEntry], {
+          accession: data.primaryAccession,
+        })
+      );
+    },
+    [history, data.primaryAccession]
+  );
 
-  const highlights = getProteinHighlights(data);
+  const highlights = useMemo(() => getProteinHighlights(data), [data]);
 
-  let keywordsNode;
-  if (data.keywords) {
-    const categorisedKewywords = getKeywordsForCategories(data.keywords, [
+  const keywordsNode = useMemo(() => {
+    if (!data.keywords) {
+      return null;
+    }
+
+    const categorisedKeywords = getKeywordsForCategories(data.keywords, [
       KeywordCategory.MOLECULAR_FUNCTION,
       KeywordCategory.BIOLOGICAL_PROCESS,
       KeywordCategory.DISEASE,
     ]);
 
-    if (categorisedKewywords.length > 0) {
-      keywordsNode = categorisedKewywords.map((keywordCategory, index) => (
-        <Fragment key={keywordCategory.category}>
-          {index > 0 && ' · '}
-          <KeywordList keywords={keywordCategory.keywords} />
-        </Fragment>
-      ));
-    }
-  }
+    return categorisedKeywords.map((keywordCategory, index) => (
+      <Fragment key={keywordCategory.category}>
+        {index > 0 && ' · '}
+        <KeywordList keywords={keywordCategory.keywords} inline />
+      </Fragment>
+    ));
+  }, [data.keywords]);
 
   return (
     <Card links={highlights} onClick={handleCardClick}>
-      <section className="uniprot-card">
-        <section className="uniprot-card__left">
+      <section className="result-card">
+        <section className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
-            onClick={(e) => e.stopPropagation()}
             onChange={() => handleEntrySelection(data.primaryAccession)}
             data-testid="up-card-checkbox"
           />
         </section>
-        <section className="uniprot-card__right">
+        <section className="result-card__right">
           <h5>
             <EntryTitle
               mainTitle={data.primaryAccession}

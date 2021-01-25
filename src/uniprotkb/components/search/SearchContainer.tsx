@@ -1,7 +1,7 @@
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect, FC, Fragment } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
-import { MainSearch } from 'franklin-sites';
+import { MainSearch, Button } from 'franklin-sites';
 
 import {
   Location,
@@ -79,24 +79,28 @@ const Search: FC<{
             {examples[namespace] && (
               <>
                 Examples:{' '}
-                {examples[namespace]
-                  ?.map<React.ReactNode>((example) => (
-                    <button
-                      type="button"
+                {examples[namespace]?.map((example, index) => (
+                  <Fragment key={example}>
+                    {index === 0 ? null : ', '}
+                    <Button
+                      variant="tertiary"
                       onClick={() => loadExample(example)}
-                      key={example}
                     >
                       {example}
-                    </button>
-                  ))
-                  .reduce((prev, curr) => [prev, ', ', curr])}
+                    </Button>
+                  </Fragment>
+                ))}
               </>
             )}
           </section>
           <section>
-            <Link to={LocationToPath[Location.UploadList]}>
+            <Button
+              variant="tertiary"
+              element={Link}
+              to={LocationToPath[Location.UploadList]}
+            >
               Search with a list of IDs
-            </Link>
+            </Button>
           </section>
         </section>
       )}

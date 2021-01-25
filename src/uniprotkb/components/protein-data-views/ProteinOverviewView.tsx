@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link, generatePath } from 'react-router-dom';
 
 import AnnotationScoreDoughnutChart, {
@@ -29,18 +29,28 @@ const ProteinOverview: FC<{
     </>
   );
 
-  const organismNameNode = (
-    <>
-      <Link
-        to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: data.organism?.taxonId,
-        })}
-      >
-        {data.organism?.scientificName}
-      </Link>
-      {' · '}
-    </>
-  );
+  let organismNameNode: ReactNode;
+  if (
+    data.organism &&
+    (data.organism.scientificName || data.organism.taxonId)
+  ) {
+    organismNameNode = (
+      <>
+        {data.organism.taxonId ? (
+          <Link
+            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+              accession: `${data.organism.taxonId}`,
+            })}
+          >
+            {data.organism.scientificName || data.organism.taxonId}
+          </Link>
+        ) : (
+          data.organism.scientificName
+        )}
+        {' · '}
+      </>
+    );
+  }
 
   let geneNameListNode;
   if (data.genes) {

@@ -6,19 +6,11 @@
 }
 
 .search-container-footer {
-  margin-top: 0.5rem;
-  button {
-    font-weight: bold;
-    cursor: pointer;
-  }
   display: flex;
-  & > * {
-    flex: 1;
-  }
-  & > :first-child {
-    text-align: left;
-  }
-  & > :last-child {
-    text-align: right;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+
+  .button {
+    margin-bottom: 0.3em;
   }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Component } from 'react';
+import { ReactElement } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { render } from '@testing-library/react';
 import thunk from 'redux-thunk';
@@ -18,7 +18,7 @@ type RenderOptions = {
 };
 
 const renderWithRedux = (
-  ui: Component,
+  ui: ReactElement,
   {
     route = '',
     history = createMemoryHistory({ initialEntries: [route] }),

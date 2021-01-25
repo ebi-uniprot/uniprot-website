@@ -46,7 +46,7 @@ const UniRefEntryPage = lazy(
 const UniParcEntryPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "uniparc-entry" */ '../../uniref/components/entry/Entry'
+      /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/entry/Entry'
     )
 );
 // const ProteomesEntryPage = lazy(

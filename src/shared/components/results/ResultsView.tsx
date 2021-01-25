@@ -1,9 +1,15 @@
-import { useState, useEffect, useRef, FC } from 'react';
-import { DataTable, DataList, Loader } from 'franklin-sites';
+import { useState, useEffect, useRef, useMemo, FC } from 'react';
+import {
+  DataTableWithLoader,
+  DataListWithLoader,
+  Loader,
+} from 'franklin-sites';
 import { useHistory, useLocation, generatePath } from 'react-router-dom';
 
+// card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
+import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -12,6 +18,7 @@ import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
+// columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
@@ -41,14 +48,6 @@ import './styles/results-view.scss';
 
 type APIModel = UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
 
-type ResultsTableProps = {
-  selectedEntries: string[];
-  columns: Column[];
-  viewMode: ViewMode;
-  handleEntrySelection: (rowId: string) => void;
-  sortableColumnToSortColumn: Map<Column, string>;
-};
-
 const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
     case Namespace.uniprotkb:
@@ -62,16 +61,18 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
   }
 };
 
-const getIdKey = (namespace: Namespace) => {
+const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
   switch (namespace) {
     case Namespace.uniprotkb:
-      return (data: UniProtkbAPIModel) => data.primaryAccession;
+      return (data) => (data as UniProtkbAPIModel).primaryAccession;
     case Namespace.uniref:
-      return (data: UniRefLiteAPIModel) => data.id;
+      return (data) => (data as UniRefLiteAPIModel).id;
     case Namespace.uniparc:
-      return (data: UniParcAPIModel) => data.uniParcId;
+      return (data) => (data as UniParcAPIModel).uniParcId;
     default:
-      return null;
+      // eslint-disable-next-line no-console
+      console.warn(`getIdKey method not implemented for ${namespace} yet`);
+      return () => '';
   }
 };
 
@@ -84,6 +85,85 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniparc]: UniParcColumnConfiguration,
 };
 
+const cardRenderer = (
+  namespace: Namespace,
+  selectedEntries: string[],
+  handleEntrySelection: (rowId: string) => void
+) => {
+  const getIdKey = getIdKeyFor(namespace);
+  switch (namespace) {
+    case Namespace.uniprotkb: {
+      return (cardData: UniProtkbAPIModel) => (
+        <UniProtKBCard
+          data={cardData}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.uniref: {
+      return (cardData: UniRefLiteAPIModel) => (
+        <UniRefCard
+          data={cardData}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.uniparc: {
+      return (cardData: UniParcAPIModel) => (
+        <UniParcCard
+          data={cardData}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    default:
+      return () => (
+        <div className="warning">{`${namespace} has no card renderer yet`}</div>
+      );
+  }
+};
+
+const getColumnsToDisplay = (
+  namespace: Namespace,
+  columns: Column[],
+  sortableColumnToSortColumn: Map<Column, string>,
+  sortColumn: SortableColumn,
+  sortDirection: SortDirection
+) =>
+  columns.map((columnName) => {
+    const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
+    if (columnConfig) {
+      return {
+        label: columnConfig.label,
+        name: columnName,
+        render: (row: APIModel) =>
+          columnConfig.render(convertRow(row, namespace)),
+        sortable: sortableColumnToSortColumn.has(columnName),
+        sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
+      };
+    }
+    return {
+      label: columnName,
+      name: columnName,
+      render: () => (
+        <div className="warning">{`${columnName} has no config yet`}</div>
+      ),
+      sortable: false,
+      sorted: false,
+    };
+  }) || [];
+
+type ResultsTableProps = {
+  selectedEntries: string[];
+  columns: Column[];
+  viewMode: ViewMode;
+  handleEntrySelection: (rowId: string) => void;
+  sortableColumnToSortColumn: Map<Column, string>;
+};
+
 const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
   columns,
@@ -94,6 +174,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const namespace = useNS() || Namespace.uniprotkb;
   const prevNamespace = useRef<Namespace>();
   useEffect(() => {
+    // will set it *after* the current render
     prevNamespace.current = namespace;
   });
 
@@ -127,7 +208,13 @@ const ResultsView: FC<ResultsTableProps> = ({
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<APIModel[]>([]);
 
-  const { data, headers } = useDataApi<{
+  useEffect(() => {
+    setAllResults([]);
+    setMetaData({ total: 0, nextUrl: undefined });
+    setUrl(initialApiUrl);
+  }, [initialApiUrl]);
+
+  const { data, loading, headers } = useDataApi<{
     results: APIModel[];
   }>(url);
 
@@ -136,32 +223,19 @@ const ResultsView: FC<ResultsTableProps> = ({
     prevViewMode.current = viewMode;
   });
 
+  const getIdKey = useMemo(() => getIdKeyFor(namespace), [namespace]);
+
   // redirect to entry directly when only 1 result and query marked as "direct"
   useEffect(() => {
     if (direct && metaData.total === 1 && allResults.length === 1) {
       const uniqueItem = allResults[0];
-      let accession = '';
-      if ('primaryAccession' in uniqueItem) {
-        // UniProtKB
-        accession = uniqueItem.primaryAccession;
-      } else if ('representativeId' in uniqueItem) {
-        // UniRef
-        accession = uniqueItem.id;
-      } else if ('uniParcId' in uniqueItem) {
-        // UniParc
-        accession = uniqueItem.uniParcId;
-      }
       history.replace({
-        pathname: generatePath(EntryLocations[namespace], { accession }),
+        pathname: generatePath(EntryLocations[namespace], {
+          accession: getIdKey(uniqueItem),
+        }),
       });
     }
-  }, [history, direct, metaData, allResults, namespace]);
-
-  useEffect(() => {
-    setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
-    setUrl(initialApiUrl);
-  }, [initialApiUrl]);
+  }, [history, direct, metaData, allResults, namespace, getIdKey]);
 
   useEffect(() => {
     if (!data) {
@@ -176,10 +250,12 @@ const ResultsView: FC<ResultsTableProps> = ({
   }, [data, headers]);
 
   if (
-    allResults.length === 0 ||
-    // tweaks to avoid having stale data passed to the wrong components
-    prevViewMode.current !== viewMode ||
-    prevNamespace.current !== namespace
+    // if loading the first page of results
+    (loading && url === initialApiUrl) ||
+    // or we just switched namespace (a bit hacky workaround to force unmount)
+    prevNamespace.current !== namespace ||
+    // or we just switched view mode (hacky too)
+    prevViewMode.current !== viewMode
   ) {
     return <Loader />;
   }
@@ -212,95 +288,46 @@ const ResultsView: FC<ResultsTableProps> = ({
   };
 
   const hasMoreData = total > allResults.length;
-  let dataView;
-  if (viewMode === ViewMode.CARD) {
-    dataView = (
-      <DataList
-        getIdKey={getIdKey(namespace)}
-        data={allResults}
-        dataRenderer={(dataItem: APIModel) => {
-          switch (namespace) {
-            case Namespace.uniref: {
-              const data = dataItem as UniRefLiteAPIModel;
-              return (
-                <UniRefCard
-                  data={data}
-                  selected={selectedEntries.includes(data.id)}
-                  handleEntrySelection={handleEntrySelection}
-                />
-              );
-            }
-            // case Namespace.uniparc: {
-            //   const data = dataItem as UniParcAPIModel;
-            //   return (
-            //     <UniParcCard
-            //       data={data}
-            //       selected={selectedEntries.includes(data.uniParcId)}
-            //       handleEntrySelection={handleEntrySelection}
-            //     />
-            //   );
-            // }
-            case Namespace.uniprotkb:
-            default: {
-              const data = dataItem as UniProtkbAPIModel;
-              return (
-                <UniProtKBCard
-                  data={data}
-                  selected={selectedEntries.includes(data.primaryAccession)}
-                  handleEntrySelection={handleEntrySelection}
-                />
-              );
-            }
-          }
-        }}
-        onLoadMoreItems={handleLoadMoreRows}
-        hasMoreData={hasMoreData}
-        loaderComponent={<Loader />}
-      />
-    );
-  } else {
-    // viewMode === ViewMode.TABLE
-    const columnsToDisplay =
-      columns.map((columnName) => {
-        const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
-        if (columnConfig) {
-          return {
-            label: columnConfig.label,
-            name: columnName,
-            render: (row: APIModel) => {
-              const convertedRow = convertRow(row, namespace);
-              return columnConfig.render(convertedRow);
-            },
-            sortable: sortableColumnToSortColumn.has(columnName),
-            sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
-          };
-        }
-        return {
-          label: columnName,
-          name: columnName,
-          render: () => (
-            <div className="warning">{`${columnName} has no config`}</div>
-          ),
-          sortable: false,
-          sorted: false,
-        };
-      }) || [];
-    dataView = (
-      <DataTable
-        getIdKey={getIdKey(namespace)}
-        columns={columnsToDisplay}
-        data={allResults}
-        selectable
-        selected={selectedEntries}
-        onSelect={handleEntrySelection}
-        onHeaderClick={updateColumnSort}
-        onLoadMoreItems={handleLoadMoreRows}
-        hasMoreData={hasMoreData}
-        loaderComponent={<Loader />}
-      />
-    );
-  }
-  return <div className="results-view">{dataView}</div>;
+
+  return (
+    <div className="results-view">
+      {viewMode === ViewMode.CARD ? (
+        // Card view
+        <DataListWithLoader
+          getIdKey={getIdKey}
+          data={allResults}
+          dataRenderer={cardRenderer(
+            namespace,
+            selectedEntries,
+            handleEntrySelection
+          )}
+          onLoadMoreItems={handleLoadMoreRows}
+          hasMoreData={hasMoreData}
+          loaderComponent={<Loader />}
+        />
+      ) : (
+        // Column view
+        <DataTableWithLoader
+          getIdKey={getIdKey}
+          columns={getColumnsToDisplay(
+            namespace,
+            columns,
+            sortableColumnToSortColumn,
+            sortColumn,
+            sortDirection
+          )}
+          data={allResults}
+          selectable
+          selected={selectedEntries}
+          onSelect={handleEntrySelection}
+          onHeaderClick={updateColumnSort}
+          onLoadMoreItems={handleLoadMoreRows}
+          hasMoreData={hasMoreData}
+          loaderComponent={<Loader />}
+        />
+      )}
+    </div>
+  );
 };
 
 export default ResultsView;

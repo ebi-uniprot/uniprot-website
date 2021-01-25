@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniRefCard tests should render and match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <section
+      class=" card--has-hover"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="card__content"
+      >
+        <section
+          class="result-card"
+        >
+          <section
+            class="result-card__left"
+          >
+            <input
+              data-testid="up-card-checkbox"
+              type="checkbox"
+            />
+          </section>
+          <section
+            class="result-card__right"
+          >
+            <h5>
+              <span
+                class="entry-title"
+              >
+                <span
+                  class="entry-title__status icon--uniparc"
+                  title="This marks a UniParc entry"
+                >
+                  <test-file-stub />
+                </span>
+                UPI0000000001
+              </span>
+            </h5>
+            <section>
+              <span
+                class="result-card__info-bit"
+              >
+                Organisms: 6
+              </span>
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                UniprotKB entries: 2 reviewed and 6 unreviewed
+              </span>
+            </section>
+            <section>
+              <span
+                class="result-card__info-bit"
+              >
+                First seen: 
+                <time
+                  datetime="1988-11-01T00:00:00.000Z"
+                >
+                  1988-11-01
+                </time>
+              </span>
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Last seen: 
+                <time
+                  datetime="2020-12-02T00:00:00.000Z"
+                >
+                  2020-12-02
+                </time>
+              </span>
+               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Sequence length: 250
+              </span>
+            </section>
+          </section>
+        </section>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;

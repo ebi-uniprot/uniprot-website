@@ -149,7 +149,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
         <Link
           key={taxonId}
           to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: taxonId,
+            accession: `${taxonId}`,
           })}
         >
           {taxonId}
@@ -172,7 +172,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
         <Link
           key={taxonId}
           to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: taxonId,
+            accession: `${taxonId}`,
           })}
         >
           {taxonId}
