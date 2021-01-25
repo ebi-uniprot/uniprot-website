@@ -34,13 +34,13 @@ describe('AlignmentView', () => {
       const { getByText, getByTestId } = rendered;
       const annotationMenu = getByText('Select annotation');
       fireEvent.click(annotationMenu);
-      const regionButton = getByText('Nucleotide-binding region');
+      const regionButton = getByText('Nucleotide binding');
       fireEvent.click(regionButton);
       const trackLabel = getByTestId('track-label');
       // Need to get the 2nd alignment data as that's the match track with
       // feature data
       expect(trackLabel.textContent).toBe(
-        `${alignment[1].accession}:Nucleotide-binding region`
+        `${alignment[1].accession}:Nucleotide binding`
       );
     });
   });
@@ -74,11 +74,11 @@ describe('AlignmentView', () => {
       const { getByText, getByTestId } = rendered;
       const annotationMenu = getByText('Select annotation');
       fireEvent.click(annotationMenu);
-      const regionButton = getByText('Nucleotide-binding region');
+      const regionButton = getByText('Nucleotide binding');
       fireEvent.click(regionButton);
       const trackLabel = getByTestId('track-label');
       expect(trackLabel.textContent).toBe(
-        `${alignment[0].accession}:Nucleotide-binding region`
+        `${alignment[0].accession}:Nucleotide binding`
       );
     });
   });

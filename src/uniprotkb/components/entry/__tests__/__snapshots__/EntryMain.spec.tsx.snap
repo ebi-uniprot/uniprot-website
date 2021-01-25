@@ -2900,7 +2900,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             Features
           </h3>
           <p>
-            Showing features for other domain of interest, region of interest, metal ion-binding site, other binding site.
+            Showing features for domain, region, metal binding, binding site.
           </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
@@ -3383,111 +3383,6 @@ exports[`Entry view should render for non-human entry 1`] = `
   </div>
   <div
     data-entry-section="true"
-    id="phenotypes"
-  >
-    <div
-      class="card"
-    >
-      <section>
-        <div
-          class="card__header"
-        >
-          <h2
-            class="card__title"
-          >
-            Phenotypes
-          </h2>
-        </div>
-        <div
-          class="card__content"
-        >
-          <h3>
-            Features
-          </h3>
-          <p>
-            Showing features for mutagenesis site.
-          </p>
-          <protvista-manager
-            attributes="highlight displaystart displayend selectedid"
-          >
-            <protvista-navigation
-              length="772"
-            />
-            <protvista-track
-              layout="non-overlapping"
-              length="772"
-            />
-            <protvista-sequence
-              height="20"
-              length="772"
-              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
-            />
-            <protvista-datatable
-              filter-scroll="true"
-            />
-            <div
-              class="evidence-tag-content false"
-            />
-          </protvista-manager>
-          <div
-            class="loader-container"
-          >
-            <svg
-              class="loader"
-              height="100"
-              viewBox="0 0 100 100"
-              width="100"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                fill="none"
-                fill-rule="evenodd"
-              >
-                <path
-                  d="M9 50c6.833-10.667 13.667-16 20.5-16S43.167 39.333 50 50s13.667 16 20.5 16S84.167 60.667 91 50"
-                  stroke="#3ca3ca"
-                  stroke-linecap="square"
-                  stroke-width="2"
-                />
-                <circle
-                  cx="9"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="30"
-                  cy="34"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="50"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="70"
-                  cy="66"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-                <circle
-                  cx="91"
-                  cy="50"
-                  fill="#3ca3ca"
-                  r="6"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-  <div
-    data-entry-section="true"
     id="ptm-processing"
   >
     <div
@@ -3510,7 +3405,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             Features
           </h3>
           <p>
-            Showing features for signal peptide, chain.
+            Showing features for signal, chain.
           </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
@@ -3748,7 +3643,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             Features
           </h3>
           <p>
-            Showing features for other domain of interest, region of interest.
+            Showing features for domain, region.
           </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"

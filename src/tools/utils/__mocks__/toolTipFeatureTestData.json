@@ -7,7 +7,7 @@
       "end": 189,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "Other domain of interest",
+      "type": "Domain",
       "description": "E1",
       "evidences": [
         {
@@ -18,7 +18,7 @@
       ]
     },
     "tooltipFeature": {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "start": 28,
       "end": 189,
       "description": "E1",
@@ -42,11 +42,11 @@
       "end": 226,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "Other domain of interest",
+      "type": "Domain",
       "description": "Photolyase/cryptochrome alpha/beta"
     },
     "tooltipFeature": {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "start": 75,
       "end": 226,
       "description": "Photolyase/cryptochrome alpha/beta"
@@ -61,11 +61,11 @@
       "end": 286,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "chain",
+      "type": "Chain",
       "description": "N-APP"
     },
     "tooltipFeature": {
-      "type": "chain",
+      "type": "Chain",
       "start": 18,
       "end": 286,
       "description": "N-APP",
@@ -81,10 +81,10 @@
       "end": 286,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "chain"
+      "type": "Chain"
     },
     "tooltipFeature": {
-      "type": "chain",
+      "type": "Chain",
       "start": 18,
       "end": 286,
       "ftId": "PRO_0000381966"
@@ -98,7 +98,7 @@
       "end": 189,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "Other domain of interest",
+      "type": "Domain",
       "description": "E1",
       "evidences": [
         {
@@ -107,7 +107,7 @@
       ]
     },
     "tooltipFeature": {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "start": 28,
       "end": 189,
       "description": "E1",
@@ -126,7 +126,7 @@
       "end": 189,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "Other domain of interest",
+      "type": "Domain",
       "description": "E1",
       "evidences": [
         {
@@ -137,7 +137,7 @@
       ]
     },
     "tooltipFeature": {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "start": 28,
       "end": 189,
       "description": "E1",
@@ -160,7 +160,7 @@
       "end": 189,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "Other domain of interest",
+      "type": "Domain",
       "description": "E1",
       "evidences": [
         {
@@ -171,7 +171,7 @@
       ]
     },
     "tooltipFeature": {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "start": 28,
       "end": 189,
       "description": "E1",

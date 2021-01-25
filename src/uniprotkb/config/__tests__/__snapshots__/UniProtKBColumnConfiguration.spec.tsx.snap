@@ -100,6 +100,8 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Absor
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Active site 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Activity Regulation 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Allergenic Properties 1`] = `<DocumentFragment />`;
@@ -189,7 +191,13 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Alter
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Alternative sequence 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Beta strand 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Binding site 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Biotechnological Use 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Calcium binding 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Catalytic Activity 1`] = `
 <DocumentFragment>
@@ -271,6 +279,8 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Catal
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Chain 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Cofactor 1`] = `
 <DocumentFragment>
   <section
@@ -348,7 +358,13 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Cofac
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: DNA-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Coiled coil 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Compositional bias 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Cross-link 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: DNA binding 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Date Created 1`] = `
 <DocumentFragment>
@@ -542,7 +558,11 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Disru
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Disulfide bond 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Domain 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Domain 2`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: EC Number 1`] = `
 <DocumentFragment>
@@ -953,7 +973,13 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Gene 
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Glycosylation 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Helix 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Induction 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Initiator methionine 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Interacts with 1`] = `
 <DocumentFragment>
@@ -973,6 +999,8 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Inter
   </div>
 </DocumentFragment>
 `;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Intramembrane 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Keyword IDs 1`] = `
 <DocumentFragment>
@@ -1095,6 +1123,8 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Linea
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Lipidation 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Mapped PubMed ID 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Mass 1`] = `
@@ -1146,9 +1176,23 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Mass 
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Metal binding 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Miscellaneous [CC] 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Nucleotide-binding region 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Modified residue 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Motif 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Mutagenesis 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Non-adjacent residues 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Non-standard residue 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Non-terminal residue 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Nucleotide binding 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Organism 1`] = `
 <DocumentFragment>
@@ -1193,13 +1237,9 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Organ
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Other binding site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Other domain of interest 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: Other site of interest 1`] = `<DocumentFragment />`;
-
 exports[`UniProtKBColumnConfiguration component should render all columns: Pathway 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Peptide 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Pharmaceutical Use 1`] = `<DocumentFragment />`;
 
@@ -1207,7 +1247,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Polym
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Post-Translational Modification 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Post-translationally modified residue 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Propeptide 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Protein Families 1`] = `<DocumentFragment />`;
 
@@ -1793,6 +1833,10 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Redox
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Region 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Repeat 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Score 1`] = `
 <DocumentFragment>
   <span
@@ -2005,6 +2049,14 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Seque
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence conflict 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Sequence uncertainty 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Signal 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Site 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Subcellular Location 1`] = `
 <DocumentFragment>
   <section
@@ -2163,9 +2215,15 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Tempe
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Tissue Specificity 1`] = `<DocumentFragment />`;
 
+exports[`UniProtKBColumnConfiguration component should render all columns: Topological domain 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render all columns: Toxic Dose 1`] = `<DocumentFragment />`;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: Uncertainty in sequence 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Transit peptide 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Transmembrane 1`] = `<DocumentFragment />`;
+
+exports[`UniProtKBColumnConfiguration component should render all columns: Turn 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: Variants 1`] = `
 <DocumentFragment>
@@ -2243,39 +2301,7 @@ exports[`UniProtKBColumnConfiguration component should render all columns: Virus
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render all columns: active site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: calcium-binding region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: chain 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: coiled-coil region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: compositionally biased region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: cross-link 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: disulfide bond 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: glycosylation site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: helix 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: initiator methionine 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: intramembrane region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: lipid moiety-binding region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: metal ion-binding site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: mutagenesis site 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: non-consecutive residues 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: non-standard amino acid 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: non-terminal residue 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render all columns: Zinc finger 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render all columns: pH Dependence 1`] = `
 <DocumentFragment>
@@ -2316,29 +2342,3 @@ exports[`UniProtKBColumnConfiguration component should render all columns: pH De
   </section>
 </DocumentFragment>
 `;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: peptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: propeptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: region of interest 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: repeat 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: sequence conflict 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: short sequence motif 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: signal peptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: strand 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: topological domain 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: transit peptide 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: transmembrane region 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: turn 1`] = `<DocumentFragment />`;
-
-exports[`UniProtKBColumnConfiguration component should render all columns: zinc finger region 1`] = `<DocumentFragment />`;
