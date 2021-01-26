@@ -25,25 +25,38 @@ const getSubcelluarLocationId = (id: string) => {
   return null;
 };
 
+// 😷, get style rules from the document context in order to
+// copy and inject them in the shadow dom later through the template
+const getStylesContaining = (...selectors: string[]) =>
+  Array.from(document.styleSheets)
+    .flatMap((stylesheet) =>
+      Array.from(stylesheet.rules).map(
+        (rule) =>
+          selectors.some((selector) => rule.cssText.includes(selector)) &&
+          rule.cssText
+      )
+    )
+    .filter(Boolean) as string[];
+
 const SubcellularLocationView: FC<{
   comments?: SubcellularLocationComment[];
   taxonId: OrganismData['taxonId'];
   lineage: OrganismData['lineage'];
 }> = ({ comments, taxonId, lineage }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   // TODO: injecting HTML because of the way the web component is implemented. See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
   // TODO: reference colors directly?
   // TODO: the graphic top is an estimate but instead should be based on the size of the entry header
   useEffect(() => {
-    const sls = comments?.flatMap(({ subcellularLocations }) =>
-      subcellularLocations
-        ?.flatMap(({ location }) => getSubcelluarLocationId(location.id))
-        .filter(Boolean)
-        .join(',')
-    );
     if (lineage && taxonId && comments && !isVirus(lineage)) {
-      ref.current.insertAdjacentHTML(
+      const sls = comments?.flatMap(({ subcellularLocations }) =>
+        subcellularLocations
+          ?.flatMap(({ location }) => getSubcelluarLocationId(location.id))
+          .filter(Boolean)
+          .join(',')
+      );
+      ref.current?.insertAdjacentHTML(
         'afterbegin',
         `<sib-swissbiopics-sl taxid="${taxonId}" sls="${sls}" contentid="swissBioPicsSlData"/>
       <template id="sibSwissBioPicsStyle">
@@ -61,11 +74,16 @@ const SubcellularLocationView: FC<{
             position: sticky;
             top: 4rem;
           }
+          ${getStylesContaining(
+            'button',
+            '.evidence-tag',
+            'svg-colour-reviewed'
+          ).join('\n')}
        </style>
      </template>`
       );
     }
-  }, [comments, lineage, taxonId, ref]);
+  }, [comments, lineage, taxonId]);
 
   if (!comments || !comments.length) {
     return null;
