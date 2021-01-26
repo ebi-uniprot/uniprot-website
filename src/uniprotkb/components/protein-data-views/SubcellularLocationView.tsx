@@ -1,12 +1,10 @@
 import { FC, useEffect, useRef } from 'react';
 
 import { TextView } from './FreeTextView';
+import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
-
-import './styles/subcellular-location-view.scss';
-import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 
 enum Superkingdom {
   Viruses = 'Viruses',
