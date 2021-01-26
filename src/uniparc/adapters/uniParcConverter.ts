@@ -1,5 +1,7 @@
 import { Sequence } from '../../shared/types/sequence';
 
+import EntrySection from '../types/entrySection';
+
 export type XRefProperty = {
   key: string; // should replace with union of possibilities?
   value: string;
@@ -13,7 +15,7 @@ export type UniParcXRef = {
   id: string;
   lastUpdated: string;
   properties?: XRefProperty[];
-  version: number;
+  version?: number; // might not always be there (e.g., for PRF xrefs)
   versionI: number; // 🤔 what is this?
 };
 
@@ -42,10 +44,12 @@ export type UniParcAPIModel = {
 
 export type UniParcUIModel = UniParcAPIModel & {
   // any addition/change by the converter
+  [EntrySection.XRefs]: UniParcXRef[];
 };
 
 const uniParcConverter = (data: UniParcAPIModel): UniParcUIModel => ({
   ...data,
+  [EntrySection.XRefs]: data.uniParcCrossReferences || [],
 });
 
 export default uniParcConverter;
