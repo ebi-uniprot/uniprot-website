@@ -17,7 +17,7 @@ const getSwissBioPicLocationId = (id: string) => `${id.replace('-', '')}term`;
 
 const reSL = /SL-(\d+)/;
 
-const getSubcelluarLocationId = (id: string) => {
+const getSubcellularLocationId = (id: string) => {
   const match = id.match(reSL);
   if (match?.[1]) {
     return match[1];
@@ -50,12 +50,15 @@ const SubcellularLocationView: FC<{
   // TODO: the graphic top is an estimate but instead should be based on the size of the entry header
   useEffect(() => {
     if (lineage && taxonId && comments && !isVirus(lineage)) {
-      const sls = comments?.flatMap(({ subcellularLocations }) =>
-        subcellularLocations
-          ?.flatMap(({ location }) => getSubcelluarLocationId(location.id))
-          .filter(Boolean)
-          .join(',')
-      );
+      const sls = comments
+        ?.flatMap(({ subcellularLocations }) =>
+          subcellularLocations?.map(({ location }) =>
+            getSubcellularLocationId(location.id)
+          )
+        )
+        .filter(Boolean)
+        .join(',');
+
       ref.current?.insertAdjacentHTML(
         'afterbegin',
         `<sib-swissbiopics-sl taxid="${taxonId}" sls="${sls}" contentid="swissBioPicsSlData"/>
