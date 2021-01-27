@@ -37,7 +37,7 @@ const XRefsSection: FC<Props> = ({ data }) => {
       {
         label: 'Version',
         name: 'version',
-        render: (xref) => <span>{xref.version}</span>,
+        render: (xref) => 'version' in xref && <span>{xref.version}</span>,
       },
       {
         label: 'Organism',
@@ -74,12 +74,12 @@ const XRefsSection: FC<Props> = ({ data }) => {
   );
 
   return (
-    <div id={EntrySection.XRefs} data-entry-section>
+    <div id={EntrySection.XRefs}>
       <Card title={getEntrySectionNameAndId(EntrySection.XRefs).name}>
         <DataTable
           data={data}
           getIdKey={(xref: UniParcXRef) =>
-            `${xref.database}-${xref.id}-${xref.version}-${xref.active}`
+            `${xref.database}-${xref.id}-${xref.versionI}`
           }
           density={DENSITY_COMPACT}
           columns={columns}

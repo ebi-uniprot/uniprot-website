@@ -16,7 +16,7 @@ export type UniParcXRef = {
   lastUpdated: string;
   properties?: XRefProperty[];
   version?: number; // might not always be there (e.g., for PRF xrefs)
-  versionI: number; // 🤔 what is this?
+  versionI: number; // internal UniProt versioning, always present
 };
 
 export type SequenceFeatureLocation = {
