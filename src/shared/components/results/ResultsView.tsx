@@ -11,22 +11,18 @@ import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 
-import uniProtKbConverter, {
-  UniProtkbAPIModel,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 // columns for table views
-import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
-import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
 
+import getColumnsToDisplay, { APIModel } from '../../utils/getColumnsToDisplay';
 import getNextUrlFromResponse from '../../utils/queryUtils';
 import {
   getParamsFromURL,
@@ -46,21 +42,6 @@ import { ViewMode } from './ResultsContainer';
 import './styles/warning.scss';
 import './styles/results-view.scss';
 
-type APIModel = UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
-
-const convertRow = (row: APIModel, namespace: Namespace) => {
-  switch (namespace) {
-    case Namespace.uniprotkb:
-      return uniProtKbConverter(row as UniProtkbAPIModel);
-    case Namespace.uniref:
-      return row as UniRefLiteAPIModel;
-    case Namespace.uniparc:
-      return row as UniParcAPIModel;
-    default:
-      return null;
-  }
-};
-
 const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
   switch (namespace) {
     case Namespace.uniprotkb:
@@ -74,15 +55,6 @@ const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
       console.warn(`getIdKey method not implemented for ${namespace} yet`);
       return () => '';
   }
-};
-
-// TODO: create a "Column" type to cover the different column types
-// and a Column renderer type with label: string and a render definition.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
-  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-  [Namespace.uniref]: UniRefColumnConfiguration,
-  [Namespace.uniparc]: UniParcColumnConfiguration,
 };
 
 const cardRenderer = (
@@ -125,36 +97,6 @@ const cardRenderer = (
       );
   }
 };
-
-const getColumnsToDisplay = (
-  namespace: Namespace,
-  columns: Column[],
-  sortableColumnToSortColumn: Map<Column, string>,
-  sortColumn: SortableColumn,
-  sortDirection: SortDirection
-) =>
-  columns.map((columnName) => {
-    const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
-    if (columnConfig) {
-      return {
-        label: columnConfig.label,
-        name: columnName,
-        render: (row: APIModel) =>
-          columnConfig.render(convertRow(row, namespace)),
-        sortable: sortableColumnToSortColumn.has(columnName),
-        sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
-      };
-    }
-    return {
-      label: columnName,
-      name: columnName,
-      render: () => (
-        <div className="warning">{`${columnName} has no config yet`}</div>
-      ),
-      sortable: false,
-      sorted: false,
-    };
-  }) || [];
 
 type ResultsTableProps = {
   selectedEntries: string[];
