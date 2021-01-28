@@ -12,7 +12,7 @@ import StructureSection from '../components/entry/StructureSection';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import { FunctionUIModel } from '../adapters/functionConverter';
 import EntrySection from '../types/entrySection';
-import SimilarProteins from '../components/entry/SimilarProteins';
+import SimilarProteins from '../components/entry/similar-proteins/SimilarProteins';
 
 const UniProtKBEntryConfig: {
   id: EntrySection;

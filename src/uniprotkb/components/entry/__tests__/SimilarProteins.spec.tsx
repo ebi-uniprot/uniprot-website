@@ -1,5 +1,5 @@
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
-import SimilarProteins from '../SimilarProteins';
+import SimilarProteins from '../similar-proteins/SimilarProteins';
 import similarProteinsData from './__mocks__/similarProteinsData.json';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
