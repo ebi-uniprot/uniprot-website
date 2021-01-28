@@ -79,7 +79,7 @@ const XRefsSection: FC<Props> = ({ data }) => {
         <DataTable
           data={data}
           getIdKey={(xref: UniParcXRef) =>
-            `${xref.database}-${xref.id}-${xref.versionI}`
+            `${xref.database}-${xref.id}-${xref.versionI}-${xref.active}`
           }
           density={DENSITY_COMPACT}
           columns={columns}
