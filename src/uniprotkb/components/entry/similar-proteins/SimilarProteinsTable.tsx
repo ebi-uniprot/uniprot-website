@@ -1,14 +1,13 @@
 import { FC, useMemo } from 'react';
 import { DataTable, DENSITY_COMPACT, Loader, Message } from 'franklin-sites';
+import { generatePath, Link } from 'react-router-dom';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 import { UniProtKBColumn } from '../../../types/columnTypes';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import { generatePath } from 'react-router-dom';
 import { Location, LocationToPath } from '../../../../app/config/urls';
-import SimpleView from '../../protein-data-views/SimpleView';
 
 const columns = [
   UniProtKBColumn.accession,
@@ -32,12 +31,13 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
       render: (row: UniProtkbAPIModel) => (
         <>
           <EntryTypeIcon entryType={row.entryType} />
-          <SimpleView
-            termValue={row.primaryAccession}
-            linkTo={generatePath(LocationToPath[Location.UniProtKBEntry], {
+          <Link
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
               accession: row.primaryAccession,
             })}
-          />
+          >
+            {row.primaryAccession}
+          </Link>
         </>
       ),
     },
@@ -85,37 +85,6 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
       density={DENSITY_COMPACT}
     />
   );
-  //   <table>
-  //     <tbody>
-  //       {/* Note: move following to its own component  */}
-  //       {row.members
-  //         ?.filter(
-  //           (member) => member !== representativeId
-  //         )
-  //         .map((member) => (
-  //           <tr key={member}>
-  //             <td>
-  //               <Link
-  //                 to={generatePath(
-  //                   LocationToPath[
-  //                     Location.UniProtKBEntry
-  //                   ],
-  //                   {
-  //                     accession: member,
-  //                   }
-  //                 )}
-  //               >
-  //                 {member}
-  //               </Link>
-  //             </td>
-  //           </tr>
-  //         ))}
-  //       {row.members &&
-  //         row.memberCount > row.members?.length && (
-  //           <li>{row.memberCount} more</li>
-  //         )}
-  //     </tbody>
-  //   </table>
 };
 
 export default SimilarProteinsTable;
