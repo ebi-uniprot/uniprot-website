@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UniParcColumnConfiguration component should render column "cpd": cpd 1`] = `
+<DocumentFragment>
+  Standard
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "genome_assembly": genome_assembly 1`] = `
+<DocumentFragment>
+  id value
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "genome_representation": genome_representation 1`] = `
+<DocumentFragment>
+  full
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "organism": organism 1`] = `
+<DocumentFragment>
+  Homo sapiens
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "organism_id": organism_id 1`] = `
+<DocumentFragment>
+  9606
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "upid": upid 1`] = `
+<DocumentFragment>
+  <a
+    href="/proteomes/UP000005640"
+  >
+    UP000005640
+  </a>
+</DocumentFragment>
+`;

@@ -1,3 +1,5 @@
+import { Lineage, Xref } from '../../shared/types/apiModel';
+
 export type Taxonomy = {
   scientificName: string;
   taxonId: number;
@@ -11,27 +13,18 @@ export type GenomeAnnotation = {
   url?: string;
 };
 
-export type ProteomeCrossReference = {
-  database: string;
-  id: string;
-};
-
 export type Component = {
   name: string;
   description: string;
   genomeAnnotation: GenomeAnnotation;
-  proteomeCrossReferences: ProteomeCrossReference[];
-};
-
-export type CitationCrossReference = {
-  database: string;
-  id: string;
+  proteomeCrossReferences: Xref[];
+  proteinCount: number; // used in the entry for each component TODO: eventually will be supported by backend in 2021_02 - 2021_03
 };
 
 export type Citation = {
   citationType: string;
   authors: string[];
-  citationCrossReferences: CitationCrossReference[];
+  citationCrossReferences: Xref[];
   title: string;
   publicationDate: string;
   journal: string;
@@ -70,13 +63,7 @@ export type GenomeAssembly = {
   source: string;
   assemblyId: string;
   genomeAssemblyUrl: string;
-  level: string;
-};
-
-export type TaxonLineage = {
-  scientificName: string;
-  taxonId: number;
-  hidden: boolean;
+  level: string; // Genome representation (RefSeq)
 };
 
 export type RedundantProteome = {
@@ -84,11 +71,20 @@ export type RedundantProteome = {
   similarity: number;
 };
 
-export type Result = {
+export enum ProteomeType {
+  REFERENCE_AND_REPRESENTATIVE = 'Reference and representative proteome',
+  REFERENCE = 'Reference proteome',
+  REPRESENTATIVE = 'Representative proteome',
+  REDUNDANT = 'Redundant proteome',
+  OTHER = 'Other proteome',
+  EXCLUDED = 'Excluded',
+}
+
+export type ProteomesAPIModel = {
   id: string;
   taxonomy: Taxonomy;
   modified: string;
-  proteomeType: string;
+  proteomeType: ProteomeType;
   components: Component[];
   citations: Citation[];
   annotationScore: number;
@@ -97,15 +93,12 @@ export type Result = {
   genomeAssembly: GenomeAssembly;
   geneCount: number;
   genomeAnnotation: GenomeAnnotation;
-  taxonLineage: TaxonLineage[];
+  taxonLineage: Lineage[];
   strain: string;
   panproteome: string;
   description: string;
   redundantProteomes: RedundantProteome[];
-};
-
-export type ProteomesAPIModel = {
-  results: Result[];
+  proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)  TODO: eventually will be supported by backend in in 2021_02 - 2021_03
 };
 
 export type ProteomesUIModel = ProteomesAPIModel & {

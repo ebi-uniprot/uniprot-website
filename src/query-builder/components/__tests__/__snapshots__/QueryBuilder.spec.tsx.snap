@@ -53,7 +53,7 @@ exports[`QueryBuilder should render 1`] = `
             UniParc
           </option>
           <option
-            value="proteomes"
+            value="proteome"
           >
             Proteomes
           </option>

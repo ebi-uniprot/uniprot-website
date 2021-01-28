@@ -6,6 +6,7 @@ import {
 } from '../adapters/functionConverter';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
 import { Interactant } from '../adapters/interactionConverter';
+import { Xref } from '../../shared/types/apiModel';
 
 export enum CommentType {
   ACTIVITY_REGULATION = 'ACTIVITY REGULATION',
@@ -116,15 +117,6 @@ export type CatalyticActivityComment = {
     evidences?: Evidence[];
   };
   physiologicalReactions?: PhysiologicalReaction[];
-};
-
-export type Xref = {
-  database?: string;
-  id?: string;
-  properties?: { [key: string]: string };
-  additionalIds?: string[];
-  isoformId?: string;
-  implicit?: true;
 };
 
 export type DiseaseType = {

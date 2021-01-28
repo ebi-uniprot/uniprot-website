@@ -43,7 +43,7 @@ export const LocationToPath = {
   [Location.UniParcEntry]: '/uniparc/:accession',
   [Location.UniParcResults]: '/uniparc',
   [Location.ProteomesEntry]: '/proteomes/:accession',
-  [Location.ProteomesResults]: '/proteomes',
+  [Location.ProteomesResults]: `/${Namespace.proteomes}`,
   // Supporting data
   [Location.TaxonomyEntry]: '/taxonomy/:accession',
   [Location.TaxonomyResults]: '/taxonomy/',

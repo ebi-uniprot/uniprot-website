@@ -1,4 +1,4 @@
-import { Xref } from './commentTypes';
+import { Xref } from '../../shared/types/apiModel';
 
 export type Citation = {
   citationType?: string;

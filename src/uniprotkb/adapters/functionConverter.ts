@@ -7,7 +7,6 @@ import {
   RedoxPotentialComment,
   TemperatureDependenceComment,
   TextWithEvidence,
-  Xref,
   FreeTextComment,
 } from '../types/commentTypes';
 import KeywordCategory from '../types/keywordCategory';
@@ -16,6 +15,7 @@ import EntrySection from '../types/entrySection';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { Evidence } from '../types/modelTypes';
+import { Xref } from '../../shared/types/apiModel';
 
 export type Absorption = {
   max: number;
