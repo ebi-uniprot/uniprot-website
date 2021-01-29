@@ -1,7 +1,7 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import { groupBy } from 'lodash-es';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link, useHistory } from 'react-router-dom';
 import { getClustersForProteins } from '../../../../shared/config/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import {
@@ -23,6 +23,9 @@ const SimilarProteins: FC<{
     primaryAccession,
     ...isoforms.isoforms,
   ]);
+
+  const history = useHistory();
+
   // Get the clusters in which the canonical and isoforms are found
   const { loading, data, error } = useDataApi<{
     results: UniRefLiteAPIModel[];
@@ -108,8 +111,20 @@ const SimilarProteins: FC<{
                       </section>
                     )
                   )}
-                  {/* TODO: check with backend what query should be generated here */}
-                  <Button>View all</Button>
+                  {/* TODO: This query doesn't seem to work currently */}
+                  <Button
+                    onClick={() => {
+                      history.push({
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=(${data?.results
+                          .filter(({ entryType }) => entryType === clusterType)
+                          .map(({ id }) => `uniref_cluster_100:${id}`)
+                          .join(' OR ')})`,
+                      });
+                    }}
+                  >
+                    View all
+                  </Button>
                 </Tab>
               )
           )}

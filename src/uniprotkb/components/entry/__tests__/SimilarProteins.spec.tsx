@@ -12,17 +12,18 @@ var axiosMock = new MockAdapter(axios);
 axiosMock.onGet(/\/uniref\/search/).reply(200, similarProteinsData);
 axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
 
-let rendered;
+let historyMock;
 
 describe('SimilarProteins tests', () => {
   beforeEach(async () => {
     await act(async () => {
-      rendered = renderWithRedux(
+      const { history } = renderWithRedux(
         <SimilarProteins
           primaryAccession="P05067"
           isoforms={{ isoforms: ['P05067-4'] }}
         />
       );
+      historyMock = history;
     });
   });
 
@@ -33,5 +34,12 @@ describe('SimilarProteins tests', () => {
   it('should change tabs', async () => {
     fireEvent.click(await screen.findByRole('tab', { name: /50% identity/ }));
     expect(await screen.findByText(/P12023/)).toBeTruthy();
+  });
+
+  it('should generate the correct link to view all', async () => {
+    fireEvent.click(await screen.findByRole('button', { name: /View all/ }));
+    expect(historyMock.location.search).toEqual(
+      '?query=(uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067)'
+    );
   });
 });
