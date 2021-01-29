@@ -21,12 +21,19 @@ export type Component = {
   proteinCount: number; // used in the entry for each component TODO: eventually will be supported by backend in 2021_02 - 2021_03
 };
 
+enum CpdStatus {
+  CLOSE_TO_STANDARD = 'Close to Standard',
+  STANDARD = 'Standard',
+  OUTLIER = 'Outlier',
+  UNKNOWN = 'Unknown',
+}
+
 export type CpdReport = {
   proteomeCount: number;
   stdCdss: number;
   averageCdss: number;
   confidence: number;
-  status: string;
+  status: CpdStatus;
 };
 
 export type BuscoReport = {
@@ -42,7 +49,7 @@ export type BuscoReport = {
 
 export type ProteomeCompletenessReport = {
   cpdReport: CpdReport;
-  buscoReport: BuscoReport;
+  buscoReport?: BuscoReport;
 };
 
 export type GenomeAssembly = {
