@@ -6,7 +6,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
     class="card"
   >
     <section
-      class=" card--has-hover"
+      class="card--has-hover"
       role="button"
       tabindex="0"
     >

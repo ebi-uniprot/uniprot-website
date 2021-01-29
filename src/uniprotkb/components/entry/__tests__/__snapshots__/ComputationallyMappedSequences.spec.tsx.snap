@@ -47,60 +47,38 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
       </button>
     </div>
     <table
-      class="data-table data-table--compact  "
+      class="data-table"
     >
-      <thead
-        class="data-table__header"
-      >
-        <tr
-          class="data-table__row"
-        >
+      <thead>
+        <tr>
           <th
-            class="data-table__header-cell data-table__header-cell--checkbox"
+            class="data-table__header-cell--checkbox"
           >
              
           </th>
-          <th
-            class="data-table__header-cell "
-            style="width: auto;"
-          >
+          <th>
             Entry
           </th>
-          <th
-            class="data-table__header-cell "
-            style="width: auto;"
-          >
+          <th>
             Entry name
           </th>
-          <th
-            class="data-table__header-cell "
-            style="width: auto;"
-          >
+          <th>
             Gene name
           </th>
-          <th
-            class="data-table__header-cell "
-            style="width: auto;"
-          >
+          <th>
             Length
           </th>
         </tr>
       </thead>
-      <tbody
-        class="data-table__table__body"
-      >
+      <tbody>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="A0A0A0MRG2"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/A0A0A0MRG2"
             >
@@ -113,34 +91,24 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               A0A0A0MRG2
             </a>
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             A0A0A0MRG2_HUMAN
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             APP
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             660
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="E9PG40"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/E9PG40"
             >
@@ -153,34 +121,24 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               E9PG40
             </a>
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             E9PG40_HUMAN
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             APP
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             714
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="H7C0V9"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/H7C0V9"
             >
@@ -193,34 +151,24 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               H7C0V9
             </a>
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             H7C0V9_HUMAN
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             APP
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             485
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="H7C2L2"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/H7C2L2"
             >
@@ -233,19 +181,13 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
               H7C2L2
             </a>
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             H7C2L2_HUMAN
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             APP
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             181
           </td>
         </tr>

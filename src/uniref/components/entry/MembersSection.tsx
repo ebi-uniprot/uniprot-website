@@ -1,11 +1,6 @@
 import { memo, useCallback, useState, useEffect, FC } from 'react';
 import { Link, generatePath } from 'react-router-dom';
-import {
-  Card,
-  DataTableWithLoader,
-  DENSITY_COMPACT,
-  Loader,
-} from 'franklin-sites';
+import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -350,10 +345,9 @@ export const MembersSection: FC<Props> = ({
           columns={columns}
           data={allResults}
           getIdKey={getKey}
-          density={DENSITY_COMPACT}
-          selectable
+          density="compact"
           selected={selectedEntries}
-          onSelect={handleSelectedEntries}
+          onSelectRow={handleSelectedEntries}
         />
       </Card>
     </div>

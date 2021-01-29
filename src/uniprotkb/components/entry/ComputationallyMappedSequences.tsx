@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unused-prop-types */
 import { useCallback, useMemo, useState, FC, ReactNode } from 'react';
-import { DataTable, DENSITY_COMPACT, Message, Button } from 'franklin-sites';
+import { DataTable, Message, Button } from 'franklin-sites';
 import { Link, generatePath, useHistory } from 'react-router-dom';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
@@ -156,14 +156,12 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
               </div>
 
               <DataTable
-                getIdKey={({ id }: { id: string }) => id}
-                density={DENSITY_COMPACT}
+                getIdKey={({ id }) => id}
+                density="compact"
                 columns={columns}
                 data={filteredData}
-                selectable
                 selected={selectedEntries}
-                onSelect={handleSelectedEntries}
-                hasMoreData={false}
+                onSelectRow={handleSelectedEntries}
               />
             </>
           ) : null}
