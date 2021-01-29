@@ -47,7 +47,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
       </button>
     </div>
     <table
-      class="data-table"
+      class="data-table data-table--compact"
     >
       <thead>
         <tr>
