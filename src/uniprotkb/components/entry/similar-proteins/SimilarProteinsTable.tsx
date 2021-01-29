@@ -28,6 +28,7 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
   const columnConfig = [
     {
       label: 'Accession',
+      name: 'accession',
       render: (row: UniProtkbAPIModel) => (
         <>
           <EntryTypeIcon entryType={row.entryType} />
@@ -43,16 +44,19 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
     },
     {
       label: 'Protein name',
+      name: 'protein_name',
       render: (row: UniProtkbAPIModel) =>
         row.proteinDescription?.recommendedName?.fullName.value,
     },
     {
       label: 'Organism',
+      name: 'organism',
       render: (row: UniProtkbAPIModel) =>
         row.organism && <TaxonomyView data={row.organism} />,
     },
     {
       label: 'Length',
+      name: 'length',
       render: (row: UniProtkbAPIModel) => row.sequence?.length,
     },
   ];
@@ -82,6 +86,7 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
       data={results}
       columns={columnConfig}
       getIdKey={(row: UniProtkbAPIModel) => row.primaryAccession}
+      onSelect={() => null}
       density={DENSITY_COMPACT}
     />
   );
