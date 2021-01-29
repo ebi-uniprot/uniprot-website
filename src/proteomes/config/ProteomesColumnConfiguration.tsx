@@ -64,7 +64,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   label: 'Organism',
-  // TODO: update R with proper frankin component
+  // TODO: update (REF) with proper frankin component when complete in https://www.ebi.ac.uk/panda/jira/browse/TRM-25391
   render: ({ taxonomy, proteomeType }) => (
     <>
       {[
