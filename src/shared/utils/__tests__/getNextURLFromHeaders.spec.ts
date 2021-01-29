@@ -11,7 +11,7 @@ describe('getNextURLFromHeaders', () => {
     );
   });
 
-  it("shouldn't return anything if no next URL if present", () => {
+  it("shouldn't return anything if relationship is not next", () => {
     const headers = new Headers({
       link: '<https://www.example.com/>; rel="canonical"',
     });
@@ -19,7 +19,7 @@ describe('getNextURLFromHeaders', () => {
     expect(getNextURLFromHeaders(parsedHeaders)).toBeUndefined();
   });
 
-  it("shouldn't return anything if no next URL if present", () => {
+  it("shouldn't return anything if no next URL is present", () => {
     const headers = new Headers({ 'content-type': 'application/json' });
     const parsedHeaders = Object.fromEntries(headers.entries());
     expect(getNextURLFromHeaders(parsedHeaders)).toBeUndefined();
