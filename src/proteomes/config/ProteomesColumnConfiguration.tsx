@@ -59,7 +59,15 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   label: 'Organism ID',
-  render: ({ taxonomy }) => taxonomy.taxonId,
+  render: ({ taxonomy }) => (
+    <Link
+      to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+        accession: taxonomy.taxonId,
+      })}
+    >
+      {taxonomy.taxonId}
+    </Link>
+  ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {

@@ -42,7 +42,11 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
 
 exports[`UniParcColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
-  9606
+  <a
+    href="/taxonomy/9606"
+  >
+    9606
+  </a>
 </DocumentFragment>
 `;
 
