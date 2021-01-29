@@ -1,4 +1,4 @@
-import { Lineage, Xref } from '../../shared/types/apiModel';
+import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
 
 export type Taxonomy = {
   scientificName: string;
@@ -19,20 +19,6 @@ export type Component = {
   genomeAnnotation: GenomeAnnotation;
   proteomeCrossReferences: Xref[];
   proteinCount: number; // used in the entry for each component TODO: eventually will be supported by backend in 2021_02 - 2021_03
-};
-
-export type Citation = {
-  citationType: string;
-  authors: string[];
-  citationCrossReferences: Xref[];
-  title: string;
-  publicationDate: string;
-  journal: string;
-  firstPage: string;
-  lastPage: string;
-  volume: string;
-  submissionDatabase: string;
-  authoringGroup: string[];
 };
 
 export type CpdReport = {

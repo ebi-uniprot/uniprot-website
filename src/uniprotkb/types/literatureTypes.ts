@@ -1,20 +1,4 @@
-import { Xref } from '../../shared/types/apiModel';
-
-export type Citation = {
-  citationType?: string;
-  authors?: string[];
-  citationCrossReferences?: Xref[];
-  title?: string;
-  publicationDate?: string;
-  journal?: string;
-  firstPage?: string;
-  lastPage?: string;
-  volume?: string;
-  completeAuthorList?: boolean;
-  literatureAbstract?: string;
-  authoringGroup?: string[];
-  submissionDatabase?: string;
-};
+import { Citation } from '../../shared/types/apiModel';
 
 export type Reference = {
   citation: Citation;
