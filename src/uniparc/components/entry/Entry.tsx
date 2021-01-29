@@ -52,7 +52,6 @@ const Entry: FC = () => {
     redirectedTo,
     headers,
   } = useDataApi<UniParcAPIModel>(baseURL);
-  // const facetData = useDataApi<FacetObject[]>(`${baseURL}/facets`);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
