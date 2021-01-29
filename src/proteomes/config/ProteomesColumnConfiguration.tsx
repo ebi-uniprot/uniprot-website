@@ -17,19 +17,19 @@ export enum ProteomesColumn {
   mnemonic = 'mnemonic',
   lineage = 'lineage',
   // Miscellaneous
-  busco = 'busco', // TODO: implement BUSCO viz
+  busco = 'busco',
   cpd = 'cpd',
   genomeAssembly = 'genome_assembly',
-  genomeRepresentation = 'genome_representation', // TODO: this exists in the data but is not in result-fields yet. Backend to amend imminently.
-  proteinCount = 'protein_count', // TODO: to eventually be supported by the backend in 2021_02 - 2021_03
+  genomeRepresentation = 'genome_representation',
+  proteinCount = 'protein_count',
 }
 
 export const defaultColumns = [
   ProteomesColumn.upid,
   ProteomesColumn.organism,
   ProteomesColumn.organismID,
-  // ProteomesColumn.proteinCount, // TODO: to eventually be supported by the backend in 2021_02 - 2021_03
-  // ProteomesColumn.busco, // TODO: implement BUSCO viz
+  ProteomesColumn.proteinCount,
+  ProteomesColumn.busco,
   ProteomesColumn.cpd,
 ];
 
@@ -77,6 +77,29 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   ),
 });
 
+ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
+  label: 'Mnemonic',
+  render: ({ taxonomy }) => taxonomy.mnemonic,
+});
+
+// TODO: Reflect current view in uniprot.org. This may want, pending discussion, to be improved as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-25206.
+ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
+  label: 'Lineage',
+  render: ({ taxonLineage }) =>
+    taxonLineage
+      .map<ReactNode>(({ scientificName, taxonId }) => (
+        <Link
+          key={taxonId}
+          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
+            accession: taxonId,
+          })}
+        >
+          {scientificName}
+        </Link>
+      ))
+      .reduce((prev, curr) => [prev, ', ', curr]),
+});
+
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
   label: 'CPD',
   render: ({ proteomeCompletenessReport }) =>
@@ -88,6 +111,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
   render: ({ genomeAssembly }) => genomeAssembly?.assemblyId,
 });
 
+// TODO: this exists in the data but is not in result-fields yet. Backend to amend imminently.
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
   label: 'Genome representation (RefSeq)',
   render: ({ genomeAssembly }) => genomeAssembly.level,
@@ -98,5 +122,8 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 //   label: 'Protein Count',
 //   render: ({ proteinCount }) => proteinCount
 // });
+
+// TODO: wait for confirmation from Jie if components should be rendered. Note not shown in current UniProt
+// TODO: implement BUSCO viz
 
 export default ProteomesColumnConfiguration;

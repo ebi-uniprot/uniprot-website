@@ -18,6 +18,22 @@ exports[`UniParcColumnConfiguration component should render column "genome_repre
 </DocumentFragment>
 `;
 
+exports[`UniParcColumnConfiguration component should render column "lineage": lineage 1`] = `
+<DocumentFragment>
+  <a
+    href="/taxonomy/9606"
+  >
+    Homo sapiens
+  </a>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
+<DocumentFragment>
+  HUMAN
+</DocumentFragment>
+`;
+
 exports[`UniParcColumnConfiguration component should render column "organism": organism 1`] = `
 <DocumentFragment>
   Homo sapiens
