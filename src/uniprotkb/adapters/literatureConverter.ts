@@ -1,4 +1,4 @@
-import { Citation } from '../types/literatureTypes';
+import { Citation } from '../../shared/types/apiModel';
 
 export const getCitationPubMedId = (citation: Citation) =>
   citation.citationCrossReferences &&

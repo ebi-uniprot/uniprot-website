@@ -39,7 +39,6 @@ export enum ViewMode {
 const Results: FC = () => {
   const namespace = useNS() || Namespace.uniprotkb;
   const history = useHistory();
-
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
