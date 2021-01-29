@@ -53,7 +53,7 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
 exports[`UniParcColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
   <a
-    href="/proteomes/UP000005640"
+    href="/proteome/UP000005640"
   >
     UP000005640
   </a>
