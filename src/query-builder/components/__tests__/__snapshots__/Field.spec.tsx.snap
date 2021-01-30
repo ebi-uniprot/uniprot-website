@@ -4,25 +4,21 @@ exports[`Clause component should not return anything 1`] = `<DocumentFragment />
 
 exports[`Clause component should render \`date\` field 1`] = `
 <DocumentFragment>
-  <label
-    for="from_input_id"
-  >
+  <label>
     From
     <input
+      aria-label="range input, from value"
       data-testid="range-field-from-input"
-      id="from_input_id"
       placeholder="0"
       type="date"
       value=""
     />
   </label>
-  <label
-    for="to_input_id"
-  >
+  <label>
     To
     <input
+      aria-label="range input, to value"
       data-testid="range-field-to-input"
-      id="to_input_id"
       placeholder="100"
       type="date"
       value=""
@@ -33,12 +29,9 @@ exports[`Clause component should render \`date\` field 1`] = `
 
 exports[`Clause component should render a \`string\` field with range 1`] = `
 <DocumentFragment>
-  <label
-    for="input_accession"
-  >
+  <label>
     UniProtKB AC
     <input
-      id="input_accession"
       placeholder="P12345"
       type="text"
       value=""
@@ -49,12 +42,9 @@ exports[`Clause component should render a \`string\` field with range 1`] = `
 
 exports[`Clause component should render a \`text\` field 1`] = `
 <DocumentFragment>
-  <label
-    for="input_accession"
-  >
+  <label>
     UniProtKB AC
     <input
-      id="input_accession"
       placeholder="P12345"
       type="text"
       value=""
@@ -65,12 +55,9 @@ exports[`Clause component should render a \`text\` field 1`] = `
 
 exports[`Clause component should render a \`text\` field with initial value 1`] = `
 <DocumentFragment>
-  <label
-    for="input_accession"
-  >
+  <label>
     UniProtKB AC
     <input
-      id="input_accession"
       placeholder="P12345"
       type="text"
       value="P12345"
@@ -81,12 +68,9 @@ exports[`Clause component should render a \`text\` field with initial value 1`] 
 
 exports[`Clause component should render an \`enum\` field 1`] = `
 <DocumentFragment>
-  <label
-    for="select_undefined"
-  >
+  <label>
     <select
       data-testid="enum-field-select"
-      id="select_undefined"
     />
   </label>
 </DocumentFragment>
@@ -94,12 +78,9 @@ exports[`Clause component should render an \`enum\` field 1`] = `
 
 exports[`Clause component should render an \`integer\` \`range\` field 1`] = `
 <DocumentFragment>
-  <label
-    for="input_sites"
-  >
+  <label>
     Any
     <input
-      id="input_sites"
       placeholder="translocation"
       type="number"
       value=""
@@ -110,12 +91,9 @@ exports[`Clause component should render an \`integer\` \`range\` field 1`] = `
 
 exports[`Clause component should render an \`integer\` field 1`] = `
 <DocumentFragment>
-  <label
-    for="input_sites"
-  >
+  <label>
     Any
     <input
-      id="input_sites"
       placeholder="translocation"
       type="number"
       value=""

@@ -2,13 +2,10 @@
 
 exports[`EvidenceField component should render 1`] = `
 <DocumentFragment>
-  <label
-    for="evidence_select"
-  >
+  <label>
     Evidence
     <select
       data-testid="evidence-select"
-      id="evidence_select"
     >
       <optgroup
         label="foo"

@@ -1,16 +1,16 @@
-import { render, fireEvent } from '@testing-library/react';
-import ClauseList from '../../../query-builder/components/ClauseList';
+import { render } from '@testing-library/react';
+
 import { createEmptyClause } from '../../utils/clause';
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
+
+import ClauseList from '../../../query-builder/components/ClauseList';
 
 let rendered;
 let props;
 
 describe('ClauseList component', () => {
-  resetUuidV1();
   beforeEach(() => {
     props = {
-      clauses: [createEmptyClause()],
+      clauses: [createEmptyClause(0)],
       searchTerms: [],
       evidences: {
         go: {
