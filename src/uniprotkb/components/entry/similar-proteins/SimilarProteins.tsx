@@ -1,7 +1,7 @@
 import { Loader, Message, Tabs, Tab, Card } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import { groupBy } from 'lodash-es';
-import { generatePath, Link, useHistory } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
 import { getClustersForProteins } from '../../../../shared/config/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import {
