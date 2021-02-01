@@ -19,7 +19,10 @@ const SimilarProteins: FC<{
   isoforms: { isoforms: string[] };
   primaryAccession: string;
 }> = ({ isoforms, primaryAccession }) => {
-  const allAccessions = [primaryAccession, ...isoforms.isoforms];
+  const allAccessions = useMemo(
+    () => [primaryAccession, ...isoforms.isoforms],
+    [primaryAccession, isoforms]
+  );
 
   const searchUrl = getClustersForProteins(allAccessions);
 

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { DataTable, DENSITY_COMPACT, Loader, Message } from 'franklin-sites';
+import { DataTable, Loader, Message } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -79,9 +79,8 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
     <DataTable
       data={results}
       columns={columnConfig}
-      getIdKey={(row: UniProtkbAPIModel) => row.primaryAccession}
-      onSelect={() => null}
-      density={DENSITY_COMPACT}
+      getIdKey={(row) => row.primaryAccession}
+      density="compact"
     />
   );
 };
