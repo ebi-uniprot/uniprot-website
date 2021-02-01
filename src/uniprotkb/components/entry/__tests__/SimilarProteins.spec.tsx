@@ -36,7 +36,7 @@ describe('SimilarProteins tests', () => {
     expect(await screen.findByText(/P12023/)).toBeTruthy();
   });
 
-  it('should generate the correct link to view all', async () => {
+  it('should navigate to correct search page when clicking "view all"', async () => {
     fireEvent.click(await screen.findByRole('button', { name: /View all/ }));
     expect(historyMock.location.search).toEqual(
       '?query=(uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067)'
