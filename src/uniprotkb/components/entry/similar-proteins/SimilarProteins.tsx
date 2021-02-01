@@ -42,7 +42,6 @@ const SimilarProteins: FC<{
           ),
         }))
         .filter((item) => item.members.length > 1);
-      console.log(filtered);
 
       const clusterTypeGroups = groupBy(filtered, 'entryType');
       // Note: thought we could use Dictionary<T> here but lodash doesn't
