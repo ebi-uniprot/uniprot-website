@@ -21,10 +21,9 @@ const EvidenceField: FC<{
   }, [field, value, handleChange]);
 
   return (
-    <label htmlFor="evidence_select">
+    <label>
       Evidence
       <select
-        id="evidence_select"
         data-testid="evidence-select"
         value={value}
         onChange={(e) => setValue(e.target.value)}

@@ -2,13 +2,10 @@
 
 exports[`Enum field should render an enum field 1`] = `
 <DocumentFragment>
-  <label
-    for="select_existence"
-  >
+  <label>
     Protein Existence [PE]
     <select
       data-testid="enum-field-select"
-      id="select_existence"
     >
       <option
         value="1"

@@ -33,10 +33,9 @@ const TextField: FC<{
   }, [field, value, handleChange]);
 
   return (
-    <label htmlFor={`input_${field.term}`}>
+    <label>
       {field.label}
       <input
-        id={`input_${field.term}`}
         type={field.dataType === DataType.integer ? 'number' : 'text'}
         value={value}
         onChange={(e) => setValue(e.target.value)}

@@ -7,6 +7,7 @@ exports[`ClauseList component should render 1`] = `
     data-testid="search__clause"
   >
     <select
+      aria-label="logical operator"
       class="query-builder__logic"
       data-testid="query-builder-logic-select"
     >
@@ -42,12 +43,9 @@ exports[`ClauseList component should render 1`] = `
     <div
       class="query-builder__inputs"
     >
-      <label
-        for="input_All"
-      >
+      <label>
         All
         <input
-          id="input_All"
           placeholder="a4_human, P05067, cdc7 human"
           type="text"
           value=""
