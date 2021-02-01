@@ -53,7 +53,11 @@ const ClauseItem = memo<ClauseItemProps>(
       : [clause.searchTerm];
 
     return (
-      <div className="query-builder__clause" data-testid="search__clause">
+      <div
+        className="query-builder__clause"
+        data-testid="search__clause"
+        data-field={clause.searchTerm.term}
+      >
         <LogicalOperator
           value={clause.logicOperator}
           handleChange={(value: Operator) =>

@@ -4,6 +4,7 @@ exports[`ClauseList component should render 1`] = `
 <DocumentFragment>
   <div
     class="query-builder__clause"
+    data-field="All"
     data-testid="search__clause"
   >
     <select

@@ -78,6 +78,7 @@ exports[`QueryBuilder should render 1`] = `
     <fieldset>
       <div
         class="query-builder__clause"
+        data-field="gene"
         data-testid="search__clause"
       >
         <select
@@ -136,6 +137,7 @@ exports[`QueryBuilder should render 1`] = `
       </div>
       <div
         class="query-builder__clause"
+        data-field="taxonomy_name"
         data-testid="search__clause"
       >
         <select
@@ -220,6 +222,7 @@ exports[`QueryBuilder should render 1`] = `
       </div>
       <div
         class="query-builder__clause"
+        data-field="keyword"
         data-testid="search__clause"
       >
         <select
@@ -304,6 +307,7 @@ exports[`QueryBuilder should render 1`] = `
       </div>
       <div
         class="query-builder__clause"
+        data-field="All"
         data-testid="search__clause"
       >
         <select
