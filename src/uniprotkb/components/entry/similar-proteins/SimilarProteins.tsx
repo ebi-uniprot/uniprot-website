@@ -1,4 +1,4 @@
-import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
+import { Loader, Message, Tabs, Tab, Card } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import { groupBy } from 'lodash-es';
 import { generatePath, Link, useHistory } from 'react-router-dom';
@@ -23,8 +23,6 @@ const SimilarProteins: FC<{
     primaryAccession,
     ...isoforms.isoforms,
   ]);
-
-  const history = useHistory();
 
   // Get the clusters in which the canonical and isoforms are found
   const { loading, data, error } = useDataApi<{
