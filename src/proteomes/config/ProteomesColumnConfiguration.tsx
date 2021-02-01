@@ -7,6 +7,7 @@ import {
 } from '../adapters/proteomesConverter';
 
 import { Location, LocationToPath } from '../../app/config/urls';
+import { formatRatioAsPercentage } from '../../shared/utils/utils';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -131,7 +132,29 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 //   render: ({ proteinCount }) => proteinCount
 // });
 
-// TODO: wait for confirmation from Jie if components should be rendered. Note not shown in current UniProt
-// TODO: implement BUSCO viz
+// TODO: wait for confirmation from Jie if components should be rendered. Use incognito mode to view in current site (there is a bug).
+
+ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
+  label: 'BUSCO',
+  render: ({ proteomeCompletenessReport: { buscoReport: busco } }) => {
+    if (!busco) {
+      return;
+    }
+    const format = (numer: number) =>
+      formatRatioAsPercentage(numer, busco.total);
+    const C = format(busco.complete);
+    const S = format(busco.completeSingle);
+    const D = format(busco.completeDuplicated);
+    const F = format(busco.fragmented);
+    const M = format(busco.missing);
+    // eslint-disable-next-line consistent-return
+    return (
+      <>
+        <div>n:{busco.total}</div>
+        <div>{`C:${C}(S:${S} D:${D}) F:${F} M:${M} ${busco.lineageDb}`}</div>
+      </>
+    );
+  },
+});
 
 export default ProteomesColumnConfiguration;

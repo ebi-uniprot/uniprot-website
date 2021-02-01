@@ -11,6 +11,15 @@ export function removeProperty<
 export const formatLargeNumber = (x: number) =>
   x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
+export const formatRatioAsPercentage = (
+  numerator: number,
+  denominator: number,
+  maximumFractionDigits = 1
+) =>
+  `${((100 * numerator) / denominator).toLocaleString('en-US', {
+    maximumFractionDigits,
+  })}%`;
+
 export function moveItemInList<T>(
   list: T[],
   srcIndex: number,
