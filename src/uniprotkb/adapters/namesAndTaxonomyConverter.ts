@@ -1,9 +1,9 @@
 import { ValueWithEvidence, Evidence } from '../types/modelTypes';
 import { Flag } from './sequenceConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { Xref } from '../types/commentTypes';
 import { convertSection, UIModel } from './sectionConverter';
 import EntrySection from '../types/entrySection';
+import { Xref } from '../../shared/types/apiModel';
 
 export type ProteinNames = {
   fullName: ValueWithEvidence;
@@ -41,15 +41,6 @@ export type OrganismData = {
   taxonId?: number;
   evidences?: Evidence[];
   lineage?: string[];
-};
-
-export type LineageData = {
-  scientificName?: string;
-  commonName?: string;
-  synonyms?: string[];
-  taxonId?: number;
-  rank?: string;
-  hidden?: boolean;
 };
 
 export type NamesAndTaxonomyUIModel = {

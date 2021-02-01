@@ -14,10 +14,11 @@ import {
 } from '../config/database';
 import EntrySection from '../types/entrySection';
 import { DatabaseCategory } from '../types/databaseRefs';
-import { Xref, FreeTextComment } from '../types/commentTypes';
+import { FreeTextComment } from '../types/commentTypes';
 import { GeneNamesData } from '../adapters/namesAndTaxonomyConverter';
 import { flattenGeneNameData } from '.';
 import { ValueWithEvidence } from '../types/modelTypes';
+import { Xref } from '../../shared/types/apiModel';
 
 export type XrefsGoupedByDatabase = {
   database: string;

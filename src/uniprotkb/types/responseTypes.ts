@@ -2,7 +2,7 @@ import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 export type FacetValue = { label: string; value: string; count: number };
 
-export type Facet = {
+export type FacetObject = {
   label: string;
   name: string;
   allowMultipleSelection: boolean;
@@ -12,7 +12,7 @@ export type Facet = {
 type Response = {
   data: {
     results: UniProtkbAPIModel[];
-    facets?: Facet[];
+    facets?: FacetObject[];
   };
   headers: {
     ['x-totalrecords']: string;

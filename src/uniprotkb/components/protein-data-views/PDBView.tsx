@@ -5,7 +5,7 @@ import { Loader } from 'franklin-sites';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 import { PDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
-import { Xref } from '../../types/commentTypes';
+import { Xref } from '../../../shared/types/apiModel';
 
 import 'litemol/dist/css/LiteMol-plugin.css';
 

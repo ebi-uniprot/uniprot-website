@@ -8,8 +8,8 @@ import {
   ProteinNamesData,
   GeneNamesData,
   OrganismData,
-  LineageData,
 } from './namesAndTaxonomyConverter';
+import { Lineage, Xref } from '../../shared/types/apiModel';
 import convertProteinProcessing from './proteinProcessingConverter';
 import convertExpression from './expressionConverter';
 import convertSubcellularLocation from './subcellularLocationConverter';
@@ -25,7 +25,7 @@ import convertFamilyAndDomains from './familyAndDomainsConverter';
 import { UIModel } from './sectionConverter';
 import convertStructure from './structureConverter';
 import convertExternalLinks from './externalLinksConverter';
-import Comment, { Xref } from '../types/commentTypes';
+import Comment from '../types/commentTypes';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
@@ -74,7 +74,7 @@ export type UniProtkbAPIModel = {
   annotationScore: number;
   entryAudit?: EntryAudit;
   references?: Reference[];
-  lineages?: LineageData[];
+  lineages?: Lineage[];
   // How is that defined? What goes in this?
   extraAttributes?: Record<string, unknown>;
 };

@@ -16,18 +16,20 @@ import uniProtKbConverter, {
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 // columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
+import ProteomesColumnConfiguration from '../../../proteomes/config/ProteomesColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
 
-import getNextUrlFromResponse from '../../utils/queryUtils';
+import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import {
   getParamsFromURL,
   getLocationObjForParams,
@@ -46,7 +48,11 @@ import { ViewMode } from './ResultsContainer';
 import './styles/warning.scss';
 import './styles/results-view.scss';
 
-type APIModel = UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+type APIModel =
+  | UniProtkbAPIModel
+  | UniRefLiteAPIModel
+  | UniParcAPIModel
+  | ProteomesAPIModel;
 
 const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
@@ -56,6 +62,8 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       return row as UniRefLiteAPIModel;
     case Namespace.uniparc:
       return row as UniParcAPIModel;
+    case Namespace.proteomes:
+      return row as ProteomesAPIModel;
     default:
       return null;
   }
@@ -69,6 +77,8 @@ const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
       return (data) => (data as UniRefLiteAPIModel).id;
     case Namespace.uniparc:
       return (data) => (data as UniParcAPIModel).uniParcId;
+    case Namespace.proteomes:
+      return (data) => (data as ProteomesAPIModel).id;
     default:
       // eslint-disable-next-line no-console
       console.warn(`getIdKey method not implemented for ${namespace} yet`);
@@ -83,6 +93,7 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
   [Namespace.uniref]: UniRefColumnConfiguration,
   [Namespace.uniparc]: UniParcColumnConfiguration,
+  [Namespace.proteomes]: ProteomesColumnConfiguration,
 };
 
 const cardRenderer = (
@@ -256,7 +267,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 

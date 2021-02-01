@@ -12,7 +12,7 @@ import formatCitationData, {
   getCitationPubMedId,
 } from '../../adapters/literatureConverter';
 
-import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
+import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -58,7 +58,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 
