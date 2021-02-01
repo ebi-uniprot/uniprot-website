@@ -19,10 +19,9 @@ const SimilarProteins: FC<{
   isoforms: { isoforms: string[] };
   primaryAccession: string;
 }> = ({ isoforms, primaryAccession }) => {
-  const searchUrl = getClustersForProteins([
-    primaryAccession,
-    ...isoforms.isoforms,
-  ]);
+  const allAccessions = [primaryAccession, ...isoforms.isoforms];
+
+  const searchUrl = getClustersForProteins(allAccessions);
 
   // Get the clusters in which the canonical and isoforms are found
   const { loading, data, error } = useDataApi<{
@@ -33,7 +32,17 @@ const SimilarProteins: FC<{
     if (data) {
       const { results } = data;
       // Remove all items with only 1 member as it will be canonical/isoform
-      const filtered = results.filter((item) => item.members.length > 1);
+
+      const filtered = results
+        .map((item) => ({
+          ...item,
+          members: item.members.filter(
+            (member) =>
+              !member.startsWith('UPI') && !allAccessions.includes(member)
+          ),
+        }))
+        .filter((item) => item.members.length > 1);
+      console.log(filtered);
 
       const clusterTypeGroups = groupBy(filtered, 'entryType');
       // Note: thought we could use Dictionary<T> here but lodash doesn't

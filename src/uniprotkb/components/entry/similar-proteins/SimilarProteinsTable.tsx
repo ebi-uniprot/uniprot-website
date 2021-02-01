@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { DataTable, DENSITY_COMPACT, Loader, Message } from 'franklin-sites';
 import { generatePath, Link } from 'react-router-dom';
 import { getAccessionsURL } from '../../../../shared/config/apiUrls';
@@ -55,13 +55,7 @@ const columnConfig = [
 ];
 
 const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
-  const memberList = useMemo(() => {
-    // Remove UniParc entries
-    return members.filter((member) => !member.startsWith('UPI'));
-    return [];
-  }, [members]);
-
-  const membersURL = getAccessionsURL(memberList, {
+  const membersURL = getAccessionsURL(members, {
     facets: [],
     columns,
   });
