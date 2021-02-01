@@ -1,7 +1,7 @@
-import { FC, lazy, useState, Suspense } from 'react';
+import { FC, useState, Suspense } from 'react';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
-import { DownloadIcon, ReSubmitIcon } from 'franklin-sites';
+import { Button, DownloadIcon, ReSubmitIcon } from 'franklin-sites';
 
 import SlidingPanel, {
   Position,
@@ -16,6 +16,7 @@ import { jobTypeToPath } from '../../app/config/urls';
 import uniProtKBApiUrls, { getSuggesterUrl } from '../../shared/config/apiUrls';
 
 import fetchData from '../../shared/utils/fetchData';
+import lazy from '../../shared/utils/lazy';
 
 import { PublicServerParameters } from '../types/toolsServerParameters';
 import { Suggestions } from '../../query-builder/components/AutocompleteWrapper';
@@ -85,15 +86,14 @@ export const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
   };
 
   return (
-    <button
-      type="button"
-      className="button tertiary"
+    <Button
+      variant="tertiary"
       disabled={!inputParamsData || disabled}
       onClick={handleClick}
     >
       <ReSubmitIcon />
       Resubmit
-    </button>
+    </Button>
   );
 };
 
@@ -144,14 +144,15 @@ const ResultButtons: FC<ResultButtonsProps<JobTypes>> = ({
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
         <AlignButton selectedEntries={selectedEntries} />
-        <button
-          type="button"
-          className="button tertiary"
+        <Button
+          variant="tertiary"
+          onPointerOver={ResultDownload.preload}
+          onFocus={ResultDownload.preload}
           onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
         >
           <DownloadIcon />
           Download
-        </button>
+        </Button>
         <AddToBasketButton selectedEntries={selectedEntries} />
         <ResubmitButton inputParamsData={inputParamsData} jobType={jobType} />
       </div>

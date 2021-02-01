@@ -1,4 +1,5 @@
 import { FC, useState, Suspense } from 'react';
+import cn from 'classnames';
 import {
   DownloadIcon,
   StatisticsIcon,
@@ -102,16 +103,16 @@ const ResultsButtons: FC<{
           data-testid="table-card-toggle"
         >
           <span
-            className={
-              viewMode === ViewMode.CARD ? 'tertiary-icon__active' : ''
-            }
+            className={cn({
+              'tertiary-icon__active': viewMode === ViewMode.CARD,
+            })}
           >
             <TableIcon />
           </span>
           <span
-            className={
-              viewMode === ViewMode.TABLE ? 'tertiary-icon__active' : ''
-            }
+            className={cn({
+              'tertiary-icon__active': viewMode === ViewMode.TABLE,
+            })}
           >
             <ListIcon />
           </span>
