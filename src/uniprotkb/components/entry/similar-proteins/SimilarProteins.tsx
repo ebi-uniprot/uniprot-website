@@ -112,19 +112,24 @@ const SimilarProteins: FC<{
                     )
                   )}
                   {/* TODO: This query doesn't seem to work currently */}
-                  <Button
-                    onClick={() => {
-                      history.push({
-                        pathname: LocationToPath[Location.UniProtKBResults],
-                        search: `query=(${data?.results
-                          .filter(({ entryType }) => entryType === clusterType)
-                          .map(({ id }) => `uniref_cluster_100:${id}`)
-                          .join(' OR ')})`,
-                      });
+                  <Link
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: `query=(${data?.results
+                        .filter(({ entryType }) => entryType === clusterType)
+                        .map(
+                          ({ id }) =>
+                            `uniref_cluster_${clusterType.replace(
+                              'UniRef',
+                              ''
+                            )}:${id}`
+                        )
+                        .join(' OR ')})`,
                     }}
+                    className="button"
                   >
                     View all
-                  </Button>
+                  </Link>
                 </Tab>
               )
           )}

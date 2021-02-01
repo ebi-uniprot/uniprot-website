@@ -37,9 +37,11 @@ describe('SimilarProteins tests', () => {
   });
 
   it('should generate the correct link to view all', async () => {
-    fireEvent.click(await screen.findByRole('button', { name: /View all/ }));
+    const href = await screen.getByText(/View all/);
+    fireEvent.click(await screen.getByText(/View all/));
     expect(historyMock.location.search).toEqual(
       '?query=(uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067)'
     );
+    expect(historyMock.location.pathname).toEqual('/uniprotkb');
   });
 });
