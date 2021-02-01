@@ -18,48 +18,48 @@ const columns = [
   UniProtKBColumn.sequence,
 ];
 
+const columnConfig = [
+  {
+    label: 'Accession',
+    name: 'accession',
+    render: (row: UniProtkbAPIModel) => (
+      <>
+        <EntryTypeIcon entryType={row.entryType} />
+        <Link
+          to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+            accession: row.primaryAccession,
+          })}
+        >
+          {row.primaryAccession}
+        </Link>
+      </>
+    ),
+  },
+  {
+    label: 'Protein name',
+    name: 'protein_name',
+    render: (row: UniProtkbAPIModel) =>
+      row.proteinDescription?.recommendedName?.fullName.value,
+  },
+  {
+    label: 'Organism',
+    name: 'organism',
+    render: (row: UniProtkbAPIModel) =>
+      row.organism && <TaxonomyView data={row.organism} />,
+  },
+  {
+    label: 'Length',
+    name: 'length',
+    render: (row: UniProtkbAPIModel) => row.sequence?.length,
+  },
+];
+
 const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
   const memberList = useMemo(() => {
     // Remove UniParc entries
     return members.filter((member) => !member.startsWith('UPI'));
     return [];
   }, [members]);
-
-  const columnConfig = [
-    {
-      label: 'Accession',
-      name: 'accession',
-      render: (row: UniProtkbAPIModel) => (
-        <>
-          <EntryTypeIcon entryType={row.entryType} />
-          <Link
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: row.primaryAccession,
-            })}
-          >
-            {row.primaryAccession}
-          </Link>
-        </>
-      ),
-    },
-    {
-      label: 'Protein name',
-      name: 'protein_name',
-      render: (row: UniProtkbAPIModel) =>
-        row.proteinDescription?.recommendedName?.fullName.value,
-    },
-    {
-      label: 'Organism',
-      name: 'organism',
-      render: (row: UniProtkbAPIModel) =>
-        row.organism && <TaxonomyView data={row.organism} />,
-    },
-    {
-      label: 'Length',
-      name: 'length',
-      render: (row: UniProtkbAPIModel) => row.sequence?.length,
-    },
-  ];
 
   const membersURL = getAccessionsURL(memberList, {
     facets: [],
