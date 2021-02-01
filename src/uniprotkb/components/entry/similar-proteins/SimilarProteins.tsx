@@ -1,7 +1,7 @@
-import { Loader, Message, Tabs, Tab, Card } from 'franklin-sites';
+import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import { groupBy } from 'lodash-es';
-import { generatePath, Link } from 'react-router-dom';
+import { generatePath, Link, useHistory } from 'react-router-dom';
 import { getClustersForProteins } from '../../../../shared/config/apiUrls';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import {
@@ -25,6 +25,7 @@ const SimilarProteins: FC<{
   );
 
   const searchUrl = getClustersForProteins(allAccessions);
+  const history = useHistory();
 
   // Get the clusters in which the canonical and isoforms are found
   const { loading, data, error } = useDataApi<{
@@ -61,7 +62,7 @@ const SimilarProteins: FC<{
       return allClusterTypesGroups;
     }
     return null;
-  }, [data]);
+  }, [data, allAccessions]);
 
   const nameAndId = getEntrySectionNameAndId(EntrySection.SimilarProteins);
 
@@ -121,24 +122,26 @@ const SimilarProteins: FC<{
                     )
                   )}
                   {/* TODO: This query doesn't seem to work currently */}
-                  <Link
-                    to={{
-                      pathname: LocationToPath[Location.UniProtKBResults],
-                      search: `query=(${data?.results
-                        .filter(({ entryType }) => entryType === clusterType)
-                        .map(
-                          ({ id }) =>
-                            `uniref_cluster_${clusterType.replace(
-                              'UniRef',
-                              ''
-                            )}:${id}`
-                        )
-                        .join(' OR ')})`,
-                    }}
-                    className="button"
+                  <Button
+                    element="a"
+                    onClick={() =>
+                      history.push({
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=(${data?.results
+                          .filter(({ entryType }) => entryType === clusterType)
+                          .map(
+                            ({ id }) =>
+                              `uniref_cluster_${clusterType.replace(
+                                'UniRef',
+                                ''
+                              )}:${id}`
+                          )
+                          .join(' OR ')})`,
+                      })
+                    }
                   >
                     View all
-                  </Link>
+                  </Button>
                 </Tab>
               )
           )}
