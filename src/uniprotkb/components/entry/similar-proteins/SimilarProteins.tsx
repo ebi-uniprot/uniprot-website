@@ -109,7 +109,7 @@ const SimilarProteins: FC<{
                                 <SimilarProteinsTable members={row.members} />
                                 {row.memberCount - row.members.length > 0 && (
                                   <Link to={unirefEntryUrl}>
-                                    {row.memberCount - row.members.length} More
+                                    {row.memberCount - row.members.length - 1} more
                                   </Link>
                                 )}
                               </section>
