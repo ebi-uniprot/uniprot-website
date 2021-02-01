@@ -29,7 +29,7 @@ import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
 
-import getNextUrlFromResponse from '../../utils/queryUtils';
+import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import {
   getParamsFromURL,
   getLocationObjForParams,
@@ -256,7 +256,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 

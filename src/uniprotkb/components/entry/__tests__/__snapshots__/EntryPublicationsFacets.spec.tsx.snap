@@ -53,42 +53,40 @@ exports[`EntryPublication facets tests should handle loading 1`] = `
 
 exports[`EntryPublication facets tests should render 1`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class="facets"
+  <div
+    class="facets"
+  >
+    <ul
+      class="no-bullet"
     >
-      <ul
-        class="no-bullet"
-      >
-        <li>
-          <div>
-            <div
-              class="facet-name"
-            >
-              Study type
-            </div>
-            <ul
-              class="expandable-list no-bullet"
-            >
-              <li>
-                <a
-                  href="/?facets=study_type%3Asmall_scale"
-                >
-                  Small scale (239)
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/?facets=study_type%3Alarge_scale"
-                >
-                  Large scale (8)
-                </a>
-              </li>
-            </ul>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Study type
           </div>
-        </li>
-      </ul>
-    </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/?facets=study_type%3Asmall_scale"
+              >
+                Small scale (239)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/?facets=study_type%3Alarge_scale"
+              >
+                Large scale (8)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
   </div>
 </DocumentFragment>
 `;
