@@ -28,6 +28,13 @@
     height: $action-buttons-height;
   }
 
+  &__title,
+  &__action-buttons {
+    position: sticky;
+    left: 0;
+    width: 100%;
+  }
+
   &__sidebar {
     @include scroll-shadow;
     padding: 1rem $gutter-size 0;

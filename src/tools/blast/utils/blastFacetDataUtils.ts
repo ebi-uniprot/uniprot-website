@@ -64,7 +64,7 @@ const parseLocalFacets = (facets: SelectedFacet[]): ParsedLocalFacet[] => {
  * @returns {function} - function to use to filter BlastHits
  */
 export const filterBlastByFacets = (
-  facets: SelectedFacet[] = [],
+  facets: SelectedFacet[],
   ignoredFacet = ''
 ) => {
   const parsedFacets = parseLocalFacets(
@@ -94,28 +94,11 @@ export const filterBlastByFacets = (
   };
 };
 
-export const filterBlastHitForResults = (
-  hits: BlastHit[],
-  min: number,
-  max: number,
-  facet: BlastFacet
-) =>
-  hits.filter(
-    (hit) =>
-      hit.hit_hsps
-        .map((hsp) => hsp[blastFacetToKeyName[facet] as keyof BlastHsp])
-        .filter((score) => score >= min && score <= max).length
-  );
-
 export const filterBlastDataForResults = (
   data: BlastResults,
   facets: SelectedFacet[]
 ) => {
-  if (!data) {
-    return null;
-  }
-
-  if (!data.hits || !data.hits.length || !Object.keys(facets).length) {
+  if (!data.hits?.length || !facets.length) {
     return data;
   }
 
@@ -168,16 +151,17 @@ export const getBounds = (hits: BlastHit[]) => {
 };
 
 export const getDataPoints = (hits: BlastHit[]) => {
-  const output = Object.fromEntries(
-    Object.keys(blastFacetToKeyName).map((key) => [key, [] as number[]])
+  const output: Record<string, number[]> = Object.fromEntries(
+    Object.keys(blastFacetToKeyName).map((key) => [key, []])
   );
   for (const [facet, keyName] of Object.entries(blastFacetToKeyName)) {
     const current = output[facet];
     for (const hit of hits) {
       for (const hsp of hit.hit_hsps) {
-        const value = hsp[keyName as keyof BlastHsp] as number;
-        if (typeof value !== 'undefined') {
-          current.push(value);
+        const value = hsp[keyName as keyof BlastHsp];
+        const number = +value;
+        if (value && !Number.isNaN(number)) {
+          current.push(number);
         }
       }
     }

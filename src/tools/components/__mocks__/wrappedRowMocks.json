@@ -5,7 +5,7 @@
     "calculate-conservation": true,
     "overlay-conservation": true
   },
-  "annotation": "Other domain of interest",
+  "annotation": "Domain",
   "sequences": [
     {
       "name": "sp|P05066|PHR_YEAST",
@@ -20,7 +20,7 @@
           "end": 226,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "Other domain of interest",
+          "type": "Domain",
           "description": "Photolyase/cryptochrome alpha/beta"
         },
         {
@@ -29,7 +29,7 @@
           "end": 342,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "Nucleotide-binding region",
+          "type": "Nucleotide binding",
           "description": "FAD",
           "evidences": [
             {
@@ -53,7 +53,7 @@
           "end": 17,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "signal peptide",
+          "type": "Signal",
           "description": "",
           "evidences": [
             {
@@ -80,7 +80,7 @@
           "end": 770,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "chain",
+          "type": "Chain",
           "description": "Amyloid-beta precursor protein"
         }
       ],
@@ -99,7 +99,7 @@
           "end": 1,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "initiator methionine",
+          "type": "Initiator methionine",
           "description": "Removed",
           "evidences": [
             {
@@ -121,7 +121,7 @@
           "end": 364,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "chain",
+          "type": "Chain",
           "description": "Fructose-bisphosphate aldolase B"
         }
       ],
@@ -140,7 +140,7 @@
           "end": 1,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "initiator methionine",
+          "type": "Initiator methionine",
           "description": "Removed",
           "evidences": [
             {
@@ -157,7 +157,7 @@
           "end": 364,
           "startModifier": "EXACT",
           "endModifier": "EXACT",
-          "type": "chain",
+          "type": "Chain",
           "description": "Fructose-bisphosphate aldolase A"
         }
       ],
@@ -176,7 +176,7 @@
       "end": 226,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "Other domain of interest",
+      "type": "Domain",
       "description": "Photolyase/cryptochrome alpha/beta"
     }
   ],
@@ -196,7 +196,7 @@
         "end": 226,
         "startModifier": "EXACT",
         "endModifier": "EXACT",
-        "type": "Other domain of interest",
+        "type": "Domain",
         "description": "Photolyase/cryptochrome alpha/beta"
       },
       {
@@ -205,7 +205,7 @@
         "end": 342,
         "startModifier": "EXACT",
         "endModifier": "EXACT",
-        "type": "Nucleotide-binding region",
+        "type": "Nucleotide binding",
         "description": "FAD",
         "evidences": [
           {

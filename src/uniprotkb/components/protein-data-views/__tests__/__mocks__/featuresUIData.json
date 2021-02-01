@@ -1,6 +1,6 @@
 [
   {
-    "type": "signal peptide",
+    "type": "Signal",
     "location": {
       "start": {
         "value": 1,

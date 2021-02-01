@@ -17,6 +17,8 @@ import { Loader, PageIntro, Tabs, Tab } from 'franklin-sites';
 
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
+import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 import BlastResultSidebar from './BlastResultSidebar';
 import ResultButtons from '../../../components/ResultButtons';
 
@@ -44,9 +46,6 @@ import { JobTypes } from '../../../types/toolsJobTypes';
 import { PublicServerParameters } from '../../types/blastServerParameters';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import BlastResultLocalFacets from './BlastResultLocalFacets';
-import ErrorBoundary from '../../../../shared/components/error-component/ErrorBoundary';
-import HSPDetailPanel, { HSPDetailPanelProps } from './HSPDetailPanel';
 
 import '../../../../shared/styles/sticky.scss';
 
@@ -291,14 +290,12 @@ const BlastResult = () => {
 
   // sidebar option 1
   const facetsSidebar = (
-    <>
-      <ErrorBoundary>
-        <BlastResultLocalFacets allHits={blastData.hits} />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <BlastResultSidebar accessions={accessionsFilteredByLocalFacets} />
-      </ErrorBoundary>
-    </>
+    <ErrorBoundary>
+      <BlastResultSidebar
+        accessions={accessionsFilteredByLocalFacets}
+        allHits={blastData.hits}
+      />
+    </ErrorBoundary>
   );
 
   // sidebar option 2

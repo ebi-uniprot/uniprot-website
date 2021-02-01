@@ -53,14 +53,14 @@ exports[`EntryPublication facets tests should handle loading 1`] = `
 
 exports[`EntryPublication facets tests should render 1`] = `
 <DocumentFragment>
-  <div>
-    <div
-      class="facets"
+  <div
+    class="facets"
+  >
+    <ul
+      class="no-bullet"
     >
-      <ul
-        class="no-bullet"
-      >
-        <li>
+      <li>
+        <div>
           <div
             class="facet-name"
           >
@@ -84,9 +84,9 @@ exports[`EntryPublication facets tests should render 1`] = `
               </a>
             </li>
           </ul>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </DocumentFragment>
 `;

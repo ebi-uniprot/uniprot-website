@@ -128,7 +128,7 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
         <span
           class="track-label annotation-label"
         >
-          U6MKN0:chain
+          U6MKN0:Chain
         </span>
         <div
           class="track annotation-track"
@@ -254,7 +254,7 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
             class="track-label"
             data-testid="track-label"
           >
-            U6MKN0:chain
+            U6MKN0:Chain
           </span>
           <div
             class="track"

@@ -6,7 +6,7 @@ exports[`FeaturesView component it renders without crashing 1`] = `
     Features
   </h3>
   <p>
-    Showing features for signal peptide.
+    Showing features for signal.
   </p>
   <protvista-manager
     attributes="highlight displaystart displayend selectedid"

@@ -3,8 +3,7 @@ import { InfoList, ExpandableList } from 'franklin-sites';
 import { Link, generatePath } from 'react-router-dom';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-
-import { Xref } from '../../types/commentTypes';
+import { Xref } from '../../../shared/types/apiModel';
 
 const ProteomesId: FC<{ id?: string }> = ({ id }) =>
   id ? (

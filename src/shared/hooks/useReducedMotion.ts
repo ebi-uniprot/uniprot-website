@@ -24,9 +24,9 @@ const useReducedMotion = () => {
       setReducedMotion(event.matches);
     };
 
-    mediaQueryList.addListener(listener);
+    mediaQueryList.addEventListener('change', listener);
     // eslint-disable-next-line consistent-return
-    return () => mediaQueryList.removeListener(listener);
+    return () => mediaQueryList.removeEventListener('change', listener);
   }, []);
 
   return reducedMotion;

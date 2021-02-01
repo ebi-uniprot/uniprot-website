@@ -5,7 +5,7 @@ import {
   DatabaseInfo,
   DatabaseInfoPoint,
 } from '../types/databaseRefs';
-import { Xref } from '../types/commentTypes';
+import { Xref } from '../../shared/types/apiModel';
 
 export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
   const databaseCategoryToNames = new Map<DatabaseCategory, string[]>();
