@@ -4,6 +4,7 @@ import {
   useState,
   useEffect,
   useMemo,
+  useRef,
   CSSProperties,
 } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -39,7 +40,14 @@ import '../../uniprotkb/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
 
 type Props = {
+  /**
+   * Will be called when clicking on cancel button, or outside the panel
+   */
   onCancel: () => void;
+  /**
+   * Add the wanted field into the form when rendering
+   */
+  fieldToAdd?: string;
 };
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
@@ -47,7 +55,7 @@ interface Style extends CSSProperties {
   '--main-button-color': string;
 }
 
-const QueryBuilder: FC<Props> = ({ onCancel }) => {
+const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -83,11 +91,16 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
         return clauses;
       }
 
-      const query = qs.parse(location.search, { decode: true })?.query;
+      let query = qs.parse(location.search, { decode: true })?.query;
+      if (query === '*') {
+        // if the query is a star query, don't parse it, default to example form
+        query = null;
+      }
 
       const [validatedQuery, invalidClauses] = parseAndMatchQuery(
         query,
-        searchTermsData
+        searchTermsData,
+        fieldToAdd
       );
 
       if (invalidClauses.length) {
@@ -114,7 +127,31 @@ const QueryBuilder: FC<Props> = ({ onCancel }) => {
 
       return parseAndMatchQuery(defaultQueryFor(namespace), searchTermsData)[0];
     });
-  }, [dispatch, location.search, loading, namespace, searchTermsData]);
+  }, [
+    dispatch,
+    location.search,
+    loading,
+    namespace,
+    searchTermsData,
+    fieldToAdd,
+  ]);
+
+  // Has the input corresponding to the added field been focused already?
+  const focusedFlag = useRef(false);
+  // Effect to focus *only once* the added field whenever it gets added
+  useEffect(() => {
+    if (!fieldToAdd || !clauses.length || focusedFlag.current) {
+      return;
+    }
+    const focusCandidates = document.querySelectorAll<HTMLInputElement>(
+      `form [data-field="${fieldToAdd}"] input[type="text"]`
+    );
+    if (focusCandidates.length) {
+      focusedFlag.current = true;
+      // Focus the last one if there was multiple
+      focusCandidates[focusCandidates.length - 1].focus();
+    }
+  }, [fieldToAdd, clauses]);
 
   if (loading) {
     return (
