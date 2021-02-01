@@ -10,19 +10,27 @@ exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`
         title="UDP-glucose 4-epimerase"
       >
         <a
+          class="external-link"
           href="//www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd05247}"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           cd05247
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR005886/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR005886
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -41,19 +49,27 @@ exports[`UniParcColumnConfiguration component should render column "Gene3D": Gen
         title="Cytochrome P450 superfamily"
       >
         <a
+          class="external-link"
           href="http://www.cathdb.info/version/latest/superfamily/1.10.630.10"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           G3DSA:1.10.630.10
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR036396/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR036396
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -80,19 +96,27 @@ exports[`UniParcColumnConfiguration component should render column "PANTHER": PA
         title="Glucose-methanol-choline oxidoreductase"
       >
         <a
+          class="external-link"
           href="http://www.pantherdb.org/panther/family.do?clsAccession=PTHR11552"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           PTHR11552
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR012132/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR012132
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -111,19 +135,27 @@ exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRS
         title="UTP--glucose-1-phosphate uridylyltransferase"
       >
         <a
+          class="external-link"
           href="https://proteininformationresource.org/cgi-bin/ipcSF?id=PIRSF000806"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           PIRSF000806
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR016267/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR016267
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -142,19 +174,27 @@ exports[`UniParcColumnConfiguration component should render column "PRINTS": PRI
         title="Cytochrome P450, B-class"
       >
         <a
+          class="external-link"
           href="http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?prints_accn=PR00359&display_opts=Prints&category=None&queryform=false&regexpr=off"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           PR00359
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR002397/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR002397
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -173,19 +213,27 @@ exports[`UniParcColumnConfiguration component should render column "PROSITE": PR
         title="Glucose-methanol-choline oxidoreductase, N-terminal"
       >
         <a
+          class="external-link"
           href="//prosite.expasy.org/PS00624"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           PS00624
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR000172/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR000172
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -204,19 +252,27 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
         title="Virion membrane protein, poxvirus L1-related"
       >
         <a
+          class="external-link"
           href="//pfam.xfam.org/family/PF02442"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           PF02442
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR003472/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR003472
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -251,19 +307,27 @@ exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUP
         title="Cytochrome P450 superfamily"
       >
         <a
+          class="external-link"
           href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF48264"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           SSF48264
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR036396/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR036396
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>
@@ -282,19 +346,27 @@ exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": T
         title="Plastocyanin"
       >
         <a
+          class="external-link"
           href="http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=TIGR02656"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           TIGR02656
+          <test-file-stub
+            width="12.5"
+          />
         </a>
-         (
+         ( 
         <a
+          class="external-link"
           href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR002387/"
-          rel="noopener noreferrer"
+          rel="noopener"
           target="_blank"
         >
           IPR002387
+          <test-file-stub
+            width="12.5"
+          />
         </a>
         )
       </span>

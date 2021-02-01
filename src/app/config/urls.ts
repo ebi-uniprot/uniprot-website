@@ -1,4 +1,5 @@
 import { invert } from 'lodash-es';
+import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import { Namespace } from '../../shared/types/namespaces';
@@ -86,6 +87,18 @@ export const EntryLocations = {
   [Namespace.taxonomy]: LocationToPath[Location.TaxonomyEntry],
   [Namespace.citations]: LocationToPath[Location.CitationsEntry],
   [Namespace.keywords]: LocationToPath[Location.KeywordsEntry],
+};
+
+export const getEntryPath = (
+  namespace: Namespace,
+  accession: string | number
+) => generatePath(EntryLocations[namespace], { accession });
+
+// Same than above, but curried version
+export const getEntryPathFor = (namespace: Namespace) => {
+  const entryLocation = EntryLocations[namespace];
+  return (accession: string | number) =>
+    generatePath(entryLocation, { accession });
 };
 
 // eslint-disable-next-line consistent-return

@@ -2,7 +2,7 @@ export type Lineage = {
   scientificName?: string;
   commonName?: string;
   synonyms?: string[];
-  taxonId?: number;
+  taxonId: number;
   rank?: string;
   hidden?: boolean;
 };

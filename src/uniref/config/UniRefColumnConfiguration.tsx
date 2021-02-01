@@ -1,12 +1,12 @@
-/* eslint-disable camelcase */
-import { Fragment, ReactNode } from 'react';
-import { Link, generatePath } from 'react-router-dom';
-import { ExpandableList } from 'franklin-sites';
+import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 
-import { Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath } from '../../app/config/urls';
 
+import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 
 export enum UniRefColumn {
@@ -45,15 +45,11 @@ export const UniRefColumnConfiguration = new Map<
   }
 >();
 
+const CUT_OFF = 5;
+
 UniRefColumnConfiguration.set(UniRefColumn.id, {
   label: 'Cluster ID',
-  render: ({ id }) => (
-    <Link
-      to={generatePath(LocationToPath[Location.UniRefEntry], { accession: id })}
-    >
-      {id}
-    </Link>
-  ),
+  render: ({ id }) => <Link to={getEntryPath(Namespace.uniref, id)}>{id}</Link>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
@@ -69,11 +65,7 @@ UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
   label: 'Common taxon ID',
   render: ({ commonTaxonId }) => (
-    <Link
-      to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-        accession: `${commonTaxonId}`,
-      })}
-    >
+    <Link to={getEntryPath(Namespace.taxonomy, commonTaxonId)}>
       {commonTaxonId}
     </Link>
   ),
@@ -81,30 +73,45 @@ UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
-  render: ({ organismIds }) => (
-    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
-      {organismIds?.map((organismId) => (
-        <Link
-          key={organismId}
-          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: `${organismId}`,
-          })}
-        >
-          {organismId}
-        </Link>
+  render: ({ organismIds, id }) => (
+    <ul className="no-bullet">
+      {organismIds?.slice(0, CUT_OFF).map((organismId) => (
+        <li key={organismId}>
+          <Link to={getEntryPath(Namespace.taxonomy, organismId)}>
+            {organismId}
+          </Link>
+        </li>
       ))}
-    </ExpandableList>
+      {organismIds.length > CUT_OFF && (
+        <Button
+          element={Link}
+          variant="tertiary"
+          to={getEntryPath(Namespace.uniref, id)}
+        >
+          more organisms
+        </Button>
+      )}
+    </ul>
   ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organism, {
   label: 'Organisms',
-  render: ({ organisms }) => (
-    <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
-      {organisms?.map((organism) => (
-        <Fragment key={organism}>{organism}</Fragment>
+  render: ({ organisms, id }) => (
+    <ul className="no-bullet">
+      {organisms?.slice(0, CUT_OFF).map((organism) => (
+        <li key={organism}>{organism}</li>
       ))}
-    </ExpandableList>
+      {organisms.length > CUT_OFF && (
+        <Button
+          element={Link}
+          variant="tertiary"
+          to={getEntryPath(Namespace.uniref, id)}
+        >
+          more organisms
+        </Button>
+      )}
+    </ul>
   ),
 });
 
@@ -137,19 +144,33 @@ UniRefColumnConfiguration.set(UniRefColumn.types, {
 
 UniRefColumnConfiguration.set(UniRefColumn.members, {
   label: 'Members',
-  render: ({ members }) => (
-    <ExpandableList descriptionString="members" displayNumberOfHiddenItems>
-      {members?.map((member) => (
-        <Link
-          key={member}
-          to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-            accession: member,
-          })}
-        >
-          {member}
-        </Link>
+  render: ({ members, memberCount, id }) => (
+    <ul className="no-bullet">
+      {members?.slice(0, CUT_OFF).map((member) => (
+        <li key={member}>
+          <Link
+            to={getEntryPath(
+              member.startsWith('UPI')
+                ? Namespace.uniparc
+                : Namespace.uniprotkb,
+              member
+            )}
+          >
+            {member}
+          </Link>
+        </li>
       ))}
-    </ExpandableList>
+      {members.length > CUT_OFF && (
+        <Button
+          element={Link}
+          variant="tertiary"
+          to={getEntryPath(Namespace.uniref, id)}
+        >
+          {memberCount - CUT_OFF} more member
+          {memberCount - CUT_OFF === 1 ? '' : 's'}
+        </Button>
+      )}
+    </ul>
   ),
 });
 

@@ -65,6 +65,19 @@ new RuleTester(require('./config')).run('use-config-location', rule, {
       filename: 'index.tsx',
     },
     {
+      // set function with location from config before using
+      code: `import { Link, generatePath } from 'react-router-dom';
+      import { Location } from '../config/urls';
+
+      export default Component = () => {
+        const getPath = () => generatePath(Location.UniParc);
+        return (
+          <Link to={getPath()}>Link content</Link>
+        );
+      };`,
+      filename: 'index.tsx',
+    },
+    {
       // conditionally set variable with location from config before using
       code: `import { Link, generatePath } from 'react-router-dom';
       import { Location } from '../config/urls';
@@ -94,7 +107,7 @@ new RuleTester(require('./config')).run('use-config-location', rule, {
       // to object with pathname
       code: `import { Link } from 'react-router-dom';
       import { Location } from '../config/urls';
-      
+
       export default Component = ({ accession }) => (
         <Link to={{ pathname: Location.UniRef, search: 'query=glucose' }}>
           Link content
@@ -121,7 +134,6 @@ new RuleTester(require('./config')).run('use-config-location', rule, {
   invalid: [
     {
       code: `import { Link } from 'react-router-dom';
-      
       export default Component = () => (
         <Link to="path">Link content</Link>
       );`,
@@ -131,7 +143,6 @@ new RuleTester(require('./config')).run('use-config-location', rule, {
     {
       code: `import { Link } from 'react-router-dom';
       import { Location } from '../config/urls';
-      
       export default Component = ({ accession }) => (
         <Link to={\`\${Location.UniProtKB}/\${accession}}\`}>Link content</Link>
       );`,
@@ -141,42 +152,33 @@ new RuleTester(require('./config')).run('use-config-location', rule, {
     {
       code: `import { useHistory } from 'react-router-dom';
       import { Location } from '../config/urls';
-
       export default Component = () => {
         const { push } = useHistory();
-
         useEffect(() => {
           push(Location.UniRef)
         }, [history]);
-
         return null;
       };`,
       errors: [{ messageId: 'destructureHistory' }],
     },
     {
       code: `import { useHistory } from 'react-router-dom';
-
       export default Component = () => {
         const history = useHistory();
-
         useEffect(() => {
           history.push('/uniprotkb/P00001')
         }, [history]);
-
         return null;
       };`,
       errors: [{ messageId: 'string' }],
     },
     {
       code: `import { useHistory } from 'react-router-dom';
-
       export default Component = () => {
         const history = useHistory();
-
         useEffect(() => {
           history.push((loc) => '/uniprotkb/P00001')
         }, [history]);
-
         return null;
       };`,
       errors: [{ messageId: 'navigation' }],
@@ -184,7 +186,6 @@ new RuleTester(require('./config')).run('use-config-location', rule, {
     {
       code: `import { Link } from 'react-router-dom';
       import { Location } from '../config/urls';
-      
       export default Component = ({ accession }) => (
         <Link to={{ search: 'query=glucose' }}>Link content</Link>
       );`,

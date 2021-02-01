@@ -4,7 +4,7 @@ import {
   DataListWithLoader,
   Loader,
 } from 'franklin-sites';
-import { useHistory, useLocation, generatePath } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
@@ -35,7 +35,7 @@ import {
   getLocationObjForParams,
 } from '../../../uniprotkb/utils/resultsUtils';
 import {
-  EntryLocations,
+  getEntryPathFor,
   SearchResultsLocations,
 } from '../../../app/config/urls';
 
@@ -234,19 +234,19 @@ const ResultsView: FC<ResultsTableProps> = ({
     prevViewMode.current = viewMode;
   });
 
-  const getIdKey = useMemo(() => getIdKeyFor(namespace), [namespace]);
+  const [getIdKey, getEntryPathForEntry] = useMemo(() => {
+    const getIdKey = getIdKeyFor(namespace);
+    const getEntryPath = getEntryPathFor(namespace);
+    return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
+  }, [namespace]);
 
   // redirect to entry directly when only 1 result and query marked as "direct"
   useEffect(() => {
     if (direct && metaData.total === 1 && allResults.length === 1) {
       const uniqueItem = allResults[0];
-      history.replace({
-        pathname: generatePath(EntryLocations[namespace], {
-          accession: getIdKey(uniqueItem),
-        }),
-      });
+      history.replace(getEntryPathForEntry(uniqueItem));
     }
-  }, [history, direct, metaData, allResults, namespace, getIdKey]);
+  }, [history, direct, metaData, allResults, getEntryPathForEntry]);
 
   useEffect(() => {
     if (!data) {
