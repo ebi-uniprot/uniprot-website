@@ -1859,7 +1859,7 @@ exports[`Entry view should render 1`] = `
               BLAST 1 isoform
             </button>
             <button
-              class="button tertiary"
+              class="button tertiary disabled"
               disabled=""
               title="Select at least 2 entries to run an Align job"
               type="button"

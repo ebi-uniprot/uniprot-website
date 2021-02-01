@@ -1,10 +1,9 @@
-import { FC, lazy, useState, Suspense } from 'react';
+import { FC, useState, Suspense } from 'react';
 import {
   DownloadIcon,
   StatisticsIcon,
   TableIcon,
   ListIcon,
-  EditIcon,
   Button,
 } from 'franklin-sites';
 
@@ -12,6 +11,9 @@ import SlidingPanel, { Position } from '../layouts/SlidingPanel';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
+import CustomiseButton from '../action-buttons/CustomiseButton';
+
+import lazy from '../../utils/lazy';
 
 import {
   SortDirection,
@@ -23,12 +25,6 @@ import { Column } from '../../config/columns';
 
 const DownloadComponent = lazy(
   () => import(/* webpackChunkName: "download" */ '../download/Download')
-);
-const CustomiseComponent = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "customise" */ '../customise-table/CustomiseTable'
-    )
 );
 
 const ResultsButtons: FC<{
@@ -55,7 +51,6 @@ const ResultsButtons: FC<{
   onTableColumnsChange,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
 
   return (
     <>
@@ -79,41 +74,24 @@ const ResultsButtons: FC<{
           </SlidingPanel>
         </Suspense>
       )}
-      {displayCustomisePanel && (
-        <Suspense fallback={null}>
-          <SlidingPanel
-            position={Position.left}
-            yScrollable
-            onClose={() => setDisplayCustomisePanel(false)}
-          >
-            <CustomiseComponent
-              selectedColumns={tableColumns}
-              onSave={(columns: Column[]) => {
-                onTableColumnsChange(columns);
-                setDisplayCustomisePanel(false);
-              }}
-            />
-          </SlidingPanel>
-        </Suspense>
-      )}
       <div className="button-group">
         <BlastButton selectedEntries={selectedEntries} />
         <AlignButton selectedEntries={selectedEntries} />
         <Button
-          type="button"
           variant="tertiary"
+          onPointerOver={DownloadComponent.preload}
+          onFocus={DownloadComponent.preload}
           onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
         >
           <DownloadIcon />
           Download
         </Button>
         <AddToBasketButton selectedEntries={selectedEntries} />
-        <Button type="button" variant="tertiary">
+        <Button variant="tertiary">
           <StatisticsIcon />
           Statistics
         </Button>
         <Button
-          type="button"
           variant="tertiary"
           className="large-icon"
           onClick={() =>
@@ -139,14 +117,10 @@ const ResultsButtons: FC<{
           </span>
         </Button>
         {viewMode === ViewMode.TABLE && (
-          <Button
-            type="button"
-            variant="tertiary"
-            onClick={() => setDisplayCustomisePanel(!displayCustomisePanel)}
-          >
-            <EditIcon />
-            Customize data
-          </Button>
+          <CustomiseButton
+            tableColumns={tableColumns}
+            onTableColumnsChange={onTableColumnsChange}
+          />
         )}
       </div>
     </>

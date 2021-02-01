@@ -31,11 +31,9 @@ const SequenceSection: FC<{
   ];
 
   return (
-    <div id={EntrySection.Sequence}>
-      <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
-        <Sequence sequence={data.value} infoData={infoData} isCollapsible />
-      </Card>
-    </div>
+    <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
+      <Sequence sequence={data.value} infoData={infoData} isCollapsible />
+    </Card>
   );
 };
 

@@ -3,33 +3,29 @@
 exports[`SequenceSection component should render the SequenceSection properly and match snapshot 1`] = `
 <DocumentFragment>
   <div
-    id="sequence"
+    class="card"
   >
-    <div
-      class="card"
-    >
-      <section>
-        <div
-          class="card__header"
+    <section>
+      <div
+        class="card__header"
+      >
+        <h2
+          class="card__title"
         >
-          <h2
-            class="card__title"
-          >
-            Sequence
-          </h2>
-        </div>
-        <div
-          class="card__content"
+          Sequence
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <button
+          class="button secondary"
+          type="button"
         >
-          <button
-            class="button secondary"
-            type="button"
-          >
-            Show sequence 
-          </button>
-        </div>
-      </section>
-    </div>
+          Show sequence 
+        </button>
+      </div>
+    </section>
   </div>
 </DocumentFragment>
 `;
