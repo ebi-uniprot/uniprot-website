@@ -1,37 +1,46 @@
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
-import SimilarProteins from '../SimilarProteins';
+import { act } from 'react-dom/test-utils';
+import { fireEvent, screen } from '@testing-library/react';
+import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import SimilarProteins from '../similar-proteins/SimilarProteins';
 import similarProteinsData from './__mocks__/similarProteinsData.json';
+import accessionsData from './__mocks__/accessionsData.json';
 
-jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import { fireEvent } from '@testing-library/react';
+var axios = require('axios');
+var MockAdapter = require('axios-mock-adapter');
 
-const dataMock = {
-  loading: false,
-  data: similarProteinsData,
-};
+var axiosMock = new MockAdapter(axios);
+axiosMock.onGet(/\/uniref\/search/).reply(200, similarProteinsData);
+axiosMock.onGet(/\/uniprotkb\/accessions/).reply(200, accessionsData);
 
-const getRendered = () =>
-  renderWithRouter(
-    <SimilarProteins
-      primaryAccession="P05067"
-      isoforms={{ isoforms: ['P05067-4'] }}
-    />
-  );
+let historyMock;
+
 describe('SimilarProteins tests', () => {
-  beforeEach(() => {
-    useDataApi.mockImplementation(() => dataMock);
+  beforeEach(async () => {
+    await act(async () => {
+      const { history } = renderWithRedux(
+        <SimilarProteins
+          primaryAccession="P05067"
+          isoforms={{ isoforms: ['P05067-4'] }}
+        />
+      );
+      historyMock = history;
+    });
   });
 
   it('should call useDataApi and render', async () => {
-    const { findByText } = getRendered();
-    expect(useDataApi).toHaveBeenCalled();
-    expect(await findByText(/0FGN2/)).toBeTruthy();
+    expect(await screen.findAllByText(/0FGN2/)).toBeTruthy();
   });
 
   it('should change tabs', async () => {
-    const { getByText, findByText } = getRendered();
-    fireEvent.click(getByText('50% identity'));
-    expect(await findByText(/P12023/)).toBeTruthy();
+    fireEvent.click(await screen.findByRole('tab', { name: /50% identity/ }));
+    expect(await screen.findByText(/P12023/)).toBeTruthy();
+  });
+
+  it('should navigate to correct search page when clicking "view all"', async () => {
+    fireEvent.click(await screen.getByText(/View all/));
+    expect(historyMock.location.search).toEqual(
+      '?query=(uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067)'
+    );
+    expect(historyMock.location.pathname).toEqual('/uniprotkb');
   });
 });
