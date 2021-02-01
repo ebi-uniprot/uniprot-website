@@ -1,10 +1,10 @@
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
-import { Facet } from '../../uniprotkb/types/responseTypes';
+import { FacetObject } from '../../uniprotkb/types/responseTypes';
 
 type Response = {
   data: {
     results: UniRefLiteAPIModel[];
-    facets?: Facet[];
+    facets?: FacetObject[];
   };
   headers: {
     ['x-totalrecords']: string;

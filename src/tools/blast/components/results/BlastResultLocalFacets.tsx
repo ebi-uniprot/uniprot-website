@@ -1,6 +1,5 @@
 import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import cn from 'classnames';
 import { HistogramFilter } from 'franklin-sites';
 
 import {
@@ -163,27 +162,21 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <div
-      className={cn('facets', 'blast-parameters-facet', isStale && 'is-stale')}
-    >
-      <ul className="no-bullet">
-        <li>
-          <span className="facet-name">Blast parameters</span>
-          <ul className="expandable-list no-bullet">
-            {localFacets.map((facet) => (
-              <LocalFacet
-                key={facet}
-                facet={facet}
-                bounds={bounds[facet]}
-                facetBounds={facetBounds[facet]}
-                hitsFilteredByServer={hitsFilteredByServer}
-                selectedFacets={selectedFacets}
-                unfilteredValues={unfilteredValues[facet]}
-                optimisedBinNumber={optimisedBinNumber}
-              />
-            ))}
-          </ul>
-        </li>
+    <div className={isStale ? 'is-stale' : undefined}>
+      <span className="facet-name">Blast parameters</span>
+      <ul className="expandable-list no-bullet blast-parameters-facet">
+        {localFacets.map((facet) => (
+          <LocalFacet
+            key={facet}
+            facet={facet}
+            bounds={bounds[facet]}
+            facetBounds={facetBounds[facet]}
+            hitsFilteredByServer={hitsFilteredByServer}
+            selectedFacets={selectedFacets}
+            unfilteredValues={unfilteredValues[facet]}
+            optimisedBinNumber={optimisedBinNumber}
+          />
+        ))}
       </ul>
     </div>
   );

@@ -10,7 +10,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -149,7 +149,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -288,7 +288,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -441,7 +441,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -580,7 +580,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -700,7 +700,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -839,7 +839,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -967,7 +967,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1075,7 +1075,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1183,7 +1183,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1285,7 +1285,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1434,7 +1434,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1543,7 +1543,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1708,7 +1708,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1838,7 +1838,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -1947,7 +1947,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2100,7 +2100,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2239,7 +2239,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2392,7 +2392,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2531,7 +2531,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2647,7 +2647,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2786,7 +2786,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -2939,7 +2939,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -3029,7 +3029,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -3168,7 +3168,7 @@ exports[`ResultsView component should render cards 1`] = `
         class="card"
       >
         <section
-          class=" card--has-hover"
+          class="card--has-hover"
           role="button"
           tabindex="0"
         >
@@ -3315,42 +3315,31 @@ exports[`ResultsView component should render table 1`] = `
     class="results-view"
   >
     <table
-      class="data-table   "
+      class="data-table"
     >
-      <thead
-        class="data-table__header"
-      >
-        <tr
-          class="data-table__row"
-        >
+      <thead>
+        <tr>
           <th
-            class="data-table__header-cell data-table__header-cell--checkbox"
+            class="data-table__header-cell--checkbox"
           >
              
           </th>
           <th
-            class="data-table__header-cell data-table__header-cell--sortable"
-            style="width: auto;"
+            class="data-table__header-cell--ascend"
           >
             Entry
           </th>
         </tr>
       </thead>
-      <tbody
-        class="data-table__table__body"
-      >
+      <tbody>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="O00311"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/O00311"
             >
@@ -3359,17 +3348,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q9Z0H0"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q9Z0H0"
             >
@@ -3378,17 +3363,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="P06243"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/P06243"
             >
@@ -3397,17 +3378,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="P41892"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/P41892"
             >
@@ -3416,17 +3393,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="Q54DK3"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q54DK3"
             >
@@ -3435,17 +3408,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="P50582"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/P50582"
             >
@@ -3454,17 +3423,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="Q8NEY8"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q8NEY8"
             >
@@ -3473,17 +3438,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="X2JCT3"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/X2JCT3"
             >
@@ -3492,17 +3453,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="Q9W3Y1"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q9W3Y1"
             >
@@ -3511,17 +3468,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q8NFT6"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q8NFT6"
             >
@@ -3530,17 +3483,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="P32325"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/P32325"
             >
@@ -3549,17 +3498,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q9UBU7"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q9UBU7"
             >
@@ -3568,17 +3513,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="P49736"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/P49736"
             >
@@ -3587,17 +3528,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q9BW66"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q9BW66"
             >
@@ -3606,17 +3543,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="Q9QZ41"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q9QZ41"
             >
@@ -3625,17 +3558,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q8SR83"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q8SR83"
             >
@@ -3644,17 +3573,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="P97310"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/P97310"
             >
@@ -3663,17 +3588,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q8SR85"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q8SR85"
             >
@@ -3682,17 +3603,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="P55861"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/P55861"
             >
@@ -3701,17 +3618,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="P87027"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/P87027"
             >
@@ -3720,17 +3633,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="Q5XK83"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q5XK83"
             >
@@ -3739,17 +3648,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="Q9UQY9"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/Q9UQY9"
             >
@@ -3758,17 +3663,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="O74473"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/O74473"
             >
@@ -3777,17 +3678,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell data-table__cell--odd "
-          >
+          <td>
             <input
               aria-label="P30664"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell data-table__cell--odd  "
-          >
+          <td>
             <a
               href="/uniprotkb/P30664"
             >
@@ -3796,17 +3693,13 @@ exports[`ResultsView component should render table 1`] = `
           </td>
         </tr>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="P33991"
               type="checkbox"
             />
           </td>
-          <td
-            class="data-table__cell  "
-          >
+          <td>
             <a
               href="/uniprotkb/P33991"
             >

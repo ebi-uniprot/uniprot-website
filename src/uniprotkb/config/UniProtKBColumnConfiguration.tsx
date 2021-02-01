@@ -45,7 +45,6 @@ import { UniProtKBColumn } from '../types/columnTypes';
 import {
   CommentType,
   FreeTextComment,
-  Xref,
   InteractionComment,
   InteractionType,
   DiseaseComment,
@@ -72,6 +71,7 @@ import { GOTermsView } from '../components/protein-data-views/GOView';
 import externalUrls from '../../shared/config/externalUrls';
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import { Location, LocationToPath } from '../../app/config/urls';
+import { Xref } from '../../shared/types/apiModel';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,

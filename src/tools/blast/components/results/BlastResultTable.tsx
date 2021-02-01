@@ -9,7 +9,7 @@ import {
   SetStateAction,
   ReactNode,
 } from 'react';
-import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
+import { DataTable, Chip, Loader } from 'franklin-sites';
 import { Link, generatePath } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -412,13 +412,12 @@ const BlastResultTable: FC<{
   return (
     <div className={loading ? 'loading-data-table' : undefined}>
       <DataTable
-        getIdKey={({ hit_acc }: BlastHit) => hit_acc}
-        density={DENSITY_COMPACT}
+        getIdKey={({ hit_acc }) => hit_acc}
+        density="compact"
         columns={columns}
         data={hitsRef.current.slice(0, nItemsToRender)}
-        selectable
         selected={selectedEntries}
-        onSelect={handleSelectedEntries}
+        onSelectRow={handleSelectedEntries}
         fixedLayout
       />
     </div>

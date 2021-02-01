@@ -22,7 +22,7 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
   const handleCardClick = useCallback(
-    (event: MouseEvent) => {
+    (event) => {
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }

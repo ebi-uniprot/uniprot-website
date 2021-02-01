@@ -10,7 +10,7 @@ import { Evidence } from '../../types/modelTypes';
 import FeatureType from '../../types/featureType';
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
-import { Xref } from '../../types/commentTypes';
+import { Xref } from '../../../shared/types/apiModel';
 
 export enum LocationModifier {
   EXACT = 'EXACT',
