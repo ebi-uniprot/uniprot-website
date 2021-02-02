@@ -133,6 +133,7 @@ const defaultFacets = new Map<Namespace, string[]>([
   ],
   [Namespace.uniref, ['identity']],
   [Namespace.uniparc, ['database']],
+  [Namespace.proteomes, ['proteome_type', 'superkingdom']],
 ]);
 type QueryUrlProps = {
   namespace?: Namespace;
