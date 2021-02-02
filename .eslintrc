@@ -39,6 +39,17 @@
     "jsx-a11y/label-has-for": "off",
     "jsx-no-lambda": "off",
     "jsx-no-multiline-js": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "./*.ts",
+          "./*.js",
+          "**/*.spec.ts",
+          "**/__mocks__/*.ts"
+        ]
+      }
+    ],
     "no-restricted-syntax": "off",
     "no-shadow": "off",
     "no-use-before-define": "off",

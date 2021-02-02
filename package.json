@@ -78,10 +78,10 @@
       "BASE_URL": "/"
     },
     "snapshotSerializers": [
-      "<rootDir>/jest.serializer.js"
+      "<rootDir>/jest.serializer.ts"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/setupJest.js"
+      "<rootDir>/jest.setup.ts"
     ]
   },
   "husky": {

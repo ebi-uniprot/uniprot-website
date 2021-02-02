@@ -1,6 +1,3 @@
-// TODO: remove this line after merging PR #265
-import '@testing-library/jest-dom';
-
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
 import XRefsSection from '../XRefsSection';

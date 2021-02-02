@@ -14,6 +14,7 @@ const LogicalOperator = ({
     value={value}
     data-testid="query-builder-logic-select"
     onChange={(e) => handleChange(e.target.value as Operator)}
+    aria-label="logical operator"
   >
     {operators.map((op) => (
       <option value={op} key={op}>
