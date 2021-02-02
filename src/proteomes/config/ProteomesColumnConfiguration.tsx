@@ -137,7 +137,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 // TODO: wait for confirmation from Jie if components should be rendered. Use incognito mode to view in current site (there is a bug).
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
-  label: () => <BuscoLabel />,
+  label: <BuscoLabel />,
   render: ({ proteomeCompletenessReport: { buscoReport } }) =>
     buscoReport && <BuscoView report={buscoReport} />,
 });
