@@ -62,7 +62,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   render: ({ taxonomy }) => (
     <Link
       to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-        accession: taxonomy.taxonId,
+        accession: String(taxonomy.taxonId),
       })}
     >
       {taxonomy.taxonId}
@@ -99,7 +99,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
         <Link
           key={taxonId}
           to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: taxonId,
+            accession: String(taxonId),
           })}
         >
           {scientificName}
