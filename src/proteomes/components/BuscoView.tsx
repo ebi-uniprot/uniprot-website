@@ -1,6 +1,7 @@
 import { FC, useCallback, useMemo } from 'react';
 
 import useCustomElement from '../../shared/hooks/useCustomElement';
+import { formatPercentage } from '../../shared/utils/utils';
 
 import { BuscoReport } from '../adapters/proteomesConverter';
 
@@ -65,20 +66,15 @@ const BuscoView: FC<{ busco: BuscoReport }> = ({ busco }) => {
     [buscoTrackPercentages, ceDefined]
   );
 
-  const format = (n: number) =>
-    `${n.toLocaleString('en-US', {
-      maximumFractionDigits: 1,
-    })}%`;
-
-  const C = format(getPercentageOfTotal(busco.complete));
-  const S = format(buscoTrackPercentages.completeSingle);
-  const D = format(buscoTrackPercentages.completeDuplicated);
-  const F = format(buscoTrackPercentages.fragmented);
-  const M = format(buscoTrackPercentages.missing);
+  const C = formatPercentage(getPercentageOfTotal(busco.complete));
+  const S = formatPercentage(buscoTrackPercentages.completeSingle);
+  const D = formatPercentage(buscoTrackPercentages.completeDuplicated);
+  const F = formatPercentage(buscoTrackPercentages.fragmented);
+  const M = formatPercentage(buscoTrackPercentages.missing);
   return (
     <>
       <protvista-track length={trackLength} height={10} ref={setTrackData} />
-      <div>{`n:${busco.total} ${busco.lineageDb}`}</div>
+      <div>{`n:${busco.total} · ${busco.lineageDb}`}</div>
       <div>{`C:${C} (S:${S} D:${D}) F:${F} M:${M}`}</div>
     </>
   );
