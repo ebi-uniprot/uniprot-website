@@ -133,9 +133,6 @@ module.exports = (env, argv) => {
                 : MiniCssExtractPlugin.loader,
             },
             {
-              loader: 'css-modules-typescript-loader', // generate a .d.ts module
-            },
-            {
               loader: 'css-loader', // translates CSS into CommonJS
             },
             {
