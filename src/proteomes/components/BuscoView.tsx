@@ -5,23 +5,23 @@ import { formatPercentage } from '../../shared/utils/utils';
 
 import { BuscoReport } from '../adapters/proteomesConverter';
 
-const buscoFeatures = [
+export const buscoPartitions = [
   'completeSingle',
   'completeDuplicated',
   'fragmented',
   'missing',
-] as const;
+];
 
-type BuscoFeature = typeof buscoFeatures[number];
+export type BuscoPartition = typeof buscoPartitions[number];
 
-const buscoTrackFeatureToColor: Record<BuscoFeature, string> = {
+export const buscoPartitionToColor: Record<BuscoPartition, string> = {
   completeSingle: '#BCE875',
   completeDuplicated: '#0BA5A6',
   fragmented: '#EECBA4',
   missing: '#314BB4',
 };
 
-const BuscoView: FC<{ busco: BuscoReport }> = ({ busco }) => {
+const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
   const ceDefined = useCustomElement(
     /* istanbul ignore next */
     () => import(/* webpackChunkName: "protvista-track" */ 'protvista-track'),
@@ -31,18 +31,18 @@ const BuscoView: FC<{ busco: BuscoReport }> = ({ busco }) => {
   const trackLength = 100;
 
   const getPercentageOfTotal = useCallback(
-    (x: number) => (100 * x) / busco.total,
-    [busco]
+    (x: number) => (100 * x) / report.total,
+    [report]
   );
 
-  const buscoTrackPercentages: Record<BuscoFeature, number> = useMemo(
+  const buscoPartitionPercentages: Record<BuscoPartition, number> = useMemo(
     () => ({
-      completeSingle: getPercentageOfTotal(busco.completeSingle),
-      completeDuplicated: getPercentageOfTotal(busco.completeDuplicated),
-      fragmented: getPercentageOfTotal(busco.fragmented),
-      missing: getPercentageOfTotal(busco.missing),
+      completeSingle: getPercentageOfTotal(report.completeSingle),
+      completeDuplicated: getPercentageOfTotal(report.completeDuplicated),
+      fragmented: getPercentageOfTotal(report.fragmented),
+      missing: getPercentageOfTotal(report.missing),
     }),
-    [busco, getPercentageOfTotal]
+    [report, getPercentageOfTotal]
   );
 
   const setTrackData = useCallback(
@@ -50,12 +50,12 @@ const BuscoView: FC<{ busco: BuscoReport }> = ({ busco }) => {
       if (node && ceDefined) {
         const data: { start: number; end: number; color: string }[] = [];
         let start = 0;
-        for (const buscoTrackFeature of buscoFeatures) {
-          const end = start + buscoTrackPercentages[buscoTrackFeature];
+        for (const buscoTrackFeature of buscoPartitions) {
+          const end = start + buscoPartitionPercentages[buscoTrackFeature];
           data.push({
             start,
             end,
-            color: buscoTrackFeatureToColor[buscoTrackFeature],
+            color: buscoPartitionToColor[buscoTrackFeature],
           });
           start = end;
         }
@@ -63,18 +63,18 @@ const BuscoView: FC<{ busco: BuscoReport }> = ({ busco }) => {
         node.data = data;
       }
     },
-    [buscoTrackPercentages, ceDefined]
+    [buscoPartitionPercentages, ceDefined]
   );
 
-  const C = formatPercentage(getPercentageOfTotal(busco.complete));
-  const S = formatPercentage(buscoTrackPercentages.completeSingle);
-  const D = formatPercentage(buscoTrackPercentages.completeDuplicated);
-  const F = formatPercentage(buscoTrackPercentages.fragmented);
-  const M = formatPercentage(buscoTrackPercentages.missing);
+  const C = formatPercentage(getPercentageOfTotal(report.complete));
+  const S = formatPercentage(buscoPartitionPercentages.completeSingle);
+  const D = formatPercentage(buscoPartitionPercentages.completeDuplicated);
+  const F = formatPercentage(buscoPartitionPercentages.fragmented);
+  const M = formatPercentage(buscoPartitionPercentages.missing);
   return (
     <>
       <protvista-track length={trackLength} height={10} ref={setTrackData} />
-      <div>{`n:${busco.total} · ${busco.lineageDb}`}</div>
+      <div>{`n:${report.total} · ${report.lineageDb}`}</div>
       <div>{`C:${C} (S:${S} D:${D}) F:${F} M:${M}`}</div>
     </>
   );

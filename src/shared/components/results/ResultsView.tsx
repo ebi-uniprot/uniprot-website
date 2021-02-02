@@ -139,7 +139,7 @@ const cardRenderer = (
 
 type ColumnDescriptor = {
   name: string;
-  label: string;
+  label: ReactNode;
   render: (row: APIModel) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;

@@ -7,6 +7,7 @@ import {
 } from '../adapters/proteomesConverter';
 
 import BuscoView from '../components/BuscoView';
+import BuscoLabel from '../components/BuscoLabel';
 
 import { Location, LocationToPath } from '../../app/config/urls';
 
@@ -136,9 +137,9 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 // TODO: wait for confirmation from Jie if components should be rendered. Use incognito mode to view in current site (there is a bug).
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
-  label: 'BUSCO',
-  render: ({ proteomeCompletenessReport: { buscoReport: busco } }) =>
-    busco && <BuscoView busco={busco} />,
+  label: () => <BuscoLabel />,
+  render: ({ proteomeCompletenessReport: { buscoReport } }) =>
+    buscoReport && <BuscoView report={buscoReport} />,
 });
 
 export default ProteomesColumnConfiguration;

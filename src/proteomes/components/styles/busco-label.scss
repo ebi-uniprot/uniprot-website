@@ -1,0 +1,13 @@
+.busco-legend-item {
+  margin-right: 0.5rem;
+  &__swatch {
+    width: 1rem;
+    height: 1rem;
+    border: 1px solid white;
+    display: inline-block;
+    margin-right: 0.125rem;
+    margin-top: 0.125rem;
+    position: relative;
+    top: 0.125rem;
+  }
+}
