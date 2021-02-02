@@ -4,7 +4,6 @@ const fs = require('fs');
 const { DefinePlugin } = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const jsonImporter = require('node-sass-json-importer');
 // some plugins are conditionally-loaded as they are also conditionally used.
 
 module.exports = (env, argv) => {
@@ -134,6 +133,9 @@ module.exports = (env, argv) => {
                 : MiniCssExtractPlugin.loader,
             },
             {
+              loader: 'css-modules-typescript-loader', // generate a .d.ts module
+            },
+            {
               loader: 'css-loader', // translates CSS into CommonJS
             },
             {
@@ -145,7 +147,6 @@ module.exports = (env, argv) => {
                       `${__dirname}/node_modules/franklin-sites/src/styles`
                     ),
                   ],
-                  importer: jsonImporter({ convertCase: true }),
                 },
               },
             },

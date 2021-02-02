@@ -1,6 +1,6 @@
 import { Tile, HeroContainer, DecoratedListItem } from 'franklin-sites';
 
-import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
+import colors from '../../../node_modules/franklin-sites/src/styles/_colours.scss';
 
 // Namespaces
 import UniProtKBIllustration from '../../svg/uniprotkb_illustration.svg';

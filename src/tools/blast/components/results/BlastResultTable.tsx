@@ -24,7 +24,7 @@ import { EnrichedBlastHit } from './BlastResult';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
-import colors from '../../../../../node_modules/franklin-sites/src/styles/colours.json';
+import colors from '../../../../../node_modules/franklin-sites/src/styles/_colours.scss';
 import './styles/BlastResultTable.scss';
 
 const scoringDict: Partial<Record<keyof BlastHsp, string>> = {

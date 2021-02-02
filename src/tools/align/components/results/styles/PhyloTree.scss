@@ -10,22 +10,22 @@
 
   .link {
     fill: none;
-    stroke: $colour-sapphire-blue;
+    stroke: map-get($franklin-colours, colourPrimary500);
     stroke-width: 2px;
 
     &.nonsense {
-      stroke: $colour-failure;
+      stroke: map-get($franklin-colours, colourFailure);
     }
 
     &.hovered {
-      stroke: $colour-medium-turquoise;
+      stroke: map-get($franklin-colours, colourHover);
       stroke-width: 4px;
     }
   }
 
   .end-link {
     fill: none;
-    stroke: $colour-gainsborough;
+    stroke: map-get($franklin-colours, colourPrimary100);
     stroke-width: 1px;
   }
 }

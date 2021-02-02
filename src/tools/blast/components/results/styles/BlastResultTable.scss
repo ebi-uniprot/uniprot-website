@@ -29,15 +29,15 @@
     margin-top: 0;
 
     &.hsp_identity {
-      --main-chip-color: #{$colour-sapphire-blue};
+      --main-chip-color: #{map-get($franklin-colours, colourPrimary500)};
     }
 
     &.hsp_bit_score {
-      --main-chip-color: #{$colour-coyote-brown};
+      --main-chip-color: #{map-get($franklin-colours, colourDataVis1)};
     }
 
     &.hsp_expect {
-      --main-chip-color: #{$colour-outer-space};
+      --main-chip-color: #{map-get($franklin-colours, colourDataVis2)};
     }
   }
 

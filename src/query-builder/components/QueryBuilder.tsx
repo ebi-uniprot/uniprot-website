@@ -13,7 +13,7 @@ import qs from 'query-string';
 import { v1 } from 'uuid';
 import { frame } from 'timing-functions';
 import { PageIntro, Loader, Button } from 'franklin-sites';
-import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
+import colors from '../../../node_modules/franklin-sites/src/styles/_colours.scss';
 
 import ClauseList from './ClauseList';
 

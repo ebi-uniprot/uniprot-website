@@ -3,16 +3,16 @@
 .member-icons {
   &--uniprotkb {
     &-reviewed {
-      color: $colour-reviewed;
+      color: map-get($franklin-colours, colourReviewed);
     }
 
     &-unreviewed {
-      color: $colour-unreviewed;
+      color: map-get($franklin-colours, colourUnreviewed);
     }
   }
 
   &--uniparc {
-    color: $colour-uniparc;
+    color: map-get($franklin-colours, colourUniParc);
   }
 
   & svg {

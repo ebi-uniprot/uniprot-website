@@ -72,7 +72,7 @@
 
     // combine both modifiers for classes on the same element
     &--dark#{&}--hovered {
-      border-color: $colour-sapphire-blue;
+      border-color: map-get($franklin-colours, colourPrimary500);
     }
   }
 }

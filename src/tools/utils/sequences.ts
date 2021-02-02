@@ -64,7 +64,7 @@ export type SegmentTrackData = {
 };
 
 export const getFullAlignmentSegments = (alignment: MSAInput[]) => {
-  // franklin $colour-sapphire-blue
+  // franklin $colour-primary-500
   const colour = '#014371';
 
   const countGaps = (seq: string) => {

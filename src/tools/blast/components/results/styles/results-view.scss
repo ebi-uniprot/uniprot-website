@@ -14,17 +14,17 @@
   }
 
   .hsp_identity {
-    --main-histogram-color: #{$colour-sapphire-blue};
-    color: #{$colour-sapphire-blue};
+    --main-histogram-color: #{map-get($franklin-colours, colourPrimary500)};
+    color: #{map-get($franklin-colours, colourPrimary500)};
   }
 
   .hsp_score {
-    --main-histogram-color: #{$colour-coyote-brown};
-    color: #{$colour-coyote-brown};
+    --main-histogram-color: #{map-get($franklin-colours, colourDataVis1)};
+    color: #{map-get($franklin-colours, colourDataVis1)};
   }
 
   .hsp_expect {
-    --main-histogram-color: #{$colour-outer-space};
-    color: #{$colour-outer-space};
+    --main-histogram-color: #{map-get($franklin-colours, colourDataVis2)};
+    color: #{map-get($franklin-colours, colourDataVis2)};
   }
 }

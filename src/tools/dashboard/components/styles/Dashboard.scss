@@ -13,15 +13,15 @@
     min-width: fit-content;
 
     & .card--failure {
-      border: 1px solid $colour-failure;
-      border-left: 0.25rem solid $colour-failure;
+      border: 1px solid map-get($franklin-colours, colourFailure);
+      border-left: 0.25rem solid map-get($franklin-colours, colourFailure);
 
       & * {
-        outline-color: $colour-failure;
+        outline-color: map-get($franklin-colours, colourFailure);
       }
 
       & .dashboard__body__status {
-        color: $colour-failure;
+        color: map-get($franklin-colours, colourFailure);
 
         & .dashboard__body__notify_message {
           color: initial;

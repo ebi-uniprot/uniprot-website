@@ -8,15 +8,15 @@
   margin-bottom: 1rem;
 
   &.identity {
-    --main-histogram-color: #{$colour-sapphire-blue};
+    --main-histogram-color: #{map-get($franklin-colours, colourPrimary500)};
   }
 
   &.score {
-    --main-histogram-color: #{$colour-coyote-brown};
+    --main-histogram-color: #{map-get($franklin-colours, colourDataVis1)};
   }
 
   &.evalue {
-    --main-histogram-color: #{$colour-outer-space};
+    --main-histogram-color: #{map-get($franklin-colours, colourDataVis2)};
   }
 }
 
