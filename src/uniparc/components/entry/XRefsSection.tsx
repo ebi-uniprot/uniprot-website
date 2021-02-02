@@ -86,10 +86,7 @@ const getColumns = (
         const template = templateMap.get(xref.database);
         if (template) {
           cell = (
-            <ExternalLink
-              className={xref.active ? undefined : 'xref-inactive'}
-              url={template.replace('%id', xref.id)}
-            >
+            <ExternalLink url={template.replace('%id', xref.id)}>
               {xref.id}
             </ExternalLink>
           );
