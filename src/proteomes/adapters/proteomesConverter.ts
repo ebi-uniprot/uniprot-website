@@ -3,7 +3,7 @@ import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
 export type Taxonomy = {
   scientificName: string;
   taxonId: number;
-  commonName: string;
+  commonName?: string;
   mnemonic: string;
   synonyms: string[];
 };

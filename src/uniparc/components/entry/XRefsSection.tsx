@@ -1,10 +1,11 @@
 import { FC, ReactNode, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { Card, DataTable, ExternalLink } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 
+import useStaggeredRenderingHelper from '../../../shared/hooks/useStaggeredRenderingHelper';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
@@ -12,16 +13,16 @@ import { defaultColumns } from '../../config/UniParcColumnConfiguration';
 
 import apiUrls from '../../../shared/config/apiUrls';
 
+import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../../shared/config/columns';
 import { UniParcXRef } from '../../adapters/uniParcConverter';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import {
-  EntryType,
-  getEntryTypeFromString,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+
+import './styles/XRefsSection.scss';
 
 const getColumns = (
   templateMap: Map<string, string>
@@ -34,44 +35,82 @@ const getColumns = (
     label: 'Database',
     name: 'database',
     render(xref) {
-      const entryType = getEntryTypeFromString(xref.database);
-      if (entryType === EntryType.REVIEWED) {
-        return (
+      let cell: ReactNode = xref.database;
+      if (xref.database === 'UniProtKB/Swiss-Prot') {
+        cell = (
           <>
-            <EntryTypeIcon entryType={entryType} />
+            <EntryTypeIcon entryType={EntryType.REVIEWED} />
             UniProtKB reviewed
           </>
         );
-      }
-      if (entryType === EntryType.UNREVIEWED) {
-        return (
+      } else if (xref.database === 'UniProtKB/TrEMBL') {
+        cell = (
           <>
-            <EntryTypeIcon entryType={entryType} />
+            <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
             UniProtKB unreviewed
           </>
         );
       }
-      return xref.database;
+      return (
+        <span className={xref.active ? undefined : 'xref-inactive'}>
+          {cell}
+        </span>
+      );
     },
   },
   {
     label: 'Identifier',
     name: 'identifier',
     render(xref) {
-      const template = templateMap.get(xref.database);
-      return template ? (
-        <ExternalLink url={template.replace('%id', xref.id)}>
-          {xref.id}
-        </ExternalLink>
-      ) : (
-        <span>{xref.id}</span>
+      let cell: ReactNode = xref.id;
+      if (
+        xref.database === 'UniProtKB/Swiss-Prot' ||
+        xref.database === 'UniProtKB/TrEMBL'
+      ) {
+        // internal link
+        cell = (
+          <Link
+            // TODO: #1: replace with `getEntryPath` when PR #265 is merged in
+            /**
+             * TODO: #2: when we have entry history pages, we need to handle it
+             * differently (current website points to `/<accession>?version=*`)
+             */
+            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+              accession: xref.id,
+            })}
+          >
+            {xref.id}
+          </Link>
+        );
+      } else {
+        const template = templateMap.get(xref.database);
+        if (template) {
+          cell = (
+            <ExternalLink
+              className={xref.active ? undefined : 'xref-inactive'}
+              url={template.replace('%id', xref.id)}
+            >
+              {xref.id}
+            </ExternalLink>
+          );
+        }
+      }
+      return (
+        <span className={xref.active ? undefined : 'xref-inactive'}>
+          {cell}
+        </span>
       );
     },
   },
   {
     label: 'Version',
     name: 'version',
-    render: (xref) => 'version' in xref && <span>{xref.version}</span>,
+    render: (xref) =>
+      'version' in xref && (
+        <span className={xref.active ? undefined : 'xref-inactive'}>
+          {xref.version}
+        </span>
+      ),
   },
   {
     label: 'Organism',
@@ -82,7 +121,11 @@ const getColumns = (
         (prop) => prop.key === 'NCBI_taxonomy_id'
       );
       if (taxProps) {
-        return <span>{taxProps.value}</span>;
+        return (
+          <span className={xref.active ? undefined : 'xref-inactive'}>
+            {taxProps.value}
+          </span>
+        );
       }
     },
   },
@@ -90,18 +133,30 @@ const getColumns = (
     label: 'First seen',
     name: 'first_seen',
     // note make than time element
-    render: (xref) => <span>{xref.created}</span>,
+    render: (xref) => (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.created}
+      </span>
+    ),
   },
   {
     label: 'Last seen',
     name: 'last_seen',
     // note make than time element
-    render: (xref) => <span>{xref.lastUpdated}</span>,
+    render: (xref) => (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.lastUpdated}
+      </span>
+    ),
   },
   {
     label: 'Active',
     name: 'active',
-    render: (xref) => <span>{xref.active ? 'Yes' : 'No'}</span>,
+    render: (xref) => (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.active ? 'Yes' : 'No'}
+      </span>
+    ),
   },
 ];
 
@@ -119,24 +174,37 @@ type DataDBModel = Array<{
   linkedReason?: string;
 }>;
 
+const getIdKey = (xref: UniParcXRef) =>
+  `${xref.database}-${xref.id}-${xref.versionI}-${xref.active}`;
+
 const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 type Props = {
-  data: UniParcXRef[];
+  data?: UniParcXRef[];
 };
 
 const XRefsSection: FC<Props> = ({ data }) => {
+  // TODO: switch to using UniParc-specific database endpoint when available
   const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
-  const { search } = useLocation();
+  // TODO: handle xrefs filtering from location.search after endpoint schema change
+  // const { search } = useLocation();
 
   const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
     `table columns for ${Namespace.uniparc} xrefs`,
     defaultColumns
   );
 
-  console.log(search, dataDB, getTemplateMap(dataDB));
   const columns = useMemo(() => getColumns(getTemplateMap(dataDB)), [dataDB]);
+
+  const nItemsToRender = useStaggeredRenderingHelper({
+    first: 100,
+    max: data?.length,
+  });
+
+  if (!data?.length) {
+    return null;
+  }
 
   return (
     <Card title={getEntrySectionNameAndId(EntrySection.XRefs).name}>
@@ -149,10 +217,8 @@ const XRefsSection: FC<Props> = ({ data }) => {
         )}
       </div>
       <DataTable
-        data={data}
-        getIdKey={(xref: UniParcXRef) =>
-          `${xref.database}-${xref.id}-${xref.versionI}-${xref.active}`
-        }
+        data={data.slice(0, nItemsToRender)}
+        getIdKey={getIdKey}
         density="compact"
         columns={columns}
       />
