@@ -3,6 +3,7 @@
 exports[`LogicalOperator component should render 1`] = `
 <DocumentFragment>
   <select
+    aria-label="logical operator"
     class="query-builder__logic"
     data-testid="query-builder-logic-select"
   >

@@ -23,5 +23,6 @@
     "skipLibCheck": true
   },
   "include": ["src"],
+  // TODO: eventually include test files in order to get type check and lint
   "exclude": ["node_modules", "src/**/*.spec.ts*"]
 }

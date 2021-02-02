@@ -1,5 +1,3 @@
-import { v1 } from 'uuid';
-
 import { Namespace } from '../../shared/types/namespaces';
 
 import {
@@ -21,8 +19,15 @@ export const getAllTerm = (): SearchTermType => ({
   id: 'id_all',
 });
 
-export const createEmptyClause = (): Clause => ({
-  id: v1(),
+export const getNextId = (clauses: Clause[] = []) => {
+  if (!clauses?.length) {
+    return 0;
+  }
+  return Math.max(...clauses.map((clause) => clause.id)) + 1;
+};
+
+export const createEmptyClause = (id: number): Clause => ({
+  id,
   logicOperator: Operator.AND,
   searchTerm: getAllTerm(),
   queryBits: {},

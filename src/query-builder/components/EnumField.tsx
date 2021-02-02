@@ -22,11 +22,10 @@ const EnumField: FC<{
   }, [field, value, handleChange]);
 
   return (
-    <label htmlFor={`select_${field.term}`}>
+    <label>
       {field.label}
       <select
         onChange={(e) => setValue(e.target.value)}
-        id={`select_${field.term}`}
         data-testid="enum-field-select"
         value={value}
       >

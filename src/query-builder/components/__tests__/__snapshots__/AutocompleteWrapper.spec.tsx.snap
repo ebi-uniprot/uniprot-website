@@ -2,9 +2,7 @@
 
 exports[`Autocomplete Wrapper should render 1`] = `
 <DocumentFragment>
-  <label
-    for="0"
-  >
+  <label>
     Taxonomy [OC]
     <div
       class="autocomplete-container"
