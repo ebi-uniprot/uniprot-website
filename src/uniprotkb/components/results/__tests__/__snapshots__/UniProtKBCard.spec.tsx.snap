@@ -6,7 +6,7 @@ exports[`UniProtKBCard component should render 1`] = `
     class="card"
   >
     <section
-      class=" card--has-hover"
+      class="card--has-hover"
       role="button"
       tabindex="0"
     >

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, FC } from 'react';
+import { useState, useEffect, useRef, useMemo, FC, ReactNode } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
@@ -100,31 +100,31 @@ const cardRenderer = (
   namespace: Namespace,
   selectedEntries: string[],
   handleEntrySelection: (rowId: string) => void
-) => {
+): ((data: APIModel) => ReactNode) => {
   const getIdKey = getIdKeyFor(namespace);
   switch (namespace) {
     case Namespace.uniprotkb: {
-      return (cardData: UniProtkbAPIModel) => (
+      return (cardData) => (
         <UniProtKBCard
-          data={cardData}
+          data={cardData as UniProtkbAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
       );
     }
     case Namespace.uniref: {
-      return (cardData: UniRefLiteAPIModel) => (
+      return (cardData) => (
         <UniRefCard
-          data={cardData}
+          data={cardData as UniRefLiteAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
       );
     }
     case Namespace.uniparc: {
-      return (cardData: UniParcAPIModel) => (
+      return (cardData) => (
         <UniParcCard
-          data={cardData}
+          data={cardData as UniParcAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
@@ -137,24 +137,37 @@ const cardRenderer = (
   }
 };
 
+type ColumnDescriptor = {
+  name: string;
+  label: string;
+  render: (row: APIModel) => ReactNode;
+  sortable?: true;
+  sorted?: SortDirection;
+};
 const getColumnsToDisplay = (
   namespace: Namespace,
   columns: Column[],
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,
   sortDirection: SortDirection
-) =>
+): ColumnDescriptor[] =>
   columns.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
     if (columnConfig) {
-      return {
+      const columnDescriptor = {
         label: columnConfig.label,
         name: columnName,
         render: (row: APIModel) =>
           columnConfig.render(convertRow(row, namespace)),
-        sortable: sortableColumnToSortColumn.has(columnName),
-        sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
       };
+      if (sortableColumnToSortColumn.has(columnName)) {
+        return {
+          ...columnDescriptor,
+          sortable: true,
+          sorted: columnName === sortColumn ? sortDirection : undefined,
+        };
+      }
+      return columnDescriptor;
     }
     return {
       label: columnName,
@@ -162,8 +175,6 @@ const getColumnsToDisplay = (
       render: () => (
         <div className="warning">{`${columnName} has no config yet`}</div>
       ),
-      sortable: false,
-      sorted: false,
     };
   }) || [];
 
@@ -275,12 +286,7 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
-  const updateColumnSort = (column: SortableColumn) => {
-    const sortableColumn = sortableColumnToSortColumn.get(column);
-    if (!sortableColumn) {
-      return;
-    }
-
+  const updateColumnSort = (columnName: string) => {
     // Change sort direction
     const updatedSortDirection =
       !sortDirection || sortDirection === SortDirection.descend
@@ -292,7 +298,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         pathname: SearchResultsLocations[namespace],
         query,
         selectedFacets,
-        sortColumn: sortableColumn,
+        sortColumn: columnName,
         sortDirection: updatedSortDirection,
       })
     );
@@ -304,7 +310,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     <div className="results-view">
       {viewMode === ViewMode.CARD ? (
         // Card view
-        <DataListWithLoader
+        <DataListWithLoader<APIModel>
           getIdKey={getIdKey}
           data={allResults}
           dataRenderer={cardRenderer(
@@ -328,9 +334,8 @@ const ResultsView: FC<ResultsTableProps> = ({
             sortDirection
           )}
           data={allResults}
-          selectable
           selected={selectedEntries}
-          onSelect={handleEntrySelection}
+          onSelectRow={handleEntrySelection}
           onHeaderClick={updateColumnSort}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
