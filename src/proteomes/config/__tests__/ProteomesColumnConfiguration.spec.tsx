@@ -12,7 +12,7 @@ import data from '../../__mocks__/entryModelData.json';
 
 jest.mock('../../../tools/utils/storage');
 
-describe('UniParcColumnConfiguration component', () => {
+describe('ProteomesColumnConfiguration component', () => {
   let transformedData: ProteomesUIModel;
 
   beforeAll(() => {

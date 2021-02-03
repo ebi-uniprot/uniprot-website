@@ -101,12 +101,19 @@ module.exports = {
     };
 
     const isVariableUsingLocationConfig = (name) => {
+      if (!name) {
+        return false;
+      }
       // we need to find where it's defined
       const { declaration, declarationScope } = findDeclaration(
         context.getScope(),
         name
       );
-      if (declaration) {
+      if (
+        declaration &&
+        declaration.declarations &&
+        declaration.declarations.length
+      ) {
         if (declaration.kind === 'const') {
           // const declaration, check if we use location config within
           return sourceContainsLocationConfig(declaration);
@@ -142,7 +149,15 @@ module.exports = {
           // e.g., when using the location parameters provided to the function
           // e.g., when using Location directly
           if (!sourceContainsLocationConfig(expression)) {
-            report(expression, reportAs);
+            // Inlined code doesn't use location config
+            // if function call, let's check its definition
+            if (
+              !(
+                expression.type === 'CallExpression' &&
+                isVariableUsingLocationConfig(expression.callee.name)
+              )
+            )
+              report(expression, reportAs);
           }
           break;
         case 'Identifier':

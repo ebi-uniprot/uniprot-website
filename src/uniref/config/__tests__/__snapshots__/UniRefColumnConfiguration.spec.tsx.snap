@@ -57,7 +57,7 @@ exports[`UniRefColumnConfiguration component should render column "length": leng
 exports[`UniRefColumnConfiguration component should render column "members": members 1`] = `
 <DocumentFragment>
   <ul
-    class="expandable-list no-bullet"
+    class="no-bullet"
   >
     <li>
       <a
@@ -94,15 +94,12 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
         A0A6I8QHP6
       </a>
     </li>
-    <li>
-      <button
-        class="button tertiary expandable-list__action"
-        data-testid="expandable-message"
-        type="button"
-      >
-        4 more members
-      </button>
-    </li>
+    <a
+      class="button tertiary"
+      href="/uniref/UniRef90_Q28I25"
+    >
+      4 more members
+    </a>
   </ul>
 </DocumentFragment>
 `;
@@ -116,7 +113,7 @@ exports[`UniRefColumnConfiguration component should render column "name": name 1
 exports[`UniRefColumnConfiguration component should render column "organism": organism 1`] = `
 <DocumentFragment>
   <ul
-    class="expandable-list no-bullet"
+    class="no-bullet"
   >
     <li>
       Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
@@ -128,7 +125,7 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
 exports[`UniRefColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <ul
-    class="expandable-list no-bullet"
+    class="no-bullet"
   >
     <li>
       <a
