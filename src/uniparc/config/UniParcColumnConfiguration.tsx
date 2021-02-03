@@ -136,7 +136,7 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
 UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   label: 'Organism IDs',
   render: (data) => (
-    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
+    <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {data.taxonomies.map(({ taxonId }) => (
         <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {taxonId}
@@ -154,7 +154,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
 
    */
   render: (data) => (
-    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
+    <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {data.taxonomies.map(({ taxonId }) => (
         <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {taxonId}
