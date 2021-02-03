@@ -78,12 +78,12 @@ export type ProteomesAPIModel = {
   taxonomy: Taxonomy;
   modified: string;
   proteomeType: ProteomeType;
-  components: Component[];
+  components?: Component[];
   citations: Citation[];
   annotationScore: number;
   superkingdom: string;
   proteomeCompletenessReport: ProteomeCompletenessReport;
-  genomeAssembly: GenomeAssembly;
+  genomeAssembly?: GenomeAssembly;
   geneCount: number;
   genomeAnnotation: GenomeAnnotation;
   taxonLineage: Lineage[];
