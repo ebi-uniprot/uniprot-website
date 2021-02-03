@@ -1,5 +1,6 @@
-import JobErrorPage from '../JobErrorPage';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+
+import JobErrorPage from '../JobErrorPage';
 
 describe('JobErrorPage component', () => {
   test('should render', () => {

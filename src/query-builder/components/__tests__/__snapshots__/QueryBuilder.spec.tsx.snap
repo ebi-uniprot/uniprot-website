@@ -63,14 +63,29 @@ exports[`QueryBuilder should render 1`] = `
             Taxonomy
           </option>
           <option
+            value="keywords"
+          >
+            Keywords
+          </option>
+          <option
             value="citations"
           >
             Literature citations
           </option>
           <option
-            value="keywords"
+            value="diseases"
           >
-            Keywords
+            Human diseases
+          </option>
+          <option
+            value="database"
+          >
+            Cross-referenced databases
+          </option>
+          <option
+            value="locations"
+          >
+            Subcellular locations
           </option>
         </select>
       </label>

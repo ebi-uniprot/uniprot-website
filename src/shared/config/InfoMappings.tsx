@@ -5,13 +5,15 @@ import AlignInfo from '../../tools/align/components/AlignFormInfo';
 import { Namespace } from '../types/namespaces';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
-const infoMappings: {
-  [index in Namespace | JobTypes]: {
+const infoMappings: Record<
+  Namespace | JobTypes,
+  {
     name: string;
     info: JSX.Element | null;
     links: { title: string; destination: string }[];
-  };
-} = {
+  }
+> = {
+  // Main data
   [Namespace.uniprotkb]: {
     name: 'UniProtKB',
     info: <UniProtKBInfo />,
@@ -44,16 +46,9 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
+  // Supporting data
   [Namespace.taxonomy]: {
     name: 'Taxonomy',
-    info: null,
-    links: [
-      { title: 'Help', destination: '' },
-      { title: 'Video', destination: '' },
-    ],
-  },
-  [Namespace.citations]: {
-    name: 'Literature citations',
     info: null,
     links: [
       { title: 'Help', destination: '' },
@@ -68,6 +63,39 @@ const infoMappings: {
       { title: 'Video', destination: '' },
     ],
   },
+  [Namespace.citations]: {
+    name: 'Literature citations',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.diseases]: {
+    name: 'Human diseases',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.database]: {
+    name: 'Cross-referenced databases',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  [Namespace.locations]: {
+    name: 'Subcellular locations',
+    info: null,
+    links: [
+      { title: 'Help', destination: '' },
+      { title: 'Video', destination: '' },
+    ],
+  },
+  // Tools
   [JobTypes.ALIGN]: {
     name: 'Align',
     info: <AlignInfo />,

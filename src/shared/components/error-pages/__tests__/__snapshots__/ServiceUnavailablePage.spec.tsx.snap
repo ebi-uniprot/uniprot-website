@@ -4,7 +4,6 @@ exports[`ServiceUnavailablePage component should render 1`] = `
 <DocumentFragment>
   <div
     class="error-page-container"
-    data-testid=""
   >
     <test-file-stub
       classname="error-page-container__art-work"

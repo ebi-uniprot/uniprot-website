@@ -1,13 +1,15 @@
-import { FC } from 'react';
+import { FC, Fragment } from 'react';
 import { Message } from 'franklin-sites';
 import { Link, generatePath } from 'react-router-dom';
+
+import listFormat from '../../utils/listFormat';
+
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 import {
   InactiveEntryReason,
   InactiveReasonType,
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
-
-import { Location, LocationToPath } from '../../../app/config/urls';
 
 import ArtWork from './svgs/obsolete-entry.svg';
 
@@ -44,45 +46,37 @@ const DeletedEntryMessage: FC<{ accession: string }> = ({ accession }) => (
 
 const DemergedEntryMessage: FC<{
   accession: string;
-  demergedTo: string[];
+  demergedTo?: string[];
 }> = ({ accession, demergedTo }) => (
   <Message level="info">
     <h4>This entry is obsolete</h4>
-    <p data-testid="demerged-entry-message">
-      It can now be found as secondary accession in{' '}
-      {demergedTo.reduce((a: (string | JSX.Element)[], c, i) => {
-        if (i > 0) {
-          if (i === demergedTo.length - 1) {
-            a.push(' and ');
-          } else {
-            a.push(', ');
-          }
-        }
-
-        a.push(
-          <Link
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: c,
-            })}
-            key={c}
-          >
-            {c}
-          </Link>
-        );
-
-        return a;
-      }, [])}
-      . [{' '}
-      <Link
-        to={{
-          pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=replaces:${accession}`,
-        }}
-      >
-        List
-      </Link>{' '}
-      ]
-    </p>
+    {demergedTo?.length && (
+      <p data-testid="demerged-entry-message">
+        It can now be found as secondary accession in{' '}
+        {demergedTo.map((newEntry, index) => (
+          <Fragment key={newEntry}>
+            {listFormat(index, demergedTo)}
+            <Link
+              to={generatePath(LocationToPath[Location.UniProtKBEntry], {
+                accession: newEntry,
+              })}
+            >
+              {newEntry}
+            </Link>
+          </Fragment>
+        ))}
+        . [
+        <Link
+          to={{
+            pathname: LocationToPath[Location.UniProtKBResults],
+            search: `query=replaces:${accession}`,
+          }}
+        >
+          List
+        </Link>
+        ]
+      </p>
+    )}
     <p>
       The protein sequence for this entry is available in{' '}
       <Link
@@ -99,6 +93,7 @@ const DemergedEntryMessage: FC<{
           pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
             accession,
           }),
+          // TODO: actually implement this in the website
           search: `version=*`,
         }}
       >
