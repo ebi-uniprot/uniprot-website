@@ -23,13 +23,18 @@ const mission =
   'UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information.';
 
 const namespaceFindYour: Record<Namespace, string> = {
+  // Main data
   [Namespace.uniprotkb]: 'protein',
   [Namespace.uniref]: 'protein cluster',
   [Namespace.uniparc]: 'protein sequence',
   [Namespace.proteomes]: 'proteome',
+  // Supporting data
   [Namespace.taxonomy]: 'taxon',
-  [Namespace.citations]: 'publication',
   [Namespace.keywords]: 'keyword',
+  [Namespace.citations]: 'publication',
+  [Namespace.diseases]: 'disease',
+  [Namespace.database]: 'cross-reference database',
+  [Namespace.locations]: 'subcellular location',
 };
 
 const HomePage = () => {
