@@ -22,6 +22,7 @@ const SubcellularLocationSection: FC<{
 }> = ({ data, sequence }): JSX.Element | null => {
   const [ceLoaded, setCELoaded] = useSafeState(false);
 
+  // TODO: how is the custom element being defined?
   useEffect(() => {
     import('@swissprot/swissbiopics-visualizer').then(
       () => setCELoaded(true),

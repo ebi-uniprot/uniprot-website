@@ -48,6 +48,7 @@ const SubcellularLocationView: FC<{
   // TODO: injecting HTML because of the way the web component is implemented. See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
   // TODO: reference colors directly?
   // TODO: the graphic top is an estimate but instead should be based on the size of the entry header
+  // TODO: add additional GO template
   useEffect(() => {
     if (lineage && taxonId && comments && !isVirus(lineage)) {
       const sls = comments
@@ -61,7 +62,7 @@ const SubcellularLocationView: FC<{
 
       ref.current?.insertAdjacentHTML(
         'afterbegin',
-        `<sib-swissbiopics-sl taxid="${taxonId}" sls="${sls}" contentid="swissBioPicsSlData"/>
+        `
       <template id="sibSwissBioPicsStyle">
         <style>
           #swissBioPicsSlData {
@@ -83,7 +84,8 @@ const SubcellularLocationView: FC<{
             'svg-colour-reviewed'
           ).join('\n')}
        </style>
-     </template>`
+     </template>
+    <sib-swissbiopics-sl taxid="${taxonId}" sls="${sls}" contentid="swissBioPicsSlData"/> `
       );
     }
   }, [comments, lineage, taxonId]);
