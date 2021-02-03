@@ -20,7 +20,7 @@ import ClauseList from './ClauseList';
 import useDataApi from '../../shared/hooks/useDataApi';
 import useNS from '../../shared/hooks/useNS';
 
-import { createEmptyClause, defaultQueryFor } from '../utils/clause';
+import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 
@@ -167,13 +167,16 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
   }
 
   const addClause = () => {
-    setClauses((clauses) => [...clauses, createEmptyClause()]);
+    setClauses((clauses) => [
+      ...clauses,
+      createEmptyClause(getNextId(clauses)),
+    ]);
   };
 
-  const removeClause = (clauseId: string) => {
+  const removeClause = (clauseId: number) => {
     setClauses((clauses) => {
       if (clauses.length === 1) {
-        return [createEmptyClause()];
+        return [createEmptyClause(0)];
       }
       return clauses.filter((clause) => clause.id !== clauseId);
     });

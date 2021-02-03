@@ -2,12 +2,9 @@
 
 exports[`TextField should render 1`] = `
 <DocumentFragment>
-  <label
-    for="input_accession"
-  >
+  <label>
     UniProtKB AC
     <input
-      id="input_accession"
       placeholder="P12345"
       type="text"
       value=""

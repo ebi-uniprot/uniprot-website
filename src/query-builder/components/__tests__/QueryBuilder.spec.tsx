@@ -1,9 +1,8 @@
 import { createMemoryHistory } from 'history';
-import { fireEvent, screen, getByText, waitFor } from '@testing-library/react';
+import { fireEvent, screen, getByText } from '@testing-library/react';
 
 import QueryBuilder from '../QueryBuilder';
 
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 import searchTermData from './__mocks__/configure_search-term.json';
 
@@ -18,7 +17,6 @@ let onCancel;
 describe('QueryBuilder', () => {
   beforeEach(async () => {
     onCancel = jest.fn();
-    resetUuidV1();
     (useDataApi as jest.Mock).mockReturnValue({ data: searchTermData });
 
     rendered = renderWithRedux(<QueryBuilder onCancel={onCancel} />, {

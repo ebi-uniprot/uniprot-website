@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Autocomplete } from 'franklin-sites';
 import { v1 } from 'uuid';
+
 import fetchData from '../../shared/utils/fetchData';
 import { getSuggesterUrl } from '../../shared/config/apiUrls';
 
@@ -54,12 +55,9 @@ class AutocompleteWrapper extends Component<
     );
   }
 
-  id: string;
-
   constructor(props: AutocompleteWrapperProps) {
     super(props);
     this.state = { data: [], previousTextInputValue: '', isLoading: false };
-    this.id = v1();
   }
 
   handleChange = (textInputValue: string) => {
@@ -133,10 +131,9 @@ class AutocompleteWrapper extends Component<
       placeholder = '',
     } = this.props;
     return (
-      <label htmlFor={this.id}>
+      <label>
         {title}
         <Autocomplete
-          id={this.id}
           data={data}
           onSelect={this.handleSelect}
           onChange={this.handleChange}

@@ -16,7 +16,7 @@ const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
   const isSearchPage = Boolean(useNS());
 
   const splitIndex = facets.findIndex(
-    (facet) => facet.name === 'model_organism'
+    (facet) => facet.name === 'model_organism' || facet.name === 'superkingdom'
   );
   const before = splitIndex === -1 ? [] : facets.slice(0, splitIndex + 1);
   const after = splitIndex === -1 ? facets : facets.slice(splitIndex + 1);

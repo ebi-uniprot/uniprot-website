@@ -2,7 +2,11 @@
 
 exports[`BuscoLabel should render 1`] = `
 <DocumentFragment>
-  BUSCO
+  <abbr
+    title="Benchmarking Universal Single-Copy Orthologs"
+  >
+    BUSCO
+  </abbr>
   <div>
     <span
       class="busco-legend-item"

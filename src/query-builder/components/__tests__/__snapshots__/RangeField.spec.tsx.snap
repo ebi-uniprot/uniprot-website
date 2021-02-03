@@ -2,25 +2,21 @@
 
 exports[`Range field should render a range field 1`] = `
 <DocumentFragment>
-  <label
-    for="from_input_ftlen_sites"
-  >
+  <label>
     From
     <input
+      aria-label="range input, from value"
       data-testid="range-field-from-input"
-      id="from_input_ftlen_sites"
       placeholder="0"
       type="number"
       value="11"
     />
   </label>
-  <label
-    for="to_input_ftlen_sites"
-  >
+  <label>
     To
     <input
+      aria-label="range input, to value"
       data-testid="range-field-to-input"
-      id="to_input_ftlen_sites"
       placeholder="100"
       type="number"
       value="45"

@@ -53,7 +53,7 @@ export type SearchTermType = {
 export type QueryBit = Record<string, string>;
 
 export type Clause = {
-  id: string;
+  id: number;
   searchTerm: SearchTermType;
   queryBits: QueryBit;
   logicOperator: Operator;
