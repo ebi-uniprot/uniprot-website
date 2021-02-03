@@ -33,6 +33,11 @@ const apiUrls = {
     // "itemType": "goterm",
     go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
   },
+  // Database cross references used in the UniParc entry page
+  allDatabases: joinUrl(
+    devPrefix,
+    'uniprot/api/configure/uniprotkb/allDatabases'
+  ),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(
     devPrefix,

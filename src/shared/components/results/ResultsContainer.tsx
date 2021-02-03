@@ -155,18 +155,20 @@ const Results: FC = () => {
         </PageIntro>
       }
       actionButtons={
-        <ResultsButtons
-          viewMode={viewMode ?? ViewMode.CARD}
-          setViewMode={setViewMode}
-          query={query}
-          selectedFacets={selectedFacets}
-          selectedEntries={selectedEntries}
-          sortColumn={sortColumn}
-          sortDirection={sortDirection}
-          total={total || 0}
-          tableColumns={tableColumns as Column[]}
-          onTableColumnsChange={handleTableColumnsChange}
-        />
+        tableColumns && (
+          <ResultsButtons
+            viewMode={viewMode ?? ViewMode.CARD}
+            setViewMode={setViewMode}
+            query={query}
+            selectedFacets={selectedFacets}
+            selectedEntries={selectedEntries}
+            sortColumn={sortColumn}
+            sortDirection={sortDirection}
+            total={total || 0}
+            tableColumns={tableColumns}
+            onTableColumnsChange={handleTableColumnsChange}
+          />
+        )
       }
       sidebar={
         loading && !data?.facets ? (

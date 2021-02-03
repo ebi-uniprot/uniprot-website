@@ -4,12 +4,20 @@ import { parse as qsParse, stringify as qsStringify } from 'query-string';
 import { Button } from 'franklin-sites';
 
 import SlidingPanel, { Position } from '../layouts/SlidingPanel';
-import QueryBuilder from '../../../query-builder/components/QueryBuilder';
+
+import lazy from '../../utils/lazy';
 
 import {
   parse,
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
+
+const QueryBuilder = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "query-builder" */ '../../../query-builder/components/QueryBuilder'
+    )
+);
 
 const interestingTerms = /taxonomy|organism/;
 
@@ -58,6 +66,8 @@ const TaxonomyFacet: FC = () => {
           <Button
             variant="tertiary"
             className="expandable-list__action"
+            onPointerOver={QueryBuilder.preload}
+            onFocus={QueryBuilder.preload}
             onClick={() => setDisplayQueryBuilder(true)}
           >
             Filter by taxonomy

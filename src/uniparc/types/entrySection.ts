@@ -1,5 +1,6 @@
 export enum EntrySection {
   Sequence = 'sequence',
+  XRefs = 'cross-references',
 }
 
 export type EntrySectionNameAndId = {
@@ -17,6 +18,11 @@ export const getEntrySectionNameAndId = (
       return {
         name: 'Sequence',
         id: EntrySection.Sequence,
+      };
+    case EntrySection.XRefs:
+      return {
+        name: 'Cross references',
+        id: EntrySection.XRefs,
       };
   }
 };

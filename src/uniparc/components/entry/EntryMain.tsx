@@ -20,8 +20,8 @@ function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData, metadata }) => (
   <>
-    {UniParcEntryConfig.map(({ name, sectionContent }) => (
-      <ErrorBoundary key={name}>
+    {UniParcEntryConfig.map(({ id, sectionContent }) => (
+      <ErrorBoundary key={id}>
         {sectionContent(transformedData, metadata)}
       </ErrorBoundary>
     ))}

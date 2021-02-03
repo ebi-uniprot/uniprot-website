@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SequenceSection component should render the SequenceSection properly and match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="card"
+  >
+    <section>
+      <div
+        class="card__header"
+      >
+        <h2
+          class="card__title"
+        >
+          Sequence
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <button
+          class="button secondary"
+          type="button"
+        >
+          Show sequence 
+        </button>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SequenceSection component should return null when the provided object values are empty 1`] = `<DocumentFragment />`;

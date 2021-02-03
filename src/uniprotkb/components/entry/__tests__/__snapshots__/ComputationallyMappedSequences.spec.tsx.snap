@@ -15,7 +15,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
       class="button-group"
     >
       <button
-        class="button tertiary"
+        class="button tertiary disabled"
         disabled=""
         title="Select at least one entry to run a BLAST job"
         type="button"
@@ -23,7 +23,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         BLAST
       </button>
       <button
-        class="button tertiary"
+        class="button tertiary disabled"
         disabled=""
         title="Select at least 2 entries to run an Align job"
         type="button"
@@ -31,7 +31,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
         Align
       </button>
       <button
-        class="button tertiary"
+        class="button tertiary disabled"
         disabled=""
         title="Select at least one entry to add to the basket"
         type="button"
