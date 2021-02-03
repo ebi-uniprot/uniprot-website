@@ -102,7 +102,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
   label: 'Lineage',
   render: ({ taxonLineage }) =>
     taxonLineage
-      .map<ReactNode>(({ scientificName, taxonId }) => (
+      ?.map<ReactNode>(({ scientificName, taxonId }) => (
         <Link
           key={taxonId}
           to={generatePath(LocationToPath[Location.TaxonomyEntry], {
