@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UniParcColumnConfiguration component should render column "components": components 1`] = `<DocumentFragment />`;
+
 exports[`UniParcColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
   Standard
@@ -8,7 +10,17 @@ exports[`UniParcColumnConfiguration component should render column "cpd": cpd 1`
 
 exports[`UniParcColumnConfiguration component should render column "genome_assembly": genome_assembly 1`] = `
 <DocumentFragment>
-  id value
+  <a
+    class="external-link"
+    href="url value"
+    rel="noopener"
+    target="_blank"
+  >
+    id value
+    <test-file-stub
+      width="12.5"
+    />
+  </a>
 </DocumentFragment>
 `;
 
@@ -46,6 +58,16 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
     href="/taxonomy/9606"
   >
     9606
+  </a>
+</DocumentFragment>
+`;
+
+exports[`UniParcColumnConfiguration component should render column "protein_count": protein_count 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniprotkb?query=proteome:UP000005640"
+  >
+    18
   </a>
 </DocumentFragment>
 `;
