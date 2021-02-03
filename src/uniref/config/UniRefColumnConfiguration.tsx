@@ -88,7 +88,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
           variant="tertiary"
           to={getEntryPath(Namespace.uniref, id)}
         >
-          more organisms
+          More organisms
         </Button>
       )}
     </ul>
@@ -108,7 +108,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
           variant="tertiary"
           to={getEntryPath(Namespace.uniref, id)}
         >
-          more organisms
+          More organisms
         </Button>
       )}
     </ul>
