@@ -15,7 +15,7 @@ const buscoPartitionToLabel: Record<BuscoPartition, string> = {
 
 const BuscoLabel = () => (
   <>
-    BUSCO
+    <abbr title="Benchmarking Universal Single-Copy Orthologs">BUSCO</abbr>
     <div>
       {buscoPartitions.map((partition) => (
         <span key={partition} className="busco-legend-item">
