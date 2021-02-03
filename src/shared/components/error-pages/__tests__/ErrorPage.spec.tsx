@@ -7,7 +7,7 @@ import ErrorPage from '../ErrorPage';
 import ArtWork from '../svgs/error.svg';
 
 describe('ErrorPage component', () => {
-  test('should render', async () => {
+  test('should render', () => {
     const { asFragment } = renderWithRedux(
       <ErrorPage
         artwork={<ArtWork />}
