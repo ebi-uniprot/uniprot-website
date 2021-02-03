@@ -8,13 +8,13 @@ import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import {
-  EntryType,
-  getEntryTypeFromString,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
-import { UniParcXRef } from '../../adapters/uniParcConverter';
+import {
+  UniParcXRef,
+  databaseToEntryType,
+} from '../../adapters/uniParcConverter';
 import { FacetValue } from '../../../uniprotkb/types/responseTypes';
 import { Taxonomy } from '../../../proteomes/adapters/proteomesConverter';
 
@@ -134,7 +134,7 @@ const XRefsFacets: FC<{ xrefs?: UniParcXRef[] }> = ({ xrefs }) => {
             values: Object.entries(countBy(xrefs, (xref) => xref.database))
               .map(([value, count]) => {
                 let label: ReactNode = value;
-                const entryType = getEntryTypeFromString(value);
+                const entryType = databaseToEntryType[value];
                 if (entryType === EntryType.REVIEWED) {
                   label = (
                     <>

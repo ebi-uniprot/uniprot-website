@@ -1,4 +1,5 @@
 import { Sequence } from '../../shared/types/sequence';
+import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 import EntrySection from '../types/entrySection';
 
@@ -7,11 +8,21 @@ export type XRefProperty = {
   value: string;
 };
 
+export enum XRefsInternalDatabases {
+  Reviewed = 'UniProtKB/Swiss-Prot',
+  Unreviewed = 'UniProtKB/TrEMBL',
+}
+
+export const databaseToEntryType: Record<string, EntryType | undefined> = {
+  [XRefsInternalDatabases.Reviewed]: EntryType.REVIEWED,
+  [XRefsInternalDatabases.Unreviewed]: EntryType.UNREVIEWED,
+};
+
 // TODO: to be reviewed when working on UniParc pages
 export type UniParcXRef = {
   active: boolean;
   created: string;
-  database: string; // should replace with union of possibilities?
+  database: XRefsInternalDatabases | string; // should replace with union of possibilities?
   id: string;
   lastUpdated: string;
   properties?: XRefProperty[];

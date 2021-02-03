@@ -16,7 +16,10 @@ import apiUrls from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../../shared/config/columns';
-import { UniParcXRef } from '../../adapters/uniParcConverter';
+import {
+  databaseToEntryType,
+  UniParcXRef,
+} from '../../adapters/uniParcConverter';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
@@ -36,14 +39,15 @@ const getColumns = (
     name: 'database',
     render(xref) {
       let cell: ReactNode = xref.database;
-      if (xref.database === 'UniProtKB/Swiss-Prot') {
+      const entryType = databaseToEntryType[xref.database];
+      if (entryType === EntryType.REVIEWED) {
         cell = (
           <>
             <EntryTypeIcon entryType={EntryType.REVIEWED} />
             UniProtKB reviewed
           </>
         );
-      } else if (xref.database === 'UniProtKB/TrEMBL') {
+      } else if (entryType === EntryType.UNREVIEWED) {
         cell = (
           <>
             <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
