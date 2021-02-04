@@ -287,6 +287,11 @@ const ResultsView: FC<ResultsTableProps> = ({
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
   const updateColumnSort = (columnName: string) => {
+    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
+    if (!sortColumn) {
+      return;
+    }
+
     // Change sort direction
     const updatedSortDirection =
       !sortDirection || sortDirection === SortDirection.descend
@@ -298,7 +303,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         pathname: SearchResultsLocations[namespace],
         query,
         selectedFacets,
-        sortColumn: columnName,
+        sortColumn,
         sortDirection: updatedSortDirection,
       })
     );
