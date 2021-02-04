@@ -114,7 +114,7 @@ export enum InactiveReasonType {
 
 export type InactiveEntryReason = {
   inactiveReasonType: InactiveReasonType;
-  mergeDemergeTo: string[] | [];
+  mergeDemergeTo?: string[];
 };
 
 export const convertXrefProperties = (xrefs: Xref[]) =>

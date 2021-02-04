@@ -199,7 +199,7 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
-            {/* Catch-all handler -> Not found */}
+            {/* Catch-all handler -> Redirect or not found */}
             <Route
               component={() => (
                 <SingleColumnLayout>

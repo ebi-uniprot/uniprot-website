@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Fragment, ReactNode } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import SimpleView from '../components/protein-data-views/SimpleView';
 import ProteinNamesView, {
@@ -70,7 +70,10 @@ import SubcellularLocationView from '../components/protein-data-views/Subcellula
 import { GOTermsView } from '../components/protein-data-views/GOView';
 import externalUrls from '../../shared/config/externalUrls';
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
-import { Location, LocationToPath } from '../../app/config/urls';
+
+import { getEntryPath } from '../../app/config/urls';
+
+import { Namespace } from '../../shared/types/namespaces';
 import { Xref } from '../../shared/types/apiModel';
 
 export const defaultColumns = [
@@ -120,7 +123,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   render: (data) => (
     <SimpleView
       termValue={data.primaryAccession}
-      linkTo={`/uniprotkb/${data.primaryAccession}`}
+      linkTo={getEntryPath(Namespace.uniprotkb, data.primaryAccession)}
     />
   ),
 });
@@ -660,13 +663,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.uniparcId, {
     const accession = data.extraAttributes?.uniParcId as string | undefined;
     return (
       accession && (
-        <Link
-          to={generatePath(LocationToPath[Location.UniParcEntry], {
-            accession,
-          })}
-        >
-          {accession}
-        </Link>
+        <Link to={getEntryPath(Namespace.uniparc, accession)}>{accession}</Link>
       )
     );
   },
@@ -694,9 +691,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                   'Itself'
                 ) : (
                   <Link
-                    to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-                      accession: interaction.interactantOne.uniProtkbAccession,
-                    })}
+                    to={getEntryPath(
+                      Namespace.uniprotkb,
+                      interaction.interactantOne.uniProtkbAccession
+                    )}
                   >
                     {interaction.interactantOne.uniProtkbAccession}
                   </Link>
@@ -1011,9 +1009,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
             xref.id && (
               <Link
                 key={xref.id}
-                to={generatePath(LocationToPath[Location.CitationsEntry], {
-                  accession: xref.id,
-                })}
+                to={getEntryPath(Namespace.citations, xref.id)}
               >
                 {xref.id}
               </Link>

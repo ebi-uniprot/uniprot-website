@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Fragment, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { ExternalLink } from 'franklin-sites';
 
 import {
@@ -10,7 +10,9 @@ import {
 import BuscoView from '../components/BuscoView';
 import BuscoLabel from '../components/BuscoLabel';
 
-import { Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+
+import { Namespace } from '../../shared/types/namespaces';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -51,24 +53,14 @@ export const ProteomesColumnConfiguration = new Map<
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
   label: 'Entry',
   render: ({ id }) => (
-    <Link
-      to={generatePath(LocationToPath[Location.ProteomesEntry], {
-        accession: id,
-      })}
-    >
-      {id}
-    </Link>
+    <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>
   ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   label: 'Organism ID',
   render: ({ taxonomy }) => (
-    <Link
-      to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-        accession: String(taxonomy.taxonId),
-      })}
-    >
+    <Link to={getEntryPath(Namespace.taxonomy, taxonomy.taxonId)}>
       {taxonomy.taxonId}
     </Link>
   ),
@@ -104,18 +96,14 @@ ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
 ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
   label: 'Lineage',
   render: ({ taxonLineage }) =>
-    taxonLineage
-      ?.map<ReactNode>(({ scientificName, taxonId }) => (
-        <Link
-          key={taxonId}
-          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: String(taxonId),
-          })}
-        >
+    taxonLineage?.map(({ scientificName, taxonId }, index) => (
+      <Fragment key={taxonId}>
+        {index > 0 && ', '}
+        <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {scientificName}
         </Link>
-      ))
-      .reduce((prev, curr) => [prev, ', ', curr]),
+      </Fragment>
+    )),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {

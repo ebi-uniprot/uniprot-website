@@ -1,4 +1,5 @@
 import { invert } from 'lodash-es';
+import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import { Namespace } from '../../shared/types/namespaces';
@@ -17,10 +18,16 @@ export enum Location {
   // Supporting data
   TaxonomyEntry = 'TaxonomyEntry',
   TaxonomyResults = 'TaxonomyResults',
-  CitationsEntry = 'CitationsEntry',
-  CitationsResults = 'CitationsResults',
   KeywordsEntry = 'KeywordsEntry',
   KeywordsResults = 'KeywordsResults',
+  CitationsEntry = 'CitationsEntry',
+  CitationsResults = 'CitationsResults',
+  DiseasesEntry = 'DiseaseEntry',
+  DiseasesResults = 'DiseaseResults',
+  DatabaseEntry = 'DatabaseEntry',
+  DatabaseResults = 'DatabaseResults',
+  LocationsEntry = 'LocationsEntry',
+  LocationsResults = 'LocationsResults',
   // Tools
   Dashboard = 'Dashboard',
   Align = 'Align',
@@ -33,7 +40,7 @@ export enum Location {
   PeptideSearchResult = 'PeptideSearchResult',
 }
 
-export const LocationToPath = {
+export const LocationToPath: Record<Location, string> = {
   [Location.Home]: '/',
   // Main data
   [Location.UniProtKBEntry]: `/${Namespace.uniprotkb}/:accession/:subPage?`,
@@ -47,10 +54,16 @@ export const LocationToPath = {
   // Supporting data
   [Location.TaxonomyEntry]: `/${Namespace.taxonomy}/:accession`,
   [Location.TaxonomyResults]: `/${Namespace.taxonomy}/`,
-  [Location.CitationsEntry]: `/${Namespace.citations}/:accession`,
-  [Location.CitationsResults]: `/${Namespace.citations}/`,
   [Location.KeywordsEntry]: `/${Namespace.keywords}/:accession`,
   [Location.KeywordsResults]: `/${Namespace.keywords}/`,
+  [Location.CitationsEntry]: `/${Namespace.citations}/:accession`,
+  [Location.CitationsResults]: `/${Namespace.citations}/`,
+  [Location.DiseasesEntry]: `/${Namespace.diseases}/:accession`,
+  [Location.DiseasesResults]: `/${Namespace.diseases}/`,
+  [Location.DatabaseEntry]: `/${Namespace.database}/:accession`,
+  [Location.DatabaseResults]: `/${Namespace.database}/`,
+  [Location.LocationsEntry]: `/${Namespace.locations}/:accession`,
+  [Location.LocationsResults]: `/${Namespace.locations}/`,
   // Tools
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
@@ -63,7 +76,7 @@ export const LocationToPath = {
   [Location.PeptideSearch]: '/peptide-search',
 };
 
-export const SearchResultsLocations = {
+export const SearchResultsLocations: Record<Namespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
@@ -71,12 +84,15 @@ export const SearchResultsLocations = {
   [Namespace.proteomes]: LocationToPath[Location.ProteomesResults],
   // Supporting data
   [Namespace.taxonomy]: LocationToPath[Location.TaxonomyResults],
-  [Namespace.citations]: LocationToPath[Location.CitationsResults],
   [Namespace.keywords]: LocationToPath[Location.KeywordsResults],
+  [Namespace.citations]: LocationToPath[Location.CitationsResults],
+  [Namespace.diseases]: LocationToPath[Location.DiseasesResults],
+  [Namespace.database]: LocationToPath[Location.DatabaseResults],
+  [Namespace.locations]: LocationToPath[Location.LocationsResults],
 };
 
 // All "entry" locations need to have a "accession" param in the pattern
-export const EntryLocations = {
+export const EntryLocations: Record<Namespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
   [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
@@ -84,8 +100,23 @@ export const EntryLocations = {
   [Namespace.proteomes]: LocationToPath[Location.ProteomesEntry],
   // Supporting data
   [Namespace.taxonomy]: LocationToPath[Location.TaxonomyEntry],
-  [Namespace.citations]: LocationToPath[Location.CitationsEntry],
   [Namespace.keywords]: LocationToPath[Location.KeywordsEntry],
+  [Namespace.citations]: LocationToPath[Location.CitationsEntry],
+  [Namespace.diseases]: LocationToPath[Location.DiseasesEntry],
+  [Namespace.database]: LocationToPath[Location.DatabaseEntry],
+  [Namespace.locations]: LocationToPath[Location.LocationsEntry],
+};
+
+export const getEntryPath = (
+  namespace: Namespace,
+  accession: string | number
+) => generatePath(EntryLocations[namespace], { accession });
+
+// Same than above, but curried version
+export const getEntryPathFor = (namespace: Namespace) => {
+  const entryLocation = EntryLocations[namespace];
+  return (accession: string | number) =>
+    generatePath(entryLocation, { accession });
 };
 
 // eslint-disable-next-line consistent-return

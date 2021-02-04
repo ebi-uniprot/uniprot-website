@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniParcColumnConfiguration component should render column "busco": busco 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "busco": busco 1`] = `
 <DocumentFragment>
   <protvista-track
     height="10"
@@ -15,15 +15,15 @@ exports[`UniParcColumnConfiguration component should render column "busco": busc
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "components": components 1`] = `<DocumentFragment />`;
+exports[`ProteomesColumnConfiguration component should render column "components": components 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "cpd": cpd 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
   Standard
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "genome_assembly": genome_assembly 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "genome_assembly": genome_assembly 1`] = `
 <DocumentFragment>
   <a
     class="external-link"
@@ -39,13 +39,13 @@ exports[`UniParcColumnConfiguration component should render column "genome_assem
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "genome_representation": genome_representation 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "genome_representation": genome_representation 1`] = `
 <DocumentFragment>
   full
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "lineage": lineage 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -55,19 +55,19 @@ exports[`UniParcColumnConfiguration component should render column "lineage": li
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
 <DocumentFragment>
   HUMAN
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "organism": organism 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "organism": organism 1`] = `
 <DocumentFragment>
   Homo sapiens
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "organism_id": organism_id 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "organism_id": organism_id 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
@@ -77,7 +77,7 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "protein_count": protein_count 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "protein_count": protein_count 1`] = `
 <DocumentFragment>
   <a
     href="/uniprotkb?query=proteome:UP000005640"
@@ -87,7 +87,7 @@ exports[`UniParcColumnConfiguration component should render column "protein_coun
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "upid": upid 1`] = `
+exports[`ProteomesColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
   <a
     href="/proteome/UP000005640"

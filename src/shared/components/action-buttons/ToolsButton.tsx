@@ -2,6 +2,7 @@ import { FC, useRef, useCallback, useEffect } from 'react';
 import { v1 } from 'uuid';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { Button } from 'franklin-sites';
 
 import useSafeState from '../../hooks/useSafeState';
 
@@ -81,15 +82,14 @@ const ToolsButton: FC<ToolsButtonProps> = ({
   }, [selectedEntries, setLoading]);
 
   return (
-    <button
-      type="button"
-      className="button tertiary"
+    <Button
+      variant="tertiary"
       title={title}
       disabled={disabled || loading}
       onClick={handleClick}
     >
       {children}
-    </button>
+    </Button>
   );
 };
 

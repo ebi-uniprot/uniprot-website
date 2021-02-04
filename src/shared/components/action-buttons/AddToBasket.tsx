@@ -1,6 +1,6 @@
 import { FC } from 'react';
 // import { useDispatch } from 'react-redux';
-import { BasketIcon } from 'franklin-sites';
+import { BasketIcon, Button } from 'franklin-sites';
 
 type AddToBasketButtonProps = {
   selectedEntries: string[];
@@ -23,16 +23,15 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
   };
 
   return (
-    <button
-      type="button"
-      className="button tertiary"
+    <Button
+      variant="tertiary"
       title={title}
       disabled={disabled}
       onClick={handleClick}
     >
       <BasketIcon />
       Add
-    </button>
+    </Button>
   );
 };
 

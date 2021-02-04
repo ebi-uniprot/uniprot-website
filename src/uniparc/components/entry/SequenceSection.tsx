@@ -1,12 +1,12 @@
 import { FC } from 'react';
 import { Card, Sequence } from 'franklin-sites';
 
-import { Sequence as SequenceType } from '../../types/sequence';
-import { formatLargeNumber, hasContent } from '../../utils/utils';
+import { Sequence as SequenceType } from '../../../shared/types/sequence';
+import { formatLargeNumber, hasContent } from '../../../shared/utils/utils';
 
 import EntrySection, {
   getEntrySectionNameAndId,
-} from '../../../uniref/types/entrySection';
+} from '../../types/entrySection';
 
 const SequenceSection: FC<{
   data: SequenceType;
@@ -31,11 +31,9 @@ const SequenceSection: FC<{
   ];
 
   return (
-    <div id={EntrySection.Sequence}>
-      <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
-        <Sequence sequence={data.value} infoData={infoData} isCollapsible />
-      </Card>
-    </div>
+    <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
+      <Sequence sequence={data.value} infoData={infoData} isCollapsible />
+    </Card>
   );
 };
 

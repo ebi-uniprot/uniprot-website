@@ -1,11 +1,11 @@
-// import MembersSection from '../components/entry/MembersSection';
+import SequenceSection from '../components/entry/SequenceSection';
+import XRefsSection from '../components/entry/XRefsSection';
 
-import SequenceSection from '../../shared/components/entry/SequenceSection';
 import { UniParcUIModel } from '../adapters/uniParcConverter';
-import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
+
+import EntrySection from '../types/entrySection';
 
 const UniParcEntryConfig: {
-  name: string;
   id: EntrySection;
   sectionContent: (
     entryData: UniParcUIModel,
@@ -13,12 +13,18 @@ const UniParcEntryConfig: {
   ) => JSX.Element;
 }[] = [
   {
-    ...getEntrySectionNameAndId(EntrySection.Sequence),
+    id: EntrySection.Sequence,
     sectionContent: (data) => (
       <SequenceSection
         data={data[EntrySection.Sequence]}
         key={EntrySection.Sequence}
       />
+    ),
+  },
+  {
+    id: EntrySection.XRefs,
+    sectionContent: (data) => (
+      <XRefsSection data={data[EntrySection.XRefs]} key={EntrySection.XRefs} />
     ),
   },
 ];
