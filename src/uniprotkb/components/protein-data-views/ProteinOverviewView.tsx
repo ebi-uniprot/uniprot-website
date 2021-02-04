@@ -1,11 +1,13 @@
 import { FC, ReactNode } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from './AnnotationScoreDoughnutChart';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
@@ -37,11 +39,7 @@ const ProteinOverview: FC<{
     organismNameNode = (
       <>
         {data.organism.taxonId ? (
-          <Link
-            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: `${data.organism.taxonId}`,
-            })}
-          >
+          <Link to={getEntryPath(Namespace.taxonomy, data.organism.taxonId)}>
             {data.organism.scientificName || data.organism.taxonId}
           </Link>
         ) : (

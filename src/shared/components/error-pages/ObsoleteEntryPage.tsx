@@ -1,10 +1,15 @@
 import { FC, Fragment } from 'react';
 import { Message } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import listFormat from '../../utils/listFormat';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  getEntryPath,
+} from '../../../app/config/urls';
+import { Namespace } from '../../types/namespaces';
 
 import {
   InactiveEntryReason,
@@ -31,9 +36,8 @@ const DeletedEntryMessage: FC<{ accession: string }> = ({ accession }) => (
       . For previous versions of this entry, please look at its{' '}
       <Link
         to={{
-          pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
-            accession,
-          }),
+          pathname: getEntryPath(Namespace.uniprotkb, accession),
+          // TODO: actually implement this in the website
           search: 'version=*',
         }}
       >
@@ -56,11 +60,7 @@ const DemergedEntryMessage: FC<{
         {demergedTo.map((newEntry, index) => (
           <Fragment key={newEntry}>
             {listFormat(index, demergedTo)}
-            <Link
-              to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-                accession: newEntry,
-              })}
-            >
+            <Link to={getEntryPath(Namespace.uniprotkb, newEntry)}>
               {newEntry}
             </Link>
           </Fragment>
@@ -90,9 +90,7 @@ const DemergedEntryMessage: FC<{
       . For previous versions of this entry, please look at its{' '}
       <Link
         to={{
-          pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
-            accession,
-          }),
+          pathname: getEntryPath(Namespace.uniprotkb, accession),
           // TODO: actually implement this in the website
           search: `version=*`,
         }}

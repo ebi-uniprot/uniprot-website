@@ -1,10 +1,12 @@
 import { FC, useCallback } from 'react';
 import { Card, LongNumber } from 'franklin-sites';
-import { useHistory, generatePath } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
@@ -26,11 +28,7 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }
-      history.push(
-        generatePath(LocationToPath[Location.UniRefEntry], {
-          accession: data.id,
-        })
-      );
+      history.push(getEntryPath(Namespace.uniref, data.id));
     },
     [history, data.id]
   );

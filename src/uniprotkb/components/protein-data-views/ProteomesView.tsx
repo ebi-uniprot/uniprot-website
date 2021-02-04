@@ -1,20 +1,15 @@
 import { FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
+
 import { Xref } from '../../../shared/types/apiModel';
 
 const ProteomesId: FC<{ id?: string }> = ({ id }) =>
-  id ? (
-    <Link
-      to={generatePath(LocationToPath[Location.ProteomesEntry], {
-        accession: id,
-      })}
-    >
-      {id}
-    </Link>
-  ) : null;
+  id ? <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link> : null;
 
 const ProteomesComponents: FC<{
   components?: { [key: string]: string };

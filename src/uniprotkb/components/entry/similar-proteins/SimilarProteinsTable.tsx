@@ -1,13 +1,19 @@
 import { FC } from 'react';
 import { DataTable, Loader, Message } from 'franklin-sites';
-import { generatePath, Link } from 'react-router-dom';
-import { getAccessionsURL } from '../../../../shared/config/apiUrls';
-import useDataApi from '../../../../shared/hooks/useDataApi';
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
-import { UniProtKBColumn } from '../../../types/columnTypes';
+import { Link } from 'react-router-dom';
+
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import { Location, LocationToPath } from '../../../../app/config/urls';
+
+import useDataApi from '../../../../shared/hooks/useDataApi';
+
+import { getAccessionsURL } from '../../../../shared/config/apiUrls';
+import { getEntryPath } from '../../../../app/config/urls';
+
+import { Namespace } from '../../../../shared/types/namespaces';
+
+import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
+import { UniProtKBColumn } from '../../../types/columnTypes';
 
 const columns = [
   UniProtKBColumn.accession,
@@ -25,11 +31,7 @@ const columnConfig = [
     render: (row: UniProtkbAPIModel) => (
       <>
         <EntryTypeIcon entryType={row.entryType} />
-        <Link
-          to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-            accession: row.primaryAccession,
-          })}
-        >
+        <Link to={getEntryPath(Namespace.uniprotkb, row.primaryAccession)}>
           {row.primaryAccession}
         </Link>
       </>

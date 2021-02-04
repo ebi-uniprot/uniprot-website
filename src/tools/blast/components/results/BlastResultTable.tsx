@@ -10,7 +10,7 @@ import {
   ReactNode,
 } from 'react';
 import { DataTable, Chip, Loader } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import { HSPDetailPanelProps } from './HSPDetailPanel';
@@ -19,7 +19,9 @@ import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import { getEntryPath } from '../../../../app/config/urls';
+
+import { Namespace } from '../../../../shared/types/namespaces';
 
 import { EnrichedBlastHit } from './BlastResult';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
@@ -329,11 +331,7 @@ const BlastResultTable: FC<{
         label: 'Accession',
         name: 'accession',
         render: ({ hit_acc, hit_db }) => (
-          <Link
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: hit_acc,
-            })}
-          >
+          <Link to={getEntryPath(Namespace.uniprotkb, hit_acc)}>
             <EntryTypeIcon entryType={hit_db} />
             {hit_acc}
           </Link>
@@ -356,11 +354,7 @@ const BlastResultTable: FC<{
         label: 'Organism',
         name: 'organism',
         render: ({ hit_uni_ox, hit_uni_os }) => (
-          <Link
-            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: hit_uni_ox,
-            })}
-          >
+          <Link to={getEntryPath(Namespace.taxonomy, hit_uni_ox)}>
             {hit_uni_os}
           </Link>
         ),

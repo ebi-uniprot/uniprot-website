@@ -1,15 +1,17 @@
 import { FC, useCallback, useMemo } from 'react';
 import { Card, LongNumber } from 'franklin-sites';
-import { useHistory, generatePath } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+
+import { getEntryPath } from '../../../app/config/urls';
 
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
 
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniParcAPIModel } from '../../adapters/uniParcConverter';
 
@@ -40,11 +42,7 @@ const UniRefCard: FC<{
   const history = useHistory();
 
   const handleCardClick = useCallback(() => {
-    history.push(
-      generatePath(LocationToPath[Location.UniParcEntry], {
-        accession: data.uniParcId,
-      })
-    );
+    history.push(getEntryPath(Namespace.uniparc, data.uniParcId));
   }, [history, data.uniParcId]);
 
   const organismCount = data.taxonomies.length;
