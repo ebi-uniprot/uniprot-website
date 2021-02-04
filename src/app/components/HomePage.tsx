@@ -1,10 +1,21 @@
-import { lazy, Suspense, useState } from 'react';
+import {
+  lazy,
+  Suspense,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { HeroHeader, Loader } from 'franklin-sites';
 
 import SearchContainer from '../../uniprotkb/components/search/SearchContainer';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
-import useNS from '../../shared/hooks/useNS';
+
+import useReducedMotion from '../../shared/hooks/useReducedMotion';
+
 import { Namespace } from '../../shared/types/namespaces';
+
+import './styles/home-page.scss';
 
 const HomePageNonCritical = lazy(
   () =>
@@ -38,18 +49,74 @@ const namespaceFindYour: Record<Namespace, string> = {
 };
 
 const HomePage = () => {
-  const namespace = useNS();
+  const prefersReducedMotion = useReducedMotion();
 
   const [selectedNamespace, setSelectedNamespace] = useState(
-    namespace || Namespace.uniprotkb
+    Namespace.uniprotkb
   );
+
+  const text = namespaceFindYour[selectedNamespace];
+  const [displayed, setDisplayed] = useState(text);
+
+  const interval = useRef<number>();
+
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    setDisplayed('');
+  }, [selectedNamespace]);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayed(text);
+      return;
+    }
+    window.clearInterval(interval.current);
+    interval.current = window.setInterval(() => {
+      setDisplayed((displayed) => text.substr(0, displayed.length + 1));
+    }, 100);
+  }, [prefersReducedMotion, text]);
+
+  if (displayed === text) {
+    window.clearInterval(interval.current);
+  }
 
   return (
     <>
       <main>
         <ErrorBoundary>
           <HeroHeader
-            title={`Find your ${namespaceFindYour[selectedNamespace]}`}
+            className="home-page__header"
+            title={
+              <>
+                {'Find your '}
+                <button
+                  type="button"
+                  className="letter-group"
+                  tabIndex={-1}
+                  onClick={useCallback(() => {
+                    const dropdown: HTMLButtonElement | null = document.querySelector(
+                      'form.main-search button.dropdown'
+                    );
+                    dropdown?.focus();
+                    dropdown?.click();
+                  }, [])}
+                >
+                  {displayed.split('').map((letter, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <span key={index} className="letter">
+                      {letter}
+                    </span>
+                  ))}
+                  {prefersReducedMotion ? null : (
+                    <span className="cursor">|</span>
+                  )}
+                </button>
+              </>
+            }
             footer={mission}
           >
             <section className="uniprot-grid uniprot-grid--centered">
