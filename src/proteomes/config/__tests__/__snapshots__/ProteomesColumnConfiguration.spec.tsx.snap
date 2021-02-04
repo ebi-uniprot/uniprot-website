@@ -2,15 +2,19 @@
 
 exports[`ProteomesColumnConfiguration component should render column "busco": busco 1`] = `
 <DocumentFragment>
-  <protvista-track
-    height="10"
-    length="100"
-  />
-  <div>
-    n:103 · lineageDb value
-  </div>
-  <div>
-    C:77.7% (S:7.8% D:11.7%) F:17.5% M:19.4%
+  <div
+    class="busco-view"
+  >
+    <protvista-track
+      height="10"
+      length="100"
+    />
+    <div>
+      n:103 · lineageDb value
+    </div>
+    <div>
+      C:77.7% (S:7.8% D:11.7%) F:17.5% M:19.4%
+    </div>
   </div>
 </DocumentFragment>
 `;

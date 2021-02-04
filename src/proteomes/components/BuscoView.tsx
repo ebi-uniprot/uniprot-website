@@ -5,6 +5,8 @@ import { formatPercentage } from '../../shared/utils/utils';
 
 import { BuscoReport } from '../adapters/proteomesConverter';
 
+import './styles/busco-view.scss';
+
 export const buscoPartitions = [
   'completeSingle',
   'completeDuplicated',
@@ -72,11 +74,11 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
   const F = formatPercentage(buscoPartitionPercentages.fragmented);
   const M = formatPercentage(buscoPartitionPercentages.missing);
   return (
-    <>
+    <div className="busco-view">
       <protvista-track length={trackLength} height={10} ref={setTrackData} />
       <div>{`n:${report.total} · ${report.lineageDb}`}</div>
       <div>{`C:${C} (S:${S} D:${D}) F:${F} M:${M}`}</div>
-    </>
+    </div>
   );
 };
 
