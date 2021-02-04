@@ -37,6 +37,7 @@ export enum EntryType {
   UNREVIEWED,
   INACTIVE,
   UNIPARC,
+  REFERENCE_PROTEOME,
 }
 
 export const getEntryTypeFromString = (entryTypeString: string) => {

@@ -6,6 +6,7 @@ import {
   ProteomesAPIModel,
   ProteomeType,
 } from '../adapters/proteomesConverter';
+import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 
 import BuscoView from '../components/BuscoView';
 import BuscoLabel from '../components/BuscoLabel';
@@ -13,6 +14,7 @@ import BuscoLabel from '../components/BuscoLabel';
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
+import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -68,14 +70,15 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   label: 'Organism',
-  // TODO: update (REF) with proper frankin component when complete in https://www.ebi.ac.uk/panda/jira/browse/TRM-25391
   render: ({ taxonomy, proteomeType }) => (
     <>
       {[
         ProteomeType.REFERENCE,
         ProteomeType.REFERENCE_AND_REPRESENTATIVE,
         ProteomeType.REPRESENTATIVE,
-      ].includes(proteomeType) && '(REF) '}
+      ].includes(proteomeType) && (
+        <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
+      )}
       {taxonomy.scientificName}
     </>
   ),
