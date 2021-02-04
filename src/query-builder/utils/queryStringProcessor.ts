@@ -82,11 +82,11 @@ const getEmptyClause = (id: number): Clause => ({
   logicOperator: Operator.AND,
 });
 
-export const parse = (queryString = ''): Clause[] => {
+export const parse = (queryString = '', startId = 0): Clause[] => {
   // split querystring on all the recognised operators
   const split = queryString.trim().split(clauseSplitter);
 
-  let id = 0;
+  let id = startId;
 
   const clauses: Clause[] = [];
   let currentClause = getEmptyClause(id);

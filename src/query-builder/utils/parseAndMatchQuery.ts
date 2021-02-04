@@ -1,4 +1,5 @@
 import { parse } from './queryStringProcessor';
+import { getNextId } from './clause';
 
 import { Clause, SearchTermType } from '../types/searchTypes';
 
@@ -33,7 +34,10 @@ const parseAndMatchQuery = (
     parsedQuery = (Array.isArray(query) ? query : [query]).flatMap(parse);
   }
   if (fieldToAdd) {
-    parsedQuery = [...parsedQuery, ...parse(`(${fieldToAdd}:)`)];
+    parsedQuery = [
+      ...parsedQuery,
+      ...parse(`(${fieldToAdd}:)`, getNextId(parsedQuery)),
+    ];
   }
   // for each parsed clause, try to find the corresponding endpoint-described
   // clause to merge its 'searchTerm' field
