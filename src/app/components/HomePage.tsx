@@ -105,14 +105,19 @@ const HomePage = () => {
                     dropdown?.click();
                   }, [])}
                 >
-                  {displayed.split('').map((letter, index) => (
-                    // eslint-disable-next-line react/no-array-index-key
-                    <span key={index} className="letter">
-                      {letter}
-                    </span>
-                  ))}
-                  {prefersReducedMotion ? null : (
-                    <span className="cursor">|</span>
+                  {prefersReducedMotion ? (
+                    displayed
+                  ) : (
+                    <>
+                      {displayed.split('').map((letter, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <span key={index} className="letter">
+                          {letter}
+                        </span>
+                      ))}
+
+                      <span className="cursor">|</span>
+                    </>
                   )}
                 </button>
               </>

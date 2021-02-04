@@ -1,8 +1,14 @@
-import { cleanup, fireEvent, getAllByText } from '@testing-library/react';
-import { after } from 'lodash';
+import { screen, fireEvent } from '@testing-library/react';
+
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import HomePage from '../HomePage';
+
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+
+jest.mock('../../../shared/hooks/useReducedMotion');
+
+(useReducedMotion as jest.Mock).mockReturnValue(true);
 
 let component;
 
@@ -17,14 +23,16 @@ describe('HomePage component', () => {
   });
 
   test('should change the text when selecting a different namespace', async () => {
-    const { getByText, getAllByText } = component;
-    expect(getByText('Find your protein')).toBeTruthy();
-    fireEvent.click(getByText('UniProtKB'));
-    const matches = getAllByText('UniRef');
-    fireEvent.click(matches.find(({ type }) => type === 'button'));
-    const newTagLine = await getByText('Find your protein cluster');
-    expect(newTagLine).toBeTruthy();
+    expect(
+      screen.getByRole('heading', { name: 'Find your protein', exact: true })
+    ).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'UniProtKB' }));
+    fireEvent.click(screen.getByRole('button', { name: 'UniRef' }));
+    expect(
+      await screen.findByRole('heading', {
+        name: 'Find your protein cluster',
+        exact: true,
+      })
+    ).toBeInTheDocument();
   });
-
-  afterEach(cleanup);
 });
