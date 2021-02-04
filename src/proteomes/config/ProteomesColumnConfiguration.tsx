@@ -7,6 +7,9 @@ import {
   ProteomeType,
 } from '../adapters/proteomesConverter';
 
+import BuscoView from '../components/BuscoView';
+import BuscoLabel from '../components/BuscoLabel';
+
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
@@ -147,6 +150,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   ),
 });
 
+ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
+  label: <BuscoLabel />,
+  render: ({ proteomeCompletenessReport: { buscoReport } }) =>
+    buscoReport && <BuscoView report={buscoReport} />,
+});
 // TODO: implement BUSCO viz
 
 export default ProteomesColumnConfiguration;
