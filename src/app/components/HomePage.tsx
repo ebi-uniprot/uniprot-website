@@ -122,9 +122,13 @@ const HomePage = () => {
             <section className="uniprot-grid uniprot-grid--centered">
               <SearchContainer
                 namespace={selectedNamespace}
-                onNamespaceChange={(namespace) =>
-                  setSelectedNamespace(namespace)
-                }
+                onNamespaceChange={useCallback((namespace) => {
+                  setSelectedNamespace(namespace);
+                  const textInput: HTMLInputElement | null = document.querySelector(
+                    'form.main-search input[type="text"]'
+                  );
+                  textInput?.focus();
+                }, [])}
                 className="uniprot-grid-cell--span-12"
                 includeFooter
               />
