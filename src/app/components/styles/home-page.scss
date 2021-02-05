@@ -3,6 +3,7 @@
     color: currentColor;
     font-weight: 700;
     outline: none;
+    cursor: text;
   }
 
   .letter {
@@ -13,13 +14,14 @@
   .cursor {
     margin-left: -0.1ch;
     opacity: 0;
+    user-select: none;
   }
 
   &:focus,
   &:focus-within,
   &:hover {
     & .cursor {
-      animation: appear 500ms infinite both alternate;
+      animation: appear 750ms infinite both alternate;
     }
   }
 }
