@@ -82,6 +82,13 @@ const getEmptyClause = (id: number): Clause => ({
   logicOperator: Operator.AND,
 });
 
+/**
+ * Function to parse a string corresponding to a query and return the
+ * corresponding parsed object. Each clause has a stable unique ID which is a
+ * number that will always keep growing clause after clause.
+ * @param {string} queryString - String to parse, corresponding to a query
+ * @param {number} [startId=0] - Optional starting ID to assign to 1st clause
+ */
 export const parse = (queryString = '', startId = 0): Clause[] => {
   // split querystring on all the recognised operators
   const split = queryString.trim().split(clauseSplitter);
