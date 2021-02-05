@@ -41,7 +41,7 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
 
   const termValue = `${data.scientificName}${
     data.commonName ? ` (${data.commonName})` : ''
-  } ${data.synonyms && data.synonyms.length > 0 ? ` (${data.synonyms})` : ''}`;
+  } ${data.synonyms?.length ? ` (${data.synonyms.join(', ')})` : ''}`;
 
   return (
     <SimpleView
@@ -67,9 +67,9 @@ export const TaxonomyListView: FC<{
           <Link to={getEntryPath(Namespace.taxonomy, data.taxonId)}>
             {`${data.scientificName} (${data.commonName})`}
           </Link>
-          {data.evidences && data.evidences.length && (
+          {data.evidences?.length ? (
             <UniProtKBEvidenceTag evidences={data.evidences} />
-          )}
+          ) : null}
         </>
       ),
     });
