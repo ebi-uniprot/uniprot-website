@@ -1,0 +1,16 @@
+.column-select-drag-drop__list{background:#e4e8eb;display:flex;padding:0.5rem;overflow:auto;white-space:nowrap;margin-bottom:1rem}.column-select-drag-drop__list .chip{--main-chip-color: #00639a}.column-select-drag-drop__list .chip:hover{--main-chip-color: #00a6d5}.column-select-drag-drop__list .chip--dragging{--main-chip-color: #00a6d5}
+
+.busco-view{min-width:200px;max-width:1000px}
+
+.busco-legend-item{margin-right:0.5rem}.busco-legend-item__swatch{width:1rem;height:1rem;border:1px solid white;display:inline-block;margin-right:0.125rem;margin-top:0.125rem;position:relative;top:0.125rem}
+
+.accession-view{white-space:nowrap}
+
+.column-select{margin-bottom:1rem}.column-select__tab-title:first-letter{text-transform:capitalize}.column-select__tab-title__count{margin-left:0.5rem}.column-select__tab-title__count--visible{visibility:visible}.column-select__tab-title__count--hidden{visibility:hidden}
+
+.customise-table{padding:1rem 0}
+
+.sticky-tabs-container .tabs__header{z-index:100;position:sticky;top:0;background:#fbfeff}.sticky-bottom-right{float:right;position:sticky;bottom:0}
+
+
+/*# sourceMappingURL=customise.0ef1e1.css.map*/

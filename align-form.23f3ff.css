@@ -1,6 +1,0 @@
-.tools-form-section{display:flex;flex-wrap:wrap;flex-direction:row;margin-bottom:2rem}.tools-form-section__item{display:inline-block;margin-right:2rem}.tools-form-section__item--taxon-select{width:20rem}.tools-form-section__item--selected-taxon{margin-top:1.5rem}.tools-form-section__item [name='title']{font-family:monospace;min-width:25ch}.tools-form-section__file-input{display:inline-block;font-weight:bold;margin-left:0.5ch;color:#1779ba;cursor:pointer;user-select:none}.tools-form-section__file-input input[type='file']{display:none}.tools-form-advanced>summary{overflow:hidden;cursor:pointer;user-select:none}.tools-form-advanced>summary>span{position:relative;display:inline;font-size:1.5em;font-weight:bold}.tools-form-advanced>summary>span:after{content:'';position:absolute;border-bottom:2px solid #d2dce3;margin:auto;height:75%;width:100vw;left:calc(100% + 1ch)}.import-sequence-section{display:flex}
-
-.sticky-tabs-container .tabs__header{z-index:100;position:sticky;top:0;background:#fbfeff}.sticky-bottom-right{float:right;position:sticky;bottom:0}
-
-
-/*# sourceMappingURL=align-form.23f3ff.css.map*/
