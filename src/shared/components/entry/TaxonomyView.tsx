@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { InfoList, ExternalLink } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import SimpleView from '../../../uniprotkb/components/protein-data-views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../types/namespaces';
 
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
@@ -25,9 +27,7 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   return (
     <>
       <Link
-        to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: `${taxonId}`,
-        })}
+        to={getEntryPath(Namespace.taxonomy, taxonId)}
       >{`${taxonId} `}</Link>
       <ExternalLink url={externalUrls.NCBI(taxonId)}>NCBI</ExternalLink>
     </>
@@ -35,42 +35,41 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
 };
 
 const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
-  if (!data) {
+  if (!data?.taxonId) {
     return null;
   }
 
   const termValue = `${data.scientificName}${
     data.commonName ? ` (${data.commonName})` : ''
-  } ${data.synonyms && data.synonyms.length > 0 ? ` (${data.synonyms})` : ''}`;
+  } ${data.synonyms?.length ? ` (${data.synonyms.join(', ')})` : ''}`;
 
   return (
-    <SimpleView termValue={termValue} linkTo={`/taxonomy/${data.taxonId}`} />
+    <SimpleView
+      termValue={termValue}
+      linkTo={getEntryPath(Namespace.taxonomy, data.taxonId)}
+    />
   );
 };
 
 export const TaxonomyListView: FC<{
   data?: OrganismData;
   hosts?: OrganismData[];
-}> = ({ data, hosts }): JSX.Element | null => {
+}> = ({ data, hosts }) => {
   if (!data) {
     return null;
   }
   const infoListData: { title: string; content: JSX.Element | string }[] = [];
-  if (data.scientificName) {
+  if (data.scientificName && data.taxonId) {
     infoListData.push({
       title: 'Organism',
       content: (
         <>
-          <Link
-            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: `${data.taxonId}`,
-            })}
-          >
+          <Link to={getEntryPath(Namespace.taxonomy, data.taxonId)}>
             {`${data.scientificName} (${data.commonName})`}
           </Link>
-          {data.evidences && data.evidences.length && (
+          {data.evidences?.length ? (
             <UniProtKBEvidenceTag evidences={data.evidences} />
-          )}
+          ) : null}
         </>
       ),
     });

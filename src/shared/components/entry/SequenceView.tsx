@@ -1,6 +1,6 @@
 import { Fragment, useState, FC } from 'react';
-import { InfoList, Sequence, ExternalLink } from 'franklin-sites';
-import { Link, useHistory, generatePath } from 'react-router-dom';
+import { InfoList, Sequence, ExternalLink, Button } from 'franklin-sites';
+import { Link, useHistory } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import numberView, {
@@ -25,11 +25,16 @@ import {
   AlternativeProductsComment,
 } from '../../../uniprotkb/types/commentTypes';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  Location,
+  LocationToPath,
+  getEntryPath,
+} from '../../../app/config/urls';
 import {
   IsoformNotes,
   SequenceUIModel,
 } from '../../../uniprotkb/adapters/sequenceConverter';
+import { Namespace } from '../../types/namespaces';
 
 export type SequenceData = {
   value: string;
@@ -185,17 +190,19 @@ export const IsoformInfo: FC<{
           </p>
           {/* TODO: this is hacky and temporary until we sort out
           external isoforms */}
-          <Link
-            className="button secondary"
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: isoformData.isoformIds[0].substring(
+          <Button
+            element={Link}
+            variant="secondary"
+            to={getEntryPath(
+              Namespace.uniprotkb,
+              isoformData.isoformIds[0].substring(
                 0,
                 isoformData.isoformIds[0].length - 2
-              ),
-            })}
+              )
+            )}
           >
             View isoform
-          </Link>
+          </Button>
         </section>
       )}
       <InfoList infoData={infoListData} columns isCompact />

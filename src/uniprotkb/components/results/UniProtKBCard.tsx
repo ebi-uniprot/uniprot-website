@@ -1,6 +1,6 @@
 import { useMemo, useCallback, Fragment, FC, MouseEvent } from 'react';
 import { Card } from 'franklin-sites';
-import { useHistory, generatePath } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import { KeywordList } from '../protein-data-views/KeywordView';
@@ -8,8 +8,10 @@ import ProteinOverview from '../protein-data-views/ProteinOverviewView';
 
 import getProteinHighlights from '../../adapters/proteinHighlights';
 import { getKeywordsForCategories } from '../../utils/KeywordsUtil';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
 import KeywordCategory from '../../types/keywordCategory';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
@@ -31,11 +33,7 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }
-      history.push(
-        generatePath(LocationToPath[Location.UniProtKBEntry], {
-          accession: data.primaryAccession,
-        })
-      );
+      history.push(getEntryPath(Namespace.uniprotkb, data.primaryAccession));
     },
     [history, data.primaryAccession]
   );

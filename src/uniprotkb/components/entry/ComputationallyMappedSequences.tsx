@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 import { useCallback, useMemo, useState, FC, ReactNode } from 'react';
 import { DataTable, Message, Button } from 'franklin-sites';
-import { Link, generatePath, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -12,7 +12,12 @@ import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../../shared/config/apiUrls';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../app/config/urls';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Sequence } from '../../../shared/types/sequence';
@@ -54,11 +59,7 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
         label: 'Entry',
         name: 'accession',
         render: ({ id: accession, entryType }) => (
-          <Link
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession,
-            })}
-          >
+          <Link to={getEntryPath(Namespace.uniprotkb, accession)}>
             <EntryTypeIcon entryType={entryType} />
             {accession}
           </Link>
