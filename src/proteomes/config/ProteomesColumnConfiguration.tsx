@@ -2,19 +2,15 @@ import { Fragment, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'franklin-sites';
 
-import {
-  ProteomesAPIModel,
-  ProteomeType,
-} from '../adapters/proteomesConverter';
-import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 import BuscoView from '../components/BuscoView';
 import BuscoLabel from '../components/BuscoLabel';
+import AccessionView from '../components/AccessionView';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -54,8 +50,8 @@ export const ProteomesColumnConfiguration = new Map<
 // COLUMN RENDERERS BELOW
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
   label: 'Entry',
-  render: ({ id }) => (
-    <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>
+  render: ({ id, proteomeType }) => (
+    <AccessionView id={id} proteomeType={proteomeType} />
   ),
 });
 
@@ -70,18 +66,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   label: 'Organism',
-  render: ({ taxonomy, proteomeType }) => (
-    <>
-      {[
-        ProteomeType.REFERENCE,
-        ProteomeType.REFERENCE_AND_REPRESENTATIVE,
-        ProteomeType.REPRESENTATIVE,
-      ].includes(proteomeType) && (
-        <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
-      )}
-      {taxonomy.scientificName}
-    </>
-  ),
+  render: ({ taxonomy }) => taxonomy.scientificName,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
