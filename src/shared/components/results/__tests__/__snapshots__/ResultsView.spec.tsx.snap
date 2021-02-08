@@ -3325,7 +3325,7 @@ exports[`ResultsView component should render table 1`] = `
              
           </th>
           <th
-            class="data-table__header-cell--ascend"
+            class="data-table__header-cell--sortable"
           >
             Entry
           </th>

@@ -14,22 +14,29 @@ exports[`BlastResultTable tests should render the results table 1`] = `
              
           </th>
           <th
+            class=""
             style="width: 8rem;"
           >
             Accession
           </th>
           <th
+            class=""
             style="width: 5rem;"
           >
             Gene
           </th>
-          <th>
+          <th
+            class=""
+          >
             Protein
           </th>
-          <th>
+          <th
+            class=""
+          >
             Organism
           </th>
           <th
+            class=""
             style="width: 40vw;"
           >
             <div
