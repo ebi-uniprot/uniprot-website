@@ -26,10 +26,9 @@ const RangeField: FC<{
 
   return (
     <>
-      <label htmlFor={`from_input_${field.id}`}>
+      <label>
         From
         <input
-          id={`from_input_${field.id}`}
           data-testid="range-field-from-input"
           type={field.dataType === DataType.date ? 'date' : 'number'}
           onChange={({ target: { value: from } }) =>
@@ -37,12 +36,12 @@ const RangeField: FC<{
           }
           placeholder="0"
           value={from === '*' ? '' : from}
+          aria-label="range input, from value"
         />
       </label>
-      <label htmlFor={`to_input_${field.id}`}>
+      <label>
         To
         <input
-          id={`to_input_${field.id}`}
           data-testid="range-field-to-input"
           type={field.dataType === DataType.date ? 'date' : 'number'}
           onChange={({ target: { value: to } }) =>
@@ -50,6 +49,7 @@ const RangeField: FC<{
           }
           placeholder="100"
           value={to === '*' ? '' : to}
+          aria-label="range input, to value"
         />
       </label>
     </>

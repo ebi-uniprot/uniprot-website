@@ -12,7 +12,7 @@ import formatCitationData, {
   getCitationPubMedId,
 } from '../../adapters/literatureConverter';
 
-import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
+import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
@@ -58,7 +58,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 
@@ -76,7 +76,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     <section>
       <h2>Publications for {accession}</h2>
       <DataListWithLoader
-        getIdKey={(item: LiteratureForProteinAPI) => {
+        getIdKey={(item, index) => {
           const {
             reference: { citation },
           } = item;
@@ -87,7 +87,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
               ? citation.authors?.join('')
               : citation.authoringGroup?.join('');
           }
-          return id;
+          return id || index;
         }}
         data={allResults}
         dataRenderer={({
@@ -95,7 +95,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           publicationSource,
           statistics,
           categories,
-        }: LiteratureForProteinAPI) => {
+        }) => {
           const { citation, referencePositions, referenceComments } = reference;
 
           const { pubmedId, journalInfo } = formatCitationData(citation);

@@ -8,8 +8,8 @@ import {
   ProteinNamesData,
   GeneNamesData,
   OrganismData,
-  LineageData,
 } from './namesAndTaxonomyConverter';
+import { Lineage, Xref } from '../../shared/types/apiModel';
 import convertProteinProcessing from './proteinProcessingConverter';
 import convertExpression from './expressionConverter';
 import convertSubcellularLocation from './subcellularLocationConverter';
@@ -25,16 +25,19 @@ import convertFamilyAndDomains from './familyAndDomainsConverter';
 import { UIModel } from './sectionConverter';
 import convertStructure from './structureConverter';
 import convertExternalLinks from './externalLinksConverter';
-import Comment, { Xref } from '../types/commentTypes';
+import Comment from '../types/commentTypes';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
+import extractIsoforms from './extractIsoformsConverter';
+import { XrefUIModel } from '../utils/xrefUtils';
 
 export enum EntryType {
   REVIEWED,
   UNREVIEWED,
   INACTIVE,
   UNIPARC,
+  REFERENCE_PROTEOME,
 }
 
 export const getEntryTypeFromString = (entryTypeString: string) => {
@@ -72,7 +75,7 @@ export type UniProtkbAPIModel = {
   annotationScore: number;
   entryAudit?: EntryAudit;
   references?: Reference[];
-  lineages?: LineageData[];
+  lineages?: Lineage[];
   // How is that defined? What goes in this?
   extraAttributes?: Record<string, unknown>;
 };
@@ -96,6 +99,10 @@ export type UniProtkbUIModel = {
   [EntrySection.Structure]: UIModel;
   [EntrySection.FamilyAndDomains]: UIModel;
   [EntrySection.ExternalLinks]: UIModel;
+  [EntrySection.SimilarProteins]: {
+    isoforms: string[];
+    xrefData?: XrefUIModel[]; // Dummy, not used
+  };
   references?: Reference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
 };
@@ -108,7 +115,7 @@ export enum InactiveReasonType {
 
 export type InactiveEntryReason = {
   inactiveReasonType: InactiveReasonType;
-  mergeDemergeTo: string[] | [];
+  mergeDemergeTo?: string[];
 };
 
 export const convertXrefProperties = (xrefs: Xref[]) =>
@@ -146,6 +153,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.Sequence]: convertSequence(dataCopy),
     [EntrySection.FamilyAndDomains]: convertFamilyAndDomains(dataCopy),
     [EntrySection.ExternalLinks]: convertExternalLinks(dataCopy),
+    [EntrySection.SimilarProteins]: extractIsoforms(dataCopy),
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
   };

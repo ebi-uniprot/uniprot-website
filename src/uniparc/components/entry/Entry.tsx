@@ -1,18 +1,6 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import {
-  // Facets,
-  Loader,
-  // DropdownButton,
-} from 'franklin-sites';
-
-import {
-  MessageLevel,
-  MessageFormat,
-  MessageType,
-  MessageTag,
-} from '../../../messages/types/messagesTypes';
+import { Loader } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
@@ -20,8 +8,6 @@ import EntryMain from './EntryMain';
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
-
-import { addMessage } from '../../../messages/state/messagesActions';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -31,12 +17,11 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
-// import { Facet } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import XRefsFacets from './XRefsFacets';
 
 const Entry: FC = () => {
-  const dispatch = useDispatch();
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniParcEntry]
   );
@@ -44,15 +29,9 @@ const Entry: FC = () => {
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.uniparc.entry(accession);
-  const {
-    loading,
-    data,
-    status,
-    error,
-    redirectedTo,
-    headers,
-  } = useDataApi<UniParcAPIModel>(baseURL);
-  // const facetData = useDataApi<Facet[]>(`${baseURL}/facets`);
+  const { loading, data, status, error, headers } = useDataApi<UniParcAPIModel>(
+    baseURL
+  );
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
@@ -62,32 +41,11 @@ const Entry: FC = () => {
     return <Loader />;
   }
 
-  if (redirectedTo) {
-    const message: MessageType = {
-      id: 'job-id',
-      content: `You are seeing the results from: ${redirectedTo}.`,
-      format: MessageFormat.IN_PAGE,
-      level: MessageLevel.SUCCESS,
-      dateActive: Date.now(),
-      dateExpired: Date.now(),
-      tag: MessageTag.REDIRECT,
-    };
-
-    dispatch(addMessage(message));
-  }
-
   const transformedData = uniParcConverter(data);
 
   return (
     <SideBarLayout
-      sidebar={<></>}
-      // sidebar={
-      //   facetData.loading ? (
-      //     <Loader />
-      //   ) : (
-      //     <Facets data={facetData.data} queryStringKey="filter" />
-      //   )
-      // }
+      sidebar={<XRefsFacets xrefs={transformedData.uniParcCrossReferences} />}
       className="entry-page"
       title={
         <ErrorBoundary>

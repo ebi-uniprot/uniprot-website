@@ -1,5 +1,10 @@
 import { FC } from 'react';
-import { SwissProtIcon, TremblIcon, UniParcIcon } from 'franklin-sites';
+import {
+  SwissProtIcon,
+  TremblIcon,
+  UniParcIcon,
+  ReferenceProteomeIcon,
+} from 'franklin-sites';
 
 import {
   EntryType,
@@ -51,6 +56,16 @@ export const EntryTypeIcon: FC<{
         title={title || 'This marks a UniParc entry'}
       >
         <UniParcIcon />
+      </span>
+    );
+  }
+  if (entryTypeToCheck === EntryType.REFERENCE_PROTEOME) {
+    return (
+      <span
+        className="entry-title__status icon--reference-proteome"
+        title={title || 'This marks a reference Proteome entry'}
+      >
+        <ReferenceProteomeIcon />
       </span>
     );
   }

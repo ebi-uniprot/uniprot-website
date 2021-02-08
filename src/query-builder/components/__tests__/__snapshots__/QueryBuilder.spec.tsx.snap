@@ -53,7 +53,7 @@ exports[`QueryBuilder should render 1`] = `
             UniParc
           </option>
           <option
-            value="proteomes"
+            value="proteome"
           >
             Proteomes
           </option>
@@ -63,14 +63,29 @@ exports[`QueryBuilder should render 1`] = `
             Taxonomy
           </option>
           <option
+            value="keywords"
+          >
+            Keywords
+          </option>
+          <option
             value="citations"
           >
             Literature citations
           </option>
           <option
-            value="keywords"
+            value="diseases"
           >
-            Keywords
+            Human diseases
+          </option>
+          <option
+            value="database"
+          >
+            Cross-referenced databases
+          </option>
+          <option
+            value="locations"
+          >
+            Subcellular locations
           </option>
         </select>
       </label>
@@ -78,9 +93,11 @@ exports[`QueryBuilder should render 1`] = `
     <fieldset>
       <div
         class="query-builder__clause"
+        data-field="gene"
         data-testid="search__clause"
       >
         <select
+          aria-label="logical operator"
           class="query-builder__logic"
           data-testid="query-builder-logic-select"
         >
@@ -116,12 +133,9 @@ exports[`QueryBuilder should render 1`] = `
         <div
           class="query-builder__inputs"
         >
-          <label
-            for="input_gene"
-          >
+          <label>
             Gene Name [GN]
             <input
-              id="input_gene"
               placeholder="ydj1"
               type="text"
               value=""
@@ -138,9 +152,11 @@ exports[`QueryBuilder should render 1`] = `
       </div>
       <div
         class="query-builder__clause"
+        data-field="taxonomy_name"
         data-testid="search__clause"
       >
         <select
+          aria-label="logical operator"
           class="query-builder__logic"
           data-testid="query-builder-logic-select"
         >
@@ -176,9 +192,7 @@ exports[`QueryBuilder should render 1`] = `
         <div
           class="query-builder__inputs"
         >
-          <label
-            for="4"
-          >
+          <label>
             Taxonomy [OC]
             <div
               class="autocomplete-container"
@@ -223,9 +237,11 @@ exports[`QueryBuilder should render 1`] = `
       </div>
       <div
         class="query-builder__clause"
+        data-field="keyword"
         data-testid="search__clause"
       >
         <select
+          aria-label="logical operator"
           class="query-builder__logic"
           data-testid="query-builder-logic-select"
         >
@@ -261,9 +277,7 @@ exports[`QueryBuilder should render 1`] = `
         <div
           class="query-builder__inputs"
         >
-          <label
-            for="5"
-          >
+          <label>
             Keyword [KW]
             <div
               class="autocomplete-container"
@@ -308,9 +322,11 @@ exports[`QueryBuilder should render 1`] = `
       </div>
       <div
         class="query-builder__clause"
+        data-field="All"
         data-testid="search__clause"
       >
         <select
+          aria-label="logical operator"
           class="query-builder__logic"
           data-testid="query-builder-logic-select"
         >
@@ -346,12 +362,9 @@ exports[`QueryBuilder should render 1`] = `
         <div
           class="query-builder__inputs"
         >
-          <label
-            for="input_All"
-          >
+          <label>
             All
             <input
-              id="input_All"
               placeholder="a4_human, P05067, cdc7 human"
               type="text"
               value=""

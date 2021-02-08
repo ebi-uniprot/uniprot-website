@@ -8441,7 +8441,7 @@
   },
   "features": [
     {
-      "type": "signal peptide",
+      "type": "Signal",
       "location": {
         "start": {
           "value": 1,
@@ -8472,7 +8472,7 @@
       ]
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 18,
@@ -8487,7 +8487,7 @@
       "featureId": "PRO_0000000088"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 18,
@@ -8502,7 +8502,7 @@
       "featureId": "PRO_0000000089"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 18,
@@ -8517,7 +8517,7 @@
       "featureId": "PRO_0000000090"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 18,
@@ -8532,7 +8532,7 @@
       "featureId": "PRO_0000381966"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 672,
@@ -8547,7 +8547,7 @@
       "featureId": "PRO_0000000091"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 672,
@@ -8562,7 +8562,7 @@
       "featureId": "PRO_0000000092"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 672,
@@ -8577,7 +8577,7 @@
       "featureId": "PRO_0000000093"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 688,
@@ -8592,7 +8592,7 @@
       "featureId": "PRO_0000000094"
     },
     {
-      "type": "peptide",
+      "type": "Peptide",
       "location": {
         "start": {
           "value": 688,
@@ -8607,7 +8607,7 @@
       "featureId": "PRO_0000000095"
     },
     {
-      "type": "peptide",
+      "type": "Peptide",
       "location": {
         "start": {
           "value": 688,
@@ -8622,7 +8622,7 @@
       "featureId": "PRO_0000000096"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 691,
@@ -8637,7 +8637,7 @@
       "featureId": "PRO_0000384574"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 712,
@@ -8652,7 +8652,7 @@
       "featureId": "PRO_0000000097"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 714,
@@ -8667,7 +8667,7 @@
       "featureId": "PRO_0000000098"
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 721,
@@ -8687,7 +8687,7 @@
       ]
     },
     {
-      "type": "chain",
+      "type": "Chain",
       "location": {
         "start": {
           "value": 740,
@@ -8702,7 +8702,7 @@
       "featureId": "PRO_0000000100"
     },
     {
-      "type": "topological domain",
+      "type": "Topological domain",
       "location": {
         "start": {
           "value": 18,
@@ -8721,7 +8721,7 @@
       ]
     },
     {
-      "type": "transmembrane region",
+      "type": "Transmembrane",
       "location": {
         "start": {
           "value": 702,
@@ -8752,7 +8752,7 @@
       ]
     },
     {
-      "type": "topological domain",
+      "type": "Topological domain",
       "location": {
         "start": {
           "value": 723,
@@ -8771,7 +8771,7 @@
       ]
     },
     {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "location": {
         "start": {
           "value": 28,
@@ -8792,7 +8792,7 @@
       ]
     },
     {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "location": {
         "start": {
           "value": 291,
@@ -8813,7 +8813,7 @@
       ]
     },
     {
-      "type": "Other domain of interest",
+      "type": "Domain",
       "location": {
         "start": {
           "value": 374,
@@ -8834,7 +8834,7 @@
       ]
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 28,
@@ -8855,7 +8855,7 @@
       ]
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 96,
@@ -8876,7 +8876,7 @@
       ]
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 131,
@@ -8897,7 +8897,7 @@
       ]
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 181,
@@ -8911,7 +8911,7 @@
       "description": "Zinc-binding"
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 391,
@@ -8925,7 +8925,7 @@
       "description": "Heparin-binding"
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 491,
@@ -8939,7 +8939,7 @@
       "description": "Heparin-binding"
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 523,
@@ -8960,7 +8960,7 @@
       ]
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 695,
@@ -8981,7 +8981,7 @@
       ]
     },
     {
-      "type": "region of interest",
+      "type": "Region",
       "location": {
         "start": {
           "value": 732,
@@ -8995,7 +8995,7 @@
       "description": "Interaction with G(o)-alpha"
     },
     {
-      "type": "short sequence motif",
+      "type": "Motif",
       "location": {
         "start": {
           "value": 724,
@@ -9009,7 +9009,7 @@
       "description": "Basolateral sorting signal"
     },
     {
-      "type": "short sequence motif",
+      "type": "Motif",
       "location": {
         "start": {
           "value": 757,
@@ -9030,7 +9030,7 @@
       ]
     },
     {
-      "type": "compositionally biased region",
+      "type": "Compositional bias",
       "location": {
         "start": {
           "value": 230,
@@ -9044,7 +9044,7 @@
       "description": "Asp/Glu-rich (acidic)"
     },
     {
-      "type": "compositionally biased region",
+      "type": "Compositional bias",
       "location": {
         "start": {
           "value": 274,
@@ -9058,7 +9058,7 @@
       "description": "Poly-Thr"
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 147,
@@ -9094,7 +9094,7 @@
       ]
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 151,
@@ -9130,7 +9130,7 @@
       ]
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 168,
@@ -9161,7 +9161,7 @@
       ]
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 677,
@@ -9187,7 +9187,7 @@
       ]
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 681,
@@ -9213,7 +9213,7 @@
       ]
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 684,
@@ -9244,7 +9244,7 @@
       ]
     },
     {
-      "type": "metal ion-binding site",
+      "type": "Metal binding",
       "location": {
         "start": {
           "value": 685,
@@ -9270,7 +9270,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 170,
@@ -9291,7 +9291,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 197,
@@ -9312,7 +9312,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 219,
@@ -9333,7 +9333,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 301,
@@ -9347,7 +9347,7 @@
       "description": "Reactive bond"
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 671,
@@ -9368,7 +9368,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 672,
@@ -9382,7 +9382,7 @@
       "description": "Cleavage; by caspase-6; when associated with variant 670-N-L-671"
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 687,
@@ -9403,7 +9403,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 690,
@@ -9424,7 +9424,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 704,
@@ -9443,7 +9443,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 706,
@@ -9464,7 +9464,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 711,
@@ -9485,7 +9485,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 713,
@@ -9506,7 +9506,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 720,
@@ -9532,7 +9532,7 @@
       ]
     },
     {
-      "type": "Other site of interest",
+      "type": "Site",
       "location": {
         "start": {
           "value": 739,
@@ -9553,7 +9553,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 198,
@@ -9574,7 +9574,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 206,
@@ -9595,7 +9595,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 441,
@@ -9616,7 +9616,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 497,
@@ -9637,7 +9637,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 729,
@@ -9658,7 +9658,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 730,
@@ -9679,7 +9679,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 743,
@@ -9710,7 +9710,7 @@
       ]
     },
     {
-      "type": "Post-translationally modified residue",
+      "type": "Modified residue",
       "location": {
         "start": {
           "value": 757,
@@ -9731,7 +9731,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 542,
@@ -9753,7 +9753,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 571,
@@ -9773,7 +9773,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 633,
@@ -9800,7 +9800,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 651,
@@ -9827,7 +9827,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 652,
@@ -9854,7 +9854,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 656,
@@ -9876,7 +9876,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 659,
@@ -9898,7 +9898,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 663,
@@ -9925,7 +9925,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 667,
@@ -9952,7 +9952,7 @@
       ]
     },
     {
-      "type": "glycosylation site",
+      "type": "Glycosylation",
       "location": {
         "start": {
           "value": 681,
@@ -9974,7 +9974,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 38,
@@ -10020,7 +10020,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 73,
@@ -10066,7 +10066,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 98,
@@ -10107,7 +10107,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 133,
@@ -10188,7 +10188,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 144,
@@ -10269,7 +10269,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 158,
@@ -10350,7 +10350,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 291,
@@ -10396,7 +10396,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 300,
@@ -10447,7 +10447,7 @@
       ]
     },
     {
-      "type": "disulfide bond",
+      "type": "Disulfide bond",
       "location": {
         "start": {
           "value": 316,
@@ -10498,7 +10498,7 @@
       ]
     },
     {
-      "type": "cross-link",
+      "type": "Cross-link",
       "location": {
         "start": {
           "value": 763,
@@ -10519,7 +10519,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 1,
@@ -10545,7 +10545,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 19,
@@ -10568,7 +10568,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 289,
@@ -10591,7 +10591,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 289,
@@ -10617,7 +10617,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 290,
@@ -10640,7 +10640,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 290,
@@ -10661,7 +10661,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 290,
@@ -10687,7 +10687,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 306,
@@ -10710,7 +10710,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 345,
@@ -10736,7 +10736,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 345,
@@ -10772,7 +10772,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 346,
@@ -10805,7 +10805,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 364,
@@ -10831,7 +10831,7 @@
       ]
     },
     {
-      "type": "splice variant",
+      "type": "Alternative sequence",
       "location": {
         "start": {
           "value": 637,
@@ -10854,7 +10854,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 501,
@@ -10880,7 +10880,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 665,
@@ -10906,7 +10906,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 670,
@@ -10947,7 +10947,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 678,
@@ -10973,7 +10973,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 692,
@@ -11009,7 +11009,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 693,
@@ -11040,7 +11040,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 693,
@@ -11066,7 +11066,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 693,
@@ -11092,7 +11092,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 694,
@@ -11123,7 +11123,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 705,
@@ -11149,7 +11149,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 713,
@@ -11180,7 +11180,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 713,
@@ -11206,7 +11206,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 714,
@@ -11232,7 +11232,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 714,
@@ -11263,7 +11263,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 715,
@@ -11289,7 +11289,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 716,
@@ -11315,7 +11315,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 717,
@@ -11361,7 +11361,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 717,
@@ -11397,7 +11397,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 717,
@@ -11463,7 +11463,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 717,
@@ -11489,7 +11489,7 @@
       ]
     },
     {
-      "type": "Sequence variation",
+      "type": "Natural variant",
       "location": {
         "start": {
           "value": 723,
@@ -12703,7 +12703,7 @@
       ]
     },
     {
-      "type": "sequence conflict",
+      "type": "Sequence conflict",
       "location": {
         "start": {
           "value": 15,
@@ -12726,7 +12726,7 @@
       ]
     },
     {
-      "type": "sequence conflict",
+      "type": "Sequence conflict",
       "location": {
         "start": {
           "value": 647,
@@ -12749,7 +12749,7 @@
       ]
     },
     {
-      "type": "sequence conflict",
+      "type": "Sequence conflict",
       "location": {
         "start": {
           "value": 724,
@@ -12769,7 +12769,7 @@
       ]
     },
     {
-      "type": "sequence conflict",
+      "type": "Sequence conflict",
       "location": {
         "start": {
           "value": 731,
@@ -12792,7 +12792,7 @@
       ]
     },
     {
-      "type": "sequence conflict",
+      "type": "Sequence conflict",
       "location": {
         "start": {
           "value": 757,
@@ -12815,7 +12815,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 26,
@@ -12878,7 +12878,7 @@
       ]
     },
     {
-      "type": "turn",
+      "type": "Turn",
       "location": {
         "start": {
           "value": 47,
@@ -12941,7 +12941,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 66,
@@ -13025,7 +13025,7 @@
       ]
     },
     {
-      "type": "turn",
+      "type": "Turn",
       "location": {
         "start": {
           "value": 100,
@@ -13130,7 +13130,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 147,
@@ -13172,7 +13172,7 @@
       ]
     },
     {
-      "type": "turn",
+      "type": "Turn",
       "location": {
         "start": {
           "value": 175,
@@ -13214,7 +13214,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 288,
@@ -13277,7 +13277,7 @@
       ]
     },
     {
-      "type": "turn",
+      "type": "Turn",
       "location": {
         "start": {
           "value": 311,
@@ -13361,7 +13361,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 334,
@@ -13382,7 +13382,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 374,
@@ -13403,7 +13403,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 389,
@@ -13445,7 +13445,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 425,
@@ -13487,7 +13487,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 487,
@@ -13508,7 +13508,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 520,
@@ -13529,7 +13529,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 547,
@@ -13550,7 +13550,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 552,
@@ -13571,7 +13571,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 615,
@@ -13613,7 +13613,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 673,
@@ -13634,7 +13634,7 @@
       ]
     },
     {
-      "type": "turn",
+      "type": "Turn",
       "location": {
         "start": {
           "value": 677,
@@ -13718,7 +13718,7 @@
       ]
     },
     {
-      "type": "turn",
+      "type": "Turn",
       "location": {
         "start": {
           "value": 695,
@@ -13781,7 +13781,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 713,
@@ -13823,7 +13823,7 @@
       ]
     },
     {
-      "type": "helix",
+      "type": "Helix",
       "location": {
         "start": {
           "value": 744,

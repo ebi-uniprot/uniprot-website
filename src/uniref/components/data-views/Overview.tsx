@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   SpinnerIcon,
   TremblIcon,
@@ -12,10 +12,12 @@ import MemberLink from '../entry/MemberLink';
 import { UseDataAPIState } from '../../../shared/hooks/useDataApi';
 
 import { getBEMClassName } from '../../../shared/utils/utils';
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
-import { Facet } from '../../../uniprotkb/types/responseTypes';
+import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import './styles/overview.scss';
 
@@ -25,7 +27,7 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-type FacetData = UseDataAPIState<Facet[]>;
+type FacetData = UseDataAPIState<FacetObject[]>;
 type MemberIconsProps = { facetData: FacetData; id: string };
 
 export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
@@ -50,9 +52,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
     ?.find((f) => f?.name === 'member_id_type')
     ?.values.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
-  const pathname = generatePath(LocationToPath[Location.UniRefEntry], {
-    accession: id,
-  });
+  const pathname = getEntryPath(Namespace.uniref, id);
 
   return (
     <>

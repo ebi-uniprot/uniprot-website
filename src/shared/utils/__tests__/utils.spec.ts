@@ -6,6 +6,7 @@ import {
   removeProperty,
   formatLargeNumber,
   getBEMClassName,
+  formatPercentage,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -102,5 +103,17 @@ describe('getBEMClassName', () => {
         m: [true && 'modifier_1'],
       })
     ).toEqual('block block--modifier_1');
+  });
+});
+
+describe('formatPercentage', () => {
+  it('should format numbers with many digits of precision to have the default precision of 1 and with rounding', () => {
+    const number = 10.1922323409823049823094;
+    expect(formatPercentage(number)).toEqual('10.2%');
+  });
+
+  it('should format numbers with no digits of precision to have no trailing zeros', () => {
+    const number = 10;
+    expect(formatPercentage(number)).toEqual('10%');
   });
 });

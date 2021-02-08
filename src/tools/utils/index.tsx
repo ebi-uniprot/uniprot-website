@@ -1,4 +1,3 @@
-/* eslint-disable uniprot-website/use-config-location */
 import { Link, generatePath } from 'react-router-dom';
 
 import {
@@ -68,13 +67,10 @@ export const getJobMessage = ({
 
   let href;
   if ('remoteID' in job && job.remoteID) {
-    const pathTemplate = jobTypeToPath(job.type, true);
-    if (pathTemplate) {
-      href = generatePath(pathTemplate, {
-        id: job.remoteID,
-        subPage: 'overview',
-      });
-    }
+    href = generatePath(jobTypeToPath(job.type, true), {
+      id: job.remoteID,
+      subPage: 'overview',
+    });
   }
   let hitsMessage = '';
   if (typeof nHits !== 'undefined') {

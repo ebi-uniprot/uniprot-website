@@ -1,6 +1,41 @@
+import { Redirect, useLocation } from 'react-router-dom';
 import { Message } from 'franklin-sites';
+
 import ErrorPage from './ErrorPage';
+
 import ArtWork from './svgs/404.svg';
+import { Namespace } from '../../types/namespaces';
+
+// Regular expression magic incantations 🪄
+const redirectMap = new Map<RegExp, string>([
+  [/^\/uniprot(?<rest>\/.*)?$/i, `/${Namespace.uniprotkb}$<rest>`],
+  [/^\/unipark(?<rest>\/.*)?$/i, `/${Namespace.uniparc}$<rest>`],
+  [/^\/proteome(?<rest>\/.*)?$/i, `/${Namespace.proteomes}$<rest>`],
+  [/^\/keyword(?<rest>\/.*)?$/i, `/${Namespace.keywords}$<rest>`],
+  [
+    /^\/(citation|literatures?|publications?|papers?)(?<rest>\/.*)?$/i,
+    `/${Namespace.citations}$<rest>`,
+  ],
+  [/^\/disease(?<rest>\/.*)?$/i, `/${Namespace.diseases}$<rest>`],
+  // exception, this one needs to be singular
+  [
+    /^\/(((cross|x)[-_ ]?)?referenced?[-_ ]?)?databases(?<rest>\/.*)?$/i,
+    `/${Namespace.database}$<rest>`,
+  ],
+  [
+    /^\/((sub[-_ ]?)?cellular[-_ ]?)?location(?<rest>\/.*)?$/i,
+    `/${Namespace.locations}$<rest>`,
+  ],
+]);
+
+// eslint-disable-next-line consistent-return
+export const redirectFromTo = (from: string) => {
+  for (const [pattern, replacement] of redirectMap.entries()) {
+    if (pattern.test(from)) {
+      return from.replace(pattern, replacement);
+    }
+  }
+};
 
 const ErrorMessage = () => (
   <Message level="failure">
@@ -9,8 +44,26 @@ const ErrorMessage = () => (
   </Message>
 );
 
-const ResourceNotFoundPage = () => (
-  <ErrorPage artwork={<ArtWork />} message={<ErrorMessage />} />
-);
+const ResourceNotFoundPage = () => {
+  const location = useLocation();
+
+  const newPathname = redirectFromTo(location.pathname);
+
+  if (newPathname) {
+    let state = { redirectFrom: location.pathname };
+    if (location.state && typeof location.state === 'object') {
+      state = { ...location.state, ...state };
+    }
+    return <Redirect to={{ ...location, pathname: newPathname, state }} />;
+  }
+
+  return (
+    <ErrorPage
+      artwork={<ArtWork />}
+      message={<ErrorMessage />}
+      data-testid="error-page"
+    />
+  );
+};
 
 export default ResourceNotFoundPage;

@@ -3,7 +3,7 @@ import FeatureType from '../types/featureType';
 import { convertSection, UIModel } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { Xref } from '../types/commentTypes';
+import { Xref } from '../../shared/types/apiModel';
 
 type GroupedStructureInfo = { [key: string]: Xref[] };
 

@@ -63,7 +63,7 @@ describe('Computationally mapped isoforms', () => {
     const button = await findByText(/View all/i);
     fireEvent.click(button);
     expect(history.location.search).toEqual(
-      '?query=(accession:H7C0V9 OR accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C2L2)'
+      '?query=(accession:A0A0A0MRG2 OR accession:E9PG40 OR accession:H7C0V9 OR accession:H7C2L2)'
     );
   });
 });

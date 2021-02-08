@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { Link, generatePath } from 'react-router-dom';
-import { ExpandableList } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
 
@@ -13,7 +13,9 @@ import {
 
 import externalUrls from '../../shared/config/externalUrls';
 import intlCollator from '../../shared/utils/collator';
-import { Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath } from '../../app/config/urls';
+
+import { Namespace } from '../../shared/types/namespaces';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -93,23 +95,19 @@ const familyAndDomainRenderer = (
       ?.filter((feature): feature is SequenceFeature => feature.database === db)
       .map((feature) => (
         <span title={feature.interproGroup?.name} key={feature.databaseId}>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={externalUrls[externalURLAccessor](feature.databaseId)}
+          <ExternalLink
+            url={externalUrls[externalURLAccessor](feature.databaseId)}
           >
             {feature.databaseId}
-          </a>
+          </ExternalLink>
           {feature.interproGroup && (
             <>
-              &nbsp;(
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={externalUrls.InterProEntry(feature.interproGroup.id)}
+              &nbsp;(&nbsp;
+              <ExternalLink
+                url={externalUrls.InterProEntry(feature.interproGroup.id)}
               >
                 {feature.interproGroup.id}
-              </a>
+              </ExternalLink>
               )
             </>
           )}
@@ -122,13 +120,7 @@ const familyAndDomainRenderer = (
 UniParcColumnConfiguration.set(UniParcColumn.upi, {
   label: 'Entry',
   render: ({ uniParcId }) => (
-    <Link
-      to={generatePath(LocationToPath[Location.UniParcEntry], {
-        accession: uniParcId,
-      })}
-    >
-      {uniParcId}
-    </Link>
+    <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>{uniParcId}</Link>
   ),
 });
 
@@ -144,14 +136,9 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
 UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   label: 'Organism IDs',
   render: (data) => (
-    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
+    <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {data.taxonomies.map(({ taxonId }) => (
-        <Link
-          key={taxonId}
-          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: `${taxonId}`,
-          })}
-        >
+        <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {taxonId}
         </Link>
       ))}
@@ -167,14 +154,9 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
 
    */
   render: (data) => (
-    <ExpandableList descriptionString="organims" displayNumberOfHiddenItems>
+    <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {data.taxonomies.map(({ taxonId }) => (
-        <Link
-          key={taxonId}
-          to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-            accession: `${taxonId}`,
-          })}
-        >
+        <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {taxonId}
         </Link>
       ))}
@@ -199,12 +181,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
   render: (data) => (
     <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
       {Array.from(genericPropertyGetter(data, 'proteome_id'), (accession) => (
-        <Link
-          key={accession}
-          to={generatePath(LocationToPath[Location.ProteomesEntry], {
-            accession,
-          })}
-        >
+        <Link key={accession} to={getEntryPath(Namespace.proteomes, accession)}>
           {accession}
         </Link>
       ))}
@@ -241,11 +218,9 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
         .map((xref) => (
           <Link
             // id might be repeated because it's referring to different versions
-            key={`${xref.id}-${xref.version}`}
+            key={`${xref.id}-${xref.version}-${xref.database}-${xref.active}`}
             // TODO: handle link to obsolete entry by linking to version page
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: xref.id,
-            })}
+            to={getEntryPath(Namespace.uniprotkb, xref.id)}
           >
             <EntryTypeIcon entryType={xref.database} />
             {xref.id}

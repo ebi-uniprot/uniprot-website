@@ -187,7 +187,7 @@
       "end": 344,
       "startModifier": "EXACT",
       "endModifier": "EXACT",
-      "type": "coiled-coil region",
+      "type": "Coiled coil",
       "description": "",
       "evidences": [
         { "evidenceCode": "ECO:0000256", "source": "SAM", "id": "Coils" }

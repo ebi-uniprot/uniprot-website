@@ -1,4 +1,5 @@
 import { parse } from './queryStringProcessor';
+import { getNextId } from './clause';
 
 import { Clause, SearchTermType } from '../types/searchTypes';
 
@@ -22,17 +23,27 @@ const flatten = (searchTermData: STTWithParent[]): STTWithParent[] =>
 
 const parseAndMatchQuery = (
   query: string | string[] | null | undefined,
-  searchTermsData: SearchTermType[]
+  searchTermsData: SearchTermType[],
+  fieldToAdd?: string
 ): [valid: Clause[], invalid: Clause[]] => {
   // flatten all the endpoint-described clauses to be able to to look-up
   const flattened = flatten(searchTermsData);
 
-  const parsedQuery = query && !Array.isArray(query) ? parse(query) : undefined;
+  let parsedQuery: Clause[] = [];
+  if (query) {
+    parsedQuery = (Array.isArray(query) ? query : [query]).flatMap(parse);
+  }
+  if (fieldToAdd) {
+    parsedQuery = [
+      ...parsedQuery,
+      ...parse(`(${fieldToAdd}:)`, getNextId(parsedQuery)),
+    ];
+  }
   // for each parsed clause, try to find the corresponding endpoint-described
   // clause to merge its 'searchTerm' field
   const validatedQuery: Clause[] = [];
   const invalid: Clause[] = [];
-  for (const clause of parsedQuery || []) {
+  for (const clause of parsedQuery) {
     if (clause.searchTerm.term === 'All') {
       validatedQuery.push(clause);
       continue; // eslint-disable-line no-continue

@@ -1,4 +1,4 @@
-import { v1 } from 'uuid';
+import { getAllTerm } from './clause';
 
 import {
   Clause,
@@ -7,7 +7,6 @@ import {
   DataType,
   FieldType,
 } from '../types/searchTypes';
-import { getAllTerm } from './clause';
 
 export const stringify = (clauses: Clause[] = []): string => {
   let queryAccumulator = '';
@@ -56,7 +55,7 @@ export const stringify = (clauses: Clause[] = []): string => {
   return queryAccumulator;
 };
 
-const clauseSplitter = / *(AND|OR|NOT) +/;
+const clauseSplitter = / *(AND|OR|NOT) */;
 const clauseMatcher = /^\(*(\w+):"?([^")]*)"?\)*$/;
 const splitClause = (
   clause: string
@@ -69,8 +68,8 @@ const splitClause = (
 };
 const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
 
-const getEmptyClause = (): Clause => ({
-  id: v1(),
+const getEmptyClause = (id: number): Clause => ({
+  id,
   searchTerm: {
     id: '',
     term: '',
@@ -83,17 +82,26 @@ const getEmptyClause = (): Clause => ({
   logicOperator: Operator.AND,
 });
 
-export const parse = (queryString = ''): Clause[] => {
+/**
+ * Function to parse a string corresponding to a query and return the
+ * corresponding parsed object. Each clause has a stable unique ID which is a
+ * number that will always keep growing clause after clause.
+ * @param {string} queryString - String to parse, corresponding to a query
+ * @param {number} [startId=0] - Optional starting ID to assign to 1st clause
+ */
+export const parse = (queryString = '', startId = 0): Clause[] => {
   // split querystring on all the recognised operators
-  const split = queryString.split(clauseSplitter);
+  const split = queryString.trim().split(clauseSplitter);
+
+  let id = startId;
 
   const clauses: Clause[] = [];
-  let currentClause = getEmptyClause();
+  let currentClause = getEmptyClause(id);
   for (const [index, chunk] of split.entries()) {
     if (index % 2) {
       // for every odd item in the split string we should get a new clause
       // starting with an operator
-      currentClause = getEmptyClause();
+      currentClause = getEmptyClause(id);
       currentClause.logicOperator = chunk as Operator;
     } else {
       if (!chunk && index === 0) {
@@ -130,6 +138,7 @@ export const parse = (queryString = ''): Clause[] => {
       }
 
       clauses.push(currentClause);
+      id += 1;
     }
   }
 

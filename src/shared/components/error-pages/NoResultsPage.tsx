@@ -1,5 +1,7 @@
 import { Message } from 'franklin-sites';
+
 import ErrorPage from './ErrorPage';
+
 import ArtWork from './svgs/no-results-found.svg';
 
 const ErrorMessage = () => (
@@ -13,7 +15,7 @@ const NoResultsPage = () => (
   <ErrorPage
     artwork={<ArtWork />}
     message={<ErrorMessage />}
-    testid="no-results-page"
+    data-testid="no-results-page"
   />
 );
 

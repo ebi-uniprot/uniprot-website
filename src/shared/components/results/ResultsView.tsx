@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef, useMemo, FC } from 'react';
+import { useState, useEffect, useRef, useMemo, FC, ReactNode } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
 } from 'franklin-sites';
-import { useHistory, useLocation, generatePath } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
@@ -16,24 +16,26 @@ import uniProtKbConverter, {
 } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
+import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 // columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
+import ProteomesColumnConfiguration from '../../../proteomes/config/ProteomesColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
 
-import getNextUrlFromResponse from '../../utils/queryUtils';
+import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import {
   getParamsFromURL,
   getLocationObjForParams,
 } from '../../../uniprotkb/utils/resultsUtils';
 import {
-  EntryLocations,
+  getEntryPathFor,
   SearchResultsLocations,
 } from '../../../app/config/urls';
 
@@ -46,7 +48,11 @@ import { ViewMode } from './ResultsContainer';
 import './styles/warning.scss';
 import './styles/results-view.scss';
 
-type APIModel = UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+type APIModel =
+  | UniProtkbAPIModel
+  | UniRefLiteAPIModel
+  | UniParcAPIModel
+  | ProteomesAPIModel;
 
 const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
@@ -56,6 +62,8 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       return row as UniRefLiteAPIModel;
     case Namespace.uniparc:
       return row as UniParcAPIModel;
+    case Namespace.proteomes:
+      return row as ProteomesAPIModel;
     default:
       return null;
   }
@@ -69,6 +77,8 @@ const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
       return (data) => (data as UniRefLiteAPIModel).id;
     case Namespace.uniparc:
       return (data) => (data as UniParcAPIModel).uniParcId;
+    case Namespace.proteomes:
+      return (data) => (data as ProteomesAPIModel).id;
     default:
       // eslint-disable-next-line no-console
       console.warn(`getIdKey method not implemented for ${namespace} yet`);
@@ -83,37 +93,38 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
   [Namespace.uniref]: UniRefColumnConfiguration,
   [Namespace.uniparc]: UniParcColumnConfiguration,
+  [Namespace.proteomes]: ProteomesColumnConfiguration,
 };
 
 const cardRenderer = (
   namespace: Namespace,
   selectedEntries: string[],
   handleEntrySelection: (rowId: string) => void
-) => {
+): ((data: APIModel) => ReactNode) => {
   const getIdKey = getIdKeyFor(namespace);
   switch (namespace) {
     case Namespace.uniprotkb: {
-      return (cardData: UniProtkbAPIModel) => (
+      return (cardData) => (
         <UniProtKBCard
-          data={cardData}
+          data={cardData as UniProtkbAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
       );
     }
     case Namespace.uniref: {
-      return (cardData: UniRefLiteAPIModel) => (
+      return (cardData) => (
         <UniRefCard
-          data={cardData}
+          data={cardData as UniRefLiteAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
       );
     }
     case Namespace.uniparc: {
-      return (cardData: UniParcAPIModel) => (
+      return (cardData) => (
         <UniParcCard
-          data={cardData}
+          data={cardData as UniParcAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
@@ -126,24 +137,37 @@ const cardRenderer = (
   }
 };
 
+type ColumnDescriptor = {
+  name: string;
+  label: ReactNode;
+  render: (row: APIModel) => ReactNode;
+  sortable?: true;
+  sorted?: SortDirection;
+};
 const getColumnsToDisplay = (
   namespace: Namespace,
   columns: Column[],
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,
   sortDirection: SortDirection
-) =>
+): ColumnDescriptor[] =>
   columns.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
     if (columnConfig) {
-      return {
+      const columnDescriptor = {
         label: columnConfig.label,
         name: columnName,
         render: (row: APIModel) =>
           columnConfig.render(convertRow(row, namespace)),
-        sortable: sortableColumnToSortColumn.has(columnName),
-        sorted: columnName === sortColumn && sortDirection, // TODO this doesn't seem to update the view
       };
+      if (sortableColumnToSortColumn.has(columnName)) {
+        return {
+          ...columnDescriptor,
+          sortable: true,
+          sorted: columnName === sortColumn ? sortDirection : undefined,
+        };
+      }
+      return columnDescriptor;
     }
     return {
       label: columnName,
@@ -151,8 +175,6 @@ const getColumnsToDisplay = (
       render: () => (
         <div className="warning">{`${columnName} has no config yet`}</div>
       ),
-      sortable: false,
-      sorted: false,
     };
   }) || [];
 
@@ -172,10 +194,15 @@ const ResultsView: FC<ResultsTableProps> = ({
   sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const prevNamespace = useRef<Namespace>();
+  const prevNamespace = useRef<Namespace>(namespace);
   useEffect(() => {
     // will set it *after* the current render
     prevNamespace.current = namespace;
+  });
+  const prevColumns = useRef<Column[]>(columns);
+  useEffect(() => {
+    // will set it *after* the current render
+    prevColumns.current = columns;
   });
 
   const history = useHistory();
@@ -218,24 +245,24 @@ const ResultsView: FC<ResultsTableProps> = ({
     results: APIModel[];
   }>(url);
 
-  const prevViewMode = useRef<ViewMode>();
+  const prevViewMode = useRef<ViewMode>(viewMode);
   useEffect(() => {
     prevViewMode.current = viewMode;
   });
 
-  const getIdKey = useMemo(() => getIdKeyFor(namespace), [namespace]);
+  const [getIdKey, getEntryPathForEntry] = useMemo(() => {
+    const getIdKey = getIdKeyFor(namespace);
+    const getEntryPath = getEntryPathFor(namespace);
+    return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
+  }, [namespace]);
 
   // redirect to entry directly when only 1 result and query marked as "direct"
   useEffect(() => {
     if (direct && metaData.total === 1 && allResults.length === 1) {
       const uniqueItem = allResults[0];
-      history.replace({
-        pathname: generatePath(EntryLocations[namespace], {
-          accession: getIdKey(uniqueItem),
-        }),
-      });
+      history.replace(getEntryPathForEntry(uniqueItem));
     }
-  }, [history, direct, metaData, allResults, namespace, getIdKey]);
+  }, [history, direct, metaData, allResults, getEntryPathForEntry]);
 
   useEffect(() => {
     if (!data) {
@@ -245,7 +272,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 
@@ -255,7 +282,9 @@ const ResultsView: FC<ResultsTableProps> = ({
     // or we just switched namespace (a bit hacky workaround to force unmount)
     prevNamespace.current !== namespace ||
     // or we just switched view mode (hacky too)
-    prevViewMode.current !== viewMode
+    prevViewMode.current !== viewMode ||
+    // or we just changed the displayed columns (hacky too...)
+    prevColumns.current !== columns
   ) {
     return <Loader />;
   }
@@ -264,9 +293,9 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
-  const updateColumnSort = (column: SortableColumn) => {
-    const sortableColumn = sortableColumnToSortColumn.get(column);
-    if (!sortableColumn) {
+  const updateColumnSort = (columnName: string) => {
+    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
+    if (!sortColumn) {
       return;
     }
 
@@ -281,7 +310,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         pathname: SearchResultsLocations[namespace],
         query,
         selectedFacets,
-        sortColumn: sortableColumn,
+        sortColumn,
         sortDirection: updatedSortDirection,
       })
     );
@@ -293,7 +322,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     <div className="results-view">
       {viewMode === ViewMode.CARD ? (
         // Card view
-        <DataListWithLoader
+        <DataListWithLoader<APIModel>
           getIdKey={getIdKey}
           data={allResults}
           dataRenderer={cardRenderer(
@@ -317,9 +346,8 @@ const ResultsView: FC<ResultsTableProps> = ({
             sortDirection
           )}
           data={allResults}
-          selectable
           selected={selectedEntries}
-          onSelect={handleEntrySelection}
+          onSelectRow={handleEntrySelection}
           onHeaderClick={updateColumnSort}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}

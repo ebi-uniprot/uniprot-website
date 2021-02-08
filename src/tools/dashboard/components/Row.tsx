@@ -242,7 +242,7 @@ interface CustomLocationState {
 }
 
 const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const firstTime = useRef<boolean>(true);
 
   const history = useHistory();

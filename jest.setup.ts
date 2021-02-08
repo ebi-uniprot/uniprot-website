@@ -1,6 +1,9 @@
+import '@testing-library/jest-dom';
+
 const nodeCrypto = require('crypto');
 
 global.crypto = {
+  ...global.crypto,
   getRandomValues: function (buffer) {
     return nodeCrypto.randomFillSync(buffer);
   },

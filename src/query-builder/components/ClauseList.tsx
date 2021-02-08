@@ -11,82 +11,95 @@ import {
   QueryBit,
 } from '../types/searchTypes';
 
-const ClauseItem: FC<{
+type HandleLogicChange = (clauseId: number, value: Operator) => void;
+type HandleFieldSelect = (clauseId: number, value: SearchTermType) => void;
+type HandleQueryChange = (
+  clauseId: number,
+  updatedQueryBit: QueryBit,
+  reset?: boolean
+) => void;
+type RemoveClause = (clauseId: number) => void;
+
+type ClauseItemProps = {
   clause: Clause;
   searchTerms: SearchTermType[];
-  handleLogicChange: (clauseId: string, value: Operator) => void;
-  handleFieldSelect: (clauseId: string, value: SearchTermType) => void;
-  handleQueryChange: (
-    clauseId: string,
-    updatedQueryBit: QueryBit,
-    reset?: boolean
-  ) => void;
-  removeClause: (clauseId: string) => void;
-}> = ({
-  clause,
-  searchTerms,
-  handleLogicChange,
-  handleFieldSelect,
-  handleQueryChange,
-  removeClause,
-}) => {
-  const handleChange = useCallback(
-    (queryBit: QueryBit, reset?: boolean) => {
-      handleQueryChange(clause.id, queryBit, reset);
-    },
-    [clause.id, handleQueryChange]
-  );
-
-  if (!clause.searchTerm) {
-    return null;
-  }
-  const fieldItems = clause.searchTerm.siblings
-    ? clause.searchTerm.siblings
-    : [clause.searchTerm];
-
-  return (
-    <div className="query-builder__clause" data-testid="search__clause">
-      <LogicalOperator
-        value={clause.logicOperator}
-        handleChange={(value: Operator) => handleLogicChange(clause.id, value)}
-      />
-      <TreeSelect
-        data={searchTerms}
-        onSelect={(value: SearchTermType) =>
-          handleFieldSelect(clause.id, value)
-        }
-        autocompletePlaceholder="Search for field"
-        label={clause.searchTerm.label}
-        autocomplete
-      />
-      {fieldItems.map((siblingTerm) => (
-        <div className="query-builder__inputs" key={siblingTerm.id}>
-          <Field
-            field={siblingTerm}
-            handleChange={handleChange}
-            initialValue={clause.queryBits}
-          />
-        </div>
-      ))}
-      <button
-        type="button"
-        className="button tertiary button-remove"
-        data-testid="clause-list-button-remove"
-        onClick={() => removeClause(clause.id)}
-      >
-        Remove
-      </button>
-    </div>
-  );
+  handleLogicChange: HandleLogicChange;
+  handleFieldSelect: HandleFieldSelect;
+  handleQueryChange: HandleQueryChange;
+  removeClause: RemoveClause;
 };
 
-const MemoizedClauseItem = memo(ClauseItem);
+const ClauseItem = memo<ClauseItemProps>(
+  ({
+    clause,
+    searchTerms,
+    handleLogicChange,
+    handleFieldSelect,
+    handleQueryChange,
+    removeClause,
+  }) => {
+    const handleChange = useCallback(
+      (queryBit: QueryBit, reset?: boolean) => {
+        handleQueryChange(clause.id, queryBit, reset);
+      },
+      [clause.id, handleQueryChange]
+    );
+
+    if (!clause.searchTerm) {
+      return null;
+    }
+    const fieldItems = clause.searchTerm.siblings
+      ? clause.searchTerm.siblings
+      : [clause.searchTerm];
+
+    return (
+      <div
+        className="query-builder__clause"
+        data-testid="search__clause"
+        data-field={clause.searchTerm.term}
+      >
+        <LogicalOperator
+          value={clause.logicOperator}
+          handleChange={(value: Operator) =>
+            handleLogicChange(clause.id, value)
+          }
+        />
+        <TreeSelect
+          data={searchTerms}
+          onSelect={(value: SearchTermType) =>
+            handleFieldSelect(clause.id, value)
+          }
+          autocompletePlaceholder="Search for field"
+          label={clause.searchTerm.label}
+          autocomplete
+        />
+        {fieldItems.map((siblingTerm) => (
+          <div className="query-builder__inputs" key={siblingTerm.id}>
+            <Field
+              field={siblingTerm}
+              handleChange={handleChange}
+              initialValue={clause.queryBits}
+            />
+          </div>
+        ))}
+        <button
+          type="button"
+          className="button tertiary button-remove"
+          data-testid="clause-list-button-remove"
+          onClick={() => removeClause(clause.id)}
+        >
+          Remove
+        </button>
+      </div>
+    );
+  }
+);
 
 type ClauseListProps = {
   clauses: Clause[];
   setClauses: Dispatch<SetStateAction<Clause[]>>;
   searchTerms: SearchTermType[];
-  removeClause: (clauseId: string) => void;
+  removeClause: RemoveClause;
 };
 
 const ClauseList: FC<ClauseListProps> = ({
@@ -95,60 +108,60 @@ const ClauseList: FC<ClauseListProps> = ({
   searchTerms,
   removeClause,
 }) => {
-  const handleFieldSelect = useCallback(
-    (clauseId: string, searchTerm: SearchTermType) => {
+  const handleLogicChange = useCallback<HandleLogicChange>(
+    (clauseId, value) => {
       setClauses((clauseList) =>
         clauseList.map((clause) => {
-          if (clause.id === clauseId) {
-            return {
-              ...clause,
-              searchTerm,
-              // reset queryBits on change of field
-              queryBits: searchTerm.values?.length
-                ? { [searchTerm.term]: searchTerm.values[0].value }
-                : {},
-            };
+          if (clauseId !== clause.id) {
+            return clause;
           }
-          return clause;
+          return {
+            ...clause,
+            logicOperator: value,
+          };
         })
       );
     },
     [setClauses]
   );
 
-  const handleLogicChange = useCallback(
-    (clauseId: string, value: Operator) => {
+  const handleFieldSelect = useCallback<HandleFieldSelect>(
+    (clauseId, searchTerm) => {
       setClauses((clauseList) =>
         clauseList.map((clause) => {
-          if (clause.id === clauseId) {
-            return {
-              ...clause,
-              logicOperator: value,
-            };
+          if (clauseId !== clause.id) {
+            return clause;
           }
-          return clause;
+          return {
+            ...clause,
+            searchTerm,
+            // reset queryBits on change of field
+            queryBits: searchTerm.values?.length
+              ? { [searchTerm.term]: searchTerm.values[0].value }
+              : {},
+          };
         })
       );
     },
     [setClauses]
   );
 
-  const handleQueryChange = useCallback(
-    (clauseId: string, updatedQueryBit: QueryBit, reset = false) => {
+  const handleQueryChange = useCallback<HandleQueryChange>(
+    (clauseId, updatedQueryBit, reset = false) => {
       setClauses((clauseList) =>
         clauseList.map((clause) => {
-          if (clause.id === clauseId) {
-            return {
-              ...clause,
-              queryBits: reset
-                ? updatedQueryBit
-                : {
-                    ...clause.queryBits,
-                    ...updatedQueryBit,
-                  },
-            };
+          if (clauseId !== clause.id) {
+            return clause;
           }
-          return clause;
+          return {
+            ...clause,
+            queryBits: reset
+              ? updatedQueryBit
+              : {
+                  ...clause.queryBits,
+                  ...updatedQueryBit,
+                },
+          };
         })
       );
     },
@@ -158,8 +171,8 @@ const ClauseList: FC<ClauseListProps> = ({
   return (
     <>
       {clauses.map((clause) => (
-        <MemoizedClauseItem
-          key={`clause_${clause.id}`}
+        <ClauseItem
+          key={clause.id}
           clause={clause}
           searchTerms={searchTerms}
           handleLogicChange={handleLogicChange}

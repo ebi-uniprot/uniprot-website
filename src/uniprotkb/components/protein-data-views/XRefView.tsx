@@ -12,7 +12,7 @@ import {
   XrefsGoupedByDatabase,
   partitionStructureDatabases,
 } from '../../utils/xrefUtils';
-import { Xref } from '../../types/commentTypes';
+import { Xref } from '../../../shared/types/apiModel';
 import { PropertyKey } from '../../types/modelTypes';
 import {
   DatabaseInfoPoint,

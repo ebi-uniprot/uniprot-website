@@ -33,6 +33,11 @@ const apiUrls = {
     // "itemType": "goterm",
     go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
   },
+  // Database cross references used in the UniParc entry page
+  allDatabases: joinUrl(
+    devPrefix,
+    'uniprot/api/configure/uniprotkb/allDatabases'
+  ),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(
     devPrefix,
@@ -133,6 +138,7 @@ const defaultFacets = new Map<Namespace, string[]>([
   ],
   [Namespace.uniref, ['identity']],
   [Namespace.uniparc, ['database']],
+  [Namespace.proteomes, ['proteome_type', 'superkingdom']],
 ]);
 type QueryUrlProps = {
   namespace?: Namespace;
@@ -328,3 +334,11 @@ export const getPublicationsURL = (ids: string[]) =>
 
 export const getProteinsApiUrl = (accession: string) =>
   `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
+
+export const getClustersForProteins = (accessions: string[]) =>
+  joinUrl(
+    devPrefix,
+    `/uniprot/api/uniref/search?query=(${accessions
+      .map((accession) => `uniprot_id:${accession}`)
+      .join(' OR ')})`
+  );

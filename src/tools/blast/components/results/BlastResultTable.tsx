@@ -7,9 +7,10 @@ import {
   FC,
   Dispatch,
   SetStateAction,
+  ReactNode,
 } from 'react';
-import { DataTable, DENSITY_COMPACT, Chip, Loader } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { DataTable, Chip, Loader } from 'franklin-sites';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import { HSPDetailPanelProps } from './HSPDetailPanel';
@@ -18,7 +19,9 @@ import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 import useStaggeredRenderingHelper from '../../../../shared/hooks/useStaggeredRenderingHelper';
 import useCustomElement from '../../../../shared/hooks/useCustomElement';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import { getEntryPath } from '../../../../app/config/urls';
+
+import { Namespace } from '../../../../shared/types/namespaces';
 
 import { EnrichedBlastHit } from './BlastResult';
 import { BlastResults, BlastHsp, BlastHit } from '../../types/blastResults';
@@ -311,7 +314,15 @@ const BlastResultTable: FC<{
   );
 
   const queryLen = data?.query_len;
-  const columns = useMemo(() => {
+  const columns = useMemo<
+    Array<{
+      label: ReactNode;
+      name: string;
+      render: (hit: BlastHit | EnrichedBlastHit) => ReactNode;
+      width?: string;
+      ellipsis?: boolean;
+    }>
+  >(() => {
     if (queryLen === undefined) {
       return [];
     }
@@ -319,12 +330,8 @@ const BlastResultTable: FC<{
       {
         label: 'Accession',
         name: 'accession',
-        render: ({ hit_acc, hit_db }: BlastHit) => (
-          <Link
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: hit_acc,
-            })}
-          >
+        render: ({ hit_acc, hit_db }) => (
+          <Link to={getEntryPath(Namespace.uniprotkb, hit_acc)}>
             <EntryTypeIcon entryType={hit_db} />
             {hit_acc}
           </Link>
@@ -334,24 +341,20 @@ const BlastResultTable: FC<{
       {
         label: 'Gene',
         name: 'gene',
-        render: ({ hit_uni_gn }: BlastHit) => hit_uni_gn,
+        render: ({ hit_uni_gn }) => hit_uni_gn,
         width: '5rem',
       },
       {
         label: 'Protein',
         name: 'protein_name',
-        render: ({ hit_uni_de }: BlastHit) => hit_uni_de,
+        render: ({ hit_uni_de }) => hit_uni_de,
         ellipsis: true,
       },
       {
         label: 'Organism',
         name: 'organism',
-        render: ({ hit_uni_ox, hit_uni_os }: BlastHit) => (
-          <Link
-            to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-              accession: hit_uni_ox,
-            })}
-          >
+        render: ({ hit_uni_ox, hit_uni_os }) => (
+          <Link to={getEntryPath(Namespace.taxonomy, hit_uni_ox)}>
             {hit_uni_os}
           </Link>
         ),
@@ -369,14 +372,14 @@ const BlastResultTable: FC<{
         ),
         name: 'alignment',
         width: '40vw',
-        render: ({ hit_hsps, hit_len, hit_acc, extra }: EnrichedBlastHit) => (
+        render: (hit) => (
           <BlastSummaryHsps
-            hsps={hit_hsps}
+            hsps={hit.hit_hsps}
             queryLength={queryLen}
-            hitLength={hit_len}
-            hitAccession={hit_acc}
+            hitLength={hit.hit_len}
+            hitAccession={hit.hit_acc}
             setHspDetailPanel={setHspDetailPanel}
-            extra={extra}
+            extra={'extra' in hit ? hit.extra : undefined}
             selectedScoring={selectedScoring}
             setSelectedScoring={setSelectedScoring}
             maxScorings={maxScorings}
@@ -403,13 +406,12 @@ const BlastResultTable: FC<{
   return (
     <div className={loading ? 'loading-data-table' : undefined}>
       <DataTable
-        getIdKey={({ hit_acc }: { hit_acc: string }) => hit_acc}
-        density={DENSITY_COMPACT}
+        getIdKey={({ hit_acc }) => hit_acc}
+        density="compact"
         columns={columns}
         data={hitsRef.current.slice(0, nItemsToRender)}
-        selectable
         selected={selectedEntries}
-        onSelect={handleSelectedEntries}
+        onSelectRow={handleSelectedEntries}
         fixedLayout
       />
     </div>

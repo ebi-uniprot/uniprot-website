@@ -1859,7 +1859,7 @@ exports[`Entry view should render 1`] = `
               BLAST 1 isoform
             </button>
             <button
-              class="button tertiary"
+              class="button tertiary disabled"
               disabled=""
               title="Select at least 2 entries to run an Align job"
               type="button"
@@ -2189,6 +2189,15 @@ exports[`Entry view should render 1`] = `
     </div>
   </div>
   <div
+    class="loader-container"
+  >
+    <test-file-stub
+      classname="loader"
+      height="100"
+      width="100"
+    />
+  </div>
+  <div
     class="hero-container hero-container--side-padding"
   >
     <em>
@@ -2491,7 +2500,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             Features
           </h3>
           <p>
-            Showing features for other domain of interest, region of interest, metal ion-binding site, other binding site.
+            Showing features for domain, region, metal binding, binding site.
           </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
@@ -2958,67 +2967,6 @@ exports[`Entry view should render for non-human entry 1`] = `
   </div>
   <div
     data-entry-section="true"
-    id="phenotypes"
-  >
-    <div
-      class="card"
-    >
-      <section>
-        <div
-          class="card__header"
-        >
-          <h2
-            class="card__title"
-          >
-            Phenotypes
-          </h2>
-        </div>
-        <div
-          class="card__content"
-        >
-          <h3>
-            Features
-          </h3>
-          <p>
-            Showing features for mutagenesis site.
-          </p>
-          <protvista-manager
-            attributes="highlight displaystart displayend selectedid"
-          >
-            <protvista-navigation
-              length="772"
-            />
-            <protvista-track
-              layout="non-overlapping"
-              length="772"
-            />
-            <protvista-sequence
-              height="20"
-              length="772"
-              sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
-            />
-            <protvista-datatable
-              filter-scroll="true"
-            />
-            <div
-              class="evidence-tag-content false"
-            />
-          </protvista-manager>
-          <div
-            class="loader-container"
-          >
-            <test-file-stub
-              classname="loader"
-              height="100"
-              width="100"
-            />
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-  <div
-    data-entry-section="true"
     id="ptm-processing"
   >
     <div
@@ -3041,7 +2989,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             Features
           </h3>
           <p>
-            Showing features for signal peptide, chain.
+            Showing features for signal, chain.
           </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
@@ -3249,7 +3197,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             Features
           </h3>
           <p>
-            Showing features for other domain of interest, region of interest.
+            Showing features for domain, region.
           </p>
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
@@ -3283,7 +3231,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
             <button
-              aria-controls="63"
+              aria-controls="58"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
@@ -3303,7 +3251,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="63"
+              id="58"
             />
           </section>
           <h3>
@@ -4072,6 +4020,15 @@ exports[`Entry view should render for non-human entry 1`] = `
         </div>
       </section>
     </div>
+  </div>
+  <div
+    class="loader-container"
+  >
+    <test-file-stub
+      classname="loader"
+      height="100"
+      width="100"
+    />
   </div>
   <div
     class="hero-container hero-container--side-padding"

@@ -1,11 +1,6 @@
 import { memo, useCallback, useState, useEffect, FC } from 'react';
-import { Link, generatePath } from 'react-router-dom';
-import {
-  Card,
-  DataTableWithLoader,
-  DENSITY_COMPACT,
-  Loader,
-} from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
 import AlignButton from '../../../shared/components/action-buttons/Align';
@@ -14,21 +9,26 @@ import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import usePrefetch from '../../../shared/hooks/usePrefetch';
 
-import getNextUrlFromResponse from '../../../shared/utils/queryUtils';
+import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
+import {
+  Location,
+  LocationToPath,
+  getEntryPathFor,
+} from '../../../app/config/urls';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
+import { Namespace } from '../../../shared/types/namespaces';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
 import {
   Identity,
   UniRefMember,
   UniRefAPIModel,
   RepresentativeMember,
 } from '../../adapters/uniRefConverter';
-import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -44,6 +44,9 @@ type ColumDescriptor = {
     datum: UniRefMember
   ) => undefined | string | number | boolean | JSX.Element;
 };
+
+const getEntryPathForTaxonomy = getEntryPathFor(Namespace.taxonomy);
+const getEntryPathForUniRef = getEntryPathFor(Namespace.uniref);
 
 const columns: ColumDescriptor[] = [
   {
@@ -80,26 +83,14 @@ const columns: ColumDescriptor[] = [
     name: 'organisms',
     label: 'Organisms',
     render: ({ organismName, organismTaxId }) => (
-      <Link
-        to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: `${organismTaxId}`,
-        })}
-      >
-        {organismName}
-      </Link>
+      <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismName}</Link>
     ),
   },
   {
     name: 'organismIDs',
     label: 'Organism IDs',
     render: ({ organismTaxId }) => (
-      <Link
-        to={generatePath(LocationToPath[Location.TaxonomyEntry], {
-          accession: `${organismTaxId}`,
-        })}
-      >
-        {organismTaxId}
-      </Link>
+      <Link to={getEntryPathForTaxonomy(organismTaxId)}>{organismTaxId}</Link>
     ),
   },
   {
@@ -109,32 +100,20 @@ const columns: ColumDescriptor[] = [
       <>
         {member.uniref50Id && (
           <>
-            <Link
-              to={generatePath(LocationToPath[Location.UniRefEntry], {
-                accession: member.uniref50Id,
-              })}
-            >
+            <Link to={getEntryPathForUniRef(member.uniref50Id)}>
               {member.uniref50Id}
             </Link>{' '}
           </>
         )}
         {member.uniref90Id && (
           <>
-            <Link
-              to={generatePath(LocationToPath[Location.UniRefEntry], {
-                accession: member.uniref90Id,
-              })}
-            >
+            <Link to={getEntryPathForUniRef(member.uniref90Id)}>
               {member.uniref90Id}
             </Link>{' '}
           </>
         )}
         {member.uniref100Id && (
-          <Link
-            to={generatePath(LocationToPath[Location.UniRefEntry], {
-              accession: member.uniref100Id,
-            })}
-          >
+          <Link to={getEntryPathForUniRef(member.uniref100Id)}>
             {member.uniref100Id}
           </Link>
         )}
@@ -285,7 +264,7 @@ export const MembersSection: FC<Props> = ({
     nextUrl?: string;
   }>(() => ({
     total: +(propMetadata?.['x-totalrecords'] || 1),
-    nextUrl: getNextUrlFromResponse(propMetadata?.link),
+    nextUrl: getNextURLFromHeaders(propMetadata),
   }));
   usePrefetch(metadata.nextUrl);
   const [allResults, setAllResults] = useState(() => [
@@ -300,7 +279,7 @@ export const MembersSection: FC<Props> = ({
     setUrl(undefined);
     setMetadata({
       total: +(propMetadata?.['x-totalrecords'] || 1),
-      nextUrl: getNextUrlFromResponse(propMetadata?.link),
+      nextUrl: getNextURLFromHeaders(propMetadata),
     });
     setAllResults([representativeMember, ...members]);
   }, [members, propMetadata, representativeMember]);
@@ -313,7 +292,7 @@ export const MembersSection: FC<Props> = ({
     setAllResults((allMembers) => [...allMembers, ...members]);
     setMetadata(() => ({
       total: +(headers?.['x-totalrecords'] || 1),
-      nextUrl: getNextUrlFromResponse(headers?.link),
+      nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
 
@@ -350,10 +329,9 @@ export const MembersSection: FC<Props> = ({
           columns={columns}
           data={allResults}
           getIdKey={getKey}
-          density={DENSITY_COMPACT}
-          selectable
+          density="compact"
           selected={selectedEntries}
-          onSelect={handleSelectedEntries}
+          onSelectRow={handleSelectedEntries}
         />
       </Card>
     </div>

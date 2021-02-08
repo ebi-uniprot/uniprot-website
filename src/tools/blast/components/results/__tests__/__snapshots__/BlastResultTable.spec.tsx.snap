@@ -4,45 +4,39 @@ exports[`BlastResultTable tests should render the results table 1`] = `
 <DocumentFragment>
   <div>
     <table
-      class="data-table data-table--compact  data-table--fixed"
+      class="data-table data-table--compact data-table--fixed"
     >
-      <thead
-        class="data-table__header"
-      >
-        <tr
-          class="data-table__row"
-        >
+      <thead>
+        <tr>
           <th
-            class="data-table__header-cell data-table__header-cell--checkbox"
+            class="data-table__header-cell--checkbox"
           >
              
           </th>
           <th
-            class="data-table__header-cell "
+            class=""
             style="width: 8rem;"
           >
             Accession
           </th>
           <th
-            class="data-table__header-cell "
+            class=""
             style="width: 5rem;"
           >
             Gene
           </th>
           <th
-            class="data-table__header-cell "
-            style="width: auto;"
+            class=""
           >
             Protein
           </th>
           <th
-            class="data-table__header-cell "
-            style="width: auto;"
+            class=""
           >
             Organism
           </th>
           <th
-            class="data-table__header-cell "
+            class=""
             style="width: 40vw;"
           >
             <div
@@ -56,20 +50,16 @@ exports[`BlastResultTable tests should render the results table 1`] = `
           </th>
         </tr>
       </thead>
-      <tbody
-        class="data-table__table__body"
-      >
+      <tbody>
         <tr>
-          <td
-            class="data-table__cell "
-          >
+          <td>
             <input
               aria-label="U6MKN0"
               type="checkbox"
             />
           </td>
           <td
-            class="data-table__cell  data-table__cell--ellipsis"
+            class="data-table__cell--ellipsis"
           >
             <a
               href="/uniprotkb/U6MKN0"
@@ -84,17 +74,17 @@ exports[`BlastResultTable tests should render the results table 1`] = `
             </a>
           </td>
           <td
-            class="data-table__cell  data-table__cell--ellipsis"
+            class="data-table__cell--ellipsis"
           >
             ENH_00046930
           </td>
           <td
-            class="data-table__cell  data-table__cell--ellipsis"
+            class="data-table__cell--ellipsis"
           >
             Uncharacterized protein
           </td>
           <td
-            class="data-table__cell  data-table__cell--ellipsis"
+            class="data-table__cell--ellipsis"
           >
             <a
               href="/taxonomy/51315"
@@ -103,7 +93,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
             </a>
           </td>
           <td
-            class="data-table__cell  data-table__cell--ellipsis"
+            class="data-table__cell--ellipsis"
           >
             <div
               class="data-table__blast-hsp"

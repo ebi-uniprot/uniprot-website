@@ -1,5 +1,9 @@
-import ObsoleteEntryPage from '../ObsoleteEntryPage';
 import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+
+import ObsoleteEntryPage from '../ObsoleteEntryPage';
+
+import { InactiveEntryReason } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
 import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
 
@@ -9,7 +13,7 @@ describe('ObsoleteEntryPage component', () => {
     const { asFragment } = renderWithRedux(
       <ObsoleteEntryPage
         accession={primaryAccession}
-        details={deletedEntryData.inactiveReason}
+        details={deletedEntryData.inactiveReason as InactiveEntryReason}
       />
     );
 
@@ -21,7 +25,7 @@ describe('ObsoleteEntryPage component', () => {
     const { asFragment } = renderWithRedux(
       <ObsoleteEntryPage
         accession={primaryAccession}
-        details={demergedEntryData.inactiveReason}
+        details={demergedEntryData.inactiveReason as InactiveEntryReason}
       />
     );
 

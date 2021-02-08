@@ -1,17 +1,12 @@
 /**
  * @jest-environment node
  */
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 import parseAndMatchQuery from '../parseAndMatchQuery';
 
 import searchTermsData from '../../components/__tests__/__mocks__/configure_search-term.json';
 
 describe('query parser and validator', () => {
-  beforeEach(() => {
-    resetUuidV1();
-  });
-
   test('with one xref', () => {
     const [valid, invalid] = parseAndMatchQuery(
       '(xref:pdb-gluco-fructose)',
