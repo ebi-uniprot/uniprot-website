@@ -87,7 +87,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
               ? citation.authors?.join('')
               : citation.authoringGroup?.join('');
           }
-          return id || index;
+          return id || `${index}`;
         }}
         data={allResults}
         dataRenderer={({

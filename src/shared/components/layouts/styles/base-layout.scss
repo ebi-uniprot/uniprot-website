@@ -16,6 +16,6 @@ $header-height: 70px;
   .main-content-and-footer {
     width: 100%;
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }

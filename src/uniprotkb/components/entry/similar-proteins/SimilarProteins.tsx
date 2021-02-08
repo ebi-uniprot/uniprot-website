@@ -1,19 +1,29 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
 import { FC, useMemo } from 'react';
 import { groupBy } from 'lodash-es';
-import { generatePath, Link } from 'react-router-dom';
-import { getClustersForProteins } from '../../../../shared/config/apiUrls';
+import { Link } from 'react-router-dom';
+
+import SimilarProteinsTable from './SimilarProteinsTable';
+
 import useDataApi from '../../../../shared/hooks/useDataApi';
+
+import { getClustersForProteins } from '../../../../shared/config/apiUrls';
+
+import {
+  getEntryPath,
+  Location,
+  LocationToPath,
+} from '../../../../app/config/urls';
+import { Namespace } from '../../../../shared/types/namespaces';
+import EntrySection, {
+  getEntrySectionNameAndId,
+} from '../../../types/entrySection';
+
 import {
   UniRefEntryType,
   UniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
-import EntrySection, {
-  getEntrySectionNameAndId,
-} from '../../../types/entrySection';
-import { Location, LocationToPath } from '../../../../app/config/urls';
-import SimilarProteinsTable from './SimilarProteinsTable';
 
 const SimilarProteins: FC<{
   isoforms: { isoforms: string[] };
@@ -95,11 +105,9 @@ const SimilarProteins: FC<{
                         <h4>{representativeId}</h4>
                         {clusterData[clusterType][representativeId].map(
                           (row) => {
-                            const unirefEntryUrl = generatePath(
-                              LocationToPath[Location.UniRefEntry],
-                              {
-                                accession: row.id,
-                              }
+                            const unirefEntryUrl = getEntryPath(
+                              Namespace.uniref,
+                              row.id
                             );
                             return (
                               <section key={row.id}>
@@ -107,9 +115,11 @@ const SimilarProteins: FC<{
                                   <Link to={unirefEntryUrl}>{row.id}</Link>
                                 </h5>
                                 <SimilarProteinsTable members={row.members} />
-                                {row.memberCount - row.members.length - 1 > 0 && (
+                                {row.memberCount - row.members.length - 1 >
+                                  0 && (
                                   <Link to={unirefEntryUrl}>
-                                    {row.memberCount - row.members.length - 1} more
+                                    {row.memberCount - row.members.length - 1}{' '}
+                                    more
                                   </Link>
                                 )}
                               </section>

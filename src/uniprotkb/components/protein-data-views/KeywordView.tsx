@@ -1,9 +1,11 @@
 import { Fragment, FC } from 'react';
 import { InfoList, ExpandableList } from 'franklin-sites';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
+import { getEntryPath } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 
 import { Keyword, KeywordUIModel } from '../../utils/KeywordsUtil';
 
@@ -24,13 +26,7 @@ export const KeywordItem: FC<KeywordItempProps> = ({ id, value }) => {
   if (!id || !value) {
     return null;
   }
-  return (
-    <Link
-      to={generatePath(LocationToPath[Location.KeywordsEntry], {
-        accession: id,
-      })}
-    >{` #${value}`}</Link>
-  );
+  return <Link to={getEntryPath(Namespace.keywords, id)}>{` #${value}`}</Link>;
 };
 
 export const KeywordList: FC<KeywordListProps> = ({

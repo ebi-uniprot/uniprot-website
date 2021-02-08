@@ -34,25 +34,39 @@ exports[`SequenceSection component should render the SequenceSection properly an
         >
           <thead>
             <tr>
-              <th>
+              <th
+                class=""
+              >
                 Database
               </th>
-              <th>
+              <th
+                class=""
+              >
                 Identifier
               </th>
-              <th>
+              <th
+                class=""
+              >
                 Version
               </th>
-              <th>
+              <th
+                class=""
+              >
                 Organism
               </th>
-              <th>
+              <th
+                class=""
+              >
                 First seen
               </th>
-              <th>
+              <th
+                class=""
+              >
                 Last seen
               </th>
-              <th>
+              <th
+                class=""
+              >
                 Active
               </th>
             </tr>

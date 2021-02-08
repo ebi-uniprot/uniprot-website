@@ -1,13 +1,14 @@
 import { FC, CSSProperties, useCallback, MouseEvent } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { noop } from 'lodash-es';
 
 import { MSAInput } from '../../../components/AlignmentView';
 import EntryTypeIcon from '../../../../shared/components/entry/EntryTypeIcon';
 
-import { Location, LocationToPath } from '../../../../app/config/urls';
+import { getEntryPath } from '../../../../app/config/urls';
 
+import { Namespace } from '../../../../shared/types/namespaces';
 import { ParsedSequenceAndFeatures } from '../../utils/useSequenceInfo';
 
 import './styles/AlignLabel.scss';
@@ -85,13 +86,7 @@ const AlignLabel: FC<AlignLabelProps> = ({
       <EntryTypeIcon entryType={before} />
       {before}
       {/* inject a link to the entry page */}
-      <Link
-        to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-          accession,
-        })}
-      >
-        {accession}
-      </Link>
+      <Link to={getEntryPath(Namespace.uniprotkb, accession)}>{accession}</Link>
       {after.join(accession)}
     </button>
   );

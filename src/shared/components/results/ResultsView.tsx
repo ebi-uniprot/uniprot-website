@@ -139,7 +139,7 @@ const cardRenderer = (
 
 type ColumnDescriptor = {
   name: string;
-  label: string;
+  label: ReactNode;
   render: (row: APIModel) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
@@ -194,10 +194,15 @@ const ResultsView: FC<ResultsTableProps> = ({
   sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const prevNamespace = useRef<Namespace>();
+  const prevNamespace = useRef<Namespace>(namespace);
   useEffect(() => {
     // will set it *after* the current render
     prevNamespace.current = namespace;
+  });
+  const prevColumns = useRef<Column[]>(columns);
+  useEffect(() => {
+    // will set it *after* the current render
+    prevColumns.current = columns;
   });
 
   const history = useHistory();
@@ -240,7 +245,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     results: APIModel[];
   }>(url);
 
-  const prevViewMode = useRef<ViewMode>();
+  const prevViewMode = useRef<ViewMode>(viewMode);
   useEffect(() => {
     prevViewMode.current = viewMode;
   });
@@ -277,7 +282,9 @@ const ResultsView: FC<ResultsTableProps> = ({
     // or we just switched namespace (a bit hacky workaround to force unmount)
     prevNamespace.current !== namespace ||
     // or we just switched view mode (hacky too)
-    prevViewMode.current !== viewMode
+    prevViewMode.current !== viewMode ||
+    // or we just changed the displayed columns (hacky too...)
+    prevColumns.current !== columns
   ) {
     return <Loader />;
   }
@@ -287,6 +294,11 @@ const ResultsView: FC<ResultsTableProps> = ({
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
   const updateColumnSort = (columnName: string) => {
+    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
+    if (!sortColumn) {
+      return;
+    }
+
     // Change sort direction
     const updatedSortDirection =
       !sortDirection || sortDirection === SortDirection.descend
@@ -298,7 +310,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         pathname: SearchResultsLocations[namespace],
         query,
         selectedFacets,
-        sortColumn: columnName,
+        sortColumn,
         sortDirection: updatedSortDirection,
       })
     );

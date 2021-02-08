@@ -56,16 +56,24 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           >
              
           </th>
-          <th>
+          <th
+            class=""
+          >
             Entry
           </th>
-          <th>
+          <th
+            class=""
+          >
             Entry name
           </th>
-          <th>
+          <th
+            class=""
+          >
             Gene name
           </th>
-          <th>
+          <th
+            class=""
+          >
             Length
           </th>
         </tr>

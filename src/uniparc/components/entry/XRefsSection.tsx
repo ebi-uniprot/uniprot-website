@@ -1,5 +1,5 @@
 import { FC, ReactNode, useMemo } from 'react';
-import { Link, generatePath } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Card, DataTable, ExternalLink } from 'franklin-sites';
 
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
@@ -12,8 +12,8 @@ import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 import { defaultColumns } from '../../config/UniParcColumnConfiguration';
 
 import apiUrls from '../../../shared/config/apiUrls';
+import { getEntryPath } from '../../../app/config/urls';
 
-import { Location, LocationToPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../../shared/config/columns';
 import {
@@ -74,14 +74,11 @@ const getColumns = (
         // internal link
         cell = (
           <Link
-            // TODO: #1: replace with `getEntryPath` when PR #265 is merged in
             /**
-             * TODO: #2: when we have entry history pages, we need to handle it
+             * TODO: when we have entry history pages, we need to handle it
              * differently (current website points to `/<accession>?version=*`)
              */
-            to={generatePath(LocationToPath[Location.UniProtKBEntry], {
-              accession: xref.id,
-            })}
+            to={getEntryPath(Namespace.uniprotkb, xref.id)}
           >
             {xref.id}
           </Link>
