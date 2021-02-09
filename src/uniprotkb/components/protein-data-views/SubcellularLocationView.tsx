@@ -1,10 +1,15 @@
 import { FC, useEffect, useRef } from 'react';
+import tippy from 'tippy.js';
 
+import { sleep } from 'timing-functions';
 import { TextView } from './FreeTextView';
 import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+// import '../../../../node_modules/tippy.js/dist/tippy.css';
+import './styles/tippy.css';
 
 enum Superkingdom {
   Viruses = 'Viruses',
@@ -78,6 +83,9 @@ const SubcellularLocationView: FC<{
             position: sticky;
             top: 4rem;
           }
+          .subcell_present {
+            font-size: 30px;
+          }
           ${getStylesContaining(
             'button',
             '.evidence-tag',
@@ -89,6 +97,85 @@ const SubcellularLocationView: FC<{
       );
     }
   }, [comments, lineage, taxonId]);
+
+  const setInPicture = (e) => {
+    if (e !== null) {
+      const t = e.parentElement;
+      if (t.nodeName === 'LI') {
+        t.classList.add('inpicture');
+      } else {
+        e.classList.add('inpicture');
+      }
+    }
+  };
+
+  const getGoTerms = (e) =>
+    Array.from(e.classList.values())
+      .filter((e) => e.startsWith('GO'))
+      .map((e) => `.${e}`);
+
+  const attachTooltips = (e, t, n, i, s) => {
+    const l = e.querySelector('.subcell_name').textContent;
+    let o = e.querySelector('.subcell_description').textContent;
+    if (s) {
+      o = `A part of the shown ${
+        e.parentElement.querySelector('.subcell_name').textContent
+      }.\n${o}`;
+    }
+    const r = getGoTerms(e);
+    r.push(`#${e.id}term`);
+    let c = Array.from(t.querySelectorAll(r.join(',')));
+    if (n.membrane) {
+      c = c.concat(n.membrane);
+    }
+    const d = [n]
+      .concat(c)
+      .concat(Array.from(i))
+      .filter((e) => e !== null);
+
+    c.forEach((e) => {
+      setInPicture(e);
+    });
+
+    tippy(n, {
+      allowHTML: true,
+      content: `${l}<br/>${o}`,
+      triggerTarget: d,
+    });
+  };
+
+  useEffect(() => {
+    sleep(2000).then(() => {
+      const shapes = [
+        ':scope path',
+        ':scope circle',
+        ':scope rect',
+        ':scope ellipse',
+        ':scope polygon',
+        ':scope line',
+      ].join(',');
+
+      const ce = document.querySelector('sib-swissbiopics-sl'); // n
+      const subcellularPresentElements = ce?.shadowRoot?.querySelectorAll(
+        'svg .subcell_present:not(.membrane)'
+      );
+      if (!subcellularPresentElements) {
+        return;
+      }
+      for (const subcellularPresentElement of subcellularPresentElements) {
+        // e
+        const term = ce?.shadowRoot?.querySelector(
+          `#${subcellularPresentElement.id}term`
+        );
+        setInPicture(term);
+        const t = subcellularPresentElement.parentElement;
+        const s = t?.querySelectorAll(shapes).values();
+        const l = s?.next().value;
+        console.log(s);
+        attachTooltips(subcellularPresentElement, ce?.shadowRoot, l, s, true);
+      }
+    });
+  });
 
   if (!comments || !comments.length) {
     return null;

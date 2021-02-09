@@ -137,6 +137,7 @@
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "timing-functions": "2.0.1",
+    "tippy.js": "^6.2.7",
     "typesafe-actions": "5.1.0",
     "url-join": "4.0.1",
     "uuid": "8.3.2",
