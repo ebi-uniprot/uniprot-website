@@ -61,7 +61,7 @@ import uniProtKbConverter, {
 import '../../../shared/components/entry/styles/entry-page.scss';
 import '../../../shared/styles/sticky.scss';
 
-enum TabLocation {
+export enum TabLocation {
   Entry = 'entry',
   FeatureViewer = 'feature-viewer',
   Publications = 'publications',

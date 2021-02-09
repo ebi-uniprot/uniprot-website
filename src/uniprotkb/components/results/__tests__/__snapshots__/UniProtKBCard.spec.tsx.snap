@@ -16,15 +16,15 @@ exports[`UniProtKBCard component should render 1`] = `
         <section
           class="result-card"
         >
-          <section
+          <div
             class="result-card__left"
           >
             <input
               data-testid="up-card-checkbox"
               type="checkbox"
             />
-          </section>
-          <section
+          </div>
+          <div
             class="result-card__right"
           >
             <h5>
@@ -86,10 +86,8 @@ exports[`UniProtKBCard component should render 1`] = `
                 </span>
               </span>
             </section>
-            <section>
-              <small />
-            </section>
-          </section>
+            <small />
+          </div>
         </section>
       </div>
     </section>
@@ -98,33 +96,6 @@ exports[`UniProtKBCard component should render 1`] = `
     >
       <span
         class="card__link"
-      >
-        <a
-          href="/uniprotkb/P21802#sequence"
-        >
-          1 isoform
-        </a>
-      </span>
-      <span
-        class="card__link card__link--separator"
-      >
-        <a
-          href="/uniprotkb/P21802#interaction"
-        >
-          2 interactions
-        </a>
-      </span>
-      <span
-        class="card__link card__link--separator"
-      >
-        <a
-          href="/uniprotkb/P21802#phenotypes"
-        >
-          1 disease
-        </a>
-      </span>
-      <span
-        class="card__link card__link--separator"
       >
         <a
           href="/uniprotkb/P21802/publications"

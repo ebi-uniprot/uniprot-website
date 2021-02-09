@@ -71,20 +71,18 @@ const Results: FC = () => {
     );
   }, [dataResultFields]);
 
-  /**
-   * WARNING: horrible hack to get the switch between
-   * table and cards to work while we wait for the backend
-   * to generate a column for card counts and we refactor
-   * this class as a functional component and put all url
-   * parameters in the store.
-   */
   const columns =
-    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : undefined;
+    viewMode === ViewMode.TABLE &&
+    // TODO: next line when API filtering works for UniParc
+    namespace !== Namespace.uniparc &&
+    tableColumns
+      ? tableColumns
+      : undefined;
 
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns: namespace === Namespace.uniparc ? undefined : columns,
+    columns,
     selectedFacets,
     sortColumn,
     sortDirection,
