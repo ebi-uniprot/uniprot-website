@@ -79,7 +79,7 @@ const Results: FC = () => {
    * parameters in the store.
    */
   const columns =
-    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : [];
+    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : undefined;
 
   const initialApiUrl = getAPIQueryUrl({
     namespace,
