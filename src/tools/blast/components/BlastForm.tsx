@@ -460,7 +460,7 @@ const BlastForm = () => {
                 placeholder="Enter taxon names or IDs to include"
                 url={uniProtKBApiUrls.taxonomySuggester}
                 onSelect={updateTaxonFormValue}
-                title="Include these taxons"
+                title="Restrict by taxonomy"
                 clearOnSelect
               />
             </section>

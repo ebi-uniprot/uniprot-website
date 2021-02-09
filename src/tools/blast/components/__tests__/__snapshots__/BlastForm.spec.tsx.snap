@@ -192,7 +192,7 @@ exports[`BlastForm test Renders the form 1`] = `
           class="tools-form-section__item tools-form-section__item--taxon-select"
         >
           <label>
-            Include these taxons
+            Restrict by taxonomy
             <div
               class="autocomplete-container"
             >
