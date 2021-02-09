@@ -85,6 +85,7 @@ const useDragNDropFile = ({
     overlayRef.current = document.createElement('div');
 
     overlayRef.current.style.pointerEvents = 'none';
+    overlayRef.current.style.visibility = 'hidden';
     overlayRef.current.style.position = 'absolute';
     overlayRef.current.style.display = 'flex';
     overlayRef.current.style.alignItems = 'center';
