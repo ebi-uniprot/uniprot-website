@@ -4,12 +4,11 @@ import {
 } from '../types/toolsServerParameters';
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
+import { SelectedTaxon } from '../blast/config/BlastFormData';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 
-type ObjectForFormData = {
-  [key: string]: string | number | boolean | undefined;
-};
+type ObjectForFormData = Record<string, string | number | boolean | undefined>;
 
 const objectToFormData = (object: ObjectForFormData) => {
   const formData = new FormData();
@@ -19,6 +18,27 @@ const objectToFormData = (object: ObjectForFormData) => {
     }
   }
   return formData;
+};
+
+const stringifyTaxa = (taxa?: SelectedTaxon[]) =>
+  taxa?.map(({ id }) => id).join(',');
+
+const parseTaxa = (
+  string = '',
+  taxonMapping: Map<string, string>
+): SelectedTaxon[] => {
+  const taxa = [];
+  for (const taxid of string.split(',')) {
+    const cleaned = taxid.trim();
+    if (!cleaned) {
+      continue; // eslint-disable-line no-continue
+    }
+    taxa.push({
+      id: cleaned,
+      label: taxonMapping.get(cleaned) || cleaned,
+    });
+  }
+  return taxa;
 };
 
 /**
@@ -61,6 +81,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
           filter,
           gapped,
           taxIDs,
+          negativeTaxIDs,
           stype,
           sequence,
           database,
@@ -76,7 +97,8 @@ export function formParametersToServerParameters<T extends JobTypes>(
           exp: threshold,
           filter,
           gapalign: gapped,
-          taxids: taxIDs && taxIDs.map(({ id }) => id).join(','),
+          taxids: stringifyTaxa(taxIDs),
+          negative_taxids: stringifyTaxa(negativeTaxIDs),
           stype,
           sequence,
           database,
@@ -136,6 +158,8 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           filter,
           gapalign,
           taxids,
+          // eslint-disable-next-line camelcase
+          negative_taxids,
           stype,
           sequence,
           database,
@@ -148,18 +172,6 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           );
         }
 
-        const taxIDs = [];
-        for (const taxid of (taxids || '').split(',')) {
-          const cleaned = taxid.trim();
-          if (!cleaned) {
-            continue; // eslint-disable-line no-continue
-          }
-          taxIDs.push({
-            id: cleaned,
-            label: taxonMapping.get(cleaned) || cleaned,
-          });
-        }
-
         formParameters = {
           program,
           matrix,
@@ -167,7 +179,8 @@ export function serverParametersToFormParameters<T extends JobTypes>(
           threshold: exp,
           filter,
           gapped: Boolean(gapalign),
-          taxIDs,
+          taxIDs: parseTaxa(taxids, taxonMapping),
+          negativeTaxIDs: parseTaxa(negative_taxids, taxonMapping),
           stype,
           sequence,
           database,

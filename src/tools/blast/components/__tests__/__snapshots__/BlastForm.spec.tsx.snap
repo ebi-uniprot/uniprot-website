@@ -192,7 +192,7 @@ exports[`BlastForm test Renders the form 1`] = `
           class="tools-form-section__item tools-form-section__item--taxon-select"
         >
           <label>
-            Restrict by organism
+            Include these taxons
             <div
               class="autocomplete-container"
             >
@@ -201,7 +201,7 @@ exports[`BlastForm test Renders the form 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="Enter organism names or tax IDs"
+                  placeholder="Enter taxon names or IDs to include"
                   type="text"
                   value=""
                 />
@@ -242,7 +242,7 @@ exports[`BlastForm test Renders the form 1`] = `
               autocomplete="off"
               maxlength="100"
               name="title"
-              placeholder="my job title"
+              placeholder="\\"my job title\\""
               style="width: 2ch;"
               type="text"
               value=""

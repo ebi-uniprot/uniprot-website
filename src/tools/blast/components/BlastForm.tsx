@@ -186,6 +186,9 @@ const BlastForm = () => {
   const [taxIDs, setTaxIDs] = useState<BlastFormValues[BlastFields.taxons]>(
     initialFormValues[BlastFields.taxons]
   );
+  const [negativeTaxIDs, setNegativeTaxIDs] = useState<
+    BlastFormValues[BlastFields.excludedtaxons]
+  >(initialFormValues[BlastFields.excludedtaxons]);
   const [threshold, setThreshold] = useState<
     BlastFormValues[BlastFields.threshold]
   >(initialFormValues[BlastFields.threshold]);
@@ -248,6 +251,7 @@ const BlastForm = () => {
     setSequence(defaultFormValues[BlastFields.sequence]);
     setDatabase(defaultFormValues[BlastFields.database]);
     setTaxIDs(defaultFormValues[BlastFields.taxons]);
+    setNegativeTaxIDs(defaultFormValues[BlastFields.excludedtaxons]);
     setThreshold(defaultFormValues[BlastFields.threshold]);
     setMatrix(defaultFormValues[BlastFields.matrix]);
     setFilter(defaultFormValues[BlastFields.filter]);
@@ -282,6 +286,7 @@ const BlastForm = () => {
       sequence: sequence.selected as Sequence,
       database: database.selected as Database,
       taxIDs: taxIDs.selected as SelectedTaxon[],
+      negativeTaxIDs: negativeTaxIDs.selected as SelectedTaxon[],
       threshold: threshold.selected as Exp,
       // remove "auto", and transform into corresponding matrix
       matrix:
@@ -452,10 +457,10 @@ const BlastForm = () => {
             <FormSelect formValue={database} updateFormValue={setDatabase} />
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
-                placeholder="Enter organism names or tax IDs"
-                url={uniProtKBApiUrls.organismSuggester}
+                placeholder="Enter taxon names or IDs to include"
+                url={uniProtKBApiUrls.taxonomySuggester}
                 onSelect={updateTaxonFormValue}
-                title="Restrict by organism"
+                title="Include these taxons"
                 clearOnSelect
               />
             </section>
@@ -486,7 +491,7 @@ const BlastForm = () => {
                   style={{
                     width: `${(jobName.selected as string).length + 2}ch`,
                   }}
-                  placeholder="my job title"
+                  placeholder={'"my job title"'}
                   value={jobName.selected as string}
                   onChange={(event) => {
                     setJobNameEdited(Boolean(event.target.value));

@@ -18,6 +18,7 @@ export type FormParameters = {
   sequence: Sequence;
   database: Database;
   taxIDs: SelectedTaxon[];
+  negativeTaxIDs: SelectedTaxon[];
   threshold: Exp;
   matrix: Matrix;
   filter: Filter;
