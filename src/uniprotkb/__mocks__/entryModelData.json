@@ -1350,5 +1350,44 @@
       "rank": "family",
       "hidden": true
     }
-  ]
+  ],
+  "extraAttributes": {
+    "countByCommentType": {
+      "FUNCTION": 1,
+      "CATALYTIC ACTIVITY": 1,
+      "ACTIVITY REGULATION": 1,
+      "SUBUNIT": 1,
+      "INTERACTION": 1,
+      "SUBCELLULAR LOCATION": 5,
+      "ALTERNATIVE PRODUCTS": 1,
+      "DOMAIN": 1,
+      "PTM": 3,
+      "DISEASE": 10,
+      "SIMILARITY": 1,
+      "SEQUENCE CAUTION": 7,
+      "WEB RESOURCE": 2
+    },
+    "countByFeatureType": {
+      "Signal": 1,
+      "Chain": 1,
+      "Topological domain": 2,
+      "Transmembrane": 1,
+      "Domain": 4,
+      "Nucleotide binding": 2,
+      "Region": 1,
+      "Active site": 1,
+      "Binding site": 2,
+      "Modified residue": 7,
+      "Glycosylation": 8,
+      "Disulfide bond": 3,
+      "Alternative sequence": 19,
+      "Natural variant": 74,
+      "Mutagenesis": 5,
+      "Sequence conflict": 3,
+      "Beta strand": 34,
+      "Turn": 7,
+      "Helix": 19
+    },
+    "uniParcId": "UPI000012A72A"
+  }
 }

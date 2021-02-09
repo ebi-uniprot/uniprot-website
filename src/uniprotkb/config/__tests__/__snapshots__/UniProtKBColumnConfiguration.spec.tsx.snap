@@ -2059,7 +2059,15 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniparc/UPI000012A72A"
+  >
+    UPI000012A72A
+  </a>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "version": version 1`] = `
 <DocumentFragment>

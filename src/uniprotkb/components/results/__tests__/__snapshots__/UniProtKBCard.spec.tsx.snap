@@ -98,6 +98,69 @@ exports[`UniProtKBCard component should render 1`] = `
         class="card__link"
       >
         <a
+          href="/uniprotkb/P21802#function"
+        >
+          4 domains
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
+          href="/uniprotkb/P21802#ptm-processing"
+        >
+          7 PTMs
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
+          href="/uniprotkb/P21802#disease-and-drugs"
+        >
+          74 reviewed variants
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
+          href="/uniprotkb/P21802#function"
+        >
+          1 active site
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
+          href="/uniprotkb/P21802#sequence"
+        >
+          1 isoform
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
+          href="/uniprotkb/P21802#interaction"
+        >
+          1 interaction
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
+          href="/uniprotkb/P21802#disease-and-drugs"
+        >
+          10 diseases
+        </a>
+      </span>
+      <span
+        class="card__link card__link--separator"
+      >
+        <a
           href="/uniprotkb/P21802/publications"
         >
           7 reviewed publications
