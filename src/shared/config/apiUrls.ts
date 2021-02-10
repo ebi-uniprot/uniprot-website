@@ -81,6 +81,7 @@ const apiUrls = {
       accession,
       '/publications'
     ),
+  taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
 
   // TODO: move that to UniRef-specific file?

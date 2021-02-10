@@ -13,7 +13,9 @@ export type BlastFormValue = {
   fieldName: string;
   selected?: string | SelectedTaxon[] | boolean | number;
   type?: BlastFieldTypes;
-  values?: { label?: string; value?: string | boolean | number }[];
+  values?: Readonly<
+    Array<{ label?: string; value?: string | boolean | number }>
+  >;
 };
 
 export enum BlastFields {
@@ -21,6 +23,7 @@ export enum BlastFields {
   stype = 'Sequence type',
   sequence = 'Sequence',
   taxons = 'Taxons',
+  excludedtaxons = 'Excluded taxons',
   database = 'Target database',
   threshold = 'E-Threshold',
   matrix = 'Matrix',
@@ -30,9 +33,9 @@ export enum BlastFields {
   name = 'Name',
 }
 
-export type BlastFormValues = { [x in BlastFields]: BlastFormValue };
+export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>;
 
-export default Object.freeze({
+const formData: Readonly<BlastFormValues> = Object.freeze({
   [BlastFields.program]: Object.freeze({
     fieldName: 'program',
     values: Object.freeze([{ value: 'blastp' }, { value: 'blastx' }] as Array<{
@@ -77,6 +80,10 @@ export default Object.freeze({
   }),
   [BlastFields.taxons]: Object.freeze({
     fieldName: 'taxIDs',
+    type: BlastFieldTypes.autocomplete,
+  }),
+  [BlastFields.excludedtaxons]: Object.freeze({
+    fieldName: 'negativeTaxIDs',
     type: BlastFieldTypes.autocomplete,
   }),
   // 'exp' parameter
@@ -149,4 +156,6 @@ export default Object.freeze({
     type: BlastFieldTypes.textarea,
     selected: '',
   }),
-}) as Readonly<BlastFormValues>;
+});
+
+export default formData;
