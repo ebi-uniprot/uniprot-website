@@ -15,11 +15,6 @@ type InputParametersProps = {
   jobType: JobTypes;
 };
 
-const hideParameters = new Set<
-  | keyof PublicServerParameters[JobTypes.ALIGN]
-  | keyof PublicServerParameters[JobTypes.BLAST]
->(['taxidsfile', 'excludedtaxidsfile']);
-
 const InputParameters: FC<InputParametersProps> = ({
   id,
   inputParamsData,
@@ -46,19 +41,10 @@ const InputParameters: FC<InputParametersProps> = ({
           <Loader />
         ) : (
           <InfoList
-            infoData={Object.entries(data)
-              .filter(
-                ([key]) =>
-                  !hideParameters.has(
-                    key as
-                      | keyof PublicServerParameters[JobTypes.ALIGN]
-                      | keyof PublicServerParameters[JobTypes.BLAST]
-                  )
-              )
-              .map(([key, value]) => ({
-                title: key,
-                content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
-              }))}
+            infoData={Object.entries(data).map(([key, value]) => ({
+              title: key,
+              content: <CodeBlock lightMode>{`${value}`}</CodeBlock>,
+            }))}
           />
         )}
       </section>

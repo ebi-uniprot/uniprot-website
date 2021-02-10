@@ -15,6 +15,7 @@ const created: CreatedJob = {
     program: 'blastp',
     database: 'uniprotkb_refprotswissprot',
     taxIDs: [],
+    negativeTaxIDs: [],
     threshold: '1e-2',
     matrix: 'BLOSUM62',
     filter: 'T',

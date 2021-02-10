@@ -19,6 +19,7 @@ const running: RunningJob = {
     sequence: 'MLPGLALLLL',
     database: 'uniprotkb_refprotswissprot',
     taxIDs: [],
+    negativeTaxIDs: [],
     threshold: '1.0',
     matrix: 'BLOSUM50',
     filter: 'T',

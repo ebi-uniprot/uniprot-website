@@ -2,13 +2,17 @@ import { Route } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { fireEvent, waitFor } from '@testing-library/dom';
-import Entry from '../Entry';
+import { fireEvent, waitFor, screen } from '@testing-library/dom';
+import joinUrl from 'url-join';
+
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+
+import Entry from '../Entry';
+
 import apiUrls, {
   getUniProtPublicationsQueryUrl,
 } from '../../../../shared/config/apiUrls';
-import joinUrl from 'url-join';
+
 import entryData from '../../../__mocks__/entryModelData.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
@@ -63,7 +67,7 @@ mock.onGet(joinUrl(apiUrls.variation, primaryAccession)).reply(200, {});
 
 let component;
 
-describe.skip('Entry', () => {
+describe('Entry', () => {
   beforeEach(async () => {
     await act(async () => {
       component = renderWithRedux(
@@ -85,7 +89,7 @@ describe.skip('Entry', () => {
     });
   });
 
-  it('should switch to publications and apply a filter', async () => {
+  it.skip('should switch to publications and apply a filter', async () => {
     await act(async () => {
       const { getByText } = component;
       const button = getByText('Publications', { selector: 'a' });
@@ -108,11 +112,9 @@ describe.skip('Entry', () => {
       }
     );
 
-    await act(async () => {
-      const { findByTestId } = component;
-      const message = await findByTestId('deleted-entry-message');
-      expect(message).toBeTruthy();
-    });
+    expect(
+      await screen.findByTestId('deleted-entry-message')
+    ).toBeInTheDocument();
   });
 
   it('should render obsolete page for demerged entries', async () => {
@@ -126,10 +128,8 @@ describe.skip('Entry', () => {
       }
     );
 
-    await act(async () => {
-      const { findByTestId } = component;
-      const message = await findByTestId('demerged-entry-message');
-      expect(message).toBeTruthy();
-    });
+    expect(
+      await screen.findByTestId('demerged-entry-message')
+    ).toBeInTheDocument();
   });
 });
