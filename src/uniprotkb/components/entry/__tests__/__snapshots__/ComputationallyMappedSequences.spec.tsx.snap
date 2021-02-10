@@ -83,6 +83,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <td>
             <input
               aria-label="A0A0A0MRG2"
+              data-id="A0A0A0MRG2"
               type="checkbox"
             />
           </td>
@@ -113,6 +114,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <td>
             <input
               aria-label="E9PG40"
+              data-id="E9PG40"
               type="checkbox"
             />
           </td>
@@ -143,6 +145,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <td>
             <input
               aria-label="H7C0V9"
+              data-id="H7C0V9"
               type="checkbox"
             />
           </td>
@@ -173,6 +176,7 @@ exports[`Computationally mapped isoforms Should render correctly 1`] = `
           <td>
             <input
               aria-label="H7C2L2"
+              data-id="H7C2L2"
               type="checkbox"
             />
           </td>

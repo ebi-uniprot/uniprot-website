@@ -2,10 +2,10 @@
 
 exports[`SequenceSection component should render the SequenceSection properly and match snapshot 1`] = `
 <DocumentFragment>
-  <div
+  <section
     class="card"
   >
-    <section>
+    <div>
       <div
         class="card__header"
       >
@@ -25,8 +25,8 @@ exports[`SequenceSection component should render the SequenceSection properly an
           Show sequence 
         </button>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </DocumentFragment>
 `;
 
