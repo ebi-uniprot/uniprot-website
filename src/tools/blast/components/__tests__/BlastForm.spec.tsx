@@ -1,10 +1,14 @@
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
+
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+
 import BlastForm from '../BlastForm';
+
 import initialState from '../../../../app/state/rootInitialState';
+
 import { mockSuggesterApi } from '../../../../query-builder/components/__tests__/__mocks__/autocompleteWrapperData';
 
 const mock = new MockAdapter(axios);
@@ -32,13 +36,14 @@ describe('BlastForm test', () => {
   });
 
   it('Sets sequence type based on the sequence', () => {
-    const { getByTestId } = component;
-    const textArea = getByTestId('sequence-submission-input');
+    const textArea = screen.getByTestId('sequence-submission-input');
     fireEvent.change(textArea, { target: { value: aaSequence } });
-    const stype1 = getByTestId('Sequence type-protein');
+    const stype1 = screen.getByTestId(
+      'Sequence type-protein'
+    ) as HTMLOptionElement;
     expect(stype1.selected).toBeTruthy();
     fireEvent.change(textArea, { target: { value: ntSequence } });
-    const stype2 = getByTestId('Sequence type-dna');
+    const stype2 = screen.getByTestId('Sequence type-dna') as HTMLOptionElement;
     expect(stype2.selected).toBeTruthy();
   });
 
@@ -47,10 +52,9 @@ describe('BlastForm test', () => {
   it.skip('Sets a name automatically', () => {});
 
   it('Sets the automatic matrix based on the sequence', () => {
-    const { getByTestId } = component;
-    const textArea = getByTestId('sequence-submission-input');
+    const textArea = screen.getByTestId('sequence-submission-input');
     fireEvent.change(textArea, { target: { value: aaSequence } });
-    const matrix = getByTestId('Matrix-auto');
+    const matrix = screen.getByTestId('Matrix-auto') as HTMLOptionElement;
     expect(matrix.text).toEqual('Auto - PAM30');
     fireEvent.change(textArea, {
       target: { value: `${aaSequence}${aaSequence}` },
@@ -69,25 +73,19 @@ describe('BlastForm test', () => {
   });
 
   it('Adds and removes a taxon', async () => {
-    const {
-      getByPlaceholderText,
-      findByText,
-      queryByText,
-      getByTestId,
-    } = component;
-    const autocompleteInput = getByPlaceholderText(
-      'Enter organism names or tax IDs'
+    const autocompleteInput = screen.getByPlaceholderText(
+      'Enter taxon names or IDs to include'
     );
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },
     });
-    const autocompleteItem = await findByText('rotavirus [1906931]');
+    const autocompleteItem = await screen.findByText('rotavirus [1906931]');
     fireEvent.click(autocompleteItem);
-    const chip = await findByText('Human rotavirus [1906931]');
+    const chip = await screen.findByText('Human rotavirus [1906931]');
     expect(chip).toBeTruthy();
-    fireEvent.click(getByTestId('remove-icon'));
-    await waitFor(() =>
-      expect(queryByText('Human rotavirus [1906931]')).toBeFalsy()
-    );
+    fireEvent.click(screen.getByTestId('remove-icon'));
+    expect(
+      screen.queryByText('Human rotavirus [1906931]')
+    ).not.toBeInTheDocument();
   });
 });

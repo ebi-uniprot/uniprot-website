@@ -43,30 +43,28 @@ export const ResubmitButton: FC<ResubmitButtonProps<JobTypes>> = ({
     setDisabled(true);
 
     const taxonMapping = new Map();
-    if ('taxids' in inputParamsData) {
-      const taxonRequests = (inputParamsData.taxids || '')
-        .split(',')
-        .map((id) => {
-          const idCleaned = id.trim();
-          if (!idCleaned) {
-            return;
+    if ('taxids' in inputParamsData || 'negative_taxids' in inputParamsData) {
+      const taxonRequests = [
+        ...(inputParamsData.taxids || '').split(','),
+        ...(inputParamsData.negative_taxids || '').split(','),
+      ].map((id) => {
+        const idCleaned = id.trim();
+        if (!idCleaned) {
+          return;
+        }
+        // eslint-disable-next-line consistent-return
+        return fetchData<Suggestions>(
+          getSuggesterUrl(uniProtKBApiUrls.organismSuggester, idCleaned)
+        ).then((response) => {
+          const firstSuggestion = response?.data?.suggestions?.[0]?.value;
+          if (firstSuggestion) {
+            taxonMapping.set(
+              idCleaned,
+              `${firstSuggestion.replace(/ *\([^)]*\) */g, '')} [${idCleaned}]`
+            );
           }
-          // eslint-disable-next-line consistent-return
-          return fetchData<Suggestions>(
-            getSuggesterUrl(uniProtKBApiUrls.organismSuggester, idCleaned)
-          ).then((response) => {
-            const firstSuggestion = response?.data?.suggestions?.[0]?.value;
-            if (firstSuggestion) {
-              taxonMapping.set(
-                idCleaned,
-                `${firstSuggestion.replace(
-                  / *\([^)]*\) */g,
-                  ''
-                )} [${idCleaned}]`
-              );
-            }
-          });
         });
+      });
 
       try {
         // wait up to 2 seconds to get the information

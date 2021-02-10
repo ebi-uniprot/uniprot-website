@@ -19,6 +19,7 @@ const failedAfterSubmission: FailedJob = {
     sequence: 'MLPGLALLLL',
     database: 'uniprotkb_refprotswissprot',
     taxIDs: [{ id: '9606', label: 'Homo sapiens' }],
+    negativeTaxIDs: [],
     threshold: '10',
     matrix: 'BLOSUM62',
     filter: 'F',

@@ -9,7 +9,9 @@ export type AlignFormValue = {
   fieldName: string;
   selected?: string | boolean | number;
   type?: AlignFieldTypes;
-  values?: { label?: string; value?: string | boolean | number }[];
+  values?: Readonly<
+    Array<{ label?: string; value?: string | boolean | number }>
+  >;
 };
 
 export enum AlignFields {
@@ -19,9 +21,9 @@ export enum AlignFields {
   iterations = 'Iterations',
 }
 
-export type AlignFormValues = { [x in AlignFields]: AlignFormValue };
+export type AlignFormValues = Record<AlignFields, Readonly<AlignFormValue>>;
 
-export default Object.freeze({
+const formData: Readonly<AlignFormValues> = Object.freeze({
   [AlignFields.sequence]: Object.freeze({
     fieldName: 'sequence',
     type: AlignFieldTypes.textarea,
@@ -54,4 +56,6 @@ export default Object.freeze({
     ] as Array<{ value: FormParameters['iterations'] }>),
     selected: 0,
   }),
-}) as Readonly<AlignFormValues>;
+});
+
+export default formData;

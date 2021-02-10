@@ -59,7 +59,7 @@ describe('tools adapter tests', () => {
   describe('BLAST', () => {
     describe('formParametersToServerParameters', () => {
       it('should translate BLAST parameters accurately', () => {
-        const formParams: FormParameters = {
+        const formParams: FormParameters[JobTypes.BLAST] = {
           program: 'blastp',
           matrix: 'PAM30',
           hits: 250,
@@ -70,6 +70,7 @@ describe('tools adapter tests', () => {
             { id: '1234', label: 'some species' },
             { id: '4321', label: 'some other species' },
           ],
+          negativeTaxIDs: [],
           stype: 'protein',
           sequence: 'ATGC',
           database: 'UniProt',
@@ -90,6 +91,7 @@ describe('tools adapter tests', () => {
           ['filter', 'F'],
           ['gapalign', 'false'],
           ['taxids', '1234,4321'],
+          ['negative_taxids', ''],
           ['stype', 'protein'],
           ['sequence', 'ATGC'],
           ['database', 'UniProt'],
@@ -134,12 +136,13 @@ describe('tools adapter tests', () => {
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
           stype: 'protein',
           taxIDs: [{ id: '9606', label: 'Homo Sapiens [9606]' }],
+          negativeTaxIDs: [],
           threshold: '1e-1',
         });
       });
 
       it('should translate blast parameters event without taxon info', () => {
-        const serverParams: PublicServerParameters = {
+        const serverParams: PublicServerParameters[JobTypes.BLAST] = {
           alignments: 250,
           compstats: 'F',
           database: 'uniprotkb_refprotswissprot',
@@ -169,6 +172,7 @@ describe('tools adapter tests', () => {
             '>sp|P06787|CALM_YEAST Calmodulin OS=Saccharomyces cerevisiae (strain ATCC 204508 / S288c) OX=559292 PE=1 SV=1↵MSSNLTEEQIAEFKEAFALFDKDNNGSISSSELATVMRSLGLSPSEAEVNDLMNEIDVDG↵NHQIEFSEFLALMSRQLKSNDSEQELLEAFKVFDKNGDGLISAAELKHVLTSIGEKLTDA↵EVDDMLREVSDGSGEINIQQFAALLSK↵',
           stype: 'protein',
           taxIDs: [],
+          negativeTaxIDs: [],
           threshold: '1e-1',
         });
       });

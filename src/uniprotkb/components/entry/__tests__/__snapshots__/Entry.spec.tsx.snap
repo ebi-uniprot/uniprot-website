@@ -1,0 +1,2506 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Entry should render main 1`] = `
+<DocumentFragment>
+  <div
+    class="sidebar-layout entry-page sticky-tabs-container"
+  >
+    <section
+      class="sidebar-layout__sidebar"
+    >
+      <ul
+        class="in-page-nav"
+      >
+        <div
+          class="marker"
+        />
+        <li
+          class=""
+        >
+          <a
+            class="active"
+            href="/uniprotkb/P21802/entry#function"
+          >
+            Function
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#names-and-taxonomy"
+          >
+            Names & Taxonomy
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#subcellular-location"
+          >
+            Subcellular Location
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#disease-and-drugs"
+          >
+            Disease & Drugs
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#ptm-processing"
+          >
+            PTM/Processing
+          </a>
+        </li>
+        <li
+          class="disabled"
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#expression"
+          >
+            Expression
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#interaction"
+          >
+            Interaction
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#structure"
+          >
+            Structure
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#family-and-domains"
+          >
+            Family & Domains
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#sequence"
+          >
+            Sequence
+          </a>
+        </li>
+        <li
+          class=""
+        >
+          <a
+            class=""
+            href="/uniprotkb/P21802/entry#similar-proteins"
+          >
+            Similar Proteins
+          </a>
+        </li>
+      </ul>
+    </section>
+    <section
+      class="sidebar-layout__content"
+    >
+      <section
+        class="sidebar-layout__title"
+      >
+        <h2>
+          <span
+            class="entry-title"
+          >
+            <span
+              class="entry-title__status icon--reviewed"
+              title="This marks a reviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            P21802 · uniprot_id
+          </span>
+        </h2>
+        <section>
+          rec full Name · 
+          <a
+            href="/taxonomy/9606"
+          >
+            scientific name
+          </a>
+           · 
+          <strong>
+            EC number:
+          </strong>
+           1.2.3.4 · 
+          <strong>
+            Gene:
+          </strong>
+           some Gene (some Syn) · 10 amino-acids · 1: Evidence at protein level · 
+          <span
+            title="Annotation Score"
+          >
+            <span
+              class="doughnut-chart--small colour-platinum"
+            >
+              <span
+                class="doughnut-chart--small__left-wrap"
+              >
+                <span
+                  class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                  style="transform: rotate(0deg);"
+                />
+              </span>
+              <span
+                class="doughnut-chart--small__right-wrap"
+              >
+                <span
+                  class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                  style="transform: rotate(72deg);"
+                />
+              </span>
+              <span
+                class="doughnut-chart--small__inner-circle"
+              >
+                1/5
+              </span>
+            </span>
+          </span>
+        </section>
+      </section>
+      <div
+        class="tabs"
+      >
+        <div
+          class="tabs__header"
+          role="tablist"
+        >
+          <div
+            aria-controls="0"
+            class="tabs__header__item tabs__header__item--active"
+            data-target="entry"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/uniprotkb/P21802/entry"
+            >
+              Entry
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="feature-viewer"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/uniprotkb/P21802/feature-viewer"
+            >
+              Feature viewer
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="publications"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/uniprotkb/P21802/publications"
+            >
+              Publications
+            </a>
+          </div>
+          <div
+            aria-controls="0"
+            class="tabs__header__item"
+            data-target="external-links"
+            data-testid="tab-title"
+            role="tab"
+          >
+            <a
+              href="/uniprotkb/P21802/external-links"
+            >
+              External links
+            </a>
+          </div>
+        </div>
+        <div
+          data-testid="tab-content"
+          id="0"
+          role="tabpanel"
+        >
+          <div
+            class="button-group"
+          >
+            <button
+              class="button tertiary"
+              title="Run a BLAST job against P21802"
+              type="button"
+            >
+              BLAST
+            </button>
+            <button
+              class="button tertiary"
+              title="Run an Align job against 2 entries"
+              type="button"
+            >
+              Align
+            </button>
+            <div
+              class="dropdown-container"
+            >
+              <button
+                class="button tertiary dropdown"
+                type="button"
+              >
+                <test-file-stub />
+                Download
+              </button>
+              <div
+                class="dropdown-menu"
+              />
+            </div>
+            <button
+              class="button tertiary"
+              title="Add 1 entry to the basket"
+              type="button"
+            >
+              <test-file-stub />
+              Add
+            </button>
+          </div>
+          <div
+            data-entry-section="true"
+            id="function"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Function
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <h3>
+                    catalytic activity
+                  </h3>
+                  <span
+                    class="text-block"
+                  >
+                    <strong>
+                      1.2.4.5
+                    </strong>
+                     some reaction
+                    <button
+                      aria-controls="1"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="1"
+                    />
+                    This reaction proceeds in the 
+                    <span
+                      data-testid="direction-text"
+                    >
+                      backward
+                    </span>
+                     direction 
+                    <button
+                      aria-controls="2"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        Imported
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="2"
+                    />
+                  </span>
+                  <h3>
+                    cofactor
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <span>
+                      Cofactor Name 
+                      <button
+                        aria-controls="3"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="3"
+                      />
+                    </span>
+                    <section
+                      class="text-block"
+                    >
+                      value2
+                      <button
+                        aria-controls="4"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="4"
+                      />
+                    </section>
+                  </section>
+                  <h3>
+                    Absorption
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    Abs(max) = ~10nm
+                  </section>
+                  <section
+                    class="text-block"
+                  >
+                    <section
+                      class="text-block"
+                    >
+                      value1
+                      <button
+                        aria-controls="5"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="5"
+                      />
+                    </section>
+                    <button
+                      aria-controls="6"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="6"
+                    />
+                  </section>
+                  <h3>
+                    Kinetics
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <ul
+                      class="no-bullet"
+                    >
+                      <li>
+                        K
+                        <sub>
+                          M
+                        </sub>
+                        =2.0999999046325684uM for sub1 
+                        <button
+                          aria-controls="7"
+                          aria-expanded="false"
+                          class="evidence-tag svg-colour-reviewed"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                            title=""
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="7"
+                        />
+                      </li>
+                    </ul>
+                  </section>
+                  <section
+                    class="text-block"
+                  >
+                    <section
+                      class="text-block"
+                    >
+                      value1
+                      <button
+                        aria-controls="8"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-reviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="8"
+                      />
+                    </section>
+                  </section>
+                  <h3>
+                    pH Dependence
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    value1
+                    <button
+                      aria-controls="9"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="9"
+                    />
+                  </section>
+                  <h3>
+                    Redox Potential
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    value1
+                    <button
+                      aria-controls="10"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="10"
+                    />
+                  </section>
+                  <h3>
+                    Temperature Dependence
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    value1
+                    <button
+                      aria-controls="11"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-reviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="11"
+                    />
+                  </section>
+                  <div
+                    class="GoRibbon"
+                  >
+                    <h3>
+                      GO Annotations
+                    </h3>
+                  </div>
+                  <h3>
+                    Enzyme and pathway databases
+                  </h3>
+                  <ul
+                    class="info-list info-list--columns"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            ENZYME
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                class="external-link"
+                                href="https://enzyme.expasy.org/EC/1.2.3.4"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Search...
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                                
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="names-and-taxonomy"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Names & Taxonomy
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <h3>
+                    Protein names
+                  </h3>
+                  <ul
+                    class="info-list"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Recommended name
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          rec full Name 
+                          <button
+                            aria-controls="12"
+                            aria-expanded="false"
+                            class="evidence-tag svg-colour-reviewed"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                              title=""
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="12"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            EC number
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          1.2.3.4 
+                          <button
+                            aria-controls="13"
+                            aria-expanded="false"
+                            class="evidence-tag svg-colour-reviewed"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                              title=""
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="13"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Short names
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          recommended short name 
+                          <button
+                            aria-controls="14"
+                            aria-expanded="false"
+                            class="evidence-tag svg-colour-reviewed"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                              title=""
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="14"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Alternative names
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              a full alt Name 
+                              <button
+                                aria-controls="15"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-reviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="15"
+                              />
+                               (short alt name1 
+                              <button
+                                aria-controls="16"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-reviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="16"
+                              />
+                              ) 
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Cleaved into 1 chains
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              containsrec full Name (containsrecommended short name)  
+                              <strong>
+                                Alternative names: 
+                              </strong>
+                              containsa full alt Name (containsshort alt name1) 
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Submission names
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              sub full Name 
+                              <button
+                                aria-controls="17"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-reviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="17"
+                              />
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Biotech name
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          biotech 
+                          <button
+                            aria-controls="18"
+                            aria-expanded="false"
+                            class="evidence-tag svg-colour-reviewed"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                              title=""
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="18"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            CD Antigen Name
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        />
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            INN Name
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        />
+                      </div>
+                    </li>
+                  </ul>
+                  <h3>
+                    Gene names
+                  </h3>
+                  <ul
+                    class="expandable-list no-bullet"
+                  >
+                    <li>
+                      <ul
+                        class="info-list"
+                      >
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title"
+                            >
+                              <h5
+                                class="bold"
+                              >
+                                Name
+                              </h5>
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some Gene 
+                              <button
+                                aria-controls="19"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-unreviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="19"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title"
+                            >
+                              <h5
+                                class="bold"
+                              >
+                                Synonyms
+                              </h5>
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some Syn 
+                              <button
+                                aria-controls="20"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-unreviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="20"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title"
+                            >
+                              <h5
+                                class="bold"
+                              >
+                                ORF names
+                              </h5>
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some orf 
+                              <button
+                                aria-controls="21"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-reviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 publication
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="21"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="decorated-list-item"
+                          >
+                            <div
+                              class="decorated-list-item__title"
+                            >
+                              <h5
+                                class="bold"
+                              >
+                                Ordered locus names
+                              </h5>
+                            </div>
+                            <div
+                              class="decorated-list-item__content"
+                            >
+                              some locus 
+                              <button
+                                aria-controls="22"
+                                aria-expanded="false"
+                                class="evidence-tag svg-colour-unreviewed"
+                                data-testid="evidence-tag-trigger"
+                                type="button"
+                              >
+                                <test-file-stub
+                                  height="12"
+                                  width="12"
+                                />
+                                <span
+                                  class="evidence-tag__label"
+                                  title=""
+                                >
+                                  1 automatic annotation
+                                </span>
+                              </button>
+                              <div
+                                class="evidence-tag-content "
+                                data-testid="evidence-tag-content"
+                                id="22"
+                              />
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <h3>
+                    Organism names
+                  </h3>
+                  <ul
+                    class="info-list"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Organism
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <a
+                            href="/taxonomy/9606"
+                          >
+                            scientific name (common name)
+                          </a>
+                          <button
+                            aria-controls="23"
+                            aria-expanded="false"
+                            class="evidence-tag svg-colour-unreviewed"
+                            data-testid="evidence-tag-trigger"
+                            type="button"
+                          >
+                            <test-file-stub
+                              height="12"
+                              width="12"
+                            />
+                            <span
+                              class="evidence-tag__label"
+                              title=""
+                            >
+                              1 automatic annotation
+                            </span>
+                          </button>
+                          <div
+                            class="evidence-tag-content "
+                            data-testid="evidence-tag-content"
+                            id="23"
+                          />
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Taxonomic identifier
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <a
+                            href="/taxonomy/9606"
+                          >
+                            9606 
+                          </a>
+                          <a
+                            class="external-link"
+                            href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            NCBI
+                            <test-file-stub
+                              width="12.5"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Taxonomic lineage
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          lineage 1
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Virus hosts
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <p>
+                            <a
+                              href="/taxonomy/9606"
+                            >
+                              scientific name (common name)  (synonyms 1)
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <h3>
+                    Accessions
+                  </h3>
+                  <ul
+                    class="info-list"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Primary accession
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          P21802
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Secondary accessions
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              P21802
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <h3>
+                    Proteome
+                  </h3>
+                  <ul
+                    class="expandable-list no-bullet"
+                  />
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="subcellular-location"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Subcellular Location
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <section
+                    class="text-block"
+                  >
+                    <h3>
+                      molecule value
+                    </h3>
+                    <div>
+                      <strong>
+                        location value
+                      </strong>
+                       
+                      <button
+                        aria-controls="24"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="24"
+                      />
+                      : topology value 
+                      <button
+                        aria-controls="25"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="25"
+                      />
+                    </div>
+                    <section
+                      class="text-block"
+                    >
+                      value
+                      <button
+                        aria-controls="26"
+                        aria-expanded="false"
+                        class="evidence-tag svg-colour-unreviewed"
+                        data-testid="evidence-tag-trigger"
+                        type="button"
+                      >
+                        <test-file-stub
+                          height="12"
+                          width="12"
+                        />
+                        <span
+                          class="evidence-tag__label"
+                          title=""
+                        >
+                          1 automatic annotation
+                        </span>
+                      </button>
+                      <div
+                        class="evidence-tag-content "
+                        data-testid="evidence-tag-content"
+                        id="26"
+                      />
+                    </section>
+                  </section>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="disease-and-drugs"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Disease & Drugs
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <h3>
+                    Involvement in disease
+                  </h3>
+                  <h3>
+                    DiseaseEntry Id (someAcron)
+                  </h3>
+                  <span
+                    class="text-block"
+                  >
+                    <button
+                      aria-controls="27"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="27"
+                    />
+                  </span>
+                  <ul
+                    class="info-list"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Note
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              value2
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Description
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          some description
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            See also
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <a
+                            class="external-link"
+                            href="https://www.omim.org/entry/3124"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            3124
+                            <test-file-stub
+                              width="12.5"
+                            />
+                          </a>
+                            
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <h3
+                    style="text-transform: capitalize;"
+                  >
+                    disruption phenotype
+                  </h3>
+                  <h5>
+                    Isoform 4
+                  </h5>
+                  <section
+                    class="text-block"
+                  >
+                    value
+                    <button
+                      aria-controls="28"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="28"
+                    />
+                  </section>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="ptm-processing"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    PTM/Processing
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <h3>
+                    Features
+                  </h3>
+                  <p>
+                    Showing features for chain.
+                  </p>
+                  <protvista-manager
+                    attributes="highlight displaystart displayend selectedid"
+                  >
+                    <protvista-navigation
+                      length="10"
+                    />
+                    <protvista-track
+                      layout="non-overlapping"
+                      length="10"
+                    />
+                    <protvista-sequence
+                      height="20"
+                      length="10"
+                      sequence="SAPSQDFMRF"
+                    />
+                    <protvista-datatable
+                      filter-scroll="true"
+                    />
+                    <div
+                      class="evidence-tag-content false"
+                    />
+                  </protvista-manager>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="interaction"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Interaction
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <interaction-viewer
+                    accession="P21802"
+                  />
+                  <protvista-datatable
+                    filter-scroll="true"
+                  />
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="structure"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Structure
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <h3>
+                    3D structure databases
+                  </h3>
+                  <ul
+                    class="info-list info-list--columns"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            ModBase
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                class="external-link"
+                                href="http://salilab.org/modbase-cgi/model_search.cgi?searchkw=name&kword=P21802"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Search...
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                                
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            SWISS-MODEL-Workspace
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                class="external-link"
+                                href="https://swissmodel.expasy.org/interactive/?ac=P21802"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Submit a new modelling project...
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                                
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="family-and-domains"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Family & Domains
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <h3>
+                    Keywords
+                  </h3>
+                  <ul
+                    class="info-list"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Domain
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                href="/keywords/KW-11111"
+                              >
+                                 #keyword value
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <h3>
+                    Family and domain databases
+                  </h3>
+                  <ul
+                    class="info-list info-list--columns"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            MobiDB
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                class="external-link"
+                                href="http://mobidb.bio.unipd.it/entries/P21802"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Search...
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                                
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            ProtoNet
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                class="external-link"
+                                href="http://www.protonet.cs.huji.ac.il/sp.php?prot=P21802"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                Search...
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                                
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            data-entry-section="true"
+            id="sequence"
+          >
+            <section
+              class="card"
+            >
+              <div>
+                <div
+                  class="card__header"
+                >
+                  <h2
+                    class="card__title"
+                  >
+                    Sequence
+                  </h2>
+                </div>
+                <div
+                  class="card__content"
+                >
+                  <div
+                    class="button-group"
+                  >
+                    <button
+                      class="button tertiary"
+                      title="Run a BLAST job against isoID1"
+                      type="button"
+                    >
+                      BLAST 1 isoform
+                    </button>
+                    <button
+                      class="button tertiary disabled"
+                      disabled=""
+                      title="Select at least 2 entries to run an Align job"
+                      type="button"
+                    >
+                      Align
+                    </button>
+                  </div>
+                  <ul
+                    class="info-list info-list--columns"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Sequence status
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          Fragment
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <p>
+                    This entry describes 
+                    <strong>
+                      1
+                    </strong>
+                     isoforms produced by 
+                    <strong>
+                      Alternative initiation
+                    </strong>
+                    .
+                  </p>
+                  <p>
+                    value1
+                  </p>
+                  <hr />
+                  <h3
+                    id="isoID1"
+                  >
+                    isoID1
+                  </h3>
+                  <ul
+                    class="info-list info-list--columns"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item decorated-list-item--compact"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Name
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          name
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item decorated-list-item--compact"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Synonyms
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          syn value
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        class="decorated-list-item decorated-list-item--compact"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Note
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          value1
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                  <button
+                    class="button secondary"
+                    type="button"
+                  >
+                    Show sequence 
+                  </button>
+                  <h3>
+                    Sequence caution
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    The sequence 
+                    <a
+                      class="external-link"
+                      href="//www.ebi.ac.uk/ena/data/view/sequence"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      sequence
+                      <test-file-stub
+                        width="12.5"
+                      />
+                    </a>
+                     differs from that shown. Reason: Erroneous initiation Text note
+                    <button
+                      aria-controls="29"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="29"
+                    />
+                  </section>
+                  <h3>
+                    Mass Spectrometry
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <h3>
+                      isoform 1
+                    </h3>
+                    Molecular mass is 2.1 Da. Determined by LSI. note value
+                    <button
+                      aria-controls="30"
+                      aria-expanded="false"
+                      class="evidence-tag svg-colour-unreviewed"
+                      data-testid="evidence-tag-trigger"
+                      type="button"
+                    >
+                      <test-file-stub
+                        height="12"
+                        width="12"
+                      />
+                      <span
+                        class="evidence-tag__label"
+                        title=""
+                      >
+                        1 automatic annotation
+                      </span>
+                    </button>
+                    <div
+                      class="evidence-tag-content "
+                      data-testid="evidence-tag-content"
+                      id="30"
+                    />
+                  </section>
+                  <h3>
+                    RNA Editing
+                  </h3>
+                  <section
+                    class="text-block"
+                  >
+                    <div>
+                      Edited at positions 
+                      <span>
+                        rna position 
+                        <button
+                          aria-controls="31"
+                          aria-expanded="false"
+                          class="evidence-tag svg-colour-unreviewed"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                            title=""
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="31"
+                        />
+                      </span>
+                    </div>
+                    <div>
+                      <span>
+                        value 
+                        <button
+                          aria-controls="32"
+                          aria-expanded="false"
+                          class="evidence-tag svg-colour-unreviewed"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                            title=""
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="32"
+                        />
+                      </span>
+                    </div>
+                  </section>
+                  <h3>
+                    Genome annotation databases
+                  </h3>
+                  <ul
+                    class="info-list info-list--columns"
+                  >
+                    <li>
+                      <div
+                        class="decorated-list-item"
+                      >
+                        <div
+                          class="decorated-list-item__title"
+                        >
+                          <h5
+                            class="bold"
+                          >
+                            Ensembl
+                          </h5>
+                        </div>
+                        <div
+                          class="decorated-list-item__content"
+                        >
+                          <ul
+                            class="expandable-list no-bullet"
+                          >
+                            <li>
+                              <a
+                                class="external-link"
+                                href="https://www.ensembl.org/id/id value"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                id value
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                               
+                              <a
+                                class="external-link"
+                                href="https://www.ensembl.org/id/description value"
+                                rel="noopener"
+                                target="_blank"
+                              >
+                                description value
+                                <test-file-stub
+                                  width="12.5"
+                                />
+                              </a>
+                               [
+                              <a
+                                href="#Q9NXB0-1"
+                              >
+                                Q9NXB0-1
+                              </a>
+                              ]
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div
+            class="message message--failure"
+            role="status"
+          >
+            <div
+              class="message__side-border"
+            />
+            <test-file-stub
+              height="1.125em"
+              width="1.125em"
+            />
+            <section
+              class="message__content"
+            >
+              <small>
+                Request failed with status code 404
+              </small>
+            </section>
+          </div>
+          <div
+            class="hero-container hero-container--side-padding"
+          >
+            <em>
+              Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
+            </em>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
