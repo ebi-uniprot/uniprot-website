@@ -301,10 +301,10 @@ exports[`Entry should render main 1`] = `
             data-entry-section="true"
             id="function"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -723,17 +723,17 @@ exports[`Entry should render main 1`] = `
                     </li>
                   </ul>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="names-and-taxonomy"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -1494,17 +1494,17 @@ exports[`Entry should render main 1`] = `
                     class="expandable-list no-bullet"
                   />
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="subcellular-location"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -1606,17 +1606,17 @@ exports[`Entry should render main 1`] = `
                     </section>
                   </section>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="disease-and-drugs"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -1780,17 +1780,17 @@ exports[`Entry should render main 1`] = `
                     />
                   </section>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="ptm-processing"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -1832,17 +1832,17 @@ exports[`Entry should render main 1`] = `
                     />
                   </protvista-manager>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="interaction"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -1862,17 +1862,17 @@ exports[`Entry should render main 1`] = `
                     filter-scroll="true"
                   />
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="structure"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -1967,17 +1967,17 @@ exports[`Entry should render main 1`] = `
                     </li>
                   </ul>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="family-and-domains"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -2109,17 +2109,17 @@ exports[`Entry should render main 1`] = `
                     </li>
                   </ul>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             data-entry-section="true"
             id="sequence"
           >
-            <div
+            <section
               class="card"
             >
-              <section>
+              <div>
                 <div
                   class="card__header"
                 >
@@ -2469,8 +2469,8 @@ exports[`Entry should render main 1`] = `
                     </li>
                   </ul>
                 </div>
-              </section>
-            </div>
+              </div>
+            </section>
           </div>
           <div
             class="message message--failure"

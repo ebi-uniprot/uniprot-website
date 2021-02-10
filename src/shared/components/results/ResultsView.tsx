@@ -146,12 +146,12 @@ type ColumnDescriptor = {
 };
 const getColumnsToDisplay = (
   namespace: Namespace,
-  columns: Column[],
+  columns: Column[] | undefined,
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,
   sortDirection: SortDirection
 ): ColumnDescriptor[] =>
-  columns.map((columnName) => {
+  columns?.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
     if (columnConfig) {
       const columnDescriptor = {
@@ -180,7 +180,7 @@ const getColumnsToDisplay = (
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: Column[];
+  columns: Column[] | undefined;
   viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
   sortableColumnToSortColumn: Map<Column, string>;
@@ -199,7 +199,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     // will set it *after* the current render
     prevNamespace.current = namespace;
   });
-  const prevColumns = useRef<Column[]>(columns);
+  const prevColumns = useRef<Column[] | undefined>(columns);
   useEffect(() => {
     // will set it *after* the current render
     prevColumns.current = columns;

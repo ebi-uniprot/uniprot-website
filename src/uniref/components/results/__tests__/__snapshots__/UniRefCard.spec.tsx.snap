@@ -2,10 +2,10 @@
 
 exports[`UniRefCard tests should render and match snapshot 1`] = `
 <DocumentFragment>
-  <div
+  <section
     class="card"
   >
-    <section
+    <div
       class="card--has-hover"
       role="button"
       tabindex="0"
@@ -65,7 +65,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
           </section>
         </section>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </DocumentFragment>
 `;

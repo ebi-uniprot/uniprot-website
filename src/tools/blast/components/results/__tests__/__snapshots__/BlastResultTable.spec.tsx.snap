@@ -55,6 +55,7 @@ exports[`BlastResultTable tests should render the results table 1`] = `
           <td>
             <input
               aria-label="U6MKN0"
+              data-id="U6MKN0"
               type="checkbox"
             />
           </td>

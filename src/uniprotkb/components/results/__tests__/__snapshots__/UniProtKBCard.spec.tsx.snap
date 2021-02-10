@@ -2,10 +2,10 @@
 
 exports[`UniProtKBCard component should render 1`] = `
 <DocumentFragment>
-  <div
+  <section
     class="card"
   >
-    <section
+    <div
       class="card--has-hover"
       role="button"
       tabindex="0"
@@ -92,47 +92,35 @@ exports[`UniProtKBCard component should render 1`] = `
           </section>
         </section>
       </div>
-    </section>
-    <section
+    </div>
+    <div
       class="card__actions"
     >
-      <span
+      <a
         class="card__link"
+        href="/uniprotkb/P21802#sequence"
       >
-        <a
-          href="/uniprotkb/P21802#sequence"
-        >
-          1 isoform
-        </a>
-      </span>
-      <span
-        class="card__link card__link--separator"
+        1 isoform
+      </a>
+      <a
+        class="card__link"
+        href="/uniprotkb/P21802#interaction"
       >
-        <a
-          href="/uniprotkb/P21802#interaction"
-        >
-          2 interactions
-        </a>
-      </span>
-      <span
-        class="card__link card__link--separator"
+        2 interactions
+      </a>
+      <a
+        class="card__link"
+        href="/uniprotkb/P21802#phenotypes"
       >
-        <a
-          href="/uniprotkb/P21802#phenotypes"
-        >
-          1 disease
-        </a>
-      </span>
-      <span
-        class="card__link card__link--separator"
+        1 disease
+      </a>
+      <a
+        class="card__link"
+        href="/uniprotkb/P21802/publications"
       >
-        <a
-          href="/uniprotkb/P21802/publications"
-        >
-          7 reviewed publications
-        </a>
-      </span>
-    </section>
-  </div>
+        7 reviewed publications
+      </a>
+    </div>
+  </section>
 </DocumentFragment>
 `;
