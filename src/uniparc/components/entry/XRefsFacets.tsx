@@ -16,7 +16,7 @@ import {
   databaseToEntryType,
 } from '../../adapters/uniParcConverter';
 import { FacetValue } from '../../../uniprotkb/types/responseTypes';
-import { Taxonomy } from '../../../proteomes/adapters/proteomesConverter';
+import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 
 // Max number of items that we can ask the API for in one request
 const ITEMS_DISPLAYED = 5;
@@ -65,9 +65,9 @@ const XRefsFacets: FC<{ xrefs?: UniParcXRef[] }> = ({ xrefs }) => {
     return [facetValues, priorityURL, extraURL];
   }, [xrefs]);
 
-  const priorityData = useDataApi<{ results: Taxonomy[] }>(priorityURL);
+  const priorityData = useDataApi<{ results: OrganismData[] }>(priorityURL);
   // wait for the priority to have finished before loading the rest
-  const extraData = useDataApi<{ results: Taxonomy[] }>(
+  const extraData = useDataApi<{ results: OrganismData[] }>(
     priorityData.loading ? undefined : extraURL
   );
 

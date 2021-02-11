@@ -11,6 +11,7 @@ import AccessionView from '../components/AccessionView';
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
+import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -57,16 +58,17 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   label: 'Organism ID',
-  render: ({ taxonomy }) => (
-    <Link to={getEntryPath(Namespace.taxonomy, taxonomy.taxonId)}>
-      {taxonomy.taxonId}
-    </Link>
-  ),
+  render: ({ taxonomy }) =>
+    taxonomy.taxonId && (
+      <Link to={getEntryPath(Namespace.taxonomy, taxonomy.taxonId)}>
+        {taxonomy.taxonId}
+      </Link>
+    ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   label: 'Organism',
-  render: ({ taxonomy }) => taxonomy.scientificName,
+  render: ({ taxonomy }) => <OrganismDataView organism={taxonomy} />,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {

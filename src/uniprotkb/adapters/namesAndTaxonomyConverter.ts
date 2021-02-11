@@ -41,6 +41,7 @@ export type OrganismData = {
   taxonId?: number;
   evidences?: Evidence[];
   lineage?: string[];
+  mnemonic?: string;
 };
 
 export type NamesAndTaxonomyUIModel = {
