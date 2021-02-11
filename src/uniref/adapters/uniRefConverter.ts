@@ -1,4 +1,5 @@
 import { Sequence } from '../../shared/types/sequence';
+import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 import EntrySection from '../types/entrySection';
 
@@ -47,8 +48,7 @@ export type RepresentativeMember = UniRefMember & {
 };
 
 export type UniRefLiteAPIModel = {
-  commonTaxonId: number;
-  commonTaxon: string;
+  commonTaxon: OrganismData;
   goTerms: GeneOntologyEntry[];
   memberCount: number;
   entryType: UniRefEntryType;
@@ -58,12 +58,11 @@ export type UniRefLiteAPIModel = {
   sequence: string;
   sequenceLength: number;
   organismCount: number;
-  representativeId: string;
+  representativeMember: RepresentativeMember;
   seedId: string;
   memberIdTypes?: EntryType[];
   members: string[];
-  organismIds: number[];
-  organisms: string[];
+  organisms: OrganismData[];
 };
 
 export type UniRefAPIModel = {

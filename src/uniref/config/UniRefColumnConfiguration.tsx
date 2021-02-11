@@ -1,13 +1,14 @@
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 
-import { getEntryPath } from '../../app/config/urls';
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
+import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 
 export enum UniRefColumn {
   id = 'id',
@@ -45,6 +46,14 @@ export const UniRefColumnConfiguration = new Map<
   }
 >();
 
+export const TaxonView: FC<{ organism: OrganismData }> = ({ organism }) =>
+  organism.taxonId ? (
+    <Link to={getEntryPath(Namespace.taxonomy, organism.taxonId)}>
+      {organism.scientificName}
+      {organism.commonName && ` (${organism.commonName})`}
+    </Link>
+  ) : null;
+
 const CUT_OFF = 5;
 
 UniRefColumnConfiguration.set(UniRefColumn.id, {
@@ -64,25 +73,24 @@ UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
   label: 'Common taxon ID',
-  render: ({ commonTaxonId }) => (
-    <Link to={getEntryPath(Namespace.taxonomy, commonTaxonId)}>
-      {commonTaxonId}
-    </Link>
-  ),
+  render: ({ commonTaxon }) =>
+    commonTaxon.taxonId && (
+      <Link to={getEntryPath(Namespace.taxonomy, commonTaxon.taxonId)}>
+        {commonTaxon.taxonId}
+      </Link>
+    ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
-  render: ({ organismIds, id }) => (
+  render: ({ organisms, id }) => (
     <ul className="no-bullet">
-      {organismIds?.slice(0, CUT_OFF).map((organismId) => (
-        <li key={organismId}>
-          <Link to={getEntryPath(Namespace.taxonomy, organismId)}>
-            {organismId}
-          </Link>
+      {organisms?.slice(0, CUT_OFF).map((organism) => (
+        <li key={organism.taxonId}>
+          <TaxonView organism={organism} />
         </li>
       ))}
-      {organismIds.length > CUT_OFF && (
+      {organisms.length > CUT_OFF && (
         <Button
           element={Link}
           variant="tertiary"
@@ -100,7 +108,9 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
   render: ({ organisms, id }) => (
     <ul className="no-bullet">
       {organisms?.slice(0, CUT_OFF).map((organism) => (
-        <li key={organism}>{organism}</li>
+        <li key={organism.taxonId}>
+          <TaxonView organism={organism} />
+        </li>
       ))}
       {organisms.length > CUT_OFF && (
         <Button
