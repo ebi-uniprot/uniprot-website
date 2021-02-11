@@ -50,7 +50,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
@@ -189,7 +189,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/10090"
                     >
-                      Mus musculus
+                      Mus musculus (Mouse)
                     </a>
                      · 
                     <strong>
@@ -328,7 +328,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/559292"
                     >
-                      Saccharomyces cerevisiae (strain ATCC 204508 / S288c)
+                      Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
                     </a>
                      · 
                     <strong>
@@ -481,7 +481,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284812"
                     >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
                      · 
                     <strong>
@@ -620,7 +620,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/44689"
                     >
-                      Dictyostelium discoideum
+                      Dictyostelium discoideum (Slime mold)
                     </a>
                      · 
                     <strong>
@@ -740,7 +740,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284812"
                     >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
                      · 
                     <strong>
@@ -879,7 +879,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
@@ -1006,7 +1006,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/7227"
                     >
-                      Drosophila melanogaster
+                      Drosophila melanogaster (Fruit fly)
                     </a>
                      · 
                     <strong>
@@ -1114,7 +1114,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/7227"
                     >
-                      Drosophila melanogaster
+                      Drosophila melanogaster (Fruit fly)
                     </a>
                      · 
                     <strong>
@@ -1223,7 +1223,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
@@ -1325,7 +1325,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/559292"
                     >
-                      Saccharomyces cerevisiae (strain ATCC 204508 / S288c)
+                      Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
                     </a>
                      · 
                     <strong>
@@ -1474,7 +1474,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
@@ -1583,7 +1583,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
@@ -1748,7 +1748,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
@@ -1878,7 +1878,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/10090"
                     >
-                      Mus musculus
+                      Mus musculus (Mouse)
                     </a>
                      · 
                     <strong>
@@ -1987,7 +1987,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284813"
                     >
-                      Encephalitozoon cuniculi (strain GB-M1)
+                      Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite)
                     </a>
                      · 
                     <strong>
@@ -2140,7 +2140,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/10090"
                     >
-                      Mus musculus
+                      Mus musculus (Mouse)
                     </a>
                      · 
                     <strong>
@@ -2279,7 +2279,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284813"
                     >
-                      Encephalitozoon cuniculi (strain GB-M1)
+                      Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite)
                     </a>
                      · 
                     <strong>
@@ -2432,7 +2432,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/8355"
                     >
-                      Xenopus laevis
+                      Xenopus laevis (African clawed frog)
                     </a>
                      · 
                     <strong>
@@ -2571,7 +2571,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284812"
                     >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
                      · 
                     <strong>
@@ -2687,7 +2687,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/8355"
                     >
-                      Xenopus laevis
+                      Xenopus laevis (African clawed frog)
                     </a>
                      · 
                     <strong>
@@ -2826,7 +2826,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284812"
                     >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
                      · 
                     <strong>
@@ -2979,7 +2979,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/284812"
                     >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843)
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
                      · 
                     <strong>
@@ -3069,7 +3069,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/8355"
                     >
-                      Xenopus laevis
+                      Xenopus laevis (African clawed frog)
                     </a>
                      · 
                     <strong>
@@ -3208,7 +3208,7 @@ exports[`ResultsView component should render cards 1`] = `
                     <a
                       href="/taxonomy/9606"
                     >
-                      Homo sapiens
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>

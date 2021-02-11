@@ -150,7 +150,7 @@ exports[`Entry should render main 1`] = `
           <a
             href="/taxonomy/9606"
           >
-            scientific name
+            scientific name (common name)
           </a>
            · 
           <strong>

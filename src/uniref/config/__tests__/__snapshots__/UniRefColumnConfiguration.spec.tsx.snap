@@ -6,15 +6,7 @@ exports[`UniRefColumnConfiguration component should render column "common_taxon"
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `
-<DocumentFragment>
-  <a
-    href="/taxonomy/8364"
-  >
-    8364
-  </a>
-</DocumentFragment>
-`;
+exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `<DocumentFragment />`;
 
 exports[`UniRefColumnConfiguration component should render column "count": count 1`] = `
 <DocumentFragment>
@@ -115,9 +107,7 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
   <ul
     class="no-bullet"
   >
-    <li>
-      Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
-    </li>
+    <li />
   </ul>
 </DocumentFragment>
 `;
@@ -127,13 +117,7 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
   <ul
     class="no-bullet"
   >
-    <li>
-      <a
-        href="/taxonomy/8364"
-      >
-        8364
-      </a>
-    </li>
+    <li />
   </ul>
 </DocumentFragment>
 `;

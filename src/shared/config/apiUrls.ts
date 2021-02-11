@@ -16,8 +16,8 @@ import {
   fileFormatsWithColumns,
 } from './resultsDownload';
 
-export const devPrefix = 'http://wp-np2-be:8091';
-export const prodPrefix = 'https://wwwdev.ebi.ac.uk';
+export const devPrefix = 'https://wwwdev.ebi.ac.uk';
+export const prodPrefix = 'https://www.ebi.ac.uk';
 
 const apiUrls = {
   // uniprotkb query builder terms
@@ -51,7 +51,7 @@ const apiUrls = {
   ),
   // All result fields except database cross reference fields
   resultsFields: (namespace: Namespace) =>
-    joinUrl(prodPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
+    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),

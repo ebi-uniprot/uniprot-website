@@ -7,7 +7,7 @@ exports[`ProteinOverview component should render 1`] = `
     <a
       href="/taxonomy/9606"
     >
-      Homo sapiens
+      Homo sapiens (Human)
     </a>
      · 
     <strong>
