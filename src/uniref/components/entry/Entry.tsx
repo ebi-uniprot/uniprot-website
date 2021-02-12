@@ -24,7 +24,6 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -36,11 +35,17 @@ import uniRefConverter, {
 import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import apiUrls from '../../config/apiUrls';
 
 export type UnirefMembersResults = {
   facets: FacetObject[];
   results: UniRefMember[];
 };
+
+enum UniRefFacets {
+  MEMBER_ID_TYPE = 'member_id_type',
+  UNIPROT_MEMBER_ID_TYPE = 'uniprot_member_id_type',
+}
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -50,18 +55,17 @@ const Entry: FC = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.uniref.entry(accession);
+  const baseURL = apiUrls.entry(accession);
   const {
     loading,
     data,
     status,
     error,
     redirectedTo,
-    headers,
   } = useDataApi<UniRefAPIModel>(baseURL);
-  const membersData = useDataApi<UnirefMembersResults>(
-    `${baseURL}/members?facets=member_id_type,uniprot_member_id_type`
-  );
+
+  const membersUrl = apiUrls.members(accession, Object.values(UniRefFacets));
+  const membersData = useDataApi<UnirefMembersResults>(membersUrl);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;

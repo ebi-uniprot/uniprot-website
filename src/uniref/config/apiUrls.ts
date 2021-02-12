@@ -1,10 +1,20 @@
 import queryString from 'query-string';
 import joinUrl from 'url-join';
 
-export const devPrefix = 'http://wp-np2-be';
+export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
 const apiUrls = {
+  entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
+  members: (id?: string, facets?: string[]) =>
+    id &&
+    joinUrl(
+      devPrefix,
+      '/uniprot/api/uniref',
+      id,
+      'members',
+      facets ? `?facets=${facets.join(',')}` : ''
+    ),
   search: joinUrl(devPrefix, 'uniprot/api/uniref/search'),
 };
 

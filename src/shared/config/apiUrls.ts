@@ -84,10 +84,7 @@ const apiUrls = {
   taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
 
-  // TODO: move that to UniRef-specific file?
-  uniref: {
-    entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
-  },
+  // TODO: move that to UniParc-specific file?
   uniparc: {
     entry: (id?: string) =>
       id && joinUrl(devPrefix, '/uniprot/api/uniparc', id),

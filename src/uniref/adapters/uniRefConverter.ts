@@ -77,7 +77,7 @@ export type UniRefAPIModel = {
   name: string;
   id: string;
   // if 'members' is absent, it means only the representative member is member
-  members?: UniRefMember[];
+  // members?: UniRefMember[];
 };
 
 export const identityLevels = [50, 90, 100] as const;

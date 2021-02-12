@@ -28,8 +28,8 @@ import {
   UniRefMember,
   RepresentativeMember,
 } from '../../adapters/uniRefConverter';
-import apiUrls from '../../../shared/config/apiUrls';
 import { UnirefMembersResults } from './Entry';
+import apiUrls from '../../config/apiUrls';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -153,11 +153,7 @@ export const RelatedClusters = memo(
     id: string;
     // eslint-disable-next-line consistent-return
   }) => {
-    // TODO: remove this when backend has found out a way to present this
-    return null;
     const pathname = LocationToPath[Location.UniRefResults];
-    // TODO: check when backend has implemented it if "cluster" is the correct
-    // TODO: field name for that query
     const baseSearchString = `query=(cluster:${id})`;
     // "Expand" to related *lower* identity clusters, redirect to entry page
     // "List" related *higher* identity clusters
@@ -251,12 +247,11 @@ export const MembersSection: FC<Props> = ({
   identity,
   representativeMember,
 }) => {
-  const baseURL = apiUrls.uniref.entry(id);
-  const initialUrl = `${baseURL}/members`;
+  const initialUrl = apiUrls.members(id);
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const [url, setUrl] = useState<string>(initialUrl);
+  const [url, setUrl] = useState<string | undefined>(initialUrl);
   const [metadata, setMetadata] = useState<{
     total: number;
     nextUrl?: string;
@@ -308,7 +303,11 @@ export const MembersSection: FC<Props> = ({
 
   return (
     <div id={EntrySection.Members}>
-      <Card title={getEntrySectionNameAndId(EntrySection.Members).name}>
+      <Card
+        title={`${total} ${
+          getEntrySectionNameAndId(EntrySection.Members).name
+        }`}
+      >
         <div>
           <RelatedClusters identity={identity} id={id} />
         </div>
@@ -318,7 +317,7 @@ export const MembersSection: FC<Props> = ({
           <AddToBasket selectedEntries={selectedEntries} />
         </div>
         <DataTableWithLoader
-          hasMoreData={total > allResults.length}
+          hasMoreData={total > allResults.length + 1}
           onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
           columns={columns}
           data={allResults}
