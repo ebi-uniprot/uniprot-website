@@ -31,10 +31,16 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import uniRefConverter, {
   UniRefAPIModel,
+  UniRefMember,
 } from '../../adapters/uniRefConverter';
 import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+
+export type UnirefMembersResults = {
+  facets: FacetObject[];
+  results: UniRefMember[];
+};
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -53,7 +59,9 @@ const Entry: FC = () => {
     redirectedTo,
     headers,
   } = useDataApi<UniRefAPIModel>(baseURL);
-  const facetData = useDataApi<FacetObject[]>(`${baseURL}/facets`);
+  const membersData = useDataApi<UnirefMembersResults>(
+    `${baseURL}/members?facets=member_id_type,uniprot_member_id_type`
+  );
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
@@ -82,11 +90,11 @@ const Entry: FC = () => {
   return (
     <SideBarLayout
       sidebar={
-        facetData.loading ? (
+        membersData.loading ? (
           <Loader />
         ) : (
-          facetData.data && (
-            <Facets data={facetData.data} queryStringKey="filter" />
+          membersData.data && (
+            <Facets data={membersData.data.facets} queryStringKey="filter" />
           )
         )
       }
@@ -99,11 +107,14 @@ const Entry: FC = () => {
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
           </h2>
-          <Overview transformedData={transformedData} facetData={facetData} />
+          <Overview
+            transformedData={transformedData}
+            membersData={membersData}
+          />
         </ErrorBoundary>
       }
     >
-      <EntryMain transformedData={transformedData} metadata={headers} />
+      <EntryMain transformedData={transformedData} />
     </SideBarLayout>
   );
 };

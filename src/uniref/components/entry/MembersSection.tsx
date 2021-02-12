@@ -26,9 +26,10 @@ import { Namespace } from '../../../shared/types/namespaces';
 import {
   Identity,
   UniRefMember,
-  UniRefAPIModel,
   RepresentativeMember,
 } from '../../adapters/uniRefConverter';
+import apiUrls from '../../../shared/config/apiUrls';
+import { UnirefMembersResults } from './Entry';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -243,55 +244,48 @@ type Props = {
   id: string;
   identity: Identity;
   representativeMember: RepresentativeMember;
-  members?: UniRefMember[];
-  metadata?: Record<string, string>;
 };
-
-const emptyMembers: UniRefMember[] = [];
 
 export const MembersSection: FC<Props> = ({
   id,
   identity,
   representativeMember,
-  members = emptyMembers,
-  metadata: propMetadata,
 }) => {
+  const baseURL = apiUrls.uniref.entry(id);
+  const initialUrl = `${baseURL}/members`;
+
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const [url, setUrl] = useState<string>();
+  const [url, setUrl] = useState<string>(initialUrl);
   const [metadata, setMetadata] = useState<{
     total: number;
     nextUrl?: string;
   }>(() => ({
-    total: +(propMetadata?.['x-totalrecords'] || 1),
-    nextUrl: getNextURLFromHeaders(propMetadata),
+    total: 0,
+    nextUrl: undefined,
   }));
   usePrefetch(metadata.nextUrl);
-  const [allResults, setAllResults] = useState(() => [
+  const [allResults, setAllResults] = useState<UniRefMember[]>(() => [
     representativeMember,
-    ...members,
   ]);
 
-  const { data, headers, loading } = useDataApi<UniRefAPIModel>(url);
+  const { data, headers, loading } = useDataApi<UnirefMembersResults>(url);
 
   // reset everything when it looks like we changed entry
   useEffect(() => {
-    setUrl(undefined);
-    setMetadata({
-      total: +(propMetadata?.['x-totalrecords'] || 1),
-      nextUrl: getNextURLFromHeaders(propMetadata),
-    });
-    setAllResults([representativeMember, ...members]);
-  }, [members, propMetadata, representativeMember]);
+    setAllResults([]);
+    setMetadata({ total: 0, nextUrl: undefined });
+    setUrl(initialUrl);
+  }, [initialUrl]);
 
   useEffect(() => {
     if (!data) {
       return;
     }
-    const { members = [] } = data;
-    setAllResults((allMembers) => [...allMembers, ...members]);
+    const { results } = data;
+    setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
-      total: +(headers?.['x-totalrecords'] || 1),
+      total: +(headers?.['x-totalrecords'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);

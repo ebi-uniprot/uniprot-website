@@ -17,9 +17,9 @@ import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
-import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import './styles/overview.scss';
+import { UnirefMembersResults } from '../entry/Entry';
 
 enum MemberTypes {
   Reviewed = 'uniprotkb_reviewed_swissprot',
@@ -27,11 +27,11 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-type FacetData = UseDataAPIState<FacetObject[]>;
-type MemberIconsProps = { facetData: FacetData; id: string };
+type MembersData = UseDataAPIState<UnirefMembersResults>;
+type MemberIconsProps = { membersData: MembersData; id: string };
 
-export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
-  if (facetData.loading) {
+export const MemberIcons: FC<MemberIconsProps> = ({ membersData, id }) => {
+  if (membersData.loading) {
     return (
       <span className="member-icons">
         <SpinnerIcon className="member-icons" />
@@ -39,7 +39,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
     );
   }
 
-  const uniProtKBFacetValues = facetData.data?.find(
+  const uniProtKBFacetValues = membersData.data?.facets.find(
     (f) => f?.name === 'uniprot_member_id_type'
   )?.values;
   const uniProtReviewedCount = uniProtKBFacetValues?.find(
@@ -48,8 +48,8 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
   const uniProtUnreviewedCount = uniProtKBFacetValues?.find(
     (fv) => fv.value === MemberTypes.Unreviewed
   )?.count;
-  const uniParcCount = facetData.data
-    ?.find((f) => f?.name === 'member_id_type')
+  const uniParcCount = membersData.data?.facets
+    .find((f) => f?.name === 'member_id_type')
     ?.values.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
   const pathname = getEntryPath(Namespace.uniref, id);
@@ -124,12 +124,12 @@ export const Updated: FC<{ updated: string }> = ({ updated }) => {
 };
 
 export const Overview: FC<{
-  facetData: FacetData;
+  membersData: MembersData;
   transformedData: UniRefUIModel;
-}> = ({ transformedData, facetData }) => (
+}> = ({ transformedData, membersData }) => (
   <section>
     {transformedData.name} ·{' '}
-    <MemberIcons facetData={facetData} id={transformedData.id} /> ·{' '}
+    <MemberIcons membersData={membersData} id={transformedData.id} /> ·{' '}
     <Updated updated={transformedData.updated} /> ·{' '}
     <Seed seedId={transformedData.seedId} />
   </section>
