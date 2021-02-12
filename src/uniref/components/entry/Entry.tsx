@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 import {
   Facets,
   Loader,
@@ -36,6 +36,7 @@ import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 import apiUrls from '../../config/apiUrls';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 export type UnirefMembersResults = {
   facets: FacetObject[];
@@ -64,7 +65,17 @@ const Entry: FC = () => {
     redirectedTo,
   } = useDataApi<UniRefAPIModel>(baseURL);
 
-  const membersUrl = apiUrls.members(accession, Object.values(UniRefFacets));
+  const { search } = useLocation();
+  const { selectedFacets } = getParamsFromURL(search);
+
+  const selectedFacetsStrings = selectedFacets.map(
+    (facet) => `${facet.name}:${facet.value}`
+  );
+
+  const membersUrl = apiUrls.members(accession, {
+    facets: Object.values(UniRefFacets),
+    selectedFacets: selectedFacetsStrings,
+  });
   const membersData = useDataApi<UnirefMembersResults>(membersUrl);
 
   if (error || !accession) {
@@ -98,7 +109,7 @@ const Entry: FC = () => {
           <Loader />
         ) : (
           membersData.data && (
-            <Facets data={membersData.data.facets} queryStringKey="filter" />
+            <Facets data={membersData.data.facets} queryStringKey="facets" />
           )
         )
       }

@@ -1,5 +1,5 @@
 import { memo, useCallback, useState, useEffect, FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
@@ -30,6 +30,7 @@ import {
 } from '../../adapters/uniRefConverter';
 import { UnirefMembersResults } from './Entry';
 import apiUrls from '../../config/apiUrls';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -247,7 +248,14 @@ export const MembersSection: FC<Props> = ({
   identity,
   representativeMember,
 }) => {
-  const initialUrl = apiUrls.members(id);
+  const { search } = useLocation();
+  const { selectedFacets } = getParamsFromURL(search);
+
+  const initialUrl = apiUrls.members(id, {
+    selectedFacets: selectedFacets.map(
+      (facet) => `${facet.name}:${facet.value}`
+    ),
+  });
 
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
