@@ -404,17 +404,16 @@ const BlastResultTable: FC<{
   }
 
   return (
-    <div className={loading ? 'loading-data-table' : undefined}>
-      <DataTable
-        getIdKey={({ hit_acc }) => hit_acc}
-        density="compact"
-        columns={columns}
-        data={hitsRef.current.slice(0, nItemsToRender)}
-        selected={selectedEntries}
-        onSelectRow={handleSelectedEntries}
-        fixedLayout
-      />
-    </div>
+    <DataTable
+      className={loading ? 'loading-data-table' : undefined}
+      getIdKey={({ hit_acc }) => hit_acc}
+      density="compact"
+      columns={columns}
+      data={hitsRef.current.slice(0, nItemsToRender)}
+      selected={selectedEntries}
+      onSelectRow={handleSelectedEntries}
+      fixedLayout
+    />
   );
 };
 
