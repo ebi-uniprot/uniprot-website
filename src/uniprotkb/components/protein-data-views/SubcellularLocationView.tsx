@@ -98,33 +98,34 @@ const SubcellularLocationView: FC<{
     }
   }, [comments, lineage, taxonId]);
 
-  const setInPicture = (e) => {
-    if (e !== null) {
-      const t = e.parentElement;
-      if (t.nodeName === 'LI') {
-        t.classList.add('inpicture');
-      } else {
-        e.classList.add('inpicture');
+  const getGoTerms = (locationGroup: Element) =>
+    Array.from(locationGroup.classList.values())
+      .filter((className) => className.startsWith('GO'))
+      .map((className) => `.${className}`);
+
+  const attachTooltips = (
+    locationGroup: Element,
+    shadowRoot: ShadowRoot,
+    n,
+    i,
+    partOfShown: boolean
+  ) => {
+    const name = locationGroup.querySelector('.subcell_name')?.textContent;
+    let description = locationGroup.querySelector('.subcell_description')
+      ?.textContent;
+    if (partOfShown) {
+      // This location is a child of another child
+      const parentLocationText = locationGroup.parentElement?.querySelector(
+        '.subcell_name'
+      )?.textContent;
+      if (parentLocationText) {
+        description = `A part of the shown ${parentLocationText}. ${description}`;
       }
     }
-  };
-
-  const getGoTerms = (e) =>
-    Array.from(e.classList.values())
-      .filter((e) => e.startsWith('GO'))
-      .map((e) => `.${e}`);
-
-  const attachTooltips = (e, t, n, i, s) => {
-    const l = e.querySelector('.subcell_name').textContent;
-    let o = e.querySelector('.subcell_description').textContent;
-    if (s) {
-      o = `A part of the shown ${
-        e.parentElement.querySelector('.subcell_name').textContent
-      }.\n${o}`;
-    }
-    const r = getGoTerms(e);
-    r.push(`#${e.id}term`);
-    let c = Array.from(t.querySelectorAll(r.join(',')));
+    const goTermClassNames = getGoTerms(locationGroup);
+    goTermClassNames.push(`#${locationGroup.id}term`);
+    let c = Array.from(shadowRoot.querySelectorAll(goTermClassNames.join(',')));
+    console.log(c);
     if (n.membrane) {
       c = c.concat(n.membrane);
     }
@@ -134,45 +135,51 @@ const SubcellularLocationView: FC<{
       .filter((e) => e !== null);
 
     c.forEach((e) => {
-      setInPicture(e);
+      locationGroup.classList.add('inpicture');
     });
 
     tippy(n, {
       allowHTML: true,
-      content: `${l}<br/>${o}`,
+      content: `${name}<br/>${description}`,
       triggerTarget: d,
     });
   };
 
   useEffect(() => {
     sleep(2000).then(() => {
-      const shapes = [
-        ':scope path',
-        ':scope circle',
-        ':scope rect',
-        ':scope ellipse',
-        ':scope polygon',
-        ':scope line',
-      ].join(',');
-
-      const ce = document.querySelector('sib-swissbiopics-sl'); // n
-      const subcellularPresentElements = ce?.shadowRoot?.querySelectorAll(
-        'svg .subcell_present:not(.membrane)'
-      );
-      if (!subcellularPresentElements) {
+      const ce = document.querySelector('sib-swissbiopics-sl');
+      if (!ce?.shadowRoot) {
         return;
       }
-      for (const subcellularPresentElement of subcellularPresentElements) {
-        // e
-        const term = ce?.shadowRoot?.querySelector(
-          `#${subcellularPresentElement.id}term`
+      // This finds all subcellular location SVGs that will require a tooltip
+      const subcellularPresentsSVGs = ce?.shadowRoot?.querySelectorAll(
+        'svg .subcell_present:not(.membrane)'
+      );
+      if (!subcellularPresentsSVGs) {
+        return;
+      }
+      for (const locationGroup of subcellularPresentsSVGs) {
+        // The text location in the righthand column
+        const locationText = ce?.shadowRoot?.querySelector(
+          `#${locationGroup.id}term`
         );
-        setInPicture(term);
-        const t = subcellularPresentElement.parentElement;
-        const s = t?.querySelectorAll(shapes).values();
-        const l = s?.next().value;
-        console.log(s);
-        attachTooltips(subcellularPresentElement, ce?.shadowRoot, l, s, true);
+        if (locationText) {
+          locationText.classList.add('inpicture');
+          const shapes = [
+            ':scope path', // only matching selectors on descendants of the base element in the query
+            ':scope circle',
+            ':scope rect',
+            ':scope ellipse',
+            ':scope polygon',
+            ':scope line',
+          ].join(',');
+          const s = locationGroup.parentElement
+            ?.querySelectorAll(shapes)
+            .values();
+          const l = s?.next().value;
+
+          attachTooltips(locationGroup, ce.shadowRoot, l, s, true);
+        }
       }
     });
   });
