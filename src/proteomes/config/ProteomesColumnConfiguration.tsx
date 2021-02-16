@@ -55,12 +55,9 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   label: 'Organism ID',
-  render: ({ taxonomy }) =>
-    taxonomy.taxonId && (
-      <Link to={getEntryPath(Namespace.taxonomy, taxonomy.taxonId)}>
-        {taxonomy.taxonId}
-      </Link>
-    ),
+  render: ({ taxonomy }) => (
+    <OrganismDataView organism={taxonomy} displayOnlyID />
+  ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
