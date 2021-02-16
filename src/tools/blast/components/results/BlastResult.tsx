@@ -351,20 +351,22 @@ const BlastResult = () => {
         >
           {actionBar}
           <Suspense fallback={<Loader />}>
-            <BlastResultTable
-              loading={
-                blastLoading ||
-                (localFacetsChangedSelection && accessionsLoading)
-              }
-              data={
-                accessionsLoading && !hitsFiltered.length
-                  ? blastData
-                  : { ...blastData, hits: hitsFiltered }
-              }
-              selectedEntries={selectedEntries}
-              handleSelectedEntries={handleSelectedEntries}
-              setHspDetailPanel={setHspDetailPanel}
-            />
+            <ErrorBoundary>
+              <BlastResultTable
+                loading={
+                  blastLoading ||
+                  (localFacetsChangedSelection && accessionsLoading)
+                }
+                data={
+                  accessionsLoading && !hitsFiltered.length
+                    ? blastData
+                    : { ...blastData, hits: hitsFiltered }
+                }
+                selectedEntries={selectedEntries}
+                handleSelectedEntries={handleSelectedEntries}
+                setHspDetailPanel={setHspDetailPanel}
+              />
+            </ErrorBoundary>
           </Suspense>
         </Tab>
         <Tab

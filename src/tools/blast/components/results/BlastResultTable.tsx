@@ -292,26 +292,30 @@ const BlastResultTable: FC<{
     [data, ceDefined]
   );
 
-  const maxScorings: Partial<Record<keyof BlastHsp, number>> = useMemo(
-    () => ({
-      hsp_identity: Math.max(
-        ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.map((hsp) => hsp.hsp_identity)
-        ) ?? [100])
-      ),
-      hsp_bit_score: Math.max(
-        ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.map((hsp) => hsp.hsp_bit_score)
-        ) ?? [1])
-      ),
-      hsp_expect: Math.max(
-        ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.map((hsp) => hsp.hsp_expect)
-        ) ?? [1])
-      ),
-    }),
-    [data]
-  );
+  const maxScorings = useMemo<Partial<Record<keyof BlastHsp, number>>>(() => {
+    if (!data?.hits) {
+      return { hsp_identity: 100, hsp_bit_score: 1, hsp_expect: 1 };
+    }
+    const output = {
+      hsp_identity: -Infinity,
+      hsp_bit_score: -Infinity,
+      hsp_expect: -Infinity,
+    };
+    for (const hit of data.hits) {
+      for (const hsp of hit.hit_hsps) {
+        if (output.hsp_identity < hsp.hsp_identity) {
+          output.hsp_identity = hsp.hsp_identity;
+        }
+        if (output.hsp_bit_score < hsp.hsp_bit_score) {
+          output.hsp_bit_score = hsp.hsp_bit_score;
+        }
+        if (output.hsp_expect < hsp.hsp_expect) {
+          output.hsp_expect = hsp.hsp_expect;
+        }
+      }
+    }
+    return output;
+  }, [data]);
 
   const queryLen = data?.query_len;
   const columns = useMemo<
@@ -404,17 +408,16 @@ const BlastResultTable: FC<{
   }
 
   return (
-    <div className={loading ? 'loading-data-table' : undefined}>
-      <DataTable
-        getIdKey={({ hit_acc }) => hit_acc}
-        density="compact"
-        columns={columns}
-        data={hitsRef.current.slice(0, nItemsToRender)}
-        selected={selectedEntries}
-        onSelectRow={handleSelectedEntries}
-        fixedLayout
-      />
-    </div>
+    <DataTable
+      className={loading ? 'loading-data-table' : undefined}
+      getIdKey={({ hit_acc }) => hit_acc}
+      density="compact"
+      columns={columns}
+      data={hitsRef.current.slice(0, nItemsToRender)}
+      selected={selectedEntries}
+      onSelectRow={handleSelectedEntries}
+      fixedLayout
+    />
   );
 };
 
