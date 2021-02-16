@@ -38,9 +38,7 @@ const BlastResultSidebar: FC<BlastResultSidebarProps> = ({
   const { search } = useLocation();
   const { selectedFacets } = getParamsFromURL(search);
   const { data, loading, isStale } = useDataApiWithStale<Response['data']>(
-    // NOTE: set size to 0 when backend supports it
-    // NOTE: this is a regression, using 0 used to work before
-    getAccessionsURL(accessions, { size: 1, facets, selectedFacets })
+    getAccessionsURL(accessions, { size: 0, facets, selectedFacets })
   );
 
   if (loading && !isStale) {
