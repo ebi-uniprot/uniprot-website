@@ -30,7 +30,7 @@ export const OrganismDataView: FC<Props> = ({ organism, displayOnlyID }) => {
   return (
     <Link
       to={getEntryPath(Namespace.taxonomy, taxonId)}
-      title={`${name}, taxon ID ${taxonId}`}
+      title={`${name ? `${name}, ` : ''}taxon ID ${taxonId}`}
     >
       {displayOnlyID ? taxonId : name || taxonId}
     </Link>

@@ -84,7 +84,6 @@ const Results: FC = () => {
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns: namespace === Namespace.uniparc ? undefined : columns,
     selectedFacets,
     sortColumn,
     sortDirection,
