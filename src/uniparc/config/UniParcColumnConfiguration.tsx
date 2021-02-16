@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ExpandableList, ExternalLink } from 'franklin-sites';
 
@@ -16,6 +15,7 @@ import intlCollator from '../../shared/utils/collator';
 import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -60,13 +60,10 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = UniParcColumn.upi;
 
-export const UniParcColumnConfiguration = new Map<
+export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcColumn,
-  {
-    label: ReactNode;
-    render: (data: UniParcAPIModel) => ReactNode;
-  }
->();
+  UniParcAPIModel
+> = new Map();
 
 const genericPropertyGetter = (
   data: UniParcAPIModel,

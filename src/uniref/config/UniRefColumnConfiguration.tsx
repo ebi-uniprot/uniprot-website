@@ -1,14 +1,14 @@
-import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 
 import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
-import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum UniRefColumn {
   id = 'id',
@@ -38,13 +38,10 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = UniRefColumn.id;
 
-export const UniRefColumnConfiguration = new Map<
+export const UniRefColumnConfiguration: ColumnConfiguration<
   UniRefColumn,
-  {
-    label: ReactNode;
-    render: (data: UniRefLiteAPIModel) => ReactNode;
-  }
->();
+  UniRefLiteAPIModel
+> = new Map();
 
 const CUT_OFF = 5;
 

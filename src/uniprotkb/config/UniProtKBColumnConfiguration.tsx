@@ -75,6 +75,7 @@ import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { Xref } from '../../shared/types/apiModel';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -110,13 +111,10 @@ const getGOColumnForAspect = (aspect: GoAspect) => ({
   },
 });
 
-export const UniProtKBColumnConfiguration = new Map<
+export const UniProtKBColumnConfiguration: ColumnConfiguration<
   UniProtKBColumn,
-  {
-    label: ReactNode;
-    render: (data: UniProtkbUIModel) => ReactNode;
-  }
->();
+  UniProtkbUIModel
+> = new Map();
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   label: 'Entry',

@@ -1,17 +1,17 @@
-import { Fragment, ReactNode } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'franklin-sites';
-
-import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 import BuscoView from '../components/BuscoView';
 import BuscoLabel from '../components/BuscoLabel';
 import AccessionView from '../components/AccessionView';
+import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import { ProteomesAPIModel } from '../adapters/proteomesConverter';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -40,13 +40,10 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = ProteomesColumn.upid;
 
-export const ProteomesColumnConfiguration = new Map<
+export const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,
-  {
-    label: ReactNode;
-    render: (data: ProteomesAPIModel) => ReactNode;
-  }
->();
+  ProteomesAPIModel
+> = new Map();
 
 // COLUMN RENDERERS BELOW
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
