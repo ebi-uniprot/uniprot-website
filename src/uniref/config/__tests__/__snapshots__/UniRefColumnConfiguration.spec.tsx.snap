@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniRefColumnConfiguration component should render column "common_taxon": common_taxon 1`] = `
-<DocumentFragment>
-  Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
-</DocumentFragment>
-`;
+exports[`UniRefColumnConfiguration component should render column "common_taxon": common_taxon 1`] = `<DocumentFragment />`;
 
 exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `<DocumentFragment />`;
 
@@ -40,11 +36,7 @@ exports[`UniRefColumnConfiguration component should render column "identity": id
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "length": length 1`] = `
-<DocumentFragment>
-  483
-</DocumentFragment>
-`;
+exports[`UniRefColumnConfiguration component should render column "length": length 1`] = `<DocumentFragment />`;
 
 exports[`UniRefColumnConfiguration component should render column "members": members 1`] = `
 <DocumentFragment>
@@ -122,13 +114,7 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
 </DocumentFragment>
 `;
 
-exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
-<DocumentFragment>
-  <span
-    class="break-anywhere"
-  />
-</DocumentFragment>
-`;
+exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `<DocumentFragment />`;
 
 exports[`UniRefColumnConfiguration component should render column "types": types 1`] = `
 <DocumentFragment>

@@ -1,21 +1,23 @@
 import { Sequence } from '../../shared/types/sequence';
 import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 import EntrySection from '../types/entrySection';
 
+// TODO: move that somewhere else, probably in the shared folder
 enum GeneOntologyAspect {
   FUNCTION = 'GO Molecular Function',
   PROCESS = 'GO Biological Process',
   COMPONENT = 'GO Cellular Component',
 }
 
-export enum UniRefEntryType {
-  UniRef100 = 'UniRef100',
-  UniRef90 = 'UniRef90',
-  UniRef50 = 'UniRef50',
-}
+export type UniRefEntryType = 'UniRef100' | 'UniRef90' | 'UniRef50';
 
-export const UniRefEntryTypeToPercent = {
+export const uniRefEntryTypes: Readonly<UniRefEntryType[]> = [
+  'UniRef100',
+  'UniRef90',
+  'UniRef50',
+];
+
+export const uniRefEntryTypeToPercent: Record<UniRefEntryType, string> = {
   UniRef100: '100%',
   UniRef90: '90%',
   UniRef50: '50%',
@@ -47,6 +49,11 @@ export type RepresentativeMember = UniRefMember & {
   sequence: Sequence;
 };
 
+export type MemberIdType =
+  | 'UniProtKB Reviewed (Swiss-Prot)'
+  | 'UniProtKB Unreviewed (TrEMBL)'
+  | 'UniParc';
+
 export type UniRefLiteAPIModel = {
   commonTaxon: OrganismData;
   goTerms: GeneOntologyEntry[];
@@ -55,12 +62,14 @@ export type UniRefLiteAPIModel = {
   updated: string;
   name: string;
   id: string;
-  sequence: string;
+  // Do not rely on `sequenceLength`
   sequenceLength: number;
   organismCount: number;
-  representativeMember: RepresentativeMember;
+  representativeMember: Partial<UniRefMember> & {
+    sequence?: Partial<Sequence>;
+  };
   seedId: string;
-  memberIdTypes?: EntryType[];
+  memberIdTypes: MemberIdType[];
   members: string[];
   organisms: OrganismData[];
 };
@@ -76,8 +85,7 @@ export type UniRefAPIModel = {
   updated: string;
   name: string;
   id: string;
-  // if 'members' is absent, it means only the representative member is member
-  // members?: UniRefMember[];
+  members: UniRefMember[];
 };
 
 export const identityLevels = [50, 90, 100] as const;

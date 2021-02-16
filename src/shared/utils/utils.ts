@@ -8,8 +8,8 @@ export function removeProperty<
   return objWithoutProperty;
 }
 
-export const formatLargeNumber = (x: number) =>
-  x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export const formatLargeNumber = (x?: number | null) =>
+  Number.isFinite(x) ? `${x}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : undefined;
 
 export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
   `${n.toLocaleString('en-US', {

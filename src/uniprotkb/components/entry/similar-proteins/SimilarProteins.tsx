@@ -18,10 +18,9 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../../types/entrySection';
-
 import {
-  UniRefEntryType,
-  UniRefEntryTypeToPercent,
+  uniRefEntryTypes,
+  uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 
@@ -89,14 +88,12 @@ const SimilarProteins: FC<{
     <div id={EntrySection.SimilarProteins}>
       <Card title={nameAndId.name}>
         <Tabs>
-          {Object.values(UniRefEntryType).map(
+          {uniRefEntryTypes.map(
             (clusterType) =>
               clusterData[clusterType] && (
                 <Tab
                   id={clusterType}
-                  title={`${
-                    UniRefEntryTypeToPercent[clusterType as UniRefEntryType]
-                  } identity`}
+                  title={`${uniRefEntryTypeToPercent[clusterType]} identity`}
                   key={clusterType}
                 >
                   {Object.keys(clusterData[clusterType]).map(

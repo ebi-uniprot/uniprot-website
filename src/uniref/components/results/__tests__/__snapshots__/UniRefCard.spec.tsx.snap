@@ -37,11 +37,11 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 >
                   <test-file-stub />
                 </span>
-                UniRef100_B2R6V2
+                UniRef100_A0A0B7GQ86
               </span>
             </h5>
             <section>
-              Cluster: cDNA, FLJ93132, highly similar to Homo sapiens CDC7 cell division cycle 7 (S. cerevisiae) (CDC7), mRNA
+              Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
             </section>
             <section>
               <strong
@@ -53,7 +53,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               <span
                 class="result-card__info-bit"
               >
-                Sequence length: 574
+                Sequence length: 730
               </span>
                · 
               <span

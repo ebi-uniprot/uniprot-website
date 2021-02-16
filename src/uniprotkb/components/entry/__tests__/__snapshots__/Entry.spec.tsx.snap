@@ -149,6 +149,7 @@ exports[`Entry should render main 1`] = `
           rec full Name · 
           <a
             href="/taxonomy/9606"
+            title="scientific name (common name), taxon ID 9606"
           >
             scientific name (common name)
           </a>
@@ -1323,6 +1324,7 @@ exports[`Entry should render main 1`] = `
                         >
                           <a
                             href="/taxonomy/9606"
+                            title="scientific name (common name), taxon ID 9606"
                           >
                             scientific name (common name)
                           </a>

@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { Fragment, ReactNode } from 'react';
+import { Fragment } from 'react';
 import { ExpandableList, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 

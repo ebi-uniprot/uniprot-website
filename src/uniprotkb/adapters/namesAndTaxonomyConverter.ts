@@ -38,7 +38,7 @@ export type OrganismData = {
   scientificName?: string;
   commonName?: string;
   synonyms?: string[];
-  taxonId?: number;
+  taxonId: number;
   evidences?: Evidence[];
   lineage?: string[];
   mnemonic?: string;

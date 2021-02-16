@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button } from 'franklin-sites';
+import { Button, LongNumber, Sequence } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
@@ -14,7 +14,7 @@ export enum UniRefColumn {
   id = 'id',
   name = 'name',
   commonTaxon = 'common_taxon',
-  commonTaxonid = 'common_taxonid',
+  commonTaxonId = 'common_taxonid',
   organismId = 'organism_id',
   organism = 'organism',
   identity = 'identity',
@@ -57,17 +57,14 @@ UniRefColumnConfiguration.set(UniRefColumn.name, {
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
   label: 'Common taxon',
-  render: ({ commonTaxon }) => commonTaxon,
+  render: ({ commonTaxon }) => <OrganismDataView organism={commonTaxon} />,
 });
 
-UniRefColumnConfiguration.set(UniRefColumn.commonTaxonid, {
+UniRefColumnConfiguration.set(UniRefColumn.commonTaxonId, {
   label: 'Common taxon ID',
-  render: ({ commonTaxon }) =>
-    commonTaxon.taxonId && (
-      <Link to={getEntryPath(Namespace.taxonomy, commonTaxon.taxonId)}>
-        {commonTaxon.taxonId}
-      </Link>
-    ),
+  render: ({ commonTaxon }) => (
+    <OrganismDataView organism={commonTaxon} displayOnlyID />
+  ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
@@ -121,13 +118,22 @@ UniRefColumnConfiguration.set(UniRefColumn.identity, {
 
 UniRefColumnConfiguration.set(UniRefColumn.length, {
   label: 'Length',
-  render: ({ sequenceLength }) => sequenceLength,
+  // Do not use `sequenceLength` here as the `length` field filter removes it
+  render: ({ representativeMember }) =>
+    representativeMember?.sequence?.length ? (
+      <LongNumber>{representativeMember.sequence.length}</LongNumber>
+    ) : null,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.sequence, {
   label: 'Reference sequence',
-  // NOTE: not consistent with the way it's represented in UniProtKB column
-  render: ({ sequence }) => <span className="break-anywhere">{sequence}</span>,
+  render: ({ representativeMember }) =>
+    representativeMember?.sequence?.value ? (
+      <Sequence
+        sequence={representativeMember.sequence.value}
+        showActionBar={false}
+      />
+    ) : null,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.types, {
