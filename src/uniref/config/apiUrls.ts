@@ -1,4 +1,3 @@
-import queryString from 'query-string';
 import joinUrl from 'url-join';
 
 export const devPrefix = 'http://wp-np2-be:8091';
@@ -25,9 +24,3 @@ const apiUrls = {
 };
 
 export default apiUrls;
-
-// TODO I don't think this is used - xav
-export const getAPIQueryUrl = (query: string) =>
-  `${apiUrls.search}?${queryString.stringify({
-    query: `${query}`,
-  })}`;
