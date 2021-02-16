@@ -12,25 +12,24 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
   Location,
   LocationToPath,
   getEntryPathFor,
 } from '../../../app/config/urls';
+import apiUrls from '../../config/apiUrls';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { Namespace } from '../../../shared/types/namespaces';
-
 import {
   Identity,
   UniRefMember,
   RepresentativeMember,
 } from '../../adapters/uniRefConverter';
-import { UnirefMembersResults } from './Entry';
-import apiUrls from '../../config/apiUrls';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import { UniRefMembersResults } from '../../types/membersEndpoint';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -272,7 +271,7 @@ export const MembersSection: FC<Props> = ({
     representativeMember,
   ]);
 
-  const { data, headers, loading } = useDataApi<UnirefMembersResults>(url);
+  const { data, headers, loading } = useDataApi<UniRefMembersResults>(url);
 
   // reset everything when it looks like we changed entry
   useEffect(() => {

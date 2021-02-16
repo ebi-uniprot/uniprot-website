@@ -1,11 +1,7 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useRouteMatch } from 'react-router-dom';
-import {
-  Facets,
-  Loader,
-  // DropdownButton,
-} from 'franklin-sites';
+import { useRouteMatch } from 'react-router-dom';
+import { Loader } from 'franklin-sites';
 
 import {
   MessageLevel,
@@ -17,6 +13,7 @@ import {
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
+import MembersFacets from './MembersFacets';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -30,23 +27,10 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 
 import uniRefConverter, {
   UniRefAPIModel,
-  UniRefMember,
 } from '../../adapters/uniRefConverter';
-import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 import apiUrls from '../../config/apiUrls';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
-
-export type UnirefMembersResults = {
-  facets: FacetObject[];
-  results: UniRefMember[];
-};
-
-enum UniRefFacets {
-  MEMBER_ID_TYPE = 'member_id_type',
-  UNIPROT_MEMBER_ID_TYPE = 'uniprot_member_id_type',
-}
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -64,19 +48,6 @@ const Entry: FC = () => {
     error,
     redirectedTo,
   } = useDataApi<UniRefAPIModel>(baseURL);
-
-  const { search } = useLocation();
-  const { selectedFacets } = getParamsFromURL(search);
-
-  const selectedFacetsStrings = selectedFacets.map(
-    (facet) => `${facet.name}:${facet.value}`
-  );
-
-  const membersUrl = apiUrls.members(accession, {
-    facets: Object.values(UniRefFacets),
-    selectedFacets: selectedFacetsStrings,
-  });
-  const membersData = useDataApi<UnirefMembersResults>(membersUrl);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
@@ -104,15 +75,7 @@ const Entry: FC = () => {
 
   return (
     <SideBarLayout
-      sidebar={
-        membersData.loading ? (
-          <Loader />
-        ) : (
-          membersData.data && (
-            <Facets data={membersData.data.facets} queryStringKey="facets" />
-          )
-        )
-      }
+      sidebar={<MembersFacets accession={accession} />}
       className="entry-page"
       title={
         <ErrorBoundary>
@@ -122,10 +85,7 @@ const Entry: FC = () => {
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
           </h2>
-          <Overview
-            transformedData={transformedData}
-            membersData={membersData}
-          />
+          <Overview transformedData={transformedData} />
         </ErrorBoundary>
       }
     >
