@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { uniqBy, identity } from 'lodash-es';
 import {
   ExpandableList,
   ExternalLink,
@@ -12,6 +11,8 @@ import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
 
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
+
+import xrefGetter from '../utils/xrefGetter';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
@@ -35,7 +36,7 @@ export enum UniParcColumn {
   length = 'length',
   sequence = 'sequence',
   // Miscellaneous
-  accession = 'accession',
+  accession = 'accession', // map to UniProtKB column
   // Date of
   firstSeen = 'first_seen',
   lastSeen = 'last_seen',
@@ -69,19 +70,6 @@ export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcColumn,
   UniParcAPIModel
 > = new Map();
-
-const genericPropertyGetter = <T extends keyof UniParcXRef>(
-  data: UniParcAPIModel,
-  propertyName: T,
-  uniqueBy?: keyof Exclude<UniParcXRef[T], undefined>
-): Array<Exclude<UniParcXRef[T], undefined>> | undefined =>
-  uniqBy(
-    data.uniParcCrossReferences
-      ?.map((xref) => xref[propertyName])
-      // remove properties that were not the ones we were interested in
-      .filter((x): x is Exclude<UniParcXRef[T], undefined> => x !== undefined),
-    uniqueBy || identity
-  );
 
 const familyAndDomainRenderer = (
   db: SequenceFeature['database'],
@@ -125,7 +113,7 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
   label: 'Gene names',
   render: (data) => (
     <ExpandableList descriptionString="gene names" displayNumberOfHiddenItems>
-      {genericPropertyGetter(data, 'geneName')}
+      {xrefGetter(data, 'geneName')}
     </ExpandableList>
   ),
 });
@@ -134,7 +122,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   label: 'Organism IDs',
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
-      {genericPropertyGetter(data, 'organism', 'taxonId')?.map((taxon) => (
+      {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
         <OrganismDataView key={taxon.taxonId} organism={taxon} displayOnlyID />
       ))}
     </ExpandableList>
@@ -145,7 +133,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
   label: 'Organisms',
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
-      {genericPropertyGetter(data, 'organism', 'taxonId')?.map((taxon) => (
+      {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
         <OrganismDataView key={taxon.taxonId} organism={taxon} />
       ))}
     </ExpandableList>
@@ -159,7 +147,7 @@ UniParcColumnConfiguration.set(UniParcColumn.protein, {
       descriptionString="protein names"
       displayNumberOfHiddenItems
     >
-      {genericPropertyGetter(data, 'proteinName')}
+      {xrefGetter(data, 'proteinName')}
     </ExpandableList>
   ),
 });
@@ -168,7 +156,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
   label: 'Proteomes',
   render: (data) => (
     <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
-      {genericPropertyGetter(data, 'proteomeId')?.map((accession) => (
+      {xrefGetter(data, 'proteomeId')?.map((accession) => (
         <Link key={accession} to={getEntryPath(Namespace.proteomes, accession)}>
           {accession}
         </Link>
@@ -222,7 +210,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
 UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
   label: 'First seen',
   render(data) {
-    const created = genericPropertyGetter(data, 'created');
+    const created = xrefGetter(data, 'created');
     if (!created?.length) {
       return null;
     }
@@ -236,7 +224,7 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
 UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
   label: 'Last seen',
   render(data) {
-    const lastUpdated = genericPropertyGetter(data, 'lastUpdated');
+    const lastUpdated = xrefGetter(data, 'lastUpdated');
     if (!lastUpdated?.length) {
       return null;
     }
