@@ -37,6 +37,7 @@
 
   &__sidebar {
     @include scroll-shadow;
+    min-width: 100px;
     padding: 1rem $gutter-size 0;
     grid-area: sidebar;
     overflow-y: auto;

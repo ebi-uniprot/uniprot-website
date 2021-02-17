@@ -9,7 +9,7 @@ import {
   SetStateAction,
   ReactNode,
 } from 'react';
-import { DataTable, Chip, Loader } from 'franklin-sites';
+import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -188,17 +188,23 @@ const BlastSummaryHsps: FC<{
   setSelectedScoring,
   maxScorings,
 }) => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [restVisible, setRestVisible] = useState(0);
 
-  const hspsOrderedByScore = hsps.sort(
-    (hspA, hspB) => hspB.hsp_bit_score - hspA.hsp_bit_score
+  // "first", ordered by score
+  const [first, ...rest] = useMemo<BlastHsp[]>(
+    () =>
+      // Operate on a copy to not mutate the original data
+      Array.from(hsps).sort(
+        (hspA, hspB) => hspB.hsp_bit_score - hspA.hsp_bit_score
+      ),
+    [hsps]
   );
 
   return (
     <div className="data-table__blast-hsp">
       <div>
         <BlastSummaryTrack
-          hsp={hspsOrderedByScore[0]}
+          hsp={first}
           queryLength={queryLength}
           hitLength={hitLength}
           hitAccession={hitAccession}
@@ -208,29 +214,26 @@ const BlastSummaryHsps: FC<{
           setSelectedScoring={setSelectedScoring}
           maxScorings={maxScorings}
         />
-        {hspsOrderedByScore.length > 1 &&
-          !collapsed &&
-          hspsOrderedByScore
-            .slice(1)
-            .map((hsp) => (
-              <BlastSummaryTrack
-                hsp={hsp}
-                queryLength={queryLength}
-                hitLength={hitLength}
-                key={`hsp_${hsp.hsp_num}`}
-                hitAccession={hitAccession}
-                extra={extra}
-                setHspDetailPanel={setHspDetailPanel}
-                selectedScoring={selectedScoring}
-                setSelectedScoring={setSelectedScoring}
-                maxScorings={maxScorings}
-              />
-            ))}
+        {rest.slice(0, restVisible).map((hsp) => (
+          <BlastSummaryTrack
+            hsp={hsp}
+            queryLength={queryLength}
+            hitLength={hitLength}
+            key={`hsp_${hsp.hsp_num}`}
+            hitAccession={hitAccession}
+            extra={extra}
+            setHspDetailPanel={setHspDetailPanel}
+            selectedScoring={selectedScoring}
+            setSelectedScoring={setSelectedScoring}
+            maxScorings={maxScorings}
+          />
+        ))}
       </div>
-      {hspsOrderedByScore.length > 1 && collapsed && (
-        <button type="button" onClick={() => setCollapsed(false)}>{`+${
-          hspsOrderedByScore.length - 1
-        } more`}</button>
+      {restVisible < rest.length && (
+        <Button
+          variant="tertiary"
+          onClick={() => setRestVisible((restVisible) => restVisible + 10)}
+        >{`+${rest.length - restVisible} more`}</Button>
       )}
     </div>
   );
@@ -292,26 +295,30 @@ const BlastResultTable: FC<{
     [data, ceDefined]
   );
 
-  const maxScorings: Partial<Record<keyof BlastHsp, number>> = useMemo(
-    () => ({
-      hsp_identity: Math.max(
-        ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.map((hsp) => hsp.hsp_identity)
-        ) ?? [100])
-      ),
-      hsp_bit_score: Math.max(
-        ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.map((hsp) => hsp.hsp_bit_score)
-        ) ?? [1])
-      ),
-      hsp_expect: Math.max(
-        ...(data?.hits.flatMap((hit) =>
-          hit.hit_hsps.map((hsp) => hsp.hsp_expect)
-        ) ?? [1])
-      ),
-    }),
-    [data]
-  );
+  const maxScorings = useMemo<Partial<Record<keyof BlastHsp, number>>>(() => {
+    if (!data?.hits) {
+      return { hsp_identity: 100, hsp_bit_score: 1, hsp_expect: 1 };
+    }
+    const output = {
+      hsp_identity: -Infinity,
+      hsp_bit_score: -Infinity,
+      hsp_expect: -Infinity,
+    };
+    for (const hit of data.hits) {
+      for (const hsp of hit.hit_hsps) {
+        if (output.hsp_identity < hsp.hsp_identity) {
+          output.hsp_identity = hsp.hsp_identity;
+        }
+        if (output.hsp_bit_score < hsp.hsp_bit_score) {
+          output.hsp_bit_score = hsp.hsp_bit_score;
+        }
+        if (output.hsp_expect < hsp.hsp_expect) {
+          output.hsp_expect = hsp.hsp_expect;
+        }
+      }
+    }
+    return output;
+  }, [data]);
 
   const queryLen = data?.query_len;
   const columns = useMemo<
@@ -404,17 +411,16 @@ const BlastResultTable: FC<{
   }
 
   return (
-    <div className={loading ? 'loading-data-table' : undefined}>
-      <DataTable
-        getIdKey={({ hit_acc }) => hit_acc}
-        density="compact"
-        columns={columns}
-        data={hitsRef.current.slice(0, nItemsToRender)}
-        selected={selectedEntries}
-        onSelectRow={handleSelectedEntries}
-        fixedLayout
-      />
-    </div>
+    <DataTable
+      className={loading ? 'loading-data-table' : undefined}
+      getIdKey={({ hit_acc }) => hit_acc}
+      density="compact"
+      columns={columns}
+      data={hitsRef.current.slice(0, nItemsToRender)}
+      selected={selectedEntries}
+      onSelectRow={handleSelectedEntries}
+      fixedLayout
+    />
   );
 };
 
