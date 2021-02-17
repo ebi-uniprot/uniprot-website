@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
-
 import { sleep } from 'timing-functions';
+
 import SubcellularLocationView from './SubcellularLocationView';
 
 import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
@@ -18,10 +18,8 @@ enum Superkingdom {
 const isVirus = ([superkingdom]: string[]) =>
   superkingdom === Superkingdom.Viruses;
 
-const reSL = /SL-(\d+)/;
-
 const getSubcellularLocationId = (id: string) => {
-  const match = id.match(reSL);
+  const match = id.match(/SL-(\d+)/);
   if (match?.[1]) {
     return match[1];
   }
@@ -41,11 +39,11 @@ const getStylesContaining = (...selectors: string[]) =>
     )
     .filter(Boolean) as string[];
 
-const SubcellularLocationWithVizView: FC<{
-  comments?: SubcellularLocationComment[];
-  taxonId: OrganismData['taxonId'];
-  lineage: OrganismData['lineage'];
-}> = ({ comments, taxonId, lineage }) => {
+const SubcellularLocationWithVizView: FC<
+  {
+    comments?: SubcellularLocationComment[];
+  } & Pick<OrganismData, 'taxonId' | 'lineage'>
+> = ({ comments, taxonId, lineage }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   // TODO: injecting HTML because of the way the web component is implemented. See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
@@ -110,10 +108,10 @@ const SubcellularLocationWithVizView: FC<{
   const attachTooltips = (
     locationGroup: Element,
     shadowRoot: ShadowRoot,
-    svgs: NodeListOf<Element & { membrane?: Element }> | undefined,
+    triggerTargetSvgs: NodeListOf<Element & { membrane?: Element }> | undefined,
     partOfShown: boolean
   ) => {
-    if (!svgs?.length) {
+    if (!triggerTargetSvgs?.length) {
       return;
     }
     const name = locationGroup.querySelector('.subcell_name')?.textContent;
@@ -128,31 +126,25 @@ const SubcellularLocationWithVizView: FC<{
         description = `A part of the shown ${parentLocationText}. ${description}`;
       }
     }
-    const locationTextSelectors = getGoTermClassNames(locationGroup);
-    locationTextSelectors.push(`#${locationGroup.id}term`);
-    let locationTextElements = Array.from(
-      shadowRoot.querySelectorAll(locationTextSelectors.join(','))
+    const locationTextSelector = [
+      ...getGoTermClassNames(locationGroup),
+      `#${locationGroup.id}term`,
+    ].join(',');
+    const locationTextElements = Array.from(
+      shadowRoot.querySelectorAll(locationTextSelector)
     );
 
-    const firstSvg = svgs[0];
-    if (firstSvg.membrane) {
-      locationTextElements = locationTextElements.concat(firstSvg.membrane);
+    const tooltipTarget = triggerTargetSvgs[0];
+    if (tooltipTarget.membrane) {
+      locationTextElements.push(tooltipTarget.membrane);
     }
 
-    // TODO: make use of the inpicture class name to indicate to the user that the location
-    // is in the diagram.
-    // locationTextElements.forEach((x) => {
-    //   console.log(x);
-    //   locationGroup.classList.add('inpicture');
-    // });
-
     const tooltipTriggerTargets = [
-      firstSvg,
+      tooltipTarget,
       ...locationTextElements,
-      ...svgs,
+      ...triggerTargetSvgs,
     ].filter(Boolean);
-
-    tippy(firstSvg, {
+    tippy(tooltipTarget, {
       allowHTML: true,
       content: `${name}<br/>${description}`,
       triggerTarget: tooltipTriggerTargets,
@@ -161,36 +153,49 @@ const SubcellularLocationWithVizView: FC<{
 
   useEffect(() => {
     sleep(2000).then(() => {
-      const ce = document.querySelector('sib-swissbiopics-sl');
-      if (!ce?.shadowRoot) {
+      const ce = document.querySelector('sib-swissbiopics-sl')?.shadowRoot;
+      if (!ce) {
         return;
       }
       // This finds all subcellular location SVGs that will require a tooltip
-      const subcellularPresentsSVGs = ce?.shadowRoot?.querySelectorAll(
+      const subcellularPresentSVGs = ce.querySelectorAll(
         'svg .subcell_present:not(.membrane)'
       );
-      if (!subcellularPresentsSVGs) {
+      if (!subcellularPresentSVGs) {
         return;
       }
-      for (const locationGroup of subcellularPresentsSVGs) {
+      for (const subcellularPresentSVG of subcellularPresentSVGs) {
         // The text location in the righthand column
-        const locationText = ce?.shadowRoot?.querySelector(
-          `#${locationGroup.id}term`
+        const locationText = ce.querySelector(
+          `#${subcellularPresentSVG.id}term`
         );
         if (locationText) {
           locationText.classList.add('inpicture');
           const shapes = [
-            ':scope path', // only match selectors of descendants of the base element in the query
+            ':scope path',
             ':scope circle',
             ':scope rect',
             ':scope ellipse',
             ':scope polygon',
             ':scope line',
           ].join(',');
-          const svgs = locationGroup.parentElement?.querySelectorAll(shapes);
-          attachTooltips(locationGroup, ce.shadowRoot, svgs, true);
+          // Get all of the SVG elements in the picture that should open a tooltip
+          let triggerTargetSvgs:
+            | NodeListOf<Element>
+            | undefined = subcellularPresentSVG.querySelectorAll(shapes);
+          if (!triggerTargetSvgs.length) {
+            // If nothing found (as with happens with eg Cell surface) try the parentElement
+            triggerTargetSvgs = subcellularPresentSVG.parentElement?.querySelectorAll(
+              shapes
+            );
+          }
+          attachTooltips(subcellularPresentSVG, ce, triggerTargetSvgs, false);
         }
       }
+      // TODO: handle this case as seen in the source code
+      //   const subcellularPresentSVGs2 = ce.querySelectorAll(
+      //     'svg .membranes .membrane.subcell_present'
+      //   );
     });
   });
 
