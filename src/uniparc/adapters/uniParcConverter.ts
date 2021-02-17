@@ -14,6 +14,7 @@ export const databaseToEntryType: Record<string, EntryType | undefined> = {
   [XRefsInternalDatabases.Unreviewed]: EntryType.UNREVIEWED,
 };
 
+// made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
   active: boolean;
   created: string;
