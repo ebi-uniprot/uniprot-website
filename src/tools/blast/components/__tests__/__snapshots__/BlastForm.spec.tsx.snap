@@ -150,8 +150,8 @@ exports[`BlastForm test Renders the form 1`] = `
                 UniProtKB with 3D structure (PDB)
               </option>
               <option
-                data-testid="Target database-uniprotkb_reference_proteomes"
-                value="uniprotkb_reference_proteomes"
+                data-testid="Target database-uniprotkb_reference_proteomes "
+                value="uniprotkb_reference_proteomes "
               >
                 UniProtKB reference proteomes
               </option>
@@ -162,20 +162,20 @@ exports[`BlastForm test Renders the form 1`] = `
                 UniProtKB Swiss-Prot
               </option>
               <option
-                data-testid="Target database-UniRef100"
-                value="UniRef100"
+                data-testid="Target database-uniref100"
+                value="uniref100"
               >
                 UniRef100
               </option>
               <option
-                data-testid="Target database-UniRef90"
-                value="UniRef90"
+                data-testid="Target database-uniref90"
+                value="uniref90"
               >
                 UniRef90
               </option>
               <option
-                data-testid="Target database-UniRef50"
-                value="UniRef50"
+                data-testid="Target database-uniref50"
+                value="uniref50"
               >
                 UniRef50
               </option>
@@ -192,7 +192,7 @@ exports[`BlastForm test Renders the form 1`] = `
           class="tools-form-section__item tools-form-section__item--taxon-select"
         >
           <label>
-            Restrict by organism
+            Restrict by taxonomy
             <div
               class="autocomplete-container"
             >
@@ -201,7 +201,7 @@ exports[`BlastForm test Renders the form 1`] = `
               >
                 <input
                   data-testid="search-input"
-                  placeholder="Enter organism names or tax IDs"
+                  placeholder="Enter taxon names or IDs to include"
                   type="text"
                   value=""
                 />
@@ -242,7 +242,7 @@ exports[`BlastForm test Renders the form 1`] = `
               autocomplete="off"
               maxlength="100"
               name="title"
-              placeholder="my job title"
+              placeholder="\\"my job title\\""
               style="width: 2ch;"
               type="text"
               value=""

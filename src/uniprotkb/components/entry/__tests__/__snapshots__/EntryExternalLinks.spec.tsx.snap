@@ -6,10 +6,10 @@ exports[`Entry - External Links view should render 1`] = `
     data-entry-section="true"
     id="external-links"
   >
-    <div
+    <section
       class="card"
     >
-      <section>
+      <div>
         <div
           class="card__header"
         >
@@ -311,8 +311,8 @@ exports[`Entry - External Links view should render 1`] = `
             </li>
           </ul>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
 </DocumentFragment>
 `;
