@@ -38,10 +38,10 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
   let baseURL = '';
   switch (type) {
     case JobTypes.ALIGN:
-      baseURL = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo';
+      baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/clustalo';
       break;
     case JobTypes.BLAST:
-      baseURL = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast';
+      baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.UPLOAD_LIST:
       baseURL = ''; // TODO

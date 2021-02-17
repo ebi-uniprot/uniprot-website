@@ -25,6 +25,11 @@
   $self: &;
   display: flex;
 
+  & > .button {
+    margin-bottom: 0;
+    align-self: flex-end;
+  }
+
   .chip {
     margin-top: 0;
 

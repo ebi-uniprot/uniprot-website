@@ -186,16 +186,16 @@ const AlignResult = () => {
           }
         >
           {actionBar}
-          <ErrorBoundary>
-            <Suspense fallback={<Loader />}>
+          <Suspense fallback={<Loader />}>
+            <ErrorBoundary>
               <AlignResultOverview
                 data={data}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
                 handleSelectedEntries={handleSelectedEntries}
               />
-            </Suspense>
-          </ErrorBoundary>
+            </ErrorBoundary>
+          </Suspense>
         </Tab>
         <Tab
           id={TabLocation.PhyloTree}

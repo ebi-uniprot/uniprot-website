@@ -110,13 +110,13 @@ export const EntryLocations: Record<Namespace, string> = {
 export const getEntryPath = (
   namespace: Namespace,
   accession: string | number
-) => generatePath(EntryLocations[namespace], { accession });
+) => generatePath(EntryLocations[namespace], { accession: `${accession}` });
 
 // Same than above, but curried version
 export const getEntryPathFor = (namespace: Namespace) => {
   const entryLocation = EntryLocations[namespace];
   return (accession: string | number) =>
-    generatePath(entryLocation, { accession });
+    generatePath(entryLocation, { accession: `${accession}` });
 };
 
 // eslint-disable-next-line consistent-return

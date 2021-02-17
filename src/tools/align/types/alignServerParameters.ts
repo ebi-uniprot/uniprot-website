@@ -1,8 +1,8 @@
 /* Parameters of a blast job as required by the server */
-// https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo?wadl
-// https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo/parameters
+// https://www.ebi.ac.uk/Tools/services/rest/clustalo?wadl
+// https://www.ebi.ac.uk/Tools/services/rest/clustalo/parameters
 // parameter-specific documentation at
-// https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo/parameterdetails/<parameter_name>
+// https://www.ebi.ac.uk/Tools/services/rest/clustalo/parameterdetails/<parameter_name>
 
 export type ServerParameters = {
   email: string; // email

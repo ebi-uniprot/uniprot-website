@@ -25,7 +25,7 @@ describe('Blast results download', () => {
     fireEvent.click(downloadLink);
     expect(onCloseMock).toHaveBeenCalled();
     expect(downloadLink.href).toEqual(
-      'https://wwwdev.ebi.ac.uk/Tools/services/rest/ncbiblast/result/1234/accs'
+      'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast/result/1234/accs'
     );
 
     const nDownloadExplanation = queryByText(nDownloadedExplanationRe);
