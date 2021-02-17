@@ -6,7 +6,7 @@ import EntrySection, {
 } from '../../types/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';
 import FeaturesView from '../protein-data-views/FeaturesView';
-import SubcellularLocationView from '../protein-data-views/SubcellularLocationView';
+import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
 import { hasContent } from '../../../shared/utils/utils';
 
 import {
@@ -44,7 +44,7 @@ const SubcellularLocationSection: FC<{
       <Card
         title={getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}
       >
-        <SubcellularLocationView
+        <SubcellularLocationWithVizView
           comments={
             data.commentsData.get(
               CommentType.SUBCELLULAR_LOCATION
