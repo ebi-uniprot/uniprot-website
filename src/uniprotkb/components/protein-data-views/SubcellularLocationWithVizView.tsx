@@ -48,7 +48,8 @@ const SubcellularLocationWithVizView: FC<
 
   // TODO: injecting HTML because of the way the web component is implemented. See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
   // TODO: the graphic top is an estimate but instead should be based on the size of the entry header
-  // TODO: add additional GO template
+  // TODO: add additional GO template which will also require GO term data
+  // TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present'
   useEffect(() => {
     if (lineage && taxonId && comments && !isVirus(lineage)) {
       const sls = comments
@@ -192,10 +193,6 @@ const SubcellularLocationWithVizView: FC<
           attachTooltips(subcellularPresentSVG, ce, triggerTargetSvgs, false);
         }
       }
-      // TODO: handle this case as seen in the source code
-      //   const subcellularPresentSVGs2 = ce.querySelectorAll(
-      //     'svg .membranes .membrane.subcell_present'
-      //   );
     });
   });
 
