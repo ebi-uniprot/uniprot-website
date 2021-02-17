@@ -9,7 +9,7 @@ import {
   SetStateAction,
   ReactNode,
 } from 'react';
-import { DataTable, Chip, Loader } from 'franklin-sites';
+import { DataTable, Chip, Loader, Button } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
@@ -188,17 +188,23 @@ const BlastSummaryHsps: FC<{
   setSelectedScoring,
   maxScorings,
 }) => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [restVisible, setRestVisible] = useState(0);
 
-  const hspsOrderedByScore = hsps.sort(
-    (hspA, hspB) => hspB.hsp_bit_score - hspA.hsp_bit_score
+  // "first", ordered by score
+  const [first, ...rest] = useMemo<BlastHsp[]>(
+    () =>
+      // Operate on a copy to not mutate the original data
+      Array.from(hsps).sort(
+        (hspA, hspB) => hspB.hsp_bit_score - hspA.hsp_bit_score
+      ),
+    [hsps]
   );
 
   return (
     <div className="data-table__blast-hsp">
       <div>
         <BlastSummaryTrack
-          hsp={hspsOrderedByScore[0]}
+          hsp={first}
           queryLength={queryLength}
           hitLength={hitLength}
           hitAccession={hitAccession}
@@ -208,29 +214,26 @@ const BlastSummaryHsps: FC<{
           setSelectedScoring={setSelectedScoring}
           maxScorings={maxScorings}
         />
-        {hspsOrderedByScore.length > 1 &&
-          !collapsed &&
-          hspsOrderedByScore
-            .slice(1)
-            .map((hsp) => (
-              <BlastSummaryTrack
-                hsp={hsp}
-                queryLength={queryLength}
-                hitLength={hitLength}
-                key={`hsp_${hsp.hsp_num}`}
-                hitAccession={hitAccession}
-                extra={extra}
-                setHspDetailPanel={setHspDetailPanel}
-                selectedScoring={selectedScoring}
-                setSelectedScoring={setSelectedScoring}
-                maxScorings={maxScorings}
-              />
-            ))}
+        {rest.slice(0, restVisible).map((hsp) => (
+          <BlastSummaryTrack
+            hsp={hsp}
+            queryLength={queryLength}
+            hitLength={hitLength}
+            key={`hsp_${hsp.hsp_num}`}
+            hitAccession={hitAccession}
+            extra={extra}
+            setHspDetailPanel={setHspDetailPanel}
+            selectedScoring={selectedScoring}
+            setSelectedScoring={setSelectedScoring}
+            maxScorings={maxScorings}
+          />
+        ))}
       </div>
-      {hspsOrderedByScore.length > 1 && collapsed && (
-        <button type="button" onClick={() => setCollapsed(false)}>{`+${
-          hspsOrderedByScore.length - 1
-        } more`}</button>
+      {restVisible < rest.length && (
+        <Button
+          variant="tertiary"
+          onClick={() => setRestVisible((restVisible) => restVisible + 10)}
+        >{`+${rest.length - restVisible} more`}</Button>
       )}
     </div>
   );

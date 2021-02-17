@@ -142,6 +142,7 @@ Hit length: 486"
               </div>
             </div>
             <button
+              class="button tertiary"
               type="button"
             >
               +1 more

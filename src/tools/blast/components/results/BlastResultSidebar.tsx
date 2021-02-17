@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Loader, Facets, Facet } from 'franklin-sites';
 
@@ -31,34 +31,33 @@ type BlastResultSidebarProps = {
   allHits: BlastHit[];
 };
 
-const BlastResultSidebar: FC<BlastResultSidebarProps> = ({
-  accessions,
-  allHits,
-}) => {
-  const { search } = useLocation();
-  const { selectedFacets } = getParamsFromURL(search);
-  const { data, loading, isStale } = useDataApiWithStale<Response['data']>(
-    // NOTE: set size to 0 when backend supports it
-    // NOTE: this is a regression, using 0 used to work before
-    getAccessionsURL(accessions, { size: 1, facets, selectedFacets })
-  );
+const BlastResultSidebar = memo<BlastResultSidebarProps>(
+  ({ accessions, allHits }) => {
+    const { search } = useLocation();
+    const { selectedFacets } = getParamsFromURL(search);
+    const { data, loading, isStale } = useDataApiWithStale<Response['data']>(
+      // NOTE: set size to 0 when backend supports it
+      // NOTE: this is a regression, using 0 used to work before
+      getAccessionsURL(accessions, { size: 1, facets, selectedFacets })
+    );
 
-  if (loading && !isStale) {
-    return <Loader />;
+    if (loading && !isStale) {
+      return <Loader />;
+    }
+
+    return (
+      <Facets>
+        <BlastResultLocalFacets allHits={allHits} />
+        {data?.facets?.map((facet: FacetObject) => (
+          <Facet
+            key={facet.name}
+            data={facet}
+            className={isStale ? 'is-stale' : undefined}
+          />
+        ))}
+      </Facets>
+    );
   }
-
-  return (
-    <Facets>
-      <BlastResultLocalFacets allHits={allHits} />
-      {data?.facets?.map((facet: FacetObject) => (
-        <Facet
-          key={facet.name}
-          data={facet}
-          className={isStale ? 'is-stale' : undefined}
-        />
-      ))}
-    </Facets>
-  );
-};
+);
 
 export default BlastResultSidebar;
