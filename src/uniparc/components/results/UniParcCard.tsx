@@ -46,7 +46,6 @@ const UniRefCard: FC<{
     history.push(getEntryPath(Namespace.uniparc, data.uniParcId));
   }, [history, data.uniParcId]);
 
-  console.log(xrefGetter(data, 'organism', 'taxonId'));
   const organismCount = xrefGetter(data, 'organism', 'taxonId')?.length || 0;
   const uniProtKBCount = useMemo(() => uniProtKBCounter(data), [data]);
 
