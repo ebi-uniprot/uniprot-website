@@ -10,6 +10,7 @@ import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
 // import '../../../../node_modules/tippy.js/dist/tippy.css';
 import './styles/tippy.css';
+import './styles/subcellular-location-view.scss';
 
 enum Superkingdom {
   Viruses = 'Viruses',
@@ -83,8 +84,15 @@ const SubcellularLocationView: FC<{
             position: sticky;
             top: 4rem;
           }
-          .subcell_present {
-            font-size: 30px;
+          .subcell_name {
+            display: none;
+          }
+          .subcell_description {
+            display: none;
+          }
+          .inpicture:before{
+            content: '🔎';
+            margin-right: 0.2rem;
           }
           ${getStylesContaining(
             'button',
@@ -98,7 +106,7 @@ const SubcellularLocationView: FC<{
     }
   }, [comments, lineage, taxonId]);
 
-  const getGoTerms = (locationGroup: Element) =>
+  const getGoTermClassNames = (locationGroup: Element) =>
     Array.from(locationGroup.classList.values())
       .filter((className) => className.startsWith('GO'))
       .map((className) => `.${className}`);
@@ -106,15 +114,17 @@ const SubcellularLocationView: FC<{
   const attachTooltips = (
     locationGroup: Element,
     shadowRoot: ShadowRoot,
-    n,
-    i,
+    svgs: NodeListOf<Element & { membrane?: Element }> | undefined,
     partOfShown: boolean
   ) => {
+    if (!svgs?.length) {
+      return;
+    }
     const name = locationGroup.querySelector('.subcell_name')?.textContent;
     let description = locationGroup.querySelector('.subcell_description')
       ?.textContent;
     if (partOfShown) {
-      // This location is a child of another child
+      // This location is a child of another location
       const parentLocationText = locationGroup.parentElement?.querySelector(
         '.subcell_name'
       )?.textContent;
@@ -122,26 +132,34 @@ const SubcellularLocationView: FC<{
         description = `A part of the shown ${parentLocationText}. ${description}`;
       }
     }
-    const goTermClassNames = getGoTerms(locationGroup);
-    goTermClassNames.push(`#${locationGroup.id}term`);
-    let c = Array.from(shadowRoot.querySelectorAll(goTermClassNames.join(',')));
-    console.log(c);
-    if (n.membrane) {
-      c = c.concat(n.membrane);
+    const locationTextSelectors = getGoTermClassNames(locationGroup);
+    locationTextSelectors.push(`#${locationGroup.id}term`);
+    let locationTextElements = Array.from(
+      shadowRoot.querySelectorAll(locationTextSelectors.join(','))
+    );
+
+    const firstSvg = svgs[0];
+    if (firstSvg.membrane) {
+      locationTextElements = locationTextElements.concat(firstSvg.membrane);
     }
-    const d = [n]
-      .concat(c)
-      .concat(Array.from(i))
-      .filter((e) => e !== null);
 
-    c.forEach((e) => {
-      locationGroup.classList.add('inpicture');
-    });
+    // TODO: make use of the inpicture class name to indicate to the user that the location
+    // is in the diagram.
+    // locationTextElements.forEach((x) => {
+    //   console.log(x);
+    //   locationGroup.classList.add('inpicture');
+    // });
 
-    tippy(n, {
+    const tooltipTriggerTargets = [
+      firstSvg,
+      ...locationTextElements,
+      ...svgs,
+    ].filter(Boolean);
+
+    tippy(firstSvg, {
       allowHTML: true,
       content: `${name}<br/>${description}`,
-      triggerTarget: d,
+      triggerTarget: tooltipTriggerTargets,
     });
   };
 
@@ -166,19 +184,15 @@ const SubcellularLocationView: FC<{
         if (locationText) {
           locationText.classList.add('inpicture');
           const shapes = [
-            ':scope path', // only matching selectors on descendants of the base element in the query
+            ':scope path', // only match selectors of descendants of the base element in the query
             ':scope circle',
             ':scope rect',
             ':scope ellipse',
             ':scope polygon',
             ':scope line',
           ].join(',');
-          const s = locationGroup.parentElement
-            ?.querySelectorAll(shapes)
-            .values();
-          const l = s?.next().value;
-
-          attachTooltips(locationGroup, ce.shadowRoot, l, s, true);
+          const svgs = locationGroup.parentElement?.querySelectorAll(shapes);
+          attachTooltips(locationGroup, ce.shadowRoot, svgs, true);
         }
       }
     });
@@ -199,7 +213,6 @@ const SubcellularLocationView: FC<{
                 key={subcellData.molecule || index}
               >
                 <h3>{subcellData.molecule}</h3>
-                {/* <div id="SL0094term">Early endosome</div> */}
                 {subcellData.subcellularLocations.map((subcellularLocation) => (
                   <div
                     id={getSwissBioPicLocationId(
