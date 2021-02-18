@@ -47,9 +47,9 @@ const SubcellularLocationWithVizView: FC<
   const ref = useRef<HTMLDivElement>(null);
 
   // TODO: injecting HTML because of the way the web component is implemented. See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
-  // TODO: the graphic top is an estimate but instead should be based on the size of the entry header
   // TODO: add additional GO template which will also require GO term data
-  // TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present'
+  // TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present' eg A1L3X0 doesn't work
+  // TODO: publications doesn't open
   useEffect(() => {
     if (lineage && taxonId && comments && !isVirus(lineage)) {
       const sls = comments
@@ -60,6 +60,12 @@ const SubcellularLocationWithVizView: FC<
         )
         .filter(Boolean)
         .join(',');
+
+      const tabsHeaderHeight = document.querySelector('.tabs__header')
+        ?.clientHeight;
+      const pictureTop = tabsHeaderHeight
+        ? `${tabsHeaderHeight + 5}px`
+        : '4rem';
 
       ref.current?.insertAdjacentHTML(
         'afterbegin',
@@ -77,7 +83,7 @@ const SubcellularLocationWithVizView: FC<
           }
           #swissbiopic > svg {
             position: sticky;
-            top: 4rem;
+            top: ${pictureTop};
           }
           .subcell_name {
             display: none;
