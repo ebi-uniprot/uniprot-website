@@ -4,13 +4,12 @@ import { sleep } from 'timing-functions';
 
 import SubcellularLocationView from './SubcellularLocationView';
 
-import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
+import useSafeState from '../../../shared/hooks/useSafeState';
 
+import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 import { SubcellularLocationComment } from '../../types/commentTypes';
 
-// import '../../../../node_modules/tippy.js/dist/tippy.css';
-import './styles/tippy.css';
-import useSafeState from '../../../shared/hooks/useSafeState';
+import '../../../../node_modules/tippy.js/dist/tippy.css';
 
 enum Superkingdom {
   Viruses = 'Viruses',
