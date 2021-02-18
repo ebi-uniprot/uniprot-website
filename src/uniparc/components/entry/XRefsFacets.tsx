@@ -60,19 +60,23 @@ const XRefsFacets: FC<{ xrefs?: UniParcXRef[] }> = ({ xrefs }) => {
           () => ({
             label: 'Organisms',
             name: 'organisms',
-            values: taxonomyFacetValues.map(([taxon, count]) => ({
-              label: (
-                <span
-                  title={`${taxon.commonName ? `${taxon.commonName}, ` : ''}${
-                    taxon.scientificName
-                  }, taxon ID ${taxon.taxonId}`}
-                >
-                  {taxon.commonName || taxon.scientificName || taxon.taxonId}
-                </span>
-              ),
-              value: taxon.taxonId,
-              count,
-            })),
+            values: taxonomyFacetValues.map(([taxon, count]) => {
+              let title = `taxon ID ${taxon.taxonId}`;
+              if (taxon?.commonName || taxon?.scientificName) {
+                title = `${taxon.commonName ? `${taxon.commonName}, ` : ''}${
+                  taxon.scientificName
+                }, ${title}`;
+              }
+              return {
+                label: (
+                  <span title={title}>
+                    {taxon.commonName || taxon.scientificName || taxon.taxonId}
+                  </span>
+                ),
+                value: `${taxon.taxonId}`,
+                count,
+              };
+            }),
           }),
           [taxonomyFacetValues]
         )}
