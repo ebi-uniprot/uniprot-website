@@ -76,7 +76,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
           <OrganismDataView organism={organism} />
         </li>
       ))}
-      {organisms.length > CUT_OFF && (
+      {organisms?.length > CUT_OFF && (
         <Button
           element={Link}
           variant="tertiary"
@@ -98,7 +98,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
           <OrganismDataView organism={organism} />
         </li>
       ))}
-      {organisms.length > CUT_OFF && (
+      {organisms?.length > CUT_OFF && (
         <Button
           element={Link}
           variant="tertiary"
