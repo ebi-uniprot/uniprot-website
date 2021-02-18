@@ -21,8 +21,7 @@ const apiUrls = {
     });
     return (
       joinUrl(devPrefix, '/uniprot/api/uniref', id, 'members') +
-      (querystring ? '?' : '') +
-      querystring
+      (querystring ? `?${querystring}` : '')
     );
   },
   search: joinUrl(devPrefix, 'uniprot/api/uniref/search'),
