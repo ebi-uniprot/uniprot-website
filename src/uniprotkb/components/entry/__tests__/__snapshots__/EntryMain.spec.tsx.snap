@@ -1206,6 +1206,29 @@ exports[`Entry view should render 1`] = `
   </div>
   <div
     data-entry-section="true"
+    id="subcellular-location"
+  >
+    <section
+      class="card"
+    >
+      <div>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Subcellular Location
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        />
+      </div>
+    </section>
+  </div>
+  <div
+    data-entry-section="true"
     id="disease-and-drugs"
   >
     <section
@@ -2850,6 +2873,29 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="expandable-list no-bullet"
           />
         </div>
+      </div>
+    </section>
+  </div>
+  <div
+    data-entry-section="true"
+    id="subcellular-location"
+  >
+    <section
+      class="card"
+    >
+      <div>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Subcellular Location
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        />
       </div>
     </section>
   </div>

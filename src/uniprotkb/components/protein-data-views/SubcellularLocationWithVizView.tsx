@@ -10,6 +10,7 @@ import { SubcellularLocationComment } from '../../types/commentTypes';
 
 // import '../../../../node_modules/tippy.js/dist/tippy.css';
 import './styles/tippy.css';
+import useSafeState from '../../../shared/hooks/useSafeState';
 
 enum Superkingdom {
   Viruses = 'Viruses',
@@ -45,17 +46,26 @@ const SubcellularLocationWithVizView: FC<
   } & Pick<OrganismData, 'taxonId' | 'lineage'>
 > = ({ comments, taxonId, lineage }) => {
   /*
-    The logic implemented here to get our data into @swissprot/swissbiopics-visualizer was has been lifted
+    The logic implemented here to get our data into @swissprot/swissbiopics-visualizer has been lifted
     from the source code at http://sp.sib.swiss/scripts/uniprot_entry-bundle.js with some modifications
   */
   const ref = useRef<HTMLDivElement>(null);
+  const [ceLoaded, setCELoaded] = useSafeState(false);
+
+  useEffect(() => {
+    import('@swissprot/swissbiopics-visualizer').then(
+      () => setCELoaded(true),
+      // eslint-disable-next-line no-console
+      (error) => console.error(error)
+    );
+  }, [setCELoaded]);
 
   // NOTE: injecting HTML because of the way the web component is implemented.
   //       See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
   //       After discussion with author of @swissprot/swissbiopics-visualizer this will most likely not change.
   // TODO: add additional GO template which will also require GO term data
   // TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present' eg A1L3X0 doesn't work
-  // TODO: publications doesn't open
+  // TODO: clicking a UniProtKBEvidenceTag doesn't open the content
   useEffect(() => {
     if (lineage && taxonId && comments && !isVirus(lineage)) {
       const sls = comments
@@ -111,7 +121,7 @@ const SubcellularLocationWithVizView: FC<
     <sib-swissbiopics-sl taxid="${taxonId}" sls="${sls}" contentid="swissBioPicsSlData"/> `
       );
     }
-  }, [comments, lineage, taxonId]);
+  }, [comments, lineage, taxonId, ceLoaded]);
 
   const getGoTermClassNames = (locationGroup: Element) =>
     Array.from(locationGroup.classList.values())
@@ -208,7 +218,7 @@ const SubcellularLocationWithVizView: FC<
     });
   });
 
-  if (!comments || !comments.length) {
+  if (!comments || !comments.length || !ceLoaded) {
     return null;
   }
 

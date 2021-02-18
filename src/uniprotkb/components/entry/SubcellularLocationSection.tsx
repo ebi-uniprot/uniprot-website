@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import EntrySection, {
@@ -14,27 +14,11 @@ import {
   CommentType,
 } from '../../types/commentTypes';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
-import useSafeState from '../../../shared/hooks/useSafeState';
 
 const SubcellularLocationSection: FC<{
   data: SubcellularLocationUIModel;
   sequence: string;
 }> = ({ data, sequence }): JSX.Element | null => {
-  const [ceLoaded, setCELoaded] = useSafeState(false);
-
-  // TODO: how is the custom element being defined?
-  useEffect(() => {
-    import('@swissprot/swissbiopics-visualizer').then(
-      () => setCELoaded(true),
-      // eslint-disable-next-line no-console
-      (error) => console.error(error)
-    );
-  }, [setCELoaded]);
-
-  if (!ceLoaded) {
-    return null;
-  }
-
   if (!hasContent(data)) {
     return null;
   }
