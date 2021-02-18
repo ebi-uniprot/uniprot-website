@@ -11,12 +11,6 @@ enum GeneOntologyAspect {
 
 export type UniRefEntryType = 'UniRef100' | 'UniRef90' | 'UniRef50';
 
-export const uniRefEntryTypes: Readonly<UniRefEntryType[]> = [
-  'UniRef100',
-  'UniRef90',
-  'UniRef50',
-];
-
 export const uniRefEntryTypeToPercent: Record<UniRefEntryType, string> = {
   UniRef100: '100%',
   UniRef90: '90%',
