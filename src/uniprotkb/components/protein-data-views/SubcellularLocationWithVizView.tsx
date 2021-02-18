@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
 import { sleep } from 'timing-functions';
 
@@ -128,53 +128,59 @@ const SubcellularLocationWithVizView: FC<
       .filter((className) => className.startsWith('GO'))
       .map((className) => `.${className}`);
 
-  const attachTooltips = (
-    locationGroup: Element,
-    shadowRoot: ShadowRoot,
-    triggerTargetSvgs: NodeListOf<Element & { membrane?: Element }> | undefined,
-    partOfShown: boolean
-  ) => {
-    if (!triggerTargetSvgs?.length) {
-      return;
-    }
-    const name = locationGroup.querySelector('.subcell_name')?.textContent;
-    let description = locationGroup.querySelector('.subcell_description')
-      ?.textContent;
-    if (partOfShown) {
-      // This location is a child of another location
-      const parentLocationText = locationGroup.parentElement?.querySelector(
-        '.subcell_name'
-      )?.textContent;
-      if (parentLocationText) {
-        description = `A part of the shown ${parentLocationText}. ${description}`;
+  const attachTooltips = useCallback(
+    (
+      locationGroup: Element,
+      shadowRoot: ShadowRoot,
+      triggerTargetSvgs:
+        | NodeListOf<Element & { membrane?: Element }>
+        | undefined,
+      partOfShown: boolean
+    ) => {
+      if (!triggerTargetSvgs?.length) {
+        return;
       }
-    }
-    const locationTextSelector = [
-      ...getGoTermClassNames(locationGroup),
-      `#${locationGroup.id}term`,
-    ].join(',');
-    const locationTextElements = Array.from(
-      shadowRoot.querySelectorAll(locationTextSelector)
-    );
+      const name = locationGroup.querySelector('.subcell_name')?.textContent;
+      let description = locationGroup.querySelector('.subcell_description')
+        ?.textContent;
+      if (partOfShown) {
+        // This location is a child of another location
+        const parentLocationText = locationGroup.parentElement?.querySelector(
+          '.subcell_name'
+        )?.textContent;
+        if (parentLocationText) {
+          description = `A part of the shown ${parentLocationText}. ${description}`;
+        }
+      }
+      const locationTextSelector = [
+        ...getGoTermClassNames(locationGroup),
+        `#${locationGroup.id}term`,
+      ].join(',');
+      const locationTextElements = Array.from(
+        shadowRoot.querySelectorAll(locationTextSelector)
+      );
 
-    const tooltipTarget = triggerTargetSvgs[0];
-    if (tooltipTarget.membrane) {
-      locationTextElements.push(tooltipTarget.membrane);
-    }
+      const tooltipTarget = triggerTargetSvgs[0];
+      if (tooltipTarget.membrane) {
+        locationTextElements.push(tooltipTarget.membrane);
+      }
 
-    const tooltipTriggerTargets = [
-      tooltipTarget,
-      ...locationTextElements,
-      ...triggerTargetSvgs,
-    ].filter(Boolean);
-    tippy(tooltipTarget, {
-      allowHTML: true,
-      content: `${name}<br/>${description}`,
-      triggerTarget: tooltipTriggerTargets,
-    });
-  };
+      const tooltipTriggerTargets = [
+        tooltipTarget,
+        ...locationTextElements,
+        ...triggerTargetSvgs,
+      ].filter(Boolean);
+      tippy(tooltipTarget, {
+        allowHTML: true,
+        content: `${name}<br/>${description}`,
+        triggerTarget: tooltipTriggerTargets,
+      });
+    },
+    []
+  );
 
   useEffect(() => {
+    // TODO: Need to condition on the custom element being loaded rather than sleeping
     sleep(2000).then(() => {
       const ce = document.querySelector('sib-swissbiopics-sl')?.shadowRoot;
       if (!ce) {
@@ -216,7 +222,7 @@ const SubcellularLocationWithVizView: FC<
         }
       }
     });
-  });
+  }, [attachTooltips, ceLoaded]);
 
   if (!comments || !comments.length || !ceLoaded) {
     return null;
