@@ -19,7 +19,6 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../../types/entrySection';
 import {
-  uniRefEntryTypes,
   uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
@@ -88,12 +87,12 @@ const SimilarProteins: FC<{
     <div id={EntrySection.SimilarProteins}>
       <Card title={nameAndId.name}>
         <Tabs>
-          {uniRefEntryTypes.map(
-            (clusterType) =>
+          {Object.entries(uniRefEntryTypeToPercent).map(
+            ([clusterType, percentValue]) =>
               clusterData[clusterType] && (
                 <Tab
                   id={clusterType}
-                  title={`${uniRefEntryTypeToPercent[clusterType]} identity`}
+                  title={`${percentValue} identity`}
                   key={clusterType}
                 >
                   {Object.keys(clusterData[clusterType]).map(
