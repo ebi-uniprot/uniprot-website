@@ -44,9 +44,15 @@ const SubcellularLocationWithVizView: FC<
     comments?: SubcellularLocationComment[];
   } & Pick<OrganismData, 'taxonId' | 'lineage'>
 > = ({ comments, taxonId, lineage }) => {
+  /*
+    The logic implemented here to get our data into @swissprot/swissbiopics-visualizer was has been lifted
+    from the source code at http://sp.sib.swiss/scripts/uniprot_entry-bundle.js with some modifications
+  */
   const ref = useRef<HTMLDivElement>(null);
 
-  // TODO: injecting HTML because of the way the web component is implemented. See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+  // NOTE: injecting HTML because of the way the web component is implemented.
+  //       See here for details: https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
+  //       After discussion with author of @swissprot/swissbiopics-visualizer this will most likely not change.
   // TODO: add additional GO template which will also require GO term data
   // TODO: handle this case as seen in the source code 'svg .membranes .membrane.subcell_present' eg A1L3X0 doesn't work
   // TODO: publications doesn't open
