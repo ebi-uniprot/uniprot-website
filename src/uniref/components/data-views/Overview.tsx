@@ -36,7 +36,7 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
   const { loading, data } = useDataApi<UniRefMembersResults>(
     apiUrls.members(id, {
       facets: uniRefMembersFacets,
-      size: 1,
+      size: 0,
     })
   );
 

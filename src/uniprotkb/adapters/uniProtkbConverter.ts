@@ -40,7 +40,10 @@ export enum EntryType {
   REFERENCE_PROTEOME,
 }
 
-export const getEntryTypeFromString = (entryTypeString: string) => {
+export const getEntryTypeFromString = (entryTypeString?: string) => {
+  if (!entryTypeString) {
+    return undefined;
+  }
   if (entryTypeString.match(/Inactive/gi)) {
     return EntryType.INACTIVE;
   }

@@ -24,7 +24,7 @@ const MembersFacet = memo<{ accession: string }>(({ accession }) => {
   const facetsURL = apiUrls.members(accession, {
     facets: uniRefMembersFacets,
     selectedFacets: selectedFacetsStrings,
-    size: 1,
+    size: 0,
   });
 
   const { loading, data, isStale } = useDataApiWithStale<UniRefMembersResults>(
