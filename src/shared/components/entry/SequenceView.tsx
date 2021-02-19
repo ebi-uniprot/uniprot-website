@@ -1,16 +1,17 @@
 import { Fragment, useState, FC } from 'react';
-import { InfoList, Sequence, ExternalLink, Button } from 'franklin-sites';
+import {
+  InfoList,
+  Sequence,
+  ExternalLink,
+  Button,
+  LongNumber,
+} from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import numberView, {
-  Unit,
-} from '../../../uniprotkb/components/protein-data-views/NumberView';
 import FreeTextView from '../../../uniprotkb/components/protein-data-views/FreeTextView';
 import BlastButton from '../action-buttons/Blast';
 import AlignButton from '../action-buttons/Align';
-
-import { formatLargeNumber } from '../../utils/utils';
 
 import useDataApi from '../../hooks/useDataApi';
 
@@ -71,7 +72,9 @@ export const SequenceInfo: FC<{
     },
     {
       title: 'Mass (Da)',
-      content: dataToDisplay && formatLargeNumber(dataToDisplay.molWeight),
+      content: dataToDisplay?.molWeight && (
+        <LongNumber>{dataToDisplay.molWeight}</LongNumber>
+      ),
     },
     {
       title: 'Last updated',
@@ -236,10 +239,9 @@ export const MassSpectrometryView: FC<{
     {data.map((item) => (
       <section className="text-block" key={`${item.molWeight}${item.method}`}>
         {item.molecule && <h3>{item.molecule}</h3>}
-        {`Molecular mass is ${numberView({
-          value: item.molWeight,
-          unit: Unit.DA,
-        })}. `}
+        {`Molecular mass is `}
+        <LongNumber>{item.molWeight}</LongNumber>
+        {` Da. `}
         {item.method && `Determined by ${item.method}. `}
         {item.note}
         <UniProtKBEvidenceTag evidences={item.evidences} />
