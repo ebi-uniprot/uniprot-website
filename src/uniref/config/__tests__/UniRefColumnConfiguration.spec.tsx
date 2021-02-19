@@ -4,38 +4,15 @@ import UniRefColumnConfiguration from '../UniRefColumnConfiguration';
 
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
-jest.mock('../../../tools/utils/storage');
+import mock from '../../__mocks__/UniRefResultsData';
 
-const data = {
-  id: 'UniRef90_Q28I25',
-  name: 'Cluster: CDC7 cell division cycle 7',
-  entryType: 'UniRef90',
-  sequenceLength: 483,
-  updated: '2013-06-26',
-  memberCount: 9,
-  memberIdTypes: ['UniParc', 'UniProtKB Unreviewed (TrEMBL)'],
-  members: [
-    'Q28I25',
-    'A0A6I8RXP7',
-    'A0A6I8SV39',
-    'A0A6I8QDI3',
-    'A0A6I8QHP6',
-    'B7ZUP5',
-    'UPI0012F6CEF4',
-    'UPI0012F702BF',
-    'UPI0012F66615',
-  ],
-  commonTaxon: 'Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)',
-  commonTaxonId: 8364,
-  organismIds: [8364],
-  organisms: ['Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)'],
-};
+jest.mock('../../../tools/utils/storage');
 
 describe('UniRefColumnConfiguration component', () => {
   for (const [key, column] of UniRefColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
-        <MemoryRouter>{column.render(data)}</MemoryRouter>
+        <MemoryRouter>{column.render(mock.results[0])}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
     });

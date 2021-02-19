@@ -40,14 +40,15 @@ export const primaryKeyColumn = UniRefColumn.id;
 
 export const UniRefColumnConfiguration: ColumnConfiguration<
   UniRefColumn,
-  UniRefLiteAPIModel
+  Partial<UniRefLiteAPIModel>
 > = new Map();
 
 const CUT_OFF = 5;
 
 UniRefColumnConfiguration.set(UniRefColumn.id, {
   label: 'Cluster ID',
-  render: ({ id }) => <Link to={getEntryPath(Namespace.uniref, id)}>{id}</Link>,
+  render: ({ id }) =>
+    id && <Link to={getEntryPath(Namespace.uniref, id)}>{id}</Link>,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
@@ -57,58 +58,62 @@ UniRefColumnConfiguration.set(UniRefColumn.name, {
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
   label: 'Common taxon',
-  render: ({ commonTaxon }) => <OrganismDataView organism={commonTaxon} />,
+  render: ({ commonTaxon }) =>
+    commonTaxon && <OrganismDataView organism={commonTaxon} />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonId, {
   label: 'Common taxon ID',
-  render: ({ commonTaxon }) => (
-    <OrganismDataView organism={commonTaxon} displayOnlyID />
-  ),
+  render: ({ commonTaxon }) =>
+    commonTaxon && <OrganismDataView organism={commonTaxon} displayOnlyID />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
   label: 'Organism IDs',
-  render: ({ organisms, id }) => (
-    <ul className="no-bullet">
-      {organisms?.slice(0, CUT_OFF).map((organism) => (
-        <li key={organism.taxonId}>
-          <OrganismDataView organism={organism} />
-        </li>
-      ))}
-      {organisms?.length > CUT_OFF && (
-        <Button
-          element={Link}
-          variant="tertiary"
-          to={getEntryPath(Namespace.uniref, id)}
-        >
-          More organisms
-        </Button>
-      )}
-    </ul>
-  ),
+  render: ({ organisms, id }) =>
+    organisms &&
+    id && (
+      <ul className="no-bullet">
+        {organisms.slice(0, CUT_OFF).map((organism) => (
+          <li key={organism.taxonId}>
+            <OrganismDataView organism={organism} />
+          </li>
+        ))}
+        {organisms.length > CUT_OFF && (
+          <Button
+            element={Link}
+            variant="tertiary"
+            to={getEntryPath(Namespace.uniref, id)}
+          >
+            More organisms
+          </Button>
+        )}
+      </ul>
+    ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organism, {
   label: 'Organisms',
-  render: ({ organisms, id }) => (
-    <ul className="no-bullet">
-      {organisms?.slice(0, CUT_OFF).map((organism) => (
-        <li key={organism.taxonId}>
-          <OrganismDataView organism={organism} />
-        </li>
-      ))}
-      {organisms?.length > CUT_OFF && (
-        <Button
-          element={Link}
-          variant="tertiary"
-          to={getEntryPath(Namespace.uniref, id)}
-        >
-          More organisms
-        </Button>
-      )}
-    </ul>
-  ),
+  render: ({ organisms, id }) =>
+    organisms &&
+    id && (
+      <ul className="no-bullet">
+        {organisms.slice(0, CUT_OFF).map((organism) => (
+          <li key={organism.taxonId}>
+            <OrganismDataView organism={organism} />
+          </li>
+        ))}
+        {organisms.length > CUT_OFF && (
+          <Button
+            element={Link}
+            variant="tertiary"
+            to={getEntryPath(Namespace.uniref, id)}
+          >
+            More organisms
+          </Button>
+        )}
+      </ul>
+    ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.identity, {
@@ -149,50 +154,55 @@ UniRefColumnConfiguration.set(UniRefColumn.types, {
 
 UniRefColumnConfiguration.set(UniRefColumn.members, {
   label: 'Members',
-  render: ({ members, memberCount, id }) => (
-    <ul className="no-bullet">
-      {members?.slice(0, CUT_OFF).map((member) => (
-        <li key={member}>
-          <Link
-            to={getEntryPath(
-              member.startsWith('UPI')
-                ? Namespace.uniparc
-                : Namespace.uniprotkb,
-              member
-            )}
+  render: ({ members, memberCount, id }) =>
+    members &&
+    memberCount &&
+    id && (
+      <ul className="no-bullet">
+        {members.slice(0, CUT_OFF).map((member) => (
+          <li key={member}>
+            <Link
+              to={getEntryPath(
+                member.startsWith('UPI')
+                  ? Namespace.uniparc
+                  : Namespace.uniprotkb,
+                member
+              )}
+            >
+              {member}
+            </Link>
+          </li>
+        ))}
+        {members.length > CUT_OFF && (
+          <Button
+            element={Link}
+            variant="tertiary"
+            to={getEntryPath(Namespace.uniref, id)}
           >
-            {member}
-          </Link>
-        </li>
-      ))}
-      {members.length > CUT_OFF && (
-        <Button
-          element={Link}
-          variant="tertiary"
-          to={getEntryPath(Namespace.uniref, id)}
-        >
-          {memberCount - CUT_OFF} more member
-          {memberCount - CUT_OFF === 1 ? '' : 's'}
-        </Button>
-      )}
-    </ul>
-  ),
+            {memberCount - CUT_OFF} more member
+            {memberCount - CUT_OFF === 1 ? '' : 's'}
+          </Button>
+        )}
+      </ul>
+    ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.count, {
   label: 'Size',
-  render: ({ memberCount }) => (
-    <>
-      {memberCount} member{memberCount > 1 && 's'}
-    </>
-  ),
+  render: ({ memberCount }) =>
+    memberCount && (
+      <>
+        {memberCount} member{memberCount > 1 && 's'}
+      </>
+    ),
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.created, {
   label: 'Last updated',
-  render: ({ updated }) => (
-    <time dateTime={new Date(updated).toISOString()}>{updated}</time>
-  ),
+  render: ({ updated }) =>
+    updated && (
+      <time dateTime={new Date(updated).toISOString()}>{updated}</time>
+    ),
 });
 
 export default UniRefColumnConfiguration;
