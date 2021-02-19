@@ -2,12 +2,15 @@ import { Sequence } from '../../shared/types/sequence';
 import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import EntrySection from '../types/entrySection';
 
-// TODO: move that somewhere else, probably in the shared folder
-enum GeneOntologyAspect {
-  FUNCTION = 'GO Molecular Function',
-  PROCESS = 'GO Biological Process',
-  COMPONENT = 'GO Cellular Component',
-}
+// TODO: move these somewhere else, probably in the shared folder
+type GeneOntologyAspect = `GO ${
+  | 'Molecular Function'
+  | 'Biological Process'
+  | 'Cellular Component'}`;
+type GeneOntologyEntry = {
+  aspect: GeneOntologyAspect;
+  goId: string;
+};
 
 export type UniRefEntryType = 'UniRef100' | 'UniRef90' | 'UniRef50';
 
@@ -15,11 +18,6 @@ export const uniRefEntryTypeToPercent: Record<UniRefEntryType, string> = {
   UniRef100: '100%',
   UniRef90: '90%',
   UniRef50: '50%',
-};
-
-type GeneOntologyEntry = {
-  aspect: GeneOntologyAspect;
-  goId: string;
 };
 
 type MemberIDType = 'UniParc' | 'UniProtKB ID';
@@ -50,14 +48,12 @@ export type MemberIdType =
 
 export type UniRefLiteAPIModel = {
   commonTaxon: OrganismData;
-  goTerms: GeneOntologyEntry[];
+  goTerms?: GeneOntologyEntry[];
   memberCount: number;
   entryType: UniRefEntryType;
   updated: string;
   name: string;
   id: string;
-  // Do not rely on `sequenceLength`
-  sequenceLength: number;
   organismCount: number;
   representativeMember: Partial<UniRefMember> & {
     sequence?: Partial<Sequence>;
