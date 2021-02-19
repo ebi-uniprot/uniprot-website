@@ -36,7 +36,7 @@ export type UniRefMember = {
   uniref50Id?: string;
   uniref90Id?: string;
   uniref100Id?: string;
-  uniparcId?: string;
+  uniparcId?: { value: string };
 };
 
 export type RepresentativeMember = UniRefMember & {
