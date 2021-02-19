@@ -1,7 +1,7 @@
 import qs from 'query-string';
 import joinUrl from 'url-join';
 
-export const devPrefix = 'http://wp-np2-be:8091';
+export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
 const apiUrls = {
