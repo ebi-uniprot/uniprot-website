@@ -21,7 +21,7 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
   const defaultEndpointToPort = 8095; // default to 8095 for all support data and configure
   let newPrefix = prefix;
   if (apiTesting && prefix === devPrefix && paths?.[0]) {
-    const reEndpoint = /\/uniprot\/api\/([^\/]+)/;
+    const reEndpoint = /\/uniprot\/api\/([^/]+)/;
     const endpoint = paths[0].match(reEndpoint)?.[1];
     if (endpoint) {
       const port =
