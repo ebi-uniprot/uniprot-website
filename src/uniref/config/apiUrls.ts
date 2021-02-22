@@ -1,8 +1,7 @@
 import qs from 'query-string';
-import joinUrl from 'url-join';
+import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 
-export const devPrefix = 'https://wwwdev.ebi.ac.uk';
-export const prodPrefix = 'https://www.ebi.ac.uk';
+import { devPrefix } from '../../shared/config/apiUrls';
 
 const apiUrls = {
   entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
