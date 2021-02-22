@@ -48,8 +48,8 @@ export type ProteomeCompletenessReport = {
 export type GenomeAssembly = {
   source: string;
   assemblyId: string;
-  genomeAssemblyUrl: string;
-  level: string; // Genome representation (RefSeq)
+  genomeAssemblyUrl?: string;
+  level: string; // Genome representation
 };
 
 export type RedundantProteome = {
@@ -71,12 +71,12 @@ export type ProteomesAPIModel = {
   taxonomy: OrganismData;
   modified: string;
   proteomeType: ProteomeType;
-  components: Component[];
+  components?: Component[];
   citations: Citation[];
   annotationScore: number;
   superkingdom: string;
   proteomeCompletenessReport: ProteomeCompletenessReport;
-  genomeAssembly: GenomeAssembly;
+  genomeAssembly?: GenomeAssembly;
   geneCount: number;
   genomeAnnotation: GenomeAnnotation;
   taxonLineage: Lineage[];

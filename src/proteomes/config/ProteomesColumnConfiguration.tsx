@@ -12,6 +12,7 @@ import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { Rank } from '../../shared/types/apiModel';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -76,15 +77,16 @@ ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
   render: ({ taxonomy }) => taxonomy.mnemonic,
 });
 
-// TODO: Reflect current view in uniprot.org. This may want, pending discussion, to be improved as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-25206.
+// TODO: Eventually signify hidden nodes and unify view with UniProtKB as per https://www.ebi.ac.uk/panda/jira/browse/TRM-25206
 ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
   label: 'Lineage',
   render: ({ taxonLineage }) =>
-    taxonLineage?.map(({ scientificName, taxonId }, index) => (
+    taxonLineage?.map(({ scientificName, taxonId, rank }, index) => (
       <Fragment key={taxonId}>
         {index > 0 && ', '}
         <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {scientificName}
+          {rank !== Rank.NoRank && ` (${rank})`}
         </Link>
       </Fragment>
     )),
@@ -113,9 +115,8 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
   },
 });
 
-// TODO: this exists in the data but is not in result-fields yet. Backend to amend imminently.
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
-  label: 'Genome representation (RefSeq)',
+  label: 'Genome representation',
   render: ({ genomeAssembly }) => genomeAssembly?.level,
 });
 
