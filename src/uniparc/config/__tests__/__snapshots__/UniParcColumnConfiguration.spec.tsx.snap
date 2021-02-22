@@ -431,35 +431,35 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
   >
     <li>
       <a
-        href="/proteome/UP000000344"
+        href="/proteomes/UP000000344"
       >
         UP000000344
       </a>
     </li>
     <li>
       <a
-        href="/proteome/UP000166173"
+        href="/proteomes/UP000166173"
       >
         UP000166173
       </a>
     </li>
     <li>
       <a
-        href="/proteome/UP000111173"
+        href="/proteomes/UP000111173"
       >
         UP000111173
       </a>
     </li>
     <li>
       <a
-        href="/proteome/UP000113999"
+        href="/proteomes/UP000113999"
       >
         UP000113999
       </a>
     </li>
     <li>
       <a
-        href="/proteome/UP000181229"
+        href="/proteomes/UP000181229"
       >
         UP000181229
       </a>
