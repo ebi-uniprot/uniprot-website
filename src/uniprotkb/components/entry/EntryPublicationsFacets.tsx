@@ -41,11 +41,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   }
 
   return (
-    <Facets
-      data={data.facets}
-      className={isStale ? 'is-stale' : undefined}
-      queryStringKey="facetFilter"
-    />
+    <Facets data={data.facets} className={isStale ? 'is-stale' : undefined} />
   );
 };
 
