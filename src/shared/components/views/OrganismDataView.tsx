@@ -9,9 +9,14 @@ import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConver
 type Props = {
   organism: OrganismData;
   displayOnlyID?: boolean;
+  className?: string;
 };
 
-export const OrganismDataView: FC<Props> = ({ organism, displayOnlyID }) => {
+export const OrganismDataView: FC<Props> = ({
+  organism,
+  displayOnlyID,
+  className,
+}) => {
   if (!organism.taxonId) {
     // eslint-disable-next-line no-console
     console.warn("No taxon ID, this shouldn't happen", organism);
@@ -31,6 +36,7 @@ export const OrganismDataView: FC<Props> = ({ organism, displayOnlyID }) => {
     <Link
       to={getEntryPath(Namespace.taxonomy, taxonId)}
       title={`${name ? `${name}, ` : ''}taxon ID ${taxonId}`}
+      className={className}
     >
       {displayOnlyID ? taxonId : name || taxonId}
     </Link>

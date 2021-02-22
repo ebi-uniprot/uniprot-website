@@ -1,21 +1,27 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList, ExternalLink } from 'franklin-sites';
+import {
+  ExpandableList,
+  ExternalLink,
+  LongNumber,
+  Sequence,
+} from 'franklin-sites';
 
+import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
+
+import externalUrls from '../../shared/config/externalUrls';
+import { getEntryPath } from '../../app/config/urls';
+
+import xrefGetter from '../utils/xrefGetter';
+
+import { Namespace } from '../../shared/types/namespaces';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 import {
   SequenceFeature,
   UniParcAPIModel,
   UniParcXRef,
-  XRefProperty,
 } from '../adapters/uniParcConverter';
-
-import externalUrls from '../../shared/config/externalUrls';
-import intlCollator from '../../shared/utils/collator';
-import { getEntryPath } from '../../app/config/urls';
-
-import { Namespace } from '../../shared/types/namespaces';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -30,7 +36,7 @@ export enum UniParcColumn {
   length = 'length',
   sequence = 'sequence',
   // Miscellaneous
-  accession = 'accession',
+  accession = 'accession', // map to UniProtKB column
   // Date of
   firstSeen = 'first_seen',
   lastSeen = 'last_seen',
@@ -65,29 +71,11 @@ export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcAPIModel
 > = new Map();
 
-const genericPropertyGetter = (
-  data: UniParcAPIModel,
-  propertyName: XRefProperty['key'],
-  sortBy?: typeof intlCollator.compare
-): Set<string> => {
-  const rawList = data.uniParcCrossReferences
-    ?.flatMap((xref) =>
-      xref.properties?.map((p) => p.key === propertyName && p.value)
-    )
-    // remove properties that were not the ones we were interested in
-    .filter((name): name is string => Boolean(name));
-  if (sortBy) {
-    rawList?.sort(sortBy);
-  }
-  // remove duplicates
-  return new Set(rawList);
-};
-
 const familyAndDomainRenderer = (
   db: SequenceFeature['database'],
   externalURLAccessor: keyof typeof externalUrls
 ) => (data: UniParcAPIModel) => (
-  <ExpandableList>
+  <ExpandableList displayNumberOfHiddenItems>
     {data.sequenceFeatures
       ?.filter((feature): feature is SequenceFeature => feature.database === db)
       .map((feature) => (
@@ -125,7 +113,7 @@ UniParcColumnConfiguration.set(UniParcColumn.gene, {
   label: 'Gene names',
   render: (data) => (
     <ExpandableList descriptionString="gene names" displayNumberOfHiddenItems>
-      {genericPropertyGetter(data, 'gene_name', intlCollator.compare)}
+      {xrefGetter(data, 'geneName')}
     </ExpandableList>
   ),
 });
@@ -134,10 +122,8 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   label: 'Organism IDs',
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
-      {data.taxonomies.map(({ taxonId }) => (
-        <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
-          {taxonId}
-        </Link>
+      {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
+        <OrganismDataView key={taxon.taxonId} organism={taxon} displayOnlyID />
       ))}
     </ExpandableList>
   ),
@@ -145,17 +131,10 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
 
 UniParcColumnConfiguration.set(UniParcColumn.organism, {
   label: 'Organisms',
-  /* TODO:
-    Not in the payload! Defaulting to taxon IDs as it's important because this
-    column is one of the default columns
-
-   */
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
-      {data.taxonomies.map(({ taxonId }) => (
-        <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
-          {taxonId}
-        </Link>
+      {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
+        <OrganismDataView key={taxon.taxonId} organism={taxon} />
       ))}
     </ExpandableList>
   ),
@@ -168,7 +147,7 @@ UniParcColumnConfiguration.set(UniParcColumn.protein, {
       descriptionString="protein names"
       displayNumberOfHiddenItems
     >
-      {genericPropertyGetter(data, 'protein_name', intlCollator.compare)}
+      {xrefGetter(data, 'proteinName')}
     </ExpandableList>
   ),
 });
@@ -177,7 +156,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
   label: 'Proteomes',
   render: (data) => (
     <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
-      {Array.from(genericPropertyGetter(data, 'proteome_id'), (accession) => (
+      {xrefGetter(data, 'proteomeId')?.map((accession) => (
         <Link key={accession} to={getEntryPath(Namespace.proteomes, accession)}>
           {accession}
         </Link>
@@ -193,14 +172,13 @@ UniParcColumnConfiguration.set(UniParcColumn.checksum, {
 
 UniParcColumnConfiguration.set(UniParcColumn.length, {
   label: 'Length',
-  render: ({ sequence: { length } }) => length,
+  render: ({ sequence: { length } }) => <LongNumber>{length}</LongNumber>,
 });
 
 UniParcColumnConfiguration.set(UniParcColumn.sequence, {
   label: 'Sequence',
-  // NOTE: not consistent with the way it's represented in UniProtKB column
   render: ({ sequence }) => (
-    <span className="break-anywhere">{sequence.value}</span>
+    <Sequence sequence={sequence.value} showActionBar={false} />
   ),
 });
 
@@ -209,8 +187,9 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
   render: ({ uniParcCrossReferences }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
       {uniParcCrossReferences
-        ?.filter((xref): xref is UniParcXRef =>
-          xref.database.startsWith('UniProtKB')
+        ?.filter((xref): xref is UniParcXRef &
+          Required<Pick<UniParcXRef, 'database' | 'id'>> =>
+          Boolean(xref.database?.startsWith('UniProtKB') && xref.id)
         )
         .map((xref) => (
           <Link
@@ -230,14 +209,12 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
 
 UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
   label: 'First seen',
-  render({ uniParcCrossReferences }) {
-    const created = uniParcCrossReferences
-      ?.map(({ created }) => created)
-      .sort();
+  render(data) {
+    const created = xrefGetter(data, 'created');
     if (!created?.length) {
       return null;
     }
-    const firstSeen = created[0];
+    const firstSeen = created.sort()[0];
     return (
       <time dateTime={new Date(firstSeen).toISOString()}>{firstSeen}</time>
     );
@@ -246,14 +223,12 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
 
 UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
   label: 'Last seen',
-  render({ uniParcCrossReferences }) {
-    const lastUpdated = uniParcCrossReferences
-      ?.map(({ lastUpdated }) => lastUpdated)
-      .sort();
+  render(data) {
+    const lastUpdated = xrefGetter(data, 'lastUpdated');
     if (!lastUpdated?.length) {
       return null;
     }
-    const lastSeen = lastUpdated[lastUpdated.length - 1];
+    const lastSeen = lastUpdated.sort()[lastUpdated.length - 1];
     return <time dateTime={new Date(lastSeen).toISOString()}>{lastSeen}</time>;
   },
 });

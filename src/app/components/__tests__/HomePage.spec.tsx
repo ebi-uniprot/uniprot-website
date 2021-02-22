@@ -1,5 +1,4 @@
-import { cleanup, fireEvent, getAllByText } from '@testing-library/react';
-import { after } from 'lodash';
+import { cleanup, fireEvent } from '@testing-library/react';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import HomePage from '../HomePage';

@@ -220,7 +220,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns: namespace === Namespace.uniparc ? undefined : columns,
+    columns,
     selectedFacets,
     // Not really interested in the facets here, so try to reduce payload
     facets: null,
