@@ -120,7 +120,6 @@ const mock: ProteomesAPIModel = {
       hidden: true,
     },
   ],
-  exclusionReasons: ['mixed culture'],
 };
 
 export default mock;

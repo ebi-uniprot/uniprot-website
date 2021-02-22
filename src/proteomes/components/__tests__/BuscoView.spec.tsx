@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import BuscoView from '../BuscoView';
 
-import data from '../../__mocks__/entryModelData';
+import data from '../../__mocks__/proteomesEntryModelData';
 
 describe('BuscoView', () => {
   it('should render', () => {

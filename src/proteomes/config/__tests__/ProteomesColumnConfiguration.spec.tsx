@@ -8,7 +8,7 @@ import proteomesConverter, {
 } from '../../adapters/proteomesConverter';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
-import data from '../../__mocks__/entryModelData';
+import data from '../../__mocks__/proteomesEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
 
