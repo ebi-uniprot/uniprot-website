@@ -1,7 +1,12 @@
 import { FC, useState, useEffect } from 'react';
 import { uniq } from 'lodash-es';
 import { useLocation } from 'react-router-dom';
-import { Loader, Publication, DataListWithLoader } from 'franklin-sites';
+import {
+  Loader,
+  Publication,
+  DataListWithLoader,
+  InfoList,
+} from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -17,12 +22,53 @@ import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { LiteratureForProteinAPI } from '../../types/literatureTypes';
+import { LiteratureResultsAPI, Reference } from '../../types/literatureTypes';
 
 const linkBuilder = (author: string) => ({
   pathname: LocationToPath[Location.UniProtKBResults],
   search: `query=lit_author:"${author}"`,
 });
+
+const PublicationReference: FC<{ reference: Reference }> = ({ reference }) => {
+  const {
+    referencePositions,
+    referenceComments,
+    source,
+    sourceCategories,
+  } = reference;
+
+  const infoListData = [
+    {
+      title: 'Cited for',
+      content: referencePositions,
+    },
+    {
+      title: 'Tissue',
+      content: referenceComments && (
+        <ul className="no-bullet">
+          {referenceComments.map((comment) => (
+            <li key={comment.value}>{comment.value}</li>
+          ))}
+        </ul>
+      ),
+    },
+    {
+      title: 'Categories',
+      content: sourceCategories && (
+        <ul className="no-bullet">
+          {uniq(sourceCategories).map((category) => (
+            <li key={category}>{category}</li>
+          ))}
+        </ul>
+      ),
+    },
+    {
+      title: 'Source',
+      content: source.name,
+    },
+  ];
+  return <InfoList infoData={infoListData} isCompact />;
+};
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
@@ -33,7 +79,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   });
 
   const [url, setUrl] = useState(initialUrl);
-  const [allResults, setAllResults] = useState<LiteratureForProteinAPI[]>([]);
+  const [allResults, setAllResults] = useState<LiteratureResultsAPI[]>([]);
   const [metaData, setMetaData] = useState<{
     total: number;
     nextUrl?: string;
@@ -41,7 +87,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
-    results: LiteratureForProteinAPI[];
+    results: LiteratureResultsAPI[];
   }>(url);
 
   useEffect(() => {
@@ -75,11 +121,9 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   return (
     <section>
       <h2>Publications for {accession}</h2>
-      <DataListWithLoader
+      <DataListWithLoader<LiteratureResultsAPI>
         getIdKey={(item, index) => {
-          const {
-            reference: { citation },
-          } = item;
+          const { citation } = item;
           const pubMedXref = getCitationPubMedId(citation);
           let id = pubMedXref?.id;
           if (!id) {
@@ -90,57 +134,26 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           return id || `${index}`;
         }}
         data={allResults}
-        dataRenderer={({
-          reference,
-          publicationSource,
-          statistics,
-          categories,
-        }) => {
-          const { citation, referencePositions, referenceComments } = reference;
-
+        dataRenderer={({ references, statistics, citation }) => {
           const { pubmedId, journalInfo } = formatCitationData(citation);
 
-          const infoListData = [
-            {
-              title: 'Cited for',
-              content: referencePositions,
-            },
-            {
-              title: 'Tissue',
-              content: referenceComments && (
-                <ul className="no-bullet">
-                  {referenceComments.map((comment) => (
-                    <li key={comment.value}>{comment.value}</li>
-                  ))}
-                </ul>
-              ),
-            },
-            {
-              title: 'Categories',
-              content: categories && (
-                <ul className="no-bullet">
-                  {uniq(categories).map((category) => (
-                    <li key={category}>{category}</li>
-                  ))}
-                </ul>
-              ),
-            },
-            {
-              title: 'Source',
-              content: publicationSource,
-            },
-          ];
           return (
-            reference && (
+            references.length > 0 && (
               <Publication
                 {...citation}
                 abstract={citation.literatureAbstract}
-                infoData={infoListData}
                 statistics={statistics}
                 pubmedId={pubmedId}
                 journalInfo={journalInfo}
                 linkBuilder={linkBuilder}
-              />
+              >
+                {references.map((reference) => (
+                  <PublicationReference
+                    reference={reference}
+                    key={reference.referenceNumber}
+                  />
+                ))}
+              </Publication>
             )
           );
         }}

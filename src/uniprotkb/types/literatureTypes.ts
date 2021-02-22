@@ -7,22 +7,37 @@ export type Reference = {
     value: string;
     type: string;
   }[];
+
+  source: { name: string; id?: string };
+  pubMedId?: string;
+  sourceCategories?: string[];
+  referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
+  communityAnnotation?: CommunityAnnotation; // Only for community annotations
+  annotation?: string; // Only for computationally mapped
 };
+
+export interface CommunityAnnotation {
+  proteinOrGene?: string;
+  function?: string;
+  comment?: string;
+  disease?: string;
+}
 
 export type LiteratureStatistics = {
   reviewedProteinCount?: number;
   unreviewedProteinCount?: number;
-  mappedProteinCount?: number;
+  computationallyMappedProteinCount?: number;
+  communityMappedProteinCount?: number;
 };
 
-export type LiteratureForProteinAPI = {
-  reference: Reference;
-  statistics?: LiteratureStatistics;
-  categories?: string[];
-  publicationSource?: string;
-};
+// export type LiteratureForProteinAPI = {
+//   reference: Reference;
+//   statistics?: LiteratureStatistics;
+//   categories?: string[];
+// };
 
-export type LiteratureAPI = {
+export type LiteratureResultsAPI = {
   citation: Citation;
+  references: Reference[];
   statistics?: LiteratureStatistics;
 };

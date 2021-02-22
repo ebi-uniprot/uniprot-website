@@ -8,7 +8,7 @@ import { getPublicationsURL } from '../../../shared/config/apiUrls';
 import formatCitationData from '../../adapters/literatureConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
-import { LiteratureAPI } from '../../types/literatureTypes';
+import { LiteratureResultsAPI } from '../../types/literatureTypes';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 const linkBuilder = (author: string) => ({
@@ -21,7 +21,7 @@ const UniProtKBEntryPublications: FC<{
 }> = ({ pubmedIds }) => {
   const url = getPublicationsURL(pubmedIds);
   const { loading, data, status, error } = useDataApi<{
-    results: LiteratureAPI[];
+    results: LiteratureResultsAPI[];
   }>(url);
 
   if (error) {
