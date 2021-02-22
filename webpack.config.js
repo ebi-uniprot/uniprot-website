@@ -287,6 +287,11 @@ module.exports = (env, argv) => {
             name: 'geneontology',
             chunks: 'all',
           },
+          geneontology: {
+            test: /[\\/]node_modules[\\/]@swissprot\/swissbiopics-visualizer|tippy\.js[\\/]/,
+            name: 'sib-subcell',
+            chunks: 'all',
+          },
           react: {
             test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
             name: 'react',
