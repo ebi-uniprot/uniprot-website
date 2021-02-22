@@ -3815,7 +3815,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <a
                 class="button tertiary"
                 download=""
-                href="https://wwwdev.ebi.ac.uk/uniprot/api/uniprotkb/accession/P0DTR4.fasta"
+                href="http://wp-np2-be:8090/uniprot/api/uniprotkb/accession/P0DTR4.fasta"
               >
                 <test-file-stub />
                 Download

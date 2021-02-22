@@ -1,11 +1,11 @@
-import { FC, useState, useEffect } from 'react';
-import { uniq } from 'lodash-es';
+import { FC, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Loader,
   Publication,
   DataListWithLoader,
   InfoList,
+  ExternalLink,
 } from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -23,6 +23,9 @@ import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { LiteratureResultsAPI, Reference } from '../../types/literatureTypes';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import { getDatabaseInfoByName } from '../../config/database';
+import { processUrlTemplate } from '../protein-data-views/XRefView';
 
 const linkBuilder = (author: string) => ({
   pathname: LocationToPath[Location.UniProtKBResults],
@@ -37,37 +40,43 @@ const PublicationReference: FC<{ reference: Reference }> = ({ reference }) => {
     sourceCategories,
   } = reference;
 
+  const url = useMemo(() => {
+    const databaseInfo = getDatabaseInfoByName(source.name);
+    if (databaseInfo && source.id) {
+      return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
+    }
+    return null;
+  }, [source]);
+
   const infoListData = [
     {
+      title: 'Source',
+      content: (
+        <>
+          <EntryTypeIcon entryType={source.name} />
+          {url ? (
+            <ExternalLink url={url}>{source.name}</ExternalLink>
+          ) : (
+            source.name
+          )}
+          {/*  (see community submission). */}
+        </>
+      ),
+    },
+    {
       title: 'Cited for',
-      content: referencePositions,
+      content: referencePositions?.join(', '),
     },
     {
       title: 'Tissue',
-      content: referenceComments && (
-        <ul className="no-bullet">
-          {referenceComments.map((comment) => (
-            <li key={comment.value}>{comment.value}</li>
-          ))}
-        </ul>
-      ),
+      content: referenceComments?.join(', '),
     },
     {
       title: 'Categories',
-      content: sourceCategories && (
-        <ul className="no-bullet">
-          {uniq(sourceCategories).map((category) => (
-            <li key={category}>{category}</li>
-          ))}
-        </ul>
-      ),
-    },
-    {
-      title: 'Source',
-      content: source.name,
+      content: sourceCategories?.join(', '),
     },
   ];
-  return <InfoList infoData={infoListData} isCompact />;
+  return <InfoList infoData={infoListData} isCompact className="text-block" />;
 };
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
@@ -147,11 +156,10 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
                 journalInfo={journalInfo}
                 linkBuilder={linkBuilder}
               >
-                {references.map((reference) => (
-                  <PublicationReference
-                    reference={reference}
-                    key={reference.referenceNumber}
-                  />
+                {references.map((reference, index) => (
+                  // No obvious key as there can be more than 1 for the same source
+                  // eslint-disable-next-line react/no-array-index-key
+                  <PublicationReference reference={reference} key={index} />
                 ))}
               </Publication>
             )
