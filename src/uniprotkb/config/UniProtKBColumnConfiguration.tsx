@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { Fragment } from 'react';
-import { ExpandableList, Sequence } from 'franklin-sites';
+import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import SimpleView from '../components/protein-data-views/SimpleView';
@@ -15,7 +15,6 @@ import GeneNamesView, {
   geneAlternativeNamesView,
 } from '../components/protein-data-views/GeneNamesView';
 import { EntryType, UniProtkbUIModel } from '../adapters/uniProtkbConverter';
-import numberView, { Unit } from '../components/protein-data-views/NumberView';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/FeaturesView';
 import EntrySection from '../types/entrySection';
@@ -165,7 +164,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
   label: 'Length',
   render(data) {
     const { sequence } = data[EntrySection.Sequence];
-    return sequence && numberView({ value: sequence.length, unit: Unit.AA });
+    return (
+      sequence?.length && (
+        <>
+          <LongNumber>{sequence.length}</LongNumber>
+          {' AA'}
+        </>
+      )
+    );
   },
 });
 
@@ -354,7 +360,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.mass, {
   label: 'Mass',
   render: (data) => {
     const { molWeight } = data[EntrySection.Sequence];
-    return numberView({ value: molWeight, unit: Unit.DA });
+    return (
+      molWeight && (
+        <>
+          <LongNumber>{molWeight}</LongNumber>
+          {' Da'}
+        </>
+      )
+    );
   },
 });
 
