@@ -140,6 +140,5 @@ ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
   render: ({ proteomeCompletenessReport: { buscoReport } }) =>
     buscoReport && <BuscoView report={buscoReport} />,
 });
-// TODO: implement BUSCO viz
 
 export default ProteomesColumnConfiguration;
