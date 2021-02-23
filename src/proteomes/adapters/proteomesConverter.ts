@@ -14,12 +14,11 @@ export type Component = {
   proteinCount: number; // used in the entry for each component TODO: eventually will be supported by backend in 2021_02 - 2021_03
 };
 
-export enum CpdStatus {
-  CLOSE_TO_STANDARD = 'Close to Standard',
-  STANDARD = 'Standard',
-  OUTLIER = 'Outlier',
-  UNKNOWN = 'Unknown',
-}
+export type CpdStatus =
+  | 'Close to Standard'
+  | 'Standard'
+  | 'Outlier'
+  | 'Unknown';
 
 export type CpdReport = {
   proteomeCount: number;
@@ -57,14 +56,13 @@ export type RedundantProteome = {
   similarity: number;
 };
 
-export enum ProteomeType {
-  REFERENCE_AND_REPRESENTATIVE = 'Reference and representative proteome',
-  REFERENCE = 'Reference proteome',
-  REPRESENTATIVE = 'Representative proteome',
-  REDUNDANT = 'Redundant proteome',
-  OTHER = 'Other proteome',
-  EXCLUDED = 'Excluded',
-}
+export type ProteomeType =
+  | 'Reference and representative proteome'
+  | 'Reference proteome'
+  | 'Representative proteome'
+  | 'Redundant proteome'
+  | 'Other proteome'
+  | 'Excluded';
 
 export type ProteomesAPIModel = {
   id: string;

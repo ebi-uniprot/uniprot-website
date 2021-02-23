@@ -1,20 +1,19 @@
-export enum Rank {
-  Class = 'class',
-  Family = 'family',
-  Genus = 'genus',
-  Kingdom = 'kingdom',
-  NoRank = 'no rank',
-  Order = 'order',
-  Phylum = 'phylum',
-  Species = 'species',
-  Subclass = 'subclass',
-  Subfamily = 'subfamily',
-  Subgenus = 'subgenus',
-  Subkingdom = 'subkingdom',
-  Subphylum = 'subphylum',
-  Subspecies = 'subspecies',
-  Superkingdom = 'superkingdom',
-}
+export type Rank =
+  | 'class'
+  | 'family'
+  | 'genus'
+  | 'kingdom'
+  | 'no rank'
+  | 'order'
+  | 'phylum'
+  | 'species'
+  | 'subclass'
+  | 'subfamily'
+  | 'subgenus'
+  | 'subkingdom'
+  | 'subphylum'
+  | 'subspecies'
+  | 'superkingdom';
 
 export type Lineage = {
   scientificName?: string;

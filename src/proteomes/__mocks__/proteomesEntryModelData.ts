@@ -1,9 +1,4 @@
-import { Rank } from '../../shared/types/apiModel';
-import {
-  CpdStatus,
-  ProteomesAPIModel,
-  ProteomeType,
-} from '../adapters/proteomesConverter';
+import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 const mock: ProteomesAPIModel = {
   id: 'UP000005640',
@@ -16,7 +11,7 @@ const mock: ProteomesAPIModel = {
     mnemonic: 'HUMAN',
   },
   modified: '2015-11-05',
-  proteomeType: ProteomeType.REDUNDANT,
+  proteomeType: 'Redundant proteome',
   redundantTo: 'UP000005650',
   strain: 'some Strain',
   isolate: 'isolate value',
@@ -95,7 +90,7 @@ const mock: ProteomesAPIModel = {
       stdCdss: 13.0,
       averageCdss: 8,
       confidence: 10,
-      status: CpdStatus.STANDARD,
+      status: 'Standard',
     },
   },
   genomeAssembly: {
@@ -116,7 +111,7 @@ const mock: ProteomesAPIModel = {
       commonName: 'Human',
       synonyms: ['synonym'],
       taxonId: 9606,
-      rank: Rank.Family,
+      rank: 'family',
       hidden: true,
     },
   ],

@@ -12,7 +12,6 @@ import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import { Rank } from '../../shared/types/apiModel';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -86,7 +85,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
         {index > 0 && ', '}
         <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {scientificName}
-          {rank !== Rank.NoRank && ` (${rank})`}
+          {rank !== 'no rank' && ` (${rank})`}
         </Link>
       </Fragment>
     )),
