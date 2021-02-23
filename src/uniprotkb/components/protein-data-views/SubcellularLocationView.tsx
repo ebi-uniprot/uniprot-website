@@ -10,9 +10,10 @@ const getSwissBioPicLocationId = (id: string) => `${id.replace('-', '')}term`;
 const SubcellularLocationView: FC<{
   comments?: SubcellularLocationComment[];
 }> = ({ comments }) => {
-  if (!comments || !comments.length) {
+  if (!comments?.length) {
     return null;
   }
+
   return (
     <>
       {comments.map(
