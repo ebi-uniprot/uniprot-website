@@ -18,6 +18,6 @@ describe('EntryPublications tests', () => {
     useDataApi.mockImplementation(() => dataMock);
     const { findByText } = getRendered();
     expect(useDataApi).toHaveBeenCalled();
-    expect(await findByText(/S-adenosylhomocysteine/)).toBeTruthy();
+    expect(await screen.findByText(/S-adenosylhomocysteine/)).toBeInTheDocument()();
   });
 });
