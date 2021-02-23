@@ -14,7 +14,7 @@ describe('AccessionView', () => {
 
   it('should not have icon when proteome type is not reference', () => {
     renderWithRouter(
-      <AccessionView id={'UPI'} proteomeType={'Other proteome'} />
+      <AccessionView id={'UPI'} proteomeType="Other proteome" />
     );
     expect(
       screen.queryByTitle(/reference Proteome entry/)
