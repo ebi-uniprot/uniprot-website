@@ -38,7 +38,7 @@ export enum EntryType {
   INACTIVE,
   UNIPARC,
   REFERENCE_PROTEOME,
-  ORCID,
+  COMMUNITY_ANNOTATION,
 }
 
 export const getEntryTypeFromString = (entryTypeString?: string) => {
@@ -58,7 +58,7 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
     return EntryType.REVIEWED;
   }
   if (entryTypeString.match(/ORCID$/gi)) {
-    return EntryType.ORCID;
+    return EntryType.COMMUNITY_ANNOTATION;
   }
   return undefined;
 };

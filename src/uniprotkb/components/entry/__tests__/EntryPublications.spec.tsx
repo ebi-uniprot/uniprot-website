@@ -1,3 +1,4 @@
+import { screen } from '@testing-library/react';
 import EntryPublications from '../EntryPublications';
 import mockPublicationsData from './__mocks__/entryPublicationsData';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
@@ -18,6 +19,8 @@ describe('EntryPublications tests', () => {
     useDataApi.mockImplementation(() => dataMock);
     const { findByText } = getRendered();
     expect(useDataApi).toHaveBeenCalled();
-    expect(await screen.findByText(/S-adenosylhomocysteine/)).toBeInTheDocument()();
+    expect(
+      await screen.getByText(/S-adenosylhomocysteine/)
+    ).toBeInTheDocument();
   });
 });

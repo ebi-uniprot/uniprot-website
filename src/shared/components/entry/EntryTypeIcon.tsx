@@ -70,7 +70,7 @@ export const EntryTypeIcon: FC<{
       </span>
     );
   }
-  if (entryTypeToCheck === EntryType.ORCID) {
+  if (entryTypeToCheck === EntryType.COMMUNITY_ANNOTATION) {
     return (
       <span
         className="entry-title__status icon--community-annotation"
