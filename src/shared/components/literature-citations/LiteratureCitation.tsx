@@ -1,5 +1,5 @@
 import { useState, FC, ReactNode, Fragment } from 'react';
-import { Link, LinkProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Bubble,
   Button,
@@ -142,7 +142,12 @@ const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
     <section className="publication__statistics">
       {computationallyMappedProteinCount > 0 && (
         <section className="publication__statistics__item">
-          <Link to={`/uniprotkb?query=(computational_pubmed_id:${pubmedId})`}>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=(computational_pubmed_id:${pubmedId})`,
+            }}
+          >
             <section>
               <small>Mapped to</small>
             </section>
@@ -159,7 +164,12 @@ const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
       )}
       {citedCount > 0 && (
         <section className="publication__statistics__item">
-          <Link to={`/uniprotkb?query=(lit_pubmed:${pubmedId})`}>
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=(lit_pubmed:${pubmedId})`,
+            }}
+          >
             <section>
               <small>Cited in</small>
             </section>
