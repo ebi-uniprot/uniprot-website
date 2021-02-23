@@ -1,7 +1,7 @@
 import { Citation } from '../../shared/types/apiModel';
 
 export type Reference = {
-  citation: Citation;
+  citation?: Citation;
   referencePositions?: string[];
   referenceComments?: {
     value: string;

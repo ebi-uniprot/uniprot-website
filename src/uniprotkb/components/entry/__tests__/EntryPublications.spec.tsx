@@ -1,5 +1,5 @@
 import EntryPublications from '../EntryPublications';
-import mockPublicationsData from './__mocks__/entryPublicationsData.json';
+import mockPublicationsData from './__mocks__/entryPublicationsData';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
