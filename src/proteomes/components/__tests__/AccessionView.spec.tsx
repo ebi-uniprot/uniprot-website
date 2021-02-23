@@ -7,7 +7,7 @@ import AccessionView from '../AccessionView';
 describe('AccessionView', () => {
   it('should have icon when proteome type is reference', () => {
     renderWithRouter(
-      <AccessionView id={'UPI'} proteomeType={'Reference proteome'} />
+      <AccessionView id={'UPI'} proteomeType="Reference proteome" />
     );
     expect(screen.queryByTitle(/reference Proteome entry/)).toBeInTheDocument();
   });
