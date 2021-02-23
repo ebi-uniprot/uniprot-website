@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Publication, Loader, Message } from 'franklin-sites';
+import { Loader, Message } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -9,12 +9,7 @@ import formatCitationData from '../../adapters/literatureConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { LiteratureResultsAPI } from '../../types/literatureTypes';
-import { Location, LocationToPath } from '../../../app/config/urls';
-
-const linkBuilder = (author: string) => ({
-  pathname: LocationToPath[Location.UniProtKBResults],
-  search: `query=lit_author:"${author}"`,
-});
+import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];
@@ -46,14 +41,13 @@ const UniProtKBEntryPublications: FC<{
             ...formatCitationData(literatureItem.citation),
           }))
           .map(({ citation, statistics, pubmedId, journalInfo }) => (
-            <Publication
+            <LiteratureCitation
               title={citation.title}
               authors={citation.authors}
               key={`${citation.title}-${citation.citationType}-${citation.journal}`}
               pubmedId={pubmedId}
               statistics={statistics}
               journalInfo={journalInfo}
-              linkBuilder={linkBuilder}
             />
           ))}
     </>

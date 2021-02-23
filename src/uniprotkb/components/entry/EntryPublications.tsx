@@ -2,7 +2,6 @@ import { FC, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Loader,
-  Publication,
   DataListWithLoader,
   InfoList,
   ExternalLink,
@@ -20,17 +19,12 @@ import formatCitationData, {
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
-import { Location, LocationToPath } from '../../../app/config/urls';
 
 import { LiteratureResultsAPI, Reference } from '../../types/literatureTypes';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
-
-const linkBuilder = (author: string) => ({
-  pathname: LocationToPath[Location.UniProtKBResults],
-  search: `query=lit_author:"${author}"`,
-});
+import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
 
 const PublicationReference: FC<{ reference: Reference }> = ({ reference }) => {
   const {
@@ -148,20 +142,19 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
 
           return (
             references.length > 0 && (
-              <Publication
+              <LiteratureCitation
                 {...citation}
                 abstract={citation.literatureAbstract}
                 statistics={statistics}
                 pubmedId={pubmedId}
                 journalInfo={journalInfo}
-                linkBuilder={linkBuilder}
               >
                 {references.map((reference, index) => (
                   // No obvious key as there can be more than 1 for the same source
                   // eslint-disable-next-line react/no-array-index-key
                   <PublicationReference reference={reference} key={index} />
                 ))}
-              </Publication>
+              </LiteratureCitation>
             )
           );
         }}

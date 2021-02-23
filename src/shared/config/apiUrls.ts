@@ -16,7 +16,7 @@ import {
   fileFormatsWithColumns,
 } from './resultsDownload';
 
-export const devPrefix = 'http://wp-np2-be:8090';
+export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
 const apiUrls = {
