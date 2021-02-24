@@ -1,5 +1,5 @@
 import { memo, useCallback, useState, useEffect, FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
 import AddToBasket from '../../../shared/components/action-buttons/AddToBasket';
@@ -12,23 +12,24 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import {
   Location,
   LocationToPath,
   getEntryPathFor,
 } from '../../../app/config/urls';
+import apiUrls from '../../config/apiUrls';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { Namespace } from '../../../shared/types/namespaces';
-
 import {
   Identity,
   UniRefMember,
-  UniRefAPIModel,
   RepresentativeMember,
 } from '../../adapters/uniRefConverter';
+import { UniRefMembersResults } from '../../types/membersEndpoint';
 
 // OK so, if it's UniProt KB, use first accession as unique key and as first
 // column, if it's UniParc use ID (see entryname renderer lower for counterpart)
@@ -152,11 +153,7 @@ export const RelatedClusters = memo(
     id: string;
     // eslint-disable-next-line consistent-return
   }) => {
-    // TODO: remove this when backend has found out a way to present this
-    return null;
     const pathname = LocationToPath[Location.UniRefResults];
-    // TODO: check when backend has implemented it if "cluster" is the correct
-    // TODO: field name for that query
     const baseSearchString = `query=(cluster:${id})`;
     // "Expand" to related *lower* identity clusters, redirect to entry page
     // "List" related *higher* identity clusters
@@ -243,55 +240,54 @@ type Props = {
   id: string;
   identity: Identity;
   representativeMember: RepresentativeMember;
-  members?: UniRefMember[];
-  metadata?: Record<string, string>;
 };
-
-const emptyMembers: UniRefMember[] = [];
 
 export const MembersSection: FC<Props> = ({
   id,
   identity,
   representativeMember,
-  members = emptyMembers,
-  metadata: propMetadata,
 }) => {
+  const { search } = useLocation();
+  const { selectedFacets } = getParamsFromURL(search);
+
+  const initialUrl = apiUrls.members(id, {
+    selectedFacets: selectedFacets.map(
+      (facet) => `${facet.name}:${facet.value}`
+    ),
+  });
+
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
 
-  const [url, setUrl] = useState<string>();
+  const [url, setUrl] = useState<string | undefined>(initialUrl);
   const [metadata, setMetadata] = useState<{
     total: number;
     nextUrl?: string;
   }>(() => ({
-    total: +(propMetadata?.['x-totalrecords'] || 1),
-    nextUrl: getNextURLFromHeaders(propMetadata),
+    total: 0,
+    nextUrl: undefined,
   }));
   usePrefetch(metadata.nextUrl);
-  const [allResults, setAllResults] = useState(() => [
+  const [allResults, setAllResults] = useState<UniRefMember[]>(() => [
     representativeMember,
-    ...members,
   ]);
 
-  const { data, headers, loading } = useDataApi<UniRefAPIModel>(url);
+  const { data, headers, loading } = useDataApi<UniRefMembersResults>(url);
 
   // reset everything when it looks like we changed entry
   useEffect(() => {
-    setUrl(undefined);
-    setMetadata({
-      total: +(propMetadata?.['x-totalrecords'] || 1),
-      nextUrl: getNextURLFromHeaders(propMetadata),
-    });
-    setAllResults([representativeMember, ...members]);
-  }, [members, propMetadata, representativeMember]);
+    setAllResults([]);
+    setMetadata({ total: 0, nextUrl: undefined });
+    setUrl(initialUrl);
+  }, [initialUrl]);
 
   useEffect(() => {
     if (!data) {
       return;
     }
-    const { members = [] } = data;
-    setAllResults((allMembers) => [...allMembers, ...members]);
+    const { results } = data;
+    setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
-      total: +(headers?.['x-totalrecords'] || 1),
+      total: +(headers?.['x-totalrecords'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
@@ -314,7 +310,11 @@ export const MembersSection: FC<Props> = ({
 
   return (
     <div id={EntrySection.Members}>
-      <Card title={getEntrySectionNameAndId(EntrySection.Members).name}>
+      <Card
+        title={`${total} ${
+          getEntrySectionNameAndId(EntrySection.Members).name
+        }`}
+      >
         <div>
           <RelatedClusters identity={identity} id={id} />
         </div>
@@ -324,7 +324,7 @@ export const MembersSection: FC<Props> = ({
           <AddToBasket selectedEntries={selectedEntries} />
         </div>
         <DataTableWithLoader
-          hasMoreData={total > allResults.length}
+          hasMoreData={total > allResults.length + 1}
           onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
           columns={columns}
           data={allResults}

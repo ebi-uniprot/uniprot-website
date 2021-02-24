@@ -132,7 +132,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               class="publication__statistics__item"
             >
               <a
-                href="/"
+                href="/uniprotkb?query=(lit_pubmed:17062754)"
               >
                 <section>
                   <small>
@@ -277,7 +277,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               class="publication__statistics__item"
             >
               <a
-                href="/"
+                href="/uniprotkb?query=(lit_pubmed:23011729)"
               >
                 <section>
                   <small>
@@ -446,7 +446,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               class="publication__statistics__item"
             >
               <a
-                href="/"
+                href="/uniprotkb?query=(lit_pubmed:25122912)"
               >
                 <section>
                   <small>

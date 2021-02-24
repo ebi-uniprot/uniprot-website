@@ -18,10 +18,9 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../../types/entrySection';
-
 import {
   UniRefEntryType,
-  UniRefEntryTypeToPercent,
+  uniRefEntryTypeToPercent,
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 
@@ -56,18 +55,20 @@ const SimilarProteins: FC<{
         }))
         .filter((item) => item.members.length > 1);
 
-      const clusterTypeGroups = groupBy(filtered, 'entryType');
-      // Note: thought we could use Dictionary<T> here but lodash doesn't
-      // seem to export it
-      const allClusterTypesGroups: {
-        [key: string]: { [key: string]: UniRefLiteAPIModel[] };
-      } = {};
-      Object.keys(clusterTypeGroups).forEach((key) => {
-        allClusterTypesGroups[key] = groupBy(
-          clusterTypeGroups[key],
-          'representativeId'
-        );
-      });
+      const clusterTypeGroups: Partial<
+        Record<UniRefEntryType, UniRefLiteAPIModel[]>
+      > = groupBy(filtered, (cluster) => cluster.entryType);
+      const allClusterTypesGroups: Partial<
+        Record<UniRefEntryType, Record<string, UniRefLiteAPIModel[]>>
+      > = Object.fromEntries(
+        Object.entries(clusterTypeGroups).map(([key, clusters]) => [
+          key,
+          groupBy(
+            clusters,
+            (cluster) => cluster.representativeMember.memberId
+          ) || [],
+        ])
+      );
       return allClusterTypesGroups;
     }
     return null;
@@ -89,47 +90,42 @@ const SimilarProteins: FC<{
     <div id={EntrySection.SimilarProteins}>
       <Card title={nameAndId.name}>
         <Tabs>
-          {Object.values(UniRefEntryType).map(
-            (clusterType) =>
-              clusterData[clusterType] && (
+          {Object.entries(uniRefEntryTypeToPercent).map(
+            ([clusterType, percentValue]) =>
+              clusterType in clusterData &&
+              clusterData[clusterType as UniRefEntryType] && (
                 <Tab
                   id={clusterType}
-                  title={`${
-                    UniRefEntryTypeToPercent[clusterType as UniRefEntryType]
-                  } identity`}
+                  title={`${percentValue} identity`}
                   key={clusterType}
                 >
-                  {Object.keys(clusterData[clusterType]).map(
-                    (representativeId) => (
-                      <section key={representativeId} className="text-block">
-                        <h4>{representativeId}</h4>
-                        {clusterData[clusterType][representativeId].map(
-                          (row) => {
-                            const unirefEntryUrl = getEntryPath(
-                              Namespace.uniref,
-                              row.id
-                            );
-                            return (
-                              <section key={row.id}>
-                                <h5>
-                                  <Link to={unirefEntryUrl}>{row.id}</Link>
-                                </h5>
-                                <SimilarProteinsTable members={row.members} />
-                                {row.memberCount - row.members.length - 1 >
-                                  0 && (
-                                  <Link to={unirefEntryUrl}>
-                                    {row.memberCount - row.members.length - 1}{' '}
-                                    more
-                                  </Link>
-                                )}
-                              </section>
-                            );
-                          }
-                        )}
-                        <hr />
-                      </section>
-                    )
-                  )}
+                  {Object.entries(
+                    clusterData[clusterType as UniRefEntryType] || {}
+                  ).map(([representativeId, clusters]) => (
+                    <section key={representativeId} className="text-block">
+                      <h4>{representativeId}</h4>
+                      {clusters.map((row) => {
+                        const unirefEntryUrl = getEntryPath(
+                          Namespace.uniref,
+                          row.id
+                        );
+                        return (
+                          <section key={row.id}>
+                            <h5>
+                              <Link to={unirefEntryUrl}>{row.id}</Link>
+                            </h5>
+                            <SimilarProteinsTable members={row.members} />
+                            {row.memberCount - row.members.length - 1 > 0 && (
+                              <Link to={unirefEntryUrl}>
+                                {row.memberCount - row.members.length - 1} more
+                              </Link>
+                            )}
+                          </section>
+                        );
+                      })}
+                      <hr />
+                    </section>
+                  ))}
                   {/* TODO: This query doesn't seem to work currently */}
                   <Button
                     element={Link}

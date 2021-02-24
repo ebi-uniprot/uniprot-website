@@ -4,6 +4,7 @@ import {
   TremblIcon,
   UniParcIcon,
   ReferenceProteomeIcon,
+  CommunityAnnotationIcon,
 } from 'franklin-sites';
 
 import {
@@ -66,6 +67,16 @@ export const EntryTypeIcon: FC<{
         title={title || 'This marks a reference Proteome entry'}
       >
         <ReferenceProteomeIcon />
+      </span>
+    );
+  }
+  if (entryTypeToCheck === EntryType.COMMUNITY_ANNOTATION) {
+    return (
+      <span
+        className="entry-title__status icon--community-annotation"
+        title={title || 'Community annotation'}
+      >
+        <CommunityAnnotationIcon />
       </span>
     );
   }
