@@ -41,6 +41,7 @@ export enum EntryType {
   INACTIVE,
   UNIPARC,
   REFERENCE_PROTEOME,
+  COMMUNITY_ANNOTATION,
 }
 
 export const getEntryTypeFromString = (entryTypeString?: string) => {
@@ -58,6 +59,9 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   }
   if (entryTypeString.match(/Swiss-Prot|reviewed|^sp\|$|^sp$/gi)) {
     return EntryType.REVIEWED;
+  }
+  if (entryTypeString.match(/ORCID$/gi)) {
+    return EntryType.COMMUNITY_ANNOTATION;
   }
   return undefined;
 };

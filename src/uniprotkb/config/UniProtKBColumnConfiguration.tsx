@@ -1007,7 +1007,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
     let ids: Xref[] = [];
     if (data.references) {
       ids = data.references.reduce<Xref[]>((acc, citation) => {
-        const xrefs = citation.citation.citationCrossReferences;
+        const xrefs = citation.citation?.citationCrossReferences;
         return xrefs
           ? acc.concat(xrefs.filter((xref) => xref.database === 'PubMed'))
           : acc;

@@ -239,8 +239,8 @@ export const getUniProtPublicationsQueryUrl = ({
   size,
 }: GetUniProtPublicationsQueryUrl) =>
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
-    facets: 'source,category,study_type',
-    query:
+    facets: 'types,categories,is_large_scale',
+    facetFilter:
       selectedFacets
         .map((facet) => `(${facet.name}:"${facet.value}")`)
         .join(' AND ') || undefined,
