@@ -20,7 +20,7 @@ const isVirus = ([superkingdom]: string[]) =>
 const SubcellularLocationWithVizView: FC<
   {
     comments?: SubcellularLocationComment[];
-  } & Pick<OrganismData, 'taxonId' | 'lineage'>
+  } & Partial<Pick<OrganismData, 'taxonId' | 'lineage'>>
 > = ({ comments, taxonId, lineage }) => {
   if (!comments?.length) {
     return null;
