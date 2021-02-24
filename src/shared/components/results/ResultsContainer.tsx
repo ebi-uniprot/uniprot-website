@@ -96,6 +96,7 @@ const Results: FC = () => {
     data,
     error,
     loading,
+    progress,
     headers,
     status,
     isStale,
@@ -172,7 +173,7 @@ const Results: FC = () => {
       }
       sidebar={
         loading && !data?.facets ? (
-          <Loader />
+          <Loader progress={progress} />
         ) : (
           <ResultsFacets facets={data?.facets || []} isStale={isStale} />
         )
