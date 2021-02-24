@@ -72,10 +72,7 @@ const EntryExternalLinks: FC<EntryExternalLinksProps> = ({
   ).map(([category, xrefsGoupedByDatabase]) => ({
     category,
     databases: Object.values(
-      groupBy(
-        xrefsGoupedByDatabase,
-        (xrefs: XrefsGoupedByDatabase) => xrefs.database
-      )
+      groupBy(xrefsGoupedByDatabase, (xrefs) => xrefs.database)
       // Only need the first entry as it assumed that each database
       // list is the same across all of the sections
     ).map((v) => v[0]),

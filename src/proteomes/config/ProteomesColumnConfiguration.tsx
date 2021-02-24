@@ -1,16 +1,17 @@
-import { Fragment, ReactNode } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'franklin-sites';
-
-import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 import BuscoView from '../components/BuscoView';
 import BuscoLabel from '../components/BuscoLabel';
 import AccessionView from '../components/AccessionView';
+import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
+import { ProteomesAPIModel } from '../adapters/proteomesConverter';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -39,13 +40,10 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = ProteomesColumn.upid;
 
-export const ProteomesColumnConfiguration = new Map<
+export const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,
-  {
-    label: ReactNode;
-    render: (data: ProteomesAPIModel) => ReactNode;
-  }
->();
+  ProteomesAPIModel
+> = new Map();
 
 // COLUMN RENDERERS BELOW
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
@@ -58,15 +56,13 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   label: 'Organism ID',
   render: ({ taxonomy }) => (
-    <Link to={getEntryPath(Namespace.taxonomy, taxonomy.taxonId)}>
-      {taxonomy.taxonId}
-    </Link>
+    <OrganismDataView organism={taxonomy} displayOnlyID />
   ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   label: 'Organism',
-  render: ({ taxonomy }) => taxonomy.scientificName,
+  render: ({ taxonomy }) => <OrganismDataView organism={taxonomy} />,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
@@ -80,15 +76,16 @@ ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
   render: ({ taxonomy }) => taxonomy.mnemonic,
 });
 
-// TODO: Reflect current view in uniprot.org. This may want, pending discussion, to be improved as part of https://www.ebi.ac.uk/panda/jira/browse/TRM-25206.
+// TODO: Eventually signify hidden nodes and unify view with UniProtKB as per https://www.ebi.ac.uk/panda/jira/browse/TRM-25206
 ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
   label: 'Lineage',
   render: ({ taxonLineage }) =>
-    taxonLineage?.map(({ scientificName, taxonId }, index) => (
+    taxonLineage?.map(({ scientificName, taxonId, rank }, index) => (
       <Fragment key={taxonId}>
         {index > 0 && ', '}
         <Link key={taxonId} to={getEntryPath(Namespace.taxonomy, taxonId)}>
           {scientificName}
+          {rank !== 'no rank' && ` (${rank})`}
         </Link>
       </Fragment>
     )),
@@ -117,9 +114,8 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
   },
 });
 
-// TODO: this exists in the data but is not in result-fields yet. Backend to amend imminently.
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
-  label: 'Genome representation (RefSeq)',
+  label: 'Genome representation',
   render: ({ genomeAssembly }) => genomeAssembly?.level,
 });
 
@@ -143,6 +139,5 @@ ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
   render: ({ proteomeCompletenessReport: { buscoReport } }) =>
     buscoReport && <BuscoView report={buscoReport} />,
 });
-// TODO: implement BUSCO viz
 
 export default ProteomesColumnConfiguration;

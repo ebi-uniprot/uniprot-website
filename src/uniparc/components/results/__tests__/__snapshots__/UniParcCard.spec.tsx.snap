@@ -44,7 +44,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               <span
                 class="result-card__info-bit"
               >
-                Organisms: 6
+                Organisms: 7
               </span>
                · 
               <span
@@ -70,9 +70,9 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               >
                 Last seen: 
                 <time
-                  datetime="2020-12-02T00:00:00.000Z"
+                  datetime="2021-02-10T00:00:00.000Z"
                 >
-                  2020-12-02
+                  2021-02-10
                 </time>
               </span>
                · 

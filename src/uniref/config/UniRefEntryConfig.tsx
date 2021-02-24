@@ -1,13 +1,14 @@
 import MembersSection from '../components/entry/MembersSection';
 import SequenceSection from '../components/entry/SequenceSection';
 
-import { UniRefUIModel } from '../adapters/uniRefConverter';
+import { UniRefMember, UniRefUIModel } from '../adapters/uniRefConverter';
 import EntrySection from '../types/entrySection';
 
 const UniRefEntryConfig: {
   id: EntrySection;
   sectionContent: (
     entryData: UniRefUIModel,
+    members?: UniRefMember[],
     metadata?: Record<string, string>
   ) => JSX.Element;
 }[] = [
@@ -22,14 +23,12 @@ const UniRefEntryConfig: {
   },
   {
     id: EntrySection.Members,
-    sectionContent: (data, metadata) => (
+    sectionContent: (data) => (
       <MembersSection
         id={data.id}
         identity={data.identity}
         representativeMember={data.representativeMember}
-        members={data.members}
         key={EntrySection.Members}
-        metadata={metadata}
       />
     ),
   },

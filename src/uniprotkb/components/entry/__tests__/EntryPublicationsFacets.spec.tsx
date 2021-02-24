@@ -5,7 +5,7 @@ import EntryPublicationsFacets from '../EntryPublicationsFacets';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
-import data from './__mocks__/entryPublicationsData.json';
+import data from './__mocks__/entryPublicationsData';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 
@@ -46,7 +46,7 @@ describe('EntryPublication facets tests', () => {
     const {
       location: { search },
     } = history;
-    expect(search).toMatch(/facets=study_type%3Asmall_scale/);
+    expect(search).toMatch(/facets=is_large_scale%3Afalse/);
   });
 
   it('should remove facet', () => {

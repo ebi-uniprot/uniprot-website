@@ -17,7 +17,7 @@ import entryData from '../../../__mocks__/entryModelData.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
 import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
-import entryPublicationsData from './__mocks__/entryPublicationsData.json';
+import entryPublicationsData from './__mocks__/entryPublicationsData';
 
 const { primaryAccession } = entryData;
 const { primaryAccession: deleteEntryAccession } = deletedEntryData;

@@ -7,7 +7,7 @@ import useDataApi from '../../../../shared/hooks/useDataApi';
 import uniParcConverter from '../../../adapters/uniParcConverter';
 import EntrySection from '../../../types/entrySection';
 
-import uniParcData from '../../../__mocks__/entryModelData.json';
+import uniParcData from '../../../__mocks__/entryModelData';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 

@@ -1,5 +1,6 @@
+import { screen } from '@testing-library/react';
 import EntryPublications from '../EntryPublications';
-import mockPublicationsData from './__mocks__/entryPublicationsData.json';
+import mockPublicationsData from './__mocks__/entryPublicationsData';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
@@ -18,6 +19,8 @@ describe('EntryPublications tests', () => {
     useDataApi.mockImplementation(() => dataMock);
     const { findByText } = getRendered();
     expect(useDataApi).toHaveBeenCalled();
-    expect(await findByText(/ISOFORM APP751/)).toBeTruthy();
+    expect(
+      await screen.getByText(/S-adenosylhomocysteine/)
+    ).toBeInTheDocument();
   });
 });

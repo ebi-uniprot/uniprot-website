@@ -1,6 +1,5 @@
-import joinUrl from 'url-join';
-
-export const devPrefix = 'https://wwwdev.ebi.ac.uk';
+import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
+import { devPrefix } from '../../shared/config/apiUrls';
 
 // NOTE: isn't working/deployed yet
 const apiUrls = {

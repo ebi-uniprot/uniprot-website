@@ -1,11 +1,7 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import {
-  Facets,
-  Loader,
-  // DropdownButton,
-} from 'franklin-sites';
+import { Loader } from 'franklin-sites';
 
 import {
   MessageLevel,
@@ -17,6 +13,7 @@ import {
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
 import EntryMain from './EntryMain';
+import MembersFacets from './MembersFacets';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -24,7 +21,6 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
-import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -32,9 +28,9 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import uniRefConverter, {
   UniRefAPIModel,
 } from '../../adapters/uniRefConverter';
-import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import apiUrls from '../../config/apiUrls';
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -44,16 +40,14 @@ const Entry: FC = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.uniref.entry(accession);
+  const baseURL = apiUrls.entry(accession);
   const {
     loading,
     data,
     status,
     error,
     redirectedTo,
-    headers,
   } = useDataApi<UniRefAPIModel>(baseURL);
-  const facetData = useDataApi<FacetObject[]>(`${baseURL}/facets`);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
@@ -81,15 +75,7 @@ const Entry: FC = () => {
 
   return (
     <SideBarLayout
-      sidebar={
-        facetData.loading ? (
-          <Loader />
-        ) : (
-          facetData.data && (
-            <Facets data={facetData.data} queryStringKey="filter" />
-          )
-        )
-      }
+      sidebar={<MembersFacets accession={accession} />}
       className="entry-page"
       title={
         <ErrorBoundary>
@@ -99,11 +85,11 @@ const Entry: FC = () => {
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
           </h2>
-          <Overview transformedData={transformedData} facetData={facetData} />
+          <Overview transformedData={transformedData} />
         </ErrorBoundary>
       }
     >
-      <EntryMain transformedData={transformedData} metadata={headers} />
+      <EntryMain transformedData={transformedData} />
     </SideBarLayout>
   );
 };

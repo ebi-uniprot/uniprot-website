@@ -2,6 +2,7 @@ import { FC, ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, DataTable, ExternalLink } from 'franklin-sites';
 
+import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 
@@ -38,6 +39,9 @@ const getColumns = (
     label: 'Database',
     name: 'database',
     render(xref) {
+      if (!xref.database) {
+        return null;
+      }
       let cell: ReactNode = xref.database;
       const entryType = databaseToEntryType[xref.database];
       if (entryType === EntryType.REVIEWED) {
@@ -66,6 +70,9 @@ const getColumns = (
     label: 'Identifier',
     name: 'identifier',
     render(xref) {
+      if (!xref.id) {
+        return null;
+      }
       let cell: ReactNode = xref.id;
       if (
         xref.database === 'UniProtKB/Swiss-Prot' ||
@@ -84,7 +91,7 @@ const getColumns = (
           </Link>
         );
       } else {
-        const template = templateMap.get(xref.database);
+        const template = xref.database && templateMap.get(xref.database);
         if (template) {
           cell = (
             <ExternalLink url={template.replace('%id', xref.id)}>
@@ -104,7 +111,7 @@ const getColumns = (
     label: 'Version',
     name: 'version',
     render: (xref) =>
-      'version' in xref && (
+      xref.version && (
         <span className={xref.active ? undefined : 'xref-inactive'}>
           {xref.version}
         </span>
@@ -113,39 +120,39 @@ const getColumns = (
   {
     label: 'Organism',
     name: 'organism',
-    // eslint-disable-next-line consistent-return
-    render(xref) {
-      const taxProps = xref.properties?.find(
-        (prop) => prop.key === 'NCBI_taxonomy_id'
-      );
-      if (taxProps) {
-        return (
-          <span className={xref.active ? undefined : 'xref-inactive'}>
-            {taxProps.value}
-          </span>
-        );
-      }
-    },
+    render: (xref) =>
+      xref.organism && (
+        <OrganismDataView
+          organism={xref.organism}
+          className={xref.active ? undefined : 'xref-inactive'}
+        />
+      ),
   },
   {
     label: 'First seen',
     name: 'first_seen',
-    // note make than time element
-    render: (xref) => (
-      <span className={xref.active ? undefined : 'xref-inactive'}>
-        {xref.created}
-      </span>
-    ),
+    render: (xref) =>
+      xref.created && (
+        <time
+          className={xref.active ? undefined : 'xref-inactive'}
+          dateTime={new Date(xref.created).toISOString()}
+        >
+          {xref.created}
+        </time>
+      ),
   },
   {
     label: 'Last seen',
     name: 'last_seen',
-    // note make than time element
-    render: (xref) => (
-      <span className={xref.active ? undefined : 'xref-inactive'}>
-        {xref.lastUpdated}
-      </span>
-    ),
+    render: (xref) =>
+      xref.lastUpdated && (
+        <time
+          className={xref.active ? undefined : 'xref-inactive'}
+          dateTime={new Date(xref.lastUpdated).toISOString()}
+        >
+          {xref.lastUpdated}
+        </time>
+      ),
   },
   {
     label: 'Active',
