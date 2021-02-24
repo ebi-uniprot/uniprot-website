@@ -6,6 +6,7 @@ import SlidingPanel, { Position } from './SlidingPanel';
 import SearchContainer from '../../../uniprotkb/components/search/SearchContainer';
 
 import lazy from '../../utils/lazy';
+
 import useNS from '../../hooks/useNS';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -78,14 +79,25 @@ const QueryBuilder = lazy(
     )
 );
 
-const UniProtHeader = () => {
-  const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
-
+const SearchContainerWithNamespace = () => {
   const namespace = useNS();
 
   const [selectedNamespace, setSelectedNamespace] = useState(
     namespace || Namespace.uniprotkb
   );
+
+  return (
+    <SearchContainer
+      namespace={selectedNamespace}
+      onNamespaceChange={(namespace: Namespace) =>
+        setSelectedNamespace(namespace)
+      }
+    />
+  );
+};
+
+const UniProtHeader = () => {
+  const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
 
   const isHomePage = Boolean(homeMatch?.isExact);
@@ -114,16 +126,7 @@ const UniProtHeader = () => {
       <Header
         items={displayedLinks}
         isNegative={isHomePage}
-        search={
-          isHomePage ? undefined : (
-            <SearchContainer
-              namespace={selectedNamespace}
-              onNamespaceChange={(namespace: Namespace) =>
-                setSelectedNamespace(namespace)
-              }
-            />
-          )
-        }
+        search={!isHomePage && <SearchContainerWithNamespace />}
         logo={<Logo width={120} height={50} />}
       />
       {displayQueryBuilder && (
