@@ -7,7 +7,11 @@ type CommonResultFormats =
 export type ResultFormat = {
   [JobTypes.ALIGN]:
     | CommonResultFormats
-    | 'aln-clustal_num' // Alignment in CLUSTAL format with base/residue numbering; https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Multiple+Sequence+Alignment+Tool+Output+Examples#MultipleSequenceAlignmentToolOutputExamples-ClustalOmegaproteinoutputexamples / ClustalW: http://web.mit.edu/meme_v4.11.4/share/doc/clustalw-format.html
+    // Alignment in CLUSTAL format with base/residue numbering;
+    // https://www.ebi.ac.uk/seqdb/confluence/display/JDSAT/Multiple+Sequence+Alignment+Tool+Output+Examples#MultipleSequenceAlignmentToolOutputExamples-ClustalOmegaproteinoutputexamples
+    // ClustalW:
+    // http://web.mit.edu/meme_v4.11.4/share/doc/clustalw-format.html
+    | 'aln-clustal_num'
     | 'phylotree' // Phylogenetic Tree
     | 'pim' // Percent Identity Matrix
     | 'submission'; // Submission Details (according to doc in JSON, but it looks like it's actually XML)
@@ -38,7 +42,7 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
   let baseURL = '';
   switch (type) {
     case JobTypes.ALIGN:
-      baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/clustalo';
+      baseURL = 'https://wwwdev.ebi.ac.uk/Tools/services/rest/clustalo';
       break;
     case JobTypes.BLAST:
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
