@@ -1,0 +1,47 @@
+@import '../../../node_modules/franklin-sites/src/styles/colours';
+@import '../../../node_modules/franklin-sites/src/styles/settings';
+
+.publication {
+  border-bottom: 1px solid $colour-pastel-blue;
+  margin-bottom: $global-margin;
+  padding-bottom: $global-margin;
+  h5 {
+    line-height: 1.2;
+  }
+  .button.tertiary {
+    margin: 0;
+  }
+  &__authors {
+    margin-bottom: $global-margin/2;
+    .button.tertiary {
+      padding: 0 0.5rem;
+    }
+  }
+  &__abstract {
+    margin-bottom: $global-margin/2;
+  }
+  &__columns {
+    display: flex;
+    justify-content: space-between;
+    &__main {
+      margin-right: $global-margin;
+    }
+    &__side {
+      flex: 0 0 15rem;
+      &__item {
+        border-left: 0.125rem solid $colour-vivid-cerulean;
+        padding-left: 0.7rem;
+        svg {
+          stroke: $colour-sapphire-blue;
+          fill: $colour-sapphire-blue;
+        }
+      }
+    }
+  }
+  &__statistics {
+    display: flex;
+    &__item {
+      margin-right: $global-margin;
+    }
+  }
+}
