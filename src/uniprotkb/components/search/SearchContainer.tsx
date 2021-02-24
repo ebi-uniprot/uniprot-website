@@ -1,4 +1,4 @@
-import { useState, useEffect, FC, Fragment } from 'react';
+import { useState, useEffect, FC, Fragment, HTMLAttributes } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button } from 'franklin-sites';
@@ -17,12 +17,15 @@ const examples: Partial<Record<Namespace, string[]>> = {
   [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
 };
 
-const Search: FC<{
-  className?: string;
+type Props = {
   includeFooter?: boolean;
   namespace: Namespace;
   onNamespaceChange: (namespace: Namespace) => void;
-}> = ({ className, includeFooter = false, namespace, onNamespaceChange }) => {
+};
+
+const SearchContainer: FC<
+  Props & Exclude<HTMLAttributes<HTMLDivElement>, 'role'>
+> = ({ includeFooter, namespace, onNamespaceChange, ...props }) => {
   const history = useHistory();
   const location = useLocation();
 
@@ -64,7 +67,7 @@ const Search: FC<{
   }, [location]);
 
   return (
-    <section className={className}>
+    <section role="search" {...props}>
       <MainSearch
         namespaces={NamespaceLabels}
         searchTerm={searchTerm}
@@ -74,8 +77,8 @@ const Search: FC<{
         selectedNamespace={namespace}
       />
       {includeFooter && (
-        <section className="search-container-footer">
-          <section>
+        <div className="search-container-footer">
+          <div>
             {examples[namespace] && (
               <>
                 Examples:{' '}
@@ -92,8 +95,8 @@ const Search: FC<{
                 ))}
               </>
             )}
-          </section>
-          <section>
+          </div>
+          <div>
             <Button
               variant="tertiary"
               element={Link}
@@ -101,11 +104,11 @@ const Search: FC<{
             >
               Search with a list of IDs
             </Button>
-          </section>
-        </section>
+          </div>
+        </div>
       )}
     </section>
   );
 };
 
-export default Search;
+export default SearchContainer;
