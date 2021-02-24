@@ -239,8 +239,6 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
     shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
     return () => {
       shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
-      instance.removeEventListener('mouseenter', instance.highlight);
-      instance.removeEventListener('mouseleave', instance.highlight);
     };
   }, []);
 
