@@ -13,7 +13,22 @@ import {
 import { FacetValue } from '../../../uniprotkb/types/responseTypes';
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 
-const sortByCount = (a: FacetValue, b: FacetValue) => b.count - a.count;
+const reviewed = 'UniProtKB/Swiss-Prot';
+const unreviewed = 'UniProtKB/TrEMBL';
+const exceptions = new Set([reviewed, unreviewed]);
+
+const sortByCount = (a: FacetValue, b: FacetValue) => {
+  if (exceptions.has(a.value) && exceptions.has(b.value)) {
+    return a.value === reviewed ? -1 : 1;
+  }
+  if (exceptions.has(a.value)) {
+    return -1;
+  }
+  if (exceptions.has(b.value)) {
+    return 1;
+  }
+  return b.count - a.count;
+};
 
 type OrganismTuple = [taxon: OrganismData, count: number];
 
