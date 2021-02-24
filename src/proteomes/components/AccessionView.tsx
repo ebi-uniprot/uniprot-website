@@ -14,16 +14,19 @@ import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/accession-view.scss';
 
+const iconProteomeTypes: ProteomeType[] = [
+  'Reference proteome',
+  'Reference and representative proteome',
+  'Representative proteome',
+];
+
 const AccessionView: FC<Pick<ProteomesAPIModel, 'id' | 'proteomeType'>> = ({
   id,
   proteomeType,
 }) => {
   const link = <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>;
-  const showIcon = [
-    ProteomeType.REFERENCE,
-    ProteomeType.REFERENCE_AND_REPRESENTATIVE,
-    ProteomeType.REPRESENTATIVE,
-  ].includes(proteomeType);
+
+  const showIcon = iconProteomeTypes.includes(proteomeType);
   return showIcon ? (
     <div className="accession-view">
       <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
