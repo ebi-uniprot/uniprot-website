@@ -67,7 +67,12 @@ exports[`ProteomesColumnConfiguration component should render column "mnemonic":
 
 exports[`ProteomesColumnConfiguration component should render column "organism": organism 1`] = `
 <DocumentFragment>
-  Homo sapiens
+  <a
+    href="/taxonomy/9606"
+    title="Homo sapiens (Human), taxon ID 9606"
+  >
+    Homo sapiens (Human)
+  </a>
 </DocumentFragment>
 `;
 
@@ -75,6 +80,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism_i
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
+    title="Homo sapiens (Human), taxon ID 9606"
   >
     9606
   </a>

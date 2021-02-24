@@ -2,6 +2,7 @@ import entryToFASTAWithHeaders from './entryToFASTAWithHeaders';
 import fetchData from './fetchData';
 
 import uniProtKBApiUrls from '../config/apiUrls';
+import uniRefApiUrls from '../../uniref/config/apiUrls';
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
@@ -17,7 +18,7 @@ const getFASTAFromAccession = async (
   if (accession.startsWith('UniRef')) {
     // UniRef
     // Find representative sequence and use it instead
-    const uniRefURL = uniProtKBApiUrls.uniref.entry(accession);
+    const uniRefURL = uniRefApiUrls.entry(accession);
     if (!uniRefURL) {
       return;
     }

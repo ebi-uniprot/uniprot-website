@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Card, Sequence } from 'franklin-sites';
+import { Card, LongNumber, Sequence } from 'franklin-sites';
 
-import { Sequence as SequenceType } from '../../../shared/types/sequence';
-import { formatLargeNumber, hasContent } from '../../../shared/utils/utils';
+import { hasContent } from '../../../shared/utils/utils';
 
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
+import { Sequence as SequenceType } from '../../../shared/types/sequence';
 
 const SequenceSection: FC<{
   data: SequenceType;
@@ -22,7 +22,7 @@ const SequenceSection: FC<{
     },
     {
       title: 'Mass (Da)',
-      content: formatLargeNumber(data.molWeight),
+      content: <LongNumber>{data.molWeight}</LongNumber>,
     },
     {
       title: 'Checksum',

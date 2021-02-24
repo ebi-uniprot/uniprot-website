@@ -11,6 +11,7 @@ import { Namespace } from '../../types/namespaces';
 
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
+import { OrganismDataView } from '../views/OrganismDataView';
 
 type TaxonomyDataProps = {
   data: OrganismData;
@@ -64,9 +65,7 @@ export const TaxonomyListView: FC<{
       title: 'Organism',
       content: (
         <>
-          <Link to={getEntryPath(Namespace.taxonomy, data.taxonId)}>
-            {`${data.scientificName} (${data.commonName})`}
-          </Link>
+          <OrganismDataView organism={data} />
           {data.evidences?.length ? (
             <UniProtKBEvidenceTag evidences={data.evidences} />
           ) : null}

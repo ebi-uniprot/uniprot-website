@@ -1,12 +1,5 @@
 import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
-
-export type Taxonomy = {
-  scientificName: string;
-  taxonId: number;
-  commonName?: string;
-  mnemonic: string;
-  synonyms: string[];
-};
+import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 
 export type GenomeAnnotation = {
   source: string;
@@ -75,7 +68,7 @@ export enum ProteomeType {
 
 export type ProteomesAPIModel = {
   id: string;
-  taxonomy: Taxonomy;
+  taxonomy: OrganismData;
   modified: string;
   proteomeType: ProteomeType;
   components: Component[];

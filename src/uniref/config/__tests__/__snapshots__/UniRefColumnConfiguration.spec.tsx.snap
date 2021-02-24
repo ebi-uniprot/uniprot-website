@@ -2,32 +2,38 @@
 
 exports[`UniRefColumnConfiguration component should render column "common_taxon": common_taxon 1`] = `
 <DocumentFragment>
-  Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
+  <a
+    href="/taxonomy/1305"
+    title="Streptococcus sanguinis, taxon ID 1305"
+  >
+    Streptococcus sanguinis
+  </a>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "common_taxonid": common_taxonid 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/8364"
+    href="/taxonomy/1305"
+    title="Streptococcus sanguinis, taxon ID 1305"
   >
-    8364
+    1305
   </a>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "count": count 1`] = `
 <DocumentFragment>
-  9 members
+  1 member
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "created": created 1`] = `
 <DocumentFragment>
   <time
-    datetime="2013-06-26T00:00:00.000Z"
+    datetime="2021-02-10T00:00:00.000Z"
   >
-    2013-06-26
+    2021-02-10
   </time>
 </DocumentFragment>
 `;
@@ -35,22 +41,22 @@ exports[`UniRefColumnConfiguration component should render column "created": cre
 exports[`UniRefColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <a
-    href="/uniref/UniRef90_Q28I25"
+    href="/uniref/UniRef100_A0A0B7GQ86"
   >
-    UniRef90_Q28I25
+    UniRef100_A0A0B7GQ86
   </a>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "identity": identity 1`] = `
 <DocumentFragment>
-  UniRef90
+  UniRef100
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "length": length 1`] = `
 <DocumentFragment>
-  483
+  730
 </DocumentFragment>
 `;
 
@@ -61,52 +67,18 @@ exports[`UniRefColumnConfiguration component should render column "members": mem
   >
     <li>
       <a
-        href="/uniprotkb/Q28I25"
+        href="/uniprotkb/A0A0B7GQ86"
       >
-        Q28I25
+        A0A0B7GQ86
       </a>
     </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A6I8RXP7"
-      >
-        A0A6I8RXP7
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A6I8SV39"
-      >
-        A0A6I8SV39
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A6I8QDI3"
-      >
-        A0A6I8QDI3
-      </a>
-    </li>
-    <li>
-      <a
-        href="/uniprotkb/A0A6I8QHP6"
-      >
-        A0A6I8QHP6
-      </a>
-    </li>
-    <a
-      class="button tertiary"
-      href="/uniref/UniRef90_Q28I25"
-    >
-      4 more members
-    </a>
   </ul>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "name": name 1`] = `
 <DocumentFragment>
-  Cluster: CDC7 cell division cycle 7
+  Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
 </DocumentFragment>
 `;
 
@@ -116,7 +88,12 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
     class="no-bullet"
   >
     <li>
-      Xenopus tropicalis (Western clawed frog) (Silurana tropicalis)
+      <a
+        href="/taxonomy/1305"
+        title="Streptococcus sanguinis, taxon ID 1305"
+      >
+        Streptococcus sanguinis
+      </a>
     </li>
   </ul>
 </DocumentFragment>
@@ -129,9 +106,10 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
   >
     <li>
       <a
-        href="/taxonomy/8364"
+        href="/taxonomy/1305"
+        title="Streptococcus sanguinis, taxon ID 1305"
       >
-        8364
+        Streptococcus sanguinis
       </a>
     </li>
   </ul>
@@ -140,20 +118,28 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
 
 exports[`UniRefColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
-  <span
-    class="break-anywhere"
-  />
+  <section
+    class="sequence-container"
+  >
+    <div
+      class="sequence"
+    >
+      <div
+        class="sequence__sequence"
+      >
+        <svg>
+          <text>
+            M
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
 </DocumentFragment>
 `;
 
 exports[`UniRefColumnConfiguration component should render column "types": types 1`] = `
 <DocumentFragment>
-  <span
-    class="entry-title__status icon--uniparc"
-    title="This marks a UniParc entry"
-  >
-    <test-file-stub />
-  </span>
   <span
     class="entry-title__status icon--unreviewed"
     title="This marks an unreviewed UniProtKB entry"

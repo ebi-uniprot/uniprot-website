@@ -4,38 +4,7 @@ exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="UDP-glucose 4-epimerase"
-      >
-        <a
-          class="external-link"
-          href="//www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd05247}"
-          rel="noopener"
-          target="_blank"
-        >
-          cd05247
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR005886/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR005886
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -43,38 +12,7 @@ exports[`UniParcColumnConfiguration component should render column "Gene3D": Gen
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="Cytochrome P450 superfamily"
-      >
-        <a
-          class="external-link"
-          href="http://www.cathdb.info/version/latest/superfamily/1.10.630.10"
-          rel="noopener"
-          target="_blank"
-        >
-          G3DSA:1.10.630.10
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR036396/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR036396
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -90,38 +28,7 @@ exports[`UniParcColumnConfiguration component should render column "PANTHER": PA
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="Glucose-methanol-choline oxidoreductase"
-      >
-        <a
-          class="external-link"
-          href="http://www.pantherdb.org/panther/family.do?clsAccession=PTHR11552"
-          rel="noopener"
-          target="_blank"
-        >
-          PTHR11552
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR012132/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR012132
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -129,38 +36,7 @@ exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRS
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="UTP--glucose-1-phosphate uridylyltransferase"
-      >
-        <a
-          class="external-link"
-          href="https://proteininformationresource.org/cgi-bin/ipcSF?id=PIRSF000806"
-          rel="noopener"
-          target="_blank"
-        >
-          PIRSF000806
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR016267/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR016267
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -168,38 +44,7 @@ exports[`UniParcColumnConfiguration component should render column "PRINTS": PRI
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="Cytochrome P450, B-class"
-      >
-        <a
-          class="external-link"
-          href="http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?prints_accn=PR00359&display_opts=Prints&category=None&queryform=false&regexpr=off"
-          rel="noopener"
-          target="_blank"
-        >
-          PR00359
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR002397/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR002397
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -207,38 +52,7 @@ exports[`UniParcColumnConfiguration component should render column "PROSITE": PR
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="Glucose-methanol-choline oxidoreductase, N-terminal"
-      >
-        <a
-          class="external-link"
-          href="//prosite.expasy.org/PS00624"
-          rel="noopener"
-          target="_blank"
-        >
-          PS00624
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR000172/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR000172
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -301,38 +115,7 @@ exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUP
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="Cytochrome P450 superfamily"
-      >
-        <a
-          class="external-link"
-          href="http://supfam.org/SUPERFAMILY/cgi-bin/scop.cgi?ipid=SSF48264"
-          rel="noopener"
-          target="_blank"
-        >
-          SSF48264
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR036396/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR036396
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -340,38 +123,7 @@ exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": T
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
-  >
-    <li>
-      <span
-        title="Plastocyanin"
-      >
-        <a
-          class="external-link"
-          href="http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=TIGR02656"
-          rel="noopener"
-          target="_blank"
-        >
-          TIGR02656
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-         ( 
-        <a
-          class="external-link"
-          href="https://www.ebi.ac.uk/interpro/entry/InterPro/IPR002387/"
-          rel="noopener"
-          target="_blank"
-        >
-          IPR002387
-          <test-file-stub
-            width="12.5"
-          />
-        </a>
-        )
-      </span>
-    </li>
-  </ul>
+  />
 </DocumentFragment>
 `;
 
@@ -480,19 +232,19 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
     class="expandable-list no-bullet"
   >
     <li>
-      CPXV_FIN2000_MAN_093
+      VACWR088
     </li>
     <li>
       L1R
     </li>
     <li>
-      N1R
-    </li>
-    <li>
       RPXV077
     </li>
     <li>
-      VACV_TT8_108
+      N1R
+    </li>
+    <li>
+      CPXV_FIN2000_MAN_093
     </li>
     <li>
       <button
@@ -500,7 +252,7 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
         data-testid="expandable-message"
         type="button"
       >
-        2 more gene names
+        8 more gene names
       </button>
     </li>
   </ul>
@@ -510,9 +262,9 @@ exports[`UniParcColumnConfiguration component should render column "gene": gene 
 exports[`UniParcColumnConfiguration component should render column "last_seen": last_seen 1`] = `
 <DocumentFragment>
   <time
-    datetime="2020-12-02T00:00:00.000Z"
+    datetime="2021-02-10T00:00:00.000Z"
   >
-    2020-12-02
+    2021-02-10
   </time>
 </DocumentFragment>
 `;
@@ -530,45 +282,52 @@ exports[`UniParcColumnConfiguration component should render column "organism": o
   >
     <li>
       <a
-        href="/taxonomy/10243"
+        href="/taxonomy/10254"
+        title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
       >
-        10243
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/10245"
-      >
-        10245
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/32630"
-      >
-        32630
+        Vaccinia virus (strain Western Reserve) (VACV)
       </a>
     </li>
     <li>
       <a
         href="/taxonomy/397342"
+        title="Horsepox virus (HSPV), taxon ID 397342"
       >
-        397342
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/10254"
-      >
-        10254
+        Horsepox virus (HSPV)
       </a>
     </li>
     <li>
       <a
         href="/taxonomy/32606"
+        title="Rabbitpox virus, taxon ID 32606"
       >
-        32606
+        Rabbitpox virus
       </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10245"
+        title="Vaccinia virus, taxon ID 10245"
+      >
+        Vaccinia virus
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10243"
+        title="Cowpox virus (CPV), taxon ID 10243"
+      >
+        Cowpox virus (CPV)
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        2 more organisms
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -581,45 +340,52 @@ exports[`UniParcColumnConfiguration component should render column "organism_id"
   >
     <li>
       <a
-        href="/taxonomy/10243"
-      >
-        10243
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/10245"
-      >
-        10245
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/32630"
-      >
-        32630
-      </a>
-    </li>
-    <li>
-      <a
-        href="/taxonomy/397342"
-      >
-        397342
-      </a>
-    </li>
-    <li>
-      <a
         href="/taxonomy/10254"
+        title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
       >
         10254
       </a>
     </li>
     <li>
       <a
+        href="/taxonomy/397342"
+        title="Horsepox virus (HSPV), taxon ID 397342"
+      >
+        397342
+      </a>
+    </li>
+    <li>
+      <a
         href="/taxonomy/32606"
+        title="Rabbitpox virus, taxon ID 32606"
       >
         32606
       </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10245"
+        title="Vaccinia virus, taxon ID 10245"
+      >
+        10245
+      </a>
+    </li>
+    <li>
+      <a
+        href="/taxonomy/10243"
+        title="Cowpox virus (CPV), taxon ID 10243"
+      >
+        10243
+      </a>
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        2 more organisms
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -631,22 +397,28 @@ exports[`UniParcColumnConfiguration component should render column "protein": pr
     class="expandable-list no-bullet"
   >
     <li>
-      HSPV089
+      Protein L1
     </li>
     <li>
       IMV membrane protein
     </li>
     <li>
-      L1R
-    </li>
-    <li>
-      Myristylated MP IMV
-    </li>
-    <li>
-      Protein L1
+      HSPV089
     </li>
     <li>
       RPXV077
+    </li>
+    <li>
+      L1R
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        8 more protein names
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -693,11 +465,13 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       </a>
     </li>
     <li>
-      <a
-        href="/proteome/UP000181062"
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
       >
-        UP000181062
-      </a>
+        9 more proteomes
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -705,11 +479,23 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
 
 exports[`UniParcColumnConfiguration component should render column "sequence": sequence 1`] = `
 <DocumentFragment>
-  <span
-    class="break-anywhere"
+  <section
+    class="sequence-container"
   >
-    MGAAASIQTTVNTLSERISSKLEQEANA
-  </span>
+    <div
+      class="sequence"
+    >
+      <div
+        class="sequence__sequence"
+      >
+        <svg>
+          <text>
+            M
+          </text>
+        </svg>
+      </div>
+    </div>
+  </section>
 </DocumentFragment>
 `;
 

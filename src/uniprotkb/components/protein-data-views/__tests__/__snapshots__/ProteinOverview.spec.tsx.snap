@@ -6,8 +6,9 @@ exports[`ProteinOverview component should render 1`] = `
     Amyloid-beta precursor protein · 
     <a
       href="/taxonomy/9606"
+      title="Homo sapiens (Human), taxon ID 9606"
     >
-      Homo sapiens
+      Homo sapiens (Human)
     </a>
      · 
     <strong>

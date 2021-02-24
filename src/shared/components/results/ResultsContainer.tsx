@@ -82,12 +82,11 @@ const Results: FC = () => {
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns,
     selectedFacets,
     sortColumn,
     sortDirection,
     // Not really interested in the list of results here, try to reduce payload
-    size: 1, // TODO: change to 0 whenever the API accepts it
+    size: 0,
   });
 
   const {
