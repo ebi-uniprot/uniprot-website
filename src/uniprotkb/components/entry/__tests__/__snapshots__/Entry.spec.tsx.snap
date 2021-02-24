@@ -1500,140 +1500,43 @@ exports[`Entry should render main 1`] = `
             </section>
           </div>
           <div
-            data-entry-section="true"
-            id="subcellular-location"
+            class="error-component"
           >
-            <section
-              class="card"
+            <div
+              class="message message--failure"
+              role="status"
             >
-              <div>
-                <div
-                  class="card__header"
-                >
-                  <h2
-                    class="card__title"
-                  >
-                    Subcellular Location
-                  </h2>
-                </div>
-                <div
-                  class="card__content"
-                >
-                  <div
-                    id="swissviz"
-                  >
-                    
-      
-                    <template
-                      id="sibSwissBioPicsStyle"
-                    />
-                    
-    
-                    <sib-swissbiopics-sl
-                      contentid="swissBioPicsSlData"
-                      sls=""
-                      taxid="9606"
+              <div
+                class="message__side-border"
+              />
+              <test-file-stub
+                height="1.125em"
+                width="1.125em"
+              />
+              <section
+                class="message__content"
+              >
+                <small>
+                  <h5>
+                    An unexpected issue occured
+                  </h5>
+                  <p>
+                    You can try to reload the page, use the rest of this page, or go back to the previous page.
+                  </p>
+                  <p>
+                    If the error persists, please 
+                    <a
+                      href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                       
-                    </sib-swissbiopics-sl>
-                    <div
-                      id="swissBioPicsSlData"
-                    >
-                      <section
-                        class="text-block"
-                      >
-                        <h3>
-                          molecule value
-                        </h3>
-                        <div
-                          id="id1term"
-                        >
-                          <strong>
-                            location value
-                          </strong>
-                           
-                          <button
-                            aria-controls="30"
-                            aria-expanded="false"
-                            class="evidence-tag svg-colour-unreviewed"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                              title=""
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="30"
-                          />
-                          : topology value 
-                          <button
-                            aria-controls="31"
-                            aria-expanded="false"
-                            class="evidence-tag svg-colour-unreviewed"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                              title=""
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="31"
-                          />
-                        </div>
-                        <section
-                          class="text-block"
-                        >
-                          value
-                          <button
-                            aria-controls="32"
-                            aria-expanded="false"
-                            class="evidence-tag svg-colour-unreviewed"
-                            data-testid="evidence-tag-trigger"
-                            type="button"
-                          >
-                            <test-file-stub
-                              height="12"
-                              width="12"
-                            />
-                            <span
-                              class="evidence-tag__label"
-                              title=""
-                            >
-                              1 automatic annotation
-                            </span>
-                          </button>
-                          <div
-                            class="evidence-tag-content "
-                            data-testid="evidence-tag-content"
-                            id="32"
-                          />
-                        </section>
-                      </section>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+                      report this bug here
+                    </a>
+                    .
+                  </p>
+                </small>
+              </section>
+            </div>
           </div>
           <div
             data-entry-section="true"
@@ -1665,7 +1568,7 @@ exports[`Entry should render main 1`] = `
                     class="text-block"
                   >
                     <button
-                      aria-controls="24"
+                      aria-controls="27"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
@@ -1685,7 +1588,7 @@ exports[`Entry should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="24"
+                      id="27"
                     />
                   </span>
                   <ul
@@ -1782,7 +1685,7 @@ exports[`Entry should render main 1`] = `
                   >
                     value
                     <button
-                      aria-controls="25"
+                      aria-controls="28"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
@@ -1802,7 +1705,7 @@ exports[`Entry should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="25"
+                      id="28"
                     />
                   </section>
                 </div>
@@ -2311,7 +2214,7 @@ exports[`Entry should render main 1`] = `
                     </a>
                      differs from that shown. Reason: Erroneous initiation Text note
                     <button
-                      aria-controls="26"
+                      aria-controls="29"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
@@ -2331,7 +2234,7 @@ exports[`Entry should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="26"
+                      id="29"
                     />
                   </section>
                   <h3>
@@ -2345,7 +2248,7 @@ exports[`Entry should render main 1`] = `
                     </h3>
                     Molecular mass is 2.1 Da. Determined by LSI. note value
                     <button
-                      aria-controls="27"
+                      aria-controls="30"
                       aria-expanded="false"
                       class="evidence-tag svg-colour-unreviewed"
                       data-testid="evidence-tag-trigger"
@@ -2365,7 +2268,7 @@ exports[`Entry should render main 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="27"
+                      id="30"
                     />
                   </section>
                   <h3>
@@ -2379,7 +2282,7 @@ exports[`Entry should render main 1`] = `
                       <span>
                         rna position 
                         <button
-                          aria-controls="28"
+                          aria-controls="31"
                           aria-expanded="false"
                           class="evidence-tag svg-colour-unreviewed"
                           data-testid="evidence-tag-trigger"
@@ -2399,7 +2302,7 @@ exports[`Entry should render main 1`] = `
                         <div
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
-                          id="28"
+                          id="31"
                         />
                       </span>
                     </div>
@@ -2407,7 +2310,7 @@ exports[`Entry should render main 1`] = `
                       <span>
                         value 
                         <button
-                          aria-controls="29"
+                          aria-controls="32"
                           aria-expanded="false"
                           class="evidence-tag svg-colour-unreviewed"
                           data-testid="evidence-tag-trigger"
@@ -2427,7 +2330,7 @@ exports[`Entry should render main 1`] = `
                         <div
                           class="evidence-tag-content "
                           data-testid="evidence-tag-content"
-                          id="29"
+                          id="32"
                         />
                       </span>
                     </div>
