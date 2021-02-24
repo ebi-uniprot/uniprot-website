@@ -12,6 +12,18 @@ import { SubcellularLocationComment } from '../../types/commentTypes';
   from the source code at http://sp.sib.swiss/scripts/uniprot_entry-bundle.js with some modifications
 */
 
+const shapes = [
+  'path',
+  'circle',
+  'ellipse',
+  'polygon',
+  'rect',
+  'polyline',
+  'line',
+];
+const shapesSelector = shapes.join(', ');
+const scopedShapesSelector = shapes.map((s) => `:scope ${s}`).join(', ');
+
 const canonicalName = 'sib-swissbiopics-sl';
 const CanonicalDefinition: CustomElementConstructor = customElements.get(
   canonicalName
@@ -57,9 +69,8 @@ const attachTooltips = (
     `#${locationGroup.id}term`,
   ].join(',');
   const locationTextElements = Array.from(
-    shadowRoot.querySelectorAll(locationTextSelector)
+    document.querySelectorAll(locationTextSelector)
   );
-
   const tooltipTarget = triggerTargetSvgs[0];
   if (tooltipTarget.membrane) {
     locationTextElements.push(tooltipTarget.membrane);
@@ -192,32 +203,28 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
           // TODO: need to remove event listeners on unmount
           locationText.addEventListener('mouseenter', () => {
             instance.highLight(
-              undefined,
-              shadowRoot.querySelector(`#${subcellularPresentSVG.id}`)
+              locationText,
+              shadowRoot.querySelector(`#${subcellularPresentSVG.id}`),
+              shapesSelector
             );
           });
           locationText.addEventListener('mouseleave', () => {
             instance.removeHiglight(
-              undefined,
-              shadowRoot.querySelector(`#${subcellularPresentSVG.id}`)
+              locationText,
+              shadowRoot.querySelector(`#${subcellularPresentSVG.id}`),
+              shapesSelector
             );
           });
-          const shapes = [
-            ':scope path',
-            ':scope circle',
-            ':scope rect',
-            ':scope ellipse',
-            ':scope polygon',
-            ':scope line',
-          ].join(',');
           // Get all of the SVG elements in the picture that should open a tooltip
           let triggerTargetSvgs:
             | NodeListOf<Element>
-            | undefined = subcellularPresentSVG.querySelectorAll(shapes);
+            | undefined = subcellularPresentSVG.querySelectorAll(
+            scopedShapesSelector
+          );
           if (!triggerTargetSvgs.length) {
             // If nothing found (as with happens with eg Cell surface) try the parentElement
             triggerTargetSvgs = subcellularPresentSVG.parentElement?.querySelectorAll(
-              shapes
+              scopedShapesSelector
             );
           }
           attachTooltips(
