@@ -148,7 +148,7 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
     // get the instance to modify its shadow root
     const instance = document.querySelector(instanceName.current);
     const shadowRoot = instance?.shadowRoot;
-    shadowRoot?.addEventListener('svgloaded', () => {
+    const onSvgLoaded = () => {
       const tabsHeaderHeight = document.querySelector('.tabs__header')
         ?.clientHeight;
       const pictureTop = tabsHeaderHeight
@@ -229,7 +229,13 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
           attachTooltips(subcellularPresentSVG, triggerTargetSvgs, false);
         }
       }
-    });
+    };
+    shadowRoot?.addEventListener('svgloaded', onSvgLoaded);
+    return () => {
+      shadowRoot?.removeEventListener('svgloaded', onSvgLoaded);
+      instance.removeEventListener('mouseenter', instance.highlight);
+      instance.removeEventListener('mouseleave', instance.highlight);
+    };
   }, []);
 
   return (
