@@ -45,6 +45,7 @@ const getGoTermClassNames = (locationGroup: Element) =>
 
 const attachTooltips = (
   locationGroup: Element,
+  instance: Element,
   triggerTargetSvgs: NodeListOf<Element & { membrane?: Element }> | undefined,
   partOfShown: boolean
 ) => {
@@ -68,7 +69,7 @@ const attachTooltips = (
     `#${locationGroup.id}term`,
   ].join(',');
   const locationTextElements = Array.from(
-    document.querySelectorAll(locationTextSelector)
+    instance.querySelectorAll(locationTextSelector)
   );
   const tooltipTarget = triggerTargetSvgs[0];
   if (tooltipTarget.membrane) {
@@ -226,7 +227,12 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
               scopedShapesSelector
             );
           }
-          attachTooltips(subcellularPresentSVG, triggerTargetSvgs, false);
+          attachTooltips(
+            subcellularPresentSVG,
+            instance,
+            triggerTargetSvgs,
+            false
+          );
         }
       }
     };
