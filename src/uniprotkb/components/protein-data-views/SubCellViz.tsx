@@ -20,7 +20,7 @@ const shapes = [
   'rect',
   'polyline',
   'line',
-];
+] as const;
 const shapesSelector = shapes.join(', ');
 const scopedShapesSelector = shapes.map((s) => `:scope ${s}`).join(', ');
 
@@ -45,7 +45,6 @@ const getGoTermClassNames = (locationGroup: Element) =>
 
 const attachTooltips = (
   locationGroup: Element,
-  shadowRoot: ShadowRoot,
   triggerTargetSvgs: NodeListOf<Element & { membrane?: Element }> | undefined,
   partOfShown: boolean
 ) => {
@@ -227,12 +226,7 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
               scopedShapesSelector
             );
           }
-          attachTooltips(
-            subcellularPresentSVG,
-            shadowRoot,
-            triggerTargetSvgs,
-            false
-          );
+          attachTooltips(subcellularPresentSVG, triggerTargetSvgs, false);
         }
       }
     });
