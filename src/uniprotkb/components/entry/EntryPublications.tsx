@@ -26,7 +26,10 @@ import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
 
-const PublicationReference: FC<{ reference: Reference }> = ({ reference }) => {
+const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
+  reference,
+  accession,
+}) => {
   const {
     referencePositions,
     referenceComments,
@@ -53,7 +56,17 @@ const PublicationReference: FC<{ reference: Reference }> = ({ reference }) => {
           ) : (
             source.name
           )}
-          {/*  (see community submission). */}
+          {source.name === 'ORCID' && (
+            <>
+              {' ('}
+              <ExternalLink
+                url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+              >
+                see community submission
+              </ExternalLink>
+              ).
+            </>
+          )}
         </>
       ),
     },
@@ -151,8 +164,12 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
               >
                 {references.map((reference, index) => (
                   // No obvious key as there can be more than 1 for the same source
-                  // eslint-disable-next-line react/no-array-index-key
-                  <PublicationReference reference={reference} key={index} />
+                  <PublicationReference
+                    reference={reference}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    accession={accession}
+                  />
                 ))}
               </LiteratureCitation>
             )
