@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef, useState } from 'react';
+import { FC, memo, useEffect, useRef } from 'react';
 import tippy from 'tippy.js';
 import '@swissprot/swissbiopics-visualizer';
 
@@ -45,7 +45,7 @@ const getGoTermClassNames = (locationGroup: Element) =>
 
 const attachTooltips = (
   locationGroup: Element,
-  instance: Element,
+  instance: Element | null,
   triggerTargetSvgs: NodeListOf<Element & { membrane?: Element }> | undefined,
   partOfShown: boolean
 ) => {
@@ -68,9 +68,14 @@ const attachTooltips = (
     ...getGoTermClassNames(locationGroup),
     `#${locationGroup.id}term`,
   ].join(',');
-  const locationTextElements = Array.from(
-    instance.querySelectorAll(locationTextSelector)
+  const locationTextQueryResult = instance?.querySelectorAll(
+    locationTextSelector
   );
+  if (!locationTextQueryResult) {
+    return;
+  }
+  const locationTextElements = Array.from(locationTextQueryResult);
+
   const tooltipTarget = triggerTargetSvgs[0];
   if (tooltipTarget.membrane) {
     locationTextElements.push(tooltipTarget.membrane);
@@ -133,14 +138,16 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
       // cannot reuse the same one with different name, so create a new one
       class InstanceClass extends CanonicalDefinition {
         // logic for highlighting
-        highLight(event, target, selector) {
+        highLight(event: Event, target: Element, selector: string) {
           super.highLight(event, target, selector);
+          // eslint-disable-next-line react/no-this-in-sfc
           this.querySelector(`#${target.id}term`)?.classList.add('lookedAt');
         }
 
         // No "h" in the middle of this method name
         // "Higlight" [sic] ...
-        removeHiglight(event, target, selector) {
+        removeHiglight(event: Event, target: Element, selector: string) {
+          // eslint-disable-next-line react/no-this-in-sfc
           this.querySelector(`#${target.id}term`)?.classList.remove('lookedAt');
           super.removeHiglight(event, target, selector);
         }
@@ -182,11 +189,11 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
       shadowRoot?.appendChild(style);
       // add a slot to inject content
       const slot = document.createElement('slot');
-      const terms = shadowRoot.querySelector('.terms');
+      const terms = shadowRoot?.querySelector('.terms');
       terms?.appendChild(slot);
 
       // This finds all subcellular location SVGs that will require a tooltip
-      const subcellularPresentSVGs = shadowRoot.querySelectorAll(
+      const subcellularPresentSVGs = shadowRoot?.querySelectorAll(
         'svg .subcell_present:not(.membrane)'
       );
       if (!subcellularPresentSVGs) {
@@ -199,19 +206,19 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
         );
         if (locationText) {
           locationText.classList.add('inpicture');
-          // TODO: this logic is not working yet
-          // TODO: need to remove event listeners on unmount
+          // TODO: need to remove event listeners on unmount. Will leave for now until
+          // to see what changes are made to @swissprot/swissbiopics-visualizer
           locationText.addEventListener('mouseenter', () => {
-            instance.highLight(
+            instance?.highLight(
               locationText,
-              shadowRoot.querySelector(`#${subcellularPresentSVG.id}`),
+              shadowRoot?.querySelector(`#${subcellularPresentSVG.id}`),
               shapesSelector
             );
           });
           locationText.addEventListener('mouseleave', () => {
-            instance.removeHiglight(
+            instance?.removeHiglight(
               locationText,
-              shadowRoot.querySelector(`#${subcellularPresentSVG.id}`),
+              shadowRoot?.querySelector(`#${subcellularPresentSVG.id}`),
               shapesSelector
             );
           });
@@ -242,6 +249,9 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
     };
   }, []);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const Instance = (props: any) => <instanceName.current {...props} />;
+
   return (
     <>
       {/** if this is not somewhere in the document, it doesn't add one of its 2
@@ -249,9 +259,9 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
       <template id="sibSwissBioPicsStyle" />
       {/** insists on wanting to get stuff from the outside, give empty div */}
       <div id="fakeContent" />
-      <instanceName.current taxid={taxonId} sls={sls} contentid="fakeContent">
+      <Instance taxid={taxonId} sls={sls} contentid="fakeContent">
         {children}
-      </instanceName.current>
+      </Instance>
     </>
   );
 });
