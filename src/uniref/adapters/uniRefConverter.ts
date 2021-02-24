@@ -1,28 +1,23 @@
 import { Sequence } from '../../shared/types/sequence';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import EntrySection from '../types/entrySection';
 
-enum GeneOntologyAspect {
-  FUNCTION = 'GO Molecular Function',
-  PROCESS = 'GO Biological Process',
-  COMPONENT = 'GO Cellular Component',
-}
-
-export enum UniRefEntryType {
-  UniRef100 = 'UniRef100',
-  UniRef90 = 'UniRef90',
-  UniRef50 = 'UniRef50',
-}
-
-export const UniRefEntryTypeToPercent = {
-  UniRef100: '100%',
-  UniRef90: '90%',
-  UniRef50: '50%',
-};
-
+// TODO: move these somewhere else, probably in the shared folder
+type GeneOntologyAspect = `GO ${
+  | 'Molecular Function'
+  | 'Biological Process'
+  | 'Cellular Component'}`;
 type GeneOntologyEntry = {
   aspect: GeneOntologyAspect;
   goId: string;
+};
+
+export type UniRefEntryType = 'UniRef100' | 'UniRef90' | 'UniRef50';
+
+export const uniRefEntryTypeToPercent: Record<UniRefEntryType, string> = {
+  UniRef100: '100%',
+  UniRef90: '90%',
+  UniRef50: '50%',
 };
 
 type MemberIDType = 'UniParc' | 'UniProtKB ID';
@@ -39,31 +34,34 @@ export type UniRefMember = {
   uniref50Id?: string;
   uniref90Id?: string;
   uniref100Id?: string;
-  uniparcId?: string;
+  uniparcId?: { value: string };
 };
 
 export type RepresentativeMember = UniRefMember & {
   sequence: Sequence;
 };
 
+export type MemberIdType =
+  | 'UniProtKB Reviewed (Swiss-Prot)'
+  | 'UniProtKB Unreviewed (TrEMBL)'
+  | 'UniParc';
+
 export type UniRefLiteAPIModel = {
-  commonTaxonId: number;
-  commonTaxon: string;
-  goTerms: GeneOntologyEntry[];
+  commonTaxon: OrganismData;
+  goTerms?: GeneOntologyEntry[];
   memberCount: number;
   entryType: UniRefEntryType;
   updated: string;
   name: string;
   id: string;
-  sequence: string;
-  sequenceLength: number;
   organismCount: number;
-  representativeId: string;
+  representativeMember: Partial<UniRefMember> & {
+    sequence?: Partial<Sequence>;
+  };
   seedId: string;
-  memberIdTypes?: EntryType[];
+  memberIdTypes: MemberIdType[];
   members: string[];
-  organismIds: number[];
-  organisms: string[];
+  organisms: OrganismData[];
 };
 
 export type UniRefAPIModel = {
@@ -77,8 +75,7 @@ export type UniRefAPIModel = {
   updated: string;
   name: string;
   id: string;
-  // if 'members' is absent, it means only the representative member is member
-  members?: UniRefMember[];
+  members: UniRefMember[];
 };
 
 export const identityLevels = [50, 90, 100] as const;

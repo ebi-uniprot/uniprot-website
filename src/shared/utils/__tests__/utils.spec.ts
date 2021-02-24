@@ -4,7 +4,6 @@
 import {
   hasContent,
   removeProperty,
-  formatLargeNumber,
   getBEMClassName,
   formatPercentage,
 } from '../utils';
@@ -44,11 +43,6 @@ test('removeProperty removes only specified property and returns a deep copy of 
   const objWithoutProprety = removeProperty(obj, 'baz');
   expect(objWithoutProprety).toEqual({ foo: { bar: [1] } });
   expect(objWithoutProprety).not.toBe(obj);
-});
-
-test('formatLargeNumber', () => {
-  const number = 999999;
-  expect(formatLargeNumber(number)).toEqual('999,999');
 });
 
 describe('getBEMClassName', () => {

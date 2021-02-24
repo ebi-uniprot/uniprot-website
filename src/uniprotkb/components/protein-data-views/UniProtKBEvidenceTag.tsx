@@ -24,7 +24,7 @@ export const UniProtEvidenceTagContent: FC<{
     return null;
   }
   const groupedEvidences =
-    evidences && groupBy(evidences, (evidence: Evidence) => evidence.source);
+    evidences && groupBy(evidences, (evidence) => evidence.source);
 
   const {
     [evidenceTagSourceTypes.PUBMED]: publicationReferences,
@@ -70,10 +70,7 @@ export const UniProtEvidenceTagContent: FC<{
 };
 
 const UniProtKBEvidenceTag: FC<{ evidences: Evidence[] }> = ({ evidences }) => {
-  const evidenceObj = groupBy(
-    evidences,
-    (evidence: Evidence) => evidence.evidenceCode
-  );
+  const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
   const evidenceTags = Object.entries(evidenceObj).map(
     ([evidenceCode, references]) => {
       const evidenceData = getEvidenceCodeData(evidenceCode);
@@ -110,10 +107,7 @@ export const UniProtProtvistaEvidenceTag = (
   callback: (evidenceData: EvidenceData, references: Evidence[]) => void
 ) => {
   const size = 12;
-  const evidenceObj = groupBy(
-    evidences,
-    (evidence: Evidence) => evidence.evidenceCode
-  );
+  const evidenceObj = groupBy(evidences, (evidence) => evidence.evidenceCode);
   const evidenceTags = Object.entries(evidenceObj).map(
     ([evidenceCode, references]) => {
       if (!evidenceCode) {

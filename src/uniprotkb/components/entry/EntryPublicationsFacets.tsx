@@ -21,7 +21,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const url = getUniProtPublicationsQueryUrl({
     accession,
     selectedFacets,
-    size: 1, // TODO: change to 0 whenever the API accepts it
+    size: 0,
   });
 
   const { loading, data, status, error, isStale } = useDataApiWithStale<{

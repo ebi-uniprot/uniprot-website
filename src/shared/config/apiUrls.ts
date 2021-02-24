@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import joinUrl from 'url-join';
+import joinUrl from './testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 
 import {
   getApiSortDirection,
@@ -84,10 +84,7 @@ const apiUrls = {
   taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
 
-  // TODO: move that to UniRef-specific file?
-  uniref: {
-    entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
-  },
+  // TODO: move that to UniParc-specific file?
   uniparc: {
     entry: (id?: string) =>
       id && joinUrl(devPrefix, '/uniprot/api/uniparc', id),
@@ -242,8 +239,8 @@ export const getUniProtPublicationsQueryUrl = ({
   size,
 }: GetUniProtPublicationsQueryUrl) =>
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
-    facets: 'source,category,study_type',
-    query:
+    facets: 'types,categories,is_large_scale',
+    facetFilter:
       selectedFacets
         .map((facet) => `(${facet.name}:"${facet.value}")`)
         .join(' AND ') || undefined,

@@ -144,7 +144,7 @@ export const convertSequence = (data: UniProtkbAPIModel) => {
         comment.commentType === CommentType.MISCELLANEOUS &&
         (comment as FreeTextComment).molecule
     ) as FreeTextComment[];
-    sequenceData.isoformNotes = groupBy(notes, 'molecule');
+    sequenceData.isoformNotes = groupBy(notes, (note) => note.molecule);
   }
 
   if (data.keywords) {

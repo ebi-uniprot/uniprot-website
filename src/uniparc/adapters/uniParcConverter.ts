@@ -1,12 +1,8 @@
 import { Sequence } from '../../shared/types/sequence';
+import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 import EntrySection from '../types/entrySection';
-
-export type XRefProperty = {
-  key: string; // should replace with union of possibilities?
-  value: string;
-};
 
 export enum XRefsInternalDatabases {
   Reviewed = 'UniProtKB/Swiss-Prot',
@@ -18,17 +14,26 @@ export const databaseToEntryType: Record<string, EntryType | undefined> = {
   [XRefsInternalDatabases.Unreviewed]: EntryType.UNREVIEWED,
 };
 
-// TODO: to be reviewed when working on UniParc pages
-export type UniParcXRef = {
+// made completely partial as it depends a lot on the fields requested to API
+export type UniParcXRef = Partial<{
   active: boolean;
   created: string;
   database: XRefsInternalDatabases | string; // should replace with union of possibilities?
+  geneName: string;
   id: string;
   lastUpdated: string;
-  properties?: XRefProperty[];
+  ncbiGi: string;
+  organism: OrganismData;
+  // "properties" only there when database is "EMBL", and not for all of them.
+  // We shouldn't rely on that to display anything in the frontend, and it
+  // wasn't used in the previous website anyway
+  properties?: Array<{ key: string; value: string }>;
+  proteinName: string;
+  proteomeId: string;
+  component: string;
   version?: number; // might not always be there (e.g., for PRF xrefs)
   versionI: number; // internal UniProt versioning, always present
-};
+}>;
 
 export type SequenceFeatureLocation = {
   start: number;
@@ -48,7 +53,6 @@ export type SequenceFeature = {
 export type UniParcAPIModel = {
   uniParcId: string;
   uniParcCrossReferences?: UniParcXRef[];
-  taxonomies: { taxonId: number }[];
   sequenceFeatures?: SequenceFeature[];
   sequence: Sequence;
 };

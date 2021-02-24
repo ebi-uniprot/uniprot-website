@@ -44,8 +44,9 @@ exports[`UniProtKBCard component should render 1`] = `
               rec full Name · 
               <a
                 href="/taxonomy/9606"
+                title="scientific name (common name), taxon ID 9606"
               >
-                scientific name
+                scientific name (common name)
               </a>
                · 
               <strong>
