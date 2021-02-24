@@ -72,12 +72,7 @@ const Results: FC = () => {
   }, [dataResultFields]);
 
   const columns =
-    viewMode === ViewMode.TABLE &&
-    // TODO: next line when API filtering works for UniParc
-    namespace !== Namespace.uniparc &&
-    tableColumns
-      ? tableColumns
-      : undefined;
+    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : undefined;
 
   const initialApiUrl = getAPIQueryUrl({
     namespace,
