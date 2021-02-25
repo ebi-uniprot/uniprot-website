@@ -1,2 +1,1 @@
 npm-run-all test:lint test:types "test:unit --silent --reporters='jest-silent-reporter' --bail"
-exit 1 # Commit will be aborted
