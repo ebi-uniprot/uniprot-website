@@ -52,7 +52,7 @@ const HomePage = () => {
             title={`Find your ${namespaceFindYour[selectedNamespace]}`}
             footer={mission}
           >
-            <section className="uniprot-grid uniprot-grid--centered">
+            <div className="uniprot-grid uniprot-grid--centered">
               <SearchContainer
                 namespace={selectedNamespace}
                 onNamespaceChange={(namespace) =>
@@ -61,7 +61,7 @@ const HomePage = () => {
                 className="uniprot-grid-cell--span-12"
                 includeFooter
               />
-            </section>
+            </div>
           </HeroHeader>
         </ErrorBoundary>
 

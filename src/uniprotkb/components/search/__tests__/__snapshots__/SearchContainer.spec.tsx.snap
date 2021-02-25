@@ -2,7 +2,9 @@
 
 exports[`Search shallow components should render 1`] = `
 <DocumentFragment>
-  <section>
+  <section
+    role="search"
+  >
     <form
       class="main-search"
       data-testid="main-search-form"
@@ -34,10 +36,10 @@ exports[`Search shallow components should render 1`] = `
         Search
       </button>
     </form>
-    <section
+    <div
       class="search-container-footer"
     >
-      <section>
+      <div>
         Examples: 
         <button
           class="button tertiary"
@@ -59,16 +61,16 @@ exports[`Search shallow components should render 1`] = `
         >
           Albumin
         </button>
-      </section>
-      <section>
+      </div>
+      <div>
         <a
           class="button tertiary"
           href="/uploadlists"
         >
           Search with a list of IDs
         </a>
-      </section>
-    </section>
+      </div>
+    </div>
   </section>
 </DocumentFragment>
 `;

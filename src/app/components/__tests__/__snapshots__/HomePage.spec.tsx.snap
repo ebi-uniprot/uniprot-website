@@ -12,11 +12,12 @@ exports[`HomePage component should render 1`] = `
         <h1>
           Find your protein
         </h1>
-        <section
+        <div
           class="uniprot-grid uniprot-grid--centered"
         >
           <section
             class="uniprot-grid-cell--span-12"
+            role="search"
           >
             <form
               class="main-search"
@@ -49,10 +50,10 @@ exports[`HomePage component should render 1`] = `
                 Search
               </button>
             </form>
-            <section
+            <div
               class="search-container-footer"
             >
-              <section>
+              <div>
                 Examples: 
                 <button
                   class="button tertiary"
@@ -74,18 +75,18 @@ exports[`HomePage component should render 1`] = `
                 >
                   Albumin
                 </button>
-              </section>
-              <section>
+              </div>
+              <div>
                 <a
                   class="button tertiary"
                   href="/uploadlists"
                 >
                   Search with a list of IDs
                 </a>
-              </section>
-            </section>
+              </div>
+            </div>
           </section>
-        </section>
+        </div>
       </div>
       <div
         class="hero-header__footer"
