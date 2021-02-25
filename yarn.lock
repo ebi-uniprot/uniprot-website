@@ -1980,6 +1980,11 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.11.tgz#aeb16f50649a91af79dbe36574b66d0f9e4d9f71"
   integrity sha512-3NsZsJIA/22P3QUyrEDNA2D133H4j224twJrdipXN38dpnIOzAbUDtOwkcJ5pXmn75w7LSQDjA4tO9dm1XlqlA==
 
+"@popperjs/core@^2.4.4":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.6.0.tgz#f022195afdfc942e088ee2101285a1d31c7d727f"
+  integrity sha512-cPqjjzuFWNK3BSKLm0abspP0sp/IGOli4p5I5fKFAzdS8fvjdOwDCfZqAaIiXd9lPkOWi3SUUfZof3hEb7J/uw==
+
 "@rollup/plugin-babel@^5.2.0":
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-babel/-/plugin-babel-5.2.2.tgz#e5623a01dd8e37e004ba87f2de218c611727d9b2"
@@ -2198,6 +2203,11 @@
   version "0.0.18"
   resolved "https://registry.yarnpkg.com/@swissprot/rhea-reaction-visualizer/-/rhea-reaction-visualizer-0.0.18.tgz#f8cf2eb96bcec81d9bcd6384023f4b023325e778"
   integrity sha512-WjxzKC4Q4Tr9hKihtMblz5VdVVssCpa5VXzF0Olo7n6bcfdDLorgBuW+udaWkaGYSIsM2bP/fzF28QxifW2n6w==
+
+"@swissprot/swissbiopics-visualizer@0.0.22":
+  version "0.0.22"
+  resolved "https://registry.yarnpkg.com/@swissprot/swissbiopics-visualizer/-/swissbiopics-visualizer-0.0.22.tgz#86ff1f3d467bcfa4d7000c4f89afc9c9ad98b573"
+  integrity sha512-Iw3cG9yQgWrR6qQHQRBhaehU7966ykB185apREy2UeUdJu1GIwLkSwx/im30SZ0Agg/j9LzuJSwEu9zfRTEAZA==
 
 "@testing-library/dom@^7.28.1":
   version "7.29.4"
@@ -12227,6 +12237,13 @@ tiny-warning@^1.0.0, tiny-warning@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tiny-warning/-/tiny-warning-1.0.3.tgz#94a30db453df4c643d0fd566060d60a875d84754"
   integrity sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==
+
+tippy.js@6.2.7:
+  version "6.2.7"
+  resolved "https://registry.yarnpkg.com/tippy.js/-/tippy.js-6.2.7.tgz#62fb34eda23f7d78151ddca922b62818c1ab9869"
+  integrity sha512-k+kWF9AJz5xLQHBi3K/XlmJiyu+p9gsCyc5qZhxxGaJWIW8SMjw1R+C7saUnP33IM8gUhDA2xX//ejRSwqR0tA==
+  dependencies:
+    "@popperjs/core" "^2.4.4"
 
 tmpl@1.0.x:
   version "1.0.4"

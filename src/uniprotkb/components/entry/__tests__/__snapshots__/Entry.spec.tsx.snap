@@ -1500,116 +1500,43 @@ exports[`Entry should render main 1`] = `
             </section>
           </div>
           <div
-            data-entry-section="true"
-            id="subcellular-location"
+            class="error-component"
           >
-            <section
-              class="card"
+            <div
+              class="message message--failure"
+              role="status"
             >
-              <div>
-                <div
-                  class="card__header"
-                >
-                  <h2
-                    class="card__title"
-                  >
-                    Subcellular Location
-                  </h2>
-                </div>
-                <div
-                  class="card__content"
-                >
-                  <section
-                    class="text-block"
-                  >
-                    <h3>
-                      molecule value
-                    </h3>
-                    <div>
-                      <strong>
-                        location value
-                      </strong>
-                       
-                      <button
-                        aria-controls="24"
-                        aria-expanded="false"
-                        class="evidence-tag svg-colour-unreviewed"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                          title=""
-                        >
-                          1 automatic annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="24"
-                      />
-                      : topology value 
-                      <button
-                        aria-controls="25"
-                        aria-expanded="false"
-                        class="evidence-tag svg-colour-unreviewed"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                          title=""
-                        >
-                          1 automatic annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="25"
-                      />
-                    </div>
-                    <section
-                      class="text-block"
+              <div
+                class="message__side-border"
+              />
+              <test-file-stub
+                height="1.125em"
+                width="1.125em"
+              />
+              <section
+                class="message__content"
+              >
+                <small>
+                  <h5>
+                    An unexpected issue occured
+                  </h5>
+                  <p>
+                    You can try to reload the page, use the rest of this page, or go back to the previous page.
+                  </p>
+                  <p>
+                    If the error persists, please 
+                    <a
+                      href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
+                      rel="noopener noreferrer"
+                      target="_blank"
                     >
-                      value
-                      <button
-                        aria-controls="26"
-                        aria-expanded="false"
-                        class="evidence-tag svg-colour-unreviewed"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                          title=""
-                        >
-                          1 automatic annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="26"
-                      />
-                    </section>
-                  </section>
-                </div>
-              </div>
-            </section>
+                      report this bug here
+                    </a>
+                    .
+                  </p>
+                </small>
+              </section>
+            </div>
           </div>
           <div
             data-entry-section="true"

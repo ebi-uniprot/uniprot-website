@@ -1,0 +1,11 @@
+.inpicture {
+  &:before {
+    content: '🔎';
+    margin-right: 0.5em;
+  }
+
+  &.lookedAt,
+  &:hover {
+    background-color: #abc7d6;
+  }
+}
