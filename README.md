@@ -59,3 +59,7 @@ the `unregister` function instead of the `register` function.
 | `build:prod`    | Web Production Kubernetes cluster |
 | `build:staging` | GitHub Pages                      |
 | `build:dev`     | Debugging service workers         |
+
+### CI/CD
+
+testing
