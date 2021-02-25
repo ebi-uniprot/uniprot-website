@@ -24,8 +24,29 @@ const shapes = [
 const shapesSelector = shapes.join(', ');
 const scopedShapesSelector = shapes.map((s) => `:scope ${s}`).join(', ');
 
+// Typing inspired from
+// https://github.com/ionic-team/stencil/blob/master/test/end-to-end/src/components.d.ts
+// this approach might be useful when we have to type more custom elements
+interface CanonicalDefinitionI extends HTMLElement {
+  highLight(
+    e: HTMLElement | SVGElement | null | undefined,
+    target: HTMLElement | SVGElement | null | undefined,
+    selector: string
+  ): void;
+
+  removeHiglight(
+    e: HTMLElement | SVGElement | null | undefined,
+    target: HTMLElement | SVGElement | null | undefined,
+    selector: string
+  ): void;
+}
+
+type CanonicalDefinitionT = {
+  new (): CanonicalDefinitionI;
+};
+
 const canonicalName = 'sib-swissbiopics-sl';
-const CanonicalDefinition: CustomElementConstructor = customElements.get(
+const CanonicalDefinition: CanonicalDefinitionT = customElements.get(
   canonicalName
 );
 let counter = 0;
@@ -126,6 +147,35 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
    */
   useEffect(() => {
     // define a new element for each instance *after* it has been rendered.
+    // cannot reuse the same class with different name, so create a new one
+    class InstanceClass extends CanonicalDefinition {
+      // logic for highlighting
+      highLight(
+        e: HTMLElement | SVGElement | null | undefined,
+        target: HTMLElement | SVGElement | null | undefined,
+        selector: string
+      ) {
+        super.highLight(e, target, selector);
+        if (target) {
+          // eslint-disable-next-line react/no-this-in-sfc
+          this.querySelector(`#${target.id}term`)?.classList.add('lookedAt');
+        }
+      }
+
+      // No "h" in the middle of this method name
+      // "Higlight" [sic] ...
+      removeHiglight(
+        e: HTMLElement | SVGElement | null | undefined,
+        target: HTMLElement | SVGElement | null | undefined,
+        selector: string
+      ) {
+        if (target) {
+          // eslint-disable-next-line react/no-this-in-sfc
+          this.querySelector(`#${target.id}term`)?.classList.remove('lookedAt');
+        }
+        super.removeHiglight(e, target, selector);
+      }
+    }
     /**
      * This needs to happen after the element has been created and inserted into
      * the DOM in order to have the constructor being called when already in the
@@ -133,28 +183,11 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
      * We create a new definition everytime otherwise if we navigate to another
      * entry page the definition will already be registered and it will crash...
      */
-    customElements.define(
-      instanceName.current,
-      // cannot reuse the same one with different name, so create a new one
-      class InstanceClass extends CanonicalDefinition {
-        // logic for highlighting
-        highLight(event: Event, target: Element, selector: string) {
-          super.highLight(event, target, selector);
-          // eslint-disable-next-line react/no-this-in-sfc
-          this.querySelector(`#${target.id}term`)?.classList.add('lookedAt');
-        }
-
-        // No "h" in the middle of this method name
-        // "Higlight" [sic] ...
-        removeHiglight(event: Event, target: Element, selector: string) {
-          // eslint-disable-next-line react/no-this-in-sfc
-          this.querySelector(`#${target.id}term`)?.classList.remove('lookedAt');
-          super.removeHiglight(event, target, selector);
-        }
-      }
-    );
+    customElements.define(instanceName.current, InstanceClass);
     // get the instance to modify its shadow root
-    const instance = document.querySelector(instanceName.current);
+    const instance = document.querySelector<InstanceClass>(
+      instanceName.current
+    );
     const shadowRoot = instance?.shadowRoot;
     const onSvgLoaded = () => {
       const tabsHeaderHeight = document.querySelector('.tabs__header')
@@ -201,7 +234,7 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
       }
       for (const subcellularPresentSVG of subcellularPresentSVGs) {
         // The text location in the righthand column
-        const locationText = instance?.querySelector(
+        const locationText = instance?.querySelector<HTMLElement>(
           `#${subcellularPresentSVG.id}term`
         );
         if (locationText) {
@@ -211,26 +244,30 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
           locationText.addEventListener('mouseenter', () => {
             instance?.highLight(
               locationText,
-              shadowRoot?.querySelector(`#${subcellularPresentSVG.id}`),
+              shadowRoot?.querySelector<SVGElement>(
+                `#${subcellularPresentSVG.id}`
+              ),
               shapesSelector
             );
           });
           locationText.addEventListener('mouseleave', () => {
             instance?.removeHiglight(
               locationText,
-              shadowRoot?.querySelector(`#${subcellularPresentSVG.id}`),
+              shadowRoot?.querySelector<SVGElement>(
+                `#${subcellularPresentSVG.id}`
+              ),
               shapesSelector
             );
           });
           // Get all of the SVG elements in the picture that should open a tooltip
           let triggerTargetSvgs:
-            | NodeListOf<Element>
-            | undefined = subcellularPresentSVG.querySelectorAll(
+            | NodeListOf<SVGElement>
+            | undefined = subcellularPresentSVG.querySelectorAll<SVGElement>(
             scopedShapesSelector
           );
           if (!triggerTargetSvgs.length) {
             // If nothing found (as with happens with eg Cell surface) try the parentElement
-            triggerTargetSvgs = subcellularPresentSVG.parentElement?.querySelectorAll(
+            triggerTargetSvgs = subcellularPresentSVG.parentElement?.querySelectorAll<SVGElement>(
               scopedShapesSelector
             );
           }
