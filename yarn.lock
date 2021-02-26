@@ -6133,6 +6133,11 @@ filter-console@^0.1.1:
   resolved "https://registry.yarnpkg.com/filter-console/-/filter-console-0.1.1.tgz#6242be28982bba7415bcc6db74a79f4a294fa67c"
   integrity sha512-zrXoV1Uaz52DqPs+qEwNJWJFAWZpYJ47UNmpN9q4j+/EYsz85uV0DC9k8tRND5kYmoVzL0W+Y75q4Rg8sRJCdg==
 
+filter-obj@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/filter-obj/-/filter-obj-1.1.0.tgz#9b311112bc6c6127a16e016c6c5d7f19e0805c5b"
+  integrity sha1-mzERErxsYSehbgFsbF1/GeCAXFs=
+
 finalhandler@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.1.2.tgz#b7e7d000ffd11938d0fdb053506f6ebabe9f587d"
@@ -6292,20 +6297,20 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-franklin-sites@0.0.110:
-  version "0.0.110"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.110.tgz#d24be66ea622b1f1ffe6d7879a08dd73e12f2951"
-  integrity sha512-tZziZbwa3vEL0Jj473rvUT0lvq6ot5/oCRZrpCYXyTK2tI5n7YM1xUascGCCl+91Jgz7zv6bizti6soIeGso+Q==
+franklin-sites@0.0.111:
+  version "0.0.111"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.111.tgz#197b42c27e7ae1415b818f5e9c64afa5401b7186"
+  integrity sha512-Z03DI2UogINTA8B0hu6P8/9pG6eTut3pYEnSd5EIWKUKPLFr/kqmbqJxpQ1BXnuxnQ3FIJNr0JYPsT9EjJ0C5w==
   dependencies:
     classnames "2.2.6"
     d3 "5.16.0"
     foundation-sites "6.6.3"
     history "4.10.1"
-    lodash-es "4.17.20"
+    lodash-es "4.17.21"
     lorem-ipsum "2.0.3"
     path "0.12.7"
     prop-types "15.7.2"
-    query-string "6.13.8"
+    query-string "6.14.0"
     react-copy-to-clipboard "5.0.3"
     react-markdown "5.0.3"
     rheostat "4.1.1"
@@ -8400,6 +8405,11 @@ lodash-es@4.17.20, lodash-es@^4.17.11:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.20.tgz#29f6332eefc60e849f869c264bc71126ad61e8f7"
   integrity sha512-JD1COMZsq8maT6mnuz1UMV0jvYD0E0aUsSOdrr1/nAG3dhqQXwRRgeW0cSqH1U43INKcqxaiVIQNOUDld7gRDA==
 
+lodash-es@4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
+
 lodash.camelcase@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
@@ -10339,6 +10349,16 @@ query-string@6.13.8:
   integrity sha512-jxJzQI2edQPE/NPUOusNjO/ZOGqr1o2OBa/3M00fU76FsLXDVbJDv/p7ng5OdQyorKrkRz1oqfwmbe5MAMePQg==
   dependencies:
     decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
+query-string@6.14.0:
+  version "6.14.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.0.tgz#0b7b7ca326f5facf10dd2d45d26645cd287f8c92"
+  integrity sha512-In3o+lUxlgejoVJgwEdYtdxrmlL0cQWJXj0+kkI7RWVo7hg5AhFtybeKlC9Dpgbr8eOC4ydpEh8017WwyfzqVQ==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    filter-obj "^1.1.0"
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
