@@ -7,7 +7,6 @@ export type Reference = {
     value: string;
     type: string;
   }[];
-
   source: { name: string; id?: string };
   pubMedId?: string;
   sourceCategories?: string[];

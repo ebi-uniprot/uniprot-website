@@ -7,8 +7,10 @@ export type Statistics = {
 };
 
 export type CitationXRef = {
-  database?: string;
+  database?: 'PubMed' | 'DOI' | string;
   id?: string;
+  // Not sure about all the ones below, copied from somewhere else,
+  // but are they still here?
   properties?: { [key: string]: string };
   additionalIds?: string[];
   isoformId?: string;

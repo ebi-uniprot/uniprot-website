@@ -10,13 +10,13 @@ import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux
 
 import data from '../../__mocks__/taxonomyModelData';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../../tools/utils/storage');
 
 describe('TaxonomyColumnConfiguration component', () => {
   let transformedData: TaxonomyUIModel;
 
   beforeAll(() => {
-    transformedData = taxonomyConverter(data as TaxonomyAPIModel);
+    transformedData = taxonomyConverter(data[0] as TaxonomyAPIModel);
   });
 
   for (const [key, column] of TaxonomyColumnConfiguration) {

@@ -5,15 +5,16 @@ type Keyword = {
 
 type XRef = {
   databaseType: string;
-  properties: string[];
+  properties?: string[];
   id: string;
 };
 
 export type DiseasesAPIModel = {
   keywords: Keyword[];
-  reviewedProteinCount: number;
-  unreviewedProteinCount: number;
-  alternativeNames: string[];
+  // If we have this as a disease, we could assume we have at least one reviewed
+  reviewedProteinCount?: number;
+  unreviewedProteinCount?: number;
+  alternativeNames?: string[];
   acronym: string;
   crossReferences: XRef[];
   name: string;

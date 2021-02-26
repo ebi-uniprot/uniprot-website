@@ -1,6 +1,9 @@
 type GO = {
   name: string;
-  id: string;
+  // Swagger says "id"
+  // id: string;
+  // But endpoint gives
+  goId: `GO:${string}`;
 };
 
 type Statistics = {
@@ -13,23 +16,26 @@ type Keyword = {
   id: string;
 };
 
-export type LocationsAPIModel = {
-  references: string[];
-  geneOntologies: GO[];
-  note: string;
-  isA: null[]; // TODO: review
-  partOf: null[]; // TODO: review
-  statistics: Statistics;
-  synonyms: string[];
+export type LocationsLite = {
+  id: `SL-${string}`;
+  name: string;
+  definition: string;
+  content: string;
+  keyword?: Keyword;
   // TODO: change to enum of possible values, example: 'LOCATION'
   // TODO: review, maybe it's always 'LOCATION'...
   category: string;
-  name: string;
-  id: string;
-  definition: string;
-  content: string;
-  keyword: Keyword;
-  links: string[];
+  geneOntologies: GO[];
+  note?: string;
+  synonyms?: string[];
+};
+
+export type LocationsAPIModel = LocationsLite & {
+  isA?: LocationsLite[];
+  partOf?: LocationsLite[];
+  statistics: Statistics;
+  links?: string[];
+  references?: string[];
 };
 
 export type LocationsUIModel = LocationsAPIModel & {

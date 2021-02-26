@@ -1,6 +1,9 @@
 type GO = {
   name: string;
-  id: string;
+  // Swagger says "id"
+  // id: string;
+  // But endpoint gives
+  goId: `GO:${string}`;
 };
 
 type Statistics = {
@@ -10,21 +13,24 @@ type Statistics = {
 
 type KeywordNameID = {
   name: string;
-  id: string;
+  id: `KW-${string}`;
 };
 
-export type KeywordsAPIModel = {
-  geneOntologies: GO[];
-  sites: string[];
-  accession: string;
-  statistics: Statistics;
-  synonyms: string[];
-  // TODO: change to enum of possible values, example: 'BIOLOGICAL_PROCESS'
-  category: string;
-  definition: string;
+export type KeywordsLite = {
   keyword: KeywordNameID;
-  parents: null[]; // TODO: review
-  children: null[]; // TODO: review
+  sites?: string[];
+  definition: string;
+  synonyms?: string[];
+  geneOntologies?: GO[];
+  // TODO: change to enum of possible values? example: 'BIOLOGICAL_PROCESS'
+  category?: string;
+  children?: KeywordsLite[];
+};
+
+export type KeywordsAPIModel = KeywordsLite & {
+  accession?: string;
+  statistics: Statistics;
+  parents?: KeywordsLite[];
 };
 
 export type KeywordsUIModel = KeywordsAPIModel & {

@@ -18,8 +18,8 @@ type Strain = {
 type TaxonomyLight = {
   taxonId: number;
   scientificName: string;
-  synonyms: string[];
-  commonName: string;
+  synonyms?: string[];
+  commonName?: string;
 };
 
 type TaxonomyLightWithHiddenFlag = TaxonomyLight & {
@@ -38,14 +38,15 @@ export type TaxonomyAPIModel = TaxonomyLightWithHiddenFlag &
   TaxonomyLightWithMnemonic &
   TaxonomyLightWithRank & {
     parentId: number;
-    otherNames: string[];
-    lineages: Array<TaxonomyLightWithHiddenFlag & TaxonomyLightWithRank>;
-    strains: Strain[];
-    statistics: Statistics;
-    hosts: TaxonomyLightWithMnemonic[];
-    inactiveReason: InactiveReason;
+    otherNames?: string[];
+    lineage: Array<TaxonomyLightWithHiddenFlag & TaxonomyLightWithRank>;
+    strains?: Strain[];
+    // Probably, only on "organisms", higher level taxons don't appear to have
+    statistics?: Statistics;
+    hosts?: TaxonomyLightWithMnemonic[];
+    inactiveReason?: InactiveReason;
     active: boolean;
-    links: string[];
+    links?: string[];
   };
 
 export type TaxonomyUIModel = TaxonomyAPIModel & {
