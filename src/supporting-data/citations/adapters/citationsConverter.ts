@@ -1,9 +1,34 @@
-type Statistics = {
+export type Statistics = {
   computationallyMappedProteinCount: number;
-  largeScale: boolean;
+  largeScale?: boolean;
   communityMappedProteinCount: number;
   reviewedProteinCount: number;
   unreviewedProteinCount: number;
+};
+
+export type CitationXRef = {
+  database?: string;
+  id?: string;
+  properties?: { [key: string]: string };
+  additionalIds?: string[];
+  isoformId?: string;
+  implicit?: true;
+};
+
+export type Citation = {
+  citationType?: string;
+  authors?: string[];
+  citationCrossReferences?: CitationXRef[];
+  title?: string;
+  publicationDate?: string;
+  journal?: string;
+  firstPage?: string;
+  lastPage?: string;
+  volume?: string;
+  completeAuthorList?: boolean;
+  literatureAbstract?: string;
+  authoringGroup?: string[];
+  submissionDatabase?: string;
 };
 
 export type CitationsAPIModel = {
