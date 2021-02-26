@@ -687,7 +687,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <h3>
       molecule value
     </h3>
-    <div>
+    <div
+      id="id1term"
+    >
       <strong>
         location value
       </strong>

@@ -1231,7 +1231,9 @@ exports[`Entry view should render 1`] = `
             <h3>
               molecule value
             </h3>
-            <div>
+            <div
+              id="id1term"
+            >
               <strong>
                 location value
               </strong>
@@ -2235,104 +2237,6 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
             <button
-              aria-controls="32"
-              aria-expanded="false"
-              class="evidence-tag svg-colour-reviewed"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-                title=""
-              >
-                1 publication
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="32"
-            />
-          </section>
-          <h3>
-            catalytic activity
-          </h3>
-          <span
-            class="text-block"
-          >
-            <strong />
-             an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
-            <button
-              aria-controls="33"
-              aria-expanded="false"
-              class="evidence-tag svg-colour-reviewed"
-              data-testid="evidence-tag-trigger"
-              type="button"
-            >
-              <test-file-stub
-                height="12"
-                width="12"
-              />
-              <span
-                class="evidence-tag__label"
-                title=""
-              >
-                1 publication
-              </span>
-            </button>
-            <div
-              class="evidence-tag-content "
-              data-testid="evidence-tag-content"
-              id="33"
-            />
-          </span>
-          <h3>
-            cofactor
-          </h3>
-          <section
-            class="text-block"
-          >
-            <span>
-              a divalent metal cation 
-              <button
-                aria-controls="34"
-                aria-expanded="false"
-                class="evidence-tag svg-colour-reviewed"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                  title=""
-                >
-                  1 publication
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="34"
-              />
-            </span>
-          </section>
-          <h3
-            style="text-transform: capitalize;"
-          >
-            miscellaneous
-          </h3>
-          <section
-            class="text-block"
-          >
-            DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
-            <button
               aria-controls="35"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
@@ -2356,15 +2260,14 @@ exports[`Entry view should render for non-human entry 1`] = `
               id="35"
             />
           </section>
-          <h3
-            style="text-transform: capitalize;"
-          >
-            biotechnology
+          <h3>
+            catalytic activity
           </h3>
-          <section
+          <span
             class="text-block"
           >
-            5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
+            <strong />
+             an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
             <button
               aria-controls="36"
               aria-expanded="false"
@@ -2388,58 +2291,49 @@ exports[`Entry view should render for non-human entry 1`] = `
               data-testid="evidence-tag-content"
               id="36"
             />
-          </section>
+          </span>
           <h3>
-            Kinetics
+            cofactor
           </h3>
           <section
             class="text-block"
           >
-            <ul
-              class="no-bullet"
-            >
-              <li>
-                K
-                <sub>
-                  M
-                </sub>
-                =340uM for A antigen type 1 penta-MU 
-                <button
-                  aria-controls="37"
-                  aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
-                  data-testid="evidence-tag-trigger"
-                  type="button"
-                >
-                  <test-file-stub
-                    height="12"
-                    width="12"
-                  />
-                  <span
-                    class="evidence-tag__label"
-                    title=""
-                  >
-                    1 publication
-                  </span>
-                </button>
-                <div
-                  class="evidence-tag-content "
-                  data-testid="evidence-tag-content"
-                  id="37"
+            <span>
+              a divalent metal cation 
+              <button
+                aria-controls="37"
+                aria-expanded="false"
+                class="evidence-tag svg-colour-reviewed"
+                data-testid="evidence-tag-trigger"
+                type="button"
+              >
+                <test-file-stub
+                  height="12"
+                  width="12"
                 />
-              </li>
-            </ul>
+                <span
+                  class="evidence-tag__label"
+                  title=""
+                >
+                  1 publication
+                </span>
+              </button>
+              <div
+                class="evidence-tag-content "
+                data-testid="evidence-tag-content"
+                id="37"
+              />
+            </span>
           </section>
-          <section
-            class="text-block"
-          />
-          <h3>
-            pH Dependence
+          <h3
+            style="text-transform: capitalize;"
+          >
+            miscellaneous
           </h3>
           <section
             class="text-block"
           >
-            Optimum pH is 8.0.
+            DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
             <button
               aria-controls="38"
               aria-expanded="false"
@@ -2467,12 +2361,12 @@ exports[`Entry view should render for non-human entry 1`] = `
           <h3
             style="text-transform: capitalize;"
           >
-            activity regulation
+            biotechnology
           </h3>
           <section
             class="text-block"
           >
-            Inhibited by EDTA
+            5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
             <button
               aria-controls="39"
               aria-expanded="false"
@@ -2495,6 +2389,114 @@ exports[`Entry view should render for non-human entry 1`] = `
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
               id="39"
+            />
+          </section>
+          <h3>
+            Kinetics
+          </h3>
+          <section
+            class="text-block"
+          >
+            <ul
+              class="no-bullet"
+            >
+              <li>
+                K
+                <sub>
+                  M
+                </sub>
+                =340uM for A antigen type 1 penta-MU 
+                <button
+                  aria-controls="40"
+                  aria-expanded="false"
+                  class="evidence-tag svg-colour-reviewed"
+                  data-testid="evidence-tag-trigger"
+                  type="button"
+                >
+                  <test-file-stub
+                    height="12"
+                    width="12"
+                  />
+                  <span
+                    class="evidence-tag__label"
+                    title=""
+                  >
+                    1 publication
+                  </span>
+                </button>
+                <div
+                  class="evidence-tag-content "
+                  data-testid="evidence-tag-content"
+                  id="40"
+                />
+              </li>
+            </ul>
+          </section>
+          <section
+            class="text-block"
+          />
+          <h3>
+            pH Dependence
+          </h3>
+          <section
+            class="text-block"
+          >
+            Optimum pH is 8.0.
+            <button
+              aria-controls="41"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="41"
+            />
+          </section>
+          <h3
+            style="text-transform: capitalize;"
+          >
+            activity regulation
+          </h3>
+          <section
+            class="text-block"
+          >
+            Inhibited by EDTA
+            <button
+              aria-controls="42"
+              aria-expanded="false"
+              class="evidence-tag svg-colour-reviewed"
+              data-testid="evidence-tag-trigger"
+              type="button"
+            >
+              <test-file-stub
+                height="12"
+                width="12"
+              />
+              <span
+                class="evidence-tag__label"
+                title=""
+              >
+                1 publication
+              </span>
+            </button>
+            <div
+              class="evidence-tag-content "
+              data-testid="evidence-tag-content"
+              id="42"
             />
           </section>
           <h3>
@@ -2698,7 +2700,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 >
                   A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                   <button
-                    aria-controls="49"
+                    aria-controls="52"
                     aria-expanded="false"
                     class="evidence-tag svg-colour-reviewed"
                     data-testid="evidence-tag-trigger"
@@ -2718,7 +2720,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="49"
+                    id="52"
                   />
                 </div>
               </div>
@@ -2741,7 +2743,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 >
                   3.5.1.- 
                   <button
-                    aria-controls="50"
+                    aria-controls="53"
                     aria-expanded="false"
                     class="evidence-tag svg-colour-reviewed"
                     data-testid="evidence-tag-trigger"
@@ -2761,7 +2763,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <div
                     class="evidence-tag-content "
                     data-testid="evidence-tag-content"
-                    id="50"
+                    id="53"
                   />
                 </div>
               </div>
@@ -2788,7 +2790,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <li>
                       CBM32 
                       <button
-                        aria-controls="51"
+                        aria-controls="54"
                         aria-expanded="false"
                         class="evidence-tag svg-colour-reviewed"
                         data-testid="evidence-tag-trigger"
@@ -2808,13 +2810,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="51"
+                        id="54"
                       />
                     </li>
                     <li>
                       FpGalNAc deacetylase (FpGalNAcDeAc 
                       <button
-                        aria-controls="52"
+                        aria-controls="55"
                         aria-expanded="false"
                         class="evidence-tag svg-colour-reviewed"
                         data-testid="evidence-tag-trigger"
@@ -2834,7 +2836,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       <div
                         class="evidence-tag-content "
                         data-testid="evidence-tag-content"
-                        id="52"
+                        id="55"
                       />
                       ) 
                     </li>
@@ -2964,6 +2966,29 @@ exports[`Entry view should render for non-human entry 1`] = `
             class="expandable-list no-bullet"
           />
         </div>
+      </div>
+    </section>
+  </div>
+  <div
+    data-entry-section="true"
+    id="subcellular-location"
+  >
+    <section
+      class="card"
+    >
+      <div>
+        <div
+          class="card__header"
+        >
+          <h2
+            class="card__title"
+          >
+            Subcellular Location
+          </h2>
+        </div>
+        <div
+          class="card__content"
+        />
       </div>
     </section>
   </div>
@@ -3233,7 +3258,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           >
             The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
             <button
-              aria-controls="58"
+              aria-controls="61"
               aria-expanded="false"
               class="evidence-tag svg-colour-reviewed"
               data-testid="evidence-tag-trigger"
@@ -3253,7 +3278,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="58"
+              id="61"
             />
           </section>
           <h3>

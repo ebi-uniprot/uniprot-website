@@ -5,12 +5,15 @@ import { TextView } from './FreeTextView';
 import { SubcellularLocationComment } from '../../types/commentTypes';
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
 
+const getSwissBioPicLocationId = (id: string) => `${id.replace('-', '')}term`;
+
 const SubcellularLocationView: FC<{
   comments?: SubcellularLocationComment[];
 }> = ({ comments }) => {
-  if (!comments || !comments.length) {
+  if (!comments?.length) {
     return null;
   }
+
   return (
     <>
       {comments.map(
@@ -20,6 +23,9 @@ const SubcellularLocationView: FC<{
               <h3>{subcellData.molecule}</h3>
               {subcellData.subcellularLocations.map((subcellularLocation) => (
                 <div
+                  // id is used in the case that this component is used in conjunction
+                  // with @swissprot/swissbiopics-visualizer
+                  id={getSwissBioPicLocationId(subcellularLocation.location.id)}
                   key={`${subcellularLocation.location.value}${
                     subcellularLocation.topology &&
                     subcellularLocation.topology.value

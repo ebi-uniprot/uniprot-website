@@ -76,6 +76,20 @@ describe('Subcellular data converter', () => {
       ]),
       featuresData: [],
       keywordData: [],
+      organismData: {
+        commonName: 'common name',
+        evidences: [
+          {
+            evidenceCode: 'ECO:0000256',
+            id: 'PIRNR001363',
+            source: 'PIRNR',
+          },
+        ],
+        lineage: ['lineage 1'],
+        scientificName: 'scientific name',
+        synonyms: ['synonyms 1'],
+        taxonId: 9606,
+      },
       xrefData: [],
     });
   });
