@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { FC } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
@@ -15,7 +15,7 @@ type EntryMainProps = {
   xrefs: UseDataAPIWithStaleState<UniParcAPIModel>;
 };
 
-const EntryMain = memo<EntryMainProps>(({ transformedData, xrefs }) => (
+const EntryMain: FC<EntryMainProps> = ({ transformedData, xrefs }) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <ErrorBoundary key={id}>
@@ -23,6 +23,6 @@ const EntryMain = memo<EntryMainProps>(({ transformedData, xrefs }) => (
       </ErrorBoundary>
     ))}
   </>
-));
+);
 
 export default EntryMain;

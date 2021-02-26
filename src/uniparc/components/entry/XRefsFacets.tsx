@@ -23,7 +23,10 @@ import '../../../shared/components/results/styles/results-view.scss';
 
 const reviewed: XRefsInternalDatabases = 'UniProtKB/Swiss-Prot';
 const unreviewed: XRefsInternalDatabases = 'UniProtKB/TrEMBL';
-const exceptions = new Set<string>([reviewed, unreviewed]);
+const exceptions = new Set<string | XRefsInternalDatabases>([
+  reviewed,
+  unreviewed,
+]);
 
 const sortByCount = (a: FacetValue, b: FacetValue) => {
   if (exceptions.has(a.value) && exceptions.has(b.value)) {
