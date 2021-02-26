@@ -1,0 +1,20 @@
+.entry-title{position:relative}.entry-title__status{display:inline-flex;align-self:center}
+
+.result-card{display:flex}.result-card__left{padding:0.2rem}.result-card__right h5{margin:0}.result-card__info-bit{white-space:nowrap}
+
+.busco-view{min-width:200px;max-width:1000px}
+
+.busco-legend-item{margin-right:0.5rem}.busco-legend-item__swatch{width:1rem;height:1rem;border:1px solid white;display:inline-block;margin-right:0.125rem;margin-top:0.125rem;position:relative;top:0.125rem}
+
+.accession-view{white-space:nowrap}
+
+.warning{color:red}
+
+.is-stale{opacity:0.5;pointer-events:none;user-select:none}.results-view .data-table th{top:2.5rem !important}.results-view .data-table td>.info-list{margin:0}
+
+.sidebar-layout{display:grid;grid-template-areas:'sidebar content';grid-template-columns:min-content auto;height:100%;overflow-y:hidden}.sidebar-layout__title{min-height:1rem;padding-right:1rem}.sidebar-layout__action-buttons{padding-right:1rem;padding-left:calc(2 * 1rem);margin-left:-1rem;padding-top:0.5rem;top:0;position:sticky;z-index:5000;background-color:#fbfeff;height:2.5rem}.sidebar-layout__title,.sidebar-layout__action-buttons{position:sticky;left:0;width:100%}.sidebar-layout__sidebar{background:linear-gradient(#fff 30%, rgba(255,255,255,0)),linear-gradient(rgba(255,255,255,0), #fff 70%) 0 100%,radial-gradient(50% 0, farthest-side, rgba(0,0,0,0.2), rgba(0,0,0,0)),radial-gradient(50% 100%, farthest-side, rgba(0,0,0,0.2), rgba(0,0,0,0)) 0 100%;background:linear-gradient(#fff 30%, rgba(255,255,255,0)),linear-gradient(rgba(255,255,255,0), #fff 70%) 0 100%,radial-gradient(farthest-side at 50% 0, rgba(0,0,0,0.2), rgba(0,0,0,0)),radial-gradient(farthest-side at 50% 100%, rgba(0,0,0,0.2), rgba(0,0,0,0)) 0 100%;background-repeat:no-repeat;background-color:#fff;background-size:100% 40px, 100% 40px, 100% 14px, 100% 14px;background-attachment:local, local, scroll, scroll;min-width:100px;padding:1rem 1rem 0;grid-area:sidebar;overflow-y:auto}.sidebar-layout__sidebar-content--empty{height:calc(100% - 1rem);background-color:#e4e8eb}.sidebar-layout__content{padding:0 1rem;grid-area:content;overflow-y:auto}
+
+.break-anywhere{overflow-wrap:anywhere}
+
+
+/*# sourceMappingURL=generic-results.de9952.css.map*/
