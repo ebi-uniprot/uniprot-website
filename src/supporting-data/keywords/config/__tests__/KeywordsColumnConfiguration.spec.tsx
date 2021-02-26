@@ -10,13 +10,13 @@ import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux
 
 import data from '../../__mocks__/keywordsModelData';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../../tools/utils/storage');
 
 describe('KeywordsColumnConfiguration component', () => {
   let transformedData: KeywordsUIModel;
 
   beforeAll(() => {
-    transformedData = citationsConverter(data as KeywordsAPIModel);
+    transformedData = citationsConverter(data[0] as KeywordsAPIModel);
   });
 
   for (const [key, column] of KeywordsColumnConfiguration) {

@@ -10,13 +10,13 @@ import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux
 
 import data from '../../__mocks__/citationsModelData';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../../tools/utils/storage');
 
 describe('CitationsColumnConfiguration component', () => {
   let transformedData: CitationsUIModel;
 
   beforeAll(() => {
-    transformedData = citationsConverter(data as CitationsAPIModel);
+    transformedData = citationsConverter(data[0] as CitationsAPIModel);
   });
 
   for (const [key, column] of CitationsColumnConfiguration) {

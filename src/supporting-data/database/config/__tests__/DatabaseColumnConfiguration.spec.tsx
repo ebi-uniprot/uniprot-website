@@ -10,13 +10,13 @@ import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux
 
 import data from '../../__mocks__/databaseModelData';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../../tools/utils/storage');
 
 describe('DatabaseColumnConfiguration component', () => {
   let transformedData: DatabaseUIModel;
 
   beforeAll(() => {
-    transformedData = databaseConverter(data as DatabaseAPIModel);
+    transformedData = databaseConverter(data[0] as DatabaseAPIModel);
   });
 
   for (const [key, column] of DatabaseColumnConfiguration) {

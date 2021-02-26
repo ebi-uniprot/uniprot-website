@@ -10,13 +10,13 @@ import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux
 
 import data from '../../__mocks__/locationsModelData';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../../tools/utils/storage');
 
 describe('LocationsColumnConfiguration component', () => {
   let transformedData: LocationsUIModel;
 
   beforeAll(() => {
-    transformedData = locationsConverter(data as LocationsAPIModel);
+    transformedData = locationsConverter(data[0] as LocationsAPIModel);
   });
 
   for (const [key, column] of LocationsColumnConfiguration) {

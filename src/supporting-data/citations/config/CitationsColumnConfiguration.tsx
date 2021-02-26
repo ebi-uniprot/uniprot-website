@@ -35,9 +35,9 @@ export const CitationsColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-CitationsColumnConfiguration.set(CitationsColumn.id, {
-  label: 'Pubmed ID',
-  render: ({ id }) => id,
-});
+// CitationsColumnConfiguration.set(CitationsColumn.id, {
+//   label: 'Pubmed ID',
+//   render: ({ id }) => id,
+// });
 
 export default CitationsColumnConfiguration;

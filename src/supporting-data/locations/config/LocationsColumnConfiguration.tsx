@@ -34,9 +34,9 @@ export const LocationsColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-LocationsColumnConfiguration.set(LocationsColumn.id, {
-  label: 'Pubmed ID',
-  render: ({ id }) => id,
-});
+// LocationsColumnConfiguration.set(LocationsColumn.id, {
+//   label: 'Pubmed ID',
+//   render: ({ id }) => id,
+// });
 
 export default LocationsColumnConfiguration;

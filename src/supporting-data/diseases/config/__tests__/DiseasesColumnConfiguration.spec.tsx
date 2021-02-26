@@ -10,13 +10,13 @@ import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux
 
 import data from '../../__mocks__/diseasesModelData';
 
-jest.mock('../../../tools/utils/storage');
+jest.mock('../../../../tools/utils/storage');
 
 describe('DiseasesColumnConfiguration component', () => {
   let transformedData: DiseasesUIModel;
 
   beforeAll(() => {
-    transformedData = diseasesConverter(data as DiseasesAPIModel);
+    transformedData = diseasesConverter(data[0] as DiseasesAPIModel);
   });
 
   for (const [key, column] of DiseasesColumnConfiguration) {

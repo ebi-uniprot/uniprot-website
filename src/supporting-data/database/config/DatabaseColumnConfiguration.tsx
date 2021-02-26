@@ -33,9 +33,9 @@ export const CitationsColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-CitationsColumnConfiguration.set(DatabaseColumn.id, {
-  label: 'Cross-reference ID',
-  render: ({ id }) => id,
-});
+// CitationsColumnConfiguration.set(DatabaseColumn.id, {
+//   label: 'Cross-reference ID',
+//   render: ({ id }) => id,
+// });
 
 export default CitationsColumnConfiguration;

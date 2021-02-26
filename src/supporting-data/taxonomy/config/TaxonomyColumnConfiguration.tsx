@@ -34,9 +34,9 @@ export const TaxonomyColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
-  label: 'Taxon',
-  render: ({ id }) => id,
-});
+// TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
+//   label: 'Taxon',
+//   render: ({ taxonId }) => taxonId,
+// });
 
 export default TaxonomyColumnConfiguration;

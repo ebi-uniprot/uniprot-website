@@ -30,9 +30,9 @@ export const KeywordsColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-KeywordsColumnConfiguration.set(KeywordsColumn.id, {
-  label: 'Keyword ID',
-  render: ({ id }) => id,
-});
+// KeywordsColumnConfiguration.set(KeywordsColumn.id, {
+//   label: 'Keyword ID',
+//   render: ({ id }) => id,
+// });
 
 export default KeywordsColumnConfiguration;

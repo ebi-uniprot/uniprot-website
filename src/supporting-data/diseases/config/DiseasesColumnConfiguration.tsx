@@ -30,9 +30,9 @@ export const CitationsColumnConfiguration: ColumnConfiguration<
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-CitationsColumnConfiguration.set(DiseasesSymbol.id, {
-  label: 'Disease ID',
-  render: ({ id }) => id,
-});
+// CitationsColumnConfiguration.set(DiseasesSymbol.id, {
+//   label: 'Disease ID',
+//   render: ({ id }) => id,
+// });
 
 export default CitationsColumnConfiguration;
