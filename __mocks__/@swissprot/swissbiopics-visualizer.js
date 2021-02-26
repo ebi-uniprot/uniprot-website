@@ -1,1 +1,1 @@
-module.exports = {};
+customElements.define('sib-swissbiopics-sl', class extends HTMLElement {});
