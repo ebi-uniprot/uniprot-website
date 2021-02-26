@@ -4,7 +4,10 @@ import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 
-import { UniParcAPIModel } from '../../adapters/uniParcConverter';
+import {
+  UniParcAPIModel,
+  XRefsInternalDatabasesEnum,
+} from '../../adapters/uniParcConverter';
 
 import { getEntryPath } from '../../../app/config/urls';
 import xrefGetter from '../../utils/xrefGetter';
@@ -26,9 +29,9 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
   let reviewed = 0;
   let unreviewed = 0;
   for (const xref of data.uniParcCrossReferences || []) {
-    if (xref.database?.includes('UniProtKB/Swiss-Prot')) {
+    if (xref.database === XRefsInternalDatabasesEnum.REVIEWED) {
       reviewed += 1;
-    } else if (xref.database?.includes('UniProtKB/TrEMBL')) {
+    } else if (xref.database === XRefsInternalDatabasesEnum.UNREVIEWED) {
       unreviewed += 1;
     }
   }

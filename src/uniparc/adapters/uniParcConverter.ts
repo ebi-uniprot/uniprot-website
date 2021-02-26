@@ -4,15 +4,19 @@ import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 import EntrySection from '../types/entrySection';
 
-export enum XRefsInternalDatabases {
-  Reviewed = 'UniProtKB/Swiss-Prot',
-  Unreviewed = 'UniProtKB/TrEMBL',
+export enum XRefsInternalDatabasesEnum {
+  REVIEWED = 'UniProtKB/Swiss-Prot',
+  UNREVIEWED = 'UniProtKB/TrEMBL',
 }
+export type XRefsInternalDatabases = `${XRefsInternalDatabasesEnum}`;
 
-export const databaseToEntryType: Record<string, EntryType | undefined> = {
-  [XRefsInternalDatabases.Reviewed]: EntryType.REVIEWED,
-  [XRefsInternalDatabases.Unreviewed]: EntryType.UNREVIEWED,
-};
+export const databaseToEntryType = new Map<
+  string | XRefsInternalDatabases,
+  EntryType
+>([
+  ['UniProtKB/Swiss-Prot', EntryType.REVIEWED],
+  ['UniProtKB/TrEMBL', EntryType.UNREVIEWED],
+]);
 
 // made completely partial as it depends a lot on the fields requested to API
 export type UniParcXRef = Partial<{
