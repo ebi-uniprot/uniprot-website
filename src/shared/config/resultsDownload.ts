@@ -26,6 +26,7 @@ export const fileFormatToContentType: Record<FileFormat, ContentType> = {
   [FileFormat.gff]: ContentType.gff,
   [FileFormat.list]: ContentType.list,
   [FileFormat.json]: ContentType.json,
+  [FileFormat.obo]: ContentType.obo,
 };
 
 export const fileFormatToUrlParameter: Record<FileFormat, string> = {
@@ -41,6 +42,7 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
   [FileFormat.gff]: 'gff',
   [FileFormat.list]: 'list',
   [FileFormat.json]: 'json',
+  [FileFormat.obo]: 'obo',
 };
 
 export const fileFormatsWithColumns = [FileFormat.tsv, FileFormat.excel];

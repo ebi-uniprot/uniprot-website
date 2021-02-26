@@ -1,10 +1,10 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import CitationsColumnConfiguration from '../DatabaseColumnConfiguration';
+import DatabaseColumnConfiguration from '../DatabaseColumnConfiguration';
 
-import citationsConverter, {
-  CitationsAPIModel,
-  CitationsUIModel,
+import databaseConverter, {
+  DatabaseAPIModel,
+  DatabaseUIModel,
 } from '../../adapters/databaseConverter';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
@@ -12,14 +12,14 @@ import data from '../../__mocks__/databaseModelData';
 
 jest.mock('../../../tools/utils/storage');
 
-describe('CitationsColumnConfiguration component', () => {
-  let transformedData: CitationsUIModel;
+describe('DatabaseColumnConfiguration component', () => {
+  let transformedData: DatabaseUIModel;
 
   beforeAll(() => {
-    transformedData = citationsConverter(data as CitationsAPIModel);
+    transformedData = databaseConverter(data as DatabaseAPIModel);
   });
 
-  for (const [key, column] of CitationsColumnConfiguration) {
+  for (const [key, column] of DatabaseColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>

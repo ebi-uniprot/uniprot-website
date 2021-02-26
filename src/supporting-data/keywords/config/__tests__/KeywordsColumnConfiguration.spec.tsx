@@ -1,25 +1,25 @@
 import { MemoryRouter } from 'react-router-dom';
 
-import CitationsColumnConfiguration from '../CitationsColumnConfiguration';
+import KeywordsColumnConfiguration from '../KeywordsColumnConfiguration';
 
 import citationsConverter, {
-  CitationsAPIModel,
-  CitationsUIModel,
-} from '../../adapters/citationsConverter';
+  KeywordsAPIModel,
+  KeywordsUIModel,
+} from '../../adapters/keywordsConverter';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
-import data from '../../__mocks__/citationsModelData';
+import data from '../../__mocks__/keywordsModelData';
 
 jest.mock('../../../tools/utils/storage');
 
-describe('CitationsColumnConfiguration component', () => {
-  let transformedData: CitationsUIModel;
+describe('KeywordsColumnConfiguration component', () => {
+  let transformedData: KeywordsUIModel;
 
   beforeAll(() => {
-    transformedData = citationsConverter(data as CitationsAPIModel);
+    transformedData = citationsConverter(data as KeywordsAPIModel);
   });
 
-  for (const [key, column] of CitationsColumnConfiguration) {
+  for (const [key, column] of KeywordsColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>

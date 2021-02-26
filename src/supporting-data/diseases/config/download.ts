@@ -6,6 +6,7 @@ export const fileFormatsResultsDownload = [
   FileFormat.rdfXml,
   FileFormat.list,
   FileFormat.json,
+  FileFormat.obo,
 ];
 
 // TODO: use in entry download
