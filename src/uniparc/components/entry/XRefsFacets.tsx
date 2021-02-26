@@ -59,7 +59,7 @@ const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject[] => {
   );
   const taxonomyFacetValues = taxonObjects
     .map((taxon): OrganismTuple => [taxon, taxonCounts[taxon.taxonId]])
-    .sort((tupleA, tupleB) => tupleB[1] - tupleA[1]);
+    .sort(([, countA], [, countB]) => countB - countA);
 
   return [
     // Status facet

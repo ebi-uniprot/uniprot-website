@@ -8,7 +8,7 @@ export type XRefsInternalDatabases =
   | 'UniProtKB/Swiss-Prot'
   | 'UniProtKB/TrEMBL';
 
-export const databaseToEntryType = new Map<string, EntryType>([
+export const databaseToEntryType = new Map< XRefsInternalDatabases, EntryType>([
   ['UniProtKB/Swiss-Prot', EntryType.REVIEWED],
   ['UniProtKB/TrEMBL', EntryType.UNREVIEWED],
 ]);
