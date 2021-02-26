@@ -21,6 +21,7 @@ import {
   databaseToEntryType,
   UniParcAPIModel,
   UniParcXRef,
+  XRefsInternalDatabasesEnum,
 } from '../../adapters/uniParcConverter';
 import EntrySection, {
   getEntrySectionNameAndId,
@@ -78,8 +79,8 @@ const getColumns = (
       }
       let cell: ReactNode = xref.id;
       if (
-        xref.database === 'UniProtKB/Swiss-Prot' ||
-        xref.database === 'UniProtKB/TrEMBL'
+        xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+        xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
       ) {
         // internal link
         cell = (
