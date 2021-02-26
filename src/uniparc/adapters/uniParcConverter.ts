@@ -4,9 +4,11 @@ import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 import EntrySection from '../types/entrySection';
 
-export type XRefsInternalDatabases =
-  | 'UniProtKB/Swiss-Prot'
-  | 'UniProtKB/TrEMBL';
+export enum XRefsInternalDatabasesEnum {
+  REVIEWED = 'UniProtKB/Swiss-Prot',
+  UNREVIEWED = 'UniProtKB/TrEMBL',
+}
+export type XRefsInternalDatabases = `${XRefsInternalDatabasesEnum}`;
 
 export const databaseToEntryType = new Map<
   string | XRefsInternalDatabases,

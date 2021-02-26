@@ -11,6 +11,7 @@ import {
   UniParcAPIModel,
   UniParcXRef,
   XRefsInternalDatabases,
+  XRefsInternalDatabasesEnum,
 } from '../../adapters/uniParcConverter';
 import {
   FacetObject,
@@ -21,16 +22,14 @@ import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithSt
 
 import '../../../shared/components/results/styles/results-view.scss';
 
-const reviewed: XRefsInternalDatabases = 'UniProtKB/Swiss-Prot';
-const unreviewed: XRefsInternalDatabases = 'UniProtKB/TrEMBL';
 const exceptions = new Set<string | XRefsInternalDatabases>([
-  reviewed,
-  unreviewed,
+  XRefsInternalDatabasesEnum.REVIEWED,
+  XRefsInternalDatabasesEnum.UNREVIEWED,
 ]);
 
 const sortByCount = (a: FacetValue, b: FacetValue) => {
   if (exceptions.has(a.value) && exceptions.has(b.value)) {
-    return a.value === reviewed ? -1 : 1;
+    return a.value === XRefsInternalDatabasesEnum.REVIEWED ? -1 : 1;
   }
   if (exceptions.has(a.value)) {
     return -1;
