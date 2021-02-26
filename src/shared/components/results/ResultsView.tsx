@@ -19,11 +19,18 @@ import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
+
 // columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
 import ProteomesColumnConfiguration from '../../../proteomes/config/ProteomesColumnConfiguration';
+import TaxonomyColumnConfiguration from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
+import KeywordsColumnConfiguration from '../../../supporting-data/keywords/config/KeywordsColumnConfiguration';
+import CitationsColumnConfiguration from '../../../supporting-data/citations/config/CitationsColumnConfiguration';
+import DiseasesColumnConfiguration from '../../../supporting-data/diseases/config/DiseasesColumnConfiguration';
+import DatabaseColumnConfiguration from '../../../supporting-data/database/config/DatabaseColumnConfiguration';
+import LocationsColumnConfiguration from '../../../supporting-data/locations/config/LocationsColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
@@ -94,6 +101,12 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniref]: UniRefColumnConfiguration,
   [Namespace.uniparc]: UniParcColumnConfiguration,
   [Namespace.proteomes]: ProteomesColumnConfiguration,
+  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
+  [Namespace.keywords]: KeywordsColumnConfiguration,
+  [Namespace.citations]: CitationsColumnConfiguration,
+  [Namespace.diseases]: DiseasesColumnConfiguration,
+  [Namespace.database]: DatabaseColumnConfiguration,
+  [Namespace.locations]: LocationsColumnConfiguration,
 };
 
 const cardRenderer = (

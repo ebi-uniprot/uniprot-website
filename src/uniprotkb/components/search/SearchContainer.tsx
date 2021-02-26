@@ -12,9 +12,18 @@ import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
 
 import './styles/search-container.scss';
 
-// Keep partial until all are added
-const examples: Partial<Record<Namespace, string[]>> = {
+// TODO: add examples
+const examples: Record<Namespace, string[]> = {
   [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
+  [Namespace.uniref]: [],
+  [Namespace.uniparc]: [],
+  [Namespace.proteomes]: [],
+  [Namespace.taxonomy]: [],
+  [Namespace.keywords]: [],
+  [Namespace.citations]: [],
+  [Namespace.diseases]: [],
+  [Namespace.database]: [],
+  [Namespace.locations]: [],
 };
 
 type Props = {
