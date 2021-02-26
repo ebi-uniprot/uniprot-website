@@ -1,6 +1,6 @@
 import { FC, ReactNode, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, DataTable, ExternalLink } from 'franklin-sites';
+import { Card, DataTable, ExternalLink, Loader } from 'franklin-sites';
 
 import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
@@ -19,14 +19,18 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../../shared/config/columns';
 import {
   databaseToEntryType,
+  UniParcAPIModel,
   UniParcXRef,
+  XRefsInternalDatabasesEnum,
 } from '../../adapters/uniParcConverter';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
 import './styles/XRefsSection.scss';
+import '../../../shared/components/results/styles/results-view.scss';
 
 const getColumns = (
   templateMap: Map<string, string>
@@ -43,7 +47,7 @@ const getColumns = (
         return null;
       }
       let cell: ReactNode = xref.database;
-      const entryType = databaseToEntryType[xref.database];
+      const entryType = databaseToEntryType.get(xref.database);
       if (entryType === EntryType.REVIEWED) {
         cell = (
           <>
@@ -75,8 +79,8 @@ const getColumns = (
       }
       let cell: ReactNode = xref.id;
       if (
-        xref.database === 'UniProtKB/Swiss-Prot' ||
-        xref.database === 'UniProtKB/TrEMBL'
+        xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+        xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
       ) {
         // internal link
         cell = (
@@ -186,33 +190,37 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 type Props = {
-  data?: UniParcXRef[];
+  xrefData: UseDataAPIWithStaleState<UniParcAPIModel>;
 };
 
-const XRefsSection: FC<Props> = ({ data }) => {
-  // TODO: switch to using UniParc-specific database endpoint when available
-  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
-  // TODO: handle xrefs filtering from location.search after endpoint schema change
-  // const { search } = useLocation();
-
+const XRefsSection: FC<Props> = ({ xrefData }) => {
   const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
     `table columns for ${Namespace.uniparc} xrefs`,
     defaultColumns
   );
 
+  // TODO: switch to using UniParc-specific database endpoint when available
+  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
   const columns = useMemo(() => getColumns(getTemplateMap(dataDB)), [dataDB]);
 
   const nItemsToRender = useStaggeredRenderingHelper({
     first: 100,
-    max: data?.length,
+    max: xrefData.data?.uniParcCrossReferences?.length,
   });
 
-  if (!data?.length) {
+  if (xrefData.loading && !xrefData.isStale) {
+    return <Loader />;
+  }
+
+  if (!xrefData.data?.uniParcCrossReferences?.length) {
     return null;
   }
 
   return (
-    <Card title={getEntrySectionNameAndId(EntrySection.XRefs).name}>
+    <Card
+      title={getEntrySectionNameAndId(EntrySection.XRefs).name}
+      className={xrefData.isStale ? 'is-stale' : undefined}
+    >
       <div className="button-group">
         {tableColumns && (
           <CustomiseButton
@@ -222,7 +230,7 @@ const XRefsSection: FC<Props> = ({ data }) => {
         )}
       </div>
       <DataTable
-        data={data.slice(0, nItemsToRender)}
+        data={xrefData.data?.uniParcCrossReferences.slice(0, nItemsToRender)}
         getIdKey={getIdKey}
         density="compact"
         columns={columns}

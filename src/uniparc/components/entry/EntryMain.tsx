@@ -1,31 +1,28 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import UniParcEntryConfig from '../../config/UniParcEntryConfig';
 
-import { UniParcUIModel } from '../../adapters/uniParcConverter';
+import {
+  UniParcAPIModel,
+  UniParcUIModel,
+} from '../../adapters/uniParcConverter';
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
 type EntryMainProps = {
   transformedData: UniParcUIModel;
-  metadata?: Record<string, string>;
+  xrefs: UseDataAPIWithStaleState<UniParcAPIModel>;
 };
 
-function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
-  // Do NOT re-render the page, as long as the 'id' value is the same.
-  return (
-    prevProps.transformedData.uniParcId === nextProps.transformedData.uniParcId
-  );
-}
-
-const EntryMain: FC<EntryMainProps> = ({ transformedData, metadata }) => (
+const EntryMain: FC<EntryMainProps> = ({ transformedData, xrefs }) => (
   <>
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <ErrorBoundary key={id}>
-        {sectionContent(transformedData, metadata)}
+        {sectionContent(transformedData, xrefs)}
       </ErrorBoundary>
     ))}
   </>
 );
 
-export default memo(EntryMain, arePropsEqual);
+export default EntryMain;
