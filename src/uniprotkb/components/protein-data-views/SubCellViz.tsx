@@ -145,6 +145,7 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
    * After discussion with author of @swissprot/swissbiopics-visualizer this
    * will most likely not change.
    */
+  /* istanbul ignore next */
   useEffect(() => {
     // define a new element for each instance *after* it has been rendered.
     // cannot reuse the same class with different name, so create a new one
