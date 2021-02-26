@@ -1,7 +1,7 @@
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 
-export enum DiseasesSymbol {
+export enum DiseasesColumn {
   acronym = 'acronym',
   alternativeNames = 'alternative_names',
   crossReferences = 'cross_references',
@@ -15,22 +15,22 @@ export enum DiseasesSymbol {
 
 // TODO: review
 export const defaultColumns = [
-  DiseasesSymbol.id,
-  DiseasesSymbol.name,
-  DiseasesSymbol.definition,
-  DiseasesSymbol.reviewedProteinCount,
-  DiseasesSymbol.unreviewedProteinCount,
+  DiseasesColumn.id,
+  DiseasesColumn.name,
+  DiseasesColumn.definition,
+  DiseasesColumn.reviewedProteinCount,
+  DiseasesColumn.unreviewedProteinCount,
 ];
 
-export const primaryKeyColumn = DiseasesSymbol.id;
+export const primaryKeyColumn = DiseasesColumn.id;
 
 export const CitationsColumnConfiguration: ColumnConfiguration<
-  DiseasesSymbol,
+  DiseasesColumn,
   Partial<DiseasesAPIModel>
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-// CitationsColumnConfiguration.set(DiseasesSymbol.id, {
+// CitationsColumnConfiguration.set(DiseasesColumn.id, {
 //   label: 'Disease ID',
 //   render: ({ id }) => id,
 // });
