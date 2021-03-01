@@ -5,15 +5,10 @@ type Statistics = {
   unreviewedProteinCount: number;
 };
 
-type InactiveReason =
-  | {
-      inactiveReasonType: 'MERGED';
-      mergedTo: number;
-    }
-  | {
-      inactiveReasonType: 'DELETED';
-      mergedTo?: never;
-    };
+type InactiveReason = {
+  inactiveReasonType: 'MERGED' | 'DELETED';
+  mergedTo: number;
+};
 
 type Strain = {
   synonyms: string[];
@@ -36,37 +31,37 @@ type TaxonomyLightWithMnemonic = TaxonomyLight & {
 };
 
 type Rank =
-  | 'FORMA'
-  | 'VARIETAS'
-  | 'SUBSPECIES'
-  | 'SPECIES'
-  | 'SPECIES_SUBGROUP'
-  | 'SPECIES_GROUP'
-  | 'SUBGENUS'
-  | 'GENUS'
-  | 'SUBTRIBE'
-  | 'TRIBE'
-  | 'SUBFAMILY'
-  | 'FAMILY'
-  | 'SUPERFAMILY'
-  | 'PARVORDER'
-  | 'INFRAORDER'
-  | 'SUBORDER'
-  | 'ORDER'
-  | 'SUPERORDER'
-  | 'SUBCOHORT'
-  | 'COHORT'
-  | 'INFRACLASS'
-  | 'SUBCLASS'
-  | 'CLASS'
-  | 'SUPERCLASS'
-  | 'SUBPHYLUM'
-  | 'PHYLUM'
-  | 'SUPERPHYLUM'
-  | 'SUBKINGDOM'
-  | 'KINGDOM'
-  | 'SUPERKINGDOM'
-  | 'NO_RANK';
+  | 'forma'
+  | 'varietas'
+  | 'subspecies'
+  | 'species'
+  | 'species subgroup'
+  | 'species group'
+  | 'subgenus'
+  | 'genus'
+  | 'subtribe'
+  | 'tribe'
+  | 'subfamily'
+  | 'family'
+  | 'superfamily'
+  | 'parvorder'
+  | 'infraorder'
+  | 'suborder'
+  | 'order'
+  | 'superorder'
+  | 'subcohort'
+  | 'cohort'
+  | 'infraclass'
+  | 'subclass'
+  | 'class'
+  | 'superclass'
+  | 'subphylum'
+  | 'phylum'
+  | 'superphylum'
+  | 'subkingdom'
+  | 'kingdom'
+  | 'superkingdom'
+  | 'no rank';
 
 type TaxonomyLightWithRank = TaxonomyLight & {
   rank: Rank;

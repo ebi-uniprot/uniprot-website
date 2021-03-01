@@ -61,7 +61,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.host, {
   render: ({ hosts }) => (
     <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
       {hosts?.map(({ taxonId, scientificName, commonName }) => (
-        <Link to={getEntryPath(taxonId)}>
+        <Link key={taxonId} to={getEntryPath(taxonId)}>
           {commonName || scientificName || taxonId}
         </Link>
       ))}
@@ -96,7 +96,9 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   render: ({ links }) => (
     <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
       {links?.map((link) => (
-        <ExternalLink url={link}>{link}</ExternalLink>
+        <ExternalLink key={link} url={link}>
+          {link}
+        </ExternalLink>
       ))}
     </ExpandableList>
   ),

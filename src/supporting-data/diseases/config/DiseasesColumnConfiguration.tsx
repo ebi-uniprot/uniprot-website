@@ -91,7 +91,9 @@ DiseasesColumnConfiguration.set(DiseasesColumn.keywords, {
   render: ({ keywords }) => (
     <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
       {keywords?.map(({ name, id }) => (
-        <Link to={getEntryPathForKeyword(id)}>{name}</Link>
+        <Link key={id} to={getEntryPathForKeyword(id)}>
+          {name}
+        </Link>
       ))}
     </ExpandableList>
   ),

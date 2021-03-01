@@ -54,7 +54,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.children, {
   render: ({ children }) => (
     <ExpandableList descriptionString="children" displayNumberOfHiddenItems>
       {children?.map((child) => (
-        <Link to={getEntryPath(child.keyword.id)}>{child.keyword.name}</Link>
+        <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
+          {child.keyword.name}
+        </Link>
       ))}
     </ExpandableList>
   ),
@@ -90,7 +92,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.parent, {
   render: ({ parents }) => (
     <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
       {parents?.map((parent) => (
-        <Link to={getEntryPath(parent.keyword.id)}>{parent.keyword.name}</Link>
+        <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
+          {parent.keyword.name}
+        </Link>
       ))}
     </ExpandableList>
   ),

@@ -101,7 +101,9 @@ LocationsColumnConfiguration.set(LocationsColumn.links, {
   render: ({ links }) => (
     <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
       {links?.map((link) => (
-        <ExternalLink url={link}>{link}</ExternalLink>
+        <ExternalLink key={link} url={link}>
+          {link}
+        </ExternalLink>
       ))}
     </ExpandableList>
   ),
@@ -122,7 +124,9 @@ LocationsColumnConfiguration.set(LocationsColumn.partOf, {
   render: ({ partOf }) => (
     <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
       {partOf?.map((location) => (
-        <Link to={getEntryPath(location.id)}>{location.name}</Link>
+        <Link key={location.id} to={getEntryPath(location.id)}>
+          {location.name}
+        </Link>
       ))}
     </ExpandableList>
   ),
