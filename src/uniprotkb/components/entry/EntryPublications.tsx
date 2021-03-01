@@ -76,7 +76,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     },
     {
       title: 'Tissue',
-      content: referenceComments?.join(', '),
+      content: referenceComments?.map(({ value }) => value).join(', '),
     },
     {
       title: 'Categories',
