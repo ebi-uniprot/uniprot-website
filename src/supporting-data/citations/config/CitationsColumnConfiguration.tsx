@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom';
+
+import { getEntryPathFor } from '../../../app/config/urls';
+
 import {
   CitationsAPIModel,
   CitationXRefDB,
 } from '../adapters/citationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { JournalInfo } from '../../../shared/components/literature-citations/LiteratureCitation';
+import { Namespace } from '../../../shared/types/namespaces';
 
 export enum CitationsColumn {
   // TODO: Report to backend that this field query is not working
@@ -35,6 +40,8 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = CitationsColumn.id;
 
+const getEntryPath = getEntryPathFor(Namespace.citations);
+
 export const CitationsColumnConfiguration: ColumnConfiguration<
   CitationsColumn,
   Partial<CitationsAPIModel>
@@ -61,10 +68,12 @@ CitationsColumnConfiguration.set(CitationsColumn.firstPage, {
 
 CitationsColumnConfiguration.set(CitationsColumn.id, {
   label: 'PubMed ID',
-  render: ({ citation }) =>
-    citation?.citationCrossReferences?.find(
+  render: ({ citation }) => {
+    const id = citation?.citationCrossReferences?.find(
       (xref) => xref.database === CitationXRefDB.PubMed
-    )?.id,
+    )?.id;
+    return id && <Link to={getEntryPath(id)}>{id}</Link>;
+  },
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.journal, {
