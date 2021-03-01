@@ -92,10 +92,7 @@ const Results: FC = () => {
     headers,
     status,
     isStale,
-  } = useDataApiWithStale<Response['data']>(
-    // TODO: remove replace
-    initialApiUrl.replace('https://wwwdev.ebi.ac.uk', 'http://wp-np2-49:8095/')
-  );
+  } = useDataApiWithStale<Response['data']>(initialApiUrl);
 
   if (error || !(loading || data) || !namespace) {
     return <ErrorHandler status={status} />;

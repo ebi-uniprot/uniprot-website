@@ -53,7 +53,7 @@ DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
       descriptionString="alternative names"
       displayNumberOfHiddenItems
     >
-      {alternativeNames?.map((name) => name)}
+      {alternativeNames}
     </ExpandableList>
   ),
 });
@@ -63,7 +63,7 @@ DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
   render: ({ crossReferences }) => (
     <ExpandableList
-      descriptionString="alternative names"
+      descriptionString="cross references"
       displayNumberOfHiddenItems
     >
       {crossReferences?.map(

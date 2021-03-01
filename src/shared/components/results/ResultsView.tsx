@@ -119,23 +119,22 @@ const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
     case Namespace.proteomes:
       return (data) => (data as ProteomesAPIModel).id;
     // Supporting data
-    // TODO
-    // case Namespace.taxonomy:
-    //   return (data) => (data as TaxonomyAPIModel);
-    // case Namespace.keywords:
-    //   return (data) => (data as KeywordsAPIModel);
+    case Namespace.taxonomy:
+      return (data) => `${(data as TaxonomyAPIModel).taxonId}`;
+    case Namespace.keywords:
+      return (data) => (data as KeywordsAPIModel).keyword.id;
     case Namespace.citations:
       // TODO: find what are the citations' unique keys
       return (data) =>
         (data as CitationsAPIModel).citation.citationCrossReferences?.find(
           (xref) => xref.database === CitationXRefDB.PubMed
         )?.id || 'key <string to be removed eventually>';
-    // case Namespace.diseases:
-    //   return (data) => (data as DiseasesAPIModel);
-    // case Namespace.database:
-    //   return (data) => (data as DatabaseAPIModel);
-    // case Namespace.locations:
-    //   return (data) => (data as LocationsAPIModel);
+    case Namespace.diseases:
+      return (data) => (data as DiseasesAPIModel).id;
+    case Namespace.database:
+      return (data) => (data as DatabaseAPIModel).id;
+    case Namespace.locations:
+      return (data) => (data as LocationsAPIModel).id;
     default:
       // eslint-disable-next-line no-console
       console.warn(`getIdKey method not implemented for ${namespace} yet`);
@@ -306,8 +305,7 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const { data, loading, headers } = useDataApi<{
     results: APIModel[];
-    // TODO: remove replace
-  }>(url.replace('https://wwwdev.ebi.ac.uk', 'http://wp-np2-49:8095/'));
+  }>(url);
 
   const prevViewMode = useRef<ViewMode>(viewMode);
   useEffect(() => {
