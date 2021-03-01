@@ -58,10 +58,22 @@ DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
   ),
 });
 
+// NOTE: should probably be links
 DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
-  render: ({ crossReferences }) =>
-    JSON.stringify(crossReferences, undefined, 2),
+  render: ({ crossReferences }) => (
+    <ExpandableList
+      descriptionString="alternative names"
+      displayNumberOfHiddenItems
+    >
+      {crossReferences?.map(
+        ({ databaseType, id, properties }) =>
+          `${databaseType}: ${id}${
+            properties?.length ? ` (${properties.join(', ')})` : ''
+          }`
+      )}
+    </ExpandableList>
+  ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.definition, {
