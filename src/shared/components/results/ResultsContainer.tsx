@@ -50,10 +50,11 @@ const Results: FC = () => {
     ViewMode.CARD
   );
 
-  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
-    `table columns for ${namespace}`,
-    namespace ? nsToDefaultColumns[namespace] : []
-  );
+  const [tableColumns, setTableColumns] =
+    useLocalStorage<Column[]>(
+      `table columns for ${namespace}`,
+      namespace ? nsToDefaultColumns[namespace] : []
+    ) || nsToDefaultColumns[namespace];
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data

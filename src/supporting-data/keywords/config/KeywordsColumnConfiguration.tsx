@@ -15,6 +15,7 @@ export enum KeywordsColumn {
   children = 'children',
   // Called "description", but maps to a field called "definition"...
   description = 'description',
+  // Called "gene_ontologies" in the locations schema...
   geneOntology = 'gene_ontology',
   id = 'id',
   name = 'name',
@@ -65,7 +66,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.description, {
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.geneOntology, {
-  label: 'Gene Ontology',
+  label: 'Gene Ontologies',
   render: ({ geneOntologies }) => (
     <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
       {geneOntologies?.map(({ name, goId }) => `${name} (${goId})`)}

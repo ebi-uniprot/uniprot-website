@@ -5,10 +5,15 @@ type Statistics = {
   unreviewedProteinCount: number;
 };
 
-type InactiveReason = {
-  inactiveReasonType: string; // TODO: replace with possible reasons
-  mergedTo: number;
-};
+type InactiveReason =
+  | {
+      inactiveReasonType: 'MERGED';
+      mergedTo: number;
+    }
+  | {
+      inactiveReasonType: 'DELETED';
+      mergedTo?: never;
+    };
 
 type Strain = {
   synonyms: string[];
@@ -30,8 +35,41 @@ type TaxonomyLightWithMnemonic = TaxonomyLight & {
   mnemonic: string;
 };
 
+type Rank =
+  | 'FORMA'
+  | 'VARIETAS'
+  | 'SUBSPECIES'
+  | 'SPECIES'
+  | 'SPECIES_SUBGROUP'
+  | 'SPECIES_GROUP'
+  | 'SUBGENUS'
+  | 'GENUS'
+  | 'SUBTRIBE'
+  | 'TRIBE'
+  | 'SUBFAMILY'
+  | 'FAMILY'
+  | 'SUPERFAMILY'
+  | 'PARVORDER'
+  | 'INFRAORDER'
+  | 'SUBORDER'
+  | 'ORDER'
+  | 'SUPERORDER'
+  | 'SUBCOHORT'
+  | 'COHORT'
+  | 'INFRACLASS'
+  | 'SUBCLASS'
+  | 'CLASS'
+  | 'SUPERCLASS'
+  | 'SUBPHYLUM'
+  | 'PHYLUM'
+  | 'SUPERPHYLUM'
+  | 'SUBKINGDOM'
+  | 'KINGDOM'
+  | 'SUPERKINGDOM'
+  | 'NO_RANK';
+
 type TaxonomyLightWithRank = TaxonomyLight & {
-  rank: string; // TODO: replace with possible ranks
+  rank: Rank;
 };
 
 export type TaxonomyAPIModel = TaxonomyLightWithHiddenFlag &
