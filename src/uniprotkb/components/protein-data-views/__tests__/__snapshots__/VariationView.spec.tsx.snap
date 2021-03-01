@@ -12,6 +12,41 @@ exports[`VariationView component renders on data 1`] = `
       <div
         class="variation-view"
       >
+        <div
+          class="button-group"
+        >
+          <protvista-zoom-tool
+            length="4"
+          >
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in"
+            >
+              <test-file-stub
+                width="24"
+              />
+              +
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-out"
+            >
+              <test-file-stub
+                width="24"
+              />
+              -
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in-seq"
+            >
+              <test-file-stub
+                width="24"
+              />
+              ATG
+            </span>
+          </protvista-zoom-tool>
+        </div>
         <protvista-navigation
           length="4"
         />

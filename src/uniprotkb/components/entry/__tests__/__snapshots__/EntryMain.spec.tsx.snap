@@ -1531,6 +1531,41 @@ exports[`Entry view should render 1`] = `
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
           >
+            <div
+              class="button-group"
+            >
+              <protvista-zoom-tool
+                length="10"
+              >
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  +
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-out"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  -
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in-seq"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  ATG
+                </span>
+              </protvista-zoom-tool>
+            </div>
             <protvista-navigation
               length="10"
             />
@@ -2508,6 +2543,41 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
           >
+            <div
+              class="button-group"
+            >
+              <protvista-zoom-tool
+                length="772"
+              >
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  +
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-out"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  -
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in-seq"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  ATG
+                </span>
+              </protvista-zoom-tool>
+            </div>
             <protvista-navigation
               length="772"
             />
@@ -3021,6 +3091,41 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
           >
+            <div
+              class="button-group"
+            >
+              <protvista-zoom-tool
+                length="772"
+              >
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  +
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-out"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  -
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in-seq"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  ATG
+                </span>
+              </protvista-zoom-tool>
+            </div>
             <protvista-navigation
               length="772"
             />
@@ -3229,6 +3334,41 @@ exports[`Entry view should render for non-human entry 1`] = `
           <protvista-manager
             attributes="highlight displaystart displayend selectedid"
           >
+            <div
+              class="button-group"
+            >
+              <protvista-zoom-tool
+                length="772"
+              >
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  +
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-out"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  -
+                </span>
+                <span
+                  class="nightingale-button-content"
+                  slot="zoom-in-seq"
+                >
+                  <test-file-stub
+                    width="24"
+                  />
+                  ATG
+                </span>
+              </protvista-zoom-tool>
+            </div>
             <protvista-navigation
               length="772"
             />
