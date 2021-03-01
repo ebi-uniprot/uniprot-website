@@ -62,4 +62,4 @@ the `unregister` function instead of the `register` function.
 
 ### CI/CD
 
-this is still a test
+this is still testing
