@@ -63,9 +63,20 @@ const apiUrls = {
   genecentric: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
 
-  entry: (accession: string) =>
-    joinUrl(devPrefix, '/uniprot/api/uniprotkb/accession', accession),
-  sequenceFasta: (accession: string) => `${apiUrls.entry(accession)}.fasta`,
+  entry: (accession: string | undefined, namespace: Namespace) =>
+    accession &&
+    joinUrl(
+      devPrefix,
+      // NOTE: The inclusion of /accession/ subpath for uniprotkb is going to be reviewed by backend
+      // and potentially removed to bring it in line with the other namespaces
+      // NOTE: uniparc entry isn't working/deployed yet
+      `/uniprot/api/${namespace}/${
+        namespace === Namespace.uniprotkb ? 'accession/' : ''
+      }`,
+      accession
+    ),
+  sequenceFasta: (accession: string) =>
+    `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
   entryDownload: (accession: string, format: FileFormat) =>
     format === FileFormat.fastaCanonicalIsoform
       ? `${apiUrls.search()}?${queryString.stringify({
@@ -73,7 +84,9 @@ const apiUrls = {
           includeIsoform: true,
           format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
         })}`
-      : `${apiUrls.entry(accession)}.${fileFormatToUrlParameter[format]}`,
+      : `${apiUrls.entry(accession, Namespace.uniprotkb)}.${
+          fileFormatToUrlParameter[format]
+        }`,
   entryPublications: (accession: string) =>
     joinUrl(
       devPrefix,

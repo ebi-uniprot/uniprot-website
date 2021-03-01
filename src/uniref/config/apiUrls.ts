@@ -4,7 +4,6 @@ import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import
 import { devPrefix } from '../../shared/config/apiUrls';
 
 const apiUrls = {
-  entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
   members: (
     id: string,
     options: {
@@ -23,7 +22,6 @@ const apiUrls = {
       (querystring ? `?${querystring}` : '')
     );
   },
-  search: joinUrl(devPrefix, 'uniprot/api/uniref/search'),
 };
 
 export default apiUrls;
