@@ -23,7 +23,8 @@ export enum TaxonomyColumn {
   // Maps to "parentId" field, no full parent object
   parent = 'parent',
   rank = 'rank',
-  // Not sure what this does...
+  // This is triggering the same filters than "statistics", so probably no need
+  // for a specific column renderer
   reviewed = 'reviewed',
   scientificName = 'scientific_name',
   statistics = 'statistics',
@@ -127,12 +128,6 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
 TaxonomyColumnConfiguration.set(TaxonomyColumn.rank, {
   label: 'Rank',
   render: ({ rank }) => rank,
-});
-
-TaxonomyColumnConfiguration.set(TaxonomyColumn.reviewed, {
-  label: 'Reviewed',
-  // TODO: find out what this is and how to represent it
-  render: () => 'Maybe?..',
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
