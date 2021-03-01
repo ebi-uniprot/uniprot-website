@@ -9,6 +9,7 @@ import {
   MessageType,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
@@ -31,7 +32,6 @@ import uniRefConverter, {
 } from '../../adapters/uniRefConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import { Namespace } from '../../../shared/types/namespaces';
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
