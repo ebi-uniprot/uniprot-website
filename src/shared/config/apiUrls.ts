@@ -49,7 +49,7 @@ const apiUrls = {
     devPrefix,
     '/uniprot/api/configure/uniprotkb/databasefields'
   ),
-  // All result fields except database cross reference fields
+  // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace) =>
     joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
   // Retrieve results

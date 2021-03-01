@@ -13,6 +13,22 @@ export enum Namespace {
   locations = 'locations',
 }
 
+export const mainNamespaces = new Set<Namespace>([
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+  Namespace.proteomes,
+]);
+
+export const supportingDataNamespaces = new Set<Namespace>([
+  Namespace.taxonomy,
+  Namespace.keywords,
+  Namespace.citations,
+  Namespace.diseases,
+  Namespace.database,
+  Namespace.locations,
+]);
+
 export const NamespaceLabels: Record<Namespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',

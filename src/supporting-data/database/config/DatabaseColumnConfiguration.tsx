@@ -27,15 +27,15 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = DatabaseColumn.id;
 
-export const CitationsColumnConfiguration: ColumnConfiguration<
+export const DatabaseColumnConfiguration: ColumnConfiguration<
   DatabaseColumn,
   Partial<DatabaseAPIModel>
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-// CitationsColumnConfiguration.set(DatabaseColumn.id, {
+// DatabaseColumnConfiguration.set(DatabaseColumn.id, {
 //   label: 'Cross-reference ID',
 //   render: ({ id }) => id,
 // });
 
-export default CitationsColumnConfiguration;
+export default DatabaseColumnConfiguration;

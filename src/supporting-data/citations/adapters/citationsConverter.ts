@@ -6,8 +6,15 @@ export type Statistics = {
   unreviewedProteinCount: number;
 };
 
+export enum CitationXRefDB {
+  PubMed = 'PubMed',
+  DOI = 'DOI',
+}
+
+export type CitationXRefDBType = `${CitationXRefDB}`;
+
 export type CitationXRef = {
-  database?: 'PubMed' | 'DOI' | string;
+  database?: CitationXRefDBType | string;
   id?: string;
   // Not sure about all the ones below, copied from somewhere else,
   // but are they still here?

@@ -17,6 +17,15 @@ import uniProtKbConverter, {
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { KeywordsAPIModel } from '../../../supporting-data/keywords/adapters/keywordsConverter';
+import {
+  CitationsAPIModel,
+  CitationXRefDB,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
+import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/diseasesConverter';
+import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
+import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
 
@@ -59,10 +68,17 @@ type APIModel =
   | UniProtkbAPIModel
   | UniRefLiteAPIModel
   | UniParcAPIModel
-  | ProteomesAPIModel;
+  | ProteomesAPIModel
+  | TaxonomyAPIModel
+  | KeywordsAPIModel
+  | CitationsAPIModel
+  | DiseasesAPIModel
+  | DatabaseAPIModel
+  | LocationsAPIModel;
 
 const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
+    // Main namespaces
     case Namespace.uniprotkb:
       return uniProtKbConverter(row as UniProtkbAPIModel);
     case Namespace.uniref:
@@ -71,13 +87,29 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       return row as UniParcAPIModel;
     case Namespace.proteomes:
       return row as ProteomesAPIModel;
+    // Supporting data
+    case Namespace.taxonomy:
+      return row as TaxonomyAPIModel;
+    case Namespace.keywords:
+      return row as KeywordsAPIModel;
+    case Namespace.citations:
+      return row as CitationsAPIModel;
+    case Namespace.diseases:
+      return row as DiseasesAPIModel;
+    case Namespace.database:
+      return row as DatabaseAPIModel;
+    case Namespace.locations:
+      return row as LocationsAPIModel;
     default:
+      // eslint-disable-next-line no-console
+      console.warn(`Unrecognised namespace: "${namespace}"`);
       return null;
   }
 };
 
 const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
   switch (namespace) {
+    // Main namespaces
     case Namespace.uniprotkb:
       return (data) => (data as UniProtkbAPIModel).primaryAccession;
     case Namespace.uniref:
@@ -86,6 +118,24 @@ const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
       return (data) => (data as UniParcAPIModel).uniParcId;
     case Namespace.proteomes:
       return (data) => (data as ProteomesAPIModel).id;
+    // Supporting data
+    // TODO
+    // case Namespace.taxonomy:
+    //   return (data) => (data as TaxonomyAPIModel);
+    // case Namespace.keywords:
+    //   return (data) => (data as KeywordsAPIModel);
+    case Namespace.citations:
+      // TODO: find what are the citations' unique keys
+      return (data) =>
+        (data as CitationsAPIModel).citation.citationCrossReferences?.find(
+          (xref) => xref.database === CitationXRefDB.PubMed
+        )?.id || 'key <string to be removed eventually>';
+    // case Namespace.diseases:
+    //   return (data) => (data as DiseasesAPIModel);
+    // case Namespace.database:
+    //   return (data) => (data as DatabaseAPIModel);
+    // case Namespace.locations:
+    //   return (data) => (data as LocationsAPIModel);
     default:
       // eslint-disable-next-line no-console
       console.warn(`getIdKey method not implemented for ${namespace} yet`);
@@ -256,7 +306,8 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const { data, loading, headers } = useDataApi<{
     results: APIModel[];
-  }>(url);
+    // TODO: remove replace
+  }>(url.replace('https://wwwdev.ebi.ac.uk', 'http://wp-np2-49:8095/'));
 
   const prevViewMode = useRef<ViewMode>(viewMode);
   useEffect(() => {

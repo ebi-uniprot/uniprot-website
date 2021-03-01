@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
@@ -25,7 +25,7 @@ import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
 import { SearchResultsLocations } from '../../../app/config/urls';
 
-import { Namespace } from '../../types/namespaces';
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
@@ -44,9 +44,6 @@ const Results: FC = () => {
     queryParamFromUrl
   );
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-  const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
-    Map<Column, string>
-  >();
 
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
@@ -59,17 +56,14 @@ const Results: FC = () => {
   );
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace)
+    // No configure endpoint for supporting data
+    mainNamespaces.has(namespace) ? apiUrls.resultsFields(namespace) : null
   );
 
-  useEffect(() => {
-    if (!dataResultFields) {
-      return;
-    }
-    setSortableColumnToSortColumn(
-      getSortableColumnToSortColumn(dataResultFields)
-    );
-  }, [dataResultFields]);
+  const sortableColumnToSortColumn = useMemo(
+    () => getSortableColumnToSortColumn(dataResultFields),
+    [dataResultFields]
+  );
 
   /**
    * WARNING: horrible hack to get the switch between
@@ -98,7 +92,10 @@ const Results: FC = () => {
     headers,
     status,
     isStale,
-  } = useDataApiWithStale<Response['data']>(initialApiUrl);
+  } = useDataApiWithStale<Response['data']>(
+    // TODO: remove replace
+    initialApiUrl.replace('https://wwwdev.ebi.ac.uk', 'http://wp-np2-49:8095/')
+  );
 
   if (error || !(loading || data) || !namespace) {
     return <ErrorHandler status={status} />;
@@ -121,10 +118,6 @@ const Results: FC = () => {
         : filtered
     );
   };
-
-  if (!sortableColumnToSortColumn || !sortableColumnToSortColumn.size) {
-    return <Loader />;
-  }
 
   const handleTableColumnsChange = (columns: Column[]) => {
     if (

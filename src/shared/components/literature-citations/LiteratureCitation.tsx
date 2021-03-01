@@ -82,13 +82,9 @@ type JournalInfoProps = {
   };
 };
 
-const JournalInfo: FC<JournalInfoProps> = ({
+export const JournalInfo: FC<JournalInfoProps> = ({
   journalInfo: { publicationDate, journal, firstPage, lastPage, volume, doiId },
 }) => {
-  if (!doiId) {
-    return null;
-  }
-
   const name = journal || doiId;
   let page = null;
   if (firstPage) {
@@ -101,22 +97,28 @@ const JournalInfo: FC<JournalInfoProps> = ({
   let date;
   if (publicationDate) {
     date = (
-      <>
-        (
-        <time dateTime={new Date(publicationDate).toISOString()}>
-          {publicationDate}
-        </time>
-        )
-      </>
+      <time dateTime={new Date(publicationDate).toISOString()}>
+        {publicationDate}
+      </time>
     );
   }
 
-  return (
-    <a href={`//dx.doi.org/${doiId}`} target="_blank" rel="noopener noreferrer">
+  const content = (
+    <>
       {name} {volume}
       {volume && page && ':'}
       {page}
       {date}
+    </>
+  );
+
+  if (!doiId) {
+    return content;
+  }
+
+  return (
+    <a href={`//dx.doi.org/${doiId}`} target="_blank" rel="noopener noreferrer">
+      {content}
     </a>
   );
 };

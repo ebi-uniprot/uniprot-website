@@ -24,15 +24,15 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = DiseasesColumn.id;
 
-export const CitationsColumnConfiguration: ColumnConfiguration<
+export const DiseasesColumnConfiguration: ColumnConfiguration<
   DiseasesColumn,
   Partial<DiseasesAPIModel>
 > = new Map();
 
 // COLUMN RENDERERS BELOW
-// CitationsColumnConfiguration.set(DiseasesColumn.id, {
+// DiseasesColumnConfiguration.set(DiseasesColumn.id, {
 //   label: 'Disease ID',
 //   render: ({ id }) => id,
 // });
 
-export default CitationsColumnConfiguration;
+export default DiseasesColumnConfiguration;
