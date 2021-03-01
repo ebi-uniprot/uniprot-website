@@ -63,8 +63,8 @@ const apiUrls = {
   genecentric: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
 
-  entry: (accession: string | undefined, namespace: Namespace) =>
-    accession &&
+  entry: (id: string | undefined, namespace: Namespace) =>
+    id &&
     joinUrl(
       devPrefix,
       // NOTE: The inclusion of /accession/ subpath for uniprotkb is going to be reviewed by backend
@@ -73,7 +73,7 @@ const apiUrls = {
       `/uniprot/api/${namespace}/${
         namespace === Namespace.uniprotkb ? 'accession/' : ''
       }`,
-      accession
+      id
     ),
   sequenceFasta: (accession: string) =>
     `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
