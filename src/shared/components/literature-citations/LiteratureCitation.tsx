@@ -97,9 +97,13 @@ export const JournalInfo: FC<JournalInfoProps> = ({
   let date;
   if (publicationDate) {
     date = (
-      <time dateTime={new Date(publicationDate).toISOString()}>
-        {publicationDate}
-      </time>
+      <>
+        (
+        <time dateTime={new Date(publicationDate).toISOString()}>
+          {publicationDate}
+        </time>
+        )
+      </>
     );
   }
 

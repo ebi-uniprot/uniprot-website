@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaxonomyColumnConfiguration component should render column "common_name": common_name 1`] = `<DocumentFragment />`;
+
+exports[`TaxonomyColumnConfiguration component should render column "host": host 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "id": id 1`] = `
+<DocumentFragment>
+  <a
+    href="/taxonomy/11652"
+  >
+    11652
+  </a>
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "lineage": lineage 1`] = `
+<DocumentFragment>
+  <a
+    href="/taxonomy/11646"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/327045"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/11632"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2169561"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2732514"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2732409"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2732397"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2559587"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/10239"
+  >
+     
+  </a>
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "links": links 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
+<DocumentFragment>
+  9PLVG
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "other_names": other_names 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      Primate immunodeficiency viruses
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "parent": parent 1`] = `
+<DocumentFragment>
+  <a
+    href="/taxonomy/11646"
+  >
+    11646
+  </a>
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "rank": rank 1`] = `
+<DocumentFragment>
+  no rank
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "reviewed": reviewed 1`] = `
+<DocumentFragment>
+  Maybe?..
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "scientific_name": scientific_name 1`] = `
+<DocumentFragment>
+  Primate lentivirus group
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `<DocumentFragment />`;
+
+exports[`TaxonomyColumnConfiguration component should render column "strain": strain 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;
+
+exports[`TaxonomyColumnConfiguration component should render column "synonym": synonym 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;
