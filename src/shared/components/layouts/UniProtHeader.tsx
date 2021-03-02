@@ -127,7 +127,7 @@ const UniProtHeader = () => {
         items={displayedLinks}
         isNegative={isHomePage}
         search={!isHomePage && <SearchContainerWithNamespace />}
-        logo={<Logo width={120} height={50} />}
+        logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
       />
       {displayQueryBuilder && (
         <Suspense fallback={null}>
