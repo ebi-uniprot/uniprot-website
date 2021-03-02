@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { SearchIcon } from 'franklin-sites';
+import { ZoomIn, ZoomOut, ZoomToSequence } from 'franklin-sites';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
 
 import './styles/nightingale-zoom-tool.scss';
 
 // Icons and icon size TBD once designed.
-const iconSize = 24;
+const iconSize = 19;
 
 const NightingaleZoomTool: FC<{ length: number }> = ({ length }) => {
   useCustomElement(
@@ -18,20 +18,17 @@ const NightingaleZoomTool: FC<{ length: number }> = ({ length }) => {
   );
 
   return (
-    <div className="button-group">
-      <protvista-zoom-tool length={length}>
-        <span slot="zoom-in" className="nightingale-button-content">
-          <SearchIcon width={iconSize} />+
-        </span>
-        <span slot="zoom-out" className="nightingale-button-content">
-          <SearchIcon width={iconSize} />-
-        </span>
-        <span slot="zoom-in-seq" className="nightingale-button-content">
-          <SearchIcon width={iconSize} />
-          ATG
-        </span>
-      </protvista-zoom-tool>
-    </div>
+    <protvista-zoom-tool length={length}>
+      <span slot="zoom-in" className="nightingale-button-content">
+        <ZoomIn height={iconSize} />
+      </span>
+      <span slot="zoom-out" className="nightingale-button-content">
+        <ZoomOut height={iconSize} />
+      </span>
+      <span slot="zoom-in-seq" className="nightingale-button-content">
+        <ZoomToSequence height={iconSize} />
+      </span>
+    </protvista-zoom-tool>
   );
 };
 
