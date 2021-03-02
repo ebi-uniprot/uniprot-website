@@ -170,7 +170,7 @@ UniParcColumnConfiguration.set(UniParcColumn.proteome, {
           <Link to={getEntryPath(Namespace.proteomes, xref.proteomeId)}>
             {xref.proteomeId}
           </Link>
-          {xref.component ? `:${xref.component}` : undefined}
+          {xref.component ? ` (${xref.component})` : undefined}
         </Fragment>
       ))}
     </ExpandableList>
