@@ -8,13 +8,44 @@ import {
   LocationToPath,
   SearchResultsLocations,
 } from '../../../app/config/urls';
-import { Namespace, NamespaceLabels } from '../../../shared/types/namespaces';
+import { Namespace, NamespaceLabels } from '../../types/namespaces';
 
 import './styles/search-container.scss';
 
-// Keep partial until all are added
-const examples: Partial<Record<Namespace, string[]>> = {
+const examples: Record<Namespace, string[]> = {
+  // Main data
   [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
+  [Namespace.uniref]: [
+    'Transcription factors',
+    'identity:1.0',
+    'uniprot_id:q9h9k5 AND identity:1.0',
+    'Human',
+  ],
+  [Namespace.uniparc]: ['UPI000000000B', 'P05067', 'APP', 'database:RefSeq'],
+  [Namespace.proteomes]: ['Human', '9606', 'eukaryota', 'redundant:false'],
+  // Supporting data
+  [Namespace.taxonomy]: [
+    'Human',
+    'Homo sapiens',
+    '9606',
+    'Hominoidea',
+    'rank:family AND hominidae',
+  ],
+  [Namespace.keywords]: [
+    'Phosphoprotein',
+    'Alternative splicing',
+    'Mitochondrion',
+    'Innate immunity',
+  ],
+  [Namespace.citations]: [
+    'Thornton',
+    'J. Exp. Biol.',
+    'COVID-19',
+    `${new Date().getFullYear()}`,
+  ],
+  [Namespace.diseases]: ['Alzheimer disease 3', 'Breast cancer', 'Dementia'],
+  [Namespace.database]: ['PDB', 'IntAct', 'Pfam', 'GO', 'OMIM'],
+  [Namespace.locations]: ['Cell membrane', 'Golgi apparatus', 'Nucleus'],
 };
 
 type Props = {

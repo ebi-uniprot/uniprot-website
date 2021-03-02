@@ -36,7 +36,7 @@ import {
 } from '../../messages/types/messagesTypes';
 import { Clause, SearchTermType } from '../types/searchTypes';
 
-import '../../uniprotkb/components/search/styles/search-container.scss';
+import '../../shared/components/search/styles/search-container.scss';
 import './styles/query-builder.scss';
 
 type Props = {

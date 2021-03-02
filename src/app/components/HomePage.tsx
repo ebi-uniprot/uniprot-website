@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { HeroHeader, Loader } from 'franklin-sites';
 
-import SearchContainer from '../../uniprotkb/components/search/SearchContainer';
+import SearchContainer from '../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
 
 import useReducedMotion from '../../shared/hooks/useReducedMotion';
