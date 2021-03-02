@@ -1,12 +1,16 @@
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, DataTable, ExternalLink, Loader } from 'franklin-sites';
+import {
+  Card,
+  DataTableWithLoader,
+  ExternalLink,
+  Loader,
+} from 'franklin-sites';
 
 import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 
-import useStaggeredRenderingHelper from '../../../shared/hooks/useStaggeredRenderingHelper';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
@@ -203,10 +207,7 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
   const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
   const columns = useMemo(() => getColumns(getTemplateMap(dataDB)), [dataDB]);
 
-  const nItemsToRender = useStaggeredRenderingHelper({
-    first: 100,
-    max: xrefData.data?.uniParcCrossReferences?.length,
-  });
+  const [nItemsToRender, setNItemsToRender] = useState(25);
 
   if (xrefData.loading && !xrefData.isStale) {
     return <Loader />;
@@ -229,8 +230,12 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
           />
         )}
       </div>
-      <DataTable
-        data={xrefData.data?.uniParcCrossReferences.slice(0, nItemsToRender)}
+      <DataTableWithLoader
+        onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}
+        hasMoreData={
+          nItemsToRender < xrefData.data?.uniParcCrossReferences.length
+        }
+        data={xrefData.data.uniParcCrossReferences.slice(0, nItemsToRender)}
         getIdKey={getIdKey}
         density="compact"
         columns={columns}
