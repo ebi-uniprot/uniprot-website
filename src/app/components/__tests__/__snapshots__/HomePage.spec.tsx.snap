@@ -11,13 +11,11 @@ exports[`HomePage component should render 1`] = `
       >
         <h1>
           Find your 
-          <button
+          <span
             class="letter-group"
-            tabindex="-1"
-            type="button"
           >
             protein
-          </button>
+          </span>
         </h1>
         <div
           class="uniprot-grid uniprot-grid--centered"

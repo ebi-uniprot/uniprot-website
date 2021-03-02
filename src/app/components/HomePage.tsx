@@ -71,10 +71,9 @@ const HomePageHeader = memo(() => {
       title={
         <>
           {'Find your '}
-          <button
-            type="button"
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+          <span
             className="letter-group"
-            tabIndex={-1}
             onClick={useCallback(() => {
               const dropdown: HTMLButtonElement | null = document.querySelector(
                 'form.main-search button.dropdown'
@@ -107,7 +106,7 @@ const HomePageHeader = memo(() => {
                 </span>
               </>
             )}
-          </button>
+          </span>
         </>
       }
       footer={mission}
