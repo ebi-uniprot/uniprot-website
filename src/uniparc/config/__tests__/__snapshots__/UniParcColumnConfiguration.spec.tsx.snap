@@ -435,6 +435,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000000344
       </a>
+      :Genome
     </li>
     <li>
       <a
@@ -442,6 +443,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000166173
       </a>
+      :Genome
     </li>
     <li>
       <a
@@ -449,6 +451,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000111173
       </a>
+      :Genome
     </li>
     <li>
       <a
@@ -456,6 +459,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000113999
       </a>
+      :Genome
     </li>
     <li>
       <a
@@ -463,6 +467,7 @@ exports[`UniParcColumnConfiguration component should render column "proteome": p
       >
         UP000181229
       </a>
+      :Genome
     </li>
     <li>
       <button

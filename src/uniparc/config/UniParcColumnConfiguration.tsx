@@ -1,4 +1,6 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { uniqBy } from 'lodash-es';
 import {
   ExpandableList,
   ExternalLink,
@@ -152,14 +154,24 @@ UniParcColumnConfiguration.set(UniParcColumn.protein, {
   ),
 });
 
+type XRefWithProteomeId = UniParcXRef &
+  Required<Pick<UniParcXRef, 'proteomeId'>>;
 UniParcColumnConfiguration.set(UniParcColumn.proteome, {
   label: 'Proteomes',
-  render: (data) => (
+  render: ({ uniParcCrossReferences }) => (
     <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
-      {xrefGetter(data, 'proteomeId')?.map((accession) => (
-        <Link key={accession} to={getEntryPath(Namespace.proteomes, accession)}>
-          {accession}
-        </Link>
+      {uniqBy(
+        uniParcCrossReferences?.filter((xref): xref is XRefWithProteomeId =>
+          Boolean(xref.proteomeId)
+        ) || [],
+        (xref) => `${xref.proteomeId}-${xref.component}`
+      ).map((xref) => (
+        <Fragment key={`${xref.proteomeId}-${xref.component}`}>
+          <Link to={getEntryPath(Namespace.proteomes, xref.proteomeId)}>
+            {xref.proteomeId}
+          </Link>
+          {xref.component ? `:${xref.component}` : undefined}
+        </Fragment>
       ))}
     </ExpandableList>
   ),
@@ -182,13 +194,14 @@ UniParcColumnConfiguration.set(UniParcColumn.sequence, {
   ),
 });
 
+type XRefWithDatabase = UniParcXRef &
+  Required<Pick<UniParcXRef, 'database' | 'id'>>;
 UniParcColumnConfiguration.set(UniParcColumn.accession, {
   label: 'UniProtKB',
   render: ({ uniParcCrossReferences }) => (
     <ExpandableList descriptionString="entries" displayNumberOfHiddenItems>
       {uniParcCrossReferences
-        ?.filter((xref): xref is UniParcXRef &
-          Required<Pick<UniParcXRef, 'database' | 'id'>> =>
+        ?.filter((xref): xref is XRefWithDatabase =>
           Boolean(xref.database?.startsWith('UniProtKB') && xref.id)
         )
         .map((xref) => (
