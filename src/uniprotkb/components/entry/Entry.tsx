@@ -60,6 +60,7 @@ import uniProtKbConverter, {
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 import '../../../shared/styles/sticky.scss';
+import { Namespace } from '../../../shared/types/namespaces';
 
 enum TabLocation {
   Entry = 'entry',
@@ -95,7 +96,7 @@ const Entry: FC = () => {
     error,
     redirectedTo,
   } = useDataApi<UniProtkbAPIModel>(
-    apiUrls.entry(match?.params.accession || '')
+    apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
   );
 
   const transformedData = useMemo(() => data && uniProtKbConverter(data), [

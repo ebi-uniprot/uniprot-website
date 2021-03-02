@@ -9,6 +9,7 @@ import {
   MessageType,
   MessageTag,
 } from '../../../messages/types/messagesTypes';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import Overview from '../data-views/Overview';
@@ -22,6 +23,7 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
+import apiUrls from '../../../shared/config/apiUrls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
@@ -30,7 +32,6 @@ import uniRefConverter, {
 } from '../../adapters/uniRefConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import apiUrls from '../../config/apiUrls';
 
 const Entry: FC = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Entry: FC = () => {
 
   const accession = match?.params.accession;
 
-  const baseURL = apiUrls.entry(accession);
+  const baseURL = apiUrls.entry(accession, Namespace.uniref);
   const {
     loading,
     data,

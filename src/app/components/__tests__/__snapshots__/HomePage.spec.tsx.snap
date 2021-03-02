@@ -4,13 +4,18 @@ exports[`HomePage component should render 1`] = `
 <DocumentFragment>
   <main>
     <div
-      class="hero-header"
+      class="hero-header home-page__header"
     >
       <div
         class="hero-header__content"
       >
         <h1>
-          Find your protein
+          Find your 
+          <span
+            class="letter-group"
+          >
+            protein
+          </span>
         </h1>
         <div
           class="uniprot-grid uniprot-grid--centered"

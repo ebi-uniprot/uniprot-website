@@ -1,10 +1,22 @@
-import { lazy, Suspense, useState } from 'react';
+import {
+  memo,
+  lazy,
+  Suspense,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from 'react';
 import { HeroHeader, Loader } from 'franklin-sites';
 
-import SearchContainer from '../../uniprotkb/components/search/SearchContainer';
+import SearchContainer from '../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
-import useNS from '../../shared/hooks/useNS';
+
+import useReducedMotion from '../../shared/hooks/useReducedMotion';
+
 import { Namespace } from '../../shared/types/namespaces';
+
+import './styles/home-page.scss';
 
 const HomePageNonCritical = lazy(
   () =>
@@ -37,47 +49,105 @@ const namespaceFindYour: Record<Namespace, string> = {
   [Namespace.locations]: 'subcellular location',
 };
 
-const HomePage = () => {
-  const namespace = useNS();
+const HomePageHeader = memo(() => {
+  const prefersReducedMotion = useReducedMotion();
 
   const [selectedNamespace, setSelectedNamespace] = useState(
-    namespace || Namespace.uniprotkb
+    Namespace.uniprotkb
   );
+
+  const text = namespaceFindYour[selectedNamespace];
+
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+    }
+  }, [selectedNamespace]);
 
   return (
-    <>
-      <main>
-        <ErrorBoundary>
-          <HeroHeader
-            title={`Find your ${namespaceFindYour[selectedNamespace]}`}
-            footer={mission}
+    <HeroHeader
+      className="home-page__header"
+      title={
+        <>
+          {'Find your '}
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+          <span
+            className="letter-group"
+            onClick={useCallback(() => {
+              const dropdown: HTMLButtonElement | null = document.querySelector(
+                'form.main-search button.dropdown'
+              );
+              dropdown?.focus();
+              dropdown?.click();
+            }, [])}
           >
-            <div className="uniprot-grid uniprot-grid--centered">
-              <SearchContainer
-                namespace={selectedNamespace}
-                onNamespaceChange={(namespace) =>
-                  setSelectedNamespace(namespace)
-                }
-                className="uniprot-grid-cell--span-12"
-                includeFooter
-              />
-            </div>
-          </HeroHeader>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<Loader />}>
-            <HomePageNonCritical />
-          </Suspense>
-        </ErrorBoundary>
-      </main>
-      <Suspense fallback={null}>
-        <ErrorBoundary>
-          <UniProtFooter />
-        </ErrorBoundary>
-      </Suspense>
-    </>
+            {prefersReducedMotion ? (
+              text
+            ) : (
+              <>
+                {text.split('').map((letter, index, { length }) => (
+                  <span
+                    // mess up the keys in order to force new elements to render
+                    key={Math.random()}
+                    className="letter"
+                    style={{
+                      animationDelay: firstRender.current
+                        ? '0s'
+                        : `${(index * 0.5) / length}s`,
+                    }}
+                  >
+                    {letter}
+                  </span>
+                ))}
+                {/* mess up the keys in order to force new elements to render */}
+                <span key={Math.random()} className="cursor">
+                  |
+                </span>
+              </>
+            )}
+          </span>
+        </>
+      }
+      footer={mission}
+    >
+      <div className="uniprot-grid uniprot-grid--centered">
+        <SearchContainer
+          namespace={selectedNamespace}
+          onNamespaceChange={useCallback((namespace) => {
+            setSelectedNamespace(namespace);
+            const textInput: HTMLInputElement | null = document.querySelector(
+              'form.main-search input[type="text"]'
+            );
+            textInput?.focus();
+          }, [])}
+          className="uniprot-grid-cell--span-12"
+          includeFooter
+        />
+      </div>
+    </HeroHeader>
   );
-};
+});
+
+const HomePage = () => (
+  <>
+    <main>
+      <ErrorBoundary>
+        <HomePageHeader />
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <HomePageNonCritical />
+        </Suspense>
+      </ErrorBoundary>
+    </main>
+    <Suspense fallback={null}>
+      <ErrorBoundary>
+        <UniProtFooter />
+      </ErrorBoundary>
+    </Suspense>
+  </>
+);
 
 export default HomePage;

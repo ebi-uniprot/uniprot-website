@@ -60,7 +60,7 @@ export const SequenceInfo: FC<{
   const history = useHistory();
 
   const { data, loading } = useDataApi<UniProtkbAPIModel>(
-    isoformToFetch && apiUrls.entry(isoformToFetch)
+    isoformToFetch && apiUrls.entry(isoformToFetch, Namespace.uniprotkb)
   );
 
   const dataToDisplay = data?.sequence || isoformSequence;
