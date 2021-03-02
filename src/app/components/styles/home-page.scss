@@ -21,7 +21,7 @@
   &:focus-within,
   &:hover {
     & .cursor {
-      animation: appear 750ms infinite both alternate;
+      animation: appear 0.75s infinite 0.5s both alternate;
     }
   }
 }

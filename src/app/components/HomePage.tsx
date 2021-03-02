@@ -1,4 +1,5 @@
 import {
+  memo,
   lazy,
   Suspense,
   useState,
@@ -48,7 +49,7 @@ const namespaceFindYour: Record<Namespace, string> = {
   [Namespace.locations]: 'subcellular location',
 };
 
-const HomePage = () => {
+const HomePageHeader = memo(() => {
   const prefersReducedMotion = useReducedMotion();
 
   const [selectedNamespace, setSelectedNamespace] = useState(
@@ -56,104 +57,98 @@ const HomePage = () => {
   );
 
   const text = namespaceFindYour[selectedNamespace];
-  const [displayed, setDisplayed] = useState(text);
-
-  const interval = useRef<number>();
 
   const firstRender = useRef(true);
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
-      return;
     }
-    setDisplayed('');
   }, [selectedNamespace]);
 
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      setDisplayed(text);
-      return;
-    }
-    window.clearInterval(interval.current);
-    interval.current = window.setInterval(() => {
-      setDisplayed((displayed) => text.substr(0, displayed.length + 1));
-    }, 100);
-  }, [prefersReducedMotion, text]);
-
-  if (displayed === text) {
-    window.clearInterval(interval.current);
-  }
-
   return (
-    <>
-      <main>
-        <ErrorBoundary>
-          <HeroHeader
-            className="home-page__header"
-            title={
-              <>
-                {'Find your '}
-                <button
-                  type="button"
-                  className="letter-group"
-                  tabIndex={-1}
-                  onClick={useCallback(() => {
-                    const dropdown: HTMLButtonElement | null = document.querySelector(
-                      'form.main-search button.dropdown'
-                    );
-                    dropdown?.focus();
-                    dropdown?.click();
-                  }, [])}
-                >
-                  {prefersReducedMotion ? (
-                    displayed
-                  ) : (
-                    <>
-                      {displayed.split('').map((letter, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <span key={index} className="letter">
-                          {letter}
-                        </span>
-                      ))}
-
-                      <span className="cursor">|</span>
-                    </>
-                  )}
-                </button>
-              </>
-            }
-            footer={mission}
+    <HeroHeader
+      className="home-page__header"
+      title={
+        <>
+          {'Find your '}
+          <button
+            type="button"
+            className="letter-group"
+            tabIndex={-1}
+            onClick={useCallback(() => {
+              const dropdown: HTMLButtonElement | null = document.querySelector(
+                'form.main-search button.dropdown'
+              );
+              dropdown?.focus();
+              dropdown?.click();
+            }, [])}
           >
-            <div className="uniprot-grid uniprot-grid--centered">
-              <SearchContainer
-                namespace={selectedNamespace}
-                onNamespaceChange={useCallback((namespace) => {
-                  setSelectedNamespace(namespace);
-                  const textInput: HTMLInputElement | null = document.querySelector(
-                    'form.main-search input[type="text"]'
-                  );
-                  textInput?.focus();
-                }, [])}
-                className="uniprot-grid-cell--span-12"
-                includeFooter
-              />
-            </div>
-          </HeroHeader>
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Suspense fallback={<Loader />}>
-            <HomePageNonCritical />
-          </Suspense>
-        </ErrorBoundary>
-      </main>
-      <Suspense fallback={null}>
-        <ErrorBoundary>
-          <UniProtFooter />
-        </ErrorBoundary>
-      </Suspense>
-    </>
+            {prefersReducedMotion ? (
+              text
+            ) : (
+              <>
+                {text.split('').map((letter, index, { length }) => (
+                  <span
+                    // mess up the keys in order to force new elements
+                    key={Math.random()}
+                    className="letter"
+                    style={{
+                      animationDelay: firstRender.current
+                        ? '0s'
+                        : `${(index * 0.5) / length}s`,
+                    }}
+                  >
+                    {letter}
+                  </span>
+                ))}
+                {/* mess up the keys in order to force new elements */}
+                <span key={Math.random()} className="cursor">
+                  |
+                </span>
+              </>
+            )}
+          </button>
+        </>
+      }
+      footer={mission}
+    >
+      <div className="uniprot-grid uniprot-grid--centered">
+        <SearchContainer
+          namespace={selectedNamespace}
+          onNamespaceChange={useCallback((namespace) => {
+            setSelectedNamespace(namespace);
+            const textInput: HTMLInputElement | null = document.querySelector(
+              'form.main-search input[type="text"]'
+            );
+            textInput?.focus();
+          }, [])}
+          className="uniprot-grid-cell--span-12"
+          includeFooter
+        />
+      </div>
+    </HeroHeader>
   );
-};
+});
+
+const HomePage = () => (
+  <>
+    <main>
+      <ErrorBoundary>
+        <HomePageHeader />
+      </ErrorBoundary>
+
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <HomePageNonCritical />
+        </Suspense>
+      </ErrorBoundary>
+    </main>
+    <Suspense fallback={null}>
+      <ErrorBoundary>
+        <UniProtFooter />
+      </ErrorBoundary>
+    </Suspense>
+  </>
+);
 
 export default HomePage;
