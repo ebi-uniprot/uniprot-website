@@ -89,7 +89,7 @@ const HomePageHeader = memo(() => {
               <>
                 {text.split('').map((letter, index, { length }) => (
                   <span
-                    // mess up the keys in order to force new elements
+                    // mess up the keys in order to force new elements to render
                     key={Math.random()}
                     className="letter"
                     style={{
@@ -101,7 +101,7 @@ const HomePageHeader = memo(() => {
                     {letter}
                   </span>
                 ))}
-                {/* mess up the keys in order to force new elements */}
+                {/* mess up the keys in order to force new elements to render */}
                 <span key={Math.random()} className="cursor">
                   |
                 </span>
