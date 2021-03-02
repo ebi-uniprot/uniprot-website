@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 import { Header } from 'franklin-sites';
 
 import SlidingPanel, { Position } from './SlidingPanel';
-import SearchContainer from '../../../uniprotkb/components/search/SearchContainer';
+import SearchContainer from '../search/SearchContainer';
 
 import lazy from '../../utils/lazy';
 
