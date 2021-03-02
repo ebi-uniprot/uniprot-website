@@ -1,17 +1,18 @@
+import { LocationDescriptorObject } from 'history';
+import { generatePath } from 'react-router-dom';
+
+import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+
+import { Namespace } from '../../shared/types/namespaces';
+import { TabLocation } from '../components/entry/Entry';
 import {
   UniProtkbAPIModel,
   EntryType,
   getEntryTypeFromString,
 } from './uniProtkbConverter';
-import FeatureType from '../types/featureType';
-import {
-  CommentType,
-  InteractionComment,
-  DiseaseComment,
-  AlternativeProductsComment,
-} from '../types/commentTypes';
-import { FeatureData } from '../components/protein-data-views/FeaturesView';
 import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
+import FeatureType from '../types/featureType';
+import { CommentType } from '../types/commentTypes';
 
 enum highlightSection {
   domains = 'domain',
@@ -26,144 +27,148 @@ enum highlightSection {
   publications = 'publication',
 }
 
-const highlightToEntrySection: {
-  [key in highlightSection]: {
-    link: string;
-    prefixResolver?: (data: UniProtkbAPIModel) => string;
-  };
-} = {
+const highlightToEntrySection: Record<
+  highlightSection,
+  {
+    link:
+      | LocationDescriptorObject
+      | ((accession: string, taxId?: number) => LocationDescriptorObject);
+    prefixResolver?: (entryType: string) => string;
+  }
+> = {
   [highlightSection.domains]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Function).id}`,
+    link: { hash: getEntrySectionNameAndId(EntrySection.Function).id },
   },
   [highlightSection.PTM]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.ProteinProcessing).id}`,
+    link: { hash: getEntrySectionNameAndId(EntrySection.ProteinProcessing).id },
   },
   [highlightSection.variants]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).id}`,
+    link: (_, taxId) => ({
+      hash: getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs, taxId).id,
+    }),
   },
   [highlightSection.activeSites]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Function).id}`,
+    link: { hash: getEntrySectionNameAndId(EntrySection.Function).id },
   },
   [highlightSection.isoforms]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Sequence).id}`,
+    link: { hash: getEntrySectionNameAndId(EntrySection.Sequence).id },
   },
   [highlightSection.structures]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Structure).id}`,
+    link: { hash: getEntrySectionNameAndId(EntrySection.Structure).id },
   },
   [highlightSection.disease]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs).id}`,
+    link: (_, taxId) => ({
+      hash: getEntrySectionNameAndId(EntrySection.DiseaseAndDrugs, taxId).id,
+    }),
   },
   [highlightSection.interactions]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.Interaction).id}`,
+    link: { hash: getEntrySectionNameAndId(EntrySection.Interaction).id },
   },
   [highlightSection.subcell]: {
-    link: `#${getEntrySectionNameAndId(EntrySection.SubCellularLocation).id}`,
+    link: {
+      hash: getEntrySectionNameAndId(EntrySection.SubCellularLocation).id,
+    },
   },
   [highlightSection.publications]: {
-    link: '/publications',
-    prefixResolver: (data) =>
-      getEntryTypeFromString(data.entryType) === EntryType.REVIEWED
+    link: (accession) => ({
+      pathname: generatePath(LocationToPath[Location.UniProtKBEntry], {
+        accession,
+        subPage: TabLocation.Publications,
+      }),
+    }),
+    prefixResolver: (entryType) =>
+      getEntryTypeFromString(entryType) === EntryType.REVIEWED
         ? 'reviewed '
         : '',
   },
 };
 
-const getFeatureCount = (features: FeatureData, type: FeatureType) =>
-  features.filter((feature) => feature.type === type).length;
-
-const getProteinHighlights = (data: UniProtkbAPIModel) => {
-  const highlightsMap = new Map<highlightSection, number>();
-  const {
-    primaryAccession,
-    features,
-    comments,
-    uniProtKBCrossReferences,
-    references,
-  } = data;
-
-  // FEATURES
-  if (features) {
+const getProteinHighlights = ({
+  primaryAccession,
+  uniProtKBCrossReferences,
+  references,
+  extraAttributes,
+  entryType,
+  organism,
+}: UniProtkbAPIModel): Array<{
+  name: string;
+  link: LocationDescriptorObject;
+}> => {
+  const highlightTuples: Array<
+    [section: highlightSection, count: number | undefined]
+  > = [
+    // FEATURES
     // domains
-    highlightsMap.set(
+    [
       highlightSection.domains,
-      getFeatureCount(features, FeatureType.DOMAIN)
-    );
-
+      extraAttributes?.countByFeatureType?.[FeatureType.DOMAIN],
+    ],
     // PTMs
-    highlightsMap.set(
+    [
       highlightSection.PTM,
-      getFeatureCount(features, FeatureType.MOD_RES)
-    );
-
+      extraAttributes?.countByFeatureType?.[FeatureType.MOD_RES],
+    ],
     // variants
-    highlightsMap.set(
+    [
       highlightSection.variants,
-      getFeatureCount(features, FeatureType.VARIANT)
-    );
-
+      extraAttributes?.countByFeatureType?.[FeatureType.VARIANT],
+    ],
     // active sites
-    highlightsMap.set(
+    [
       highlightSection.activeSites,
-      getFeatureCount(features, FeatureType.ACT_SITE)
-    );
-  }
-
-  if (comments) {
+      extraAttributes?.countByFeatureType?.[FeatureType.ACT_SITE],
+    ],
+    // COMMENTS
     // isoforms
-    const isoformsComments = comments.find(
-      (comment) => comment.commentType === CommentType.ALTERNATIVE_PRODUCTS
-    ) as AlternativeProductsComment;
-    highlightsMap.set(
+    [
       highlightSection.isoforms,
-      isoformsComments ? isoformsComments.isoforms.length : 0
-    );
-
+      extraAttributes?.countByCommentType?.[CommentType.ALTERNATIVE_PRODUCTS],
+    ],
     // interactions
-    const interactionComments = comments.find(
-      (comment) => comment.commentType === CommentType.INTERACTION
-    ) as InteractionComment;
-    highlightsMap.set(
+    [
       highlightSection.interactions,
-      interactionComments ? interactionComments.interactions.length : 0
-    );
-
+      extraAttributes?.countByCommentType?.[CommentType.INTERACTION],
+    ],
     // diseases
-    const diseaseComments = comments.filter(
-      (comment) => comment.commentType === CommentType.DISEASE
-    ) as DiseaseComment[];
-    highlightsMap.set(highlightSection.disease, diseaseComments.length);
-  }
+    [
+      highlightSection.disease,
+      extraAttributes?.countByCommentType?.[CommentType.DISEASE],
+    ],
+    // XREFS
+    // 3D structures
+    [
+      highlightSection.structures,
+      uniProtKBCrossReferences?.filter((xref) => xref.database === 'PDB')
+        .length,
+    ],
+    /**
+     * Must include "reviewed" for
+     * Swissprot and not for Trembl.
+     */
+    // publications
+    [highlightSection.publications, references?.length],
+  ];
 
-  // XREFS
-  // 3D structures
-  if (uniProtKBCrossReferences) {
-    const structures = uniProtKBCrossReferences.filter(
-      (uniProtKBCrossReference) => uniProtKBCrossReference.database === 'PDB'
-    );
-    highlightsMap.set(highlightSection.structures, structures.length);
-  }
+  const entryPathname = getEntryPath(Namespace.uniprotkb, primaryAccession);
 
-  /**
-   * Must include "reviewed" for
-   * Swissprot and not for Trembl.
-   */
-  // publications
-  if (references) {
-    highlightsMap.set(highlightSection.publications, references.length);
-  }
-
-  return Array.from(highlightsMap.entries())
+  return highlightTuples
     .filter(([, count]) => count)
     .map(([entryHighlightSection, count]) => {
       const { link, prefixResolver } = highlightToEntrySection[
         entryHighlightSection
       ];
-      const prefix = prefixResolver ? prefixResolver(data) : '';
+      const locationObject =
+        typeof link === 'function'
+          ? link(primaryAccession, organism?.taxonId)
+          : link;
       return {
-        link: `/uniprotkb/${primaryAccession}${link}`,
-        name: `${count} ${prefix}${entryHighlightSection}${
-          count && count > 1 ? 's' : ''
-        }`,
+        link: {
+          pathname: entryPathname,
+          ...locationObject,
+        },
+        name: `${count} ${
+          prefixResolver?.(entryType) ?? ''
+        }${entryHighlightSection}${count && count > 1 ? 's' : ''}`,
       };
     });
 };

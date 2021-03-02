@@ -29,6 +29,8 @@ import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
 
+import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
+
 import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import {
   getParamsFromURL,
@@ -220,7 +222,11 @@ const ResultsView: FC<ResultsTableProps> = ({
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
-    columns,
+    // TODO: Do similar things for the rest of namespaces
+    columns:
+      viewMode === ViewMode.CARD && namespace === Namespace.uniprotkb
+        ? fieldsForUniProtKBCards
+        : columns,
     selectedFacets,
     // Not really interested in the facets here, so try to reduce payload
     facets: null,
