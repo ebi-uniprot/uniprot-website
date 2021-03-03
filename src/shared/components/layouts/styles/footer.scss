@@ -1,0 +1,43 @@
+@import '../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.footer {
+  padding: 1em;
+  background: $colour-platinum;
+  // Wait a bit on the first load to give a chance to the main content to load
+  // and push the footer down before appearing
+  animation: appear 150ms 1 0.5s both;
+
+  .shortcuts {
+    display: flex;
+    flex-direction: row;
+
+    & > li:not(:last-child) > ul {
+      padding-right: 1ch;
+    }
+
+    li {
+      margin-bottom: 1ch;
+    }
+
+    &__title {
+      display: block;
+      padding-bottom: 1ch;
+      margin-bottom: 1ch;
+      border-bottom: 1px solid $colour-yankees-blue;
+      font-weight: bold;
+    }
+
+    .tools-results-link {
+      border-top: 1px solid $colour-platinum;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

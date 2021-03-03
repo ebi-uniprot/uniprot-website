@@ -34,10 +34,10 @@ export enum Location {
   AlignResult = 'AlignResult',
   Blast = 'Blast',
   BlastResult = 'BlastResult',
-  UploadList = 'UploadList',
-  UploadListResult = 'UploadListResult',
   PeptideSearch = 'PeptideSearch',
   PeptideSearchResult = 'PeptideSearchResult',
+  IDMapping = 'IDMapping',
+  IDMappingResult = 'IDMappingResult',
 }
 
 export const LocationToPath: Record<Location, string> = {
@@ -70,10 +70,11 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Align]: '/align',
   [Location.BlastResult]: '/blast/:id/:subPage?',
   [Location.Blast]: '/blast',
-  [Location.UploadListResult]: '/uploadlists/:id/:subPage?',
-  [Location.UploadList]: '/uploadlists',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
+  // TODO: check final URL for those
+  [Location.IDMappingResult]: '/idmapping/:id/:subPage?',
+  [Location.IDMapping]: '/idmapping',
 };
 
 export const SearchResultsLocations: Record<Namespace, string> = {
@@ -128,7 +129,7 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
       return LocationToPath[result ? Location.BlastResult : Location.Blast];
     case JobTypes.UPLOAD_LIST:
       return LocationToPath[
-        result ? Location.UploadListResult : Location.UploadList
+        result ? Location.IDMappingResult : Location.IDMapping
       ];
     case JobTypes.PEPTIDE_SEARCH:
       return LocationToPath[
