@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ExternalLink, LongNumber } from 'franklin-sites';
+import { ExternalLink, LongNumber, CodeBlock } from 'franklin-sites';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
@@ -58,8 +58,8 @@ DatabaseColumnConfiguration.set(DatabaseColumn.category, {
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.dbUrl, {
-  label: 'DB URL',
-  render: ({ dbUrl }) => dbUrl,
+  label: 'DB URL template',
+  render: ({ dbUrl }) => dbUrl && <CodeBlock lightMode>{dbUrl}</CodeBlock>,
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.doiId, {
