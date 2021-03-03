@@ -21,15 +21,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -92,55 +92,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -161,15 +159,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -232,55 +230,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -301,15 +297,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -372,69 +368,67 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0469"
-                          >
-                             #Meiosis
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0498"
-                          >
-                             #Mitosis
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -455,15 +449,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -526,55 +520,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -595,15 +587,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -666,36 +658,34 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -716,15 +706,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -787,55 +777,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -856,15 +844,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -923,48 +911,46 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0678"
-                          >
-                             #Repressor
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0417"
-                          >
-                             #Keratinization
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0804"
-                          >
-                             #Transcription
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0805"
-                          >
-                             #Transcription regulation
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0678"
+                        >
+                           #Repressor
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0417"
+                        >
+                           #Keratinization
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0804"
+                        >
+                           #Transcription
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0805"
+                        >
+                           #Transcription regulation
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -985,15 +971,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1051,29 +1037,27 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1094,15 +1078,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1160,29 +1144,27 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1203,15 +1185,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1270,22 +1252,20 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1306,15 +1286,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1373,69 +1353,67 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0159"
-                          >
-                             #Chromosome partition
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0469"
-                          >
-                             #Meiosis
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0498"
-                          >
-                             #Mitosis
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0159"
+                        >
+                           #Chromosome partition
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1456,15 +1434,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1523,29 +1501,27 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1566,15 +1542,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1637,81 +1613,79 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0347"
-                          >
-                             #Helicase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0378"
-                          >
-                             #Hydrolase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0209"
-                          >
-                             #Deafness
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0225"
-                          >
-                             #Disease mutation
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-1010"
-                          >
-                             #Non-syndromic deafness
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0209"
+                        >
+                           #Deafness
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0225"
+                        >
+                           #Disease mutation
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-1010"
+                        >
+                           #Non-syndromic deafness
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1732,15 +1706,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1799,50 +1773,48 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0227"
-                          >
-                             #DNA damage
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0234"
-                          >
-                             #DNA repair
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0227"
+                        >
+                           #DNA damage
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0234"
+                        >
+                           #DNA repair
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1863,15 +1835,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -1930,29 +1902,27 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -1973,15 +1943,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2044,69 +2014,67 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0469"
-                          >
-                             #Meiosis
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0498"
-                          >
-                             #Mitosis
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2127,15 +2095,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2198,55 +2166,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0347"
-                          >
-                             #Helicase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0378"
-                          >
-                             #Hydrolase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2267,15 +2233,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2338,69 +2304,67 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0469"
-                          >
-                             #Meiosis
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0498"
-                          >
-                             #Mitosis
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2421,15 +2385,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2492,55 +2456,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0347"
-                          >
-                             #Helicase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0378"
-                          >
-                             #Hydrolase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2561,15 +2523,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2628,36 +2590,34 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0498"
-                          >
-                             #Mitosis
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2678,15 +2638,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2749,55 +2709,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0347"
-                          >
-                             #Helicase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0378"
-                          >
-                             #Hydrolase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2818,15 +2776,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -2889,69 +2847,67 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0418"
-                          >
-                             #Kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0723"
-                          >
-                             #Serine/threonine-protein kinase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0808"
-                          >
-                             #Transferase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0132"
-                          >
-                             #Cell division
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0469"
-                          >
-                             #Meiosis
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0749"
-                          >
-                             #Sporulation
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0749"
+                        >
+                           #Sporulation
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -2972,15 +2928,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -3039,10 +2995,8 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small />
-                  </section>
-                </section>
+                  <small />
+                </div>
               </section>
             </div>
           </div>
@@ -3063,15 +3017,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -3134,55 +3088,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0347"
-                          >
-                             #Helicase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0378"
-                          >
-                             #Hydrolase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>
@@ -3203,15 +3155,15 @@ exports[`ResultsView component should render cards 1`] = `
               <section
                 class="result-card"
               >
-                <section
+                <div
                   class="result-card__left"
                 >
                   <input
                     data-testid="up-card-checkbox"
                     type="checkbox"
                   />
-                </section>
-                <section
+                </div>
+                <div
                   class="result-card__right"
                 >
                   <h5>
@@ -3274,55 +3226,53 @@ exports[`ResultsView component should render cards 1`] = `
                       </span>
                     </span>
                   </section>
-                  <section>
-                    <small>
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0238"
-                          >
-                             #DNA-binding
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0347"
-                          >
-                             #Helicase
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0378"
-                          >
-                             #Hydrolase
-                          </a>
-                        </li>
-                      </ul>
-                       · 
-                      <ul
-                        class="keyword-view--inline expandable-list no-bullet"
-                      >
-                        <li>
-                          <a
-                            href="/keywords/KW-0131"
-                          >
-                             #Cell cycle
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="/keywords/KW-0235"
-                          >
-                             #DNA replication
-                          </a>
-                        </li>
-                      </ul>
-                    </small>
-                  </section>
-                </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
               </section>
             </div>
           </div>

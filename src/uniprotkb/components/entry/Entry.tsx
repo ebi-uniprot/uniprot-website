@@ -62,7 +62,7 @@ import '../../../shared/components/entry/styles/entry-page.scss';
 import '../../../shared/styles/sticky.scss';
 import { Namespace } from '../../../shared/types/namespaces';
 
-enum TabLocation {
+export enum TabLocation {
   Entry = 'entry',
   FeatureViewer = 'feature-viewer',
   Publications = 'publications',

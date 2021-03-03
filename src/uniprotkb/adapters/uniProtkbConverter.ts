@@ -1,6 +1,11 @@
-import EntrySection from '../types/entrySection';
+import convertStructure from './structureConverter';
+import convertExternalLinks from './externalLinksConverter';
+import convertInteraction from './interactionConverter';
+import convertFamilyAndDomains from './familyAndDomainsConverter';
+import convertProteinProcessing from './proteinProcessingConverter';
+import convertExpression from './expressionConverter';
+import convertSubcellularLocation from './subcellularLocationConverter';
 import convertFunction from './functionConverter';
-import { FeatureData } from '../components/protein-data-views/FeaturesView';
 import convertDiseaseAndDrugs from './diseaseAndDrugs';
 import {
   convertNamesAndTaxonomy,
@@ -9,27 +14,25 @@ import {
   GeneNamesData,
   OrganismData,
 } from './namesAndTaxonomyConverter';
-import { Lineage, Xref } from '../../shared/types/apiModel';
-import convertProteinProcessing from './proteinProcessingConverter';
-import convertExpression from './expressionConverter';
-import convertSubcellularLocation from './subcellularLocationConverter';
 import {
   convertSequence,
   SequenceUIModel,
   EntryAudit,
 } from './sequenceConverter';
+import extractIsoforms from './extractIsoformsConverter';
+
+import EntrySection from '../types/entrySection';
+import FeatureType from '../types/featureType';
+
+import Comment, { CommentType } from '../types/commentTypes';
+import { FeatureData } from '../components/protein-data-views/FeaturesView';
+import { Lineage, Xref } from '../../shared/types/apiModel';
 import { SequenceData } from '../../shared/components/entry/SequenceView';
 import { Keyword } from '../utils/KeywordsUtil';
-import convertInteraction from './interactionConverter';
-import convertFamilyAndDomains from './familyAndDomainsConverter';
 import { UIModel } from './sectionConverter';
-import convertStructure from './structureConverter';
-import convertExternalLinks from './externalLinksConverter';
-import Comment from '../types/commentTypes';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
-import extractIsoforms from './extractIsoformsConverter';
 import { XrefUIModel } from '../utils/xrefUtils';
 
 export enum EntryType {
@@ -83,8 +86,15 @@ export type UniProtkbAPIModel = {
   entryAudit?: EntryAudit;
   references?: Reference[];
   lineages?: Lineage[];
-  // How is that defined? What goes in this?
-  extraAttributes?: Record<string, unknown>;
+  extraAttributes?: {
+    countByCommentType?: {
+      [key in CommentType]?: number;
+    };
+    countByFeatureType?: {
+      [key in FeatureType]?: number;
+    };
+    uniParcId?: string;
+  };
 };
 
 export type UniProtkbUIModel = {
