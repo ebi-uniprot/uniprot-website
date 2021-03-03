@@ -99,10 +99,14 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
 
 exports[`ProteomesColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
-  <a
-    href="/proteomes/UP000005640"
+  <div
+    class="accession-view"
   >
-    UP000005640
-  </a>
+    <a
+      href="/proteomes/UP000005640"
+    >
+      UP000005640
+    </a>
+  </div>
 </DocumentFragment>
 `;

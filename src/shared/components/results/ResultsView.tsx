@@ -10,6 +10,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
+import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -127,6 +128,15 @@ const cardRenderer = (
       return (cardData) => (
         <UniParcCard
           data={cardData as UniParcAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.proteomes: {
+      return (cardData) => (
+        <ProteomesCard
+          data={cardData as ProteomesAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
