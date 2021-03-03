@@ -78,12 +78,6 @@ exports[`DatabaseColumnConfiguration component should render column "pubmed_id":
 </DocumentFragment>
 `;
 
-exports[`DatabaseColumnConfiguration component should render column "reviewed_protein_count": reviewed_protein_count 1`] = `
-<DocumentFragment>
-  552,048
-</DocumentFragment>
-`;
-
 exports[`DatabaseColumnConfiguration component should render column "server": server 1`] = `
 <DocumentFragment>
   <a
@@ -97,11 +91,5 @@ exports[`DatabaseColumnConfiguration component should render column "server": se
       width="12.5"
     />
   </a>
-</DocumentFragment>
-`;
-
-exports[`DatabaseColumnConfiguration component should render column "unreviewed_protein_count": unreviewed_protein_count 1`] = `
-<DocumentFragment>
-  198,116,519
 </DocumentFragment>
 `;

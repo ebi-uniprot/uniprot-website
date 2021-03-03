@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
-import { ExternalLink, LongNumber, CodeBlock } from 'franklin-sites';
+import { ExternalLink, CodeBlock /* , LongNumber */ } from 'franklin-sites';
 
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 export enum DatabaseColumn {
@@ -32,8 +32,8 @@ export const defaultColumns = [
   DatabaseColumn.id,
   DatabaseColumn.name,
   DatabaseColumn.abbrev,
-  DatabaseColumn.reviewedProteinCount,
-  DatabaseColumn.unreviewedProteinCount,
+  // DatabaseColumn.reviewedProteinCount,
+  // DatabaseColumn.unreviewedProteinCount,
   DatabaseColumn.category,
 ];
 
@@ -93,19 +93,6 @@ DatabaseColumnConfiguration.set(DatabaseColumn.pubmedId, {
     ),
 });
 
-DatabaseColumnConfiguration.set(DatabaseColumn.reviewedProteinCount, {
-  label: (
-    <>
-      <EntryTypeIcon entryType={EntryType.REVIEWED} />
-      Mapped reviewed entries
-    </>
-  ),
-  render: ({ reviewedProteinCount }) =>
-    reviewedProteinCount !== undefined && (
-      <LongNumber>{reviewedProteinCount}</LongNumber>
-    ),
-});
-
 // Cleans up starting bit of URLs, and trailing slashes
 const serverCleaner = /(^https:\/\/(www\.)?)|(\/$)/gi;
 DatabaseColumnConfiguration.set(DatabaseColumn.server, {
@@ -119,17 +106,32 @@ DatabaseColumnConfiguration.set(DatabaseColumn.server, {
     ),
 });
 
-DatabaseColumnConfiguration.set(DatabaseColumn.unreviewedProteinCount, {
-  label: (
-    <>
-      <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-      Mapped unreviewed entries
-    </>
-  ),
-  render: ({ unreviewedProteinCount }) =>
-    unreviewedProteinCount !== undefined && (
-      <LongNumber>{unreviewedProteinCount}</LongNumber>
-    ),
-});
+// TODO: might not be needed as a column
+// DatabaseColumnConfiguration.set(DatabaseColumn.reviewedProteinCount, {
+//   label: (
+//     <>
+//       <EntryTypeIcon entryType={EntryType.REVIEWED} />
+//       Mapped reviewed entries
+//     </>
+//   ),
+//   render: ({ reviewedProteinCount }) =>
+//     reviewedProteinCount !== undefined && (
+//       <LongNumber>{reviewedProteinCount}</LongNumber>
+//     ),
+// });
+
+// TODO: might not be needed as a column
+// DatabaseColumnConfiguration.set(DatabaseColumn.unreviewedProteinCount, {
+//   label: (
+//     <>
+//       <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
+//       Mapped unreviewed entries
+//     </>
+//   ),
+//   render: ({ unreviewedProteinCount }) =>
+//     unreviewedProteinCount !== undefined && (
+//       <LongNumber>{unreviewedProteinCount}</LongNumber>
+//     ),
+// });
 
 export default DatabaseColumnConfiguration;

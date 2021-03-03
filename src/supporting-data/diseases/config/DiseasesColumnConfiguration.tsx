@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList, LongNumber } from 'franklin-sites';
+import { ExpandableList /* , LongNumber */ } from 'franklin-sites';
 
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 export enum DiseasesColumn {
@@ -27,7 +27,6 @@ export const defaultColumns = [
   DiseasesColumn.id,
   DiseasesColumn.name,
   DiseasesColumn.keywords,
-  DiseasesColumn.reviewedProteinCount,
 ];
 
 export const primaryKeyColumn = DiseasesColumn.id;
@@ -104,30 +103,32 @@ DiseasesColumnConfiguration.set(DiseasesColumn.name, {
   render: ({ name }) => name,
 });
 
-DiseasesColumnConfiguration.set(DiseasesColumn.reviewedProteinCount, {
-  label: (
-    <>
-      <EntryTypeIcon entryType={EntryType.REVIEWED} />
-      Mapped reviewed entries
-    </>
-  ),
-  render: ({ reviewedProteinCount }) =>
-    reviewedProteinCount !== undefined && (
-      <LongNumber>{reviewedProteinCount}</LongNumber>
-    ),
-});
+// TODO: might not be needed as a column
+// DiseasesColumnConfiguration.set(DiseasesColumn.reviewedProteinCount, {
+//   label: (
+//     <>
+//       <EntryTypeIcon entryType={EntryType.REVIEWED} />
+//       Mapped reviewed entries
+//     </>
+//   ),
+//   render: ({ reviewedProteinCount }) =>
+//     reviewedProteinCount !== undefined && (
+//       <LongNumber>{reviewedProteinCount}</LongNumber>
+//     ),
+// });
 
-DiseasesColumnConfiguration.set(DiseasesColumn.unreviewedProteinCount, {
-  label: (
-    <>
-      <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-      Mapped unreviewed entries
-    </>
-  ),
-  render: ({ unreviewedProteinCount }) =>
-    unreviewedProteinCount !== undefined && (
-      <LongNumber>{unreviewedProteinCount}</LongNumber>
-    ),
-});
+// TODO: might not be needed as a column
+// DiseasesColumnConfiguration.set(DiseasesColumn.unreviewedProteinCount, {
+//   label: (
+//     <>
+//       <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
+//       Mapped unreviewed entries
+//     </>
+//   ),
+//   render: ({ unreviewedProteinCount }) =>
+//     unreviewedProteinCount !== undefined && (
+//       <LongNumber>{unreviewedProteinCount}</LongNumber>
+//     ),
+// });
 
 export default DiseasesColumnConfiguration;

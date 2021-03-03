@@ -64,12 +64,6 @@ exports[`CitationsColumnConfiguration component should render column "reference"
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "statistics": statistics 1`] = `
-<DocumentFragment>
-  {"reviewedProteinCount":0,"unreviewedProteinCount":1,"computationallyMappedProteinCount":0,"communityMappedProteinCount":0}
-</DocumentFragment>
-`;
-
 exports[`CitationsColumnConfiguration component should render column "title": title 1`] = `
 <DocumentFragment>
   Cloning of soluble alkaline phosphatase cDNA and molecular basis of the polymorphic nature in alkaline phosphatase isozymes of Bombyx mori midgut.

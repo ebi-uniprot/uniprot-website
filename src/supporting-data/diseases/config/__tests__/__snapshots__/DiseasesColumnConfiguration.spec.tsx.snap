@@ -94,11 +94,3 @@ exports[`DiseasesColumnConfiguration component should render column "name": name
   Hereditary non-polyposis colorectal cancer 1
 </DocumentFragment>
 `;
-
-exports[`DiseasesColumnConfiguration component should render column "reviewed_protein_count": reviewed_protein_count 1`] = `
-<DocumentFragment>
-  1
-</DocumentFragment>
-`;
-
-exports[`DiseasesColumnConfiguration component should render column "unreviewed_protein_count": unreviewed_protein_count 1`] = `<DocumentFragment />`;

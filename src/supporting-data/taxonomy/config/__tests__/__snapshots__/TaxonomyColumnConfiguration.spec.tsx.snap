@@ -126,8 +126,6 @@ exports[`TaxonomyColumnConfiguration component should render column "scientific_
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "statistics": statistics 1`] = `<DocumentFragment />`;
-
 exports[`TaxonomyColumnConfiguration component should render column "strain": strain 1`] = `
 <DocumentFragment>
   <ul

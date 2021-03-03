@@ -105,29 +105,6 @@ exports[`LocationsColumnConfiguration component should render column "references
 </DocumentFragment>
 `;
 
-exports[`LocationsColumnConfiguration component should render column "statistics": statistics 1`] = `
-<DocumentFragment>
-  <div>
-    <span
-      class="entry-title__status icon--reviewed"
-      title="This marks a reviewed UniProtKB entry"
-    >
-      <test-file-stub />
-    </span>
-    235 reviewed entries
-  </div>
-  <div>
-    <span
-      class="entry-title__status icon--unreviewed"
-      title="This marks an unreviewed UniProtKB entry"
-    >
-      <test-file-stub />
-    </span>
-    8,860 unreviewed entries
-  </div>
-</DocumentFragment>
-`;
-
 exports[`LocationsColumnConfiguration component should render column "synonyms": synonyms 1`] = `
 <DocumentFragment>
   <ul

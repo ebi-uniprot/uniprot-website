@@ -75,29 +75,6 @@ exports[`KeywordsColumnConfiguration component should render column "sites": sit
 </DocumentFragment>
 `;
 
-exports[`KeywordsColumnConfiguration component should render column "statistics": statistics 1`] = `
-<DocumentFragment>
-  <div>
-    <span
-      class="entry-title__status icon--reviewed"
-      title="This marks a reviewed UniProtKB entry"
-    >
-      <test-file-stub />
-    </span>
-    2,480 reviewed entries
-  </div>
-  <div>
-    <span
-      class="entry-title__status icon--unreviewed"
-      title="This marks an unreviewed UniProtKB entry"
-    >
-      <test-file-stub />
-    </span>
-    120,510 unreviewed entries
-  </div>
-</DocumentFragment>
-`;
-
 exports[`KeywordsColumnConfiguration component should render column "synonym": synonym 1`] = `
 <DocumentFragment>
   <ul

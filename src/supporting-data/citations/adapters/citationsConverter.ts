@@ -29,6 +29,7 @@ export type Citation = {
   authors?: string[];
   citationCrossReferences?: CitationXRef[];
   title?: string;
+  // Will always be a string, could be like '2000', or 'DEC-2000'.
   publicationDate?: string;
   journal?: string;
   firstPage?: string;

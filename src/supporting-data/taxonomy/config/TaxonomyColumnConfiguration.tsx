@@ -1,19 +1,22 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ExpandableList, LongNumber, ExternalLink } from 'franklin-sites';
+import {
+  ExpandableList,
+  ExternalLink /* , LongNumber */,
+} from 'franklin-sites';
 
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
-  // This is a list of synomyms, regardless of the singular in the name
+  // This is a list of hosts, regardless of the singular in the name
   host = 'host',
   id = 'id',
   lineage = 'lineage',
@@ -135,41 +138,42 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
   render: ({ scientificName }) => scientificName,
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
-  label: 'Mapping to',
-  render: ({ statistics }) => (
-    <>
-      {statistics?.reviewedProteinCount ? (
-        <div>
-          <EntryTypeIcon entryType={EntryType.REVIEWED} />
-          <LongNumber>{statistics.reviewedProteinCount}</LongNumber> reviewed
-          entr{statistics.reviewedProteinCount === 1 ? 'y' : 'ies'}
-        </div>
-      ) : undefined}
-      {statistics?.unreviewedProteinCount ? (
-        <div>
-          <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-          <LongNumber>{statistics.unreviewedProteinCount}</LongNumber>{' '}
-          unreviewed entr{statistics.unreviewedProteinCount === 1 ? 'y' : 'ies'}
-        </div>
-      ) : undefined}
-      {statistics?.proteomeCount ? (
-        <div>
-          <LongNumber>{statistics.proteomeCount}</LongNumber> proteome
-          {statistics.proteomeCount === 1 ? '' : 's'}
-        </div>
-      ) : undefined}
-      {statistics?.referenceProteomeCount ? (
-        <div>
-          <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
-          <LongNumber>{statistics.referenceProteomeCount}</LongNumber>{' '}
-          references proteome
-          {statistics.unreviewedProteinCount === 1 ? '' : 's'}
-        </div>
-      ) : undefined}
-    </>
-  ),
-});
+// TODO: might not be needed as a column
+// TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
+//   label: 'Mapping to',
+//   render: ({ statistics }) => (
+//     <>
+//       {statistics?.reviewedProteinCount ? (
+//         <div>
+//           <EntryTypeIcon entryType={EntryType.REVIEWED} />
+//           <LongNumber>{statistics.reviewedProteinCount}</LongNumber> reviewed
+//           entr{statistics.reviewedProteinCount === 1 ? 'y' : 'ies'}
+//         </div>
+//       ) : undefined}
+//       {statistics?.unreviewedProteinCount ? (
+//         <div>
+//           <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
+//           <LongNumber>{statistics.unreviewedProteinCount}</LongNumber>{' '}
+//           unreviewed entr{statistics.unreviewedProteinCount === 1 ? 'y' : 'ies'}
+//         </div>
+//       ) : undefined}
+//       {statistics?.proteomeCount ? (
+//         <div>
+//           <LongNumber>{statistics.proteomeCount}</LongNumber> proteome
+//           {statistics.proteomeCount === 1 ? '' : 's'}
+//         </div>
+//       ) : undefined}
+//       {statistics?.referenceProteomeCount ? (
+//         <div>
+//           <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
+//           <LongNumber>{statistics.referenceProteomeCount}</LongNumber>{' '}
+//           references proteome
+//           {statistics.unreviewedProteinCount === 1 ? '' : 's'}
+//         </div>
+//       ) : undefined}
+//     </>
+//   ),
+// });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
   label: 'Strains',

@@ -112,11 +112,11 @@ CitationsColumnConfiguration.set(CitationsColumn.reference, {
   render: ({ citation }) => citation && <JournalInfo journalInfo={citation} />,
 });
 
-CitationsColumnConfiguration.set(CitationsColumn.statistics, {
-  label: 'Statistics',
-  // TODO
-  render: ({ statistics }) => JSON.stringify(statistics),
-});
+// TODO: might not be needed as a column
+// CitationsColumnConfiguration.set(CitationsColumn.statistics, {
+//   label: 'Statistics',
+//   render: ({ statistics }) => JSON.stringify(statistics),
+// });
 
 CitationsColumnConfiguration.set(CitationsColumn.title, {
   label: 'Title',

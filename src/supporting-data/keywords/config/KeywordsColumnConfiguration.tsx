@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList, ExternalLink, LongNumber } from 'franklin-sites';
+import {
+  ExpandableList,
+  ExternalLink /* , LongNumber */,
+} from 'franklin-sites';
 
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 export enum KeywordsColumn {
@@ -23,7 +26,7 @@ export enum KeywordsColumn {
   // Those are links, not biological sites
   sites = 'sites',
   statistics = 'statistics',
-  // This is a list of synomyms, regardless of the singular in the name
+  // This is a list of synonyms, regardless of the singular in the name
   synonym = 'synonym',
 }
 
@@ -112,27 +115,28 @@ KeywordsColumnConfiguration.set(KeywordsColumn.sites, {
   ),
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
-  label: 'Mapping to',
-  render: ({ statistics }) => (
-    <>
-      {statistics?.reviewedProteinCount ? (
-        <div>
-          <EntryTypeIcon entryType={EntryType.REVIEWED} />
-          <LongNumber>{statistics.reviewedProteinCount}</LongNumber> reviewed
-          entr{statistics.reviewedProteinCount === 1 ? 'y' : 'ies'}
-        </div>
-      ) : undefined}
-      {statistics?.unreviewedProteinCount ? (
-        <div>
-          <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-          <LongNumber>{statistics.unreviewedProteinCount}</LongNumber>{' '}
-          unreviewed entr{statistics.unreviewedProteinCount === 1 ? 'y' : 'ies'}
-        </div>
-      ) : undefined}
-    </>
-  ),
-});
+// TODO: might not be needed as a column
+// KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
+//   label: 'Mapping to',
+//   render: ({ statistics }) => (
+//     <>
+//       {statistics?.reviewedProteinCount ? (
+//         <div>
+//           <EntryTypeIcon entryType={EntryType.REVIEWED} />
+//           <LongNumber>{statistics.reviewedProteinCount}</LongNumber> reviewed
+//           entr{statistics.reviewedProteinCount === 1 ? 'y' : 'ies'}
+//         </div>
+//       ) : undefined}
+//       {statistics?.unreviewedProteinCount ? (
+//         <div>
+//           <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
+//           <LongNumber>{statistics.unreviewedProteinCount}</LongNumber>{' '}
+//           unreviewed entr{statistics.unreviewedProteinCount === 1 ? 'y' : 'ies'}
+//         </div>
+//       ) : undefined}
+//     </>
+//   ),
+// });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.synonym, {
   label: 'Synonym',
