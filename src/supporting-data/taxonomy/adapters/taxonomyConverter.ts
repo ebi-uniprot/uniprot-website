@@ -1,3 +1,4 @@
+// TODO: Eventually use a shared Statistics type
 type Statistics = {
   referenceProteomeCount: number;
   proteomeCount: number;
