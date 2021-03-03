@@ -11,41 +11,34 @@ exports[`FeaturesView component it renders without crashing 1`] = `
   <protvista-manager
     attributes="highlight displaystart displayend selectedid"
   >
-    <div
-      class="button-group"
+    <protvista-zoom-tool
+      length="21"
     >
-      <protvista-zoom-tool
-        length="21"
+      <span
+        class="nightingale-button-content"
+        slot="zoom-in"
       >
-        <span
-          class="nightingale-button-content"
-          slot="zoom-in"
-        >
-          <test-file-stub
-            width="24"
-          />
-          +
-        </span>
-        <span
-          class="nightingale-button-content"
-          slot="zoom-out"
-        >
-          <test-file-stub
-            width="24"
-          />
-          -
-        </span>
-        <span
-          class="nightingale-button-content"
-          slot="zoom-in-seq"
-        >
-          <test-file-stub
-            width="24"
-          />
-          ATG
-        </span>
-      </protvista-zoom-tool>
-    </div>
+        <test-file-stub
+          height="19"
+        />
+      </span>
+      <span
+        class="nightingale-button-content"
+        slot="zoom-out"
+      >
+        <test-file-stub
+          height="19"
+        />
+      </span>
+      <span
+        class="nightingale-button-content"
+        slot="zoom-in-seq"
+      >
+        <test-file-stub
+          height="19"
+        />
+      </span>
+    </protvista-zoom-tool>
     <protvista-navigation
       length="21"
     />
