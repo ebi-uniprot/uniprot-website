@@ -778,7 +778,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.go, {
   label: 'Gene Ontology',
   render(data) {
     const { goTerms } = data[EntrySection.Function] as FunctionUIModel;
-    return goTerms && <GOTermsView data={Object.values(goTerms).flat()} />;
+    return (
+      goTerms && <GOTermsView data={Array.from(goTerms.values()).flat()} />
+    );
   },
 });
 
@@ -790,7 +792,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.goId, {
       goTerms && (
         <section className="text-block">
           <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-            {Object.values(goTerms)
+            {Array.from(goTerms.values())
               .flat()
               .map(
                 ({ id }: GoTerm) =>

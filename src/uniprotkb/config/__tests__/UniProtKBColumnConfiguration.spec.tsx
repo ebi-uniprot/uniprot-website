@@ -20,6 +20,8 @@ describe('UniProtKBColumnConfiguration component', () => {
     });
   });
 
+  // TODO: find mock data to generate non-null snapshot for:
+  // go_id, go, and many others
   for (const [key, column] of UniProtKBColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
