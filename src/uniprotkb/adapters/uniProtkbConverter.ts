@@ -63,6 +63,9 @@ export const getEntryTypeFromString = (entryTypeString?: string) => {
   if (entryTypeString.match(/ORCID$/gi)) {
     return EntryType.COMMUNITY_ANNOTATION;
   }
+  if (entryTypeString.match(/Reference|Representative/gi)) {
+    return EntryType.REFERENCE_PROTEOME;
+  }
   return undefined;
 };
 

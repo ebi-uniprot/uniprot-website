@@ -6,19 +6,9 @@ import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
 import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
-import {
-  ProteomesAPIModel,
-  ProteomeType,
-} from '../adapters/proteomesConverter';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
+import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 
 import './styles/accession-view.scss';
-
-const iconProteomeTypes: ProteomeType[] = [
-  'Reference proteome',
-  'Reference and representative proteome',
-  'Representative proteome',
-];
 
 const AccessionView: FC<Pick<ProteomesAPIModel, 'id' | 'proteomeType'>> = ({
   id,
@@ -26,14 +16,11 @@ const AccessionView: FC<Pick<ProteomesAPIModel, 'id' | 'proteomeType'>> = ({
 }) => {
   const link = <Link to={getEntryPath(Namespace.proteomes, id)}>{id}</Link>;
 
-  const showIcon = iconProteomeTypes.includes(proteomeType);
-  return showIcon ? (
+  return (
     <div className="accession-view">
-      <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
+      <EntryTypeIcon entryType={proteomeType} />
       {link}
     </div>
-  ) : (
-    link
   );
 };
 
