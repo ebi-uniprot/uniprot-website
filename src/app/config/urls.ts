@@ -127,7 +127,7 @@ export const jobTypeToPath = (type: JobTypes, result?: boolean) => {
       return LocationToPath[result ? Location.AlignResult : Location.Align];
     case JobTypes.BLAST:
       return LocationToPath[result ? Location.BlastResult : Location.Blast];
-    case JobTypes.UPLOAD_LIST:
+    case JobTypes.ID_MAPPING:
       return LocationToPath[
         result ? Location.IDMappingResult : Location.IDMapping
       ];
