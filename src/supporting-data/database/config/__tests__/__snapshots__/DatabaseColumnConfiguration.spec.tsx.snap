@@ -14,7 +14,13 @@ exports[`DatabaseColumnConfiguration component should render column "category": 
 
 exports[`DatabaseColumnConfiguration component should render column "dbUrl": dbUrl 1`] = `
 <DocumentFragment>
-  https://www.ebi.ac.uk/ena/browser/view/%s
+  <pre
+    class="codeblock codeblock-light"
+  >
+    <code>
+      https://www.ebi.ac.uk/ena/browser/view/%s
+    </code>
+  </pre>
 </DocumentFragment>
 `;
 

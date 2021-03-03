@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CitationsColumnConfiguration component should render column "authoring_group": authoring_group 1`] = `
-<DocumentFragment>
-  Itoh M., Kanamori Y., Takao M., Eguchi M.
-</DocumentFragment>
-`;
+exports[`CitationsColumnConfiguration component should render column "authoring_group": authoring_group 1`] = `<DocumentFragment />`;
 
 exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `
 <DocumentFragment>
