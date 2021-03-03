@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { ExpandableList } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
@@ -11,7 +12,7 @@ import { JournalInfo } from '../../../shared/components/literature-citations/Lit
 import { Namespace } from '../../../shared/types/namespaces';
 
 export enum CitationsColumn {
-  // TODO: Report to backend that this field query is not working
+  // Authoring group is not the author list
   authoringGroup = 'authoring_group',
   doi = 'doi',
   firstPage = 'first_page',
@@ -49,8 +50,13 @@ export const CitationsColumnConfiguration: ColumnConfiguration<
 
 // COLUMN RENDERERS BELOW
 CitationsColumnConfiguration.set(CitationsColumn.authoringGroup, {
-  label: 'Authors',
-  render: ({ citation }) => citation?.authors?.join(', '),
+  label: 'Authoring group',
+  render: ({ citation }) =>
+    citation?.authoringGroup && (
+      <ExpandableList descriptionString="groups" displayNumberOfHiddenItems>
+        {citation.authoringGroup}
+      </ExpandableList>
+    ),
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.doi, {
