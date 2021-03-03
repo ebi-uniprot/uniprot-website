@@ -6,10 +6,13 @@ import {
   PublicationIcon,
   ComputerMappedIcon,
   CitedIcon,
+  ExternalLink,
 } from 'franklin-sites';
 
-import '../../styles/literature-citation.scss';
 import { Location, LocationToPath } from '../../../app/config/urls';
+import externalUrls from '../../config/externalUrls';
+
+import '../../styles/literature-citation.scss';
 
 type AuthorProps = {
   authors: string[];
@@ -120,11 +123,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     return content;
   }
 
-  return (
-    <a href={`//dx.doi.org/${doiId}`} target="_blank" rel="noopener noreferrer">
-      {content}
-    </a>
-  );
+  return <ExternalLink url={externalUrls.DOI(doiId)}>{content}</ExternalLink>;
 };
 
 type StatisticsProps = {
