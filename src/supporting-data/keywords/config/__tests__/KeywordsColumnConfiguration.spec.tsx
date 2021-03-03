@@ -19,6 +19,7 @@ describe('KeywordsColumnConfiguration component', () => {
     transformedData = citationsConverter(data[0] as KeywordsAPIModel);
   });
 
+// TODO: find mock data to create non-null parent, sites, synonym snapshots
   for (const [key, column] of KeywordsColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
