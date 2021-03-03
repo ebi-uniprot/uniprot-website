@@ -4,6 +4,7 @@ import { ExternalLink, LongNumber } from 'franklin-sites';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPathFor } from '../../../app/config/urls';
+import externalUrls from '../../../shared/config/externalUrls';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
@@ -63,7 +64,8 @@ DatabaseColumnConfiguration.set(DatabaseColumn.dbUrl, {
 
 DatabaseColumnConfiguration.set(DatabaseColumn.doiId, {
   label: 'DOI ID',
-  render: ({ doiId }) => doiId,
+  render: ({ doiId }) =>
+    doiId && <ExternalLink url={externalUrls.DOI(doiId)}>{doiId}</ExternalLink>,
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.id, {
@@ -83,7 +85,12 @@ DatabaseColumnConfiguration.set(DatabaseColumn.name, {
 
 DatabaseColumnConfiguration.set(DatabaseColumn.pubmedId, {
   label: 'PubMed ID',
-  render: ({ pubMedId }) => pubMedId,
+  render: ({ pubMedId }) =>
+    pubMedId && (
+      <ExternalLink url={externalUrls.PubMed(pubMedId)}>
+        {pubMedId}
+      </ExternalLink>
+    ),
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.reviewedProteinCount, {

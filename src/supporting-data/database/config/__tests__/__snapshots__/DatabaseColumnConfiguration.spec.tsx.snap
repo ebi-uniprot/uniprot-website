@@ -20,7 +20,17 @@ exports[`DatabaseColumnConfiguration component should render column "dbUrl": dbU
 
 exports[`DatabaseColumnConfiguration component should render column "doi_id": doi_id 1`] = `
 <DocumentFragment>
-  10.1093/nar/gkaa1028
+  <a
+    class="external-link"
+    href="https://dx.doi.org/10.1093/nar/gkaa1028"
+    rel="noopener"
+    target="_blank"
+  >
+    10.1093/nar/gkaa1028
+    <test-file-stub
+      width="12.5"
+    />
+  </a>
 </DocumentFragment>
 `;
 
@@ -48,7 +58,17 @@ exports[`DatabaseColumnConfiguration component should render column "name": name
 
 exports[`DatabaseColumnConfiguration component should render column "pubmed_id": pubmed_id 1`] = `
 <DocumentFragment>
-  33175160
+  <a
+    class="external-link"
+    href="https://pubmed.ncbi.nlm.nih.gov/33175160"
+    rel="noopener"
+    target="_blank"
+  >
+    33175160
+    <test-file-stub
+      width="12.5"
+    />
+  </a>
 </DocumentFragment>
 `;
 
