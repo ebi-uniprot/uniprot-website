@@ -19,6 +19,7 @@ describe('LocationsColumnConfiguration component', () => {
     transformedData = locationsConverter(data[0] as LocationsAPIModel);
   });
 
+// TODO: find mock data to create non-null links, note, references snapshots
   for (const [key, column] of LocationsColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
