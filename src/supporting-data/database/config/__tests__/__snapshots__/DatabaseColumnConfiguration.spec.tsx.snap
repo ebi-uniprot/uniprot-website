@@ -86,7 +86,7 @@ exports[`DatabaseColumnConfiguration component should render column "server": se
     rel="noopener"
     target="_blank"
   >
-    https://www.ebi.ac.uk/ena
+    ebi.ac.uk/ena
     <test-file-stub
       width="12.5"
     />

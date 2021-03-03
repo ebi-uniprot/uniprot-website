@@ -106,10 +106,17 @@ DatabaseColumnConfiguration.set(DatabaseColumn.reviewedProteinCount, {
     ),
 });
 
+// Cleans up starting bit of URLs, and trailing slashes
+const serverCleaner = /(^https:\/\/(www\.)?)|(\/$)/gi;
 DatabaseColumnConfiguration.set(DatabaseColumn.server, {
   label: 'Server',
   render: ({ server }) =>
-    server && <ExternalLink url={server}>{server}</ExternalLink>,
+    server && (
+      <ExternalLink url={server}>
+        {/* "visual" clean-up, keep actual URL as link just in case */}
+        {server.replaceAll(serverCleaner, '')}
+      </ExternalLink>
+    ),
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.unreviewedProteinCount, {
