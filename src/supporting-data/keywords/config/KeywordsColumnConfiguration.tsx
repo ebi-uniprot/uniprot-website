@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList, LongNumber } from 'franklin-sites';
+import { ExpandableList, ExternalLink, LongNumber } from 'franklin-sites';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
@@ -20,13 +20,14 @@ export enum KeywordsColumn {
   id = 'id',
   name = 'name',
   parent = 'parent',
+  // Those are links, not biological sites
   sites = 'sites',
   statistics = 'statistics',
   // This is a list of synomyms, regardless of the singular in the name
   synonym = 'synonym',
 }
 
-// TODO: review
+// TODO: decide which ones should be default
 export const defaultColumns = [
   KeywordsColumn.id,
   KeywordsColumn.name,
@@ -104,7 +105,9 @@ KeywordsColumnConfiguration.set(KeywordsColumn.sites, {
   label: 'Sites',
   render: ({ sites }) => (
     <ExpandableList descriptionString="sites" displayNumberOfHiddenItems>
-      {sites}
+      {sites?.map((site) => (
+        <ExternalLink url={site}>{site}</ExternalLink>
+      ))}
     </ExpandableList>
   ),
 });

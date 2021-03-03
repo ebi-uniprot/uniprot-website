@@ -28,7 +28,7 @@ export enum CitationsColumn {
   volume = 'volume',
 }
 
-// TODO: review
+// TODO: decide which ones should be default
 export const defaultColumns = [
   CitationsColumn.id,
   CitationsColumn.title,

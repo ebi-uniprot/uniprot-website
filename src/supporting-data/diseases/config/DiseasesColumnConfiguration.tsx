@@ -22,7 +22,7 @@ export enum DiseasesColumn {
   unreviewedProteinCount = 'unreviewed_protein_count',
 }
 
-// TODO: review
+// TODO: decide which ones should be default
 export const defaultColumns = [
   DiseasesColumn.id,
   DiseasesColumn.name,

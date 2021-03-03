@@ -28,7 +28,7 @@ export enum LocationsColumn {
   synonyms = 'synonyms',
 }
 
-// TODO: review
+// TODO: decide which ones should be default
 export const defaultColumns = [
   LocationsColumn.id,
   LocationsColumn.name,
@@ -82,7 +82,9 @@ LocationsColumnConfiguration.set(LocationsColumn.isA, {
   render: ({ isA }) => (
     <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
       {isA?.map((location) => (
-        <Link key={location.id} to={getEntryPath(location.id)}>{location.name}</Link>
+        <Link key={location.id} to={getEntryPath(location.id)}>
+          {location.name}
+        </Link>
       ))}
     </ExpandableList>
   ),

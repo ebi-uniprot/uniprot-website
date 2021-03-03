@@ -34,7 +34,7 @@ export enum TaxonomyColumn {
   synonym = 'synonym',
 }
 
-// TODO: review
+// TODO: decide which ones should be default
 export const defaultColumns = [
   TaxonomyColumn.id,
   TaxonomyColumn.commonName,
