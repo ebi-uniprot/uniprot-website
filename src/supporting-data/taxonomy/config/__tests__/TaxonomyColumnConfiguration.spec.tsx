@@ -19,6 +19,7 @@ describe('TaxonomyColumnConfiguration component', () => {
     transformedData = taxonomyConverter(data[0] as TaxonomyAPIModel);
   });
 
+// TODO: find mock data to create non-null host, links, strain, synonym snapshots
   for (const [key, column] of TaxonomyColumnConfiguration) {
     test(`should render column "${key}"`, () => {
       const { asFragment } = renderWithRedux(
