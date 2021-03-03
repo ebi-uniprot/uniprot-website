@@ -82,7 +82,7 @@ LocationsColumnConfiguration.set(LocationsColumn.isA, {
   render: ({ isA }) => (
     <ExpandableList descriptionString="locations" displayNumberOfHiddenItems>
       {isA?.map((location) => (
-        <Link to={getEntryPath(location.id)}>{location.name}</Link>
+        <Link key={location.id} to={getEntryPath(location.id)}>{location.name}</Link>
       ))}
     </ExpandableList>
   ),
