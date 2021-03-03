@@ -113,13 +113,13 @@ KeywordsColumnConfiguration.set(KeywordsColumn.statistics, {
   label: 'Mapping to',
   render: ({ statistics }) => (
     <>
-      {statistics?.reviewedProteinCount > 0 && (
+      {statistics?.reviewedProteinCount ? (
         <div>
           <EntryTypeIcon entryType={EntryType.REVIEWED} />
           <LongNumber>{statistics.reviewedProteinCount}</LongNumber> reviewed
           entr{statistics.reviewedProteinCount === 1 ? 'y' : 'ies'}
         </div>
-      )}
+      ) : undefined}
       {statistics?.unreviewedProteinCount ? (
         <div>
           <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
