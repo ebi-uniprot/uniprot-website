@@ -55,6 +55,7 @@ const ProteomesCard: FC<{
                 type={column}
                 data={data}
                 columnConfig={ProteomesColumnConfiguration}
+                key={column}
               />
             ))}
           </section>
