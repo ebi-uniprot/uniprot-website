@@ -1,13 +1,34 @@
 @import '../../../../../node_modules/franklin-sites/src/styles/colours';
 
 .footer {
+  // Make the whole footer texts be a portion of the default size of the rest
+  font-size: 0.75rem;
   padding: 1em;
   background: $colour-platinum;
   // Wait a bit on the first load to give a chance to the main content to load
   // and push the footer down before appearing
   animation: appear 150ms 1 0.5s both;
 
+  // Consortium
+  .consortium {
+    grid-area: 1 / 1 / 3 / span 3;
+
+    &__uniprot {
+      width: 100%;
+    }
+
+    &__members {
+      display: flex;
+
+      & > * {
+        flex: 1 0 auto;
+      }
+    }
+  }
+
+  // Shortcuts
   .shortcuts {
+    grid-area: 1 / 4 / 3 / span 6;
     display: flex;
     flex-direction: row;
 
@@ -29,6 +50,50 @@
 
     .tools-results-link {
       border-top: 1px solid $colour-platinum;
+    }
+  }
+
+  // Contact & Elixir
+  .contact-elixir {
+    grid-area: 1 / 10 / 3 / span 3;
+  }
+
+  // Funding
+  .funding {
+    grid-area: 2 / 4 / 3 / span 6;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  // tablet breakpoint TODO: define breakpoint (copy from foundation now)
+  @media only screen and (max-width: 64em) {
+    .consortium {
+      grid-row-end: span 1;
+    }
+    .shortcuts {
+      grid-column-end: span 9;
+    }
+    .contact-elixir {
+      grid-area: 2 / 1 / span 1 / span 3;
+    }
+    .funding {
+      grid-column-end: span 9;
+    }
+  }
+
+  // mobile breakpoint TODO: define breakpoint (copy from foundation now)
+  @media only screen and (max-width: 40em) {
+    .consortium {
+      grid-area: 1 / 1 / span 1 / span 12;
+    }
+    .shortcuts {
+      grid-area: 2 / 1 / span 1 / span 12;
+    }
+    .contact-elixir {
+      grid-area: 3 / 1 / span 1 / span 12;
+    }
+    .funding {
+      grid-area: 4 / 1 / span 1 / span 12;
     }
   }
 }

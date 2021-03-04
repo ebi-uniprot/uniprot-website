@@ -26,7 +26,7 @@ const tools = [
   },
   {
     label: 'Retrieve/ID mapping',
-    path: LocationToPath[Location.UploadList],
+    path: LocationToPath[Location.IDMapping],
   },
   {
     label: 'Peptide search',

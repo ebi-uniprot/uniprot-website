@@ -39,9 +39,7 @@ const Dashboard = () => {
       <div>
         Try using <Link to={LocationToPath[Location.Blast]}>BLAST</Link>,{' '}
         <Link to={LocationToPath[Location.Align]}>Align</Link>,{' '}
-        <Link to={LocationToPath[Location.UploadList]}>
-          ID Mapping/Retrieve
-        </Link>{' '}
+        <Link to={LocationToPath[Location.IDMapping]}>Retrieve/ID Mapping</Link>{' '}
         or{' '}
         <Link to={LocationToPath[Location.PeptideSearch]}>Peptide Search</Link>{' '}
         to begin
