@@ -2,7 +2,7 @@ import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRout
 import ProteomesCard from '../ProteomesCard';
 
 import proteomesData from '../../../__mocks__/proteomesEntryModelData';
-import { fireEvent } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 
 describe('ProteomesCard tests', () => {
   it('should render the card component', () => {
