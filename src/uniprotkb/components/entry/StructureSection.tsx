@@ -6,7 +6,7 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { UIModel } from '../../adapters/sectionConverter';
-import FeaturesView from '../protein-data-views/FeaturesView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import XRefView from '../protein-data-views/XRefView';
 import PDBView from '../protein-data-views/PDBView';
 

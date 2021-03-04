@@ -11,10 +11,8 @@ import {
 } from '../../utils/useSequenceInfo';
 import { AlnClustalNum, AlnClustalSequence } from '../../types/alignResults';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import {
-  ProcessedFeature,
-  processFeaturesData,
-} from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
+import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { ProcessedFeature } from '../../../../shared/components/views/FeaturesView';
 
 type AlignResultOverviewProps = {
   data: string;
