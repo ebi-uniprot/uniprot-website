@@ -17,7 +17,7 @@ describe('ProteomesCard tests', () => {
     const { getByTestId } = renderWithRouter(
       <ProteomesCard data={proteomesData} handleEntrySelection={handleClick} />
     );
-    fireEvent.click(getByTestId('up-card-checkbox'));
+    fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
   });
 });
