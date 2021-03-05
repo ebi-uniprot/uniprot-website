@@ -1,7 +1,7 @@
 import { memo, HTMLAttributes } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
-import { CitedIcon, ExternalLink } from 'franklin-sites';
+import { CitedIcon, EnvelopeIcon, ExternalLink } from 'franklin-sites';
 import { Method } from 'axios';
 
 import useDataApi from '../../hooks/useDataApi';
@@ -284,7 +284,7 @@ const FooterContactAndElixir = () => (
   <div className="contact-elixir">
     <p>
       <Link to="/contact">
-        Get in touch <span className="bigger">✉</span>
+        Get in touch <EnvelopeIcon width="2ch" />
       </Link>
     </p>
     <p className="social">
