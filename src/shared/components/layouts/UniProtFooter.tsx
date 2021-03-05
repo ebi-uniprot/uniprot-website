@@ -35,18 +35,21 @@ const FooterConsortium = () => (
     </Link>
     <div className="consortium__members">
       <ExternalLink
+        noIcon
         url="https://www.ebi.ac.uk/"
         title="European Bioinformatics Institute"
       >
         <img src={EBILogo} loading="lazy" alt="" width="600" height="185" />
       </ExternalLink>
       <ExternalLink
+        noIcon
         url="https://pir.georgetown.edu/"
         title="Protein Information Resource"
       >
         <img src={PIRLogo} loading="lazy" alt="" width="231" height="218" />
       </ExternalLink>
       <ExternalLink
+        noIcon
         url="https://www.sib.swiss/"
         title="Swiss Institute of Bioinformatics"
       >
@@ -72,14 +75,14 @@ const Release = () => {
   }
 
   return (
-    <>
+    <span className="release-version">
+      {' | '}
       <Link to="/">
         {/* TODO: don't use release number as date, might be different */}
         Release {releaseDate.getFullYear()}_
         {`${releaseDate.getMonth() + 1}`.padStart(2, '0')}
-      </Link>{' '}
-      |{' '}
-    </>
+      </Link>
+    </span>
   );
 };
 
@@ -95,8 +98,8 @@ const FooterCopyrightAndMisc = () => (
       <Link to="/help/privacy">Privacy Notice</Link>
     </p>
     <p>
-      <Release />
       <Link to="/">Statistics</Link>
+      <Release />
     </p>
   </div>
 );
@@ -274,42 +277,52 @@ const FooterShortcuts = () => (
 const FooterContactAndElixir = () => (
   <div className="contact-elixir">
     <p>
-      <ExternalLink url="/contact">
+      <Link to="/contact">
         Get in touch <span className="bigger">✉</span>
-      </ExternalLink>
+      </Link>
     </p>
     <p>
       <ExternalLink
+        noIcon
         url="https://twitter.com/uniprot"
         title="UniProt posts on Twitter"
       >
         Twitter
       </ExternalLink>
       <ExternalLink
+        noIcon
         url="https://www.facebook.com/uniprot.org"
         title="UniProt posts on Facebook"
       >
         FB
       </ExternalLink>
       <ExternalLink
+        noIcon
         url="https://www.youtube.com/user/uniprotvideos"
         title="UniProt videos on YouTube"
       >
         YT
       </ExternalLink>
       <ExternalLink
+        noIcon
         url="https://insideuniprot.blogspot.com/"
         title="UniProt blog"
       >
         Blogger
       </ExternalLink>
-      {/* TODO: find if this exists */}
-      <ExternalLink url="?" title="UniProt Google Group">
+      <ExternalLink
+        noIcon
+        url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
+        title="UniProt Google Group"
+      >
         Google Groups
       </ExternalLink>
     </p>
     <p>
-      <ExternalLink url="https://www.elixir-europe.org/platforms/data/core-data-resources">
+      <ExternalLink
+        noIcon
+        url="https://www.elixir-europe.org/platforms/data/core-data-resources"
+      >
         UniProt is an ELIXIR core data resource
         <img
           src={ElixirCDRLogo}
@@ -320,6 +333,7 @@ const FooterContactAndElixir = () => (
         />
       </ExternalLink>
       <ExternalLink
+        noIcon
         url="https://www.coretrustseal.org/wp-content/uploads/2020/05/UniProt.pdf"
         title="Core Trust Seal assessment information"
       >
@@ -334,16 +348,18 @@ const FooterFunding = () => (
     <span>
       Main <Link to="/help/about">funding</Link> by:
     </span>
-    <ExternalLink url="https://www.nih.gov/">
+    <ExternalLink noIcon url="https://www.nih.gov/">
       National Institutes of Health
     </ExternalLink>
     <ExternalLink
+      noIcon
       url="https://www.embl.org/"
       title="European Molecular Biology Laboratory"
     >
       <img src={EBILogo} loading="lazy" alt="" />
     </ExternalLink>
     <ExternalLink
+      noIcon
       url="https://www.sbfi.admin.ch/sbfi/en/home.html"
       title="State Secretariat for Education, Research and Innovation SERI"
     >

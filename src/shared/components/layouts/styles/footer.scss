@@ -7,7 +7,11 @@
   background: $colour-platinum;
   // Wait a bit on the first load to give a chance to the main content to load
   // and push the footer down before appearing
-  animation: appear 150ms 1 0.5s both;
+  animation: appear 0.25s 1 0.5s both;
+
+  .release-version {
+    animation: appear 0.25s 1 both;
+  }
 
   // .uniprot-grid > * {
   //   border: 1px solid green;
@@ -84,8 +88,9 @@
     align-self: center;
 
     img {
-      height: 2em;
-      width: 2em;
+      margin: 0.5ch;
+      height: 3em;
+      width: 3em;
     }
   }
 
@@ -93,11 +98,12 @@
   .funding {
     grid-area: 3 / 4 / span 1 / span 6;
     display: flex;
+    align-items: center;
     gap: 1ch;
     justify-content: space-between;
 
     img {
-      height: 1.5em;
+      height: 2.25em;
     }
   }
 
