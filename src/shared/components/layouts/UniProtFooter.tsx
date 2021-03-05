@@ -19,6 +19,12 @@ import EBILogo from '../../../images/embl-ebi-logo.png';
 import PIRLogo from '../../../images/pir-logo.jpg';
 import SIBLogo from '../../../images/sib-logo.png';
 
+import TwitterLogo from '../../../images/twitter-logo.svg';
+import FacebookLogo from '../../../images/facebook-logo.svg';
+import YouTubeLogo from '../../../images/youtube-logo.svg';
+import BloggerLogo from '../../../images/blogger-logo.svg';
+import GGroupsLogo from '../../../images/ggroups-logo.svg';
+
 import SERILogo from '../../../images/seri-logo.png';
 
 import ElixirCDRLogo from '../../../images/elixir-cdr.png';
@@ -281,41 +287,41 @@ const FooterContactAndElixir = () => (
         Get in touch <span className="bigger">✉</span>
       </Link>
     </p>
-    <p>
+    <p className="social">
       <ExternalLink
         noIcon
         url="https://twitter.com/uniprot"
         title="UniProt posts on Twitter"
       >
-        Twitter
+        <TwitterLogo />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://www.facebook.com/uniprot.org"
         title="UniProt posts on Facebook"
       >
-        FB
+        <FacebookLogo />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://www.youtube.com/user/uniprotvideos"
         title="UniProt videos on YouTube"
       >
-        YT
+        <YouTubeLogo />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://insideuniprot.blogspot.com/"
         title="UniProt blog"
       >
-        Blogger
+        <BloggerLogo />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
         title="UniProt Google Group"
       >
-        Google Groups
+        <GGroupsLogo />
       </ExternalLink>
     </p>
     <p>

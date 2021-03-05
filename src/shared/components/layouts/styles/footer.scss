@@ -92,6 +92,15 @@
       height: 3em;
       width: 3em;
     }
+
+    .social {
+      white-space: nowrap;
+
+      svg {
+        fill: $colour-weldon-blue;
+        color: $colour-weldon-blue;
+      }
+    }
   }
 
   // Funding
