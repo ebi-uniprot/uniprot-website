@@ -136,11 +136,11 @@ const HomePage = () => (
         <HomePageHeader />
       </ErrorBoundary>
 
-      {/* <ErrorBoundary>
+      <ErrorBoundary>
         <Suspense fallback={<Loader />}>
           <HomePageNonCritical />
         </Suspense>
-      </ErrorBoundary> */}
+      </ErrorBoundary>
     </main>
     <Suspense fallback={null}>
       <ErrorBoundary>

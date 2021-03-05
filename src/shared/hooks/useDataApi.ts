@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import { v1 } from 'uuid';
 import { useDispatch } from 'react-redux';
 
@@ -91,7 +91,10 @@ const createReducer = <T>() => (
   }
 };
 
-function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
+function useDataApi<T>(
+  url?: string | null,
+  options?: AxiosRequestConfig
+): UseDataAPIState<T> {
   const [state, dispatch] = useReducer(createReducer<T>(), { loading: !!url });
   const reduxDispatch = useDispatch();
 
@@ -113,7 +116,7 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
     const source = axios.CancelToken.source();
 
     // actual request
-    fetchData<T>(url, undefined, source.token).then(
+    fetchData<T>(url, undefined, source.token, options).then(
       // handle ok
       (response: AxiosResponse) => {
         if (didCancel) {
@@ -136,7 +139,7 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
       source.cancel();
       didCancel = true;
     };
-  }, [url]);
+  }, [url, options]);
 
   useEffect(() => {
     if (state.status === 400) {

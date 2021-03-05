@@ -14,6 +14,10 @@
   white-space: nowrap;
 }
 
+.bigger {
+  font-size: 2em;
+}
+
 // only show the first loader component when 2 or more are direct siblings
 // useful for lists of potentially loading components
 .loader-container + .loader-container {

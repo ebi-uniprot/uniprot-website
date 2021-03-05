@@ -2,12 +2,27 @@ import { memo, HTMLAttributes } from 'react';
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import { CitedIcon, ExternalLink } from 'franklin-sites';
+import { Method } from 'axios';
+
+import useDataApi from '../../hooks/useDataApi';
+
+import apiUrls from '../../config/apiUrls';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
+import { Namespace } from '../../types/namespaces';
 
 import './styles/footer.scss';
 
-import Logo from './svgs/uniprot-logo.svg';
+import UniProtLogo from '../../../images/uniprot-logo.svg';
+
+import EBILogo from '../../../images/embl-ebi-logo.png';
+import PIRLogo from '../../../images/pir-logo.jpg';
+import SIBLogo from '../../../images/sib-logo.png';
+
+import SERILogo from '../../../images/seri-logo.png';
+
+import ElixirCDRLogo from '../../../images/elixir-cdr.png';
+import CTSLogo from '../../../images/core-trust-seal-logo.png';
 
 const FooterConsortium = () => (
   <div className="consortium">
@@ -16,30 +31,62 @@ const FooterConsortium = () => (
       className="consortium__uniprot"
       title="UniProt home page"
     >
-      <Logo />
+      <UniProtLogo />
     </Link>
     <div className="consortium__members">
       <ExternalLink
         url="https://www.ebi.ac.uk/"
         title="European Bioinformatics Institute"
       >
-        EMBL-EBI
+        <img src={EBILogo} loading="lazy" alt="" width="600" height="185" />
       </ExternalLink>
       <ExternalLink
         url="https://pir.georgetown.edu/"
         title="Protein Information Resource"
       >
-        PIR
+        <img src={PIRLogo} loading="lazy" alt="" width="231" height="218" />
       </ExternalLink>
       <ExternalLink
         url="https://www.sib.swiss/"
         title="Swiss Institute of Bioinformatics"
       >
-        SIB
+        <img src={SIBLogo} loading="lazy" alt="" width="200" height="152" />
       </ExternalLink>
     </div>
+  </div>
+);
+
+const fetchOptions: { method: Method } = { method: 'HEAD' };
+const Release = () => {
+  // TODO: replace with statistics endpoint
+  const { headers } = useDataApi(
+    `${apiUrls.search(Namespace.uniprotkb)}?query=*&size=0`,
+    fetchOptions
+  );
+  const releaseDate = headers?.['x-release']
+    ? new Date(headers['x-release'])
+    : undefined;
+
+  if (!releaseDate) {
+    return null;
+  }
+
+  return (
+    <>
+      <Link to="/">
+        {/* TODO: don't use release number as date, might be different */}
+        Release {releaseDate.getFullYear()}_
+        {`${releaseDate.getMonth() + 1}`.padStart(2, '0')}
+      </Link>{' '}
+      |{' '}
+    </>
+  );
+};
+
+const FooterCopyrightAndMisc = () => (
+  <div className="copyright-misc">
     <p>
-      <Link className="copyright" to="/help/about">
+      <Link to="/help/about">
         © 2002 – {new Date().getFullYear()} UniProt consortium
       </Link>
     </p>
@@ -48,8 +95,8 @@ const FooterConsortium = () => (
       <Link to="/help/privacy">Privacy Notice</Link>
     </p>
     <p>
-      {/* TODO: load release info from API */}
-      <Link to="/">Release YYYY_MM</Link> | <Link to="/">Statistics</Link>
+      <Release />
+      <Link to="/">Statistics</Link>
     </p>
   </div>
 );
@@ -227,7 +274,9 @@ const FooterShortcuts = () => (
 const FooterContactAndElixir = () => (
   <div className="contact-elixir">
     <p>
-      <ExternalLink url="/contact">Get in touch ✉</ExternalLink>
+      <ExternalLink url="/contact">
+        Get in touch <span className="bigger">✉</span>
+      </ExternalLink>
     </p>
     <p>
       <ExternalLink
@@ -262,12 +311,19 @@ const FooterContactAndElixir = () => (
     <p>
       <ExternalLink url="https://www.elixir-europe.org/platforms/data/core-data-resources">
         UniProt is an ELIXIR core data resource
+        <img
+          src={ElixirCDRLogo}
+          loading="lazy"
+          alt=""
+          width="115"
+          height="115"
+        />
       </ExternalLink>
       <ExternalLink
         url="https://www.coretrustseal.org/wp-content/uploads/2020/05/UniProt.pdf"
         title="Core Trust Seal assessment information"
       >
-        CoreTrustSeal
+        <img src={CTSLogo} loading="lazy" alt="" width="425" height="401" />
       </ExternalLink>
     </p>
   </div>
@@ -285,13 +341,13 @@ const FooterFunding = () => (
       url="https://www.embl.org/"
       title="European Molecular Biology Laboratory"
     >
-      EMBL-EBI
+      <img src={EBILogo} loading="lazy" alt="" />
     </ExternalLink>
     <ExternalLink
       url="https://www.sbfi.admin.ch/sbfi/en/home.html"
       title="State Secretariat for Education, Research and Innovation SERI"
     >
-      SERI
+      <img src={SERILogo} loading="lazy" alt="" />
     </ExternalLink>
   </div>
 );
@@ -301,6 +357,7 @@ const UniProtFooter = memo<HTMLAttributes<HTMLElement>>(
     <footer className={cn(className, 'footer')} {...props}>
       <div className="uniprot-grid uniprot-grid--centered">
         <FooterConsortium />
+        <FooterCopyrightAndMisc />
         <FooterShortcuts />
         <FooterContactAndElixir />
         <FooterFunding />
