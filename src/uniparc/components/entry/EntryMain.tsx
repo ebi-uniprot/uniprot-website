@@ -9,7 +9,6 @@ import {
   UniParcUIModel,
 } from '../../adapters/uniParcConverter';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
-import UniParcFeaturesView from './UniParcFeaturesView';
 
 type EntryMainProps = {
   transformedData: UniParcUIModel;
@@ -18,12 +17,6 @@ type EntryMainProps = {
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData, xrefs }) => (
   <>
-    {transformedData.sequenceFeatures && (
-      <UniParcFeaturesView
-        data={transformedData.sequenceFeatures}
-        sequence={transformedData.sequence.value}
-      />
-    )}
     {UniParcEntryConfig.map(({ id, sectionContent }) => (
       <ErrorBoundary key={id}>
         {sectionContent(transformedData, xrefs)}
