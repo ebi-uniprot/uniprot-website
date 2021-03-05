@@ -26,7 +26,7 @@ exports[`ProteomesEntryView component should render 1`] = `
               class="decorated-list-item__content"
             >
               <a
-                href="/proteome/UP000005640"
+                href="/proteomes/UP000005640"
               >
                 UP000005640
               </a>

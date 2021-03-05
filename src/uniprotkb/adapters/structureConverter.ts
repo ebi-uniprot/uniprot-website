@@ -29,10 +29,7 @@ const convertStructure = (data: UniProtkbAPIModel) => {
         const method = item.properties && item.properties.Method;
         return { ...item, method };
       });
-    const groupedStructureInfo = groupBy(
-      structureInfo,
-      (item: { method: string }) => item.method
-    );
+    const groupedStructureInfo = groupBy(structureInfo, (item) => item.method);
     structureData.structures = groupedStructureInfo as GroupedStructureInfo;
   }
   return structureData;

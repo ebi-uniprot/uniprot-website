@@ -3,7 +3,7 @@ export enum Namespace {
   uniprotkb = 'uniprotkb',
   uniref = 'uniref',
   uniparc = 'uniparc',
-  proteomes = 'proteome', // TODO: revert to proteomes once backend update as per https://www.ebi.ac.uk/seqdb/confluence/display/UniProt/25+Jan+-+Remote+meeting
+  proteomes = 'proteomes',
   // Supporting data
   taxonomy = 'taxonomy',
   keywords = 'keywords',
@@ -12,6 +12,22 @@ export enum Namespace {
   database = 'database',
   locations = 'locations',
 }
+
+export const mainNamespaces = new Set<Namespace>([
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+  Namespace.proteomes,
+]);
+
+export const supportingDataNamespaces = new Set<Namespace>([
+  Namespace.taxonomy,
+  Namespace.keywords,
+  Namespace.citations,
+  Namespace.diseases,
+  Namespace.database,
+  Namespace.locations,
+]);
 
 export const NamespaceLabels: Record<Namespace, string> = {
   // Main data

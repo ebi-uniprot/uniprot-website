@@ -4,7 +4,13 @@ import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 
+import {
+  UniParcAPIModel,
+  XRefsInternalDatabasesEnum,
+} from '../../adapters/uniParcConverter';
+
 import { getEntryPath } from '../../../app/config/urls';
+import xrefGetter from '../../utils/xrefGetter';
 
 import UniParcColumnConfiguration, {
   UniParcColumn,
@@ -12,8 +18,6 @@ import UniParcColumnConfiguration, {
 
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
-
-import { UniParcAPIModel } from '../../adapters/uniParcConverter';
 
 import '../../../shared/components/results/styles/result-card.scss';
 
@@ -25,9 +29,9 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
   let reviewed = 0;
   let unreviewed = 0;
   for (const xref of data.uniParcCrossReferences || []) {
-    if (xref.database.includes('UniProtKB/Swiss-Prot')) {
+    if (xref.database === XRefsInternalDatabasesEnum.REVIEWED) {
       reviewed += 1;
-    } else if (xref.database.includes('UniProtKB/TrEMBL')) {
+    } else if (xref.database === XRefsInternalDatabasesEnum.UNREVIEWED) {
       unreviewed += 1;
     }
   }
@@ -45,7 +49,7 @@ const UniRefCard: FC<{
     history.push(getEntryPath(Namespace.uniparc, data.uniParcId));
   }, [history, data.uniParcId]);
 
-  const organismCount = data.taxonomies.length;
+  const organismCount = xrefGetter(data, 'organism', 'taxonId')?.length || 0;
   const uniProtKBCount = useMemo(() => uniProtKBCounter(data), [data]);
 
   return (

@@ -4,19 +4,25 @@ exports[`HomePage component should render 1`] = `
 <DocumentFragment>
   <main>
     <div
-      class="hero-header"
+      class="hero-header home-page__header"
     >
       <div
         class="hero-header__content"
       >
         <h1>
-          Find your protein
+          Find your 
+          <span
+            class="letter-group"
+          >
+            protein
+          </span>
         </h1>
-        <section
+        <div
           class="uniprot-grid uniprot-grid--centered"
         >
           <section
             class="uniprot-grid-cell--span-12"
+            role="search"
           >
             <form
               class="main-search"
@@ -37,6 +43,7 @@ exports[`HomePage component should render 1`] = `
                 />
               </div>
               <input
+                aria-label="Text query in uniprotkb"
                 class="main-search__input"
                 data-testid="main-search-input"
                 type="text"
@@ -49,10 +56,10 @@ exports[`HomePage component should render 1`] = `
                 Search
               </button>
             </form>
-            <section
+            <div
               class="search-container-footer"
             >
-              <section>
+              <div>
                 Examples: 
                 <button
                   class="button tertiary"
@@ -74,18 +81,18 @@ exports[`HomePage component should render 1`] = `
                 >
                   Albumin
                 </button>
-              </section>
-              <section>
+              </div>
+              <div>
                 <a
                   class="button tertiary"
                   href="/uploadlists"
                 >
                   Search with a list of IDs
                 </a>
-              </section>
-            </section>
+              </div>
+            </div>
           </section>
-        </section>
+        </div>
       </div>
       <div
         class="hero-header__footer"

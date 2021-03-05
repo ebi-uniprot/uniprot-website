@@ -62,15 +62,15 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   return (
     <Card links={highlights} onClick={handleCardClick}>
       <section className="result-card">
-        <section className="result-card__left">
+        <div className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
             onChange={() => handleEntrySelection(data.primaryAccession)}
             data-testid="up-card-checkbox"
           />
-        </section>
-        <section className="result-card__right">
+        </div>
+        <div className="result-card__right">
           <h5>
             <EntryTitle
               mainTitle={data.primaryAccession}
@@ -79,10 +79,8 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
             />
           </h5>
           <ProteinOverview data={data} />
-          <section>
-            <small>{keywordsNode}</small>
-          </section>
-        </section>
+          <small>{keywordsNode}</small>
+        </div>
       </section>
     </Card>
   );

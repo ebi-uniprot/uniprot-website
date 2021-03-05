@@ -3,9 +3,10 @@ import { useRouteMatch } from 'react-router-dom';
 import { Header } from 'franklin-sites';
 
 import SlidingPanel, { Position } from './SlidingPanel';
-import SearchContainer from '../../../uniprotkb/components/search/SearchContainer';
+import SearchContainer from '../search/SearchContainer';
 
 import lazy from '../../utils/lazy';
+
 import useNS from '../../hooks/useNS';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -14,7 +15,6 @@ import { Namespace } from '../../types/namespaces';
 
 import Logo from './svgs/uniprot-logo.svg';
 
-// NOTE: all of those paths should eventually come from the Location config object
 const tools = [
   {
     label: 'BLAST',
@@ -25,19 +25,20 @@ const tools = [
     path: LocationToPath[Location.Align],
   },
   {
-    label: 'Peptide Search',
-    path: '/',
+    label: 'Retrieve/ID mapping',
+    path: LocationToPath[Location.UploadList],
   },
   {
-    label: 'Retrieve/ID Mapping',
-    path: '/',
+    label: 'Peptide search',
+    path: LocationToPath[Location.PeptideSearch],
   },
   {
-    label: 'Tool Results',
+    label: 'Tool results',
     path: LocationToPath[Location.Dashboard],
   },
 ];
 
+// NOTE: all of those paths should eventually come from the Location config object
 const restOfItems = [
   {
     label: 'API',
@@ -78,14 +79,25 @@ const QueryBuilder = lazy(
     )
 );
 
-const UniProtHeader = () => {
-  const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
-
+const SearchContainerWithNamespace = () => {
   const namespace = useNS();
 
   const [selectedNamespace, setSelectedNamespace] = useState(
     namespace || Namespace.uniprotkb
   );
+
+  return (
+    <SearchContainer
+      namespace={selectedNamespace}
+      onNamespaceChange={(namespace: Namespace) =>
+        setSelectedNamespace(namespace)
+      }
+    />
+  );
+};
+
+const UniProtHeader = () => {
+  const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
   const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
 
   const isHomePage = Boolean(homeMatch?.isExact);
@@ -97,7 +109,7 @@ const UniProtHeader = () => {
           onPointerOver={QueryBuilder.preload}
           onFocus={QueryBuilder.preload}
         >
-          Query Builder
+          Query builder
         </span>
       ),
       onClick: () => setDisplayQueryBuilder((flag) => !flag),
@@ -114,17 +126,8 @@ const UniProtHeader = () => {
       <Header
         items={displayedLinks}
         isNegative={isHomePage}
-        search={
-          isHomePage ? undefined : (
-            <SearchContainer
-              namespace={selectedNamespace}
-              onNamespaceChange={(namespace: Namespace) =>
-                setSelectedNamespace(namespace)
-              }
-            />
-          )
-        }
-        logo={<Logo width={120} height={50} />}
+        search={!isHomePage && <SearchContainerWithNamespace />}
+        logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
       />
       {displayQueryBuilder && (
         <Suspense fallback={null}>

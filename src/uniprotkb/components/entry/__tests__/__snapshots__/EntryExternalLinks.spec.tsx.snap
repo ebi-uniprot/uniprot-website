@@ -37,6 +37,7 @@ exports[`Entry - External Links view should render 1`] = `
               >
                 resource name (Note text)
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -76,6 +77,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -120,6 +122,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -157,6 +160,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -201,6 +205,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         id value
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -213,6 +218,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         description value
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -263,6 +269,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -300,6 +307,7 @@ exports[`Entry - External Links view should render 1`] = `
                       >
                         Submit a new modelling project...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>

@@ -1,11 +1,12 @@
 import entryToFASTAWithHeaders from './entryToFASTAWithHeaders';
 import fetchData from './fetchData';
 
-import uniProtKBApiUrls from '../config/apiUrls';
+import apiUrls from '../config/apiUrls';
 
 import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { UniRefAPIModel } from '../../uniref/adapters/uniRefConverter';
+import { Namespace } from '../types/namespaces';
 
 const getFASTAFromAccession = async (
   accession?: string
@@ -17,7 +18,7 @@ const getFASTAFromAccession = async (
   if (accession.startsWith('UniRef')) {
     // UniRef
     // Find representative sequence and use it instead
-    const uniRefURL = uniProtKBApiUrls.uniref.entry(accession);
+    const uniRefURL = apiUrls.entry(accession, Namespace.uniref);
     if (!uniRefURL) {
       return;
     }
@@ -32,11 +33,9 @@ const getFASTAFromAccession = async (
     );
   }
   if (accession.startsWith('UPI')) {
-    // UniParc
-    url = uniProtKBApiUrls.uniparc.entry(accession);
+    url = apiUrls.entry(accession, Namespace.uniparc);
   } else {
-    // UniProtKB
-    url = uniProtKBApiUrls.entry(accession);
+    url = apiUrls.entry(accession, Namespace.uniprotkb);
   }
   if (!url) {
     return;

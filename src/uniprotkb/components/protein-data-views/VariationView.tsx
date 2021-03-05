@@ -18,6 +18,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import { Evidence } from '../../types/modelTypes';
 
 import './styles/variation-view.scss';
+import NightingaleZoomTool from './NightingaleZoomTool';
 
 const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
   positions: {
@@ -206,6 +207,7 @@ const VariationView: FC<{
       <protvista-manager attributes="highlight displaystart displayend activefilters filters selectedid">
         {hasTable && (
           <div className="variation-view">
+            <NightingaleZoomTool length={transformedData.sequence.length} />
             <protvista-navigation length={transformedData.sequence.length} />
             <protvista-sequence
               length={transformedData.sequence.length}

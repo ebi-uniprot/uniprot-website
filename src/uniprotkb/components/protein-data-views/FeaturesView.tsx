@@ -11,6 +11,7 @@ import FeatureType from '../../types/featureType';
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
 import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
 import { Xref } from '../../../shared/types/apiModel';
+import NightingaleZoomTool from './NightingaleZoomTool';
 
 export enum LocationModifier {
   EXACT = 'EXACT',
@@ -196,6 +197,7 @@ const FeaturesView: FC<FeatureProps> = ({
       <protvista-manager attributes="highlight displaystart displayend selectedid">
         {sequence && (
           <>
+            <NightingaleZoomTool length={sequence.length} />
             <protvista-navigation length={sequence.length} />
             <protvista-track
               ref={setTrackData}

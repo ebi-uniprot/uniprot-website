@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeywordsColumnConfiguration component should render column "category": category 1`] = `
+<DocumentFragment>
+  Molecular function
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "children": children 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <a
+        href="/diseases/KW-9992"
+      >
+        Molecular function
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "description": description 1`] = `
+<DocumentFragment>
+  Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "gene_ontology": gene_ontology 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      catalytic activity (GO:0003824)
+    </li>
+    <li>
+      metabolic process (GO:0008152)
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "id": id 1`] = `
+<DocumentFragment>
+  <a
+    href="/diseases/KW-0021"
+  >
+    KW-0021
+  </a>
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "name": name 1`] = `
+<DocumentFragment>
+  Allosteric enzyme
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "parent": parent 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "sites": sites 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;
+
+exports[`KeywordsColumnConfiguration component should render column "synonym": synonym 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  />
+</DocumentFragment>
+`;

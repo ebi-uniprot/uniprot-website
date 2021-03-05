@@ -55,7 +55,10 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
             </strong>
             {' · '}
             <span className="result-card__info-bit">
-              Sequence length: <LongNumber>{data.sequenceLength}</LongNumber>
+              Sequence length:{' '}
+              <LongNumber>
+                {data.representativeMember.sequence?.length ?? 0}
+              </LongNumber>
             </span>
             {' · '}
             <span className="result-card__info-bit">

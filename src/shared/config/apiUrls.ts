@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import joinUrl from 'url-join';
+import joinUrl from './testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 
 import {
   getApiSortDirection,
@@ -49,7 +49,7 @@ const apiUrls = {
     devPrefix,
     '/uniprot/api/configure/uniprotkb/databasefields'
   ),
-  // All result fields except database cross reference fields
+  // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace) =>
     joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
   // Retrieve results
@@ -63,9 +63,20 @@ const apiUrls = {
   genecentric: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
 
-  entry: (accession: string) =>
-    joinUrl(devPrefix, '/uniprot/api/uniprotkb/accession', accession),
-  sequenceFasta: (accession: string) => `${apiUrls.entry(accession)}.fasta`,
+  entry: (id: string | undefined, namespace: Namespace) =>
+    id &&
+    joinUrl(
+      devPrefix,
+      // NOTE: The inclusion of /accession/ subpath for uniprotkb is going to be reviewed by backend
+      // and potentially removed to bring it in line with the other namespaces
+      // NOTE: uniparc entry isn't working/deployed yet
+      `/uniprot/api/${namespace}/${
+        namespace === Namespace.uniprotkb ? 'accession/' : ''
+      }`,
+      id
+    ),
+  sequenceFasta: (accession: string) =>
+    `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
   entryDownload: (accession: string, format: FileFormat) =>
     format === FileFormat.fastaCanonicalIsoform
       ? `${apiUrls.search()}?${queryString.stringify({
@@ -73,7 +84,9 @@ const apiUrls = {
           includeIsoform: true,
           format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
         })}`
-      : `${apiUrls.entry(accession)}.${fileFormatToUrlParameter[format]}`,
+      : `${apiUrls.entry(accession, Namespace.uniprotkb)}.${
+          fileFormatToUrlParameter[format]
+        }`,
   entryPublications: (accession: string) =>
     joinUrl(
       devPrefix,
@@ -84,10 +97,7 @@ const apiUrls = {
   taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
 
-  // TODO: move that to UniRef-specific file?
-  uniref: {
-    entry: (id?: string) => id && joinUrl(devPrefix, '/uniprot/api/uniref', id),
-  },
+  // TODO: move that to UniParc-specific file?
   uniparc: {
     entry: (id?: string) =>
       id && joinUrl(devPrefix, '/uniprot/api/uniparc', id),
@@ -144,6 +154,7 @@ const defaultFacets = new Map<Namespace, string[]>([
 type QueryUrlProps = {
   namespace?: Namespace;
   query?: string;
+  // TODO: change to set of possible fields (if possible, depending on namespace)
   columns?: Column[] | null;
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
@@ -242,8 +253,8 @@ export const getUniProtPublicationsQueryUrl = ({
   size,
 }: GetUniProtPublicationsQueryUrl) =>
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
-    facets: 'source,category,study_type',
-    query:
+    facets: 'types,categories,is_large_scale',
+    facetFilter:
       selectedFacets
         .map((facet) => `(${facet.name}:"${facet.value}")`)
         .join(' AND ') || undefined,
@@ -285,6 +296,7 @@ export const getDownloadUrl = ({
   type Parameters = {
     query: string;
     format: string;
+    // TODO: change to set of possible fields (if possible, depending on namespace)
     fields?: string;
     sort?: string;
     includeIsoform?: boolean;

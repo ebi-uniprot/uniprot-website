@@ -9,15 +9,20 @@ import {
 
 import MemberLink from '../entry/MemberLink';
 
-import { UseDataAPIState } from '../../../shared/hooks/useDataApi';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { getBEMClassName } from '../../../shared/utils/utils';
 import { getEntryPath } from '../../../app/config/urls';
+import apiUrls from '../../config/apiUrls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniRefUIModel } from '../../adapters/uniRefConverter';
-import { FacetObject } from '../../../uniprotkb/types/responseTypes';
+
+import {
+  UniRefMembersResults,
+  uniRefMembersFacets,
+} from '../../types/membersEndpoint';
 
 import './styles/overview.scss';
 
@@ -27,11 +32,15 @@ enum MemberTypes {
   UniParc = 'uniparc',
 }
 
-type FacetData = UseDataAPIState<FacetObject[]>;
-type MemberIconsProps = { facetData: FacetData; id: string };
+export const MemberIcons: FC<{ id: string }> = ({ id }) => {
+  const { loading, data } = useDataApi<UniRefMembersResults>(
+    apiUrls.members(id, {
+      facets: uniRefMembersFacets,
+      size: 0,
+    })
+  );
 
-export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
-  if (facetData.loading) {
+  if (loading) {
     return (
       <span className="member-icons">
         <SpinnerIcon className="member-icons" />
@@ -39,7 +48,11 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
     );
   }
 
-  const uniProtKBFacetValues = facetData.data?.find(
+  if (!data) {
+    return null;
+  }
+
+  const uniProtKBFacetValues = data?.facets.find(
     (f) => f?.name === 'uniprot_member_id_type'
   )?.values;
   const uniProtReviewedCount = uniProtKBFacetValues?.find(
@@ -48,8 +61,8 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
   const uniProtUnreviewedCount = uniProtKBFacetValues?.find(
     (fv) => fv.value === MemberTypes.Unreviewed
   )?.count;
-  const uniParcCount = facetData.data
-    ?.find((f) => f?.name === 'member_id_type')
+  const uniParcCount = data?.facets
+    .find((f) => f?.name === 'member_id_type')
     ?.values.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
   const pathname = getEntryPath(Namespace.uniref, id);
@@ -60,7 +73,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
         <Link
           to={{
             pathname,
-            search: `filter=uniprot_member_id_type:${MemberTypes.Reviewed}`,
+            search: `facets=uniprot_member_id_type:${MemberTypes.Reviewed}`,
           }}
           className={getBEMClassName({
             b: 'member-icons',
@@ -77,7 +90,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
         <Link
           to={{
             pathname,
-            search: `filter=uniprot_member_id_type:${MemberTypes.Unreviewed}`,
+            search: `facets=uniprot_member_id_type:${MemberTypes.Unreviewed}`,
           }}
           className={getBEMClassName({
             b: 'member-icons',
@@ -94,7 +107,7 @@ export const MemberIcons: FC<MemberIconsProps> = ({ facetData, id }) => {
         <Link
           to={{
             pathname,
-            search: `filter=member_id_type:${MemberTypes.UniParc}`,
+            search: `facets=member_id_type:${MemberTypes.UniParc}`,
           }}
           className={getBEMClassName({ b: 'member-icons', m: 'uniparc' })}
           title={`${uniParcCount} UniParc member${
@@ -124,12 +137,10 @@ export const Updated: FC<{ updated: string }> = ({ updated }) => {
 };
 
 export const Overview: FC<{
-  facetData: FacetData;
   transformedData: UniRefUIModel;
-}> = ({ transformedData, facetData }) => (
+}> = ({ transformedData }) => (
   <section>
-    {transformedData.name} ·{' '}
-    <MemberIcons facetData={facetData} id={transformedData.id} /> ·{' '}
+    {transformedData.name} · <MemberIcons id={transformedData.id} /> ·{' '}
     <Updated updated={transformedData.updated} /> ·{' '}
     <Seed seedId={transformedData.seedId} />
   </section>

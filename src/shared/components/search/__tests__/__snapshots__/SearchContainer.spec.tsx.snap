@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search shallow components should render 1`] = `
+<DocumentFragment>
+  <section
+    role="search"
+  >
+    <form
+      class="main-search"
+      data-testid="main-search-form"
+      style="--main-button-color: #00639a;"
+    >
+      <div
+        class="dropdown-container"
+      >
+        <button
+          class="button primary dropdown"
+          type="button"
+        >
+          UniProtKB
+        </button>
+        <div
+          class="dropdown-menu"
+        />
+      </div>
+      <input
+        aria-label="Text query in uniprotkb"
+        class="main-search__input"
+        data-testid="main-search-input"
+        type="text"
+        value=""
+      />
+      <button
+        class="button primary"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+    <div
+      class="search-container-footer"
+    >
+      <div>
+        Examples: 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          p53
+        </button>
+        , 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          Human EGFR
+        </button>
+        , 
+        <button
+          class="button tertiary"
+          type="button"
+        >
+          Albumin
+        </button>
+      </div>
+      <div>
+        <a
+          class="button tertiary"
+          href="/uploadlists"
+        >
+          Search with a list of IDs
+        </a>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

@@ -7,7 +7,7 @@ import UniParcColumnConfiguration, {
 import uniParcConverter from '../../adapters/uniParcConverter';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
-import data from '../../__mocks__/entryModelData.json';
+import data from '../../__mocks__/entryModelData';
 
 jest.mock('../../../tools/utils/storage');
 

@@ -1,11 +1,16 @@
-import { FC, ReactNode, useMemo } from 'react';
+import { FC, ReactNode, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, DataTable, ExternalLink } from 'franklin-sites';
+import {
+  Card,
+  DataTableWithLoader,
+  ExternalLink,
+  Loader,
+} from 'franklin-sites';
 
+import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 
-import useStaggeredRenderingHelper from '../../../shared/hooks/useStaggeredRenderingHelper';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
@@ -18,14 +23,18 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { Column } from '../../../shared/config/columns';
 import {
   databaseToEntryType,
+  UniParcAPIModel,
   UniParcXRef,
+  XRefsInternalDatabasesEnum,
 } from '../../adapters/uniParcConverter';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
 import './styles/XRefsSection.scss';
+import '../../../shared/components/results/styles/results-view.scss';
 
 const getColumns = (
   templateMap: Map<string, string>
@@ -38,8 +47,11 @@ const getColumns = (
     label: 'Database',
     name: 'database',
     render(xref) {
+      if (!xref.database) {
+        return null;
+      }
       let cell: ReactNode = xref.database;
-      const entryType = databaseToEntryType[xref.database];
+      const entryType = databaseToEntryType.get(xref.database);
       if (entryType === EntryType.REVIEWED) {
         cell = (
           <>
@@ -66,10 +78,13 @@ const getColumns = (
     label: 'Identifier',
     name: 'identifier',
     render(xref) {
+      if (!xref.id) {
+        return null;
+      }
       let cell: ReactNode = xref.id;
       if (
-        xref.database === 'UniProtKB/Swiss-Prot' ||
-        xref.database === 'UniProtKB/TrEMBL'
+        xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+        xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
       ) {
         // internal link
         cell = (
@@ -84,7 +99,7 @@ const getColumns = (
           </Link>
         );
       } else {
-        const template = templateMap.get(xref.database);
+        const template = xref.database && templateMap.get(xref.database);
         if (template) {
           cell = (
             <ExternalLink url={template.replace('%id', xref.id)}>
@@ -104,7 +119,7 @@ const getColumns = (
     label: 'Version',
     name: 'version',
     render: (xref) =>
-      'version' in xref && (
+      xref.version && (
         <span className={xref.active ? undefined : 'xref-inactive'}>
           {xref.version}
         </span>
@@ -113,39 +128,39 @@ const getColumns = (
   {
     label: 'Organism',
     name: 'organism',
-    // eslint-disable-next-line consistent-return
-    render(xref) {
-      const taxProps = xref.properties?.find(
-        (prop) => prop.key === 'NCBI_taxonomy_id'
-      );
-      if (taxProps) {
-        return (
-          <span className={xref.active ? undefined : 'xref-inactive'}>
-            {taxProps.value}
-          </span>
-        );
-      }
-    },
+    render: (xref) =>
+      xref.organism && (
+        <OrganismDataView
+          organism={xref.organism}
+          className={xref.active ? undefined : 'xref-inactive'}
+        />
+      ),
   },
   {
     label: 'First seen',
     name: 'first_seen',
-    // note make than time element
-    render: (xref) => (
-      <span className={xref.active ? undefined : 'xref-inactive'}>
-        {xref.created}
-      </span>
-    ),
+    render: (xref) =>
+      xref.created && (
+        <time
+          className={xref.active ? undefined : 'xref-inactive'}
+          dateTime={new Date(xref.created).toISOString()}
+        >
+          {xref.created}
+        </time>
+      ),
   },
   {
     label: 'Last seen',
     name: 'last_seen',
-    // note make than time element
-    render: (xref) => (
-      <span className={xref.active ? undefined : 'xref-inactive'}>
-        {xref.lastUpdated}
-      </span>
-    ),
+    render: (xref) =>
+      xref.lastUpdated && (
+        <time
+          className={xref.active ? undefined : 'xref-inactive'}
+          dateTime={new Date(xref.lastUpdated).toISOString()}
+        >
+          {xref.lastUpdated}
+        </time>
+      ),
   },
   {
     label: 'Active',
@@ -179,33 +194,34 @@ const getTemplateMap = (dataDB?: DataDBModel) =>
   new Map(dataDB?.map((db) => [db.displayName, db.uriLink]));
 
 type Props = {
-  data?: UniParcXRef[];
+  xrefData: UseDataAPIWithStaleState<UniParcAPIModel>;
 };
 
-const XRefsSection: FC<Props> = ({ data }) => {
-  // TODO: switch to using UniParc-specific database endpoint when available
-  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
-  // TODO: handle xrefs filtering from location.search after endpoint schema change
-  // const { search } = useLocation();
-
+const XRefsSection: FC<Props> = ({ xrefData }) => {
   const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
     `table columns for ${Namespace.uniparc} xrefs`,
     defaultColumns
   );
 
+  // TODO: switch to using UniParc-specific database endpoint when available
+  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
   const columns = useMemo(() => getColumns(getTemplateMap(dataDB)), [dataDB]);
 
-  const nItemsToRender = useStaggeredRenderingHelper({
-    first: 100,
-    max: data?.length,
-  });
+  const [nItemsToRender, setNItemsToRender] = useState(25);
 
-  if (!data?.length) {
+  if (xrefData.loading && !xrefData.isStale) {
+    return <Loader />;
+  }
+
+  if (!xrefData.data?.uniParcCrossReferences?.length) {
     return null;
   }
 
   return (
-    <Card title={getEntrySectionNameAndId(EntrySection.XRefs).name}>
+    <Card
+      title={getEntrySectionNameAndId(EntrySection.XRefs).name}
+      className={xrefData.isStale ? 'is-stale' : undefined}
+    >
       <div className="button-group">
         {tableColumns && (
           <CustomiseButton
@@ -214,8 +230,12 @@ const XRefsSection: FC<Props> = ({ data }) => {
           />
         )}
       </div>
-      <DataTable
-        data={data.slice(0, nItemsToRender)}
+      <DataTableWithLoader
+        onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}
+        hasMoreData={
+          nItemsToRender < xrefData.data?.uniParcCrossReferences.length
+        }
+        data={xrefData.data.uniParcCrossReferences.slice(0, nItemsToRender)}
         getIdKey={getIdKey}
         density="compact"
         columns={columns}

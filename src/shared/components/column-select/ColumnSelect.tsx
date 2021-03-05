@@ -12,10 +12,20 @@ import {
   Column,
   nsToPrimaryKeyColumn,
   nsToDefaultColumns,
+  nsToColumnConfig,
 } from '../../config/columns';
 
 import { moveItemInList, removeItemFromList } from '../../utils/utils';
-import { getFieldDataForColumns, getTabTitle, prepareFieldData } from './utils';
+import {
+  getFieldDataForColumns,
+  getTabTitle,
+  prepareFieldData,
+  prepareFieldDataFromColumnConfig,
+} from './utils';
+import {
+  mainNamespaces,
+  supportingDataNamespaces,
+} from '../../types/namespaces';
 
 import {
   ReceivedFieldData,
@@ -35,13 +45,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   if (!namespace) {
     throw new Error('No namespace provided');
   }
-  const [primaryKeyColumn, defaultColumns] = useMemo(
-    () => [
-      nsToPrimaryKeyColumn[namespace] as Column,
-      nsToDefaultColumns[namespace] as Column[],
-    ],
-    [namespace]
-  );
+  const primaryKeyColumn = nsToPrimaryKeyColumn[namespace] as Column;
+  const defaultColumns = nsToDefaultColumns[namespace] as Column[];
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -78,15 +83,27 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   );
 
   const { loading, data } = useDataApi<ReceivedFieldData>(
-    namespace && apiUrls.resultsFields(namespace)
+    // No configure endpoint for supporting data
+    namespace && mainNamespaces.has(namespace)
+      ? apiUrls.resultsFields(namespace)
+      : null
   );
 
-  if (loading || !data) {
+  // Exclude the primaryKeyColumn in the tabs as users can't toggle selection
+  const fieldData = useMemo(
+    () =>
+      supportingDataNamespaces.has(namespace)
+        ? prepareFieldDataFromColumnConfig(
+            nsToColumnConfig[namespace],
+            primaryKeyColumn
+          )
+        : prepareFieldData(data, primaryKeyColumn),
+    [namespace, data, primaryKeyColumn]
+  );
+
+  if (loading) {
     return <Loader />;
   }
-
-  // Exclude the primaryKeyColumn in the tabs as users can't toggle selection
-  const fieldData = prepareFieldData(data, primaryKeyColumn);
 
   const fieldDataForSelectedColumns = getFieldDataForColumns(
     removableSelectedColumns,
@@ -128,7 +145,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
       >
         Reset to default
       </Button>
-      <Tabs>{tabs}</Tabs>
+      {tabs.length ? <Tabs>{tabs}</Tabs> : undefined}
     </div>
   );
 };

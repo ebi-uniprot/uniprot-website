@@ -1,5 +1,6 @@
-import { FC } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { FC, useMemo } from 'react';
+import { useRouteMatch, useLocation } from 'react-router-dom';
+import { stringify } from 'query-string';
 import { Loader } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -9,29 +10,48 @@ import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
+import XRefsFacets from './XRefsFacets';
+import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import XRefsFacets from './XRefsFacets';
 
 const Entry: FC = () => {
   const match = useRouteMatch<{ accession: string }>(
     LocationToPath[Location.UniParcEntry]
   );
+  const { search } = useLocation();
 
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.uniparc.entry(accession);
-  const { loading, data, status, error, headers } = useDataApi<UniParcAPIModel>(
-    baseURL
+  const { loading, data, status, error } = useDataApi<UniParcAPIModel>(
+    `${baseURL}?query=${UniParcColumn.sequence}`
   );
+
+  const xrefsURL =
+    baseURL +
+    useMemo(() => {
+      const { selectedFacets } = getParamsFromURL(search);
+      if (!selectedFacets.length) {
+        return '';
+      }
+      return `?${stringify(
+        Object.fromEntries(
+          selectedFacets.map(({ name, value }) => [name, value])
+        )
+      )}`;
+    }, [search]);
+  const xrefDataObject = useDataApiWithStale<UniParcAPIModel>(xrefsURL);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
@@ -45,7 +65,7 @@ const Entry: FC = () => {
 
   return (
     <SideBarLayout
-      sidebar={<XRefsFacets xrefs={transformedData.uniParcCrossReferences} />}
+      sidebar={<XRefsFacets xrefs={xrefDataObject} />}
       className="entry-page"
       title={
         <ErrorBoundary>
@@ -58,7 +78,7 @@ const Entry: FC = () => {
         </ErrorBoundary>
       }
     >
-      <EntryMain transformedData={transformedData} metadata={headers} />
+      <EntryMain transformedData={transformedData} xrefs={xrefDataObject} />
     </SideBarLayout>
   );
 };

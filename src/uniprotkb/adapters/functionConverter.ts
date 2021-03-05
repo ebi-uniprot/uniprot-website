@@ -170,7 +170,7 @@ const convertFunction = (data: UniProtkbAPIModel) => {
       };
     });
     convertedSection.goTerms = new Map(
-      Object.entries(groupBy(goTerms, (term: GoTerm) => term.aspect))
+      Object.entries(groupBy(goTerms, (term) => term.aspect))
     ) as GroupedGoTerms;
   }
   return convertedSection;

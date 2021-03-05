@@ -1,7 +1,11 @@
-import { FC, useState, useEffect } from 'react';
-import { uniq } from 'lodash-es';
+import { FC, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Loader, Publication, DataListWithLoader } from 'franklin-sites';
+import {
+  Loader,
+  DataListWithLoader,
+  InfoList,
+  ExternalLink,
+} from 'franklin-sites';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -15,14 +19,72 @@ import formatCitationData, {
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
-import { Location, LocationToPath } from '../../../app/config/urls';
 
-import { LiteratureForProteinAPI } from '../../types/literatureTypes';
+import { LiteratureResultsAPI, Reference } from '../../types/literatureTypes';
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import { getDatabaseInfoByName } from '../../config/database';
+import { processUrlTemplate } from '../protein-data-views/XRefView';
+import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
 
-const linkBuilder = (author: string) => ({
-  pathname: LocationToPath[Location.UniProtKBResults],
-  search: `query=lit_author:"${author}"`,
-});
+const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
+  reference,
+  accession,
+}) => {
+  const {
+    referencePositions,
+    referenceComments,
+    source,
+    sourceCategories,
+  } = reference;
+
+  const url = useMemo(() => {
+    const databaseInfo = getDatabaseInfoByName(source.name);
+    if (databaseInfo && source.id) {
+      return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
+    }
+    return null;
+  }, [source]);
+
+  const infoListData = [
+    {
+      title: 'Source',
+      content: (
+        <>
+          <EntryTypeIcon entryType={source.name} />
+          {url ? (
+            <ExternalLink url={url}>{source.name}</ExternalLink>
+          ) : (
+            source.name
+          )}
+          {source.name === 'ORCID' && (
+            <>
+              {' ('}
+              <ExternalLink
+                url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
+              >
+                see community submission
+              </ExternalLink>
+              ).
+            </>
+          )}
+        </>
+      ),
+    },
+    {
+      title: 'Cited for',
+      content: referencePositions?.join(', '),
+    },
+    {
+      title: 'Tissue',
+      content: referenceComments?.map(({ value }) => value).join(', '),
+    },
+    {
+      title: 'Categories',
+      content: sourceCategories?.join(', '),
+    },
+  ];
+  return <InfoList infoData={infoListData} isCompact className="text-block" />;
+};
 
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
@@ -33,7 +95,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   });
 
   const [url, setUrl] = useState(initialUrl);
-  const [allResults, setAllResults] = useState<LiteratureForProteinAPI[]>([]);
+  const [allResults, setAllResults] = useState<LiteratureResultsAPI[]>([]);
   const [metaData, setMetaData] = useState<{
     total: number;
     nextUrl?: string;
@@ -41,7 +103,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
-    results: LiteratureForProteinAPI[];
+    results: LiteratureResultsAPI[];
   }>(url);
 
   useEffect(() => {
@@ -75,11 +137,9 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   return (
     <section>
       <h2>Publications for {accession}</h2>
-      <DataListWithLoader
+      <DataListWithLoader<LiteratureResultsAPI>
         getIdKey={(item, index) => {
-          const {
-            reference: { citation },
-          } = item;
+          const { citation } = item;
           const pubMedXref = getCitationPubMedId(citation);
           let id = pubMedXref?.id;
           if (!id) {
@@ -90,57 +150,28 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           return id || `${index}`;
         }}
         data={allResults}
-        dataRenderer={({
-          reference,
-          publicationSource,
-          statistics,
-          categories,
-        }) => {
-          const { citation, referencePositions, referenceComments } = reference;
-
+        dataRenderer={({ references, statistics, citation }) => {
           const { pubmedId, journalInfo } = formatCitationData(citation);
 
-          const infoListData = [
-            {
-              title: 'Cited for',
-              content: referencePositions,
-            },
-            {
-              title: 'Tissue',
-              content: referenceComments && (
-                <ul className="no-bullet">
-                  {referenceComments.map((comment) => (
-                    <li key={comment.value}>{comment.value}</li>
-                  ))}
-                </ul>
-              ),
-            },
-            {
-              title: 'Categories',
-              content: categories && (
-                <ul className="no-bullet">
-                  {uniq(categories).map((category) => (
-                    <li key={category}>{category}</li>
-                  ))}
-                </ul>
-              ),
-            },
-            {
-              title: 'Source',
-              content: publicationSource,
-            },
-          ];
           return (
-            reference && (
-              <Publication
+            references.length > 0 && (
+              <LiteratureCitation
                 {...citation}
                 abstract={citation.literatureAbstract}
-                infoData={infoListData}
                 statistics={statistics}
                 pubmedId={pubmedId}
                 journalInfo={journalInfo}
-                linkBuilder={linkBuilder}
-              />
+              >
+                {references.map((reference, index) => (
+                  // No obvious key as there can be more than 1 for the same source
+                  <PublicationReference
+                    reference={reference}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    accession={accession}
+                  />
+                ))}
+              </LiteratureCitation>
             )
           );
         }}

@@ -17,8 +17,7 @@ import useDataApi from '../../shared/hooks/useDataApi';
 
 import { addMessage } from '../../messages/state/messagesActions';
 
-import uniProtKBApiUrls from '../../shared/config/apiUrls';
-import uniParcApiUrls from '../../uniparc/config/apiUrls';
+import apiUrls from '../../shared/config/apiUrls';
 
 import entryToFASTAWithHeaders from '../../shared/utils/entryToFASTAWithHeaders';
 import { uniProtKBAccessionRegEx } from '../../uniprotkb/utils';
@@ -28,6 +27,7 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../messages/types/messagesTypes';
+import { Namespace } from '../../shared/types/namespaces';
 import { APISequenceData } from '../blast/types/apiSequenceData';
 import {
   EntryType,
@@ -42,12 +42,12 @@ const getURLForAccessionOrID = (input: string) => {
 
   // UniParc accession
   if (cleanedInput.startsWith('UPI')) {
-    return uniParcApiUrls.entry(cleanedInput);
+    return apiUrls.entry(cleanedInput, Namespace.uniparc);
   }
 
   // UniProtKB accession
   if (uniProtKBAccessionRegEx.test(cleanedInput)) {
-    return uniProtKBApiUrls.entry(cleanedInput);
+    return apiUrls.entry(cleanedInput, Namespace.uniprotkb);
   }
 
   // UniProtKB ID
@@ -57,7 +57,7 @@ const getURLForAccessionOrID = (input: string) => {
       'sequence,id,reviewed,protein_name,organism_name,protein_existence,sequence_version',
   });
 
-  return `${uniProtKBApiUrls.search()}?${query}`;
+  return `${apiUrls.search()}?${query}`;
 };
 
 // name as a NCBI ID formatted UniProt-style

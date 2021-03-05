@@ -440,6 +440,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
           >
             3124
             <test-file-stub
+              data-testid="external-link-icon"
               width="12.5"
             />
           </a>
@@ -646,6 +647,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
     >
       sequence
       <test-file-stub
+        data-testid="external-link-icon"
         width="12.5"
       />
     </a>
@@ -687,7 +689,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     <h3>
       molecule value
     </h3>
-    <div>
+    <div
+      id="id1term"
+    >
       <strong>
         location value
       </strong>
@@ -839,6 +843,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
     >
       sequence
       <test-file-stub
+        data-testid="external-link-icon"
         width="12.5"
       />
     </a>
@@ -1507,6 +1512,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_i
   >
     NCBI
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>
@@ -2059,7 +2065,15 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `
+<DocumentFragment>
+  <a
+    href="/uniparc/UPI000012A72A"
+  >
+    UPI000012A72A
+  </a>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "version": version 1`] = `
 <DocumentFragment>

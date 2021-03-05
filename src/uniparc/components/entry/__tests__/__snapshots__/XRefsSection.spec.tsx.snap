@@ -99,19 +99,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10254
-                </span>
+                <a
+                  href="/taxonomy/10254"
+                  title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                >
+                  Vaccinia virus (strain Western Reserve) (VACV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2007-01-23T00:00:00.000Z"
+                >
                   2007-01-23
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-12-02
-                </span>
+                <time
+                  datetime="2021-02-10T00:00:00.000Z"
+                >
+                  2021-02-10
+                </time>
               </td>
               <td>
                 <span>
@@ -152,25 +159,29 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span
+                <a
                   class="xref-inactive"
+                  href="/taxonomy/10254"
+                  title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
                 >
-                  10254
-                </span>
+                  Vaccinia virus (strain Western Reserve) (VACV)
+                </a>
               </td>
               <td>
-                <span
+                <time
                   class="xref-inactive"
+                  datetime="1988-11-01T00:00:00.000Z"
                 >
                   1988-11-01
-                </span>
+                </time>
               </td>
               <td>
-                <span
+                <time
                   class="xref-inactive"
+                  datetime="2004-11-23T00:00:00.000Z"
                 >
                   2004-11-23
-                </span>
+                </time>
               </td>
               <td>
                 <span
@@ -207,19 +218,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10254
-                </span>
+                <a
+                  href="/taxonomy/10254"
+                  title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                >
+                  Vaccinia virus (strain Western Reserve) (VACV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2018-02-28T00:00:00.000Z"
+                >
                   2018-02-28
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-12-02
-                </span>
+                <time
+                  datetime="2021-02-10T00:00:00.000Z"
+                >
+                  2021-02-10
+                </time>
               </td>
               <td>
                 <span>
@@ -254,19 +272,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  397342
-                </span>
+                <a
+                  href="/taxonomy/397342"
+                  title="Horsepox virus (HSPV), taxon ID 397342"
+                >
+                  Horsepox virus (HSPV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2006-10-03T00:00:00.000Z"
+                >
                   2006-10-03
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-12-02
-                </span>
+                <time
+                  datetime="2021-02-10T00:00:00.000Z"
+                >
+                  2021-02-10
+                </time>
               </td>
               <td>
                 <span>
@@ -301,19 +326,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  32606
-                </span>
+                <a
+                  href="/taxonomy/32606"
+                  title="Rabbitpox virus, taxon ID 32606"
+                >
+                  Rabbitpox virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2004-07-05T00:00:00.000Z"
+                >
                   2004-07-05
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-12-02
-                </span>
+                <time
+                  datetime="2021-02-10T00:00:00.000Z"
+                >
+                  2021-02-10
+                </time>
               </td>
               <td>
                 <span>
@@ -348,19 +380,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10245
-                </span>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2006-04-18T00:00:00.000Z"
+                >
                   2006-04-18
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-12-02
-                </span>
+                <time
+                  datetime="2021-02-10T00:00:00.000Z"
+                >
+                  2021-02-10
+                </time>
               </td>
               <td>
                 <span>
@@ -395,19 +434,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10243
-                </span>
+                <a
+                  href="/taxonomy/10243"
+                  title="Cowpox virus (CPV), taxon ID 10243"
+                >
+                  Cowpox virus (CPV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2004-07-05T00:00:00.000Z"
+                >
                   2004-07-05
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-12-02
-                </span>
+                <time
+                  datetime="2021-02-10T00:00:00.000Z"
+                >
+                  2021-02-10
+                </time>
               </td>
               <td>
                 <span>
@@ -449,18 +495,20 @@ exports[`SequenceSection component should render the SequenceSection properly an
               </td>
               <td />
               <td>
-                <span
+                <time
                   class="xref-inactive"
+                  datetime="2004-07-05T00:00:00.000Z"
                 >
                   2004-07-05
-                </span>
+                </time>
               </td>
               <td>
-                <span
+                <time
                   class="xref-inactive"
+                  datetime="2011-06-28T00:00:00.000Z"
                 >
                   2011-06-28
-                </span>
+                </time>
               </td>
               <td>
                 <span
@@ -487,19 +535,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10245
-                </span>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2005-10-06T00:00:00.000Z"
+                >
                   2005-10-06
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-08
-                </span>
+                <time
+                  datetime="2020-11-02T00:00:00.000Z"
+                >
+                  2020-11-02
+                </time>
               </td>
               <td>
                 <span>
@@ -531,18 +586,20 @@ exports[`SequenceSection component should render the SequenceSection properly an
               </td>
               <td />
               <td>
-                <span
+                <time
                   class="xref-inactive"
+                  datetime="2004-07-08T00:00:00.000Z"
                 >
                   2004-07-08
-                </span>
+                </time>
               </td>
               <td>
-                <span
+                <time
                   class="xref-inactive"
+                  datetime="2005-07-09T00:00:00.000Z"
                 >
                   2005-07-09
-                </span>
+                </time>
               </td>
               <td>
                 <span
@@ -569,19 +626,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10245
-                </span>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2003-03-12T00:00:00.000Z"
+                >
                   2003-03-12
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-29
-                </span>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -606,19 +670,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10254
-                </span>
+                <a
+                  href="/taxonomy/10254"
+                  title="Vaccinia virus (strain Western Reserve) (VACV), taxon ID 10254"
+                >
+                  Vaccinia virus (strain Western Reserve) (VACV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2003-06-16T00:00:00.000Z"
+                >
                   2003-06-16
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-29
-                </span>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -643,19 +714,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  32606
-                </span>
+                <a
+                  href="/taxonomy/32606"
+                  title="Rabbitpox virus, taxon ID 32606"
+                >
+                  Rabbitpox virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2004-03-31T00:00:00.000Z"
+                >
                   2004-03-31
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-29
-                </span>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -680,19 +758,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  397342
-                </span>
+                <a
+                  href="/taxonomy/397342"
+                  title="Horsepox virus (HSPV), taxon ID 397342"
+                >
+                  Horsepox virus (HSPV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2006-09-02T00:00:00.000Z"
+                >
                   2006-09-02
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-29
-                </span>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -717,19 +802,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10243
-                </span>
+                <a
+                  href="/taxonomy/10243"
+                  title="Cowpox virus (CPV), taxon ID 10243"
+                >
+                  Cowpox virus (CPV)
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2011-08-10T00:00:00.000Z"
+                >
                   2011-08-10
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-29
-                </span>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -754,19 +846,26 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10245
-                </span>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2013-04-24T00:00:00.000Z"
+                >
                   2013-04-24
-                </span>
+                </time>
               </td>
               <td>
-                <span>
-                  2020-09-29
-                </span>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -791,19 +890,378 @@ exports[`SequenceSection component should render the SequenceSection properly an
                 </span>
               </td>
               <td>
-                <span>
-                  10245
-                </span>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
               </td>
               <td>
-                <span>
+                <time
+                  datetime="2013-04-24T00:00:00.000Z"
+                >
                   2013-04-24
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
                 </span>
               </td>
               <td>
                 <span>
-                  2020-09-29
+                  AIX99207
                 </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2014-12-15T00:00:00.000Z"
+                >
+                  2014-12-15
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  AIX99412
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2014-12-15T00:00:00.000Z"
+                >
+                  2014-12-15
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  ALF05084
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2015-10-11T00:00:00.000Z"
+                >
+                  2015-10-11
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  ALF05335
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2015-10-11T00:00:00.000Z"
+                >
+                  2015-10-11
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  AQQ12956
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10243"
+                  title="Cowpox virus (CPV), taxon ID 10243"
+                >
+                  Cowpox virus (CPV)
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2017-02-22T00:00:00.000Z"
+                >
+                  2017-02-22
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  AQY54862
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2017-04-08T00:00:00.000Z"
+                >
+                  2017-04-08
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  AUD55251
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/397342"
+                  title="Horsepox virus (HSPV), taxon ID 397342"
+                >
+                  Horsepox virus (HSPV)
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2018-07-24T00:00:00.000Z"
+                >
+                  2018-07-24
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
+              </td>
+              <td>
+                <span>
+                  Yes
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span>
+                  EMBL
+                </span>
+              </td>
+              <td>
+                <span>
+                  CAA26010
+                </span>
+              </td>
+              <td>
+                <span>
+                  1
+                </span>
+              </td>
+              <td>
+                <a
+                  href="/taxonomy/10245"
+                  title="Vaccinia virus, taxon ID 10245"
+                >
+                  Vaccinia virus
+                </a>
+              </td>
+              <td>
+                <time
+                  datetime="2003-03-12T00:00:00.000Z"
+                >
+                  2003-03-12
+                </time>
+              </td>
+              <td>
+                <time
+                  datetime="2020-12-03T00:00:00.000Z"
+                >
+                  2020-12-03
+                </time>
               </td>
               <td>
                 <span>
@@ -813,6 +1271,17 @@ exports[`SequenceSection component should render the SequenceSection properly an
             </tr>
           </tbody>
         </table>
+        <div
+          class="data-loader__loading"
+        >
+          <button
+            class="button secondary"
+            data-testid="click-to-load-more"
+            type="button"
+          >
+            Load more data
+          </button>
+        </div>
       </div>
     </div>
   </section>

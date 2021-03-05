@@ -126,6 +126,9 @@ module.exports = (env, argv) => {
             fs.realpathSync(
               `${__dirname}/node_modules/interaction-viewer/styles`
             ),
+            fs.realpathSync(
+              `${__dirname}/node_modules/tippy.js/dist/tippy.css`
+            ),
           ],
           use: [
             {
@@ -282,6 +285,11 @@ module.exports = (env, argv) => {
             // dependencies used *only* by it (use `yarn why <dependency>` to find)
             test: /[\\/]node_modules[\\/]@geneontology|amigo2-instance-data|react-icons|react-popper|react-transition-group|popper\.js|underscore|bbop-core[\\/]/,
             name: 'geneontology',
+            chunks: 'all',
+          },
+          sibSubcell: {
+            test: /[\\/]node_modules[\\/]@swissprot\/swissbiopics-visualizer|tippy\.js[\\/]/,
+            name: 'sib-subcell',
             chunks: 'all',
           },
           react: {

@@ -1,0 +1,36 @@
+.home-page__header {
+  .letter-group {
+    color: currentColor;
+    font-weight: 700;
+    outline: none;
+    cursor: text;
+  }
+
+  .letter {
+    opacity: 0;
+    animation: appear 150ms 1 both;
+  }
+
+  .cursor {
+    margin-left: -0.1ch;
+    opacity: 0;
+    user-select: none;
+  }
+
+  &:focus,
+  &:focus-within,
+  &:hover {
+    & .cursor {
+      animation: appear 0.75s infinite 0.5s both alternate;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

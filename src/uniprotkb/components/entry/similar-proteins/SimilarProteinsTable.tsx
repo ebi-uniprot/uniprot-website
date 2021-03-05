@@ -75,11 +75,9 @@ const SimilarProteinsTable: FC<{ members: string[] }> = ({ members }) => {
     return null;
   }
 
-  const { results } = data;
-
   return (
     <DataTable
-      data={results}
+      data={data.results}
       columns={columnConfig}
       getIdKey={(row) => row.primaryAccession}
       density="compact"

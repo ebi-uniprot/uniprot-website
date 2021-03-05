@@ -37,6 +37,7 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
   >
     id value
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>
@@ -54,7 +55,7 @@ exports[`ProteomesColumnConfiguration component should render column "lineage": 
   <a
     href="/taxonomy/9606"
   >
-    Homo sapiens
+    Homo sapiens (family)
   </a>
 </DocumentFragment>
 `;
@@ -67,7 +68,12 @@ exports[`ProteomesColumnConfiguration component should render column "mnemonic":
 
 exports[`ProteomesColumnConfiguration component should render column "organism": organism 1`] = `
 <DocumentFragment>
-  Homo sapiens
+  <a
+    href="/taxonomy/9606"
+    title="Homo sapiens (Human), taxon ID 9606"
+  >
+    Homo sapiens (Human)
+  </a>
 </DocumentFragment>
 `;
 
@@ -75,6 +81,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism_i
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
+    title="Homo sapiens (Human), taxon ID 9606"
   >
     9606
   </a>
@@ -94,7 +101,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
 exports[`ProteomesColumnConfiguration component should render column "upid": upid 1`] = `
 <DocumentFragment>
   <a
-    href="/proteome/UP000005640"
+    href="/proteomes/UP000005640"
   >
     UP000005640
   </a>

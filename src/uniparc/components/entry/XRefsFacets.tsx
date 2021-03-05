@@ -1,168 +1,157 @@
 import { useMemo, FC, ReactNode } from 'react';
-import { countBy } from 'lodash-es';
-import { Facets, Facet } from 'franklin-sites';
+import { countBy, uniqBy } from 'lodash-es';
+import { Facets, Loader } from 'franklin-sites';
 
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 
-import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
-
-import useDataApi from '../../../shared/hooks/useDataApi';
-
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { Namespace } from '../../../shared/types/namespaces';
 
 import {
-  UniParcXRef,
   databaseToEntryType,
+  UniParcAPIModel,
+  UniParcXRef,
+  XRefsInternalDatabases,
+  XRefsInternalDatabasesEnum,
 } from '../../adapters/uniParcConverter';
-import { FacetValue } from '../../../uniprotkb/types/responseTypes';
-import { Taxonomy } from '../../../proteomes/adapters/proteomesConverter';
+import {
+  FacetObject,
+  FacetValue,
+} from '../../../uniprotkb/types/responseTypes';
+import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
-// Max number of items that we can ask the API for in one request
-const ITEMS_DISPLAYED = 5;
-const MAX_API_SIZE = 500;
+import '../../../shared/components/results/styles/results-view.scss';
 
-const sortByCount = (a: FacetValue, b: FacetValue) => b.count - a.count;
+const exceptions = new Set<string | XRefsInternalDatabases>([
+  XRefsInternalDatabasesEnum.REVIEWED,
+  XRefsInternalDatabasesEnum.UNREVIEWED,
+]);
 
-const XRefsFacets: FC<{ xrefs?: UniParcXRef[] }> = ({ xrefs }) => {
-  const [taxonomyFacetValues, priorityURL, extraURL] = useMemo(() => {
-    const facetValues = Object.entries(
-      countBy(
-        xrefs,
-        (xref) =>
-          xref.properties?.find(
-            (property) => property.key === 'NCBI_taxonomy_id'
-          )?.value
-      )
-    )
-      .filter(([value]) => value !== 'undefined')
-      .map(([value, count]) => ({ value, count }))
-      .sort(sortByCount)
-      .slice(0, MAX_API_SIZE + ITEMS_DISPLAYED);
+const sortByCount = (a: FacetValue, b: FacetValue) => {
+  if (exceptions.has(a.value) && exceptions.has(b.value)) {
+    return a.value === XRefsInternalDatabasesEnum.REVIEWED ? -1 : 1;
+  }
+  if (exceptions.has(a.value)) {
+    return -1;
+  }
+  if (exceptions.has(b.value)) {
+    return 1;
+  }
+  return b.count - a.count;
+};
 
-    const mapper = ({ value }: FacetValue) => `(id:${value})`;
+type OrganismTuple = [taxon: OrganismData, count: number];
 
-    const priorityBatch = facetValues.slice(0, ITEMS_DISPLAYED);
-    const priorityURL = priorityBatch.length
-      ? getAPIQueryUrl({
-          namespace: Namespace.taxonomy,
-          query: priorityBatch.map(mapper).sort().join(' OR '),
-          size: priorityBatch.length,
-        })
-      : undefined;
-
-    const extraBatch = facetValues.slice(
-      ITEMS_DISPLAYED,
-      MAX_API_SIZE + ITEMS_DISPLAYED
+const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject[] => {
+  if (!xrefs?.length) {
+    return [];
+  }
+  const organisms = xrefs
+    .map((xref) => xref.organism)
+    .filter((organism: OrganismData | undefined): organism is OrganismData =>
+      Boolean(organism)
     );
-    const extraURL = extraBatch.length
-      ? getAPIQueryUrl({
-          namespace: Namespace.taxonomy,
-          query: extraBatch.map(mapper).sort().join(' OR '),
-          size: extraBatch.length,
+  const taxonObjects = uniqBy<OrganismData>(
+    organisms,
+    (organism) => organism.taxonId
+  );
+  const taxonCounts = countBy<OrganismData>(
+    organisms,
+    (organism) => organism.taxonId
+  );
+  const taxonomyFacetValues = taxonObjects
+    .map((taxon): OrganismTuple => [taxon, taxonCounts[taxon.taxonId]])
+    .sort(([, countA], [, countB]) => countB - countA);
+
+  return [
+    // Status facet
+    {
+      label: 'Status',
+      name: 'active', // needs to match the accepted field in the API
+      values: Object.entries(countBy(xrefs, (xref) => xref.active))
+        .map(([value, count]) => ({
+          label: value === 'true' ? 'Active' : 'Inactive',
+          value,
+          count,
+        }))
+        .sort(sortByCount),
+      allowMultipleSelection: false,
+    },
+    // Organisms facet
+    {
+      label: 'Organisms',
+      name: 'taxonIds', // needs to match the accepted field in the API
+      values: taxonomyFacetValues.map(([taxon, count]) => {
+        let title = `taxon ID ${taxon.taxonId}`;
+        if (taxon?.commonName || taxon?.scientificName) {
+          title = `${taxon.commonName ? `${taxon.commonName}, ` : ''}${
+            taxon.scientificName
+          }, ${title}`;
+        }
+        return {
+          label: (
+            <span title={title}>
+              {taxon.commonName || taxon.scientificName || taxon.taxonId}
+            </span>
+          ),
+          value: `${taxon.taxonId}`,
+          count,
+        };
+      }),
+      allowMultipleSelection: false,
+    },
+    {
+      label: 'Databases',
+      name: 'dbTypes',
+      values: Object.entries(countBy(xrefs, (xref) => xref.database))
+        .map(([value, count]) => {
+          let label: ReactNode = value;
+          const entryType = databaseToEntryType.get(value);
+          if (entryType === EntryType.REVIEWED) {
+            label = (
+              <>
+                <EntryTypeIcon entryType={entryType} />
+                UniProtKB reviewed
+              </>
+            );
+          } else if (entryType === EntryType.UNREVIEWED) {
+            label = (
+              <>
+                <EntryTypeIcon entryType={entryType} />
+                UniProtKB unreviewed
+              </>
+            );
+          }
+          return {
+            label,
+            value,
+            count,
+          };
         })
-      : undefined;
-    return [facetValues, priorityURL, extraURL];
-  }, [xrefs]);
+        .sort(sortByCount),
+      allowMultipleSelection: false,
+    },
+  ];
+};
 
-  const priorityData = useDataApi<{ results: Taxonomy[] }>(priorityURL);
-  // wait for the priority to have finished before loading the rest
-  const extraData = useDataApi<{ results: Taxonomy[] }>(
-    priorityData.loading ? undefined : extraURL
+const XRefsFacets: FC<{
+  xrefs?: UseDataAPIWithStaleState<UniParcAPIModel>;
+}> = ({ xrefs }) => {
+  const facets = useMemo(
+    () => xrefsToFacets(xrefs?.data?.uniParcCrossReferences),
+    [xrefs]
   );
 
-  const taxonomyMap = useMemo(
-    () =>
-      new Map(
-        [
-          ...(priorityData.data?.results || []),
-          ...(extraData.data?.results || []),
-        ].map((taxon) => [`${taxon.taxonId}`, taxon])
-      ),
-    [priorityData.data, extraData.data]
-  );
+  if (xrefs?.loading && !xrefs.isStale) {
+    return <Loader />;
+  }
+
+  if (!xrefs?.data) {
+    return null;
+  }
+
   return (
-    <Facets>
-      <Facet
-        data={useMemo(
-          () => ({
-            label: 'Status',
-            name: 'active',
-            values: Object.entries(countBy(xrefs, (xref) => xref.active))
-              .map(([value, count]) => ({
-                label: value === 'true' ? 'Active' : 'Inactive',
-                value,
-                count,
-              }))
-              .sort(sortByCount),
-          }),
-          [xrefs]
-        )}
-      />
-      <Facet
-        data={useMemo(
-          () => ({
-            label: 'Organisms',
-            name: 'organisms',
-            values: taxonomyFacetValues.map(({ value, count }) => {
-              const taxon = taxonomyMap.get(value);
-              return {
-                label: taxon ? (
-                  <span
-                    title={`${taxon.commonName ? `${taxon.commonName}, ` : ''}${
-                      taxon.scientificName
-                    }, taxon ID ${value}`}
-                  >
-                    {taxon.commonName || taxon.scientificName}
-                  </span>
-                ) : (
-                  value
-                ),
-                value,
-                count,
-              };
-            }),
-          }),
-          [taxonomyFacetValues, taxonomyMap]
-        )}
-      />
-      <Facet
-        data={useMemo(
-          () => ({
-            label: 'Databases',
-            name: 'databases',
-            values: Object.entries(countBy(xrefs, (xref) => xref.database))
-              .map(([value, count]) => {
-                let label: ReactNode = value;
-                const entryType = databaseToEntryType[value];
-                if (entryType === EntryType.REVIEWED) {
-                  label = (
-                    <>
-                      <EntryTypeIcon entryType={entryType} />
-                      UniProtKB reviewed
-                    </>
-                  );
-                }
-                if (entryType === EntryType.UNREVIEWED) {
-                  label = (
-                    <>
-                      <EntryTypeIcon entryType={entryType} />
-                      UniProtKB unreviewed
-                    </>
-                  );
-                }
-                return {
-                  label,
-                  value,
-                  count,
-                };
-              })
-              .sort(sortByCount),
-          }),
-          [xrefs]
-        )}
-      />
-    </Facets>
+    <Facets data={facets} className={xrefs.isStale ? 'is-stale' : undefined} />
   );
 };
 

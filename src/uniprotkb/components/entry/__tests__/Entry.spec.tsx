@@ -13,11 +13,13 @@ import apiUrls, {
   getUniProtPublicationsQueryUrl,
 } from '../../../../shared/config/apiUrls';
 
+import { Namespace } from '../../../../shared/types/namespaces';
+
 import entryData from '../../../__mocks__/entryModelData.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
 import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
-import entryPublicationsData from './__mocks__/entryPublicationsData.json';
+import entryPublicationsData from './__mocks__/entryPublicationsData';
 
 const { primaryAccession } = entryData;
 const { primaryAccession: deleteEntryAccession } = deletedEntryData;
@@ -30,10 +32,18 @@ const filteredUrl = getUniProtPublicationsQueryUrl({
   selectedFacets: [{ name: 'study_type', value: 'small_scale' }],
 });
 
-mock.onGet(apiUrls.entry(deleteEntryAccession)).reply(200, deletedEntryData);
-mock.onGet(apiUrls.entry(demergedEntryAccession)).reply(200, demergedEntryData);
-mock.onGet(apiUrls.entry(primaryAccession)).reply(200, entryData);
-mock.onGet(apiUrls.entry(nonHumanEntryAccession)).reply(200, nonHumanEntryData);
+mock
+  .onGet(apiUrls.entry(deleteEntryAccession, Namespace.uniprotkb))
+  .reply(200, deletedEntryData);
+mock
+  .onGet(apiUrls.entry(demergedEntryAccession, Namespace.uniprotkb))
+  .reply(200, demergedEntryData);
+mock
+  .onGet(apiUrls.entry(primaryAccession, Namespace.uniprotkb))
+  .reply(200, entryData);
+mock
+  .onGet(apiUrls.entry(nonHumanEntryAccession, Namespace.uniprotkb))
+  .reply(200, nonHumanEntryData);
 mock
   .onGet(
     getUniProtPublicationsQueryUrl({

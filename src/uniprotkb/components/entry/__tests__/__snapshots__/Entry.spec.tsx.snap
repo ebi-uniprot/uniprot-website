@@ -149,8 +149,9 @@ exports[`Entry should render main 1`] = `
           rec full Name · 
           <a
             href="/taxonomy/9606"
+            title="scientific name (common name), taxon ID 9606"
           >
-            scientific name
+            scientific name (common name)
           </a>
            · 
           <strong>
@@ -712,6 +713,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -1323,6 +1325,7 @@ exports[`Entry should render main 1`] = `
                         >
                           <a
                             href="/taxonomy/9606"
+                            title="scientific name (common name), taxon ID 9606"
                           >
                             scientific name (common name)
                           </a>
@@ -1381,6 +1384,7 @@ exports[`Entry should render main 1`] = `
                           >
                             NCBI
                             <test-file-stub
+                              data-testid="external-link-icon"
                               width="12.5"
                             />
                           </a>
@@ -1517,94 +1521,108 @@ exports[`Entry should render main 1`] = `
                 <div
                   class="card__content"
                 >
-                  <section
-                    class="text-block"
+                  <template
+                    id="sibSwissBioPicsStyle"
+                  />
+                  <div
+                    id="fakeContent"
+                  />
+                  <sib-swissbiopics-sl-0
+                    contentid="fakeContent"
+                    sls=""
+                    taxid="9606"
                   >
-                    <h3>
-                      molecule value
-                    </h3>
-                    <div>
-                      <strong>
-                        location value
-                      </strong>
-                       
-                      <button
-                        aria-controls="24"
-                        aria-expanded="false"
-                        class="evidence-tag svg-colour-unreviewed"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                          title=""
-                        >
-                          1 automatic annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="24"
-                      />
-                      : topology value 
-                      <button
-                        aria-controls="25"
-                        aria-expanded="false"
-                        class="evidence-tag svg-colour-unreviewed"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                          title=""
-                        >
-                          1 automatic annotation
-                        </span>
-                      </button>
-                      <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="25"
-                      />
-                    </div>
                     <section
                       class="text-block"
                     >
-                      value
-                      <button
-                        aria-controls="26"
-                        aria-expanded="false"
-                        class="evidence-tag svg-colour-unreviewed"
-                        data-testid="evidence-tag-trigger"
-                        type="button"
-                      >
-                        <test-file-stub
-                          height="12"
-                          width="12"
-                        />
-                        <span
-                          class="evidence-tag__label"
-                          title=""
-                        >
-                          1 automatic annotation
-                        </span>
-                      </button>
+                      <h3>
+                        molecule value
+                      </h3>
                       <div
-                        class="evidence-tag-content "
-                        data-testid="evidence-tag-content"
-                        id="26"
-                      />
+                        id="id1term"
+                      >
+                        <strong>
+                          location value
+                        </strong>
+                         
+                        <button
+                          aria-controls="33"
+                          aria-expanded="false"
+                          class="evidence-tag svg-colour-unreviewed"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                            title=""
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="33"
+                        />
+                        : topology value 
+                        <button
+                          aria-controls="34"
+                          aria-expanded="false"
+                          class="evidence-tag svg-colour-unreviewed"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                            title=""
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="34"
+                        />
+                      </div>
+                      <section
+                        class="text-block"
+                      >
+                        value
+                        <button
+                          aria-controls="35"
+                          aria-expanded="false"
+                          class="evidence-tag svg-colour-unreviewed"
+                          data-testid="evidence-tag-trigger"
+                          type="button"
+                        >
+                          <test-file-stub
+                            height="12"
+                            width="12"
+                          />
+                          <span
+                            class="evidence-tag__label"
+                            title=""
+                          >
+                            1 automatic annotation
+                          </span>
+                        </button>
+                        <div
+                          class="evidence-tag-content "
+                          data-testid="evidence-tag-content"
+                          id="35"
+                        />
+                      </section>
                     </section>
-                  </section>
+                  </sib-swissbiopics-sl-0>
                 </div>
               </div>
             </section>
@@ -1735,6 +1753,7 @@ exports[`Entry should render main 1`] = `
                           >
                             3124
                             <test-file-stub
+                              data-testid="external-link-icon"
                               width="12.5"
                             />
                           </a>
@@ -1812,6 +1831,34 @@ exports[`Entry should render main 1`] = `
                   <protvista-manager
                     attributes="highlight displaystart displayend selectedid"
                   >
+                    <protvista-zoom-tool
+                      length="10"
+                    >
+                      <span
+                        class="nightingale-button-content"
+                        slot="zoom-in"
+                      >
+                        <test-file-stub
+                          height="19"
+                        />
+                      </span>
+                      <span
+                        class="nightingale-button-content"
+                        slot="zoom-out"
+                      >
+                        <test-file-stub
+                          height="19"
+                        />
+                      </span>
+                      <span
+                        class="nightingale-button-content"
+                        slot="zoom-in-seq"
+                      >
+                        <test-file-stub
+                          height="19"
+                        />
+                      </span>
+                    </protvista-zoom-tool>
                     <protvista-navigation
                       length="10"
                     />
@@ -1919,6 +1966,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -1956,6 +2004,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Submit a new modelling project...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2061,6 +2110,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2098,6 +2148,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2280,6 +2331,7 @@ exports[`Entry should render main 1`] = `
                     >
                       sequence
                       <test-file-stub
+                        data-testid="external-link-icon"
                         width="12.5"
                       />
                     </a>
@@ -2440,6 +2492,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 id value
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2452,6 +2505,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 description value
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>

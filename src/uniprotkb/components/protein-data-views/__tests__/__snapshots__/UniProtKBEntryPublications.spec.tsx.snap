@@ -106,8 +106,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             <li>
               <small>
                 <a
-                  href="//dx.doi.org/10.1073/pnas.0607527103"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://dx.doi.org/10.1073/pnas.0607527103"
+                  rel="noopener"
                   target="_blank"
                 >
                   Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537(
@@ -117,6 +118,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                     2006
                   </time>
                   )
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
                 </a>
               </small>
             </li>
@@ -132,7 +137,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               class="publication__statistics__item"
             >
               <a
-                href="/"
+                href="/uniprotkb?query=(lit_pubmed:17062754)"
               >
                 <section>
                   <small>
@@ -251,8 +256,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             <li>
               <small>
                 <a
-                  href="//dx.doi.org/10.1088/1478-3975/9/5/055005"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://dx.doi.org/10.1088/1478-3975/9/5/055005"
+                  rel="noopener"
                   target="_blank"
                 >
                   Phys. Biol. 9:055005-055005(
@@ -262,6 +268,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                     2012
                   </time>
                   )
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
                 </a>
               </small>
             </li>
@@ -277,7 +287,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               class="publication__statistics__item"
             >
               <a
-                href="/"
+                href="/uniprotkb?query=(lit_pubmed:23011729)"
               >
                 <section>
                   <small>
@@ -420,8 +430,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             <li>
               <small>
                 <a
-                  href="//dx.doi.org/10.1523/jneurosci.0180-14.2014"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://dx.doi.org/10.1523/jneurosci.0180-14.2014"
+                  rel="noopener"
                   target="_blank"
                 >
                   J. Neurosci. 34:11159-11172(
@@ -431,6 +442,10 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                     2014
                   </time>
                   )
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
                 </a>
               </small>
             </li>
@@ -446,7 +461,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               class="publication__statistics__item"
             >
               <a
-                href="/"
+                href="/uniprotkb?query=(lit_pubmed:25122912)"
               >
                 <section>
                   <small>

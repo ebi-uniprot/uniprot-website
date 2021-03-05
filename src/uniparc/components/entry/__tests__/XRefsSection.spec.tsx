@@ -4,10 +4,7 @@ import XRefsSection from '../XRefsSection';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import uniParcConverter from '../../../adapters/uniParcConverter';
-import EntrySection from '../../../types/entrySection';
-
-import uniParcData from '../../../__mocks__/entryModelData.json';
+import uniParcData from '../../../__mocks__/entryModelData';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 
@@ -18,13 +15,20 @@ describe('SequenceSection component', () => {
       data: [],
     });
     const { asFragment } = renderWithRouter(
-      <XRefsSection data={uniParcConverter(uniParcData)[EntrySection.XRefs]} />
+      <XRefsSection xrefData={{ data: uniParcData, loading: false }} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should return null when there are no cross-references (shouldn't happen)", () => {
-    const { container } = renderWithRouter(<XRefsSection />);
+    const { container } = renderWithRouter(
+      <XRefsSection
+        xrefData={{
+          data: { ...uniParcData, uniParcCrossReferences: [] },
+          loading: false,
+        }}
+      />
+    );
     expect(container.firstChild).toBeNull();
   });
 });

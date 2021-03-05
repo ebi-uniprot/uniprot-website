@@ -1,9 +1,26 @@
+export type Rank =
+  | 'class'
+  | 'family'
+  | 'genus'
+  | 'kingdom'
+  | 'no rank'
+  | 'order'
+  | 'phylum'
+  | 'species'
+  | 'subclass'
+  | 'subfamily'
+  | 'subgenus'
+  | 'subkingdom'
+  | 'subphylum'
+  | 'subspecies'
+  | 'superkingdom';
+
 export type Lineage = {
   scientificName?: string;
   commonName?: string;
   synonyms?: string[];
   taxonId: number;
-  rank?: string;
+  rank: Rank;
   hidden?: boolean;
 };
 
