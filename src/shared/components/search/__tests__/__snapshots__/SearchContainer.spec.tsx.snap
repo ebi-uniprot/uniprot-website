@@ -24,6 +24,7 @@ exports[`Search shallow components should render 1`] = `
         />
       </div>
       <input
+        aria-label="Text query in uniprotkb"
         class="main-search__input"
         data-testid="main-search-input"
         type="text"

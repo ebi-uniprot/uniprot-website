@@ -1,8 +1,16 @@
 import { FileFormat, ContentType } from '../types/resultsDownload';
+
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniProtKB } from '../../uniprotkb/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniRef } from '../../uniref/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadUniParc } from '../../uniparc/config/download';
 import { fileFormatsResultsDownload as fileFormatsResultsDownloadProteomes } from '../../proteomes/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadTaxonomy } from '../../supporting-data/taxonomy/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadKeywords } from '../../supporting-data/keywords/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadCitations } from '../../supporting-data/citations/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadDiseases } from '../../supporting-data/diseases/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadDatabase } from '../../supporting-data/database/config/download';
+import { fileFormatsResultsDownload as fileFormatsResultsDownloadLocations } from '../../supporting-data/locations/config/download';
+
 import { Namespace } from '../types/namespaces';
 
 export const fileFormatToContentType: Record<FileFormat, ContentType> = {
@@ -18,6 +26,7 @@ export const fileFormatToContentType: Record<FileFormat, ContentType> = {
   [FileFormat.gff]: ContentType.gff,
   [FileFormat.list]: ContentType.list,
   [FileFormat.json]: ContentType.json,
+  [FileFormat.obo]: ContentType.obo,
 };
 
 export const fileFormatToUrlParameter: Record<FileFormat, string> = {
@@ -33,16 +42,20 @@ export const fileFormatToUrlParameter: Record<FileFormat, string> = {
   [FileFormat.gff]: 'gff',
   [FileFormat.list]: 'list',
   [FileFormat.json]: 'json',
+  [FileFormat.obo]: 'obo',
 };
 
 export const fileFormatsWithColumns = [FileFormat.tsv, FileFormat.excel];
 
-// TODO when all namespaces have been implemented remove the Partial utility type
-export const nsToFileFormatsResultsDownload: Partial<
-  Record<Namespace, FileFormat[]>
-> = {
+export const nsToFileFormatsResultsDownload: Record<Namespace, FileFormat[]> = {
   [Namespace.uniprotkb]: fileFormatsResultsDownloadUniProtKB,
   [Namespace.uniref]: fileFormatsResultsDownloadUniRef,
   [Namespace.uniparc]: fileFormatsResultsDownloadUniParc,
   [Namespace.proteomes]: fileFormatsResultsDownloadProteomes,
+  [Namespace.taxonomy]: fileFormatsResultsDownloadTaxonomy,
+  [Namespace.keywords]: fileFormatsResultsDownloadKeywords,
+  [Namespace.citations]: fileFormatsResultsDownloadCitations,
+  [Namespace.diseases]: fileFormatsResultsDownloadDiseases,
+  [Namespace.database]: fileFormatsResultsDownloadDatabase,
+  [Namespace.locations]: fileFormatsResultsDownloadLocations,
 };
