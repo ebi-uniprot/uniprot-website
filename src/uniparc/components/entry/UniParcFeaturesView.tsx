@@ -6,6 +6,8 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { stringToColour } from '../../../shared/utils/color';
+import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
+import { databaseToDatabaseInfo } from '../../../uniprotkb/config/database';
 import FeatureType from '../../../uniprotkb/types/featureType';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
@@ -30,7 +32,7 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
         databaseId: feature.databaseId,
         interproGroupName: feature.interproGroup?.name,
         interproGroupId: feature.interproGroup?.id,
-        color: stringToColour(feature.database),
+        color: stringToColour(feature.database), // use the name to define colour
       }))
     ),
     'interproGroupName'
@@ -48,13 +50,29 @@ const columnConfig = () => ({
         >${d.interproGroupName}</a
       >`,
   },
+  positions: {
+    label: 'Positions',
+    resolver: (d: UniParcProcessedFeature) => `${d.start}-${d.end}`,
+  },
+  databaseId: {
+    label: 'Database identifier',
+    resolver: (d: UniParcProcessedFeature) => {
+      const { database, databaseId } = d;
+      const databaseInfo = databaseToDatabaseInfo[database];
+      if (databaseInfo && databaseId) {
+        return html`<a
+          href="${processUrlTemplate(databaseInfo.uriLink, { id: databaseId })}"
+          target="_blank"
+          rel="norefferer"
+          >${databaseId}</a
+        >`;
+      }
+      return databaseId;
+    },
+  },
   database: {
     label: 'Database',
     resolver: (d: UniParcProcessedFeature): string => d.database,
-  },
-  id: {
-    label: 'Database Identifier',
-    resolver: (d: UniParcProcessedFeature): string => d.databaseId,
   },
 });
 
