@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationsColumnConfiguration component should render column "authoring_group": authoring_group 1`] = `<DocumentFragment />`;
+
+exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `
+<DocumentFragment>
+  10.1016/s0965-1748(98)00115-5
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "first_page": first_page 1`] = `
+<DocumentFragment>
+  121
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "id": id 1`] = `
+<DocumentFragment>
+  <a
+    href="/citations/10196735"
+  >
+    10196735
+  </a>
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "journal": journal 1`] = `
+<DocumentFragment>
+  Insect Biochem Mol Biol
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "last_page": last_page 1`] = `
+<DocumentFragment>
+  129
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "lit_abstract": lit_abstract 1`] = `
+<DocumentFragment>
+  A cDNA coding for soluble type alkaline phosphatase (sALP) of Bombyx mori was isolated. Deduced amino acid sequence showed high identities to various ALPs and partial similarities to ATPase of Manduca sexta. Using this cDNA sequence as a probe, the molecular basis of electrophoretic polymorphism in sALP and membrane- bound type ALP (mALP) was studied. As for mALP, the result suggested that post- translational modification was important for the proteins to express activity and to represent their extensive polymorphic nature, whereas the magnitude of activities was mainly regulated by transcription. On the other hand, sALP zymogram showed poor polymorphism, but one exception was the null mutant, in which the sALP gene was largely lost. Interestingly, the sALP gene was shown to be transcribed into two mRNAs of different sizes, 2.0 and 2.4 Kb. In addition to the null mutant of sALP, we found a null mutant for mALP. Both of these mutants seem phenotypically silent, suggesting that the functional differentiation between these isozymes is not perfect, so that they can still work mutually and complement each other as an indispensable enzyme for B. mori.
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "publication": publication 1`] = `
+<DocumentFragment>
+  <time
+    datetime="1999-01-01T00:00:00.000Z"
+  >
+    1999
+  </time>
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "reference": reference 1`] = `
+<DocumentFragment>
+  Insect Biochem Mol Biol 29:121-129(
+  <time
+    datetime="1999-01-01T00:00:00.000Z"
+  >
+    1999
+  </time>
+  )
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "title": title 1`] = `
+<DocumentFragment>
+  Cloning of soluble alkaline phosphatase cDNA and molecular basis of the polymorphic nature in alkaline phosphatase isozymes of Bombyx mori midgut.
+</DocumentFragment>
+`;
+
+exports[`CitationsColumnConfiguration component should render column "volume": volume 1`] = `
+<DocumentFragment>
+  29
+</DocumentFragment>
+`;

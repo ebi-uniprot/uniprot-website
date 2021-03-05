@@ -73,6 +73,7 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
         >
           PF02442
           <test-file-stub
+            data-testid="external-link-icon"
             width="12.5"
           />
         </a>
@@ -85,6 +86,7 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
         >
           IPR003472
           <test-file-stub
+            data-testid="external-link-icon"
             width="12.5"
           />
         </a>

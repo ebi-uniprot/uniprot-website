@@ -8,6 +8,7 @@ export enum ContentType {
   gff = 'text/gff',
   list = 'text/list',
   json = 'application/json',
+  obo = 'text/obo',
 }
 export enum FileFormat {
   fasta = 'FASTA',
@@ -22,4 +23,5 @@ export enum FileFormat {
   gff = 'GFF',
   list = 'List',
   json = 'JSON',
+  obo = 'OBO',
 }
