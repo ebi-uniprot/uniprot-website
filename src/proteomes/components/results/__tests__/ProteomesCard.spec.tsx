@@ -14,7 +14,7 @@ describe('ProteomesCard tests', () => {
 
   it('should allow card selection', () => {
     const handleClick = jest.fn();
-    const { getByTestId } = renderWithRouter(
+    renderWithRouter(
       <ProteomesCard data={proteomesData} handleEntrySelection={handleClick} />
     );
     fireEvent.click(screen.getByRole('checkbox'));
