@@ -141,6 +141,7 @@ exports[`Publication component should render 1`] = `
                   </time>
                   )
                   <test-file-stub
+                    data-testid="external-link-icon"
                     width="12.5"
                   />
                 </a>

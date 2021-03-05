@@ -119,6 +119,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   </time>
                   )
                   <test-file-stub
+                    data-testid="external-link-icon"
                     width="12.5"
                   />
                 </a>
@@ -268,6 +269,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   </time>
                   )
                   <test-file-stub
+                    data-testid="external-link-icon"
                     width="12.5"
                   />
                 </a>
@@ -441,6 +443,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                   </time>
                   )
                   <test-file-stub
+                    data-testid="external-link-icon"
                     width="12.5"
                   />
                 </a>

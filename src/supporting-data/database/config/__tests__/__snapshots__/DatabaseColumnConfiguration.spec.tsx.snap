@@ -34,6 +34,7 @@ exports[`DatabaseColumnConfiguration component should render column "doi_id": do
   >
     10.1093/nar/gkaa1028
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>
@@ -72,6 +73,7 @@ exports[`DatabaseColumnConfiguration component should render column "pubmed_id":
   >
     33175160
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>
@@ -86,8 +88,9 @@ exports[`DatabaseColumnConfiguration component should render column "server": se
     rel="noopener"
     target="_blank"
   >
-    ebi.ac.uk/ena
+    www.ebi.ac.uk/ena
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>

@@ -109,7 +109,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.sites, {
   render: ({ sites }) => (
     <ExpandableList descriptionString="sites" displayNumberOfHiddenItems>
       {sites?.map((site) => (
-        <ExternalLink url={site}>{site}</ExternalLink>
+        <ExternalLink key={site} url={site} tidyUrl />
       ))}
     </ExpandableList>
   ),
