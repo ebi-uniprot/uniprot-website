@@ -10,12 +10,14 @@ import useCustomElement from '../../hooks/useCustomElement';
 import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import { ColumnConfig, ProcessedFeature } from './FeaturesView';
+import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
 export type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
-      d: ProcessedFeature & TransformedVariant
+      // This could be improved
+      d: ProcessedFeature & TransformedVariant & UniParcProcessedFeature
     ) =>
       | undefined
       | string

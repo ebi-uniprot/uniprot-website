@@ -10,7 +10,7 @@ import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-view
 import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
 import FeatureType from '../../../uniprotkb/types/featureType';
 
-type Fragment = {
+export type Fragment = {
   start: number;
   end: number;
   shape?: string;
@@ -28,9 +28,9 @@ export type ProcessedFeature = {
   featureId?: string;
   start: number;
   end: number;
-  startModifier: LocationModifier;
-  endModifier: LocationModifier;
-  type: FeatureType;
+  startModifier?: LocationModifier;
+  endModifier?: LocationModifier;
+  type: FeatureType | string;
   description?: string;
   evidences?: Evidence[];
   sequence?: string;
@@ -48,12 +48,14 @@ type FeatureProps = {
   sequence?: string;
   features: ProcessedFeature[];
   columnConfig: ColumnConfig;
+  trackHeight?: number;
 };
 
 const FeaturesView: FC<FeatureProps> = ({
   sequence,
   features,
   columnConfig,
+  trackHeight,
 }): JSX.Element | null => {
   const navigationDefined = useCustomElement(
     /* istanbul ignore next */
@@ -119,6 +121,7 @@ const FeaturesView: FC<FeatureProps> = ({
               ref={setTrackData}
               length={sequence.length}
               layout="non-overlapping"
+              height={trackHeight}
             />
             <protvista-sequence
               sequence={sequence}
