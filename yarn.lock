@@ -10341,6 +10341,13 @@ protvista-variation@^2.18.2:
     lodash-es "^4.17.11"
     protvista-track "^2.18.2"
 
+protvista-zoom-tool@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/protvista-zoom-tool/-/protvista-zoom-tool-3.2.2.tgz#2461c5a4ee9dbe8c33709ee49e63b0b93b36fe45"
+  integrity sha512-eIxo9r861E4BP25Q06G3d2PTh9jIy9GBY7KZdSc++18C0bEweq+5A3TMmvELG1jPRUNpML94/xFTLsotmr6gTQ==
+  dependencies:
+    lit-html "^1.3.0"
+
 protvista-zoomable@^2.18.0:
   version "2.18.0"
   resolved "https://registry.yarnpkg.com/protvista-zoomable/-/protvista-zoomable-2.18.0.tgz#33f03ce82b77c51c35ab5bfa84a89448b58e8b56"

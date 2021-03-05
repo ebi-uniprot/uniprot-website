@@ -15,7 +15,6 @@ import { Namespace } from '../../types/namespaces';
 
 import Logo from './svgs/uniprot-logo.svg';
 
-// NOTE: all of those paths should eventually come from the Location config object
 const tools = [
   {
     label: 'BLAST',
@@ -26,19 +25,20 @@ const tools = [
     path: LocationToPath[Location.Align],
   },
   {
-    label: 'Peptide Search',
-    path: '/',
+    label: 'Retrieve/ID mapping',
+    path: LocationToPath[Location.UploadList],
   },
   {
-    label: 'Retrieve/ID Mapping',
-    path: '/',
+    label: 'Peptide search',
+    path: LocationToPath[Location.PeptideSearch],
   },
   {
-    label: 'Tool Results',
+    label: 'Tool results',
     path: LocationToPath[Location.Dashboard],
   },
 ];
 
+// NOTE: all of those paths should eventually come from the Location config object
 const restOfItems = [
   {
     label: 'API',
@@ -109,7 +109,7 @@ const UniProtHeader = () => {
           onPointerOver={QueryBuilder.preload}
           onFocus={QueryBuilder.preload}
         >
-          Query Builder
+          Query builder
         </span>
       ),
       onClick: () => setDisplayQueryBuilder((flag) => !flag),
