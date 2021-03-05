@@ -24,12 +24,6 @@ const HomePageNonCritical = lazy(
       /* webpackChunkName: "home-page-non-critical" */ './HomePageNonCritical'
     )
 );
-const UniProtFooter = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "footer" */ '../../shared/components/layouts/UniProtFooter'
-    )
-);
 
 const mission =
   'UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information.';
@@ -131,22 +125,14 @@ const HomePageHeader = memo(() => {
 
 const HomePage = () => (
   <>
-    <main>
-      <ErrorBoundary>
-        <HomePageHeader />
-      </ErrorBoundary>
-
-      <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
-          <HomePageNonCritical />
-        </Suspense>
-      </ErrorBoundary>
-    </main>
-    <Suspense fallback={null}>
-      <ErrorBoundary>
-        <UniProtFooter />
-      </ErrorBoundary>
-    </Suspense>
+    <ErrorBoundary>
+      <HomePageHeader />
+    </ErrorBoundary>
+    <ErrorBoundary>
+      <Suspense fallback={<Loader />}>
+        <HomePageNonCritical />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 

@@ -3,19 +3,17 @@
 $header-height: 70px;
 
 .base-layout {
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 
   .header:not(.header--negative) > .header__logo svg g {
     fill: white;
     height: $header-height;
   }
 
-  .main-content-and-footer {
-    width: 100vw;
+  .main-content {
     flex: 1;
-    overflow-y: auto;
   }
 }

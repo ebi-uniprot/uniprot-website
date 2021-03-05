@@ -1,3 +1,14 @@
+// https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 // Used to replace <p> when using EvidenceTag
 .text-block {
   margin-bottom: 1rem;
