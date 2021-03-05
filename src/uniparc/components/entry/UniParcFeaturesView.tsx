@@ -6,6 +6,7 @@ import FeaturesView, {
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { stringToColour } from '../../../shared/utils/color';
+import FeatureType from '../../../uniprotkb/types/featureType';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
 
@@ -21,7 +22,7 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
   sortBy(
     data.flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
-        type: feature.database,
+        type: FeatureType.OTHER,
         protvistaFeatureId: feature.databaseId,
         start: locationFeature.start,
         end: locationFeature.end,

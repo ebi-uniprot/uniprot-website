@@ -30,7 +30,7 @@ export type ProcessedFeature = {
   end: number;
   startModifier?: LocationModifier;
   endModifier?: LocationModifier;
-  type: FeatureType | string;
+  type: FeatureType;
   description?: string;
   evidences?: Evidence[];
   sequence?: string;
