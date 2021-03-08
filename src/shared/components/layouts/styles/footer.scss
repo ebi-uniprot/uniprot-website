@@ -13,11 +13,6 @@
     animation: appear 0.25s 1 both;
   }
 
-  // .uniprot-grid > * {
-  //   border: 1px solid green;
-  //   background-color: lightblue;
-  // }
-
   p {
     margin-bottom: 1em;
   }
@@ -89,7 +84,6 @@
 
     img {
       margin: 0.5ch;
-      height: 3em;
       width: 3em;
     }
 
@@ -110,6 +104,10 @@
     align-items: center;
     gap: 1ch;
     justify-content: space-between;
+
+    & > * {
+      white-space: nowrap;
+    }
 
     img {
       height: 2.25em;

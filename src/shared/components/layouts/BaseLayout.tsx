@@ -1,5 +1,4 @@
 import { lazy, Suspense, FC } from 'react';
-import { Loader } from 'franklin-sites';
 
 import UniProtHeader from './UniProtHeader';
 
@@ -29,7 +28,7 @@ const BaseLayout: FC = ({ children }) => (
     </div>
     <div className="footer">
       <ErrorBoundary>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={null}>
           <UniProtFooter />
         </Suspense>
       </ErrorBoundary>
