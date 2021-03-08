@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'franklin-sites';
 
 import BuscoView from '../components/BuscoView';
-import BuscoLabel from '../components/BuscoLabel';
+import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../components/AccessionView';
 import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 
@@ -12,6 +11,9 @@ import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import BuscoAbbr from '../components/BuscoAbbr';
+import CpdAbbr from '../components/CpdAbbr';
+import GenomeAssemblyView from '../components/GenomeAssemblyView';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -92,26 +94,19 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
-  label: <abbr title="Complete Proteome Detector">CPD</abbr>,
+  label: <CpdAbbr />,
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport.cpdReport.status,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
   label: 'Genome assembly ID',
-  render: ({ genomeAssembly }) => {
-    if (!genomeAssembly) {
-      return null;
-    }
-    if (genomeAssembly.genomeAssemblyUrl) {
-      return (
-        <ExternalLink url={genomeAssembly.genomeAssemblyUrl}>
-          {genomeAssembly.assemblyId}
-        </ExternalLink>
-      );
-    }
-    return genomeAssembly.assemblyId;
-  },
+  render: ({ genomeAssembly }) => (
+    <GenomeAssemblyView
+      genomeAssemblyUrl={genomeAssembly?.genomeAssemblyUrl}
+      assemblyId={genomeAssembly?.assemblyId}
+    />
+  ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
@@ -135,7 +130,13 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
-  label: <BuscoLabel />,
+  label: (
+    <>
+      <BuscoAbbr />
+      <br />
+      <BuscoLegend />
+    </>
+  ),
   render: ({ proteomeCompletenessReport: { buscoReport } }) =>
     buscoReport && <BuscoView report={buscoReport} />,
 });

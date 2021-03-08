@@ -76,7 +76,8 @@ const BuscoView: FC<{ report: BuscoReport }> = ({ report }) => {
   return (
     <div className="busco-view">
       <protvista-track length={trackLength} height={10} ref={setTrackData} />
-      <div>{`n:${report.total} · ${report.lineageDb}`}</div>
+      {/* TODO: add after implementation from backend - the creation date of the dataset (format: 2019-01-04) */}
+      <div className="busco-view__report">{`n:${report.total} · ${report.lineageDb}`}</div>
       <div>{`C:${C} (S:${S} D:${D}) F:${F} M:${M}`}</div>
     </div>
   );

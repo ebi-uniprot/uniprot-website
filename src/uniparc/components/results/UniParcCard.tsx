@@ -16,8 +16,8 @@ import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
 
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 import '../../../shared/components/results/styles/result-card.scss';
 

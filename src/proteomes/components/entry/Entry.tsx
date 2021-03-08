@@ -47,17 +47,10 @@ const Entry: FC = () => {
   const transformedData = proteomesConverter(data);
 
   return (
-    <SingleColumnLayout
-      className="entry-page"
-      title={
-        <ErrorBoundary>
-          <h2>
-            <EntryTitle mainTitle="UniRef" optionalTitle={transformedData.id} />
-          </h2>
-          <Overview transformedData={transformedData} />
-        </ErrorBoundary>
-      }
-    >
+    <SingleColumnLayout className="entry-page">
+      <h2>{`Proteomes - ${
+        transformedData.taxonomy.scientificName || transformedData.id
+      }`}</h2>
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

@@ -54,13 +54,13 @@ import { fileFormatEntryDownload } from '../../config/download';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import uniProtKbConverter, {
-  EntryType,
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
 import '../../../shared/styles/sticky.scss';
 import { Namespace } from '../../../shared/types/namespaces';
+import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
 export enum TabLocation {
   Entry = 'entry',

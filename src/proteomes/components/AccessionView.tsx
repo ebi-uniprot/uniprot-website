@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import EntryTypeIcon, {
+  EntryType,
+} from '../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../app/config/urls';
 
@@ -10,7 +12,6 @@ import {
   ProteomesAPIModel,
   ProteomeType,
 } from '../adapters/proteomesConverter';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
 
 import './styles/accession-view.scss';
 

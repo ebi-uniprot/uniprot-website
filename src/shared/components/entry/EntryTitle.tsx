@@ -1,8 +1,6 @@
 import { FC } from 'react';
 
-import EntryTypeIcon from './EntryTypeIcon';
-
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import EntryTypeIcon, { EntryType } from './EntryTypeIcon';
 
 import './styles/entry-title.scss';
 
