@@ -77,18 +77,15 @@ const Release = () => {
     : undefined;
 
   if (!releaseDate) {
-    return null;
+    return <>Loading release information</>;
   }
 
   return (
-    <span className="release-version">
-      {' | '}
-      <Link to="/">
-        {/* TODO: don't use release number as date, might be different */}
-        Release {releaseDate.getFullYear()}_
-        {`${releaseDate.getMonth() + 1}`.padStart(2, '0')}
-      </Link>
-    </span>
+    <Link to="/">
+      {/* TODO: don't use release number as date, might be different */}
+      Release {releaseDate.getFullYear()}_
+      {`${releaseDate.getMonth() + 1}`.padStart(2, '0')}
+    </Link>
   );
 };
 
@@ -104,8 +101,7 @@ const FooterCopyrightAndMisc = () => (
       <Link to="/help/privacy">Privacy Notice</Link>
     </p>
     <p>
-      <Link to="/">Statistics</Link>
-      <Release />
+      <Release /> | <Link to="/">Statistics</Link>
     </p>
   </div>
 );

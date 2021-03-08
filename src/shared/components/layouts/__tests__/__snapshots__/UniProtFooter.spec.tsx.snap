@@ -92,6 +92,7 @@ exports[`HomePage component should render 1`] = `
           </a>
         </p>
         <p>
+          Loading release information | 
           <a
             href="/"
           >
