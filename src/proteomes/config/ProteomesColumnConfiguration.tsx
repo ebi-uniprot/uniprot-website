@@ -5,15 +5,16 @@ import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../components/AccessionView';
 import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import BuscoAbbr from '../components/BuscoAbbr';
+import CpdAbbr from '../components/CpdAbbr';
+import GenomeAssemblyView from '../components/GenomeAssemblyView';
+import ProteinCount from '../components/ProteinCount';
 
-import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import BuscoAbbr from '../components/BuscoAbbr';
-import CpdAbbr from '../components/CpdAbbr';
-import GenomeAssemblyView from '../components/GenomeAssemblyView';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -117,15 +118,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   label: 'Protein Count',
   render: ({ id, proteinCount }) => (
-    <Link
-      to={{
-        pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=proteome:${id}`,
-      }}
-    >
-      {/* TODO: to eventually be supported by the backend in 2021_02 - 2021_03 */}
-      {proteinCount ?? 'no data yet'}
-    </Link>
+    <ProteinCount id={id} proteinCount={proteinCount} />
   ),
 });
 

@@ -28,7 +28,10 @@ import Comment, { CommentType } from '../types/commentTypes';
 import { FeatureData } from '../components/protein-data-views/FeaturesView';
 import { Lineage, Xref } from '../../shared/types/apiModel';
 import { SequenceData } from '../../shared/components/entry/SequenceView';
-import { getEntryTypeFromString } from '../../shared/components/entry/EntryTypeIcon';
+import {
+  EntryType,
+  getEntryTypeFromString,
+} from '../../shared/components/entry/EntryTypeIcon';
 import { Keyword } from '../utils/KeywordsUtil';
 import { UIModel } from './sectionConverter';
 import { transfromProperties } from '../utils';

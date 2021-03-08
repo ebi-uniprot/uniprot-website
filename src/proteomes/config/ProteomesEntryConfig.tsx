@@ -11,12 +11,12 @@ const UniRefEntryConfig: {
     sectionContent: (data) => <Overview data={data} />,
   },
   {
-    id: EntrySection.Components,
-    sectionContent: (data) => <h2>components</h2>,
+    id: EntrySection.Components, // TODO: implement
+    sectionContent: () => <h2>Components</h2>,
   },
   {
-    id: EntrySection.Publications,
-    sectionContent: (data) => <h2>publications</h2>,
+    id: EntrySection.Publications, // TODO: implement
+    sectionContent: () => <h2>Publications</h2>,
   },
 ];
 

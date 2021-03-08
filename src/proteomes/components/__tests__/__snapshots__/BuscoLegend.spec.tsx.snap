@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuscoLabel should render 1`] = `
+<DocumentFragment>
+  <span
+    class="busco-legend-item"
+  >
+    <span
+      class="busco-legend-item__swatch"
+      style="background-color: rgb(188, 232, 117);"
+    />
+    Single
+  </span>
+  <span
+    class="busco-legend-item"
+  >
+    <span
+      class="busco-legend-item__swatch"
+      style="background-color: rgb(11, 165, 166);"
+    />
+    Duplicated
+  </span>
+  <span
+    class="busco-legend-item"
+  >
+    <span
+      class="busco-legend-item__swatch"
+      style="background-color: rgb(238, 203, 164);"
+    />
+    Fragmented
+  </span>
+  <span
+    class="busco-legend-item"
+  >
+    <span
+      class="busco-legend-item__swatch"
+      style="background-color: rgb(49, 75, 180);"
+    />
+    Missing
+  </span>
+</DocumentFragment>
+`;
