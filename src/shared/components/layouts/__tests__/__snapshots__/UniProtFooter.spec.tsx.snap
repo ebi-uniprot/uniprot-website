@@ -1,0 +1,460 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePage component should render 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer"
+  >
+    <div
+      class="uniprot-grid uniprot-grid--centered"
+    >
+      <div
+        class="consortium"
+      >
+        <a
+          class="consortium__uniprot"
+          href="/"
+          title="UniProt home page"
+        >
+          <test-file-stub />
+        </a>
+        <div
+          class="consortium__members"
+        >
+          <a
+            class="external-link"
+            href="https://www.ebi.ac.uk/"
+            rel="noopener"
+            target="_blank"
+            title="European Bioinformatics Institute"
+          >
+            <img
+              alt=""
+              height="185"
+              loading="lazy"
+              src="test-file-stub"
+              width="600"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://pir.georgetown.edu/"
+            rel="noopener"
+            target="_blank"
+            title="Protein Information Resource"
+          >
+            <img
+              alt=""
+              height="218"
+              loading="lazy"
+              src="test-file-stub"
+              width="231"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.sib.swiss/"
+            rel="noopener"
+            target="_blank"
+            title="Swiss Institute of Bioinformatics"
+          >
+            <img
+              alt=""
+              height="152"
+              loading="lazy"
+              src="test-file-stub"
+              width="200"
+            />
+          </a>
+        </div>
+      </div>
+      <div
+        class="copyright-misc"
+      >
+        <p>
+          <a
+            href="/help/about"
+          >
+            © 2002 – 2021 UniProt consortium
+          </a>
+        </p>
+        <p>
+          <a
+            href="/help/license"
+          >
+            License & Disclaimer
+          </a>
+           | 
+          <a
+            href="/help/privacy"
+          >
+            Privacy Notice
+          </a>
+        </p>
+        <p>
+          <a
+            href="/"
+          >
+            Statistics
+          </a>
+        </p>
+      </div>
+      <ul
+        class="no-bullet shortcuts"
+      >
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Core data
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?query=*"
+              >
+                Proteins (UniProtKB)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/proteomes?query=*"
+              >
+                Species (Proteomes)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniref?query=*"
+              >
+                Protein clusters (UniRef)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniparc?query=*"
+              >
+                Sequence archive (UniParc)
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Supporting data
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/citations/?query=*"
+              >
+                Literature citations
+              </a>
+            </li>
+            <li>
+              <a
+                href="/taxonomy/?query=*"
+              >
+                Taxonomy
+              </a>
+            </li>
+            <li>
+              <a
+                href="/keywords/?query=*"
+              >
+                Keywords
+              </a>
+            </li>
+            <li>
+              <a
+                href="/locations/?query=*"
+              >
+                Subcellular locations
+              </a>
+            </li>
+            <li>
+              <a
+                href="/database/?query=*"
+              >
+                Cross-referenced databases
+              </a>
+            </li>
+            <li>
+              <a
+                href="/diseases/?query=*"
+              >
+                Diseases
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Tools
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/blast"
+              >
+                BLAST
+              </a>
+            </li>
+            <li>
+              <a
+                href="/align"
+              >
+                Align
+              </a>
+            </li>
+            <li>
+              <a
+                href="/peptide-search"
+              >
+                Peptide search
+              </a>
+            </li>
+            <li>
+              <a
+                href="/idmapping"
+              >
+                Retrieve/ID mapping
+              </a>
+            </li>
+            <li
+              class="tools-results-link"
+            >
+              <a
+                href="/tool-dashboard"
+              >
+                Tool results
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <span
+            class="shortcuts__title"
+          >
+            Information
+          </span>
+          <ul
+            class="no-bullet"
+          >
+            <li>
+              <a
+                href="/"
+              >
+                Cite 
+                <span
+                  class="no-wrap"
+                >
+                  UniProt 
+                  <sup>
+                    <test-file-stub
+                      width="1.5ch"
+                    />
+                  </sup>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                About
+              </a>
+               & 
+              <a
+                href="/"
+              >
+                Help
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                UniProtKB manual
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                Technical corner
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                Expert biocuration
+              </a>
+            </li>
+            <li>
+              <a
+                href="/"
+              >
+                Statistics
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div
+        class="contact-elixir"
+      >
+        <p>
+          <a
+            href="/contact"
+          >
+            Get in touch 
+            <test-file-stub
+              width="2ch"
+            />
+          </a>
+        </p>
+        <p
+          class="social"
+        >
+          <a
+            class="external-link"
+            href="https://twitter.com/uniprot"
+            rel="noopener"
+            target="_blank"
+            title="UniProt posts on Twitter"
+          >
+            <test-file-stub />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.facebook.com/uniprot.org"
+            rel="noopener"
+            target="_blank"
+            title="UniProt posts on Facebook"
+          >
+            <test-file-stub />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.youtube.com/user/uniprotvideos"
+            rel="noopener"
+            target="_blank"
+            title="UniProt videos on YouTube"
+          >
+            <test-file-stub />
+          </a>
+          <a
+            class="external-link"
+            href="https://insideuniprot.blogspot.com/"
+            rel="noopener"
+            target="_blank"
+            title="UniProt blog"
+          >
+            <test-file-stub />
+          </a>
+          <a
+            class="external-link"
+            href="https://groups.google.com/forum/#!forum/ebi-proteins-api"
+            rel="noopener"
+            target="_blank"
+            title="UniProt Google Group"
+          >
+            <test-file-stub />
+          </a>
+        </p>
+        <p>
+          <a
+            class="external-link"
+            href="https://www.elixir-europe.org/platforms/data/core-data-resources"
+            rel="noopener"
+            target="_blank"
+          >
+            UniProt is an ELIXIR core data resource
+            <img
+              alt=""
+              height="115"
+              loading="lazy"
+              src="test-file-stub"
+              width="115"
+            />
+          </a>
+          <a
+            class="external-link"
+            href="https://www.coretrustseal.org/wp-content/uploads/2020/05/UniProt.pdf"
+            rel="noopener"
+            target="_blank"
+            title="Core Trust Seal assessment information"
+          >
+            <img
+              alt=""
+              height="401"
+              loading="lazy"
+              src="test-file-stub"
+              width="425"
+            />
+          </a>
+        </p>
+      </div>
+      <div
+        class="funding"
+      >
+        <span>
+          Main 
+          <a
+            href="/help/about"
+          >
+            funding
+          </a>
+           by:
+        </span>
+        <a
+          class="external-link"
+          href="https://www.nih.gov/"
+          rel="noopener"
+          target="_blank"
+        >
+          National Institutes of Health
+        </a>
+        <a
+          class="external-link"
+          href="https://www.embl.org/"
+          rel="noopener"
+          target="_blank"
+          title="European Molecular Biology Laboratory"
+        >
+          <img
+            alt=""
+            loading="lazy"
+            src="test-file-stub"
+          />
+        </a>
+        <a
+          class="external-link"
+          href="https://www.sbfi.admin.ch/sbfi/en/home.html"
+          rel="noopener"
+          target="_blank"
+          title="State Secretariat for Education, Research and Innovation SERI"
+        >
+          <img
+            alt=""
+            loading="lazy"
+            src="test-file-stub"
+          />
+        </a>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;
