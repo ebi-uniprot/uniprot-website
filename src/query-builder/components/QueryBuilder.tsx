@@ -156,7 +156,7 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
   if (loading) {
     return (
       <>
-        <PageIntro title="Advanced search" />
+        <PageIntro title="Query builder" />
         <Loader />
       </>
     );
@@ -194,7 +194,7 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
 
   return (
     <>
-      <PageIntro title="Advanced search" />
+      <PageIntro title="Query builder" />
 
       <form
         className="query-builder"
