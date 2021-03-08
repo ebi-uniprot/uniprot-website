@@ -35,6 +35,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -47,6 +48,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -59,6 +61,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -71,6 +74,7 @@ exports[`XRefView should render for DiseaseAndDrugs section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -125,6 +129,7 @@ exports[`XRefView should render for Expression section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -137,6 +142,7 @@ exports[`XRefView should render for Expression section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -149,6 +155,7 @@ exports[`XRefView should render for Expression section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -161,6 +168,7 @@ exports[`XRefView should render for Expression section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -215,6 +223,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -227,6 +236,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -239,6 +249,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -251,6 +262,7 @@ exports[`XRefView should render for ExternalLinks section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -305,6 +317,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -317,6 +330,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -329,6 +343,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -341,6 +356,7 @@ exports[`XRefView should render for FamilyAndDomains section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -395,6 +411,7 @@ exports[`XRefView should render for Function section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -407,6 +424,7 @@ exports[`XRefView should render for Function section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -419,6 +437,7 @@ exports[`XRefView should render for Function section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -431,6 +450,7 @@ exports[`XRefView should render for Function section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -485,6 +505,7 @@ exports[`XRefView should render for Interaction section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -497,6 +518,7 @@ exports[`XRefView should render for Interaction section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -509,6 +531,7 @@ exports[`XRefView should render for Interaction section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -521,6 +544,7 @@ exports[`XRefView should render for Interaction section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -575,6 +599,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -587,6 +612,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -599,6 +625,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -611,6 +638,7 @@ exports[`XRefView should render for NamesAndTaxonomy section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -665,6 +693,7 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -677,6 +706,7 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -689,6 +719,7 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -701,6 +732,7 @@ exports[`XRefView should render for Phenotypes section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -755,6 +787,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -767,6 +800,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -779,6 +813,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -791,6 +826,7 @@ exports[`XRefView should render for ProteinProcessing section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -845,6 +881,7 @@ exports[`XRefView should render for Sequence section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -857,6 +894,7 @@ exports[`XRefView should render for Sequence section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -869,6 +907,7 @@ exports[`XRefView should render for Sequence section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -881,6 +920,7 @@ exports[`XRefView should render for Sequence section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -935,6 +975,7 @@ exports[`XRefView should render for SimilarProteins section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -947,6 +988,7 @@ exports[`XRefView should render for SimilarProteins section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -959,6 +1001,7 @@ exports[`XRefView should render for SimilarProteins section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -971,6 +1014,7 @@ exports[`XRefView should render for SimilarProteins section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1025,6 +1069,7 @@ exports[`XRefView should render for Structure section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1037,6 +1082,7 @@ exports[`XRefView should render for Structure section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1049,6 +1095,7 @@ exports[`XRefView should render for Structure section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1061,6 +1108,7 @@ exports[`XRefView should render for Structure section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1115,6 +1163,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               >
                 EMBL
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1127,6 +1176,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               >
                 GenBank
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1139,6 +1189,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               >
                 DDBJ
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1151,6 +1202,7 @@ exports[`XRefView should render for SubCellularLocation section 1`] = `
               >
                 1234
                 <test-file-stub
+                  data-testid="external-link-icon"
                   width="12.5"
                 />
               </a>
@@ -1180,6 +1232,7 @@ exports[`getPropertyLink should create snapshot 1`] = `
   >
     ENSG00000142192
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>

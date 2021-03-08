@@ -85,6 +85,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           >
             EMBL
             <test-file-stub
+              data-testid="external-link-icon"
               width="12.5"
             />
           </a>
@@ -97,6 +98,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           >
             GenBank
             <test-file-stub
+              data-testid="external-link-icon"
               width="12.5"
             />
           </a>
@@ -109,6 +111,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           >
             DDBJ
             <test-file-stub
+              data-testid="external-link-icon"
               width="12.5"
             />
           </a>
@@ -121,6 +124,7 @@ exports[`DiseaseInvolvement should render DiseaseInvolvement 1`] = `
           >
             some ref id
             <test-file-stub
+              data-testid="external-link-icon"
               width="12.5"
             />
           </a>

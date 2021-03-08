@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatabaseColumnConfiguration component should render column "abbrev": abbrev 1`] = `
+<DocumentFragment>
+  EMBL
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "category": category 1`] = `
+<DocumentFragment>
+  Sequence databases
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "dbUrl": dbUrl 1`] = `
+<DocumentFragment>
+  <pre
+    class="codeblock codeblock-light"
+  >
+    <code>
+      https://www.ebi.ac.uk/ena/browser/view/%s
+    </code>
+  </pre>
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "doi_id": doi_id 1`] = `
+<DocumentFragment>
+  <a
+    class="external-link"
+    href="https://dx.doi.org/10.1093/nar/gkaa1028"
+    rel="noopener"
+    target="_blank"
+  >
+    10.1093/nar/gkaa1028
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "id": id 1`] = `
+<DocumentFragment>
+  <a
+    href="/database/DB-0022"
+  >
+    DB-0022
+  </a>
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "link_type": link_type 1`] = `
+<DocumentFragment>
+  Explicit
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "name": name 1`] = `
+<DocumentFragment>
+  EMBL nucleotide sequence database
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "pubmed_id": pubmed_id 1`] = `
+<DocumentFragment>
+  <a
+    class="external-link"
+    href="https://pubmed.ncbi.nlm.nih.gov/33175160"
+    rel="noopener"
+    target="_blank"
+  >
+    33175160
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;
+
+exports[`DatabaseColumnConfiguration component should render column "server": server 1`] = `
+<DocumentFragment>
+  <a
+    class="external-link"
+    href="https://www.ebi.ac.uk/ena"
+    rel="noopener"
+    target="_blank"
+  >
+    www.ebi.ac.uk/ena
+    <test-file-stub
+      data-testid="external-link-icon"
+      width="12.5"
+    />
+  </a>
+</DocumentFragment>
+`;

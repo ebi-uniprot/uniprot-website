@@ -713,6 +713,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -1383,6 +1384,7 @@ exports[`Entry should render main 1`] = `
                           >
                             NCBI
                             <test-file-stub
+                              data-testid="external-link-icon"
                               width="12.5"
                             />
                           </a>
@@ -1751,6 +1753,7 @@ exports[`Entry should render main 1`] = `
                           >
                             3124
                             <test-file-stub
+                              data-testid="external-link-icon"
                               width="12.5"
                             />
                           </a>
@@ -1963,6 +1966,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2000,6 +2004,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Submit a new modelling project...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2105,6 +2110,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2142,6 +2148,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 Search...
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2324,6 +2331,7 @@ exports[`Entry should render main 1`] = `
                     >
                       sequence
                       <test-file-stub
+                        data-testid="external-link-icon"
                         width="12.5"
                       />
                     </a>
@@ -2484,6 +2492,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 id value
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
@@ -2496,6 +2505,7 @@ exports[`Entry should render main 1`] = `
                               >
                                 description value
                                 <test-file-stub
+                                  data-testid="external-link-icon"
                                   width="12.5"
                                 />
                               </a>
