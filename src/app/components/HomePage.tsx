@@ -7,7 +7,8 @@ import {
   useRef,
   useCallback,
 } from 'react';
-import { HeroHeader, Loader } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
 import SearchContainer from '../../shared/components/search/SearchContainer';
 import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
@@ -25,8 +26,21 @@ const HomePageNonCritical = lazy(
     )
 );
 
-const mission =
-  'UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information.';
+const mission = (
+  <>
+    UniProt is the world’s leading high-quality, comprehensive and freely
+    accessible resource of protein sequence and functional information.{' '}
+    <Link to="/" className="cite-us">
+      Cite{' '}
+      <span className="no-wrap">
+        UniProt&nbsp;
+        <sup>
+          <CitedIcon width="1.5ch" />
+        </sup>
+      </span>
+    </Link>
+  </>
+);
 
 const namespaceFindYour: Record<Namespace, string> = {
   // Main data

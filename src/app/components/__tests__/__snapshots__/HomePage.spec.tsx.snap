@@ -96,7 +96,23 @@ exports[`HomePage component should render 1`] = `
     <div
       class="hero-header__footer"
     >
-      UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information.
+      UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information. 
+      <a
+        class="cite-us"
+        href="/"
+      >
+        Cite 
+        <span
+          class="no-wrap"
+        >
+          UniProt 
+          <sup>
+            <test-file-stub
+              width="1.5ch"
+            />
+          </sup>
+        </span>
+      </a>
     </div>
   </div>
   <div
