@@ -86,7 +86,7 @@ export const Overview: FC<{
               >
                 {[data.taxonomy.taxonId, data.taxonomy.scientificName]
                   .filter(Boolean)
-                  .join(' - ')}
+                  .join(' · ')}
               </Link>
             ),
           },

@@ -44,7 +44,7 @@ const Entry: FC = () => {
 
   return (
     <SingleColumnLayout className="entry-page">
-      <h2>{`Proteomes - ${
+      <h2>{`Proteomes · ${
         transformedData.taxonomy.scientificName || transformedData.id
       }`}</h2>
       <EntryMain transformedData={transformedData} />
