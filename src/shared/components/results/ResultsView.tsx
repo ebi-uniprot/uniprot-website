@@ -309,7 +309,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, headers } = useDataApi<{
+  const { data, loading, progress, headers } = useDataApi<{
     results: APIModel[];
   }>(url);
 
@@ -354,7 +354,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     // or we just changed the displayed columns (hacky too...)
     prevColumns.current !== columns
   ) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
   const { total, nextUrl } = metaData;
@@ -385,6 +385,9 @@ const ResultsView: FC<ResultsTableProps> = ({
   };
 
   const hasMoreData = total > allResults.length;
+  const loadComponent = (
+    <Loader progress={progress !== 1 ? progress : undefined} />
+  );
 
   return (
     <div className="results-view">
@@ -400,7 +403,7 @@ const ResultsView: FC<ResultsTableProps> = ({
           )}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
-          loaderComponent={<Loader />}
+          loaderComponent={loadComponent}
         />
       ) : (
         // Column view
@@ -419,7 +422,7 @@ const ResultsView: FC<ResultsTableProps> = ({
           onHeaderClick={updateColumnSort}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
-          loaderComponent={<Loader />}
+          loaderComponent={loadComponent}
         />
       )}
     </div>
