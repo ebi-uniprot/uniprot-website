@@ -3,18 +3,16 @@ import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-
 import { getEntryPath } from '../../../app/config/urls';
-
-import { Namespace } from '../../../shared/types/namespaces';
-
-import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
-
-import '../../../shared/components/results/styles/result-card.scss';
 import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../../config/UniRefColumnConfiguration';
 import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
+
+import { Namespace } from '../../../shared/types/namespaces';
+import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
+
+import '../../../shared/components/results/styles/result-card.scss';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 

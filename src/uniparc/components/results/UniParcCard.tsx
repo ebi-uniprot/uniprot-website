@@ -15,12 +15,12 @@ import xrefGetter from '../../utils/xrefGetter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
+import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
 
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/results/styles/result-card.scss';
-import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
 
 const mainInfoColumns = [
   UniParcColumn.firstSeen,
