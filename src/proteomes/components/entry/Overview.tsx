@@ -1,19 +1,22 @@
 import { FC, ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { Card, InfoList } from 'franklin-sites';
-import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
-import ftpUrls from '../../../shared/config/ftpUrls';
+import GenomeAssemblyAndAnnotationView from '../GenomeAssemblyAndAnnotationView';
 
-import '../styles/overview.scss';
+import ftpUrls from '../../../shared/config/ftpUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
-import GenomeAssemblyAndAnnotationView from '../GenomeAssemblyAndAnnotationView';
+
+import { ProteomesUIModel } from '../../adapters/proteomesConverter';
+
+import '../styles/overview.scss';
 
 type InfoData = {
   title: string;
