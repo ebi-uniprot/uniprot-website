@@ -40,11 +40,15 @@ exports[`UniRefColumnConfiguration component should render column "created": cre
 
 exports[`UniRefColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <a
-    href="/uniref/UniRef100_A0A0B7GQ86"
+  <div
+    class="accession-view"
   >
-    UniRef100_A0A0B7GQ86
-  </a>
+    <a
+      href="/uniref/UniRef100_A0A0B7GQ86"
+    >
+      UniRef100_A0A0B7GQ86
+    </a>
+  </div>
 </DocumentFragment>
 `;
 

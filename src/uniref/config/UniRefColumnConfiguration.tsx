@@ -9,6 +9,7 @@ import { getEntryPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import AccessionView from '../../shared/components/results/AccessionView';
 
 export enum UniRefColumn {
   id = 'id',
@@ -48,7 +49,7 @@ const CUT_OFF = 5;
 UniRefColumnConfiguration.set(UniRefColumn.id, {
   label: 'Cluster ID',
   render: ({ id }) =>
-    id && <Link to={getEntryPath(Namespace.uniref, id)}>{id}</Link>,
+    id && <AccessionView id={id} namespace={Namespace.uniref} />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.name, {
