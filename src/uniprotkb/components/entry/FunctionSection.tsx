@@ -7,7 +7,7 @@ import FreeTextView, { TextView } from '../protein-data-views/FreeTextView';
 import CatalyticActivityView from '../protein-data-views/CatalyticActivityView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
-import FeaturesView from '../protein-data-views/FeaturesView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import UniProtKBEvidenceTag from '../protein-data-views/UniProtKBEvidenceTag';
 
 import { hasContent } from '../../../shared/utils/utils';

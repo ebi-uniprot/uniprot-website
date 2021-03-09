@@ -419,6 +419,7 @@ exports[`Entry view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -1089,6 +1090,7 @@ exports[`Entry view should render 1`] = `
                   >
                     NCBI
                     <test-file-stub
+                      data-testid="external-link-icon"
                       width="12.5"
                     />
                   </a>
@@ -1445,6 +1447,7 @@ exports[`Entry view should render 1`] = `
                   >
                     3124
                     <test-file-stub
+                      data-testid="external-link-icon"
                       width="12.5"
                     />
                   </a>
@@ -1666,6 +1669,7 @@ exports[`Entry view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -1703,6 +1707,7 @@ exports[`Entry view should render 1`] = `
                       >
                         Submit a new modelling project...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -1808,6 +1813,7 @@ exports[`Entry view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -1845,6 +1851,7 @@ exports[`Entry view should render 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -2027,6 +2034,7 @@ exports[`Entry view should render 1`] = `
             >
               sequence
               <test-file-stub
+                data-testid="external-link-icon"
                 width="12.5"
               />
             </a>
@@ -2187,6 +2195,7 @@ exports[`Entry view should render 1`] = `
                       >
                         id value
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -2199,6 +2208,7 @@ exports[`Entry view should render 1`] = `
                       >
                         description value
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -2698,6 +2708,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -2961,6 +2972,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   >
                     NCBI
                     <test-file-stub
+                      data-testid="external-link-icon"
                       width="12.5"
                     />
                   </a>
@@ -3196,6 +3208,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3233,6 +3246,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3270,6 +3284,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         Submit a new modelling project...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3464,6 +3479,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         2.115.10.20
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3478,6 +3494,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         2.60.120.260
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3515,6 +3532,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         View protein in InterPro
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3528,6 +3546,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         IPR003343
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3542,6 +3561,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         IPR000421
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3556,6 +3576,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         IPR008979
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3570,6 +3591,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         IPR023296
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3616,6 +3638,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         View protein in PROSITE
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3629,6 +3652,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         PS50022
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3666,6 +3690,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         View protein in Pfam
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3679,6 +3704,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         PF02368
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3693,6 +3719,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         PF00754
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3730,6 +3757,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         View protein in SMART
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3743,6 +3771,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         SM00635
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3780,6 +3809,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         SSF49373
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3794,6 +3824,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         SSF49785
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3808,6 +3839,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         SSF50939
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3822,6 +3854,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         SSF75005
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3859,6 +3892,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -3896,6 +3930,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         Search...
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>
@@ -4146,6 +4181,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                       >
                         WP_009260926.1
                         <test-file-stub
+                          data-testid="external-link-icon"
                           width="12.5"
                         />
                       </a>

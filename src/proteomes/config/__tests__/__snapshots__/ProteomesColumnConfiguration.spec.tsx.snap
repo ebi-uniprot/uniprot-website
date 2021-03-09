@@ -37,6 +37,7 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
   >
     id value
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>

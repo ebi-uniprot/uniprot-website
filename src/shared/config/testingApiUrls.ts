@@ -12,11 +12,19 @@ const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
   // Guoying has remarked that this is temporary until we have k8s production servers live then wwwdev will be the new testing VM
   const apiTestingProtocolDomain = 'http://wp-np2-be';
   const endpointToPort = {
-    genecentric: 8092,
-    proteomes: 8092,
-    uniparc: 8093,
     uniprotkb: 8090,
     uniref: 8091,
+    uniparc: 8093,
+    proteomes: 8092,
+    // supporting data
+    taxonomy: 8095,
+    keywords: 8095,
+    citations: 8095,
+    diseases: 8095,
+    database: 8095,
+    locations: 8095,
+    // other
+    genecentric: 8092,
   };
   const defaultEndpointToPort = 8095; // default to 8095 for all support data and configure
   let newPrefix = prefix;

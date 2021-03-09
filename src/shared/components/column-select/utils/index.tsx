@@ -1,6 +1,9 @@
 import { Bubble } from 'franklin-sites';
+
 import { getBEMClassName as bem } from '../../../utils/utils';
 
+import { Column } from '../../../config/columns';
+import { ColumnConfiguration } from '../../../types/columnConfiguration';
 import {
   ColumnSelectTab,
   FieldData,
@@ -9,7 +12,6 @@ import {
   FieldDatum,
   SelectedColumn,
 } from '../../../../uniprotkb/types/resultsTypes';
-import { Column } from '../../../config/columns';
 
 type PreparedField = {
   id: Column;
@@ -27,10 +29,39 @@ export const prepareFields = (fields: ReceivedField[], exclude?: Column) =>
       } as PreparedField)
   );
 
+export const prepareFieldDataFromColumnConfig = (
+  columnConfig: ColumnConfiguration<Column>,
+  // Exclude primaryKeyColumn which should not be user-selectable eg accession
+  exclude?: Column
+): FieldData => {
+  const fields: FieldDatum = {
+    id: 'datum',
+    title: 'Fields',
+    items: [],
+  };
+  for (const [column, { label }] of columnConfig.entries()) {
+    if (column === exclude) {
+      continue; // eslint-disable-line no-continue
+    }
+    fields.items.push({
+      id: column,
+      label,
+      key: column,
+    } as PreparedField);
+  }
+  return {
+    [ColumnSelectTab.data]: [fields],
+  };
+};
+
 export const prepareFieldData = (
-  fieldData: ReceivedFieldData,
-  exclude?: Column // Exclude primaryKeyColumn which should not be user-selectable eg accession
-) => {
+  fieldData?: ReceivedFieldData,
+  // Exclude primaryKeyColumn which should not be user-selectable eg accession
+  exclude?: Column
+): FieldData => {
+  if (!fieldData?.length) {
+    return {};
+  }
   const dataTab: FieldDatum[] = [];
   const linksTab: FieldDatum[] = [];
   const linksAdded: Record<string, boolean> = {};

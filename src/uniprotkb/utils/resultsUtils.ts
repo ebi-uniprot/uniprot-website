@@ -1,5 +1,6 @@
 import queryStringModule from 'query-string';
-import { SortableColumn, UniProtKBColumn } from '../types/columnTypes';
+import { Column } from '../../shared/config/columns';
+import { SortableColumn } from '../types/columnTypes';
 import {
   SelectedFacet,
   SortDirection,
@@ -85,13 +86,13 @@ export const getLocationObjForParams = ({
 });
 
 export const getSortableColumnToSortColumn = (
-  resultFields: ReceivedFieldData
+  resultFields: ReceivedFieldData = []
 ) => {
-  const sortableColumnToSortColumn = new Map<UniProtKBColumn, string>();
+  const sortableColumnToSortColumn = new Map<Column, string>();
   resultFields.forEach(({ fields }) => {
     fields.forEach(({ name, sortField }) => {
       if (sortField) {
-        sortableColumnToSortColumn.set(name as UniProtKBColumn, sortField);
+        sortableColumnToSortColumn.set(name as Column, sortField);
       }
     });
   });

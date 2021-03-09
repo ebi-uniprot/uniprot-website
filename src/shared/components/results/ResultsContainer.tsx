@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
@@ -25,7 +25,7 @@ import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
 import { SearchResultsLocations } from '../../../app/config/urls';
 
-import { Namespace } from '../../types/namespaces';
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
 import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
@@ -44,32 +44,27 @@ const Results: FC = () => {
     queryParamFromUrl
   );
   const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-  const [sortableColumnToSortColumn, setSortableColumnToSortColumn] = useState<
-    Map<Column, string>
-  >();
 
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );
 
-  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
-    `table columns for ${namespace}`,
-    namespace ? nsToDefaultColumns[namespace] : []
-  );
+  const [tableColumns, setTableColumns] =
+    useLocalStorage<Column[]>(
+      `table columns for ${namespace}`,
+      namespace ? nsToDefaultColumns[namespace] : []
+    ) || nsToDefaultColumns[namespace];
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
-    apiUrls.resultsFields(namespace)
+    // No configure endpoint for supporting data
+    mainNamespaces.has(namespace) ? apiUrls.resultsFields(namespace) : null
   );
 
-  useEffect(() => {
-    if (!dataResultFields) {
-      return;
-    }
-    setSortableColumnToSortColumn(
-      getSortableColumnToSortColumn(dataResultFields)
-    );
-  }, [dataResultFields]);
+  const sortableColumnToSortColumn = useMemo(
+    () => getSortableColumnToSortColumn(dataResultFields),
+    [dataResultFields]
+  );
 
   const columns =
     viewMode === ViewMode.TABLE && tableColumns ? tableColumns : undefined;
@@ -88,6 +83,7 @@ const Results: FC = () => {
     data,
     error,
     loading,
+    progress,
     headers,
     status,
     isStale,
@@ -114,10 +110,6 @@ const Results: FC = () => {
         : filtered
     );
   };
-
-  if (!sortableColumnToSortColumn || !sortableColumnToSortColumn.size) {
-    return <Loader />;
-  }
 
   const handleTableColumnsChange = (columns: Column[]) => {
     if (
@@ -164,7 +156,7 @@ const Results: FC = () => {
       }
       sidebar={
         loading && !data?.facets ? (
-          <Loader />
+          <Loader progress={progress} />
         ) : (
           <ResultsFacets facets={data?.facets || []} isStale={isStale} />
         )

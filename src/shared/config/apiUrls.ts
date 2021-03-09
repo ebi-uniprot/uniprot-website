@@ -49,7 +49,7 @@ const apiUrls = {
     devPrefix,
     '/uniprot/api/configure/uniprotkb/databasefields'
   ),
-  // All result fields except database cross reference fields
+  // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace) =>
     joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
   // Retrieve results
@@ -154,6 +154,7 @@ const defaultFacets = new Map<Namespace, string[]>([
 type QueryUrlProps = {
   namespace?: Namespace;
   query?: string;
+  // TODO: change to set of possible fields (if possible, depending on namespace)
   columns?: Column[] | null;
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
@@ -295,6 +296,7 @@ export const getDownloadUrl = ({
   type Parameters = {
     query: string;
     format: string;
+    // TODO: change to set of possible fields (if possible, depending on namespace)
     fields?: string;
     sort?: string;
     includeIsoform?: boolean;
