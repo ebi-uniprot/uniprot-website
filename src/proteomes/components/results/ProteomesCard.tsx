@@ -51,7 +51,7 @@ const ProteomesCard: FC<{
           </h5>
           <section>
             {mainInfoColumns.map((column) => (
-              <RenderColumnInCard<ProteomesColumn, ProteomesAPIModel>
+              <RenderColumnInCard
                 type={column}
                 data={data}
                 columnConfig={ProteomesColumnConfiguration}
