@@ -194,6 +194,7 @@ const BlastResult = () => {
   // get data from the blast endpoint
   const {
     loading: blastLoading,
+    progress: blastProgress,
     data: blastData,
     error: blastError,
     status: blastStatus,
@@ -281,7 +282,7 @@ const BlastResult = () => {
   }, []);
 
   if (blastLoading) {
-    return <Loader />;
+    return <Loader progress={blastProgress} />;
   }
 
   if (blastError || !blastData || !match) {

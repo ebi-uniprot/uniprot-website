@@ -52,6 +52,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url,
       data: 'some data',
       status: 200,
@@ -68,6 +69,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 0,
       url,
       error: new Error('Network Error'),
     });
@@ -83,6 +85,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 0,
       url,
       error: new Error('timeout of 0ms exceeded'),
     });
@@ -109,11 +112,10 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       error: new Error('Request failed with status code 400'),
-      headers: undefined,
       loading: false,
+      progress: 0,
       url,
       status: 400,
-      statusText: undefined,
     });
   });
 
@@ -127,6 +129,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 0,
       url,
       status: 404,
       error: new Error('Request failed with status code 404'),
@@ -158,6 +161,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url,
       data: 'some data',
       status: 200,
@@ -171,6 +175,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url: url2,
       data: 'some other data',
       status: 200,
@@ -195,6 +200,7 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url: url2,
       data: 'some other data',
       status: 200,
@@ -212,6 +218,7 @@ describe('useDataApi hook', () => {
     await waitForNextUpdate();
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url: url2,
       data: 'some data',
       status: 200,
@@ -235,6 +242,7 @@ describe('useDataApiWithStale hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url,
       data: 'some data',
       status: 200,
@@ -253,6 +261,7 @@ describe('useDataApiWithStale hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
+      progress: 1,
       url: url2,
       data: 'some other data',
       status: 200,

@@ -8,7 +8,9 @@ import { ProteinsAPIVariation } from 'protvista-variation-adapter/dist/es/varian
 import { transformData, TransformedVariant } from 'protvista-variation-adapter';
 
 import { UniProtProtvistaEvidenceTag } from './UniProtKBEvidenceTag';
-import FeaturesTableView, { FeaturesTableCallback } from './FeaturesTableView';
+import FeaturesTableView, {
+  FeaturesTableCallback,
+} from '../../../shared/components/views/FeaturesTableView';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useCustomElement from '../../../shared/hooks/useCustomElement';
@@ -228,7 +230,7 @@ const VariationView: FC<{
         )}
         <FeaturesTableView
           data={transformedData.variants}
-          getColumnConfig={getColumnConfig}
+          columnConfig={getColumnConfig}
         />
       </protvista-manager>
     </div>

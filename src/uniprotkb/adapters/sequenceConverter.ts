@@ -1,5 +1,5 @@
 import { groupBy } from 'lodash-es';
-import { FeatureData } from '../components/protein-data-views/FeaturesView';
+import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
 import {
   getKeywordsForCategories,
   KeywordUIModel,
