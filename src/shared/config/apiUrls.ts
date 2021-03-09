@@ -16,6 +16,49 @@ import {
   fileFormatsWithColumns,
 } from './resultsDownload';
 
+// Main data
+import {
+  Facets as UniProtKBFacets,
+  defaultFacets as uniProtKBDefaultFacets,
+} from '../../uniprotkb/config/UniProtKBFacetConfiguration';
+import {
+  Facets as UniRefFacets,
+  defaultFacets as uniRefDefaultFacets,
+} from '../../uniref/config/UniRefFacetConfiguration';
+import {
+  Facets as UniParcFacets,
+  defaultFacets as uniParcDefaultFacets,
+} from '../../uniparc/config/UniParcFacetConfiguration';
+import {
+  Facets as ProteomesFacets,
+  defaultFacets as proteomesDefaultFacets,
+} from '../../proteomes/config/ProteomesFacetConfiguration';
+// Supporting data
+import {
+  Facets as TaxonomyFacets,
+  defaultFacets as taxonomyDefaultFacets,
+} from '../../supporting-data/taxonomy/config/TaxonomyFacetConfiguration';
+import {
+  Facets as KeywordsFacets,
+  defaultFacets as keywordsDefaultFacets,
+} from '../../supporting-data/keywords/config/KeywordsFacetConfiguration';
+import {
+  Facets as CitationsFacets,
+  defaultFacets as citationsDefaultFacets,
+} from '../../supporting-data/citations/config/CitationsFacetConfiguration';
+import {
+  Facets as DiseasesFacets,
+  defaultFacets as diseasesDefaultFacets,
+} from '../../supporting-data/diseases/config/DiseasesFacetConfiguration';
+import {
+  Facets as DatabaseFacets,
+  defaultFacets as databaseDefaultFacets,
+} from '../../supporting-data/database/config/DatabaseFacetConfiguration';
+import {
+  Facets as LocationsFacets,
+  defaultFacets as locationsDefaultFacets,
+} from '../../supporting-data/locations/config/LocationsFacetConfiguration';
+
 export const devPrefix = 'https://wwwdev.ebi.ac.uk';
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
@@ -135,21 +178,30 @@ export const createSelectedQueryString = (ids: string[], idField: Column) =>
     .sort() // to improve possible cache hit
     .join(' OR ');
 
-const defaultFacets = new Map<Namespace, string[]>([
-  [
-    Namespace.uniprotkb,
-    [
-      'reviewed',
-      'model_organism',
-      'proteins_with',
-      'existence',
-      'annotation_score',
-      'length',
-    ],
-  ],
-  [Namespace.uniref, ['identity']],
-  [Namespace.uniparc, ['database']],
-  [Namespace.proteomes, ['proteome_type', 'superkingdom']],
+type Facets =
+  | UniProtKBFacets
+  | UniRefFacets
+  | UniParcFacets
+  | ProteomesFacets
+  | TaxonomyFacets
+  | KeywordsFacets
+  | CitationsFacets
+  | DiseasesFacets
+  | DatabaseFacets
+  | LocationsFacets;
+const defaultFacets = new Map<Namespace, Facets[]>([
+  // Main data
+  [Namespace.uniprotkb, uniProtKBDefaultFacets],
+  [Namespace.uniref, uniRefDefaultFacets],
+  [Namespace.uniparc, uniParcDefaultFacets],
+  [Namespace.proteomes, proteomesDefaultFacets],
+  // Supporting data
+  [Namespace.taxonomy, taxonomyDefaultFacets],
+  [Namespace.keywords, keywordsDefaultFacets],
+  [Namespace.citations, citationsDefaultFacets],
+  [Namespace.diseases, diseasesDefaultFacets],
+  [Namespace.database, databaseDefaultFacets],
+  [Namespace.locations, locationsDefaultFacets],
 ]);
 type QueryUrlProps = {
   namespace?: Namespace;
@@ -159,7 +211,7 @@ type QueryUrlProps = {
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
-  facets?: string[] | null;
+  facets?: Facets[] | null;
   size?: number;
 };
 export const getAPIQueryUrl = ({
