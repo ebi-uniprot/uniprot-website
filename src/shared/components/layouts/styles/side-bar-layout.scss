@@ -3,12 +3,9 @@
 @import '../../../../../node_modules/franklin-sites/src/styles/colours';
 
 .sidebar-layout {
-  display: grid;
-  grid-template-areas: 'sidebar content';
-  grid-template-columns: 30ch auto;
-
-  height: 100%;
-  overflow-y: hidden;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
 
   &__title {
     min-height: 1rem;
@@ -28,31 +25,44 @@
     height: $action-buttons-height;
   }
 
-  &__title,
+  // &__title,
   &__action-buttons {
     position: sticky;
-    left: 0;
-    width: 100%;
+    top: $header-height;
   }
 
   &__sidebar {
     @include scroll-shadow;
+    position: sticky;
+    top: $header-height;
+    height: 100vh;
     min-width: 100px;
-    padding: 1rem $gutter-size 0;
-    grid-area: sidebar;
+    width: 30ch;
+    padding: $gutter-size;
     overflow-y: auto;
+
+    // TODO: validate with UX if that's a good thing to do
+    // Hides the scrollbar, but keeps functionality
+    // See https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width#accessibility_concerns
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   &__sidebar-content {
     &--empty {
+      width: 100px;
       height: calc(100% - 1rem);
       background-color: $colour-platinum;
     }
   }
 
   &__content {
-    padding: 0 $gutter-size;
-    grid-area: content;
-    overflow-y: auto;
+    flex: 1;
+    position: sticky;
+    top: $header-height;
+    right: 0;
+    width: calc(100vw - 30ch);
   }
 }

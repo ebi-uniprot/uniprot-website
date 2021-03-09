@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { lazy, Suspense, FC } from 'react';
 
 import UniProtHeader from './UniProtHeader';
 
@@ -7,20 +7,31 @@ import MessageManagerContainer from '../../../messages/components/MessageManager
 
 import './styles/base-layout.scss';
 
+const UniProtFooter = lazy(
+  () => import(/* webpackChunkName: "footer" */ './UniProtFooter')
+);
+
 const BaseLayout: FC = ({ children }) => (
   <div className="base-layout">
-    <section className="main-header">
+    <header className="main-header">
       <ErrorBoundary>
         <UniProtHeader />
       </ErrorBoundary>
-    </section>
+    </header>
     <section className="in-page-messages">
       <ErrorBoundary fallback={null}>
         <MessageManagerContainer />
       </ErrorBoundary>
     </section>
-    <div className="main-content-and-footer">
+    <div className="main-content">
       <ErrorBoundary>{children}</ErrorBoundary>
+    </div>
+    <div className="footer">
+      <ErrorBoundary>
+        <Suspense fallback={null}>
+          <UniProtFooter />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   </div>
 );

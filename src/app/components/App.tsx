@@ -137,7 +137,7 @@ const reportBugLinkStyles: CSSProperties = {
   display: 'block',
   padding: '.5rem 0',
   color: '#FFF',
-  backgroundColor: 'red',
+  backgroundColor: 'darkred',
   position: 'fixed',
   bottom: '4rem',
   right: 0,
