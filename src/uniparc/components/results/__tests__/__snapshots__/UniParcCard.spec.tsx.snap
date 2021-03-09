@@ -64,7 +64,6 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                   1988-11-01
                 </time>
               </span>
-               · 
               <span
                 class="result-card__info-bit"
               >
@@ -75,11 +74,10 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                   2021-02-10
                 </time>
               </span>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                Sequence length: 250
+                Length: 250
               </span>
             </section>
           </section>
