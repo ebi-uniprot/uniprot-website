@@ -11,7 +11,7 @@ import './styles/accession-view.scss';
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 const AccessionView: FC<{
-  id: string;
+  id: string | number;
   namespace: Namespace;
   entryType?: string | EntryType;
 }> = ({ id, namespace, entryType }) => {

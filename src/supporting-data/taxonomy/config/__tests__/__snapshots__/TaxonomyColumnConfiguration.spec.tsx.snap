@@ -12,11 +12,15 @@ exports[`TaxonomyColumnConfiguration component should render column "host": host
 
 exports[`TaxonomyColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <a
-    href="/taxonomy/11652"
+  <div
+    class="accession-view"
   >
-    11652
-  </a>
+    <a
+      href="/taxonomy/11652"
+    >
+      11652
+    </a>
+  </div>
 </DocumentFragment>
 `;
 

@@ -12,6 +12,7 @@ import { KeywordsAPIModel } from '../adapters/keywordsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 // import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum KeywordsColumn {
   category = 'category',
@@ -83,7 +84,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.geneOntology, {
 KeywordsColumnConfiguration.set(KeywordsColumn.id, {
   label: 'ID',
   render: ({ keyword }) =>
-    keyword?.id && <Link to={getEntryPath(keyword.id)}>{keyword.id}</Link>,
+    keyword && <AccessionView namespace={Namespace.keywords} id={keyword.id} />,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.name, {

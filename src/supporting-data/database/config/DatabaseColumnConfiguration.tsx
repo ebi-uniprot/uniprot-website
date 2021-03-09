@@ -1,15 +1,14 @@
-import { Link } from 'react-router-dom';
 import { ExternalLink, CodeBlock /* , LongNumber */ } from 'franklin-sites';
 
 // import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
-import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 // import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum DatabaseColumn {
   abbrev = 'abbrev',
@@ -38,8 +37,6 @@ export const defaultColumns = [
 ];
 
 export const primaryKeyColumn = DatabaseColumn.id;
-
-const getEntryPath = getEntryPathFor(Namespace.database);
 
 export const DatabaseColumnConfiguration: ColumnConfiguration<
   DatabaseColumn,
@@ -70,7 +67,8 @@ DatabaseColumnConfiguration.set(DatabaseColumn.doiId, {
 
 DatabaseColumnConfiguration.set(DatabaseColumn.id, {
   label: 'ID',
-  render: ({ id }) => id && <Link to={getEntryPath(id)}>{id}</Link>,
+  render: ({ id }) =>
+    id && <AccessionView id={id} namespace={Namespace.database} />,
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.linkType, {

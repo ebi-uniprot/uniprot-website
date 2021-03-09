@@ -1,7 +1,4 @@
-import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
-
-import { getEntryPathFor } from '../../../app/config/urls';
 
 import {
   CitationsAPIModel,
@@ -10,6 +7,7 @@ import {
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { JournalInfo } from '../../../shared/components/literature-citations/LiteratureCitation';
 import { Namespace } from '../../../shared/types/namespaces';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum CitationsColumn {
   // Authoring group is not the author list
@@ -40,8 +38,6 @@ export const defaultColumns = [
 ];
 
 export const primaryKeyColumn = CitationsColumn.id;
-
-const getEntryPath = getEntryPathFor(Namespace.citations);
 
 export const CitationsColumnConfiguration: ColumnConfiguration<
   CitationsColumn,
@@ -78,7 +74,7 @@ CitationsColumnConfiguration.set(CitationsColumn.id, {
     const id = citation?.citationCrossReferences?.find(
       (xref) => xref.database === CitationXRefDB.PubMed
     )?.id;
-    return id && <Link to={getEntryPath(id)}>{id}</Link>;
+    return id && <AccessionView id={id} namespace={Namespace.citations} />;
   },
 });
 
