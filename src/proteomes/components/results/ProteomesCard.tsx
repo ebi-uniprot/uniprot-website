@@ -60,7 +60,7 @@ const ProteomesCard: FC<{
             ))}
           </section>
           <section>
-            <RenderColumnInCard<ProteomesColumn, ProteomesAPIModel>
+            <RenderColumnInCard
               type={ProteomesColumn.busco}
               data={data}
               columnConfig={ProteomesColumnConfiguration}
