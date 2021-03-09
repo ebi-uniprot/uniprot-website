@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Card, LongNumber } from 'franklin-sites';
+import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -11,6 +11,10 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
 import '../../../shared/components/results/styles/result-card.scss';
+import UniRefColumnConfiguration, {
+  UniRefColumn,
+} from '../../config/UniRefColumnConfiguration';
+import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
@@ -19,6 +23,13 @@ type Props = {
   selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
 };
+
+const mainInfoColumns = [
+  UniRefColumn.name,
+  UniRefColumn.count,
+  UniRefColumn.length,
+  UniRefColumn.identity,
+];
 
 const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
@@ -48,22 +59,15 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
           <h5>
             <EntryTitle mainTitle={data.id} entryType={data.memberIdTypes} />
           </h5>
-          <section>{data.name}</section>
           <section>
-            <strong className="result-card__info-bit">
-              Members: {data.memberCount}
-            </strong>
-            {' · '}
-            <span className="result-card__info-bit">
-              Sequence length:{' '}
-              <LongNumber>
-                {data.representativeMember.sequence?.length ?? 0}
-              </LongNumber>
-            </span>
-            {' · '}
-            <span className="result-card__info-bit">
-              Identity: {data.entryType}
-            </span>
+            {mainInfoColumns.map((column) => (
+              <RenderColumnInCard
+                type={column}
+                data={data}
+                columnConfig={UniRefColumnConfiguration}
+                key={column}
+              />
+            ))}
           </section>
         </section>
       </section>

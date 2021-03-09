@@ -41,21 +41,21 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               </span>
             </h5>
             <section>
-              Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
-            </section>
-            <section>
-              <strong
-                class="result-card__info-bit"
-              >
-                Members: 1
-              </strong>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                Sequence length: 730
+                Cluster name: Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
               </span>
-               · 
+              <span
+                class="result-card__info-bit"
+              >
+                Size: 1 member
+              </span>
+              <span
+                class="result-card__info-bit"
+              >
+                Length: 730
+              </span>
               <span
                 class="result-card__info-bit"
               >
