@@ -47,19 +47,19 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   return (
     <Card onClick={handleCardClick}>
       <section className="result-card">
-        <section className="result-card__left">
+        <div className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
             onChange={() => handleEntrySelection(data.id)}
             data-testid="up-card-checkbox"
           />
-        </section>
-        <section className="result-card__right">
+        </div>
+        <div className="result-card__right">
           <h5>
             <EntryTitle mainTitle={data.id} entryType={data.memberIdTypes} />
           </h5>
-          <section>
+          <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
                 type={column}
@@ -68,8 +68,8 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
                 key={column}
               />
             ))}
-          </section>
-        </section>
+          </div>
+        </div>
       </section>
     </Card>
   );

@@ -16,7 +16,7 @@ const RenderColumnInCard = <T, R extends Record<string, unknown>>(
   return rendered ? (
     <>
       <span className="result-card__info-bit">
-        {columnConfig.get(type)?.label}
+        <strong>{columnConfig.get(type)?.label}</strong>
         {': '}
         {rendered}
       </span>

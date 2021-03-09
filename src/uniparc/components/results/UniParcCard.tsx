@@ -58,7 +58,7 @@ const UniRefCard: FC<{
   return (
     <Card onClick={handleCardClick}>
       <section className="result-card">
-        <section className="result-card__left">
+        <div className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
@@ -66,26 +66,26 @@ const UniRefCard: FC<{
             onChange={() => handleEntrySelection(data.uniParcId)}
             data-testid="up-card-checkbox"
           />
-        </section>
-        <section className="result-card__right">
+        </div>
+        <div className="result-card__right">
           <h5>
             <EntryTitle
               mainTitle={data.uniParcId}
               entryType={EntryType.UNIPARC}
             />
           </h5>
-          <section>
+          <div className="result-card__info-container">
             <span className="result-card__info-bit">
-              Organism{organismCount === 1 ? '' : 's'}:{' '}
+              <strong>Organism{organismCount === 1 ? '' : 's'}: </strong>
               <LongNumber>{organismCount}</LongNumber>
             </span>
-            {' · '}
             <span className="result-card__info-bit">
-              UniprotKB entries: {uniProtKBCount.reviewed} reviewed and{' '}
-              <LongNumber>{uniProtKBCount.unreviewed}</LongNumber> unreviewed
+              <strong>UniprotKB entries:</strong> {uniProtKBCount.reviewed}{' '}
+              reviewed and <LongNumber>{uniProtKBCount.unreviewed}</LongNumber>{' '}
+              unreviewed
             </span>
-          </section>
-          <section>
+          </div>
+          <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
                 type={column}
@@ -94,8 +94,8 @@ const UniRefCard: FC<{
                 key={column}
               />
             ))}
-          </section>
-        </section>
+          </div>
+        </div>
       </section>
     </Card>
   );

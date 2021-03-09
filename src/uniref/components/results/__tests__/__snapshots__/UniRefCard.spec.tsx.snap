@@ -16,15 +16,15 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         <section
           class="result-card"
         >
-          <section
+          <div
             class="result-card__left"
           >
             <input
               data-testid="up-card-checkbox"
               type="checkbox"
             />
-          </section>
-          <section
+          </div>
+          <div
             class="result-card__right"
           >
             <h5>
@@ -40,29 +40,43 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 UniRef100_A0A0B7GQ86
               </span>
             </h5>
-            <section>
+            <div
+              class="result-card__info-container"
+            >
               <span
                 class="result-card__info-bit"
               >
-                Cluster name: Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
+                <strong>
+                  Cluster name
+                </strong>
+                : Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
               </span>
               <span
                 class="result-card__info-bit"
               >
-                Size: 1 member
+                <strong>
+                  Size
+                </strong>
+                : 1 member
               </span>
               <span
                 class="result-card__info-bit"
               >
-                Length: 730
+                <strong>
+                  Length
+                </strong>
+                : 730
               </span>
               <span
                 class="result-card__info-bit"
               >
-                Identity: UniRef100
+                <strong>
+                  Identity
+                </strong>
+                : UniRef100
               </span>
-            </section>
-          </section>
+            </div>
+          </div>
         </section>
       </div>
     </div>
