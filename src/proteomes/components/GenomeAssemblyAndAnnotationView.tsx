@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { ExternalLink } from 'franklin-sites';
 import { GenomeAssembly } from '../adapters/proteomesConverter';
 
-const GenomeAssemblyView: FC<Partial<GenomeAssembly>> = ({
+const GenomeAssemblyAndAnnotationView: FC<Partial<GenomeAssembly>> = ({
   assemblyId,
   source,
   genomeAssemblyUrl,
@@ -17,4 +17,4 @@ const GenomeAssemblyView: FC<Partial<GenomeAssembly>> = ({
   return <>{text}</>;
 };
 
-export default GenomeAssemblyView;
+export default GenomeAssemblyAndAnnotationView;

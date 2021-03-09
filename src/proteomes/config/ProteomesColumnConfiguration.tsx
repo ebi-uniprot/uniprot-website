@@ -1,16 +1,15 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
+import { capitalize } from 'lodash-es';
 
 import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../components/AccessionView';
 import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 import BuscoAbbr from '../components/BuscoAbbr';
-import CpdAbbr from '../components/CpdAbbr';
-import GenomeAssemblyView from '../components/GenomeAssemblyView';
-import ProteinCount from '../components/ProteinCount';
 
-import { getEntryPath } from '../../app/config/urls';
+import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
@@ -95,31 +94,49 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
-  label: <CpdAbbr />,
+  label: <abbr title="Complete Proteome Detector">CPD</abbr>,
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport.cpdReport.status,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
   label: 'Genome assembly ID',
-  render: ({ genomeAssembly }) => (
-    <GenomeAssemblyView
-      genomeAssemblyUrl={genomeAssembly?.genomeAssemblyUrl}
-      assemblyId={genomeAssembly?.assemblyId}
-    />
-  ),
+  render: ({ genomeAssembly }) => {
+    if (!genomeAssembly) {
+      return null;
+    }
+    if (genomeAssembly.genomeAssemblyUrl) {
+      return (
+        <ExternalLink url={genomeAssembly.genomeAssemblyUrl}>
+          {genomeAssembly.assemblyId}
+        </ExternalLink>
+      );
+    }
+    return genomeAssembly.assemblyId;
+  },
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
   label: 'Genome representation',
-  render: ({ genomeAssembly }) => genomeAssembly?.level,
+  render: ({ genomeAssembly }) => capitalize(genomeAssembly?.level),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   label: 'Protein Count',
-  render: ({ id, proteinCount }) => (
-    <ProteinCount id={id} proteinCount={proteinCount} />
-  ),
+  render: ({ id, proteinCount }) =>
+    proteinCount > 0 ? (
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=proteome:${id}`,
+        }}
+      >
+        {/* TODO: to eventually be supported by the backend in 2021_02 - 2021_03 */}
+        {proteinCount ?? 'no data yet'}
+      </Link>
+    ) : (
+      proteinCount ?? 'no data yet' // 0
+    ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {

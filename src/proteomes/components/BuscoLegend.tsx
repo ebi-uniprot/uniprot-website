@@ -23,7 +23,9 @@ const BuscoLegend = () => (
             backgroundColor: buscoPartitionToColor[partition],
           }}
         />
-        {buscoPartitionToLabel[partition]}
+        <span className="busco-legend-item__label">
+          {buscoPartitionToLabel[partition]}
+        </span>
       </span>
     ))}
   </>
