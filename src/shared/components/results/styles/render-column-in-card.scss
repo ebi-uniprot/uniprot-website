@@ -1,0 +1,6 @@
+@import '../../../../../node_modules/franklin-sites/src/styles/settings';
+
+.result-card__info-bit:not(:last-child)::after {
+  content: ' · ';
+  margin: 0 $global-margin/4;
+}

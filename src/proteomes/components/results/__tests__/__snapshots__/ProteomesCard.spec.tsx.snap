@@ -46,7 +46,6 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   Homo sapiens (Human)
                 </a>
               </span>
-                · 
               <span
                 class="result-card__info-bit"
               >
@@ -57,13 +56,11 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   18
                 </a>
               </span>
-                · 
               <span
                 class="result-card__info-bit"
               >
                 Genome representation: full
               </span>
-                · 
               <span
                 class="result-card__info-bit"
               >
@@ -74,7 +71,6 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 </abbr>
                 : Standard
               </span>
-                · 
             </section>
             <section>
               <span
@@ -140,7 +136,6 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   </div>
                 </div>
               </span>
-                · 
             </section>
           </section>
         </section>

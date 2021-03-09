@@ -1,5 +1,7 @@
 import { ColumnConfiguration } from '../../types/columnConfiguration';
 
+import './styles/render-column-in-card.scss';
+
 type RenderColumnInCardProps<T, R extends Record<string, unknown>> = {
   type: T;
   data: R;
@@ -17,8 +19,7 @@ const RenderColumnInCard = <T, R extends Record<string, unknown>>(
         {columnConfig.get(type)?.label}
         {': '}
         {rendered}
-      </span>{' '}
-      {' · '}
+      </span>
     </>
   ) : null;
 };
