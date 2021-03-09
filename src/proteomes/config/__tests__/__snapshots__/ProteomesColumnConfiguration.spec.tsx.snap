@@ -48,7 +48,7 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
 
 exports[`ProteomesColumnConfiguration component should render column "genome_representation": genome_representation 1`] = `
 <DocumentFragment>
-  full
+  Full
 </DocumentFragment>
 `;
 
