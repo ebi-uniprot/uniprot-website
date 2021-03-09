@@ -18,7 +18,7 @@ import AlignmentView, {
 
 import './styles/HSPDetailPanel.scss';
 import { removeFeaturesWithUnknownModifier } from '../../../utils/sequences';
-import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/FeaturesView';
+import { processFeaturesData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 type UniProtkbAccessionsAPI = {
   results: UniProtkbAPIModel[];

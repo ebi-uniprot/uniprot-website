@@ -5,7 +5,7 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import KeywordView from '../protein-data-views/KeywordView';
-import FeaturesView from '../protein-data-views/FeaturesView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
 import { hasContent } from '../../../shared/utils/utils';
 

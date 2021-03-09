@@ -25,7 +25,7 @@ import {
   MSAInput,
   handleEvent,
 } from './AlignmentView';
-import { ProcessedFeature } from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 import {
   createGappedFeature,
   getEndCoordinate,
