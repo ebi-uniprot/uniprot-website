@@ -5,6 +5,7 @@
 .sidebar-layout {
   display: flex;
   align-items: flex-start;
+  width: 100%;
 
   &__title {
     min-height: 1rem;
@@ -24,21 +25,20 @@
     height: $action-buttons-height;
   }
 
-  &__title,
+  // &__title,
   &__action-buttons {
     position: sticky;
-    left: 0;
-    width: 100%;
+    top: $header-height;
   }
 
   &__sidebar {
     @include scroll-shadow;
     position: sticky;
-    top: 0;
+    top: $header-height;
     height: 100vh;
     min-width: 100px;
-    max-width: 30ch;
-    padding: 1rem $gutter-size 0;
+    width: 30ch;
+    padding: $gutter-size;
     overflow-y: auto;
 
     // TODO: validate with UX if that's a good thing to do
@@ -52,6 +52,7 @@
 
   &__sidebar-content {
     &--empty {
+      width: 100px;
       height: calc(100% - 1rem);
       background-color: $colour-platinum;
     }
@@ -59,7 +60,9 @@
 
   &__content {
     flex: 1;
-    padding: 0 $gutter-size;
-    overflow-y: auto;
+    position: sticky;
+    top: $header-height;
+    right: 0;
+    width: calc(100vw - 30ch);
   }
 }

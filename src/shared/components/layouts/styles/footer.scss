@@ -1,6 +1,7 @@
 @import '../../../../../node_modules/franklin-sites/src/styles/colours';
+@import '../../../../../node_modules/franklin-sites/src/styles/mixins';
 
-.footer {
+footer.footer {
   // Make the whole footer texts be a portion of the default size of the rest
   font-size: 0.75rem;
   padding: 1em;
@@ -11,6 +12,12 @@
 
   p {
     margin-bottom: 1em;
+  }
+
+  img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
   }
 
   // Consortium
@@ -33,6 +40,15 @@
           // Not the same aspect ratio, so gives more weight to compensate
           flex: 3;
         }
+      }
+
+      & svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        // override .external-link style
+        margin: initial;
+        fill: black;
       }
     }
   }
@@ -105,21 +121,39 @@
       white-space: nowrap;
     }
 
-    img {
-      height: 2.25em;
+    svg {
+      display: block;
+      fill: black;
     }
   }
 
-  // tablet breakpoint TODO: define breakpoint (copy from foundation now)
-  @media only screen and (max-width: 64em) {
+  @include fs-breakpoints('small') {
+    .consortium {
+      grid-area: 1 / 1 / span 1 / span 12;
+    }
+    .copyright-misc {
+      grid-area: 2 / 1 / span 1 / span 12;
+    }
+    .shortcuts {
+      grid-area: 3 / 1 / span 1 / span 12;
+    }
+    .contact-elixir {
+      grid-area: 4 / 1 / span 1 / span 12;
+    }
+    .funding {
+      grid-area: 5 / 1 / span 1 / span 12;
+    }
+  }
+
+  @include fs-breakpoints('medium') {
     .consortium {
       grid-area: 1 / 1 / span 1 / span 3;
     }
     .copyright-misc {
       grid-area: 4 / 1 / span 1 / span 12;
+      // override of default for medium and above
       display: flex;
       justify-content: space-around;
-
       & > p {
         margin-bottom: 0;
       }
@@ -135,22 +169,26 @@
     }
   }
 
-  // mobile breakpoint TODO: define breakpoint (copy from foundation now)
-  @media only screen and (max-width: 40em) {
+  @include fs-breakpoints('large') {
     .consortium {
-      grid-area: 1 / 1 / span 1 / span 12;
+      grid-area: 1 / 1 / span 1 / span 2;
     }
     .copyright-misc {
-      grid-area: 2 / 1 / span 1 / span 12;
+      grid-area: 2 / 1 / span 2 / span 3;
+      // override (overriding of default for medium and above) for large (🤯)
+      display: initial;
+      & > p {
+        margin-bottom: 1em;
+      }
     }
     .shortcuts {
-      grid-area: 3 / 1 / span 1 / span 12;
+      grid-area: 1 / 4 / span 2 / span 6;
     }
     .contact-elixir {
-      grid-area: 4 / 1 / span 1 / span 12;
+      grid-area: 1 / 11 / span 3 / span 2;
     }
     .funding {
-      grid-area: 5 / 1 / span 1 / span 12;
+      grid-area: 3 / 4 / span 1 / span 6;
     }
   }
 }

@@ -1,19 +1,29 @@
 @import '../../../styles/settings';
 
-$header-height: 70px;
-
 .base-layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: stretch;
 
+  header {
+    height: $header-height;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: $z-index-high + 1;
+    background: white;
+  }
+
   .header:not(.header--negative) > .header__logo svg g {
     fill: white;
-    height: $header-height;
   }
 
   .main-content {
     flex: 1;
+  }
+
+  .footer {
+    width: 100%;
   }
 }

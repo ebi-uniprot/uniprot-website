@@ -7,8 +7,10 @@
 }
 
 .results-view {
+  width: 100%;
+
   .data-table th {
-    top: $action-buttons-height !important;
+    top: calc(#{$header-height} + #{$action-buttons-height}) !important;
   }
 
   .data-table td > .info-list {

@@ -15,7 +15,7 @@ import './styles/footer.scss';
 
 import UniProtLogo from '../../../images/uniprot-logo.svg';
 
-import EMBLEBILogo from '../../../images/embl-ebi-logo.png';
+import EMBLEBILogo from '../../../images/embl-ebi-logo.svg';
 import PIRLogo from '../../../images/pir-logo.jpg';
 import SIBLogo from '../../../images/sib-logo.png';
 
@@ -45,7 +45,7 @@ const FooterConsortium = () => (
         url="https://www.ebi.ac.uk/"
         title="European Bioinformatics Institute"
       >
-        <img src={EMBLEBILogo} loading="lazy" alt="" width="600" height="185" />
+        <EMBLEBILogo />
       </ExternalLink>
       <ExternalLink
         noIcon
@@ -358,7 +358,7 @@ const FooterFunding = () => (
       url="https://www.embl.org/"
       title="European Molecular Biology Laboratory"
     >
-      <img src={EMBLEBILogo} loading="lazy" alt="" />
+      <EMBLEBILogo height="2.5em" width="8.11em" />
     </ExternalLink>
     <ExternalLink
       noIcon

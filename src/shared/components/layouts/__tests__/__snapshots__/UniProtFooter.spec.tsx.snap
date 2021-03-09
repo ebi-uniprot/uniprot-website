@@ -28,13 +28,7 @@ exports[`HomePage component should render 1`] = `
             target="_blank"
             title="European Bioinformatics Institute"
           >
-            <img
-              alt=""
-              height="185"
-              loading="lazy"
-              src="test-file-stub"
-              width="600"
-            />
+            <test-file-stub />
           </a>
           <a
             class="external-link"
@@ -435,10 +429,9 @@ exports[`HomePage component should render 1`] = `
           target="_blank"
           title="European Molecular Biology Laboratory"
         >
-          <img
-            alt=""
-            loading="lazy"
-            src="test-file-stub"
+          <test-file-stub
+            height="2.5em"
+            width="8.11em"
           />
         </a>
         <a
