@@ -4,7 +4,7 @@ import {
   KineticParameters,
   CofactorComment,
 } from '../adapters/functionConverter';
-import { FeatureData } from '../components/protein-data-views/FeaturesView';
+import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { Interactant } from '../adapters/interactionConverter';
 import { Xref } from '../../shared/types/apiModel';
 

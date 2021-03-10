@@ -1,21 +1,29 @@
 @import '../../../styles/settings';
 
-$header-height: 70px;
-
 .base-layout {
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
+
+  header {
+    height: $header-height;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: $z-index-high + 1;
+    background: white;
+  }
 
   .header:not(.header--negative) > .header__logo svg g {
     fill: white;
-    height: $header-height;
   }
 
-  .main-content-and-footer {
-    width: 100%;
+  .main-content {
     flex: 1;
-    overflow-y: auto;
+  }
+
+  .footer {
+    width: 100%;
   }
 }

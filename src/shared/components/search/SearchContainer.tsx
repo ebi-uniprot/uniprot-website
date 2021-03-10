@@ -131,7 +131,7 @@ const SearchContainer: FC<
             <Button
               variant="tertiary"
               element={Link}
-              to={LocationToPath[Location.UploadList]}
+              to={LocationToPath[Location.IDMapping]}
             >
               Search with a list of IDs
             </Button>
