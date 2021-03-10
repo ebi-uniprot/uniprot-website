@@ -35,7 +35,7 @@
     @include scroll-shadow;
     position: sticky;
     top: $header-height;
-    height: 100vh;
+    max-height: calc(100vh - #{$header-height});
     min-width: 100px;
     width: 30ch;
     padding: $gutter-size;
