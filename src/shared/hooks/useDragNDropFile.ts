@@ -87,7 +87,7 @@ const useDragNDropFile = ({
     overlayRef.current.style.pointerEvents = 'none';
     overlayRef.current.style.visibility = 'hidden';
     overlayRef.current.style.position = 'absolute';
-    overlayRef.current.style.display = 'flex';
+    overlayRef.current.style.display = 'none';
     overlayRef.current.style.alignItems = 'center';
     overlayRef.current.style.justifyContent = 'center';
     overlayRef.current.style.zIndex = '999';
@@ -115,6 +115,7 @@ const useDragNDropFile = ({
       if (isDragging) {
         const rect = dndTarget.getBoundingClientRect();
 
+        overlayRef.current.style.display = 'flex';
         overlayRef.current.style.left = `${rect.left}px`;
         overlayRef.current.style.width = `${rect.width}px`;
         overlayRef.current.style.top = `${rect.top}px`;

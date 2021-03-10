@@ -112,8 +112,8 @@ const infoMappings: Record<
       { title: 'Video', destination: '' },
     ],
   },
-  [JobTypes.UPLOAD_LIST]: {
-    name: 'Upload list',
+  [JobTypes.ID_MAPPING]: {
+    name: 'Retrieve/ID mapping',
     info: null,
     links: [
       { title: 'Help', destination: '' },

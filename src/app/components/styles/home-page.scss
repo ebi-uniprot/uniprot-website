@@ -1,4 +1,12 @@
+@import '../../../../node_modules/franklin-sites/src/styles/colours';
+
 .home-page__header {
+  .cite-us {
+    // override default link style for this specific space
+    color: $colour-sky-white;
+    text-decoration: underline;
+  }
+
   .letter-group {
     color: currentColor;
     font-weight: 700;

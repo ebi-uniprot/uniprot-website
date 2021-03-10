@@ -30,7 +30,7 @@ import {
 } from '../utils/sequences';
 
 import FeatureType from '../../uniprotkb/types/featureType';
-import { ProcessedFeature } from '../../uniprotkb/components/protein-data-views/FeaturesView';
+import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
 
 import './styles/AlignmentView.scss';
 import { prepareFeatureForTooltip } from '../utils/feature';

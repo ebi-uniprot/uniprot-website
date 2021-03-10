@@ -3,21 +3,21 @@ import { Tile, HeroContainer, DecoratedListItem } from 'franklin-sites';
 import colors from '../../../node_modules/franklin-sites/src/styles/colours.json';
 
 // Namespaces
-import UniProtKBIllustration from '../../svg/uniprotkb_illustration.svg';
-import SpeciesIllustration from '../../svg/species_illustration.svg';
-import ClusterIllustration from '../../svg/cluster_illustration.svg';
-import ArchiveIllustration from '../../svg/archive_illustration.svg';
+import UniProtKBIllustration from '../../images/uniprotkb_illustration.svg';
+import SpeciesIllustration from '../../images/species_illustration.svg';
+import ClusterIllustration from '../../images/cluster_illustration.svg';
+import ArchiveIllustration from '../../images/archive_illustration.svg';
 
 // Tools
-import BlastIllustration from '../../svg/blast_illustration.svg';
-import AlignIllustration from '../../svg/align_illustration.svg';
-import UploadListIllustration from '../../svg/id-mapping_illustration.svg';
-import PeptideSearchIllustration from '../../svg/peptide_search_illustration.svg';
+import BlastIllustration from '../../images/blast_illustration.svg';
+import AlignIllustration from '../../images/align_illustration.svg';
+import UploadListIllustration from '../../images/id-mapping_illustration.svg';
+import PeptideSearchIllustration from '../../images/peptide_search_illustration.svg';
 
 // Technical corner
-import FTPIllustration from '../../svg/ftp_illustration.svg';
-import ProgrammaticIllustration from '../../svg/programmatic_illustration.svg';
-import TechDocIllustration from '../../svg/tech_doc_illustration.svg';
+import FTPIllustration from '../../images/ftp_illustration.svg';
+import ProgrammaticIllustration from '../../images/programmatic_illustration.svg';
+import TechDocIllustration from '../../images/tech_doc_illustration.svg';
 
 import PlaceHolder from './PlaceHolder';
 

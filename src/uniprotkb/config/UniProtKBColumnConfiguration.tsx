@@ -16,7 +16,7 @@ import GeneNamesView, {
 } from '../components/protein-data-views/GeneNamesView';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
-import FeaturesView from '../components/protein-data-views/FeaturesView';
+import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
 import EntrySection from '../types/entrySection';
 import {
   SequenceCautionView,

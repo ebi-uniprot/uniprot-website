@@ -4,7 +4,7 @@ import { Card } from 'franklin-sites';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import FeaturesView from '../protein-data-views/FeaturesView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import KeywordView from '../protein-data-views/KeywordView';
 import XRefView from '../protein-data-views/XRefView';
 import SequenceView, {

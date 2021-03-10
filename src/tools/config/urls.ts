@@ -34,7 +34,7 @@ export type ResultFormat = {
     | 'ffdp-subject-jpeg'
     | 'parameters' // in XML
     | 'json';
-  [JobTypes.UPLOAD_LIST]: never; // TODO
+  [JobTypes.ID_MAPPING]: never; // TODO
   [JobTypes.PEPTIDE_SEARCH]: never; // TODO
 };
 
@@ -47,7 +47,7 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
     case JobTypes.BLAST:
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
-    case JobTypes.UPLOAD_LIST:
+    case JobTypes.ID_MAPPING:
       baseURL = ''; // TODO
       break;
     case JobTypes.PEPTIDE_SEARCH:

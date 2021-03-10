@@ -25,7 +25,7 @@ import EntrySection from '../types/entrySection';
 import FeatureType from '../types/featureType';
 
 import Comment, { CommentType } from '../types/commentTypes';
-import { FeatureData } from '../components/protein-data-views/FeaturesView';
+import { FeatureData } from '../components/protein-data-views/UniProtKBFeaturesView';
 import { Lineage, Xref } from '../../shared/types/apiModel';
 import { SequenceData } from '../../shared/components/entry/SequenceView';
 import {

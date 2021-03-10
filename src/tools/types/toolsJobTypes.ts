@@ -1,6 +1,6 @@
 export enum JobTypes {
   BLAST = 'blast',
   ALIGN = 'align',
-  UPLOAD_LIST = 'upload list',
+  ID_MAPPING = 'id mapping',
   PEPTIDE_SEARCH = 'peptide search',
 }
