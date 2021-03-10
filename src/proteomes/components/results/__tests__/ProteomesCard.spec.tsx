@@ -1,8 +1,9 @@
+import { fireEvent, screen } from '@testing-library/react';
+
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 import ProteomesCard from '../ProteomesCard';
 
 import proteomesData from '../../../__mocks__/proteomesEntryModelData';
-import { fireEvent, screen } from '@testing-library/react';
 
 describe('ProteomesCard tests', () => {
   it('should render the card component', () => {
@@ -12,12 +13,17 @@ describe('ProteomesCard tests', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should allow card selection', () => {
+  it('should allow card selection and navigation', () => {
     const handleClick = jest.fn();
-    renderWithRouter(
+    const { history } = renderWithRouter(
       <ProteomesCard data={proteomesData} handleEntrySelection={handleClick} />
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button'));
+    const {
+      location: { pathname },
+    } = history;
+    expect(pathname).toMatch('/proteomes/UP000005640');
   });
 });
