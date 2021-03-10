@@ -6,6 +6,6 @@
 }
 
 .result-card__info-bit:not(:last-child)::after {
-  content: ' · ';
+  content: '·';
   margin: 0 $global-margin/4;
 }
