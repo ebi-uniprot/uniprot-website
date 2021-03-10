@@ -1,4 +1,4 @@
-import { CitationsAPIModel } from '../../../../supporting-data/citations/adapters/citationsConverter';
+import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
 // uniprot/api/citations/14702039
 const mock: CitationsAPIModel = {

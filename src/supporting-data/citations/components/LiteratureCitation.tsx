@@ -10,9 +10,9 @@ import {
 } from 'franklin-sites';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
-import externalUrls from '../../config/externalUrls';
+import externalUrls from '../../../shared/config/externalUrls';
 
-import '../../styles/literature-citation.scss';
+import '../../../shared/styles/literature-citation.scss';
 
 type AuthorProps = {
   authors: string[];

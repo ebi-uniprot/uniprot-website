@@ -10,7 +10,7 @@ import {
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
-import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];

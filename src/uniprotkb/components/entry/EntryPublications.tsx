@@ -19,7 +19,7 @@ import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
-import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import {
   CitationsAPIModel,
   formatCitationData,

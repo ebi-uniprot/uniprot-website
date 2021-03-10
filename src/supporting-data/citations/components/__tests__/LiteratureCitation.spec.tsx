@@ -1,11 +1,9 @@
 import { screen, fireEvent } from '@testing-library/react';
 
+import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 import LiteratureCitation from '../LiteratureCitation';
-
 import literatureCitationData from '../__mocks__/literatureCitationData';
-
-import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
-import { formatCitationData } from '../../../../supporting-data/citations/adapters/citationsConverter';
+import { formatCitationData } from '../../adapters/citationsConverter';
 
 let rendered: ReturnType<typeof renderWithRouter>;
 
