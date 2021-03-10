@@ -1,4 +1,4 @@
-import { Citation } from '../../shared/types/apiModel';
+import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
 
 export const getCitationPubMedId = (citation: Citation) =>
   citation.citationCrossReferences &&

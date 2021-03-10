@@ -8,15 +8,15 @@ import { getPublicationsURL } from '../../../shared/config/apiUrls';
 import formatCitationData from '../../adapters/literatureConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
-import { LiteratureResultsAPI } from '../../types/literatureTypes';
 import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
+import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];
 }> = ({ pubmedIds }) => {
   const url = getPublicationsURL(pubmedIds);
   const { loading, data, status, error } = useDataApi<{
-    results: LiteratureResultsAPI[];
+    results: CitationsAPIModel[];
   }>(url);
 
   if (error) {

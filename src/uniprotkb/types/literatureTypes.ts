@@ -1,4 +1,4 @@
-import { Citation } from '../../shared/types/apiModel';
+import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
 
 export type Reference = {
   citation?: Citation;
@@ -21,22 +21,3 @@ export interface CommunityAnnotation {
   comment?: string;
   disease?: string;
 }
-
-export type LiteratureStatistics = {
-  reviewedProteinCount?: number;
-  unreviewedProteinCount?: number;
-  computationallyMappedProteinCount?: number;
-  communityMappedProteinCount?: number;
-};
-
-// export type LiteratureForProteinAPI = {
-//   reference: Reference;
-//   statistics?: LiteratureStatistics;
-//   categories?: string[];
-// };
-
-export type LiteratureResultsAPI = {
-  citation: Citation;
-  references: Reference[];
-  statistics?: LiteratureStatistics;
-};

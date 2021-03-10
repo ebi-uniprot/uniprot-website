@@ -20,11 +20,12 @@ import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
-import { LiteratureResultsAPI, Reference } from '../../types/literatureTypes';
+import { Reference } from '../../types/literatureTypes';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
+import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -95,7 +96,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   });
 
   const [url, setUrl] = useState(initialUrl);
-  const [allResults, setAllResults] = useState<LiteratureResultsAPI[]>([]);
+  const [allResults, setAllResults] = useState<CitationsAPIModel[]>([]);
   const [metaData, setMetaData] = useState<{
     total: number;
     nextUrl?: string;
@@ -103,7 +104,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
-    results: LiteratureResultsAPI[];
+    results: CitationsAPIModel[];
   }>(url);
 
   useEffect(() => {
@@ -137,7 +138,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   return (
     <section>
       <h2>Publications for {accession}</h2>
-      <DataListWithLoader<LiteratureResultsAPI>
+      <DataListWithLoader<CitationsAPIModel>
         getIdKey={(item, index) => {
           const { citation } = item;
           const pubMedXref = getCitationPubMedId(citation);
@@ -154,6 +155,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           const { pubmedId, journalInfo } = formatCitationData(citation);
 
           return (
+            references &&
             references.length > 0 && (
               <LiteratureCitation
                 {...citation}

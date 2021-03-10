@@ -1,4 +1,6 @@
-export type Statistics = {
+import { Reference } from '../../../uniprotkb/types/literatureTypes';
+
+export type LiteratureStatistics = {
   computationallyMappedProteinCount: number;
   largeScale?: boolean;
   communityMappedProteinCount: number;
@@ -42,8 +44,9 @@ export type Citation = {
 };
 
 export type CitationsAPIModel = {
-  statistics: Statistics;
+  statistics: LiteratureStatistics;
   citation: Citation;
+  references?: Reference[];
 };
 
 export type CitationsUIModel = CitationsAPIModel & {

@@ -1,9 +1,9 @@
-import { LiteratureResultsAPI } from '../../../../types/literatureTypes';
+import { CitationsAPIModel } from '../../../../../supporting-data/citations/adapters/citationsConverter';
 import { FacetObject } from '../../../../types/responseTypes';
 
 type Payload = {
   facets: FacetObject[];
-  results: Partial<LiteratureResultsAPI>[];
+  results: Partial<CitationsAPIModel>[];
 };
 
 // api/uniprotkb/accession/O43865/publications?facets=types%2Ccategories%2Cis_large_scale

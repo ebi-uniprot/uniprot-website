@@ -204,6 +204,15 @@ const cardRenderer = (
         />
       );
     }
+    // case Namespace.citations: {
+    //   return (cardData) => (
+    //     <CitationsCard
+    //       data={cardData as CitationsAPIModel}
+    //       selected={selectedEntries.includes(getIdKey(cardData))}
+    //       handleEntrySelection={handleEntrySelection}
+    //     />
+    //   );
+    // }
     default:
       return () => (
         <div className="warning">{`${namespace} has no card renderer yet`}</div>
