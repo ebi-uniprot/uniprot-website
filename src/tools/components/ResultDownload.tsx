@@ -73,14 +73,14 @@ const options: Record<JobTypes, DownloadOptions<JobTypes>[]> = {
       ext: 'jpg',
     },
   ] as DownloadOptions<JobTypes.BLAST>[],
-  [JobTypes.UPLOAD_LIST]: [],
+  [JobTypes.ID_MAPPING]: [],
   [JobTypes.PEPTIDE_SEARCH]: [],
 };
 
 const defaultFormat: Record<JobTypes, ResultFormat[JobTypes]> = {
   [JobTypes.ALIGN]: 'aln-clustal_num',
   [JobTypes.BLAST]: 'out',
-  [JobTypes.UPLOAD_LIST]: 'out', // TODO: check after implementing
+  [JobTypes.ID_MAPPING]: 'out', // TODO: check after implementing
   [JobTypes.PEPTIDE_SEARCH]: 'out', // TODO: check after implementing
 };
 

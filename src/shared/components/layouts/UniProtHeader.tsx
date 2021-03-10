@@ -13,7 +13,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
-import Logo from './svgs/uniprot-logo.svg';
+import Logo from '../../../images/uniprot-logo.svg';
 
 const tools = [
   {
@@ -26,7 +26,7 @@ const tools = [
   },
   {
     label: 'Retrieve/ID mapping',
-    path: LocationToPath[Location.UploadList],
+    path: LocationToPath[Location.IDMapping],
   },
   {
     label: 'Peptide search',

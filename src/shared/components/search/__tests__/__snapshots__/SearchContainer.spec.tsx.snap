@@ -66,7 +66,7 @@ exports[`Search shallow components should render 1`] = `
       <div>
         <a
           class="button tertiary"
-          href="/uploadlists"
+          href="/idmapping"
         >
           Search with a list of IDs
         </a>
