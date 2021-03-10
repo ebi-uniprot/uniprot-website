@@ -1,3 +1,4 @@
+import { fireEvent, screen } from '@testing-library/react';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 
 import UniRefCard from '../UniRefCard';
@@ -11,5 +12,20 @@ describe('UniRefCard tests', () => {
       <UniRefCard data={row} handleEntrySelection={() => {}} />
     );
     expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should allow card selection and navigation', () => {
+    const handleClick = jest.fn();
+    const row = data.results[0];
+    const { history } = renderWithRouter(
+      <UniRefCard data={row} handleEntrySelection={handleClick} />
+    );
+    fireEvent.click(screen.getByRole('checkbox'));
+    expect(handleClick).toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button'));
+    const {
+      location: { pathname },
+    } = history;
+    expect(pathname).toMatch('/uniref/UniRef100_A0A0B7GQ86');
   });
 });

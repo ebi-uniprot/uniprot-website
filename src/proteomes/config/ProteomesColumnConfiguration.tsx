@@ -4,7 +4,7 @@ import { ExternalLink } from 'franklin-sites';
 
 import BuscoView from '../components/BuscoView';
 import BuscoLabel from '../components/BuscoLabel';
-import AccessionView from '../components/AccessionView';
+import AccessionView from '../../shared/components/results/AccessionView';
 import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
@@ -49,7 +49,11 @@ export const ProteomesColumnConfiguration: ColumnConfiguration<
 ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
   label: 'Entry',
   render: ({ id, proteomeType }) => (
-    <AccessionView id={id} proteomeType={proteomeType} />
+    <AccessionView
+      id={id}
+      entryType={proteomeType}
+      namespace={Namespace.proteomes}
+    />
   ),
 });
 

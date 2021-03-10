@@ -67,11 +67,15 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
 
 exports[`UniProtKBColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
-  <a
-    href="/uniprotkb/P21802"
+  <div
+    class="accession-view"
   >
-    P21802
-  </a>
+    <a
+      href="/uniprotkb/P21802"
+    >
+      P21802
+    </a>
+  </div>
 </DocumentFragment>
 `;
 

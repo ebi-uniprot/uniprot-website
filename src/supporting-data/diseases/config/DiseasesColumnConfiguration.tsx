@@ -9,6 +9,7 @@ import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 // import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum DiseasesColumn {
   acronym = 'acronym',
@@ -31,7 +32,6 @@ export const defaultColumns = [
 
 export const primaryKeyColumn = DiseasesColumn.id;
 
-const getEntryPath = getEntryPathFor(Namespace.diseases);
 const getEntryPathForKeyword = getEntryPathFor(Namespace.keywords);
 
 export const DiseasesColumnConfiguration: ColumnConfiguration<
@@ -82,7 +82,8 @@ DiseasesColumnConfiguration.set(DiseasesColumn.definition, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.id, {
   label: 'ID',
-  render: ({ id }) => id && <Link to={getEntryPath(id)}>{id}</Link>,
+  render: ({ id }) =>
+    id && <AccessionView id={id} namespace={Namespace.diseases} />,
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.keywords, {

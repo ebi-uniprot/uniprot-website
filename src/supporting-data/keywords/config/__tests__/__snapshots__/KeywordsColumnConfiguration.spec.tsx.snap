@@ -45,11 +45,15 @@ exports[`KeywordsColumnConfiguration component should render column "gene_ontolo
 
 exports[`KeywordsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <a
-    href="/diseases/KW-0021"
+  <div
+    class="accession-view"
   >
-    KW-0021
-  </a>
+    <a
+      href="/keywords/KW-0021"
+    >
+      KW-0021
+    </a>
+  </div>
 </DocumentFragment>
 `;
 

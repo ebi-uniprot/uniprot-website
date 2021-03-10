@@ -12,6 +12,7 @@ import { LocationsAPIModel } from '../adapters/locationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 // import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum LocationsColumn {
   category = 'category',
@@ -77,7 +78,8 @@ LocationsColumnConfiguration.set(LocationsColumn.geneOntologies, {
 
 LocationsColumnConfiguration.set(LocationsColumn.id, {
   label: 'ID',
-  render: ({ id }) => id && <Link to={getEntryPath(id)}>{id}</Link>,
+  render: ({ id }) =>
+    id && <AccessionView id={id} namespace={Namespace.locations} />,
 });
 
 LocationsColumnConfiguration.set(LocationsColumn.isA, {
