@@ -6,10 +6,13 @@ import {
   PublicationIcon,
   ComputerMappedIcon,
   CitedIcon,
+  ExternalLink,
 } from 'franklin-sites';
 
-import '../../styles/literature-citation.scss';
 import { Location, LocationToPath } from '../../../app/config/urls';
+import externalUrls from '../../config/externalUrls';
+
+import '../../styles/literature-citation.scss';
 
 type AuthorProps = {
   authors: string[];
@@ -82,13 +85,9 @@ type JournalInfoProps = {
   };
 };
 
-const JournalInfo: FC<JournalInfoProps> = ({
+export const JournalInfo: FC<JournalInfoProps> = ({
   journalInfo: { publicationDate, journal, firstPage, lastPage, volume, doiId },
 }) => {
-  if (!doiId) {
-    return null;
-  }
-
   const name = journal || doiId;
   let page = null;
   if (firstPage) {
@@ -111,14 +110,20 @@ const JournalInfo: FC<JournalInfoProps> = ({
     );
   }
 
-  return (
-    <a href={`//dx.doi.org/${doiId}`} target="_blank" rel="noopener noreferrer">
+  const content = (
+    <>
       {name} {volume}
       {volume && page && ':'}
       {page}
       {date}
-    </a>
+    </>
   );
+
+  if (!doiId) {
+    return content;
+  }
+
+  return <ExternalLink url={externalUrls.DOI(doiId)}>{content}</ExternalLink>;
 };
 
 type StatisticsProps = {

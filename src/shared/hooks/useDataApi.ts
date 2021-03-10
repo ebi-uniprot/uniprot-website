@@ -15,8 +15,13 @@ import {
 // Listen for a service worker message saying that there is new data to get
 // fresher data from cache and replace the data within this custom hook
 
+// Threshold under which a progress event will not be emitted
+// This is in order to avoid unecessary renders
+const PROGRESS_THRESHOLD = 2_000; // 2s
+
 export type UseDataAPIState<T> = {
   loading: boolean;
+  progress?: number;
   data?: T;
   status?: AxiosResponse['status'];
   statusText?: AxiosResponse['statusText'];
@@ -28,16 +33,19 @@ export type UseDataAPIState<T> = {
 
 enum ActionType {
   INIT = 'INIT',
+  PROGRESS = 'PROGRESS',
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
 }
 
 type Action<T> =
   | { type: ActionType.INIT; url?: string }
+  | { type: ActionType.PROGRESS; progress: number }
   | {
       type: ActionType.SUCCESS;
       response?: AxiosResponse<T>;
       originalURL?: string;
+      progress?: 1;
     }
   | { type: ActionType.ERROR; error: AxiosError };
 
@@ -54,11 +62,17 @@ const createReducer = <T>() => (
         loading: true,
         url: action.url,
       };
+    case ActionType.PROGRESS:
+      return {
+        ...state,
+        progress: action.progress,
+      };
     case ActionType.SUCCESS:
       // eslint-disable-next-line no-case-declarations
       const newState: UseDataAPIState<T> = {
         ...state,
         loading: false,
+        progress: action.progress,
         data: action.response && action.response.data,
         status: action.response && action.response.status,
         statusText: action.response && action.response.statusText,
@@ -83,6 +97,7 @@ const createReducer = <T>() => (
       return {
         ...state,
         loading: false,
+        progress: 0,
         status: action.error.response && action.error.response.status,
         statusText: action.error.response && action.error.response.statusText,
         headers: action.error.response && action.error.response.headers,
@@ -96,7 +111,7 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
   const reduxDispatch = useDispatch();
 
   useEffect(() => {
-    // need this variabe to ensure state updates don't occur when cancelled/unmounted
+    // need this variable to ensure state updates don't occur when cancelled/unmounted
     // https://github.com/facebook/react/issues/14369#issuecomment-468267798
     let didCancel = false;
 
@@ -112,14 +127,42 @@ function useDataApi<T>(url?: string | null): UseDataAPIState<T> {
     // variables to handle cancellation
     const source = axios.CancelToken.source();
 
+    // to keep track of the last time we dispatched a progress action
+    let lastProgressDate: number;
     // actual request
-    fetchData<T>(url, undefined, source.token).then(
+    fetchData<T>(url, undefined, source.token, {
+      onDownloadProgress: (progressEvent: ProgressEvent) => {
+        if (
+          didCancel ||
+          !progressEvent.lengthComputable ||
+          !progressEvent.total
+        ) {
+          return;
+        }
+        const now = Date.now();
+        // If last time we dispatched a progress action was less than threshold
+        if (lastProgressDate && now - lastProgressDate < PROGRESS_THRESHOLD) {
+          // skip, don't want to refresh too often
+          return;
+        }
+        dispatch({
+          type: ActionType.PROGRESS,
+          progress: progressEvent.loaded / progressEvent.total,
+        });
+        lastProgressDate = now;
+      },
+    }).then(
       // handle ok
       (response: AxiosResponse) => {
         if (didCancel) {
           return;
         }
-        dispatch({ type: ActionType.SUCCESS, response, originalURL: url });
+        dispatch({
+          type: ActionType.SUCCESS,
+          response,
+          originalURL: url,
+          progress: 1,
+        });
       },
       // catch error
       (error: AxiosError) => {

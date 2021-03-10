@@ -16,15 +16,15 @@ exports[`ProteomesCard tests should render the card component 1`] = `
         <section
           class="result-card"
         >
-          <section
+          <div
             class="result-card__left"
           >
             <input
               data-testid="up-card-checkbox"
               type="checkbox"
             />
-          </section>
-          <section
+          </div>
+          <div
             class="result-card__right"
           >
             <h5>
@@ -34,11 +34,16 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 UP000005640
               </span>
             </h5>
-            <section>
+            <div
+              class="result-card__info-container"
+            >
               <span
                 class="result-card__info-bit"
               >
-                Organism: 
+                <strong>
+                  Organism
+                </strong>
+                : 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
@@ -49,7 +54,10 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               <span
                 class="result-card__info-bit"
               >
-                Protein Count: 
+                <strong>
+                  Protein Count
+                </strong>
+                : 
                 <a
                   href="/uniprotkb?query=proteome:UP000005640"
                 >
@@ -59,67 +67,76 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               <span
                 class="result-card__info-bit"
               >
-                Genome representation: full
+                <strong>
+                  Genome representation
+                </strong>
+                : full
               </span>
               <span
                 class="result-card__info-bit"
               >
-                <abbr
-                  title="Complete Proteome Detector"
-                >
-                  CPD
-                </abbr>
+                <strong>
+                  <abbr
+                    title="Complete Proteome Detector"
+                  >
+                    CPD
+                  </abbr>
+                </strong>
                 : Standard
               </span>
-            </section>
-            <section>
+            </div>
+            <div
+              class="result-card__info-container"
+            >
               <span
                 class="result-card__info-bit"
               >
-                <abbr
-                  title="Benchmarking Universal Single-Copy Orthologs"
-                >
-                  BUSCO
-                </abbr>
-                <br />
-                <span>
-                  <span
-                    class="busco-legend-item"
+                <strong>
+                  <abbr
+                    title="Benchmarking Universal Single-Copy Orthologs"
                   >
+                    BUSCO
+                  </abbr>
+                  <br />
+                  <span>
                     <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(188, 232, 117);"
-                    />
-                    Single
-                  </span>
-                  <span
-                    class="busco-legend-item"
-                  >
+                      class="busco-legend-item"
+                    >
+                      <span
+                        class="busco-legend-item__swatch"
+                        style="background-color: rgb(188, 232, 117);"
+                      />
+                      Single
+                    </span>
                     <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(11, 165, 166);"
-                    />
-                    Duplicated
-                  </span>
-                  <span
-                    class="busco-legend-item"
-                  >
+                      class="busco-legend-item"
+                    >
+                      <span
+                        class="busco-legend-item__swatch"
+                        style="background-color: rgb(11, 165, 166);"
+                      />
+                      Duplicated
+                    </span>
                     <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(238, 203, 164);"
-                    />
-                    Fragmented
-                  </span>
-                  <span
-                    class="busco-legend-item"
-                  >
+                      class="busco-legend-item"
+                    >
+                      <span
+                        class="busco-legend-item__swatch"
+                        style="background-color: rgb(238, 203, 164);"
+                      />
+                      Fragmented
+                    </span>
                     <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(49, 75, 180);"
-                    />
-                    Missing
+                      class="busco-legend-item"
+                    >
+                      <span
+                        class="busco-legend-item__swatch"
+                        style="background-color: rgb(49, 75, 180);"
+                      />
+                      Missing
+                    </span>
                   </span>
-                </span>
+                </strong>
                 : 
                 <div
                   class="busco-view"
@@ -136,8 +153,8 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   </div>
                 </div>
               </span>
-            </section>
-          </section>
+            </div>
+          </div>
         </section>
       </div>
     </div>

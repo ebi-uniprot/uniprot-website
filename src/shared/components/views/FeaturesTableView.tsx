@@ -3,15 +3,15 @@ import { TemplateResult } from 'lit-html';
 import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
 import { TransformedVariant } from 'protvista-variation-adapter';
 
-import { UniProtEvidenceTagContent } from './UniProtKBEvidenceTag';
-import { ProcessedFeature } from './FeaturesView';
+import { UniProtEvidenceTagContent } from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 
-import useCustomElement from '../../../shared/hooks/useCustomElement';
+import useCustomElement from '../../hooks/useCustomElement';
 
-import { EvidenceData } from '../../config/evidenceCodes';
-import { Evidence } from '../../types/modelTypes';
+import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
+import { ColumnConfig, ProcessedFeature } from './FeaturesView';
 
-type FeatureColumns = {
+export type FeatureColumns = {
   [name: string]: {
     label: string;
     resolver: (
@@ -32,13 +32,8 @@ export type FeaturesTableCallback = (
 
 const FeaturesTableView: FC<{
   data: ProcessedFeature[] | VariantFeature[];
-  getColumnConfig: (
-    callback: (
-      evidenceData: EvidenceData,
-      references: Evidence[] | undefined
-    ) => void
-  ) => FeatureColumns;
-}> = ({ data, getColumnConfig }) => {
+  columnConfig: ColumnConfig;
+}> = ({ data, columnConfig }) => {
   const [showEvidenceTagData, setShowEvidenceTagData] = useState(false);
   const [
     selectedEvidenceData,
@@ -70,10 +65,10 @@ const FeaturesTableView: FC<{
         // eslint-disable-next-line no-param-reassign
         node.data = data;
         // eslint-disable-next-line no-param-reassign
-        node.columns = getColumnConfig(evidenceTagCallback);
+        node.columns = columnConfig(evidenceTagCallback);
       }
     },
-    [datatableDefined, data, getColumnConfig]
+    [datatableDefined, data, columnConfig]
   );
 
   return (

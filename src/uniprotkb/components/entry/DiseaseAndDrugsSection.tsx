@@ -4,7 +4,7 @@ import { Card } from 'franklin-sites';
 import XRefView from '../protein-data-views/XRefView';
 import VariationView from '../protein-data-views/VariationView';
 import FreeTextView from '../protein-data-views/FreeTextView';
-import FeaturesView from '../protein-data-views/FeaturesView';
+import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import DiseaseInvolvementView from '../protein-data-views/DiseaseInvolvementView';
 import KeywordView from '../protein-data-views/KeywordView';
 import EntrySection, {
