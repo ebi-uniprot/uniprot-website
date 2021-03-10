@@ -4,12 +4,13 @@ import { Loader, Message } from 'franklin-sites';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { getPublicationsURL } from '../../../shared/config/apiUrls';
-
-import formatCitationData from '../../adapters/literatureConverter';
+import {
+  CitationsAPIModel,
+  formatCitationData,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
-import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];

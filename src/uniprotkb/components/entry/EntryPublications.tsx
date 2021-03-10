@@ -12,20 +12,20 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
-import formatCitationData, {
-  getCitationPubMedId,
-} from '../../adapters/literatureConverter';
-
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
-import { Reference } from '../../types/literatureTypes';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
-import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
+import {
+  CitationsAPIModel,
+  formatCitationData,
+  getCitationPubMedId,
+  Reference,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,

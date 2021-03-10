@@ -32,8 +32,8 @@ import { Keyword } from '../utils/KeywordsUtil';
 import { UIModel } from './sectionConverter';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
-import { Reference } from '../types/literatureTypes';
 import { XrefUIModel } from '../utils/xrefUtils';
+import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 export enum EntryType {
   REVIEWED,
