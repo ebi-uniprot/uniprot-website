@@ -4,16 +4,13 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import ProteomesEntryConfig from '../../config/ProteomesEntryConfig';
 
+import { isSameEntry } from '../../../shared/utils/utils';
+
 import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 type EntryMainProps = {
   transformedData: ProteomesUIModel;
 };
-
-function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
-  // Do NOT re-render the page, as long as the 'id' value is the same.
-  return prevProps.transformedData.id === nextProps.transformedData.id;
-}
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   <>
@@ -23,4 +20,4 @@ const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   </>
 );
 
-export default memo(EntryMain, arePropsEqual);
+export default memo(EntryMain, isSameEntry);
