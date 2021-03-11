@@ -6,6 +6,7 @@ import FeaturesView, {
   ColumnConfig,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
+import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
 import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
 import { databaseToDatabaseInfo } from '../../../uniprotkb/config/database';
@@ -44,12 +45,14 @@ const columnConfig: ColumnConfig<UniParcProcessedFeature> = () => ({
   interproGroup: {
     label: 'InterPro Group',
     resolver: (d) =>
-      html`<a
-        href="//www.ebi.ac.uk/interpro/entry/InterPro/${d.interproGroupId}"
-        target="_blank"
-        rel="noreferrer"
-        >${d.interproGroupName}</a
-      >`,
+      d.interproGroupId
+        ? html`<a
+            href="${externalUrls.InterProEntry(d.interproGroupId)}"
+            target="_blank"
+            rel="noreferrer"
+            >${d.interproGroupName}</a
+          >`
+        : 'N/A',
   },
   positions: {
     label: 'Positions',
@@ -87,7 +90,6 @@ const UniParcFeaturesView: FC<{
       features={processedData}
       columnConfig={columnConfig}
       sequence={sequence}
-      // trackHeight={processedData.length * 10}
     />
   );
 };
