@@ -22,7 +22,6 @@ import { processUrlTemplate } from '../protein-data-views/XRefView';
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import {
   CitationsAPIModel,
-  formatCitationData,
   getCitationPubMedId,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
@@ -151,19 +150,12 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           return id || `${index}`;
         }}
         data={allResults}
-        dataRenderer={({ references, statistics, citation }) => {
-          const { pubmedId, journalInfo } = formatCitationData(citation);
-
+        dataRenderer={(data) => {
+          const { references } = data;
           return (
             references &&
             references.length > 0 && (
-              <LiteratureCitation
-                {...citation}
-                abstract={citation.literatureAbstract}
-                statistics={statistics}
-                pubmedId={pubmedId}
-                journalInfo={journalInfo}
-              >
+              <LiteratureCitation data={data}>
                 {references.map((reference, index) => (
                   // No obvious key as there can be more than 1 for the same source
                   <PublicationReference

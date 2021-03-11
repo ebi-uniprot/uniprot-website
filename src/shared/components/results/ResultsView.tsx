@@ -66,6 +66,7 @@ import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 
 type APIModel =
   | UniProtkbAPIModel
@@ -204,15 +205,15 @@ const cardRenderer = (
         />
       );
     }
-    // case Namespace.citations: {
-    //   return (cardData) => (
-    //     <CitationsCard
-    //       data={cardData as CitationsAPIModel}
-    //       selected={selectedEntries.includes(getIdKey(cardData))}
-    //       handleEntrySelection={handleEntrySelection}
-    //     />
-    //   );
-    // }
+    case Namespace.citations: {
+      return (cardData) => (
+        <LiteratureCitation
+          data={cardData as CitationsAPIModel}
+          // selected={selectedEntries.includes(getIdKey(cardData))}
+          // handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
     default:
       return () => (
         <div className="warning">{`${namespace} has no card renderer yet`}</div>

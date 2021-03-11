@@ -1,8 +1,10 @@
 import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
-import { getPublicationsURL } from '../../../../shared/config/apiUrls';
+import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
+
+import { Namespace } from '../../../../shared/types/namespaces';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
@@ -19,11 +21,16 @@ describe('UniProtKBEntryPublications', () => {
         <UniProtKBEntryPublications pubmedIds={pubMedIds} />
       </Router>
     );
-    expect(useDataApi).toHaveBeenCalledWith(getPublicationsURL(pubMedIds));
+    expect(useDataApi).toHaveBeenCalledWith(
+      getAPIQueryUrl({
+        namespace: Namespace.citations,
+        query: pubMedIds.join(' OR '),
+      })
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('Should make a call with pubmed ids', () => {
+  it('Should make a call with pubmed ids and fail', () => {
     useDataApi.mockImplementation(() => ({
       error: {
         message: 'There has been an error',

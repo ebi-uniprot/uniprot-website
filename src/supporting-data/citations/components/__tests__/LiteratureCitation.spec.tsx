@@ -3,25 +3,13 @@ import { screen, fireEvent } from '@testing-library/react';
 import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
 import LiteratureCitation from '../LiteratureCitation';
 import literatureCitationData from '../__mocks__/literatureCitationData';
-import { formatCitationData } from '../../adapters/citationsConverter';
 
 let rendered: ReturnType<typeof renderWithRouter>;
 
 describe('Publication component', () => {
   beforeEach(async () => {
-    const { citation, statistics } = literatureCitationData;
-    const { title, authors, literatureAbstract } = citation;
-    const { pubmedId, journalInfo } = formatCitationData(citation);
-
     rendered = renderWithRouter(
-      <LiteratureCitation
-        title={title}
-        authors={authors}
-        abstract={literatureAbstract}
-        journalInfo={journalInfo}
-        pubmedId={pubmedId}
-        statistics={statistics}
-      />
+      <LiteratureCitation data={literatureCitationData} />
     );
   });
 

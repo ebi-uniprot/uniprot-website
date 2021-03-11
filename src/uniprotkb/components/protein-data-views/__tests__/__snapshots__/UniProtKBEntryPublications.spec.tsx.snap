@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniProtKBEntryPublications Should make a call with pubmed ids 1`] = `
+exports[`UniProtKBEntryPublications Should make a call with pubmed ids and fail 1`] = `
 <DocumentFragment>
   <div
     class="message message--failure"
@@ -70,6 +70,16 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           >
             Bearer E.L.
           </a>
+        </section>
+        <section
+          class="publication__abstract"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            View abstract [...]
+          </button>
         </section>
       </section>
       <section
@@ -220,6 +230,16 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           >
             Bearer E.L.
           </a>
+        </section>
+        <section
+          class="publication__abstract"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            View abstract [...]
+          </button>
         </section>
       </section>
       <section
@@ -394,6 +414,16 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
           >
             Kins S.
           </a>
+        </section>
+        <section
+          class="publication__abstract"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            View abstract [...]
+          </button>
         </section>
       </section>
       <section

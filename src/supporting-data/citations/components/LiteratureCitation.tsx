@@ -1,4 +1,4 @@
-import { useState, FC, ReactNode, Fragment } from 'react';
+import { useState, FC, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Bubble,
@@ -13,6 +13,10 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import '../../../shared/styles/literature-citation.scss';
+import {
+  CitationsAPIModel,
+  formatCitationData,
+} from '../adapters/citationsConverter';
 
 type AuthorProps = {
   authors: string[];
@@ -193,104 +197,71 @@ const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
   );
 };
 
-type LiteratureCitationProps = {
-  /**
-   * The publication title.
-   */
-  title?: string;
-  /**
-   * The lise of authors. Will be cut off and can be expanded.
-   */
-  authors?: string[];
-  /**
-   * The publication abstract (collapsed by default).
-   */
-  abstract?: string;
-  /**
-   * Any extra information to display within the main component column
-   */
-  children?: string | ReactNode;
-  /**
-   * Information about the journal in which this was published.
-   */
-  journalInfo?: JournalInfoProps['journalInfo'];
-  /**
-   * The PubMed identifier
-   */
-  pubmedId?: number | string;
-  /**
-   * Number of other entries this publication is cited in
-   */
-  statistics?: StatisticsProps['statistics'];
-  /**
-   * Display all authors and abstract by default (useful for publication entry)
-   */
+const LiteratureCitation: FC<{
+  data: CitationsAPIModel;
   displayAll?: boolean;
-};
+}> = ({ data, displayAll, children }) => {
+  const { citation, statistics } = data;
+  const { title, authors, literatureAbstract } = citation;
+  const { pubmedId, journalInfo } = formatCitationData(citation);
 
-const LiteratureCitation: FC<LiteratureCitationProps> = ({
-  title,
-  authors,
-  abstract,
-  journalInfo,
-  children,
-  pubmedId,
-  statistics,
-  displayAll,
-}) => (
-  <section className="publication">
-    <section className="publication__columns">
-      <section className="publication__columns__main">
-        <h5>{title}</h5>
-        {authors?.length && (
-          <Authors authors={authors} limit={displayAll ? +Infinity : 10} />
-        )}
-        {abstract && <Abstract abstract={abstract} open={displayAll} />}
-        {children}
-      </section>
-      <section className="publication__columns__side">
-        <section className="publication__columns__side__item">
-          {pubmedId && <PublicationIcon width="1.875em" height="2em" />}
-          <ul className="no-bullet">
-            {pubmedId && (
-              <>
-                <li>
-                  <a
-                    href={`//www.ncbi.nlm.nih.gov/pubmed/${pubmedId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    PubMed
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`//europepmc.org/article/MED/${pubmedId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Europe PMC
-                  </a>
-                </li>
-              </>
-            )}
-            {journalInfo && (
-              <li>
-                <small>
-                  <JournalInfo journalInfo={journalInfo} />
-                </small>
-              </li>
-            )}
-          </ul>
-        </section>
-        <section className="publication__columns__side__item">
-          {statistics && pubmedId && (
-            <Statistics statistics={statistics} pubmedId={pubmedId} />
+  return (
+    <section className="publication">
+      <section className="publication__columns">
+        <section className="publication__columns__main">
+          <h5>{title || 'No title available.'}</h5>
+          {authors?.length && (
+            <Authors authors={authors} limit={displayAll ? +Infinity : 10} />
           )}
+          {literatureAbstract && (
+            <Abstract abstract={literatureAbstract} open={displayAll} />
+          )}
+          {children}
+        </section>
+        <section className="publication__columns__side">
+          <section className="publication__columns__side__item">
+            {pubmedId && <PublicationIcon width="1.875em" height="2em" />}
+            <ul className="no-bullet">
+              {pubmedId && (
+                <>
+                  <li>
+                    <a
+                      href={`//www.ncbi.nlm.nih.gov/pubmed/${pubmedId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      PubMed
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`//europepmc.org/article/MED/${pubmedId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Europe PMC
+                    </a>
+                  </li>
+                </>
+              )}
+              {journalInfo && (
+                <li>
+                  <small>
+                    <JournalInfo journalInfo={journalInfo} />
+                  </small>
+                </li>
+              )}
+            </ul>
+          </section>
+          <section className="publication__columns__side__item">
+            {statistics && pubmedId && (
+              <Statistics statistics={statistics} pubmedId={pubmedId} />
+            )}
+          </section>
         </section>
       </section>
     </section>
-  </section>
-);
+  );
+};
 
 export default LiteratureCitation;
