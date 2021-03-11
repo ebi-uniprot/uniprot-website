@@ -34,7 +34,7 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
         databaseId: feature.databaseId,
         interproGroupName: feature.interproGroup?.name,
         interproGroupId: feature.interproGroup?.id,
-        color: stringToColour(feature.database), // use the name to define colour
+        color: stringToColour(feature.database, 240), // use the name to define colour
       }))
     ),
     'interproGroupName'
