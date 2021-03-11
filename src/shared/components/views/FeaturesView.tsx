@@ -1,4 +1,4 @@
-import { useCallback, useMemo, FC } from 'react';
+import { useCallback, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 import { uniq } from 'lodash-es';
 
@@ -37,26 +37,27 @@ export type ProcessedFeature = {
   locations?: { fragments: Fragment[] }[];
 };
 
-export type ColumnConfig = (
+export type ColumnConfig<FeatureType> = (
   callback: (
     evidenceData: EvidenceData,
     references: Evidence[] | undefined
   ) => void
-) => FeatureColumns;
+) => FeatureColumns<FeatureType>;
 
-type FeatureProps = {
-  sequence?: string;
-  features: ProcessedFeature[];
-  columnConfig: ColumnConfig;
+type FeatureProps<T> = {
+  features: T[];
+  columnConfig: ColumnConfig<T>;
+  // eslint-disable-next-line react/require-default-props
   trackHeight?: number;
+  // eslint-disable-next-line react/require-default-props
+  sequence?: string;
 };
 
-const FeaturesView: FC<FeatureProps> = ({
-  sequence,
-  features,
-  columnConfig,
-  trackHeight,
-}): JSX.Element | null => {
+// ProcessedFeature | TransformedVariant | UniParcProcessedFeature
+const FeaturesView = <T extends Record<string, unknown>>(
+  props: FeatureProps<T>
+) => {
+  const { sequence, features, columnConfig, trackHeight } = props;
   const navigationDefined = useCustomElement(
     /* istanbul ignore next */
     () =>
@@ -80,7 +81,7 @@ const FeaturesView: FC<FeatureProps> = ({
   const ceDefined = navigationDefined && sequenceDefined && managerDefined;
 
   const featureTypes = useMemo(
-    () => uniq(features.map(({ type }) => type.toLowerCase())),
+    () => uniq(features.map(({ type }) => (type as string).toLowerCase())),
     [features]
   );
 

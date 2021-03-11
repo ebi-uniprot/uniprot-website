@@ -3,6 +3,7 @@ import { sortBy } from 'lodash-es';
 import { FC, useMemo } from 'react';
 
 import FeaturesView, {
+  ColumnConfig,
   ProcessedFeature,
 } from '../../../shared/components/views/FeaturesView';
 import { stringToColour } from '../../../shared/utils/color';
@@ -39,10 +40,10 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
   );
 
 // DEfine columns
-const columnConfig = () => ({
+const columnConfig: ColumnConfig<UniParcProcessedFeature> = () => ({
   interproGroup: {
     label: 'InterPro Group',
-    resolver: (d: UniParcProcessedFeature) =>
+    resolver: (d) =>
       html`<a
         href="//www.ebi.ac.uk/interpro/entry/InterPro/${d.interproGroupId}"
         target="_blank"
@@ -52,11 +53,11 @@ const columnConfig = () => ({
   },
   positions: {
     label: 'Positions',
-    resolver: (d: UniParcProcessedFeature) => `${d.start}-${d.end}`,
+    resolver: (d) => `${d.start}-${d.end}`,
   },
   databaseId: {
     label: 'Database identifier',
-    resolver: (d: UniParcProcessedFeature) => {
+    resolver: (d) => {
       const { database, databaseId } = d;
       const databaseInfo = databaseToDatabaseInfo[database];
       if (databaseInfo && databaseId) {
@@ -72,7 +73,7 @@ const columnConfig = () => ({
   },
   database: {
     label: 'Database',
-    resolver: (d: UniParcProcessedFeature): string => d.database,
+    resolver: (d): string => d.database,
   },
 });
 

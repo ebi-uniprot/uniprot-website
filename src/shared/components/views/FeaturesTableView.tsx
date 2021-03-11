@@ -1,7 +1,5 @@
-import { useCallback, useState, FC } from 'react';
+import { useCallback, useState } from 'react';
 import { TemplateResult } from 'lit-html';
-import { Feature as VariantFeature } from 'protvista-variation-adapter/dist/es/variants';
-import { TransformedVariant } from 'protvista-variation-adapter';
 
 import { UniProtEvidenceTagContent } from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 
@@ -9,15 +7,14 @@ import useCustomElement from '../../hooks/useCustomElement';
 
 import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
-import { ColumnConfig, ProcessedFeature } from './FeaturesView';
-import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
+import { ColumnConfig } from './FeaturesView';
 
-export type FeatureColumns = {
+export type FeatureColumns<FeatureType> = {
   [name: string]: {
     label: string;
+    child?: boolean;
     resolver: (
-      // This could be improved
-      d: ProcessedFeature & TransformedVariant & UniParcProcessedFeature
+      d: FeatureType
     ) =>
       | undefined
       | string
@@ -32,10 +29,15 @@ export type FeaturesTableCallback = (
   references: Evidence[] | undefined
 ) => void;
 
-const FeaturesTableView: FC<{
-  data: ProcessedFeature[] | VariantFeature[];
-  columnConfig: ColumnConfig;
-}> = ({ data, columnConfig }) => {
+type FeaturesTableProps<T> = {
+  data: T[];
+  columnConfig: ColumnConfig<T>;
+};
+
+const FeaturesTableView = <T extends Record<string, unknown>>({
+  data,
+  columnConfig,
+}: FeaturesTableProps<T>) => {
   const [showEvidenceTagData, setShowEvidenceTagData] = useState(false);
   const [
     selectedEvidenceData,
