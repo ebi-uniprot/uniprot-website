@@ -1,18 +1,21 @@
 import Overview from '../components/entry/Overview';
+import Components from '../components/entry/Components';
 import { ProteomesUIModel } from '../adapters/proteomesConverter';
 import EntrySection from '../types/entrySection';
 
-const UniRefEntryConfig: {
+const ProteomesEntryConfig: {
   id: EntrySection;
-  sectionContent: (entryData: ProteomesUIModel) => JSX.Element;
+  sectionContent: (entryData: ProteomesUIModel) => JSX.Element | undefined;
 }[] = [
   {
     id: EntrySection.Overview,
     sectionContent: (data) => <Overview data={data} />,
   },
   {
-    id: EntrySection.Components, // TODO: implement
-    sectionContent: () => <h2>Components</h2>,
+    id: EntrySection.Components,
+    sectionContent: ({ components, id }) => (
+      <Components components={components} id={id} />
+    ),
   },
   {
     id: EntrySection.Publications, // TODO: implement
@@ -20,4 +23,4 @@ const UniRefEntryConfig: {
   },
 ];
 
-export default UniRefEntryConfig;
+export default ProteomesEntryConfig;
