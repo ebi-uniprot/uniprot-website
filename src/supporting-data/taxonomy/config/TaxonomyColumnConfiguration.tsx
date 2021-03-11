@@ -13,6 +13,7 @@ import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 // import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
@@ -76,7 +77,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.host, {
 TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
   label: 'Taxon ID',
   render: ({ taxonId }) =>
-    taxonId && <Link to={getEntryPath(taxonId)}>{taxonId}</Link>,
+    taxonId && <AccessionView id={taxonId} namespace={Namespace.taxonomy} />,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {

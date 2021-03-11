@@ -508,10 +508,14 @@ exports[`UniParcColumnConfiguration component should render column "sequence": s
 
 exports[`UniParcColumnConfiguration component should render column "upi": upi 1`] = `
 <DocumentFragment>
-  <a
-    href="/uniparc/UPI0000000001"
+  <div
+    class="accession-view"
   >
-    UPI0000000001
-  </a>
+    <a
+      href="/uniparc/UPI0000000001"
+    >
+      UPI0000000001
+    </a>
+  </div>
 </DocumentFragment>
 `;

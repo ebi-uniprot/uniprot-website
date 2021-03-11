@@ -3,44 +3,35 @@ import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import { getEntryPath } from '../../../app/config/urls';
-import UniRefColumnConfiguration, {
-  UniRefColumn,
-} from '../../config/UniRefColumnConfiguration';
 import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
 
+import { getEntryPath } from '../../../app/config/urls';
+import ProteomesColumnConfiguration, {
+  ProteomesColumn,
+} from '../../config/ProteomesColumnConfiguration';
+
 import { Namespace } from '../../../shared/types/namespaces';
-import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 import '../../../shared/components/results/styles/result-card.scss';
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
-type Props = {
-  data: UniRefLiteAPIModel;
-  selected?: boolean;
-  handleEntrySelection: (rowId: string) => void;
-};
-
 const mainInfoColumns = [
-  UniRefColumn.name,
-  UniRefColumn.count,
-  UniRefColumn.length,
-  UniRefColumn.identity,
+  ProteomesColumn.organism,
+  ProteomesColumn.proteinCount,
+  ProteomesColumn.genomeRepresentation,
+  ProteomesColumn.cpd,
 ];
 
-const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
+const ProteomesCard: FC<{
+  data: ProteomesAPIModel;
+  selected?: boolean;
+  handleEntrySelection: (rowId: string) => void;
+}> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
 
-  const handleCardClick = useCallback(
-    (event) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
-        return;
-      }
-      history.push(getEntryPath(Namespace.uniref, data.id));
-    },
-    [history, data.id]
-  );
+  const handleCardClick = useCallback(() => {
+    history.push(getEntryPath(Namespace.proteomes, data.id));
+  }, [history, data.id]);
 
   return (
     <Card onClick={handleCardClick}>
@@ -49,23 +40,31 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
           <input
             type="checkbox"
             checked={selected}
+            onClick={(e) => e.stopPropagation()}
             onChange={() => handleEntrySelection(data.id)}
             data-testid="up-card-checkbox"
           />
         </div>
         <div className="result-card__right">
           <h5>
-            <EntryTitle mainTitle={data.id} entryType={data.memberIdTypes} />
+            <EntryTitle mainTitle={data.id} entryType={data.proteomeType} />
           </h5>
           <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
                 type={column}
                 data={data}
-                columnConfig={UniRefColumnConfiguration}
+                columnConfig={ProteomesColumnConfiguration}
                 key={column}
               />
             ))}
+          </div>
+          <div className="result-card__info-container">
+            <RenderColumnInCard
+              type={ProteomesColumn.busco}
+              data={data}
+              columnConfig={ProteomesColumnConfiguration}
+            />
           </div>
         </div>
       </section>
@@ -73,4 +72,4 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   );
 };
 
-export default UniRefCard;
+export default ProteomesCard;

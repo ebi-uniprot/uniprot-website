@@ -77,6 +77,7 @@ import { getEntryPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 import { Xref } from '../../shared/types/apiModel';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import AccessionView from '../../shared/components/results/AccessionView';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -120,10 +121,7 @@ export const UniProtKBColumnConfiguration: ColumnConfiguration<
 UniProtKBColumnConfiguration.set(UniProtKBColumn.accession, {
   label: 'Entry',
   render: (data) => (
-    <SimpleView
-      termValue={data.primaryAccession}
-      linkTo={getEntryPath(Namespace.uniprotkb, data.primaryAccession)}
-    />
+    <AccessionView id={data.primaryAccession} namespace={Namespace.uniprotkb} />
   ),
 });
 

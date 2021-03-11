@@ -16,11 +16,15 @@ exports[`CitationsColumnConfiguration component should render column "first_page
 
 exports[`CitationsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <a
-    href="/citations/10196735"
+  <div
+    class="accession-view"
   >
-    10196735
-  </a>
+    <a
+      href="/citations/10196735"
+    >
+      10196735
+    </a>
+  </div>
 </DocumentFragment>
 `;
 

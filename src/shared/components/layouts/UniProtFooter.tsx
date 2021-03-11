@@ -228,13 +228,13 @@ const FooterShortcuts = () => (
           <Link to={LocationToPath[Location.Align]}>Align</Link>
         </li>
         <li>
-          <Link to={LocationToPath[Location.PeptideSearch]}>
-            Peptide search
+          <Link to={LocationToPath[Location.IDMapping]}>
+            Retrieve/ID mapping
           </Link>
         </li>
         <li>
-          <Link to={LocationToPath[Location.IDMapping]}>
-            Retrieve/ID mapping
+          <Link to={LocationToPath[Location.PeptideSearch]}>
+            Peptide search
           </Link>
         </li>
         <li className="tools-results-link">

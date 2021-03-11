@@ -214,16 +214,16 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/peptide-search"
+                href="/idmapping"
               >
-                Peptide search
+                Retrieve/ID mapping
               </a>
             </li>
             <li>
               <a
-                href="/idmapping"
+                href="/peptide-search"
               >
-                Retrieve/ID mapping
+                Peptide search
               </a>
             </li>
             <li

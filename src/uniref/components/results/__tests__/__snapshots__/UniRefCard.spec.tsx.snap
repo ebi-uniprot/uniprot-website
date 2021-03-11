@@ -16,15 +16,15 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         <section
           class="result-card"
         >
-          <section
+          <div
             class="result-card__left"
           >
             <input
               data-testid="up-card-checkbox"
               type="checkbox"
             />
-          </section>
-          <section
+          </div>
+          <div
             class="result-card__right"
           >
             <h5>
@@ -40,29 +40,43 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 UniRef100_A0A0B7GQ86
               </span>
             </h5>
-            <section>
-              Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
-            </section>
-            <section>
-              <strong
-                class="result-card__info-bit"
-              >
-                Members: 1
-              </strong>
-               · 
+            <div
+              class="result-card__info-container"
+            >
               <span
                 class="result-card__info-bit"
               >
-                Sequence length: 730
+                <strong>
+                  Cluster name
+                </strong>
+                : Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
               </span>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                Identity: UniRef100
+                <strong>
+                  Size
+                </strong>
+                : 1 member
               </span>
-            </section>
-          </section>
+              <span
+                class="result-card__info-bit"
+              >
+                <strong>
+                  Length
+                </strong>
+                : 730
+              </span>
+              <span
+                class="result-card__info-bit"
+              >
+                <strong>
+                  Identity
+                </strong>
+                : UniRef100
+              </span>
+            </div>
+          </div>
         </section>
       </div>
     </div>
