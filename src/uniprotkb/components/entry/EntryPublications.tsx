@@ -19,12 +19,12 @@ import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
-import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import {
   CitationsAPIModel,
   getCitationPubMedId,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
+import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -155,7 +155,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           return (
             references &&
             references.length > 0 && (
-              <LiteratureCitation data={data}>
+              <CitationCard data={data}>
                 {references.map((reference, index) => (
                   // No obvious key as there can be more than 1 for the same source
                   <PublicationReference
@@ -165,7 +165,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
                     accession={accession}
                   />
                 ))}
-              </LiteratureCitation>
+              </CitationCard>
             )
           );
         }}

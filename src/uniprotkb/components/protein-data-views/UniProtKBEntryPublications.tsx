@@ -10,6 +10,8 @@ import { MessageLevel } from '../../../messages/types/messagesTypes';
 import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import './styles/inline-publication.scss';
+
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];
 }> = ({ pubmedIds }) => {
@@ -38,10 +40,12 @@ const UniProtKBEntryPublications: FC<{
     <>
       {results &&
         results.map((citationData) => (
-          <LiteratureCitation
-            data={citationData}
+          <div
+            className="inline-publication"
             key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
-          />
+          >
+            <LiteratureCitation data={citationData} />
+          </div>
         ))}
     </>
   );

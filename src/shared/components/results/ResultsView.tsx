@@ -11,6 +11,7 @@ import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
+import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -66,7 +67,6 @@ import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 
 type APIModel =
   | UniProtkbAPIModel
@@ -111,7 +111,9 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
   }
 };
 
-const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
+export const getIdKeyFor = (
+  namespace: Namespace
+): ((data: APIModel) => string) => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
@@ -207,10 +209,10 @@ const cardRenderer = (
     }
     case Namespace.citations: {
       return (cardData) => (
-        <LiteratureCitation
+        <CitationCard
           data={cardData as CitationsAPIModel}
-          // selected={selectedEntries.includes(getIdKey(cardData))}
-          // handleEntrySelection={handleEntrySelection}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
         />
       );
     }
