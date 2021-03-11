@@ -47,7 +47,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.UniProtKBResults]: `/${Namespace.uniprotkb}`,
   [Location.UniRefEntry]: `/${Namespace.uniref}/:accession`,
   [Location.UniRefResults]: `/${Namespace.uniref}`,
-  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession`,
+  [Location.UniParcEntry]: `/${Namespace.uniparc}/:accession/:subPage?`,
   [Location.UniParcResults]: `/${Namespace.uniparc}`,
   [Location.ProteomesEntry]: `/${Namespace.proteomes}/:accession`,
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
