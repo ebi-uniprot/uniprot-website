@@ -54,7 +54,7 @@ type FeatureProps<T> = {
 };
 
 // ProcessedFeature | TransformedVariant | UniParcProcessedFeature
-const FeaturesView = <T extends Record<string, unknown>>(
+const FeaturesView = <T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature>(
   props: FeatureProps<T>
 ) => {
   const { sequence, features, columnConfig, trackHeight } = props;
