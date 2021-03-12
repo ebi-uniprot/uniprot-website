@@ -173,16 +173,9 @@ exports[`EntryMain view should render 1`] = `
                 class="decorated-list-item__content"
               >
                 <a
-                  class="external-link"
-                  href="url value"
-                  rel="noopener"
-                  target="_blank"
+                  href="/url value"
                 >
                   id value from EnsemblMetazoa
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
                 </a>
               </div>
             </div>

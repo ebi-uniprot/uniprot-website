@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { InfoList, ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import SimpleView from '../../../uniprotkb/components/protein-data-views/SimpleView';
+import SimpleView from '../views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';

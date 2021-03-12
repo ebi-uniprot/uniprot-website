@@ -2,11 +2,11 @@ import { FC, ReactNode } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { Card, InfoList } from 'franklin-sites';
 
+import SimpleView from '../../../shared/components/views/SimpleView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
-import GenomeAssemblyAndAnnotationView from '../GenomeAssemblyAndAnnotationView';
 
 import ftpUrls from '../../../shared/config/ftpUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
@@ -102,7 +102,15 @@ export const Overview: FC<{
             data.genomeAssembly?.assemblyId && {
               title: 'Genome assembly and annotation',
               content: (
-                <GenomeAssemblyAndAnnotationView {...data.genomeAssembly} />
+                <SimpleView
+                  termValue={`${data.genomeAssembly.assemblyId}${
+                    data.genomeAssembly.source
+                      ? ` from ${data.genomeAssembly.source}`
+                      : ''
+                  }`}
+                  linkTo={data.genomeAssembly.genomeAssemblyUrl}
+                />
+                // <GenomeAssemblyAndAnnotationView {...data.genomeAssembly} />
               ),
             },
             data.genomeAssembly?.level &&
