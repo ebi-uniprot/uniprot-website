@@ -4,8 +4,8 @@ import { WrappedRow } from '../Wrapped';
 import wrappedMocks from '../__mocks__/wrappedRowMocks.json';
 
 describe('WrappedRow', () => {
-  let onMSAFeatureClick = jest.fn();
-  let setActiveId = jest.fn();
+  const onMSAFeatureClick = jest.fn();
+  const setActiveId = jest.fn();
   it('should render', () => {
     const { asFragment } = renderWithRedux(
       <WrappedRow

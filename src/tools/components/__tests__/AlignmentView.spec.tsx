@@ -1,4 +1,5 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
+
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import AlignmentView, { Tool, View } from '../AlignmentView';
@@ -8,7 +9,8 @@ import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 describe('AlignmentView', () => {
   describe('BLAST', () => {
-    let rendered, alignment;
+    let rendered;
+    let alignment;
     beforeEach(() => {
       resetUuidV1();
       alignment = mockData.BLAST;
@@ -45,8 +47,9 @@ describe('AlignmentView', () => {
   });
 
   describe('Align', () => {
-    let rendered, alignment;
-    let handleSelectedEntries = jest.fn();
+    let rendered;
+    let alignment;
+    const handleSelectedEntries = jest.fn();
     beforeEach(() => {
       resetUuidV1();
       alignment = mockData.Align;

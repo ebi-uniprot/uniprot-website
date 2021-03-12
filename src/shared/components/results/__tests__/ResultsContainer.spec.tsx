@@ -45,7 +45,7 @@ describe('Results component', () => {
       const toggle = await screen.findByTestId('table-card-toggle');
       fireEvent.click(toggle);
       const table = await screen.findByText('Entry');
-      expect(table).toBeTruthy;
+      expect(table).toBeInTheDocument();
     });
   });
 

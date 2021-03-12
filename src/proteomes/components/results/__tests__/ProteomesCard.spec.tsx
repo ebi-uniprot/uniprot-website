@@ -8,7 +8,7 @@ import proteomesData from '../../../__mocks__/proteomesEntryModelData';
 describe('ProteomesCard tests', () => {
   it('should render the card component', () => {
     const { asFragment } = renderWithRouter(
-      <ProteomesCard data={proteomesData} />
+      <ProteomesCard data={proteomesData} handleEntrySelection={jest.fn()} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -21,9 +21,6 @@ describe('ProteomesCard tests', () => {
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
     fireEvent.click(screen.getByRole('button'));
-    const {
-      location: { pathname },
-    } = history;
-    expect(pathname).toMatch('/proteomes/UP000005640');
+    expect(history.location.pathname).toMatch('/proteomes/UP000005640');
   });
 });

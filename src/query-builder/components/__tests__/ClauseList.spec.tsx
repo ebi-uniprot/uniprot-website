@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 
 import { createEmptyClause } from '../../utils/clause';
 
-import ClauseList from '../../../query-builder/components/ClauseList';
+import ClauseList from '../ClauseList';
 
 let rendered;
 let props;

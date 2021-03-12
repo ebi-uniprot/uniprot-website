@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
@@ -47,9 +47,13 @@ describe('BlastForm test', () => {
     expect(stype2.selected).toBeTruthy();
   });
 
-  it.skip('Sets the program type based on the sequence', () => {});
+  it.skip('Sets the program type based on the sequence', () => {
+    /* */
+  });
 
-  it.skip('Sets a name automatically', () => {});
+  it.skip('Sets a name automatically', () => {
+    /* */
+  });
 
   it('Sets the automatic matrix based on the sequence', () => {
     const textArea = screen.getByTestId('sequence-submission-input');
@@ -82,7 +86,7 @@ describe('BlastForm test', () => {
     const autocompleteItem = await screen.findByText('rotavirus [1906931]');
     fireEvent.click(autocompleteItem);
     const chip = await screen.findByText('Human rotavirus [1906931]');
-    expect(chip).toBeTruthy();
+    expect(chip).toBeInTheDocument();
     fireEvent.click(screen.getByTestId('remove-icon'));
     expect(
       screen.queryByText('Human rotavirus [1906931]')

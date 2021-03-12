@@ -22,12 +22,13 @@ describe('UniProtKBColumnConfiguration component', () => {
 
   // TODO: find mock data to generate non-null snapshot for:
   // go_id, go, and many others
-  for (const [key, column] of UniProtKBColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(UniProtKBColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 });

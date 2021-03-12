@@ -2,6 +2,8 @@
  * @jest-environment node
  */
 import { Store } from 'redux';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import getCheckJobStatus from '../getCheckJobStatus';
 
@@ -18,10 +20,8 @@ import { UPDATE_JOB } from '../toolsActions';
 
 import { Location } from '../../../app/config/urls';
 
-var axios = require('axios');
-var MockAdapter = require('axios-mock-adapter');
-
-let mock, checkJobStatus;
+let mock;
+let checkJobStatus;
 
 const store: Store = {
   getState: jest.fn(() => ({ tools: { [runningJob.internalID]: runningJob } })),
@@ -34,7 +34,8 @@ const store: Store = {
 beforeAll(() => {
   mock = new MockAdapter(axios);
   Date.now = jest.fn(() => 0);
-  console.error = jest.fn(() => {});
+  // eslint-disable-next-line no-console
+  console.error = jest.fn();
 });
 
 beforeEach(() => {
@@ -49,6 +50,7 @@ afterEach(() => {
 afterAll(() => {
   mock.restore();
   (Date.now as jest.Mock).mockRestore();
+  // eslint-disable-next-line no-console
   (console.error as jest.Mock).mockRestore();
 });
 

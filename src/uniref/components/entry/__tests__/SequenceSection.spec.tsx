@@ -9,7 +9,7 @@ import sequenceUIData from '../../../../shared/components/entry/__tests__/__mock
 describe('SequenceSection component', () => {
   test('should render the SequenceSection properly and match snapshot', () => {
     const { asFragment } = render(
-      <SequenceSection data={sequenceUIData['sequence'] as SequenceType} />
+      <SequenceSection data={sequenceUIData.sequence as SequenceType} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
