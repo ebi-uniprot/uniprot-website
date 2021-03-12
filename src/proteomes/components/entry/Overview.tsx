@@ -115,6 +115,10 @@ export const Overview: FC<{
           ].filter(Boolean) as InfoData
         }
       />
+      <div className="description">
+        <hr />
+        <p>{data.description}</p>
+      </div>
     </Card>
   );
 };

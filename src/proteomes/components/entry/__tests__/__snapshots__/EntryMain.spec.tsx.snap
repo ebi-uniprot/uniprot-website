@@ -128,8 +128,9 @@ exports[`EntryMain view should render 1`] = `
               >
                 <a
                   href="/taxonomy/9606"
+                  title="Homo sapiens (Human), taxon ID 9606"
                 >
-                  9606 · Homo sapiens
+                  Homo sapiens (Human)
                 </a>
               </div>
             </div>
@@ -324,6 +325,14 @@ exports[`EntryMain view should render 1`] = `
             </div>
           </li>
         </ul>
+        <div
+          class="description"
+        >
+          <hr />
+          <p>
+            about some proteome
+          </p>
+        </div>
       </div>
     </div>
   </section>
