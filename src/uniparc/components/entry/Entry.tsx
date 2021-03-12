@@ -1,5 +1,11 @@
-import { FC, useMemo } from 'react';
-import { useRouteMatch, useLocation, Link } from 'react-router-dom';
+import { FC, useEffect, useMemo } from 'react';
+import {
+  useRouteMatch,
+  useLocation,
+  Link,
+  useHistory,
+  generatePath,
+} from 'react-router-dom';
 import { stringify } from 'query-string';
 import { Loader, Tabs, Tab } from 'franklin-sites';
 
@@ -35,9 +41,24 @@ const Entry: FC = () => {
   const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniParcEntry]
   );
+  const history = useHistory();
+
   const { search } = useLocation();
 
   const accession = match?.params.accession;
+
+  // if URL doesn't finish with "entry" redirect to /entry by default
+  useEffect(() => {
+    if (match && !match.params.subPage) {
+      history.replace({
+        ...history.location,
+        pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+          accession,
+          subPage: TabLocation.Entry,
+        }),
+      });
+    }
+  }, [match, accession, history]);
 
   const baseURL = apiUrls.uniparc.entry(accession);
   const { loading, data, status, error } = useDataApi<UniParcAPIModel>(
@@ -69,9 +90,27 @@ const Entry: FC = () => {
 
   const transformedData = uniParcConverter(data);
 
+  const entrySidebar = <XRefsFacets xrefs={xrefDataObject} />;
+
+  const emptySidebar = (
+    <div className="sidebar-layout__sidebar-content--empty" />
+  );
+
+  let sidebar;
+
+  switch (match.params.subPage) {
+    case TabLocation.FeatureViewer:
+      sidebar = emptySidebar;
+      break;
+
+    default:
+      sidebar = entrySidebar;
+      break;
+  }
+
   return (
     <SideBarLayout
-      sidebar={<XRefsFacets xrefs={xrefDataObject} />}
+      sidebar={sidebar}
       className="entry-page"
       title={
         <ErrorBoundary>
