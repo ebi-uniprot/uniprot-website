@@ -10,6 +10,7 @@ import { OrganismDataView } from '../../shared/components/views/OrganismDataView
 import BuscoAbbr from '../components/BuscoAbbr';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
+import abbreviationToTitle from '../../shared/config/abbreviations';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
@@ -98,7 +99,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
-  label: <abbr title="Complete Proteome Detector">CPD</abbr>,
+  label: <abbr title={abbreviationToTitle.CPD}>CPD</abbr>,
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport.cpdReport.status,
 });
