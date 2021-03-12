@@ -1,14 +1,17 @@
 import { useCallback, useMemo } from 'react';
 import { Loader } from 'franklin-sites';
 import { uniq } from 'lodash-es';
+import { TransformedVariant } from 'protvista-variation-adapter';
 
 import useCustomElement from '../../hooks/useCustomElement';
 
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 import FeaturesTableView, { FeatureColumns } from './FeaturesTableView';
 import NightingaleZoomTool from '../../../uniprotkb/components/protein-data-views/NightingaleZoomTool';
+
 import { EvidenceData } from '../../../uniprotkb/config/evidenceCodes';
 import FeatureType from '../../../uniprotkb/types/featureType';
+import { UniParcProcessedFeature } from '../../../uniparc/components/entry/UniParcFeaturesView';
 
 export type Fragment = {
   start: number;
@@ -54,7 +57,9 @@ type FeatureProps<T> = {
 };
 
 // ProcessedFeature | TransformedVariant | UniParcProcessedFeature
-const FeaturesView = <T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature>(
+const FeaturesView = <
+  T extends ProcessedFeature | TransformedVariant | UniParcProcessedFeature
+>(
   props: FeatureProps<T>
 ) => {
   const { sequence, features, columnConfig, trackHeight } = props;
@@ -81,7 +86,7 @@ const FeaturesView = <T extends ProcessedFeature | TransformedVariant | UniParcP
   const ceDefined = navigationDefined && sequenceDefined && managerDefined;
 
   const featureTypes = useMemo(
-    () => uniq(features.map(({ type }) => (type as string).toLowerCase())),
+    () => uniq(features.map(({ type }) => type.toLowerCase())),
     [features]
   );
 
