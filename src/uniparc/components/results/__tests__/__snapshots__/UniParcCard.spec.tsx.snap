@@ -16,15 +16,15 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
         <section
           class="result-card"
         >
-          <section
+          <div
             class="result-card__left"
           >
             <input
               data-testid="up-card-checkbox"
               type="checkbox"
             />
-          </section>
-          <section
+          </div>
+          <div
             class="result-card__right"
           >
             <h5>
@@ -40,49 +40,65 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 UPI0000000001
               </span>
             </h5>
-            <section>
+            <div
+              class="result-card__info-container"
+            >
               <span
                 class="result-card__info-bit"
               >
-                Organisms: 7
+                <strong>
+                  Organisms: 
+                </strong>
+                7
               </span>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                UniprotKB entries: 2 reviewed and 6 unreviewed
+                <strong>
+                  UniprotKB entries:
+                </strong>
+                 2 reviewed and 6 unreviewed
               </span>
-            </section>
-            <section>
+            </div>
+            <div
+              class="result-card__info-container"
+            >
               <span
                 class="result-card__info-bit"
               >
-                First seen: 
+                <strong>
+                  First seen
+                </strong>
+                : 
                 <time
                   datetime="1988-11-01T00:00:00.000Z"
                 >
                   1988-11-01
                 </time>
               </span>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                Last seen: 
+                <strong>
+                  Last seen
+                </strong>
+                : 
                 <time
                   datetime="2021-02-10T00:00:00.000Z"
                 >
                   2021-02-10
                 </time>
               </span>
-               · 
               <span
                 class="result-card__info-bit"
               >
-                Sequence length: 250
+                <strong>
+                  Length
+                </strong>
+                : 250
               </span>
-            </section>
-          </section>
+            </div>
+          </div>
         </section>
       </div>
     </div>

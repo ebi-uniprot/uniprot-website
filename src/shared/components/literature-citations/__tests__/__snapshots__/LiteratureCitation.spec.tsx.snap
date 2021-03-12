@@ -128,8 +128,9 @@ exports[`Publication component should render 1`] = `
             <li>
               <small>
                 <a
-                  href="//dx.doi.org/10.1038/ng1285"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://dx.doi.org/10.1038/ng1285"
+                  rel="noopener"
                   target="_blank"
                 >
                   Nat. Genet. 36:40-45(
@@ -139,6 +140,10 @@ exports[`Publication component should render 1`] = `
                     2004
                   </time>
                   )
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
                 </a>
               </small>
             </li>

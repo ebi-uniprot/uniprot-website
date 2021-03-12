@@ -1,12 +1,14 @@
-import axios, { CancelToken } from 'axios';
+import axios, { AxiosPromise, AxiosRequestConfig, CancelToken } from 'axios';
 
 export default function fetchData<T>(
   url: string,
   headers: Record<string, string> = {},
   cancelToken?: CancelToken,
-  axiosOptions = {}
-) {
-  return axios.get<T>(url, {
+  axiosOptions: AxiosRequestConfig = {}
+): AxiosPromise<T> {
+  return axios({
+    url,
+    method: 'GET',
     headers: {
       Accept: 'application/json',
       ...headers,

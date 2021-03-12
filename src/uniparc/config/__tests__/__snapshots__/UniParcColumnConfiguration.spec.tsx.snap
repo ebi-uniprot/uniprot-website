@@ -73,6 +73,7 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
         >
           PF02442
           <test-file-stub
+            data-testid="external-link-icon"
             width="12.5"
           />
         </a>
@@ -85,6 +86,7 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
         >
           IPR003472
           <test-file-stub
+            data-testid="external-link-icon"
             width="12.5"
           />
         </a>
@@ -506,10 +508,14 @@ exports[`UniParcColumnConfiguration component should render column "sequence": s
 
 exports[`UniParcColumnConfiguration component should render column "upi": upi 1`] = `
 <DocumentFragment>
-  <a
-    href="/uniparc/UPI0000000001"
+  <div
+    class="accession-view"
   >
-    UPI0000000001
-  </a>
+    <a
+      href="/uniparc/UPI0000000001"
+    >
+      UPI0000000001
+    </a>
+  </div>
 </DocumentFragment>
 `;

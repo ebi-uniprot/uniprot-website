@@ -4,6 +4,7 @@ import { Facets, Facet } from 'franklin-sites';
 import TaxonomyFacet from './TaxonomyFacet';
 
 import useNS from '../../hooks/useNS';
+import { mainNamespaces } from '../../types/namespaces';
 
 import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
@@ -13,7 +14,7 @@ const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
   facets,
   isStale,
 }) => {
-  const isSearchPage = Boolean(useNS());
+  const ns = useNS();
 
   const splitIndex = facets.findIndex(
     (facet) => facet.name === 'model_organism' || facet.name === 'superkingdom'
@@ -26,7 +27,7 @@ const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
       {before.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}
-      {isSearchPage && <TaxonomyFacet />}
+      {ns && mainNamespaces.has(ns) && <TaxonomyFacet />}
       {after.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}

@@ -31,6 +31,7 @@ const GenericResultsPage = lazy(
       /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
     )
 );
+// Main namespaces
 const UniProtKBEntryPage = lazy(
   () =>
     import(
@@ -55,12 +56,44 @@ const UniParcEntryPage = lazy(
 //       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
 //     )
 // );
+// Supporting data
 // const TaxonomyEntryPage = lazy(
 //   () =>
 //     import(
-//       /* webpackChunkName: "taxonomy-entry" */ '../../taxonomy/components/entry/Entry'
+//       /* webpackChunkName: "taxonomy-entry" */ '../../supporting-data/taxonomy/components/entry/Entry'
 //     )
 // );
+// const KeywordsEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "keywords-entry" */ '../../supporting-data/keywords/components/entry/Entry'
+//     )
+// );
+// const CitationsEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "citations-entry" */ '../../supporting-data/citations/components/entry/Entry'
+//     )
+// );
+// const DiseasesEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "diseases-entry" */ '../../supporting-data/diseases/components/entry/Entry'
+//     )
+// );
+// const DatabaseEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "database-entry" */ '../../supporting-data/database/components/entry/Entry'
+//     )
+// );
+// const LocationsEntryPage = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "locations-entry" */ '../../supporting-data/locations/components/entry/Entry'
+//     )
+// );
+// Tools
 const BlastResult = lazy(
   () =>
     import(
@@ -104,7 +137,7 @@ const reportBugLinkStyles: CSSProperties = {
   display: 'block',
   padding: '.5rem 0',
   color: '#FFF',
-  backgroundColor: 'red',
+  backgroundColor: 'darkred',
   position: 'fixed',
   bottom: '4rem',
   right: 0,
@@ -158,12 +191,53 @@ const App = () => (
               path={LocationToPath[Location.ProteomesResults]}
               component={GenericResultsPage}
             />
+            {/* Supporting data */}
             {/* <Route
               path={LocationToPath[Location.TaxonomyEntry]}
               component={TaxonomyEntryPage}
             /> */}
             <Route
               path={LocationToPath[Location.TaxonomyResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.KeywordsEntry]}
+              component={KeywordsEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.KeywordsResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.CitationsEntry]}
+              component={CitationsEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.CitationsResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.DiseasesEntry]}
+              component={DiseasesEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.DiseasesResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.DatabaseEntry]}
+              component={DatabaseEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.DatabaseResults]}
+              component={GenericResultsPage}
+            />
+            {/* <Route
+              path={LocationToPath[Location.LocationsEntry]}
+              component={LocationsEntryPage}
+            /> */}
+            <Route
+              path={LocationToPath[Location.LocationsResults]}
               component={GenericResultsPage}
             />
             {/* Tools */}

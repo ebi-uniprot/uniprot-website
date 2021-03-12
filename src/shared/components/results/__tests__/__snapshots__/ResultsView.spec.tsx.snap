@@ -3318,11 +3318,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/O00311"
+            <div
+              class="accession-view"
             >
-              O00311
-            </a>
+              <a
+                href="/uniprotkb/O00311"
+              >
+                O00311
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3334,11 +3338,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q9Z0H0"
+            <div
+              class="accession-view"
             >
-              Q9Z0H0
-            </a>
+              <a
+                href="/uniprotkb/Q9Z0H0"
+              >
+                Q9Z0H0
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3350,11 +3358,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P06243"
+            <div
+              class="accession-view"
             >
-              P06243
-            </a>
+              <a
+                href="/uniprotkb/P06243"
+              >
+                P06243
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3366,11 +3378,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P41892"
+            <div
+              class="accession-view"
             >
-              P41892
-            </a>
+              <a
+                href="/uniprotkb/P41892"
+              >
+                P41892
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3382,11 +3398,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q54DK3"
+            <div
+              class="accession-view"
             >
-              Q54DK3
-            </a>
+              <a
+                href="/uniprotkb/Q54DK3"
+              >
+                Q54DK3
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3398,11 +3418,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P50582"
+            <div
+              class="accession-view"
             >
-              P50582
-            </a>
+              <a
+                href="/uniprotkb/P50582"
+              >
+                P50582
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3414,11 +3438,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q8NEY8"
+            <div
+              class="accession-view"
             >
-              Q8NEY8
-            </a>
+              <a
+                href="/uniprotkb/Q8NEY8"
+              >
+                Q8NEY8
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3430,11 +3458,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/X2JCT3"
+            <div
+              class="accession-view"
             >
-              X2JCT3
-            </a>
+              <a
+                href="/uniprotkb/X2JCT3"
+              >
+                X2JCT3
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3446,11 +3478,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q9W3Y1"
+            <div
+              class="accession-view"
             >
-              Q9W3Y1
-            </a>
+              <a
+                href="/uniprotkb/Q9W3Y1"
+              >
+                Q9W3Y1
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3462,11 +3498,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q8NFT6"
+            <div
+              class="accession-view"
             >
-              Q8NFT6
-            </a>
+              <a
+                href="/uniprotkb/Q8NFT6"
+              >
+                Q8NFT6
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3478,11 +3518,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P32325"
+            <div
+              class="accession-view"
             >
-              P32325
-            </a>
+              <a
+                href="/uniprotkb/P32325"
+              >
+                P32325
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3494,11 +3538,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q9UBU7"
+            <div
+              class="accession-view"
             >
-              Q9UBU7
-            </a>
+              <a
+                href="/uniprotkb/Q9UBU7"
+              >
+                Q9UBU7
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3510,11 +3558,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P49736"
+            <div
+              class="accession-view"
             >
-              P49736
-            </a>
+              <a
+                href="/uniprotkb/P49736"
+              >
+                P49736
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3526,11 +3578,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q9BW66"
+            <div
+              class="accession-view"
             >
-              Q9BW66
-            </a>
+              <a
+                href="/uniprotkb/Q9BW66"
+              >
+                Q9BW66
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3542,11 +3598,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q9QZ41"
+            <div
+              class="accession-view"
             >
-              Q9QZ41
-            </a>
+              <a
+                href="/uniprotkb/Q9QZ41"
+              >
+                Q9QZ41
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3558,11 +3618,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q8SR83"
+            <div
+              class="accession-view"
             >
-              Q8SR83
-            </a>
+              <a
+                href="/uniprotkb/Q8SR83"
+              >
+                Q8SR83
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3574,11 +3638,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P97310"
+            <div
+              class="accession-view"
             >
-              P97310
-            </a>
+              <a
+                href="/uniprotkb/P97310"
+              >
+                P97310
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3590,11 +3658,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q8SR85"
+            <div
+              class="accession-view"
             >
-              Q8SR85
-            </a>
+              <a
+                href="/uniprotkb/Q8SR85"
+              >
+                Q8SR85
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3606,11 +3678,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P55861"
+            <div
+              class="accession-view"
             >
-              P55861
-            </a>
+              <a
+                href="/uniprotkb/P55861"
+              >
+                P55861
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3622,11 +3698,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P87027"
+            <div
+              class="accession-view"
             >
-              P87027
-            </a>
+              <a
+                href="/uniprotkb/P87027"
+              >
+                P87027
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3638,11 +3718,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q5XK83"
+            <div
+              class="accession-view"
             >
-              Q5XK83
-            </a>
+              <a
+                href="/uniprotkb/Q5XK83"
+              >
+                Q5XK83
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3654,11 +3738,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/Q9UQY9"
+            <div
+              class="accession-view"
             >
-              Q9UQY9
-            </a>
+              <a
+                href="/uniprotkb/Q9UQY9"
+              >
+                Q9UQY9
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3670,11 +3758,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/O74473"
+            <div
+              class="accession-view"
             >
-              O74473
-            </a>
+              <a
+                href="/uniprotkb/O74473"
+              >
+                O74473
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3686,11 +3778,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P30664"
+            <div
+              class="accession-view"
             >
-              P30664
-            </a>
+              <a
+                href="/uniprotkb/P30664"
+              >
+                P30664
+              </a>
+            </div>
           </td>
         </tr>
         <tr>
@@ -3702,11 +3798,15 @@ exports[`ResultsView component should render table 1`] = `
             />
           </td>
           <td>
-            <a
-              href="/uniprotkb/P33991"
+            <div
+              class="accession-view"
             >
-              P33991
-            </a>
+              <a
+                href="/uniprotkb/P33991"
+              >
+                P33991
+              </a>
+            </div>
           </td>
         </tr>
       </tbody>

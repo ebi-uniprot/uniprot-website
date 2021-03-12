@@ -10,6 +10,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
+import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -17,13 +18,29 @@ import uniProtKbConverter, {
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
+import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { KeywordsAPIModel } from '../../../supporting-data/keywords/adapters/keywordsConverter';
+import {
+  CitationsAPIModel,
+  CitationXRefDB,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
+import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/diseasesConverter';
+import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
+import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
 import { getAPIQueryUrl } from '../../config/apiUrls';
+
 // columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
 import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
 import ProteomesColumnConfiguration from '../../../proteomes/config/ProteomesColumnConfiguration';
+import TaxonomyColumnConfiguration from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
+import KeywordsColumnConfiguration from '../../../supporting-data/keywords/config/KeywordsColumnConfiguration';
+import CitationsColumnConfiguration from '../../../supporting-data/citations/config/CitationsColumnConfiguration';
+import DiseasesColumnConfiguration from '../../../supporting-data/diseases/config/DiseasesColumnConfiguration';
+import DatabaseColumnConfiguration from '../../../supporting-data/database/config/DatabaseColumnConfiguration';
+import LocationsColumnConfiguration from '../../../supporting-data/locations/config/LocationsColumnConfiguration';
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
@@ -54,10 +71,17 @@ type APIModel =
   | UniProtkbAPIModel
   | UniRefLiteAPIModel
   | UniParcAPIModel
-  | ProteomesAPIModel;
+  | ProteomesAPIModel
+  | TaxonomyAPIModel
+  | KeywordsAPIModel
+  | CitationsAPIModel
+  | DiseasesAPIModel
+  | DatabaseAPIModel
+  | LocationsAPIModel;
 
 const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
+    // Main namespaces
     case Namespace.uniprotkb:
       return uniProtKbConverter(row as UniProtkbAPIModel);
     case Namespace.uniref:
@@ -66,13 +90,29 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       return row as UniParcAPIModel;
     case Namespace.proteomes:
       return row as ProteomesAPIModel;
+    // Supporting data
+    case Namespace.taxonomy:
+      return row as TaxonomyAPIModel;
+    case Namespace.keywords:
+      return row as KeywordsAPIModel;
+    case Namespace.citations:
+      return row as CitationsAPIModel;
+    case Namespace.diseases:
+      return row as DiseasesAPIModel;
+    case Namespace.database:
+      return row as DatabaseAPIModel;
+    case Namespace.locations:
+      return row as LocationsAPIModel;
     default:
+      // eslint-disable-next-line no-console
+      console.warn(`Unrecognised namespace: "${namespace}"`);
       return null;
   }
 };
 
 const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
   switch (namespace) {
+    // Main namespaces
     case Namespace.uniprotkb:
       return (data) => (data as UniProtkbAPIModel).primaryAccession;
     case Namespace.uniref:
@@ -81,6 +121,23 @@ const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
       return (data) => (data as UniParcAPIModel).uniParcId;
     case Namespace.proteomes:
       return (data) => (data as ProteomesAPIModel).id;
+    // Supporting data
+    case Namespace.taxonomy:
+      return (data) => `${(data as TaxonomyAPIModel).taxonId}`;
+    case Namespace.keywords:
+      return (data) => (data as KeywordsAPIModel).keyword.id;
+    case Namespace.citations:
+      // TODO: find what are the citations' unique keys
+      return (data) =>
+        (data as CitationsAPIModel).citation.citationCrossReferences?.find(
+          (xref) => xref.database === CitationXRefDB.PubMed
+        )?.id || 'key <string to be removed eventually>';
+    case Namespace.diseases:
+      return (data) => (data as DiseasesAPIModel).id;
+    case Namespace.database:
+      return (data) => (data as DatabaseAPIModel).id;
+    case Namespace.locations:
+      return (data) => (data as LocationsAPIModel).id;
     default:
       // eslint-disable-next-line no-console
       console.warn(`getIdKey method not implemented for ${namespace} yet`);
@@ -96,6 +153,12 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.uniref]: UniRefColumnConfiguration,
   [Namespace.uniparc]: UniParcColumnConfiguration,
   [Namespace.proteomes]: ProteomesColumnConfiguration,
+  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
+  [Namespace.keywords]: KeywordsColumnConfiguration,
+  [Namespace.citations]: CitationsColumnConfiguration,
+  [Namespace.diseases]: DiseasesColumnConfiguration,
+  [Namespace.database]: DatabaseColumnConfiguration,
+  [Namespace.locations]: LocationsColumnConfiguration,
 };
 
 const cardRenderer = (
@@ -127,6 +190,15 @@ const cardRenderer = (
       return (cardData) => (
         <UniParcCard
           data={cardData as UniParcAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.proteomes: {
+      return (cardData) => (
+        <ProteomesCard
+          data={cardData as ProteomesAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
@@ -247,7 +319,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, headers } = useDataApi<{
+  const { data, loading, progress, headers } = useDataApi<{
     results: APIModel[];
   }>(url);
 
@@ -292,7 +364,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     // or we just changed the displayed columns (hacky too...)
     prevColumns.current !== columns
   ) {
-    return <Loader />;
+    return <Loader progress={progress} />;
   }
 
   const { total, nextUrl } = metaData;
@@ -323,6 +395,9 @@ const ResultsView: FC<ResultsTableProps> = ({
   };
 
   const hasMoreData = total > allResults.length;
+  const loadComponent = (
+    <Loader progress={progress !== 1 ? progress : undefined} />
+  );
 
   return (
     <div className="results-view">
@@ -338,7 +413,7 @@ const ResultsView: FC<ResultsTableProps> = ({
           )}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
-          loaderComponent={<Loader />}
+          loaderComponent={loadComponent}
         />
       ) : (
         // Column view
@@ -357,7 +432,7 @@ const ResultsView: FC<ResultsTableProps> = ({
           onHeaderClick={updateColumnSort}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
-          loaderComponent={<Loader />}
+          loaderComponent={loadComponent}
         />
       )}
     </div>

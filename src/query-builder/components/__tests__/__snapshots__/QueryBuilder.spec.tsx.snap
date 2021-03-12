@@ -14,7 +14,7 @@ exports[`QueryBuilder should render 1`] = `
           height="20"
           width="20"
         />
-         Advanced search
+         Query builder
       </button>
     </h2>
     <div
@@ -421,7 +421,7 @@ exports[`QueryBuilder should render loading 1`] = `
           height="20"
           width="20"
         />
-         Advanced search
+         Query builder
       </button>
     </h2>
     <div

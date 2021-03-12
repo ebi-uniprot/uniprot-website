@@ -15,15 +15,18 @@ import xrefGetter from '../../utils/xrefGetter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
+import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
 
 import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import '../../../shared/components/results/styles/result-card.scss';
 
-const firstSeen = UniParcColumnConfiguration.get(UniParcColumn.firstSeen)
-  ?.render;
-const lastSeen = UniParcColumnConfiguration.get(UniParcColumn.lastSeen)?.render;
+const mainInfoColumns = [
+  UniParcColumn.firstSeen,
+  UniParcColumn.lastSeen,
+  UniParcColumn.length,
+];
 
 const uniProtKBCounter = (data: UniParcAPIModel) => {
   let reviewed = 0;
@@ -55,7 +58,7 @@ const UniRefCard: FC<{
   return (
     <Card onClick={handleCardClick}>
       <section className="result-card">
-        <section className="result-card__left">
+        <div className="result-card__left">
           <input
             type="checkbox"
             checked={selected}
@@ -63,39 +66,36 @@ const UniRefCard: FC<{
             onChange={() => handleEntrySelection(data.uniParcId)}
             data-testid="up-card-checkbox"
           />
-        </section>
-        <section className="result-card__right">
+        </div>
+        <div className="result-card__right">
           <h5>
             <EntryTitle
               mainTitle={data.uniParcId}
               entryType={EntryType.UNIPARC}
             />
           </h5>
-          <section>
+          <div className="result-card__info-container">
             <span className="result-card__info-bit">
-              Organism{organismCount === 1 ? '' : 's'}:{' '}
+              <strong>Organism{organismCount === 1 ? '' : 's'}: </strong>
               <LongNumber>{organismCount}</LongNumber>
             </span>
-            {' · '}
             <span className="result-card__info-bit">
-              UniprotKB entries: {uniProtKBCount.reviewed} reviewed and{' '}
-              <LongNumber>{uniProtKBCount.unreviewed}</LongNumber> unreviewed
+              <strong>UniprotKB entries:</strong> {uniProtKBCount.reviewed}{' '}
+              reviewed and <LongNumber>{uniProtKBCount.unreviewed}</LongNumber>{' '}
+              unreviewed
             </span>
-          </section>
-          <section>
-            <span className="result-card__info-bit">
-              First seen: {firstSeen?.(data)}
-            </span>
-            {' · '}
-            <span className="result-card__info-bit">
-              Last seen: {lastSeen?.(data)}
-            </span>
-            {' · '}
-            <span className="result-card__info-bit">
-              Sequence length: <LongNumber>{data.sequence.length}</LongNumber>
-            </span>
-          </section>
-        </section>
+          </div>
+          <div className="result-card__info-container">
+            {mainInfoColumns.map((column) => (
+              <RenderColumnInCard
+                type={column}
+                data={data}
+                columnConfig={UniParcColumnConfiguration}
+                key={column}
+              />
+            ))}
+          </div>
+        </div>
       </section>
     </Card>
   );

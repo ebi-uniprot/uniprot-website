@@ -1,0 +1,203 @@
+@import '../../../../../node_modules/franklin-sites/src/styles/colours';
+@import '../../../../../node_modules/franklin-sites/src/styles/mixins';
+
+footer.footer {
+  // Make the whole footer texts be a portion of the default size of the rest
+  font-size: 0.75rem;
+  padding: 1em;
+  background: $colour-platinum;
+  // Wait a bit on the first load to give a chance to the main content to load
+  // and push the footer down before appearing
+  animation: appear 0.25s 1 0.5s both;
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  img {
+    display: inline-block;
+    width: 100%;
+    height: auto;
+  }
+
+  // Consortium
+  .consortium {
+    grid-area: 1 / 1 / span 1 / span 2;
+
+    &__uniprot {
+      width: 100%;
+    }
+
+    &__members {
+      display: flex;
+      align-items: center;
+      gap: 1ch;
+
+      & > * {
+        flex: 1;
+
+        &[href*='ebi.ac.uk'] {
+          // Not the same aspect ratio, so gives more weight to compensate
+          flex: 3;
+        }
+      }
+
+      & svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        // override .external-link style
+        margin: initial;
+        fill: black;
+      }
+    }
+  }
+
+  .copyright-misc {
+    grid-area: 2 / 1 / span 2 / span 3;
+  }
+
+  // Shortcuts
+  .shortcuts {
+    grid-area: 1 / 4 / span 2 / span 6;
+    display: flex;
+    flex-direction: row;
+
+    & > * {
+      flex: 1;
+    }
+
+    & > li:not(:last-child) > ul {
+      padding-right: 1ch;
+    }
+
+    li {
+      margin-bottom: 1ch;
+    }
+
+    &__title {
+      display: block;
+      padding-bottom: 1ch;
+      margin-bottom: 1ch;
+      border-bottom: 1px solid $colour-yankees-blue;
+      font-weight: bold;
+    }
+
+    .tools-results-link {
+      border-top: 1px solid $colour-pastel-blue;
+      width: max-content;
+    }
+  }
+
+  // Contact & Elixir
+  .contact-elixir {
+    grid-area: 1 / 11 / span 3 / span 2;
+    align-self: center;
+
+    img {
+      margin: 0.5ch;
+      width: 3em;
+    }
+
+    .social {
+      white-space: nowrap;
+
+      svg {
+        fill: $colour-weldon-blue;
+        color: $colour-weldon-blue;
+      }
+    }
+  }
+
+  // Funding
+  .funding {
+    grid-area: 3 / 4 / span 1 / span 6;
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+    justify-content: space-between;
+
+    & > * {
+      white-space: nowrap;
+    }
+
+    svg {
+      display: block;
+      fill: black;
+    }
+  }
+
+  @include fs-breakpoints('small') {
+    .consortium {
+      grid-area: 1 / 1 / span 1 / span 12;
+    }
+    .copyright-misc {
+      grid-area: 2 / 1 / span 1 / span 12;
+    }
+    .shortcuts {
+      grid-area: 3 / 1 / span 1 / span 12;
+    }
+    .contact-elixir {
+      grid-area: 4 / 1 / span 1 / span 12;
+    }
+    .funding {
+      grid-area: 5 / 1 / span 1 / span 12;
+    }
+  }
+
+  @include fs-breakpoints('medium') {
+    .consortium {
+      grid-area: 1 / 1 / span 1 / span 3;
+    }
+    .copyright-misc {
+      grid-area: 4 / 1 / span 1 / span 12;
+      // override of default for medium and above
+      display: flex;
+      justify-content: space-around;
+      & > p {
+        margin-bottom: 0;
+      }
+    }
+    .shortcuts {
+      grid-area: 1 / 4 / 3 / span 9;
+    }
+    .contact-elixir {
+      grid-area: 2 / 1 / span 2 / span 3;
+    }
+    .funding {
+      grid-area: 3 / 4 / 3 / span 9;
+    }
+  }
+
+  @include fs-breakpoints('large') {
+    .consortium {
+      grid-area: 1 / 1 / span 1 / span 2;
+    }
+    .copyright-misc {
+      grid-area: 2 / 1 / span 2 / span 3;
+      // override (overriding of default for medium and above) for large (🤯)
+      display: initial;
+      & > p {
+        margin-bottom: 1em;
+      }
+    }
+    .shortcuts {
+      grid-area: 1 / 4 / span 2 / span 6;
+    }
+    .contact-elixir {
+      grid-area: 1 / 11 / span 3 / span 2;
+    }
+    .funding {
+      grid-area: 3 / 4 / span 1 / span 6;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

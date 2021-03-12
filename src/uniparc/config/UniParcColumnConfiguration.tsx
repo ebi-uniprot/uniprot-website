@@ -24,6 +24,7 @@ import {
   UniParcAPIModel,
   UniParcXRef,
 } from '../adapters/uniParcConverter';
+import AccessionView from '../../shared/components/results/AccessionView';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -107,7 +108,7 @@ const familyAndDomainRenderer = (
 UniParcColumnConfiguration.set(UniParcColumn.upi, {
   label: 'Entry',
   render: ({ uniParcId }) => (
-    <Link to={getEntryPath(Namespace.uniparc, uniParcId)}>{uniParcId}</Link>
+    <AccessionView id={uniParcId} namespace={Namespace.uniparc} />
   ),
 });
 

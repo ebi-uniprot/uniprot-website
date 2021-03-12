@@ -67,11 +67,15 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
 
 exports[`UniProtKBColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>
-  <a
-    href="/uniprotkb/P21802"
+  <div
+    class="accession-view"
   >
-    P21802
-  </a>
+    <a
+      href="/uniprotkb/P21802"
+    >
+      P21802
+    </a>
+  </div>
 </DocumentFragment>
 `;
 
@@ -440,6 +444,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
           >
             3124
             <test-file-stub
+              data-testid="external-link-icon"
               width="12.5"
             />
           </a>
@@ -646,6 +651,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
     >
       sequence
       <test-file-stub
+        data-testid="external-link-icon"
         width="12.5"
       />
     </a>
@@ -841,6 +847,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
     >
       sequence
       <test-file-stub
+        data-testid="external-link-icon"
         width="12.5"
       />
     </a>
@@ -1509,6 +1516,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_i
   >
     NCBI
     <test-file-stub
+      data-testid="external-link-icon"
       width="12.5"
     />
   </a>
