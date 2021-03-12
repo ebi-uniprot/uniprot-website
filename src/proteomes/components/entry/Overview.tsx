@@ -1,15 +1,14 @@
 import { FC, ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
 import { Card, InfoList } from 'franklin-sites';
 
 import SimpleView from '../../../shared/components/views/SimpleView';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
 
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
@@ -78,22 +77,7 @@ export const Overview: FC<{
             },
             (data.taxonomy.taxonId || data.taxonomy.scientificName) && {
               title: 'Taxonomy',
-              content: (
-                <Link
-                  to={{
-                    pathname: generatePath(
-                      LocationToPath[Location.TaxonomyEntry],
-                      {
-                        accession: data.taxonomy.taxonId.toString(),
-                      }
-                    ),
-                  }}
-                >
-                  {[data.taxonomy.taxonId, data.taxonomy.scientificName]
-                    .filter(Boolean)
-                    .join(' · ')}
-                </Link>
-              ),
+              content: <OrganismDataView organism={data.taxonomy} />,
             },
             {
               title: 'Last modified',
@@ -110,7 +94,6 @@ export const Overview: FC<{
                   }`}
                   linkTo={data.genomeAssembly.genomeAssemblyUrl}
                 />
-                // <GenomeAssemblyAndAnnotationView {...data.genomeAssembly} />
               ),
             },
             data.genomeAssembly?.level &&

@@ -6,7 +6,7 @@ import { capitalize } from 'lodash-es';
 import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';
-import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../shared/components/views/OrganismDataView';
 import BuscoAbbr from '../components/BuscoAbbr';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';

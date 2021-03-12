@@ -7,7 +7,7 @@ import {
   Loader,
 } from 'franklin-sites';
 
-import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import {
   EntryTypeIcon,

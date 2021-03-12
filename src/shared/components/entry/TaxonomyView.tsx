@@ -11,7 +11,7 @@ import { Namespace } from '../../types/namespaces';
 
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import { OrganismDataView } from '../views/OrganismDataView';
+import OrganismDataView from '../views/OrganismDataView';
 
 type TaxonomyDataProps = {
   data: OrganismData;
