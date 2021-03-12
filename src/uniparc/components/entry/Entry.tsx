@@ -1,7 +1,13 @@
-import { FC, useMemo } from 'react';
-import { useRouteMatch, useLocation } from 'react-router-dom';
+import { FC, useEffect, useMemo } from 'react';
+import {
+  useRouteMatch,
+  useLocation,
+  Link,
+  useHistory,
+  generatePath,
+} from 'react-router-dom';
 import { stringify } from 'query-string';
-import { Loader } from 'franklin-sites';
+import { Loader, Tabs, Tab } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
@@ -24,14 +30,35 @@ import XRefsFacets from './XRefsFacets';
 import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import UniParcFeaturesView from './UniParcFeaturesView';
+
+export enum TabLocation {
+  Entry = 'entry',
+  FeatureViewer = 'feature-viewer',
+}
 
 const Entry: FC = () => {
-  const match = useRouteMatch<{ accession: string }>(
+  const match = useRouteMatch<{ accession: string; subPage?: TabLocation }>(
     LocationToPath[Location.UniParcEntry]
   );
+  const history = useHistory();
+
   const { search } = useLocation();
 
   const accession = match?.params.accession;
+
+  // if URL doesn't finish with "entry" redirect to /entry by default
+  useEffect(() => {
+    if (match && !match.params.subPage) {
+      history.replace({
+        ...history.location,
+        pathname: generatePath(LocationToPath[Location.UniParcEntry], {
+          accession,
+          subPage: TabLocation.Entry,
+        }),
+      });
+    }
+  }, [match, accession, history]);
 
   const baseURL = apiUrls.uniparc.entry(accession);
   const { loading, data, status, error } = useDataApi<UniParcAPIModel>(
@@ -53,7 +80,7 @@ const Entry: FC = () => {
     }, [search]);
   const xrefDataObject = useDataApiWithStale<UniParcAPIModel>(xrefsURL);
 
-  if (error || !accession) {
+  if (error || !accession || !match) {
     return <ErrorHandler status={status} />;
   }
 
@@ -63,9 +90,27 @@ const Entry: FC = () => {
 
   const transformedData = uniParcConverter(data);
 
+  const entrySidebar = <XRefsFacets xrefs={xrefDataObject} />;
+
+  const emptySidebar = (
+    <div className="sidebar-layout__sidebar-content--empty" />
+  );
+
+  let sidebar;
+
+  switch (match.params.subPage) {
+    case TabLocation.FeatureViewer:
+      sidebar = emptySidebar;
+      break;
+
+    default:
+      sidebar = entrySidebar;
+      break;
+  }
+
   return (
     <SideBarLayout
-      sidebar={<XRefsFacets xrefs={xrefDataObject} />}
+      sidebar={sidebar}
       className="entry-page"
       title={
         <ErrorBoundary>
@@ -78,7 +123,45 @@ const Entry: FC = () => {
         </ErrorBoundary>
       }
     >
-      <EntryMain transformedData={transformedData} xrefs={xrefDataObject} />
+      <Tabs active={match.params.subPage}>
+        <Tab
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/uniparc/${match.params.accession}/${TabLocation.Entry}`,
+                hash: undefined,
+              })}
+            >
+              Entry
+            </Link>
+          }
+          id={TabLocation.Entry}
+        >
+          <EntryMain transformedData={transformedData} xrefs={xrefDataObject} />
+        </Tab>
+        <Tab
+          title={
+            <Link
+              to={(location) => ({
+                ...location,
+                pathname: `/uniparc/${match.params.accession}/${TabLocation.FeatureViewer}`,
+                hash: undefined,
+              })}
+            >
+              Feature viewer
+            </Link>
+          }
+          id={TabLocation.FeatureViewer}
+        >
+          {transformedData.sequenceFeatures && (
+            <UniParcFeaturesView
+              data={transformedData.sequenceFeatures}
+              sequence={transformedData.sequence.value}
+            />
+          )}
+        </Tab>
+      </Tabs>
     </SideBarLayout>
   );
 };
