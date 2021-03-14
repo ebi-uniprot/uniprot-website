@@ -55,6 +55,7 @@ const Results: FC = () => {
       `table columns for ${namespace}`,
       namespace ? nsToDefaultColumns[namespace] : []
     ) || nsToDefaultColumns[namespace];
+  console.log(tableColumns);
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data

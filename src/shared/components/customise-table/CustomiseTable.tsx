@@ -25,7 +25,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
     setSelectedColumns(columnIds);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSave(selectedColumns);
   };
