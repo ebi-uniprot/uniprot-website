@@ -45,6 +45,7 @@ import LocationsColumnConfiguration from '../../../supporting-data/locations/con
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
+import { useUserPreference } from '../../contexts/UserPreferences';
 
 import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
 
@@ -61,7 +62,7 @@ import {
 import { Namespace } from '../../types/namespaces';
 import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import { Column } from '../../config/columns';
+import { Column, nsToDefaultColumns } from '../../config/columns';
 import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
@@ -254,20 +255,22 @@ const getColumnsToDisplay = (
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: Column[] | undefined;
-  viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
   sortableColumnToSortColumn: Map<Column, string>;
 };
 
 const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
-  columns,
-  viewMode,
   handleEntrySelection,
   sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
+  const [viewMode] = useUserPreference<ViewMode>('view-mode', ViewMode.CARD);
+  const [columns] = useUserPreference<Column[]>(
+    `table columns for ${namespace}`,
+    nsToDefaultColumns[namespace]
+  );
+
   const prevNamespace = useRef<Namespace>(namespace);
   useEffect(() => {
     // will set it *after* the current render
@@ -291,14 +294,19 @@ const ResultsView: FC<ResultsTableProps> = ({
     direct,
   } = getParamsFromURL(queryParamFromUrl);
 
+  let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
+  if (viewMode === ViewMode.CARD) {
+    // TODO: Do similar things for the rest of namespaces
+    if (namespace === Namespace.uniprotkb) {
+      queryColumns = fieldsForUniProtKBCards;
+    }
+  }
+
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
     // TODO: Do similar things for the rest of namespaces
-    columns:
-      viewMode === ViewMode.CARD && namespace === Namespace.uniprotkb
-        ? fieldsForUniProtKBCards
-        : columns,
+    columns: queryColumns,
     selectedFacets,
     // Not really interested in the facets here, so try to reduce payload
     facets: null,

@@ -140,7 +140,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
       <Button
         variant="secondary"
         tabIndex={0}
-        onClick={() => onChange(defaultColumns)}
+        onClick={() => setColumns(defaultColumns)}
         data-testid="column-select-reset-button"
       >
         Reset to default

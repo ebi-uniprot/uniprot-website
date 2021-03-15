@@ -5,10 +5,16 @@ import ColumnSelect from '../column-select/ColumnSelect';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
+
 import useNS from '../../hooks/useNS';
+import { useUserPreference } from '../../contexts/UserPreferences';
 
 import { getDownloadUrl } from '../../config/apiUrls';
-import { Column, nsToPrimaryKeyColumn } from '../../config/columns';
+import {
+  Column,
+  nsToDefaultColumns,
+  nsToPrimaryKeyColumn,
+} from '../../config/columns';
 import {
   fileFormatsWithColumns,
   fileFormatToContentType,
@@ -21,6 +27,7 @@ import {
 } from '../../../uniprotkb/types/resultsTypes';
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { Namespace } from '../../types/namespaces';
 
 import './styles/download.scss';
 import '../../styles/sticky.scss';
@@ -31,7 +38,6 @@ export const getPreviewFileFormat = (fileFormat: FileFormat) =>
 type DownloadProps = {
   query: string;
   selectedFacets?: SelectedFacet[];
-  selectedColumns?: Column[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
   selectedEntries: string[];
@@ -42,21 +48,20 @@ type DownloadProps = {
 const Download: FC<DownloadProps> = ({
   query,
   selectedFacets = [],
-  selectedColumns: initialSelectedColumns = [],
   sortColumn,
   sortDirection,
   selectedEntries = [],
   totalNumberResults,
   onClose,
 }) => {
-  const namespace = useNS();
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
-  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
-  const [selectedColumns, setSelectedColumns] = useState<Column[]>(
-    initialSelectedColumns
+  const namespace = useNS() || Namespace.uniprotkb;
+  const [columns] = useUserPreference(
+    `table columns for ${namespace}` as const,
+    nsToDefaultColumns[namespace]
   );
+
+  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
+  const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
   const [downloadAll, setDownloadAll] = useState(true);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
@@ -200,9 +205,8 @@ const Download: FC<DownloadProps> = ({
       </fieldset>
       <fieldset>
         <legend>Compressed</legend>
-        <label htmlFor="compressed-true">
+        <label>
           <input
-            id="compressed-true"
             type="radio"
             name="compressed"
             value="true"
@@ -211,9 +215,8 @@ const Download: FC<DownloadProps> = ({
           />
           Yes
         </label>
-        <label htmlFor="compressed-false">
+        <label>
           <input
-            id="compressed-false"
             type="radio"
             name="compressed"
             value="false"
