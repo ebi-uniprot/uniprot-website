@@ -19,12 +19,13 @@ describe('CitationsColumnConfiguration component', () => {
     transformedData = citationsConverter(data[0] as CitationsAPIModel);
   });
 
-  for (const [key, column] of CitationsColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(CitationsColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 });

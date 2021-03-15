@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import EnumField from '../../../query-builder/components/EnumField';
+import EnumField from '../EnumField';
 
 const props = {
   field: {

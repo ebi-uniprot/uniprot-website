@@ -9,7 +9,7 @@ describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {
     const row = data.results[0];
     const { asFragment } = renderWithRouter(
-      <UniRefCard data={row} handleEntrySelection={() => {}} />
+      <UniRefCard data={row} handleEntrySelection={jest.fn()} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
@@ -23,9 +23,6 @@ describe('UniRefCard tests', () => {
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
     fireEvent.click(screen.getByRole('button'));
-    const {
-      location: { pathname },
-    } = history;
-    expect(pathname).toMatch('/uniref/UniRef100_A0A0B7GQ86');
+    expect(history.location.pathname).toMatch('/uniref/UniRef100_A0A0B7GQ86');
   });
 });

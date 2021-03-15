@@ -93,6 +93,7 @@ describe('ReactionDirection component', () => {
   });
 
   test('should not render a ReactionDirection when more than two physiologicalReactions are present and to have raised the approriate error in the console', () => {
+    // eslint-disable-next-line no-console
     console.error = jest.fn();
     const { asFragment } = renderWithRedux(
       <ReactionDirection
@@ -103,6 +104,8 @@ describe('ReactionDirection component', () => {
       />
     );
     expect(asFragment().childElementCount).toEqual(0);
+    // NOTE: should we test writing to the console?
+    // eslint-disable-next-line no-console
     expect(console.error).toHaveBeenCalledWith(
       'More than two physiological reactions encountered when rendering catalytic activity'
     );

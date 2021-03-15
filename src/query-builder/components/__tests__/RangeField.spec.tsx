@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import RangeField from '../../../query-builder/components/RangeField';
+import RangeField from '../RangeField';
 
 let props;
 let rendered;

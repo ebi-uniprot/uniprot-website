@@ -1,4 +1,4 @@
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 
 import ServiceUnavailablePage from '../ServiceUnavailablePage';
 

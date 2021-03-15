@@ -19,12 +19,13 @@ describe('ProteomesColumnConfiguration component', () => {
     transformedData = proteomesConverter(data as ProteomesAPIModel);
   });
 
-  for (const [key, column] of ProteomesColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(ProteomesColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 });

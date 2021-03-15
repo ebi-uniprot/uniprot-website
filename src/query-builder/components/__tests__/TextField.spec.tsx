@@ -1,6 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 
-import TextField from '../../../query-builder/components/TextField';
+import TextField from '../TextField';
 
 let rendered;
 

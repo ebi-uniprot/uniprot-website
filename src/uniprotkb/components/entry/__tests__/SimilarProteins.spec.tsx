@@ -1,5 +1,7 @@
 import { act } from 'react-dom/test-utils';
 import { fireEvent, screen } from '@testing-library/react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
@@ -8,10 +10,7 @@ import SimilarProteins from '../similar-proteins/SimilarProteins';
 import similarProteinsData from './__mocks__/similarProteinsData';
 import accessionsData from './__mocks__/accessionsData.json';
 
-var axios = require('axios');
-var MockAdapter = require('axios-mock-adapter');
-
-var axiosMock = new MockAdapter(axios);
+const axiosMock = new MockAdapter(axios);
 axiosMock
   .onGet(/\/uniref\/search/)
   .reply(200, { results: similarProteinsData });

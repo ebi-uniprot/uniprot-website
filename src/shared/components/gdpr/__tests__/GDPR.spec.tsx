@@ -1,9 +1,8 @@
 import { render, fireEvent } from '@testing-library/react';
+
 import GDPR from '../GDPR';
 
 describe('GDPR', () => {
-  const store = {};
-
   test('should render', () => {
     const { asFragment } = render(<GDPR />);
     expect(asFragment()).toMatchSnapshot();

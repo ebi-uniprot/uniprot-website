@@ -1,53 +1,27 @@
 import { render } from '@testing-library/react';
+
 import XRefView, {
   getPropertyString,
   processUrlTemplate,
   getPropertyLink,
   getDatabaseInfoAttribute,
 } from '../XRefView';
-import xrefUIData from './__mocks__/xrefUIData.json';
-import EntrySectionType from '../../../types/entrySection';
+
 import { XrefUIModel } from '../../../utils/xrefUtils';
 import { PropertyKey } from '../../../types/modelTypes';
 
+import xrefUIData from './__mocks__/xrefUIData.json';
+
 describe('XRefView', () => {
-  for (const section in EntrySectionType) {
-    test(`should render for ${section} section`, () => {
-      const xrefs = xrefUIData as XrefUIModel[];
-      const { asFragment } = render(
-        <XRefView xrefs={xrefs} primaryAccession="P01234" />
-      );
-      expect(asFragment()).toMatchSnapshot();
-    });
-  }
+  test(`should render section`, () => {
+    const xrefs = xrefUIData as XrefUIModel[];
+    const { asFragment } = render(
+      <XRefView xrefs={xrefs} primaryAccession="P01234" />
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
 });
 
-const xRefUrlTestData = [
-  {
-    input: {
-      config: {
-        name: 'BRENDA',
-        displayName: 'BRENDA',
-        category: 'EAP',
-        uriLink:
-          'https://www.brenda-enzymes.org/enzyme.php?ecno=%id&UniProtAcc=%accession&OrganismID=%organismId',
-        attributes: [
-          {
-            name: 'OrganismId',
-            xmlTag: 'organism ID',
-          },
-        ],
-      },
-      dbReference: {
-        type: 'BRENDA',
-        id: '2.3.1.88',
-        properties: { 'organism ID': '3474' },
-      },
-    },
-    expected:
-      'https://www.brenda-enzymes.org/enzyme.php?ecno=2.3.1.88&UniProtAcc=Q80UM3&OrganismID=3474',
-  },
-];
 describe('processUrlTemplate', () => {
   test('should fill url', () => {
     expect(

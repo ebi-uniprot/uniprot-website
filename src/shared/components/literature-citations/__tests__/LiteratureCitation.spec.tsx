@@ -5,9 +5,7 @@ import LiteratureCitation from '../LiteratureCitation';
 import literatureCitationData from '../__mocks__/literatureCitationData';
 
 import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
-import formatCitationData, {
-  getCitationPubMedId,
-} from '../../../../uniprotkb/adapters/literatureConverter';
+import formatCitationData from '../../../../uniprotkb/adapters/literatureConverter';
 
 let rendered: ReturnType<typeof renderWithRouter>;
 

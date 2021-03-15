@@ -17,7 +17,7 @@ const field = {
 describe('AutocompleteField', () => {
   test('Autocomplete field should be initialised with id', () => {
     const propsPrefix = {
-      field: field,
+      field,
       handleChange: jest.fn(),
       initialValue: { organism_id: '9606' },
     };
@@ -30,7 +30,7 @@ describe('AutocompleteField', () => {
 
   test('Autocomplete field should be initialised with name', () => {
     const propsPrefix = {
-      field: field,
+      field,
       handleChange: jest.fn(),
       initialValue: { organism_name: 'Homo' },
     };
