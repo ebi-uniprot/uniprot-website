@@ -63,7 +63,7 @@ export type WrappedRowProps = {
   activeId?: string;
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
+  handleEntrySelection?: (rowId: string) => void;
   trackStart: number;
   trackEnd: number;
   delayRender: boolean;
@@ -86,7 +86,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
   activeId,
   setActiveId,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
   trackStart,
   trackEnd,
   delayRender,
@@ -159,7 +159,7 @@ export const WrappedRow: FC<WrappedRowProps> = ({
             checked={Boolean(
               s.accession && selectedEntries?.includes(s.accession)
             )}
-            onSequenceChecked={handleSelectedEntries}
+            onSequenceChecked={handleEntrySelection}
             onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
             active={!!activeId && setActiveId && activeId === s.accession}
           >
@@ -217,7 +217,7 @@ const Wrapped: FC<AlignmentComponentProps> = ({
   setActiveId,
   omitInsertionsInCoords = false,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
   selectedMSAFeatures,
   activeAnnotation,
   activeAlignment,
@@ -315,7 +315,7 @@ const Wrapped: FC<AlignmentComponentProps> = ({
           activeId={activeId}
           setActiveId={setActiveId}
           selectedEntries={selectedEntries}
-          handleSelectedEntries={handleSelectedEntries}
+          handleEntrySelection={handleEntrySelection}
           delayRender={index >= nItemsToRender}
           trackStart={trackStart}
           trackEnd={trackEnd}

@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
@@ -8,6 +8,8 @@ import ResultsFacets from './ResultsFacets';
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ErrorHandler from '../error-pages/ErrorHandler';
 import SideBarLayout from '../layouts/SideBarLayout';
+
+import useItemSelect from '../../hooks/useItemSelect';
 
 import {
   getLocationObjForParams,
@@ -43,8 +45,7 @@ const Results: FC = () => {
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
-  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD
@@ -101,15 +102,6 @@ const Results: FC = () => {
   if (total === 0 || !(total || loading)) {
     return <NoResultsPage />;
   }
-
-  const handleEntrySelection = (rowId: string): void => {
-    const filtered = selectedEntries.filter((id) => id !== rowId);
-    setSelectedEntries(
-      filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered
-    );
-  };
 
   const handleTableColumnsChange = (columns: Column[]) => {
     if (

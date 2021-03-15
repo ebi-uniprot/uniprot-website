@@ -26,14 +26,14 @@ type AlignResultPIMProps = {
   id: string;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
-  handleSelectedEntries: (rowId: string) => void;
+  handleEntrySelection: (rowId: string) => void;
 };
 
 const AlignResultPIM: FC<AlignResultPIMProps> = ({
   id,
   sequenceInfo,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
 }) => {
   const [hovered, setHovered] = useState<number[]>([]);
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
@@ -83,7 +83,7 @@ const AlignResultPIM: FC<AlignResultPIMProps> = ({
                 checked={Boolean(
                   accession && selectedEntries?.includes(accession)
                 )}
-                onSequenceChecked={handleSelectedEntries}
+                onSequenceChecked={handleEntrySelection}
               >
                 {name}
               </AlignLabel>

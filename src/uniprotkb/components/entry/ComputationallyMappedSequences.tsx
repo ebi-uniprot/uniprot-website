@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import { useCallback, useMemo, useState, FC, ReactNode } from 'react';
+import { useCallback, useMemo, FC, ReactNode } from 'react';
 import { DataTable, Message, Button } from 'franklin-sites';
 import { Link, useHistory } from 'react-router-dom';
 
@@ -11,6 +11,7 @@ import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../../shared/config/apiUrls';
+import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 import {
   getEntryPath,
@@ -45,7 +46,7 @@ type GeneCentricData = {
 const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   primaryAccession,
 }) => {
-  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   const columns = useMemo<
     Array<{
@@ -89,16 +90,6 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
   const { data, loading, error, status } = useDataApi<GeneCentricData>(
     apiUrls.genecentric(primaryAccession)
   );
-
-  // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = useCallback((rowId: string) => {
-    setSelectedEntries((selectedEntries) => {
-      const filtered = selectedEntries.filter((id) => id !== rowId);
-      return filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered;
-    });
-  }, []);
 
   const filteredData = useMemo(
     () =>
@@ -162,7 +153,7 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
                 columns={columns}
                 data={filteredData}
                 selected={selectedEntries}
-                onSelectRow={handleSelectedEntries}
+                onSelectRow={handleEntrySelection}
               />
             </>
           ) : null}
