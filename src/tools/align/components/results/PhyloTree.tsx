@@ -53,7 +53,7 @@ type PhyloTreeProps = {
   circularLayout: boolean;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
-  handleSelectedEntries: (rowId: string) => void;
+  handleEntrySelection: (rowId: string) => void;
 };
 
 const PhyloTree: FC<PhyloTreeProps> = ({
@@ -63,7 +63,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
   circularLayout,
   sequenceInfo,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
 }) => {
   const svgRef = useRef<SVGSVGElement>(null);
   const redrawRef = useRef<Redraw & Cancelable>();
@@ -359,7 +359,7 @@ const PhyloTree: FC<PhyloTreeProps> = ({
                     checked={Boolean(
                       accession && selectedEntries?.includes(accession)
                     )}
-                    onSequenceChecked={handleSelectedEntries}
+                    onSequenceChecked={handleEntrySelection}
                   >
                     {name || ''}
                   </AlignLabel>

@@ -20,7 +20,7 @@ describe('BlastResultTable tests', () => {
       <BlastResultTable
         data={blastResultsMockData as BlastResults}
         selectedEntries={[]}
-        handleSelectedEntries={() => {}}
+        handleEntrySelection={() => {}}
         setHspDetailPanel={() => {}}
         loading={false}
       />
