@@ -1,11 +1,4 @@
-import {
-  useMemo,
-  useEffect,
-  useCallback,
-  useState,
-  lazy,
-  Suspense,
-} from 'react';
+import { useMemo, useEffect, useState, lazy, Suspense } from 'react';
 import {
   Link,
   useRouteMatch,
@@ -25,6 +18,8 @@ import ResultButtons from '../../../components/ResultButtons';
 import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
+
 import {
   getParamsFromURL,
   URLResultParams,
@@ -172,7 +167,6 @@ const BlastResult = () => {
   const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
 
-  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
   const [
     hspDetailPanel,
     setHspDetailPanel,
@@ -269,17 +263,9 @@ const BlastResult = () => {
     [data]
   );
 
-  const inputParamsData = useParamsData(match?.params.id || '');
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
 
-  // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = useCallback((rowId: string) => {
-    setSelectedEntries((selectedEntries) => {
-      const filtered = selectedEntries.filter((id) => id !== rowId);
-      return filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered;
-    });
-  }, []);
+  const inputParamsData = useParamsData(match?.params.id || '');
 
   if (blastLoading) {
     return <Loader progress={blastProgress} />;
@@ -364,7 +350,7 @@ const BlastResult = () => {
                     : { ...blastData, hits: hitsFiltered }
                 }
                 selectedEntries={selectedEntries}
-                handleSelectedEntries={handleSelectedEntries}
+                handleEntrySelection={handleEntrySelection}
                 setHspDetailPanel={setHspDetailPanel}
               />
             </ErrorBoundary>

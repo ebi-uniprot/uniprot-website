@@ -19,14 +19,14 @@ type AlignResultPhyloTreeProps = {
   id: string;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
-  handleSelectedEntries: (rowId: string) => void;
+  handleEntrySelection: (rowId: string) => void;
 };
 
 const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
   id,
   sequenceInfo,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
 }) => {
   const [showDistance, setShowDistance] = useState(true);
   const [alignLabels, setAlignLabels] = useState(true);
@@ -117,7 +117,7 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
           circularLayout={circularLayout}
           sequenceInfo={sequenceInfo}
           selectedEntries={selectedEntries}
-          handleSelectedEntries={handleSelectedEntries}
+          handleEntrySelection={handleEntrySelection}
         />
       )}
     </section>

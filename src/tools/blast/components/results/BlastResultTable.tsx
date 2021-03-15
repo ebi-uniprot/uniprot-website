@@ -242,13 +242,13 @@ const BlastSummaryHsps: FC<{
 const BlastResultTable: FC<{
   data: BlastResults | null;
   selectedEntries: string[];
-  handleSelectedEntries: (rowId: string) => void;
+  handleEntrySelection: (rowId: string) => void;
   setHspDetailPanel: (props: HSPDetailPanelProps) => void;
   loading: boolean;
 }> = ({
   data,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
   setHspDetailPanel,
   loading,
 }) => {
@@ -418,7 +418,7 @@ const BlastResultTable: FC<{
       columns={columns}
       data={hitsRef.current.slice(0, nItemsToRender)}
       selected={selectedEntries}
-      onSelectRow={handleSelectedEntries}
+      onSelectRow={handleEntrySelection}
       fixedLayout
     />
   );
