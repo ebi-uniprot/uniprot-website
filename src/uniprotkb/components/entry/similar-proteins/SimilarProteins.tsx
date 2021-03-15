@@ -153,7 +153,7 @@ const SimilarProteins: FC<{
             )}
           </Tabs>
         ) : (
-          <em>No similar proteins found.</em>
+          <em>No similar UniProtKB entry found.</em>
         )}
       </Card>
     </div>
