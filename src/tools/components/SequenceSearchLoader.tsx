@@ -30,9 +30,9 @@ import {
 import { Namespace } from '../../shared/types/namespaces';
 import { APISequenceData } from '../blast/types/apiSequenceData';
 import {
-  EntryType,
   getEntryTypeFromString,
-} from '../../uniprotkb/adapters/uniProtkbConverter';
+  EntryType,
+} from '../../shared/components/entry/EntryTypeIcon';
 
 const getURLForAccessionOrID = (input: string) => {
   const cleanedInput = input.trim().toUpperCase();

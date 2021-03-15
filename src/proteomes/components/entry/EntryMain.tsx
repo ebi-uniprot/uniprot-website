@@ -2,19 +2,19 @@ import { FC, memo } from 'react';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
-import UniRefEntryConfig from '../../config/UniRefEntryConfig';
+import ProteomesEntryConfig from '../../config/ProteomesEntryConfig';
 
 import { isSameEntry } from '../../../shared/utils/utils';
 
-import { UniRefUIModel } from '../../adapters/uniRefConverter';
+import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 type EntryMainProps = {
-  transformedData: UniRefUIModel;
+  transformedData: ProteomesUIModel;
 };
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   <>
-    {UniRefEntryConfig.map(({ id, sectionContent }) => (
+    {ProteomesEntryConfig.map(({ id, sectionContent }) => (
       <ErrorBoundary key={id}>{sectionContent(transformedData)}</ErrorBoundary>
     ))}
   </>

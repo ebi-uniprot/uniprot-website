@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 
-import EntryTypeIcon from '../EntryTypeIcon';
-import { EntryType } from '../../../../uniprotkb/adapters/uniProtkbConverter';
+import EntryTypeIcon, { EntryType } from '../EntryTypeIcon';
 
 describe('EntryTypeIcon', () => {
   it('should return the correct icon if input is EntryType', () => {

@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import BuscoLabel from '../BuscoLabel';
+import BuscoLegend from '../BuscoLegend';
 
 describe('BuscoLabel', () => {
   it('should render', () => {
-    const { asFragment } = render(<BuscoLabel />);
+    const { asFragment } = render(<BuscoLegend />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

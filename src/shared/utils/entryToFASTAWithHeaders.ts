@@ -1,11 +1,11 @@
 import { formatFASTA } from 'franklin-sites';
 
-import {
-  UniProtkbAPIModel,
-  EntryType,
-  getEntryTypeFromString,
-} from '../../uniprotkb/adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
+import {
+  getEntryTypeFromString,
+  EntryType,
+} from '../components/entry/EntryTypeIcon';
 import { APISequenceData } from '../../tools/blast/types/apiSequenceData';
 
 type Subset = { start: number; end: number };

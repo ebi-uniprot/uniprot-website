@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import SimpleView from '../components/protein-data-views/SimpleView';
+import SimpleView from '../../shared/components/views/SimpleView';
 import ProteinNamesView, {
   ECNumbersView,
 } from '../components/protein-data-views/ProteinNamesView';
@@ -14,7 +14,7 @@ import TaxonomyView, {
 import GeneNamesView, {
   geneAlternativeNamesView,
 } from '../components/protein-data-views/GeneNamesView';
-import { EntryType, UniProtkbUIModel } from '../adapters/uniProtkbConverter';
+import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
 import EntrySection from '../types/entrySection';
@@ -68,7 +68,9 @@ import { StructureUIModel } from '../adapters/structureConverter';
 import SubcellularLocationView from '../components/protein-data-views/SubcellularLocationView';
 import { GOTermsView } from '../components/protein-data-views/GOView';
 import externalUrls from '../../shared/config/externalUrls';
-import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import EntryTypeIcon, {
+  EntryType,
+} from '../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../app/config/urls';
 

@@ -50,13 +50,12 @@ const UniParcEntryPage = lazy(
       /* webpackChunkName: "uniparc-entry" */ '../../uniparc/components/entry/Entry'
     )
 );
-// const ProteomesEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
-//     )
-// );
-// Supporting data
+const ProteomesEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
+    )
+);
 // const TaxonomyEntryPage = lazy(
 //   () =>
 //     import(
@@ -183,10 +182,10 @@ const App = () => (
               path={LocationToPath[Location.UniParcResults]}
               component={GenericResultsPage}
             />
-            {/* <Route
+            <Route
               path={LocationToPath[Location.ProteomesEntry]}
               component={ProteomesEntryPage}
-            /> */}
+            />
             <Route
               path={LocationToPath[Location.ProteomesResults]}
               component={GenericResultsPage}
