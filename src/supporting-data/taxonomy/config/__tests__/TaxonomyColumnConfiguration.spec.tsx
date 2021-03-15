@@ -20,12 +20,13 @@ describe('TaxonomyColumnConfiguration component', () => {
   });
 
   // TODO: find mock data to create non-null host, links, strain, synonym snapshots
-  for (const [key, column] of TaxonomyColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(TaxonomyColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 });

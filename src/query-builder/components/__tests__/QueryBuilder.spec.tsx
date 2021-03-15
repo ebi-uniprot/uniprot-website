@@ -7,6 +7,7 @@ import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 import searchTermData from './__mocks__/configure_search-term.json';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+
 jest.mock('../../../shared/hooks/useDataApi');
 
 let rendered;
@@ -71,7 +72,7 @@ describe('QueryBuilder', () => {
     });
     const clause = dropdownButton.closest('[data-testid="search__clause"]');
     fireEvent.click(dropdownButton);
-    let entryNameFieldOption = getByText(
+    const entryNameFieldOption = getByText(
       clause as HTMLElement,
       /Entry Name \[ID\]/
     );

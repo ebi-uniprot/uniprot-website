@@ -4,8 +4,8 @@ import ObsoleteEntryPage from '../ObsoleteEntryPage';
 
 import { InactiveEntryReason } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
-import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
-import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';
+import deletedEntryData from '../../../__mocks__/deletedEntryModelData.json';
+import demergedEntryData from '../../../__mocks__/demergedEntryModelData.json';
 
 describe('ObsoleteEntryPage component', () => {
   test('should render deleted page', () => {

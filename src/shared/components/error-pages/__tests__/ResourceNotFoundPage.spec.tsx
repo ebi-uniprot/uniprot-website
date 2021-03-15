@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 
 import ResourceNotFoundPage, { redirectFromTo } from '../ResourceNotFoundPage';
 

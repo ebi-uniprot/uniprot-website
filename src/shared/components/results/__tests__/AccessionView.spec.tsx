@@ -9,7 +9,7 @@ describe('AccessionView', () => {
   it('should have icon when proteome type is reference', () => {
     renderWithRouter(
       <AccessionView
-        id={'UPI'}
+        id="UPI"
         entryType="Reference proteome"
         namespace={Namespace.proteomes}
       />
@@ -20,7 +20,7 @@ describe('AccessionView', () => {
   it('should not have icon when proteome type is not reference', () => {
     renderWithRouter(
       <AccessionView
-        id={'UPI'}
+        id="UPI"
         entryType="Other proteome"
         namespace={Namespace.proteomes}
       />

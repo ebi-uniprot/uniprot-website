@@ -2,7 +2,6 @@ import { fireEvent, waitFor } from '@testing-library/react';
 import {
   makeDnd,
   DND_DRAGGABLE_DATA_ATTR,
-  DND_DIRECTION_LEFT,
   DND_DIRECTION_RIGHT,
 } from 'react-beautiful-dnd-test-utils';
 
@@ -110,6 +109,7 @@ describe('ColumnSelect component', () => {
   test('should throw an error when no namespace is provided', () => {
     // Don't pollute the console with red warning text - we're already testing
     // that we're throwing an error. This is reset after each test.
+    // eslint-disable-next-line no-console
     console.error = jest.fn();
     expect(() =>
       renderWithRedux(

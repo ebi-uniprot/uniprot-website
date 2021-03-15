@@ -2,7 +2,7 @@ import { Route } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
-import { fireEvent, waitFor, screen } from '@testing-library/dom';
+import { fireEvent, waitFor, screen } from '@testing-library/react';
 import joinUrl from 'url-join';
 
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
