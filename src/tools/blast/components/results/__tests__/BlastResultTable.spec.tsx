@@ -6,12 +6,6 @@ import renderWithRedux from '../../../../../shared/__test-helpers__/RenderWithRe
 
 import { BlastResults } from '../../../types/blastResults';
 
-// import useCustomElement from '../../../../../shared/hooks/useCustomElement';
-// jest.mock('/shared/hooks/useCustomElement', () => ({
-//   __esModule: true,
-//   default: () => true,
-// }));
-
 let component;
 
 describe('BlastResultTable tests', () => {
@@ -20,7 +14,7 @@ describe('BlastResultTable tests', () => {
       <BlastResultTable
         data={blastResultsMockData as BlastResults}
         selectedEntries={[]}
-        handleSelectedEntries={jest.fn()}
+        handleEntrySelection={jest.fn()}
         setHspDetailPanel={jest.fn()}
         loading={false}
       />

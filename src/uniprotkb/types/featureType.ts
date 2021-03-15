@@ -38,6 +38,7 @@ enum FeatureType {
   HELIX = 'Helix',
   TURN = 'Turn',
   STRAND = 'Beta strand',
+  OTHER = 'Other', // For anything else
 }
 
 export default FeatureType;

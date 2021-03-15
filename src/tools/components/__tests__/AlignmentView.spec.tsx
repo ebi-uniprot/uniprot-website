@@ -49,7 +49,7 @@ describe('AlignmentView', () => {
   describe('Align', () => {
     let rendered;
     let alignment;
-    const handleSelectedEntries = jest.fn();
+    const handleEntrySelection = jest.fn();
     beforeEach(() => {
       resetUuidV1();
       alignment = mockData.Align;
@@ -61,7 +61,7 @@ describe('AlignmentView', () => {
             defaultView={View.overview}
             tool={Tool.align}
             selectedEntries={[]}
-            handleSelectedEntries={handleSelectedEntries}
+            handleEntrySelection={handleEntrySelection}
           />
         </div>
       );

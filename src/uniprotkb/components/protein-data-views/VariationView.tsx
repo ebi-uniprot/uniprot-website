@@ -21,27 +21,28 @@ import { Evidence } from '../../types/modelTypes';
 
 import './styles/variation-view.scss';
 import NightingaleZoomTool from './NightingaleZoomTool';
+import { ColumnConfig } from '../../../shared/components/views/FeaturesView';
 
-const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
+const getColumnConfig: ColumnConfig<TransformedVariant> = (
+  evidenceTagCallback: FeaturesTableCallback
+) => ({
   positions: {
     label: 'Position(s)',
-    resolver: (d: TransformedVariant) =>
-      d.start === d.end ? d.start : `${d.start}-${d.end}`,
+    resolver: (d) => (d.start === d.end ? d.start : `${d.start}-${d.end}`),
   },
   change: {
     label: 'Change',
-    resolver: (d: TransformedVariant) =>
-      `${d.wildType}>${d.alternativeSequence}`,
+    resolver: (d) => `${d.wildType}>${d.alternativeSequence}`,
   },
   consequence: {
     label: 'Consequence',
     child: true,
-    resolver: (d: TransformedVariant) => d.consequenceType,
+    resolver: (d) => d.consequenceType,
   },
   predictions: {
     label: 'Predictions',
     child: true,
-    resolver: (d: TransformedVariant) =>
+    resolver: (d) =>
       html`${d.predictions?.map(
         (prediction) =>
           html`${prediction.predAlgorithmNameType}:
@@ -50,7 +51,7 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
   },
   description: {
     label: 'Description',
-    resolver: (d: TransformedVariant) =>
+    resolver: (d) =>
       html`${d.descriptions?.map(
         (description) =>
           html`${description.value} (${description.sources.join(', ')})<br />`
@@ -59,17 +60,16 @@ const getColumnConfig = (evidenceTagCallback: FeaturesTableCallback) => ({
   somaticStatus: {
     label: 'Somatic',
     child: true,
-    resolver: (d: TransformedVariant) => (d.somaticStatus === 1 ? 'Y' : 'N'),
+    resolver: (d) => (d.somaticStatus === 1 ? 'Y' : 'N'),
   },
   hasDisease: {
     label: 'Disease association',
-    resolver: (d: TransformedVariant) =>
-      d.association && d.association.length > 0 ? 'Y' : 'N',
+    resolver: (d) => (d.association && d.association.length > 0 ? 'Y' : 'N'),
   },
   association: {
     label: 'Disease association',
     child: true,
-    resolver: (d: TransformedVariant) => {
+    resolver: (d) => {
       if (!d.association) {
         return '';
       }
