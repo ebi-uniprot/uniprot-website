@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { InfoList, ExternalLink } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import SimpleView from '../../../uniprotkb/components/protein-data-views/SimpleView';
+import SimpleView from '../views/SimpleView';
 
 import externalUrls from '../../config/externalUrls';
 import { getEntryPath } from '../../../app/config/urls';
@@ -11,7 +11,7 @@ import { Namespace } from '../../types/namespaces';
 
 import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import { OrganismDataView } from '../views/OrganismDataView';
+import OrganismDataView from '../views/OrganismDataView';
 
 type TaxonomyDataProps = {
   data: OrganismData;

@@ -6,6 +6,7 @@ import {
   removeProperty,
   getBEMClassName,
   formatPercentage,
+  isSameEntry,
 } from '../utils';
 
 describe('Model Utils', () => {
@@ -109,5 +110,40 @@ describe('formatPercentage', () => {
   it('should format numbers with no digits of precision to have no trailing zeros', () => {
     const number = 10;
     expect(formatPercentage(number)).toEqual('10%');
+  });
+});
+
+describe('isSameEntry', () => {
+  it('should return true if previous primaryAccession equals next primaryAccession', () => {
+    expect(
+      isSameEntry(
+        { transformedData: { primaryAccession: 'P12345' } },
+        { transformedData: { primaryAccession: 'P12345' } }
+      )
+    ).toBeTruthy();
+  });
+  it('should return false if previous primaryAccession is different to next primaryAccession', () => {
+    expect(
+      isSameEntry(
+        { transformedData: { primaryAccession: 'P12345' } },
+        { transformedData: { primaryAccession: 'P54321' } }
+      )
+    ).toBeFalsy();
+  });
+  it('should return true if previous id equals next id', () => {
+    expect(
+      isSameEntry(
+        { transformedData: { id: 'P12345' } },
+        { transformedData: { id: 'P12345' } }
+      )
+    ).toBeTruthy();
+  });
+  it('should return false if previous id is different to next id', () => {
+    expect(
+      isSameEntry(
+        { transformedData: { id: 'P12345' } },
+        { transformedData: { id: 'P54321' } }
+      )
+    ).toBeFalsy();
   });
 });

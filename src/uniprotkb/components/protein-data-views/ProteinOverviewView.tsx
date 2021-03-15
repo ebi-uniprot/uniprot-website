@@ -5,7 +5,7 @@ import AnnotationScoreDoughnutChart, {
 } from './AnnotationScoreDoughnutChart';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 
 const ProteinOverview: FC<{
   // Note: it would be good to eventually use RenderColumnInCard here

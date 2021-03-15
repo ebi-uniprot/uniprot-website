@@ -6,8 +6,10 @@
     border: 1px solid white;
     display: inline-block;
     margin-right: 0.125rem;
-    margin-top: 0.125rem;
     position: relative;
     top: 0.125rem;
+  }
+  &__label {
+    font-size: 0.8rem;
   }
 }
