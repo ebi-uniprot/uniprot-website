@@ -167,6 +167,7 @@ const BlastResult = () => {
   const match = useRouteMatch<Params>(LocationToPath[Location.BlastResult])!;
   const location = useLocation();
 
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
   const [
     hspDetailPanel,
     setHspDetailPanel,
@@ -262,8 +263,6 @@ const BlastResult = () => {
     () => (data?.hits ? data.hits.filter((hit) => hit.extra) : []),
     [data]
   );
-
-  const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   const inputParamsData = useParamsData(match?.params.id || '');
 
