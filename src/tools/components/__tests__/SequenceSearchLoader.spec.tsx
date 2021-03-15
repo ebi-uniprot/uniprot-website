@@ -1,24 +1,22 @@
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 
 import SequenceSearchLoader from '../SequenceSearchLoader';
 
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import entryModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 jest.mock('../../../shared/hooks/useDataApi', () => jest.fn());
-import useDataApi from '../../../shared/hooks/useDataApi';
 
 describe('SequenceSearchLoader tests', () => {
   it('Should load a sequence', () => {
-    useDataApi.mockImplementation(() => {
-      return {
-        loading: false,
-        data: {
-          results: [entryModelData],
-        },
-      };
-    });
+    (useDataApi as jest.Mock).mockImplementation(() => ({
+      loading: false,
+      data: {
+        results: [entryModelData],
+      },
+    }));
 
     const onLoadMock = jest.fn();
     const component = renderWithRedux(
@@ -43,14 +41,12 @@ describe('SequenceSearchLoader tests', () => {
   });
 
   it.skip('Should reset the sequence when no results are found', () => {
-    useDataApi.mockImplementation(() => {
-      return {
-        loading: false,
-        data: {
-          results: [],
-        },
-      };
-    });
+    (useDataApi as jest.Mock).mockImplementation(() => ({
+      loading: false,
+      data: {
+        results: [],
+      },
+    }));
 
     const onLoadMock = jest.fn();
     const component = renderWithRedux(

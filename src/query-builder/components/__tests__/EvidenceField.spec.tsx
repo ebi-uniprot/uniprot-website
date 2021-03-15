@@ -1,4 +1,5 @@
-import { render, fireEvent, getByTestId } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
+
 import EvidenceField from '../EvidenceField';
 
 let rendered;
@@ -38,8 +39,7 @@ describe('EvidenceField component', () => {
   });
 
   test('should change evidence', () => {
-    const { getByTestId } = rendered;
-    const evidenceSelect = getByTestId('evidence-select');
+    const evidenceSelect = screen.getByTestId('evidence-select');
     fireEvent.change(evidenceSelect, {
       target: { value: 0 },
     });
@@ -54,7 +54,6 @@ describe('EvidenceField component', () => {
   });
 
   test('should initialise', () => {
-    const { getByTestId } = rendered;
-    expect(getByTestId('evidence-select').value).toBe('baz_code');
+    expect(screen.getByTestId('evidence-select').value).toBe('baz_code');
   });
 });

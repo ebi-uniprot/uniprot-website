@@ -1,5 +1,4 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
-enableFetchMocks();
 import { MemoryRouter as Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import EntryMain from '../EntryMain';
@@ -8,6 +7,8 @@ import mockData from '../../../__mocks__/entryModelData.json';
 import interactionData from '../../../__mocks__/interaction.json';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
+
+enableFetchMocks();
 
 describe('Entry view', () => {
   it('should render', async () => {

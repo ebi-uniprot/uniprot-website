@@ -205,7 +205,7 @@ const Actions: FC<ActionsProps> = ({ job, onDelete }) => {
 
 const KeyframesForDelete = {
   opacity: [1, 1, 0],
-  transform: ['translateX(0)', 'translateX(-2ch)', 'translateX(75%)'],
+  transform: ['scale(1)', 'scale(1.05)', 'scale(0)'],
 };
 
 const animationOptionsForDelete: KeyframeAnimationOptions = {

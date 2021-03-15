@@ -19,12 +19,13 @@ describe('DatabaseColumnConfiguration component', () => {
     transformedData = databaseConverter(data[0] as DatabaseAPIModel);
   });
 
-  for (const [key, column] of DatabaseColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(DatabaseColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 });

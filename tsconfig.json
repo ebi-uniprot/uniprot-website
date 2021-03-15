@@ -18,11 +18,20 @@
     "esModuleInterop": true,
     "module": "esnext",
     "jsx": "react-jsx",
-    "types": ["jest", "node"],
+    "types": ["jest", "node", "@testing-library/jest-dom"],
     "lib": ["ESNext", "ES2020", "WebWorker", "DOM", "DOM.Iterable"],
     "skipLibCheck": true
   },
   "include": ["src"],
-  // TODO: eventually include test files in order to get type check and lint
-  "exclude": ["node_modules", "src/**/*.spec.ts*"]
+  "exclude": [
+    "node_modules",
+    // Blacklisting the parts of the codebase we haven't covered yet
+    // TODO: slowly include these in order to enforce tests type check and lint
+    "src/query-builder/**/*.spec.ts*",
+    "src/shared/**/*.spec.ts*",
+    "src/tools/**/*.spec.ts*",
+    "src/uniparc/**/*.spec.ts*",
+    "src/uniprotkb/**/*.spec.ts*",
+    "src/uniref/**/*.spec.ts*"
+  ]
 }

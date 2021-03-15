@@ -18,7 +18,7 @@ type AlignResultOverviewProps = {
   data: string;
   sequenceInfo: SequenceInfo;
   selectedEntries: string[];
-  handleSelectedEntries: (rowId: string) => void;
+  handleEntrySelection: (rowId: string) => void;
 };
 
 type EnrichedSequence = AlnClustalSequence & {
@@ -82,7 +82,7 @@ const AlignResultOverview: FC<AlignResultOverviewProps> = ({
   data,
   sequenceInfo,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
 }) => {
   const clustalParsed = useMemo(() => alnClustalNum(data), [data]);
 
@@ -106,7 +106,7 @@ const AlignResultOverview: FC<AlignResultOverviewProps> = ({
       defaultView={View.wrapped}
       tool={Tool.align}
       selectedEntries={selectedEntries}
-      handleSelectedEntries={handleSelectedEntries}
+      handleEntrySelection={handleEntrySelection}
     />
   );
 };

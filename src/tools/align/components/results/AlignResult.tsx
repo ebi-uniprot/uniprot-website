@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, lazy, Suspense } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import {
   Link,
   useRouteMatch,
@@ -16,6 +16,7 @@ import useDataApi, {
   UseDataAPIState,
 } from '../../../../shared/hooks/useDataApi';
 import useSequenceInfo from '../../utils/useSequenceInfo';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
 
 import inputParamsXMLToObject from '../../adapters/inputParamsXMLToObject';
 
@@ -117,7 +118,7 @@ const AlignResult = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const match = useRouteMatch<Params>(LocationToPath[Location.AlignResult])!;
 
-  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {
@@ -140,16 +141,6 @@ const AlignResult = () => {
   const inputParamsData = useParamsData(match?.params.id || '');
 
   const sequenceInfo = useSequenceInfo(inputParamsData.data?.sequence);
-
-  // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = useCallback((rowId: string) => {
-    setSelectedEntries((selectedEntries) => {
-      const filtered = selectedEntries.filter((id) => id !== rowId);
-      return filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered;
-    });
-  }, []);
 
   if (loading) {
     return <Loader />;
@@ -192,7 +183,7 @@ const AlignResult = () => {
                 data={data}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
-                handleSelectedEntries={handleSelectedEntries}
+                handleEntrySelection={handleEntrySelection}
               />
             </ErrorBoundary>
           </Suspense>
@@ -217,7 +208,7 @@ const AlignResult = () => {
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
-                handleSelectedEntries={handleSelectedEntries}
+                handleEntrySelection={handleEntrySelection}
               />
             </Suspense>
           </ErrorBoundary>
@@ -242,7 +233,7 @@ const AlignResult = () => {
                 id={match.params.id}
                 sequenceInfo={sequenceInfo}
                 selectedEntries={selectedEntries}
-                handleSelectedEntries={handleSelectedEntries}
+                handleEntrySelection={handleEntrySelection}
               />
             </Suspense>
           </ErrorBoundary>

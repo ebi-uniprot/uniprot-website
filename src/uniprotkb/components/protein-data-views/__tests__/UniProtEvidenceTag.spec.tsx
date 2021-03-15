@@ -1,7 +1,7 @@
+import { cleanup } from '@testing-library/react';
 import UniProtKBEvidenceTag, {
   UniProtProtvistaEvidenceTag,
 } from '../UniProtKBEvidenceTag';
-import { cleanup } from '@testing-library/react';
 import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
 
 describe('UniProtKBEvidenceTag components', () => {
@@ -56,7 +56,7 @@ describe('UniProtKBEvidenceTag components', () => {
         evidenceCode: 'ECO:0000313',
       },
     ];
-    const htmlTemplate = UniProtProtvistaEvidenceTag(evidences, () => {});
+    const htmlTemplate = UniProtProtvistaEvidenceTag(evidences, jest.fn());
     expect(htmlTemplate).toMatchSnapshot();
   });
 

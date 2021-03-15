@@ -1,4 +1,4 @@
-import { screen, fireEvent, render, act } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import SlidingPanel, { Position } from '../SlidingPanel';
 

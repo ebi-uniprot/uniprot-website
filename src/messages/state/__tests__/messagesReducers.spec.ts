@@ -1,21 +1,21 @@
 /**
  * @jest-environment node
  */
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { addMessage, deleteMessage } from '../messagesActions';
 import messagesReducers from '../messagesReducers';
+
 import {
   MessageFormat,
   MessageLevel,
   MessageType,
 } from '../../types/messagesTypes';
+import { MessagesState } from '../messagesInitialState';
 
 const dateNow = 1542736574043;
 jest.spyOn(Date, 'now').mockImplementation(() => dateNow);
 
 describe('Messages reducer', () => {
-  let state;
+  let state: MessagesState;
   let message: MessageType;
   beforeEach(() => {
     state = { active: [], deleted: {} };

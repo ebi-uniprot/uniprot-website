@@ -1,0 +1,8 @@
+// This is just so that eslint checks files, even if not included in TS check
+// yet. (See comment in `exclude` field in `./tsconfig.json`).
+// This file can be removed if all test files are included in `./tsconfig.json`
+{
+  "extends": "./tsconfig.json",
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

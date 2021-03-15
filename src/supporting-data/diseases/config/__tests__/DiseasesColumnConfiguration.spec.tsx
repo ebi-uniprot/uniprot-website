@@ -20,12 +20,13 @@ describe('DiseasesColumnConfiguration component', () => {
   });
 
   // TODO: find mock data to create non-null unreviewed_protein_count snapshot
-  for (const [key, column] of DiseasesColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(DiseasesColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 });

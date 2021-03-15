@@ -1,4 +1,4 @@
-import { memo, useCallback, useState, useEffect, FC } from 'react';
+import { memo, useState, useEffect, FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
@@ -10,6 +10,7 @@ import MemberLink from './MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
+import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
@@ -256,8 +257,6 @@ export const MembersSection: FC<Props> = ({
     ),
   });
 
-  const [selectedEntries, setSelectedEntries] = useState<string[]>([]);
-
   const [url, setUrl] = useState<string | undefined>(initialUrl);
   const [metadata, setMetadata] = useState<{
     total: number;
@@ -292,15 +291,7 @@ export const MembersSection: FC<Props> = ({
     }));
   }, [data, headers]);
 
-  // Note: this function is duplicated in ResultsContainer.tsx
-  const handleSelectedEntries = useCallback((rowId: string) => {
-    setSelectedEntries((selectedEntries) => {
-      const filtered = selectedEntries.filter((id) => id !== rowId);
-      return filtered.length === selectedEntries.length
-        ? [...selectedEntries, rowId]
-        : filtered;
-    });
-  }, []);
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   const { total, nextUrl } = metadata;
 
@@ -331,7 +322,7 @@ export const MembersSection: FC<Props> = ({
           getIdKey={getKey}
           density="compact"
           selected={selectedEntries}
-          onSelectRow={handleSelectedEntries}
+          onSelectRow={handleEntrySelection}
         />
       </Card>
     </div>
