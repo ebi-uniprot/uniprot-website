@@ -8,8 +8,6 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 import LiteratureCitation from '../LiteratureCitation';
 
-const getIdKey = getIdKeyFor(Namespace.citations);
-
 const CitationCard: FC<{
   data: CitationsAPIModel;
   selected?: boolean;
@@ -17,7 +15,7 @@ const CitationCard: FC<{
 }> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
-  const key = getIdKey(data);
+  const key = getIdKeyFor(Namespace.citations)(data);
 
   const handleCardClick = useCallback(() => {
     history.push(getEntryPath(Namespace.citations, key));

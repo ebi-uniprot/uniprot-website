@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import LogicalOperator from '../../../query-builder/components/LogicalOperator';
+import LogicalOperator from '../LogicalOperator';
 
 let rendered;
 let props;

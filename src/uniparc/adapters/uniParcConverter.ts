@@ -1,7 +1,6 @@
-import { Sequence } from '../../shared/types/sequence';
 import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
-import { EntryType } from '../../uniprotkb/adapters/uniProtkbConverter';
-
+import { Sequence } from '../../shared/types/sequence';
+import { EntryType } from '../../shared/components/entry/EntryTypeIcon';
 import EntrySection from '../types/entrySection';
 
 export enum XRefsInternalDatabasesEnum {

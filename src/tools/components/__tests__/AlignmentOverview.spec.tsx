@@ -1,4 +1,3 @@
-import { fireEvent, render } from '@testing-library/react';
 import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
 
 import AlignmentOverview from '../AlignmentOverview';

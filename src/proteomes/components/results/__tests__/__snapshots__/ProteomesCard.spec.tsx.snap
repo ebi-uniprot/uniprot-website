@@ -70,7 +70,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 <strong>
                   Genome representation
                 </strong>
-                : full
+                : Full
               </span>
               <span
                 class="result-card__info-bit"
@@ -98,41 +98,55 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                     BUSCO
                   </abbr>
                   <br />
-                  <span>
+                  <span
+                    class="busco-legend-item"
+                  >
                     <span
-                      class="busco-legend-item"
+                      class="busco-legend-item__swatch"
+                      style="background-color: rgb(188, 232, 117);"
+                    />
+                    <span
+                      class="busco-legend-item__label"
                     >
-                      <span
-                        class="busco-legend-item__swatch"
-                        style="background-color: rgb(188, 232, 117);"
-                      />
                       Single
                     </span>
+                  </span>
+                  <span
+                    class="busco-legend-item"
+                  >
                     <span
-                      class="busco-legend-item"
+                      class="busco-legend-item__swatch"
+                      style="background-color: rgb(11, 165, 166);"
+                    />
+                    <span
+                      class="busco-legend-item__label"
                     >
-                      <span
-                        class="busco-legend-item__swatch"
-                        style="background-color: rgb(11, 165, 166);"
-                      />
                       Duplicated
                     </span>
+                  </span>
+                  <span
+                    class="busco-legend-item"
+                  >
                     <span
-                      class="busco-legend-item"
+                      class="busco-legend-item__swatch"
+                      style="background-color: rgb(238, 203, 164);"
+                    />
+                    <span
+                      class="busco-legend-item__label"
                     >
-                      <span
-                        class="busco-legend-item__swatch"
-                        style="background-color: rgb(238, 203, 164);"
-                      />
                       Fragmented
                     </span>
+                  </span>
+                  <span
+                    class="busco-legend-item"
+                  >
                     <span
-                      class="busco-legend-item"
+                      class="busco-legend-item__swatch"
+                      style="background-color: rgb(49, 75, 180);"
+                    />
+                    <span
+                      class="busco-legend-item__label"
                     >
-                      <span
-                        class="busco-legend-item__swatch"
-                        style="background-color: rgb(49, 75, 180);"
-                      />
                       Missing
                     </span>
                   </span>
@@ -145,7 +159,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                     height="10"
                     length="100"
                   />
-                  <div>
+                  <div
+                    class="busco-view__report"
+                  >
                     n:103 · lineageDb value
                   </div>
                   <div>

@@ -7,12 +7,46 @@ import {
   CommunityAnnotationIcon,
 } from 'franklin-sites';
 
-import {
-  EntryType,
-  getEntryTypeFromString,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
-
 import './styles/entry-type-icon.scss';
+
+export enum EntryType {
+  REVIEWED,
+  UNREVIEWED,
+  INACTIVE,
+  UNIPARC,
+  REFERENCE_PROTEOME,
+  OTHER_PROTEOME,
+  COMMUNITY_ANNOTATION,
+}
+
+export const getEntryTypeFromString = (entryTypeString?: string) => {
+  if (!entryTypeString) {
+    return undefined;
+  }
+  if (entryTypeString.match(/Inactive/gi)) {
+    return EntryType.INACTIVE;
+  }
+  if (entryTypeString.match(/UniParc/i)) {
+    return EntryType.UNIPARC;
+  }
+  if (entryTypeString.match(/TrEMBL|unreviewed|^tr\|$|^tr$/gi)) {
+    return EntryType.UNREVIEWED;
+  }
+  if (entryTypeString.match(/Swiss-Prot|reviewed|^sp\|$|^sp$/gi)) {
+    return EntryType.REVIEWED;
+  }
+  if (entryTypeString.match(/ORCID$/gi)) {
+    return EntryType.COMMUNITY_ANNOTATION;
+  }
+  if (entryTypeString.match(/Reference|Representative/gi)) {
+    return EntryType.REFERENCE_PROTEOME;
+  }
+  if (entryTypeString.match(/Other\sproteome/gi)) {
+    return EntryType.OTHER_PROTEOME;
+  }
+
+  return undefined;
+};
 
 export const EntryTypeIcon: FC<{
   entryType?: EntryType | string;

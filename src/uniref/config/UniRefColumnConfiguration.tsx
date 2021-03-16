@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button, LongNumber, Sequence } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
-import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../shared/components/views/OrganismDataView';
 
 import { getEntryPath } from '../../app/config/urls';
 

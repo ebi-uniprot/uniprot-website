@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import EntryTypeIcon from '../entry/EntryTypeIcon';
+import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
 import './styles/accession-view.scss';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 
 const AccessionView: FC<{
   id: string | number;

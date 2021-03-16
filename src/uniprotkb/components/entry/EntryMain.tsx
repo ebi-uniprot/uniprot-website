@@ -5,19 +5,13 @@ import ErrorBoundary from '../../../shared/components/error-component/ErrorBound
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
+import { isSameEntry } from '../../../shared/utils/utils';
+
 import { UniProtkbUIModel } from '../../adapters/uniProtkbConverter';
 
 type EntryMainProps = {
   transformedData: UniProtkbUIModel;
 };
-
-function arePropsEqual(prevProps: EntryMainProps, nextProps: EntryMainProps) {
-  // Do NOT re-render the page, as long as the 'accession' value is the same.
-  return (
-    prevProps.transformedData.primaryAccession ===
-    nextProps.transformedData.primaryAccession
-  );
-}
 
 const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   <>
@@ -36,4 +30,4 @@ const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
   </>
 );
 
-export default memo(EntryMain, arePropsEqual);
+export default memo(EntryMain, isSameEntry);

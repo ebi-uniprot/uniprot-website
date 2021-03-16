@@ -1,4 +1,7 @@
 // Keeping this util because _.omit is marked to be deprecated:
+
+import { RequireAtLeastOne } from 'type-fest';
+
 // https://github.com/lodash/lodash/wiki/Roadmap
 export function removeProperty<
   O extends Record<string | number, unknown>,
@@ -72,3 +75,18 @@ export const hasContent = (obj: Record<string | number | symbol, unknown>) =>
     }
     return typeof val !== 'undefined';
   });
+
+type TransformedData = {
+  transformedData: RequireAtLeastOne<
+    Record<string, unknown>,
+    'id' | 'primaryAccession'
+  >;
+};
+
+export const isSameEntry = (
+  { transformedData: prev }: TransformedData,
+  { transformedData: next }: TransformedData
+) =>
+  prev?.primaryAccession !== undefined
+    ? prev.primaryAccession === next.primaryAccession
+    : prev.id === next.id;

@@ -1,12 +1,10 @@
-import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
+import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
 import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
 
-import { Namespace } from '../../../../shared/types/namespaces';
-
 import useDataApi from '../../../../shared/hooks/useDataApi';
+
 jest.mock('../../../../shared/hooks/useDataApi', () => jest.fn());
 
 describe('UniProtKBEntryPublications', () => {

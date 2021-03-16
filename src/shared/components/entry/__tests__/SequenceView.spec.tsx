@@ -1,14 +1,14 @@
 import { createMemoryHistory } from 'history';
 
 import { fireEvent } from '@testing-library/react';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 
 import SequenceView from '../SequenceView';
 
 import SequenceUIDataJson from './__mocks__/sequenceUIData.json';
+import useDataApi from '../../../hooks/useDataApi';
 
 jest.mock('../../../hooks/useDataApi.ts');
-import useDataApi from '../../../hooks/useDataApi';
 
 useDataApi.mockImplementation((url) =>
   url

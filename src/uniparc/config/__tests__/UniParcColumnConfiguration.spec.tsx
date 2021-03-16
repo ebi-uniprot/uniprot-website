@@ -18,14 +18,15 @@ describe('UniParcColumnConfiguration component', () => {
     transformedData = uniParcConverter(data);
   });
 
-  for (const [key, column] of UniParcColumnConfiguration) {
-    test(`should render column "${key}"`, () => {
+  test.each(Array.from(UniParcColumnConfiguration.entries()))(
+    `should render column "%s"`,
+    (key, column) => {
       const { asFragment } = renderWithRedux(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
-    });
-  }
+    }
+  );
 
   describe('edge cases', () => {
     test('should render empty "first seen" column when no xref', () => {

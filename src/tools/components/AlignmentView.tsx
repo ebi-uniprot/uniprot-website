@@ -94,7 +94,7 @@ export type AlignmentComponentProps = {
   setActiveId?: Dispatch<SetStateAction<string | undefined>>;
   omitInsertionsInCoords?: boolean;
   selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
+  handleEntrySelection?: (rowId: string) => void;
   selectedMSAFeatures?: MSAFeature[];
   activeAnnotation: ProcessedFeature[];
   activeAlignment?: MSAInput;
@@ -131,7 +131,7 @@ const AlignmentView: FC<{
   defaultView?: View;
   tool: Tool;
   selectedEntries?: string[];
-  handleSelectedEntries?: (rowId: string) => void;
+  handleEntrySelection?: (rowId: string) => void;
   containerSelector?: string;
 }> = ({
   alignment,
@@ -139,7 +139,7 @@ const AlignmentView: FC<{
   defaultView,
   tool,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
   containerSelector,
 }) => {
   const [tooltipContent, setTooltipContent] = useState<{
@@ -263,7 +263,7 @@ const AlignmentView: FC<{
           setActiveId,
           omitInsertionsInCoords: true,
           selectedEntries,
-          handleSelectedEntries,
+          handleEntrySelection,
         }
       : {};
 

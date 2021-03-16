@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { render, fireEvent, waitFor } from '@testing-library/react';
 
-import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+import AutocompleteWrapper from '../AutocompleteWrapper';
 
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import {

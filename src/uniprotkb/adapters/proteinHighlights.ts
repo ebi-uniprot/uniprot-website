@@ -5,11 +5,11 @@ import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { TabLocation } from '../components/entry/Entry';
+import { UniProtkbAPIModel } from './uniProtkbConverter';
 import {
-  UniProtkbAPIModel,
   EntryType,
   getEntryTypeFromString,
-} from './uniProtkbConverter';
+} from '../../shared/components/entry/EntryTypeIcon';
 import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
 import FeatureType from '../types/featureType';
 import { CommentType } from '../types/commentTypes';

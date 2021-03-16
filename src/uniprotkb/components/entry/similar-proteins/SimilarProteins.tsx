@@ -55,6 +55,10 @@ const SimilarProteins: FC<{
         }))
         .filter((item) => item.members.length > 1);
 
+      if (filtered.length <= 0) {
+        return null;
+      }
+
       const clusterTypeGroups: Partial<
         Record<UniRefEntryType, UniRefLiteAPIModel[]>
       > = groupBy(filtered, (cluster) => cluster.entryType);
@@ -82,73 +86,75 @@ const SimilarProteins: FC<{
   if (error) {
     return <Message level="failure">{error?.message}</Message>;
   }
-  if (!clusterData) {
-    return null;
-  }
 
   return (
     <div id={EntrySection.SimilarProteins}>
       <Card title={nameAndId.name}>
-        <Tabs>
-          {Object.entries(uniRefEntryTypeToPercent).map(
-            ([clusterType, percentValue]) =>
-              clusterType in clusterData &&
-              clusterData[clusterType as UniRefEntryType] && (
-                <Tab
-                  id={clusterType}
-                  title={`${percentValue} identity`}
-                  key={clusterType}
-                >
-                  {Object.entries(
-                    clusterData[clusterType as UniRefEntryType] || {}
-                  ).map(([representativeId, clusters]) => (
-                    <section key={representativeId} className="text-block">
-                      <h4>{representativeId}</h4>
-                      {clusters.map((row) => {
-                        const unirefEntryUrl = getEntryPath(
-                          Namespace.uniref,
-                          row.id
-                        );
-                        return (
-                          <section key={row.id}>
-                            <h5>
-                              <Link to={unirefEntryUrl}>{row.id}</Link>
-                            </h5>
-                            <SimilarProteinsTable members={row.members} />
-                            {row.memberCount - row.members.length - 1 > 0 && (
-                              <Link to={unirefEntryUrl}>
-                                {row.memberCount - row.members.length - 1} more
-                              </Link>
-                            )}
-                          </section>
-                        );
-                      })}
-                      <hr />
-                    </section>
-                  ))}
-                  {/* TODO: This query doesn't seem to work currently */}
-                  <Button
-                    element={Link}
-                    to={{
-                      pathname: LocationToPath[Location.UniProtKBResults],
-                      search: `query=(${data?.results
-                        .filter(({ entryType }) => entryType === clusterType)
-                        .map(
-                          ({ id }) =>
-                            `uniref_cluster_${clusterType.replace(
-                              'UniRef',
-                              ''
-                            )}:${id}`
-                        )
-                        .join(' OR ')})`,
-                    }}
+        {clusterData ? (
+          <Tabs>
+            {Object.entries(uniRefEntryTypeToPercent).map(
+              ([clusterType, percentValue]) =>
+                clusterType in clusterData &&
+                clusterData[clusterType as UniRefEntryType] && (
+                  <Tab
+                    id={clusterType}
+                    title={`${percentValue} identity`}
+                    key={clusterType}
                   >
-                    View all
-                  </Button>
-                </Tab>
-              )
-          )}
-        </Tabs>
+                    {Object.entries(
+                      clusterData[clusterType as UniRefEntryType] || {}
+                    ).map(([representativeId, clusters]) => (
+                      <section key={representativeId} className="text-block">
+                        <h4>{representativeId}</h4>
+                        {clusters.map((row) => {
+                          const unirefEntryUrl = getEntryPath(
+                            Namespace.uniref,
+                            row.id
+                          );
+                          return (
+                            <section key={row.id}>
+                              <h5>
+                                <Link to={unirefEntryUrl}>{row.id}</Link>
+                              </h5>
+                              <SimilarProteinsTable members={row.members} />
+                              {row.memberCount - row.members.length - 1 > 0 && (
+                                <Link to={unirefEntryUrl}>
+                                  {row.memberCount - row.members.length - 1}{' '}
+                                  more
+                                </Link>
+                              )}
+                            </section>
+                          );
+                        })}
+                        <hr />
+                      </section>
+                    ))}
+                    {/* TODO: This query doesn't seem to work currently */}
+                    <Button
+                      element={Link}
+                      to={{
+                        pathname: LocationToPath[Location.UniProtKBResults],
+                        search: `query=(${data?.results
+                          .filter(({ entryType }) => entryType === clusterType)
+                          .map(
+                            ({ id }) =>
+                              `uniref_cluster_${clusterType.replace(
+                                'UniRef',
+                                ''
+                              )}:${id}`
+                          )
+                          .join(' OR ')})`,
+                      }}
+                    >
+                      View all
+                    </Button>
+                  </Tab>
+                )
+            )}
+          </Tabs>
+        ) : (
+          <em>No similar UniProtKB entry found.</em>
+        )}
       </Card>
     </div>
   );

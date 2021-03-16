@@ -7,9 +7,12 @@ import {
   Loader,
 } from 'franklin-sites';
 
-import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
-import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  EntryTypeIcon,
+  EntryType,
+} from '../../../shared/components/entry/EntryTypeIcon';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
@@ -30,7 +33,6 @@ import {
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
 import './styles/XRefsSection.scss';

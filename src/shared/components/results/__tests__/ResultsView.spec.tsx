@@ -1,8 +1,8 @@
 import { act } from 'react-dom/test-utils';
-import ResultsView from '../ResultsView';
 import { waitFor } from '@testing-library/react';
+import ResultsView from '../ResultsView';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';

@@ -10,7 +10,7 @@ jest.mock('../../../shared/hooks/useReducedMotion');
 
 (useReducedMotion as jest.Mock).mockReturnValue(true);
 
-let component;
+let component: ReturnType<typeof renderWithRedux>;
 
 describe('HomePage component', () => {
   beforeEach(() => {

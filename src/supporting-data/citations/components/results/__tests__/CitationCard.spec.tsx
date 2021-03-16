@@ -21,9 +21,6 @@ describe('CitationCard tests', () => {
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
     fireEvent.click(screen.getAllByRole('button')[0]);
-    const {
-      location: { pathname },
-    } = history;
     expect(history.location.pathname).toMatch('/citations/14702039');
   });
 });

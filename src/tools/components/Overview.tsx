@@ -39,7 +39,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
   setActiveId,
   omitInsertionsInCoords,
   selectedEntries,
-  handleSelectedEntries,
+  handleEntrySelection,
   onMSAFeatureClick,
   selectedMSAFeatures,
   activeAnnotation,
@@ -223,7 +223,7 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
             checked={Boolean(
               s.accession && selectedEntries?.includes(s.accession)
             )}
-            onSequenceChecked={handleSelectedEntries}
+            onSequenceChecked={handleEntrySelection}
             onIdClick={setActiveId ? () => setActiveId(s.accession) : undefined}
             active={!!activeId && setActiveId && activeId === s.accession}
           >

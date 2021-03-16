@@ -1,13 +1,16 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink } from 'franklin-sites';
+import { capitalize } from 'lodash-es';
 
 import BuscoView from '../components/BuscoView';
-import BuscoLabel from '../components/BuscoLabel';
+import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';
-import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../shared/components/views/OrganismDataView';
+import BuscoAbbr from '../components/BuscoAbbr';
 
-import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
+import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
+import abbreviationToTitle from '../../shared/config/abbreviations';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
@@ -96,7 +99,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
-  label: <abbr title="Complete Proteome Detector">CPD</abbr>,
+  label: <abbr title={abbreviationToTitle.CPD}>CPD</abbr>,
   render: ({ proteomeCompletenessReport }) =>
     proteomeCompletenessReport.cpdReport.status,
 });
@@ -120,26 +123,35 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
   label: 'Genome representation',
-  render: ({ genomeAssembly }) => genomeAssembly?.level,
+  render: ({ genomeAssembly }) => capitalize(genomeAssembly?.level),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   label: 'Protein Count',
-  render: ({ id, proteinCount }) => (
-    <Link
-      to={{
-        pathname: LocationToPath[Location.UniProtKBResults],
-        search: `query=proteome:${id}`,
-      }}
-    >
-      {/* TODO: to eventually be supported by the backend in 2021_02 - 2021_03 */}
-      {proteinCount ?? 'no data yet'}
-    </Link>
-  ),
+  render: ({ id, proteinCount }) =>
+    proteinCount > 0 ? (
+      <Link
+        to={{
+          pathname: LocationToPath[Location.UniProtKBResults],
+          search: `query=proteome:${id}`,
+        }}
+      >
+        {/* TODO: to eventually be supported by the backend in 2021_02 - 2021_03 */}
+        {proteinCount ?? 'no data yet'}
+      </Link>
+    ) : (
+      proteinCount ?? 'no data yet' // 0
+    ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
-  label: <BuscoLabel />,
+  label: (
+    <>
+      <BuscoAbbr />
+      <br />
+      <BuscoLegend />
+    </>
+  ),
   render: ({ proteomeCompletenessReport: { buscoReport } }) =>
     buscoReport && <BuscoView report={buscoReport} />,
 });

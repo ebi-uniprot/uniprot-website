@@ -8,7 +8,7 @@ import {
   Sequence,
 } from 'franklin-sites';
 
-import { OrganismDataView } from '../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../shared/components/views/OrganismDataView';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
 
 import externalUrls from '../../shared/config/externalUrls';
