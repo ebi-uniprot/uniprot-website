@@ -64,7 +64,7 @@ export interface CommunityAnnotation {
 }
 
 export type CitationsAPIModel = {
-  statistics: LiteratureStatistics;
+  statistics: CitationsStatistics;
   citation: Citation;
   references?: Reference[];
 };
