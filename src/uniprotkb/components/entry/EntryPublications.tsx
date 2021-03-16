@@ -137,7 +137,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   return (
     <section>
       <h2>Publications for {accession}</h2>
-      <DataListWithLoader<CitationsAPIModel>
+      <DataListWithLoader
         getIdKey={(item, index) => {
           const { citation } = item;
           const pubMedXref = getCitationPubMedId(citation);
