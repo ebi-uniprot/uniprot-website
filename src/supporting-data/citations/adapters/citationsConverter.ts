@@ -94,7 +94,7 @@ export const formatCitationData = (citation: Citation) => {
     firstPage: citation.firstPage,
     lastPage: citation.lastPage,
     publicationDate: citation.publicationDate,
-    doiId: doiXref && doiXref.id,
+    doiId: doiXref?.id,
   };
   return { pubmedId, journalInfo };
 };
