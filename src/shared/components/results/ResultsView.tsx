@@ -267,7 +267,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode] = useUserPreference<ViewMode>('view-mode', ViewMode.CARD);
   const [columns] = useUserPreference<Column[]>(
-    `table columns for ${namespace}`,
+    `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
   );
 

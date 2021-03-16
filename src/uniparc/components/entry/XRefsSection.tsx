@@ -15,15 +15,15 @@ import {
 } from '../../../shared/components/entry/EntryTypeIcon';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useLocalStorage from '../../../shared/hooks/useLocalStorage';
+// import { useUserPreference } from '../../../shared/contexts/UserPreferences';
 
-import { defaultColumns } from '../../config/UniParcColumnConfiguration';
+// import { defaultColumns } from '../../config/UniParcColumnConfiguration';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { Column } from '../../../shared/config/columns';
+// import { Column } from '../../../shared/config/columns';
 import {
   databaseToEntryType,
   UniParcAPIModel,
@@ -200,10 +200,10 @@ type Props = {
 };
 
 const XRefsSection: FC<Props> = ({ xrefData }) => {
-  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
-    `table columns for ${Namespace.uniparc} xrefs`,
-    defaultColumns
-  );
+  // const [tableColumns, setTableColumns] = useUserPreference(
+  //   `table columns for ${Namespace.uniparc} xrefs`,
+  //   defaultColumns
+  // );
 
   // TODO: switch to using UniParc-specific database endpoint when available
   const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
@@ -225,12 +225,7 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
       className={xrefData.isStale ? 'is-stale' : undefined}
     >
       <div className="button-group">
-        {tableColumns && (
-          <CustomiseButton
-            tableColumns={tableColumns}
-            onTableColumnsChange={setTableColumns}
-          />
-        )}
+        <CustomiseButton />
       </div>
       <DataTableWithLoader
         onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}

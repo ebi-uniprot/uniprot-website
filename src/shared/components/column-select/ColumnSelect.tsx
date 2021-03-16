@@ -46,7 +46,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
     throw new Error('No namespace provided');
   }
   const primaryKeyColumn = nsToPrimaryKeyColumn[namespace] as Column;
-  const defaultColumns = nsToDefaultColumns[namespace] as Column[];
+  const defaultColumns = nsToDefaultColumns[namespace];
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -56,7 +56,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   );
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([primaryKeyColumn as Column, ...columns]);
+      onChange([primaryKeyColumn, ...columns]);
     },
     [primaryKeyColumn, onChange]
   );
@@ -140,7 +140,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
       <Button
         variant="secondary"
         tabIndex={0}
-        onClick={() => setColumns(defaultColumns)}
+        onClick={() => onChange(defaultColumns)}
         data-testid="column-select-reset-button"
       >
         Reset to default
