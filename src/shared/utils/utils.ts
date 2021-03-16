@@ -1,6 +1,6 @@
 // Keeping this util because _.omit is marked to be deprecated:
 
-import { RequireAtLeastOne } from '../types/utils';
+import { RequireAtLeastOne } from 'type-fest';
 
 // https://github.com/lodash/lodash/wiki/Roadmap
 export function removeProperty<

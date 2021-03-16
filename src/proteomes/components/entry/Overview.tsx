@@ -1,15 +1,14 @@
 import { FC, ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
 import { Card, InfoList } from 'franklin-sites';
 
+import SimpleView from '../../../shared/components/views/SimpleView';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
-import GenomeAssemblyAndAnnotationView from '../GenomeAssemblyAndAnnotationView';
 
 import ftpUrls from '../../../shared/config/ftpUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
@@ -78,22 +77,7 @@ export const Overview: FC<{
             },
             (data.taxonomy.taxonId || data.taxonomy.scientificName) && {
               title: 'Taxonomy',
-              content: (
-                <Link
-                  to={{
-                    pathname: generatePath(
-                      LocationToPath[Location.TaxonomyEntry],
-                      {
-                        accession: data.taxonomy.taxonId.toString(),
-                      }
-                    ),
-                  }}
-                >
-                  {[data.taxonomy.taxonId, data.taxonomy.scientificName]
-                    .filter(Boolean)
-                    .join(' · ')}
-                </Link>
-              ),
+              content: <OrganismDataView organism={data.taxonomy} />,
             },
             {
               title: 'Last modified',
@@ -102,7 +86,14 @@ export const Overview: FC<{
             data.genomeAssembly?.assemblyId && {
               title: 'Genome assembly and annotation',
               content: (
-                <GenomeAssemblyAndAnnotationView {...data.genomeAssembly} />
+                <SimpleView
+                  termValue={`${data.genomeAssembly.assemblyId}${
+                    data.genomeAssembly.source
+                      ? ` from ${data.genomeAssembly.source}`
+                      : ''
+                  }`}
+                  linkTo={data.genomeAssembly.genomeAssemblyUrl}
+                />
               ),
             },
             data.genomeAssembly?.level &&
@@ -124,6 +115,12 @@ export const Overview: FC<{
           ].filter(Boolean) as InfoData
         }
       />
+      {data.description && (
+        <div className="description">
+          <hr />
+          <p>{data.description}</p>
+        </div>
+      )}
     </Card>
   );
 };

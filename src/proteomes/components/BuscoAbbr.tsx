@@ -1,3 +1,3 @@
-export default () => (
-  <abbr title="Benchmarking Universal Single-Copy Orthologs">BUSCO</abbr>
-);
+import abbreviationToTitle from '../../shared/config/abbreviations';
+
+export default () => <abbr title={abbreviationToTitle.BUSCO}>BUSCO</abbr>;

@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
-import SimpleView from '../components/protein-data-views/SimpleView';
+import SimpleView from '../../shared/components/views/SimpleView';
 import ProteinNamesView, {
   ECNumbersView,
 } from '../components/protein-data-views/ProteinNamesView';

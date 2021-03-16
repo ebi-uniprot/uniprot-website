@@ -1,6 +1,19 @@
+@import '../../../../node_modules/franklin-sites/src/styles/colours';
+
 .busco {
   padding-top: 0.3rem;
   &__legend {
     margin-left: 0.2rem;
+  }
+}
+
+.description {
+  hr {
+    border: none;
+    height: 0.125rem;
+    background-color: $colour-platinum;
+  }
+  p {
+    margin-top: 1rem;
   }
 }
