@@ -49,7 +49,7 @@ const Entry: FC = () => {
 
   // if URL doesn't finish with "entry" redirect to /entry by default
   useEffect(() => {
-    if (match && !match.params.subPage) {
+    if (match && !match.params.subPage && accession) {
       history.replace({
         ...history.location,
         pathname: generatePath(LocationToPath[Location.UniParcEntry], {

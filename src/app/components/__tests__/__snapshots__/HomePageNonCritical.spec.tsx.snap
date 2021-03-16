@@ -165,9 +165,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="/taxonomy/?query=*"
+          >
             Taxonomy
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -187,9 +189,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="/locations/?query=*"
+          >
             Subcellular locations
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -209,9 +213,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="//www.uniprot.org/unirule"
+          >
             UniRule automatic annotation
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -232,9 +238,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="/diseases/?query=*"
+          >
             Diseases
-          </h5>
+          </a>
         </div>
       </div>
       <div
@@ -250,9 +258,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="/keywords/?query=*"
+          >
             Keywords
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -272,9 +282,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="/citations/?query=*"
+          >
             Literature Citations
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -294,9 +306,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="/database/?query=*"
+          >
             Cross-referenced databases
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -316,9 +330,11 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <div
           class="decorated-list-item__content"
         >
-          <h5>
+          <a
+            href="//www.uniprot.org/arba"
+          >
             ARBA automatic annotation
-          </h5>
+          </a>
         </div>
       </div>
     </div>
@@ -550,7 +566,19 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     <section
       class="uniprot-grid-cell--span-3"
     >
-      Join our Google group and learn more.
+      <a
+        class="external-link"
+        href="https://groups.google.com/u/1/g/ebi-proteins-api"
+        rel="noopener"
+        target="_blank"
+      >
+        Join our Google group 
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
+      and learn more.
     </section>
   </div>
 </DocumentFragment>
