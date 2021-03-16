@@ -77,6 +77,7 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
       <ComponentsButtons
         components={components}
         selectedEntries={selectedEntries}
+        id={id}
       />
       <DataTable
         getIdKey={({ name }) => name}

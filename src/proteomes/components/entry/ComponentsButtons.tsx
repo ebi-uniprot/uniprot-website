@@ -1,6 +1,7 @@
-import { FC, useState, Suspense } from 'react';
+import { FC, useState, Suspense, useCallback } from 'react';
 import { Button, DownloadIcon } from 'franklin-sites';
 
+import { Link } from 'react-router-dom';
 import SlidingPanel, {
   Position,
 } from '../../../shared/components/layouts/SlidingPanel';
@@ -12,6 +13,8 @@ import localStorageKeys from '../../../app/config/localStorageKeys';
 import lazy from '../../../shared/utils/lazy';
 import { Namespace } from '../../../shared/types/namespaces';
 import { Column, nsToDefaultColumns } from '../../../shared/config/columns';
+import { LocationToPath, Location } from '../../../app/config/urls';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const DownloadComponent = lazy(
   () =>
@@ -20,18 +23,9 @@ const DownloadComponent = lazy(
     )
 );
 
-const getViewButtonText = (nSelected: number, nComponents: number) => {
-  if (nComponents === 1) {
-    return 'View entry for component';
-  }
-  return `View ${nSelected !== 1 ? 'entries' : 'entry'} for ${
-    nSelected === 0 || nSelected === nComponents ? 'all' : nSelected || ''
-  } ${nSelected ? ' selected' : ' '} ${
-    nSelected === 0 || nSelected > 1 ? 'components' : 'component'
-  }`;
-};
-
-const ComponentsButtons: FC<any> = ({ components, selectedEntries }) => {
+const ComponentsButtons: FC<
+  Pick<ProteomesAPIModel, 'components' | 'id'> & { selectedEntries: string[] }
+> = ({ id, components, selectedEntries }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const query = '';
   const defaultColumns = nsToDefaultColumns[Namespace.uniprotkb];
@@ -39,6 +33,38 @@ const ComponentsButtons: FC<any> = ({ components, selectedEntries }) => {
     localStorageKeys.tableColumns(Namespace.uniprotkb),
     defaultColumns || []
   );
+
+  const getViewButtonQuery = useCallback(
+    () =>
+      `query=(proteome:${id})${
+        selectedEntries.length !== 0 ||
+        selectedEntries.length !== components?.length
+          ? ` AND (${selectedEntries
+              .map((component) => `proteomecomponent:"${component}"`)
+              .join(' OR ')})`
+          : ''
+      }`,
+    [components?.length, id, selectedEntries]
+  );
+
+  const getViewButtonText = useCallback(() => {
+    const nComponents = components?.length;
+    const nSelected = selectedEntries.length;
+    if (nComponents === 1) {
+      return 'View UniProtKB entry for component';
+    }
+    return `View UniProtKB ${nSelected !== 1 ? 'entries' : 'entry'} for ${
+      nSelected === 0 || nSelected === nComponents
+        ? `all ${nComponents}`
+        : nSelected || ''
+    } ${nSelected ? ' selected' : ' '} ${
+      nSelected === 0 || nSelected > 1 ? 'components' : 'component'
+    }`;
+  }, [components?.length, selectedEntries.length]);
+
+  if (!components?.length) {
+    return null;
+  }
 
   return (
     <>
@@ -71,10 +97,14 @@ const ComponentsButtons: FC<any> = ({ components, selectedEntries }) => {
           Download
         </Button>
         <Button
+          element={Link}
+          to={{
+            pathname: LocationToPath[Location.UniProtKBResults],
+            search: getViewButtonQuery(),
+          }}
           variant="tertiary"
-          // onClick={handleClick}
         >
-          {getViewButtonText(selectedEntries.length, components.length)}
+          {getViewButtonText()}
         </Button>
       </div>
     </>
