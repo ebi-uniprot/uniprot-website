@@ -5,7 +5,6 @@ import ColumnSelect from '../column-select/ColumnSelect';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
-import useNS from '../../hooks/useNS';
 
 import { getDownloadUrl } from '../../config/apiUrls';
 import { Column, nsToPrimaryKeyColumn } from '../../config/columns';
@@ -24,6 +23,7 @@ import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 
 import './styles/download.scss';
 import '../../styles/sticky.scss';
+import { Namespace } from '../../types/namespaces';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -36,6 +36,7 @@ type DownloadProps = {
   sortDirection?: SortDirection;
   selectedEntries: string[];
   totalNumberResults: number;
+  namespace: Namespace;
   onClose: () => void;
 };
 
@@ -48,11 +49,8 @@ const Download: FC<DownloadProps> = ({
   selectedEntries = [],
   totalNumberResults,
   onClose,
+  namespace,
 }) => {
-  const namespace = useNS();
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(
     initialSelectedColumns
@@ -229,6 +227,7 @@ const Download: FC<DownloadProps> = ({
           <ColumnSelect
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
+            namespace={namespace}
           />
         </>
       )}

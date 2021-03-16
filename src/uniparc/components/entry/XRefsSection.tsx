@@ -18,6 +18,7 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
 import { defaultColumns } from '../../config/UniParcColumnConfiguration';
+import localStorageKeys from '../../../app/config/localStorageKeys';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
@@ -201,7 +202,7 @@ type Props = {
 
 const XRefsSection: FC<Props> = ({ xrefData }) => {
   const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
-    `table columns for ${Namespace.uniparc} xrefs`,
+    localStorageKeys.xrefsTableColumns(Namespace.uniparc),
     defaultColumns
   );
 

@@ -14,6 +14,8 @@ import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 
+import useNS from '../../hooks/useNS';
+
 import lazy from '../../utils/lazy';
 
 import {
@@ -52,6 +54,10 @@ const ResultsButtons: FC<{
   onTableColumnsChange,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const namespace = useNS();
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
 
   return (
     <>
@@ -71,6 +77,7 @@ const ResultsButtons: FC<{
               selectedEntries={selectedEntries}
               totalNumberResults={total}
               onClose={() => setDisplayDownloadPanel(false)}
+              namespace={namespace}
             />
           </SlidingPanel>
         </Suspense>

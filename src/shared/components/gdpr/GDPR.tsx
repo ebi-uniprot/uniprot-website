@@ -2,12 +2,15 @@ import { FC } from 'react';
 
 import useLocalStorage from '../../hooks/useLocalStorage';
 
+import localStorageKeys from '../../../app/config/localStorageKeys';
+
 import './styles/gdpr.scss';
 
-const UP_COVID_GDPR = 'UP_COVID_GDPR';
-
 const GDPR: FC = () => {
-  const [token, setToken] = useLocalStorage<boolean>(UP_COVID_GDPR, false);
+  const [token, setToken] = useLocalStorage<boolean>(
+    localStorageKeys.GDPR,
+    false
+  );
 
   if (token === true) {
     return null;

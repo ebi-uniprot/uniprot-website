@@ -1,16 +1,20 @@
 import { FC, ReactNode } from 'react';
-import { generatePath, Link } from 'react-router-dom';
-import qs from 'query-string';
+import { Link } from 'react-router-dom';
 import { Card, DataTable, ExternalLink } from 'franklin-sites';
+
+import useItemSelect from '../../../shared/hooks/useItemSelect';
+
+import ComponentsButtons from './ComponentsButtons';
 
 import {
   ProteomesAPIModel,
   Component,
 } from '../../adapters/proteomesConverter';
 
-import '../styles/overview.scss';
 import externalUrls from '../../../shared/config/externalUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
+
+import '../styles/overview.scss';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
 
@@ -18,6 +22,8 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
   components,
   id,
 }) => {
+  const [selectedEntries, handleItemSelection] = useItemSelect();
+
   if (!components?.length) {
     return null;
   }
@@ -33,7 +39,6 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
       label: 'Component name',
       name: 'component_name',
       render: ({ name }) => name,
-      //   width: '8rem',
     },
     {
       label: 'Genome accession(s)',
@@ -50,7 +55,6 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
             (prev, curr) => (prev === null ? [curr] : [prev, ', ', curr]),
             null
           ),
-      //   width: '8rem',
     },
     {
       label: 'Proteins',
@@ -70,13 +74,17 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
 
   return (
     <Card title="Components">
+      <ComponentsButtons
+        components={components}
+        selectedEntries={selectedEntries}
+      />
       <DataTable
         getIdKey={({ name }) => name}
         density="compact"
         columns={columns}
         data={components}
-        // selected={selectedEntries}
-        // onSelectRow={handleSelectedEntries}
+        selected={selectedEntries}
+        onSelectRow={handleItemSelection}
         fixedLayout
       />
     </Card>
