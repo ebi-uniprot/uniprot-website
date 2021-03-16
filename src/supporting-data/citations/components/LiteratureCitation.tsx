@@ -37,7 +37,7 @@ const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
   const displayedAuthors = collapsed ? authors.slice(0, limit - 1) : authors;
 
   return (
-    <section className="publication__authors">
+    <div className="publication__authors">
       {displayedAuthors.map((author, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
@@ -54,7 +54,7 @@ const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
           <Link to={getLinkToAuthor(lastAuthor)}>{lastAuthor}</Link>
         </>
       ) : null}
-    </section>
+    </div>
   );
 };
 
@@ -66,7 +66,7 @@ type AbstractProps = {
 const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
   const [display, setDisplay] = useState(open);
   return (
-    <section className="publication__abstract">
+    <div className="publication__abstract">
       {display ? (
         <p>{abstract}</p>
       ) : (
@@ -74,7 +74,7 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
           View abstract [...]
         </Button>
       )}
-    </section>
+    </div>
   );
 };
 
@@ -148,52 +148,52 @@ const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
   } = statistics;
   const citedCount = reviewedProteinCount + unreviewedProteinCount;
   return (
-    <section className="publication__statistics">
+    <div className="publication__statistics">
       {computationallyMappedProteinCount > 0 && (
-        <section className="publication__statistics__item">
+        <div className="publication__statistics__item">
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
               search: `query=(computational_pubmed_id:${pubmedId})`,
             }}
           >
-            <section>
+            <div>
               <small>Mapped to</small>
-            </section>
-            <section className="publication__statistics__bubble">
+            </div>
+            <div className="publication__statistics__bubble">
               <Bubble
                 colourClass="colour-pastel-blue"
                 size="small"
                 value={computationallyMappedProteinCount}
               />
               <ComputerMappedIcon width={15} height={15} />
-            </section>
+            </div>
           </Link>
-        </section>
+        </div>
       )}
       {citedCount > 0 && (
-        <section className="publication__statistics__item">
+        <div className="publication__statistics__item">
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
               search: `query=(lit_pubmed:${pubmedId})`,
             }}
           >
-            <section>
+            <div>
               <small>Cited in</small>
-            </section>
-            <section className="publication__statistics__bubble">
+            </div>
+            <div className="publication__statistics__bubble">
               <Bubble
                 colourClass="colour-pastel-blue"
                 size="small"
                 value={citedCount}
               />
               <CitedIcon width={15} height={15} />
-            </section>
+            </div>
           </Link>
-        </section>
+        </div>
       )}
-    </section>
+    </div>
   );
 };
 
@@ -206,9 +206,9 @@ const LiteratureCitation: FC<{
   const { pubmedId, journalInfo } = formatCitationData(citation);
 
   return (
-    <section className="publication">
-      <section className="publication__columns">
-        <section className="publication__columns__main">
+    <article className="publication">
+      <div className="publication__columns">
+        <div className="publication__columns__main">
           <h5>{title || 'No title available.'}</h5>
           {authors?.length && (
             <Authors authors={authors} limit={displayAll ? +Infinity : 10} />
@@ -217,9 +217,9 @@ const LiteratureCitation: FC<{
             <Abstract abstract={literatureAbstract} open={displayAll} />
           )}
           {children}
-        </section>
-        <section className="publication__columns__side">
-          <section className="publication__columns__side__item">
+        </div>
+        <div className="publication__columns__side">
+          <div className="publication__columns__side__item">
             {pubmedId && <PublicationIcon width="1.875em" height="2em" />}
             <ul className="no-bullet">
               {pubmedId && (
@@ -252,15 +252,15 @@ const LiteratureCitation: FC<{
                 </li>
               )}
             </ul>
-          </section>
-          <section className="publication__columns__side__item">
+          </div>
+          <div className="publication__columns__side__item">
             {statistics && pubmedId && (
               <Statistics statistics={statistics} pubmedId={pubmedId} />
             )}
-          </section>
-        </section>
-      </section>
-    </section>
+          </div>
+        </div>
+      </div>
+    </article>
   );
 };
 

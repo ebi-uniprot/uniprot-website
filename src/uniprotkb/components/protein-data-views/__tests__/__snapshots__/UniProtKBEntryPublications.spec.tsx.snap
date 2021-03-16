@@ -29,19 +29,19 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
   <div
     class="inline-publication"
   >
-    <section
+    <article
       class="publication"
     >
-      <section
+      <div
         class="publication__columns"
       >
-        <section
+        <div
           class="publication__columns__main"
         >
           <h5>
             A peptide zipcode sufficient for anterograde transport within amyloid precursor protein.
           </h5>
-          <section
+          <div
             class="publication__authors"
           >
             <a
@@ -73,8 +73,8 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               Bearer E.L.
             </a>
-          </section>
-          <section
+          </div>
+          <div
             class="publication__abstract"
           >
             <button
@@ -83,12 +83,12 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               View abstract [...]
             </button>
-          </section>
-        </section>
-        <section
+          </div>
+        </div>
+        <div
           class="publication__columns__side"
         >
-          <section
+          <div
             class="publication__columns__side__item"
           >
             <test-file-stub
@@ -139,25 +139,25 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 </small>
               </li>
             </ul>
-          </section>
-          <section
+          </div>
+          <div
             class="publication__columns__side__item"
           >
-            <section
+            <div
               class="publication__statistics"
             >
-              <section
+              <div
                 class="publication__statistics__item"
               >
                 <a
                   href="/uniprotkb?query=(lit_pubmed:17062754)"
                 >
-                  <section>
+                  <div>
                     <small>
                       Cited in
                     </small>
-                  </section>
-                  <section
+                  </div>
+                  <div
                     class="publication__statistics__bubble"
                   >
                     <span
@@ -169,31 +169,31 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                       height="15"
                       width="15"
                     />
-                  </section>
+                  </div>
                 </a>
-              </section>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
   <div
     class="inline-publication"
   >
-    <section
+    <article
       class="publication"
     >
-      <section
+      <div
         class="publication__columns"
       >
-        <section
+        <div
           class="publication__columns__main"
         >
           <h5>
             Quantitative measurements and modeling of cargo-motor interactions during fast transport in the living axon.
           </h5>
-          <section
+          <div
             class="publication__authors"
           >
             <a
@@ -237,8 +237,8 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               Bearer E.L.
             </a>
-          </section>
-          <section
+          </div>
+          <div
             class="publication__abstract"
           >
             <button
@@ -247,12 +247,12 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               View abstract [...]
             </button>
-          </section>
-        </section>
-        <section
+          </div>
+        </div>
+        <div
           class="publication__columns__side"
         >
-          <section
+          <div
             class="publication__columns__side__item"
           >
             <test-file-stub
@@ -303,25 +303,25 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 </small>
               </li>
             </ul>
-          </section>
-          <section
+          </div>
+          <div
             class="publication__columns__side__item"
           >
-            <section
+            <div
               class="publication__statistics"
             >
-              <section
+              <div
                 class="publication__statistics__item"
               >
                 <a
                   href="/uniprotkb?query=(lit_pubmed:23011729)"
                 >
-                  <section>
+                  <div>
                     <small>
                       Cited in
                     </small>
-                  </section>
-                  <section
+                  </div>
+                  <div
                     class="publication__statistics__bubble"
                   >
                     <span
@@ -333,31 +333,31 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                       height="15"
                       width="15"
                     />
-                  </section>
+                  </div>
                 </a>
-              </section>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
   <div
     class="inline-publication"
   >
-    <section
+    <article
       class="publication"
     >
-      <section
+      <div
         class="publication__columns"
       >
-        <section
+        <div
           class="publication__columns__main"
         >
           <h5>
             Amyloid precursor protein dimerization and synaptogenic function depend on copper binding to the growth factor-like domain.
           </h5>
-          <section
+          <div
             class="publication__authors"
           >
             <a
@@ -425,8 +425,8 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               Kins S.
             </a>
-          </section>
-          <section
+          </div>
+          <div
             class="publication__abstract"
           >
             <button
@@ -435,12 +435,12 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               View abstract [...]
             </button>
-          </section>
-        </section>
-        <section
+          </div>
+        </div>
+        <div
           class="publication__columns__side"
         >
-          <section
+          <div
             class="publication__columns__side__item"
           >
             <test-file-stub
@@ -491,25 +491,25 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                 </small>
               </li>
             </ul>
-          </section>
-          <section
+          </div>
+          <div
             class="publication__columns__side__item"
           >
-            <section
+            <div
               class="publication__statistics"
             >
-              <section
+              <div
                 class="publication__statistics__item"
               >
                 <a
                   href="/uniprotkb?query=(lit_pubmed:25122912)"
                 >
-                  <section>
+                  <div>
                     <small>
                       Cited in
                     </small>
-                  </section>
-                  <section
+                  </div>
+                  <div
                     class="publication__statistics__bubble"
                   >
                     <span
@@ -521,14 +521,14 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
                       height="15"
                       width="15"
                     />
-                  </section>
+                  </div>
                 </a>
-              </section>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
 </DocumentFragment>
 `;
