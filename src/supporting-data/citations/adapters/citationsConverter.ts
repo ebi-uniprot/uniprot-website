@@ -75,11 +75,10 @@ export type CitationsUIModel = CitationsAPIModel & {
 
 export const getCitationPubMedId = (citation: Citation) =>
   citation.citationCrossReferences &&
-  citation.citationCrossReferences.find((xref) => xref.database === 'PubMed');
+  citation.citationCrossReferences?.find((xref) => xref.database === 'PubMed');
 
 export const getDoiXref = (citation: Citation) =>
-  citation.citationCrossReferences?.find((xref) => xref.database === 'DOI')
-  citation.citationCrossReferences.find((xref) => xref.database === 'DOI');
+  citation.citationCrossReferences?.find((xref) => xref.database === 'DOI');
 
 // Note, should this be done as part of citationsConverter?
 export const formatCitationData = (citation: Citation) => {
