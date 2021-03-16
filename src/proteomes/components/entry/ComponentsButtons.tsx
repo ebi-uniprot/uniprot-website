@@ -36,6 +36,7 @@ const ComponentsButtons: FC<any> = ({ components, selectedEntries }) => {
           <SlidingPanel
             position={Position.left}
             onClose={() => setDisplayDownloadPanel(false)}
+            yScrollable
           >
             <DownloadComponent
               query={query}
