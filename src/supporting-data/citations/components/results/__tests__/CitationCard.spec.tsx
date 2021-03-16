@@ -24,6 +24,6 @@ describe('CitationCard tests', () => {
     const {
       location: { pathname },
     } = history;
-    expect(pathname).toMatch('/citations/14702039');
+    expect(history.location.pathname).toMatch('/citations/14702039');
   });
 });
