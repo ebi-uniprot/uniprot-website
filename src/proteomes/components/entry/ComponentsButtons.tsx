@@ -20,6 +20,17 @@ const DownloadComponent = lazy(
     )
 );
 
+const getViewButtonText = (nSelected: number, nComponents: number) => {
+  if (nComponents === 1) {
+    return 'View entry for component';
+  }
+  return `View ${nSelected !== 1 ? 'entries' : 'entry'} for ${
+    nSelected === 0 || nSelected === nComponents ? 'all' : nSelected || ''
+  } ${nSelected ? ' selected' : ' '} ${
+    nSelected === 0 || nSelected > 1 ? 'components' : 'component'
+  }`;
+};
+
 const ComponentsButtons: FC<any> = ({ components, selectedEntries }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const query = '';
@@ -58,6 +69,12 @@ const ComponentsButtons: FC<any> = ({ components, selectedEntries }) => {
         >
           <DownloadIcon />
           Download
+        </Button>
+        <Button
+          variant="tertiary"
+          // onClick={handleClick}
+        >
+          {getViewButtonText(selectedEntries.length, components.length)}
         </Button>
       </div>
     </>
