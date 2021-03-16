@@ -1,4 +1,4 @@
-export type LiteratureStatistics = {
+export type CitationsStatistics = {
   computationallyMappedProteinCount: number;
   largeScale?: boolean;
   communityMappedProteinCount: number;
