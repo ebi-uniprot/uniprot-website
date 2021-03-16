@@ -1,6 +1,6 @@
 import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
 
@@ -21,12 +21,7 @@ describe('UniProtKBEntryPublications', () => {
         <UniProtKBEntryPublications pubmedIds={pubMedIds} />
       </Router>
     );
-    expect(useDataApi).toHaveBeenCalledWith(
-      getAPIQueryUrl({
-        namespace: Namespace.citations,
-        query: pubMedIds.join(' OR '),
-      })
-    );
+    expect(screen.getByText(/Baumkotter/i)).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 
