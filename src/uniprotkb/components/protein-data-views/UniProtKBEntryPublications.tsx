@@ -39,7 +39,7 @@ const UniProtKBEntryPublications: FC<{
   return (
     <>
       {results &&
-        results.map((citationData) => (
+        results?.map((citationData) => (
           <div
             className="inline-publication"
             key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
