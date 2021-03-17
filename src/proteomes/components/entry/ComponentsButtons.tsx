@@ -50,20 +50,6 @@ const ComponentsButtons: FC<
     [nComponents, id, selectedEntries]
   );
 
-  const getViewButtonText = useCallback(() => {
-    const nSelected = selectedEntries.length;
-    if (nComponents === 1) {
-      return 'View UniProtKB entry for component';
-    }
-    return `View UniProtKB ${nSelected !== 1 ? 'entries' : 'entry'} for ${
-      nSelected === 0 || nSelected === nComponents
-        ? `all ${nComponents}`
-        : nSelected || ''
-    } ${nSelected && nSelected !== nComponents ? 'selected' : ' '} ${
-      nSelected === 0 || nSelected > 1 ? 'components' : 'component'
-    }`;
-  }, [nComponents, selectedEntries.length]);
-
   return (
     <>
       {displayDownloadPanel && (
@@ -102,7 +88,7 @@ const ComponentsButtons: FC<
           }}
           variant="tertiary"
         >
-          {getViewButtonText()}
+          View proteins
         </Button>
       </div>
     </>
