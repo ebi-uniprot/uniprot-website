@@ -54,13 +54,10 @@ export const prepareFieldDataFromColumnConfig = (
   };
 };
 
-const notForUniParcEntry = new Set(['sequences', 'family_&_domains']);
-
 export const prepareFieldData = (
   fieldData?: ReceivedFieldData,
   // Exclude primaryKeyColumn which should not be user-selectable eg accession
-  exclude?: Column,
-  isUniParcEntry?: boolean
+  exclude?: Column
 ): FieldData => {
   if (!fieldData?.length) {
     return {};

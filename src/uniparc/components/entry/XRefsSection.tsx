@@ -232,9 +232,10 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
       title={getEntrySectionNameAndId(EntrySection.XRefs).name}
       className={xrefData.isStale ? 'is-stale' : undefined}
     >
-      <div className="button-group">
+      {/* Stalled for now */}
+      {/* <div className="button-group">
         <CustomiseButton />
-      </div>
+      </div> */}
       <DataTableWithLoader
         onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}
         hasMoreData={

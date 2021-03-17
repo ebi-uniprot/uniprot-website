@@ -1,5 +1,4 @@
 import { FC, useCallback, useMemo } from 'react';
-import { useRouteMatch } from 'react-router-dom';
 import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
@@ -34,7 +33,6 @@ import {
 } from '../../../uniprotkb/types/resultsTypes';
 
 import './styles/column-select.scss';
-import { Location, LocationToPath } from '../../../app/config/urls';
 
 type ColumnSelectProps = {
   selectedColumns: Column[];
@@ -43,9 +41,6 @@ type ColumnSelectProps = {
 
 const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   const namespace = useNS();
-  const isUniParcEntry = Boolean(
-    useRouteMatch(LocationToPath[Location.UniParcEntry])
-  );
 
   if (!namespace) {
     throw new Error('No namespace provided');
@@ -102,8 +97,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
             nsToColumnConfig[namespace],
             primaryKeyColumn
           )
-        : prepareFieldData(data, primaryKeyColumn, isUniParcEntry),
-    [namespace, data, primaryKeyColumn, isUniParcEntry]
+        : prepareFieldData(data, primaryKeyColumn),
+    [namespace, data, primaryKeyColumn]
   );
 
   if (loading) {
