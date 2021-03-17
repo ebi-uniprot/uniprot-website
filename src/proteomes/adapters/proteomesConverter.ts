@@ -1,5 +1,6 @@
-import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
+import { Lineage, Xref } from '../../shared/types/apiModel';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
 
 export type GenomeAnnotation = {
   source: string;

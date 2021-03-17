@@ -35,9 +35,9 @@ import { Keyword } from '../utils/KeywordsUtil';
 import { UIModel } from './sectionConverter';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
-import { Reference } from '../types/literatureTypes';
 import { XrefUIModel } from '../utils/xrefUtils';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;

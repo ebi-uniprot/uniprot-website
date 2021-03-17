@@ -1,0 +1,8 @@
+@import '../../../../node_modules/franklin-sites/src/styles/settings';
+@import '../../../../node_modules/franklin-sites/src/styles/colours';
+
+.inline-publication {
+  margin-bottom: $global-margin 0;
+  padding: $global-padding 0;
+  border-bottom: 1px solid $colour-pastel-blue;
+}

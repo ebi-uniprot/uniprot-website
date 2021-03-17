@@ -1,7 +1,7 @@
-import { LiteratureResultsAPI } from '../../../../uniprotkb/types/literatureTypes';
+import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
 // uniprot/api/citations/14702039
-const mock: LiteratureResultsAPI = {
+const mock: CitationsAPIModel = {
   citation: {
     citationType: 'UniProt indexed literatures',
     authors: [

@@ -385,18 +385,6 @@ export const getDownloadUrl = ({
   return `${endpoint}?${queryString.stringify(parameters)}`;
 };
 
-export const literatureApiUrls = {
-  literature: joinUrl(devPrefix, '/uniprot/api/literature'),
-};
-
-export const getPublicationURL = (id: string) =>
-  joinUrl(literatureApiUrls.literature, id);
-
-export const getPublicationsURL = (ids: string[]) =>
-  `${literatureApiUrls.literature}/search?query=(${ids
-    .map((id) => `id:${id}`)
-    .join(' OR ')})`;
-
 export const getProteinsApiUrl = (accession: string) =>
   `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;
 

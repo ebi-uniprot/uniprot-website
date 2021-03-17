@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniProtKBEntryPublications Should make a call with pubmed ids 1`] = `
+exports[`UniProtKBEntryPublications Should make a call with pubmed ids and fail 1`] = `
 <DocumentFragment>
   <div
     class="message message--failure"
@@ -26,467 +26,509 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids 1`] = `
 
 exports[`UniProtKBEntryPublications Should make a call with pubmed ids and render properly 1`] = `
 <DocumentFragment>
-  <section
-    class="publication"
+  <div
+    class="inline-publication"
   >
-    <section
-      class="publication__columns"
+    <article
+      class="publication"
     >
-      <section
-        class="publication__columns__main"
+      <div
+        class="publication__columns"
       >
-        <h5>
-          A peptide zipcode sufficient for anterograde transport within amyloid precursor protein.
-        </h5>
-        <section
-          class="publication__authors"
+        <div
+          class="publication__columns__main"
         >
-          <a
-            href="/uniprotkb?query=lit_author:\\"Satpute-Krishnan P.\\""
+          <h5>
+            A peptide zipcode sufficient for anterograde transport within amyloid precursor protein.
+          </h5>
+          <div
+            class="publication__authors"
           >
-            Satpute-Krishnan P.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"DeGiorgis J.A.\\""
+            <a
+              href="/uniprotkb?query=lit_author:\\"Satpute-Krishnan P.\\""
+            >
+              Satpute-Krishnan P.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"DeGiorgis J.A.\\""
+            >
+              DeGiorgis J.A.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Conley M.P.\\""
+            >
+              Conley M.P.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Jang M.\\""
+            >
+              Jang M.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Bearer E.L.\\""
+            >
+              Bearer E.L.
+            </a>
+          </div>
+          <div
+            class="publication__abstract"
           >
-            DeGiorgis J.A.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Conley M.P.\\""
-          >
-            Conley M.P.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Jang M.\\""
-          >
-            Jang M.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Bearer E.L.\\""
-          >
-            Bearer E.L.
-          </a>
-        </section>
-      </section>
-      <section
-        class="publication__columns__side"
-      >
-        <section
-          class="publication__columns__side__item"
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              View abstract [...]
+            </button>
+          </div>
+        </div>
+        <div
+          class="publication__columns__side"
         >
-          <test-file-stub
-            height="2em"
-            width="1.875em"
-          />
-          <ul
-            class="no-bullet"
+          <div
+            class="publication__columns__side__item"
           >
-            <li>
-              <a
-                href="//www.ncbi.nlm.nih.gov/pubmed/17062754"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                PubMed
-              </a>
-            </li>
-            <li>
-              <a
-                href="//europepmc.org/article/MED/17062754"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Europe PMC
-              </a>
-            </li>
-            <li>
-              <small>
+            <test-file-stub
+              height="2em"
+              width="1.875em"
+            />
+            <ul
+              class="no-bullet"
+            >
+              <li>
                 <a
-                  class="external-link"
-                  href="https://dx.doi.org/10.1073/pnas.0607527103"
-                  rel="noopener"
+                  href="//www.ncbi.nlm.nih.gov/pubmed/17062754"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537(
-                  <time
-                    datetime="2006-01-01T00:00:00.000Z"
-                  >
-                    2006
-                  </time>
-                  )
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
+                  PubMed
                 </a>
-              </small>
-            </li>
-          </ul>
-        </section>
-        <section
-          class="publication__columns__side__item"
-        >
-          <section
-            class="publication__statistics"
-          >
-            <section
-              class="publication__statistics__item"
-            >
-              <a
-                href="/uniprotkb?query=(lit_pubmed:17062754)"
-              >
-                <section>
-                  <small>
-                    Cited in
-                  </small>
-                </section>
-                <section
-                  class="publication__statistics__bubble"
-                >
-                  <span
-                    class="bubble--small colour-pastel-blue"
-                  >
-                    2
-                  </span>
-                  <test-file-stub
-                    height="15"
-                    width="15"
-                  />
-                </section>
-              </a>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
-  <section
-    class="publication"
-  >
-    <section
-      class="publication__columns"
-    >
-      <section
-        class="publication__columns__main"
-      >
-        <h5>
-          Quantitative measurements and modeling of cargo-motor interactions during fast transport in the living axon.
-        </h5>
-        <section
-          class="publication__authors"
-        >
-          <a
-            href="/uniprotkb?query=lit_author:\\"Seamster P.E.\\""
-          >
-            Seamster P.E.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Loewenberg M.\\""
-          >
-            Loewenberg M.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Pascal J.\\""
-          >
-            Pascal J.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Chauviere A.\\""
-          >
-            Chauviere A.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Gonzales A.\\""
-          >
-            Gonzales A.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Cristini V.\\""
-          >
-            Cristini V.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Bearer E.L.\\""
-          >
-            Bearer E.L.
-          </a>
-        </section>
-      </section>
-      <section
-        class="publication__columns__side"
-      >
-        <section
-          class="publication__columns__side__item"
-        >
-          <test-file-stub
-            height="2em"
-            width="1.875em"
-          />
-          <ul
-            class="no-bullet"
-          >
-            <li>
-              <a
-                href="//www.ncbi.nlm.nih.gov/pubmed/23011729"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                PubMed
-              </a>
-            </li>
-            <li>
-              <a
-                href="//europepmc.org/article/MED/23011729"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Europe PMC
-              </a>
-            </li>
-            <li>
-              <small>
+              </li>
+              <li>
                 <a
-                  class="external-link"
-                  href="https://dx.doi.org/10.1088/1478-3975/9/5/055005"
-                  rel="noopener"
+                  href="//europepmc.org/article/MED/17062754"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Phys. Biol. 9:055005-055005(
-                  <time
-                    datetime="2012-01-01T00:00:00.000Z"
-                  >
-                    2012
-                  </time>
-                  )
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
+                  Europe PMC
                 </a>
-              </small>
-            </li>
-          </ul>
-        </section>
-        <section
-          class="publication__columns__side__item"
-        >
-          <section
-            class="publication__statistics"
-          >
-            <section
-              class="publication__statistics__item"
-            >
-              <a
-                href="/uniprotkb?query=(lit_pubmed:23011729)"
-              >
-                <section>
-                  <small>
-                    Cited in
-                  </small>
-                </section>
-                <section
-                  class="publication__statistics__bubble"
-                >
-                  <span
-                    class="bubble--small colour-pastel-blue"
+              </li>
+              <li>
+                <small>
+                  <a
+                    class="external-link"
+                    href="https://dx.doi.org/10.1073/pnas.0607527103"
+                    rel="noopener"
+                    target="_blank"
                   >
-                    6
-                  </span>
-                  <test-file-stub
-                    height="15"
-                    width="15"
-                  />
-                </section>
-              </a>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
-  <section
-    class="publication"
-  >
-    <section
-      class="publication__columns"
-    >
-      <section
-        class="publication__columns__main"
-      >
-        <h5>
-          Amyloid precursor protein dimerization and synaptogenic function depend on copper binding to the growth factor-like domain.
-        </h5>
-        <section
-          class="publication__authors"
-        >
-          <a
-            href="/uniprotkb?query=lit_author:\\"Baumkotter F.\\""
+                    Proc. Natl. Acad. Sci. U.S.A. 103:16532-16537(
+                    <time
+                      datetime="2006-01-01T00:00:00.000Z"
+                    >
+                      2006
+                    </time>
+                    )
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </small>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="publication__columns__side__item"
           >
-            Baumkotter F.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Schmidt N.\\""
-          >
-            Schmidt N.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Vargas C.\\""
-          >
-            Vargas C.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Schilling S.\\""
-          >
-            Schilling S.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Weber R.\\""
-          >
-            Weber R.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Wagner K.\\""
-          >
-            Wagner K.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Fiedler S.\\""
-          >
-            Fiedler S.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Klug W.\\""
-          >
-            Klug W.
-          </a>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Radzimanowski J.\\""
-          >
-            Radzimanowski J.
-          </a>
-          <button
-            class="button tertiary"
-            type="button"
-          >
-            [...]
-          </button>
-          , 
-          <a
-            href="/uniprotkb?query=lit_author:\\"Kins S.\\""
-          >
-            Kins S.
-          </a>
-        </section>
-      </section>
-      <section
-        class="publication__columns__side"
-      >
-        <section
-          class="publication__columns__side__item"
-        >
-          <test-file-stub
-            height="2em"
-            width="1.875em"
-          />
-          <ul
-            class="no-bullet"
-          >
-            <li>
-              <a
-                href="//www.ncbi.nlm.nih.gov/pubmed/25122912"
-                rel="noopener noreferrer"
-                target="_blank"
+            <div
+              class="publication__statistics"
+            >
+              <div
+                class="publication__statistics__item"
               >
-                PubMed
-              </a>
-            </li>
-            <li>
-              <a
-                href="//europepmc.org/article/MED/25122912"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Europe PMC
-              </a>
-            </li>
-            <li>
-              <small>
                 <a
-                  class="external-link"
-                  href="https://dx.doi.org/10.1523/jneurosci.0180-14.2014"
-                  rel="noopener"
+                  href="/uniprotkb?query=(lit_pubmed:17062754)"
+                >
+                  <div>
+                    <small>
+                      Cited in
+                    </small>
+                  </div>
+                  <div
+                    class="publication__statistics__bubble"
+                  >
+                    <span
+                      class="bubble--small colour-pastel-blue"
+                    >
+                      2
+                    </span>
+                    <test-file-stub
+                      height="15"
+                      width="15"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div
+    class="inline-publication"
+  >
+    <article
+      class="publication"
+    >
+      <div
+        class="publication__columns"
+      >
+        <div
+          class="publication__columns__main"
+        >
+          <h5>
+            Quantitative measurements and modeling of cargo-motor interactions during fast transport in the living axon.
+          </h5>
+          <div
+            class="publication__authors"
+          >
+            <a
+              href="/uniprotkb?query=lit_author:\\"Seamster P.E.\\""
+            >
+              Seamster P.E.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Loewenberg M.\\""
+            >
+              Loewenberg M.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Pascal J.\\""
+            >
+              Pascal J.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Chauviere A.\\""
+            >
+              Chauviere A.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Gonzales A.\\""
+            >
+              Gonzales A.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Cristini V.\\""
+            >
+              Cristini V.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Bearer E.L.\\""
+            >
+              Bearer E.L.
+            </a>
+          </div>
+          <div
+            class="publication__abstract"
+          >
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              View abstract [...]
+            </button>
+          </div>
+        </div>
+        <div
+          class="publication__columns__side"
+        >
+          <div
+            class="publication__columns__side__item"
+          >
+            <test-file-stub
+              height="2em"
+              width="1.875em"
+            />
+            <ul
+              class="no-bullet"
+            >
+              <li>
+                <a
+                  href="//www.ncbi.nlm.nih.gov/pubmed/23011729"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
-                  J. Neurosci. 34:11159-11172(
-                  <time
-                    datetime="2014-01-01T00:00:00.000Z"
-                  >
-                    2014
-                  </time>
-                  )
-                  <test-file-stub
-                    data-testid="external-link-icon"
-                    width="12.5"
-                  />
+                  PubMed
                 </a>
-              </small>
-            </li>
-          </ul>
-        </section>
-        <section
-          class="publication__columns__side__item"
-        >
-          <section
-            class="publication__statistics"
-          >
-            <section
-              class="publication__statistics__item"
-            >
-              <a
-                href="/uniprotkb?query=(lit_pubmed:25122912)"
-              >
-                <section>
-                  <small>
-                    Cited in
-                  </small>
-                </section>
-                <section
-                  class="publication__statistics__bubble"
+              </li>
+              <li>
+                <a
+                  href="//europepmc.org/article/MED/23011729"
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  <span
-                    class="bubble--small colour-pastel-blue"
+                  Europe PMC
+                </a>
+              </li>
+              <li>
+                <small>
+                  <a
+                    class="external-link"
+                    href="https://dx.doi.org/10.1088/1478-3975/9/5/055005"
+                    rel="noopener"
+                    target="_blank"
                   >
-                    1
-                  </span>
-                  <test-file-stub
-                    height="15"
-                    width="15"
-                  />
-                </section>
-              </a>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
+                    Phys. Biol. 9:055005-055005(
+                    <time
+                      datetime="2012-01-01T00:00:00.000Z"
+                    >
+                      2012
+                    </time>
+                    )
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </small>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="publication__columns__side__item"
+          >
+            <div
+              class="publication__statistics"
+            >
+              <div
+                class="publication__statistics__item"
+              >
+                <a
+                  href="/uniprotkb?query=(lit_pubmed:23011729)"
+                >
+                  <div>
+                    <small>
+                      Cited in
+                    </small>
+                  </div>
+                  <div
+                    class="publication__statistics__bubble"
+                  >
+                    <span
+                      class="bubble--small colour-pastel-blue"
+                    >
+                      6
+                    </span>
+                    <test-file-stub
+                      height="15"
+                      width="15"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div
+    class="inline-publication"
+  >
+    <article
+      class="publication"
+    >
+      <div
+        class="publication__columns"
+      >
+        <div
+          class="publication__columns__main"
+        >
+          <h5>
+            Amyloid precursor protein dimerization and synaptogenic function depend on copper binding to the growth factor-like domain.
+          </h5>
+          <div
+            class="publication__authors"
+          >
+            <a
+              href="/uniprotkb?query=lit_author:\\"Baumkotter F.\\""
+            >
+              Baumkotter F.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Schmidt N.\\""
+            >
+              Schmidt N.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Vargas C.\\""
+            >
+              Vargas C.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Schilling S.\\""
+            >
+              Schilling S.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Weber R.\\""
+            >
+              Weber R.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Wagner K.\\""
+            >
+              Wagner K.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Fiedler S.\\""
+            >
+              Fiedler S.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Klug W.\\""
+            >
+              Klug W.
+            </a>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Radzimanowski J.\\""
+            >
+              Radzimanowski J.
+            </a>
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              [...]
+            </button>
+            , 
+            <a
+              href="/uniprotkb?query=lit_author:\\"Kins S.\\""
+            >
+              Kins S.
+            </a>
+          </div>
+          <div
+            class="publication__abstract"
+          >
+            <button
+              class="button tertiary"
+              type="button"
+            >
+              View abstract [...]
+            </button>
+          </div>
+        </div>
+        <div
+          class="publication__columns__side"
+        >
+          <div
+            class="publication__columns__side__item"
+          >
+            <test-file-stub
+              height="2em"
+              width="1.875em"
+            />
+            <ul
+              class="no-bullet"
+            >
+              <li>
+                <a
+                  href="//www.ncbi.nlm.nih.gov/pubmed/25122912"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  PubMed
+                </a>
+              </li>
+              <li>
+                <a
+                  href="//europepmc.org/article/MED/25122912"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Europe PMC
+                </a>
+              </li>
+              <li>
+                <small>
+                  <a
+                    class="external-link"
+                    href="https://dx.doi.org/10.1523/jneurosci.0180-14.2014"
+                    rel="noopener"
+                    target="_blank"
+                  >
+                    J. Neurosci. 34:11159-11172(
+                    <time
+                      datetime="2014-01-01T00:00:00.000Z"
+                    >
+                      2014
+                    </time>
+                    )
+                    <test-file-stub
+                      data-testid="external-link-icon"
+                      width="12.5"
+                    />
+                  </a>
+                </small>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="publication__columns__side__item"
+          >
+            <div
+              class="publication__statistics"
+            >
+              <div
+                class="publication__statistics__item"
+              >
+                <a
+                  href="/uniprotkb?query=(lit_pubmed:25122912)"
+                >
+                  <div>
+                    <small>
+                      Cited in
+                    </small>
+                  </div>
+                  <div
+                    class="publication__statistics__bubble"
+                  >
+                    <span
+                      class="bubble--small colour-pastel-blue"
+                    >
+                      1
+                    </span>
+                    <test-file-stub
+                      height="15"
+                      width="15"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
 </DocumentFragment>
 `;
