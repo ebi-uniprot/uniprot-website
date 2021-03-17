@@ -1,5 +1,5 @@
 import { Card } from 'franklin-sites';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { getEntryPath } from '../../../../app/config/urls';
@@ -7,6 +7,8 @@ import { getIdKeyFor } from '../../../../shared/components/results/ResultsView';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 import LiteratureCitation from '../LiteratureCitation';
+
+const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
 const CitationCard: FC<{
   data: CitationsAPIModel;
@@ -17,9 +19,15 @@ const CitationCard: FC<{
 
   const key = getIdKeyFor(Namespace.citations)(data);
 
-  const handleCardClick = useCallback(() => {
-    history.push(getEntryPath(Namespace.citations, key));
-  }, [history, key]);
+  const handleCardClick = useCallback(
+    (event: MouseEvent) => {
+      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+        return;
+      }
+      history.push(getEntryPath(Namespace.citations, key));
+    },
+    [history, key]
+  );
 
   return (
     <Card onClick={handleCardClick}>
