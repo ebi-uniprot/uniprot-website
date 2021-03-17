@@ -1,4 +1,4 @@
-export type Statistics = {
+export type CitationsStatistics = {
   computationallyMappedProteinCount: number;
   largeScale?: boolean;
   communityMappedProteinCount: number;
@@ -41,13 +41,61 @@ export type Citation = {
   submissionDatabase?: string;
 };
 
+export type Reference = {
+  citation?: Citation;
+  referencePositions?: string[];
+  referenceComments?: {
+    value: string;
+    type: string;
+  }[];
+  source: { name: string; id?: string };
+  pubMedId?: string;
+  sourceCategories?: string[];
+  referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)
+  communityAnnotation?: CommunityAnnotation; // Only for community annotations
+  annotation?: string; // Only for computationally mapped
+};
+
+export interface CommunityAnnotation {
+  proteinOrGene?: string;
+  function?: string;
+  comment?: string;
+  disease?: string;
+}
+
 export type CitationsAPIModel = {
-  statistics: Statistics;
+  statistics: CitationsStatistics;
   citation: Citation;
+  references?: Reference[];
 };
 
 export type CitationsUIModel = CitationsAPIModel & {
   // any addition/change by the converter
+};
+
+export const getCitationPubMedId = (citation: Citation) =>
+  citation.citationCrossReferences?.find((xref) => xref.database === 'PubMed');
+
+export const getDoiXref = (citation: Citation) =>
+  citation.citationCrossReferences?.find((xref) => xref.database === 'DOI');
+
+// Note, should this be done as part of citationsConverter?
+export const formatCitationData = (citation: Citation) => {
+  const pubMedXref = getCitationPubMedId(citation);
+
+  const doiXref = getDoiXref(citation);
+
+  const pubmedId = pubMedXref && pubMedXref.id;
+
+  const journalInfo = {
+    journal: citation.journal,
+    volume: citation.volume,
+    firstPage: citation.firstPage,
+    lastPage: citation.lastPage,
+    publicationDate: citation.publicationDate,
+    doiId: doiXref?.id,
+  };
+  return { pubmedId, journalInfo };
 };
 
 const citationsConverter = (data: CitationsAPIModel): CitationsUIModel => ({
