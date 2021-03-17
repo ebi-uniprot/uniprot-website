@@ -76,11 +76,6 @@ export const prepareFieldData = (
         title: groupName,
         items,
       };
-      if (isUniParcEntry) {
-        if (notForUniParcEntry.has(id)) {
-          group.title += ` (Not applicable for UniParc cross-references)`;
-        }
-      }
       if (isDatabaseGroup) {
         if (!linksAdded[groupName]) {
           linksTab.push(group);

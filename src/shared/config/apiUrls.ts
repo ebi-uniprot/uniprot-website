@@ -77,9 +77,9 @@ const apiUrls = {
     go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
   },
   // Database cross references used in the UniParc entry page
-  allDatabases: joinUrl(
+  allUniParcDatabases: joinUrl(
     devPrefix,
-    'uniprot/api/configure/uniprotkb/allDatabases'
+    'uniprot/api/configure/uniparc/allDatabases'
   ),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(
