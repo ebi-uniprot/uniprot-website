@@ -38,15 +38,14 @@ const UniProtKBEntryPublications: FC<{
   const { results } = data;
   return (
     <>
-      {results &&
-        results?.map((citationData) => (
-          <div
-            className="inline-publication"
-            key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
-          >
-            <LiteratureCitation data={citationData} />
-          </div>
-        ))}
+      {results?.map((citationData) => (
+        <div
+          className="inline-publication"
+          key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
+        >
+          <LiteratureCitation data={citationData} />
+        </div>
+      ))}
     </>
   );
 };
