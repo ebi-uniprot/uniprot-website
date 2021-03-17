@@ -48,7 +48,7 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
           ?.filter(({ database, id }) => id && database === genomeAccessionDB)
           .map(({ id }, index) => (
             <Fragment key={id}>
-              {index ? ',' : ''}
+              {index ? ', ' : ''}
               <ExternalLink
                 url={externalUrls.ENABrowser(id as string)}
                 key={id}

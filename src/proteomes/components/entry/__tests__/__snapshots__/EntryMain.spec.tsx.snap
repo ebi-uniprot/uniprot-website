@@ -425,7 +425,7 @@ exports[`EntryMain view should render 1`] = `
                     width="12.5"
                   />
                 </a>
-                ,
+                , 
                 <a
                   class="external-link"
                   href="//www.ebi.ac.uk/ena/browser/view/ACA122"
