@@ -75,7 +75,7 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
   return (
     <Card title="Components">
       <ComponentsButtons
-        components={components}
+        nComponents={components.length}
         selectedEntries={selectedEntries}
         id={id}
       />

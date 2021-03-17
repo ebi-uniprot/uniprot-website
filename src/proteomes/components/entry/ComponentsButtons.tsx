@@ -24,8 +24,11 @@ const DownloadComponent = lazy(
 );
 
 const ComponentsButtons: FC<
-  Pick<ProteomesAPIModel, 'components' | 'id'> & { selectedEntries: string[] }
-> = ({ id, components, selectedEntries }) => {
+  Pick<ProteomesAPIModel, 'id'> & {
+    nComponents: number;
+    selectedEntries: string[];
+  }
+> = ({ id, nComponents, selectedEntries }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const query = '';
   const defaultColumns = nsToDefaultColumns[Namespace.uniprotkb];
@@ -37,18 +40,16 @@ const ComponentsButtons: FC<
   const getViewButtonQuery = useCallback(
     () =>
       `query=(proteome:${id})${
-        selectedEntries.length !== 0 ||
-        selectedEntries.length !== components?.length
+        selectedEntries.length !== 0 && selectedEntries.length !== nComponents
           ? ` AND (${selectedEntries
               .map((component) => `proteomecomponent:"${component}"`)
               .join(' OR ')})`
           : ''
       }`,
-    [components?.length, id, selectedEntries]
+    [nComponents, id, selectedEntries]
   );
 
   const getViewButtonText = useCallback(() => {
-    const nComponents = components?.length;
     const nSelected = selectedEntries.length;
     if (nComponents === 1) {
       return 'View UniProtKB entry for component';
@@ -57,14 +58,10 @@ const ComponentsButtons: FC<
       nSelected === 0 || nSelected === nComponents
         ? `all ${nComponents}`
         : nSelected || ''
-    } ${nSelected ? ' selected' : ' '} ${
+    } ${nSelected && nSelected !== nComponents ? 'selected' : ' '} ${
       nSelected === 0 || nSelected > 1 ? 'components' : 'component'
     }`;
-  }, [components?.length, selectedEntries.length]);
-
-  if (!components?.length) {
-    return null;
-  }
+  }, [nComponents, selectedEntries.length]);
 
   return (
     <>
@@ -79,7 +76,7 @@ const ComponentsButtons: FC<
               query={query}
               selectedEntries={selectedEntries}
               selectedColumns={tableColumns || defaultColumns}
-              totalNumberResults={components.length}
+              totalNumberResults={nComponents}
               onClose={() => setDisplayDownloadPanel(false)}
               namespace={Namespace.uniprotkb}
             />
