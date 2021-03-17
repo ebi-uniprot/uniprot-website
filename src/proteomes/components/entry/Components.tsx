@@ -45,7 +45,7 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
       name: 'genome_accession',
       render: ({ proteomeCrossReferences }) =>
         proteomeCrossReferences
-          .filter(({ database, id }) => id && database === genomeAccessionDB)
+          ?.filter(({ database, id }) => id && database === genomeAccessionDB)
           .map(({ id }, index) => (
             <Fragment key={id}>
               {index ? ',' : ''}
