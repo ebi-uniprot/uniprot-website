@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
-import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type Props = {
-  organism: OrganismData;
+  organism: TaxonomyDatum;
   displayOnlyID?: boolean;
   className?: string;
 };
 
-const OrganismDataView: FC<Props> = ({
+const TaxonomyLightView: FC<Props> = ({
   organism,
   displayOnlyID,
   className,
@@ -43,4 +43,4 @@ const OrganismDataView: FC<Props> = ({
   );
 };
 
-export default OrganismDataView;
+export default TaxonomyLightView;

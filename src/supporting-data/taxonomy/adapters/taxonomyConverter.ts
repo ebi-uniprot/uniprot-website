@@ -19,27 +19,27 @@ type Strain = {
   name: string;
 };
 
-type TaxonomyLight = {
-  taxonId: number;
-  scientificName?: string;
-  synonyms?: string[];
-  commonName?: string;
-  mnemonic?: string;
-  evidences?: Evidence[];
-  lineage: Array<SetRequired<TaxonomyLight, 'hidden' | 'rank'>>;
-  hidden?: boolean;
-  rank?: Rank;
+export type Lineage = Array<SetRequired<TaxonomyDatum, 'hidden' | 'rank'>>;
+
+// Temporary function to check lineage type while backend unifies its model
+export const isLineage = (lineage: Lineage | string[]): lineage is Lineage => {
+  if ((lineage as Lineage).some((item) => item.taxonId)) {
+    return true;
+  }
+  return false;
 };
 
-export type OrganismData = {
+export type TaxonomyDatum = {
   taxonId: number;
   scientificName?: string;
   synonyms?: string[];
   commonName?: string;
   mnemonic?: string;
   evidences?: Evidence[];
-
-  lineage?: string[];
+  // Note: eventually should all be an array of TaxonomyData
+  lineage?: Lineage | string[];
+  hidden?: boolean;
+  rank?: Rank;
 };
 
 type Rank =
@@ -76,18 +76,18 @@ type Rank =
   | 'no rank';
 
 export type TaxonomyAPIModel = SetRequired<
-  TaxonomyLight & {
+  TaxonomyDatum & {
     parentId: number;
     otherNames?: string[];
     strains?: Strain[];
     // Probably, only on "organisms", higher level taxons don't appear to have
     statistics?: Statistics;
-    hosts?: SetRequired<TaxonomyLight, 'mnemonic'>[];
+    hosts?: SetRequired<TaxonomyDatum, 'mnemonic'>[];
     inactiveReason?: InactiveReason;
     active: boolean;
     links?: string[];
   },
-  'mnemonic' | 'hidden' | 'rank'
+  'mnemonic' | 'hidden' | 'rank' | 'lineage'
 >;
 
 export type TaxonomyUIModel = TaxonomyAPIModel & {

@@ -37,13 +37,13 @@ import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
 import { XrefUIModel } from '../utils/xrefUtils';
-import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
-  organism?: OrganismData;
-  virusHosts?: OrganismData[];
+  organism?: TaxonomyDatum;
+  virusHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];
   uniProtkbId: string;

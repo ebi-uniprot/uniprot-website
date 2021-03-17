@@ -23,7 +23,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Sequence } from '../../../shared/types/sequence';
 import { ProteinExistence } from '../../../tools/blast/types/apiSequenceData';
-import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type ProteinEntryLight = {
   id: string;
@@ -31,7 +31,7 @@ type ProteinEntryLight = {
   entryType: string;
   uniProtkbId: string;
   proteinName: string;
-  organism: OrganismData;
+  organism: TaxonomyDatum;
   geneName: string;
   proteinExistence: ProteinExistence;
   sequenceVersion: number;

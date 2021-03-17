@@ -10,16 +10,25 @@ import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import OrganismDataView from '../views/OrganismDataView';
-import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import TaxonomyLightView from '../views/TaxonomyView';
+import {
+  isLineage,
+  Lineage,
+  TaxonomyDatum,
+} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type TaxonomyDataProps = {
-  data: OrganismData;
+  data: TaxonomyDatum;
 };
 
-export const TaxonomyLineage: FC<{ lineage: string[] }> = ({ lineage }) => (
-  <>{lineage.join(' > ')}</>
-);
+export const TaxonomyLineage: FC<{ lineage: Lineage | string[] }> = ({
+  lineage,
+}) => {
+  if (isLineage(lineage)) {
+    return <></>;
+  }
+  return <>{lineage.join(' > ')}</>;
+};
 
 export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   if (!taxonId) {
@@ -53,8 +62,8 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
 };
 
 export const TaxonomyListView: FC<{
-  data?: OrganismData;
-  hosts?: OrganismData[];
+  data?: TaxonomyDatum;
+  hosts?: TaxonomyDatum[];
 }> = ({ data, hosts }) => {
   if (!data) {
     return null;
@@ -65,7 +74,7 @@ export const TaxonomyListView: FC<{
       title: 'Organism',
       content: (
         <>
-          <OrganismDataView organism={data} />
+          <TaxonomyLightView organism={data} />
           {data.evidences?.length ? (
             <UniProtKBEvidenceTag evidences={data.evidences} />
           ) : null}

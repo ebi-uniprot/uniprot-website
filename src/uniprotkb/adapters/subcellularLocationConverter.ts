@@ -3,7 +3,7 @@ import FeatureType from '../types/featureType';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { CommentType } from '../types/commentTypes';
-import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 const commentCategories = [CommentType.SUBCELLULAR_LOCATION];
 
@@ -12,7 +12,7 @@ const keywordsCategories = [KeywordCategory.CELLULAR_COMPONENT];
 const featuresCategories = [FeatureType.TOPO_DOM, FeatureType.TRANSMEM];
 
 export type SubcellularLocationUIModel = {
-  organismData?: OrganismData;
+  organismData?: TaxonomyDatum;
 } & UIModel;
 
 const convertSubcellularLocation = (data: UniProtkbAPIModel) => {

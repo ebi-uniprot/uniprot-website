@@ -7,7 +7,7 @@ import {
   Loader,
 } from 'franklin-sites';
 
-import OrganismDataView from '../../../shared/components/views/OrganismDataView';
+import TaxonomyLightView from '../../../shared/components/views/TaxonomyView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import {
   EntryTypeIcon,
@@ -132,7 +132,7 @@ const getColumns = (
     name: 'organism',
     render: (xref) =>
       xref.organism && (
-        <OrganismDataView
+        <TaxonomyLightView
           organism={xref.organism}
           className={xref.active ? undefined : 'xref-inactive'}
         />

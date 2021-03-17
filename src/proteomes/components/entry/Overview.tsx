@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import { Card, InfoList } from 'franklin-sites';
 
 import SimpleView from '../../../shared/components/views/SimpleView';
-import OrganismDataView from '../../../shared/components/views/OrganismDataView';
+import TaxonomyLightView from '../../../shared/components/views/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
@@ -77,7 +77,7 @@ export const Overview: FC<{
             },
             (data.taxonomy.taxonId || data.taxonomy.scientificName) && {
               title: 'Taxonomy',
-              content: <OrganismDataView organism={data.taxonomy} />,
+              content: <TaxonomyLightView organism={data.taxonomy} />,
             },
             {
               title: 'Last modified',

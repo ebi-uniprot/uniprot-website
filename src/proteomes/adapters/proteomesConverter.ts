@@ -1,5 +1,5 @@
 import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
-import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type GenomeAnnotation = {
   source: string;
@@ -66,7 +66,7 @@ export type ProteomeType =
 
 export type ProteomesAPIModel = {
   id: string;
-  taxonomy: OrganismData;
+  taxonomy: TaxonomyDatum;
   modified: string;
   proteomeType: ProteomeType;
   components?: Component[];

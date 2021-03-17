@@ -1,5 +1,5 @@
 import { Sequence } from '../../shared/types/sequence';
-import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import EntrySection from '../types/entrySection';
 
 // TODO: move these somewhere else, probably in the shared folder
@@ -47,7 +47,7 @@ export type MemberIdType =
   | 'UniParc';
 
 export type UniRefLiteAPIModel = {
-  commonTaxon: OrganismData;
+  commonTaxon: TaxonomyDatum;
   goTerms?: GeneOntologyEntry[];
   memberCount: number;
   entryType: UniRefEntryType;
@@ -61,7 +61,7 @@ export type UniRefLiteAPIModel = {
   seedId: string;
   memberIdTypes: MemberIdType[];
   members: string[];
-  organisms: OrganismData[];
+  organisms: TaxonomyDatum[];
 };
 
 export type UniRefAPIModel = {

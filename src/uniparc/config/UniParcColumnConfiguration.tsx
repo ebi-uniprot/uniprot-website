@@ -8,7 +8,7 @@ import {
   Sequence,
 } from 'franklin-sites';
 
-import OrganismDataView from '../../shared/components/views/OrganismDataView';
+import TaxonomyLightView from '../../shared/components/views/TaxonomyView';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
 
 import externalUrls from '../../shared/config/externalUrls';
@@ -126,7 +126,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
-        <OrganismDataView key={taxon.taxonId} organism={taxon} displayOnlyID />
+        <TaxonomyLightView key={taxon.taxonId} organism={taxon} displayOnlyID />
       ))}
     </ExpandableList>
   ),
@@ -137,7 +137,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
-        <OrganismDataView key={taxon.taxonId} organism={taxon} />
+        <TaxonomyLightView key={taxon.taxonId} organism={taxon} />
       ))}
     </ExpandableList>
   ),
