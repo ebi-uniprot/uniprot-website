@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { Fragment, FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, DataTable, ExternalLink } from 'franklin-sites';
 
@@ -46,15 +46,17 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
       render: ({ proteomeCrossReferences }) =>
         proteomeCrossReferences
           .filter(({ database, id }) => id && database === genomeAccessionDB)
-          .map<React.ReactNode>(({ id }) => (
-            <ExternalLink url={externalUrls.ENABrowser(id as string)} key={id}>
-              {id}
-            </ExternalLink>
-          ))
-          .reduce(
-            (prev, curr) => (prev === null ? [curr] : [prev, ', ', curr]),
-            null
-          ),
+          .map(({ id }, index) => (
+            <Fragment key={id}>
+              {index ? ',' : ''}
+              <ExternalLink
+                url={externalUrls.ENABrowser(id as string)}
+                key={id}
+              >
+                {id}
+              </ExternalLink>
+            </Fragment>
+          )),
     },
     {
       label: 'Proteins',
