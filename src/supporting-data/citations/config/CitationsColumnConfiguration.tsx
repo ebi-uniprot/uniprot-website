@@ -5,7 +5,7 @@ import {
   CitationXRefDB,
 } from '../adapters/citationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { JournalInfo } from '../../../shared/components/literature-citations/LiteratureCitation';
+import { JournalInfo } from '../components/LiteratureCitation';
 import { Namespace } from '../../../shared/types/namespaces';
 import AccessionView from '../../../shared/components/results/AccessionView';
 

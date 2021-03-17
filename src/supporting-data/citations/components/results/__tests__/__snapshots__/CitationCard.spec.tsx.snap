@@ -1,0 +1,212 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationCard tests should render the card component 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+  >
+    <div
+      class="card--has-hover"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="card__content"
+      >
+        <section
+          class="result-card"
+        >
+          <div
+            class="result-card__right"
+          >
+            <article
+              class="publication"
+            >
+              <div
+                class="publication__columns"
+              >
+                <div
+                  class="publication__columns__main"
+                >
+                  <h5>
+                    Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                  </h5>
+                  <div
+                    class="publication__authors"
+                  >
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Ota T.\\""
+                    >
+                      Ota T.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Suzuki Y.\\""
+                    >
+                      Suzuki Y.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Nishikawa T.\\""
+                    >
+                      Nishikawa T.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Otsuki T.\\""
+                    >
+                      Otsuki T.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Sugiyama T.\\""
+                    >
+                      Sugiyama T.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Irie R.\\""
+                    >
+                      Irie R.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Wakamatsu A.\\""
+                    >
+                      Wakamatsu A.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Hayashi K.\\""
+                    >
+                      Hayashi K.
+                    </a>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Sato H.\\""
+                    >
+                      Sato H.
+                    </a>
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      [...]
+                    </button>
+                    , 
+                    <a
+                      href="/uniprotkb?query=lit_author:\\"Sugano S.\\""
+                    >
+                      Sugano S.
+                    </a>
+                  </div>
+                  <div
+                    class="publication__abstract"
+                  >
+                    <button
+                      class="button tertiary"
+                      type="button"
+                    >
+                      View abstract [...]
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="publication__columns__side"
+                >
+                  <div
+                    class="publication__columns__side__item"
+                  >
+                    <test-file-stub
+                      height="2em"
+                      width="1.875em"
+                    />
+                    <ul
+                      class="no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="//www.ncbi.nlm.nih.gov/pubmed/14702039"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          PubMed
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="//europepmc.org/article/MED/14702039"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          Europe PMC
+                        </a>
+                      </li>
+                      <li>
+                        <small>
+                          <a
+                            class="external-link"
+                            href="https://dx.doi.org/10.1038/ng1285"
+                            rel="noopener"
+                            target="_blank"
+                          >
+                            Nat. Genet. 36:40-45(
+                            <time
+                              datetime="2004-01-01T00:00:00.000Z"
+                            >
+                              2004
+                            </time>
+                            )
+                            <test-file-stub
+                              data-testid="external-link-icon"
+                              width="12.5"
+                            />
+                          </a>
+                        </small>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="publication__columns__side__item"
+                  >
+                    <div
+                      class="publication__statistics"
+                    >
+                      <div
+                        class="publication__statistics__item"
+                      >
+                        <a
+                          href="/uniprotkb?query=(lit_pubmed:14702039)"
+                        >
+                          <div>
+                            <small>
+                              Cited in
+                            </small>
+                          </div>
+                          <div
+                            class="publication__statistics__bubble"
+                          >
+                            <span
+                              class="bubble--small colour-pastel-blue"
+                            >
+                              99+
+                            </span>
+                            <test-file-stub
+                              height="15"
+                              width="15"
+                            />
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

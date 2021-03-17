@@ -1,7 +1,7 @@
 import { JobTypes } from '../types/toolsJobTypes';
 
 // TODO: change for other types
-const validServerID = {
+const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
   [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
   [JobTypes.ID_MAPPING]: /./,
