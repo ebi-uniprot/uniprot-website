@@ -78,7 +78,33 @@ exports[`Components view should render 1`] = `
               </td>
               <td
                 class="data-table__cell--ellipsis"
-              />
+              >
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/ena/browser/view/ACA121"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ACA121
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                ,
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/ena/browser/view/ACA122"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ACA122
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
               <td
                 class="data-table__cell--ellipsis"
               >
