@@ -362,6 +362,12 @@ exports[`EntryMain view should render 1`] = `
             <test-file-stub />
             Download
           </button>
+          <a
+            class="button tertiary"
+            href="/uniprotkb?query=(proteome:UP000005640)"
+          >
+            View UniProtKB entry for component
+          </a>
         </div>
         <table
           class="data-table data-table--compact data-table--fixed"
