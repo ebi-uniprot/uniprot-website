@@ -1,19 +1,20 @@
 import { FC, useState, Suspense, useCallback } from 'react';
 import { Button, DownloadIcon } from 'franklin-sites';
-
 import { Link } from 'react-router-dom';
+
 import SlidingPanel, {
   Position,
 } from '../../../shared/components/layouts/SlidingPanel';
 
 import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
-import localStorageKeys from '../../../app/config/localStorageKeys';
-
 import lazy from '../../../shared/utils/lazy';
-import { Namespace } from '../../../shared/types/namespaces';
+
+import localStorageKeys from '../../../app/config/localStorageKeys';
 import { Column, nsToDefaultColumns } from '../../../shared/config/columns';
 import { LocationToPath, Location } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 const DownloadComponent = lazy(

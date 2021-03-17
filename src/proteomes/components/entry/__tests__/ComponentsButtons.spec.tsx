@@ -1,6 +1,7 @@
-import { screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter as Router } from 'react-router-dom';
 import queryString from 'query-string';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+
 import ComponentsButtons from '../ComponentsButtons';
 
 describe('ComponentsButtons', () => {
@@ -26,12 +27,14 @@ describe('ComponentsButtons', () => {
   test.each(testCases)(
     'should create correct view link and text with %p components and selected components: %p',
     (nComponents, selectedComponents, expectedQuery, linkText) => {
-      renderWithRedux(
-        <ComponentsButtons
-          id="id"
-          nComponents={nComponents}
-          selectedEntries={selectedComponents}
-        />
+      render(
+        <Router>
+          <ComponentsButtons
+            id="id"
+            nComponents={nComponents}
+            selectedEntries={selectedComponents}
+          />
+        </Router>
       );
       const link = screen.getByRole('link', {
         name: linkText,

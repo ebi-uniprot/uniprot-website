@@ -6,13 +6,13 @@ import useItemSelect from '../../../shared/hooks/useItemSelect';
 
 import ComponentsButtons from './ComponentsButtons';
 
+import externalUrls from '../../../shared/config/externalUrls';
+import { LocationToPath, Location } from '../../../app/config/urls';
+
 import {
   ProteomesAPIModel,
   Component,
 } from '../../adapters/proteomesConverter';
-
-import externalUrls from '../../../shared/config/externalUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
 
 import '../styles/overview.scss';
 
