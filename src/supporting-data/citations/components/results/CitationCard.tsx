@@ -37,7 +37,6 @@ const CitationCard: FC<{
             <input
               type="checkbox"
               checked={selected}
-              onClick={(e) => e.stopPropagation()}
               onChange={() => handleEntrySelection(key)}
               data-testid="up-card-checkbox"
             />
