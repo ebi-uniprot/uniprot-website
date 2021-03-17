@@ -12,7 +12,6 @@ import {
   NamesAndTaxonomyUIModel,
   ProteinNamesData,
   GeneNamesData,
-  OrganismData,
 } from './namesAndTaxonomyConverter';
 import {
   convertSequence,
@@ -38,6 +37,7 @@ import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { Reference } from '../types/literatureTypes';
 import { XrefUIModel } from '../utils/xrefUtils';
+import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;

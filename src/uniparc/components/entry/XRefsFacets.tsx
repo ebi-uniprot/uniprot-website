@@ -18,8 +18,8 @@ import {
   FacetObject,
   FacetValue,
 } from '../../../uniprotkb/types/responseTypes';
-import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import '../../../shared/components/results/styles/results-view.scss';
 

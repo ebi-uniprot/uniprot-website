@@ -66,6 +66,7 @@ import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
+import TaxonomyCards from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
 
 type APIModel =
   | UniProtkbAPIModel
@@ -199,6 +200,15 @@ const cardRenderer = (
       return (cardData) => (
         <ProteomesCard
           data={cardData as ProteomesAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.taxonomy: {
+      return (cardData) => (
+        <TaxonomyCards
+          data={cardData as TaxonomyAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />

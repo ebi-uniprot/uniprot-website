@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
-import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
+import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type Props = {
   organism: OrganismData;

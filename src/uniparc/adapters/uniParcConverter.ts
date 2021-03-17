@@ -1,7 +1,7 @@
-import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import { Sequence } from '../../shared/types/sequence';
 import { EntryType } from '../../shared/components/entry/EntryTypeIcon';
 import EntrySection from '../types/entrySection';
+import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export enum XRefsInternalDatabasesEnum {
   REVIEWED = 'UniProtKB/Swiss-Prot',

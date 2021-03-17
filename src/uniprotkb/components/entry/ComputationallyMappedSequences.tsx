@@ -22,8 +22,8 @@ import { Namespace } from '../../../shared/types/namespaces';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
 import { Sequence } from '../../../shared/types/sequence';
-import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 import { ProteinExistence } from '../../../tools/blast/types/apiSequenceData';
+import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type ProteinEntryLight = {
   id: string;

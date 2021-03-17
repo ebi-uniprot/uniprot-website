@@ -2,8 +2,8 @@ import { FC, Suspense, lazy } from 'react';
 
 import SubcellularLocationView from './SubcellularLocationView';
 
-import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 import { SubcellularLocationComment } from '../../types/commentTypes';
+import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz = lazy(

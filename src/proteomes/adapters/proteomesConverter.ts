@@ -1,5 +1,5 @@
 import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
-import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
+import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type GenomeAnnotation = {
   source: string;

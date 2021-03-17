@@ -1,3 +1,6 @@
+import { SetRequired } from 'type-fest';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
+
 // TODO: Eventually use a shared Statistics type
 type Statistics = {
   referenceProteomeCount: number;
@@ -18,17 +21,25 @@ type Strain = {
 
 type TaxonomyLight = {
   taxonId: number;
-  scientificName: string;
+  scientificName?: string;
   synonyms?: string[];
   commonName?: string;
+  mnemonic?: string;
+  evidences?: Evidence[];
+  lineage: Array<SetRequired<TaxonomyLight, 'hidden' | 'rank'>>;
+  hidden?: boolean;
+  rank?: Rank;
 };
 
-type TaxonomyLightWithHiddenFlag = TaxonomyLight & {
-  hidden: boolean;
-};
+export type OrganismData = {
+  taxonId: number;
+  scientificName?: string;
+  synonyms?: string[];
+  commonName?: string;
+  mnemonic?: string;
+  evidences?: Evidence[];
 
-type TaxonomyLightWithMnemonic = TaxonomyLight & {
-  mnemonic: string;
+  lineage?: string[];
 };
 
 type Rank =
@@ -64,24 +75,20 @@ type Rank =
   | 'superkingdom'
   | 'no rank';
 
-type TaxonomyLightWithRank = TaxonomyLight & {
-  rank: Rank;
-};
-
-export type TaxonomyAPIModel = TaxonomyLightWithHiddenFlag &
-  TaxonomyLightWithMnemonic &
-  TaxonomyLightWithRank & {
+export type TaxonomyAPIModel = SetRequired<
+  TaxonomyLight & {
     parentId: number;
     otherNames?: string[];
-    lineage: Array<TaxonomyLightWithHiddenFlag & TaxonomyLightWithRank>;
     strains?: Strain[];
     // Probably, only on "organisms", higher level taxons don't appear to have
     statistics?: Statistics;
-    hosts?: TaxonomyLightWithMnemonic[];
+    hosts?: SetRequired<TaxonomyLight, 'mnemonic'>[];
     inactiveReason?: InactiveReason;
     active: boolean;
     links?: string[];
-  };
+  },
+  'mnemonic' | 'hidden' | 'rank'
+>;
 
 export type TaxonomyUIModel = TaxonomyAPIModel & {
   // any addition/change by the converter

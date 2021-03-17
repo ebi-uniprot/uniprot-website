@@ -1,5 +1,5 @@
 import { Sequence } from '../../shared/types/sequence';
-import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
+import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import EntrySection from '../types/entrySection';
 
 // TODO: move these somewhere else, probably in the shared folder

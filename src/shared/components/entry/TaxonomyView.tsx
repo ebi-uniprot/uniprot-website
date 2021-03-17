@@ -9,9 +9,9 @@ import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
-import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import OrganismDataView from '../views/OrganismDataView';
+import { OrganismData } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type TaxonomyDataProps = {
   data: OrganismData;

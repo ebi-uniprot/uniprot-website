@@ -3,7 +3,7 @@ import FeatureType from '../types/featureType';
 import { convertSection, UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { CommentType } from '../types/commentTypes';
-import { OrganismData } from './namesAndTaxonomyConverter';
+import { OrganismData } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 const commentCategories = [CommentType.SUBCELLULAR_LOCATION];
 
