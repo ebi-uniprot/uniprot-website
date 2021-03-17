@@ -1,4 +1,5 @@
-import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
+import { Lineage, Xref } from '../../shared/types/apiModel';
+import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
 import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 
 export type GenomeAnnotation = {

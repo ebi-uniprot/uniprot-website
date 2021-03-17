@@ -9,7 +9,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 import { updateJob } from './toolsActions';
 
 import toolsURLs from '../config/urls';
-import postData from '../../uniprotkb/config/postData';
+import fetchData from '../../shared/utils/fetchData';
 
 import { RootState } from '../../app/state/rootInitialState';
 import { Status } from '../types/toolsStatuses';
@@ -31,14 +31,20 @@ const getSubmitJob = ({
     }
     const url = toolsURLs(job.type).runUrl;
 
-    const response = await postData(url, {
-      data: formData,
-      headers: {
+    const response = await fetchData<string | { jobId: string }>(
+      url,
+      {
         'Content-Type': 'application/x-www-form-urlencoded',
-        Accept: 'text/plain',
+        Accept: 'text/plain,application/json',
       },
-    });
-    const remoteID = response.data;
+      undefined,
+      {
+        method: 'POST',
+        data: formData,
+      }
+    );
+    const remoteID =
+      typeof response.data === 'string' ? response.data : response.data.jobId;
 
     if (!isValidServerID(job.type, remoteID)) {
       throw new Error(`The server didn't return a valid ID`);

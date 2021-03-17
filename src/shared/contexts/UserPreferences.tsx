@@ -42,7 +42,7 @@ export const UserPreferencesProvider: FC = ({ children }) => {
   );
 };
 
-export type PossibleUserPreferenceKey =
+type UserPreferenceKey =
   // gpdr banner
   | 'gdpr'
   // view mode: card vs table
@@ -52,7 +52,7 @@ export type PossibleUserPreferenceKey =
 
 // Custom hook to be used whenever a persistent user preference is needed
 export function useUserPreference<T extends JsonValue>(
-  key: PossibleUserPreferenceKey,
+  key: UserPreferenceKey,
   defaultValue: T
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
   const [contextState, setContextState] = useContext(UserPreferencesContext);

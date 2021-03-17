@@ -3,20 +3,24 @@ import { Loader, Message } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getPublicationsURL } from '../../../shared/config/apiUrls';
-
-import formatCitationData from '../../adapters/literatureConverter';
+import { getAPIQueryUrl } from '../../../shared/config/apiUrls';
+import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 
 import { MessageLevel } from '../../../messages/types/messagesTypes';
-import { LiteratureResultsAPI } from '../../types/literatureTypes';
-import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
+import { Namespace } from '../../../shared/types/namespaces';
+
+import './styles/inline-publication.scss';
 
 const UniProtKBEntryPublications: FC<{
   pubmedIds: string[];
 }> = ({ pubmedIds }) => {
-  const url = getPublicationsURL(pubmedIds);
+  const url = getAPIQueryUrl({
+    namespace: Namespace.citations,
+    query: pubmedIds.join(' OR '),
+  });
   const { loading, data, status, error } = useDataApi<{
-    results: LiteratureResultsAPI[];
+    results: CitationsAPIModel[];
   }>(url);
 
   if (error) {
@@ -34,22 +38,14 @@ const UniProtKBEntryPublications: FC<{
   const { results } = data;
   return (
     <>
-      {results &&
-        results
-          .map((literatureItem) => ({
-            ...literatureItem,
-            ...formatCitationData(literatureItem.citation),
-          }))
-          .map(({ citation, statistics, pubmedId, journalInfo }) => (
-            <LiteratureCitation
-              title={citation.title}
-              authors={citation.authors}
-              key={`${citation.title}-${citation.citationType}-${citation.journal}`}
-              pubmedId={pubmedId}
-              statistics={statistics}
-              journalInfo={journalInfo}
-            />
-          ))}
+      {results?.map((citationData) => (
+        <div
+          className="inline-publication"
+          key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
+        >
+          <LiteratureCitation data={citationData} />
+        </div>
+      ))}
     </>
   );
 };

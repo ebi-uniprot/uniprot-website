@@ -1,7 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import UniProtKBEntryPublications from '../UniProtKBEntryPublications';
-import { getPublicationsURL } from '../../../../shared/config/apiUrls';
 import mockUniProtKBEntryPublications from './__mocks__/uniprotKBEntryPublications.json';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -20,11 +19,11 @@ describe('UniProtKBEntryPublications', () => {
         <UniProtKBEntryPublications pubmedIds={pubMedIds} />
       </Router>
     );
-    expect(useDataApi).toHaveBeenCalledWith(getPublicationsURL(pubMedIds));
+    expect(screen.getByText(/Baumkotter/i)).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('Should make a call with pubmed ids', () => {
+  it('Should make a call with pubmed ids and fail', () => {
     useDataApi.mockImplementation(() => ({
       error: {
         message: 'There has been an error',
