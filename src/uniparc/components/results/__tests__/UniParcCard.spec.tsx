@@ -11,7 +11,7 @@ describe('UniRefCard tests', () => {
     const { asFragment } = renderWithRouter(
       <UniParcCard
         data={data as UniParcAPIModel}
-        handleEntrySelection={() => {}}
+        handleEntrySelection={jest.fn()}
       />
     );
     expect(asFragment()).toMatchSnapshot();

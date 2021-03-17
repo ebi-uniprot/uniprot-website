@@ -1,10 +1,12 @@
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { Button } from 'franklin-sites';
 
 import App from './app/components/App';
 
 import store from './app/state/store';
+
+import { UserPreferencesProvider } from './shared/contexts/UserPreferences';
 
 import { addMessage } from './messages/state/messagesActions';
 
@@ -14,9 +16,11 @@ import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
 import { SWConfig } from './service-worker/client';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ReduxProvider store={store}>
+    <UserPreferencesProvider>
+      <App />
+    </UserPreferencesProvider>
+  </ReduxProvider>,
   document.getElementById('root')
 );
 

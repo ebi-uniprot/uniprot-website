@@ -12,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-export const OrganismDataView: FC<Props> = ({
+const OrganismDataView: FC<Props> = ({
   organism,
   displayOnlyID,
   className,
@@ -42,3 +42,5 @@ export const OrganismDataView: FC<Props> = ({
     </Link>
   );
 };
+
+export default OrganismDataView;

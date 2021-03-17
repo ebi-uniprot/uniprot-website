@@ -14,6 +14,8 @@ import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 
+import { useUserPreference } from '../../contexts/UserPreferences';
+
 import lazy from '../../utils/lazy';
 
 import {
@@ -22,36 +24,36 @@ import {
 } from '../../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { ViewMode } from './ResultsContainer';
-import { Column } from '../../config/columns';
+
+import './styles/results-buttons.scss';
 
 const DownloadComponent = lazy(
   () => import(/* webpackChunkName: "download" */ '../download/Download')
 );
 
-const ResultsButtons: FC<{
-  viewMode: ViewMode;
-  setViewMode: (viewMode: ViewMode) => void;
+type ResultsButtonsProps = {
   query: string;
   selectedFacets: SelectedFacet[];
   sortColumn: SortableColumn;
   sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
-  tableColumns: Column[];
-  onTableColumnsChange: (columns: Column[]) => void;
-}> = ({
-  viewMode,
-  setViewMode,
+};
+
+const ResultsButtons: FC<ResultsButtonsProps> = ({
   query,
   selectedFacets,
   sortColumn,
   sortDirection,
   selectedEntries,
   total,
-  tableColumns,
-  onTableColumnsChange,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
+  const [viewMode, setViewMode] = useUserPreference<ViewMode>(
+    'view-mode',
+    ViewMode.CARD
+  );
 
   return (
     <>
@@ -65,7 +67,6 @@ const ResultsButtons: FC<{
             <DownloadComponent
               query={query}
               selectedFacets={selectedFacets}
-              selectedColumns={tableColumns}
               sortColumn={sortColumn}
               sortDirection={sortDirection}
               selectedEntries={selectedEntries}
@@ -102,27 +103,18 @@ const ResultsButtons: FC<{
           }
           data-testid="table-card-toggle"
         >
-          <span
-            className={cn({
-              'tertiary-icon__active': viewMode === ViewMode.CARD,
+          <TableIcon
+            className={cn('results-buttons__toggle', {
+              'results-buttons__toggle--active': viewMode === ViewMode.TABLE,
             })}
-          >
-            <TableIcon />
-          </span>
-          <span
-            className={cn({
-              'tertiary-icon__active': viewMode === ViewMode.TABLE,
-            })}
-          >
-            <ListIcon />
-          </span>
-        </Button>
-        {viewMode === ViewMode.TABLE && (
-          <CustomiseButton
-            tableColumns={tableColumns}
-            onTableColumnsChange={onTableColumnsChange}
           />
-        )}
+          <ListIcon
+            className={cn('results-buttons__toggle', {
+              'results-buttons__toggle--active': viewMode === ViewMode.CARD,
+            })}
+          />
+        </Button>
+        {viewMode === ViewMode.TABLE && <CustomiseButton />}
       </div>
     </>
   );

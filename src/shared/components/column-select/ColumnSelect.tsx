@@ -1,4 +1,5 @@
 import { FC, useCallback, useMemo } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
@@ -33,6 +34,7 @@ import {
 } from '../../../uniprotkb/types/resultsTypes';
 
 import './styles/column-select.scss';
+import { Location, LocationToPath } from '../../../app/config/urls';
 
 type ColumnSelectProps = {
   selectedColumns: Column[];
@@ -41,12 +43,15 @@ type ColumnSelectProps = {
 
 const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   const namespace = useNS();
+  const isUniParcEntry = Boolean(
+    useRouteMatch(LocationToPath[Location.UniParcEntry])
+  );
 
   if (!namespace) {
     throw new Error('No namespace provided');
   }
   const primaryKeyColumn = nsToPrimaryKeyColumn[namespace] as Column;
-  const defaultColumns = nsToDefaultColumns[namespace] as Column[];
+  const defaultColumns = nsToDefaultColumns[namespace];
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -56,7 +61,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   );
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([primaryKeyColumn as Column, ...columns]);
+      onChange([primaryKeyColumn, ...columns]);
     },
     [primaryKeyColumn, onChange]
   );
@@ -97,8 +102,8 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
             nsToColumnConfig[namespace],
             primaryKeyColumn
           )
-        : prepareFieldData(data, primaryKeyColumn),
-    [namespace, data, primaryKeyColumn]
+        : prepareFieldData(data, primaryKeyColumn, isUniParcEntry),
+    [namespace, data, primaryKeyColumn, isUniParcEntry]
   );
 
   if (loading) {

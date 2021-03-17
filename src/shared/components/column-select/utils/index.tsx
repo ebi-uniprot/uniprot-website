@@ -54,10 +54,13 @@ export const prepareFieldDataFromColumnConfig = (
   };
 };
 
+const notForUniParcEntry = new Set(['sequences', 'family_&_domains']);
+
 export const prepareFieldData = (
   fieldData?: ReceivedFieldData,
   // Exclude primaryKeyColumn which should not be user-selectable eg accession
-  exclude?: Column
+  exclude?: Column,
+  isUniParcEntry?: boolean
 ): FieldData => {
   if (!fieldData?.length) {
     return {};
@@ -73,6 +76,11 @@ export const prepareFieldData = (
         title: groupName,
         items,
       };
+      if (isUniParcEntry) {
+        if (notForUniParcEntry.has(id)) {
+          group.title += ` (Not applicable for UniParc cross-references)`;
+        }
+      }
       if (isDatabaseGroup) {
         if (!linksAdded[groupName]) {
           linksTab.push(group);

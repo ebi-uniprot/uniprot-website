@@ -41,8 +41,8 @@ describe('Blast results download', () => {
         id="1234"
         onToggleDisplay={onCloseMock}
         nHits={100}
-        isTableResultsFiltered={true}
-        isTableRowSelected={true}
+        isTableResultsFiltered
+        isTableRowSelected
       />
     );
     const nDownloadExplanation = getByText(nDownloadedExplanationRe);

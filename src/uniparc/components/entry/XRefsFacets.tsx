@@ -2,9 +2,10 @@ import { useMemo, FC, ReactNode } from 'react';
 import { countBy, uniqBy } from 'lodash-es';
 import { Facets, Loader } from 'franklin-sites';
 
-import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
-
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
+import {
+  EntryTypeIcon,
+  EntryType,
+} from '../../../shared/components/entry/EntryTypeIcon';
 
 import {
   databaseToEntryType,

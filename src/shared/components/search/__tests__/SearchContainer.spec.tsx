@@ -1,10 +1,10 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
 
 import SearchContainer from '../SearchContainer';
 
-import { Namespace } from '../../../../shared/types/namespaces';
+import { Namespace } from '../../../types/namespaces';
 
 let component;
 
@@ -14,7 +14,7 @@ describe('Search shallow components', () => {
       <SearchContainer
         includeFooter
         namespace={Namespace.uniprotkb}
-        onNamespaceChange={() => {}}
+        onNamespaceChange={jest.fn()}
       />
     );
   });

@@ -7,20 +7,25 @@ import {
   Loader,
 } from 'franklin-sites';
 
-import { OrganismDataView } from '../../../shared/components/views/OrganismDataView';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
-import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
+import {
+  EntryTypeIcon,
+  EntryType,
+} from '../../../shared/components/entry/EntryTypeIcon';
+
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { useUserPreference } from '../../../shared/contexts/UserPreferences';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useLocalStorage from '../../../shared/hooks/useLocalStorage';
+// import { useUserPreference } from '../../../shared/contexts/UserPreferences';
 
-import { defaultColumns } from '../../config/UniParcColumnConfiguration';
+// import { defaultColumns } from '../../config/UniParcColumnConfiguration';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { Column } from '../../../shared/config/columns';
 import {
   databaseToEntryType,
   UniParcAPIModel,
@@ -30,148 +35,150 @@ import {
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 
 import './styles/XRefsSection.scss';
 import '../../../shared/components/results/styles/results-view.scss';
+import { nsToDefaultColumns } from '../../../shared/config/columns';
 
 const getColumns = (
-  templateMap: Map<string, string>
+  templateMap: Map<string, string>,
+  columnSelection: UniParcColumn[]
 ): Array<{
   label: ReactNode;
   name: string;
   render: (xref: UniParcXRef) => ReactNode;
-}> => [
-  {
-    label: 'Database',
-    name: 'database',
-    render(xref) {
-      if (!xref.database) {
-        return null;
-      }
-      let cell: ReactNode = xref.database;
-      const entryType = databaseToEntryType.get(xref.database);
-      if (entryType === EntryType.REVIEWED) {
-        cell = (
-          <>
-            <EntryTypeIcon entryType={EntryType.REVIEWED} />
-            UniProtKB reviewed
-          </>
-        );
-      } else if (entryType === EntryType.UNREVIEWED) {
-        cell = (
-          <>
-            <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-            UniProtKB unreviewed
-          </>
-        );
-      }
-      return (
-        <span className={xref.active ? undefined : 'xref-inactive'}>
-          {cell}
-        </span>
-      );
-    },
-  },
-  {
-    label: 'Identifier',
-    name: 'identifier',
-    render(xref) {
-      if (!xref.id) {
-        return null;
-      }
-      let cell: ReactNode = xref.id;
-      if (
-        xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
-        xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
-      ) {
-        // internal link
-        cell = (
-          <Link
-            /**
-             * TODO: when we have entry history pages, we need to handle it
-             * differently (current website points to `/<accession>?version=*`)
-             */
-            to={getEntryPath(Namespace.uniprotkb, xref.id)}
-          >
-            {xref.id}
-          </Link>
-        );
-      } else {
-        const template = xref.database && templateMap.get(xref.database);
-        if (template) {
+}> =>
+  [
+    {
+      label: 'Database',
+      name: 'database',
+      render(xref) {
+        if (!xref.database) {
+          return null;
+        }
+        let cell: ReactNode = xref.database;
+        const entryType = databaseToEntryType.get(xref.database);
+        if (entryType === EntryType.REVIEWED) {
           cell = (
-            <ExternalLink url={template.replace('%id', xref.id)}>
-              {xref.id}
-            </ExternalLink>
+            <>
+              <EntryTypeIcon entryType={EntryType.REVIEWED} />
+              UniProtKB reviewed
+            </>
+          );
+        } else if (entryType === EntryType.UNREVIEWED) {
+          cell = (
+            <>
+              <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
+              UniProtKB unreviewed
+            </>
           );
         }
-      }
-      return (
-        <span className={xref.active ? undefined : 'xref-inactive'}>
-          {cell}
-        </span>
-      );
+        return (
+          <span className={xref.active ? undefined : 'xref-inactive'}>
+            {cell}
+          </span>
+        );
+      },
     },
-  },
-  {
-    label: 'Version',
-    name: 'version',
-    render: (xref) =>
-      xref.version && (
+    {
+      label: 'Identifier',
+      name: 'identifier',
+      render(xref) {
+        if (!xref.id) {
+          return null;
+        }
+        let cell: ReactNode = xref.id;
+        if (
+          xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+          xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
+        ) {
+          // internal link
+          cell = (
+            <Link
+              /**
+               * TODO: when we have entry history pages, we need to handle it
+               * differently (current website points to `/<accession>?version=*`)
+               */
+              to={getEntryPath(Namespace.uniprotkb, xref.id)}
+            >
+              {xref.id}
+            </Link>
+          );
+        } else {
+          const template = xref.database && templateMap.get(xref.database);
+          if (template) {
+            cell = (
+              <ExternalLink url={template.replace('%id', xref.id)}>
+                {xref.id}
+              </ExternalLink>
+            );
+          }
+        }
+        return (
+          <span className={xref.active ? undefined : 'xref-inactive'}>
+            {cell}
+          </span>
+        );
+      },
+    },
+    {
+      label: 'Version',
+      name: 'version',
+      render: (xref) =>
+        xref.version && (
+          <span className={xref.active ? undefined : 'xref-inactive'}>
+            {xref.version}
+          </span>
+        ),
+    },
+    {
+      label: 'Organism',
+      name: 'organism',
+      render: (xref) =>
+        xref.organism && (
+          <OrganismDataView
+            organism={xref.organism}
+            className={xref.active ? undefined : 'xref-inactive'}
+          />
+        ),
+    },
+    {
+      label: 'First seen',
+      name: 'first_seen',
+      render: (xref) =>
+        xref.created && (
+          <time
+            className={xref.active ? undefined : 'xref-inactive'}
+            dateTime={new Date(xref.created).toISOString()}
+          >
+            {xref.created}
+          </time>
+        ),
+    },
+    {
+      label: 'Last seen',
+      name: 'last_seen',
+      render: (xref) =>
+        xref.lastUpdated && (
+          <time
+            className={xref.active ? undefined : 'xref-inactive'}
+            dateTime={new Date(xref.lastUpdated).toISOString()}
+          >
+            {xref.lastUpdated}
+          </time>
+        ),
+    },
+    {
+      label: 'Active',
+      name: 'active',
+      render: (xref) => (
         <span className={xref.active ? undefined : 'xref-inactive'}>
-          {xref.version}
+          {xref.active ? 'Yes' : 'No'}
         </span>
       ),
-  },
-  {
-    label: 'Organism',
-    name: 'organism',
-    render: (xref) =>
-      xref.organism && (
-        <OrganismDataView
-          organism={xref.organism}
-          className={xref.active ? undefined : 'xref-inactive'}
-        />
-      ),
-  },
-  {
-    label: 'First seen',
-    name: 'first_seen',
-    render: (xref) =>
-      xref.created && (
-        <time
-          className={xref.active ? undefined : 'xref-inactive'}
-          dateTime={new Date(xref.created).toISOString()}
-        >
-          {xref.created}
-        </time>
-      ),
-  },
-  {
-    label: 'Last seen',
-    name: 'last_seen',
-    render: (xref) =>
-      xref.lastUpdated && (
-        <time
-          className={xref.active ? undefined : 'xref-inactive'}
-          dateTime={new Date(xref.lastUpdated).toISOString()}
-        >
-          {xref.lastUpdated}
-        </time>
-      ),
-  },
-  {
-    label: 'Active',
-    name: 'active',
-    render: (xref) => (
-      <span className={xref.active ? undefined : 'xref-inactive'}>
-        {xref.active ? 'Yes' : 'No'}
-      </span>
-    ),
-  },
-];
+    },
+  ].filter(({ name }) => columnSelection.includes(name as UniParcColumn));
 
 type DataDBModel = Array<{
   name: string;
@@ -198,14 +205,17 @@ type Props = {
 };
 
 const XRefsSection: FC<Props> = ({ xrefData }) => {
-  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
-    `table columns for ${Namespace.uniparc} xrefs`,
-    defaultColumns
+  const [userColumns] = useUserPreference(
+    `table columns for ${Namespace.uniparc}` as const,
+    nsToDefaultColumns[Namespace.uniparc] as UniParcColumn[]
   );
 
   // TODO: switch to using UniParc-specific database endpoint when available
   const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
-  const columns = useMemo(() => getColumns(getTemplateMap(dataDB)), [dataDB]);
+  const columns = useMemo(
+    () => getColumns(getTemplateMap(dataDB), userColumns),
+    [dataDB, userColumns]
+  );
 
   const [nItemsToRender, setNItemsToRender] = useState(25);
 
@@ -223,12 +233,7 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
       className={xrefData.isStale ? 'is-stale' : undefined}
     >
       <div className="button-group">
-        {tableColumns && (
-          <CustomiseButton
-            tableColumns={tableColumns}
-            onTableColumnsChange={setTableColumns}
-          />
-        )}
+        <CustomiseButton />
       </div>
       <DataTableWithLoader
         onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}
