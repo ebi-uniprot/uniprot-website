@@ -163,8 +163,8 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
         }
       }
 
-      // No "h" in the middle of this method name
-      // "Higlight" [sic] ...
+      // Note that there is no "h" in the middle of this method name
+      // This is probably a typo that needs correcting
       removeHiglight(
         e: HTMLElement | SVGElement | null | undefined,
         target: HTMLElement | SVGElement | null | undefined,

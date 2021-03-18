@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/entryModelData.json';
 
@@ -25,7 +25,7 @@ describe('UniProtKBColumnConfiguration component', () => {
   test.each(Array.from(UniProtKBColumnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);

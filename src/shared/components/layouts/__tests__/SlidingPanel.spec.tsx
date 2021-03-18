@@ -2,13 +2,13 @@ import { screen, fireEvent } from '@testing-library/react';
 
 import SlidingPanel, { Position } from '../SlidingPanel';
 
-import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
+import customRender from '../../../__test-helpers__/customRender';
 
 describe('SlidingPanel', () => {
   const onClose = jest.fn();
 
   beforeEach(() => {
-    renderWithRouter(
+    customRender(
       <>
         <div>outside</div>
         <SlidingPanel position={Position.right} onClose={onClose}>

@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
+import customRender from '../../../__test-helpers__/customRender';
 
 import SearchContainer from '../SearchContainer';
 
@@ -10,7 +10,7 @@ let component;
 
 describe('Search shallow components', () => {
   beforeEach(() => {
-    component = renderWithRouter(
+    component = customRender(
       <SearchContainer
         includeFooter
         namespace={Namespace.uniprotkb}

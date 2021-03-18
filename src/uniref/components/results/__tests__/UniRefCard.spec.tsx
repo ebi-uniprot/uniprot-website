@@ -1,5 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import UniRefCard from '../UniRefCard';
 
@@ -8,7 +9,7 @@ import data from '../../../__mocks__/UniRefResultsData';
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {
     const row = data.results[0];
-    const { asFragment } = renderWithRouter(
+    const { asFragment } = customRender(
       <UniRefCard data={row} handleEntrySelection={jest.fn()} />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -17,7 +18,7 @@ describe('UniRefCard tests', () => {
   it('should allow card selection and navigation', () => {
     const handleClick = jest.fn();
     const row = data.results[0];
-    const { history } = renderWithRouter(
+    const { history } = customRender(
       <UniRefCard data={row} handleEntrySelection={handleClick} />
     );
     fireEvent.click(screen.getByRole('checkbox'));

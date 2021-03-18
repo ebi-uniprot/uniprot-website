@@ -1,13 +1,14 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+
 import ProteomesCard from '../ProteomesCard';
 
 import proteomesData from '../../../__mocks__/proteomesEntryModelData';
 
 describe('ProteomesCard tests', () => {
   it('should render the card component', () => {
-    const { asFragment } = renderWithRouter(
+    const { asFragment } = customRender(
       <ProteomesCard data={proteomesData} handleEntrySelection={jest.fn()} />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -15,7 +16,7 @@ describe('ProteomesCard tests', () => {
 
   it('should allow card selection and navigation', () => {
     const handleClick = jest.fn();
-    const { history } = renderWithRouter(
+    const { history } = customRender(
       <ProteomesCard data={proteomesData} handleEntrySelection={handleClick} />
     );
     fireEvent.click(screen.getByRole('checkbox'));

@@ -1,14 +1,14 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 import LiteratureCitation from '../LiteratureCitation';
 import literatureCitationData from '../__mocks__/literatureCitationData';
 
-let rendered: ReturnType<typeof renderWithRouter>;
+let rendered: ReturnType<typeof customRender>;
 
 describe('Publication component', () => {
   beforeEach(async () => {
-    rendered = renderWithRouter(
+    rendered = customRender(
       <LiteratureCitation data={literatureCitationData} />
     );
   });

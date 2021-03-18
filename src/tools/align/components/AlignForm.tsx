@@ -280,7 +280,11 @@ const AlignForm = () => {
       <PageIntro title={name} links={links}>
         {info}
       </PageIntro>
-      <form onSubmit={submitAlignJob} onReset={handleReset}>
+      <form
+        onSubmit={submitAlignJob}
+        onReset={handleReset}
+        aria-label="Align job submission form"
+      >
         <fieldset>
           <section className="tools-form-section__item">
             <legend>

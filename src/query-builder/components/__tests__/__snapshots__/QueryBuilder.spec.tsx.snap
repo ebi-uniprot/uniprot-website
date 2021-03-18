@@ -26,6 +26,7 @@ exports[`QueryBuilder should render 1`] = `
     </div>
   </div>
   <form
+    aria-label="Query builder form"
     class="query-builder"
     data-testid="query-builder-form"
   >
