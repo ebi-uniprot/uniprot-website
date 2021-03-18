@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter as Router } from 'react-router-dom';
 import queryString from 'query-string';
 
@@ -52,5 +52,21 @@ describe('ComponentsButtons', () => {
       </Router>
     );
     expect(container.firstChild).toBeNull();
+  });
+
+  it('should open download sliding panel', () => {
+    render(
+      <Router>
+        <ComponentsButtons
+          id="id"
+          proteinCount={100}
+          selectedEntries={[]}
+          components={getComponents(10) as Component[]}
+        />
+      </Router>
+    );
+    const downloadButton = screen.getByRole('button', { name: 'Download' });
+    fireEvent.click(downloadButton);
+    expect(screen.queryByTestId('sliding-panel')).toBeInTheDocument();
   });
 });
