@@ -14,7 +14,7 @@ import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 
-import { useUserPreference } from '../../contexts/UserPreferences';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
 import lazy from '../../utils/lazy';
 
@@ -50,7 +50,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const [viewMode, setViewMode] = useUserPreference<ViewMode>(
+  const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );

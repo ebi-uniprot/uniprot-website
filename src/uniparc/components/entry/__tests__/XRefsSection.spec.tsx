@@ -1,4 +1,4 @@
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import XRefsSection from '../XRefsSection';
 
@@ -14,14 +14,14 @@ describe('SequenceSection component', () => {
       loading: false,
       data: [],
     });
-    const { asFragment } = renderWithRouter(
+    const { asFragment } = customRender(
       <XRefsSection xrefData={{ data: uniParcData, loading: false }} />
     );
     expect(asFragment()).toMatchSnapshot();
   });
 
   test("should return null when there are no cross-references (shouldn't happen)", () => {
-    const { container } = renderWithRouter(
+    const { container } = customRender(
       <XRefsSection
         xrefData={{
           data: { ...uniParcData, uniParcCrossReferences: [] },

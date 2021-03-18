@@ -1,12 +1,12 @@
 import { screen } from '@testing-library/react';
 
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import NoResultsPage from '../NoResultsPage';
 
 describe('NoResultsPage component', () => {
   test('should render', () => {
-    const { asFragment } = renderWithRedux(<NoResultsPage />);
+    const { asFragment } = customRender(<NoResultsPage />);
     expect(screen.getByTestId('no-results-page')).toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });

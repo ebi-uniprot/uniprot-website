@@ -4,7 +4,7 @@ import { Button } from 'franklin-sites';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import useNS from '../../hooks/useNS';
-import { useUserPreference } from '../../contexts/UserPreferences';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
 import { nsToDefaultColumns } from '../../config/columns';
 
@@ -19,7 +19,7 @@ type CustomiseTableProps = {
 
 const CustomiseTable: FC<CustomiseTableProps> = ({ onSave }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const [columns, setColumns] = useUserPreference(
+  const [columns, setColumns] = useUserPreferences(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
   );
@@ -33,7 +33,7 @@ const CustomiseTable: FC<CustomiseTableProps> = ({ onSave }) => {
     <form
       onSubmit={handleSubmit}
       className="customise-table"
-      data-testid="customise-table-form"
+      aria-label={`Customise ${namespace} result table columns form`}
     >
       <ColumnSelect onChange={setColumns} selectedColumns={columns} />
       <div className="button-group sticky-bottom-right sliding-panel__button-row">

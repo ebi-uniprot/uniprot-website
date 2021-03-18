@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react';
 import BlastResultTable from '../BlastResultTable';
 
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
-import renderWithRedux from '../../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../../shared/__test-helpers__/customRender';
 
 import { BlastResults } from '../../../types/blastResults';
 
@@ -10,7 +10,7 @@ let component;
 
 describe('BlastResultTable tests', () => {
   beforeEach(() => {
-    component = renderWithRedux(
+    component = customRender(
       <BlastResultTable
         data={blastResultsMockData as BlastResults}
         selectedEntries={[]}

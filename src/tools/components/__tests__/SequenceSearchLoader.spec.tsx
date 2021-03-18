@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react';
 
 import SequenceSearchLoader from '../SequenceSearchLoader';
 
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import entryModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -19,7 +19,7 @@ describe('SequenceSearchLoader tests', () => {
     }));
 
     const onLoadMock = jest.fn();
-    const component = renderWithRedux(
+    const component = customRender(
       <SequenceSearchLoader onLoad={onLoadMock} />
     );
     const { getByPlaceholderText } = component;
@@ -49,7 +49,7 @@ describe('SequenceSearchLoader tests', () => {
     }));
 
     const onLoadMock = jest.fn();
-    const component = renderWithRedux(
+    const component = customRender(
       <SequenceSearchLoader onLoad={onLoadMock} />
     );
     const { getByPlaceholderText } = component;

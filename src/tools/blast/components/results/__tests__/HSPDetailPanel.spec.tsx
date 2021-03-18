@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 
 import HSPDetailPanel from '../HSPDetailPanel';
 
-import renderWithRouter from '../../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../../shared/__test-helpers__/customRender';
 
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
 import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
@@ -25,7 +25,7 @@ describe('HSPDetailPanel', () => {
   const hsp = hit.hit_hsps[0];
 
   beforeEach(() => {
-    renderWithRouter(
+    customRender(
       <HSPDetailPanel
         hsp={hsp}
         hitAccession={hit.hit_acc}

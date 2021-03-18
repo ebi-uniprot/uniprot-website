@@ -18,17 +18,6 @@ exports[`SequenceSection component should render the SequenceSection properly an
       <div
         class="card__content"
       >
-        <div
-          class="button-group"
-        >
-          <button
-            class="button tertiary"
-            type="button"
-          >
-            <test-file-stub />
-            Customize data
-          </button>
-        </div>
         <table
           class="data-table data-table--compact"
         >

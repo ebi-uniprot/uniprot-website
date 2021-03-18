@@ -1,12 +1,12 @@
 import { screen } from '@testing-library/react';
 
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import ResourceNotFoundPage, { redirectFromTo } from '../ResourceNotFoundPage';
 
 describe('ResourceNotFoundPage component', () => {
   test('should render', () => {
-    const { asFragment, history } = renderWithRedux(<ResourceNotFoundPage />, {
+    const { asFragment, history } = customRender(<ResourceNotFoundPage />, {
       route: '/uniprotkb',
     });
     expect(history.location.pathname).toBe('/uniprotkb');
@@ -15,7 +15,7 @@ describe('ResourceNotFoundPage component', () => {
   });
 
   test('should redirect to correct page', () => {
-    const { history } = renderWithRedux(<ResourceNotFoundPage />, {
+    const { history } = customRender(<ResourceNotFoundPage />, {
       route: '/unipark/UPI01',
     });
     expect(history.location.pathname).toBe('/uniparc/UPI01');

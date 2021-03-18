@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 import ComputationalyMappedSequences from '../ComputationallyMappedSequences';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import data from './__mocks__/genecentric.json';
 
@@ -16,7 +16,7 @@ describe('Computationally mapped isoforms', () => {
   test('Should render correctly', () => {
     useDataApi.mockReturnValue({ loading: false, data });
 
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = customRender(
       <ComputationalyMappedSequences primaryAccession="P05067" />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -25,7 +25,7 @@ describe('Computationally mapped isoforms', () => {
   test('Should return nothing while loading', () => {
     useDataApi.mockReturnValue({ loading: true });
 
-    const { container } = renderWithRedux(
+    const { container } = customRender(
       <ComputationalyMappedSequences primaryAccession="P05067" />
     );
     expect(container.firstChild).toBeNull();
@@ -34,7 +34,7 @@ describe('Computationally mapped isoforms', () => {
   test('Should return nothing if 404', () => {
     useDataApi.mockReturnValue({ loading: false, status: 404, error: {} });
 
-    const { container } = renderWithRedux(
+    const { container } = customRender(
       <ComputationalyMappedSequences primaryAccession="P05067" />
     );
     expect(container.firstChild).toBeNull();
@@ -44,7 +44,7 @@ describe('Computationally mapped isoforms', () => {
     const { relatedProteins: _, ...partialData } = data;
     useDataApi.mockReturnValue({ loading: false, data: partialData });
 
-    const { container } = renderWithRedux(
+    const { container } = customRender(
       <ComputationalyMappedSequences primaryAccession="P05067" />
     );
     expect(container.firstChild).toBeNull();
@@ -56,7 +56,7 @@ describe('Computationally mapped isoforms', () => {
 
     const {
       findByText,
-    } = renderWithRedux(
+    } = customRender(
       <ComputationalyMappedSequences primaryAccession="P05067" />,
       { history }
     );

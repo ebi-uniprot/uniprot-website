@@ -2,12 +2,12 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'franklin-sites';
 
-import { useUserPreference } from '../../contexts/UserPreferences';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
 import './styles/gdpr.scss';
 
 const GDPR: FC = () => {
-  const [token, setToken] = useUserPreference<boolean>('gdpr', false);
+  const [token, setToken] = useUserPreferences<null | boolean>('gdpr', null);
 
   if (token === true) {
     return null;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { screen, fireEvent } from '@testing-library/react';
 
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import BlastForm from '../BlastForm';
 
@@ -22,7 +22,7 @@ let component;
 describe('BlastForm test', () => {
   beforeEach(() => {
     const history = createMemoryHistory();
-    component = renderWithRedux(<BlastForm />, {
+    component = customRender(<BlastForm />, {
       initialState: {
         ...initialState,
       },

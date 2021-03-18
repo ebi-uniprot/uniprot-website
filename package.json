@@ -39,7 +39,7 @@
         "lines": 84.85,
         "statements": 84.61,
         "functions": 84,
-        "branches": 75.2
+        "branches": 75.08
       }
     },
     "transform": {
@@ -131,7 +131,6 @@
     "react-router-dom": "5.2.0",
     "react-spring": "8.0.27",
     "redux": "4.0.5",
-    "redux-thunk": "2.3.0",
     "timing-functions": "2.0.1",
     "tippy.js": "6.3.0",
     "type-fest": "0.21.3",
