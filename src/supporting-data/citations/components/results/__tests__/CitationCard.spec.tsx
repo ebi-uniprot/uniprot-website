@@ -1,21 +1,20 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import renderWithRouter from '../../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../../shared/__test-helpers__/customRender';
+
 import CitationCard from '../CitationCard';
 
 import citationData from '../../__mocks__/literatureCitationData';
 
 describe('CitationCard tests', () => {
   it('should render the card component', () => {
-    const { asFragment } = renderWithRouter(
-      <CitationCard data={citationData} />
-    );
+    const { asFragment } = customRender(<CitationCard data={citationData} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should allow card selection and navigation', () => {
     const handleClick = jest.fn();
-    const { history } = renderWithRouter(
+    const { history } = customRender(
       <CitationCard data={citationData} handleEntrySelection={handleClick} />
     );
     fireEvent.click(screen.getByRole('checkbox'));

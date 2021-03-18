@@ -46,7 +46,7 @@ import LocationsColumnConfiguration from '../../../supporting-data/locations/con
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
-import { useUserPreference } from '../../contexts/UserPreferences';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
 import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
 
@@ -277,8 +277,8 @@ const ResultsView: FC<ResultsTableProps> = ({
   sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const [viewMode] = useUserPreference<ViewMode>('view-mode', ViewMode.CARD);
-  const [columns] = useUserPreference<Column[]>(
+  const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
+  const [columns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
   );

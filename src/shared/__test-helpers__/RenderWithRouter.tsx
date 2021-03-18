@@ -9,6 +9,10 @@ type RenderOptions = {
   history?: MemoryHistory<LocationState>;
   path?: string;
 };
+
+/**
+ * @deprecated You should probably use `customRender()` instead
+ */
 const renderWithRouter = (
   ui: ReactNode,
   {

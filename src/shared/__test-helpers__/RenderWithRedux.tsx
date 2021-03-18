@@ -1,8 +1,7 @@
 /* eslint-disable */
 import { ReactElement } from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore } from 'redux';
 import { render } from '@testing-library/react';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createMemoryHistory, MemoryHistory } from 'history';
 import { Router, Route } from 'react-router-dom';
@@ -17,6 +16,9 @@ type RenderOptions = {
   store?: any;
 };
 
+/**
+ * @deprecated You should probably use `customRender()` instead
+ */
 const renderWithRedux = (
   ui: ReactElement,
   {
@@ -24,7 +26,7 @@ const renderWithRedux = (
     history = createMemoryHistory({ initialEntries: [route] }),
     path,
     initialState,
-    store = createStore(rootReducer, initialState, applyMiddleware(thunk)),
+    store = createStore(rootReducer, initialState),
   }: RenderOptions = {}
 ) => {
   return {

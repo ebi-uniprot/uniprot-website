@@ -7,7 +7,7 @@ import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
 
 import useNS from '../../hooks/useNS';
-import { useUserPreference } from '../../contexts/UserPreferences';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
 import { getDownloadUrl } from '../../config/apiUrls';
 import {
@@ -55,7 +55,7 @@ const Download: FC<DownloadProps> = ({
   onClose,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const [columns] = useUserPreference(
+  const [columns] = useUserPreferences(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
   );
