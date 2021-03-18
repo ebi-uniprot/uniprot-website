@@ -15,6 +15,7 @@ import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 
 import useUserPreferences from '../../hooks/useUserPreferences';
+import useNS from '../../hooks/useNS';
 
 import lazy from '../../utils/lazy';
 
@@ -49,6 +50,10 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   total,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+  const namespace = useNS();
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
 
   const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
     'view-mode',
@@ -72,6 +77,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
               selectedEntries={selectedEntries}
               totalNumberResults={total}
               onClose={() => setDisplayDownloadPanel(false)}
+              namespace={namespace}
             />
           </SlidingPanel>
         </Suspense>

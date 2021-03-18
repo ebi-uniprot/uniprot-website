@@ -6,7 +6,6 @@ import ColumnSelect from '../column-select/ColumnSelect';
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
 
-import useNS from '../../hooks/useNS';
 import useUserPreferences from '../../hooks/useUserPreferences';
 
 import { getDownloadUrl } from '../../config/apiUrls';
@@ -40,27 +39,33 @@ type DownloadProps = {
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
-  selectedEntries: string[];
+  selectedEntries?: string[];
+  selectedQuery?: string;
   totalNumberResults: number;
+  numberSelectedEntries?: number;
+  namespace: Namespace;
   onClose: () => void;
 };
 
 const Download: FC<DownloadProps> = ({
   query,
+  selectedQuery,
   selectedFacets = [],
   sortColumn,
   sortDirection,
   selectedEntries = [],
   totalNumberResults,
+  numberSelectedEntries,
   onClose,
+  namespace,
 }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
   const [columns] = useUserPreferences(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
   );
 
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
+
   const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
   const [downloadAll, setDownloadAll] = useState(true);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
@@ -74,15 +79,18 @@ const Download: FC<DownloadProps> = ({
 
   const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
 
+  const urlQuery = downloadAll || !selectedQuery ? query : selectedQuery;
+  const urlSelected = downloadAll || selectedQuery ? [] : selectedEntries;
+
   const downloadUrl = getDownloadUrl({
-    query,
-    columns: selectedColumns,
+    query: urlQuery,
+    columns,
     selectedFacets,
     sortColumn,
     sortDirection,
     fileFormat,
     compressed,
-    selected: downloadAll ? [] : selectedEntries,
+    selected: urlSelected,
     selectedIdField,
     namespace,
   });
@@ -93,26 +101,26 @@ const Download: FC<DownloadProps> = ({
   const handleCompressedChange = (e: ChangeEvent<HTMLInputElement>) =>
     setCompressed(e.target.value === 'true');
 
-  const nSelectedEntries = selectedEntries.length;
+  const nSelectedEntries = numberSelectedEntries || selectedEntries.length;
   const nPreview = Math.min(
     10,
     downloadAll ? totalNumberResults : nSelectedEntries
   );
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewUrl = getDownloadUrl({
-    query,
-    columns: selectedColumns,
+    query: urlQuery,
+    columns,
     selectedFacets,
     sortColumn,
     sortDirection,
     fileFormat: previewFileFormat,
     compressed: false,
     size: nPreview,
-    selected: downloadAll ? [] : selectedEntries,
+    selected: urlSelected,
     selectedIdField,
     namespace,
   });
-  // TODO this should useDataApi but this hook requires modification to
+  // TODO: this should useDataApi but this hook requires modification to
   // change the headers so whenever this is done replace fetchData with
   // useDataApi
   const handlePreview = useCallback(() => {
@@ -232,6 +240,7 @@ const Download: FC<DownloadProps> = ({
           <ColumnSelect
             onChange={setSelectedColumns}
             selectedColumns={selectedColumns}
+            namespace={namespace}
           />
         </>
       )}

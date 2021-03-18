@@ -104,6 +104,8 @@ export enum UniProtKBColumn {
   proteinExistence = 'protein_existence',
   proteinFamilies = 'family',
   proteinName = 'protein_name',
+  proteome = 'proteome',
+  proteomeComponent = 'proteomecomponent',
   redoxPotential = 'redox_potential',
   reviewed = 'reviewed',
   sequence = 'sequence',
