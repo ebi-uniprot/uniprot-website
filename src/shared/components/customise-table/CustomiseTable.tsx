@@ -35,7 +35,11 @@ const CustomiseTable: FC<CustomiseTableProps> = ({ onSave }) => {
       className="customise-table"
       aria-label={`Customise ${namespace} result table columns form`}
     >
-      <ColumnSelect onChange={setColumns} selectedColumns={columns} />
+      <ColumnSelect
+        onChange={setColumns}
+        selectedColumns={columns}
+        namespace={namespace}
+      />
       <div className="button-group sticky-bottom-right sliding-panel__button-row">
         <Button type="submit">Close</Button>
       </div>
