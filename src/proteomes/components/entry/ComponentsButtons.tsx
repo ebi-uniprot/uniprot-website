@@ -1,5 +1,6 @@
-import { FC, useState, Suspense, useCallback } from 'react';
+import { FC, useState, Suspense, useEffect, useMemo } from 'react';
 import { Button, DownloadIcon } from 'franklin-sites';
+
 import { Link } from 'react-router-dom';
 
 import SlidingPanel, {
@@ -15,7 +16,12 @@ import { Column, nsToDefaultColumns } from '../../../shared/config/columns';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
+import {
+  Component,
+  ProteomesAPIModel,
+} from '../../adapters/proteomesConverter';
+import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
+import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 
 const DownloadComponent = lazy(
   () =>
@@ -25,30 +31,44 @@ const DownloadComponent = lazy(
 );
 
 const ComponentsButtons: FC<
-  Pick<ProteomesAPIModel, 'id'> & {
-    nComponents: number;
+  Pick<ProteomesAPIModel, 'id' | 'components' | 'proteinCount'> & {
     selectedEntries: string[];
   }
-> = ({ id, nComponents, selectedEntries }) => {
+> = ({ id, components, selectedEntries, proteinCount }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const query = '';
   const defaultColumns = nsToDefaultColumns[Namespace.uniprotkb];
   const [tableColumns] = useLocalStorage<Column[]>(
     localStorageKeys.tableColumns(Namespace.uniprotkb),
     defaultColumns || []
   );
 
-  const getViewButtonQuery = useCallback(
+  const allQuery = `(${UniProtKBColumn.proteome}:${id})`;
+  const selectedQuery = useMemo(
     () =>
-      `query=(proteome:${id})${
-        selectedEntries.length !== 0 && selectedEntries.length !== nComponents
-          ? ` AND (${selectedEntries
-              .map((component) => `proteomecomponent:"${component}"`)
-              .join(' OR ')})`
+      `${allQuery}${
+        selectedEntries.length !== 0 &&
+        selectedEntries.length !== components?.length
+          ? ` AND (${createSelectedQueryString(
+              selectedEntries.map((component) => `"${component}"`),
+              UniProtKBColumn.proteomeComponent
+            )})`
           : ''
       }`,
-    [nComponents, id, selectedEntries]
+    [allQuery, components?.length, selectedEntries]
   );
+
+  const numberSelectedProteins = useMemo(
+    () =>
+      components?.reduce(
+        (prev: number, curr: Component) => prev + curr.proteinCount,
+        0
+      ),
+    [components]
+  );
+
+  if (!components?.length) {
+    return null;
+  }
 
   return (
     <>
@@ -60,10 +80,12 @@ const ComponentsButtons: FC<
             yScrollable
           >
             <DownloadComponent
-              query={query}
+              query={allQuery}
               selectedEntries={selectedEntries}
+              selectedQuery={selectedQuery}
               selectedColumns={tableColumns || defaultColumns}
-              totalNumberResults={nComponents}
+              numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API
+              totalNumberResults={proteinCount || 1000} // TODO: ☝️ Same as above
               onClose={() => setDisplayDownloadPanel(false)}
               namespace={Namespace.uniprotkb}
             />
@@ -75,7 +97,9 @@ const ComponentsButtons: FC<
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
           onFocus={DownloadComponent.preload}
-          onClick={() => setDisplayDownloadPanel(!displayDownloadPanel)}
+          onClick={() => {
+            setDisplayDownloadPanel(!displayDownloadPanel);
+          }}
         >
           <DownloadIcon />
           Download
@@ -84,7 +108,7 @@ const ComponentsButtons: FC<
           element={Link}
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: getViewButtonQuery(),
+            search: selectedQuery,
           }}
           variant="tertiary"
         >

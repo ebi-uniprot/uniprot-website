@@ -18,10 +18,9 @@ import '../styles/overview.scss';
 
 const genomeAccessionDB = 'GenomeAccession' as const;
 
-export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
-  components,
-  id,
-}) => {
+export const Components: FC<
+  Pick<ProteomesAPIModel, 'components' | 'id' | 'proteinCount'>
+> = ({ components, id, proteinCount }) => {
   const [selectedEntries, handleItemSelection] = useItemSelect();
 
   if (!components?.length) {
@@ -77,8 +76,9 @@ export const Components: FC<Pick<ProteomesAPIModel, 'components' | 'id'>> = ({
   return (
     <Card title="Components">
       <ComponentsButtons
-        nComponents={components.length}
+        components={components}
         selectedEntries={selectedEntries}
+        proteinCount={proteinCount}
         id={id}
       />
       <DataTable
