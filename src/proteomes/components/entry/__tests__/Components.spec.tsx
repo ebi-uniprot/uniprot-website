@@ -9,7 +9,11 @@ describe('Components view', () => {
     const data = proteomesConverter(mockData);
     const { asFragment } = render(
       <Router>
-        <Components components={data.components} id={data.id} />
+        <Components
+          components={data.components}
+          id={data.id}
+          proteinCount={data.proteinCount}
+        />
       </Router>
     );
     expect(asFragment()).toMatchSnapshot();

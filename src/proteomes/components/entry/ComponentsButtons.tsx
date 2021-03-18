@@ -1,4 +1,4 @@
-import { FC, useState, Suspense, useEffect, useMemo } from 'react';
+import { FC, useState, Suspense, useMemo } from 'react';
 import { Button, DownloadIcon } from 'franklin-sites';
 
 import { Link } from 'react-router-dom';
@@ -108,7 +108,7 @@ const ComponentsButtons: FC<
           element={Link}
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: selectedQuery,
+            search: `query=${selectedQuery}`,
           }}
           variant="tertiary"
         >
