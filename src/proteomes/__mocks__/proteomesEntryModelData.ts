@@ -29,6 +29,14 @@ const mock: ProteomesAPIModel = {
           database: 'GenomeAssembly',
           id: 'ADFDA121',
         },
+        {
+          database: 'GenomeAccession',
+          id: 'ACA121',
+        },
+        {
+          database: 'GenomeAccession',
+          id: 'ACA122',
+        },
       ],
     },
   ],

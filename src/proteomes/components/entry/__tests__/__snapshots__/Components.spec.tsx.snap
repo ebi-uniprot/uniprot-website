@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Components view should render 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+  >
+    <div>
+      <div
+        class="card__header"
+      >
+        <h2
+          class="card__title"
+        >
+          Components
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <div
+          class="button-group"
+        >
+          <button
+            class="button tertiary"
+            type="button"
+          >
+            <test-file-stub />
+            Download
+          </button>
+          <a
+            class="button tertiary"
+            href="/uniprotkb?query=(proteome:UP000005640)"
+          >
+            View proteins
+          </a>
+        </div>
+        <table
+          class="data-table data-table--compact data-table--fixed"
+        >
+          <thead>
+            <tr>
+              <th
+                class="data-table__header-cell--checkbox"
+              >
+                 
+              </th>
+              <th
+                class=""
+              >
+                Component name
+              </th>
+              <th
+                class=""
+              >
+                Genome accession(s)
+              </th>
+              <th
+                class=""
+              >
+                Proteins
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input
+                  aria-label="name"
+                  data-id="name"
+                  type="checkbox"
+                />
+              </td>
+              <td
+                class="data-table__cell--ellipsis"
+              >
+                name
+              </td>
+              <td
+                class="data-table__cell--ellipsis"
+              >
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/ena/browser/view/ACA121"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ACA121
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+                , 
+                <a
+                  class="external-link"
+                  href="//www.ebi.ac.uk/ena/browser/view/ACA122"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  ACA122
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
+                </a>
+              </td>
+              <td
+                class="data-table__cell--ellipsis"
+              >
+                <a
+                  href="/uniprotkb?query=(proteome:UP000005640) AND (proteomecomponent:\\"name\\")"
+                >
+                  18
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

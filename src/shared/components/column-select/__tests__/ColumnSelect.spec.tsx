@@ -14,7 +14,6 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
 import '../../../../uniprotkb/components/__mocks__/mockApi';
-import { SearchResultsLocations } from '../../../../app/config/urls';
 import { nsToDefaultColumns } from '../../../config/columns';
 
 describe('ColumnSelect component', () => {
@@ -31,10 +30,11 @@ describe('ColumnSelect component', () => {
   beforeEach(async () => {
     onChange = jest.fn();
     rendered = renderWithRedux(
-      <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
-      {
-        route: SearchResultsLocations[namespace],
-      }
+      <ColumnSelect
+        onChange={onChange}
+        selectedColumns={selectedColumns}
+        namespace={namespace}
+      />
     );
     await waitFor(() => rendered.getAllByTestId('accordion-search-list-item'));
   });
@@ -104,31 +104,5 @@ describe('ColumnSelect component', () => {
       UniProtKBColumn.proteinExistence,
       UniProtKBColumn.proteinName,
     ]);
-  });
-
-  test('should throw an error when no namespace is provided', () => {
-    // Don't pollute the console with red warning text - we're already testing
-    // that we're throwing an error. This is reset after each test.
-    // eslint-disable-next-line no-console
-    console.error = jest.fn();
-    expect(() =>
-      renderWithRedux(
-        <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
-        {
-          route: '/',
-        }
-      )
-    ).toThrowError('No namespace provided');
-  });
-
-  test('should not raise an exception when no default or must have columns are listed', () => {
-    expect(() =>
-      renderWithRedux(
-        <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
-        {
-          route: `/${Namespace.keywords}`, // Keywords is not expected to have columns but is a valid namespace
-        }
-      )
-    ).not.toThrowError();
   });
 });

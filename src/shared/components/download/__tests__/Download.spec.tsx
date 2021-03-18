@@ -4,8 +4,6 @@ import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
 
 import Download, { getPreviewFileFormat } from '../Download';
 
-import { SearchResultsLocations } from '../../../../app/config/urls';
-
 import { FileFormat } from '../../../types/resultsDownload';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../types/namespaces';
@@ -41,10 +39,8 @@ describe('Download component', () => {
         selectedEntries={selectedEntries}
         totalNumberResults={10}
         onClose={onCloseMock}
-      />,
-      {
-        route: SearchResultsLocations[namespace],
-      }
+        namespace={namespace}
+      />
     );
   });
 
@@ -61,7 +57,9 @@ describe('Download component', () => {
   test('should call onClose and download link have href with JSON format when format is selected and Download button is clicked', () => {
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
-    const downloadLink = screen.getAllByText('Download')[1];
+    const downloadLink = screen.getAllByText(
+      'Download'
+    )[1] as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
     expect(onCloseMock).toHaveBeenCalled();
@@ -69,7 +67,9 @@ describe('Download component', () => {
 
   test('should call onClose and download link to have href without compressed=true when selected false in the form and Download button is clicked', () => {
     fireEvent.click(screen.getByLabelText('No'));
-    const downloadLink = screen.getAllByText('Download')[1];
+    const downloadLink = screen.getAllByText(
+      'Download'
+    )[1] as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(downloadLink.href).toEqual(
       expect.not.stringContaining('compressed')

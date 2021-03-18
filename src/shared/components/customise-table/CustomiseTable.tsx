@@ -3,6 +3,8 @@ import { Button } from 'franklin-sites';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
+import useNS from '../../hooks/useNS';
+
 import { Column } from '../../config/columns';
 
 import './styles/customise-table.scss';
@@ -17,6 +19,11 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
   onSave,
   selectedColumns: initialSelectedColumns,
 }) => {
+  const namespace = useNS();
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
+
   const [selectedColumns, setSelectedColumns] = useState(
     initialSelectedColumns || []
   );
@@ -40,7 +47,11 @@ const CustomiseTable: FC<CustomiseTableProps> = ({
       className="customise-table"
       data-testid="customise-table-form"
     >
-      <ColumnSelect onChange={handleChange} selectedColumns={selectedColumns} />
+      <ColumnSelect
+        onChange={handleChange}
+        selectedColumns={selectedColumns}
+        namespace={namespace}
+      />
       <div className="button-group sticky-bottom-right sliding-panel__button-row">
         <Button variant="secondary" type="button" onClick={handleCancel}>
           Cancel

@@ -7,6 +7,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   NCBI: (id) =>
     `https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=${id}`,
   ENA: (id) => `//www.ebi.ac.uk/ena/data/view/${id}`,
+  ENABrowser: (id) => `//www.ebi.ac.uk/ena/browser/view/${id}`,
   // protein centric
   InterPro: (id) => `https://www.ebi.ac.uk/interpro/protein/${id}`,
   Pfam: (id) => `http://pfam.xfam.org/protein/${id}`,

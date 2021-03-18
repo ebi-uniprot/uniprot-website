@@ -1,6 +1,8 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import GDPR from '../GDPR';
+
+import localStorageKeys from '../../../../app/config/localStorageKeys';
 
 describe('GDPR', () => {
   test('should render', () => {
@@ -9,16 +11,16 @@ describe('GDPR', () => {
   });
 
   test('should add UP_COVID_GDPR: true to localStorage', () => {
-    const { getByText } = render(<GDPR />);
-    const acceptButton = getByText('Accept');
+    render(<GDPR />);
+    const acceptButton = screen.getByText('Accept');
     fireEvent.click(acceptButton);
-    expect(localStorage.getItem('UP_COVID_GDPR')).toBe('true');
+    expect(localStorage.getItem(localStorageKeys.GDPR)).toBe('true');
   });
 
   test('if UP_COVID_GDPR in localStorage, do not render component', () => {
     localStorage.setItem('UP_COVID_GDPR', 'true');
-    const { queryByText } = render(<GDPR />);
-    const text = queryByText('Privacy Notice');
+    render(<GDPR />);
+    const text = screen.queryByText('Privacy Notice');
     expect(text).toBeNull();
   });
 });

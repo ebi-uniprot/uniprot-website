@@ -26,6 +26,7 @@ import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 import { Column, nsToDefaultColumns } from '../../config/columns';
 import { SearchResultsLocations } from '../../../app/config/urls';
+import localStorageKeys from '../../../app/config/localStorageKeys';
 
 import { mainNamespaces, Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
@@ -47,13 +48,13 @@ const Results: FC = () => {
   );
   const [selectedEntries, handleEntrySelection] = useItemSelect();
   const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    'view-mode',
+    localStorageKeys.viewMode,
     ViewMode.CARD
   );
 
   const [tableColumns, setTableColumns] =
     useLocalStorage<Column[]>(
-      `table columns for ${namespace}`,
+      localStorageKeys.tableColumns(namespace),
       namespace ? nsToDefaultColumns[namespace] : []
     ) || nsToDefaultColumns[namespace];
 
