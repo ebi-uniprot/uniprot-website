@@ -2,19 +2,19 @@
 
 exports[`Publication component should render 1`] = `
 <DocumentFragment>
-  <section
+  <article
     class="publication"
   >
-    <section
+    <div
       class="publication__columns"
     >
-      <section
+      <div
         class="publication__columns__main"
       >
         <h5>
           Complete sequencing and characterization of 21,243 full-length human cDNAs.
         </h5>
-        <section
+        <div
           class="publication__authors"
         >
           <a
@@ -82,8 +82,8 @@ exports[`Publication component should render 1`] = `
           >
             Sugano S.
           </a>
-        </section>
-        <section
+        </div>
+        <div
           class="publication__abstract"
         >
           <button
@@ -92,12 +92,12 @@ exports[`Publication component should render 1`] = `
           >
             View abstract [...]
           </button>
-        </section>
-      </section>
-      <section
+        </div>
+      </div>
+      <div
         class="publication__columns__side"
       >
-        <section
+        <div
           class="publication__columns__side__item"
         >
           <test-file-stub
@@ -148,25 +148,25 @@ exports[`Publication component should render 1`] = `
               </small>
             </li>
           </ul>
-        </section>
-        <section
+        </div>
+        <div
           class="publication__columns__side__item"
         >
-          <section
+          <div
             class="publication__statistics"
           >
-            <section
+            <div
               class="publication__statistics__item"
             >
               <a
                 href="/uniprotkb?query=(lit_pubmed:14702039)"
               >
-                <section>
+                <div>
                   <small>
                     Cited in
                   </small>
-                </section>
-                <section
+                </div>
+                <div
                   class="publication__statistics__bubble"
                 >
                   <span
@@ -178,13 +178,13 @@ exports[`Publication component should render 1`] = `
                     height="15"
                     width="15"
                   />
-                </section>
+                </div>
               </a>
-            </section>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
 </DocumentFragment>
 `;

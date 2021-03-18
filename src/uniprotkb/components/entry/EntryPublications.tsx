@@ -12,19 +12,19 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
-import formatCitationData, {
-  getCitationPubMedId,
-} from '../../adapters/literatureConverter';
-
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 
-import { LiteratureResultsAPI, Reference } from '../../types/literatureTypes';
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
 import { getDatabaseInfoByName } from '../../config/database';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
-import LiteratureCitation from '../../../shared/components/literature-citations/LiteratureCitation';
+import {
+  CitationsAPIModel,
+  getCitationPubMedId,
+  Reference,
+} from '../../../supporting-data/citations/adapters/citationsConverter';
+import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -95,7 +95,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   });
 
   const [url, setUrl] = useState(initialUrl);
-  const [allResults, setAllResults] = useState<LiteratureResultsAPI[]>([]);
+  const [allResults, setAllResults] = useState<CitationsAPIModel[]>([]);
   const [metaData, setMetaData] = useState<{
     total: number;
     nextUrl?: string;
@@ -103,7 +103,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   usePrefetch(metaData.nextUrl);
 
   const { data, loading, status, error, headers } = useDataApi<{
-    results: LiteratureResultsAPI[];
+    results: CitationsAPIModel[];
   }>(url);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   return (
     <section>
       <h2>Publications for {accession}</h2>
-      <DataListWithLoader<LiteratureResultsAPI>
+      <DataListWithLoader
         getIdKey={(item, index) => {
           const { citation } = item;
           const pubMedXref = getCitationPubMedId(citation);
@@ -150,18 +150,12 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           return id || `${index}`;
         }}
         data={allResults}
-        dataRenderer={({ references, statistics, citation }) => {
-          const { pubmedId, journalInfo } = formatCitationData(citation);
-
+        dataRenderer={(data) => {
+          const { references } = data;
           return (
+            references &&
             references.length > 0 && (
-              <LiteratureCitation
-                {...citation}
-                abstract={citation.literatureAbstract}
-                statistics={statistics}
-                pubmedId={pubmedId}
-                journalInfo={journalInfo}
-              >
+              <CitationCard data={data}>
                 {references.map((reference, index) => (
                   // No obvious key as there can be more than 1 for the same source
                   <PublicationReference
@@ -171,7 +165,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
                     accession={accession}
                   />
                 ))}
-              </LiteratureCitation>
+              </CitationCard>
             )
           );
         }}
