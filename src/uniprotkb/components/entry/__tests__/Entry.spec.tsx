@@ -5,7 +5,7 @@ import axios from 'axios';
 import { fireEvent, waitFor, screen } from '@testing-library/react';
 import joinUrl from 'url-join';
 
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import Entry from '../Entry';
 
@@ -80,7 +80,7 @@ let component;
 describe('Entry', () => {
   beforeEach(async () => {
     await act(async () => {
-      component = renderWithRedux(
+      component = customRender(
         <Route
           component={(props) => <Entry {...props} />}
           path="/uniprotkb/:accession"
@@ -112,7 +112,7 @@ describe('Entry', () => {
   });
 
   it('should render obsolete page for deleted entries', async () => {
-    component = renderWithRedux(
+    component = customRender(
       <Route
         component={(props) => <Entry {...props} />}
         path="/uniprotkb/:accession"
@@ -128,7 +128,7 @@ describe('Entry', () => {
   });
 
   it('should render obsolete page for demerged entries', async () => {
-    component = renderWithRedux(
+    component = customRender(
       <Route
         component={(props) => <Entry {...props} />}
         path="/uniprotkb/:accession"

@@ -8,11 +8,11 @@ import CatalyticActivityView, {
 } from '../CatalyticActivityView';
 import catalyticActivityUIDataJson from './__mocks__/catalyticActivityUIData.json';
 import { removeProperty } from '../../../../shared/utils/utils';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 describe('CatalyticActivityView component', () => {
   test('should render catalytic activity', () => {
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = customRender(
       <CatalyticActivityView
         comments={catalyticActivityUIDataJson}
         title="Catalytic activity"
@@ -26,7 +26,7 @@ describe('CatalyticActivityView component', () => {
       ...comment,
       reaction: removeProperty(comment.reaction, 'reactionCrossReferences'),
     };
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = customRender(
       <CatalyticActivityView comments={[commentWithoutReactionReferences]} />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -74,7 +74,7 @@ describe('ReactionDirection component', () => {
   });
 
   test('should render ReactionDirection when one physiologicalReactions is present', () => {
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = customRender(
       <ReactionDirection
         physiologicalReactions={physiologicalReactions.slice(0, 1)}
       />
@@ -83,7 +83,7 @@ describe('ReactionDirection component', () => {
   });
 
   test('should render ReactionDirection when two physiologicalReactions are present and should be in correct order (forwards then backwards)', () => {
-    const { asFragment, getAllByTestId } = renderWithRedux(
+    const { asFragment, getAllByTestId } = customRender(
       <ReactionDirection physiologicalReactions={physiologicalReactions} />
     );
     expect(asFragment()).toMatchSnapshot();
@@ -95,7 +95,7 @@ describe('ReactionDirection component', () => {
   test('should not render a ReactionDirection when more than two physiologicalReactions are present and to have raised the approriate error in the console', () => {
     // eslint-disable-next-line no-console
     console.error = jest.fn();
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = customRender(
       <ReactionDirection
         physiologicalReactions={[
           ...physiologicalReactions,

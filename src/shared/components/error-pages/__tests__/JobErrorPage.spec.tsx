@@ -1,10 +1,10 @@
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import JobErrorPage from '../JobErrorPage';
 
 describe('JobErrorPage component', () => {
   test('should render', () => {
-    const { asFragment } = renderWithRedux(<JobErrorPage />);
+    const { asFragment } = customRender(<JobErrorPage />);
     expect(asFragment()).toMatchSnapshot();
   });
 });

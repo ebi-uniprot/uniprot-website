@@ -24,23 +24,19 @@ type ExtraRenderOptions = {
   // For custom user preferences context
   initialUserPreferences?: UserPreferences;
   // For redux
-  initialState?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   store?: any;
 };
 
 const Wrapper: FC<
   RenderOptions &
-    SetRequired<ExtraRenderOptions, 'history' | 'initialUserPreferences'>
-> = ({
-  children,
-  path,
-  history,
-  initialUserPreferences,
-  initialState,
-  store,
-}) => (
+    SetRequired<
+      ExtraRenderOptions,
+      'history' | 'initialUserPreferences' | 'store'
+    >
+> = ({ children, path, history, initialUserPreferences, store }) => (
   <UserPreferencesProvider initialState={initialUserPreferences}>
-    <ReduxProvider store={store || createStore(rootReducer, initialState)}>
+    <ReduxProvider store={store}>
       <Router history={history}>
         {path ? <Route path={path} render={() => children} /> : children}
       </Router>
@@ -55,10 +51,14 @@ const customRender = (
     path,
     history = createMemoryHistory({ initialEntries: [route] }),
     initialUserPreferences = {},
+    initialState,
+    store = createStore(rootReducer, initialState),
     ...options
   }: RenderOptions &
     ExtraRenderOptions & {
       route?: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      initialState?: any;
     } = {}
 ) => ({
   ...render(ui, {
@@ -67,12 +67,14 @@ const customRender = (
         path={path}
         history={history}
         initialUserPreferences={initialUserPreferences}
+        store={store}
         {...props}
       />
     ),
     ...options,
   }),
   history,
+  store,
 });
 
 export default customRender;

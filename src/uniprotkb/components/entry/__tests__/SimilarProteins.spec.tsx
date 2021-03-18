@@ -3,7 +3,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import SimilarProteins from '../similar-proteins/SimilarProteins';
 
@@ -21,7 +21,7 @@ let historyMock;
 describe('SimilarProteins tests', () => {
   beforeEach(async () => {
     await act(async () => {
-      const { history } = renderWithRedux(
+      const { history } = customRender(
         <SimilarProteins
           primaryAccession="P05067"
           isoforms={{ isoforms: ['P05067-4'] }}

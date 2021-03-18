@@ -7,7 +7,7 @@ import {
 
 import ColumnSelect from '../ColumnSelect';
 
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
@@ -30,7 +30,7 @@ describe('ColumnSelect component', () => {
 
   beforeEach(async () => {
     onChange = jest.fn();
-    rendered = renderWithRedux(
+    rendered = customRender(
       <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
       {
         route: SearchResultsLocations[namespace],
@@ -112,7 +112,7 @@ describe('ColumnSelect component', () => {
     // eslint-disable-next-line no-console
     console.error = jest.fn();
     expect(() =>
-      renderWithRedux(
+      customRender(
         <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
         {
           route: '/',
@@ -123,7 +123,7 @@ describe('ColumnSelect component', () => {
 
   test('should not raise an exception when no default or must have columns are listed', () => {
     expect(() =>
-      renderWithRedux(
+      customRender(
         <ColumnSelect onChange={onChange} selectedColumns={selectedColumns} />,
         {
           route: `/${Namespace.keywords}`, // Keywords is not expected to have columns but is a valid namespace

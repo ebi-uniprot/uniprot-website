@@ -1,6 +1,6 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import Download, { getPreviewFileFormat } from '../Download';
 
@@ -30,7 +30,7 @@ describe('Download component', () => {
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   const onCloseMock = jest.fn();
   beforeEach(() => {
-    renderWithRedux(
+    customRender(
       <Download
         query={query}
         selectedColumns={[
