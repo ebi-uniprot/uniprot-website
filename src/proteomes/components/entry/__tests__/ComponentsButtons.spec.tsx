@@ -3,26 +3,32 @@ import { MemoryRouter as Router } from 'react-router-dom';
 import queryString from 'query-string';
 
 import ComponentsButtons from '../ComponentsButtons';
+import { Component } from '../../../adapters/proteomesConverter';
 
 describe('ComponentsButtons', () => {
   // [nComponents, selectedComponents, expected query]
-  const testCases: [number, string[], string][] = [
-    [1, [], '(proteome:id)'],
-    [1, ['a'], '(proteome:id)'],
-    [2, [], '(proteome:id)'],
-    [2, ['a'], '(proteome:id) AND (proteomecomponent:"a")'],
-    [2, ['a', 'b'], '(proteome:id)'],
+  const getComponents = (n: number) =>
+    Array.from({ length: n }, () => ({
+      proteinCount: 1,
+    }));
+  const testCases: [Pick<Component, 'proteinCount'>[], string[], string][] = [
+    [getComponents(1), [], '(proteome:id)'],
+    [getComponents(1), ['a'], '(proteome:id)'],
+    [getComponents(2), [], '(proteome:id)'],
+    [getComponents(2), ['a'], '(proteome:id) AND (proteomecomponent:"a")'],
+    [getComponents(2), ['a', 'b'], '(proteome:id)'],
   ];
 
   test.each(testCases)(
     'should create correct view link and text with %p components and selected components: %p',
-    (nComponents, selectedComponents, expectedQuery) => {
+    (components, selectedComponents, expectedQuery) => {
       render(
         <Router>
           <ComponentsButtons
             id="id"
-            nComponents={nComponents}
+            components={components as Component[]}
             selectedEntries={selectedComponents}
+            proteinCount={100}
           />
         </Router>
       );
@@ -38,4 +44,13 @@ describe('ComponentsButtons', () => {
       expect(query).toMatch(expectedQuery);
     }
   );
+
+  it('should render nothing when no components are passed', () => {
+    const { container } = render(
+      <Router>
+        <ComponentsButtons id="id" proteinCount={100} selectedEntries={[]} />
+      </Router>
+    );
+    expect(container.firstChild).toBeNull();
+  });
 });
