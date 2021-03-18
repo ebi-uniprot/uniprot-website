@@ -46,7 +46,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   namespace,
 }) => {
   const primaryKeyColumn = nsToPrimaryKeyColumn[namespace] as Column;
-  const defaultColumns = nsToDefaultColumns[namespace] as Column[];
+  const defaultColumns = nsToDefaultColumns[namespace];
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -56,7 +56,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   );
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([primaryKeyColumn as Column, ...columns]);
+      onChange([primaryKeyColumn, ...columns]);
     },
     [primaryKeyColumn, onChange]
   );

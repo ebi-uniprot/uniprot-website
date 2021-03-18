@@ -1,4 +1,4 @@
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import AlignmentOverview from '../AlignmentOverview';
 
@@ -8,7 +8,7 @@ describe('AlignmentOverview', () => {
   describe('BLAST', () => {
     let rendered;
     beforeEach(() => {
-      rendered = renderWithRedux(
+      rendered = customRender(
         <AlignmentOverview
           data={mockData.data}
           height="10"
@@ -24,7 +24,7 @@ describe('AlignmentOverview', () => {
     });
 
     it('should not render when data is missing from the props', () => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <AlignmentOverview
           data={[]}
           height="10"

@@ -7,7 +7,7 @@ exports[`GDPR should render 1`] = `
   >
     We'd like to inform you that we have updated our 
     <a
-      href="https://www.uniprot.org/help/privacy"
+      href="/help/privacy"
     >
       Privacy Notice
     </a>

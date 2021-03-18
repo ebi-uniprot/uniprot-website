@@ -1,11 +1,9 @@
-import { Suspense, useState, FC } from 'react';
+import { Suspense, useState } from 'react';
 import { Button, EditIcon } from 'franklin-sites';
 
 import SlidingPanel, { Position } from '../layouts/SlidingPanel';
 
 import lazy from '../../utils/lazy';
-
-import { Column } from '../../config/columns';
 
 const CustomiseComponent = lazy(
   () =>
@@ -14,15 +12,7 @@ const CustomiseComponent = lazy(
     )
 );
 
-type CustomiseButtonProps = {
-  tableColumns: Column[];
-  onTableColumnsChange: (columns: Column[]) => void;
-};
-
-const CustomiseButton: FC<CustomiseButtonProps> = ({
-  tableColumns,
-  onTableColumnsChange,
-}) => {
+const CustomiseButton = () => {
   const [displayCustomisePanel, setDisplayCustomisePanel] = useState(false);
 
   return (
@@ -35,11 +25,7 @@ const CustomiseButton: FC<CustomiseButtonProps> = ({
             onClose={() => setDisplayCustomisePanel(false)}
           >
             <CustomiseComponent
-              selectedColumns={tableColumns}
-              onSave={(columns) => {
-                onTableColumnsChange(columns);
-                setDisplayCustomisePanel(false);
-              }}
+              onSave={() => setDisplayCustomisePanel(false)}
             />
           </SlidingPanel>
         </Suspense>

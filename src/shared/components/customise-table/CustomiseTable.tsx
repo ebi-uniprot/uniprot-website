@@ -1,62 +1,47 @@
-import { useState, FC, FormEvent } from 'react';
+import { FC, FormEvent } from 'react';
 import { Button } from 'franklin-sites';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import useNS from '../../hooks/useNS';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
-import { Column } from '../../config/columns';
+import { nsToDefaultColumns } from '../../config/columns';
+
+import { Namespace } from '../../types/namespaces';
 
 import './styles/customise-table.scss';
 import '../../styles/sticky.scss';
 
 type CustomiseTableProps = {
-  onSave: (selectedColumns: Column[]) => void;
-  selectedColumns?: Column[] | null;
+  onSave: () => void;
 };
 
-const CustomiseTable: FC<CustomiseTableProps> = ({
-  onSave,
-  selectedColumns: initialSelectedColumns,
-}) => {
-  const namespace = useNS();
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
-
-  const [selectedColumns, setSelectedColumns] = useState(
-    initialSelectedColumns || []
+const CustomiseTable: FC<CustomiseTableProps> = ({ onSave }) => {
+  const namespace = useNS() || Namespace.uniprotkb;
+  const [columns, setColumns] = useUserPreferences(
+    `table columns for ${namespace}` as const,
+    nsToDefaultColumns[namespace]
   );
 
-  const handleChange = (columnIds: Column[]) => {
-    setSelectedColumns(columnIds);
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSave(selectedColumns);
-  };
-
-  const handleCancel = () => {
-    onSave(initialSelectedColumns || []);
+    onSave();
   };
 
   return (
     <form
       onSubmit={handleSubmit}
       className="customise-table"
-      data-testid="customise-table-form"
+      aria-label={`Customise ${namespace} result table columns form`}
     >
       <ColumnSelect
-        onChange={handleChange}
-        selectedColumns={selectedColumns}
+        onChange={setColumns}
+        selectedColumns={columns}
         namespace={namespace}
       />
       <div className="button-group sticky-bottom-right sliding-panel__button-row">
-        <Button variant="secondary" type="button" onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button type="submit">Save</Button>
+        <Button type="submit">Close</Button>
       </div>
     </form>
   );

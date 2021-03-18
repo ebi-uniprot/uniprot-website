@@ -1,27 +1,22 @@
 import { FC, useState, Suspense, useMemo } from 'react';
-import { Button, DownloadIcon } from 'franklin-sites';
-
 import { Link } from 'react-router-dom';
+import { Button, DownloadIcon } from 'franklin-sites';
 
 import SlidingPanel, {
   Position,
 } from '../../../shared/components/layouts/SlidingPanel';
 
-import useLocalStorage from '../../../shared/hooks/useLocalStorage';
-
 import lazy from '../../../shared/utils/lazy';
 
-import localStorageKeys from '../../../app/config/localStorageKeys';
-import { Column, nsToDefaultColumns } from '../../../shared/config/columns';
-import { LocationToPath, Location } from '../../../app/config/urls';
+import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 
+import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import {
   Component,
   ProteomesAPIModel,
 } from '../../adapters/proteomesConverter';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
-import { createSelectedQueryString } from '../../../shared/config/apiUrls';
 
 const DownloadComponent = lazy(
   () =>
@@ -36,11 +31,6 @@ const ComponentsButtons: FC<
   }
 > = ({ id, components, selectedEntries, proteinCount }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const defaultColumns = nsToDefaultColumns[Namespace.uniprotkb];
-  const [tableColumns] = useLocalStorage<Column[]>(
-    localStorageKeys.tableColumns(Namespace.uniprotkb),
-    defaultColumns || []
-  );
 
   const allQuery = `(${UniProtKBColumn.proteome}:${id})`;
   const selectedQuery = useMemo(
@@ -83,7 +73,6 @@ const ComponentsButtons: FC<
               query={allQuery}
               selectedEntries={selectedEntries}
               selectedQuery={selectedQuery}
-              selectedColumns={tableColumns || defaultColumns}
               numberSelectedEntries={numberSelectedProteins || 10} // TODO: this hardcoded number is temporary until proteinCount is available in the API
               totalNumberResults={proteinCount || 1000} // TODO: ☝️ Same as above
               onClose={() => setDisplayDownloadPanel(false)}

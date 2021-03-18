@@ -2,7 +2,7 @@ import { screen, fireEvent } from '@testing-library/react';
 
 import UniProtKBCard from '../UniProtKBCard';
 
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
 
@@ -14,7 +14,7 @@ let rendered;
 
 describe('UniProtKBCard component', () => {
   beforeEach(() => {
-    rendered = renderWithRouter(
+    rendered = customRender(
       <UniProtKBCard
         // TODO: check mock data to see if it fits model, something's off...
         data={data as UniProtkbAPIModel}

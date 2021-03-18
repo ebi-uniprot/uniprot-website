@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react';
 
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import AlignmentView, { Tool, View } from '../AlignmentView';
 
@@ -14,7 +14,7 @@ describe('AlignmentView', () => {
     beforeEach(() => {
       resetUuidV1();
       alignment = mockData.BLAST;
-      rendered = renderWithRedux(
+      rendered = customRender(
         <div className="main-content-and-footer">
           <AlignmentView
             alignment={alignment}
@@ -53,7 +53,7 @@ describe('AlignmentView', () => {
     beforeEach(() => {
       resetUuidV1();
       alignment = mockData.Align;
-      rendered = renderWithRedux(
+      rendered = customRender(
         <div className="main-content-and-footer">
           <AlignmentView
             alignment={alignment}

@@ -1,16 +1,10 @@
-import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from 'franklin-sites';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
-import localStorageKeys from '../../../app/config/localStorageKeys';
-
-import './styles/gdpr.scss';
-
-const GDPR: FC = () => {
-  const [token, setToken] = useLocalStorage<boolean>(
-    localStorageKeys.GDPR,
-    false
-  );
+const GDPR = () => {
+  const [token, setToken] = useUserPreferences<null | boolean>('gdpr', null);
 
   if (token === true) {
     return null;
@@ -19,17 +13,13 @@ const GDPR: FC = () => {
   return (
     <div className="gdpr-section">
       {`We'd like to inform you that we have updated our `}
-      <a href="https://www.uniprot.org/help/privacy">Privacy Notice</a>
+      <Link to="/help/privacy">Privacy Notice</Link>
       {` to
       comply with Europe’s new General Data Protection Regulation (GDPR) that
       applies since 25 May 2018.`}
-      <button
-        type="button"
-        className="button secondary"
-        onClick={() => setToken(true)}
-      >
+      <Button variant="secondary" onClick={() => setToken(true)}>
         Accept
-      </button>
+      </Button>
     </div>
   );
 };

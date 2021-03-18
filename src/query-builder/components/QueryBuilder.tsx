@@ -200,6 +200,7 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
         className="query-builder"
         onSubmit={handleSubmit}
         data-testid="query-builder-form"
+        aria-label="Query builder form"
         style={style}
       >
         <fieldset>

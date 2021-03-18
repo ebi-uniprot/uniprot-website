@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
 import ResultsView from './ResultsView';
@@ -12,21 +12,16 @@ import SideBarLayout from '../layouts/SideBarLayout';
 import useItemSelect from '../../hooks/useItemSelect';
 
 import {
-  getLocationObjForParams,
   getParamsFromURL,
   getSortableColumnToSortColumn,
 } from '../../../uniprotkb/utils/resultsUtils';
 
-import useLocalStorage from '../../hooks/useLocalStorage';
 import useDataApi from '../../hooks/useDataApi';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNS from '../../hooks/useNS';
 
 import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
-import { Column, nsToDefaultColumns } from '../../config/columns';
-import { SearchResultsLocations } from '../../../app/config/urls';
-import localStorageKeys from '../../../app/config/localStorageKeys';
 
 import { mainNamespaces, Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
@@ -41,22 +36,11 @@ export enum ViewMode {
 
 const Results: FC = () => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const history = useHistory();
   const { search: queryParamFromUrl } = useLocation();
   const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
     queryParamFromUrl
   );
   const [selectedEntries, handleEntrySelection] = useItemSelect();
-  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
-    localStorageKeys.viewMode,
-    ViewMode.CARD
-  );
-
-  const [tableColumns, setTableColumns] =
-    useLocalStorage<Column[]>(
-      localStorageKeys.tableColumns(namespace),
-      namespace ? nsToDefaultColumns[namespace] : []
-    ) || nsToDefaultColumns[namespace];
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data
@@ -67,9 +51,6 @@ const Results: FC = () => {
     () => getSortableColumnToSortColumn(dataResultFields),
     [dataResultFields]
   );
-
-  const columns =
-    viewMode === ViewMode.TABLE && tableColumns ? tableColumns : undefined;
 
   const initialApiUrl = getAPIQueryUrl({
     namespace,
@@ -104,24 +85,6 @@ const Results: FC = () => {
     return <NoResultsPage />;
   }
 
-  const handleTableColumnsChange = (columns: Column[]) => {
-    if (
-      sortColumn &&
-      !columns.some(
-        (column) => sortableColumnToSortColumn?.get(column) === sortColumn
-      )
-    ) {
-      history.push(
-        getLocationObjForParams({
-          pathname: SearchResultsLocations[namespace],
-          query,
-          selectedFacets,
-        })
-      );
-    }
-    setTableColumns(columns);
-  };
-
   const { name, links, info } = infoMappings[namespace];
 
   return (
@@ -132,20 +95,14 @@ const Results: FC = () => {
         </PageIntro>
       }
       actionButtons={
-        tableColumns && (
-          <ResultsButtons
-            viewMode={viewMode ?? ViewMode.CARD}
-            setViewMode={setViewMode}
-            query={query}
-            selectedFacets={selectedFacets}
-            selectedEntries={selectedEntries}
-            sortColumn={sortColumn}
-            sortDirection={sortDirection}
-            total={total || 0}
-            tableColumns={tableColumns}
-            onTableColumnsChange={handleTableColumnsChange}
-          />
-        )
+        <ResultsButtons
+          query={query}
+          selectedFacets={selectedFacets}
+          selectedEntries={selectedEntries}
+          sortColumn={sortColumn}
+          sortDirection={sortDirection}
+          total={total || 0}
+        />
       }
       sidebar={
         loading && !data?.facets ? (
@@ -156,10 +113,8 @@ const Results: FC = () => {
       }
     >
       <ResultsView
-        columns={columns}
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
-        viewMode={viewMode ?? ViewMode.CARD}
         sortableColumnToSortColumn={sortableColumnToSortColumn}
       />
     </SideBarLayout>

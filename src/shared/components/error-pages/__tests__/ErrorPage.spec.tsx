@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import ErrorPage from '../ErrorPage';
 
@@ -8,7 +8,7 @@ import ArtWork from '../svgs/error.svg';
 
 describe('ErrorPage component', () => {
   test('should render', () => {
-    const { asFragment } = renderWithRedux(
+    const { asFragment } = customRender(
       <ErrorPage
         artwork={<ArtWork />}
         message="test message"

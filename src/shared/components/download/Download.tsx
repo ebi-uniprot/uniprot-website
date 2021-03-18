@@ -6,8 +6,14 @@ import ColumnSelect from '../column-select/ColumnSelect';
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
 
+import useUserPreferences from '../../hooks/useUserPreferences';
+
 import { getDownloadUrl } from '../../config/apiUrls';
-import { Column, nsToPrimaryKeyColumn } from '../../config/columns';
+import {
+  Column,
+  nsToDefaultColumns,
+  nsToPrimaryKeyColumn,
+} from '../../config/columns';
 import {
   fileFormatsWithColumns,
   fileFormatToContentType,
@@ -20,10 +26,10 @@ import {
 } from '../../../uniprotkb/types/resultsTypes';
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
+import { Namespace } from '../../types/namespaces';
 
 import './styles/download.scss';
 import '../../styles/sticky.scss';
-import { Namespace } from '../../types/namespaces';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
@@ -31,7 +37,6 @@ export const getPreviewFileFormat = (fileFormat: FileFormat) =>
 type DownloadProps = {
   query: string;
   selectedFacets?: SelectedFacet[];
-  selectedColumns?: Column[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
   selectedEntries?: string[];
@@ -46,7 +51,6 @@ const Download: FC<DownloadProps> = ({
   query,
   selectedQuery,
   selectedFacets = [],
-  selectedColumns: initialSelectedColumns = [],
   sortColumn,
   sortDirection,
   selectedEntries = [],
@@ -55,10 +59,14 @@ const Download: FC<DownloadProps> = ({
   onClose,
   namespace,
 }) => {
-  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
-  const [selectedColumns, setSelectedColumns] = useState<Column[]>(
-    initialSelectedColumns
+  const [columns] = useUserPreferences(
+    `table columns for ${namespace}` as const,
+    nsToDefaultColumns[namespace]
   );
+
+  const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
+
+  const [selectedColumns, setSelectedColumns] = useState<Column[]>(columns);
   const [downloadAll, setDownloadAll] = useState(true);
   const [fileFormat, setFileFormat] = useState(fileFormats[0]);
   const [compressed, setCompressed] = useState(true);
@@ -76,7 +84,7 @@ const Download: FC<DownloadProps> = ({
 
   const downloadUrl = getDownloadUrl({
     query: urlQuery,
-    columns: selectedColumns,
+    columns,
     selectedFacets,
     sortColumn,
     sortDirection,
@@ -101,7 +109,7 @@ const Download: FC<DownloadProps> = ({
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewUrl = getDownloadUrl({
     query: urlQuery,
-    columns: selectedColumns,
+    columns,
     selectedFacets,
     sortColumn,
     sortDirection,
@@ -205,9 +213,8 @@ const Download: FC<DownloadProps> = ({
       </fieldset>
       <fieldset>
         <legend>Compressed</legend>
-        <label htmlFor="compressed-true">
+        <label>
           <input
-            id="compressed-true"
             type="radio"
             name="compressed"
             value="true"
@@ -216,9 +223,8 @@ const Download: FC<DownloadProps> = ({
           />
           Yes
         </label>
-        <label htmlFor="compressed-false">
+        <label>
           <input
-            id="compressed-false"
             type="radio"
             name="compressed"
             value="false"

@@ -6,7 +6,7 @@ import diseasesConverter, {
   DiseasesAPIModel,
   DiseasesUIModel,
 } from '../../adapters/diseasesConverter';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/diseasesModelData';
 
@@ -23,7 +23,7 @@ describe('DiseasesColumnConfiguration component', () => {
   test.each(Array.from(DiseasesColumnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
