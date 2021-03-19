@@ -12,7 +12,7 @@ import { Namespace } from '../../types/namespaces';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
 import TaxonomyLightView from '../views/TaxonomyView';
 import {
-  isLineage,
+  isOfLineageType,
   Lineage,
   TaxonomyDatum,
 } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
@@ -24,8 +24,9 @@ type TaxonomyDataProps = {
 export const TaxonomyLineage: FC<{ lineage: Lineage | string[] }> = ({
   lineage,
 }) => {
-  if (isLineage(lineage)) {
-    return <></>;
+  if (isOfLineageType(lineage)) {
+    // TODO implement render for Lineage type
+    return null;
   }
   return <>{lineage.join(' > ')}</>;
 };

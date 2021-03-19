@@ -22,7 +22,9 @@ type Strain = {
 export type Lineage = Array<SetRequired<TaxonomyDatum, 'hidden' | 'rank'>>;
 
 // Temporary function to check lineage type while backend unifies its model
-export const isLineage = (lineage: Lineage | string[]): lineage is Lineage => {
+export const isOfLineageType = (
+  lineage: Lineage | string[]
+): lineage is Lineage => {
   if ((lineage as Lineage).some((item) => item.taxonId)) {
     return true;
   }
