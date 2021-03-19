@@ -1,9 +1,12 @@
 import { Card } from 'franklin-sites';
 import { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getEntryPath } from '../../../../app/config/urls';
+
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import RenderColumnInCard from '../../../../shared/components/results/RenderColumnInCard';
+
+import { getEntryPath } from '../../../../app/config/urls';
+
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
