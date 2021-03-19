@@ -1528,7 +1528,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
   <a
     href="/taxonomy/9606"
   >
-    scientific name (common name)  (synonyms 1)
+    scientific name (common name) (synonyms 1)
   </a>
 </DocumentFragment>
 `;
@@ -2095,7 +2095,7 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
         <a
           href="/taxonomy/9606"
         >
-          scientific name (common name)  (synonyms 1)
+          scientific name (common name) (synonyms 1)
         </a>
       </p>
     </li>

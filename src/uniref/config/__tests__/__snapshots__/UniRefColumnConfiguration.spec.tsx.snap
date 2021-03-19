@@ -4,7 +4,6 @@ exports[`UniRefColumnConfiguration component should render column "common_taxon"
 <DocumentFragment>
   <a
     href="/taxonomy/1305"
-    title="Streptococcus sanguinis, taxon ID 1305"
   >
     Streptococcus sanguinis
   </a>
@@ -15,7 +14,6 @@ exports[`UniRefColumnConfiguration component should render column "common_taxoni
 <DocumentFragment>
   <a
     href="/taxonomy/1305"
-    title="Streptococcus sanguinis, taxon ID 1305"
   >
     1305
   </a>
@@ -94,7 +92,6 @@ exports[`UniRefColumnConfiguration component should render column "organism": or
     <li>
       <a
         href="/taxonomy/1305"
-        title="Streptococcus sanguinis, taxon ID 1305"
       >
         Streptococcus sanguinis
       </a>
@@ -111,7 +108,6 @@ exports[`UniRefColumnConfiguration component should render column "organism_id":
     <li>
       <a
         href="/taxonomy/1305"
-        title="Streptococcus sanguinis, taxon ID 1305"
       >
         Streptococcus sanguinis
       </a>

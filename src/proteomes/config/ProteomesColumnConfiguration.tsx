@@ -6,7 +6,7 @@ import { capitalize } from 'lodash-es';
 import BuscoView from '../components/BuscoView';
 import BuscoLegend from '../components/BuscoLegend';
 import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyLightView from '../../shared/components/views/TaxonomyView';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import BuscoAbbr from '../components/BuscoAbbr';
 
 import { getEntryPath, LocationToPath, Location } from '../../app/config/urls';
@@ -63,14 +63,12 @@ ProteomesColumnConfiguration.set(ProteomesColumn.upid, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organismID, {
   label: 'Organism ID',
-  render: ({ taxonomy }) => (
-    <TaxonomyLightView organism={taxonomy} displayOnlyID />
-  ),
+  render: ({ taxonomy }) => <TaxonomyView data={taxonomy} displayOnlyID />,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
   label: 'Organism',
-  render: ({ taxonomy }) => <TaxonomyLightView organism={taxonomy} />,
+  render: ({ taxonomy }) => <TaxonomyView data={taxonomy} />,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {

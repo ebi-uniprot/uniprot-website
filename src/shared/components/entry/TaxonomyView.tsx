@@ -10,7 +10,6 @@ import { getEntryPath } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import TaxonomyLightView from '../views/TaxonomyView';
 import {
   isOfLineageType,
   Lineage,
@@ -19,6 +18,8 @@ import {
 
 type TaxonomyDataProps = {
   data: TaxonomyDatum;
+  displayOnlyID?: boolean;
+  className?: string;
 };
 
 export const TaxonomyLineage: FC<{ lineage: Lineage | string[] }> = ({
@@ -45,19 +46,27 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   );
 };
 
-const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
-  if (!data?.taxonId) {
+const TaxonomyView: FC<TaxonomyDataProps> = ({
+  data,
+  displayOnlyID,
+  className,
+}) => {
+  if (!data.taxonId) {
+    // eslint-disable-next-line no-console
+    console.warn("No taxon ID, this shouldn't happen", data);
     return null;
   }
+  const { scientificName, commonName, taxonId, synonyms } = data;
 
-  const termValue = `${data.scientificName}${
-    data.commonName ? ` (${data.commonName})` : ''
-  } ${data.synonyms?.length ? ` (${data.synonyms.join(', ')})` : ''}`;
+  const termValue = `${scientificName}${commonName ? ` (${commonName})` : ''}${
+    synonyms?.length ? ` (${synonyms.join(', ')})` : ''
+  }`;
 
   return (
     <SimpleView
-      termValue={termValue}
+      termValue={displayOnlyID ? String(taxonId) : termValue}
       linkTo={getEntryPath(Namespace.taxonomy, data.taxonId)}
+      className={className}
     />
   );
 };
@@ -75,7 +84,7 @@ export const TaxonomyListView: FC<{
       title: 'Organism',
       content: (
         <>
-          <TaxonomyLightView organism={data} />
+          <TaxonomyView data={data} />
           {data.evidences?.length ? (
             <UniProtKBEvidenceTag evidences={data.evidences} />
           ) : null}

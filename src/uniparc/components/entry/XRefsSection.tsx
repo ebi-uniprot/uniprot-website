@@ -7,11 +7,11 @@ import {
   Loader,
 } from 'franklin-sites';
 
-import TaxonomyLightView from '../../../shared/components/views/TaxonomyView';
 import {
   EntryTypeIcon,
   EntryType,
 } from '../../../shared/components/entry/EntryTypeIcon';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
@@ -132,8 +132,8 @@ const getColumns = (
     name: UniParcColumn.organismID,
     render: (xref) =>
       xref.organism && (
-        <TaxonomyLightView
-          organism={xref.organism}
+        <TaxonomyView
+          data={xref.organism}
           displayOnlyID
           className={xref.active ? undefined : 'xref-inactive'}
         />
@@ -144,8 +144,8 @@ const getColumns = (
     name: UniParcColumn.organism,
     render: (xref) =>
       xref.organism && (
-        <TaxonomyLightView
-          organism={xref.organism}
+        <TaxonomyView
+          data={xref.organism}
           className={xref.active ? undefined : 'xref-inactive'}
         />
       ),

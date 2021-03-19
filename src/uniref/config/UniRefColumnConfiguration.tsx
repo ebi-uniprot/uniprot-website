@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { Button, LongNumber, Sequence } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
-import TaxonomyLightView from '../../shared/components/views/TaxonomyView';
 
 import { getEntryPath } from '../../app/config/urls';
 
@@ -10,6 +9,7 @@ import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 export enum UniRefColumn {
   id = 'id',
@@ -60,13 +60,13 @@ UniRefColumnConfiguration.set(UniRefColumn.name, {
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxon, {
   label: 'Common taxon',
   render: ({ commonTaxon }) =>
-    commonTaxon && <TaxonomyLightView organism={commonTaxon} />,
+    commonTaxon && <TaxonomyView data={commonTaxon} />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.commonTaxonId, {
   label: 'Common taxon ID',
   render: ({ commonTaxon }) =>
-    commonTaxon && <TaxonomyLightView organism={commonTaxon} displayOnlyID />,
+    commonTaxon && <TaxonomyView data={commonTaxon} displayOnlyID />,
 });
 
 UniRefColumnConfiguration.set(UniRefColumn.organismId, {
@@ -77,7 +77,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organismId, {
       <ul className="no-bullet">
         {organisms.slice(0, CUT_OFF).map((organism) => (
           <li key={organism.taxonId}>
-            <TaxonomyLightView organism={organism} />
+            <TaxonomyView data={organism} />
           </li>
         ))}
         {organisms.length > CUT_OFF && (
@@ -101,7 +101,7 @@ UniRefColumnConfiguration.set(UniRefColumn.organism, {
       <ul className="no-bullet">
         {organisms.slice(0, CUT_OFF).map((organism) => (
           <li key={organism.taxonId}>
-            <TaxonomyLightView organism={organism} />
+            <TaxonomyView data={organism} />
           </li>
         ))}
         {organisms.length > CUT_OFF && (

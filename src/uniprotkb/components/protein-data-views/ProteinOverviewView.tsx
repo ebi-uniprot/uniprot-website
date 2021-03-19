@@ -3,9 +3,9 @@ import { FC, ReactNode } from 'react';
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from './AnnotationScoreDoughnutChart';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import TaxonomyLightView from '../../../shared/components/views/TaxonomyView';
 
 const ProteinOverview: FC<{
   // Note: it would be good to eventually use RenderColumnInCard here
@@ -37,7 +37,7 @@ const ProteinOverview: FC<{
   ) {
     organismNameNode = (
       <>
-        <TaxonomyLightView organism={data.organism} />
+        <TaxonomyView data={data.organism} />
         {' · '}
       </>
     );
