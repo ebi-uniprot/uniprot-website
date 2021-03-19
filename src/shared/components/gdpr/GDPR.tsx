@@ -3,6 +3,8 @@ import { Button } from 'franklin-sites';
 
 import useUserPreferences from '../../hooks/useUserPreferences';
 
+import './styles/gdpr.scss';
+
 const GDPR = () => {
   const [token, setToken] = useUserPreferences<null | boolean>('gdpr', null);
 
