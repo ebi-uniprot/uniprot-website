@@ -86,6 +86,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
   render: ({ lineage }) =>
     (lineage as Lineage)
       ?.filter(({ hidden }) => !hidden)
+      .reverse()
       .map(({ taxonId, scientificName, commonName }, index) => (
         <Fragment key={taxonId}>
           {index ? ' > ' : undefined}
