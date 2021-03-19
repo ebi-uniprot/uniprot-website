@@ -86,7 +86,17 @@ exports[`HomePage component should render 1`] = `
           </a>
         </p>
         <p>
-          Loading release information
+          <span
+            class="release-info__placeholder release-info__release_number"
+          >
+            Release 2021_00
+          </span>
+           | 
+          <a
+            href="//www.uniprot.org/statistics/?sort=published"
+          >
+            Statistics
+          </a>
         </p>
       </div>
       <ul

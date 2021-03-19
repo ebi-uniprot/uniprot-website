@@ -1,0 +1,10 @@
+.release-info {
+  &__release_number {
+    transition: filter linear 0.25s;
+    filter: blur(0);
+  }
+
+  &__placeholder {
+    filter: blur(0.1rem);
+  }
+}
