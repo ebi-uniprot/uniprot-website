@@ -132,7 +132,7 @@ const getColumns = (
     name: UniParcColumn.organismID,
     render: (xref) =>
       xref.organism && (
-        <OrganismDataView
+        <TaxonomyLightView
           organism={xref.organism}
           displayOnlyID
           className={xref.active ? undefined : 'xref-inactive'}
