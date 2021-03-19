@@ -53,17 +53,17 @@ export const LocationToPath: Record<Location, string> = {
   [Location.ProteomesResults]: `/${Namespace.proteomes}`,
   // Supporting data
   [Location.TaxonomyEntry]: `/${Namespace.taxonomy}/:accession`,
-  [Location.TaxonomyResults]: `/${Namespace.taxonomy}/`,
+  [Location.TaxonomyResults]: `/${Namespace.taxonomy}`,
   [Location.KeywordsEntry]: `/${Namespace.keywords}/:accession`,
-  [Location.KeywordsResults]: `/${Namespace.keywords}/`,
+  [Location.KeywordsResults]: `/${Namespace.keywords}`,
   [Location.CitationsEntry]: `/${Namespace.citations}/:accession`,
-  [Location.CitationsResults]: `/${Namespace.citations}/`,
+  [Location.CitationsResults]: `/${Namespace.citations}`,
   [Location.DiseasesEntry]: `/${Namespace.diseases}/:accession`,
-  [Location.DiseasesResults]: `/${Namespace.diseases}/`,
+  [Location.DiseasesResults]: `/${Namespace.diseases}`,
   [Location.DatabaseEntry]: `/${Namespace.database}/:accession`,
-  [Location.DatabaseResults]: `/${Namespace.database}/`,
+  [Location.DatabaseResults]: `/${Namespace.database}`,
   [Location.LocationsEntry]: `/${Namespace.locations}/:accession`,
-  [Location.LocationsResults]: `/${Namespace.locations}/`,
+  [Location.LocationsResults]: `/${Namespace.locations}`,
   // Tools
   [Location.Dashboard]: '/tool-dashboard',
   [Location.AlignResult]: '/align/:id/:subPage?',
@@ -91,6 +91,11 @@ export const SearchResultsLocations: Record<Namespace, string> = {
   [Namespace.database]: LocationToPath[Location.DatabaseResults],
   [Namespace.locations]: LocationToPath[Location.LocationsResults],
 };
+
+// "/:namespace(uniprotkb|uniparc|........)/""
+export const allSearchResultLocations = `/:namespace(${Object.values(
+  Namespace
+).join('|')})/`;
 
 // All "entry" locations need to have a "accession" param in the pattern
 export const EntryLocations: Record<Namespace, string> = {
