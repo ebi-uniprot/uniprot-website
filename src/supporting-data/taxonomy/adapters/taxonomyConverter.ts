@@ -31,18 +31,26 @@ export const isOfLineageType = (
   return false;
 };
 
-export type TaxonomyDatum = {
+type TaxonomyBase = {
   taxonId: number;
   scientificName?: string;
   synonyms?: string[];
   commonName?: string;
   mnemonic?: string;
   evidences?: Evidence[];
-  // Note: eventually should all be an array of TaxonomyData
-  lineage?: Lineage | string[];
+  lineage?: Lineage;
   hidden?: boolean;
   rank?: Rank;
 };
+
+export type TaxonomyDatum =
+  | TaxonomyBase
+  | (TaxonomyBase & {
+      /**
+       * @deprecated "lineage should be of type 'Lineage'"
+       */
+      lineage?: string[];
+    });
 
 type Rank =
   | 'forma'
