@@ -15,7 +15,7 @@ import TaxonomyColumnConfiguration, {
 
 const mainInfoColumns = [TaxonomyColumn.lineage];
 
-const TaxonomyCards: FC<{
+const TaxonomyCard: FC<{
   data: TaxonomyAPIModel;
   selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
@@ -58,4 +58,4 @@ const TaxonomyCards: FC<{
   );
 };
 
-export default TaxonomyCards;
+export default TaxonomyCard;
