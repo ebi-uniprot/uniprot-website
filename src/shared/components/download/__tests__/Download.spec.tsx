@@ -1,10 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import Download, { getPreviewFileFormat } from '../Download';
-
-import { SearchResultsLocations } from '../../../../app/config/urls';
 
 import { FileFormat } from '../../../types/resultsDownload';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
@@ -30,7 +28,7 @@ describe('Download component', () => {
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   const onCloseMock = jest.fn();
   beforeEach(() => {
-    renderWithRedux(
+    customRender(
       <Download
         query={query}
         selectedColumns={[
@@ -41,10 +39,8 @@ describe('Download component', () => {
         selectedEntries={selectedEntries}
         totalNumberResults={10}
         onClose={onCloseMock}
-      />,
-      {
-        route: SearchResultsLocations[namespace],
-      }
+        namespace={namespace}
+      />
     );
   });
 
@@ -61,7 +57,9 @@ describe('Download component', () => {
   test('should call onClose and download link have href with JSON format when format is selected and Download button is clicked', () => {
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.json } });
-    const downloadLink = screen.getAllByText('Download')[1];
+    const downloadLink = screen.getAllByText(
+      'Download'
+    )[1] as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(downloadLink.href).toEqual(expect.stringContaining('format=json'));
     expect(onCloseMock).toHaveBeenCalled();
@@ -69,7 +67,9 @@ describe('Download component', () => {
 
   test('should call onClose and download link to have href without compressed=true when selected false in the form and Download button is clicked', () => {
     fireEvent.click(screen.getByLabelText('No'));
-    const downloadLink = screen.getAllByText('Download')[1];
+    const downloadLink = screen.getAllByText(
+      'Download'
+    )[1] as HTMLAnchorElement;
     fireEvent.click(downloadLink);
     expect(downloadLink.href).toEqual(
       expect.not.stringContaining('compressed')

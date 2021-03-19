@@ -4,7 +4,6 @@ import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
 
-import useNS from '../../hooks/useNS';
 import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
@@ -24,6 +23,7 @@ import {
 } from './utils';
 import {
   mainNamespaces,
+  Namespace,
   supportingDataNamespaces,
 } from '../../types/namespaces';
 
@@ -37,16 +37,16 @@ import './styles/column-select.scss';
 type ColumnSelectProps = {
   selectedColumns: Column[];
   onChange: (columndIds: Column[]) => void;
+  namespace: Namespace;
 };
 
-const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
-  const namespace = useNS();
-
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
+const ColumnSelect: FC<ColumnSelectProps> = ({
+  selectedColumns,
+  onChange,
+  namespace,
+}) => {
   const primaryKeyColumn = nsToPrimaryKeyColumn[namespace] as Column;
-  const defaultColumns = nsToDefaultColumns[namespace] as Column[];
+  const defaultColumns = nsToDefaultColumns[namespace];
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
@@ -56,7 +56,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({ selectedColumns, onChange }) => {
   );
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([primaryKeyColumn as Column, ...columns]);
+      onChange([primaryKeyColumn, ...columns]);
     },
     [primaryKeyColumn, onChange]
   );

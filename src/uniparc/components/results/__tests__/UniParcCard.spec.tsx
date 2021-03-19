@@ -1,4 +1,4 @@
-import renderWithRouter from '../../../../shared/__test-helpers__/RenderWithRouter';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import UniParcCard from '../UniParcCard';
 
@@ -8,7 +8,7 @@ import data from '../../../__mocks__/entryModelData';
 
 describe('UniRefCard tests', () => {
   it('should render and match snapshot', () => {
-    const { asFragment } = renderWithRouter(
+    const { asFragment } = customRender(
       <UniParcCard
         data={data as UniParcAPIModel}
         handleEntrySelection={jest.fn()}

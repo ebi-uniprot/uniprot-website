@@ -1,0 +1,9 @@
+@import '../../../../../node_modules/franklin-sites/src/styles/colours';
+
+.results-buttons {
+  &__toggle {
+    &--active {
+      color: $colour-platinum;
+    }
+  }
+}

@@ -8,22 +8,19 @@ import {
 } from 'franklin-sites';
 
 import TaxonomyLightView from '../../../shared/components/views/TaxonomyView';
-import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import {
   EntryTypeIcon,
   EntryType,
 } from '../../../shared/components/entry/EntryTypeIcon';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
-import useLocalStorage from '../../../shared/hooks/useLocalStorage';
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
-import { defaultColumns } from '../../config/UniParcColumnConfiguration';
+import useDataApi from '../../../shared/hooks/useDataApi';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
-import { Column } from '../../../shared/config/columns';
 import {
   databaseToEntryType,
   UniParcAPIModel,
@@ -33,7 +30,7 @@ import {
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 
 import './styles/XRefsSection.scss';
 import '../../../shared/components/results/styles/results-view.scss';
@@ -42,9 +39,11 @@ const getColumns = (
   templateMap: Map<string, string>
 ): Array<{
   label: ReactNode;
-  name: string;
+  // Awaiting specific UniParc XRefs configure endpoint
+  name: UniParcColumn | 'database' | 'identifier' | 'version' | 'active';
   render: (xref: UniParcXRef) => ReactNode;
 }> => [
+  // Mandatory
   {
     label: 'Database',
     name: 'database',
@@ -76,6 +75,7 @@ const getColumns = (
       );
     },
   },
+  // Mandatory
   {
     label: 'Identifier',
     name: 'identifier',
@@ -128,8 +128,20 @@ const getColumns = (
       ),
   },
   {
+    label: 'Organism ID',
+    name: UniParcColumn.organismID,
+    render: (xref) =>
+      xref.organism && (
+        <OrganismDataView
+          organism={xref.organism}
+          displayOnlyID
+          className={xref.active ? undefined : 'xref-inactive'}
+        />
+      ),
+  },
+  {
     label: 'Organism',
-    name: 'organism',
+    name: UniParcColumn.organism,
     render: (xref) =>
       xref.organism && (
         <TaxonomyLightView
@@ -140,7 +152,7 @@ const getColumns = (
   },
   {
     label: 'First seen',
-    name: 'first_seen',
+    name: UniParcColumn.firstSeen,
     render: (xref) =>
       xref.created && (
         <time
@@ -153,7 +165,7 @@ const getColumns = (
   },
   {
     label: 'Last seen',
-    name: 'last_seen',
+    name: UniParcColumn.lastSeen,
     render: (xref) =>
       xref.lastUpdated && (
         <time
@@ -182,7 +194,8 @@ type DataDBModel = Array<{
   uriLink: string; // template with the ID replaced by a "%id"
   attributes: Array<{
     name: string;
-    xmlTag: string;
+    alive: boolean;
+    // actually, it's always present, but might be empty string, let's consider it optional
     uriLink?: string;
   }>;
   implicit: boolean;
@@ -200,13 +213,7 @@ type Props = {
 };
 
 const XRefsSection: FC<Props> = ({ xrefData }) => {
-  const [tableColumns, setTableColumns] = useLocalStorage<Column[]>(
-    `table columns for ${Namespace.uniparc} xrefs`,
-    defaultColumns
-  );
-
-  // TODO: switch to using UniParc-specific database endpoint when available
-  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allDatabases);
+  const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allUniParcDatabases);
   const columns = useMemo(() => getColumns(getTemplateMap(dataDB)), [dataDB]);
 
   const [nItemsToRender, setNItemsToRender] = useState(25);
@@ -224,14 +231,10 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
       title={getEntrySectionNameAndId(EntrySection.XRefs).name}
       className={xrefData.isStale ? 'is-stale' : undefined}
     >
-      <div className="button-group">
-        {tableColumns && (
-          <CustomiseButton
-            tableColumns={tableColumns}
-            onTableColumnsChange={setTableColumns}
-          />
-        )}
-      </div>
+      {/* Stalled for now */}
+      {/* <div className="button-group">
+        <CustomiseButton />
+      </div> */}
       <DataTableWithLoader
         onLoadMoreItems={() => setNItemsToRender((n) => n + 25)}
         hasMoreData={

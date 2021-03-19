@@ -1,45 +1,78 @@
-import { act } from 'react-dom/test-utils';
-import { waitFor } from '@testing-library/react';
+import { screen, waitFor, fireEvent, act } from '@testing-library/react';
+
+import customRender from '../../../__test-helpers__/customRender';
+
 import ResultsView from '../ResultsView';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+
 import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
+
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
+
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import { UserPreferences } from '../../../contexts/UserPreferences';
 import { ViewMode } from '../ResultsContainer';
 
 describe('ResultsView component', () => {
   const props = {
-    columns: [UniProtKBColumn.accession],
     handleEntrySelection: jest.fn(),
     selectedEntries: [],
     sortableColumnToSortColumn: getSortableColumnToSortColumn(resultFields),
   };
-  const renderWithProps = async (props) => {
-    let rendered;
-    await act(async () => {
-      rendered = renderWithRedux(
-        <ResultsView viewMode={ViewMode.TABLE} {...props} />
-      );
-    });
-    return rendered;
-  };
 
   it('should render table', async () => {
-    const { asFragment, queryByText } = await renderWithProps({
-      ...props,
-      viewMode: ViewMode.TABLE,
+    const { asFragment } = customRender(<ResultsView {...props} />, {
+      initialUserPreferences: {
+        'view-mode': ViewMode.TABLE,
+        'table columns for uniprotkb': [UniProtKBColumn.accession],
+      } as UserPreferences,
     });
-    await waitFor(() => expect(queryByText('O00311')).toBeTruthy());
+    await waitFor(() =>
+      expect(screen.queryByText('O00311')).toBeInTheDocument()
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should render cards', async () => {
-    const { asFragment, queryAllByText } = await renderWithProps({
-      ...props,
-      viewMode: ViewMode.CARD,
+  test('should set sorting', async () => {
+    const { history } = customRender(<ResultsView {...props} />, {
+      initialUserPreferences: {
+        'view-mode': ViewMode.TABLE,
+        'table columns for uniprotkb': [UniProtKBColumn.accession],
+      } as UserPreferences,
+      route: '/uniprotkb?query=blah',
     });
-    await waitFor(() => expect(queryAllByText('Gene:')).toHaveLength(25));
+    let columnHeader = await screen.findByText('Entry');
+    act(() => {
+      fireEvent.click(columnHeader);
+    });
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=ascend'
+    );
+    columnHeader = await screen.findByText('Entry');
+    act(() => {
+      fireEvent.click(columnHeader);
+    });
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=descend'
+    );
+    columnHeader = await screen.findByText('Entry');
+    act(() => {
+      fireEvent.click(columnHeader);
+    });
+    expect(history.location.search).toBe(
+      '?query=blah&sort=accession&dir=ascend'
+    );
+  });
+
+  it('should render cards', async () => {
+    const { asFragment } = customRender(<ResultsView {...props} />, {
+      initialUserPreferences: {
+        'view-mode': ViewMode.CARD,
+      } as UserPreferences,
+    });
+    await waitFor(() =>
+      expect(screen.queryAllByText('Gene:')).toHaveLength(25)
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 });

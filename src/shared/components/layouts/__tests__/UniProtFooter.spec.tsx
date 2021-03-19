@@ -1,4 +1,4 @@
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import UniProtFooter from '../UniProtFooter';
 
@@ -6,7 +6,7 @@ let component;
 
 describe('HomePage component', () => {
   beforeEach(() => {
-    component = renderWithRedux(<UniProtFooter />);
+    component = customRender(<UniProtFooter />);
   });
 
   test('should render', () => {

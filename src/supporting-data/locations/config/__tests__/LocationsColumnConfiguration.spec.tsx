@@ -6,7 +6,7 @@ import locationsConverter, {
   LocationsAPIModel,
   LocationsUIModel,
 } from '../../adapters/locationsConverter';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/locationsModelData';
 
@@ -23,7 +23,7 @@ describe('LocationsColumnConfiguration component', () => {
   test.each(Array.from(LocationsColumnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);

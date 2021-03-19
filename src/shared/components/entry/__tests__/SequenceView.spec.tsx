@@ -1,7 +1,7 @@
 import { createMemoryHistory } from 'history';
 
 import { fireEvent } from '@testing-library/react';
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+import customRender from '../../../__test-helpers__/customRender';
 
 import SequenceView from '../SequenceView';
 
@@ -34,7 +34,7 @@ describe('SequenceView component', () => {
       width: 10,
       height: 10,
     });
-    rendered = renderWithRedux(
+    rendered = customRender(
       <SequenceView data={SequenceUIDataJson} accession="P05067" />,
       { history }
     );

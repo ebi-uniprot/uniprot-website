@@ -3,8 +3,8 @@
 exports[`CustomiseTable component should render 1`] = `
 <DocumentFragment>
   <form
+    aria-label="Customise uniprotkb result table columns form"
     class="customise-table"
-    data-testid="customise-table-form"
   >
     <div
       class="column-select"
@@ -2412,16 +2412,10 @@ exports[`CustomiseTable component should render 1`] = `
       class="button-group sticky-bottom-right sliding-panel__button-row"
     >
       <button
-        class="button secondary"
-        type="button"
-      >
-        Cancel
-      </button>
-      <button
         class="button primary"
         type="submit"
       >
-        Save
+        Close
       </button>
     </div>
   </form>
