@@ -1,5 +1,4 @@
 import { Method } from 'axios';
-import { Link } from 'react-router-dom';
 import cn from 'classnames';
 import apiUrls from '../../config/apiUrls';
 import useDataApi from '../../hooks/useDataApi';
