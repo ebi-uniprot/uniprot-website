@@ -6446,10 +6446,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-franklin-sites@0.0.117:
-  version "0.0.117"
-  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.117.tgz#d14c8f21f6e2f1f8e633a7629b082349944d887d"
-  integrity sha512-T4V3rQGzFDZCjnf5Wk3NzMSGZ79yXXKDHpkDerA+NVjaxMs972Jzupxkq4t2BwXOUW56d/47Ygw+m2RwKSI2Ow==
+franklin-sites@0.0.120:
+  version "0.0.120"
+  resolved "https://registry.yarnpkg.com/franklin-sites/-/franklin-sites-0.0.120.tgz#94b5e553420b8d6816005d931aa2513d278a9b72"
+  integrity sha512-hk8FMWHZrTxmHLTcBt0GKc/ridYDY8WMk+Eov+rAbk+0LHC3BO3SHLUflLZ1CY2Jx8Yey8Ab9TOgGHACgX63ig==
   dependencies:
     classnames "2.2.6"
     d3 "5.16.0"
@@ -6459,7 +6459,7 @@ franklin-sites@0.0.117:
     lorem-ipsum "2.0.3"
     path "0.12.7"
     prop-types "15.7.2"
-    query-string "6.14.0"
+    query-string "7.0.0"
     react-copy-to-clipboard "5.0.3"
     react-markdown "5.0.3"
     rheostat "4.1.1"
@@ -10483,6 +10483,16 @@ query-string@6.14.0:
   version "6.14.0"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.14.0.tgz#0b7b7ca326f5facf10dd2d45d26645cd287f8c92"
   integrity sha512-In3o+lUxlgejoVJgwEdYtdxrmlL0cQWJXj0+kkI7RWVo7hg5AhFtybeKlC9Dpgbr8eOC4ydpEh8017WwyfzqVQ==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    filter-obj "^1.1.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
+query-string@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-7.0.0.tgz#aaad2c8d5c6a6d0c6afada877fecbd56af79e609"
+  integrity sha512-Iy7moLybliR5ZgrK/1R3vjrXq03S13Vz4Rbm5Jg3EFq1LUmQppto0qtXz4vqZ386MSRjZgnTSZ9QC+NZOSd/XA==
   dependencies:
     decode-uri-component "^0.2.0"
     filter-obj "^1.1.0"
