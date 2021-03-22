@@ -11,17 +11,23 @@ import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 const Publications: FC<Pick<ProteomesAPIModel, 'citations' | 'taxonomy'>> = ({
   citations,
   taxonomy,
-}) => (
-  <section>
-    <h2>Publications for {taxonomy.scientificName}</h2>
-    <DataList
-      getIdKey={getCitationItemId}
-      data={citations}
-      dataRenderer={(citation: Citation) => (
-        <CitationCard data={{ citation }} />
-      )}
-    />
-  </section>
-);
+}) => {
+  if (!citations?.length) {
+    return null;
+  }
+
+  return (
+    <section>
+      <h2>Publications for {taxonomy.scientificName}</h2>
+      <DataList
+        getIdKey={getCitationItemId}
+        data={citations}
+        dataRenderer={(citation: Citation) => (
+          <CitationCard data={{ citation }} />
+        )}
+      />
+    </section>
+  );
+};
 
 export default Publications;
