@@ -19,7 +19,9 @@ type Strain = {
   name: string;
 };
 
-export type Lineage = Array<SetRequired<TaxonomyDatum, 'hidden' | 'rank'>>;
+export type Lineage = Array<
+  SetRequired<Omit<TaxonomyDatum, 'lineage'>, 'hidden' | 'rank'>
+>;
 
 // Temporary function to check lineage type while backend unifies its model
 export const isOfLineageType = (
