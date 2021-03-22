@@ -12,16 +12,18 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
+import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
-
-import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
-import { getDatabaseInfoByName } from '../../config/database';
+import { getCitationItemId } from '../../../supporting-data/citations/utils';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
+
+import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
+import { getDatabaseInfoByName } from '../../config/database';
+
 import {
   CitationsAPIModel,
-  getCitationPubMedId,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
 import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
@@ -138,17 +140,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     <section>
       <h2>Publications for {accession}</h2>
       <DataListWithLoader
-        getIdKey={(item, index) => {
-          const { citation } = item;
-          const pubMedXref = getCitationPubMedId(citation);
-          let id = pubMedXref?.id;
-          if (!id) {
-            id = citation.authors
-              ? citation.authors?.join('')
-              : citation.authoringGroup?.join('');
-          }
-          return id || `${index}`;
-        }}
+        getIdKey={getCitationItemId}
         data={allResults}
         dataRenderer={(data) => {
           const { references } = data;

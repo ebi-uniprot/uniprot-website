@@ -225,22 +225,14 @@ const LiteratureCitation: FC<{
               {pubmedId && (
                 <>
                   <li>
-                    <a
-                      href={`//www.ncbi.nlm.nih.gov/pubmed/${pubmedId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <ExternalLink noIcon url={externalUrls.PubMed(pubmedId)}>
                       PubMed
-                    </a>
+                    </ExternalLink>
                   </li>
                   <li>
-                    <a
-                      href={`//europepmc.org/article/MED/${pubmedId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <ExternalLink noIcon url={externalUrls.EuropePMC(pubmedId)}>
                       Europe PMC
-                    </a>
+                    </ExternalLink>
                   </li>
                 </>
               )}
