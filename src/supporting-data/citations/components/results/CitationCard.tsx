@@ -14,7 +14,7 @@ const CitationCard: FC<{
   data: CitationsAPIModel;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }) => {
+}> = ({ data, selected, handleEntrySelection, children }) => {
   const history = useHistory();
 
   const key = getIdKeyFor(Namespace.citations)(data);
@@ -43,7 +43,7 @@ const CitationCard: FC<{
           </div>
         )}
         <div className="result-card__right">
-          <LiteratureCitation data={data} />
+          <LiteratureCitation data={data}>{children}</LiteratureCitation>
         </div>
       </section>
     </Card>
