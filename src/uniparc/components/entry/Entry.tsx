@@ -49,7 +49,7 @@ const Entry: FC = () => {
       history.replace({
         ...history.location,
         pathname: generatePath(LocationToPath[Location.UniParcEntry], {
-          accession: match?.params.accession,
+          accession: match.params.accession,
           subPage: TabLocation.Entry,
         }),
       });
