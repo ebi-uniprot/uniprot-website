@@ -45,9 +45,8 @@ const TaxonomyCard: FC<{
           <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
-                type={column}
                 data={data}
-                columnConfig={TaxonomyColumnConfiguration}
+                columnRenderer={TaxonomyColumnConfiguration.get(column)}
                 key={column}
               />
             ))}

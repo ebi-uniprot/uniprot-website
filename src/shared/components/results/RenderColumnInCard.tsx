@@ -1,22 +1,25 @@
-import { ColumnConfiguration } from '../../types/columnConfiguration';
+import { ColumRenderer } from '../../types/columnConfiguration';
 
 import './styles/render-column-in-card.scss';
 
-type RenderColumnInCardProps<T, R extends Record<string, unknown>> = {
-  type: T;
+type RenderColumnInCardProps<R extends Record<string, unknown>> = {
   data: R;
-  columnConfig: ColumnConfiguration<T, R>;
+  // eslint-disable-next-line react/require-default-props
+  columnRenderer?: ColumRenderer<R>;
 };
 
-const RenderColumnInCard = <T, R extends Record<string, unknown>>(
-  props: RenderColumnInCardProps<T, R>
+const RenderColumnInCard = <R extends Record<string, unknown>>(
+  props: RenderColumnInCardProps<R>
 ) => {
-  const { type, data, columnConfig } = props;
-  const rendered = columnConfig.get(type)?.render(data);
+  const { data, columnRenderer } = props;
+  if (!columnRenderer) {
+    return null;
+  }
+  const rendered = columnRenderer?.render(data);
   return rendered ? (
     <>
       <span className="result-card__info-bit">
-        <strong>{columnConfig.get(type)?.label}</strong>
+        <strong>{columnRenderer?.label}</strong>
         {': '}
         {rendered}
       </span>
