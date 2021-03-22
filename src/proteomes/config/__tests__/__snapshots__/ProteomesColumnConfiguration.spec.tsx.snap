@@ -72,6 +72,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism":
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
+    title="Homo sapiens (Human) (synonym), taxon ID 9606"
   >
     Homo sapiens (Human) (synonym)
   </a>
@@ -82,6 +83,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism_i
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
+    title="Homo sapiens (Human) (synonym), taxon ID 9606"
   >
     9606
   </a>

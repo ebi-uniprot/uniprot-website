@@ -1031,6 +1031,7 @@ exports[`Entry view should render 1`] = `
                 >
                   <a
                     href="/taxonomy/9606"
+                    title="scientific name (common name) (synonyms 1), taxon ID 9606"
                   >
                     scientific name (common name) (synonyms 1)
                   </a>
@@ -1135,6 +1136,7 @@ exports[`Entry view should render 1`] = `
                   <p>
                     <a
                       href="/taxonomy/9606"
+                      title="scientific name (common name) (synonyms 1), taxon ID 9606"
                     >
                       scientific name (common name) (synonyms 1)
                     </a>
@@ -2935,6 +2937,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 >
                   <a
                     href="/taxonomy/292800"
+                    title="Flavonifractor plautii (Fusobacterium plautii), taxon ID 292800"
                   >
                     Flavonifractor plautii (Fusobacterium plautii)
                   </a>

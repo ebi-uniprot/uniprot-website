@@ -30,6 +30,7 @@ exports[`Taxonomy Card tests should render 1`] = `
             <h5>
               <a
                 href="/taxonomy/11652"
+                title="Primate lentivirus group, taxon ID 11652"
               >
                 Primate lentivirus group
               </a>

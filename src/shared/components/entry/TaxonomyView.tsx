@@ -66,6 +66,9 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
     <SimpleView
       termValue={displayOnlyID ? String(taxonId) : termValue}
       linkTo={getEntryPath(Namespace.taxonomy, data.taxonId)}
+      title={`${
+        termValue.length > 0 ? `${termValue}, ` : ''
+      }taxon ID ${taxonId}`}
       className={className}
     />
   );

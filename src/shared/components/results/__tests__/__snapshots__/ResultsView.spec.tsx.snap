@@ -49,6 +49,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cell division cycle 7-related protein kinase · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
@@ -186,6 +187,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cell division cycle 7-related protein kinase · 
                     <a
                       href="/taxonomy/10090"
+                      title="Mus musculus (Mouse), taxon ID 10090"
                     >
                       Mus musculus (Mouse)
                     </a>
@@ -323,6 +325,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cell division control protein 7 · 
                     <a
                       href="/taxonomy/559292"
+                      title="Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast), taxon ID 559292"
                     >
                       Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
                     </a>
@@ -474,6 +477,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cell division control protein 7 · 
                     <a
                       href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
                     >
                       Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
@@ -611,6 +615,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Probable serine/threonine-protein kinase cdc7 · 
                     <a
                       href="/taxonomy/44689"
+                      title="Dictyostelium discoideum (Slime mold), taxon ID 44689"
                     >
                       Dictyostelium discoideum (Slime mold)
                     </a>
@@ -729,6 +734,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cell cycle serine/threonine-protein kinase hsk1 · 
                     <a
                       href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
                     >
                       Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
@@ -866,6 +872,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Periphilin-1 · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
@@ -991,6 +998,7 @@ exports[`ResultsView component should render cards 1`] = `
                   <section>
                     <a
                       href="/taxonomy/7227"
+                      title="Drosophila melanogaster (Fruit fly), taxon ID 7227"
                     >
                       Drosophila melanogaster (Fruit fly)
                     </a>
@@ -1097,6 +1105,7 @@ exports[`ResultsView component should render cards 1`] = `
                   <section>
                     <a
                       href="/taxonomy/7227"
+                      title="Drosophila melanogaster (Fruit fly), taxon ID 7227"
                     >
                       Drosophila melanogaster (Fruit fly)
                     </a>
@@ -1204,6 +1213,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Protein DBF4 homolog B · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
@@ -1304,6 +1314,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DDK kinase regulatory subunit DBF4 · 
                     <a
                       href="/taxonomy/559292"
+                      title="Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast), taxon ID 559292"
                     >
                       Saccharomyces cerevisiae (strain ATCC 204508 / S288c) (Baker's yeast)
                     </a>
@@ -1451,6 +1462,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Protein DBF4 homolog A · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
@@ -1558,6 +1570,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DNA replication licensing factor MCM2 · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
@@ -1721,6 +1734,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cyclin-dependent kinase 2-interacting protein · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
@@ -1849,6 +1863,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Protein DBF4 homolog A · 
                     <a
                       href="/taxonomy/10090"
+                      title="Mus musculus (Mouse), taxon ID 10090"
                     >
                       Mus musculus (Mouse)
                     </a>
@@ -1956,6 +1971,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Probable cell division control protein 7 homolog 2 · 
                     <a
                       href="/taxonomy/284813"
+                      title="Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite), taxon ID 284813"
                     >
                       Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite)
                     </a>
@@ -2107,6 +2123,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DNA replication licensing factor MCM2 · 
                     <a
                       href="/taxonomy/10090"
+                      title="Mus musculus (Mouse), taxon ID 10090"
                     >
                       Mus musculus (Mouse)
                     </a>
@@ -2244,6 +2261,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Probable cell division control protein 7 homolog 1 · 
                     <a
                       href="/taxonomy/284813"
+                      title="Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite), taxon ID 284813"
                     >
                       Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite)
                     </a>
@@ -2395,6 +2413,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DNA replication licensing factor mcm2 · 
                     <a
                       href="/taxonomy/8355"
+                      title="Xenopus laevis (African clawed frog), taxon ID 8355"
                     >
                       Xenopus laevis (African clawed frog)
                     </a>
@@ -2532,6 +2551,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Septum-promoting GTP-binding protein 1 · 
                     <a
                       href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
                     >
                       Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
@@ -2646,6 +2666,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DNA replication licensing factor mcm4-A · 
                     <a
                       href="/taxonomy/8355"
+                      title="Xenopus laevis (African clawed frog), taxon ID 8355"
                     >
                       Xenopus laevis (African clawed frog)
                     </a>
@@ -2783,6 +2804,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Cell cycle protein kinase spo4 · 
                     <a
                       href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
                     >
                       Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
@@ -2934,6 +2956,7 @@ exports[`ResultsView component should render cards 1`] = `
                     Septation initiation network scaffold protein cdc11 · 
                     <a
                       href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
                     >
                       Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
                     </a>
@@ -3022,6 +3045,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DNA replication licensing factor mcm4-B · 
                     <a
                       href="/taxonomy/8355"
+                      title="Xenopus laevis (African clawed frog), taxon ID 8355"
                     >
                       Xenopus laevis (African clawed frog)
                     </a>
@@ -3159,6 +3183,7 @@ exports[`ResultsView component should render cards 1`] = `
                     DNA replication licensing factor MCM4 · 
                     <a
                       href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
                       Homo sapiens (Human)
                     </a>
