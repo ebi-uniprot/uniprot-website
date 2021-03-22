@@ -4,7 +4,7 @@
 
 .sidebar-layout {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   width: 100%;
 
   &__title {
@@ -53,7 +53,7 @@
   &__sidebar-content {
     &--empty {
       width: 100px;
-      height: calc(100% - 1rem);
+      height: 100%;
       background-color: $colour-platinum;
     }
   }
