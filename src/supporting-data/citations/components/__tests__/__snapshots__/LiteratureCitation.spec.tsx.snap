@@ -109,8 +109,9 @@ exports[`Publication component should render 1`] = `
           >
             <li>
               <a
-                href="//www.ncbi.nlm.nih.gov/pubmed/14702039"
-                rel="noopener noreferrer"
+                class="external-link"
+                href="https://pubmed.ncbi.nlm.nih.gov/14702039"
+                rel="noopener"
                 target="_blank"
               >
                 PubMed
@@ -118,8 +119,9 @@ exports[`Publication component should render 1`] = `
             </li>
             <li>
               <a
+                class="external-link"
                 href="//europepmc.org/article/MED/14702039"
-                rel="noopener noreferrer"
+                rel="noopener"
                 target="_blank"
               >
                 Europe PMC
