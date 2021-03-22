@@ -142,8 +142,6 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
    * is implemented.
    * See here for details:
    * https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
-   * After discussion with author of @swissprot/swissbiopics-visualizer this
-   * will most likely not change.
    */
   /* istanbul ignore next */
   useEffect(() => {
