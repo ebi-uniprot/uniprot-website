@@ -6,10 +6,14 @@ import CitationCard from '../../../supporting-data/citations/components/results/
 import { getCitationItemId } from '../../../supporting-data/citations/utils';
 
 import { Citation } from '../../../supporting-data/citations/adapters/citationsConverter';
+import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
-const Publications: FC<{ citations: Citation[] }> = ({ citations }) => (
+const Publications: FC<Pick<ProteomesAPIModel, 'citations' | 'taxonomy'>> = ({
+  citations,
+  taxonomy,
+}) => (
   <section>
-    <h2>Publications for </h2>
+    <h2>Publications for {taxonomy.scientificName}</h2>
     <DataList
       getIdKey={getCitationItemId}
       data={citations}
