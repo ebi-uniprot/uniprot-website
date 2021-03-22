@@ -1,24 +1,37 @@
-import { render, fireEvent } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { frame } from 'timing-functions';
+
+import customRender from '../../../__test-helpers__/customRender';
 
 import GDPR from '../GDPR';
 
 describe('GDPR', () => {
+  afterEach(() => {
+    window.localStorage.clear();
+  });
+
   test('should render', () => {
-    const { asFragment } = render(<GDPR />);
+    const { asFragment } = customRender(<GDPR />);
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should add UP_COVID_GDPR: true to localStorage', () => {
-    const { getByText } = render(<GDPR />);
-    const acceptButton = getByText('Accept');
+  test("should add 'gdpr': true to localStorage", async () => {
+    expect(localStorage.getItem('gdpr')).toBe(null);
+    customRender(<GDPR />);
+    // Needed to wait for the user preference to be initialised
+    await waitFor(frame);
+    const acceptButton = screen.getByText('Accept');
     fireEvent.click(acceptButton);
-    expect(localStorage.getItem('UP_COVID_GDPR')).toBe('true');
+    expect(screen.queryByText('Privacy Notice')).not.toBeInTheDocument();
+    await waitFor(() => {
+      // console.error(window.localStorage.getItem('gdpr'));
+      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(true);
+    });
   });
 
-  test('if UP_COVID_GDPR in localStorage, do not render component', () => {
-    localStorage.setItem('UP_COVID_GDPR', 'true');
-    const { queryByText } = render(<GDPR />);
-    const text = queryByText('Privacy Notice');
-    expect(text).toBeNull();
+  test("if 'gdpr' in localStorage, do not render component", () => {
+    localStorage.setItem('gdpr', 'true');
+    customRender(<GDPR />);
+    expect(screen.queryByText('Privacy Notice')).not.toBeInTheDocument();
   });
 });

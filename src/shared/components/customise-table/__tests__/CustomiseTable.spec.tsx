@@ -1,7 +1,11 @@
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, waitFor, screen } from '@testing-library/react';
+
 import CustomiseTable from '../CustomiseTable';
-import renderWithRedux from '../../../__test-helpers__/RenderWithRedux';
+
 import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+import customRender from '../../../__test-helpers__/customRender';
+
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { SearchResultsLocations } from '../../../../app/config/urls';
 import { Namespace } from '../../../types/namespaces';
@@ -18,49 +22,46 @@ describe('CustomiseTable component', () => {
   ];
 
   beforeEach(async () => {
-    rendered = renderWithRedux(
-      <CustomiseTable onSave={onSave} selectedColumns={selectedColumns} />,
-      { route }
-    );
-    await waitFor(() => rendered.getAllByTestId('accordion-search-list-item'));
+    rendered = customRender(<CustomiseTable onSave={onSave} />, {
+      route,
+      initialUserPreferences: {
+        'table columns for uniprotkb': selectedColumns,
+      },
+    });
+    await waitFor(() => screen.getAllByTestId('accordion-search-list-item'));
+  });
+
+  afterEach(() => {
+    window.localStorage.clear();
   });
 
   test('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
+    // get the 2nd one because the drag and drop library also wraps in a button
+    const selectionChip = screen.getAllByRole('button', {
+      name: 'Protein names',
+      hidden: false,
+    })[1];
+    expect(selectionChip).toBeInTheDocument();
   });
 
-  test('should call onSave prop with initial selected columns when cancel button is pressed', () => {
-    const { getByText } = rendered;
-    const cancelButton = getByText('Cancel');
-    fireEvent.click(cancelButton);
-    expect(onSave).toHaveBeenCalledWith(selectedColumns);
+  test('should call onSave prop corresponding button is pressed', () => {
+    fireEvent.click(screen.getByText('Close'));
+    expect(onSave).toHaveBeenCalled();
   });
 
-  test('should go back and call updateTableColumns action when customise table form is submitted', () => {
-    const { getByTestId, getByText } = rendered;
-    const item = getByText('Gene Names');
-    fireEvent.click(item);
-    const form = getByTestId('customise-table-form');
-    fireEvent.submit(form);
-    expect(onSave).toHaveBeenCalledWith([
-      ...selectedColumns,
-      UniProtKBColumn.geneNames,
-    ]);
-  });
-});
-
-describe('CustomiseTable component with a subset of props', () => {
-  test('should call onSave prop with empty array when no initial selected columns are provided and cancel button is pressed', async () => {
-    const onSave = jest.fn();
-    let rendered;
-    await act(async () => {
-      rendered = renderWithRedux(<CustomiseTable onSave={onSave} />, {
-        route,
-      });
-    });
-    const cancelButton = rendered.getByText('Cancel');
-    fireEvent.click(cancelButton);
-    expect(onSave).toHaveBeenCalledWith([]);
+  test('should remove chip when clicked on', () => {
+    // get the 2nd one because the drag and drop library also wraps in a button
+    const selectionChip = screen.getAllByRole('button', {
+      name: 'Protein names',
+      hidden: false,
+    })[1];
+    fireEvent.click(selectionChip.querySelector('[data-testid="remove-icon"]'));
+    expect(
+      screen.queryByRole('button', { name: 'Protein names', hidden: false })
+    ).not.toBeInTheDocument();
+    fireEvent.submit(screen.getByRole('form'));
+    expect(onSave).toHaveBeenCalled();
   });
 });

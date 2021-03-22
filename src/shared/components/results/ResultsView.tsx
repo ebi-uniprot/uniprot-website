@@ -11,6 +11,7 @@ import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
+import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -45,6 +46,7 @@ import LocationsColumnConfiguration from '../../../supporting-data/locations/con
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import usePrefetch from '../../hooks/usePrefetch';
+import useUserPreferences from '../../hooks/useUserPreferences';
 
 import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
 
@@ -61,7 +63,7 @@ import {
 import { Namespace } from '../../types/namespaces';
 import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import { Column } from '../../config/columns';
+import { Column, nsToDefaultColumns } from '../../config/columns';
 import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
@@ -110,7 +112,9 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
   }
 };
 
-const getIdKeyFor = (namespace: Namespace): ((data: APIModel) => string) => {
+export const getIdKeyFor = (
+  namespace: Namespace
+): ((data: APIModel) => string) => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
@@ -204,6 +208,15 @@ const cardRenderer = (
         />
       );
     }
+    case Namespace.citations: {
+      return (cardData) => (
+        <CitationCard
+          data={cardData as CitationsAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
     default:
       return () => (
         <div className="warning">{`${namespace} has no card renderer yet`}</div>
@@ -254,20 +267,22 @@ const getColumnsToDisplay = (
 
 type ResultsTableProps = {
   selectedEntries: string[];
-  columns: Column[] | undefined;
-  viewMode: ViewMode;
   handleEntrySelection: (rowId: string) => void;
   sortableColumnToSortColumn: Map<Column, string>;
 };
 
 const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
-  columns,
-  viewMode,
   handleEntrySelection,
   sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
+  const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
+  const [columns] = useUserPreferences<Column[]>(
+    `table columns for ${namespace}` as const,
+    nsToDefaultColumns[namespace]
+  );
+
   const prevNamespace = useRef<Namespace>(namespace);
   useEffect(() => {
     // will set it *after* the current render
@@ -291,14 +306,19 @@ const ResultsView: FC<ResultsTableProps> = ({
     direct,
   } = getParamsFromURL(queryParamFromUrl);
 
+  let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
+  if (viewMode === ViewMode.CARD) {
+    // TODO: Do similar things for the rest of namespaces
+    if (namespace === Namespace.uniprotkb) {
+      queryColumns = fieldsForUniProtKBCards;
+    }
+  }
+
   const initialApiUrl = getAPIQueryUrl({
     namespace,
     query,
     // TODO: Do similar things for the rest of namespaces
-    columns:
-      viewMode === ViewMode.CARD && namespace === Namespace.uniprotkb
-        ? fieldsForUniProtKBCards
-        : columns,
+    columns: queryColumns,
     selectedFacets,
     // Not really interested in the facets here, so try to reduce payload
     facets: null,

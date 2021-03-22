@@ -5,7 +5,7 @@ import UniParcColumnConfiguration, {
 } from '../UniParcColumnConfiguration';
 
 import uniParcConverter from '../../adapters/uniParcConverter';
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/entryModelData';
 
@@ -21,7 +21,7 @@ describe('UniParcColumnConfiguration component', () => {
   test.each(Array.from(UniParcColumnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);
@@ -30,7 +30,7 @@ describe('UniParcColumnConfiguration component', () => {
 
   describe('edge cases', () => {
     test('should render empty "first seen" column when no xref', () => {
-      const { container } = renderWithRedux(
+      const { container } = customRender(
         <MemoryRouter>
           {UniParcColumnConfiguration.get(UniParcColumn.firstSeen).render({
             ...transformedData,
@@ -43,7 +43,7 @@ describe('UniParcColumnConfiguration component', () => {
   });
 
   test('should render empty "last seen" column when no xref', () => {
-    const { container } = renderWithRedux(
+    const { container } = customRender(
       <MemoryRouter>
         {UniParcColumnConfiguration.get(UniParcColumn.lastSeen).render({
           ...transformedData,

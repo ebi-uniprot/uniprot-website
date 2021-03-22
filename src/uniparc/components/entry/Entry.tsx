@@ -11,6 +11,7 @@ import { Loader, Tabs, Tab } from 'franklin-sites';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import EntryMain from './EntryMain';
+import UniParcFeaturesView from './UniParcFeaturesView';
 
 import SideBarLayout from '../../../shared/components/layouts/SideBarLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -20,17 +21,14 @@ import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import useDataApi from '../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 
 import uniParcConverter, {
   UniParcAPIModel,
 } from '../../adapters/uniParcConverter';
 import XRefsFacets from './XRefsFacets';
-import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import UniParcFeaturesView from './UniParcFeaturesView';
 
 export enum TabLocation {
   Entry = 'entry',
@@ -58,37 +56,29 @@ const Entry: FC = () => {
     }
   }, [match, history]);
 
-  const baseURL = apiUrls.uniparc.entry(match?.params.accession);
-  const { loading, data, status, error } = useDataApi<UniParcAPIModel>(
-    `${baseURL}?query=${UniParcColumn.sequence}`
-  );
+  const url = useMemo(() => {
+    const baseURL = apiUrls.uniparc.entry(match?.params.accession);
+    const { selectedFacets } = getParamsFromURL(search);
+    if (!selectedFacets.length) {
+      return baseURL;
+    }
+    return `${baseURL}?${stringify(
+      Object.fromEntries(selectedFacets.map(({ name, value }) => [name, value]))
+    )}`;
+  }, [match, search]);
+  const dataObject = useDataApiWithStale<UniParcAPIModel>(url);
 
-  const xrefsURL =
-    baseURL +
-    useMemo(() => {
-      const { selectedFacets } = getParamsFromURL(search);
-      if (!selectedFacets.length) {
-        return '';
-      }
-      return `?${stringify(
-        Object.fromEntries(
-          selectedFacets.map(({ name, value }) => [name, value])
-        )
-      )}`;
-    }, [search]);
-  const xrefDataObject = useDataApiWithStale<UniParcAPIModel>(xrefsURL);
-
-  if (error || !match?.params.accession || !match) {
-    return <ErrorHandler status={status} />;
+  if (dataObject.error || !match?.params.accession || !match) {
+    return <ErrorHandler status={dataObject.status} />;
   }
 
-  if (loading || !data) {
-    return <Loader />;
+  if (!dataObject.data) {
+    return <Loader progress={dataObject.progress} />;
   }
 
-  const transformedData = uniParcConverter(data);
+  const transformedData = uniParcConverter(dataObject.data);
 
-  const entrySidebar = <XRefsFacets xrefs={xrefDataObject} />;
+  const entrySidebar = <XRefsFacets xrefs={dataObject} />;
 
   const emptySidebar = (
     <div className="sidebar-layout__sidebar-content--empty" />
@@ -136,7 +126,7 @@ const Entry: FC = () => {
           }
           id={TabLocation.Entry}
         >
-          <EntryMain transformedData={transformedData} xrefs={xrefDataObject} />
+          <EntryMain transformedData={transformedData} xrefs={dataObject} />
         </Tab>
         <Tab
           title={

@@ -422,7 +422,11 @@ const BlastForm = () => {
       <PageIntro title={name} links={links}>
         {info}
       </PageIntro>
-      <form onSubmit={submitBlastJob} onReset={handleReset}>
+      <form
+        onSubmit={submitBlastJob}
+        onReset={handleReset}
+        aria-label="BLAST job submission form"
+      >
         <fieldset>
           <section className="tools-form-section__item">
             <legend>

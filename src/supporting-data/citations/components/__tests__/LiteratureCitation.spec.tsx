@@ -1,29 +1,15 @@
 import { screen, fireEvent } from '@testing-library/react';
 
+import customRender from '../../../../shared/__test-helpers__/customRender';
 import LiteratureCitation from '../LiteratureCitation';
-
 import literatureCitationData from '../__mocks__/literatureCitationData';
 
-import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
-import formatCitationData from '../../../../uniprotkb/adapters/literatureConverter';
-
-let rendered: ReturnType<typeof renderWithRouter>;
+let rendered: ReturnType<typeof customRender>;
 
 describe('Publication component', () => {
   beforeEach(async () => {
-    const { citation, statistics } = literatureCitationData;
-    const { title, authors, literatureAbstract } = citation;
-    const { pubmedId, journalInfo } = formatCitationData(citation);
-
-    rendered = renderWithRouter(
-      <LiteratureCitation
-        title={title}
-        authors={authors}
-        abstract={literatureAbstract}
-        journalInfo={journalInfo}
-        pubmedId={pubmedId}
-        statistics={statistics}
-      />
+    rendered = customRender(
+      <LiteratureCitation data={literatureCitationData} />
     );
   });
 

@@ -6,7 +6,7 @@ import proteomesConverter, {
   ProteomesAPIModel,
   ProteomesUIModel,
 } from '../../adapters/proteomesConverter';
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/proteomesEntryModelData';
 
@@ -22,7 +22,7 @@ describe('ProteomesColumnConfiguration component', () => {
   test.each(Array.from(ProteomesColumnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);

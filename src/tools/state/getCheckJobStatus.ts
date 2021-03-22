@@ -22,12 +22,14 @@ const getCheckJobStatus = ({
 ) => {
   const urlConfig = toolsURLs(job.type);
   try {
-    const { data: status } = await fetchData<Status>(
+    // TODO: check object shape when backend provides API for id mapping
+    const { data } = await fetchData<Status | { jobStatus: Status }>(
       urlConfig.statusUrl(job.remoteID),
-      { Accept: 'text/plain' },
+      { Accept: 'text/plain,application/json' },
       undefined,
-      { responseType: 'text' }
+      { maxRedirects: 0 }
     );
+    const status = typeof data === 'string' ? data : data.jobStatus;
     // get a new reference to the job
     let currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)

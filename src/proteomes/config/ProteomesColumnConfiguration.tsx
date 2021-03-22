@@ -15,6 +15,7 @@ import abbreviationToTitle from '../../shared/config/abbreviations';
 import { Namespace } from '../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../adapters/proteomesConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+import { UniProtKBColumn } from '../../uniprotkb/types/columnTypes';
 
 export enum ProteomesColumn {
   // Names & taxonomy
@@ -133,7 +134,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
       <Link
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
-          search: `query=proteome:${id}`,
+          search: `query=${UniProtKBColumn.proteome}:${id}`,
         }}
       >
         {/* TODO: to eventually be supported by the backend in 2021_02 - 2021_03 */}

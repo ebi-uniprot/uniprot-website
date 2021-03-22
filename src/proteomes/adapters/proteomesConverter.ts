@@ -1,4 +1,5 @@
-import { Lineage, Xref, Citation } from '../../shared/types/apiModel';
+import { Lineage, Xref } from '../../shared/types/apiModel';
+import { Citation } from '../../supporting-data/citations/adapters/citationsConverter';
 import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 
 export type GenomeAnnotation = {
@@ -10,7 +11,7 @@ export type Component = {
   name: string;
   description: string;
   genomeAnnotation: GenomeAnnotation;
-  proteomeCrossReferences: Xref[];
+  proteomeCrossReferences?: Xref[];
   proteinCount: number; // used in the entry for each component TODO: eventually will be supported by backend in 2021_02 - 2021_03
 };
 

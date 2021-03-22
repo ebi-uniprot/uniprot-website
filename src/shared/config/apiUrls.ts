@@ -77,9 +77,9 @@ const apiUrls = {
     go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
   },
   // Database cross references used in the UniParc entry page
-  allDatabases: joinUrl(
+  allUniParcDatabases: joinUrl(
     devPrefix,
-    'uniprot/api/configure/uniprotkb/allDatabases'
+    'uniprot/api/configure/uniparc/allDatabases'
   ),
   // Database cross references used by query builder
   databaseXrefs: joinUrl(
@@ -384,18 +384,6 @@ export const getDownloadUrl = ({
   }
   return `${endpoint}?${queryString.stringify(parameters)}`;
 };
-
-export const literatureApiUrls = {
-  literature: joinUrl(devPrefix, '/uniprot/api/literature'),
-};
-
-export const getPublicationURL = (id: string) =>
-  joinUrl(literatureApiUrls.literature, id);
-
-export const getPublicationsURL = (ids: string[]) =>
-  `${literatureApiUrls.literature}/search?query=(${ids
-    .map((id) => `id:${id}`)
-    .join(' OR ')})`;
 
 export const getProteinsApiUrl = (accession: string) =>
   `https://www.ebi.ac.uk/proteins/api/proteins/${accession}`;

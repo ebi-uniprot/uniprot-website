@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import HomePage from '../HomePage';
 
@@ -10,15 +10,15 @@ jest.mock('../../../shared/hooks/useReducedMotion');
 
 (useReducedMotion as jest.Mock).mockReturnValue(true);
 
-let component: ReturnType<typeof renderWithRedux>;
+let rendered: ReturnType<typeof customRender>;
 
 describe('HomePage component', () => {
   beforeEach(() => {
-    component = renderWithRedux(<HomePage />);
+    rendered = customRender(<HomePage />);
   });
 
   test('should render', () => {
-    const { asFragment } = component;
+    const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 

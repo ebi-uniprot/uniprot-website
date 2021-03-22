@@ -3,7 +3,7 @@ import { fireEvent, screen, getByText } from '@testing-library/react';
 
 import QueryBuilder from '../QueryBuilder';
 
-import renderWithRedux from '../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../shared/__test-helpers__/customRender';
 import searchTermData from './__mocks__/configure_search-term.json';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -20,7 +20,7 @@ describe('QueryBuilder', () => {
     onCancel = jest.fn();
     (useDataApi as jest.Mock).mockReturnValue({ data: searchTermData });
 
-    rendered = renderWithRedux(<QueryBuilder onCancel={onCancel} />, {
+    rendered = customRender(<QueryBuilder onCancel={onCancel} />, {
       history,
     });
   });
@@ -29,7 +29,7 @@ describe('QueryBuilder', () => {
   test('should render loading', async () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
 
-    rendered = renderWithRedux(<QueryBuilder onCancel={onCancel} />);
+    rendered = customRender(<QueryBuilder onCancel={onCancel} />);
 
     expect(rendered.asFragment()).toMatchSnapshot();
   });

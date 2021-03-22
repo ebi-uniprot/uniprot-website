@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
 import { Namespace } from '../../../types/namespaces';
 
-import renderWithRouter from '../../../__test-helpers__/RenderWithRouter';
+import customRender from '../../../__test-helpers__/customRender';
 
 import AccessionView from '../AccessionView';
 
 describe('AccessionView', () => {
   it('should have icon when proteome type is reference', () => {
-    renderWithRouter(
+    customRender(
       <AccessionView
         id="UPI"
         entryType="Reference proteome"
@@ -18,7 +18,7 @@ describe('AccessionView', () => {
   });
 
   it('should not have icon when proteome type is not reference', () => {
-    renderWithRouter(
+    customRender(
       <AccessionView
         id="UPI"
         entryType="Other proteome"

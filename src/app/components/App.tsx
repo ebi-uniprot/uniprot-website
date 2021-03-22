@@ -9,7 +9,11 @@ import GDPR from '../../shared/components/gdpr/GDPR';
 
 import history from '../../shared/utils/browserHistory';
 
-import { Location, LocationToPath } from '../config/urls';
+import {
+  allSearchResultLocations,
+  Location,
+  LocationToPath,
+} from '../config/urls';
 
 import './styles/app.scss';
 
@@ -157,86 +161,52 @@ const App = () => (
               exact
               component={HomePage}
             />
+            {/* Entry pages */}
             {/* Main namespaces */}
             <Route
               path={LocationToPath[Location.UniProtKBEntry]}
               component={UniProtKBEntryPage}
             />
             <Route
-              path={LocationToPath[Location.UniProtKBResults]}
-              component={GenericResultsPage}
-            />
-            <Route
               path={LocationToPath[Location.UniRefEntry]}
               component={UniRefEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.UniRefResults]}
-              component={GenericResultsPage}
             />
             <Route
               path={LocationToPath[Location.UniParcEntry]}
               component={UniParcEntryPage}
             />
             <Route
-              path={LocationToPath[Location.UniParcResults]}
-              component={GenericResultsPage}
-            />
-            <Route
               path={LocationToPath[Location.ProteomesEntry]}
               component={ProteomesEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.ProteomesResults]}
-              component={GenericResultsPage}
             />
             {/* Supporting data */}
             {/* <Route
               path={LocationToPath[Location.TaxonomyEntry]}
               component={TaxonomyEntryPage}
             /> */}
-            <Route
-              path={LocationToPath[Location.TaxonomyResults]}
-              component={GenericResultsPage}
-            />
             {/* <Route
               path={LocationToPath[Location.KeywordsEntry]}
               component={KeywordsEntryPage}
             /> */}
-            <Route
-              path={LocationToPath[Location.KeywordsResults]}
-              component={GenericResultsPage}
-            />
             {/* <Route
               path={LocationToPath[Location.CitationsEntry]}
               component={CitationsEntryPage}
             /> */}
-            <Route
-              path={LocationToPath[Location.CitationsResults]}
-              component={GenericResultsPage}
-            />
             {/* <Route
               path={LocationToPath[Location.DiseasesEntry]}
               component={DiseasesEntryPage}
             /> */}
-            <Route
-              path={LocationToPath[Location.DiseasesResults]}
-              component={GenericResultsPage}
-            />
             {/* <Route
               path={LocationToPath[Location.DatabaseEntry]}
               component={DatabaseEntryPage}
             /> */}
-            <Route
-              path={LocationToPath[Location.DatabaseResults]}
-              component={GenericResultsPage}
-            />
             {/* <Route
               path={LocationToPath[Location.LocationsEntry]}
               component={LocationsEntryPage}
             /> */}
+            {/* Result pages */}
             <Route
-              path={LocationToPath[Location.LocationsResults]}
+              path={allSearchResultLocations}
               component={GenericResultsPage}
             />
             {/* Tools */}

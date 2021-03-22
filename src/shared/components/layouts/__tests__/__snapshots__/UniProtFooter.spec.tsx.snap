@@ -152,42 +152,42 @@ exports[`HomePage component should render 1`] = `
           >
             <li>
               <a
-                href="/citations/?query=*"
+                href="/citations?query=*"
               >
                 Literature citations
               </a>
             </li>
             <li>
               <a
-                href="/taxonomy/?query=*"
+                href="/taxonomy?query=*"
               >
                 Taxonomy
               </a>
             </li>
             <li>
               <a
-                href="/keywords/?query=*"
+                href="/keywords?query=*"
               >
                 Keywords
               </a>
             </li>
             <li>
               <a
-                href="/locations/?query=*"
+                href="/locations?query=*"
               >
                 Subcellular locations
               </a>
             </li>
             <li>
               <a
-                href="/database/?query=*"
+                href="/database?query=*"
               >
                 Cross-referenced databases
               </a>
             </li>
             <li>
               <a
-                href="/diseases/?query=*"
+                href="/diseases?query=*"
               >
                 Diseases
               </a>

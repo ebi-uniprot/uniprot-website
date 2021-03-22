@@ -166,7 +166,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
-            href="/taxonomy/?query=*"
+            href="/taxonomy?query=*"
           >
             Taxonomy
           </a>
@@ -190,7 +190,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
-            href="/locations/?query=*"
+            href="/locations?query=*"
           >
             Subcellular locations
           </a>
@@ -239,7 +239,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
-            href="/diseases/?query=*"
+            href="/diseases?query=*"
           >
             Diseases
           </a>
@@ -259,7 +259,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
-            href="/keywords/?query=*"
+            href="/keywords?query=*"
           >
             Keywords
           </a>
@@ -283,7 +283,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
-            href="/citations/?query=*"
+            href="/citations?query=*"
           >
             Literature Citations
           </a>
@@ -307,7 +307,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           class="decorated-list-item__content"
         >
           <a
-            href="/database/?query=*"
+            href="/database?query=*"
           >
             Cross-referenced databases
           </a>

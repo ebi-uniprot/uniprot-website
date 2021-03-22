@@ -6,7 +6,7 @@ import citationsConverter, {
   KeywordsAPIModel,
   KeywordsUIModel,
 } from '../../adapters/keywordsConverter';
-import renderWithRedux from '../../../../shared/__test-helpers__/RenderWithRedux';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/keywordsModelData';
 
@@ -23,7 +23,7 @@ describe('KeywordsColumnConfiguration component', () => {
   test.each(Array.from(KeywordsColumnConfiguration.entries()))(
     `should render column "%s"`,
     (key, column) => {
-      const { asFragment } = renderWithRedux(
+      const { asFragment } = customRender(
         <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
       );
       expect(asFragment()).toMatchSnapshot(key);

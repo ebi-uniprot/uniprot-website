@@ -142,8 +142,6 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
    * is implemented.
    * See here for details:
    * https://stackoverflow.com/questions/43836886/failed-to-construct-customelement-error-when-javascript-file-is-placed-in-head
-   * After discussion with author of @swissprot/swissbiopics-visualizer this
-   * will most likely not change.
    */
   /* istanbul ignore next */
   useEffect(() => {
@@ -163,8 +161,8 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
         }
       }
 
-      // No "h" in the middle of this method name
-      // "Higlight" [sic] ...
+      // Note that there is no "h" in the middle of this method name
+      // This is probably a typo that needs correcting
       removeHiglight(
         e: HTMLElement | SVGElement | null | undefined,
         target: HTMLElement | SVGElement | null | undefined,
