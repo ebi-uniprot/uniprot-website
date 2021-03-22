@@ -22,6 +22,7 @@ export enum PeptideSearchFields {
   taxIds = 'Taxons',
   lEQi = 'Isoleucine leucine equivalent',
   spOnly = 'Reviewed only',
+  name = 'Name',
 }
 
 export type PeptideSearchFormValues = Record<
@@ -43,19 +44,22 @@ const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
     fieldName: 'isoleucineLeucineEquivalent',
     type: PeptideSearchFieldTypes.select,
     selected: false,
-    values: Object.freeze([
-      { value: true, label: 'on' },
-      { value: false, label: 'off' },
-    ] as Array<{ label?: string; value: FormParameters['gapped'] }>),
+    values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
+      value: FormParameters['lEQi'];
+    }>),
   }),
   [PeptideSearchFields.spOnly]: Object.freeze({
     fieldName: 'reviewedOnly',
     type: PeptideSearchFieldTypes.select,
     selected: false,
-    values: Object.freeze([
-      { value: true, label: 'on' },
-      { value: false, label: 'off' },
-    ] as Array<{ label?: string; value: FormParameters['gapped'] }>),
+    values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
+      value: FormParameters['spOnly'];
+    }>),
+  }),
+  [PeptideSearchFields.name]: Object.freeze({
+    fieldName: 'name',
+    type: PeptideSearchFieldTypes.textarea,
+    selected: '',
   }),
 });
 

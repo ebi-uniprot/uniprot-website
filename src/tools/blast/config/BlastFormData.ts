@@ -76,7 +76,7 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
       { value: 'uniref90', label: 'UniRef90' },
       { value: 'uniref50', label: 'UniRef50' },
       { value: 'uniparc', label: 'UniParc' },
-    ] as Array<{ label?: string; value: FormParameters['database'] }>),
+    ] as Array<{ label: string; value: FormParameters['database'] }>),
   }),
   [BlastFields.taxons]: Object.freeze({
     fieldName: 'taxIDs',
@@ -125,7 +125,7 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
     values: Object.freeze([
       { value: 'F', label: 'None' },
       { value: 'T', label: 'Filter low complexity regions' },
-    ] as Array<{ label?: string; value: FormParameters['filter'] }>),
+    ] as Array<{ label: string; value: FormParameters['filter'] }>),
   }),
   // 'gapalign'
   [BlastFields.gapped]: Object.freeze({
@@ -135,7 +135,7 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
     values: Object.freeze([
       { value: true, label: 'yes' },
       { value: false, label: 'no' },
-    ] as Array<{ label?: string; value: FormParameters['gapped'] }>),
+    ] as Array<{ label: string; value: FormParameters['gapped'] }>),
   }),
   // Note: this corresponds to BOTH 'alignments' AND 'scores' AT THE SAME TIME!
   [BlastFields.hits]: Object.freeze({

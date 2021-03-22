@@ -38,23 +38,19 @@ import { createJob } from '../../state/toolsActions';
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
 import {
-  SType,
-  Sequence,
-  Matrix,
-  GapAlign,
-  Database,
-  Exp,
-  Filter,
-  Scores,
+  PepS,
+  TaxIds,
+  LEQi,
+  SpOnly,
 } from '../types/peptideSearchServerParameters';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
-  BlastFormValues,
-  BlastFormValue,
+  PeptideSearchFormValues,
+  PeptideSearchFormValue,
   PeptideSearchFields,
   SelectedTaxon,
-} from '../config/peptideSearchFormData';
+} from '../config/PeptideSearchFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 import {
@@ -65,25 +61,12 @@ import {
 import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
 
-const BLAST_LIMIT = 20;
-
-// https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3848038/
-const getAutoMatrixFor = (sequence: string): FormParameters['matrix'] => {
-  if (sequence.length <= 34) {
-    return 'PAM30';
-  }
-  if (sequence.length <= 49) {
-    return 'PAM70';
-  }
-  if (sequence.length <= 85) {
-    return 'BLOSUM80';
-  }
-  return 'BLOSUM62';
-};
+// TODO: define limit?
+const PEPTIDE_SEARCH_LIMIT = 20;
 
 const FormSelect: FC<{
-  formValue: BlastFormValue;
-  updateFormValue: Dispatch<SetStateAction<BlastFormValue>>;
+  formValue: PeptideSearchFormValue;
+  updateFormValue: Dispatch<SetStateAction<PeptideSearchFormValue>>;
 }> = ({ formValue, updateFormValue }) => {
   if (!formValue) {
     return null;
@@ -122,7 +105,7 @@ interface CustomLocationState {
   parameters?: Partial<FormParameters>;
 }
 
-const BlastForm = () => {
+const PeptideSearchForm = () => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -140,10 +123,10 @@ const BlastForm = () => {
     if (parametersFromHistoryState) {
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields
-      const formValues: Partial<BlastFormValues> = {};
+      const formValues: Partial<PeptideSearchFormValues> = {};
       const defaultValuesEntries = Object.entries(defaultFormValues) as [
         PeptideSearchFields,
-        BlastFormValue
+        PeptideSearchFormValue
       ][];
       // for every field of the form, get its value from the history state if
       // present, otherwise go for the default one
@@ -154,9 +137,9 @@ const BlastForm = () => {
             parametersFromHistoryState[
               field.fieldName as keyof FormParameters
             ] || field.selected,
-        }) as Readonly<BlastFormValue>;
+        }) as Readonly<PeptideSearchFormValue>;
       }
-      return Object.freeze(formValues) as Readonly<BlastFormValues>;
+      return Object.freeze(formValues) as Readonly<PeptideSearchFormValues>;
     }
     // otherwise, pass the default values
     return defaultFormValues;
@@ -170,43 +153,22 @@ const BlastForm = () => {
   const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
   const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[PeptideSearchFields.sequence].selected)
+    sequenceProcessor(initialFormValues[PeptideSearchFields.peps].selected)
   );
 
   // actual form fields
-  const [stype, setSType] = useState<
-    BlastFormValues[PeptideSearchFields.stype]
-  >(initialFormValues[PeptideSearchFields.stype]);
-  const [program, setProgram] = useState<
-    BlastFormValues[PeptideSearchFields.program]
-  >(initialFormValues[PeptideSearchFields.program]);
-  const [sequence, setSequence] = useState<
-    BlastFormValues[PeptideSearchFields.sequence]
-  >(initialFormValues[PeptideSearchFields.sequence]);
-  const [database, setDatabase] = useState<
-    BlastFormValues[PeptideSearchFields.database]
-  >(initialFormValues[PeptideSearchFields.database]);
+  const [peps, setPeps] = useState<
+    PeptideSearchFormValues[PeptideSearchFields.peps]
+  >(initialFormValues[PeptideSearchFields.peps]);
   const [taxIDs, setTaxIDs] = useState<
-    BlastFormValues[PeptideSearchFields.taxons]
-  >(initialFormValues[PeptideSearchFields.taxons]);
-  const [negativeTaxIDs, setNegativeTaxIDs] = useState<
-    BlastFormValues[PeptideSearchFields.excludedtaxons]
-  >(initialFormValues[PeptideSearchFields.excludedtaxons]);
-  const [threshold, setThreshold] = useState<
-    BlastFormValues[PeptideSearchFields.threshold]
-  >(initialFormValues[PeptideSearchFields.threshold]);
-  const [matrix, setMatrix] = useState<
-    BlastFormValues[PeptideSearchFields.matrix]
-  >(initialFormValues[PeptideSearchFields.matrix]);
-  const [filter, setFilter] = useState<
-    BlastFormValues[PeptideSearchFields.filter]
-  >(initialFormValues[PeptideSearchFields.filter]);
-  const [gapped, setGapped] = useState<
-    BlastFormValues[PeptideSearchFields.gapped]
-  >(initialFormValues[PeptideSearchFields.gapped]);
-  const [hits, setHits] = useState<BlastFormValues[PeptideSearchFields.hits]>(
-    initialFormValues[PeptideSearchFields.hits]
-  );
+    PeptideSearchFormValues[PeptideSearchFields.taxIds]
+  >(initialFormValues[PeptideSearchFields.taxIds]);
+  const [lEQi, setLEQi] = useState<
+    PeptideSearchFormValues[PeptideSearchFields.lEQi]
+  >(initialFormValues[PeptideSearchFields.lEQi]);
+  const [spOnly, setSpOnly] = useState<
+    PeptideSearchFormValues[PeptideSearchFields.spOnly]
+  >(initialFormValues[PeptideSearchFields.spOnly]);
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
@@ -251,17 +213,10 @@ const BlastForm = () => {
     // reset all form state to defaults
     setParsedSequences([]);
 
-    setSType(defaultFormValues[PeptideSearchFields.stype]);
-    setProgram(defaultFormValues[PeptideSearchFields.program]);
-    setSequence(defaultFormValues[PeptideSearchFields.sequence]);
-    setDatabase(defaultFormValues[PeptideSearchFields.database]);
-    setTaxIDs(defaultFormValues[PeptideSearchFields.taxons]);
-    setNegativeTaxIDs(defaultFormValues[PeptideSearchFields.excludedtaxons]);
-    setThreshold(defaultFormValues[PeptideSearchFields.threshold]);
-    setMatrix(defaultFormValues[PeptideSearchFields.matrix]);
-    setFilter(defaultFormValues[PeptideSearchFields.filter]);
-    setGapped(defaultFormValues[PeptideSearchFields.gapped]);
-    setHits(defaultFormValues[PeptideSearchFields.hits]);
+    setPeps(defaultFormValues[PeptideSearchFields.peps]);
+    setTaxIDs(defaultFormValues[PeptideSearchFields.taxIds]);
+    setLEQi(defaultFormValues[PeptideSearchFields.lEQi]);
+    setSpOnly(defaultFormValues[PeptideSearchFields.spOnly]);
 
     setJobName(defaultFormValues[PeptideSearchFields.name]);
 
@@ -275,7 +230,7 @@ const BlastForm = () => {
   const submitBlastJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
-    if (!sequence.selected) {
+    if (!peps.selected) {
       return;
     }
 
@@ -286,70 +241,31 @@ const BlastForm = () => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      stype: stype.selected as SType,
-      program: program.selected as FormParameters['program'],
-      sequence: sequence.selected as Sequence,
-      database: database.selected as Database,
-      taxIDs: taxIDs.selected as SelectedTaxon[],
-      negativeTaxIDs: negativeTaxIDs.selected as SelectedTaxon[],
-      threshold: threshold.selected as Exp,
-      // remove "auto", and transform into corresponding matrix
-      matrix:
-        matrix.selected === 'auto'
-          ? getAutoMatrixFor(sequence.selected as string)
-          : (matrix.selected as Matrix),
-      filter: filter.selected as Filter,
-      // transform string into boolean
-      gapped: (gapped.selected === 'true') as GapAlign,
-      // transform string into number
-      hits: parseInt(hits.selected as string, 10) as Scores,
+      peps: peps.selected as PepS,
+      taxIds: taxIDs.selected as SelectedTaxon[],
+      lEQi: lEQi.selected as LEQi,
+      spOnly: spOnly.selected as SpOnly,
     };
-
-    const multipleParameters = parsedSequences.map((parsedSequence) => ({
-      ...parameters,
-      sequence: parsedSequence.raw as Sequence,
-    }));
 
     // navigate to the dashboard, not immediately, to give the impression that
     // something is happening
     sleep(1000).then(() => {
+      history.push(LocationToPath[Location.Dashboard], {
+        parameters: [parameters],
+      });
       // We emit an action containing only the parameters and the type of job
       // the reducer will be in charge of generating a proper job object for
       // internal state. Dispatching after history.push so that pop-up messages (as a
       // side-effect of createJob) cannot mount immediately before navigating away.
-      for (let i = 0; i < parsedSequences.length; i += 1) {
-        // take extracted name by default
-        let { name = '' } = parsedSequences[i];
-        if (jobNameEdited) {
-          // if one was submitted by user, and we only have one sequence, use it
-          if (parsedSequences.length === 1) {
-            name = jobName.selected as string;
-          } else {
-            // if we have more sequences, append a counter
-            name = `${jobName.selected as string} - ${i + 1}`;
-          }
-        }
-        dispatch(createJob(multipleParameters[i], JobTypes.BLAST, name));
-      }
-
-      history.push(LocationToPath[Location.Dashboard], {
-        parameters: multipleParameters,
-      });
+      dispatch(
+        createJob(
+          parameters,
+          JobTypes.PEPTIDE_SEARCH,
+          jobName.selected as string
+        )
+      );
     });
   };
-
-  // effects
-  // set the "Auto" matrix to the have the correct label depending on sequence
-  useEffect(() => {
-    const autoMatrix = getAutoMatrixFor(sequence.selected as string);
-    setMatrix((matrix) => ({
-      ...matrix,
-      values: [
-        { label: `Auto - ${autoMatrix}`, value: 'auto' },
-        ...(matrix.values || []).filter((option) => option.value !== 'auto'),
-      ],
-    }));
-  }, [sequence.selected]);
 
   const onSequenceChange = useCallback(
     (parsedSequences: ParsedSequence[]) => {
@@ -357,51 +273,18 @@ const BlastForm = () => {
         .map((parsedSequence) => parsedSequence.raw)
         .join('\n');
 
-      if (rawSequence === sequence.selected) {
+      if (rawSequence === peps.selected) {
         return;
       }
 
-      if (!jobNameEdited) {
-        // if the user didn't manually change the title, autofill it
-        setJobName((jobName) => {
-          const potentialJobName = parsedSequences[0]?.name || '';
-          if (jobName.selected === potentialJobName) {
-            // avoid unecessary rerender by keeping the same object
-            return jobName;
-          }
-          return { ...jobName, selected: potentialJobName };
-        });
-      }
-
       setParsedSequences(parsedSequences);
-      setSequence((sequence) => ({ ...sequence, selected: rawSequence }));
+      setPeps((peps) => ({ ...peps, selected: rawSequence }));
       setSubmitDisabled(
-        parsedSequences.length > BLAST_LIMIT ||
+        parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
           parsedSequences.some((parsedSequence) => !parsedSequence.valid)
       );
-
-      const mightBeDNA = parsedSequences[0]?.likelyType === 'na';
-
-      setSType((stype) => {
-        // we want protein by default
-        const selected = mightBeDNA ? 'dna' : 'protein';
-        if (stype.selected === selected) {
-          // avoid unecessary rerender by keeping the same object
-          return stype;
-        }
-        return { ...stype, selected };
-      });
-      setProgram((program) => {
-        // we want protein by default
-        const selected = mightBeDNA ? 'blastx' : 'blastp';
-        if (program.selected === selected) {
-          // avoid unecessary rerender by keeping the same object
-          return program;
-        }
-        return { ...program, selected };
-      });
     },
-    [jobNameEdited, sequence.selected]
+    [peps.selected]
   );
 
   // file handling
@@ -420,7 +303,7 @@ const BlastForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name, links, info } = infoMappings[JobTypes.BLAST];
+  const { name, links, info } = infoMappings[JobTypes.PEPTIDE_SEARCH];
 
   return (
     <>
@@ -430,13 +313,14 @@ const BlastForm = () => {
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}
-        aria-label="BLAST job submission form"
+        aria-label="Peptide Search job submission form"
       >
         <fieldset>
           <section className="tools-form-section__item">
             <legend>
-              Find a protein sequence to run BLAST sequence similarity search by
-              UniProt ID (e.g. P05067 or A4_HUMAN or UPI0000000001).
+              Find UniProt entries through parts of their peptide sequences,
+              each more than two amino acids long, in FASTA format (e.g.
+              RVLSLGR).
             </legend>
             <div className="import-sequence-section">
               <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
@@ -449,7 +333,8 @@ const BlastForm = () => {
         <fieldset>
           <section className="text-block">
             <legend>
-              Enter one or more sequences ({BLAST_LIMIT} max). You may also
+              Enter one or more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may
+              also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
@@ -463,7 +348,6 @@ const BlastForm = () => {
             />
           </section>
           <section className="tools-form-section">
-            <FormSelect formValue={database} updateFormValue={setDatabase} />
             <section className="tools-form-section__item tools-form-section__item--taxon-select">
               <AutocompleteWrapper
                 placeholder="Enter taxon names or IDs to include"
@@ -516,19 +400,16 @@ const BlastForm = () => {
             </summary>
             <section className="tools-form-section">
               {[
-                [stype, setSType],
-                [program, setProgram],
-                [threshold, setThreshold],
-                [matrix, setMatrix],
-                [filter, setFilter],
-                [gapped, setGapped],
-                [hits, setHits],
+                [lEQi, setLEQi],
+                [spOnly, setSpOnly],
               ].map(([stateItem, setStateItem]) => (
                 <FormSelect
-                  key={(stateItem as BlastFormValue).fieldName}
-                  formValue={stateItem as BlastFormValue}
+                  key={(stateItem as PeptideSearchFormValue).fieldName}
+                  formValue={stateItem as PeptideSearchFormValue}
                   updateFormValue={
-                    setStateItem as Dispatch<SetStateAction<BlastFormValue>>
+                    setStateItem as Dispatch<
+                      SetStateAction<PeptideSearchFormValue>
+                    >
                   }
                 />
               ))}
@@ -550,8 +431,8 @@ const BlastForm = () => {
                 onClick={submitBlastJob}
               >
                 {parsedSequences.length <= 1
-                  ? 'Run BLAST'
-                  : `BLAST ${parsedSequences.length} sequences`}
+                  ? 'Run Peptide Search'
+                  : `Run Peptide Search on ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>
@@ -561,4 +442,4 @@ const BlastForm = () => {
   );
 };
 
-export default BlastForm;
+export default PeptideSearchForm;
