@@ -5,6 +5,7 @@
   }
 
   &__placeholder {
+    will-change: filter;
     filter: blur(0.1rem);
   }
 }
