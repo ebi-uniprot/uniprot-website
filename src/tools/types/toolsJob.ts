@@ -35,7 +35,7 @@ type DataForDashboard = {
   [JobTypes.ALIGN]: never;
   [JobTypes.BLAST]: { hits: number };
   [JobTypes.ID_MAPPING]: never; // TODO
-  [JobTypes.PEPTIDE_SEARCH]: never; // TODO
+  [JobTypes.PEPTIDE_SEARCH]: never;
 };
 
 export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {

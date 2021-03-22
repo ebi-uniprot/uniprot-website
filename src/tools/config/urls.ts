@@ -51,8 +51,12 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
       baseURL = ''; // TODO
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      baseURL = ''; // TODO
-      break;
+      baseURL = 'http://peptidesearch.uniprot.org/asyncrest/';
+      return Object.freeze({
+        runUrl: baseURL,
+        statusUrl: (jobId: string) => `${baseURL}/jobs/${jobId}`,
+        resultUrl: (jobId: string) => `${baseURL}/jobs/${jobId}`,
+      });
     default:
     //
   }
