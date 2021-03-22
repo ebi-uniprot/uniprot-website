@@ -1,10 +1,6 @@
-import {
-  CitationsAPIModel,
-  getCitationPubMedId,
-} from '../adapters/citationsConverter';
+import { Citation, getCitationPubMedId } from '../adapters/citationsConverter';
 
-export const getCitationItemId = (item: CitationsAPIModel, index: number) => {
-  const { citation } = item;
+export const getCitationItemId = (citation: Citation, index: number) => {
   const pubMedXref = getCitationPubMedId(citation);
   let id = pubMedXref?.id;
   if (!id) {

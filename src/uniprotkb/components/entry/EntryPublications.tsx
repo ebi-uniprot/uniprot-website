@@ -140,7 +140,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     <section>
       <h2>Publications for {accession}</h2>
       <DataListWithLoader
-        getIdKey={getCitationItemId}
+        getIdKey={({ citation }, index) => getCitationItemId(citation, index)}
         data={allResults}
         dataRenderer={(data) => {
           const { references } = data;

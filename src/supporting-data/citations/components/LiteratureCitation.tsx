@@ -8,6 +8,7 @@ import {
   CitedIcon,
   ExternalLink,
 } from 'franklin-sites';
+import { SetOptional } from 'type-fest';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -198,7 +199,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
 };
 
 const LiteratureCitation: FC<{
-  data: CitationsAPIModel;
+  data: SetOptional<CitationsAPIModel, 'statistics'>;
   displayAll?: boolean;
 }> = ({ data, displayAll, children }) => {
   const { citation, statistics } = data;
