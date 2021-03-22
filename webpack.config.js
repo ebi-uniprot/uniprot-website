@@ -137,17 +137,23 @@ module.exports = (env, argv) => {
                 : MiniCssExtractPlugin.loader,
             },
             {
-              loader: 'css-loader', // translates CSS into CommonJS
+              // translates CSS into something importable into the code
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  auto: true, // only for files containing ".module." in name
+                  // class name to hash, but also keep name in development
+                  localIdentName: `${isDev ? '[local]#' : ''}[hash:base64:5]`,
+                },
+              },
             },
             {
               loader: 'sass-loader', // compiles Sass to CSS
               options: {
                 sassOptions: {
-                  includePaths: [
-                    fs.realpathSync(
-                      `${__dirname}/node_modules/franklin-sites/src/styles`
-                    ),
-                  ],
+                  // This should be the default, but putting it here avoids
+                  // issues when importing from linked packages
+                  includePaths: ['node_modules'],
                   importer: jsonImporter({ convertCase: true }),
                 },
               },

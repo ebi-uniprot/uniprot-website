@@ -2,12 +2,21 @@ import { Card } from 'franklin-sites';
 import { FC, useCallback, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import RenderColumnInCard, {
+  RenderColumnsInCard,
+} from '../../../../shared/components/results/RenderColumnInCard';
+
 import { getEntryPath } from '../../../../app/config/urls';
 
 import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
+import LocationsColumnConfiguration, {
+  LocationsColumn,
+} from '../../config/LocationsColumnConfiguration';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
+
+const category = LocationsColumnConfiguration.get(LocationsColumn.category);
 
 const CitationCard: FC<{
   data: LocationsAPIModel;
@@ -42,9 +51,7 @@ const CitationCard: FC<{
         <div className="result-card__right">
           <h5>{data.name}</h5>
           <div className="result-card__info-container">{data.definition}</div>
-          <div className="result-card__info-container">
-            <strong>Category:</strong> {data.category}
-          </div>
+          <RenderColumnsInCard renderers={category} data={data} />
         </div>
       </section>
     </Card>

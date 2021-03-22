@@ -20,7 +20,13 @@
     "jsx": "react-jsx",
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "lib": ["ESNext", "ES2020", "WebWorker", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    // TypeScript language service plugin for CSS Modules.
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "include": ["src"],
   "exclude": [

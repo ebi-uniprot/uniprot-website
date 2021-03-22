@@ -37,13 +37,10 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <div
               class="result-card__info-container"
             >
-              <span
-                class="result-card__info-bit"
-              >
+              <span>
                 <strong>
-                  Organism
+                  Organism: 
                 </strong>
-                : 
                 <a
                   href="/taxonomy/9606"
                   title="Homo sapiens (Human), taxon ID 9606"
@@ -51,46 +48,38 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   Homo sapiens (Human)
                 </a>
               </span>
-              <span
-                class="result-card__info-bit"
-              >
+              <span>
                 <strong>
-                  Protein Count
+                  Protein Count: 
                 </strong>
-                : 
                 <a
                   href="/uniprotkb?query=proteome:UP000005640"
                 >
                   18
                 </a>
               </span>
-              <span
-                class="result-card__info-bit"
-              >
+              <span>
                 <strong>
-                  Genome representation
+                  Genome representation: 
                 </strong>
-                : Full
+                Full
               </span>
-              <span
-                class="result-card__info-bit"
-              >
+              <span>
                 <strong>
                   <abbr
                     title="Complete Proteome Detector"
                   >
                     CPD
                   </abbr>
+                  : 
                 </strong>
-                : Standard
+                Standard
               </span>
             </div>
             <div
               class="result-card__info-container"
             >
-              <span
-                class="result-card__info-bit"
-              >
+              <span>
                 <strong>
                   <abbr
                     title="Benchmarking Universal Single-Copy Orthologs"
@@ -150,8 +139,8 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                       Missing
                     </span>
                   </span>
+                  : 
                 </strong>
-                : 
                 <div
                   class="busco-view"
                 >
