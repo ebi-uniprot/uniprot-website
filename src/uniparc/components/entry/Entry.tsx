@@ -45,22 +45,20 @@ const Entry: FC = () => {
 
   const { search } = useLocation();
 
-  const accession = match?.params.accession;
-
   // if URL doesn't finish with "entry" redirect to /entry by default
   useEffect(() => {
-    if (match && !match.params.subPage && accession) {
+    if (match && !match.params.subPage) {
       history.replace({
         ...history.location,
         pathname: generatePath(LocationToPath[Location.UniParcEntry], {
-          accession,
+          accession: match?.params.accession,
           subPage: TabLocation.Entry,
         }),
       });
     }
-  }, [match, accession, history]);
+  }, [match, history]);
 
-  const baseURL = apiUrls.uniparc.entry(accession);
+  const baseURL = apiUrls.uniparc.entry(match?.params.accession);
   const { loading, data, status, error } = useDataApi<UniParcAPIModel>(
     `${baseURL}?query=${UniParcColumn.sequence}`
   );
@@ -80,7 +78,7 @@ const Entry: FC = () => {
     }, [search]);
   const xrefDataObject = useDataApiWithStale<UniParcAPIModel>(xrefsURL);
 
-  if (error || !accession || !match) {
+  if (error || !match?.params.accession || !match) {
     return <ErrorHandler status={status} />;
   }
 
