@@ -7,7 +7,6 @@ import {
   useRef,
   useCallback,
 } from 'react';
-import { Link } from 'react-router-dom';
 import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
 import SearchContainer from '../../shared/components/search/SearchContainer';
@@ -30,7 +29,8 @@ const mission = (
   <>
     UniProt is the world’s leading high-quality, comprehensive and freely
     accessible resource of protein sequence and functional information.{' '}
-    <Link to="/" className="cite-us">
+    {/* TODO: update link */}
+    <a href="https://www.uniprot.org/help/publications" className="cite-us">
       Cite{' '}
       <span className="no-wrap">
         UniProt&nbsp;
@@ -38,7 +38,7 @@ const mission = (
           <CitedIcon width="1.5ch" />
         </sup>
       </span>
-    </Link>
+    </a>
   </>
 );
 
