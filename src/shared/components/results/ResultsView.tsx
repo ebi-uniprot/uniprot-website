@@ -12,6 +12,7 @@ import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
 import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
+import TaxonomyCards from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
 import LocationsCard from '../../../supporting-data/locations/components/results/LocationsCard';
 
 import uniProtKbConverter, {
@@ -204,6 +205,15 @@ const cardRenderer = (
       return (cardData) => (
         <ProteomesCard
           data={cardData as ProteomesAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.taxonomy: {
+      return (cardData) => (
+        <TaxonomyCards
+          data={cardData as TaxonomyAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />

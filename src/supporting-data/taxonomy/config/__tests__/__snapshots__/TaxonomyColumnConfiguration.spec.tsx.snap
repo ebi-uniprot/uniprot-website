@@ -27,43 +27,7 @@ exports[`TaxonomyColumnConfiguration component should render column "id": id 1`]
 exports[`TaxonomyColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/11646"
-  >
-     
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/327045"
-  >
-     
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/11632"
-  >
-     
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/2169561"
-  >
-     
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/2732514"
-  >
-     
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/2732409"
-  >
-     
-  </a>
-   &gt; 
-  <a
-    href="/taxonomy/2732397"
+    href="/taxonomy/10239"
   >
      
   </a>
@@ -75,7 +39,43 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
   </a>
    &gt; 
   <a
-    href="/taxonomy/10239"
+    href="/taxonomy/2732397"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2732409"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2732514"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/2169561"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/11632"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/327045"
+  >
+     
+  </a>
+   &gt; 
+  <a
+    href="/taxonomy/11646"
   >
      
   </a>

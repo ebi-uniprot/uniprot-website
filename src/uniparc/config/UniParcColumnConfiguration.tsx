@@ -8,8 +8,9 @@ import {
   Sequence,
 } from 'franklin-sites';
 
-import OrganismDataView from '../../shared/components/views/OrganismDataView';
 import { EntryTypeIcon } from '../../shared/components/entry/EntryTypeIcon';
+import AccessionView from '../../shared/components/results/AccessionView';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
@@ -24,7 +25,6 @@ import {
   UniParcAPIModel,
   UniParcXRef,
 } from '../adapters/uniParcConverter';
-import AccessionView from '../../shared/components/results/AccessionView';
 
 export enum UniParcColumn {
   // Names & taxonomy
@@ -126,7 +126,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organismID, {
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
-        <OrganismDataView key={taxon.taxonId} organism={taxon} displayOnlyID />
+        <TaxonomyView key={taxon.taxonId} data={taxon} displayOnlyID />
       ))}
     </ExpandableList>
   ),
@@ -137,7 +137,7 @@ UniParcColumnConfiguration.set(UniParcColumn.organism, {
   render: (data) => (
     <ExpandableList descriptionString="organisms" displayNumberOfHiddenItems>
       {xrefGetter(data, 'organism', 'taxonId')?.map((taxon) => (
-        <OrganismDataView key={taxon.taxonId} organism={taxon} />
+        <TaxonomyView key={taxon.taxonId} data={taxon} />
       ))}
     </ExpandableList>
   ),

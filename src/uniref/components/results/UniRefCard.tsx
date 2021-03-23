@@ -60,9 +60,8 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
           <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
-                type={column}
                 data={data}
-                columnConfig={UniRefColumnConfiguration}
+                columnRenderer={UniRefColumnConfiguration.get(column)}
                 key={column}
               />
             ))}

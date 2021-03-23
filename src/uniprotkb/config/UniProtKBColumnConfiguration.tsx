@@ -277,7 +277,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
     return (
       organismData?.lineage && (
-        <TaxonomyLineage lineage={organismData.lineage} />
+        <TaxonomyLineage lineage={organismData.lineage as string[]} />
       )
     );
   },

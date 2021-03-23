@@ -88,9 +88,8 @@ const UniRefCard: FC<{
           <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
-                type={column}
                 data={data}
-                columnConfig={UniParcColumnConfiguration}
+                columnRenderer={UniParcColumnConfiguration.get(column)}
                 key={column}
               />
             ))}
