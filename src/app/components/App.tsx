@@ -121,6 +121,21 @@ const AlignForm = lazy(
       /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
     )
 );
+
+// const IDMappingResult= lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/IDMappingResult'
+//     )
+// )
+
+const IDMappingForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+    )
+);
+
 const Dashboard = lazy(
   () =>
     import(
@@ -239,6 +254,18 @@ const App = () => (
               render={() => (
                 <SingleColumnLayout>
                   <Dashboard />
+                </SingleColumnLayout>
+              )}
+            />
+            {/* <Route
+              path={LocationToPath[Location.IDMappingResult]}
+              component={IDMappingResult}
+            /> */}
+            <Route
+              path={LocationToPath[Location.IDMapping]}
+              render={() => (
+                <SingleColumnLayout>
+                  <IDMappingForm />
                 </SingleColumnLayout>
               )}
             />
