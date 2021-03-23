@@ -13,6 +13,7 @@ import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
 import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
 import TaxonomyCards from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
+import LocationsCard from '../../../supporting-data/locations/components/results/LocationsCard';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -222,6 +223,15 @@ const cardRenderer = (
       return (cardData) => (
         <CitationCard
           data={cardData as CitationsAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.locations: {
+      return (cardData) => (
+        <LocationsCard
+          data={cardData as LocationsAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
