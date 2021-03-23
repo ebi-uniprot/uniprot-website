@@ -30,6 +30,7 @@ declare module '*.jpeg' {
   export default content;
 }
 
+// NOTE: this will not catch keys/classnames that do not exist in the stylesheet
 declare module '*.module.scss' {
   const classes: { [key: string]: string };
   export default classes;

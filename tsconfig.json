@@ -21,8 +21,9 @@
     "types": ["jest", "node", "@testing-library/jest-dom"],
     "lib": ["ESNext", "ES2020", "WebWorker", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
-    // TypeScript language service plugin for CSS Modules.
     "plugins": [
+      // TypeScript language service plugin for CSS Modules.
+      // NOTE: this will only be useful for an IDE, but won't be enforced
       {
         "name": "typescript-plugin-css-modules"
       }
