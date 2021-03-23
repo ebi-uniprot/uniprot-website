@@ -1,3 +1,5 @@
+import { sequenceProcessor } from 'franklin-sites';
+
 import {
   ServerParameters,
   PublicServerParameters,
@@ -5,6 +7,7 @@ import {
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 import { SelectedTaxon } from '../blast/config/BlastFormData';
+import { ParsedSequence } from '../components/SequenceSearchLoader';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
 
@@ -51,7 +54,7 @@ const parseTaxa = (
 export function formParametersToServerParameters<T extends JobTypes>(
   type: T,
   formParameters: FormParameters[T]
-) {
+): FormData {
   let serverParameters: Partial<ServerParameters[T]> = {};
   switch (type) {
     case JobTypes.ALIGN:
@@ -109,7 +112,28 @@ export function formParametersToServerParameters<T extends JobTypes>(
       //
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      //
+      {
+        const {
+          peps,
+          taxIds,
+          lEQi,
+          // not available on current endpoint
+          spOnly,
+        } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+        serverParameters = ({
+          peptideSearchQuery: sequenceProcessor(peps)
+            .map(
+              (processedSequence: ParsedSequence) => processedSequence.sequence
+            )
+            .join('\n'),
+          taxids: stringifyTaxa(taxIds),
+          isoleucineEqualsLeucine: lEQi,
+          // not available on current endpoint
+          // spOnly,
+          // TODO: specific to current endpoint, remove eventually
+          redirect: 'no',
+        } as unknown) as ServerParameters[T]; // FIXME: temporary workaround
+      }
       break;
     default:
     //
@@ -191,7 +215,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
       //
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      //
+      console.warn('Not implementable');
       break;
     default:
     //

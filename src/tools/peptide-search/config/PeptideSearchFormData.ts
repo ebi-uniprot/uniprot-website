@@ -20,8 +20,8 @@ export type PeptideSearchFormValue = {
 export enum PeptideSearchFields {
   peps = 'Peptide sequences',
   taxIds = 'Taxons',
-  lEQi = 'Isoleucine leucine equivalent',
-  spOnly = 'Reviewed only',
+  lEQi = 'Treat isoleucine and leucine as equivalent',
+  spOnly = 'Search UniProt Reviewed (Swiss-Prot) only',
   name = 'Name',
 }
 
@@ -32,26 +32,26 @@ export type PeptideSearchFormValues = Record<
 
 const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
   [PeptideSearchFields.peps]: Object.freeze({
-    fieldName: 'peptideSequences',
+    fieldName: 'peps',
     type: PeptideSearchFieldTypes.textarea,
     selected: '',
   }),
   [PeptideSearchFields.taxIds]: Object.freeze({
-    fieldName: 'taxons',
+    fieldName: 'taxIds',
     type: PeptideSearchFieldTypes.autocomplete,
   }),
   [PeptideSearchFields.lEQi]: Object.freeze({
-    fieldName: 'isoleucineLeucineEquivalent',
+    fieldName: 'lEQi',
     type: PeptideSearchFieldTypes.select,
-    selected: false,
+    selected: 'off',
     values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
       value: FormParameters['lEQi'];
     }>),
   }),
   [PeptideSearchFields.spOnly]: Object.freeze({
-    fieldName: 'reviewedOnly',
+    fieldName: 'spOnly',
     type: PeptideSearchFieldTypes.select,
-    selected: false,
+    selected: 'off',
     values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
       value: FormParameters['spOnly'];
     }>),

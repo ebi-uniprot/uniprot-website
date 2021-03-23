@@ -19,7 +19,7 @@ const ntSequence = 'ATCGAGCGATAGCGAGGGAC';
 
 let component;
 
-describe('BlastForm test', () => {
+describe.skip('PeptideSearchForm test', () => {
   beforeEach(() => {
     const history = createMemoryHistory();
     component = customRender(<PeptideSearchForm />, {

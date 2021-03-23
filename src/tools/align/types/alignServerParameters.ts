@@ -22,3 +22,5 @@ export type ServerParameters = {
   stype?: string;
   sequence: string; // sequence
 };
+
+export type PublicServerParameters = Omit<ServerParameters, 'email'>;

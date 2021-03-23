@@ -35,7 +35,7 @@ export type ResultFormat = {
     | 'parameters' // in XML
     | 'json';
   [JobTypes.ID_MAPPING]: never; // TODO
-  [JobTypes.PEPTIDE_SEARCH]: never; // TODO
+  [JobTypes.PEPTIDE_SEARCH]: never;
 };
 
 function urlObjectCreator<T extends JobTypes>(type: T) {
@@ -51,11 +51,11 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
       baseURL = ''; // TODO
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      baseURL = 'http://peptidesearch.uniprot.org/asyncrest/';
+      baseURL = 'https://www.uniprot.org/peptidesearch/';
       return Object.freeze({
         runUrl: baseURL,
-        statusUrl: (jobId: string) => `${baseURL}/jobs/${jobId}`,
-        resultUrl: (jobId: string) => `${baseURL}/jobs/${jobId}`,
+        statusUrl: (jobId: string) => `${baseURL}uniprot/${jobId}`,
+        resultUrl: (jobId: string) => `${baseURL}uniprot/${jobId}`,
       });
     default:
     //

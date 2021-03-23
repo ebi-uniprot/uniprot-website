@@ -1,7 +1,6 @@
 import {
   FC,
   useState,
-  useEffect,
   useCallback,
   FormEvent,
   MouseEvent,
@@ -37,12 +36,7 @@ import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { FormParameters } from '../types/peptideSearchFormParameters';
-import {
-  PepS,
-  TaxIds,
-  LEQi,
-  SpOnly,
-} from '../types/peptideSearchServerParameters';
+import { PepS, LEQi, SpOnly } from '../types/peptideSearchServerParameters';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 import defaultFormValues, {
@@ -62,7 +56,7 @@ import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
 
 // TODO: define limit?
-const PEPTIDE_SEARCH_LIMIT = 20;
+const PEPTIDE_SEARCH_LIMIT = 100;
 
 const FormSelect: FC<{
   formValue: PeptideSearchFormValue;
@@ -149,8 +143,6 @@ const PeptideSearchForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
-  // flag to see if the user manually changed the title
-  const [jobNameEdited, setJobNameEdited] = useState(false);
   // store parsed sequence objects
   const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
     sequenceProcessor(initialFormValues[PeptideSearchFields.peps].selected)
@@ -342,7 +334,7 @@ const PeptideSearchForm = () => {
               .
             </legend>
             <SequenceSubmission
-              placeholder="Protein or nucleotide sequence(s) in FASTA format."
+              placeholder="Protein sequence(s) in FASTA format."
               onChange={onSequenceChange}
               value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
             />
@@ -375,7 +367,7 @@ const PeptideSearchForm = () => {
           <section className="tools-form-section">
             <section className="tools-form-section__item">
               <label>
-                Name your BLAST job
+                Name your Peptide Search job
                 <input
                   name="title"
                   type="text"
@@ -387,7 +379,6 @@ const PeptideSearchForm = () => {
                   placeholder={'"my job title"'}
                   value={jobName.selected as string}
                   onChange={(event) => {
-                    setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });
                   }}
                 />

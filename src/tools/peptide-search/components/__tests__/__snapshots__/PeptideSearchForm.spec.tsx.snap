@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlastForm test Renders the form 1`] = `
+<DocumentFragment>
+  <div
+    class="page-intro"
+  >
+    <h2>
+      <button
+        class="dropdown"
+        type="button"
+      >
+        <test-file-stub
+          height="20"
+          width="20"
+        />
+         Peptide search
+      </button>
+    </h2>
+    <div
+      class="intro-content"
+    >
+      <p>
+        The Basic Local Alignment Search Tool (BLAST) finds regions of local similarity between sequences, which can be used to infer functional and evolutionary relationships between sequences as well as help identify members of gene families.
+      </p>
+      <ul>
+        <li>
+          Start by providing a UniProt ID (UniProtKB accession/UniProtKB entry name/UniParc accession) into the input form OR a protein/nucleotide sequence.
+        </li>
+        <li>
+          Optionally, you may change the Target database your BLAST will be run against or restrict by Taxonomy using the Taxonomy ID or name.
+        </li>
+        <li>
+          Further advanced options can be used to change BLAST algorithm parameters.
+        </li>
+        <li>
+          Your BLAST job will be provided a default name. You may edit this name as per your choice.
+        </li>
+        <li>
+          Finally, click the "Run BLAST" button to submit your BLAST job.
+        </li>
+      </ul>
+      <div
+        class="intro-links"
+      >
+        <a
+          href="/"
+        >
+          Help
+        </a>
+        <a
+          href="/"
+        >
+          Video
+        </a>
+      </div>
+    </div>
+  </div>
+  <form
+    aria-label="Peptide Search job submission form"
+  >
+    <fieldset>
+      <section
+        class="tools-form-section__item"
+      >
+        <legend>
+          Find UniProt entries through parts of their peptide sequences, each more than two amino acids long, in FASTA format (e.g. RVLSLGR).
+        </legend>
+        <div
+          class="import-sequence-section"
+        >
+          <span
+            class="search-input"
+          >
+            <input
+              data-testid="search-input"
+              placeholder="UniProt IDs"
+              type="text"
+              value=""
+            />
+            <span
+              class="search-input__suffix"
+              data-testid="search-input-suffix"
+              role="presentation"
+            >
+              <test-file-stub
+                height="14"
+                width="14"
+              />
+            </span>
+          </span>
+        </div>
+      </section>
+    </fieldset>
+    <section
+      class="text-block"
+    >
+      <strong>
+        OR
+      </strong>
+    </section>
+    <fieldset>
+      <section
+        class="text-block"
+      >
+        <legend>
+          Enter one or more sequences (100 max). You may also
+          <label
+            class="tools-form-section__file-input"
+          >
+            load from a text file
+            <input
+              type="file"
+            />
+          </label>
+          .
+        </legend>
+        <textarea
+          class="sequence-submission-input"
+          data-testid="sequence-submission-input"
+          placeholder="Protein sequence(s) in FASTA format."
+          spellcheck="false"
+        />
+      </section>
+      <section
+        class="tools-form-section"
+      >
+        <section
+          class="tools-form-section__item tools-form-section__item--taxon-select"
+        >
+          <label>
+            Restrict by taxonomy
+            <div
+              class="autocomplete-container"
+            >
+              <span
+                class="search-input"
+              >
+                <input
+                  data-testid="search-input"
+                  placeholder="Enter taxon names or IDs to include"
+                  type="text"
+                  value=""
+                />
+                <span
+                  class="search-input__suffix"
+                  data-testid="search-input-suffix"
+                  role="presentation"
+                >
+                  <test-file-stub
+                    height="14"
+                    width="14"
+                  />
+                </span>
+              </span>
+              <div
+                class="autocomplete-menu"
+              >
+                <div
+                  class="dropdown-menu__panel"
+                />
+              </div>
+            </div>
+          </label>
+        </section>
+        <section
+          class="tools-form-section__item tools-form-section__item--selected-taxon"
+        />
+      </section>
+      <section
+        class="tools-form-section"
+      >
+        <section
+          class="tools-form-section__item"
+        >
+          <label>
+            Name your Peptide Search job
+            <input
+              autocomplete="off"
+              maxlength="100"
+              name="title"
+              placeholder="\\"my job title\\""
+              style="width: 2ch;"
+              type="text"
+              value=""
+            />
+          </label>
+        </section>
+      </section>
+      <details
+        class="tools-form-advanced"
+        open=""
+      >
+        <summary>
+          <span>
+            Advanced parameters
+          </span>
+        </summary>
+        <section
+          class="tools-form-section"
+        >
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Treat isoleucine and leucine as equivalent"
+            >
+              Treat isoleucine and leucine as equivalent
+              <select>
+                <option
+                  data-testid="Treat isoleucine and leucine as equivalent-on"
+                  value="on"
+                >
+                  on
+                </option>
+                <option
+                  data-testid="Treat isoleucine and leucine as equivalent-off"
+                  value="off"
+                >
+                  off
+                </option>
+              </select>
+            </label>
+          </section>
+          <section
+            class="tools-form-section__item"
+          >
+            <label
+              for="Search UniProt Reviewed (Swiss-Prot) only"
+            >
+              Search UniProt Reviewed (Swiss-Prot) only
+              <select>
+                <option
+                  data-testid="Search UniProt Reviewed (Swiss-Prot) only-on"
+                  value="on"
+                >
+                  on
+                </option>
+                <option
+                  data-testid="Search UniProt Reviewed (Swiss-Prot) only-off"
+                  value="off"
+                >
+                  off
+                </option>
+              </select>
+            </label>
+          </section>
+        </section>
+      </details>
+      <section
+        class="tools-form-section sticky-bottom-right"
+      >
+        <section
+          class="button-group tools-form-section__buttons"
+        >
+          <input
+            class="button secondary"
+            type="reset"
+          />
+          <button
+            class="button primary"
+            type="submit"
+          >
+            Run Peptide Search
+          </button>
+        </section>
+      </section>
+    </fieldset>
+  </form>
+</DocumentFragment>
+`;

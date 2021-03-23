@@ -1,4 +1,5 @@
 import { Link, generatePath } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
 
 import {
   MessageFormat,
@@ -9,6 +10,86 @@ import {
 import { Location, jobTypeToPath } from '../../app/config/urls';
 
 import { Job } from '../types/toolsJob';
+import { JobTypes } from '../types/toolsJobTypes';
+import { Status } from '../types/toolsStatuses';
+
+// TODO: change for other types
+const validServerID: Record<JobTypes, RegExp> = {
+  [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
+  [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
+  [JobTypes.ID_MAPPING]: /./,
+  [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/,
+};
+
+export const isValidServerID = (type: JobTypes, id: string) =>
+  validServerID[type].test(id);
+
+const peptideSearchJobPattern = /\/peptidesearch\/uniprot\/(?<jobID>[A-Z\d]+)$/;
+
+export const getRemoteIDFromResponse = (
+  jobType: JobTypes,
+  response: AxiosResponse<string | { jobId: string }>
+) => {
+  let remoteID: string | undefined;
+  switch (jobType) {
+    case JobTypes.ALIGN:
+    case JobTypes.BLAST:
+      remoteID = response.data as string;
+      break;
+    case JobTypes.ID_MAPPING:
+      // TODO
+      break;
+    case JobTypes.PEPTIDE_SEARCH:
+      // This gets the job info from the "location" header
+      remoteID = (response.request as XMLHttpRequest).responseURL.match(
+        peptideSearchJobPattern
+      )?.groups?.jobID;
+      break;
+    default:
+    //
+  }
+
+  if (!remoteID || !isValidServerID(jobType, remoteID)) {
+    throw new Error(`The server didn't return a valid ID`);
+  }
+
+  return remoteID;
+};
+
+const statuses = Object.values(Status);
+const peptideSearchStatusPattern = new RegExp(
+  `Job status: (?<status>${statuses.join('|')})`
+);
+
+export const getStatusFromResponse = (
+  jobType: JobTypes,
+  response: AxiosResponse<Status | { jobStatus: Status } | string>
+) => {
+  let status: Status | undefined;
+  switch (jobType) {
+    case JobTypes.ALIGN:
+    case JobTypes.BLAST:
+      status = response.data as Status;
+      break;
+    case JobTypes.ID_MAPPING:
+      // TODO
+      break;
+    case JobTypes.PEPTIDE_SEARCH:
+      // This gets the status from the reponse HTML string
+      status = (typeof response.data === 'string' ? response.data : '').match(
+        peptideSearchStatusPattern
+      )?.groups?.status as Status;
+      break;
+    default:
+    //
+  }
+
+  if (!status || !statuses.includes(status)) {
+    throw new Error(`The server didn't return a valid status`);
+  }
+
+  return status;
+};
 
 const parseXML = (xml: string) =>
   new window.DOMParser().parseFromString(xml, 'text/xml');

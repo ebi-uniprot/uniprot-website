@@ -291,3 +291,5 @@ export type ServerParameters = {
   sequence: Sequence; // sequence
   database: Database;
 };
+
+export type PublicServerParameters = Omit<ServerParameters, 'email'>;

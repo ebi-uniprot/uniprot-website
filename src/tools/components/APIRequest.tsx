@@ -72,7 +72,7 @@ const APIRequest: FC<APIRequestProps> = ({ inputParamsData, jobType }) => {
       ) : (
         <CodeBlock lightMode>{inputToCurl(data, jobType)}</CodeBlock>
       )}
-      {data.sequence.includes("'") && (
+      {'sequence' in data && data.sequence.includes("'") && (
         <p>
           <small>
             You might need to escape the sequence as it contains special

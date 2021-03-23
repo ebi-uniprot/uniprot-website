@@ -40,7 +40,7 @@ const formData: Readonly<AlignFormValues> = Object.freeze({
     values: Object.freeze([
       { value: 'aligned', label: 'from alignment' },
       { value: 'input', label: 'same as input' },
-    ] as Array<{ value: FormParameters['order'] }>),
+    ] as Array<{ label: string; value: FormParameters['order'] }>),
     selected: 'aligned',
   }),
   [AlignFields.iterations]: Object.freeze({
