@@ -15,7 +15,7 @@ import xrefGetter from '../../utils/xrefGetter';
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../../config/UniParcColumnConfiguration';
-import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
+import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
@@ -26,7 +26,7 @@ const mainInfoColumns = [
   UniParcColumn.firstSeen,
   UniParcColumn.lastSeen,
   UniParcColumn.length,
-];
+].map((column) => UniParcColumnConfiguration.get(column));
 
 const uniProtKBCounter = (data: UniParcAPIModel) => {
   let reviewed = 0;
@@ -57,7 +57,7 @@ const UniRefCard: FC<{
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         <div className="result-card__left">
           <input
             type="checkbox"
@@ -85,18 +85,9 @@ const UniRefCard: FC<{
               <LongNumber>{uniProtKBCount.unreviewed}</LongNumber> unreviewed
             </span>
           </div>
-          <div className="result-card__info-container">
-            {mainInfoColumns.map((column) => (
-              <RenderColumnInCard
-                type={column}
-                data={data}
-                columnConfig={UniParcColumnConfiguration}
-                key={column}
-              />
-            ))}
-          </div>
+          <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

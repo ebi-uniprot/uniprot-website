@@ -13,7 +13,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -43,25 +43,33 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
             <div
               class="result-card__info-container"
             >
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Cluster name: 
                 </strong>
                 Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
               </span>
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Size: 
                 </strong>
                 1 member
               </span>
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Length: 
                 </strong>
                 730
               </span>
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Identity: 
                 </strong>
@@ -69,7 +77,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
               </span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

@@ -13,7 +13,7 @@ exports[`CitationCard tests should render the card component 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -27,8 +27,12 @@ exports[`CitationCard tests should render the card component 1`] = `
             >
               The membrane surrounding the ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of ER exit sites.
             </div>
-            <div>
-              <span>
+            <div
+              class="result-card__info-container"
+            >
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Category: 
                 </strong>
@@ -36,7 +40,7 @@ exports[`CitationCard tests should render the card component 1`] = `
               </span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

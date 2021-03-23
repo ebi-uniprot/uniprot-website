@@ -3,7 +3,7 @@ import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
+import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../app/config/urls';
 import ProteomesColumnConfiguration, {
@@ -20,7 +20,8 @@ const mainInfoColumns = [
   ProteomesColumn.proteinCount,
   ProteomesColumn.genomeRepresentation,
   ProteomesColumn.cpd,
-];
+].map((column) => ProteomesColumnConfiguration.get(column));
+const busco = ProteomesColumnConfiguration.get(ProteomesColumn.busco);
 
 const ProteomesCard: FC<{
   data: ProteomesAPIModel;
@@ -35,7 +36,7 @@ const ProteomesCard: FC<{
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         <div className="result-card__left">
           <input
             type="checkbox"
@@ -49,25 +50,10 @@ const ProteomesCard: FC<{
           <h5>
             <EntryTitle mainTitle={data.id} entryType={data.proteomeType} />
           </h5>
-          <div className="result-card__info-container">
-            {mainInfoColumns.map((column) => (
-              <RenderColumnInCard
-                type={column}
-                data={data}
-                columnConfig={ProteomesColumnConfiguration}
-                key={column}
-              />
-            ))}
-          </div>
-          <div className="result-card__info-container">
-            <RenderColumnInCard
-              type={ProteomesColumn.busco}
-              data={data}
-              columnConfig={ProteomesColumnConfiguration}
-            />
-          </div>
+          <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
+          <RenderColumnsInCard data={data} renderers={busco} />
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

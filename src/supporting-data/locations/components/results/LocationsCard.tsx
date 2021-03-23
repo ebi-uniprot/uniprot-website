@@ -2,9 +2,7 @@ import { Card } from 'franklin-sites';
 import { FC, useCallback, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import RenderColumnInCard, {
-  RenderColumnsInCard,
-} from '../../../../shared/components/results/RenderColumnInCard';
+import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../../app/config/urls';
 
@@ -13,6 +11,8 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import LocationsColumnConfiguration, {
   LocationsColumn,
 } from '../../config/LocationsColumnConfiguration';
+
+import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
@@ -37,7 +37,7 @@ const CitationCard: FC<{
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         {handleEntrySelection && (
           <div className="result-card__left">
             <input
@@ -50,10 +50,14 @@ const CitationCard: FC<{
         )}
         <div className="result-card__right">
           <h5>{data.name}</h5>
-          <div className="result-card__info-container">{data.definition}</div>
+          <div
+            className={renderColumnsInCardStyles['result-card__info-container']}
+          >
+            {data.definition}
+          </div>
           <RenderColumnsInCard renderers={category} data={data} />
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

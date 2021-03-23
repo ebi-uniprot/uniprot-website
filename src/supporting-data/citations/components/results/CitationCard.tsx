@@ -31,7 +31,7 @@ const CitationCard: FC<{
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         {handleEntrySelection && (
           <div className="result-card__left">
             <input
@@ -45,7 +45,7 @@ const CitationCard: FC<{
         <div className="result-card__right">
           <LiteratureCitation data={data} />
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

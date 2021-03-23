@@ -13,7 +13,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -37,7 +37,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <div
               class="result-card__info-container"
             >
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Organism: 
                 </strong>
@@ -48,7 +50,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   Homo sapiens (Human)
                 </a>
               </span>
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Protein Count: 
                 </strong>
@@ -58,13 +62,17 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   18
                 </a>
               </span>
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   Genome representation: 
                 </strong>
                 Full
               </span>
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   <abbr
                     title="Complete Proteome Detector"
@@ -79,7 +87,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             <div
               class="result-card__info-container"
             >
-              <span>
+              <span
+                class="result-card__info-bit"
+              >
                 <strong>
                   <abbr
                     title="Benchmarking Universal Single-Copy Orthologs"
@@ -160,7 +170,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               </span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

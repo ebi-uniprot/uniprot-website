@@ -18,7 +18,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -139,7 +139,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -156,7 +156,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -277,7 +277,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -294,7 +294,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -429,7 +429,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -446,7 +446,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -567,7 +567,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -584,7 +584,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -686,7 +686,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -703,7 +703,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -824,7 +824,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -841,7 +841,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -951,7 +951,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -968,7 +968,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1058,7 +1058,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1075,7 +1075,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1165,7 +1165,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1182,7 +1182,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1266,7 +1266,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1283,7 +1283,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1414,7 +1414,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1431,7 +1431,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1522,7 +1522,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1539,7 +1539,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1686,7 +1686,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1703,7 +1703,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1815,7 +1815,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1832,7 +1832,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -1923,7 +1923,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -1940,7 +1940,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2075,7 +2075,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2092,7 +2092,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2213,7 +2213,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2230,7 +2230,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2365,7 +2365,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2382,7 +2382,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2503,7 +2503,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2520,7 +2520,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2618,7 +2618,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2635,7 +2635,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2756,7 +2756,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2773,7 +2773,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2908,7 +2908,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -2925,7 +2925,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -2997,7 +2997,7 @@ exports[`ResultsView component should render cards 1`] = `
                   </section>
                   <small />
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -3014,7 +3014,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -3135,7 +3135,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -3152,7 +3152,7 @@ exports[`ResultsView component should render cards 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -3273,7 +3273,7 @@ exports[`ResultsView component should render cards 1`] = `
                     </ul>
                   </small>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
