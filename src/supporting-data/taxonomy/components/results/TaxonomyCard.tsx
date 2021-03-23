@@ -23,7 +23,7 @@ const TaxonomyCard: FC<{
   const history = useHistory();
 
   const handleCardClick = useCallback(() => {
-    history.push(getEntryPath(Namespace.proteomes, data.taxonId));
+    history.push(getEntryPath(Namespace.taxonomy, data.taxonId));
   }, [history, data.taxonId]);
 
   return (
