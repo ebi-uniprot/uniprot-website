@@ -5,4 +5,7 @@
   margin-bottom: $global-margin 0;
   padding: $global-padding 0;
   border-bottom: 1px solid $colour-pastel-blue;
+  .publication__columns {
+    display: flex;
+  }
 }
