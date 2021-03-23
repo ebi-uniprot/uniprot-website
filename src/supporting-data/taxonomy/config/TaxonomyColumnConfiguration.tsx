@@ -9,7 +9,7 @@ import {
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
-import { TaxonomyAPIModel } from '../adapters/taxonomyConverter';
+import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 // import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
@@ -84,8 +84,9 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
   label: 'Lineage',
   // TODO: modify when we have a common approach to represent lineages
   render: ({ lineage }) =>
-    lineage
+    (lineage as Lineage)
       ?.filter(({ hidden }) => !hidden)
+      .reverse()
       .map(({ taxonId, scientificName, commonName }, index) => (
         <Fragment key={taxonId}>
           {index ? ' > ' : undefined}

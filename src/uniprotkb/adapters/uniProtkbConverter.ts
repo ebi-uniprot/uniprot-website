@@ -12,7 +12,6 @@ import {
   NamesAndTaxonomyUIModel,
   ProteinNamesData,
   GeneNamesData,
-  OrganismData,
 } from './namesAndTaxonomyConverter';
 import {
   convertSequence,
@@ -37,13 +36,14 @@ import { UIModel } from './sectionConverter';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { XrefUIModel } from '../utils/xrefUtils';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
 
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
-  organism?: OrganismData;
-  virusHosts?: OrganismData[];
+  organism?: TaxonomyDatum;
+  virusHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];
   uniProtkbId: string;

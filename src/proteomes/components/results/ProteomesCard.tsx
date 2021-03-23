@@ -52,18 +52,18 @@ const ProteomesCard: FC<{
           <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
-                type={column}
                 data={data}
-                columnConfig={ProteomesColumnConfiguration}
+                columnRenderer={ProteomesColumnConfiguration.get(column)}
                 key={column}
               />
             ))}
           </div>
           <div className="result-card__info-container">
             <RenderColumnInCard
-              type={ProteomesColumn.busco}
               data={data}
-              columnConfig={ProteomesColumnConfiguration}
+              columnRenderer={ProteomesColumnConfiguration.get(
+                ProteomesColumn.busco
+              )}
             />
           </div>
         </div>

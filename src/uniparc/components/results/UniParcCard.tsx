@@ -76,21 +76,20 @@ const UniRefCard: FC<{
           </h5>
           <div className="result-card__info-container">
             <span className="result-card__info-bit">
-              <strong>Organism{organismCount === 1 ? '' : 's'}: </strong>
+              <strong>Organism{organismCount === 1 ? '' : 's'}:</strong>{' '}
               <LongNumber>{organismCount}</LongNumber>
             </span>
             <span className="result-card__info-bit">
-              <strong>UniprotKB entries:</strong> {uniProtKBCount.reviewed}{' '}
-              reviewed and <LongNumber>{uniProtKBCount.unreviewed}</LongNumber>{' '}
-              unreviewed
+              <strong>UniprotKB entries:</strong>{' '}
+              <LongNumber>{uniProtKBCount.reviewed}</LongNumber> reviewed and{' '}
+              <LongNumber>{uniProtKBCount.unreviewed}</LongNumber> unreviewed
             </span>
           </div>
           <div className="result-card__info-container">
             {mainInfoColumns.map((column) => (
               <RenderColumnInCard
-                type={column}
                 data={data}
-                columnConfig={UniParcColumnConfiguration}
+                columnRenderer={UniParcColumnConfiguration.get(column)}
                 key={column}
               />
             ))}

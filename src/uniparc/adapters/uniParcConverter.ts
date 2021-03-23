@@ -1,7 +1,7 @@
-import { OrganismData } from '../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import { Sequence } from '../../shared/types/sequence';
 import { EntryType } from '../../shared/components/entry/EntryTypeIcon';
 import EntrySection from '../types/entrySection';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export enum XRefsInternalDatabasesEnum {
   REVIEWED = 'UniProtKB/Swiss-Prot',
@@ -26,7 +26,7 @@ export type UniParcXRef = Partial<{
   id: string;
   lastUpdated: string;
   ncbiGi: string;
-  organism: OrganismData;
+  organism: TaxonomyDatum;
   // "properties" only there when database is "EMBL", and not for all of them.
   // We shouldn't rely on that to display anything in the frontend, and it
   // wasn't used in the previous website anyway

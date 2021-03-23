@@ -149,9 +149,9 @@ exports[`Entry should render main 1`] = `
           rec full Name · 
           <a
             href="/taxonomy/9606"
-            title="scientific name (common name), taxon ID 9606"
+            title="scientific name (common name) (synonyms 1), taxon ID 9606"
           >
-            scientific name (common name)
+            scientific name (common name) (synonyms 1)
           </a>
            · 
           <strong>
@@ -1325,9 +1325,9 @@ exports[`Entry should render main 1`] = `
                         >
                           <a
                             href="/taxonomy/9606"
-                            title="scientific name (common name), taxon ID 9606"
+                            title="scientific name (common name) (synonyms 1), taxon ID 9606"
                           >
-                            scientific name (common name)
+                            scientific name (common name) (synonyms 1)
                           </a>
                           <button
                             aria-controls="23"
@@ -1430,8 +1430,9 @@ exports[`Entry should render main 1`] = `
                           <p>
                             <a
                               href="/taxonomy/9606"
+                              title="scientific name (common name) (synonyms 1), taxon ID 9606"
                             >
-                              scientific name (common name)  (synonyms 1)
+                              scientific name (common name) (synonyms 1)
                             </a>
                           </p>
                         </div>
