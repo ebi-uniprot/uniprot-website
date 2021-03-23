@@ -2,8 +2,8 @@ import { FC, Suspense, lazy } from 'react';
 
 import SubcellularLocationView from './SubcellularLocationView';
 
-import { OrganismData } from '../../adapters/namesAndTaxonomyConverter';
 import { SubcellularLocationComment } from '../../types/commentTypes';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 // Import it lazily in order to isolate the libraries used only for this
 const SubCellViz = lazy(
@@ -20,7 +20,7 @@ const isVirus = ([superkingdom]: string[]) =>
 const SubcellularLocationWithVizView: FC<
   {
     comments?: SubcellularLocationComment[];
-  } & Partial<Pick<OrganismData, 'taxonId' | 'lineage'>>
+  } & Partial<Pick<TaxonomyDatum, 'taxonId' | 'lineage'>>
 > = ({ comments, taxonId, lineage }) => {
   if (!comments?.length) {
     return null;
@@ -29,7 +29,7 @@ const SubcellularLocationWithVizView: FC<
   const textContent = <SubcellularLocationView comments={comments} />;
 
   // If we can render a visualisation, wrap the text content as a child
-  if (lineage && taxonId && !isVirus(lineage)) {
+  if (lineage && taxonId && !isVirus(lineage as string[])) {
     return (
       <Suspense fallback={textContent}>
         <SubCellViz comments={comments} taxonId={taxonId}>

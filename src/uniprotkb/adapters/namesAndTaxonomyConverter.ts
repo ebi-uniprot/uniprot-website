@@ -1,9 +1,10 @@
-import { ValueWithEvidence, Evidence } from '../types/modelTypes';
+import { ValueWithEvidence } from '../types/modelTypes';
 import { Flag } from './sequenceConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
 import { convertSection, UIModel } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { Xref } from '../../shared/types/apiModel';
+import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 export type ProteinNames = {
   fullName: ValueWithEvidence;
@@ -34,24 +35,14 @@ export type GeneNamesData = {
   orderedLocusNames?: ValueWithEvidence[];
 }[];
 
-export type OrganismData = {
-  scientificName?: string;
-  commonName?: string;
-  synonyms?: string[];
-  taxonId: number;
-  evidences?: Evidence[];
-  lineage?: string[];
-  mnemonic?: string;
-};
-
 export type NamesAndTaxonomyUIModel = {
   primaryAccession?: string;
   secondaryAccessions?: string[];
   proteinNamesData?: ProteinNamesData;
   geneNamesData?: GeneNamesData;
-  organismData?: OrganismData;
+  organismData?: TaxonomyDatum;
   proteomesData?: Xref[];
-  virusHosts?: OrganismData[];
+  virusHosts?: TaxonomyDatum[];
 } & UIModel;
 
 export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
