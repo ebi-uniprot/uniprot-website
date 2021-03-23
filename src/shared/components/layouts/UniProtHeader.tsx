@@ -1,6 +1,6 @@
 import { useMemo, useState, Suspense, useCallback } from 'react';
 import { useRouteMatch } from 'react-router-dom';
-import { Header } from 'franklin-sites';
+import { Header, HelpIcon, EnvelopeIcon, BasketIcon } from 'franklin-sites';
 
 import SlidingPanel, { Position } from './SlidingPanel';
 import SearchContainer from '../search/SearchContainer';
@@ -14,6 +14,7 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 
 import Logo from '../../../images/uniprot-logo.svg';
+import ReleaseInfo from './ReleaseInfo';
 
 const tools = [
   {
@@ -72,6 +73,13 @@ const restOfItems = [
   },
 ];
 
+const secondaryItems = [
+  // TODO: update link
+  { label: <HelpIcon />, href: '//www.uniprot.org/help' },
+  { label: <EnvelopeIcon />, href: '//www.uniprot.org/contact' },
+  { label: <BasketIcon />, path: '/' },
+];
+
 const QueryBuilder = lazy(
   () =>
     import(
@@ -128,6 +136,8 @@ const UniProtHeader = () => {
         isNegative={isHomePage}
         search={!isHomePage && <SearchContainerWithNamespace />}
         logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
+        secondaryItems={secondaryItems}
+        subtext={isHomePage && <ReleaseInfo />}
       />
       {displayQueryBuilder && (
         <Suspense fallback={null}>

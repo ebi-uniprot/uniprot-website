@@ -18,8 +18,8 @@ import {
   FacetObject,
   FacetValue,
 } from '../../../uniprotkb/types/responseTypes';
-import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
+import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 import '../../../shared/components/results/styles/results-view.scss';
 
@@ -41,7 +41,7 @@ const sortByCount = (a: FacetValue, b: FacetValue) => {
   return b.count - a.count;
 };
 
-type OrganismTuple = [taxon: OrganismData, count: number];
+type OrganismTuple = [taxon: TaxonomyDatum, count: number];
 
 const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject[] => {
   if (!xrefs?.length) {
@@ -49,14 +49,14 @@ const xrefsToFacets = (xrefs?: UniParcXRef[]): FacetObject[] => {
   }
   const organisms = xrefs
     .map((xref) => xref.organism)
-    .filter((organism: OrganismData | undefined): organism is OrganismData =>
+    .filter((organism: TaxonomyDatum | undefined): organism is TaxonomyDatum =>
       Boolean(organism)
     );
-  const taxonObjects = uniqBy<OrganismData>(
+  const taxonObjects = uniqBy<TaxonomyDatum>(
     organisms,
     (organism) => organism.taxonId
   );
-  const taxonCounts = countBy<OrganismData>(
+  const taxonCounts = countBy<TaxonomyDatum>(
     organisms,
     (organism) => organism.taxonId
   );

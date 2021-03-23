@@ -99,7 +99,7 @@ exports[`HomePage component should render 1`] = `
       UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information. 
       <a
         class="cite-us"
-        href="/"
+        href="https://www.uniprot.org/help/publications"
       >
         Cite 
         <span

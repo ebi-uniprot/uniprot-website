@@ -4,8 +4,9 @@ exports[`Organism should render organism 1`] = `
 <DocumentFragment>
   <a
     href="/taxonomy/12344"
+    title="Cheeky monkey (Really cheeky little monkey) (Monkey 1, Monkey 2), taxon ID 12344"
   >
-    Cheeky monkey (Really cheeky little monkey)  (Monkey 1, Monkey 2)
+    Cheeky monkey (Really cheeky little monkey) (Monkey 1, Monkey 2)
   </a>
 </DocumentFragment>
 `;

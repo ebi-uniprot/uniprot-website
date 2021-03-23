@@ -54,7 +54,7 @@ const BlastResultToolInput: FC<{ data: EnrichedData | null }> = ({ data }) => {
       // extract lineages and do copy (to not mess up the original)
       .map((hit) =>
         [
-          ...(hit?.extra?.organism?.lineage ?? []),
+          ...((hit?.extra?.organism?.lineage as string[]) ?? []),
           hit.extra?.organism?.scientificName,
         ].filter(isDefined)
       );

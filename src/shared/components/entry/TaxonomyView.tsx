@@ -9,17 +9,29 @@ import { getEntryPath } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 
-import { OrganismData } from '../../../uniprotkb/adapters/namesAndTaxonomyConverter';
 import UniProtKBEvidenceTag from '../../../uniprotkb/components/protein-data-views/UniProtKBEvidenceTag';
-import OrganismDataView from '../views/OrganismDataView';
+import {
+  isOfLineageType,
+  Lineage,
+  TaxonomyDatum,
+} from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
 type TaxonomyDataProps = {
-  data: OrganismData;
+  data: TaxonomyDatum;
+  displayOnlyID?: boolean;
+  className?: string;
+  noLink?: boolean;
 };
 
-export const TaxonomyLineage: FC<{ lineage: string[] }> = ({ lineage }) => (
-  <>{lineage.join(' > ')}</>
-);
+export const TaxonomyLineage: FC<{ lineage: Lineage | string[] }> = ({
+  lineage,
+}) => {
+  if (isOfLineageType(lineage)) {
+    // TODO implement render for Lineage type
+    return null;
+  }
+  return <>{lineage.join(' > ')}</>;
+};
 
 export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   if (!taxonId) {
@@ -35,26 +47,40 @@ export const TaxonomyId: FC<{ taxonId?: number }> = ({ taxonId }) => {
   );
 };
 
-const TaxonomyView: FC<TaxonomyDataProps> = ({ data }) => {
-  if (!data?.taxonId) {
+const TaxonomyView: FC<TaxonomyDataProps> = ({
+  data,
+  displayOnlyID,
+  className,
+  noLink = false,
+}) => {
+  if (!data.taxonId) {
+    // eslint-disable-next-line no-console
+    console.warn("No taxon ID, this shouldn't happen", data);
     return null;
   }
+  const { scientificName, commonName, taxonId, synonyms } = data;
 
-  const termValue = `${data.scientificName}${
-    data.commonName ? ` (${data.commonName})` : ''
-  } ${data.synonyms?.length ? ` (${data.synonyms.join(', ')})` : ''}`;
+  const termValue = `${scientificName}${commonName ? ` (${commonName})` : ''}${
+    synonyms?.length ? ` (${synonyms.join(', ')})` : ''
+  }`;
 
-  return (
+  return noLink ? (
+    <>{termValue}</>
+  ) : (
     <SimpleView
-      termValue={termValue}
+      termValue={displayOnlyID ? String(taxonId) : termValue}
       linkTo={getEntryPath(Namespace.taxonomy, data.taxonId)}
+      title={`${
+        termValue.length > 0 ? `${termValue}, ` : ''
+      }taxon ID ${taxonId}`}
+      className={className}
     />
   );
 };
 
 export const TaxonomyListView: FC<{
-  data?: OrganismData;
-  hosts?: OrganismData[];
+  data?: TaxonomyDatum;
+  hosts?: TaxonomyDatum[];
 }> = ({ data, hosts }) => {
   if (!data) {
     return null;
@@ -65,7 +91,7 @@ export const TaxonomyListView: FC<{
       title: 'Organism',
       content: (
         <>
-          <OrganismDataView organism={data} />
+          <TaxonomyView data={data} />
           {data.evidences?.length ? (
             <UniProtKBEvidenceTag evidences={data.evidences} />
           ) : null}

@@ -5,6 +5,7 @@ import { Loader } from 'franklin-sites';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import EntryMain from './EntryMain';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -19,7 +20,6 @@ import proteomesConverter, {
 } from '../../adapters/proteomesConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
-import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 
 const Entry: FC = () => {
   const match = useRouteMatch<{ accession: string }>(
@@ -47,7 +47,7 @@ const Entry: FC = () => {
     <SingleColumnLayout className="entry-page">
       <h2>
         {'Proteomes · '}
-        <OrganismDataView organism={data.taxonomy} noLink />
+        <TaxonomyView data={data.taxonomy} noLink />
       </h2>
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
