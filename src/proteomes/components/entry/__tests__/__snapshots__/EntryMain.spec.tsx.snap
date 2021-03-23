@@ -456,7 +456,7 @@ exports[`EntryMain view should render 1`] = `
   </section>
   <section>
     <h2>
-      Publications for Homo sapiens
+      Publications for Homo sapiens (Human)
     </h2>
     <div>
       <section>

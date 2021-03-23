@@ -19,6 +19,7 @@ import proteomesConverter, {
 } from '../../adapters/proteomesConverter';
 
 import '../../../shared/components/entry/styles/entry-page.scss';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 
 const Entry: FC = () => {
   const match = useRouteMatch<{ accession: string }>(
@@ -44,9 +45,10 @@ const Entry: FC = () => {
 
   return (
     <SingleColumnLayout className="entry-page">
-      <h2>{`Proteomes · ${
-        transformedData.taxonomy.scientificName || transformedData.id
-      }`}</h2>
+      <h2>
+        {'Proteomes · '}
+        <OrganismDataView organism={data.taxonomy} noLink />
+      </h2>
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { DataList } from 'franklin-sites';
 
 import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
+import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 
 import { getCitationItemId } from '../../../supporting-data/citations/utils';
 
@@ -18,7 +19,10 @@ const Publications: FC<Pick<ProteomesAPIModel, 'citations' | 'taxonomy'>> = ({
 
   return (
     <section>
-      <h2>Publications for {taxonomy.scientificName}</h2>
+      <h2>
+        {'Publications for '}
+        <OrganismDataView organism={taxonomy} noLink />
+      </h2>
       <DataList
         getIdKey={getCitationItemId}
         data={citations}

@@ -10,12 +10,14 @@ type Props = {
   organism: OrganismData;
   displayOnlyID?: boolean;
   className?: string;
+  noLink?: boolean;
 };
 
 const OrganismDataView: FC<Props> = ({
   organism,
   displayOnlyID,
   className,
+  noLink = false,
 }) => {
   if (!organism.taxonId) {
     // eslint-disable-next-line no-console
@@ -32,13 +34,16 @@ const OrganismDataView: FC<Props> = ({
   } else if (commonName) {
     name = commonName;
   }
-  return (
+  const text = displayOnlyID ? taxonId : name || taxonId;
+  return noLink ? (
+    <>{text}</>
+  ) : (
     <Link
       to={getEntryPath(Namespace.taxonomy, taxonId)}
       title={`${name ? `${name}, ` : ''}taxon ID ${taxonId}`}
       className={className}
     >
-      {displayOnlyID ? taxonId : name || taxonId}
+      {text}
     </Link>
   );
 };
