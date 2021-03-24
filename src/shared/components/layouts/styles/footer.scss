@@ -72,19 +72,23 @@ footer.footer {
     }
 
     // Cannot use flex gaps here because it would split the title underlines
-    & > li:not(:last-child) > ul {
-      padding-right: 2ch;
+    & > li:not(:last-child) {
+      & .shortcuts__title,
+      & > ul {
+        padding-right: 2ch;
+      }
     }
 
     li {
       margin-bottom: 1ch;
 
-      ul {
-        width: max-content;
-      }
+      // &:last-child {
+      //   width: max-content;
+      // }
     }
 
     &__title {
+      white-space: nowrap;
       font-size: 1rem;
       display: block;
       padding-bottom: 1ch;

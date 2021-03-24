@@ -115,7 +115,7 @@ exports[`HomePage component should render 1`] = `
               <a
                 href="/uniprotkb?query=*"
               >
-                Proteins (UniProtKB)
+                Proteins (UniProt KnowledgeBase)
               </a>
             </li>
             <li>

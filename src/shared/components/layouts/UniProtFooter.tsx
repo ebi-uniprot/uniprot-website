@@ -89,7 +89,7 @@ const FooterShortcuts = () => (
               search: 'query=*',
             }}
           >
-            Proteins (UniProtKB)
+            Proteins (UniProt KnowledgeBase)
           </Link>
         </li>
         <li>
