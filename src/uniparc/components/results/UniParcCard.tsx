@@ -20,6 +20,7 @@ import RenderColumnsInCard from '../../../shared/components/results/RenderColumn
 import { Namespace } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
 
+import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import '../../../shared/components/results/styles/result-card.scss';
 
 const mainInfoColumns = [
@@ -41,7 +42,7 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
   return { reviewed, unreviewed };
 };
 
-const UniRefCard: FC<{
+const UniParcCard: FC<{
   data: UniParcAPIModel;
   selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
@@ -74,13 +75,19 @@ const UniRefCard: FC<{
               entryType={EntryType.UNIPARC}
             />
           </h5>
-          <div className="result-card__info-container">
-            <span className="result-card__info-bit">
-              <strong>Organism{organismCount === 1 ? '' : 's'}:</strong>{' '}
+          <div
+            className={renderColumnsInCardStyles['result-card__info-container']}
+          >
+            <span
+              className={renderColumnsInCardStyles['result-card__info-bit']}
+            >
+              <strong>Organism{organismCount === 1 ? '' : 's'}: </strong>
               <LongNumber>{organismCount}</LongNumber>
             </span>
-            <span className="result-card__info-bit">
-              <strong>UniprotKB entries:</strong>{' '}
+            <span
+              className={renderColumnsInCardStyles['result-card__info-bit']}
+            >
+              <strong>UniprotKB entries: </strong>
               <LongNumber>{uniProtKBCount.reviewed}</LongNumber> reviewed and{' '}
               <LongNumber>{uniProtKBCount.unreviewed}</LongNumber> unreviewed
             </span>
@@ -92,4 +99,4 @@ const UniRefCard: FC<{
   );
 };
 
-export default UniRefCard;
+export default UniParcCard;

@@ -47,17 +47,17 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  Organisms:
+                  Organisms: 
                 </strong>
-                 7
+                7
               </span>
               <span
                 class="result-card__info-bit"
               >
                 <strong>
-                  UniprotKB entries:
+                  UniprotKB entries: 
                 </strong>
-                 2 reviewed and 6 unreviewed
+                2 reviewed and 6 unreviewed
               </span>
             </div>
             <div

@@ -88,7 +88,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               class="result-card__info-container"
             >
               <span
-                class="result-card__info-bit"
+                class="result-card__info-bit busco__info-bit"
               >
                 <strong>
                   <abbr
@@ -149,7 +149,6 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                       Missing
                     </span>
                   </span>
-                  : 
                 </strong>
                 <div
                   class="busco-view"
