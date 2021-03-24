@@ -1,6 +1,9 @@
 import Overview from '../components/entry/Overview';
 import Components from '../components/entry/Components';
+import Publications from '../components/entry/Publications';
+
 import { ProteomesUIModel } from '../adapters/proteomesConverter';
+
 import EntrySection from '../types/entrySection';
 
 const ProteomesEntryConfig: {
@@ -18,8 +21,10 @@ const ProteomesEntryConfig: {
     ),
   },
   {
-    id: EntrySection.Publications, // TODO: implement
-    sectionContent: () => <h2>Publications</h2>,
+    id: EntrySection.Publications,
+    sectionContent: ({ citations, taxonomy }) => (
+      <Publications citations={citations} taxonomy={taxonomy} />
+    ),
   },
 ];
 

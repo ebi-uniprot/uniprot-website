@@ -100,8 +100,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               <li>
                 <a
-                  href="//www.ncbi.nlm.nih.gov/pubmed/17062754"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://pubmed.ncbi.nlm.nih.gov/17062754"
+                  rel="noopener"
                   target="_blank"
                 >
                   PubMed
@@ -109,8 +110,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               </li>
               <li>
                 <a
+                  class="external-link"
                   href="//europepmc.org/article/MED/17062754"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   target="_blank"
                 >
                   Europe PMC
@@ -264,8 +266,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               <li>
                 <a
-                  href="//www.ncbi.nlm.nih.gov/pubmed/23011729"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://pubmed.ncbi.nlm.nih.gov/23011729"
+                  rel="noopener"
                   target="_blank"
                 >
                   PubMed
@@ -273,8 +276,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               </li>
               <li>
                 <a
+                  class="external-link"
                   href="//europepmc.org/article/MED/23011729"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   target="_blank"
                 >
                   Europe PMC
@@ -452,8 +456,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             >
               <li>
                 <a
-                  href="//www.ncbi.nlm.nih.gov/pubmed/25122912"
-                  rel="noopener noreferrer"
+                  class="external-link"
+                  href="https://pubmed.ncbi.nlm.nih.gov/25122912"
+                  rel="noopener"
                   target="_blank"
                 >
                   PubMed
@@ -461,8 +466,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
               </li>
               <li>
                 <a
+                  class="external-link"
                   href="//europepmc.org/article/MED/25122912"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   target="_blank"
                 >
                   Europe PMC

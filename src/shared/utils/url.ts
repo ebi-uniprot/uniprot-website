@@ -28,7 +28,7 @@ export const getLocationForPathname = (pathname: string) => {
   const found = Object.entries(LocationToPath).find(([, path]) =>
     matchPath(pathname, { path, exact: path === '/' })
   );
-  return found && found[0];
+  return found?.[0];
 };
 
 export default urlsAreEqual;
