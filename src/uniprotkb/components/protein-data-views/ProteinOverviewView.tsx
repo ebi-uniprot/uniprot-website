@@ -8,7 +8,7 @@ import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
 
 const ProteinOverview: FC<{
-  // Note: it would be good to eventually use RenderColumnInCard here
+  // Note: it would be good to eventually use RenderColumnsInCard here
   // which would involve either converting UniProtkbAPIModel to UniProtkbUIModel
   // or refactoring UniProtKBColumnConfiguration to use UniProtkbAPIModel.
   data: UniProtkbAPIModel;
