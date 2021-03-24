@@ -109,7 +109,18 @@ export function formParametersToServerParameters<T extends JobTypes>(
       }
       break;
     case JobTypes.ID_MAPPING:
-      //
+      {
+        const {
+          from,
+          to,
+          ids,
+        } = formParameters as FormParameters[JobTypes.ID_MAPPING];
+        serverParameters = {
+          from,
+          to,
+          ids: ids.join('\n'),
+        } as ServerParameters[T];
+      }
       break;
     case JobTypes.PEPTIDE_SEARCH:
       {
@@ -132,7 +143,8 @@ export function formParametersToServerParameters<T extends JobTypes>(
           // spOnly,
           // TODO: specific to current endpoint, remove eventually
           redirect: 'no',
-        } as unknown) as ServerParameters[T]; // FIXME: temporary workaround
+          // FIXME: temporary workaround
+        } as unknown) as ServerParameters[T];
       }
       break;
     default:
@@ -212,7 +224,7 @@ export function serverParametersToFormParameters<T extends JobTypes>(
       }
       break;
     case JobTypes.ID_MAPPING:
-      //
+      console.warn('Not implementable');
       break;
     case JobTypes.PEPTIDE_SEARCH:
       console.warn('Not implementable');

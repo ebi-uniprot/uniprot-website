@@ -108,7 +108,9 @@ const ResultDownload = memo<ResultDownloadProps>(
       setFileFormat(e.target.value as ResultFormat[JobTypes.BLAST]);
     };
 
-    const downloadUrl = toolsURLs(jobType).resultUrl(id, fileFormat);
+    const downloadUrl = toolsURLs(jobType).resultUrl(id, {
+      format: fileFormat,
+    });
 
     return (
       <>

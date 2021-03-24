@@ -2,6 +2,8 @@ import { Status } from './toolsStatuses';
 import { JobTypes } from './toolsJobTypes';
 import { FormParameters } from './toolsFormParameters';
 
+import { IDMappingTarget } from '../id-mapping/types/idMappingServerParameters';
+
 /* Job as defined inside the web application */
 interface BaseJob<T extends JobTypes> {
   status: Status;
@@ -34,7 +36,7 @@ export interface RunningJob extends BaseJob<JobTypes> {
 type DataForDashboard = {
   [JobTypes.ALIGN]: never;
   [JobTypes.BLAST]: { hits: number };
-  [JobTypes.ID_MAPPING]: never; // TODO
+  [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingTarget };
   [JobTypes.PEPTIDE_SEARCH]: never;
 };
 

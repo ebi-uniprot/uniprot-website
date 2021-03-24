@@ -256,6 +256,18 @@ const PeptideSearchForm = () => {
           jobName.selected as string
         )
       );
+      // TODO: remove, just to debug creation of
+      dispatch(
+        createJob(
+          {
+            from: 'UniProtKB_AC-ID',
+            to: 'UniProtKB',
+            ids: ['p09067', 'p09065'],
+          },
+          JobTypes.ID_MAPPING,
+          jobName.selected as string
+        )
+      );
     });
   };
 

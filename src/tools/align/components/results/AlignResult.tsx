@@ -86,8 +86,12 @@ const useParamsData = (
     Partial<UseDataAPIState<PublicServerParameters>>
   >({});
 
-  const paramsXMLData = useDataApi<string>(urls.resultUrl(id, 'submission'));
-  const sequenceData = useDataApi<string>(urls.resultUrl(id, 'sequence'));
+  const paramsXMLData = useDataApi<string>(
+    urls.resultUrl(id, { format: 'submission' })
+  );
+  const sequenceData = useDataApi<string>(
+    urls.resultUrl(id, { format: 'sequence' })
+  );
 
   useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
@@ -135,7 +139,7 @@ const AlignResult = () => {
 
   // get data from the align endpoint
   const { loading, data, error, status } = useDataApi<AlignResults>(
-    urls.resultUrl(match?.params.id || '', 'aln-clustal_num')
+    urls.resultUrl(match?.params.id || '', { format: 'aln-clustal_num' })
   );
 
   const inputParamsData = useParamsData(match?.params.id || '');

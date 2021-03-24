@@ -133,25 +133,33 @@ const NiceStatus: FC<NiceStatusProps> = ({ job, jobLink }) => {
     case Status.FINISHED: {
       // eslint-disable-next-line uniprot-website/use-config-location
       const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
-      if (
-        // not a blast job, or
-        !('data' in job && 'hits' in job.data && 'hits' in job.parameters) ||
-        // same number of hits than queried
-        job.data.hits === job.parameters.hits
-      ) {
-        return link;
+      // either a BLAST or ID Mapping job could have those
+      if ('data' in job && 'hits' in job.data) {
+        const actualHits = job.data.hits;
+        let expectedHits: number | undefined;
+        if ('hits' in job.parameters) {
+          // BLAST-specific
+          expectedHits = job.parameters.hits;
+        }
+        if ('ids' in job.parameters) {
+          // ID Mapping-specific
+          expectedHits = job.parameters.ids.length;
+        }
+        if (expectedHits !== undefined && actualHits !== expectedHits) {
+          const hitText = `hit${actualHits === 1 ? '' : 's'}`;
+          return (
+            <>
+              {link}{' '}
+              <span
+                title={`${actualHits} ${hitText} results found instead of the requested ${expectedHits}`}
+              >
+                ({job.data.hits} {hitText})
+              </span>
+            </>
+          );
+        }
       }
-      const hitText = `hit${job.data.hits === 1 ? '' : 's'}`;
-      return (
-        <>
-          {link}{' '}
-          <span
-            title={`${job.data.hits} ${hitText} results found instead of the requested ${job.parameters.hits}`}
-          >
-            ({job.data.hits} {hitText})
-          </span>
-        </>
-      );
+      return link;
     }
     default:
       return null;
