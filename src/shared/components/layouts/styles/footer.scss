@@ -4,7 +4,7 @@
 footer.footer {
   // Make the whole footer texts be a portion of the default size of the rest
   font-size: 0.75rem;
-  padding: 1em;
+  padding: 1rem;
   background: $colour-platinum;
   // Wait a bit on the first load to give a chance to the main content to load
   // and push the footer down before appearing
@@ -26,6 +26,10 @@ footer.footer {
 
     &__uniprot {
       width: 100%;
+
+      & > svg {
+        margin-bottom: 1rem;
+      }
     }
 
     &__members {
@@ -73,19 +77,19 @@ footer.footer {
 
     li {
       margin-bottom: 1ch;
+
+      ul {
+        width: max-content;
+      }
     }
 
     &__title {
+      font-size: 1rem;
       display: block;
       padding-bottom: 1ch;
       margin-bottom: 1ch;
-      border-bottom: 1px solid $colour-yankees-blue;
+      border-bottom: 1px solid $colour-weldon-blue;
       font-weight: bold;
-    }
-
-    .tools-results-link {
-      border-top: 1px solid $colour-pastel-blue;
-      width: max-content;
     }
   }
 
