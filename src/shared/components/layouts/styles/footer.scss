@@ -71,8 +71,9 @@ footer.footer {
       flex: 1;
     }
 
+    // Cannot use flex gaps here because it would split the title underlines
     & > li:not(:last-child) > ul {
-      padding-right: 1ch;
+      padding-right: 2ch;
     }
 
     li {
