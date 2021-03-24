@@ -1,5 +1,8 @@
 @import '../../../styles/settings';
 
+// Enough to have the EBI logo peek
+$footer-peeking: 7em;
+
 .base-layout {
   min-height: 100vh;
   display: flex;
@@ -21,6 +24,7 @@
 
   .main-content {
     flex: 1;
+    min-height: calc(100vh - #{$header-height} - #{$footer-peeking});
   }
 
   .footer {
