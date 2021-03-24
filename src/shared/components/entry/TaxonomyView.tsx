@@ -64,12 +64,12 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
     synonyms?.length ? ` (${synonyms.join(', ')})` : ''
   }`;
 
-  return noLink ? (
-    <>{termValue}</>
-  ) : (
+  return (
     <SimpleView
       termValue={displayOnlyID ? String(taxonId) : termValue}
-      linkTo={getEntryPath(Namespace.taxonomy, data.taxonId)}
+      linkTo={
+        noLink ? undefined : getEntryPath(Namespace.taxonomy, data.taxonId)
+      }
       title={`${
         termValue.length > 0 ? `${termValue}, ` : ''
       }taxon ID ${taxonId}`}
