@@ -1,9 +1,10 @@
 import { FC, useCallback } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
+import cn from 'classnames';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
-import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
+import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../app/config/urls';
 import ProteomesColumnConfiguration, {
@@ -13,6 +14,8 @@ import ProteomesColumnConfiguration, {
 import { Namespace } from '../../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
+import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
+import styles from './styles/proteomes-card.module.scss';
 import '../../../shared/components/results/styles/result-card.scss';
 
 const mainInfoColumns = [
@@ -20,7 +23,10 @@ const mainInfoColumns = [
   ProteomesColumn.proteinCount,
   ProteomesColumn.genomeRepresentation,
   ProteomesColumn.cpd,
-];
+].map((column) => ProteomesColumnConfiguration.get(column));
+const buscoColumnRenderer = ProteomesColumnConfiguration.get(
+  ProteomesColumn.busco
+);
 
 const ProteomesCard: FC<{
   data: ProteomesAPIModel;
@@ -33,9 +39,11 @@ const ProteomesCard: FC<{
     history.push(getEntryPath(Namespace.proteomes, data.id));
   }, [history, data.id]);
 
+  const buscoRendered = buscoColumnRenderer?.render(data);
+
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         <div className="result-card__left">
           <input
             type="checkbox"
@@ -49,25 +57,26 @@ const ProteomesCard: FC<{
           <h5>
             <EntryTitle mainTitle={data.id} entryType={data.proteomeType} />
           </h5>
-          <div className="result-card__info-container">
-            {mainInfoColumns.map((column) => (
-              <RenderColumnInCard
-                type={column}
-                data={data}
-                columnConfig={ProteomesColumnConfiguration}
-                key={column}
-              />
-            ))}
-          </div>
-          <div className="result-card__info-container">
-            <RenderColumnInCard
-              type={ProteomesColumn.busco}
-              data={data}
-              columnConfig={ProteomesColumnConfiguration}
-            />
-          </div>
+          <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
+          {buscoColumnRenderer && buscoRendered && (
+            <div
+              className={
+                renderColumnsInCardStyles['result-card__info-container']
+              }
+            >
+              <span
+                className={cn(
+                  renderColumnsInCardStyles['result-card__info-bit'],
+                  styles['busco__info-bit']
+                )}
+              >
+                <strong>{buscoColumnRenderer.label}</strong>
+                {buscoRendered}
+              </span>
+            </div>
+          )}
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

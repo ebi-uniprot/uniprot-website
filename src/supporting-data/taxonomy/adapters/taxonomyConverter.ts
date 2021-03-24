@@ -1,3 +1,6 @@
+import { SetRequired } from 'type-fest';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
+
 // TODO: Eventually use a shared Statistics type
 type Statistics = {
   referenceProteomeCount: number;
@@ -16,20 +19,40 @@ type Strain = {
   name: string;
 };
 
-type TaxonomyLight = {
+export type Lineage = Array<
+  SetRequired<Omit<TaxonomyDatum, 'lineage'>, 'hidden' | 'rank'>
+>;
+
+// Temporary function to check lineage type while backend unifies its model
+export const isOfLineageType = (
+  lineage: Lineage | string[]
+): lineage is Lineage => {
+  if ((lineage as Lineage).some((item) => item.taxonId)) {
+    return true;
+  }
+  return false;
+};
+
+type TaxonomyBase = {
   taxonId: number;
-  scientificName: string;
+  scientificName?: string;
   synonyms?: string[];
   commonName?: string;
+  mnemonic?: string;
+  evidences?: Evidence[];
+  lineage?: Lineage;
+  hidden?: boolean;
+  rank?: Rank;
 };
 
-type TaxonomyLightWithHiddenFlag = TaxonomyLight & {
-  hidden: boolean;
-};
-
-type TaxonomyLightWithMnemonic = TaxonomyLight & {
-  mnemonic: string;
-};
+export type TaxonomyDatum =
+  | TaxonomyBase
+  | (TaxonomyBase & {
+      /**
+       * @deprecated "lineage should be of type 'Lineage'"
+       */
+      lineage?: string[];
+    });
 
 type Rank =
   | 'forma'
@@ -64,24 +87,20 @@ type Rank =
   | 'superkingdom'
   | 'no rank';
 
-type TaxonomyLightWithRank = TaxonomyLight & {
-  rank: Rank;
-};
-
-export type TaxonomyAPIModel = TaxonomyLightWithHiddenFlag &
-  TaxonomyLightWithMnemonic &
-  TaxonomyLightWithRank & {
+export type TaxonomyAPIModel = SetRequired<
+  TaxonomyDatum & {
     parentId: number;
     otherNames?: string[];
-    lineage: Array<TaxonomyLightWithHiddenFlag & TaxonomyLightWithRank>;
     strains?: Strain[];
     // Probably, only on "organisms", higher level taxons don't appear to have
     statistics?: Statistics;
-    hosts?: TaxonomyLightWithMnemonic[];
+    hosts?: SetRequired<TaxonomyDatum, 'mnemonic'>[];
     inactiveReason?: InactiveReason;
     active: boolean;
     links?: string[];
-  };
+  },
+  'mnemonic' | 'hidden' | 'rank' | 'lineage'
+>;
 
 export type TaxonomyUIModel = TaxonomyAPIModel & {
   // any addition/change by the converter

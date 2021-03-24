@@ -13,7 +13,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -41,23 +41,21 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  Organism
+                  Organism: 
                 </strong>
-                : 
                 <a
                   href="/taxonomy/9606"
-                  title="Homo sapiens (Human), taxon ID 9606"
+                  title="Homo sapiens (Human) (synonym), taxon ID 9606"
                 >
-                  Homo sapiens (Human)
+                  Homo sapiens (Human) (synonym)
                 </a>
               </span>
               <span
                 class="result-card__info-bit"
               >
                 <strong>
-                  Protein Count
+                  Protein Count: 
                 </strong>
-                : 
                 <a
                   href="/uniprotkb?query=proteome:UP000005640"
                 >
@@ -68,9 +66,9 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  Genome representation
+                  Genome representation: 
                 </strong>
-                : Full
+                Full
               </span>
               <span
                 class="result-card__info-bit"
@@ -81,15 +79,16 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                   >
                     CPD
                   </abbr>
+                  : 
                 </strong>
-                : Standard
+                Standard
               </span>
             </div>
             <div
               class="result-card__info-container"
             >
               <span
-                class="result-card__info-bit"
+                class="result-card__info-bit busco__info-bit"
               >
                 <strong>
                   <abbr
@@ -151,7 +150,6 @@ exports[`ProteomesCard tests should render the card component 1`] = `
                     </span>
                   </span>
                 </strong>
-                : 
                 <div
                   class="busco-view"
                 >
@@ -171,7 +169,7 @@ exports[`ProteomesCard tests should render the card component 1`] = `
               </span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

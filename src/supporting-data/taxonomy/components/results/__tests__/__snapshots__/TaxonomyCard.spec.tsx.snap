@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Taxonomy Card tests should render 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+  >
+    <div
+      class="card--has-hover"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="card__content"
+      >
+        <div
+          class="result-card"
+        >
+          <div
+            class="result-card__left"
+          >
+            <input
+              data-testid="up-card-checkbox"
+              type="checkbox"
+            />
+          </div>
+          <div
+            class="result-card__right"
+          >
+            <h5>
+              <a
+                href="/taxonomy/11652"
+                title="Primate lentivirus group, taxon ID 11652"
+              >
+                Primate lentivirus group
+              </a>
+            </h5>
+            <div
+              class="result-card__info-container"
+            >
+              <span
+                class="result-card__info-bit"
+              >
+                <strong>
+                  Lineage: 
+                </strong>
+                <a
+                  href="/taxonomy/10239"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/2559587"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/2732397"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/2732409"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/2732514"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/2169561"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/11632"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/327045"
+                >
+                   
+                </a>
+                 &gt; 
+                <a
+                  href="/taxonomy/11646"
+                >
+                   
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

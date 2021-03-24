@@ -13,7 +13,7 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -47,17 +47,17 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  Organisms:
+                  Organisms: 
                 </strong>
-                 7
+                7
               </span>
               <span
                 class="result-card__info-bit"
               >
                 <strong>
-                  UniprotKB entries:
+                  UniprotKB entries: 
                 </strong>
-                 2 reviewed and 6 unreviewed
+                2 reviewed and 6 unreviewed
               </span>
             </div>
             <div
@@ -67,9 +67,8 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  First seen
+                  First seen: 
                 </strong>
-                : 
                 <time
                   datetime="1988-11-01T00:00:00.000Z"
                 >
@@ -80,9 +79,8 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  Last seen
+                  Last seen: 
                 </strong>
-                : 
                 <time
                   datetime="2021-02-10T00:00:00.000Z"
                 >
@@ -93,13 +91,13 @@ exports[`UniRefCard tests should render and match snapshot 1`] = `
                 class="result-card__info-bit"
               >
                 <strong>
-                  Length
+                  Length: 
                 </strong>
-                : 250
+                250
               </span>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

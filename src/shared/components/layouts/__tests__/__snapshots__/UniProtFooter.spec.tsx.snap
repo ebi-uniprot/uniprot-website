@@ -6,7 +6,7 @@ exports[`HomePage component should render 1`] = `
     class="footer"
   >
     <div
-      class="uniprot-grid uniprot-grid--centered"
+      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
     >
       <div
         class="consortium"
@@ -86,9 +86,14 @@ exports[`HomePage component should render 1`] = `
           </a>
         </p>
         <p>
-          Loading release information | 
+          <span
+            class="release-info__placeholder release-info__release_number"
+          >
+            Release 2021_00
+          </span>
+           | 
           <a
-            href="/"
+            href="//www.uniprot.org/statistics/?sort=published"
           >
             Statistics
           </a>
@@ -110,7 +115,7 @@ exports[`HomePage component should render 1`] = `
               <a
                 href="/uniprotkb?query=*"
               >
-                Proteins (UniProtKB)
+                Proteins (UniProt KnowledgeBase)
               </a>
             </li>
             <li>
@@ -226,9 +231,7 @@ exports[`HomePage component should render 1`] = `
                 Peptide search
               </a>
             </li>
-            <li
-              class="tools-results-link"
-            >
+            <li>
               <a
                 href="/tool-dashboard"
               >

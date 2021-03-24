@@ -3,12 +3,12 @@ import { FC, ReactNode } from 'react';
 import AnnotationScoreDoughnutChart, {
   DoughnutChartSize,
 } from './AnnotationScoreDoughnutChart';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import OrganismDataView from '../../../shared/components/views/OrganismDataView';
 
 const ProteinOverview: FC<{
-  // Note: it would be good to eventually use RenderColumnInCard here
+  // Note: it would be good to eventually use RenderColumnsInCard here
   // which would involve either converting UniProtkbAPIModel to UniProtkbUIModel
   // or refactoring UniProtKBColumnConfiguration to use UniProtkbAPIModel.
   data: UniProtkbAPIModel;
@@ -37,7 +37,7 @@ const ProteinOverview: FC<{
   ) {
     organismNameNode = (
       <>
-        <OrganismDataView organism={data.organism} />
+        <TaxonomyView data={data.organism} />
         {' · '}
       </>
     );

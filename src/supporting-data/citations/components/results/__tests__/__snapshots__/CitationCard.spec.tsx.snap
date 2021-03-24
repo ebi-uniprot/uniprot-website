@@ -13,7 +13,7 @@ exports[`CitationCard tests should render the card component 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -126,8 +126,9 @@ exports[`CitationCard tests should render the card component 1`] = `
                     >
                       <li>
                         <a
-                          href="//www.ncbi.nlm.nih.gov/pubmed/14702039"
-                          rel="noopener noreferrer"
+                          class="external-link"
+                          href="https://pubmed.ncbi.nlm.nih.gov/14702039"
+                          rel="noopener"
                           target="_blank"
                         >
                           PubMed
@@ -135,8 +136,9 @@ exports[`CitationCard tests should render the card component 1`] = `
                       </li>
                       <li>
                         <a
+                          class="external-link"
                           href="//europepmc.org/article/MED/14702039"
-                          rel="noopener noreferrer"
+                          rel="noopener"
                           target="_blank"
                         >
                           Europe PMC
@@ -204,7 +206,7 @@ exports[`CitationCard tests should render the card component 1`] = `
               </div>
             </article>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

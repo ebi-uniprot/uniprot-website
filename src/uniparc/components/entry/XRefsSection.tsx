@@ -7,12 +7,11 @@ import {
   Loader,
 } from 'franklin-sites';
 
-import OrganismDataView from '../../../shared/components/views/OrganismDataView';
-// import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 import {
   EntryTypeIcon,
   EntryType,
 } from '../../../shared/components/entry/EntryTypeIcon';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
@@ -133,8 +132,8 @@ const getColumns = (
     name: UniParcColumn.organismID,
     render: (xref) =>
       xref.organism && (
-        <OrganismDataView
-          organism={xref.organism}
+        <TaxonomyView
+          data={xref.organism}
           displayOnlyID
           className={xref.active ? undefined : 'xref-inactive'}
         />
@@ -145,8 +144,8 @@ const getColumns = (
     name: UniParcColumn.organism,
     render: (xref) =>
       xref.organism && (
-        <OrganismDataView
-          organism={xref.organism}
+        <TaxonomyView
+          data={xref.organism}
           className={xref.active ? undefined : 'xref-inactive'}
         />
       ),

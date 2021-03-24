@@ -3,11 +3,13 @@ import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
+import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
+
 import { getEntryPath } from '../../../app/config/urls';
+
 import UniRefColumnConfiguration, {
   UniRefColumn,
 } from '../../config/UniRefColumnConfiguration';
-import RenderColumnInCard from '../../../shared/components/results/RenderColumnInCard';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
@@ -27,7 +29,7 @@ const mainInfoColumns = [
   UniRefColumn.count,
   UniRefColumn.length,
   UniRefColumn.identity,
-];
+].map((column) => UniRefColumnConfiguration.get(column));
 
 const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
@@ -44,7 +46,7 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         <div className="result-card__left">
           <input
             type="checkbox"
@@ -57,18 +59,9 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
           <h5>
             <EntryTitle mainTitle={data.id} entryType={data.memberIdTypes} />
           </h5>
-          <div className="result-card__info-container">
-            {mainInfoColumns.map((column) => (
-              <RenderColumnInCard
-                type={column}
-                data={data}
-                columnConfig={UniRefColumnConfiguration}
-                key={column}
-              />
-            ))}
-          </div>
+          <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

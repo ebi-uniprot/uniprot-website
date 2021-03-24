@@ -8,6 +8,7 @@ import {
   CitedIcon,
   ExternalLink,
 } from 'franklin-sites';
+import { SetOptional } from 'type-fest';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
@@ -198,7 +199,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
 };
 
 const LiteratureCitation: FC<{
-  data: CitationsAPIModel;
+  data: SetOptional<CitationsAPIModel, 'statistics'>;
   displayAll?: boolean;
 }> = ({ data, displayAll, children }) => {
   const { citation, statistics } = data;
@@ -225,22 +226,14 @@ const LiteratureCitation: FC<{
               {pubmedId && (
                 <>
                   <li>
-                    <a
-                      href={`//www.ncbi.nlm.nih.gov/pubmed/${pubmedId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <ExternalLink noIcon url={externalUrls.PubMed(pubmedId)}>
                       PubMed
-                    </a>
+                    </ExternalLink>
                   </li>
                   <li>
-                    <a
-                      href={`//europepmc.org/article/MED/${pubmedId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <ExternalLink noIcon url={externalUrls.EuropePMC(pubmedId)}>
                       Europe PMC
-                    </a>
+                    </ExternalLink>
                   </li>
                 </>
               )}
