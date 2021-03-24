@@ -42,6 +42,7 @@ const externalUrls: Record<string, (id: string | number) => string> = {
   // citations
   DOI: (id) => `https://dx.doi.org/${id}`,
   PubMed: (id) => `https://pubmed.ncbi.nlm.nih.gov/${id}`,
+  EuropePMC: (id) => `//europepmc.org/article/MED/${id}`,
 };
 
 export const getIntActQueryForAccessionUrl = (accession: string) =>

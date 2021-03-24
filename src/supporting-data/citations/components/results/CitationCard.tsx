@@ -1,6 +1,7 @@
 import { Card } from 'franklin-sites';
 import { FC, useCallback, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
+import { SetOptional } from 'type-fest';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/components/results/ResultsView';
@@ -11,13 +12,13 @@ import LiteratureCitation from '../LiteratureCitation';
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
 const CitationCard: FC<{
-  data: CitationsAPIModel;
+  data: SetOptional<CitationsAPIModel, 'statistics'>;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }) => {
+}> = ({ data, selected, handleEntrySelection, children }) => {
   const history = useHistory();
 
-  const key = getIdKeyFor(Namespace.citations)(data);
+  const key = getIdKeyFor(Namespace.citations)(data as CitationsAPIModel);
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
@@ -43,7 +44,7 @@ const CitationCard: FC<{
           </div>
         )}
         <div className="result-card__right">
-          <LiteratureCitation data={data} />
+          <LiteratureCitation data={data}>{children}</LiteratureCitation>
         </div>
       </div>
     </Card>

@@ -5,6 +5,7 @@ import { Loader } from 'franklin-sites';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import EntryMain from './EntryMain';
+import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import SingleColumnLayout from '../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
@@ -44,9 +45,10 @@ const Entry: FC = () => {
 
   return (
     <SingleColumnLayout className="entry-page">
-      <h2>{`Proteomes · ${
-        transformedData.taxonomy.scientificName || transformedData.id
-      }`}</h2>
+      <h2>
+        {'Proteomes · '}
+        <TaxonomyView data={data.taxonomy} noLink />
+      </h2>
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );
