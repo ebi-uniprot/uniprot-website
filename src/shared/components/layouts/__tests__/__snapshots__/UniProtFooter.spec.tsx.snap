@@ -102,7 +102,9 @@ exports[`HomePage component should render 1`] = `
       <ul
         class="no-bullet shortcuts"
       >
-        <li>
+        <li
+          class="shortcuts__core-data"
+        >
           <span
             class="shortcuts__title"
           >
@@ -115,7 +117,7 @@ exports[`HomePage component should render 1`] = `
               <a
                 href="/uniprotkb?query=*"
               >
-                Proteins (UniProt KnowledgeBase)
+                Proteins (UniProtKB)
               </a>
             </li>
             <li>
