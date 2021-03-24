@@ -24,7 +24,7 @@ const validServerID: Record<JobTypes, RegExp> = {
 export const isValidServerID = (type: JobTypes, id: string) =>
   validServerID[type].test(id);
 
-const peptideSearchJobPattern = /\/peptidesearch\/uniprot\/(?<jobID>[A-Z\d]+)$/;
+const peptideSearchJobPattern = /\/asyncrest\/jobs\/(?<jobID>[A-Z\d]+)$/i;
 
 export const getRemoteIDFromResponse = (
   jobType: JobTypes,

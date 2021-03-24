@@ -131,20 +131,18 @@ export function formParametersToServerParameters<T extends JobTypes>(
           // not available on current endpoint
           spOnly,
         } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
-        serverParameters = ({
-          peptideSearchQuery: sequenceProcessor(peps)
+        serverParameters = {
+          peps: sequenceProcessor(peps)
             .map(
               (processedSequence: ParsedSequence) => processedSequence.sequence
             )
-            .join('\n'),
-          taxids: stringifyTaxa(taxIds),
-          isoleucineEqualsLeucine: lEQi,
+            .join(','),
+          taxIds: stringifyTaxa(taxIds) || '',
+          lEQi,
           // not available on current endpoint
-          // spOnly,
-          // TODO: specific to current endpoint, remove eventually
-          redirect: 'no',
-          // FIXME: temporary workaround
-        } as unknown) as ServerParameters[T];
+          spOnly,
+        } as ServerParameters[T];
+        return new URLSearchParams(Object.entries(serverParameters));
       }
       break;
     default:
