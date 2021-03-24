@@ -208,7 +208,7 @@ const FooterShortcuts = () => (
             Peptide search
           </Link>
         </li>
-        <li className="tools-results-link">
+        <li>
           <Link to={LocationToPath[Location.Dashboard]}>Tool results</Link>
         </li>
       </ul>
@@ -344,7 +344,7 @@ const FooterFunding = () => (
 const UniProtFooter = memo<HTMLAttributes<HTMLElement>>(
   ({ className, ...props }) => (
     <footer className={cn(className, 'footer')} {...props}>
-      <div className="uniprot-grid uniprot-grid--centered">
+      <div className="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding">
         <FooterConsortium />
         <FooterCopyrightAndMisc />
         <FooterShortcuts />
