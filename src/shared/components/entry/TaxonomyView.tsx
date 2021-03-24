@@ -20,6 +20,7 @@ type TaxonomyDataProps = {
   data: TaxonomyDatum;
   displayOnlyID?: boolean;
   className?: string;
+  noLink?: boolean;
 };
 
 export const TaxonomyLineage: FC<{ lineage: Lineage | string[] }> = ({
@@ -50,6 +51,7 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
   data,
   displayOnlyID,
   className,
+  noLink = false,
 }) => {
   if (!data.taxonId) {
     // eslint-disable-next-line no-console
@@ -65,7 +67,9 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
   return (
     <SimpleView
       termValue={displayOnlyID ? String(taxonId) : termValue}
-      linkTo={getEntryPath(Namespace.taxonomy, data.taxonId)}
+      linkTo={
+        noLink ? undefined : getEntryPath(Namespace.taxonomy, data.taxonId)
+      }
       title={`${
         termValue.length > 0 ? `${termValue}, ` : ''
       }taxon ID ${taxonId}`}

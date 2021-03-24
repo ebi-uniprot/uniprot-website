@@ -52,7 +52,7 @@ const mock: ProteomesAPIModel = {
         },
       ],
       title: 'Leo book tittle',
-      publicationDate: 'date value',
+      publicationDate: '2021',
       journal: 'journal name',
       firstPage: 'first page',
       lastPage: 'last page',
@@ -65,11 +65,11 @@ const mock: ProteomesAPIModel = {
       citationCrossReferences: [
         {
           database: 'PubMed',
-          id: 'somepID1',
+          id: 'somepID2',
         },
       ],
       title: 'Leo book tittle',
-      publicationDate: 'date value',
+      publicationDate: '2021',
       submissionDatabase: 'PIR data bank',
     },
   ],
