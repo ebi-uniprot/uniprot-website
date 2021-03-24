@@ -28,6 +28,8 @@ import TechDocIllustration from '../../images/tech_doc_illustration.svg';
 import PlaceHolder from './PlaceHolder';
 import { Location, LocationToPath } from '../config/urls';
 
+import './styles/home-page-non-critical.scss';
+
 const HomePageNonCritical = () => {
   const history = useHistory();
 
@@ -187,7 +189,7 @@ const HomePageNonCritical = () => {
           gradient
         />
         <Tile
-          title="Search with Lists / Map IDs"
+          title="Search with Lists Map IDs"
           className="uniprot-grid-cell--span-3"
           description="Find proteins with lists of UniProt IDs or convert from/to other database IDs."
           backgroundImage={<UploadListIllustration />}
@@ -198,7 +200,7 @@ const HomePageNonCritical = () => {
         <Tile
           title="Search Peptides"
           className="uniprot-grid-cell--span-3"
-          description="Search with a peptide sequence to find all UniPro proteins that contain exact matches."
+          description="Search with a peptide sequence to find all UniProt proteins that contain exact matches."
           backgroundImage={<PeptideSearchIllustration />}
           backgroundColor={colors.peptideSearch}
           onClick={() => history.push({ pathname: Location.PeptideSearch })}
