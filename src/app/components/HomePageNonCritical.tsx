@@ -68,7 +68,7 @@ const HomePageNonCritical = () => (
             }}
           >
             <SwissProtIcon width="2.5em" />
-            <div className="proteins-section__status">Reviewed</div>
+            <div className={styles['proteins-section__status']}>Reviewed</div>
             <small>Swiss-Prot</small>
           </Link>
           <Link
@@ -78,7 +78,7 @@ const HomePageNonCritical = () => (
             }}
           >
             <TremblIcon width="2.5em" />
-            <div className="proteins-section__status">Unreviewed</div>
+            <div className={styles['proteins-section__status']}>Unreviewed</div>
             <small>TrEMBL</small>
           </Link>
         </span>
