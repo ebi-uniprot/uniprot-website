@@ -43,7 +43,13 @@ const getNamespaceTo = (location: Location) => ({
 
 const HomePageNonCritical = () => (
   <>
-    <section className="uniprot-grid uniprot-grid--centered">
+    <section
+      className={cn(
+        'uniprot-grid',
+        'uniprot-grid--centered',
+        styles['home-page-section']
+      )}
+    >
       <h2 className="visually-hidden">UniProt core data</h2>
       <Tile
         title="Proteins"
@@ -118,7 +124,8 @@ const HomePageNonCritical = () => (
       className={cn(
         'uniprot-grid',
         'uniprot-grid--centered',
-        'uniprot-grid--with-bleed'
+        'uniprot-grid--with-bleed',
+        styles['home-page-section']
       )}
       titleClassName="uniprot-grid-cell--span-12"
       noSidePadding
@@ -181,7 +188,12 @@ const HomePageNonCritical = () => (
 
     <HeroContainer
       title="News"
-      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      className={cn(
+        'uniprot-grid',
+        'uniprot-grid--centered',
+        'uniprot-grid--with-bleed',
+        styles['home-page-section']
+      )}
       titleClassName="uniprot-grid-cell--span-12"
     >
       <PlaceHolder />
@@ -189,7 +201,12 @@ const HomePageNonCritical = () => (
 
     <HeroContainer
       title="Analysis Tools"
-      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      className={cn(
+        'uniprot-grid',
+        'uniprot-grid--centered',
+        'uniprot-grid--with-bleed',
+        styles['home-page-section']
+      )}
       titleClassName="uniprot-grid-cell--span-12"
     >
       <Tile
@@ -239,14 +256,24 @@ const HomePageNonCritical = () => (
     </HeroContainer>
     <HeroContainer
       title="Need Help?"
-      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      className={cn(
+        'uniprot-grid',
+        'uniprot-grid--centered',
+        'uniprot-grid--with-bleed',
+        styles['home-page-section']
+      )}
       titleClassName="uniprot-grid-cell--span-12"
     >
       <PlaceHolder />
     </HeroContainer>
     <HeroContainer
       title="UniProt data"
-      className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+      className={cn(
+        'uniprot-grid',
+        'uniprot-grid--centered',
+        'uniprot-grid--with-bleed',
+        styles['home-page-section']
+      )}
       titleClassName="uniprot-grid-cell--span-12"
     >
       <Tile

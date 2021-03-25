@@ -1,4 +1,9 @@
 @import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+
+.home-page-section {
+  margin-bottom: $global-margin * 2;
+}
 
 .proteins-section {
   display: flex;
