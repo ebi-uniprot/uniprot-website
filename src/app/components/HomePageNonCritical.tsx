@@ -287,12 +287,7 @@ const HomePageNonCritical = () => (
         Download UniProt release data
       </Tile>
       <Tile
-        title={
-          <>
-            Technical
-            <span className={styles['forced-break']}>documentation</span>
-          </>
-        }
+        title="Technical documentation"
         className="uniprot-grid-cell--span-3"
         backgroundImage={<TechDocIllustration />}
         backgroundColor={colors.independence}
@@ -303,12 +298,7 @@ const HomePageNonCritical = () => (
         Manuals, schemas and ontology descriptions
       </Tile>
       <Tile
-        title={
-          <>
-            Programmatic
-            <span className={styles['forced-break']}>access</span>
-          </>
-        }
+        title="Programmatic access"
         className="uniprot-grid-cell--span-3"
         backgroundImage={<ProgrammaticIllustration />}
         backgroundColor={colors.independence}
