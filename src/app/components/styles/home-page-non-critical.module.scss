@@ -1,3 +1,9 @@
+@import 'franklin-sites/src/styles/settings';
+
+.home-page-section {
+  margin-bottom: $global-margin * 2;
+}
+
 .supporting-data-section {
   &__header {
     margin: 0;
