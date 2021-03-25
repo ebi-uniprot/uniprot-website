@@ -219,7 +219,7 @@ const PeptideSearchForm = () => {
 
   // the only thing to do here would be to check the values and prevent
   // and prevent submission if there is any issue
-  const submitBlastJob = (event: FormEvent | MouseEvent) => {
+  const submitPeptideSearchJob = (event: FormEvent | MouseEvent) => {
     event.preventDefault();
 
     if (!peps.selected) {
@@ -315,7 +315,7 @@ const PeptideSearchForm = () => {
         {info}
       </PageIntro>
       <form
-        onSubmit={submitBlastJob}
+        onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
         aria-label="Peptide Search job submission form"
       >
@@ -431,7 +431,7 @@ const PeptideSearchForm = () => {
                 className="button primary"
                 type="submit"
                 disabled={submitDisabled}
-                onClick={submitBlastJob}
+                onClick={submitPeptideSearchJob}
               >
                 {parsedSequences.length <= 1
                   ? 'Run Peptide Search'
