@@ -140,12 +140,14 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </button>
   </section>
   <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed supporting-data-section"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
   >
     <div
       class="uniprot-grid-cell--span-3"
     >
-      <h3>
+      <h3
+        class="supporting-data-section__header"
+      >
         Supporting Data
       </h3>
     </div>
@@ -431,7 +433,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <h3
           class="tile__header"
         >
-          Search with Lists / Map IDs
+          Search with Lists Map IDs
         </h3>
         <small
           class="tile__description"
@@ -461,7 +463,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         <small
           class="tile__description"
         >
-          Search with a peptide sequence to find all UniPro proteins that contain exact matches.
+          Search with a peptide sequence to find all UniProt proteins that contain exact matches.
         </small>
       </section>
     </button>
