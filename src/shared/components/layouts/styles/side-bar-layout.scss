@@ -51,6 +51,7 @@
 
   &__sidebar-content {
     &--empty {
+      min-height: 50vh;
       height: 100%;
       background-color: $colour-platinum;
     }
