@@ -41,7 +41,13 @@ const HomePageNonCritical = () => {
 
   return (
     <>
-      <section className="uniprot-grid uniprot-grid--centered">
+      <section
+        className={cn(
+          'uniprot-grid',
+          'uniprot-grid--centered',
+          styles['home-page-section']
+        )}
+      >
         <Tile
           title="Proteins"
           className="uniprot-grid-cell--span-3"
@@ -101,7 +107,8 @@ const HomePageNonCritical = () => {
         className={cn(
           'uniprot-grid',
           'uniprot-grid--centered',
-          'uniprot-grid--with-bleed'
+          'uniprot-grid--with-bleed',
+          styles['home-page-section']
         )}
         titleClassName="uniprot-grid-cell--span-12"
         noSidePadding
@@ -164,7 +171,12 @@ const HomePageNonCritical = () => {
 
       <HeroContainer
         title="News"
-        className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+        className={cn(
+          'uniprot-grid',
+          'uniprot-grid--centered',
+          'uniprot-grid--with-bleed',
+          styles['home-page-section']
+        )}
         titleClassName="uniprot-grid-cell--span-12"
       >
         <section className="uniprot-grid-cell--span-12">
@@ -174,7 +186,12 @@ const HomePageNonCritical = () => {
 
       <HeroContainer
         title="Analysis Tools"
-        className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+        className={cn(
+          'uniprot-grid',
+          'uniprot-grid--centered',
+          'uniprot-grid--with-bleed',
+          styles['home-page-section']
+        )}
         titleClassName="uniprot-grid-cell--span-12"
       >
         <Tile
@@ -216,14 +233,24 @@ const HomePageNonCritical = () => {
       </HeroContainer>
       <HeroContainer
         title="Need Help?"
-        className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+        className={cn(
+          'uniprot-grid',
+          'uniprot-grid--centered',
+          'uniprot-grid--with-bleed',
+          styles['home-page-section']
+        )}
         titleClassName="uniprot-grid-cell--span-12"
       >
         <PlaceHolder />
       </HeroContainer>
       <HeroContainer
         title="Download and APIs"
-        className="uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
+        className={cn(
+          'uniprot-grid',
+          'uniprot-grid--centered',
+          'uniprot-grid--with-bleed',
+          styles['home-page-section']
+        )}
         titleClassName="uniprot-grid-cell--span-12"
       >
         <Tile
