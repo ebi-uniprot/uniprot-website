@@ -140,12 +140,14 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </button>
   </section>
   <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed supporting-data-section"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
   >
     <div
       class="uniprot-grid-cell--span-3"
     >
-      <h3>
+      <h3
+        class="supporting-data-section__header"
+      >
         Supporting Data
       </h3>
     </div>
