@@ -7,13 +7,10 @@ import Download, { getPreviewFileFormat } from '../Download';
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-// import useUserPreferences from '../../../hooks/useUserPreferences';
 
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
-
-// jest.mock('../../../hooks/useUserPreferences');
 
 const initialColumns = [
   UniProtKBColumn.accession,
