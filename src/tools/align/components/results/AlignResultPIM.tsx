@@ -39,7 +39,7 @@ const AlignResultPIM: FC<AlignResultPIMProps> = ({
   const [contrast, setContrast] = useState(DEFAULT_CONTRAST);
 
   const { loading, data, error, status } = useDataApi<string>(
-    alignURLs.resultUrl(id, 'pim')
+    alignURLs.resultUrl(id, { format: 'pim' })
   );
 
   if (loading) {

@@ -33,7 +33,7 @@ const AlignResultPhyloTree: FC<AlignResultPhyloTreeProps> = ({
   const [circularLayout, setCircularLayout] = useState(false);
 
   const { loading, data, error, status } = useDataApi<string>(
-    alignURLs.resultUrl(id, 'phylotree')
+    alignURLs.resultUrl(id, { format: 'phylotree' })
   );
 
   if (error || !(loading || data)) {
