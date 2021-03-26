@@ -1,10 +1,10 @@
-@import '../../../../../node_modules/franklin-sites/src/styles/colours';
-@import '../../../../../node_modules/franklin-sites/src/styles/mixins';
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/mixins';
 
 footer.footer {
   // Make the whole footer texts be a portion of the default size of the rest
   font-size: 0.75rem;
-  padding: 1em;
+  padding: 1rem;
   background: $colour-platinum;
   // Wait a bit on the first load to give a chance to the main content to load
   // and push the footer down before appearing
@@ -26,12 +26,19 @@ footer.footer {
 
     &__uniprot {
       width: 100%;
+
+      & > svg {
+        margin-bottom: 1rem;
+      }
     }
 
     &__members {
       display: flex;
       align-items: center;
-      gap: 1ch;
+
+      :not(:last-child) {
+        margin-right: 1ch;
+      }
 
       & > * {
         flex: 1;
@@ -67,25 +74,31 @@ footer.footer {
       flex: 1;
     }
 
-    & > li:not(:last-child) > ul {
-      padding-right: 1ch;
+    // Cannot use flex gaps here because it would split the title underlines
+    & > li:not(:last-child) {
+      & .shortcuts__title,
+      & > ul {
+        padding-right: 2ch;
+      }
     }
 
     li {
-      margin-bottom: 1ch;
+      margin-bottom: 1em;
+      line-height: initial;
     }
 
     &__title {
+      white-space: nowrap;
+      font-size: 1rem;
       display: block;
       padding-bottom: 1ch;
       margin-bottom: 1ch;
-      border-bottom: 1px solid $colour-yankees-blue;
+      border-bottom: 1px solid $colour-weldon-blue;
       font-weight: bold;
     }
 
-    .tools-results-link {
-      border-top: 1px solid $colour-pastel-blue;
-      width: max-content;
+    &__core-data {
+      white-space: nowrap;
     }
   }
 
@@ -114,8 +127,11 @@ footer.footer {
     grid-area: 3 / 4 / span 1 / span 6;
     display: flex;
     align-items: center;
-    gap: 1ch;
     justify-content: space-between;
+
+    :not(:last-child) {
+      margin-right: 1ch;
+    }
 
     & > * {
       white-space: nowrap;

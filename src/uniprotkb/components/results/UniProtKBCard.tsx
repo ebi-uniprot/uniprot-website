@@ -61,7 +61,7 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
 
   return (
     <Card links={highlights} onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         <div className="result-card__left">
           <input
             type="checkbox"
@@ -81,7 +81,7 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
           <ProteinOverview data={data} />
           <small>{keywordsNode}</small>
         </div>
-      </section>
+      </div>
     </Card>
   );
 };

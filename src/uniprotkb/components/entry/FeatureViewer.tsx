@@ -30,10 +30,8 @@ const FeatureViewer: FC<{ accession: string }> = ({ accession }) => {
 
   return (
     <section>
-      <div style={{ height: '80vh' }}>
-        <h2>ProtVista visualisation for {accession}</h2>
-        <protvista-uniprot accession={accession} />
-      </div>
+      <h2>ProtVista visualisation for {accession}</h2>
+      <protvista-uniprot accession={accession} />
     </section>
   );
 };

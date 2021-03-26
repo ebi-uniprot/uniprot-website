@@ -474,7 +474,7 @@ exports[`EntryMain view should render 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -555,7 +555,7 @@ exports[`EntryMain view should render 1`] = `
                     </div>
                   </article>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>
@@ -572,7 +572,7 @@ exports[`EntryMain view should render 1`] = `
             <div
               class="card__content"
             >
-              <section
+              <div
                 class="result-card"
               >
                 <div
@@ -653,7 +653,7 @@ exports[`EntryMain view should render 1`] = `
                     </div>
                   </article>
                 </div>
-              </section>
+              </div>
             </div>
           </div>
         </section>

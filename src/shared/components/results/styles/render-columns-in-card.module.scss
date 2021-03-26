@@ -1,0 +1,14 @@
+@import 'franklin-sites/src/styles/settings';
+
+.result-card {
+  &__info-container {
+    display: flex;
+    flex-wrap: wrap;
+    white-space: pre-wrap;
+  }
+
+  &__info-bit:not(:last-child)::after {
+    content: '·';
+    margin: 0 $global-margin/4;
+  }
+}
