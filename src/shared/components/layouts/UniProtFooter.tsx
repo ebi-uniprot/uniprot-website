@@ -71,9 +71,12 @@ const FooterCopyrightAndMisc = () => (
       <Link to="/help/license">License &amp; Disclaimer</Link> |{' '}
       <Link to="/help/privacy">Privacy Notice</Link>
     </p>
-    <p>
-      <ReleaseInfo />
-    </p>
+  </div>
+);
+
+const ReleaseInfoSection = () => (
+  <div className="stats-release">
+    <ReleaseInfo />
   </div>
 );
 
@@ -346,6 +349,7 @@ const UniProtFooter = memo<HTMLAttributes<HTMLElement>>(
     <footer className={cn(className, 'footer')} {...props}>
       <div className="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding">
         <FooterConsortium />
+        <ReleaseInfoSection />
         <FooterCopyrightAndMisc />
         <FooterShortcuts />
         <FooterContactAndElixir />
