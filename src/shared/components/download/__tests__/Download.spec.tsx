@@ -95,17 +95,15 @@ describe('Download component', () => {
     [FileFormat.tsv, true],
   ])(
     'should show column selection component when %s file type is selected and otherwise hide it',
-    async (value, columnSelect) => {
+    (value, columnSelect) => {
       const formatSelect = screen.getByTestId('file-format-select');
       fireEvent.change(formatSelect, { target: { value } });
-      await waitFor(() => {
-        const customise = screen.queryByText('Customize data');
-        if (columnSelect) {
-          expect(customise).toBeInTheDocument();
-        } else {
-          expect(customise).not.toBeInTheDocument();
-        }
-      });
+      const customise = screen.queryByText('Customize data');
+      if (columnSelect) {
+        expect(customise).toBeInTheDocument();
+      } else {
+        expect(customise).not.toBeInTheDocument();
+      }
     }
   );
 
