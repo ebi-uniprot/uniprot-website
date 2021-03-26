@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useMemo, MouseEvent } from 'react';
 import { Card, LongNumber } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import {
 } from '../../adapters/uniParcConverter';
 
 import { getEntryPath } from '../../../app/config/urls';
+import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import xrefGetter from '../../utils/xrefGetter';
 
 import UniParcColumnConfiguration, {
@@ -42,6 +43,10 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
   return { reviewed, unreviewed };
 };
 
+const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
+
+const getIdKey = getIdKeyFor(Namespace.uniparc);
+
 const UniParcCard: FC<{
   data: UniParcAPIModel;
   selected?: boolean;
@@ -49,9 +54,17 @@ const UniParcCard: FC<{
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
 
-  const handleCardClick = useCallback(() => {
-    history.push(getEntryPath(Namespace.uniparc, data.uniParcId));
-  }, [history, data.uniParcId]);
+  const id = getIdKey(data);
+
+  const handleCardClick = useCallback(
+    (event: MouseEvent) => {
+      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+        return;
+      }
+      history.push(getEntryPath(Namespace.uniparc, id));
+    },
+    [history, id]
+  );
 
   const organismCount = xrefGetter(data, 'organism', 'taxonId')?.length || 0;
   const uniProtKBCount = useMemo(() => uniProtKBCounter(data), [data]);
@@ -64,16 +77,13 @@ const UniParcCard: FC<{
             type="checkbox"
             checked={selected}
             onClick={(e) => e.stopPropagation()}
-            onChange={() => handleEntrySelection(data.uniParcId)}
+            onChange={() => handleEntrySelection(id)}
             data-testid="up-card-checkbox"
           />
         </div>
         <div className="result-card__right">
           <h5>
-            <EntryTitle
-              mainTitle={data.uniParcId}
-              entryType={EntryType.UNIPARC}
-            />
+            <EntryTitle mainTitle={id} entryType={EntryType.UNIPARC} />
           </h5>
           <div
             className={renderColumnsInCardStyles['result-card__info-container']}

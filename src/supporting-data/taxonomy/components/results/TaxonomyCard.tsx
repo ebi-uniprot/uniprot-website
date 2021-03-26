@@ -6,6 +6,7 @@ import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../../app/config/urls';
+import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
@@ -15,6 +16,8 @@ import TaxonomyColumnConfiguration, {
 
 const lineage = TaxonomyColumnConfiguration.get(TaxonomyColumn.lineage);
 
+const getIdKey = getIdKeyFor(Namespace.taxonomy);
+
 const TaxonomyCard: FC<{
   data: TaxonomyAPIModel;
   selected?: boolean;
@@ -22,9 +25,11 @@ const TaxonomyCard: FC<{
 }> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
+  const id = getIdKey(data);
+
   const handleCardClick = useCallback(() => {
-    history.push(getEntryPath(Namespace.taxonomy, data.taxonId));
-  }, [history, data.taxonId]);
+    history.push(getEntryPath(Namespace.taxonomy, id));
+  }, [history, id]);
 
   return (
     <Card onClick={handleCardClick}>
@@ -34,7 +39,7 @@ const TaxonomyCard: FC<{
             type="checkbox"
             checked={selected}
             onClick={(e) => e.stopPropagation()}
-            onChange={() => handleEntrySelection(String(data.taxonId))}
+            onChange={() => handleEntrySelection(id)}
             data-testid="up-card-checkbox"
           />
         </div>
