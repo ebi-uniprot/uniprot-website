@@ -27,6 +27,7 @@ import PeptideSearchIllustration from '../../images/peptide_search_illustration.
 import FTPIllustration from '../../images/ftp_illustration.svg';
 import ProgrammaticIllustration from '../../images/programmatic_illustration.svg';
 import TechDocIllustration from '../../images/tech_doc_illustration.svg';
+import SubmitDataIllustration from '../../images/submit-data_illustration.svg';
 
 import PlaceHolder from './PlaceHolder';
 
@@ -311,7 +312,7 @@ const HomePageNonCritical = () => (
       <Tile
         title="Submit data"
         className="uniprot-grid-cell--span-3"
-        backgroundImage={<ProgrammaticIllustration />}
+        backgroundImage={<SubmitDataIllustration />}
         backgroundColor={colors.independence}
         // TODO: update link
         url="https://www.uniprot.org/help/submissions"
