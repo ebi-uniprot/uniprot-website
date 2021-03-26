@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -32,9 +32,11 @@ describe('Download component', () => {
   const namespace = Namespace.uniprotkb;
   const query = 'nod2';
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
-  const onCloseMock = jest.fn();
+  let onCloseMock;
 
   beforeEach(() => {
+    onCloseMock = jest.fn();
+
     customRender(
       <Download
         query={query}
@@ -49,10 +51,6 @@ describe('Download component', () => {
         },
       }
     );
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   test('should call onClose when cancel button is clicked', () => {
@@ -97,23 +95,37 @@ describe('Download component', () => {
     [FileFormat.tsv, true],
   ])(
     'should show column selection component when %s file type is selected and otherwise hide it',
-    (value, columnSelect) => {
+    async (value, columnSelect) => {
       const formatSelect = screen.getByTestId('file-format-select');
-      fireEvent.change(formatSelect, { target: { value } });
-      const customise = screen.queryByText('Customize data');
-      if (columnSelect) {
-        expect(customise).toBeInTheDocument();
-      } else {
-        expect(customise).not.toBeInTheDocument();
-      }
+      await act(async () => {
+        fireEvent.change(formatSelect, { target: { value } });
+        await waitFor(() => {
+          const customise = screen.queryByText('Customize data');
+          if (columnSelect) {
+            expect(customise).toBeInTheDocument();
+          } else {
+            expect(customise).not.toBeInTheDocument();
+          }
+        });
+      });
     }
   );
 
   test('should change the column selection before preview and download', async () => {
     const formatSelect = screen.getByTestId('file-format-select');
     fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
-    const reviewed = await screen.findByText('Customize data');
-    expect(reviewed).toBeInTheDocument();
+    let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining('fields=accession%2Creviewed%2Cgene_names')
+    );
+    const removeButton = await screen.findAllByTestId('remove-icon');
+    fireEvent.click(removeButton[0]);
+    downloadLink = (
+      await screen.findAllByText('Download')
+    )[1] as HTMLAnchorElement;
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining('fields=accession%2Cgene_names')
+    );
   });
 
   test('should change Preview button text when Download selected radio is selected', () => {
