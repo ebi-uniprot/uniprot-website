@@ -5,12 +5,24 @@ import customRender from '../../../__test-helpers__/customRender';
 import Download, { getPreviewFileFormat } from '../Download';
 
 import { FileFormat } from '../../../types/resultsDownload';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../types/namespaces';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+import useUserPreferences from '../../../hooks/useUserPreferences';
 
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+jest.mock('../../../hooks/useUserPreferences');
+
+useUserPreferences.mockImplementation(() => [
+  [
+    UniProtKBColumn.accession,
+    UniProtKBColumn.reviewed,
+    UniProtKBColumn.geneNames,
+  ],
+  jest.fn(),
+]);
 
 describe('getPreviewFileFormat', () => {
   test('should replace excel file format with tsv', () => {
@@ -27,15 +39,11 @@ describe('Download component', () => {
   const query = 'nod2';
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   const onCloseMock = jest.fn();
+
   beforeEach(() => {
     customRender(
       <Download
         query={query}
-        selectedColumns={[
-          UniProtKBColumn.accession,
-          UniProtKBColumn.reviewed,
-          UniProtKBColumn.id,
-        ]}
         selectedEntries={selectedEntries}
         totalNumberResults={10}
         onClose={onCloseMock}
@@ -101,6 +109,13 @@ describe('Download component', () => {
       }
     }
   );
+
+  test('should change the column selection before preview and download', async () => {
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: FileFormat.tsv });
+    const reviewed = await screen.findByText('Customize datas');
+    expect(reviewed).toBeInTheDocument();
+  });
 
   test('should change Preview button text when Download selected radio is selected', () => {
     fireEvent.click(
