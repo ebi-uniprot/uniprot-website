@@ -7,22 +7,19 @@ import Download, { getPreviewFileFormat } from '../Download';
 import { FileFormat } from '../../../types/resultsDownload';
 import { Namespace } from '../../../types/namespaces';
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import useUserPreferences from '../../../hooks/useUserPreferences';
+// import useUserPreferences from '../../../hooks/useUserPreferences';
 
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
-jest.mock('../../../hooks/useUserPreferences');
+// jest.mock('../../../hooks/useUserPreferences');
 
-useUserPreferences.mockImplementation(() => [
-  [
-    UniProtKBColumn.accession,
-    UniProtKBColumn.reviewed,
-    UniProtKBColumn.geneNames,
-  ],
-  jest.fn(),
-]);
+const initialColumns = [
+  UniProtKBColumn.accession,
+  UniProtKBColumn.reviewed,
+  UniProtKBColumn.geneNames,
+];
 
 describe('getPreviewFileFormat', () => {
   test('should replace excel file format with tsv', () => {
@@ -48,7 +45,12 @@ describe('Download component', () => {
         totalNumberResults={10}
         onClose={onCloseMock}
         namespace={namespace}
-      />
+      />,
+      {
+        initialUserPreferences: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
     );
   });
 
@@ -112,8 +114,8 @@ describe('Download component', () => {
 
   test('should change the column selection before preview and download', async () => {
     const formatSelect = screen.getByTestId('file-format-select');
-    fireEvent.change(formatSelect, { target: FileFormat.tsv });
-    const reviewed = await screen.findByText('Customize datas');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    const reviewed = await screen.findByText('Customize data');
     expect(reviewed).toBeInTheDocument();
   });
 
