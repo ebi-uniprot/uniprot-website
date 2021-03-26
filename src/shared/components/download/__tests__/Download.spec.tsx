@@ -1,4 +1,4 @@
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -97,16 +97,14 @@ describe('Download component', () => {
     'should show column selection component when %s file type is selected and otherwise hide it',
     async (value, columnSelect) => {
       const formatSelect = screen.getByTestId('file-format-select');
-      await act(async () => {
-        fireEvent.change(formatSelect, { target: { value } });
-        await waitFor(() => {
-          const customise = screen.queryByText('Customize data');
-          if (columnSelect) {
-            expect(customise).toBeInTheDocument();
-          } else {
-            expect(customise).not.toBeInTheDocument();
-          }
-        });
+      fireEvent.change(formatSelect, { target: { value } });
+      await waitFor(() => {
+        const customise = screen.queryByText('Customize data');
+        if (columnSelect) {
+          expect(customise).toBeInTheDocument();
+        } else {
+          expect(customise).not.toBeInTheDocument();
+        }
       });
     }
   );
