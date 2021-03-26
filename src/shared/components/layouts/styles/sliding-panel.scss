@@ -1,7 +1,7 @@
 @import '../../../styles/settings';
-@import '../../../../../node_modules/franklin-sites/src/styles/settings';
-@import '../../../../../node_modules/franklin-sites/src/styles/colours';
-@import '../../../../../node_modules/franklin-sites/src/styles/mixins';
+@import 'franklin-sites/src/styles/settings';
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/mixins';
 
 .sliding-panel {
   @include box-shadow(0.125rem);

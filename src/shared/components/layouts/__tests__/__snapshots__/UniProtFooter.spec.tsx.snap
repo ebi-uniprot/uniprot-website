@@ -6,7 +6,7 @@ exports[`HomePage component should render 1`] = `
     class="footer"
   >
     <div
-      class="uniprot-grid uniprot-grid--centered"
+      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
     >
       <div
         class="consortium"
@@ -102,7 +102,9 @@ exports[`HomePage component should render 1`] = `
       <ul
         class="no-bullet shortcuts"
       >
-        <li>
+        <li
+          class="shortcuts__core-data"
+        >
           <span
             class="shortcuts__title"
           >
@@ -231,9 +233,7 @@ exports[`HomePage component should render 1`] = `
                 Peptide search
               </a>
             </li>
-            <li
-              class="tools-results-link"
-            >
+            <li>
               <a
                 href="/tool-dashboard"
               >

@@ -13,7 +13,7 @@ exports[`CitationCard tests should render the card component 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="result-card"
         >
           <div
@@ -206,7 +206,7 @@ exports[`CitationCard tests should render the card component 1`] = `
               </div>
             </article>
           </div>
-        </section>
+        </div>
       </div>
     </div>
   </section>

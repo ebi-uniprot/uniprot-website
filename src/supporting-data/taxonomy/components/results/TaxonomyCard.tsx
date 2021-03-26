@@ -3,7 +3,7 @@ import { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import TaxonomyView from '../../../../shared/components/entry/TaxonomyView';
-import RenderColumnInCard from '../../../../shared/components/results/RenderColumnInCard';
+import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../../app/config/urls';
 
@@ -13,7 +13,7 @@ import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
 
-const mainInfoColumns = [TaxonomyColumn.lineage];
+const lineage = TaxonomyColumnConfiguration.get(TaxonomyColumn.lineage);
 
 const TaxonomyCard: FC<{
   data: TaxonomyAPIModel;
@@ -23,12 +23,12 @@ const TaxonomyCard: FC<{
   const history = useHistory();
 
   const handleCardClick = useCallback(() => {
-    history.push(getEntryPath(Namespace.proteomes, data.taxonId));
+    history.push(getEntryPath(Namespace.taxonomy, data.taxonId));
   }, [history, data.taxonId]);
 
   return (
     <Card onClick={handleCardClick}>
-      <section className="result-card">
+      <div className="result-card">
         <div className="result-card__left">
           <input
             type="checkbox"
@@ -42,17 +42,9 @@ const TaxonomyCard: FC<{
           <h5>
             <TaxonomyView data={data} />
           </h5>
-          <div className="result-card__info-container">
-            {mainInfoColumns.map((column) => (
-              <RenderColumnInCard
-                data={data}
-                columnRenderer={TaxonomyColumnConfiguration.get(column)}
-                key={column}
-              />
-            ))}
-          </div>
+          <RenderColumnsInCard data={data} renderers={lineage} />
         </div>
-      </section>
+      </div>
     </Card>
   );
 };
