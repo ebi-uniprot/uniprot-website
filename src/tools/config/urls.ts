@@ -1,4 +1,4 @@
-import { IDMappingTarget } from '../id-mapping/types/idMappingServerParameters';
+import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type CommonResultFormats =
@@ -44,7 +44,7 @@ type Return<T extends JobTypes> = Readonly<{
   statusUrl: (jobId: string) => string;
   resultUrl: (
     jobId: string,
-    extra: { idMappingTarget?: IDMappingTarget; format?: ResultFormat[T] }
+    extra: { idMappingTarget?: IDMappingNamespace; format?: ResultFormat[T] }
   ) => string;
 }>;
 
