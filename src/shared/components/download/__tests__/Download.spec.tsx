@@ -5,12 +5,18 @@ import customRender from '../../../__test-helpers__/customRender';
 import Download, { getPreviewFileFormat } from '../Download';
 
 import { FileFormat } from '../../../types/resultsDownload';
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../../types/namespaces';
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import mockFasta from '../../../../uniprotkb/components/__mocks__/fasta.json';
 
 import '../../../../uniprotkb/components/__mocks__/mockApi';
+
+const initialColumns = [
+  UniProtKBColumn.accession,
+  UniProtKBColumn.reviewed,
+  UniProtKBColumn.geneNames,
+];
 
 describe('getPreviewFileFormat', () => {
   test('should replace excel file format with tsv', () => {
@@ -26,26 +32,25 @@ describe('Download component', () => {
   const namespace = Namespace.uniprotkb;
   const query = 'nod2';
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
-  const onCloseMock = jest.fn();
+  let onCloseMock;
+
   beforeEach(() => {
+    onCloseMock = jest.fn();
+
     customRender(
       <Download
         query={query}
-        selectedColumns={[
-          UniProtKBColumn.accession,
-          UniProtKBColumn.reviewed,
-          UniProtKBColumn.id,
-        ]}
         selectedEntries={selectedEntries}
         totalNumberResults={10}
         onClose={onCloseMock}
         namespace={namespace}
-      />
+      />,
+      {
+        initialUserPreferences: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
     );
-  });
-
-  afterEach(() => {
-    jest.resetAllMocks();
   });
 
   test('should call onClose when cancel button is clicked', () => {
@@ -101,6 +106,23 @@ describe('Download component', () => {
       }
     }
   );
+
+  test('should change the column selection before preview and download', async () => {
+    const formatSelect = screen.getByTestId('file-format-select');
+    fireEvent.change(formatSelect, { target: { value: FileFormat.tsv } });
+    let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining('fields=accession%2Creviewed%2Cgene_names')
+    );
+    const removeButton = await screen.findAllByTestId('remove-icon');
+    fireEvent.click(removeButton[0]);
+    downloadLink = (
+      await screen.findAllByText('Download')
+    )[1] as HTMLAnchorElement;
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining('fields=accession%2Cgene_names')
+    );
+  });
 
   test('should change Preview button text when Download selected radio is selected', () => {
     fireEvent.click(
