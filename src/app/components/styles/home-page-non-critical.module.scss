@@ -1,7 +1,31 @@
+@import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
 
 .home-page-section {
   margin-bottom: $global-margin * 2;
+}
+
+.proteins-section {
+  display: flex;
+  line-height: 1;
+
+  & > * {
+    flex: 1;
+  }
+
+  svg,
+  a {
+    display: inline-block;
+    color: currentColor;
+  }
+
+  svg :global(.swissprot_svg__star) {
+    color: $colour-reviewed;
+  }
+
+  &__status {
+    font-weight: bold;
+  }
 }
 
 .supporting-data-section {

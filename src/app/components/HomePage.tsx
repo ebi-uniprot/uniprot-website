@@ -138,7 +138,8 @@ const HomePageHeader = memo(() => {
 });
 
 const HomePage = () => (
-  <>
+  <main>
+    <h1 className="visually-hidden">UniProt website home page</h1>
     <ErrorBoundary>
       <HomePageHeader />
     </ErrorBoundary>
@@ -147,7 +148,7 @@ const HomePage = () => (
         <HomePageNonCritical />
       </Suspense>
     </ErrorBoundary>
-  </>
+  </main>
 );
 
 export default HomePage;
