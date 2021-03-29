@@ -23,6 +23,7 @@ import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
   IDMappingFormValue,
+  IDMappingFormValues,
 } from '../config/idMappingFormData';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -55,35 +56,78 @@ export type DbNameToDbInfo = {
 };
 
 export type RuleIdToRuleInfo = {
-  [k: number]: IDMappingRule;
+  [ruleID: number]: IDMappingRule;
 };
 
+interface CustomLocationState {
+  parameters?: Partial<FormParameters>;
+}
+
 const IDMappingForm = () => {
+  // refs
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // refs
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // state
+  const initialFormValues = useMemo(() => {
+    // NOTE: we should use a similar logic to pre-fill fields based on querystring
+    const parametersFromHistoryState = (history.location
+      ?.state as CustomLocationState)?.parameters;
+    if (parametersFromHistoryState) {
+      console.log(parametersFromHistoryState);
+      // if we get here, we got parameters passed with the location update to
+      // use as pre-filled fields
+      const formValues: Partial<IDMappingFormValues> = {};
+      const defaultValuesEntries = Object.entries(defaultFormValues) as [
+        IDMappingFields,
+        IDMappingFormValue
+      ][];
+      // for every field of the form, get its value from the history state if
+      // present, otherwise go for the default one
+      for (const [key, field] of defaultValuesEntries) {
+        console.log(
+          formValues,
+          key,
+          field,
+          parametersFromHistoryState[field.fieldName as keyof FormParameters]
+        );
+        formValues[key] = Object.freeze({
+          ...field,
+          selected:
+            parametersFromHistoryState[
+              field.fieldName as keyof FormParameters
+            ] || field.selected,
+        }) as Readonly<IDMappingFormValue>;
+      }
+      return Object.freeze(formValues) as Readonly<IDMappingFormValues>;
+    }
+    // otherwise, pass the default values
+    return defaultFormValues;
+  }, [history]);
 
-  const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
   // Text of IDs from textarea
   const [textIDs, setTextIDs] = useState<string>(
-    defaultFormValues[IDMappingFields.ids].selected
+    initialFormValues[IDMappingFields.ids].selected
   );
+  console.log(initialFormValues[IDMappingFields.ids].selected);
   // Parsed (by whitespace) IDs
-  const [ids, setIDs] = useState<string[]>([]);
+  const [ids, setIDs] = useState<string[]>(
+    parseIDs(initialFormValues[IDMappingFields.ids].selected)
+  );
   const [fromDb, setFromDb] = useState<IDMappingFormValue>(
-    defaultFormValues[IDMappingFields.fromDb]
+    initialFormValues[IDMappingFields.fromDb]
   );
   const [toDb, setToDb] = useState<IDMappingFormValue>(
-    defaultFormValues[IDMappingFields.toDb]
+    initialFormValues[IDMappingFields.toDb]
   );
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
-    defaultFormValues[IDMappingFields.name]
+    initialFormValues[IDMappingFields.name]
   );
   // flag to see if the user manually changed the title
   const [jobNameEdited, setJobNameEdited] = useState(false);
@@ -133,6 +177,7 @@ const IDMappingForm = () => {
   };
 
   useEffect(() => {
+    console.log('i am here', jobNameEdited, ids.length);
     if (!jobNameEdited && ids.length > 0) {
       const potentialJobName = `${ids[0]}${
         ids.length > 1 ? ` +${ids.length - 1}` : ''
@@ -146,11 +191,6 @@ const IDMappingForm = () => {
       });
     }
   }, [fromDb, ids, jobNameEdited, toDb]);
-
-  // useEffect(() => {
-  //   toDb
-  //   setToDb((toDb) => ({...toDb, selected: }))
-  // },[fromDb])
 
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
@@ -214,6 +254,8 @@ const IDMappingForm = () => {
       ruleIdToRuleInfo,
       dbNameToDbInfo[fromDb.selected].ruleId
     );
+
+  const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
 
   if (error) {
     return <Message level="failure">{error?.message}</Message>;

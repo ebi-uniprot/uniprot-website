@@ -21,11 +21,11 @@ const formData: Readonly<IDMappingFormValues> = Object.freeze({
     selected: '',
   }),
   [IDMappingFields.fromDb]: Object.freeze({
-    fieldName: 'fromDb',
+    fieldName: 'from',
     selected: 'UniProtKB_AC-ID',
   }),
   [IDMappingFields.toDb]: Object.freeze({
-    fieldName: 'toDb',
+    fieldName: 'to',
     selected: 'UniRef90',
   }),
   [IDMappingFields.name]: Object.freeze({

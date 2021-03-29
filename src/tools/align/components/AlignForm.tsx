@@ -152,6 +152,7 @@ const AlignForm = () => {
     AlignFormValues[AlignFields.iterations]
   >(initialFormValues[AlignFields.iterations]);
 
+  console.log(initialFormValues[AlignFields.name]);
   // extra job-related fields
   const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);
 
@@ -224,6 +225,7 @@ const AlignForm = () => {
             parsedSequences.length === 1 ? '' : 's'
           }`;
         }
+        console.log('i am here');
         setJobName((jobName) => {
           if (jobName.selected === potentialJobName) {
             // avoid unecessary rerender by keeping the same object
