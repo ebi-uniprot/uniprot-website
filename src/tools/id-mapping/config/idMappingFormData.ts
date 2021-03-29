@@ -2,6 +2,7 @@ export enum IDMappingFields {
   ids = 'IDs',
   fromDb = 'From Database',
   toDb = 'To Database',
+  name = 'Name',
 }
 
 export type IDMappingFormValue = {
@@ -26,6 +27,10 @@ const formData: Readonly<IDMappingFormValues> = Object.freeze({
   [IDMappingFields.toDb]: Object.freeze({
     fieldName: 'toDb',
     selected: 'UniRef90',
+  }),
+  [IDMappingFields.name]: Object.freeze({
+    fieldName: 'name',
+    selected: '',
   }),
 });
 
