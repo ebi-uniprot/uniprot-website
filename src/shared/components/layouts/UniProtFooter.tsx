@@ -79,7 +79,7 @@ const FooterCopyrightAndMisc = () => (
 
 const FooterShortcuts = () => (
   <ul className="no-bullet shortcuts">
-    <li>
+    <li className="shortcuts__core-data">
       <span className="shortcuts__title">Core data</span>
       <ul className="no-bullet">
         <li>
@@ -89,7 +89,7 @@ const FooterShortcuts = () => (
               search: 'query=*',
             }}
           >
-            Proteins (UniProt KnowledgeBase)
+            Proteins (UniProtKB)
           </Link>
         </li>
         <li>

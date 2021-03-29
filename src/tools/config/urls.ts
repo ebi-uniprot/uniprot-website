@@ -1,3 +1,4 @@
+import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type CommonResultFormats =
@@ -34,11 +35,20 @@ export type ResultFormat = {
     | 'ffdp-subject-jpeg'
     | 'parameters' // in XML
     | 'json';
-  [JobTypes.ID_MAPPING]: never; // TODO
-  [JobTypes.PEPTIDE_SEARCH]: never; // TODO
+  [JobTypes.ID_MAPPING]: never;
+  [JobTypes.PEPTIDE_SEARCH]: never;
 };
 
-function urlObjectCreator<T extends JobTypes>(type: T) {
+type Return<T extends JobTypes> = Readonly<{
+  runUrl: string;
+  statusUrl: (jobId: string) => string;
+  resultUrl: (
+    jobId: string,
+    extra: { idMappingTarget?: IDMappingNamespace; format?: ResultFormat[T] }
+  ) => string;
+}>;
+
+function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
   let baseURL = '';
   switch (type) {
     case JobTypes.ALIGN:
@@ -48,19 +58,31 @@ function urlObjectCreator<T extends JobTypes>(type: T) {
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.ID_MAPPING:
-      baseURL = ''; // TODO
+      // TODO: change to non VPN URL
+      baseURL = 'http://wp-np2-be.ebi.ac.uk:8096/uniprot/api/idmapping';
+      return Object.freeze({
+        runUrl: `${baseURL}/run`,
+        statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
+        resultUrl: (jobId, { idMappingTarget }) =>
+          `${baseURL}${
+            idMappingTarget ? `/${idMappingTarget}` : ''
+          }/results/${jobId}`,
+      });
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      baseURL = ''; // TODO
-      break;
+      baseURL = 'https://www.uniprot.org/peptidesearch';
+      return Object.freeze({
+        runUrl: `${baseURL}/`,
+        statusUrl: (jobId) => `${baseURL}/uniprot/${jobId}`,
+        resultUrl: (jobId) => `${baseURL}/uniprot/${jobId}`,
+      });
     default:
     //
   }
   return Object.freeze({
     runUrl: `${baseURL}/run`,
-    statusUrl: (jobId: string) => `${baseURL}/status/${jobId}`,
-    resultUrl: (jobId: string, format: ResultFormat[T]) =>
-      `${baseURL}/result/${jobId}/${format}`,
+    statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
+    resultUrl: (jobId, { format }) => `${baseURL}/result/${jobId}/${format}`,
   });
 }
 

@@ -1,7 +1,7 @@
 import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
 
 import fetchData from '../../shared/utils/fetchData';
-import { getJobMessage } from '../utils';
+import { getStatusFromResponse, getJobMessage } from '../utils';
 
 import toolsURLs from '../config/urls';
 
@@ -23,13 +23,14 @@ const getCheckJobStatus = ({
   const urlConfig = toolsURLs(job.type);
   try {
     // TODO: check object shape when backend provides API for id mapping
-    const { data } = await fetchData<Status | { jobStatus: Status }>(
+    const response = await fetchData<Status | { jobStatus: Status }>(
       urlConfig.statusUrl(job.remoteID),
       { Accept: 'text/plain,application/json' },
       undefined,
       { maxRedirects: 0 }
     );
-    const status = typeof data === 'string' ? data : data.jobStatus;
+
+    const [status, idMappingTarget] = getStatusFromResponse(job.type, response);
     // get a new reference to the job
     let currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
@@ -71,7 +72,7 @@ const getCheckJobStatus = ({
     if (job.type === JobTypes.BLAST) {
       // only BLAST jobs
       const response = await fetchData<BlastResults>(
-        urlConfig.resultUrl(job.remoteID, 'json')
+        urlConfig.resultUrl(job.remoteID, { format: 'json' })
       );
 
       const results = response.data;
@@ -95,7 +96,7 @@ const getCheckJobStatus = ({
         throw new Error(
           `"${JSON.stringify(
             response.data
-          )}" in not a valid result for this job`
+          )}" is not a valid result for this job`
         );
       }
 
@@ -112,8 +113,49 @@ const getCheckJobStatus = ({
           getJobMessage({ job: currentStateOfJob, nHits: results.hits.length })
         )
       );
+    } else if (job.type === JobTypes.ID_MAPPING) {
+      // only ID Mapping jobs
+      const response = await fetchData(
+        urlConfig.resultUrl(job.remoteID, { idMappingTarget }),
+        undefined,
+        undefined,
+        { method: 'HEAD' }
+      );
+
+      // get a new reference to the job
+      currentStateOfJob = getState().tools[job.internalID];
+      // check that the job is still in the state (it might have been removed)
+      if (!currentStateOfJob) {
+        return;
+      }
+
+      const now = Date.now();
+
+      const hits: string = response.headers['x-totalrecords'];
+
+      if (!hits) {
+        dispatch(
+          updateJob(job.internalID, {
+            timeLastUpdate: now,
+            status: Status.FAILURE,
+          })
+        );
+        throw new Error('There was no valid results for this job');
+      }
+
+      dispatch(
+        updateJob(job.internalID, {
+          timeLastUpdate: now,
+          timeFinished: now,
+          status,
+          data: { hits: +hits, idMappingTarget },
+        })
+      );
+      dispatch(
+        addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
+      );
     } else {
-      // all kinds of jobs except BLAST
+      // all kinds of jobs except BLAST or ID Mapping
       const now = Date.now();
       dispatch(
         updateJob(job.internalID, {

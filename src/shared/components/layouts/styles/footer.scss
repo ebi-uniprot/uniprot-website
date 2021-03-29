@@ -35,7 +35,10 @@ footer.footer {
     &__members {
       display: flex;
       align-items: center;
-      gap: 1ch;
+
+      :not(:last-child) {
+        margin-right: 1ch;
+      }
 
       & > * {
         flex: 1;
@@ -80,11 +83,8 @@ footer.footer {
     }
 
     li {
-      margin-bottom: 1ch;
-
-      // &:last-child {
-      //   width: max-content;
-      // }
+      margin-bottom: 1em;
+      line-height: initial;
     }
 
     &__title {
@@ -95,6 +95,10 @@ footer.footer {
       margin-bottom: 1ch;
       border-bottom: 1px solid $colour-weldon-blue;
       font-weight: bold;
+    }
+
+    &__core-data {
+      white-space: nowrap;
     }
   }
 
@@ -123,8 +127,11 @@ footer.footer {
     grid-area: 3 / 4 / span 1 / span 6;
     display: flex;
     align-items: center;
-    gap: 1ch;
     justify-content: space-between;
+
+    :not(:last-child) {
+      margin-right: 1ch;
+    }
 
     & > * {
       white-space: nowrap;

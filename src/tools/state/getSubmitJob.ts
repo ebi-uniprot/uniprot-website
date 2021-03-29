@@ -2,8 +2,11 @@ import { AnyAction, MiddlewareAPI, Dispatch } from 'redux';
 
 import { formParametersToServerParameters } from '../adapters/parameters';
 
-import isValidServerID from '../utils/isValidServerID';
-import { getServerErrorDescription, getJobMessage } from '../utils';
+import {
+  getRemoteIDFromResponse,
+  getServerErrorDescription,
+  getJobMessage,
+} from '../utils';
 
 import { addMessage } from '../../messages/state/messagesActions';
 import { updateJob } from './toolsActions';
@@ -41,14 +44,11 @@ const getSubmitJob = ({
       {
         method: 'POST',
         data: formData,
+        maxRedirects: 0,
       }
     );
-    const remoteID =
-      typeof response.data === 'string' ? response.data : response.data.jobId;
 
-    if (!isValidServerID(job.type, remoteID)) {
-      throw new Error(`The server didn't return a valid ID`);
-    }
+    const remoteID = getRemoteIDFromResponse(job.type, response);
 
     // get a new reference to the job
     const currentStateOfJob = getState().tools[job.internalID];

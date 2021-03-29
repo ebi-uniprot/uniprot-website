@@ -111,8 +111,12 @@ const useParamsData = (
     Partial<UseDataAPIState<PublicServerParameters>>
   >({});
 
-  const paramsXMLData = useDataApi<string>(urls.resultUrl(id, 'parameters'));
-  const sequenceData = useDataApi<string>(urls.resultUrl(id, 'sequence'));
+  const paramsXMLData = useDataApi<string>(
+    urls.resultUrl(id, { format: 'parameters' })
+  );
+  const sequenceData = useDataApi<string>(
+    urls.resultUrl(id, { format: 'sequence' })
+  );
 
   useEffect(() => {
     const loading = paramsXMLData.loading || sequenceData.loading;
@@ -193,7 +197,9 @@ const BlastResult = () => {
     data: blastData,
     error: blastError,
     status: blastStatus,
-  } = useDataApi<BlastResults>(urls.resultUrl(match?.params.id || '', 'json'));
+  } = useDataApi<BlastResults>(
+    urls.resultUrl(match?.params.id || '', { format: 'json' })
+  );
 
   // extract facets and other info from URL querystring
   const urlParams: URLResultParams = useMemo(

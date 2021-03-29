@@ -292,6 +292,4 @@ export type ServerParameters = {
   database: Database;
 };
 
-// same, but without the email, as the server will not send that with the rest
-// of the input params
 export type PublicServerParameters = Omit<ServerParameters, 'email'>;

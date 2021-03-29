@@ -122,17 +122,31 @@ const AlignForm = lazy(
     )
 );
 
-// const IDMappingResult= lazy(
+// const IDMappingResult = lazy(
 //   () =>
 //     import(
-//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/IDMappingResult'
+//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
 //     )
-// )
+// );
 
 const IDMappingForm = lazy(
   () =>
     import(
       /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+    )
+);
+
+// const PeptideSearchResult = lazy(
+//   () =>
+//     import(
+//       /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
+//     )
+// )
+
+const PeptideSearchForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
     )
 );
 
@@ -142,6 +156,7 @@ const Dashboard = lazy(
       /* webpackChunkName: "dashboard" */ '../../tools/dashboard/components/Dashboard'
     )
 );
+
 const ResourceNotFoundPage = lazy(
   () =>
     import(
@@ -249,6 +264,30 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
+            {/* <Route
+              path={LocationToPath[Location.PeptideSearchResult]}
+              component={PeptideSearchResult}
+            /> */}
+            <Route
+              path={LocationToPath[Location.PeptideSearch]}
+              render={() => (
+                <SingleColumnLayout>
+                  <PeptideSearchForm />
+                </SingleColumnLayout>
+              )}
+            />
+            {/* <Route
+              path={LocationToPath[Location.IDMappingResult]}
+              component={IDMappingResult}
+            />
+            <Route
+              path={LocationToPath[Location.IDMapping]}
+              render={() => (
+                <SingleColumnLayout>
+                  <IDMappingForm />
+                </SingleColumnLayout>
+              )}
+            /> */}
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (

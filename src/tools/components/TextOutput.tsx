@@ -11,10 +11,9 @@ import { JobTypes } from '../types/toolsJobTypes';
 
 const TextOutput: FC<{ id: string; jobType: JobTypes }> = ({ id, jobType }) => {
   const { loading, data, error, status } = useDataApi<string>(
-    toolsURLs(jobType).resultUrl(
-      id,
-      jobType === JobTypes.ALIGN ? 'aln-clustal_num' : 'out'
-    )
+    toolsURLs(jobType).resultUrl(id, {
+      format: jobType === JobTypes.ALIGN ? 'aln-clustal_num' : 'out',
+    })
   );
 
   if (loading) {

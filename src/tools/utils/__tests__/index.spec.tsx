@@ -1,10 +1,35 @@
 import { MemoryRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
-import { getServerErrorDescription, getJobMessage } from '..';
+import { getServerErrorDescription, getJobMessage, isValidServerID } from '..';
+
+import { JobTypes } from '../../types/toolsJobTypes';
 
 import createdJob from '../../__mocks__/internal-jobs/created';
 import runningJob from '../../__mocks__/internal-jobs/running';
+
+describe('isValidServerID', () => {
+  it('should recognise a valid server ID', () => {
+    expect(
+      isValidServerID(
+        JobTypes.ALIGN,
+        'clustalo-R20200629-131126-0485-42275007-np2'
+      )
+    ).toBe(true);
+    expect(
+      isValidServerID(
+        JobTypes.BLAST,
+        'ncbiblast-R20200609-091029-0835-71577248-np2'
+      )
+    ).toBe(true);
+  });
+
+  it('should recognise an invalid server ID', () => {
+    expect(
+      isValidServerID(JobTypes.BLAST, 'some response from the server')
+    ).toBe(false);
+  });
+});
 
 describe('getServerErrorDescription', () => {
   it('should get formatted error string from server error', () => {
