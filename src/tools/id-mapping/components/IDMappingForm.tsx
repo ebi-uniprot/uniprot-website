@@ -96,6 +96,8 @@ const getTreeData = memoize(
 
 const reWhitespace = /\s+/;
 
+const parseIDs = (text: string) => text.split(reWhitespace).filter(Boolean);
+
 const IDMappingForm = () => {
   // hooks
   const dispatch = useDispatch();
@@ -167,11 +169,11 @@ const IDMappingForm = () => {
 
   const handleIDTextChange = (text: string) => {
     setTextIDs(text);
-    setIDs(text.split(reWhitespace).filter(Boolean));
+    setIDs(parseIDs(text));
   };
 
   useEffect(() => {
-    if (!jobNameEdited && ids.length) {
+    if (!jobNameEdited && ids.length > 0) {
       const potentialJobName = `${ids[0]}${
         ids.length > 1 ? ` +${ids.length - 1}` : ''
       } ${fromDb} → ${toDb}`;
@@ -187,6 +189,12 @@ const IDMappingForm = () => {
 
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
+
+    // reset all form state to defaults
+    handleIDTextChange(defaultFormValues[IDMappingFields.ids].selected);
+    setFromDb(defaultFormValues[IDMappingFields.fromDb].selected);
+    setToDb(defaultFormValues[IDMappingFields.toDb].selected);
+    setJobName(defaultFormValues[IDMappingFields.name]);
   };
 
   useTextFileInput({
