@@ -133,12 +133,12 @@ const PeptideSearchForm = lazy(
       /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
     )
 );
-// const IDMappingResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
-//     )
-// );
+const IDMappingResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
+    )
+);
 // const IDMappingForm = lazy(
 //   () =>
 //     import(
@@ -272,10 +272,11 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
-            {/* <Route
+            <Route
               path={LocationToPath[Location.IDMappingResult]}
               component={IDMappingResult}
             />
+            {/* 
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (

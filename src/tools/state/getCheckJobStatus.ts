@@ -116,7 +116,7 @@ const getCheckJobStatus = ({
     } else if (job.type === JobTypes.ID_MAPPING) {
       // only ID Mapping jobs
       const response = await fetchData(
-        urlConfig.resultUrl(job.remoteID, { idMappingTarget }),
+        urlConfig.resultUrl(job.remoteID, {}),
         undefined,
         undefined,
         { method: 'HEAD' }

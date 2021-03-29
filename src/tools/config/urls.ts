@@ -1,4 +1,3 @@
-import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type CommonResultFormats =
@@ -42,10 +41,7 @@ export type ResultFormat = {
 type Return<T extends JobTypes> = Readonly<{
   runUrl: string;
   statusUrl: (jobId: string) => string;
-  resultUrl: (
-    jobId: string,
-    extra: { idMappingTarget?: IDMappingNamespace; format?: ResultFormat[T] }
-  ) => string;
+  resultUrl: (jobId: string, extra: { format?: ResultFormat[T] }) => string;
 }>;
 
 function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
@@ -63,10 +59,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-        resultUrl: (jobId, { idMappingTarget }) =>
-          `${baseURL}${
-            idMappingTarget ? `/${idMappingTarget}` : ''
-          }/results/${jobId}`,
+        resultUrl: (jobId) => `${baseURL}/results/${jobId}`,
       });
       break;
     case JobTypes.PEPTIDE_SEARCH:
