@@ -8,7 +8,6 @@ import {
   SpinnerIcon,
   Loader,
 } from 'franklin-sites';
-import { groupBy, memoize } from 'lodash-es';
 
 import { sleep } from 'timing-functions';
 import { useHistory } from 'react-router-dom';
@@ -16,11 +15,16 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
+import { createJob } from '../../state/toolsActions';
+import { parseIDs, getTreeData } from '../utils';
+
 import infoMappings from '../../../shared/config/InfoMappings';
 import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
+  IDMappingFormValue,
 } from '../config/idMappingFormData';
+import { LocationToPath, Location } from '../../../app/config/urls';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -33,70 +37,26 @@ import {
   IDMappingRule,
   IDMappingField,
 } from '../types/idMappingFormConfig';
-
 import { FormParameters } from '../types/idMappingFormParameters';
 
 import '../../../shared/styles/sticky.scss';
 import '../../styles/ToolsForm.scss';
 import idMappingFormStyle from './style/id-mapping-form.module.scss';
-import { LocationToPath, Location } from '../../../app/config/urls';
-import { createJob } from '../../state/toolsActions';
 
-type TreeDataNode = {
+export type TreeDataNode = {
   label: string;
   id: string;
 };
 
-type TreeData = Array<TreeDataNode & { items?: Array<TreeDataNode> }>;
+export type TreeData = Array<TreeDataNode & { items?: Array<TreeDataNode> }>;
 
-type DbNameToDbInfo = {
+export type DbNameToDbInfo = {
   [dbName: string]: IDMappingField;
 };
 
-type RuleIdToRuleInfo = {
+export type RuleIdToRuleInfo = {
   [k: number]: IDMappingRule;
 };
-
-// Memoize this as there could be lots of calls to this function as the user explores
-// the various from-to combinations. Also, the rule is an ideal key for the memoize's WeakMap.
-// Better to use memoize than react's useMemo as we are not concerned with dependency/arg diffs
-// but having to reconstruct the tree data for the same rule.
-const getTreeData = memoize(
-  (
-    dbs: IDMappingField[],
-    ruleIdToRuleInfo: RuleIdToRuleInfo,
-    rule?: number
-  ) => {
-    let tos: IDMappingRule['tos'];
-    if (rule) {
-      ({ tos } = ruleIdToRuleInfo[rule]);
-    }
-    const filteredDbs = dbs.filter(({ name, from, to }) =>
-      tos ? tos.includes(name) && to : from
-    );
-
-    const groupNameToDbs = groupBy(filteredDbs, 'groupName');
-
-    const treeData: TreeData = Object.entries(groupNameToDbs).map(
-      ([groupName, groupDbs]) => ({
-        label: groupName,
-        id: groupName,
-        items: groupDbs.map(({ displayName, name }) => ({
-          label: displayName,
-          id: name,
-        })),
-      })
-    );
-    return treeData;
-  },
-  // In the case tree data is being built for the "from" tree select no rule is passed
-  // so let 0 be the memoize's WeakMap key for quick retrieval
-  (_dbs, _ruleIdToRuleInfo, rule?: number) => rule ?? 0
-);
-
-const reWhitespace = /\s+/;
-
-const parseIDs = (text: string) => text.split(reWhitespace).filter(Boolean);
 
 const IDMappingForm = () => {
   // hooks
@@ -114,11 +74,11 @@ const IDMappingForm = () => {
   );
   // Parsed (by whitespace) IDs
   const [ids, setIDs] = useState<string[]>([]);
-  const [fromDb, setFromDb] = useState<string>(
-    defaultFormValues[IDMappingFields.fromDb].selected
+  const [fromDb, setFromDb] = useState<IDMappingFormValue>(
+    defaultFormValues[IDMappingFields.fromDb]
   );
-  const [toDb, setToDb] = useState<string>(
-    defaultFormValues[IDMappingFields.toDb].selected
+  const [toDb, setToDb] = useState<IDMappingFormValue>(
+    defaultFormValues[IDMappingFields.toDb]
   );
 
   // extra job-related fields
@@ -145,8 +105,8 @@ const IDMappingForm = () => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      from: fromDb,
-      to: toDb,
+      from: fromDb.selected,
+      to: toDb.selected,
       ids,
     };
 
@@ -176,7 +136,7 @@ const IDMappingForm = () => {
     if (!jobNameEdited && ids.length > 0) {
       const potentialJobName = `${ids[0]}${
         ids.length > 1 ? ` +${ids.length - 1}` : ''
-      } ${fromDb} → ${toDb}`;
+      } ${fromDb.selected} → ${toDb.selected}`;
       setJobName((jobName) => {
         if (jobName.selected === potentialJobName) {
           // avoid unecessary rerender by keeping the same object
@@ -187,14 +147,21 @@ const IDMappingForm = () => {
     }
   }, [fromDb, ids, jobNameEdited, toDb]);
 
+  // useEffect(() => {
+  //   toDb
+  //   setToDb((toDb) => ({...toDb, selected: }))
+  // },[fromDb])
+
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
 
     // reset all form state to defaults
-    handleIDTextChange(defaultFormValues[IDMappingFields.ids].selected);
-    setFromDb(defaultFormValues[IDMappingFields.fromDb].selected);
-    setToDb(defaultFormValues[IDMappingFields.toDb].selected);
+    setTextIDs(defaultFormValues[IDMappingFields.ids].selected);
+    setIDs(parseIDs(defaultFormValues[IDMappingFields.ids].selected));
+    setFromDb(defaultFormValues[IDMappingFields.fromDb]);
+    setToDb(defaultFormValues[IDMappingFields.toDb]);
     setJobName(defaultFormValues[IDMappingFields.name]);
+    setJobNameEdited(false);
   };
 
   useTextFileInput({
@@ -242,7 +209,11 @@ const IDMappingForm = () => {
     data &&
     ruleIdToRuleInfo &&
     dbNameToDbInfo &&
-    getTreeData(data.fields, ruleIdToRuleInfo, dbNameToDbInfo[fromDb].ruleId);
+    getTreeData(
+      data.fields,
+      ruleIdToRuleInfo,
+      dbNameToDbInfo[fromDb.selected].ruleId
+    );
 
   if (error) {
     return <Message level="failure">{error?.message}</Message>;
@@ -287,7 +258,11 @@ const IDMappingForm = () => {
             )}
           </section>
         </fieldset>
-        {loading || !fromTreeData || !toTreeData || !dbNameToDbInfo ? (
+        {loading ||
+        !fromTreeData ||
+        !toTreeData ||
+        !dbNameToDbInfo ||
+        !ruleIdToRuleInfo ? (
           <Loader />
         ) : (
           <fieldset>
@@ -299,11 +274,19 @@ const IDMappingForm = () => {
                   autocomplete
                   autocompleteFilter
                   autocompletePlaceholder="Search database name"
-                  onSelect={(node: TreeDataNode) => {
-                    setFromDb(node.id);
+                  onSelect={({ id }: TreeDataNode) => {
+                    setFromDb((fromDb) => ({ ...fromDb, selected: id }));
+                    setToDb((toDb) => {
+                      const toDbs = ruleIdToRuleInfo[dbNameToDbInfo[id].ruleId];
+                      // If old "to" is in the new rule's too don't update otherwise select the first
+                      // TODO: need the rule's initial choice as seen in https://www.uniprot.org/uploadlists/ either by selecting the first in "tos" or having an "initialTo" field
+                      return toDbs.tos.includes(toDb.selected)
+                        ? toDb
+                        : { ...toDb, selected: toDbs.tos[0] };
+                    });
                   }}
-                  label={dbNameToDbInfo?.[fromDb].displayName}
-                  defaultActiveNodes={[fromDb]}
+                  label={dbNameToDbInfo?.[fromDb.selected].displayName}
+                  defaultActiveNodes={[fromDb.selected]}
                 />
               </section>
               <section className="tools-form-section__item">
@@ -313,11 +296,11 @@ const IDMappingForm = () => {
                   autocomplete
                   autocompleteFilter
                   autocompletePlaceholder="Search database name"
-                  onSelect={(node: TreeDataNode) => {
-                    setToDb(node.id);
+                  onSelect={({ id }: TreeDataNode) => {
+                    setToDb((toDb) => ({ ...toDb, selected: id }));
                   }}
-                  label={dbNameToDbInfo?.[toDb].displayName}
-                  defaultActiveNodes={[toDb]}
+                  label={dbNameToDbInfo?.[toDb.selected].displayName}
+                  defaultActiveNodes={[toDb.selected]}
                 />
               </section>
             </section>
