@@ -8,15 +8,15 @@ import {
   SpinnerIcon,
   Loader,
 } from 'franklin-sites';
-
 import { sleep } from 'timing-functions';
 import { useHistory } from 'react-router-dom';
+
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
 import { createJob } from '../../state/toolsActions';
-import { parseIDs, getTreeData } from '../utils';
+import { parseIDs, joinIDs, getTreeData } from '../utils';
 
 import infoMappings from '../../../shared/config/InfoMappings';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -78,7 +78,6 @@ const IDMappingForm = () => {
     const parametersFromHistoryState = (history.location
       ?.state as CustomLocationState)?.parameters;
     if (parametersFromHistoryState) {
-      console.log(parametersFromHistoryState);
       // if we get here, we got parameters passed with the location update to
       // use as pre-filled fields
       const formValues: Partial<IDMappingFormValues> = {};
@@ -89,12 +88,6 @@ const IDMappingForm = () => {
       // for every field of the form, get its value from the history state if
       // present, otherwise go for the default one
       for (const [key, field] of defaultValuesEntries) {
-        console.log(
-          formValues,
-          key,
-          field,
-          parametersFromHistoryState[field.fieldName as keyof FormParameters]
-        );
         formValues[key] = Object.freeze({
           ...field,
           selected:
@@ -109,15 +102,12 @@ const IDMappingForm = () => {
     return defaultFormValues;
   }, [history]);
 
+  const initialIDs = initialFormValues[IDMappingFields.ids]
+    .selected as string[];
   // Text of IDs from textarea
-  const [textIDs, setTextIDs] = useState<string>(
-    initialFormValues[IDMappingFields.ids].selected
-  );
-  console.log(initialFormValues[IDMappingFields.ids].selected);
+  const [textIDs, setTextIDs] = useState<string>(joinIDs(initialIDs));
   // Parsed (by whitespace) IDs
-  const [ids, setIDs] = useState<string[]>(
-    parseIDs(initialFormValues[IDMappingFields.ids].selected)
-  );
+  const [ids, setIDs] = useState<string[]>(initialIDs);
   const [fromDb, setFromDb] = useState<IDMappingFormValue>(
     initialFormValues[IDMappingFields.fromDb]
   );
@@ -149,8 +139,8 @@ const IDMappingForm = () => {
     // transformation of FormParameters into ServerParameters happens in the
     // tools middleware
     const parameters: FormParameters = {
-      from: fromDb.selected,
-      to: toDb.selected,
+      from: fromDb.selected as string,
+      to: toDb.selected as string,
       ids,
     };
 
@@ -177,7 +167,6 @@ const IDMappingForm = () => {
   };
 
   useEffect(() => {
-    console.log('i am here', jobNameEdited, ids.length);
     if (!jobNameEdited && ids.length > 0) {
       const potentialJobName = `${ids[0]}${
         ids.length > 1 ? ` +${ids.length - 1}` : ''
@@ -196,12 +185,13 @@ const IDMappingForm = () => {
     event.preventDefault();
 
     // reset all form state to defaults
-    setTextIDs(defaultFormValues[IDMappingFields.ids].selected);
-    setIDs(parseIDs(defaultFormValues[IDMappingFields.ids].selected));
+    const defaultIDs = defaultFormValues[IDMappingFields.ids]
+      .selected as string[];
+    setTextIDs(joinIDs(defaultIDs));
+    setIDs(defaultIDs);
     setFromDb(defaultFormValues[IDMappingFields.fromDb]);
     setToDb(defaultFormValues[IDMappingFields.toDb]);
     setJobName(defaultFormValues[IDMappingFields.name]);
-    setJobNameEdited(false);
   };
 
   useTextFileInput({
@@ -252,7 +242,7 @@ const IDMappingForm = () => {
     getTreeData(
       data.fields,
       ruleIdToRuleInfo,
-      dbNameToDbInfo[fromDb.selected].ruleId
+      dbNameToDbInfo[fromDb.selected as string].ruleId
     );
 
   const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
@@ -322,12 +312,14 @@ const IDMappingForm = () => {
                       const toDbs = ruleIdToRuleInfo[dbNameToDbInfo[id].ruleId];
                       // If old "to" is in the new rule's too don't update otherwise select the first
                       // TODO: need the rule's initial choice as seen in https://www.uniprot.org/uploadlists/ either by selecting the first in "tos" or having an "initialTo" field
-                      return toDbs.tos.includes(toDb.selected)
+                      return toDbs.tos.includes(toDb.selected as string)
                         ? toDb
                         : { ...toDb, selected: toDbs.tos[0] };
                     });
                   }}
-                  label={dbNameToDbInfo?.[fromDb.selected].displayName}
+                  label={
+                    dbNameToDbInfo?.[fromDb.selected as string].displayName
+                  }
                   defaultActiveNodes={[fromDb.selected]}
                 />
               </section>
@@ -341,7 +333,7 @@ const IDMappingForm = () => {
                   onSelect={({ id }: TreeDataNode) => {
                     setToDb((toDb) => ({ ...toDb, selected: id }));
                   }}
-                  label={dbNameToDbInfo?.[toDb.selected].displayName}
+                  label={dbNameToDbInfo?.[toDb.selected as string].displayName}
                   defaultActiveNodes={[toDb.selected]}
                 />
               </section>
