@@ -41,7 +41,7 @@ type TreeDataNode = {
   id: string;
 };
 
-type TreeData = Array<TreeDataNode & { items?: Array<TreeData> }>;
+type TreeData = Array<TreeDataNode & { items?: Array<TreeDataNode> }>;
 
 const getTreeData = memoize(
   (
@@ -63,15 +63,10 @@ const getTreeData = memoize(
       ([groupName, groupDbs]) => ({
         label: groupName,
         id: groupName,
-        items: groupDbs
-          .map(
-            ({ displayName, name, from }) =>
-              from && {
-                label: displayName,
-                id: name,
-              }
-          )
-          .filter(Boolean),
+        items: groupDbs.map(({ displayName, name }) => ({
+          label: displayName,
+          id: name,
+        })),
       })
     );
     return treeData;
@@ -133,12 +128,20 @@ const IDMappingForm = () => {
   );
 
   const [dbNameToDbInfo, ruleIdToRuleInfo]: [
-    {
-      [k: string]: IDMappingField;
-    },
-    {
-      [k: number]: IDMappingRule;
-    }
+    (
+      | {
+          [k: string]: IDMappingField;
+        }
+      | undefined
+      | null
+    ),
+    (
+      | {
+          [k: number]: IDMappingRule;
+        }
+      | undefined
+      | null
+    )
   ] = useMemo(() => {
     if (!data) {
       return [null, null];
@@ -157,7 +160,7 @@ const IDMappingForm = () => {
   }, [data]);
 
   let treeData;
-  if (data) {
+  if (data && ruleIdToRuleInfo) {
     treeData = getTreeData(data.fields, ruleIdToRuleInfo);
   }
   console.log(getTreeData.cache);
