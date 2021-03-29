@@ -1,4 +1,4 @@
-import { useRef, FormEvent, useState, useCallback } from 'react';
+import { useRef, FormEvent, useState, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { v1 } from 'uuid';
 import {
@@ -8,7 +8,7 @@ import {
   SpinnerIcon,
   Loader,
 } from 'franklin-sites';
-import { groupBy } from 'lodash-es';
+import { groupBy, memoize } from 'lodash-es';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
@@ -16,6 +16,9 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
 import infoMappings from '../../../shared/config/InfoMappings';
 import apiUrls from '../../../shared/config/apiUrls';
+import defaultFormValues, {
+  IDMappingFields,
+} from '../config/IDMappingFormData';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -28,15 +31,52 @@ import '../../../shared/styles/sticky.scss';
 import '../../styles/ToolsForm.scss';
 import idMappingFormStyle from './style/id-mapping-form.module.scss';
 
+const getTreeData = memoize((rule, dbs, ruleIdToRuleInfo) => {
+  console.log(ruleIdToRuleInfo);
+  let tos;
+  let taxonId = false;
+  if (rule) {
+    ({ tos, taxonId } = ruleIdToRuleInfo[rule]);
+  }
+  const filteredDbs = dbs.filter(({ name, from, to }) =>
+    tos ? tos.includes(name) && to : from
+  );
+
+  const groupNameToDbs = groupBy(filteredDbs, 'groupName');
+
+  const treeData = Object.entries(groupNameToDbs).map(
+    ([groupName, groupDbs]) => ({
+      label: groupName,
+      id: groupName,
+      items: groupDbs
+        .map(
+          ({ displayName, name, from }) =>
+            from && {
+              label: displayName,
+              id: name,
+            }
+        )
+        .filter(Boolean),
+    })
+  );
+  return treeData;
+});
+
 const reWhitespace = /\s+/;
 
 const IDMappingForm = () => {
   const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [textIDs, setTextIDs] = useState<string>('');
+  const [textIDs, setTextIDs] = useState<string>(
+    defaultFormValues[IDMappingFields.ids].selected
+  );
   const [ids, setIDs] = useState<string[]>([]);
-  const [fromDb, setFromDb] = useState<string>('UniProtKB_AC-ID');
-  const [toDb, setToDb] = useState<string>('UniRef90');
+  const [fromDb, setFromDb] = useState<string>(
+    defaultFormValues[IDMappingFields.fromDb].selected
+  );
+  const [toDb, setToDb] = useState<string>(
+    defaultFormValues[IDMappingFields.toDb].selected
+  );
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [sending, setSending] = useState(false);
   const reducedMotion = useReducedMotion();
@@ -71,39 +111,33 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { loading, data, status, error } = useDataApi(apiUrls.idMappingFields);
-  console.log(data);
+  const { loading, data, error } = useDataApi(apiUrls.idMappingFields);
+
+  const [dbNameToDbInfo, ruleIdToRuleInfo] = useMemo(() => {
+    if (!data) {
+      return [null, null];
+    }
+    let dbNameToDbInfo;
+    let ruleIdToRuleInfo;
+    if (data) {
+      dbNameToDbInfo = Object.fromEntries(
+        data.fields.map((item) => [item.name, item])
+      );
+      ruleIdToRuleInfo = Object.fromEntries(
+        data.rules.map((rule) => [rule.ruleId, rule])
+      );
+    }
+    return [dbNameToDbInfo, ruleIdToRuleInfo];
+  }, [data]);
 
   let treeData;
-  let dbNameToInfo;
   if (data) {
-    // group by groupName
-    const groups = groupBy(data.fields, 'groupName');
-    dbNameToInfo = Object.fromEntries(
-      data.fields.map((item) => [item.name, item])
-    );
-    treeData = Object.entries(groups).map(([group, dbs]) => {
-      // console.log(group);
-      const items = dbs
-        .map(
-          ({ displayName, name, from }) =>
-            from && {
-              label: displayName,
-              id: name,
-            }
-        )
-        .filter(Boolean);
-      return {
-        label: group,
-        id: group,
-        items,
-      };
-    });
+    treeData = getTreeData(false, data.fields, ruleIdToRuleInfo);
   }
-
-  console.log(treeData);
-  console.log(dbNameToInfo);
-  console.log(dbNameToInfo?.[fromDb].displayName);
+  console.log(getTreeData.cache);
+  if (error) {
+    return <Message level="failure">{error?.message}</Message>;
+  }
 
   return (
     <>
@@ -126,7 +160,7 @@ const IDMappingForm = () => {
               . Separate IDs by whitespace (eg space, tab, newline characters).
             </legend>
             <textarea
-              name="ids"
+              name={defaultFormValues[IDMappingFields.ids].fieldName}
               autoComplete="false"
               spellCheck="false"
               placeholder="P31946 P62258 ALBU_HUMAN EFTU_ECOLI"
@@ -144,46 +178,38 @@ const IDMappingForm = () => {
             )}
           </section>
         </fieldset>
-        {loading || !dbNameToInfo ? (
+        {loading || !treeData || !dbNameToDbInfo ? (
           <Loader />
         ) : (
           <fieldset>
             <section className="tools-form-section">
               <section className="tools-form-section__item">
-                {treeData && (
-                  <>
-                    <label>From database</label>
-                    <TreeSelect
-                      data={treeData}
-                      autocomplete
-                      autocompleteFilter
-                      autocompletePlaceholder="Search database name"
-                      onSelect={({ id }) => {
-                        setFromDb(id);
-                      }}
-                      label={dbNameToInfo?.[fromDb].displayName}
-                      defaultActiveNodes={[fromDb]}
-                    />
-                  </>
-                )}
+                <label>From database</label>
+                <TreeSelect
+                  data={treeData}
+                  autocomplete
+                  autocompleteFilter
+                  autocompletePlaceholder="Search database name"
+                  onSelect={({ id }) => {
+                    setFromDb(id);
+                  }}
+                  label={dbNameToDbInfo?.[fromDb].displayName}
+                  defaultActiveNodes={[fromDb]}
+                />
               </section>
               <section className="tools-form-section__item">
-                {treeData && (
-                  <>
-                    <label>To database</label>
-                    <TreeSelect
-                      data={treeData}
-                      autocomplete
-                      autocompleteFilter
-                      autocompletePlaceholder="Search database name"
-                      onSelect={({ id }) => {
-                        setToDb(id);
-                      }}
-                      label={dbNameToInfo?.[toDb].displayName}
-                      defaultActiveNodes={[toDb]}
-                    />
-                  </>
-                )}
+                <label>To database</label>
+                <TreeSelect
+                  data={treeData}
+                  autocomplete
+                  autocompleteFilter
+                  autocompletePlaceholder="Search database name"
+                  onSelect={({ id }) => {
+                    setToDb(id);
+                  }}
+                  label={dbNameToDbInfo?.[toDb].displayName}
+                  defaultActiveNodes={[toDb]}
+                />
               </section>
             </section>
             <section className="tools-form-section sticky-bottom-right">
