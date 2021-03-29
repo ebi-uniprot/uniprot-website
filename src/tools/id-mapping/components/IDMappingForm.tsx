@@ -1,4 +1,4 @@
-import { useRef, FormEvent, useState, useCallback, useMemo } from 'react';
+import { useRef, FormEvent, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { v1 } from 'uuid';
 import {
@@ -18,7 +18,7 @@ import infoMappings from '../../../shared/config/InfoMappings';
 import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
-} from '../config/IDMappingFormData';
+} from '../config/idMappingFormData';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 import { addMessage } from '../../../messages/state/messagesActions';
@@ -26,41 +26,58 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import {
+  IDMappingFormConfig,
+  IDMappingRule,
+  IDMappingField,
+} from '../types/idMappingFormConfig';
 
 import '../../../shared/styles/sticky.scss';
 import '../../styles/ToolsForm.scss';
 import idMappingFormStyle from './style/id-mapping-form.module.scss';
 
-const getTreeData = memoize((rule, dbs, ruleIdToRuleInfo) => {
-  console.log(ruleIdToRuleInfo);
-  let tos;
-  let taxonId = false;
-  if (rule) {
-    ({ tos, taxonId } = ruleIdToRuleInfo[rule]);
-  }
-  const filteredDbs = dbs.filter(({ name, from, to }) =>
-    tos ? tos.includes(name) && to : from
-  );
+type TreeDataNode = {
+  label: string;
+  id: string;
+};
 
-  const groupNameToDbs = groupBy(filteredDbs, 'groupName');
+type TreeData = Array<TreeDataNode & { items?: Array<TreeData> }>;
 
-  const treeData = Object.entries(groupNameToDbs).map(
-    ([groupName, groupDbs]) => ({
-      label: groupName,
-      id: groupName,
-      items: groupDbs
-        .map(
-          ({ displayName, name, from }) =>
-            from && {
-              label: displayName,
-              id: name,
-            }
-        )
-        .filter(Boolean),
-    })
-  );
-  return treeData;
-});
+const getTreeData = memoize(
+  (
+    dbs: IDMappingField[],
+    ruleIdToRuleInfo: { [k: number]: IDMappingRule },
+    rule?: number
+  ) => {
+    let tos: IDMappingRule['tos'];
+    if (rule) {
+      ({ tos } = ruleIdToRuleInfo[rule]);
+    }
+    const filteredDbs = dbs.filter(({ name, from, to }) =>
+      tos ? tos.includes(name) && to : from
+    );
+
+    const groupNameToDbs = groupBy(filteredDbs, 'groupName');
+
+    const treeData: TreeData = Object.entries(groupNameToDbs).map(
+      ([groupName, groupDbs]) => ({
+        label: groupName,
+        id: groupName,
+        items: groupDbs
+          .map(
+            ({ displayName, name, from }) =>
+              from && {
+                label: displayName,
+                id: name,
+              }
+          )
+          .filter(Boolean),
+      })
+    );
+    return treeData;
+  },
+  (_dbs, _ruleIdToRuleInfo, rule?: number) => rule ?? 0
+);
 
 const reWhitespace = /\s+/;
 
@@ -111,9 +128,18 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { loading, data, error } = useDataApi(apiUrls.idMappingFields);
+  const { loading, data, error } = useDataApi<IDMappingFormConfig>(
+    apiUrls.idMappingFields
+  );
 
-  const [dbNameToDbInfo, ruleIdToRuleInfo] = useMemo(() => {
+  const [dbNameToDbInfo, ruleIdToRuleInfo]: [
+    {
+      [k: string]: IDMappingField;
+    },
+    {
+      [k: number]: IDMappingRule;
+    }
+  ] = useMemo(() => {
     if (!data) {
       return [null, null];
     }
@@ -132,7 +158,7 @@ const IDMappingForm = () => {
 
   let treeData;
   if (data) {
-    treeData = getTreeData(false, data.fields, ruleIdToRuleInfo);
+    treeData = getTreeData(data.fields, ruleIdToRuleInfo);
   }
   console.log(getTreeData.cache);
   if (error) {
@@ -157,7 +183,7 @@ const IDMappingForm = () => {
                 load from a text file
                 <input type="file" ref={fileInputRef} />
               </label>
-              . Separate IDs by whitespace (eg space, tab, newline characters).
+              . Separate IDs by whitespace (space, tab, newline).
             </legend>
             <textarea
               name={defaultFormValues[IDMappingFields.ids].fieldName}
@@ -190,8 +216,8 @@ const IDMappingForm = () => {
                   autocomplete
                   autocompleteFilter
                   autocompletePlaceholder="Search database name"
-                  onSelect={({ id }) => {
-                    setFromDb(id);
+                  onSelect={(node: TreeDataNode) => {
+                    setFromDb(node.id);
                   }}
                   label={dbNameToDbInfo?.[fromDb].displayName}
                   defaultActiveNodes={[fromDb]}
@@ -204,8 +230,8 @@ const IDMappingForm = () => {
                   autocomplete
                   autocompleteFilter
                   autocompletePlaceholder="Search database name"
-                  onSelect={({ id }) => {
-                    setToDb(id);
+                  onSelect={(node: TreeDataNode) => {
+                    setToDb(node.id);
                   }}
                   label={dbNameToDbInfo?.[toDb].displayName}
                   defaultActiveNodes={[toDb]}
