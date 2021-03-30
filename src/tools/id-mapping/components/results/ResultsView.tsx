@@ -94,7 +94,7 @@ type ColumnDescriptor = {
   sorted?: SortDirection;
 };
 const getColumnsToDisplay = (
-  namespace: Namespace | undefined,
+  namespace: Namespace,
   columns: Column[] | undefined,
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,
@@ -231,13 +231,13 @@ const ResultsView: FC<ResultsTableProps> = ({
     }
     const { results } = data;
     // TODO the generic should be based on the namespace
-    const transformedData = idMappingConverter<UniProtkbAPIModel>(results);
+    const transformedData = idMappingConverter(results, idMappingNamespace);
     setAllResults((allRes) => [...allRes, ...transformedData]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
-  }, [data, headers]);
+  }, [data, headers, idMappingNamespace]);
 
   if (
     // if loading the first page of results
@@ -284,17 +284,32 @@ const ResultsView: FC<ResultsTableProps> = ({
     <Loader progress={progress !== 1 ? progress : undefined} />
   );
 
+  const columnsToDisplay = idMappingNamespace
+    ? getColumnsToDisplay(
+        idMappingNamespace,
+        columns,
+        sortableColumnToSortColumn,
+        sortColumn,
+        sortDirection
+      )
+    : [
+        {
+          name: 'from',
+          label: 'from',
+          render: (row: Mapping) => row.from,
+        },
+        {
+          name: 'to',
+          label: 'to',
+          render: (row: Mapping) => row.to,
+        },
+      ];
+
   return (
     <div className="results-view">
       <DataTableWithLoader
         getIdKey={getIdKey}
-        columns={getColumnsToDisplay(
-          idMappingNamespace,
-          columns,
-          sortableColumnToSortColumn,
-          sortColumn,
-          sortDirection
-        )}
+        columns={columnsToDisplay}
         data={allResults}
         selected={selectedEntries}
         onSelectRow={handleEntrySelection}
