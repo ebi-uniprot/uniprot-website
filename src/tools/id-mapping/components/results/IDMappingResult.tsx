@@ -1,10 +1,9 @@
-import { Loader } from 'franklin-sites';
+import { Loader, PageIntro } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
-// import useItemSelect from "../../../../shared/hooks/useItemSelect";
 
 import toolsURLs from '../../../config/urls';
 
@@ -15,6 +14,14 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
+import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
+import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import infoMappings from '../../../../shared/config/InfoMappings';
+import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
+import ResultsView from './ResultsView';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -24,6 +31,7 @@ type IDMappingResultAPI = {
   to: string | UniProtkbAPIModel | UniParcAPIModel | UniRefAPIModel;
 }[];
 
+// TODO Note: this information will be provided by the headers
 const getToNamespace = (results: IDMappingResultAPI): IDMappingNamespace => {
   const firstItem = results[0];
   if ((firstItem.to as UniProtkbAPIModel).primaryAccession) {
@@ -45,8 +53,10 @@ const IDMappingResult = () => {
     LocationToPath[Location.IDMappingResult]
   )!;
 
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
+
   // get data from the idmapping endpoint
-  const { loading, data, error, status } = useDataApi<{
+  const { loading, data, error, status, headers } = useDataApi<{
     results: IDMappingResultAPI;
   }>(urls.resultUrl(match?.params.id || '', {}));
 
@@ -62,20 +72,61 @@ const IDMappingResult = () => {
   const { results } = data;
   const idMappingNamespace = getToNamespace(results);
 
-  // Facets
+  const total = headers?.['x-totalrecords']
+    ? +headers['x-totalrecords']
+    : undefined;
 
-  // const [selectedEntries, handleEntrySelection] = useItemSelect();
+  // no results if total is 0, or if not loading anymore and still no total info
+  if (total === 0 || !(total || loading)) {
+    return <NoResultsPage />;
+  }
+
+  // Facets
 
   switch (idMappingNamespace) {
     case Namespace.uniprotkb:
-      return null;
+      break;
     case Namespace.uniref:
-      return null;
+      break;
     case Namespace.uniparc:
-      return null;
+      break;
     default:
-      return null;
+      break;
   }
+
+  return (
+    <SideBarLayout
+      title={<PageIntro title="ID Mapping results" resultsCount={total} />}
+      // actionButtons={
+      //   <ResultsButtons
+      //     query={query}
+      //     selectedFacets={selectedFacets}
+      //     selectedEntries={selectedEntries}
+      //     sortColumn={sortColumn}
+      //     sortDirection={sortDirection}
+      //     total={total || 0}
+      //   />
+      // }
+      sidebar={
+        'sidebar content'
+        // loading && !data?.facets ? (
+        //   <Loader progress={progress} />
+        // ) : (
+        //   <ResultsFacets facets={data?.facets || []} isStale={isStale} />
+        // )
+      }
+    >
+      {' '}
+      <ResultsView
+        handleEntrySelection={handleEntrySelection}
+        selectedEntries={selectedEntries}
+        sortableColumnToSortColumn={getSortableColumnToSortColumn}
+        idMappingNamespace={idMappingNamespace}
+        jobID={match?.params.id}
+        jobType={jobType}
+      />
+    </SideBarLayout>
+  );
 };
 
 export default IDMappingResult;
