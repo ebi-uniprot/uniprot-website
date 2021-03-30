@@ -7,10 +7,13 @@ export type To = string;
 
 export type IDs = string;
 
+export type TaxId = number;
+
 export type ServerParameters = {
   from: From;
   to: To;
   ids: IDs;
+  taxId?: TaxId;
 };
 
 // same, because no email was provided before

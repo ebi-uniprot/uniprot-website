@@ -1,4 +1,11 @@
-import { useRef, FormEvent, useState, useMemo, useEffect } from 'react';
+import {
+  useRef,
+  FormEvent,
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { v1 } from 'uuid';
 import {
@@ -14,6 +21,8 @@ import { useHistory } from 'react-router-dom';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+
+import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import { createJob } from '../../state/toolsActions';
 import { parseIDs, joinIDs, getTreeData } from '../utils';
@@ -39,6 +48,7 @@ import {
   IDMappingField,
 } from '../types/idMappingFormConfig';
 import { FormParameters } from '../types/idMappingFormParameters';
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 import '../../../shared/styles/sticky.scss';
 import '../../styles/ToolsForm.scss';
@@ -102,6 +112,7 @@ const IDMappingForm = () => {
     return defaultFormValues;
   }, [history]);
 
+  // actual form fields
   const initialIDs = initialFormValues[IDMappingFields.ids]
     .selected as string[];
   // Text of IDs from textarea
@@ -114,6 +125,9 @@ const IDMappingForm = () => {
   const [toDb, setToDb] = useState<IDMappingFormValue>(
     initialFormValues[IDMappingFields.toDb]
   );
+  const [taxID, setTaxID] = useState<IDMappingFormValue>(
+    initialFormValues[IDMappingFields.taxons]
+  );
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
@@ -125,41 +139,94 @@ const IDMappingForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   const [sending, setSending] = useState(false);
 
-  const submitIDMappingJob = (event: FormEvent | MouseEvent) => {
-    event.preventDefault();
+  const { loading, data, error } = useDataApi<IDMappingFormConfig>(
+    apiUrls.idMappingFields
+  );
 
-    if (!ids.length) {
-      return;
+  const [dbNameToDbInfo, ruleIdToRuleInfo]: [
+    DbNameToDbInfo | undefined | null,
+    RuleIdToRuleInfo | undefined | null
+  ] = useMemo(() => {
+    if (!data) {
+      return [null, null];
     }
-
-    setSubmitDisabled(true);
-    setSending(true);
-
-    // here we should just transform input values into FormParameters,
-    // transformation of FormParameters into ServerParameters happens in the
-    // tools middleware
-    const parameters: FormParameters = {
-      from: fromDb.selected as string,
-      to: toDb.selected as string,
-      ids,
-    };
-
-    // navigate to the dashboard, not immediately, to give the impression that
-    // something is happening
-    sleep(1000).then(() => {
-      history.push(LocationToPath[Location.Dashboard], {
-        parameters: [parameters],
-      });
-
-      // We emit an action containing only the parameters and the type of job
-      // the reducer will be in charge of generating a proper job object for
-      // internal state. Dispatching after history.push so that pop-up messages (as a
-      // side-effect of createJob) cannot mount immediately before navigating away.
-      dispatch(
-        createJob(parameters, JobTypes.ID_MAPPING, jobName.selected as string)
+    let dbNameToDbInfo;
+    let ruleIdToRuleInfo;
+    if (data) {
+      dbNameToDbInfo = Object.fromEntries(
+        data.fields.map((item) => [item.name, item])
       );
-    });
-  };
+      ruleIdToRuleInfo = Object.fromEntries(
+        data.rules.map((rule) => [rule.ruleId, rule])
+      );
+    }
+    return [dbNameToDbInfo, ruleIdToRuleInfo];
+  }, [data]);
+
+  let fromTreeData;
+  let toTreeData;
+  let fromDbInfo;
+  let toDbInfo;
+  let ruleInfo: IDMappingRule;
+  if (data && dbNameToDbInfo && ruleIdToRuleInfo) {
+    fromDbInfo = dbNameToDbInfo[fromDb.selected as string];
+    toDbInfo = dbNameToDbInfo[toDb.selected as string];
+    ruleInfo = ruleIdToRuleInfo[fromDbInfo.ruleId];
+    fromTreeData = getTreeData(data.fields, ruleIdToRuleInfo);
+    toTreeData = getTreeData(data.fields, ruleIdToRuleInfo, fromDbInfo.ruleId);
+  }
+
+  const submitIDMappingJob = useCallback(
+    (event: FormEvent | MouseEvent) => {
+      event.preventDefault();
+
+      if (!ids.length) {
+        return;
+      }
+
+      setSubmitDisabled(true);
+      setSending(true);
+
+      // here we should just transform input values into FormParameters,
+      // transformation of FormParameters into ServerParameters happens in the
+      // tools middleware
+      const parameters: FormParameters = {
+        from: fromDb.selected as string,
+        to: toDb.selected as string,
+        ids,
+      };
+
+      if (ruleInfo?.taxonId && taxID.selected) {
+        parameters.taxId = taxID.selected as SelectedTaxon;
+      }
+
+      // navigate to the dashboard, not immediately, to give the impression that
+      // something is happening
+      sleep(1000).then(() => {
+        history.push(LocationToPath[Location.Dashboard], {
+          parameters: [parameters],
+        });
+
+        // We emit an action containing only the parameters and the type of job
+        // the reducer will be in charge of generating a proper job object for
+        // internal state. Dispatching after history.push so that pop-up messages (as a
+        // side-effect of createJob) cannot mount immediately before navigating away.
+        dispatch(
+          createJob(parameters, JobTypes.ID_MAPPING, jobName.selected as string)
+        );
+      });
+    },
+    [
+      dispatch,
+      fromDb.selected,
+      history,
+      ids,
+      jobName.selected,
+      ruleInfo?.taxonId,
+      taxID.selected,
+      toDb.selected,
+    ]
+  );
 
   const handleIDTextChange = (text: string) => {
     setTextIDs(text);
@@ -194,6 +261,21 @@ const IDMappingForm = () => {
     setJobName(defaultFormValues[IDMappingFields.name]);
   };
 
+  const handleTaxonFormValue = (path: string, id?: string) => {
+    // Only proceed if a node is selected
+    if (!id) {
+      return;
+    }
+
+    // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens [9606]
+    const label = path.replace(/ *\([^)]*\) */g, ' ');
+
+    setTaxID({
+      ...taxID,
+      selected: { id, label },
+    });
+  };
+
   useTextFileInput({
     input: fileInputRef.current,
     onFileContent: (content) => handleIDTextChange(content),
@@ -208,42 +290,6 @@ const IDMappingForm = () => {
       ),
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
-
-  const { loading, data, error } = useDataApi<IDMappingFormConfig>(
-    apiUrls.idMappingFields
-  );
-
-  const [dbNameToDbInfo, ruleIdToRuleInfo]: [
-    DbNameToDbInfo | undefined | null,
-    RuleIdToRuleInfo | undefined | null
-  ] = useMemo(() => {
-    if (!data) {
-      return [null, null];
-    }
-    let dbNameToDbInfo;
-    let ruleIdToRuleInfo;
-    if (data) {
-      dbNameToDbInfo = Object.fromEntries(
-        data.fields.map((item) => [item.name, item])
-      );
-      ruleIdToRuleInfo = Object.fromEntries(
-        data.rules.map((rule) => [rule.ruleId, rule])
-      );
-    }
-    return [dbNameToDbInfo, ruleIdToRuleInfo];
-  }, [data]);
-
-  const fromTreeData =
-    data && ruleIdToRuleInfo && getTreeData(data.fields, ruleIdToRuleInfo);
-  const toTreeData =
-    data &&
-    ruleIdToRuleInfo &&
-    dbNameToDbInfo &&
-    getTreeData(
-      data.fields,
-      ruleIdToRuleInfo,
-      dbNameToDbInfo[fromDb.selected as string].ruleId
-    );
 
   const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
 
@@ -294,7 +340,10 @@ const IDMappingForm = () => {
         !fromTreeData ||
         !toTreeData ||
         !dbNameToDbInfo ||
-        !ruleIdToRuleInfo ? (
+        !ruleIdToRuleInfo ||
+        !ruleInfo ||
+        !toDbInfo ||
+        !fromDbInfo ? (
           <Loader />
         ) : (
           <fieldset>
@@ -317,9 +366,7 @@ const IDMappingForm = () => {
                         : { ...toDb, selected: toDbs.tos[0] };
                     });
                   }}
-                  label={
-                    dbNameToDbInfo?.[fromDb.selected as string].displayName
-                  }
+                  label={fromDbInfo.displayName}
                   defaultActiveNodes={[fromDb.selected]}
                 />
               </section>
@@ -333,10 +380,21 @@ const IDMappingForm = () => {
                   onSelect={({ id }: TreeDataNode) => {
                     setToDb((toDb) => ({ ...toDb, selected: id }));
                   }}
-                  label={dbNameToDbInfo?.[toDb.selected as string].displayName}
+                  label={toDbInfo.displayName}
                   defaultActiveNodes={[toDb.selected]}
                 />
               </section>
+              {ruleInfo.taxonId && (
+                <section className="tools-form-section__item tools-form-section__item--taxon-select">
+                  <AutocompleteWrapper
+                    placeholder="Enter taxon name or ID"
+                    url={apiUrls.taxonomySuggester}
+                    onSelect={handleTaxonFormValue}
+                    title="Restrict by taxonomy"
+                    value={taxID?.selected?.label}
+                  />
+                </section>
+              )}
             </section>
             <section className="tools-form-section">
               <section className="tools-form-section__item">

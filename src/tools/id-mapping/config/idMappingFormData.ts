@@ -1,13 +1,16 @@
+import { SelectedTaxon } from '../../types/toolsFormData';
+
 export enum IDMappingFields {
   ids = 'IDs',
   fromDb = 'From Database',
   toDb = 'To Database',
   name = 'Name',
+  taxons = 'Taxons',
 }
 
 export type IDMappingFormValue = {
   fieldName: string;
-  selected: string | string[];
+  selected?: string | string[] | number | SelectedTaxon;
 };
 
 export type IDMappingFormValues = Record<
@@ -31,6 +34,9 @@ const formData: Readonly<IDMappingFormValues> = Object.freeze({
   [IDMappingFields.name]: Object.freeze({
     fieldName: 'name',
     selected: '',
+  }),
+  [IDMappingFields.taxons]: Object.freeze({
+    fieldName: 'taxId',
   }),
 });
 

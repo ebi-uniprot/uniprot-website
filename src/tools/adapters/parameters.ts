@@ -6,7 +6,7 @@ import {
 } from '../types/toolsServerParameters';
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
-import { SelectedTaxon } from '../blast/config/BlastFormData';
+import { SelectedTaxon } from '../types/toolsFormData';
 import { ParsedSequence } from '../components/SequenceSearchLoader';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';

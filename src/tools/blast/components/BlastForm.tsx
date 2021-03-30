@@ -53,7 +53,6 @@ import defaultFormValues, {
   BlastFormValues,
   BlastFormValue,
   BlastFields,
-  SelectedTaxon,
 } from '../config/BlastFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
@@ -61,6 +60,7 @@ import {
   MessageFormat,
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';

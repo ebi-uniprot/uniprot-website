@@ -43,8 +43,8 @@ import defaultFormValues, {
   PeptideSearchFormValues,
   PeptideSearchFormValue,
   PeptideSearchFields,
-  SelectedTaxon,
 } from '../config/PeptideSearchFormData';
+import { SelectedTaxon } from '../../types/toolsFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 import {
