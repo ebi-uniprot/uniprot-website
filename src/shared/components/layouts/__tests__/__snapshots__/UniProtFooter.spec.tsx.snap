@@ -6,7 +6,7 @@ exports[`HomePage component should render 1`] = `
     class="footer"
   >
     <div
-      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
+      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
     >
       <div
         class="consortium"

@@ -196,6 +196,7 @@ const HomePageNonCritical = () => (
         styles['home-page-section']
       )}
       titleClassName="uniprot-grid-cell--span-12"
+      noSidePadding
     >
       <PlaceHolder />
     </HeroContainer>
@@ -209,6 +210,7 @@ const HomePageNonCritical = () => (
         styles['home-page-section']
       )}
       titleClassName="uniprot-grid-cell--span-12"
+      noSidePadding
     >
       <Tile
         title="BLAST"
@@ -264,6 +266,7 @@ const HomePageNonCritical = () => (
         styles['home-page-section']
       )}
       titleClassName="uniprot-grid-cell--span-12"
+      noSidePadding
     >
       <PlaceHolder />
     </HeroContainer>
@@ -276,6 +279,7 @@ const HomePageNonCritical = () => (
         styles['home-page-section']
       )}
       titleClassName="uniprot-grid-cell--span-12"
+      noSidePadding
     >
       <Tile
         title="FTP Download"

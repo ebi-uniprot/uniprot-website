@@ -347,7 +347,7 @@ const FooterFunding = () => (
 const UniProtFooter = memo<HTMLAttributes<HTMLElement>>(
   ({ className, ...props }) => (
     <footer className={cn(className, 'footer')} {...props}>
-      <div className="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding">
+      <div className="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed">
         <FooterConsortium />
         <ReleaseInfoSection />
         <FooterCopyrightAndMisc />

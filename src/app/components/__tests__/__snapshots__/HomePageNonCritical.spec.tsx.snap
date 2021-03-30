@@ -323,7 +323,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </div>
   </section>
   <section
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
       class="uniprot-grid-cell--span-12 medium"
@@ -337,7 +337,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </div>
   </section>
   <section
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
       class="uniprot-grid-cell--span-12 medium"
@@ -458,7 +458,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </div>
   </section>
   <section
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
       class="uniprot-grid-cell--span-12 medium"
@@ -472,7 +472,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </div>
   </section>
   <section
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
       class="uniprot-grid-cell--span-12 medium"
