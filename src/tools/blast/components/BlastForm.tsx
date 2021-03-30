@@ -33,6 +33,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 
+import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -222,8 +223,7 @@ const BlastForm = () => {
       return;
     }
 
-    // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens (Man/Human/HUMAN) [9606]
-    const label = path.replace(/ *\([^)]*\) */g, ' ');
+    const label = truncateTaxonLabel(path);
 
     setTaxIDs({
       ...taxIDs,

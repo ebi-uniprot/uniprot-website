@@ -26,6 +26,7 @@ import AutocompleteWrapper from '../../../query-builder/components/AutocompleteW
 
 import { createJob } from '../../state/toolsActions';
 import { parseIDs, joinIDs, getTreeData } from '../utils';
+import { truncateTaxonLabel } from '../../utils';
 
 import infoMappings from '../../../shared/config/InfoMappings';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -267,8 +268,7 @@ const IDMappingForm = () => {
       return;
     }
 
-    // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens [9606]
-    const label = path.replace(/ *\([^)]*\) */g, ' ');
+    const label = truncateTaxonLabel(path);
 
     setTaxID({
       ...taxID,
