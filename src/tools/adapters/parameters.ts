@@ -118,7 +118,7 @@ export function formParametersToServerParameters<T extends JobTypes>(
         serverParameters = {
           from,
           to,
-          ids: ids.join('\n'),
+          ids: ids.join(','),
         } as ServerParameters[T];
       }
       break;

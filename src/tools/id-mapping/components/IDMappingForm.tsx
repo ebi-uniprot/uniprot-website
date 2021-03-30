@@ -164,29 +164,19 @@ const IDMappingForm = () => {
     return [dbNameToDbInfo, ruleIdToRuleInfo];
   }, [data]);
 
-  let fromTreeData;
-  let toTreeData;
-  let fromDbInfo;
-  let toDbInfo;
-  let ruleInfo: IDMappingRule;
-  if (data && dbNameToDbInfo && ruleIdToRuleInfo) {
-    fromDbInfo = dbNameToDbInfo[fromDb.selected as string];
-    toDbInfo = dbNameToDbInfo[toDb.selected as string];
-    ruleInfo = ruleIdToRuleInfo[fromDbInfo.ruleId];
-    fromTreeData = getTreeData(data.fields, ruleIdToRuleInfo);
-    toTreeData = getTreeData(data.fields, ruleIdToRuleInfo, fromDbInfo.ruleId);
-  }
-
   const submitIDMappingJob = useCallback(
     (event: FormEvent | MouseEvent) => {
       event.preventDefault();
 
-      if (!ids.length) {
+      if (!ids.length || !dbNameToDbInfo || !ruleIdToRuleInfo) {
         return;
       }
 
       setSubmitDisabled(true);
       setSending(true);
+
+      const fromDbInfo = dbNameToDbInfo[fromDb.selected as string];
+      const ruleInfo = ruleIdToRuleInfo[fromDbInfo.ruleId];
 
       // here we should just transform input values into FormParameters,
       // transformation of FormParameters into ServerParameters happens in the
@@ -218,12 +208,13 @@ const IDMappingForm = () => {
       });
     },
     [
+      dbNameToDbInfo,
       dispatch,
       fromDb.selected,
       history,
       ids,
       jobName.selected,
-      ruleInfo?.taxonId,
+      ruleIdToRuleInfo,
       taxID.selected,
       toDb.selected,
     ]
@@ -292,6 +283,17 @@ const IDMappingForm = () => {
   });
 
   const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
+
+  const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
+  const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
+  const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
+  const fromTreeData =
+    data && ruleIdToRuleInfo && getTreeData(data?.fields, ruleIdToRuleInfo);
+  const toTreeData =
+    data &&
+    ruleIdToRuleInfo &&
+    fromDbInfo?.ruleId &&
+    getTreeData(data?.fields, ruleIdToRuleInfo, fromDbInfo.ruleId);
 
   if (error) {
     return <Message level="failure">{error?.message}</Message>;
@@ -391,7 +393,7 @@ const IDMappingForm = () => {
                     url={apiUrls.taxonomySuggester}
                     onSelect={handleTaxonFormValue}
                     title="Restrict by taxonomy"
-                    value={taxID?.selected?.label}
+                    value={(taxID.selected as SelectedTaxon)?.label}
                   />
                 </section>
               )}
