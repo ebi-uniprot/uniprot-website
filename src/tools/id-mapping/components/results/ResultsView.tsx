@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef, useMemo, FC, ReactNode } from 'react';
 import { DataTableWithLoader, Loader } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefLiteAPIModel } from '../../../../uniref/adapters/uniRefConverter';
+import {
+  UniRefAPIModel,
+  UniRefLiteAPIModel,
+} from '../../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../../uniparc/adapters/uniParcConverter';
 
 // columns for table views
@@ -20,14 +23,9 @@ import useUserPreferences from '../../../../shared/hooks/useUserPreferences';
 import toolsURLs from '../../../config/urls';
 
 import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
-import {
-  getParamsFromURL,
-  getLocationObjForParams,
-} from '../../../../uniprotkb/utils/resultsUtils';
-import {
-  getEntryPathFor,
-  SearchResultsLocations,
-} from '../../../../app/config/urls';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
+// import { getEntryPathFor } from '../../../../app/config/urls';
+import idMappingConverter from '../../adapters/idMappingConverter';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { SortDirection } from '../../../../uniprotkb/types/resultsTypes';
@@ -35,6 +33,10 @@ import { SortableColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Column, nsToDefaultColumns } from '../../../../shared/config/columns';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { IDMappingNamespace } from '../../types/idMappingServerParameters';
+import {
+  IDMappingSearchResults,
+  Mapping,
+} from '../../types/idMappingSearchResults';
 
 // import './styles/warning.scss';
 // import './styles/results-view.scss';
@@ -57,21 +59,21 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
   }
 };
 
+// Note: modify original
 export const getIdKeyFor = (
-  namespace: Namespace
-): ((data: APIModel) => string) => {
+  namespace: IDMappingNamespace
+): ((data: Mapping) => string) => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
-      return (data) => (data as UniProtkbAPIModel).primaryAccession;
+      return (data) => (data.to as UniProtkbAPIModel).primaryAccession;
     case Namespace.uniref:
-      return (data) => (data as UniRefLiteAPIModel).id;
+      return (data) => (data.to as UniRefAPIModel).id;
     case Namespace.uniparc:
-      return (data) => (data as UniParcAPIModel).uniParcId;
+      return (data) => (data.to as UniParcAPIModel).uniParcId;
     default:
-      // eslint-disable-next-line no-console
-      console.warn(`getIdKey method not implemented for ${namespace} yet`);
-      return () => '';
+      // the data is an ID
+      return (data) => data.to as string;
   }
 };
 
@@ -92,7 +94,7 @@ type ColumnDescriptor = {
   sorted?: SortDirection;
 };
 const getColumnsToDisplay = (
-  namespace: Namespace,
+  namespace: Namespace | undefined,
   columns: Column[] | undefined,
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,
@@ -143,24 +145,20 @@ const ResultsView: FC<ResultsTableProps> = ({
   idMappingNamespace,
   jobType,
 }) => {
-  // TODO if idMappingNamespace is not a Namespace, return
-  const [columns] = useUserPreferences<Column[]>(
-    `table columns for ${idMappingNamespace}` as const,
-    nsToDefaultColumns[idMappingNamespace]
+  const userPreferences = useUserPreferences<Column[]>(
+    idMappingNamespace && (`table columns for ${idMappingNamespace}` as const),
+    idMappingNamespace && nsToDefaultColumns[idMappingNamespace]
   );
 
-  const prevNamespace = useRef<Namespace>(idMappingNamespace);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevNamespace.current = idMappingNamespace;
-  });
+  const columns = userPreferences ? userPreferences[0] : [];
+
   const prevColumns = useRef<Column[] | undefined>(columns);
   useEffect(() => {
     // will set it *after* the current render
     prevColumns.current = columns;
   });
 
-  const history = useHistory();
+  //   const history = useHistory();
   const location = useLocation();
 
   const { search: queryParamFromUrl } = location;
@@ -195,7 +193,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     nextUrl?: string;
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
-  const [allResults, setAllResults] = useState<APIModel[]>([]);
+  const [allResults, setAllResults] = useState<Mapping[]>([]);
 
   useEffect(() => {
     setAllResults([]);
@@ -203,30 +201,38 @@ const ResultsView: FC<ResultsTableProps> = ({
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, progress, headers } = useDataApi<{
-    results: APIModel[];
-  }>(url);
+  const {
+    data,
+    loading,
+    progress,
+    headers,
+  } = useDataApi<IDMappingSearchResults>(url);
 
-  const [getIdKey, getEntryPathForEntry] = useMemo(() => {
+  // NOTE: probably not needed
+  // const [getIdKey, getEntryPathForEntry] = useMemo(() => {
+  const [getIdKey] = useMemo(() => {
     const getIdKey = getIdKeyFor(idMappingNamespace);
-    const getEntryPath = getEntryPathFor(idMappingNamespace);
-    return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
+    //   const getEntryPath = getEntryPathFor(idMappingNamespace);
+    //   return [getIdKey, (entry: Mapping) => getEntryPath(getIdKey(entry))];
+    return [getIdKey];
   }, [idMappingNamespace]);
 
   // redirect to entry directly when only 1 result and query marked as "direct"
-  useEffect(() => {
-    if (direct && metaData.total === 1 && allResults.length === 1) {
-      const uniqueItem = allResults[0];
-      history.replace(getEntryPathForEntry(uniqueItem));
-    }
-  }, [history, direct, metaData, allResults, getEntryPathForEntry]);
+  //   useEffect(() => {
+  //     if (direct && metaData.total === 1 && allResults.length === 1) {
+  //       const uniqueItem = allResults[0];
+  //       history.replace(getEntryPathForEntry(uniqueItem));
+  //     }
+  //   }, [history, direct, metaData, allResults, getEntryPathForEntry]);
 
   useEffect(() => {
     if (!data) {
       return;
     }
     const { results } = data;
-    setAllResults((allRes) => [...allRes, ...results]);
+    // TODO the generic should be based on the namespace
+    const transformedData = idMappingConverter<UniProtkbAPIModel>(results);
+    setAllResults((allRes) => [...allRes, ...transformedData]);
     setMetaData(() => ({
       total: +(headers?.['x-totalrecords'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
@@ -235,11 +241,13 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   if (
     // if loading the first page of results
-    (loading && url === initialApiUrl) ||
+    loading &&
+    url === initialApiUrl
+    // ||
     // or we just switched namespace (a bit hacky workaround to force unmount)
-    prevNamespace.current !== idMappingNamespace ||
+    // prevNamespace.current !== idMappingNamespace ||
     // or we just changed the displayed columns (hacky too...)
-    prevColumns.current !== columns
+    // prevColumns.current !== columns
   ) {
     return <Loader progress={progress} />;
   }
@@ -248,28 +256,28 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
-  const updateColumnSort = (columnName: string) => {
-    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!sortColumn) {
-      return;
-    }
+  //   const updateColumnSort = (columnName: string) => {
+  // const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
+  // if (!sortColumn) {
+  //   return;
+  // }
 
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
+  // // Change sort direction
+  // const updatedSortDirection =
+  //   !sortDirection || sortDirection === SortDirection.descend
+  //     ? SortDirection.ascend
+  //     : SortDirection.descend;
 
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[idMappingNamespace],
-        query,
-        selectedFacets,
-        sortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
-  };
+  // history.push(
+  //   getLocationObjForParams({
+  //     pathname: SearchResultsLocations[idMappingNamespace],
+  //     query,
+  //     selectedFacets,
+  //     sortColumn,
+  //     sortDirection: updatedSortDirection,
+  //   })
+  // );
+  //   };
 
   const hasMoreData = total > allResults.length;
   const loadComponent = (
@@ -290,7 +298,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         data={allResults}
         selected={selectedEntries}
         onSelectRow={handleEntrySelection}
-        onHeaderClick={updateColumnSort}
+        // onHeaderClick={updateColumnSort}
         onLoadMoreItems={handleLoadMoreRows}
         hasMoreData={hasMoreData}
         loaderComponent={loadComponent}
