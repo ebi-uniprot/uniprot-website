@@ -20,7 +20,7 @@
   }
 
   svg :global(.swissprot_svg__star) {
-    color: $colour-reviewed;
+    fill: $colour-reviewed;
   }
 
   &__status {
