@@ -3,10 +3,10 @@ import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverte
 import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { Mapping } from '../types/idMappingSearchResults';
 
-const IDMappingConverter = <
+const idMappingConverter = <
   T extends UniProtkbAPIModel | UniParcAPIModel | UniRefAPIModel
 >(
   data: Mapping[]
 ): T[] => data.map((row) => ({ mappedIDs: row.from, ...(row.to as T) }));
 
-export default IDMappingConverter;
+export default idMappingConverter;
