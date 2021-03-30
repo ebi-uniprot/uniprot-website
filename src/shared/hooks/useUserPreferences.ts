@@ -22,26 +22,28 @@ export type UserPreferenceKey =
 
 // Custom hook to be used whenever a persistent user preference is needed
 function useUserPreferences<T extends JsonValue>(
-  key: UserPreferenceKey,
-  defaultValue: T
-): [state: T, setState: Dispatch<SetStateAction<T>>] {
+  key?: UserPreferenceKey,
+  defaultValue?: T
+): [state: T, setState: Dispatch<SetStateAction<T>>] | undefined {
   const [contextState, setContextState] = useContext(UserPreferencesContext);
 
   // Setter exposed to the user of the hook, in charge of asynchronously keeping
   // localStorage up to date with the user preferences
   const setStateAndPersist = useCallback<Dispatch<SetStateAction<T>>>(
     (value) => {
-      setContextState((state) => {
-        const valueToStore =
-          typeof value === 'function' ? value(state[key] as T) : value;
-        // No need to cancel or anything on unmount or change of key.
-        schedule(1000).then(() => {
-          // "scheduled" in order to not block any instant UI update
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      if (key) {
+        setContextState((state) => {
+          const valueToStore =
+            typeof value === 'function' ? value(state[key] as T) : value;
+          // No need to cancel or anything on unmount or change of key.
+          schedule(1000).then(() => {
+            // "scheduled" in order to not block any instant UI update
+            window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          });
+          // Set slice of global state with this specific user setting
+          return { ...state, [key]: valueToStore };
         });
-        // Set slice of global state with this specific user setting
-        return { ...state, [key]: valueToStore };
-      });
+      }
     },
     [key, setContextState]
   );
@@ -73,6 +75,10 @@ function useUserPreferences<T extends JsonValue>(
       window.removeEventListener('storage', handleStorageEvent);
     };
   }, [key, setContextState]);
+
+  if (!key || !defaultValue) {
+    return undefined;
+  }
 
   if (key in contextState) {
     // already used in this session, early exit with value and setter
