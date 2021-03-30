@@ -76,7 +76,7 @@ function useUserPreferences<T extends JsonValue>(
     };
   }, [key, setContextState]);
 
-  if (!key || !defaultValue) {
+  if (!key) {
     return undefined;
   }
 
