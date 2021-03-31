@@ -296,10 +296,6 @@ const App = () => (
                 </SingleColumnLayout>
               )}
             />
-            {/* <Route
-              path={LocationToPath[Location.IDMappingResult]}
-              component={IDMappingResult}
-            /> */}
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
