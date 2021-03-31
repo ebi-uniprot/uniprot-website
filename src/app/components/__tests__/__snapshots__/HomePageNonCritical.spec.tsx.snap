@@ -326,21 +326,23 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
-      class="uniprot-grid-cell--span-12 medium"
+      class="uniprot-grid-cell--span-12 hero-container__title medium"
     >
       News
     </h2>
     <div
-      class="placeholder"
+      class="placeholder uniprot-grid-cell--span-12"
     >
-      <test-file-stub />
+      <test-file-stub
+        preserveaspectratio="none"
+      />
     </div>
   </section>
   <section
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
-      class="uniprot-grid-cell--span-12 medium"
+      class="uniprot-grid-cell--span-12 hero-container__title medium"
     >
       Analysis Tools
     </h2>
@@ -390,7 +392,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           <h3
             class="tile__header medium"
           >
-            ALIGN
+            Align
           </h3>
         </span>
       </a>
@@ -461,21 +463,23 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
-      class="uniprot-grid-cell--span-12 medium"
+      class="uniprot-grid-cell--span-12 hero-container__title medium"
     >
       Need Help?
     </h2>
     <div
-      class="placeholder"
+      class="placeholder uniprot-grid-cell--span-12"
     >
-      <test-file-stub />
+      <test-file-stub
+        preserveaspectratio="none"
+      />
     </div>
   </section>
   <section
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <h2
-      class="uniprot-grid-cell--span-12 medium"
+      class="uniprot-grid-cell--span-12 hero-container__title medium"
     >
       UniProt data
     </h2>
@@ -529,7 +533,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           <h3
             class="tile__header medium"
           >
-            Technical documentation
+            Technical Documentation
           </h3>
         </span>
       </a>
@@ -559,7 +563,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           <h3
             class="tile__header medium"
           >
-            Programmatic access
+            Programmatic Access
           </h3>
         </span>
       </a>
@@ -589,7 +593,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
           <h3
             class="tile__header medium"
           >
-            Submit data
+            Submit Data
           </h3>
         </span>
       </a>

@@ -224,7 +224,7 @@ const HomePageNonCritical = () => (
         alignment
       </Tile>
       <Tile
-        title="ALIGN"
+        title="Align"
         className="uniprot-grid-cell--span-3"
         backgroundImage={<AlignIllustration />}
         backgroundColor={colors.align}
@@ -292,7 +292,7 @@ const HomePageNonCritical = () => (
         Download UniProt release data
       </Tile>
       <Tile
-        title="Technical documentation"
+        title="Technical Documentation"
         className="uniprot-grid-cell--span-3"
         backgroundImage={<TechDocIllustration />}
         backgroundColor={colors.independence}
@@ -303,7 +303,7 @@ const HomePageNonCritical = () => (
         Manuals, schemas and ontology descriptions
       </Tile>
       <Tile
-        title="Programmatic access"
+        title="Programmatic Access"
         className="uniprot-grid-cell--span-3"
         backgroundImage={<ProgrammaticIllustration />}
         backgroundColor={colors.independence}
@@ -314,7 +314,7 @@ const HomePageNonCritical = () => (
         Query UniProt data using APIs providing REST, SPARQL and Java services
       </Tile>
       <Tile
-        title="Submit data"
+        title="Submit Data"
         className="uniprot-grid-cell--span-3"
         backgroundImage={<SubmitDataIllustration />}
         backgroundColor={colors.independence}
