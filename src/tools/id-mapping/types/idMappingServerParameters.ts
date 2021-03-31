@@ -16,7 +16,8 @@ export type ServerParameters = {
 // same, because no email was provided before
 export type PublicServerParameters = ServerParameters;
 
-export type IDMappingTarget =
+// Use for the path of the endpoint result that changes depending on the target
+export type IDMappingNamespace =
   | undefined
   | Namespace.uniprotkb
   | Namespace.uniref

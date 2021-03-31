@@ -2,7 +2,7 @@ import { Status } from './toolsStatuses';
 import { JobTypes } from './toolsJobTypes';
 import { FormParameters } from './toolsFormParameters';
 
-import { IDMappingTarget } from '../id-mapping/types/idMappingServerParameters';
+import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 
 /* Job as defined inside the web application */
 interface BaseJob<T extends JobTypes> {
@@ -36,7 +36,7 @@ export interface RunningJob extends BaseJob<JobTypes> {
 type DataForDashboard = {
   [JobTypes.ALIGN]: never;
   [JobTypes.BLAST]: { hits: number };
-  [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingTarget };
+  [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingNamespace };
   [JobTypes.PEPTIDE_SEARCH]: never;
 };
 

@@ -13,7 +13,6 @@ import { RunningJob, FinishedJob } from '../types/toolsJob';
 import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
-import { IDMappingTarget } from '../id-mapping/types/idMappingServerParameters';
 
 const getCheckJobStatus = ({
   dispatch,
