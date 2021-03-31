@@ -75,9 +75,12 @@ const restOfItems = [
 
 const secondaryItems = [
   // TODO: update link
-  { label: <HelpIcon />, href: '//www.uniprot.org/help' },
-  { label: <EnvelopeIcon />, href: '//www.uniprot.org/contact' },
-  { label: <BasketIcon />, path: '/' },
+  { label: <HelpIcon aria-label="Help" />, href: '//www.uniprot.org/help' },
+  {
+    label: <EnvelopeIcon aria-label="Contact" />,
+    href: '//www.uniprot.org/contact',
+  },
+  { label: <BasketIcon aria-label="Basket" />, path: '/' },
 ];
 
 const QueryBuilder = lazy(
