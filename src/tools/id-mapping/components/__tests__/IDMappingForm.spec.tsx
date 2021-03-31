@@ -41,11 +41,39 @@ describe('IDMappingForm test', () => {
     const idInput = screen.getByPlaceholderText(
       'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
     );
-    fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
-    expect(screen.getByText('Your input contains 2 IDs')).toBeInTheDocument();
     const jobNameInput = screen.getByPlaceholderText(
       '"my job title"'
     ) as HTMLInputElement;
+    const initialToDatabaseButton = screen.getByRole('button', {
+      name: 'UniRef90',
+    });
+
+    // One ID with default toDB
+    fireEvent.change(idInput, { target: { value: 'P31946' } });
+    expect(screen.getByText('Your input contains 1 ID')).toBeInTheDocument();
+    expect(jobNameInput.value).toEqual('P31946 UniProtKB_AC-ID → UniRef90');
+
+    // Two IDs with toDB:=CCDS
+    fireEvent.click(initialToDatabaseButton);
+    const ccdsButton = screen.getByRole('button', { name: 'CCDS' });
+    fireEvent.click(ccdsButton);
+    fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
+    expect(screen.getByText('Your input contains 2 IDs')).toBeInTheDocument();
+    expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → CCDS');
+  });
+
+  it('Not change the name when non-first IDs change and there are the same number', () => {
+    const idInput = screen.getByPlaceholderText(
+      'P31946 P62258 ALBU_HUMAN EFTU_ECOLI'
+    );
+    fireEvent.change(idInput, { target: { value: 'P31946 P62258' } });
+    const jobNameInput = screen.getByPlaceholderText(
+      '"my job title"'
+    ) as HTMLInputElement;
+    expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniRef90');
+    fireEvent.change(idInput, {
+      target: { value: 'P31946 ALBU_HUMAN' },
+    });
     expect(jobNameInput.value).toEqual('P31946 +1 UniProtKB_AC-ID → UniRef90');
   });
 
@@ -84,8 +112,6 @@ describe('IDMappingForm test', () => {
     fireEvent.change(autocompleteInput, {
       target: { value: mockSuggesterApi.query },
     });
-    // Only update input when a node is selected
-    expect(autocompleteInput.value).not.toEqual('Human rotavirus [1906931]');
     const autocompleteItem = await screen.findByText('rotavirus [1906931]');
     fireEvent.click(autocompleteItem);
     expect(autocompleteInput.value).toEqual('Human rotavirus [1906931]');

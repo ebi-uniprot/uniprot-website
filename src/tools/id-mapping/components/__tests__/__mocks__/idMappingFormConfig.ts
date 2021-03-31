@@ -3,6 +3,14 @@ import { IDMappingFormConfig } from '../../../types/idMappingFormConfig';
 const data: IDMappingFormConfig = {
   fields: [
     {
+      groupName: 'Sequence databases',
+      displayName: 'CCDS',
+      name: 'CCDS',
+      from: true,
+      to: true,
+      ruleId: 7,
+    },
+    {
       groupName: 'UniProt',
       displayName: 'UniProtKB AC/ID',
       name: 'UniProtKB_AC-ID',
