@@ -4,7 +4,7 @@ export type IDMappingField = {
   name: string;
   from: boolean;
   to: boolean;
-  ruleId: number;
+  ruleId?: number;
 };
 
 export type IDMappingRule = {

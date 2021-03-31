@@ -221,7 +221,7 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/idmapping"
+                href="/id-mapping"
               >
                 Retrieve/ID mapping
               </a>

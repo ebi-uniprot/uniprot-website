@@ -176,7 +176,8 @@ const IDMappingForm = () => {
       setSending(true);
 
       const fromDbInfo = dbNameToDbInfo[fromDb.selected as string];
-      const ruleInfo = ruleIdToRuleInfo[fromDbInfo.ruleId];
+      const ruleInfo =
+        fromDbInfo?.ruleId && ruleIdToRuleInfo[fromDbInfo.ruleId];
 
       // here we should just transform input values into FormParameters,
       // transformation of FormParameters into ServerParameters happens in the
@@ -187,7 +188,7 @@ const IDMappingForm = () => {
         ids,
       };
 
-      if (ruleInfo?.taxonId && taxID.selected) {
+      if (ruleInfo && ruleInfo?.taxonId && taxID.selected) {
         parameters.taxId = taxID.selected as SelectedTaxon;
       }
 
@@ -360,12 +361,15 @@ const IDMappingForm = () => {
                   onSelect={({ id }: TreeDataNode) => {
                     setFromDb((fromDb) => ({ ...fromDb, selected: id }));
                     setToDb((toDb) => {
-                      const toDbs = ruleIdToRuleInfo[dbNameToDbInfo[id].ruleId];
+                      const newDbInfo = dbNameToDbInfo[id]?.ruleId;
+                      const newTos = (newDbInfo &&
+                        ruleIdToRuleInfo[newDbInfo].tos) as string[];
                       // If old "to" is in the new rule's too don't update otherwise select the first
                       // TODO: need the rule's initial choice as seen in https://www.uniprot.org/uploadlists/ either by selecting the first in "tos" or having an "initialTo" field
-                      return toDbs.tos.includes(toDb.selected as string)
+                      return newTos.length > 0 &&
+                        newTos.includes(toDb.selected as string)
                         ? toDb
-                        : { ...toDb, selected: toDbs.tos[0] };
+                        : { ...toDb, selected: newTos[0] };
                     });
                   }}
                   label={fromDbInfo.displayName}
