@@ -6,6 +6,7 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../app/config/urls';
+import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 
 import UniRefColumnConfiguration, {
   UniRefColumn,
@@ -17,6 +18,8 @@ import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 import '../../../shared/components/results/styles/result-card.scss';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
+
+const getIdKey = getIdKeyFor(Namespace.uniref);
 
 type Props = {
   data: UniRefLiteAPIModel;
@@ -34,14 +37,16 @@ const mainInfoColumns = [
 const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
+  const id = getIdKey(data);
+
   const handleCardClick = useCallback(
     (event) => {
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }
-      history.push(getEntryPath(Namespace.uniref, data.id));
+      history.push(getEntryPath(Namespace.uniref, id));
     },
-    [history, data.id]
+    [history, id]
   );
 
   return (
@@ -51,13 +56,13 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
           <input
             type="checkbox"
             checked={selected}
-            onChange={() => handleEntrySelection(data.id)}
+            onChange={() => handleEntrySelection(id)}
             data-testid="up-card-checkbox"
           />
         </div>
         <div className="result-card__right">
           <h5>
-            <EntryTitle mainTitle={data.id} entryType={data.memberIdTypes} />
+            <EntryTitle mainTitle={id} entryType={data.memberIdTypes} />
           </h5>
           <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
         </div>
