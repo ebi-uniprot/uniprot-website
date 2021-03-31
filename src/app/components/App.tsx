@@ -279,7 +279,7 @@ const App = () => (
             {/* <Route
               path={LocationToPath[Location.IDMappingResult]}
               component={IDMappingResult}
-            />
+            /> */}
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
@@ -287,20 +287,12 @@ const App = () => (
                   <IDMappingForm />
                 </SingleColumnLayout>
               )}
-            /> */}
+            />
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (
                 <SingleColumnLayout>
                   <Dashboard />
-                </SingleColumnLayout>
-              )}
-            />
-            <Route
-              path={LocationToPath[Location.IDMapping]}
-              render={() => (
-                <SingleColumnLayout>
-                  <IDMappingForm />
                 </SingleColumnLayout>
               )}
             />
