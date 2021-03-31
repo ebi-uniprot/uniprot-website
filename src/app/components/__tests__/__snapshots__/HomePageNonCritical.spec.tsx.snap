@@ -5,141 +5,178 @@ exports[`HomePage component (non-critical part) should render 1`] = `
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
   >
-    <button
+    <h2
+      class="visually-hidden"
+    >
+      UniProt core data
+    </h2>
+    <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #00639a; width: 100%;"
-      type="button"
     >
-      <section
+      <div
+        aria-hidden="true"
         class="tile__background-image"
       >
         <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
+      </div>
+      <a
+        class="tile__main-content"
+        href="/uniprotkb?query=*"
       >
-        <h3
-          class="tile__header"
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Proteins
+          </h3>
+          <h4
+            class="tile__subtitle tiny"
+          >
+            UniProt Knowledgebase
+          </h4>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        <span
+          class="proteins-section"
         >
-          Proteins
-        </h3>
-        <h5
-          class="tile__subtitle"
-        >
-          UniProt Knowledgebase
-        </h5>
-        <small
-          class="tile__description"
-        >
-          <section>
-            <span>
-              <h6>
-                Reviewed
-              </h6>
-              SwissProt
-            </span>
-            <span>
-              <h6>
-                Unreviewed
-              </h6>
+          <a
+            href="/uniprotkb?facets=reviewed:true&query=*"
+          >
+            <test-file-stub
+              width="2.5em"
+            />
+            <div
+              class="proteins-section__status"
+            >
+              Reviewed
+            </div>
+            <small>
+              Swiss-Prot
+            </small>
+          </a>
+          <a
+            href="/uniprotkb?facets=reviewed:false&query=*"
+          >
+            <test-file-stub
+              width="2.5em"
+            />
+            <div
+              class="proteins-section__status"
+            >
+              Unreviewed
+            </div>
+            <small>
               TrEMBL
-            </span>
-          </section>
-        </small>
-      </section>
-    </button>
-    <button
+            </small>
+          </a>
+        </span>
+      </small>
+    </div>
+    <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #e56358; width: 100%;"
-      type="button"
     >
-      <section
+      <div
+        aria-hidden="true"
         class="tile__background-image"
       >
         <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
+      </div>
+      <a
+        class="tile__main-content"
+        href="/proteomes?query=*"
       >
-        <h3
-          class="tile__header"
-        >
-          Species
-        </h3>
-        <h5
-          class="tile__subtitle"
-        >
-          Proteomes
-        </h5>
-        <small
-          class="tile__description"
-        >
-          Protein sets for species with sequenced genomes from across the tree of life.
-        </small>
-      </section>
-    </button>
-    <button
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Species
+          </h3>
+          <h4
+            class="tile__subtitle tiny"
+          >
+            Proteomes
+          </h4>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Protein sets for species with sequenced genomes from across the tree of life
+      </small>
+    </div>
+    <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #f2994c; width: 100%;"
-      type="button"
     >
-      <section
+      <div
+        aria-hidden="true"
         class="tile__background-image"
       >
         <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
+      </div>
+      <a
+        class="tile__main-content"
+        href="/uniref?query=*"
       >
-        <h3
-          class="tile__header"
-        >
-          Protein Clusters
-        </h3>
-        <h5
-          class="tile__subtitle"
-        >
-          UniRef
-        </h5>
-        <small
-          class="tile__description"
-        >
-          Clusters of protein sequences at 100%, 90% & 50% identity.
-        </small>
-      </section>
-    </button>
-    <button
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Protein Clusters
+          </h3>
+          <h4
+            class="tile__subtitle tiny"
+          >
+            UniRef
+          </h4>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Clusters of protein sequences at 100%, 90% & 50% identity
+      </small>
+    </div>
+    <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
       style="--tile-background: #88c19d; width: 100%;"
-      type="button"
     >
-      <section
+      <div
+        aria-hidden="true"
         class="tile__background-image"
       >
         <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
+      </div>
+      <a
+        class="tile__main-content"
+        href="/uniparc?query=*"
       >
-        <h3
-          class="tile__header"
-        >
-          Sequence Archive
-        </h3>
-        <h5
-          class="tile__subtitle"
-        >
-          UniParc
-        </h5>
-        <small
-          class="tile__description"
-        >
-          Non-redundant archive of publicly available protein sequences seen across different databases.
-        </small>
-      </section>
-    </button>
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Sequence Archive
+          </h3>
+          <h4
+            class="tile__subtitle tiny"
+          >
+            UniParc
+          </h4>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Non-redundant archive of publicly available protein sequences seen across different databases
+      </small>
+    </div>
   </section>
-  <div
+  <section
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
     <div
@@ -158,13 +195,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
       >
         <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
-        <div
           class="decorated-list-item__content"
         >
           <a
@@ -182,13 +212,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
       >
         <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
-        <div
           class="decorated-list-item__content"
         >
           <a
@@ -205,13 +228,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
       >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
         <div
           class="decorated-list-item__content"
         >
@@ -231,13 +247,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
       >
         <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
-        <div
           class="decorated-list-item__content"
         >
           <a
@@ -250,13 +259,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--inline decorated-list-item--alt-style"
       >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
         <div
           class="decorated-list-item__content"
         >
@@ -275,13 +277,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
       >
         <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
-        <div
           class="decorated-list-item__content"
         >
           <a
@@ -298,13 +293,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       <div
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
       >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
         <div
           class="decorated-list-item__content"
         >
@@ -323,13 +311,6 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         class="decorated-list-item decorated-list-item--compact decorated-list-item--alt-style"
       >
         <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          />
-        </div>
-        <div
           class="decorated-list-item__content"
         >
           <a
@@ -340,248 +321,284 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         </div>
       </div>
     </div>
-  </div>
-  <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
+  </section>
+  <section
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
-    <h3
-      class="uniprot-grid-cell--span-12"
+    <h2
+      class="uniprot-grid-cell--span-12 medium"
     >
       News
-    </h3>
-    <section
-      class="uniprot-grid-cell--span-12"
-    >
-      <div
-        class="placeholder"
-      >
-        <test-file-stub />
-      </div>
-    </section>
-  </div>
-  <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
-  >
-    <h3
-      class="uniprot-grid-cell--span-12"
-    >
-      Analysis Tools
-    </h3>
-    <button
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #00A6D5; width: 100%;"
-      type="button"
-    >
-      <section
-        class="tile__background-image"
-      >
-        <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          BLAST
-        </h3>
-        <small
-          class="tile__description"
-        >
-          Search with a sequence to find homologs through pairwise sequence alignment.
-        </small>
-      </section>
-    </button>
-    <button
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #B8CE48; width: 100%;"
-      type="button"
-    >
-      <section
-        class="tile__background-image"
-      >
-        <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          ALIGN
-        </h3>
-        <small
-          class="tile__description"
-        >
-          Align two or more protein sequences with Clustal Omega to find conserved regions.
-        </small>
-      </section>
-    </button>
-    <button
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #357B92; width: 100%;"
-      type="button"
-    >
-      <section
-        class="tile__background-image"
-      >
-        <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          Search with Lists Map IDs
-        </h3>
-        <small
-          class="tile__description"
-        >
-          Find proteins with lists of UniProt IDs or convert from/to other database IDs.
-        </small>
-      </section>
-    </button>
-    <button
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #A748BD; width: 100%;"
-      type="button"
-    >
-      <section
-        class="tile__background-image"
-      >
-        <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          Search Peptides
-        </h3>
-        <small
-          class="tile__description"
-        >
-          Search with a peptide sequence to find all UniProt proteins that contain exact matches.
-        </small>
-      </section>
-    </button>
-  </div>
-  <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
-  >
-    <h3
-      class="uniprot-grid-cell--span-12"
-    >
-      Need Help?
-    </h3>
+    </h2>
     <div
       class="placeholder"
     >
       <test-file-stub />
     </div>
-  </div>
-  <div
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section hero-container--side-padding"
+  </section>
+  <section
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
   >
-    <h3
-      class="uniprot-grid-cell--span-12"
+    <h2
+      class="uniprot-grid-cell--span-12 medium"
     >
-      Download and APIs
-    </h3>
-    <button
+      Analysis Tools
+    </h2>
+    <div
       class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
-      type="button"
+      style="--tile-background: #00A6D5; width: 100%;"
     >
-      <section
+      <div
+        aria-hidden="true"
         class="tile__background-image"
       >
         <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          FTP Download
-        </h3>
-        <small
-          class="tile__description"
-        >
-          Get UniProt data for the latest release.
-        </small>
-      </section>
-    </button>
-    <button
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
-      type="button"
-    >
-      <section
-        class="tile__background-image"
-      >
-        <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          Technical Documentation
-        </h3>
-        <small
-          class="tile__description"
-        >
-          Manuals, schemas and ontology descriptions.
-        </small>
-      </section>
-    </button>
-    <button
-      class="uniprot-grid-cell--span-3 tile tile-gradient"
-      style="--tile-background: #4e5a71; width: 100%;"
-      type="button"
-    >
-      <section
-        class="tile__background-image"
-      >
-        <test-file-stub />
-      </section>
-      <section
-        class="tile__content"
-      >
-        <h3
-          class="tile__header"
-        >
-          Programmatic access
-        </h3>
-        <small
-          class="tile__description"
-        >
-          REST API, SPARQL API, JAVA API.
-        </small>
-      </section>
-    </button>
-    <section
-      class="uniprot-grid-cell--span-3"
-    >
+      </div>
       <a
-        class="external-link"
-        href="https://groups.google.com/u/1/g/ebi-proteins-api"
+        class="tile__main-content"
+        href="/blast"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            BLAST
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Search with a sequence to find homologs through pairwise sequence alignment
+      </small>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #B8CE48; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="tile__main-content"
+        href="/align"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            ALIGN
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Align two or more protein sequences with Clustal Omega to find conserved regions
+      </small>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #357B92; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="tile__main-content"
+        href="/idmapping"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Search with Lists Map IDs
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Find proteins with lists of UniProt IDs or convert from/to other database IDs
+      </small>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #A748BD; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="tile__main-content"
+        href="/peptide-search"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Search Peptides
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Search with a peptide sequence to find all UniProt proteins that contain exact matches
+      </small>
+    </div>
+  </section>
+  <section
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
+  >
+    <h2
+      class="uniprot-grid-cell--span-12 medium"
+    >
+      Need Help?
+    </h2>
+    <div
+      class="placeholder"
+    >
+      <test-file-stub />
+    </div>
+  </section>
+  <section
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
+  >
+    <h2
+      class="uniprot-grid-cell--span-12 medium"
+    >
+      UniProt data
+    </h2>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="external-link tile__main-content"
+        href="https://ftp.uniprot.org/pub/databases/uniprot/"
         rel="noopener"
         target="_blank"
       >
-        Join our Google group 
-        <test-file-stub
-          data-testid="external-link-icon"
-          width="12.5"
-        />
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            FTP Download
+          </h3>
+        </span>
       </a>
-      and learn more.
-    </section>
-  </div>
+      <small
+        class="tile__description"
+      >
+        Download UniProt release data
+      </small>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="external-link tile__main-content"
+        href="https://www.uniprot.org/help/technical"
+        rel="noopener"
+        target="_blank"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Technical documentation
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Manuals, schemas and ontology descriptions
+      </small>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="external-link tile__main-content"
+        href="https://www.uniprot.org/help/programmatic_access"
+        rel="noopener"
+        target="_blank"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Programmatic access
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Query UniProt data using APIs providing REST, SPARQL and Java services
+      </small>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 tile tile-gradient"
+      style="--tile-background: #4e5a71; width: 100%;"
+    >
+      <div
+        aria-hidden="true"
+        class="tile__background-image"
+      >
+        <test-file-stub />
+      </div>
+      <a
+        class="external-link tile__main-content"
+        href="https://www.uniprot.org/help/submissions"
+        rel="noopener"
+        target="_blank"
+      >
+        <span>
+          <h3
+            class="tile__header medium"
+          >
+            Submit data
+          </h3>
+        </span>
+      </a>
+      <small
+        class="tile__description"
+      >
+        Submit your sequences, publications and annotation updates
+      </small>
+    </div>
+  </section>
 </DocumentFragment>
 `;
