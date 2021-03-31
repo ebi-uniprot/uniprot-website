@@ -16,11 +16,11 @@ import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConve
 import { UniRefAPIModel } from '../../../../uniref/adapters/uniRefConverter';
 import NoResultsPage from '../../../../shared/components/error-pages/NoResultsPage';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
-import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
-import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+// import ResultsButtons from '../../../../shared/components/results/ResultsButtons';
+// import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
-import infoMappings from '../../../../shared/config/InfoMappings';
-import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
+// import infoMappings from '../../../../shared/config/InfoMappings';
+// import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
 import ResultsView from './ResultsView';
 
 const jobType = JobTypes.ID_MAPPING;
@@ -120,7 +120,7 @@ const IDMappingResult = () => {
       <ResultsView
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
-        sortableColumnToSortColumn={getSortableColumnToSortColumn}
+        // sortableColumnToSortColumn={getSortableColumnToSortColumn}
         idMappingNamespace={idMappingNamespace}
         jobID={match?.params.id}
         jobType={jobType}

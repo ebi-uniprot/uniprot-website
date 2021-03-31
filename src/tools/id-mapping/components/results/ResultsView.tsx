@@ -95,10 +95,10 @@ type ColumnDescriptor = {
 };
 const getColumnsToDisplay = (
   namespace: Namespace,
-  columns: Column[] | undefined,
-  sortableColumnToSortColumn: Map<Column, string>,
-  sortColumn: SortableColumn,
-  sortDirection: SortDirection
+  columns: Column[] | undefined
+  // sortableColumnToSortColumn: Map<Column, string>,
+  // sortColumn: SortableColumn,
+  // sortDirection: SortDirection
 ): ColumnDescriptor[] =>
   columns?.map((columnName) => {
     const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
@@ -109,13 +109,13 @@ const getColumnsToDisplay = (
         render: (row: APIModel) =>
           columnConfig.render(convertRow(row, namespace)),
       };
-      if (sortableColumnToSortColumn.has(columnName)) {
-        return {
-          ...columnDescriptor,
-          sortable: true,
-          sorted: columnName === sortColumn ? sortDirection : undefined,
-        };
-      }
+      // if (sortableColumnToSortColumn.has(columnName)) {
+      //   return {
+      //     ...columnDescriptor,
+      //     sortable: true,
+      //     sorted: columnName === sortColumn ? sortDirection : undefined,
+      //   };
+      // }
       return columnDescriptor;
     }
     return {
@@ -130,7 +130,7 @@ const getColumnsToDisplay = (
 type ResultsTableProps = {
   selectedEntries: string[];
   handleEntrySelection: (rowId: string) => void;
-  sortableColumnToSortColumn: Map<Column, string>;
+  // sortableColumnToSortColumn: Map<Column, string>;
   // For ID Mapping/Peptide search
   jobID: string;
   idMappingNamespace: IDMappingNamespace;
@@ -140,7 +140,7 @@ type ResultsTableProps = {
 const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
   handleEntrySelection,
-  sortableColumnToSortColumn,
+  // sortableColumnToSortColumn,
   jobID,
   idMappingNamespace,
   jobType,
@@ -287,10 +287,10 @@ const ResultsView: FC<ResultsTableProps> = ({
   const columnsToDisplay = idMappingNamespace
     ? getColumnsToDisplay(
         idMappingNamespace,
-        columns,
-        sortableColumnToSortColumn,
-        sortColumn,
-        sortDirection
+        columns
+        // sortableColumnToSortColumn,
+        // sortColumn,
+        // sortDirection
       )
     : [
         {

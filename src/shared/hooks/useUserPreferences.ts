@@ -76,6 +76,7 @@ function useUserPreferences<T extends JsonValue>(
     };
   }, [key, setContextState]);
 
+  // if we don't have a key, there's no point to keep going
   if (!key) {
     return undefined;
   }
@@ -97,6 +98,11 @@ function useUserPreferences<T extends JsonValue>(
       setContextState((state) => ({ ...state, [key]: parsed }));
     });
     return [parsed, setStateAndPersist];
+  }
+
+  // No default value, return
+  if (!defaultValue) {
+    return undefined;
   }
   // Otherwise, it's the first time it's used, no persisted state yet
   // Return default value, set it in the global state, and persist
