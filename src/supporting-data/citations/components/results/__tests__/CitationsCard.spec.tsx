@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
-import CitationCard from '../CitationCard';
+import CitationCard from '../CitationsCard';
 
 import citationData from '../../__mocks__/literatureCitationData';
 

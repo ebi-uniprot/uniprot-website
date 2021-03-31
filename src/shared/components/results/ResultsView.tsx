@@ -11,9 +11,9 @@ import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
-import TaxonomyCards from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
-import KeywordsCards from '../../../supporting-data/keywords/components/results/KeywordsCard';
-import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
+import TaxonomyCard from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
+import KeywordsCard from '../../../supporting-data/keywords/components/results/KeywordsCard';
+import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
 import DiseasesCard from '../../../supporting-data/diseases/components/results/DiseasesCard';
 import DatabaseCard from '../../../supporting-data/database/components/results/DatabaseCard';
 import LocationsCard from '../../../supporting-data/locations/components/results/LocationsCard';
@@ -165,7 +165,7 @@ const cardRenderer = (
     }
     case Namespace.taxonomy: {
       return (cardData) => (
-        <TaxonomyCards
+        <TaxonomyCard
           data={cardData as TaxonomyAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
@@ -174,7 +174,7 @@ const cardRenderer = (
     }
     case Namespace.keywords: {
       return (cardData) => (
-        <KeywordsCards
+        <KeywordsCard
           data={cardData as KeywordsAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
@@ -183,7 +183,7 @@ const cardRenderer = (
     }
     case Namespace.citations: {
       return (cardData) => (
-        <CitationCard
+        <CitationsCard
           data={cardData as CitationsAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
