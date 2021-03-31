@@ -11,3 +11,19 @@ export type Mapping = {
 export type IDMappingSearchResults = {
   results: Mapping[];
 };
+
+export type MappingTo = {
+  to: string;
+};
+
+export type MappingFrom = {
+  from: string;
+};
+
+export type MappingFlat = (
+  | MappingTo
+  | UniProtkbAPIModel
+  | UniRefAPIModel
+  | UniParcAPIModel
+) &
+  MappingFrom;

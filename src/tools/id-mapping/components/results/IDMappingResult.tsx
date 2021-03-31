@@ -107,14 +107,12 @@ const IDMappingResult = () => {
       //     total={total || 0}
       //   />
       // }
-      sidebar={
-        'sidebar content'
-        // loading && !data?.facets ? (
-        //   <Loader progress={progress} />
-        // ) : (
-        //   <ResultsFacets facets={data?.facets || []} isStale={isStale} />
-        // )
-      }
+      sidebar="sidebar content"
+      // loading && !data?.facets ? (
+      //   <Loader progress={progress} />
+      // ) : (
+      //   <ResultsFacets facets={data?.facets || []} isStale={isStale} />
+      // )
     >
       {' '}
       <ResultsView

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo, FC, ReactNode } from 'react';
 import { DataTableWithLoader, Loader } from 'franklin-sites';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 import uniProtKbConverter, {
   UniProtkbAPIModel,
@@ -23,20 +23,22 @@ import useUserPreferences from '../../../../shared/hooks/useUserPreferences';
 import toolsURLs from '../../../config/urls';
 
 import getNextURLFromHeaders from '../../../../shared/utils/getNextURLFromHeaders';
-import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
+// import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 // import { getEntryPathFor } from '../../../../app/config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { SortDirection } from '../../../../uniprotkb/types/resultsTypes';
-import { SortableColumn } from '../../../../uniprotkb/types/columnTypes';
+// import { SortableColumn } from '../../../../uniprotkb/types/columnTypes';
 import { Column, nsToDefaultColumns } from '../../../../shared/config/columns';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { IDMappingNamespace } from '../../types/idMappingServerParameters';
 import {
   IDMappingSearchResults,
-  Mapping,
+  MappingFlat,
+  MappingTo,
 } from '../../types/idMappingSearchResults';
+import { IDMappingColumn } from '../../types/columns';
 
 // import './styles/warning.scss';
 // import './styles/results-view.scss';
@@ -62,18 +64,18 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
 // Note: modify original
 export const getIdKeyFor = (
   namespace: IDMappingNamespace
-): ((data: Mapping) => string) => {
+): ((data: MappingFlat) => string) => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
-      return (data) => (data.to as UniProtkbAPIModel).primaryAccession;
+      return (data) => (data as UniProtkbAPIModel).primaryAccession;
     case Namespace.uniref:
-      return (data) => (data.to as UniRefAPIModel).id;
+      return (data) => (data as UniRefAPIModel).id;
     case Namespace.uniparc:
-      return (data) => (data.to as UniParcAPIModel).uniParcId;
+      return (data) => (data as UniParcAPIModel).uniParcId;
     default:
       // the data is an ID
-      return (data) => data.to as string;
+      return (data) => (data as MappingTo).to;
   }
 };
 
@@ -89,25 +91,26 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
 type ColumnDescriptor = {
   name: string;
   label: ReactNode;
-  render: (row: APIModel) => ReactNode;
+  render: (row: MappingFlat) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
 };
 const getColumnsToDisplay = (
-  namespace: Namespace,
-  columns: Column[] | undefined
+  namespace: Namespace | undefined,
+  columns: Column[]
   // sortableColumnToSortColumn: Map<Column, string>,
   // sortColumn: SortableColumn,
   // sortDirection: SortDirection
 ): ColumnDescriptor[] =>
-  columns?.map((columnName) => {
-    const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
-    if (columnConfig) {
+  columns.map((columnName) => {
+    const columnConfig =
+      namespace && ColumnConfigurations[namespace]?.get(columnName);
+    if (columnConfig && namespace) {
       const columnDescriptor = {
         label: columnConfig.label,
         name: columnName,
-        render: (row: APIModel) =>
-          columnConfig.render(convertRow(row, namespace)),
+        render: (row: MappingFlat) =>
+          columnConfig.render(convertRow(row as APIModel, namespace)),
       };
       // if (sortableColumnToSortColumn.has(columnName)) {
       //   return {
@@ -118,6 +121,21 @@ const getColumnsToDisplay = (
       // }
       return columnDescriptor;
     }
+    // Note this could live in ../config/IDMappingColumnConfiguration
+    if (columnName === IDMappingColumn.from) {
+      return {
+        name: columnName,
+        label: 'from',
+        render: (row: MappingFlat) => row.from,
+      };
+    }
+    if (columnName === IDMappingColumn.to) {
+      return {
+        name: columnName,
+        label: 'to',
+        render: (row: MappingFlat) => (row as MappingTo).to,
+      };
+    }
     return {
       label: columnName,
       name: columnName,
@@ -125,7 +143,7 @@ const getColumnsToDisplay = (
         <div className="warning">{`${columnName} has no config yet`}</div>
       ),
     };
-  }) || [];
+  });
 
 type ResultsTableProps = {
   selectedEntries: string[];
@@ -145,12 +163,16 @@ const ResultsView: FC<ResultsTableProps> = ({
   idMappingNamespace,
   jobType,
 }) => {
-  const userPreferences = useUserPreferences<Column[]>(
+  const [namespaceColumns] = useUserPreferences<Column[]>(
     idMappingNamespace && (`table columns for ${idMappingNamespace}` as const),
-    idMappingNamespace && nsToDefaultColumns[idMappingNamespace]
+    idMappingNamespace ? nsToDefaultColumns[idMappingNamespace] : []
   );
 
-  const columns = userPreferences ? userPreferences[0] : [];
+  const columns = [
+    ...namespaceColumns,
+    IDMappingColumn.from,
+    IDMappingColumn.to,
+  ];
 
   const prevColumns = useRef<Column[] | undefined>(columns);
   useEffect(() => {
@@ -159,16 +181,16 @@ const ResultsView: FC<ResultsTableProps> = ({
   });
 
   //   const history = useHistory();
-  const location = useLocation();
+  // const location = useLocation();
 
-  const { search: queryParamFromUrl } = location;
-  const {
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    direct,
-  } = getParamsFromURL(queryParamFromUrl);
+  // const { search: queryParamFromUrl } = location;
+  // const {
+  //   query,
+  //   selectedFacets,
+  //   sortColumn,
+  //   sortDirection,
+  //   direct,
+  // } = getParamsFromURL(queryParamFromUrl);
 
   const urls = toolsURLs(jobType);
 
@@ -193,7 +215,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     nextUrl?: string;
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
-  const [allResults, setAllResults] = useState<Mapping[]>([]);
+  const [allResults, setAllResults] = useState<MappingFlat[]>([]);
 
   useEffect(() => {
     setAllResults([]);
@@ -284,26 +306,13 @@ const ResultsView: FC<ResultsTableProps> = ({
     <Loader progress={progress !== 1 ? progress : undefined} />
   );
 
-  const columnsToDisplay = idMappingNamespace
-    ? getColumnsToDisplay(
-        idMappingNamespace,
-        columns
-        // sortableColumnToSortColumn,
-        // sortColumn,
-        // sortDirection
-      )
-    : [
-        {
-          name: 'from',
-          label: 'from',
-          render: (row: Mapping) => row.from,
-        },
-        {
-          name: 'to',
-          label: 'to',
-          render: (row: Mapping) => row.to,
-        },
-      ];
+  const columnsToDisplay = getColumnsToDisplay(
+    idMappingNamespace,
+    columns
+    // sortableColumnToSortColumn,
+    // sortColumn,
+    // sortDirection
+  );
 
   return (
     <div className="results-view">

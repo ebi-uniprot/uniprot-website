@@ -59,6 +59,7 @@ import {
   primaryKeyColumn as primaryKeyColumnLocations,
   LocationsColumnConfiguration,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
+import { IDMappingColumn } from '../../tools/id-mapping/types/columns';
 import { ColumnConfiguration } from '../types/columnConfiguration';
 
 export type Column =
@@ -71,7 +72,8 @@ export type Column =
   | CitationsColumn
   | DiseasesColumn
   | DatabaseColumn
-  | LocationsColumn;
+  | LocationsColumn
+  | IDMappingColumn;
 
 export const nsToDefaultColumns: Record<Namespace, Column[]> = {
   [Namespace.uniprotkb]: defaultUniProtKBColumns,

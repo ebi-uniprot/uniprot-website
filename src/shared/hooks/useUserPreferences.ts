@@ -22,9 +22,9 @@ export type UserPreferenceKey =
 
 // Custom hook to be used whenever a persistent user preference is needed
 function useUserPreferences<T extends JsonValue>(
-  key?: UserPreferenceKey,
-  defaultValue?: T
-): [state: T, setState: Dispatch<SetStateAction<T>>] | undefined {
+  key: UserPreferenceKey | undefined,
+  defaultValue: T
+): [state: T, setState: Dispatch<SetStateAction<T>>] {
   const [contextState, setContextState] = useContext(UserPreferencesContext);
 
   // Setter exposed to the user of the hook, in charge of asynchronously keeping
@@ -78,7 +78,7 @@ function useUserPreferences<T extends JsonValue>(
 
   // if we don't have a key, there's no point to keep going
   if (!key) {
-    return undefined;
+    return [defaultValue, () => null];
   }
 
   if (key in contextState) {
@@ -100,10 +100,6 @@ function useUserPreferences<T extends JsonValue>(
     return [parsed, setStateAndPersist];
   }
 
-  // No default value, return
-  if (!defaultValue) {
-    return undefined;
-  }
   // Otherwise, it's the first time it's used, no persisted state yet
   // Return default value, set it in the global state, and persist
   frame().then(() => {
