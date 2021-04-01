@@ -17,10 +17,9 @@ import CustomiseButton from '../action-buttons/CustomiseButton';
 import useUserPreferences from '../../hooks/useUserPreferences';
 import useNS from '../../hooks/useNS';
 
-import { mainNamespaces } from '../../types/namespaces';
-
 import lazy from '../../utils/lazy';
 
+import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
   SortDirection,
   SelectedFacet,
@@ -87,8 +86,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         </Suspense>
       )}
       <div className="button-group">
-        {isMain && <BlastButton selectedEntries={selectedEntries} />}
-        {isMain && <AlignButton selectedEntries={selectedEntries} />}
+        {isMain && namespace !== Namespace.proteomes && (
+          <BlastButton selectedEntries={selectedEntries} />
+        )}
+        {isMain && namespace !== Namespace.proteomes && (
+          <AlignButton selectedEntries={selectedEntries} />
+        )}
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
@@ -98,7 +101,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           <DownloadIcon />
           Download
         </Button>
-        {isMain && <AddToBasketButton selectedEntries={selectedEntries} />}
+        {isMain && namespace !== Namespace.proteomes && (
+          <AddToBasketButton selectedEntries={selectedEntries} />
+        )}
         {isMain && (
           <Button variant="tertiary">
             <StatisticsIcon />
