@@ -8,14 +8,12 @@ const idMappingConverter = (
   data: Mapping[],
   namespace: IDMappingNamespace
 ): MappingFlat[] =>
-  data.map((row) =>
-    // If we have a namespace, cast and destructure appropriately
-    namespace
-      ? {
-          from: row.from,
-          ...(row.to as UniProtkbAPIModel | UniParcAPIModel | UniRefAPIModel),
-        }
-      : { from: row.from, to: row.to as string }
-  );
+  // If we have a namespace, cast and destructure appropriately
+  namespace
+    ? data.map((row) => ({
+        from: row.from,
+        ...(row.to as UniProtkbAPIModel | UniParcAPIModel | UniRefAPIModel),
+      }))
+    : (data as MappingFlat[]);
 
 export default idMappingConverter;

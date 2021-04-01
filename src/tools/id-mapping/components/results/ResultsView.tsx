@@ -75,6 +75,7 @@ export const getIdKeyFor = (
       return (data) => (data as UniParcAPIModel).uniParcId;
     default:
       // the data is an ID
+      // Note: we might need a composite key of "from to"
       return (data) => (data as MappingTo).to;
   }
 };
@@ -169,9 +170,9 @@ const ResultsView: FC<ResultsTableProps> = ({
   );
 
   const columns = [
-    ...namespaceColumns,
     IDMappingColumn.from,
-    IDMappingColumn.to,
+    IDMappingColumn.to, // Don't add if namespaceColumns is not empty
+    ...namespaceColumns,
   ];
 
   const prevColumns = useRef<Column[] | undefined>(columns);

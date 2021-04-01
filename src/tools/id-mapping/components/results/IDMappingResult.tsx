@@ -31,7 +31,8 @@ type IDMappingResultAPI = {
   to: string | UniProtkbAPIModel | UniParcAPIModel | UniRefAPIModel;
 }[];
 
-// TODO Note: this information will be provided by the headers
+// TODO Note: this should come from the url. That means storing the namespace
+// information with the job id - either at submission, or when the status tells us
 const getToNamespace = (results: IDMappingResultAPI): IDMappingNamespace => {
   const firstItem = results[0];
   if ((firstItem.to as UniProtkbAPIModel).primaryAccession) {
@@ -82,7 +83,8 @@ const IDMappingResult = () => {
   }
 
   // Facets
-
+  // Note: this could be in its own component which is
+  // then passed to sidebar below.
   switch (idMappingNamespace) {
     case Namespace.uniprotkb:
       break;
