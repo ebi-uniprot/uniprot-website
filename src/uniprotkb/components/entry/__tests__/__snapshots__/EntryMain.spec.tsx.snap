@@ -2239,13 +2239,13 @@ exports[`Entry view should render 1`] = `
       width="100"
     />
   </div>
-  <div
+  <section
     class="hero-container hero-container--side-padding"
   >
     <em>
       Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
     </em>
-  </div>
+  </section>
 </DocumentFragment>
 `;
 
@@ -4206,12 +4206,12 @@ exports[`Entry view should render for non-human entry 1`] = `
       width="100"
     />
   </div>
-  <div
+  <section
     class="hero-container hero-container--side-padding"
   >
     <em>
       Any medical or genetic information present in this entry is provided for research, educational and informational purposes only. It is not in any way intended to be used as a substitute for professional medical advice, diagnosis, treatment or care.
     </em>
-  </div>
+  </section>
 </DocumentFragment>
 `;

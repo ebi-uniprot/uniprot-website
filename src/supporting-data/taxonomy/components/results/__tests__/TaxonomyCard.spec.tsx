@@ -8,9 +8,7 @@ import mockData from '../../../__mocks__/taxonomyModelData';
 
 describe('Taxonomy Card tests', () => {
   it('should render', () => {
-    const { asFragment } = customRender(
-      <TaxonomyCard data={mockData[0]} handleEntrySelection={jest.fn()} />
-    );
+    const { asFragment } = customRender(<TaxonomyCard data={mockData[0]} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
