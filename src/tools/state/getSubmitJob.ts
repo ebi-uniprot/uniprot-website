@@ -12,7 +12,6 @@ import { addMessage } from '../../messages/state/messagesActions';
 import { updateJob } from './toolsActions';
 
 import toolsURLs from '../config/urls';
-import fetchData from '../../shared/utils/fetchData';
 
 import { RootState } from '../../app/state/rootInitialState';
 import { Status } from '../types/toolsStatuses';
@@ -34,13 +33,17 @@ const getSubmitJob = ({
     }
 
     // we use plain fetch as through Axios we cannot block redirects
-    const response = await fetch(toolsURLs(job.type).runUrl, {
+    const response = await window.fetch(toolsURLs(job.type).runUrl, {
       headers: { Accept: 'text/plain,application/json' },
       method: 'POST',
       body: formData,
       // 'manual' to block redirect is the bit we cannot do with Axios
       redirect: 'manual',
     });
+
+    if (!response.ok) {
+      throw new Error(`Request failed with status code ${response.status}`);
+    }
 
     const remoteID = await getRemoteIDFromResponse(job.type, response);
 

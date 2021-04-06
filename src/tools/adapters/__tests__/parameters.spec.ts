@@ -73,7 +73,7 @@ describe('tools adapter tests', () => {
           negativeTaxIDs: [],
           stype: 'protein',
           sequence: 'ATGC',
-          database: 'UniProt',
+          database: 'uniprotkb',
         };
 
         const formData = formParametersToServerParameters(
@@ -94,7 +94,7 @@ describe('tools adapter tests', () => {
           ['negative_taxids', ''],
           ['stype', 'protein'],
           ['sequence', 'ATGC'],
-          ['database', 'UniProt'],
+          ['database', 'uniprotkb'],
         ]);
       });
     });
