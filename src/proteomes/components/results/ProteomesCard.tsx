@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, MouseEvent } from 'react';
 import { Card } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
@@ -7,10 +7,11 @@ import EntryTitle from '../../../shared/components/entry/EntryTitle';
 import RenderColumnsInCard from '../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../app/config/urls';
+import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
+
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
 } from '../../config/ProteomesColumnConfiguration';
-
 import { Namespace } from '../../../shared/types/namespaces';
 import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
@@ -28,6 +29,10 @@ const buscoColumnRenderer = ProteomesColumnConfiguration.get(
   ProteomesColumn.busco
 );
 
+const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
+
+const getIdKey = getIdKeyFor(Namespace.proteomes);
+
 const ProteomesCard: FC<{
   data: ProteomesAPIModel;
   selected?: boolean;
@@ -35,9 +40,17 @@ const ProteomesCard: FC<{
 }> = ({ data, selected, handleEntrySelection }): JSX.Element => {
   const history = useHistory();
 
-  const handleCardClick = useCallback(() => {
-    history.push(getEntryPath(Namespace.proteomes, data.id));
-  }, [history, data.id]);
+  const id = getIdKey(data);
+
+  const handleCardClick = useCallback(
+    (event: MouseEvent) => {
+      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+        return;
+      }
+      history.push(getEntryPath(Namespace.proteomes, id));
+    },
+    [history, id]
+  );
 
   const buscoRendered = buscoColumnRenderer?.render(data);
 
@@ -49,13 +62,13 @@ const ProteomesCard: FC<{
             type="checkbox"
             checked={selected}
             onClick={(e) => e.stopPropagation()}
-            onChange={() => handleEntrySelection(data.id)}
+            onChange={() => handleEntrySelection(id)}
             data-testid="up-card-checkbox"
           />
         </div>
         <div className="result-card__right">
           <h5>
-            <EntryTitle mainTitle={data.id} entryType={data.proteomeType} />
+            <EntryTitle mainTitle={id} entryType={data.proteomeType} />
           </h5>
           <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
           {buscoColumnRenderer && buscoRendered && (

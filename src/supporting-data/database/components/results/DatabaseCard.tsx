@@ -7,22 +7,22 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
-import { LocationsAPIModel } from '../../adapters/locationsConverter';
+import { DatabaseAPIModel } from '../../adapters/databaseConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
-import LocationsColumnConfiguration, {
-  LocationsColumn,
-} from '../../config/LocationsColumnConfiguration';
+import DatabaseColumnConfiguration, {
+  DatabaseColumn,
+} from '../../config/DatabaseColumnConfiguration';
 
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
-const category = LocationsColumnConfiguration.get(LocationsColumn.category);
+const category = DatabaseColumnConfiguration.get(DatabaseColumn.category);
 
-const getIdKey = getIdKeyFor(Namespace.locations);
+const getIdKey = getIdKeyFor(Namespace.database);
 
-const CitationCard: FC<{
-  data: LocationsAPIModel;
+const DatabaseCard: FC<{
+  data: DatabaseAPIModel;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
 }> = ({ data, selected, handleEntrySelection }) => {
@@ -35,7 +35,7 @@ const CitationCard: FC<{
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }
-      history.push(getEntryPath(Namespace.locations, id));
+      history.push(getEntryPath(Namespace.database, id));
     },
     [history, id]
   );
@@ -54,11 +54,11 @@ const CitationCard: FC<{
           </div>
         )}
         <div className="result-card__right">
-          <h5>{data.name}</h5>
+          <h5>{data.abbrev}</h5>
           <div
             className={renderColumnsInCardStyles['result-card__info-container']}
           >
-            {data.definition}
+            {data.name}
           </div>
           <RenderColumnsInCard renderers={category} data={data} />
         </div>
@@ -67,4 +67,4 @@ const CitationCard: FC<{
   );
 };
 
-export default CitationCard;
+export default DatabaseCard;

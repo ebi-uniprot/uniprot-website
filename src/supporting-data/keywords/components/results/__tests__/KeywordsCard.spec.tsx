@@ -2,24 +2,26 @@ import { fireEvent, screen } from '@testing-library/react';
 
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
-import CitationCard from '../CitationCard';
+import KeywordsCard from '../KeywordsCard';
 
-import citationData from '../../__mocks__/literatureCitationData';
+import keywordsData from '../../../__mocks__/keywordsModelData';
 
-describe('CitationCard tests', () => {
+describe('KeywordsCard tests', () => {
   it('should render the card component', () => {
-    const { asFragment } = customRender(<CitationCard data={citationData} />);
+    const { asFragment } = customRender(
+      <KeywordsCard data={keywordsData[0]} />
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should allow card selection and navigation', () => {
     const handleClick = jest.fn();
     const { history } = customRender(
-      <CitationCard data={citationData} handleEntrySelection={handleClick} />
+      <KeywordsCard data={keywordsData[0]} handleEntrySelection={handleClick} />
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
     fireEvent.click(screen.getAllByRole('button')[0]);
-    expect(history.location.pathname).toMatch('/citations/14702039');
+    expect(history.location.pathname).toMatch('/keywords/KW-0021');
   });
 });

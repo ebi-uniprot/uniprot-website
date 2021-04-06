@@ -26,7 +26,7 @@ import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
-import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
+import CitationCard from '../../../supporting-data/citations/components/results/CitationsCard';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
