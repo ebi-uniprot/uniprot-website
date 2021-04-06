@@ -46,7 +46,7 @@ import {
 import {
   IDMappingFormConfig,
   IDMappingRule,
-  IDMappingField,
+  IDMappingGroupItem,
 } from '../types/idMappingFormConfig';
 import { FormParameters } from '../types/idMappingFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
@@ -63,7 +63,7 @@ export type TreeDataNode = {
 export type TreeData = Array<TreeDataNode & { items?: Array<TreeDataNode> }>;
 
 export type DbNameToDbInfo = {
-  [dbName: string]: IDMappingField;
+  [dbName: string]: IDMappingGroupItem;
 };
 
 export type RuleIdToRuleInfo = {
@@ -155,7 +155,9 @@ const IDMappingForm = () => {
     let ruleIdToRuleInfo;
     if (data) {
       dbNameToDbInfo = Object.fromEntries(
-        data.fields.map((item) => [item.name, item])
+        data.groups.flatMap(({ items }) =>
+          items.map((item) => [item.name, item])
+        )
       );
       ruleIdToRuleInfo = Object.fromEntries(
         data.rules.map((rule) => [rule.ruleId, rule])
@@ -289,12 +291,12 @@ const IDMappingForm = () => {
   const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
   const ruleInfo = fromDbInfo?.ruleId && ruleIdToRuleInfo?.[fromDbInfo.ruleId];
   const fromTreeData =
-    data && ruleIdToRuleInfo && getTreeData(data?.fields, ruleIdToRuleInfo);
+    data && ruleIdToRuleInfo && getTreeData(data?.groups, ruleIdToRuleInfo);
   const toTreeData =
     data &&
     ruleIdToRuleInfo &&
     fromDbInfo?.ruleId &&
-    getTreeData(data?.fields, ruleIdToRuleInfo, fromDbInfo.ruleId);
+    getTreeData(data?.groups, ruleIdToRuleInfo, fromDbInfo.ruleId);
 
   if (error) {
     return <Message level="failure">{error?.message}</Message>;

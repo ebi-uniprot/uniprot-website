@@ -1,8 +1,8 @@
-import { memoize, groupBy } from 'lodash-es';
+import { memoize } from 'lodash-es';
 
 import { RuleIdToRuleInfo, TreeData } from '../components/IDMappingForm';
 
-import { IDMappingField, IDMappingRule } from '../types/idMappingFormConfig';
+import { IDMappingGroup, IDMappingRule } from '../types/idMappingFormConfig';
 
 // Memoize this as there could be lots of calls to this function as the user explores
 // the various from-to combinations. Also, the rule is an ideal key for the memoize's WeakMap.
@@ -10,31 +10,29 @@ import { IDMappingField, IDMappingRule } from '../types/idMappingFormConfig';
 // but having to reconstruct the tree data for the same rule.
 export const getTreeData = memoize(
   (
-    dbs: IDMappingField[],
+    dbGroups: IDMappingGroup[],
     ruleIdToRuleInfo: RuleIdToRuleInfo,
     rule?: number
   ) => {
-    let tos: IDMappingRule['tos'];
+    // Create an object for quick O(1) look up time when filtering
+    let tos: Record<string, boolean>;
     if (rule) {
-      ({ tos } = ruleIdToRuleInfo[rule]);
+      tos = Object.fromEntries(
+        ruleIdToRuleInfo[rule].tos.map((to) => [to, true])
+      );
     }
-    const filteredDbs = dbs.filter(({ name, from, to }) =>
-      tos ? tos.includes(name) && to : from
-    );
-
-    const groupNameToDbs = groupBy(filteredDbs, 'groupName');
-
-    const treeData: TreeData = Object.entries(groupNameToDbs).map(
-      ([groupName, groupDbs]) => ({
+    return dbGroups
+      .map(({ groupName, items }) => ({
         label: groupName,
         id: groupName,
-        items: groupDbs.map(({ displayName, name }) => ({
-          label: displayName,
-          id: name,
-        })),
-      })
-    );
-    return treeData;
+        items: items
+          .filter(({ name, from, to }) => (tos ? to && name in tos : from))
+          .map(({ displayName, name }) => ({
+            label: displayName,
+            id: name,
+          })),
+      }))
+      .filter(({ items }) => items.length);
   },
   // In the case tree data is being built for the "from" tree select no rule is passed
   // so let 0 be the memoize's WeakMap key for quick retrieval
@@ -47,5 +45,5 @@ export const parseIDs = (text: string) =>
   text.split(reWhitespace).filter(Boolean);
 
 const newLine = `
-`;
+` as const;
 export const joinIDs = (ids: string[]) => ids.join(newLine);

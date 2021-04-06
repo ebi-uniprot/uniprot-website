@@ -3,7 +3,7 @@ import urlJoin from 'url-join';
 import { devPrefix } from './apiUrls';
 
 // set to true if testing new API changes
-const apiTesting = false;
+const apiTesting = true;
 
 const joinUrlForApiTesting = (prefix: string, ...paths: string[]) => {
   // Due to the way the API is served it's impossible to unify all of the testing servers to a single domain:port.

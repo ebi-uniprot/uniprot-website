@@ -1,5 +1,4 @@
-export type IDMappingField = {
-  groupName: string;
+export type IDMappingGroupItem = {
   displayName: string;
   name: string;
   from: boolean;
@@ -7,13 +6,19 @@ export type IDMappingField = {
   ruleId?: number;
 };
 
+export type IDMappingGroup = {
+  groupName: string;
+  items: IDMappingGroupItem[];
+};
+
 export type IDMappingRule = {
   ruleId: number;
   tos: string[];
   taxonId: boolean;
+  defaultTo: string;
 };
 
 export type IDMappingFormConfig = {
-  fields: IDMappingField[];
+  groups: IDMappingGroup[];
   rules: IDMappingRule[];
 };
