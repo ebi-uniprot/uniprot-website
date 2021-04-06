@@ -7,22 +7,22 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
-import { LocationsAPIModel } from '../../adapters/locationsConverter';
+import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
-import LocationsColumnConfiguration, {
-  LocationsColumn,
-} from '../../config/LocationsColumnConfiguration';
+import KeywordsColumnConfiguration, {
+  KeywordsColumn,
+} from '../../config/KeywordsColumnConfiguration';
 
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
 const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
-const category = LocationsColumnConfiguration.get(LocationsColumn.category);
+const category = KeywordsColumnConfiguration.get(KeywordsColumn.category);
 
-const getIdKey = getIdKeyFor(Namespace.locations);
+const getIdKey = getIdKeyFor(Namespace.keywords);
 
-const CitationCard: FC<{
-  data: LocationsAPIModel;
+const KeywordsCard: FC<{
+  data: KeywordsAPIModel;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
 }> = ({ data, selected, handleEntrySelection }) => {
@@ -35,7 +35,7 @@ const CitationCard: FC<{
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }
-      history.push(getEntryPath(Namespace.locations, id));
+      history.push(getEntryPath(Namespace.keywords, id));
     },
     [history, id]
   );
@@ -54,7 +54,7 @@ const CitationCard: FC<{
           </div>
         )}
         <div className="result-card__right">
-          <h5>{data.name}</h5>
+          <h5>{data.keyword.name}</h5>
           <div
             className={renderColumnsInCardStyles['result-card__info-container']}
           >
@@ -67,4 +67,4 @@ const CitationCard: FC<{
   );
 };
 
-export default CitationCard;
+export default KeywordsCard;

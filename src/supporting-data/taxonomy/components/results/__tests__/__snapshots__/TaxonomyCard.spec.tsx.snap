@@ -17,14 +17,6 @@ exports[`Taxonomy Card tests should render 1`] = `
           class="result-card"
         >
           <div
-            class="result-card__left"
-          >
-            <input
-              data-testid="up-card-checkbox"
-              type="checkbox"
-            />
-          </div>
-          <div
             class="result-card__right"
           >
             <h5>

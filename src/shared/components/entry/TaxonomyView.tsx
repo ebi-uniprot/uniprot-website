@@ -60,9 +60,9 @@ const TaxonomyView: FC<TaxonomyDataProps> = ({
   }
   const { scientificName, commonName, taxonId, synonyms } = data;
 
-  const termValue = `${scientificName}${commonName ? ` (${commonName})` : ''}${
-    synonyms?.length ? ` (${synonyms.join(', ')})` : ''
-  }`;
+  const termValue = `${scientificName || taxonId}${
+    commonName ? ` (${commonName})` : ''
+  }${synonyms?.length ? ` (${synonyms.join(', ')})` : ''}`;
 
   return (
     <SimpleView

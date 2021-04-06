@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatabaseCard tests should render the card component 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+  >
+    <div
+      class="card--has-hover"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="card__content"
+      >
+        <div
+          class="result-card"
+        >
+          <div
+            class="result-card__right"
+          >
+            <h5>
+              EMBL
+            </h5>
+            <div
+              class="result-card__info-container"
+            >
+              EMBL nucleotide sequence database
+            </div>
+            <div
+              class="result-card__info-container"
+            >
+              <span
+                class="result-card__info-bit"
+              >
+                <strong>
+                  Category: 
+                </strong>
+                Sequence databases
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

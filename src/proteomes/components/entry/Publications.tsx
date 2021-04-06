@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { DataList } from 'franklin-sites';
 
-import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
+import CitationCard from '../../../supporting-data/citations/components/results/CitationsCard';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
 import { getCitationItemId } from '../../../supporting-data/citations/utils';
