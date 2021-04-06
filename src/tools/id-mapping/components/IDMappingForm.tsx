@@ -190,7 +190,7 @@ const IDMappingForm = () => {
         ids,
       };
 
-      if (ruleInfo && ruleInfo?.taxonId && taxID.selected) {
+      if (ruleInfo?.taxonId && taxID.selected) {
         parameters.taxId = taxID.selected as SelectedTaxon;
       }
 
