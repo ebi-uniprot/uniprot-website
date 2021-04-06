@@ -187,7 +187,7 @@ const IDMappingForm = () => {
       const parameters: FormParameters = {
         from: fromDb.selected as string,
         to: toDb.selected as string,
-        ids,
+        ids, // TODO: decide with UX if we want to pass the cleaned input, or the raw input. If you pass the raw input, the cleaning can be done again inside the formParametersToServerParameters function.
       };
 
       if ((ruleInfo as IDMappingRule)?.taxonId && taxID.selected) {
