@@ -70,7 +70,8 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       });
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      baseURL = 'https://peptidesearch.uniprot.org/asyncrest';
+      baseURL =
+        'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';
       return Object.freeze({
         runUrl: baseURL,
         statusUrl: (jobId) => `${baseURL}/jobs/${jobId}`,

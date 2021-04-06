@@ -14,6 +14,8 @@ import { Status } from '../types/toolsStatuses';
 import { BlastResults } from '../blast/types/blastResults';
 import { JobTypes } from '../types/toolsJobTypes';
 
+const possibleStatuses = new Set(Object.values(Status));
+
 const getCheckJobStatus = ({
   dispatch,
   getState,
@@ -22,15 +24,18 @@ const getCheckJobStatus = ({
 ) => {
   const urlConfig = toolsURLs(job.type);
   try {
-    // TODO: check object shape when backend provides API for id mapping
-    const response = await fetchData<Status | { jobStatus: Status }>(
-      urlConfig.statusUrl(job.remoteID),
-      { Accept: 'text/plain,application/json' },
-      undefined,
-      { maxRedirects: 0 }
-    );
+    // we use plain fetch as through Axios we cannot block redirects
+    const response = await fetch(urlConfig.statusUrl(job.remoteID), {
+      headers: { Accept: 'text/plain,application/json' },
+      method: 'GET',
+      // 'manual' to block redirect is the bit we cannot do with Axios
+      redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
+    });
 
-    const [status, idMappingTarget] = getStatusFromResponse(job.type, response);
+    const [status, idMappingTarget] = await getStatusFromResponse(
+      job.type,
+      response
+    );
     // get a new reference to the job
     let currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
@@ -38,7 +43,7 @@ const getCheckJobStatus = ({
       return;
     }
     // check that the status we got from the server is something expected
-    if (!(Object.values(Status) as Array<string>).includes(status)) {
+    if (!possibleStatuses.has(status)) {
       throw new Error(
         `got an unexpected status of "${status}" from the server`
       );
@@ -154,8 +159,25 @@ const getCheckJobStatus = ({
       dispatch(
         addMessage(getJobMessage({ job: currentStateOfJob, nHits: +hits }))
       );
+    } else if (job.type === JobTypes.PEPTIDE_SEARCH) {
+      // Only Peptide Search jobs
+      const now = Date.now();
+
+      let hits = 0;
+      if (!response.bodyUsed) {
+        hits = ((await response.text()).match(/,/)?.length || 0) + 1;
+      }
+      dispatch(
+        updateJob(job.internalID, {
+          timeLastUpdate: now,
+          timeFinished: now,
+          status,
+          data: { hits },
+        })
+      );
+      dispatch(addMessage(getJobMessage({ job: currentStateOfJob })));
     } else {
-      // all kinds of jobs except BLAST or ID Mapping
+      // Align
       const now = Date.now();
       dispatch(
         updateJob(job.internalID, {

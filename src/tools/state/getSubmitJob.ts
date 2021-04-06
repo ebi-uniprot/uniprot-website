@@ -32,23 +32,17 @@ const getSubmitJob = ({
     } catch {
       throw new Error('Internal error');
     }
-    const url = toolsURLs(job.type).runUrl;
 
-    const response = await fetchData<string | { jobId: string }>(
-      url,
-      {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Accept: 'text/plain,application/json',
-      },
-      undefined,
-      {
-        method: 'POST',
-        data: formData,
-        maxRedirects: 0,
-      }
-    );
+    // we use plain fetch as through Axios we cannot block redirects
+    const response = await fetch(toolsURLs(job.type).runUrl, {
+      headers: { Accept: 'text/plain,application/json' },
+      method: 'POST',
+      body: formData,
+      // 'manual' to block redirect is the bit we cannot do with Axios
+      redirect: 'manual',
+    });
 
-    const remoteID = getRemoteIDFromResponse(job.type, response);
+    const remoteID = await getRemoteIDFromResponse(job.type, response);
 
     // get a new reference to the job
     const currentStateOfJob = getState().tools[job.internalID];
