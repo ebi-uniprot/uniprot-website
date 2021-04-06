@@ -363,15 +363,23 @@ const IDMappingForm = () => {
                   onSelect={({ id }: TreeDataNode) => {
                     setFromDb((fromDb) => ({ ...fromDb, selected: id }));
                     setToDb((toDb) => {
-                      const newDbInfo = dbNameToDbInfo[id]?.ruleId;
-                      const newTos = (newDbInfo &&
-                        ruleIdToRuleInfo[newDbInfo].tos) as string[];
-                      // If old "to" is in the new rule's too don't update otherwise select the first
-                      // TODO: need the rule's initial choice as seen in https://www.uniprot.org/uploadlists/ either by selecting the first in "tos" or having an "initialTo" field
-                      return newTos.length > 0 &&
-                        newTos.includes(toDb.selected as string)
-                        ? toDb
-                        : { ...toDb, selected: newTos[0] };
+                      const ruleId = dbNameToDbInfo[id]?.ruleId;
+                      let nextToDb = toDb;
+                      if (ruleId) {
+                        const newRuleInfo = ruleIdToRuleInfo[ruleId];
+                        const newTos = newRuleInfo.tos;
+                        // If old "to" is in the new rule's too don't update otherwise select defaultTo
+                        if (
+                          newTos.length > 0 &&
+                          !newTos.includes(toDb.selected as string)
+                        ) {
+                          nextToDb = {
+                            ...toDb,
+                            selected: newRuleInfo.defaultTo,
+                          };
+                        }
+                      }
+                      return nextToDb;
                     });
                   }}
                   label={fromDbInfo.displayName}

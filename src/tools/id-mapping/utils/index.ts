@@ -1,8 +1,8 @@
 import { memoize } from 'lodash-es';
 
-import { RuleIdToRuleInfo, TreeData } from '../components/IDMappingForm';
+import { RuleIdToRuleInfo } from '../components/IDMappingForm';
 
-import { IDMappingGroup, IDMappingRule } from '../types/idMappingFormConfig';
+import { IDMappingGroup } from '../types/idMappingFormConfig';
 
 // Memoize this as there could be lots of calls to this function as the user explores
 // the various from-to combinations. Also, the rule is an ideal key for the memoize's WeakMap.
@@ -14,19 +14,17 @@ export const getTreeData = memoize(
     ruleIdToRuleInfo: RuleIdToRuleInfo,
     rule?: number
   ) => {
-    // Create an object for quick O(1) look up time when filtering
-    let tos: Record<string, boolean>;
+    // Create a set for quick O(1) look up time when filtering
+    let tos: Set<string>;
     if (rule) {
-      tos = Object.fromEntries(
-        ruleIdToRuleInfo[rule].tos.map((to) => [to, true])
-      );
+      tos = new Set(ruleIdToRuleInfo[rule].tos);
     }
     return dbGroups
       .map(({ groupName, items }) => ({
         label: groupName,
         id: groupName,
         items: items
-          .filter(({ name, from, to }) => (tos ? to && name in tos : from))
+          .filter(({ name, from, to }) => (tos ? to && tos.has(name) : from))
           .map(({ displayName, name }) => ({
             label: displayName,
             id: name,
