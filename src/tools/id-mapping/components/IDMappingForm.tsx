@@ -313,7 +313,7 @@ const IDMappingForm = () => {
         aria-label="ID mapping job submission form"
       >
         <fieldset>
-          <section className="tools-form-section__item">
+          <section className="tools-form-section__item tools-form-section__item--full-width">
             <legend>
               Enter your IDs or
               <label className="tools-form-section__file-input">
