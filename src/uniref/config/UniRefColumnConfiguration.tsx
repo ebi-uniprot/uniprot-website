@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom';
 import { Button, LongNumber, Sequence } from 'franklin-sites';
 
 import EntryTypeIcon from '../../shared/components/entry/EntryTypeIcon';
+import AccessionView from '../../shared/components/results/AccessionView';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath } from '../../app/config/urls';
+import parseDate from '../../shared/utils/parseDate';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-import AccessionView from '../../shared/components/results/AccessionView';
-import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 export enum UniRefColumn {
   id = 'id',
@@ -202,7 +203,7 @@ UniRefColumnConfiguration.set(UniRefColumn.created, {
   label: 'Last updated',
   render: ({ updated }) =>
     updated && (
-      <time dateTime={new Date(updated).toISOString()}>{updated}</time>
+      <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
     ),
 });
 

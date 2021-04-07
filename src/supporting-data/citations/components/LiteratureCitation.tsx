@@ -13,11 +13,14 @@ import { SetOptional } from 'type-fest';
 import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
-import '../../../shared/styles/literature-citation.scss';
+import parseDate from '../../../shared/utils/parseDate';
+
 import {
   CitationsAPIModel,
   formatCitationData,
 } from '../adapters/citationsConverter';
+
+import '../../../shared/styles/literature-citation.scss';
 
 type AuthorProps = {
   authors: string[];
@@ -107,7 +110,7 @@ export const JournalInfo: FC<JournalInfoProps> = ({
     date = (
       <>
         (
-        <time dateTime={new Date(publicationDate).toISOString()}>
+        <time dateTime={parseDate(publicationDate)?.toISOString()}>
           {publicationDate}
         </time>
         )

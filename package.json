@@ -83,7 +83,8 @@
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/jest.setup.ts"
-    ]
+    ],
+    "globalSetup": "<rootDir>/jest.global.setup.ts"
   },
   "lint-staged": {
     "*.+(ts|tsx|js|jsx|css|scss)": [
