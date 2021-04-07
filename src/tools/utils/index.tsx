@@ -29,7 +29,6 @@ const peptideSearchJobPattern = /\/asyncrest\/jobs\/(?<jobID>[A-Z\d]+)$/i;
 export const getRemoteIDFromResponse = async (
   jobType: JobTypes,
   response: Response
-  // response: AxiosResponse<string | { jobId: string }>
 ) => {
   let remoteID: string | null = null;
   switch (jobType) {
