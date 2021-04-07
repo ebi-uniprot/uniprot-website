@@ -62,7 +62,6 @@ const statuses = Object.values(Status);
 export const getStatusFromResponse = async (
   jobType: JobTypes,
   response: Response
-  // response: Status | { jobStatus: Status } | string
 ): Promise<[status: Status, idMappingTarget?: IDMappingNamespace]> => {
   let status: Status | undefined;
   let idMappingTarget: IDMappingNamespace | undefined;
