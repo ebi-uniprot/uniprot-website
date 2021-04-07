@@ -32,6 +32,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 
+import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -43,8 +44,8 @@ import defaultFormValues, {
   PeptideSearchFormValues,
   PeptideSearchFormValue,
   PeptideSearchFields,
-  SelectedTaxon,
 } from '../config/PeptideSearchFormData';
+import { SelectedTaxon } from '../../types/toolsFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 import {
@@ -182,7 +183,7 @@ const PeptideSearchForm = () => {
     }
 
     // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens (Man/Human/HUMAN) [9606]
-    const label = path.replace(/ *\([^)]*\) */g, ' ');
+    const label = truncateTaxonLabel(path);
 
     setTaxIDs({
       ...taxIDs,
@@ -253,18 +254,6 @@ const PeptideSearchForm = () => {
         createJob(
           parameters,
           JobTypes.PEPTIDE_SEARCH,
-          jobName.selected as string
-        )
-      );
-      // TODO: remove, just to debug creation of
-      dispatch(
-        createJob(
-          {
-            from: 'UniProtKB_AC-ID',
-            to: 'UniProtKB',
-            ids: ['p09067', 'p09065'],
-          },
-          JobTypes.ID_MAPPING,
           jobName.selected as string
         )
       );

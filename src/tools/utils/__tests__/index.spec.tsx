@@ -1,7 +1,12 @@
 import { MemoryRouter as Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 
-import { getServerErrorDescription, getJobMessage, isValidServerID } from '..';
+import {
+  getServerErrorDescription,
+  getJobMessage,
+  isValidServerID,
+  truncateTaxonLabel,
+} from '..';
 
 import { JobTypes } from '../../types/toolsJobTypes';
 
@@ -78,5 +83,18 @@ describe('getJobMessage', () => {
       omitAndDeleteAtLocations: ['Dashboard'],
       level: 'success',
     });
+  });
+});
+
+describe('truncateTaxonLabel', () => {
+  it('should truncate label ', () => {
+    expect(truncateTaxonLabel('Homo sapiens (Man/Human/HUMAN) [9606]')).toEqual(
+      'Homo sapiens [9606]'
+    );
+  });
+  it('should be fine if there is nothing to truncate', () => {
+    expect(truncateTaxonLabel('Homo sapiens [9606]')).toEqual(
+      'Homo sapiens [9606]'
+    );
   });
 });

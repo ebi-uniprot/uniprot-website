@@ -21,6 +21,10 @@
       font-family: monospace;
       min-width: 25ch;
     }
+
+    &--full-width {
+      width: 100%;
+    }
   }
 
   &__file-input {
