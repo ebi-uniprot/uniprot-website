@@ -1,4 +1,4 @@
-const edgeCase1 = /'\w{3}-\d{4}'/;
+const edgeCase1 = /\w{3}-\d{4}/;
 
 const months = [
   'jan',
@@ -15,6 +15,25 @@ const months = [
   'dec',
 ];
 
+/** @protected */
+export const parseEdgeCases = (input: string) => {
+  let output: Date;
+  // This one is specific to Firefox and Safari, as of April 2021.
+  // This will not be able to be covered by tests as node is using the V8 engine
+  if (edgeCase1.test(input)) {
+    const [month, year] = input.split('-');
+    const monthIndex = months.indexOf(month.toLowerCase());
+    output = new Date(+year, monthIndex);
+    if (monthIndex >= 0 && !Number.isNaN(output.getTime())) {
+      return output;
+    }
+  }
+  // eslint-disable-next-line no-console
+  console.error(`couldn't parse "${input}" as a date`);
+  // otherwise just return undefined
+  return undefined;
+};
+
 /**
  * Either returns a valid date, or undefined, but no invalid date
  * @param input date to parse
@@ -28,20 +47,13 @@ const parseDate = (input?: string | number | Date | null): Date | undefined => {
     return input;
   }
   // easy case
-  let output = new Date(input);
+  const output = new Date(input);
   if (!Number.isNaN(output.getTime())) {
     return output;
   }
   /* edge cases */
-  // This one is specific to Firefox and Safari, as of April 2021.
-  // This will not be able to be covered by tests as node is using the V8 engine
-  if (typeof input === 'string' && edgeCase1.test(input)) {
-    const [month, year] = input.split('-');
-    const monthIndex = months.indexOf(month.toLowerCase());
-    output = new Date(+year, monthIndex);
-    if (monthIndex >= 0 && !Number.isNaN(output.getTime())) {
-      return output;
-    }
+  if (typeof input === 'string') {
+    return parseEdgeCases(input);
   }
   // otherwise just return undefined
   return undefined;

@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import parseDate from '../parseDate';
+import parseDate, { parseEdgeCases } from '../parseDate';
 
 const testCases: [
   input?: string | number | Date,
@@ -43,5 +43,15 @@ describe('parseDate', () => {
         }
       }
     }
+  });
+});
+
+// Some edge cases might be triggered only from specific browsers (non-V8), test
+// the logic independently to make sure it works
+describe('parseEdgeCases', () => {
+  it('should parse date "DEC-2021"', () => {
+    const parsed = parseEdgeCases('DEC-2021');
+    expect(parsed.getFullYear()).toBe(2021);
+    expect(parsed.getMonth()).toBe(11);
   });
 });
