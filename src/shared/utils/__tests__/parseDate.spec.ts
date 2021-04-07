@@ -29,6 +29,11 @@ describe('timezone sanity check', () => {
 });
 
 describe('parseDate', () => {
+  beforeAll(() => {
+    // eslint-disable-next-line no-console
+    console.error = jest.fn();
+  });
+
   it.each(testCases)('should parse date "%s"', (input, year, month, day) => {
     const parsed = parseDate(input);
     expect(Number.isNaN(parsed?.getTime())).toBe(false);
