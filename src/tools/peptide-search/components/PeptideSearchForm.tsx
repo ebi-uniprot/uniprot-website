@@ -10,22 +10,12 @@ import {
   SetStateAction,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Chip,
-  SequenceSubmission,
-  PageIntro,
-  SpinnerIcon,
-  sequenceProcessor,
-} from 'franklin-sites';
+import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
-import SequenceSearchLoader, {
-  ParsedSequence,
-  SequenceSearchLoaderInterface,
-} from '../../components/SequenceSearchLoader';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
@@ -33,6 +23,8 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 
 import { truncateTaxonLabel } from '../../utils';
+// TODO: move that to a shared tools utils
+import { parseIDs } from '../../id-mapping/utils';
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -55,8 +47,9 @@ import {
 
 import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
+import idMappingFormStyle from '../../id-mapping/components/style/id-mapping-form.module.scss';
 
-// TODO: define limit?
+// just because, no known actual limit
 const PEPTIDE_SEARCH_LIMIT = 100;
 
 const FormSelect: FC<{
@@ -102,7 +95,6 @@ interface CustomLocationState {
 
 const PeptideSearchForm = () => {
   // refs
-  const sslRef = useRef<SequenceSearchLoaderInterface>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
@@ -144,10 +136,6 @@ const PeptideSearchForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
-  // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[PeptideSearchFields.peps].selected)
-  );
 
   // actual form fields
   const [peps, setPeps] = useState<
@@ -203,19 +191,12 @@ const PeptideSearchForm = () => {
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
 
-    // reset all form state to defaults
-    setParsedSequences([]);
-
     setPeps(defaultFormValues[PeptideSearchFields.peps]);
     setTaxIDs(defaultFormValues[PeptideSearchFields.taxIds]);
     setLEQi(defaultFormValues[PeptideSearchFields.lEQi]);
     setSpOnly(defaultFormValues[PeptideSearchFields.spOnly]);
 
     setJobName(defaultFormValues[PeptideSearchFields.name]);
-
-    // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
-    sslRef.current?.reset();
   };
 
   // the only thing to do here would be to check the values and prevent
@@ -261,20 +242,18 @@ const PeptideSearchForm = () => {
   };
 
   const onSequenceChange = useCallback(
-    (parsedSequences: ParsedSequence[]) => {
-      const rawSequence = parsedSequences
-        .map((parsedSequence) => parsedSequence.raw)
-        .join('\n');
+    (sequence: string) => {
+      // TODO: rename that function?
+      const parsedSequences = parseIDs(sequence);
 
-      if (rawSequence === peps.selected) {
+      if (sequence === peps.selected) {
         return;
       }
 
-      setParsedSequences(parsedSequences);
-      setPeps((peps) => ({ ...peps, selected: rawSequence }));
+      setPeps((peps) => ({ ...peps, selected: sequence }));
       setSubmitDisabled(
         parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
-          parsedSequences.some((parsedSequence) => !parsedSequence.valid)
+          parsedSequences.some((parsedSequence) => parsedSequence.length < 2)
       );
     },
     [peps.selected]
@@ -283,7 +262,7 @@ const PeptideSearchForm = () => {
   // file handling
   useTextFileInput({
     input: fileInputRef.current,
-    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    onFileContent: (content) => onSequenceChange(content),
     onError: (error) =>
       dispatch(
         addMessage({
@@ -309,35 +288,22 @@ const PeptideSearchForm = () => {
         aria-label="Peptide Search job submission form"
       >
         <fieldset>
-          <section className="tools-form-section__item">
-            <legend>
-              Find UniProt entries through parts of their peptide sequences,
-              each more than two amino acids long, in FASTA format (e.g.
-              RVLSLGR).
-            </legend>
-            <div className="import-sequence-section">
-              <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
-            </div>
-          </section>
-        </fieldset>
-        <section className="text-block">
-          <strong>OR</strong>
-        </section>
-        <fieldset>
           <section className="text-block">
             <legend>
-              Enter one or more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may
-              also
+              Find UniProt entries through parts of their peptide sequences,
+              each more than two amino acids long (e.g. RVLSLGR). Enter one or
+              more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
               </label>
               .
             </legend>
-            <SequenceSubmission
-              placeholder="Protein sequence(s) in FASTA format."
-              onChange={onSequenceChange}
-              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+            <textarea
+              placeholder="Protein sequence(s) of at least 2 aminoacids"
+              onChange={(event) => onSequenceChange(event.target.value)}
+              value={(peps.selected as string) || ''}
+              className={idMappingFormStyle['id-text-input']}
             />
           </section>
           <section className="tools-form-section">
@@ -422,9 +388,11 @@ const PeptideSearchForm = () => {
                 disabled={submitDisabled}
                 onClick={submitPeptideSearchJob}
               >
-                {parsedSequences.length <= 1
+                {parseIDs(peps.selected as string).length <= 1
                   ? 'Run Peptide Search'
-                  : `Run Peptide Search on ${parsedSequences.length} sequences`}
+                  : `Run Peptide Search on ${
+                      parseIDs(peps.selected as string).length
+                    } sequences`}
               </button>
             </section>
           </section>
