@@ -121,30 +121,34 @@ const AlignForm = lazy(
       /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
     )
 );
-// const PeptideSearchResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
-//     )
-// );
-const PeptideSearchForm = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
-    )
-);
+
 // const IDMappingResult = lazy(
 //   () =>
 //     import(
 //       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
 //     )
 // );
-// const IDMappingForm = lazy(
+
+const IDMappingForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+    )
+);
+
+// const PeptideSearchResult = lazy(
 //   () =>
 //     import(
-//       /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+//       /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
 //     )
-// );
+// )
+
+const PeptideSearchForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+    )
+);
 
 const Dashboard = lazy(
   () =>
@@ -275,7 +279,7 @@ const App = () => (
             {/* <Route
               path={LocationToPath[Location.IDMappingResult]}
               component={IDMappingResult}
-            />
+            /> */}
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
@@ -283,7 +287,7 @@ const App = () => (
                   <IDMappingForm />
                 </SingleColumnLayout>
               )}
-            /> */}
+            />
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (

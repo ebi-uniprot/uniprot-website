@@ -414,7 +414,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       </div>
       <a
         class="tile__main-content"
-        href="/idmapping"
+        href="/id-mapping"
       >
         <span>
           <h3

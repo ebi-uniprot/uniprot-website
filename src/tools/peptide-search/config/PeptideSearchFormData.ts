@@ -1,6 +1,5 @@
 import { FormParameters } from '../types/peptideSearchFormParameters';
-
-export type SelectedTaxon = { label: string; id: string };
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 export enum PeptideSearchFieldTypes {
   textarea,
