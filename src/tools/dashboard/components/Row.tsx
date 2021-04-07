@@ -31,6 +31,7 @@ import { Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 
 import './styles/Dashboard.scss';
+import parseDate from '../../../shared/utils/parseDate';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
@@ -76,8 +77,11 @@ interface TimeProps {
   children: number;
 }
 
-const Time: FC<TimeProps> = ({ children }) => {
-  const date = new Date(children);
+const Time = ({ children }: TimeProps) => {
+  const date = parseDate(children);
+  if (!date) {
+    return null;
+  }
   const YYYY = date.getFullYear();
   // date.getMonth() starts at 0 for January
   const MM = `${date.getMonth() + 1}`.padStart(2, '0');
