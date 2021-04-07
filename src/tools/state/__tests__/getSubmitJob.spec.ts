@@ -16,10 +16,7 @@ import { ADD_MESSAGE } from '../../../messages/state/messagesActions';
 
 import { Location } from '../../../app/config/urls';
 
-var axios = require('axios');
-var MockAdapter = require('axios-mock-adapter');
-
-let mock, submitJob;
+let submitJob: ReturnType<typeof getSubmitJob>;
 
 const store: Store = {
   getState: jest.fn(() => ({ tools: { [createdJob.internalID]: createdJob } })),
@@ -32,8 +29,8 @@ const store: Store = {
 const serverUUID = 'ncbiblast-R20200522-953245-6299-98843150-p1m';
 
 beforeAll(() => {
-  mock = new MockAdapter(axios);
-  Date.now = jest.fn(() => 0);
+  window.fetch = jest.fn();
+  jest.spyOn(Date, 'now').mockImplementation(() => 0);
 });
 
 beforeEach(() => {
@@ -41,19 +38,18 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  mock.reset();
   (store.dispatch as jest.Mock).mockClear();
-});
-
-afterAll(() => {
-  mock.restore();
-  (Date.now as jest.Mock).mockRestore();
 });
 
 describe('submitJob', () => {
   describe('failures', () => {
     it('server/network error', async () => {
-      mock.onPost().reply(500);
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: false,
+          status: 500,
+        })
+      );
       await submitJob(createdJob);
 
       expect(store.dispatch).toHaveBeenNthCalledWith(1, {
@@ -82,7 +78,13 @@ describe('submitJob', () => {
     });
 
     it('server responds without a valid ID', async () => {
-      mock.onPost().reply(200, 'random response from server');
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve('random response from server'),
+        })
+      );
       await submitJob(createdJob);
 
       expect(store.dispatch).toHaveBeenNthCalledWith(1, {
@@ -111,7 +113,13 @@ describe('submitJob', () => {
     });
 
     it("shouldn't do anything if the job is not in the store", async () => {
-      mock.onPost().reply(200, serverUUID);
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(serverUUID),
+        })
+      );
       await submitJob({ ...createdJob, internalID: 'other id' });
 
       expect(store.dispatch).not.toHaveBeenCalled();
@@ -119,7 +127,13 @@ describe('submitJob', () => {
   });
 
   it('should dispatch a running job', async () => {
-    mock.onPost().reply(200, serverUUID);
+    (window.fetch as jest.Mock).mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(serverUUID),
+      })
+    );
     await submitJob(createdJob);
 
     expect(store.dispatch).toHaveBeenCalledWith({

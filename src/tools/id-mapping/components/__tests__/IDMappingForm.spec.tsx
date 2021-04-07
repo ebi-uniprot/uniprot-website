@@ -18,7 +18,7 @@ mock
   .onGet(/\/configure\/idmapping\/fields/)
   .reply(200, mockIDMappingFormConfig);
 
-let component;
+let component: ReturnType<typeof customRender>;
 
 describe('IDMappingForm test', () => {
   beforeEach(async () => {

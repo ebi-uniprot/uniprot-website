@@ -1,6 +1,3 @@
-/**
- * @jest-environment node
- */
 import { Store } from 'redux';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -20,8 +17,8 @@ import { UPDATE_JOB } from '../toolsActions';
 
 import { Location } from '../../../app/config/urls';
 
-let mock;
-let checkJobStatus;
+let mock: MockAdapter;
+let checkJobStatus: ReturnType<typeof getCheckJobStatus>;
 
 const store: Store = {
   getState: jest.fn(() => ({ tools: { [runningJob.internalID]: runningJob } })),
@@ -32,8 +29,9 @@ const store: Store = {
 };
 
 beforeAll(() => {
+  window.fetch = jest.fn();
   mock = new MockAdapter(axios);
-  Date.now = jest.fn(() => 0);
+  jest.spyOn(Date, 'now').mockImplementation(() => 0);
   // eslint-disable-next-line no-console
   console.error = jest.fn();
 });
@@ -43,42 +41,57 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  mock.reset();
   (store.dispatch as jest.Mock).mockClear();
-});
-
-afterAll(() => {
-  mock.restore();
-  (Date.now as jest.Mock).mockRestore();
-  // eslint-disable-next-line no-console
-  (console.error as jest.Mock).mockRestore();
 });
 
 describe('checkJobStatus', () => {
   describe('failures', () => {
     it('should not dispatch on network error', async () => {
-      mock.onGet().reply(500);
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: false,
+          status: 500,
+        })
+      );
       await checkJobStatus(runningJob);
 
       expect(store.dispatch).not.toHaveBeenCalled();
     });
 
     it('should not dispatch on invalid status', async () => {
-      mock.onGet().reply(200, 'invalid status');
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve('invalid status'),
+        })
+      );
       await checkJobStatus(runningJob);
 
       expect(store.dispatch).not.toHaveBeenCalled();
     });
 
     it('should not dispatch if job not in state', async () => {
-      mock.onGet().reply(200, Status.FINISHED);
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(Status.FINISHED),
+        })
+      );
       await checkJobStatus({ ...runningJob, internalID: 'other id' });
 
       expect(store.dispatch).not.toHaveBeenCalled();
     });
 
     it('should dispatch if job disappeared from server', async () => {
-      mock.onGet().reply(200, Status.NOT_FOUND);
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(Status.NOT_FOUND),
+        })
+      );
       await checkJobStatus(runningJob);
 
       expect(store.dispatch).toHaveBeenCalledWith({
@@ -94,11 +107,14 @@ describe('checkJobStatus', () => {
     });
 
     it('should dispatch failed job if finished but no valid data', async () => {
-      mock
-        .onGet() // first time get status
-        .replyOnce(200, Status.FINISHED)
-        .onGet() // then get data
-        .reply(200, { data: 'nonsense' });
+      (window.fetch as jest.Mock).mockImplementationOnce(() =>
+        Promise.resolve({
+          ok: true,
+          status: 200,
+          text: () => Promise.resolve(Status.FINISHED),
+        })
+      );
+      mock.onGet().reply(200, { data: 'nonsense' });
       await checkJobStatus(runningJob);
 
       expect(store.dispatch).toHaveBeenCalledWith({
@@ -115,7 +131,13 @@ describe('checkJobStatus', () => {
   });
 
   it('should dispatch updated job with new information', async () => {
-    mock.onGet().reply(200, Status.RUNNING);
+    (window.fetch as jest.Mock).mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(Status.RUNNING),
+      })
+    );
     await checkJobStatus(runningJob);
 
     expect(store.dispatch).toHaveBeenCalledWith({
@@ -129,7 +151,13 @@ describe('checkJobStatus', () => {
       type: UPDATE_JOB,
     });
 
-    mock.onGet().reply(200, Status.FAILURE);
+    (window.fetch as jest.Mock).mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(Status.FAILURE),
+      })
+    );
     await checkJobStatus(runningJob);
 
     expect(store.dispatch).toHaveBeenCalledWith({
@@ -143,7 +171,13 @@ describe('checkJobStatus', () => {
       type: UPDATE_JOB,
     });
 
-    mock.onGet().reply(200, Status.ERRORED);
+    (window.fetch as jest.Mock).mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(Status.ERRORED),
+      })
+    );
     await checkJobStatus(runningJob);
 
     expect(store.dispatch).toHaveBeenCalledWith({
@@ -159,11 +193,14 @@ describe('checkJobStatus', () => {
   });
 
   it('should dispatch finished job and new message if finished', async () => {
-    mock
-      .onGet() // first time get status
-      .replyOnce(200, Status.FINISHED)
-      .onGet() // then get data
-      .reply(200, { hits: [0] });
+    (window.fetch as jest.Mock).mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: true,
+        status: 200,
+        text: () => Promise.resolve(Status.FINISHED),
+      })
+    );
+    mock.onGet().reply(200, { hits: [0] });
     await checkJobStatus(runningJob);
 
     expect(store.dispatch).toHaveBeenNthCalledWith(1, {
