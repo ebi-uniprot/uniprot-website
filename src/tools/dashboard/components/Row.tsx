@@ -25,13 +25,14 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 import { jobTypeToPath } from '../../../app/config/urls';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
+import parseDate from '../../../shared/utils/parseDate';
 
 import { Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 
 import './styles/Dashboard.scss';
-import parseDate from '../../../shared/utils/parseDate';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
