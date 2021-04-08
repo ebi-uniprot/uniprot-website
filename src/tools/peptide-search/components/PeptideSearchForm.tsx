@@ -135,7 +135,7 @@ const PeptideSearchForm = () => {
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
   // flag to see if the user manually changed the title
-  // const [jobNameEdited, setJobNameEdited] = useState(false);
+  const [jobNameEdited, setJobNameEdited] = useState(false);
 
   // actual form fields
   const [peps, setPeps] = useState<
@@ -246,6 +246,22 @@ const PeptideSearchForm = () => {
     [peps.selected]
   );
 
+  const firstParsedSequence = parsedSequences[0];
+  useEffect(() => {
+    if (!jobNameEdited && parsedSequences.length > 0) {
+      const potentialJobName = `${firstParsedSequence}${
+        parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
+      }`;
+      setJobName((jobName) => {
+        if (jobName.selected === potentialJobName) {
+          // avoid unecessary rerender by keeping the same object
+          return jobName;
+        }
+        return { ...jobName, selected: potentialJobName };
+      });
+    }
+  }, [firstParsedSequence, parsedSequences.length, jobNameEdited]);
+
   useEffect(() => {
     setSubmitDisabled(
       parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
@@ -348,6 +364,7 @@ const PeptideSearchForm = () => {
                   placeholder={'"my job title"'}
                   value={jobName.selected as string}
                   onChange={(event) => {
+                    setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });
                   }}
                 />
