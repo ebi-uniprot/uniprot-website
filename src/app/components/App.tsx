@@ -60,42 +60,42 @@ const ProteomesEntryPage = lazy(
       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
     )
 );
-// const TaxonomyEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "taxonomy-entry" */ '../../supporting-data/taxonomy/components/entry/Entry'
-//     )
-// );
-// const KeywordsEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "keywords-entry" */ '../../supporting-data/keywords/components/entry/Entry'
-//     )
-// );
-// const CitationsEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "citations-entry" */ '../../supporting-data/citations/components/entry/Entry'
-//     )
-// );
-// const DiseasesEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "diseases-entry" */ '../../supporting-data/diseases/components/entry/Entry'
-//     )
-// );
-// const DatabaseEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "database-entry" */ '../../supporting-data/database/components/entry/Entry'
-//     )
-// );
-// const LocationsEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "locations-entry" */ '../../supporting-data/locations/components/entry/Entry'
-//     )
-// );
+const TaxonomyEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "taxonomy-entry" */ '../../supporting-data/taxonomy/components/entry/Entry'
+    )
+);
+const KeywordsEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "keywords-entry" */ '../../supporting-data/keywords/components/entry/Entry'
+    )
+);
+const CitationsEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "citations-entry" */ '../../supporting-data/citations/components/entry/Entry'
+    )
+);
+const DiseasesEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "diseases-entry" */ '../../supporting-data/diseases/components/entry/Entry'
+    )
+);
+const DatabaseEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "database-entry" */ '../../supporting-data/database/components/entry/Entry'
+    )
+);
+const LocationsEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "locations-entry" */ '../../supporting-data/locations/components/entry/Entry'
+    )
+);
 // Tools
 const BlastResult = lazy(
   () =>
@@ -210,30 +210,30 @@ const App = () => (
               component={ProteomesEntryPage}
             />
             {/* Supporting data */}
-            {/* <Route
+            <Route
               path={LocationToPath[Location.TaxonomyEntry]}
               component={TaxonomyEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.KeywordsEntry]}
               component={KeywordsEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.CitationsEntry]}
               component={CitationsEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.DiseasesEntry]}
               component={DiseasesEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.DatabaseEntry]}
               component={DatabaseEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.LocationsEntry]}
               component={LocationsEntryPage}
-            /> */}
+            />
             {/* Result pages */}
             <Route
               path={allSearchResultLocations}
