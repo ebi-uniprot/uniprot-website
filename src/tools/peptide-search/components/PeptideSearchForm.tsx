@@ -1,13 +1,13 @@
 import {
   FC,
   useState,
-  useCallback,
   FormEvent,
   MouseEvent,
   useMemo,
   useRef,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
@@ -23,8 +23,7 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 
 import { truncateTaxonLabel } from '../../utils';
-// TODO: move that to a shared tools utils
-import { parseIDs } from '../../id-mapping/utils';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -47,7 +46,6 @@ import {
 
 import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
-import idMappingFormStyle from '../../id-mapping/components/style/id-mapping-form.module.scss';
 
 // just because, no known actual limit
 const PEPTIDE_SEARCH_LIMIT = 100;
@@ -136,6 +134,8 @@ const PeptideSearchForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
+  // flag to see if the user manually changed the title
+  // const [jobNameEdited, setJobNameEdited] = useState(false);
 
   // actual form fields
   const [peps, setPeps] = useState<
@@ -241,28 +241,25 @@ const PeptideSearchForm = () => {
     });
   };
 
-  const onSequenceChange = useCallback(
-    (sequence: string) => {
-      // TODO: rename that function?
-      const parsedSequences = parseIDs(sequence);
-
-      if (sequence === peps.selected) {
-        return;
-      }
-
-      setPeps((peps) => ({ ...peps, selected: sequence }));
-      setSubmitDisabled(
-        parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
-          parsedSequences.some((parsedSequence) => parsedSequence.length < 2)
-      );
-    },
+  const parsedSequences = useMemo(
+    () => splitAndTidyText(peps.selected as string),
     [peps.selected]
   );
 
+  useEffect(() => {
+    setSubmitDisabled(
+      parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
+        parsedSequences.some((parsedSequence) => parsedSequence.length < 2)
+    );
+  }, [parsedSequences]);
+
   // file handling
   useTextFileInput({
-    input: fileInputRef.current,
-    onFileContent: (content) => onSequenceChange(content),
+    inputRef: fileInputRef,
+    onFileContent: (content) => {
+      setPeps((peps) => ({ ...peps, selected: content }));
+    },
+
     onError: (error) =>
       dispatch(
         addMessage({
@@ -300,10 +297,15 @@ const PeptideSearchForm = () => {
               .
             </legend>
             <textarea
+              name={defaultFormValues[PeptideSearchFields.peps].fieldName}
+              autoComplete="false"
+              spellCheck="false"
               placeholder="Protein sequence(s) of at least 2 aminoacids"
-              onChange={(event) => onSequenceChange(event.target.value)}
-              value={(peps.selected as string) || ''}
-              className={idMappingFormStyle['id-text-input']}
+              className="tools-form-raw-text-input"
+              value={peps.selected as string}
+              onChange={(event) =>
+                setPeps((peps) => ({ ...peps, selected: event.target.value }))
+              }
             />
           </section>
           <section className="tools-form-section">
@@ -388,11 +390,9 @@ const PeptideSearchForm = () => {
                 disabled={submitDisabled}
                 onClick={submitPeptideSearchJob}
               >
-                {parseIDs(peps.selected as string).length <= 1
+                {parsedSequences.length <= 1
                   ? 'Run Peptide Search'
-                  : `Run Peptide Search on ${
-                      parseIDs(peps.selected as string).length
-                    } sequences`}
+                  : `Run Peptide Search on ${parsedSequences.length} sequences`}
               </button>
             </section>
           </section>

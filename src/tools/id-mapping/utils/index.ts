@@ -36,12 +36,3 @@ export const getTreeData = memoize(
   // so let 0 be the memoize's WeakMap key for quick retrieval
   (_dbs, _ruleIdToRuleInfo, rule?: number) => rule ?? 0
 );
-
-const reWhitespace = /\s+/;
-
-export const parseIDs = (text: string) =>
-  text.split(reWhitespace).filter(Boolean);
-
-const newLine = `
-` as const;
-export const joinIDs = (ids: string[]) => ids.join(newLine);
