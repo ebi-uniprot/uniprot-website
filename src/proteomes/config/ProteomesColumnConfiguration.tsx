@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink } from 'franklin-sites';
+import { ExternalLink, ExpandableList } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 
 import BuscoView from '../components/BuscoView';
@@ -73,8 +73,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
   label: 'Components',
-  // TODO: wait for confirmation from Jie if components should be rendered. Note not shown in current UniProt
-  render: ({ components }) => components && null,
+  render: ({ components }) => (
+    <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
+      {components?.map(({ name }) => name)}
+    </ExpandableList>
+  ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
