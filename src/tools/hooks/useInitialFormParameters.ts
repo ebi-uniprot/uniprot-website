@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 interface CustomLocationState<T> {
   parameters?: Partial<T>;
@@ -8,7 +8,7 @@ interface CustomLocationState<T> {
 type FormValues<Fields, FormValue> = Record<Fields, Readonly<FormValue>>;
 
 // export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>
-function useFormParametersFromHistory<Fields, FormValue, FormParameters>(
+function useInitialFormParameters<Fields, FormValue, FormParameters>(
   defaultFormValues: Readonly<FormValues<Fields, FormValue>>
 ) {
   const history = useHistory();
@@ -44,4 +44,4 @@ function useFormParametersFromHistory<Fields, FormValue, FormParameters>(
   }, [history]);
 }
 
-export default useFormParametersFromHistory;
+export default useInitialFormParameters;
