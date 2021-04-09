@@ -1,4 +1,4 @@
-import { getTreeData, parseIDs, joinIDs } from '../index';
+import { getTreeData } from '../index';
 
 describe('getTreeData', () => {
   const groups = [
@@ -91,17 +91,5 @@ describe('getTreeData', () => {
         ],
       },
     ]);
-  });
-});
-
-describe('parseIDs', () => {
-  it('should parse IDs by whitespace and ignore blank lines', () => {
-    expect(parseIDs(`\n\nID1 ID2\n\n\n\tID3\n`)).toEqual(['ID1', 'ID2', 'ID3']);
-  });
-});
-
-describe('joinIDs', () => {
-  it('should join IDs with newline characters', () => {
-    expect(joinIDs(['ID1', 'ID2', 'ID3'])).toEqual('ID1\nID2\nID3');
   });
 });

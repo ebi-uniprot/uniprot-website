@@ -96,11 +96,11 @@ EFTU_ECOLI
               type="file"
             />
           </label>
-          . Separate IDs by whitespace (space, tab, newline).
+          . Separate IDs by whitespace (space, tab, newline) or commas.
         </legend>
         <textarea
           autocomplete="false"
-          class="id-text-input"
+          class="tools-form-raw-text-input"
           name="ids"
           placeholder="P31946 P62258 ALBU_HUMAN EFTU_ECOLI"
           spellcheck="false"

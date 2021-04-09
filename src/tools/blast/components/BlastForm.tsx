@@ -401,7 +401,7 @@ const BlastForm = () => {
 
   // file handling
   useTextFileInput({
-    input: fileInputRef.current,
+    inputRef: fileInputRef,
     onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
     onError: (error) =>
       dispatch(

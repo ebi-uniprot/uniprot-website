@@ -25,8 +25,9 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import { createJob } from '../../state/toolsActions';
-import { parseIDs, joinIDs, getTreeData } from '../utils';
+import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
 import infoMappings from '../../../shared/config/InfoMappings';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -53,7 +54,6 @@ import { SelectedTaxon } from '../../types/toolsFormData';
 
 import '../../../shared/styles/sticky.scss';
 import '../../styles/ToolsForm.scss';
-import idMappingFormStyle from './style/id-mapping-form.module.scss';
 
 export type TreeDataNode = {
   label: string;
@@ -117,9 +117,7 @@ const IDMappingForm = () => {
   const initialIDs = initialFormValues[IDMappingFields.ids]
     .selected as string[];
   // Text of IDs from textarea
-  const [textIDs, setTextIDs] = useState<string>(joinIDs(initialIDs));
-  // Parsed (by whitespace) IDs
-  const [ids, setIDs] = useState<string[]>(initialIDs);
+  const [textIDs, setTextIDs] = useState<string>(initialIDs.join('\n'));
   const [fromDb, setFromDb] = useState<IDMappingFormValue>(
     initialFormValues[IDMappingFields.fromDb]
   );
@@ -166,11 +164,13 @@ const IDMappingForm = () => {
     return [dbNameToDbInfo, ruleIdToRuleInfo];
   }, [data]);
 
+  const parsedIDs = useMemo(() => splitAndTidyText(textIDs), [textIDs]);
+
   const submitIDMappingJob = useCallback(
     (event: FormEvent | MouseEvent) => {
       event.preventDefault();
 
-      if (!ids.length || !dbNameToDbInfo || !ruleIdToRuleInfo) {
+      if (!parsedIDs.length || !dbNameToDbInfo || !ruleIdToRuleInfo) {
         return;
       }
 
@@ -187,7 +187,7 @@ const IDMappingForm = () => {
       const parameters: FormParameters = {
         from: fromDb.selected as string,
         to: toDb.selected as string,
-        ids, // TODO: decide with UX if we want to pass the cleaned input, or the raw input. If you pass the raw input, the cleaning can be done again inside the formParametersToServerParameters function.
+        ids: parsedIDs,
       };
 
       if ((ruleInfo as IDMappingRule)?.taxonId && taxID.selected) {
@@ -210,12 +210,14 @@ const IDMappingForm = () => {
         );
       });
     },
+    // NOTE: maybe no point using useCallback if all the values of the form
+    // cause this to be re-created. Maybe review submit callback in all 4 forms?
     [
       dbNameToDbInfo,
       dispatch,
       fromDb.selected,
       history,
-      ids,
+      parsedIDs,
       jobName.selected,
       ruleIdToRuleInfo,
       taxID.selected,
@@ -223,15 +225,14 @@ const IDMappingForm = () => {
     ]
   );
 
-  const handleIDTextChange = (text: string) => {
-    setTextIDs(text);
-    setIDs(parseIDs(text));
-  };
-
+  const firstParsedID = parsedIDs[0];
   useEffect(() => {
-    if (!jobNameEdited && ids.length > 0) {
-      const potentialJobName = `${ids[0]}${
-        ids.length > 1 ? ` +${ids.length - 1}` : ''
+    if (jobNameEdited) {
+      return;
+    }
+    if (parsedIDs.length > 0) {
+      const potentialJobName = `${firstParsedID}${
+        parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
       } ${fromDb.selected} → ${toDb.selected}`;
       setJobName((jobName) => {
         if (jobName.selected === potentialJobName) {
@@ -240,8 +241,10 @@ const IDMappingForm = () => {
         }
         return { ...jobName, selected: potentialJobName };
       });
+    } else {
+      setJobName((jobName) => ({ ...jobName, selected: '' }));
     }
-  }, [fromDb, ids, jobNameEdited, toDb]);
+  }, [fromDb, firstParsedID, parsedIDs.length, jobNameEdited, toDb]);
 
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
@@ -249,8 +252,7 @@ const IDMappingForm = () => {
     // reset all form state to defaults
     const defaultIDs = defaultFormValues[IDMappingFields.ids]
       .selected as string[];
-    setTextIDs(joinIDs(defaultIDs));
-    setIDs(defaultIDs);
+    setTextIDs(defaultIDs.join('\n'));
     setFromDb(defaultFormValues[IDMappingFields.fromDb]);
     setToDb(defaultFormValues[IDMappingFields.toDb]);
     setJobName(defaultFormValues[IDMappingFields.name]);
@@ -271,8 +273,8 @@ const IDMappingForm = () => {
   };
 
   useTextFileInput({
-    input: fileInputRef.current,
-    onFileContent: (content) => handleIDTextChange(content),
+    inputRef: fileInputRef,
+    onFileContent: setTextIDs,
     onError: (error) =>
       dispatch(
         addMessage({
@@ -320,23 +322,21 @@ const IDMappingForm = () => {
                 load from a text file
                 <input type="file" ref={fileInputRef} />
               </label>
-              . Separate IDs by whitespace (space, tab, newline).
+              . Separate IDs by whitespace (space, tab, newline) or commas.
             </legend>
             <textarea
               name={defaultFormValues[IDMappingFields.ids].fieldName}
               autoComplete="false"
               spellCheck="false"
               placeholder="P31946 P62258 ALBU_HUMAN EFTU_ECOLI"
-              className={idMappingFormStyle['id-text-input']}
+              className="tools-form-raw-text-input"
               value={textIDs}
-              onChange={(event) => {
-                handleIDTextChange(event.target.value);
-              }}
+              onChange={(event) => setTextIDs(event.target.value)}
             />
-            {ids.length > 0 && (
+            {parsedIDs.length > 0 && (
               <Message level="info">
-                Your input contains {ids.length} ID
-                {ids.length === 1 ? '' : 's'}
+                Your input contains {parsedIDs.length} ID
+                {parsedIDs.length === 1 ? '' : 's'}
               </Message>
             )}
           </section>
@@ -449,8 +449,8 @@ const IDMappingForm = () => {
                   disabled={submitDisabled}
                   onClick={submitIDMappingJob}
                 >
-                  {`Map ${ids.length ? `${ids.length} ` : ''} ID${
-                    ids.length !== 1 ? 's' : ''
+                  {`Map ${parsedIDs.length ? `${parsedIDs.length} ` : ''} ID${
+                    parsedIDs.length !== 1 ? 's' : ''
                   }`}
                 </button>
               </section>
