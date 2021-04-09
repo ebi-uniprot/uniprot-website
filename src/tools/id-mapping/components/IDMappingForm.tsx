@@ -21,6 +21,7 @@ import { useHistory } from 'react-router-dom';
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
@@ -34,7 +35,6 @@ import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
   IDMappingFormValue,
-  IDMappingFormValues,
 } from '../config/idMappingFormData';
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -70,10 +70,6 @@ export type RuleIdToRuleInfo = {
   [ruleID: number]: IDMappingRule;
 };
 
-interface CustomLocationState {
-  parameters?: Partial<FormParameters>;
-}
-
 const IDMappingForm = () => {
   // refs
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -83,49 +79,21 @@ const IDMappingForm = () => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // state
-  const initialFormValues = useMemo(() => {
-    // NOTE: we should use a similar logic to pre-fill fields based on querystring
-    const parametersFromHistoryState = (history.location
-      ?.state as CustomLocationState)?.parameters;
-    if (parametersFromHistoryState) {
-      // if we get here, we got parameters passed with the location update to
-      // use as pre-filled fields
-      const formValues: Partial<IDMappingFormValues> = {};
-      const defaultValuesEntries = Object.entries(defaultFormValues) as [
-        IDMappingFields,
-        IDMappingFormValue
-      ][];
-      // for every field of the form, get its value from the history state if
-      // present, otherwise go for the default one
-      for (const [key, field] of defaultValuesEntries) {
-        formValues[key] = Object.freeze({
-          ...field,
-          selected:
-            parametersFromHistoryState[
-              field.fieldName as keyof FormParameters
-            ] || field.selected,
-        }) as Readonly<IDMappingFormValue>;
-      }
-      return Object.freeze(formValues) as Readonly<IDMappingFormValues>;
-    }
-    // otherwise, pass the default values
-    return defaultFormValues;
-  }, [history]);
+  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // actual form fields
   const initialIDs = initialFormValues[IDMappingFields.ids]
     .selected as string[];
   // Text of IDs from textarea
   const [textIDs, setTextIDs] = useState<string>(initialIDs.join('\n'));
-  const [fromDb, setFromDb] = useState<IDMappingFormValue>(
-    initialFormValues[IDMappingFields.fromDb]
+  const [fromDb, setFromDb] = useState(
+    initialFormValues[IDMappingFields.fromDb] as IDMappingFormValue
   );
-  const [toDb, setToDb] = useState<IDMappingFormValue>(
-    initialFormValues[IDMappingFields.toDb]
+  const [toDb, setToDb] = useState(
+    initialFormValues[IDMappingFields.toDb] as IDMappingFormValue
   );
-  const [taxID, setTaxID] = useState<IDMappingFormValue>(
-    initialFormValues[IDMappingFields.taxons]
+  const [taxID, setTaxID] = useState(
+    initialFormValues[IDMappingFields.taxons] as IDMappingFormValue
   );
 
   // extra job-related fields

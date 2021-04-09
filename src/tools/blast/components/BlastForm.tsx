@@ -5,7 +5,6 @@ import {
   useCallback,
   FormEvent,
   MouseEvent,
-  useMemo,
   useRef,
   Dispatch,
   SetStateAction,
@@ -32,6 +31,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { truncateTaxonLabel } from '../../utils';
 import { createJob } from '../../state/toolsActions';
@@ -116,10 +116,6 @@ const FormSelect: FC<{
   );
 };
 
-interface CustomLocationState {
-  parameters?: Partial<FormParameters>;
-}
-
 const BlastForm = () => {
   // refs
   const sslRef = useRef<SequenceSearchLoaderInterface>(null);
@@ -130,35 +126,7 @@ const BlastForm = () => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // state
-  const initialFormValues = useMemo(() => {
-    // NOTE: we should use a similar logic to pre-fill fields based on querystring
-    const parametersFromHistoryState = (history.location
-      ?.state as CustomLocationState)?.parameters;
-    if (parametersFromHistoryState) {
-      // if we get here, we got parameters passed with the location update to
-      // use as pre-filled fields
-      const formValues: Partial<BlastFormValues> = {};
-      const defaultValuesEntries = Object.entries(defaultFormValues) as [
-        BlastFields,
-        BlastFormValue
-      ][];
-      // for every field of the form, get its value from the history state if
-      // present, otherwise go for the default one
-      for (const [key, field] of defaultValuesEntries) {
-        formValues[key] = Object.freeze({
-          ...field,
-          selected:
-            parametersFromHistoryState[
-              field.fieldName as keyof FormParameters
-            ] || field.selected,
-        }) as Readonly<BlastFormValue>;
-      }
-      return Object.freeze(formValues) as Readonly<BlastFormValues>;
-    }
-    // otherwise, pass the default values
-    return defaultFormValues;
-  }, [history]);
+  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -172,42 +140,54 @@ const BlastForm = () => {
   );
 
   // actual form fields
-  const [stype, setSType] = useState<BlastFormValues[BlastFields.stype]>(
-    initialFormValues[BlastFields.stype]
+  const [stype, setSType] = useState(
+    initialFormValues[BlastFields.stype] as BlastFormValues[BlastFields.stype]
   );
-  const [program, setProgram] = useState<BlastFormValues[BlastFields.program]>(
-    initialFormValues[BlastFields.program]
+  const [program, setProgram] = useState(
+    initialFormValues[
+      BlastFields.program
+    ] as BlastFormValues[BlastFields.program]
   );
-  const [sequence, setSequence] = useState<
-    BlastFormValues[BlastFields.sequence]
-  >(initialFormValues[BlastFields.sequence]);
-  const [database, setDatabase] = useState<
-    BlastFormValues[BlastFields.database]
-  >(initialFormValues[BlastFields.database]);
-  const [taxIDs, setTaxIDs] = useState<BlastFormValues[BlastFields.taxons]>(
-    initialFormValues[BlastFields.taxons]
+  const [sequence, setSequence] = useState(
+    initialFormValues[
+      BlastFields.sequence
+    ] as BlastFormValues[BlastFields.sequence]
   );
-  const [negativeTaxIDs, setNegativeTaxIDs] = useState<
-    BlastFormValues[BlastFields.excludedtaxons]
-  >(initialFormValues[BlastFields.excludedtaxons]);
-  const [threshold, setThreshold] = useState<
-    BlastFormValues[BlastFields.threshold]
-  >(initialFormValues[BlastFields.threshold]);
-  const [matrix, setMatrix] = useState<BlastFormValues[BlastFields.matrix]>(
-    initialFormValues[BlastFields.matrix]
+  const [database, setDatabase] = useState(
+    initialFormValues[
+      BlastFields.database
+    ] as BlastFormValues[BlastFields.database]
   );
-  const [filter, setFilter] = useState<BlastFormValues[BlastFields.filter]>(
-    initialFormValues[BlastFields.filter]
+  const [taxIDs, setTaxIDs] = useState(
+    initialFormValues[BlastFields.taxons] as BlastFormValues[BlastFields.taxons]
   );
-  const [gapped, setGapped] = useState<BlastFormValues[BlastFields.gapped]>(
-    initialFormValues[BlastFields.gapped]
+  const [negativeTaxIDs, setNegativeTaxIDs] = useState(
+    initialFormValues[
+      BlastFields.excludedtaxons
+    ] as BlastFormValues[BlastFields.excludedtaxons]
   );
-  const [hits, setHits] = useState<BlastFormValues[BlastFields.hits]>(
-    initialFormValues[BlastFields.hits]
+  const [threshold, setThreshold] = useState(
+    initialFormValues[
+      BlastFields.threshold
+    ] as BlastFormValues[BlastFields.threshold]
+  );
+  const [matrix, setMatrix] = useState(
+    initialFormValues[BlastFields.matrix] as BlastFormValues[BlastFields.matrix]
+  );
+  const [filter, setFilter] = useState(
+    initialFormValues[BlastFields.filter] as BlastFormValues[BlastFields.filter]
+  );
+  const [gapped, setGapped] = useState(
+    initialFormValues[BlastFields.gapped] as BlastFormValues[BlastFields.gapped]
+  );
+  const [hits, setHits] = useState(
+    initialFormValues[BlastFields.hits] as BlastFormValues[BlastFields.hits]
   );
 
   // extra job-related fields
-  const [jobName, setJobName] = useState(initialFormValues[BlastFields.name]);
+  const [jobName, setJobName] = useState(
+    initialFormValues[BlastFields.name] as BlastFormValues[BlastFields.name]
+  );
 
   // taxon field handlers
   const updateTaxonFormValue = (path: string, id?: string) => {
