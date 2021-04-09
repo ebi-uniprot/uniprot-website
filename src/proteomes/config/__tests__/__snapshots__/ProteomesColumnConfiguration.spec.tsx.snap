@@ -21,7 +21,17 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
 </DocumentFragment>
 `;
 
-exports[`ProteomesColumnConfiguration component should render column "components": components 1`] = `<DocumentFragment />`;
+exports[`ProteomesColumnConfiguration component should render column "components": components 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      name
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>

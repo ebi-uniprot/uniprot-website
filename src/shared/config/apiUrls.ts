@@ -105,6 +105,10 @@ const apiUrls = {
   accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
   genecentric: (accession: string) =>
     joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
+  idMappingFields: joinUrl(
+    devPrefix,
+    '/uniprot/api/configure/idmapping/fields'
+  ),
 
   entry: (id: string | undefined, namespace: Namespace) =>
     id &&

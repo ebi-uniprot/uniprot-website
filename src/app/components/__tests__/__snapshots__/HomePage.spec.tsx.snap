@@ -2,127 +2,134 @@
 
 exports[`HomePage component should render 1`] = `
 <DocumentFragment>
-  <div
-    class="hero-header home-page__header"
-  >
-    <div
-      class="hero-header__content"
+  <main>
+    <h1
+      class="visually-hidden"
     >
-      <h1>
-        Find your 
-        <span
-          class="letter-group"
-        >
-          protein
-        </span>
-      </h1>
+      UniProt website home page
+    </h1>
+    <div
+      class="hero-header home-page__header"
+    >
       <div
-        class="uniprot-grid uniprot-grid--centered"
+        class="hero-header__content"
       >
-        <section
-          class="uniprot-grid-cell--span-12"
-          role="search"
+        <h1>
+          Find your 
+          <span
+            class="letter-group"
+          >
+            protein
+          </span>
+        </h1>
+        <div
+          class="uniprot-grid uniprot-grid--centered"
         >
-          <form
-            class="main-search"
-            data-testid="main-search-form"
-            style="--main-button-color: #00639a;"
+          <section
+            class="uniprot-grid-cell--span-12"
+            role="search"
           >
-            <div
-              class="dropdown-container"
+            <form
+              class="main-search"
+              data-testid="main-search-form"
+              style="--main-button-color: #00639a;"
             >
-              <button
-                class="button primary dropdown"
-                type="button"
-              >
-                UniProtKB
-              </button>
               <div
-                class="dropdown-menu"
+                class="dropdown-container"
+              >
+                <button
+                  class="button primary dropdown"
+                  type="button"
+                >
+                  UniProtKB
+                </button>
+                <div
+                  class="dropdown-menu"
+                />
+              </div>
+              <input
+                aria-label="Text query in uniprotkb"
+                class="main-search__input"
+                data-testid="main-search-input"
+                type="text"
+                value=""
               />
-            </div>
-            <input
-              aria-label="Text query in uniprotkb"
-              class="main-search__input"
-              data-testid="main-search-input"
-              type="text"
-              value=""
-            />
-            <button
-              class="button primary"
-              type="submit"
+              <button
+                class="button primary"
+                type="submit"
+              >
+                Search
+              </button>
+            </form>
+            <div
+              class="search-container-footer"
             >
-              Search
-            </button>
-          </form>
-          <div
-            class="search-container-footer"
+              <div>
+                Examples: 
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  p53
+                </button>
+                , 
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Human EGFR
+                </button>
+                , 
+                <button
+                  class="button tertiary"
+                  type="button"
+                >
+                  Albumin
+                </button>
+              </div>
+              <div>
+                <a
+                  class="button tertiary"
+                  href="/id-mapping"
+                >
+                  Search with a list of IDs
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div
+        class="hero-header__footer"
+      >
+        UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information. 
+        <a
+          class="cite-us"
+          href="https://www.uniprot.org/help/publications"
+        >
+          Cite 
+          <span
+            class="no-wrap"
           >
-            <div>
-              Examples: 
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                p53
-              </button>
-              , 
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Human EGFR
-              </button>
-              , 
-              <button
-                class="button tertiary"
-                type="button"
-              >
-                Albumin
-              </button>
-            </div>
-            <div>
-              <a
-                class="button tertiary"
-                href="/idmapping"
-              >
-                Search with a list of IDs
-              </a>
-            </div>
-          </div>
-        </section>
+            UniProt 
+            <sup>
+              <test-file-stub
+                width="1.5ch"
+              />
+            </sup>
+          </span>
+        </a>
       </div>
     </div>
     <div
-      class="hero-header__footer"
+      class="loader-container"
     >
-      UniProt is the world’s leading high-quality, comprehensive and freely accessible resource of protein sequence and functional information. 
-      <a
-        class="cite-us"
-        href="https://www.uniprot.org/help/publications"
-      >
-        Cite 
-        <span
-          class="no-wrap"
-        >
-          UniProt 
-          <sup>
-            <test-file-stub
-              width="1.5ch"
-            />
-          </sup>
-        </span>
-      </a>
+      <test-file-stub
+        classname="loader"
+        height="100"
+        width="100"
+      />
     </div>
-  </div>
-  <div
-    class="loader-container"
-  >
-    <test-file-stub
-      classname="loader"
-      height="100"
-      width="100"
-    />
-  </div>
+  </main>
 </DocumentFragment>
 `;

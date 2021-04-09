@@ -36,7 +36,10 @@
     // TODO: slowly include these in order to enforce tests type check and lint
     "src/query-builder/**/*.spec.ts*",
     "src/shared/**/*.spec.ts*",
-    "src/tools/**/*.spec.ts*",
+    "src/tools/align/**/*.spec.ts*",
+    "src/tools/blast/**/*.spec.ts*",
+    "src/tools/components/**/*.spec.ts*",
+    "src/tools/utils/**/*.spec.ts*",
     "src/uniparc/**/*.spec.ts*",
     "src/uniprotkb/**/*.spec.ts*",
     "src/uniref/**/*.spec.ts*"

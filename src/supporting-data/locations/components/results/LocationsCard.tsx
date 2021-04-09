@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../../app/config/urls';
+import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 
 import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -18,6 +19,8 @@ const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
 
 const category = LocationsColumnConfiguration.get(LocationsColumn.category);
 
+const getIdKey = getIdKeyFor(Namespace.locations);
+
 const CitationCard: FC<{
   data: LocationsAPIModel;
   selected?: boolean;
@@ -25,14 +28,16 @@ const CitationCard: FC<{
 }> = ({ data, selected, handleEntrySelection }) => {
   const history = useHistory();
 
+  const id = getIdKey(data);
+
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
       if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
         return;
       }
-      history.push(getEntryPath(Namespace.locations, data.id));
+      history.push(getEntryPath(Namespace.locations, id));
     },
-    [history, data.id]
+    [history, id]
   );
 
   return (
@@ -43,7 +48,7 @@ const CitationCard: FC<{
             <input
               type="checkbox"
               checked={selected}
-              onChange={() => handleEntrySelection(data.id)}
+              onChange={() => handleEntrySelection(id)}
               data-testid="up-card-checkbox"
             />
           </div>

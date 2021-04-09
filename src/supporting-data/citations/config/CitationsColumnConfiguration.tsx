@@ -1,13 +1,16 @@
 import { ExpandableList } from 'franklin-sites';
 
+import { JournalInfo } from '../components/LiteratureCitation';
+import AccessionView from '../../../shared/components/results/AccessionView';
+
+import parseDate from '../../../shared/utils/parseDate';
+
 import {
   CitationsAPIModel,
   CitationXRefDB,
 } from '../adapters/citationsConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { JournalInfo } from '../components/LiteratureCitation';
 import { Namespace } from '../../../shared/types/namespaces';
-import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum CitationsColumn {
   // Authoring group is not the author list
@@ -97,7 +100,7 @@ CitationsColumnConfiguration.set(CitationsColumn.publicationDate, {
   label: 'Publication year',
   render: ({ citation }) =>
     citation?.publicationDate && (
-      <time dateTime={new Date(citation.publicationDate).toISOString()}>
+      <time dateTime={parseDate(citation.publicationDate)?.toISOString()}>
         {citation.publicationDate}
       </time>
     ),

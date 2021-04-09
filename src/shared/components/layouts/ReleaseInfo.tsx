@@ -1,7 +1,12 @@
 import { Method } from 'axios';
 import cn from 'classnames';
-import apiUrls from '../../config/apiUrls';
+
 import useDataApi from '../../hooks/useDataApi';
+
+import apiUrls from '../../config/apiUrls';
+
+import parseDate from '../../utils/parseDate';
+
 import { Namespace } from '../../types/namespaces';
 
 import './styles/release-info.scss';
@@ -16,9 +21,7 @@ const ReleaseInfo = () => {
     `${apiUrls.search(Namespace.uniprotkb)}?query=*&size=0`,
     fetchOptions
   );
-  const releaseDate = headers?.['x-release']
-    ? new Date(headers['x-release'])
-    : undefined;
+  const releaseDate = parseDate(headers?.['x-release']);
 
   return (
     <>

@@ -2,9 +2,9 @@
  * @jest-environment node
  */
 import { sleep } from 'timing-functions';
-
-var axios = require('axios');
-var MockAdapter = require('axios-mock-adapter');
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import { Store, AnyAction } from 'redux';
 
 import toolsMiddleware from '../toolsMiddleware';
 
@@ -13,17 +13,22 @@ import { Stores } from '../../utils/stores';
 
 import createdJob from '../../__mocks__/internal-jobs/created';
 
-var axiosMock = new MockAdapter(axios);
+const axiosMock = new MockAdapter(axios);
+
 axiosMock.onPost().reply(200, { data: 'ncbiblast-R20200505-A-B-C-D' });
 
 const create = (initalState = {}) => {
-  const store = {
+  const store: Store = {
     getState: jest.fn(() => ({ tools: initalState })),
     dispatch: jest.fn(),
+    subscribe: jest.fn(),
+    replaceReducer: jest.fn(),
+    [Symbol.observable]: jest.fn(),
   };
   const next = jest.fn();
 
-  const invoke = (action) => toolsMiddleware(store)(next)(action);
+  const invoke = (action: { type: string }) =>
+    toolsMiddleware(store)(next)(action);
 
   return { store, next, invoke };
 };
@@ -42,7 +47,7 @@ describe('toolsMiddleware', () => {
     await idbStore.set(createdJob.internalID, createdJob);
 
     const { invoke, store } = create();
-    invoke({ TYPE: '@INIT' });
+    invoke({ type: '@@INIT' });
 
     await sleep(1000);
 

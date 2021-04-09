@@ -25,7 +25,9 @@ import { updateJob, deleteJob } from '../../state/toolsActions';
 import { jobTypeToPath } from '../../../app/config/urls';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
+import parseDate from '../../../shared/utils/parseDate';
 
 import { Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
@@ -76,8 +78,11 @@ interface TimeProps {
   children: number;
 }
 
-const Time: FC<TimeProps> = ({ children }) => {
-  const date = new Date(children);
+const Time = ({ children }: TimeProps) => {
+  const date = parseDate(children);
+  if (!date) {
+    return null;
+  }
   const YYYY = date.getFullYear();
   // date.getMonth() starts at 0 for January
   const MM = `${date.getMonth() + 1}`.padStart(2, '0');

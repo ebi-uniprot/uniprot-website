@@ -84,7 +84,7 @@ const Download: FC<DownloadProps> = ({
 
   const downloadUrl = getDownloadUrl({
     query: urlQuery,
-    columns,
+    columns: selectedColumns,
     selectedFacets,
     sortColumn,
     sortDirection,
@@ -109,7 +109,7 @@ const Download: FC<DownloadProps> = ({
   const previewFileFormat = getPreviewFileFormat(fileFormat);
   const previewUrl = getDownloadUrl({
     query: urlQuery,
-    columns,
+    columns: selectedColumns,
     selectedFacets,
     sortColumn,
     sortDirection,

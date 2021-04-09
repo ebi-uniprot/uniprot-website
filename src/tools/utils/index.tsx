@@ -18,33 +18,32 @@ const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
   [JobTypes.BLAST]: /^ncbiblast-R\d{8}(-\w+){4}$/,
   [JobTypes.ID_MAPPING]: /^[a-f\d]+$/,
-  [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/,
+  [JobTypes.PEPTIDE_SEARCH]: /^[A-Z\d]+$/i,
 };
 
 export const isValidServerID = (type: JobTypes, id: string) =>
   validServerID[type].test(id);
 
-const peptideSearchJobPattern = /\/peptidesearch\/uniprot\/(?<jobID>[A-Z\d]+)$/;
+const peptideSearchJobPattern = /\/asyncrest\/jobs\/(?<jobID>[A-Z\d]+)$/i;
 
-export const getRemoteIDFromResponse = (
+export const getRemoteIDFromResponse = async (
   jobType: JobTypes,
-  response: AxiosResponse<string | { jobId: string }>
+  response: Response
 ) => {
   let remoteID: string | null = null;
   switch (jobType) {
     case JobTypes.ALIGN:
     case JobTypes.BLAST:
-      remoteID = typeof response.data === 'string' ? response.data : null;
+      remoteID = await response.text();
       break;
     case JobTypes.ID_MAPPING:
-      remoteID = typeof response.data !== 'string' ? response.data.jobId : null;
+      remoteID = (await response.json())?.jobId;
       break;
     case JobTypes.PEPTIDE_SEARCH:
       // This gets the job info from the "location" header
       remoteID =
-        (response.request as XMLHttpRequest).responseURL.match(
-          peptideSearchJobPattern
-        )?.groups?.jobID || null;
+        response.headers.get('Location')?.match(peptideSearchJobPattern)?.groups
+          ?.jobID || null;
       break;
     default:
     //
@@ -59,39 +58,38 @@ export const getRemoteIDFromResponse = (
 
 const idMappingStatusPattern = /\/idmapping(\/(?<idMappingTarget>\w+))?\/results\/[a-f\d]/;
 const statuses = Object.values(Status);
-const peptideSearchStatusPattern = new RegExp(
-  `Job status: (?<status>${statuses.join('|')})`
-);
 
-export const getStatusFromResponse = (
+export const getStatusFromResponse = async (
   jobType: JobTypes,
-  response: AxiosResponse<Status | { jobStatus: Status } | string>
-): [status: Status, idMappingTarget?: IDMappingNamespace] => {
+  response: Response
+): Promise<[status: Status, idMappingTarget?: IDMappingNamespace]> => {
   let status: Status | undefined;
   let idMappingTarget: IDMappingNamespace | undefined;
   switch (jobType) {
     case JobTypes.ALIGN:
     case JobTypes.BLAST:
-      status = response.data as Status;
+      status = (await response.text()) as Status;
       break;
     case JobTypes.ID_MAPPING:
-      if ((response.request as XMLHttpRequest).responseURL) {
-        const match = (response.request as XMLHttpRequest).responseURL.match(
-          idMappingStatusPattern
-        );
+      if (response.redirected && response.url) {
+        const match = response.url.match(idMappingStatusPattern);
         if (match) {
           status = Status.FINISHED;
           idMappingTarget = match.groups?.idMappingTarget as IDMappingNamespace;
         }
-      } else if (typeof response.data !== 'string') {
-        status = response.data.jobStatus;
+      } else {
+        status = Status.RUNNING;
       }
       break;
     case JobTypes.PEPTIDE_SEARCH:
-      // This gets the status from the reponse HTML string
-      status = (typeof response.data === 'string' ? response.data : '').match(
-        peptideSearchStatusPattern
-      )?.groups?.status as Status;
+      // This deduces the job status from the HTTP response status
+      if (response.status === 200) {
+        status = Status.FINISHED;
+      } else if (response.status === 303) {
+        status = Status.RUNNING;
+      } else if (response.status >= 400) {
+        status = Status.FAILURE;
+      }
       break;
     default:
     //
@@ -183,3 +181,7 @@ export const getJobMessage = ({
     level: MessageLevel.SUCCESS,
   };
 };
+
+// Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens [9606]
+export const truncateTaxonLabel = (label: string) =>
+  label.replace(/ *\([^)]*\) */g, ' ');

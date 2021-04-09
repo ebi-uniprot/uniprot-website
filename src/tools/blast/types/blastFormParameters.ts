@@ -10,7 +10,7 @@ import {
   Program,
   Sequence,
 } from './blastServerParameters';
-import { SelectedTaxon } from '../config/BlastFormData';
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 export type FormParameters = {
   stype: SType;
