@@ -248,7 +248,10 @@ const PeptideSearchForm = () => {
 
   const firstParsedSequence = parsedSequences[0];
   useEffect(() => {
-    if (!jobNameEdited && parsedSequences.length > 0) {
+    if (jobNameEdited) {
+      return;
+    }
+    if (parsedSequences.length > 0) {
       const potentialJobName = `${firstParsedSequence}${
         parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
       }`;
@@ -259,6 +262,8 @@ const PeptideSearchForm = () => {
         }
         return { ...jobName, selected: potentialJobName };
       });
+    } else {
+      setJobName((jobName) => ({ ...jobName, selected: '' }));
     }
   }, [firstParsedSequence, parsedSequences.length, jobNameEdited]);
 

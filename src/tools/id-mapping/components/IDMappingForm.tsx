@@ -227,7 +227,10 @@ const IDMappingForm = () => {
 
   const firstParsedID = parsedIDs[0];
   useEffect(() => {
-    if (!jobNameEdited && parsedIDs.length > 0) {
+    if (jobNameEdited) {
+      return;
+    }
+    if (parsedIDs.length > 0) {
       const potentialJobName = `${firstParsedID}${
         parsedIDs.length > 1 ? ` +${parsedIDs.length - 1}` : ''
       } ${fromDb.selected} → ${toDb.selected}`;
@@ -238,6 +241,8 @@ const IDMappingForm = () => {
         }
         return { ...jobName, selected: potentialJobName };
       });
+    } else {
+      setJobName((jobName) => ({ ...jobName, selected: '' }));
     }
   }, [fromDb, firstParsedID, parsedIDs.length, jobNameEdited, toDb]);
 
