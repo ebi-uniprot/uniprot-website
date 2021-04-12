@@ -1,6 +1,6 @@
 import { FC, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useSpring, animated } from 'react-spring';
+import { useSpring, animated } from '@react-spring/web';
 import cn from 'classnames';
 import { upperFirst } from 'lodash-es';
 
