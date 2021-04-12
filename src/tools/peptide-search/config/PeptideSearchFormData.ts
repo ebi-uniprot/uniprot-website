@@ -32,16 +32,13 @@ export type PeptideSearchFormValues = Record<
 const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
   [PeptideSearchFields.peps]: Object.freeze({
     fieldName: 'peps',
-    type: PeptideSearchFieldTypes.textarea,
-    selected: '',
+    selected: '' as string,
   }),
   [PeptideSearchFields.taxIds]: Object.freeze({
     fieldName: 'taxIds',
-    type: PeptideSearchFieldTypes.autocomplete,
   }),
   [PeptideSearchFields.lEQi]: Object.freeze({
     fieldName: 'lEQi',
-    type: PeptideSearchFieldTypes.select,
     selected: 'off',
     values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
       value: FormParameters['lEQi'];
@@ -49,7 +46,6 @@ const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
   }),
   [PeptideSearchFields.spOnly]: Object.freeze({
     fieldName: 'spOnly',
-    type: PeptideSearchFieldTypes.select,
     selected: 'off',
     values: Object.freeze([{ value: 'on' }, { value: 'off' }] as Array<{
       value: FormParameters['spOnly'];
@@ -57,7 +53,6 @@ const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
   }),
   [PeptideSearchFields.name]: Object.freeze({
     fieldName: 'name',
-    type: PeptideSearchFieldTypes.textarea,
     selected: '',
   }),
 });
