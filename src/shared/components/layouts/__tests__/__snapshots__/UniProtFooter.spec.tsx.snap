@@ -6,7 +6,7 @@ exports[`HomePage component should render 1`] = `
     class="footer"
   >
     <div
-      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed hero-container--side-padding"
+      class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed"
     >
       <div
         class="consortium"
@@ -63,6 +63,21 @@ exports[`HomePage component should render 1`] = `
         </div>
       </div>
       <div
+        class="stats-release"
+      >
+        <span
+          class="release-info__placeholder release-info__release_number"
+        >
+          Release 2021_00
+        </span>
+         | 
+        <a
+          href="//www.uniprot.org/statistics/?sort=published"
+        >
+          Statistics
+        </a>
+      </div>
+      <div
         class="copyright-misc"
       >
         <p>
@@ -83,19 +98,6 @@ exports[`HomePage component should render 1`] = `
             href="/help/privacy"
           >
             Privacy Notice
-          </a>
-        </p>
-        <p>
-          <span
-            class="release-info__placeholder release-info__release_number"
-          >
-            Release 2021_00
-          </span>
-           | 
-          <a
-            href="//www.uniprot.org/statistics/?sort=published"
-          >
-            Statistics
           </a>
         </p>
       </div>
@@ -221,7 +223,7 @@ exports[`HomePage component should render 1`] = `
             </li>
             <li>
               <a
-                href="/idmapping"
+                href="/id-mapping"
               >
                 Retrieve/ID mapping
               </a>

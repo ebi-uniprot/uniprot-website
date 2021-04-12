@@ -17,7 +17,7 @@ mock.onGet().reply(200, mockSuggesterApi.response);
 const aaSequence = 'ABCDEFGHIJKLMNOPQRST';
 const ntSequence = 'ATCGAGCGATAGCGAGGGAC';
 
-let component;
+let component: ReturnType<typeof customRender>;
 
 describe.skip('PeptideSearchForm test', () => {
   beforeEach(() => {

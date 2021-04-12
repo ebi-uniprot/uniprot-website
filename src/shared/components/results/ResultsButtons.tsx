@@ -19,6 +19,7 @@ import useNS from '../../hooks/useNS';
 
 import lazy from '../../utils/lazy';
 
+import { Namespace, mainNamespaces } from '../../types/namespaces';
 import {
   SortDirection,
   SelectedFacet,
@@ -60,6 +61,8 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
     ViewMode.CARD
   );
 
+  const isMain = mainNamespaces.has(namespace);
+
   return (
     <>
       {displayDownloadPanel && (
@@ -83,8 +86,12 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
         </Suspense>
       )}
       <div className="button-group">
-        <BlastButton selectedEntries={selectedEntries} />
-        <AlignButton selectedEntries={selectedEntries} />
+        {isMain && namespace !== Namespace.proteomes && (
+          <BlastButton selectedEntries={selectedEntries} />
+        )}
+        {isMain && namespace !== Namespace.proteomes && (
+          <AlignButton selectedEntries={selectedEntries} />
+        )}
         <Button
           variant="tertiary"
           onPointerOver={DownloadComponent.preload}
@@ -94,11 +101,15 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           <DownloadIcon />
           Download
         </Button>
-        <AddToBasketButton selectedEntries={selectedEntries} />
-        <Button variant="tertiary">
-          <StatisticsIcon />
-          Statistics
-        </Button>
+        {isMain && namespace !== Namespace.proteomes && (
+          <AddToBasketButton selectedEntries={selectedEntries} />
+        )}
+        {isMain && (
+          <Button variant="tertiary">
+            <StatisticsIcon />
+            Statistics
+          </Button>
+        )}
         <Button
           variant="tertiary"
           className="large-icon"

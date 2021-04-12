@@ -6,7 +6,7 @@ import {
 } from '../types/toolsServerParameters';
 import { FormParameters } from '../types/toolsFormParameters';
 import { JobTypes } from '../types/toolsJobTypes';
-import { SelectedTaxon } from '../blast/config/BlastFormData';
+import { SelectedTaxon } from '../types/toolsFormData';
 import { ParsedSequence } from '../components/SequenceSearchLoader';
 
 const DEFAULT_EMAIL = 'uuw_dev@uniprot.org';
@@ -49,12 +49,12 @@ const parseTaxa = (
  * shape it to an object containing parameters expected by the server (as FormData)
  * @param {T extends JobTypes} type
  * @param {FormParameters[T]} formParameters
- * @returns {FormData} server parameters wrapped in a FormData
+ * @returns {FormData | URLSearchParams} server parameters wrapped in a FormData
  */
 export function formParametersToServerParameters<T extends JobTypes>(
   type: T,
   formParameters: FormParameters[T]
-): FormData {
+): FormData | URLSearchParams {
   let serverParameters: Partial<ServerParameters[T]> = {};
   switch (type) {
     case JobTypes.ALIGN:
@@ -118,35 +118,31 @@ export function formParametersToServerParameters<T extends JobTypes>(
         serverParameters = {
           from,
           to,
-          ids: ids.join('\n'),
+          ids: ids.join(','),
         } as ServerParameters[T];
       }
       break;
-    case JobTypes.PEPTIDE_SEARCH:
-      {
-        const {
-          peps,
-          taxIds,
-          lEQi,
-          // not available on current endpoint
-          spOnly,
-        } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
-        serverParameters = ({
-          peptideSearchQuery: sequenceProcessor(peps)
-            .map(
-              (processedSequence: ParsedSequence) => processedSequence.sequence
-            )
-            .join('\n'),
-          taxids: stringifyTaxa(taxIds),
-          isoleucineEqualsLeucine: lEQi,
-          // not available on current endpoint
-          // spOnly,
-          // TODO: specific to current endpoint, remove eventually
-          redirect: 'no',
-          // FIXME: temporary workaround
-        } as unknown) as ServerParameters[T];
-      }
-      break;
+    case JobTypes.PEPTIDE_SEARCH: {
+      const {
+        peps,
+        taxIds,
+        lEQi,
+        // not available on current endpoint
+        spOnly,
+      } = formParameters as FormParameters[JobTypes.PEPTIDE_SEARCH];
+      serverParameters = {
+        peps: sequenceProcessor(peps)
+          .map(
+            (processedSequence: ParsedSequence) => processedSequence.sequence
+          )
+          .join(','),
+        taxIds: stringifyTaxa(taxIds) || '',
+        lEQi,
+        // not available on current endpoint
+        spOnly,
+      } as ServerParameters[T];
+      return new URLSearchParams(Object.entries(serverParameters));
+    }
     default:
     //
   }

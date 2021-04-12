@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeywordsCard tests should render the card component 1`] = `
+<DocumentFragment>
+  <section
+    class="card"
+  >
+    <div
+      class="card--has-hover"
+      role="button"
+      tabindex="0"
+    >
+      <div
+        class="card__content"
+      >
+        <div
+          class="result-card"
+        >
+          <div
+            class="result-card__right"
+          >
+            <h5>
+              Allosteric enzyme
+            </h5>
+            <div
+              class="result-card__info-container"
+            >
+              Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.
+            </div>
+            <div
+              class="result-card__info-container"
+            >
+              <span
+                class="result-card__info-bit"
+              >
+                <strong>
+                  Category: 
+                </strong>
+                Molecular function
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</DocumentFragment>
+`;

@@ -11,8 +11,11 @@ import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
 import UniRefCard from '../../../uniref/components/results/UniRefCard';
 import UniParcCard from '../../../uniparc/components/results/UniParcCard';
 import ProteomesCard from '../../../proteomes/components/results/ProteomesCard';
-import CitationCard from '../../../supporting-data/citations/components/results/CitationCard';
-import TaxonomyCards from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
+import TaxonomyCard from '../../../supporting-data/taxonomy/components/results/TaxonomyCard';
+import KeywordsCard from '../../../supporting-data/keywords/components/results/KeywordsCard';
+import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
+import DiseasesCard from '../../../supporting-data/diseases/components/results/DiseasesCard';
+import DatabaseCard from '../../../supporting-data/database/components/results/DatabaseCard';
 import LocationsCard from '../../../supporting-data/locations/components/results/LocationsCard';
 
 import uniProtKbConverter, {
@@ -23,10 +26,7 @@ import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
 import { TaxonomyAPIModel } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { KeywordsAPIModel } from '../../../supporting-data/keywords/adapters/keywordsConverter';
-import {
-  CitationsAPIModel,
-  CitationXRefDB,
-} from '../../../supporting-data/citations/adapters/citationsConverter';
+import { CitationsAPIModel } from '../../../supporting-data/citations/adapters/citationsConverter';
 import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/diseasesConverter';
 import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
@@ -52,6 +52,7 @@ import useUserPreferences from '../../hooks/useUserPreferences';
 
 import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
 
+import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import {
   getParamsFromURL,
@@ -63,6 +64,7 @@ import {
 } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
+import { APIModel } from '../../types/apiModel';
 import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { Column, nsToDefaultColumns } from '../../config/columns';
@@ -70,18 +72,6 @@ import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-
-type APIModel =
-  | UniProtkbAPIModel
-  | UniRefLiteAPIModel
-  | UniParcAPIModel
-  | ProteomesAPIModel
-  | TaxonomyAPIModel
-  | KeywordsAPIModel
-  | CitationsAPIModel
-  | DiseasesAPIModel
-  | DatabaseAPIModel
-  | LocationsAPIModel;
 
 const convertRow = (row: APIModel, namespace: Namespace) => {
   switch (namespace) {
@@ -111,43 +101,6 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       // eslint-disable-next-line no-console
       console.warn(`Unrecognised namespace: "${namespace}"`);
       return null;
-  }
-};
-
-export const getIdKeyFor = (
-  namespace: Namespace
-): ((data: APIModel) => string) => {
-  switch (namespace) {
-    // Main namespaces
-    case Namespace.uniprotkb:
-      return (data) => (data as UniProtkbAPIModel).primaryAccession;
-    case Namespace.uniref:
-      return (data) => (data as UniRefLiteAPIModel).id;
-    case Namespace.uniparc:
-      return (data) => (data as UniParcAPIModel).uniParcId;
-    case Namespace.proteomes:
-      return (data) => (data as ProteomesAPIModel).id;
-    // Supporting data
-    case Namespace.taxonomy:
-      return (data) => `${(data as TaxonomyAPIModel).taxonId}`;
-    case Namespace.keywords:
-      return (data) => (data as KeywordsAPIModel).keyword.id;
-    case Namespace.citations:
-      // TODO: find what are the citations' unique keys
-      return (data) =>
-        (data as CitationsAPIModel).citation.citationCrossReferences?.find(
-          (xref) => xref.database === CitationXRefDB.PubMed
-        )?.id || 'key <string to be removed eventually>';
-    case Namespace.diseases:
-      return (data) => (data as DiseasesAPIModel).id;
-    case Namespace.database:
-      return (data) => (data as DatabaseAPIModel).id;
-    case Namespace.locations:
-      return (data) => (data as LocationsAPIModel).id;
-    default:
-      // eslint-disable-next-line no-console
-      console.warn(`getIdKey method not implemented for ${namespace} yet`);
-      return () => '';
   }
 };
 
@@ -212,8 +165,17 @@ const cardRenderer = (
     }
     case Namespace.taxonomy: {
       return (cardData) => (
-        <TaxonomyCards
+        <TaxonomyCard
           data={cardData as TaxonomyAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.keywords: {
+      return (cardData) => (
+        <KeywordsCard
+          data={cardData as KeywordsAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />
@@ -221,8 +183,26 @@ const cardRenderer = (
     }
     case Namespace.citations: {
       return (cardData) => (
-        <CitationCard
+        <CitationsCard
           data={cardData as CitationsAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.diseases: {
+      return (cardData) => (
+        <DiseasesCard
+          data={cardData as DiseasesAPIModel}
+          selected={selectedEntries.includes(getIdKey(cardData))}
+          handleEntrySelection={handleEntrySelection}
+        />
+      );
+    }
+    case Namespace.database: {
+      return (cardData) => (
+        <DatabaseCard
+          data={cardData as DatabaseAPIModel}
           selected={selectedEntries.includes(getIdKey(cardData))}
           handleEntrySelection={handleEntrySelection}
         />

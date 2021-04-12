@@ -1,9 +1,15 @@
-import { useEffect, useCallback, useRef, ReactElement } from 'react';
+import {
+  useEffect,
+  useCallback,
+  useRef,
+  ReactElement,
+  MutableRefObject,
+} from 'react';
 
 import useDragNDropFile from './useDragNDropFile';
 
 type UseTextFileInputProps = {
-  input: HTMLInputElement | null;
+  inputRef: MutableRefObject<HTMLInputElement | null>;
   onFileContent: (content: string) => void;
   onError?: (error: TypeError) => void;
   dndOverlay: ReactElement;
@@ -18,7 +24,7 @@ const writableRE = /[\w\s-=+*;><"'/\\.#:;|,]/gi;
  * of files on it and normal file handling on click, parse content
  */
 const useTextFileInput = ({
-  input,
+  inputRef,
   onFileContent,
   onError,
   dndOverlay,
@@ -76,9 +82,11 @@ const useTextFileInput = ({
   });
 
   useEffect(() => {
-    if (!input || input.type !== 'file') {
+    if (!inputRef.current || inputRef.current.type !== 'file') {
       return;
     }
+
+    const input = inputRef.current;
 
     const handler = (event: Event) => {
       const target = event.target as HTMLInputElement;
@@ -93,7 +101,7 @@ const useTextFileInput = ({
     return () => {
       input.removeEventListener('change', handler);
     };
-  }, [input, handleNewFile]);
+  }, [inputRef, handleNewFile]);
 };
 
 export default useTextFileInput;

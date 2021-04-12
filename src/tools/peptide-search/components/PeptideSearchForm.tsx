@@ -1,37 +1,29 @@
 import {
   FC,
   useState,
-  useCallback,
   FormEvent,
   MouseEvent,
   useMemo,
   useRef,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Chip,
-  SequenceSubmission,
-  PageIntro,
-  SpinnerIcon,
-  sequenceProcessor,
-} from 'franklin-sites';
+import { Chip, PageIntro, SpinnerIcon } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 import { sleep } from 'timing-functions';
 import { v1 } from 'uuid';
 
 import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
-import SequenceSearchLoader, {
-  ParsedSequence,
-  SequenceSearchLoaderInterface,
-} from '../../components/SequenceSearchLoader';
 
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 
+import { truncateTaxonLabel } from '../../utils';
+import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 import { createJob } from '../../state/toolsActions';
 
 import { JobTypes } from '../../types/toolsJobTypes';
@@ -43,8 +35,8 @@ import defaultFormValues, {
   PeptideSearchFormValues,
   PeptideSearchFormValue,
   PeptideSearchFields,
-  SelectedTaxon,
 } from '../config/PeptideSearchFormData';
+import { SelectedTaxon } from '../../types/toolsFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
 import infoMappings from '../../../shared/config/InfoMappings';
 import {
@@ -55,7 +47,7 @@ import {
 import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
 
-// TODO: define limit?
+// just because, no known actual limit
 const PEPTIDE_SEARCH_LIMIT = 100;
 
 const FormSelect: FC<{
@@ -101,7 +93,6 @@ interface CustomLocationState {
 
 const PeptideSearchForm = () => {
   // refs
-  const sslRef = useRef<SequenceSearchLoaderInterface>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // hooks
@@ -143,10 +134,8 @@ const PeptideSearchForm = () => {
   const [submitDisabled, setSubmitDisabled] = useState(false);
   // used when the form is about to be submitted to the server
   const [sending, setSending] = useState(false);
-  // store parsed sequence objects
-  const [parsedSequences, setParsedSequences] = useState<ParsedSequence[]>(
-    sequenceProcessor(initialFormValues[PeptideSearchFields.peps].selected)
-  );
+  // flag to see if the user manually changed the title
+  const [jobNameEdited, setJobNameEdited] = useState(false);
 
   // actual form fields
   const [peps, setPeps] = useState<
@@ -182,7 +171,7 @@ const PeptideSearchForm = () => {
     }
 
     // Truncate label: Homo sapiens (Man/Human/HUMAN) [9606] --> Homo sapiens (Man/Human/HUMAN) [9606]
-    const label = path.replace(/ *\([^)]*\) */g, ' ');
+    const label = truncateTaxonLabel(path);
 
     setTaxIDs({
       ...taxIDs,
@@ -202,19 +191,12 @@ const PeptideSearchForm = () => {
   const handleReset = (event: FormEvent) => {
     event.preventDefault();
 
-    // reset all form state to defaults
-    setParsedSequences([]);
-
     setPeps(defaultFormValues[PeptideSearchFields.peps]);
     setTaxIDs(defaultFormValues[PeptideSearchFields.taxIds]);
     setLEQi(defaultFormValues[PeptideSearchFields.lEQi]);
     setSpOnly(defaultFormValues[PeptideSearchFields.spOnly]);
 
     setJobName(defaultFormValues[PeptideSearchFields.name]);
-
-    // imperatively reset SequenceSearchLoader... 😷
-    // eslint-disable-next-line no-unused-expressions
-    sslRef.current?.reset();
   };
 
   // the only thing to do here would be to check the values and prevent
@@ -256,45 +238,49 @@ const PeptideSearchForm = () => {
           jobName.selected as string
         )
       );
-      // TODO: remove, just to debug creation of
-      dispatch(
-        createJob(
-          {
-            from: 'UniProtKB_AC-ID',
-            to: 'UniProtKB',
-            ids: ['p09067', 'p09065'],
-          },
-          JobTypes.ID_MAPPING,
-          jobName.selected as string
-        )
-      );
     });
   };
 
-  const onSequenceChange = useCallback(
-    (parsedSequences: ParsedSequence[]) => {
-      const rawSequence = parsedSequences
-        .map((parsedSequence) => parsedSequence.raw)
-        .join('\n');
-
-      if (rawSequence === peps.selected) {
-        return;
-      }
-
-      setParsedSequences(parsedSequences);
-      setPeps((peps) => ({ ...peps, selected: rawSequence }));
-      setSubmitDisabled(
-        parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
-          parsedSequences.some((parsedSequence) => !parsedSequence.valid)
-      );
-    },
+  const parsedSequences = useMemo(
+    () => splitAndTidyText(peps.selected as string),
     [peps.selected]
   );
 
+  const firstParsedSequence = parsedSequences[0];
+  useEffect(() => {
+    if (jobNameEdited) {
+      return;
+    }
+    if (parsedSequences.length > 0) {
+      const potentialJobName = `${firstParsedSequence}${
+        parsedSequences.length > 1 ? ` +${parsedSequences.length - 1}` : ''
+      }`;
+      setJobName((jobName) => {
+        if (jobName.selected === potentialJobName) {
+          // avoid unecessary rerender by keeping the same object
+          return jobName;
+        }
+        return { ...jobName, selected: potentialJobName };
+      });
+    } else {
+      setJobName((jobName) => ({ ...jobName, selected: '' }));
+    }
+  }, [firstParsedSequence, parsedSequences.length, jobNameEdited]);
+
+  useEffect(() => {
+    setSubmitDisabled(
+      parsedSequences.length > PEPTIDE_SEARCH_LIMIT ||
+        parsedSequences.some((parsedSequence) => parsedSequence.length < 2)
+    );
+  }, [parsedSequences]);
+
   // file handling
   useTextFileInput({
-    input: fileInputRef.current,
-    onFileContent: (content) => onSequenceChange(sequenceProcessor(content)),
+    inputRef: fileInputRef,
+    onFileContent: (content) => {
+      setPeps((peps) => ({ ...peps, selected: content }));
+    },
+
     onError: (error) =>
       dispatch(
         addMessage({
@@ -320,35 +306,27 @@ const PeptideSearchForm = () => {
         aria-label="Peptide Search job submission form"
       >
         <fieldset>
-          <section className="tools-form-section__item">
-            <legend>
-              Find UniProt entries through parts of their peptide sequences,
-              each more than two amino acids long, in FASTA format (e.g.
-              RVLSLGR).
-            </legend>
-            <div className="import-sequence-section">
-              <SequenceSearchLoader ref={sslRef} onLoad={onSequenceChange} />
-            </div>
-          </section>
-        </fieldset>
-        <section className="text-block">
-          <strong>OR</strong>
-        </section>
-        <fieldset>
           <section className="text-block">
             <legend>
-              Enter one or more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may
-              also
+              Find UniProt entries through parts of their peptide sequences,
+              each more than two amino acids long (e.g. RVLSLGR). Enter one or
+              more sequences ({PEPTIDE_SEARCH_LIMIT} max). You may also
               <label className="tools-form-section__file-input">
                 load from a text file
                 <input type="file" ref={fileInputRef} />
               </label>
               .
             </legend>
-            <SequenceSubmission
-              placeholder="Protein sequence(s) in FASTA format."
-              onChange={onSequenceChange}
-              value={parsedSequences.map((sequence) => sequence.raw).join('\n')}
+            <textarea
+              name={defaultFormValues[PeptideSearchFields.peps].fieldName}
+              autoComplete="false"
+              spellCheck="false"
+              placeholder="Protein sequence(s) of at least 2 aminoacids"
+              className="tools-form-raw-text-input"
+              value={peps.selected as string}
+              onChange={(event) =>
+                setPeps((peps) => ({ ...peps, selected: event.target.value }))
+              }
             />
           </section>
           <section className="tools-form-section">
@@ -391,6 +369,7 @@ const PeptideSearchForm = () => {
                   placeholder={'"my job title"'}
                   value={jobName.selected as string}
                   onChange={(event) => {
+                    setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });
                   }}
                 />

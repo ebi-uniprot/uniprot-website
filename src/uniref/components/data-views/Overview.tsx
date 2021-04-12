@@ -12,6 +12,7 @@ import MemberLink from '../entry/MemberLink';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import { getBEMClassName } from '../../../shared/utils/utils';
+import parseDate from '../../../shared/utils/parseDate';
 import { getEntryPath } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
 
@@ -127,14 +128,12 @@ export const Seed: FC<{ seedId: string }> = ({ seedId }) => (
   </strong>
 );
 
-export const Updated: FC<{ updated: string }> = ({ updated }) => {
-  const date = new Date(updated);
-  return (
-    <>
-      Updated:&nbsp;<time dateTime={date.toISOString()}>{updated}</time>
-    </>
-  );
-};
+export const Updated: FC<{ updated: string }> = ({ updated }) => (
+  <>
+    Updated:&nbsp;
+    <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
+  </>
+);
 
 export const Overview: FC<{
   transformedData: UniRefUIModel;

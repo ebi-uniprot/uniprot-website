@@ -15,6 +15,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
 
+import parseDate from '../../shared/utils/parseDate';
 import xrefGetter from '../utils/xrefGetter';
 
 import { Namespace } from '../../shared/types/namespaces';
@@ -230,7 +231,7 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
     }
     const firstSeen = created.sort()[0];
     return (
-      <time dateTime={new Date(firstSeen).toISOString()}>{firstSeen}</time>
+      <time dateTime={parseDate(firstSeen)?.toISOString()}>{firstSeen}</time>
     );
   },
 });
@@ -243,7 +244,9 @@ UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
       return null;
     }
     const lastSeen = lastUpdated.sort()[lastUpdated.length - 1];
-    return <time dateTime={new Date(lastSeen).toISOString()}>{lastSeen}</time>;
+    return (
+      <time dateTime={parseDate(lastSeen)?.toISOString()}>{lastSeen}</time>
+    );
   },
 });
 

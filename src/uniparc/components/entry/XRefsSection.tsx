@@ -13,10 +13,9 @@ import {
 } from '../../../shared/components/entry/EntryTypeIcon';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 
-import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
-
 import useDataApi from '../../../shared/hooks/useDataApi';
 
+import parseDate from '../../../shared/utils/parseDate';
 import apiUrls from '../../../shared/config/apiUrls';
 import { getEntryPath } from '../../../app/config/urls';
 
@@ -31,6 +30,7 @@ import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
 import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
+import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
 import './styles/XRefsSection.scss';
 import '../../../shared/components/results/styles/results-view.scss';
@@ -157,7 +157,7 @@ const getColumns = (
       xref.created && (
         <time
           className={xref.active ? undefined : 'xref-inactive'}
-          dateTime={new Date(xref.created).toISOString()}
+          dateTime={parseDate(xref.created)?.toISOString()}
         >
           {xref.created}
         </time>
@@ -170,7 +170,7 @@ const getColumns = (
       xref.lastUpdated && (
         <time
           className={xref.active ? undefined : 'xref-inactive'}
-          dateTime={new Date(xref.lastUpdated).toISOString()}
+          dateTime={parseDate(xref.lastUpdated)?.toISOString()}
         >
           {xref.lastUpdated}
         </time>

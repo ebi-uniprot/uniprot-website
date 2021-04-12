@@ -1,7 +1,6 @@
 import { Program } from '../types/blastServerParameters';
 import { FormParameters } from '../types/blastFormParameters';
-
-export type SelectedTaxon = { label: string; id: string };
+import { SelectedTaxon } from '../../types/toolsFormData';
 
 export enum BlastFieldTypes {
   textarea,

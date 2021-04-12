@@ -60,42 +60,42 @@ const ProteomesEntryPage = lazy(
       /* webpackChunkName: "proteomes-entry" */ '../../proteomes/components/entry/Entry'
     )
 );
-// const TaxonomyEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "taxonomy-entry" */ '../../supporting-data/taxonomy/components/entry/Entry'
-//     )
-// );
-// const KeywordsEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "keywords-entry" */ '../../supporting-data/keywords/components/entry/Entry'
-//     )
-// );
-// const CitationsEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "citations-entry" */ '../../supporting-data/citations/components/entry/Entry'
-//     )
-// );
-// const DiseasesEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "diseases-entry" */ '../../supporting-data/diseases/components/entry/Entry'
-//     )
-// );
-// const DatabaseEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "database-entry" */ '../../supporting-data/database/components/entry/Entry'
-//     )
-// );
-// const LocationsEntryPage = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "locations-entry" */ '../../supporting-data/locations/components/entry/Entry'
-//     )
-// );
+const TaxonomyEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "taxonomy-entry" */ '../../supporting-data/taxonomy/components/entry/Entry'
+    )
+);
+const KeywordsEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "keywords-entry" */ '../../supporting-data/keywords/components/entry/Entry'
+    )
+);
+const CitationsEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "citations-entry" */ '../../supporting-data/citations/components/entry/Entry'
+    )
+);
+const DiseasesEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "diseases-entry" */ '../../supporting-data/diseases/components/entry/Entry'
+    )
+);
+const DatabaseEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "database-entry" */ '../../supporting-data/database/components/entry/Entry'
+    )
+);
+const LocationsEntryPage = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "locations-entry" */ '../../supporting-data/locations/components/entry/Entry'
+    )
+);
 // Tools
 const BlastResult = lazy(
   () =>
@@ -121,16 +121,18 @@ const AlignForm = lazy(
       /* webpackChunkName: "align-form" */ '../../tools/align/components/AlignForm'
     )
 );
-// const PeptideSearchResult = lazy(
+
+// const IDMappingResult = lazy(
 //   () =>
 //     import(
-//       /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
+//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
 //     )
 // );
-const PeptideSearchForm = lazy(
+
+const IDMappingForm = lazy(
   () =>
     import(
-      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+      /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
     )
 );
 const IDMappingResult = lazy(
@@ -140,11 +142,20 @@ const IDMappingResult = lazy(
     )
 );
 // const IDMappingForm = lazy(
+
+// const PeptideSearchResult = lazy(
 //   () =>
 //     import(
-//       /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
+//       /* webpackChunkName: "peptide-search-result" */ '../../tools/peptide-search/components/results/PeptideSearchResult'
 //     )
-// );
+// )
+
+const PeptideSearchForm = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "peptide-search-form" */ '../../tools/peptide-search/components/PeptideSearchForm'
+    )
+);
 
 const Dashboard = lazy(
   () =>
@@ -206,30 +217,30 @@ const App = () => (
               component={ProteomesEntryPage}
             />
             {/* Supporting data */}
-            {/* <Route
+            <Route
               path={LocationToPath[Location.TaxonomyEntry]}
               component={TaxonomyEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.KeywordsEntry]}
               component={KeywordsEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.CitationsEntry]}
               component={CitationsEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.DiseasesEntry]}
               component={DiseasesEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.DatabaseEntry]}
               component={DatabaseEntryPage}
-            /> */}
-            {/* <Route
+            />
+            <Route
               path={LocationToPath[Location.LocationsEntry]}
               component={LocationsEntryPage}
-            /> */}
+            />
             {/* Result pages */}
             <Route
               path={allSearchResultLocations}
@@ -276,7 +287,6 @@ const App = () => (
               path={LocationToPath[Location.IDMappingResult]}
               component={IDMappingResult}
             />
-            {/* 
             <Route
               path={LocationToPath[Location.IDMapping]}
               render={() => (
@@ -284,7 +294,7 @@ const App = () => (
                   <IDMappingForm />
                 </SingleColumnLayout>
               )}
-            /> */}
+            />
             <Route
               path={LocationToPath[Location.Dashboard]}
               render={() => (

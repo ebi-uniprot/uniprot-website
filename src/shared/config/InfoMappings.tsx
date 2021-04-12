@@ -1,6 +1,7 @@
 import UniProtKBInfo from '../../uniprotkb/components/results/UniProtKBInfo';
 import BlastInfo from '../../tools/blast/components/BlastFormInfo';
 import AlignInfo from '../../tools/align/components/AlignFormInfo';
+import IDMappingInfo from '../../tools/id-mapping/components/IDMappingFormInfo';
 import PeptideSearchInfo from '../../tools/peptide-search/components/PeptideSearchFormInfo';
 
 import { Namespace } from '../types/namespaces';
@@ -115,7 +116,7 @@ const infoMappings: Record<
   },
   [JobTypes.ID_MAPPING]: {
     name: 'Retrieve/ID mapping',
-    info: null,
+    info: <IDMappingInfo />,
     links: [
       { title: 'Help', destination: '' },
       { title: 'Video', destination: '' },

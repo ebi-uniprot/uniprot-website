@@ -73,8 +73,8 @@ export const LocationToPath: Record<Location, string> = {
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
   // TODO: check final URL for those
-  [Location.IDMappingResult]: '/idmapping/:id',
-  [Location.IDMapping]: '/idmapping',
+  [Location.IDMappingResult]: '/id-mapping/:id/:subPage?',
+  [Location.IDMapping]: '/id-mapping',
 };
 
 export const SearchResultsLocations: Record<Namespace, string> = {

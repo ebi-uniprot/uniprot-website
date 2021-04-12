@@ -32,7 +32,7 @@ test:
 build_static_assets:
   only:
     refs:
-      - master
+      - main
   extends: .js
   stage: build_static_assets
   script:
@@ -44,7 +44,7 @@ build_static_assets:
 build_docker_image:
   only:
     refs:
-      - master
+      - main
   stage: build_docker_image
   image: docker:latest
   tags:
@@ -65,7 +65,7 @@ build_docker_image:
 deploy:
   only:
     refs:
-      - master
+      - main
   stage: deploy
   image: alpine
   script:
