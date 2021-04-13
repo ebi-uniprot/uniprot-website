@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, FC, ReactNode } from 'react';
+import { useEffect, useRef, useMemo, FC, ReactNode } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
@@ -29,15 +29,12 @@ import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/dis
 import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
-import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
 import useNSQuery from '../../hooks/useNSQuery';
-import usePrefetch from '../../hooks/usePrefetch';
 import useUserPreferences from '../../hooks/useUserPreferences';
 import useColumns from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
-import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
@@ -46,6 +43,7 @@ import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
+import usePagination from '../../hooks/usePagination';
 
 const cardRenderer = (
   namespace: Namespace,
@@ -166,30 +164,19 @@ const ResultsView: FC<ResultsTableProps> = ({
   const [columns, updateColumnSort] = useColumns();
 
   const { url: initialApiUrl, direct } = useNSQuery();
+  const {
+    allResults,
+    loading,
+    handleLoadMoreRows,
+    hasMoreData,
+    progress,
+  } = usePagination(initialApiUrl);
 
   const prevUrl = useRef<string | undefined>(initialApiUrl);
   useEffect(() => {
     // will set it *after* the current render
     prevUrl.current = initialApiUrl;
   });
-
-  const [url, setUrl] = useState(initialApiUrl);
-  const [metaData, setMetaData] = useState<{
-    total: number;
-    nextUrl?: string;
-  }>(() => ({ total: 0, nextUrl: undefined }));
-  usePrefetch(metaData.nextUrl);
-  const [allResults, setAllResults] = useState<APIModel[]>([]);
-
-  useEffect(() => {
-    setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
-    setUrl(initialApiUrl);
-  }, [initialApiUrl]);
-
-  const { data, loading, progress, headers } = useDataApi<{
-    results: APIModel[];
-  }>(url);
 
   const prevViewMode = useRef<ViewMode>(viewMode);
   useEffect(() => {
@@ -204,27 +191,15 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   // redirect to entry directly when only 1 result and query marked as "direct"
   useEffect(() => {
-    if (direct && metaData.total === 1 && allResults.length === 1) {
+    if (direct && !hasMoreData && allResults.length === 1) {
       const uniqueItem = allResults[0];
       history.replace(getEntryPathForEntry(uniqueItem));
     }
-  }, [history, direct, metaData, allResults, getEntryPathForEntry]);
-
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
-    const { results } = data;
-    setAllResults((allRes) => [...allRes, ...results]);
-    setMetaData(() => ({
-      total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextURLFromHeaders(headers),
-    }));
-  }, [data, headers]);
+  }, [history, direct, hasMoreData, allResults, getEntryPathForEntry]);
 
   if (
     // if loading the first page of results
-    (loading && url === initialApiUrl) ||
+    loading ||
     // or we just switched namespace (a bit hacky workaround to force unmount)
     prevUrl.current !== initialApiUrl ||
     // or we just switched view mode (hacky too)
@@ -233,11 +208,6 @@ const ResultsView: FC<ResultsTableProps> = ({
     return <Loader progress={progress} />;
   }
 
-  const { total, nextUrl } = metaData;
-
-  const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
-
-  const hasMoreData = total > allResults.length;
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
   );
