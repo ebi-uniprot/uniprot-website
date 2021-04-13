@@ -1,11 +1,18 @@
+import { Link } from 'react-router-dom';
 import { ExternalLink, CodeBlock } from 'franklin-sites';
 
+import AccessionView from '../../../shared/components/results/AccessionView';
+
 import externalUrls from '../../../shared/config/externalUrls';
+import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum DatabaseColumn {
   abbrev = 'abbrev',
@@ -45,7 +52,26 @@ DatabaseColumnConfiguration.set(DatabaseColumn.abbrev, {
 
 DatabaseColumnConfiguration.set(DatabaseColumn.category, {
   label: 'Category',
-  render: ({ category }) => category,
+  render: ({ category }) =>
+    category && (
+      <Link
+        to={({ search }) => {
+          const parsed = getParamsFromURL(search);
+          return getLocationObjForParams({
+            pathname: LocationToPath[Location.DatabaseResults],
+            ...parsed,
+            selectedFacets: [
+              ...parsed.selectedFacets.filter(
+                ({ name }) => name !== 'category_facet'
+              ),
+              { name: 'category_facet', value: category },
+            ],
+          });
+        }}
+      >
+        {category}
+      </Link>
+    ),
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.dbUrl, {

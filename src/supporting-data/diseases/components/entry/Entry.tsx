@@ -3,6 +3,7 @@ import { Loader, Card, InfoList } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -60,15 +61,8 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <h2>Disease - {data.name}</h2>
       <Card className={isStale ? helper.stale : undefined}>
         {infoData && <InfoList infoData={infoData} isCompact />}
-        <p>
-          <h3>Disclaimer</h3>
-          Any medical or genetic information present in this entry is provided
-          for research, educational and informational purposes only. It is not
-          in any way intended to be used as a substitute for professional
-          medical advice, diagnosis, treatment or care. Our staff consists of
-          biologists and biochemists that are not trained to give medical
-          advice.
-        </p>
+
+        <MedicalDisclaimer />
       </Card>
     </SingleColumnLayout>
   );

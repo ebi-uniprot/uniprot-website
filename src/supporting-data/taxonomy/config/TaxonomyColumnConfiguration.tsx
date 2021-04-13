@@ -125,7 +125,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
 TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
   label: 'Parent',
   render: ({ parentId }) =>
-    parentId && <Link to={getEntryPath(parentId)}>{parentId}</Link>,
+    parentId ? <Link to={getEntryPath(parentId)}>{parentId}</Link> : undefined,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.rank, {
