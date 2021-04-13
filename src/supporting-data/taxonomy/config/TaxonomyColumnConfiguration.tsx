@@ -114,7 +114,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
   render: ({ otherNames }) =>
     otherNames?.length && (
       <ExpandableList
-        descriptionString="other names"
+        descriptionString="names"
         displayNumberOfHiddenItems
       >
         {otherNames}
