@@ -34,7 +34,7 @@ import useNS from '../../hooks/useNS';
 import useNSQuery from '../../hooks/useNSQuery';
 import usePrefetch from '../../hooks/usePrefetch';
 import useUserPreferences from '../../hooks/useUserPreferences';
-import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
+import useColumns from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
@@ -165,18 +165,13 @@ const ResultsView: FC<ResultsTableProps> = ({
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns();
 
-  const prevNamespace = useRef<Namespace>(namespace);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevNamespace.current = namespace;
-  });
-  const prevColumns = useRef<ColumnDescriptor[] | undefined>(columns);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevColumns.current = columns;
-  });
-
   const { url: initialApiUrl, direct } = useNSQuery({});
+
+  const prevUrl = useRef<string | undefined>(initialApiUrl);
+  useEffect(() => {
+    // will set it *after* the current render
+    prevUrl.current = initialApiUrl;
+  });
 
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
@@ -231,11 +226,9 @@ const ResultsView: FC<ResultsTableProps> = ({
     // if loading the first page of results
     (loading && url === initialApiUrl) ||
     // or we just switched namespace (a bit hacky workaround to force unmount)
-    prevNamespace.current !== namespace ||
+    prevUrl.current !== initialApiUrl ||
     // or we just switched view mode (hacky too)
-    prevViewMode.current !== viewMode ||
-    // or we just changed the displayed columns (hacky too...)
-    prevColumns.current !== columns
+    prevViewMode.current !== viewMode
   ) {
     return <Loader progress={progress} />;
   }
