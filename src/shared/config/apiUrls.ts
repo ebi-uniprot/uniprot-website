@@ -230,6 +230,7 @@ export const getAPIQueryUrl = ({
 }: QueryUrlProps = {}) => {
   let facetField = facets;
   // if null or empty list, don't set default, only for undefined
+  // note: could this be moved to useNSQuery?
   if (facetField === undefined) {
     facetField = defaultFacets.get(namespace);
   }

@@ -37,7 +37,7 @@ const Results: FC = () => {
   );
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
-  const { url: initialApiUrl } = useNSQuery({ size: 0 });
+  const { url: initialApiUrl } = useNSQuery({ size: 0, withFacets: true });
 
   const {
     data,

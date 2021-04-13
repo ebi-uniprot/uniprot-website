@@ -36,8 +36,6 @@ import usePrefetch from '../../hooks/usePrefetch';
 import useUserPreferences from '../../hooks/useUserPreferences';
 import useColumns, { ColumnDescriptor } from '../../hooks/useColumns';
 
-import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
-
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
 import { getEntryPathFor } from '../../../app/config/urls';
@@ -45,7 +43,6 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { ViewMode } from './ResultsContainer';
-import { Column } from '../../config/columns';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
@@ -179,20 +176,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     prevColumns.current = columns;
   });
 
-  let queryColumns =
-    viewMode === ViewMode.CARD
-      ? undefined
-      : columns.map((columnDescriptor) => columnDescriptor.name as Column);
-  if (viewMode === ViewMode.CARD) {
-    // TODO: Do similar things for the rest of namespaces
-    if (namespace === Namespace.uniprotkb) {
-      queryColumns = fieldsForUniProtKBCards;
-    }
-  }
-
-  const { url: initialApiUrl, direct } = useNSQuery({
-    queryColumns,
-  });
+  const { url: initialApiUrl, direct } = useNSQuery({});
 
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
