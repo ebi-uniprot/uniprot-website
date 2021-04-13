@@ -1,14 +1,18 @@
-import { ExternalLink, CodeBlock /* , LongNumber */ } from 'franklin-sites';
+import { Link } from 'react-router-dom';
+import { ExternalLink, CodeBlock } from 'franklin-sites';
 
-// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import AccessionView from '../../../shared/components/results/AccessionView';
 
 import externalUrls from '../../../shared/config/externalUrls';
+import { LocationToPath, Location } from '../../../app/config/urls';
+import {
+  getLocationObjForParams,
+  getParamsFromURL,
+} from '../../../uniprotkb/utils/resultsUtils';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
-import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum DatabaseColumn {
   abbrev = 'abbrev',
@@ -26,13 +30,10 @@ export enum DatabaseColumn {
   unreviewedProteinCount = 'unreviewed_protein_count',
 }
 
-// TODO: decide which ones should be default
 export const defaultColumns = [
   DatabaseColumn.id,
   DatabaseColumn.name,
   DatabaseColumn.abbrev,
-  // DatabaseColumn.reviewedProteinCount,
-  // DatabaseColumn.unreviewedProteinCount,
   DatabaseColumn.category,
 ];
 
@@ -51,7 +52,26 @@ DatabaseColumnConfiguration.set(DatabaseColumn.abbrev, {
 
 DatabaseColumnConfiguration.set(DatabaseColumn.category, {
   label: 'Category',
-  render: ({ category }) => category,
+  render: ({ category }) =>
+    category && (
+      <Link
+        to={({ search }) => {
+          const parsed = getParamsFromURL(search);
+          return getLocationObjForParams({
+            pathname: LocationToPath[Location.DatabaseResults],
+            ...parsed,
+            selectedFacets: [
+              ...parsed.selectedFacets.filter(
+                ({ name }) => name !== 'category_facet'
+              ),
+              { name: 'category_facet', value: category },
+            ],
+          });
+        }}
+      >
+        {category}
+      </Link>
+    ),
 });
 
 DatabaseColumnConfiguration.set(DatabaseColumn.dbUrl, {
@@ -95,33 +115,5 @@ DatabaseColumnConfiguration.set(DatabaseColumn.server, {
   label: 'Server',
   render: ({ server }) => server && <ExternalLink url={server} tidyUrl />,
 });
-
-// TODO: might not be needed as a column
-// DatabaseColumnConfiguration.set(DatabaseColumn.reviewedProteinCount, {
-//   label: (
-//     <>
-//       <EntryTypeIcon entryType={EntryType.REVIEWED} />
-//       Mapped reviewed entries
-//     </>
-//   ),
-//   render: ({ reviewedProteinCount }) =>
-//     reviewedProteinCount !== undefined && (
-//       <LongNumber>{reviewedProteinCount}</LongNumber>
-//     ),
-// });
-
-// TODO: might not be needed as a column
-// DatabaseColumnConfiguration.set(DatabaseColumn.unreviewedProteinCount, {
-//   label: (
-//     <>
-//       <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-//       Mapped unreviewed entries
-//     </>
-//   ),
-//   render: ({ unreviewedProteinCount }) =>
-//     unreviewedProteinCount !== undefined && (
-//       <LongNumber>{unreviewedProteinCount}</LongNumber>
-//     ),
-// });
 
 export default DatabaseColumnConfiguration;

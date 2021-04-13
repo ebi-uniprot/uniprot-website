@@ -24,7 +24,18 @@ exports[`LocationsColumnConfiguration component should render column "gene_ontol
     class="expandable-list no-bullet"
   >
     <li>
-      endoplasmic reticulum-Golgi intermediate compartment membrane (GO:0033116)
+      <a
+        class="external-link"
+        href="//www.ebi.ac.uk/QuickGO/term/GO:0033116"
+        rel="noopener"
+        target="_blank"
+      >
+        endoplasmic reticulum-Golgi intermediate compartment membrane (GO:0033116)
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
     </li>
   </ul>
 </DocumentFragment>
@@ -62,13 +73,7 @@ exports[`LocationsColumnConfiguration component should render column "is_a": is_
 
 exports[`LocationsColumnConfiguration component should render column "keyword": keyword 1`] = `<DocumentFragment />`;
 
-exports[`LocationsColumnConfiguration component should render column "links": links 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`LocationsColumnConfiguration component should render column "links": links 1`] = `<DocumentFragment />`;
 
 exports[`LocationsColumnConfiguration component should render column "name": name 1`] = `
 <DocumentFragment>
@@ -101,13 +106,7 @@ exports[`LocationsColumnConfiguration component should render column "part_of": 
 </DocumentFragment>
 `;
 
-exports[`LocationsColumnConfiguration component should render column "references": references 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`LocationsColumnConfiguration component should render column "references": references 1`] = `<DocumentFragment />`;
 
 exports[`LocationsColumnConfiguration component should render column "synonyms": synonyms 1`] = `
 <DocumentFragment>

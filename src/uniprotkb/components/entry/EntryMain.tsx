@@ -1,7 +1,7 @@
 import { FC, memo } from 'react';
-import { HeroContainer } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
+import MedicalDisclaimer from '../../../shared/components/MedicalDisclaimer';
 
 import UniProtKBEntryConfig from '../../config/UniProtEntryConfig';
 
@@ -19,14 +19,7 @@ const EntryMain: FC<EntryMainProps> = ({ transformedData }) => (
       <ErrorBoundary key={id}>{sectionContent(transformedData)}</ErrorBoundary>
     ))}
 
-    <HeroContainer>
-      <em>
-        Any medical or genetic information present in this entry is provided for
-        research, educational and informational purposes only. It is not in any
-        way intended to be used as a substitute for professional medical advice,
-        diagnosis, treatment or care.
-      </em>
-    </HeroContainer>
+    <MedicalDisclaimer />
   </>
 );
 

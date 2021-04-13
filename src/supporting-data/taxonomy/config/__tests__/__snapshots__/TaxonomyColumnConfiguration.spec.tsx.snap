@@ -2,13 +2,7 @@
 
 exports[`TaxonomyColumnConfiguration component should render column "common_name": common_name 1`] = `<DocumentFragment />`;
 
-exports[`TaxonomyColumnConfiguration component should render column "host": host 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`TaxonomyColumnConfiguration component should render column "host": host 1`] = `<DocumentFragment />`;
 
 exports[`TaxonomyColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
@@ -82,13 +76,7 @@ exports[`TaxonomyColumnConfiguration component should render column "lineage": l
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "links": links 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`TaxonomyColumnConfiguration component should render column "links": links 1`] = `<DocumentFragment />`;
 
 exports[`TaxonomyColumnConfiguration component should render column "mnemonic": mnemonic 1`] = `
 <DocumentFragment>
@@ -130,18 +118,6 @@ exports[`TaxonomyColumnConfiguration component should render column "scientific_
 </DocumentFragment>
 `;
 
-exports[`TaxonomyColumnConfiguration component should render column "strain": strain 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`TaxonomyColumnConfiguration component should render column "strain": strain 1`] = `<DocumentFragment />`;
 
-exports[`TaxonomyColumnConfiguration component should render column "synonym": synonym 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`TaxonomyColumnConfiguration component should render column "synonym": synonym 1`] = `<DocumentFragment />`;

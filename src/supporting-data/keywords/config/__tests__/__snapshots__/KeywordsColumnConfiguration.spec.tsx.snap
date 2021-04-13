@@ -13,7 +13,7 @@ exports[`KeywordsColumnConfiguration component should render column "children": 
   >
     <li>
       <a
-        href="/diseases/KW-9992"
+        href="/keywords/KW-9992"
       >
         Molecular function
       </a>
@@ -34,10 +34,32 @@ exports[`KeywordsColumnConfiguration component should render column "gene_ontolo
     class="expandable-list no-bullet"
   >
     <li>
-      catalytic activity (GO:0003824)
+      <a
+        class="external-link"
+        href="//www.ebi.ac.uk/QuickGO/term/GO:0003824"
+        rel="noopener"
+        target="_blank"
+      >
+        catalytic activity (GO:0003824)
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
     </li>
     <li>
-      metabolic process (GO:0008152)
+      <a
+        class="external-link"
+        href="//www.ebi.ac.uk/QuickGO/term/GO:0008152"
+        rel="noopener"
+        target="_blank"
+      >
+        metabolic process (GO:0008152)
+        <test-file-stub
+          data-testid="external-link-icon"
+          width="12.5"
+        />
+      </a>
     </li>
   </ul>
 </DocumentFragment>
@@ -63,26 +85,8 @@ exports[`KeywordsColumnConfiguration component should render column "name": name
 </DocumentFragment>
 `;
 
-exports[`KeywordsColumnConfiguration component should render column "parent": parent 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`KeywordsColumnConfiguration component should render column "parent": parent 1`] = `<DocumentFragment />`;
 
-exports[`KeywordsColumnConfiguration component should render column "sites": sites 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`KeywordsColumnConfiguration component should render column "sites": sites 1`] = `<DocumentFragment />`;
 
-exports[`KeywordsColumnConfiguration component should render column "synonym": synonym 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`KeywordsColumnConfiguration component should render column "synonym": synonym 1`] = `<DocumentFragment />`;

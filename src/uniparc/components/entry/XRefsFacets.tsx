@@ -21,7 +21,7 @@ import {
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 import { TaxonomyDatum } from '../../../supporting-data/taxonomy/adapters/taxonomyConverter';
 
-import '../../../shared/components/results/styles/results-view.scss';
+import helper from '../../../shared/styles/helper.module.scss';
 
 const exceptions = new Set<string | XRefsInternalDatabases>([
   XRefsInternalDatabasesEnum.REVIEWED,
@@ -152,7 +152,10 @@ const XRefsFacets: FC<{
   }
 
   return (
-    <Facets data={facets} className={xrefs.isStale ? 'is-stale' : undefined} />
+    <Facets
+      data={facets}
+      className={xrefs.isStale ? helper.stale : undefined}
+    />
   );
 };
 
