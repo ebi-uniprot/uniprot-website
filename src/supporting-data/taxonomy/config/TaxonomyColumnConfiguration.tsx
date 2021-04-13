@@ -143,7 +143,12 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
   render: ({ strains }) =>
     strains?.length && (
       <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
-        {strains.map((strain) => strain.name)}
+        {strains.map((strain) => (
+          <>
+            {strain.name}
+            {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
+          </>
+        ))}
       </ExpandableList>
     ),
 });
