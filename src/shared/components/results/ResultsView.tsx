@@ -4,7 +4,7 @@ import {
   DataListWithLoader,
   Loader,
 } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
@@ -18,9 +18,7 @@ import DiseasesCard from '../../../supporting-data/diseases/components/results/D
 import DatabaseCard from '../../../supporting-data/database/components/results/DatabaseCard';
 import LocationsCard from '../../../supporting-data/locations/components/results/LocationsCard';
 
-import uniProtKbConverter, {
-  UniProtkbAPIModel,
-} from '../../../uniprotkb/adapters/uniProtkbConverter';
+import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../../proteomes/adapters/proteomesConverter';
@@ -31,94 +29,23 @@ import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/dis
 import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
-
-// columns for table views
-import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
-import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
-import UniParcColumnConfiguration from '../../../uniparc/config/UniParcColumnConfiguration';
-import ProteomesColumnConfiguration from '../../../proteomes/config/ProteomesColumnConfiguration';
-import TaxonomyColumnConfiguration from '../../../supporting-data/taxonomy/config/TaxonomyColumnConfiguration';
-import KeywordsColumnConfiguration from '../../../supporting-data/keywords/config/KeywordsColumnConfiguration';
-import CitationsColumnConfiguration from '../../../supporting-data/citations/config/CitationsColumnConfiguration';
-import DiseasesColumnConfiguration from '../../../supporting-data/diseases/config/DiseasesColumnConfiguration';
-import DatabaseColumnConfiguration from '../../../supporting-data/database/config/DatabaseColumnConfiguration';
-import LocationsColumnConfiguration from '../../../supporting-data/locations/config/LocationsColumnConfiguration';
-
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
+import useNSQuery from '../../hooks/useNSQuery';
 import usePrefetch from '../../hooks/usePrefetch';
 import useUserPreferences from '../../hooks/useUserPreferences';
-
-import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
+import useColumns from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
-import {
-  getParamsFromURL,
-  getLocationObjForParams,
-} from '../../../uniprotkb/utils/resultsUtils';
-import {
-  getEntryPathFor,
-  SearchResultsLocations,
-} from '../../../app/config/urls';
+import { getEntryPathFor } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
-import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import { Column, nsToDefaultColumns } from '../../config/columns';
 import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-
-const convertRow = (row: APIModel, namespace: Namespace) => {
-  switch (namespace) {
-    // Main namespaces
-    case Namespace.uniprotkb:
-      return uniProtKbConverter(row as UniProtkbAPIModel);
-    case Namespace.uniref:
-      return row as UniRefLiteAPIModel;
-    case Namespace.uniparc:
-      return row as UniParcAPIModel;
-    case Namespace.proteomes:
-      return row as ProteomesAPIModel;
-    // Supporting data
-    case Namespace.taxonomy:
-      return row as TaxonomyAPIModel;
-    case Namespace.keywords:
-      return row as KeywordsAPIModel;
-    case Namespace.citations:
-      return row as CitationsAPIModel;
-    case Namespace.diseases:
-      return row as DiseasesAPIModel;
-    case Namespace.database:
-      return row as DatabaseAPIModel;
-    case Namespace.locations:
-      return row as LocationsAPIModel;
-    default:
-      // eslint-disable-next-line no-console
-      console.warn(`Unrecognised namespace: "${namespace}"`);
-      return null;
-  }
-};
-
-// TODO: create a "Column" type to cover the different column types
-// and a Column renderer type with label: string and a render definition.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
-  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-  [Namespace.uniref]: UniRefColumnConfiguration,
-  [Namespace.uniparc]: UniParcColumnConfiguration,
-  [Namespace.proteomes]: ProteomesColumnConfiguration,
-  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
-  [Namespace.keywords]: KeywordsColumnConfiguration,
-  [Namespace.citations]: CitationsColumnConfiguration,
-  [Namespace.diseases]: DiseasesColumnConfiguration,
-  [Namespace.database]: DatabaseColumnConfiguration,
-  [Namespace.locations]: LocationsColumnConfiguration,
-};
 
 const cardRenderer = (
   namespace: Namespace,
@@ -224,107 +151,28 @@ const cardRenderer = (
   }
 };
 
-type ColumnDescriptor = {
-  name: string;
-  label: ReactNode;
-  render: (row: APIModel) => ReactNode;
-  sortable?: true;
-  sorted?: SortDirection;
-};
-const getColumnsToDisplay = (
-  namespace: Namespace,
-  columns: Column[] | undefined,
-  sortableColumnToSortColumn: Map<Column, string>,
-  sortColumn: SortableColumn,
-  sortDirection: SortDirection
-): ColumnDescriptor[] =>
-  columns?.map((columnName) => {
-    const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
-    if (columnConfig) {
-      const columnDescriptor = {
-        label: columnConfig.label,
-        name: columnName,
-        render: (row: APIModel) =>
-          columnConfig.render(convertRow(row, namespace)),
-      };
-      if (sortableColumnToSortColumn.has(columnName)) {
-        return {
-          ...columnDescriptor,
-          sortable: true,
-          sorted: columnName === sortColumn ? sortDirection : undefined,
-        };
-      }
-      return columnDescriptor;
-    }
-    return {
-      label: columnName,
-      name: columnName,
-      render: () => (
-        <div className="warning">{`${columnName} has no config yet`}</div>
-      ),
-    };
-  }) || [];
-
 type ResultsTableProps = {
   selectedEntries: string[];
   handleEntrySelection: (rowId: string) => void;
-  sortableColumnToSortColumn: Map<Column, string>;
 };
 
 const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
   handleEntrySelection,
-  sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
-  const [columns] = useUserPreferences<Column[]>(
-    `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
-  );
-
-  const prevNamespace = useRef<Namespace>(namespace);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevNamespace.current = namespace;
-  });
-  const prevColumns = useRef<Column[] | undefined>(columns);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevColumns.current = columns;
-  });
-
   const history = useHistory();
-  const location = useLocation();
+  const [columns, updateColumnSort] = useColumns();
 
-  const { search: queryParamFromUrl } = location;
-  const {
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    direct,
-  } = getParamsFromURL(queryParamFromUrl);
+  const { url: initialApiUrl, direct } = useNSQuery();
 
-  let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
-  if (viewMode === ViewMode.CARD) {
-    // TODO: Do similar things for the rest of namespaces
-    if (namespace === Namespace.uniprotkb) {
-      queryColumns = fieldsForUniProtKBCards;
-    }
-  }
-
-  const initialApiUrl = getAPIQueryUrl({
-    namespace,
-    query,
-    // TODO: Do similar things for the rest of namespaces
-    columns: queryColumns,
-    selectedFacets,
-    // Not really interested in the facets here, so try to reduce payload
-    facets: null,
-    sortColumn,
-    sortDirection,
+  const prevUrl = useRef<string | undefined>(initialApiUrl);
+  useEffect(() => {
+    // will set it *after* the current render
+    prevUrl.current = initialApiUrl;
   });
+
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
@@ -378,11 +226,9 @@ const ResultsView: FC<ResultsTableProps> = ({
     // if loading the first page of results
     (loading && url === initialApiUrl) ||
     // or we just switched namespace (a bit hacky workaround to force unmount)
-    prevNamespace.current !== namespace ||
+    prevUrl.current !== initialApiUrl ||
     // or we just switched view mode (hacky too)
-    prevViewMode.current !== viewMode ||
-    // or we just changed the displayed columns (hacky too...)
-    prevColumns.current !== columns
+    prevViewMode.current !== viewMode
   ) {
     return <Loader progress={progress} />;
   }
@@ -390,29 +236,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   const { total, nextUrl } = metaData;
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
-
-  const updateColumnSort = (columnName: string) => {
-    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!sortColumn) {
-      return;
-    }
-
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
-
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
-  };
 
   const hasMoreData = total > allResults.length;
   const loadComponent = (
@@ -439,13 +262,7 @@ const ResultsView: FC<ResultsTableProps> = ({
         // Column view
         <DataTableWithLoader
           getIdKey={getIdKey}
-          columns={getColumnsToDisplay(
-            namespace,
-            columns,
-            sortableColumnToSortColumn,
-            sortColumn,
-            sortDirection
-          )}
+          columns={columns}
           data={allResults}
           selected={selectedEntries}
           onSelectRow={handleEntrySelection}
