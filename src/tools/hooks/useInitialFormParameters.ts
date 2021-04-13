@@ -9,7 +9,13 @@ interface CustomLocationState<T> {
 
 type FormValue = {
   fieldName: string;
-  selected?: string | string[] | number | boolean | SelectedTaxon;
+  selected?:
+    | string
+    | string[]
+    | number
+    | boolean
+    | SelectedTaxon
+    | SelectedTaxon[];
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
@@ -17,7 +23,6 @@ type FormValue = {
 
 type FormValues<Fields extends string> = Record<Fields, FormValue>;
 
-// export type BlastFormValues = Record<BlastFields, Readonly<BlastFormValue>>
 function useInitialFormParameters<
   Fields extends string,
   FormParameters extends Record<Fields, unknown>
