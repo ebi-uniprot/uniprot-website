@@ -18,7 +18,7 @@ const useNSQuery = ({
 }: {
   size?: number;
   withFacets?: boolean;
-}) => {
+} = {}) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const location = useLocation();
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);

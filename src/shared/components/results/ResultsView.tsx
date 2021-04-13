@@ -165,7 +165,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns();
 
-  const { url: initialApiUrl, direct } = useNSQuery({});
+  const { url: initialApiUrl, direct } = useNSQuery();
 
   const prevUrl = useRef<string | undefined>(initialApiUrl);
   useEffect(() => {
