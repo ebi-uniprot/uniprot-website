@@ -9,6 +9,8 @@ import GDPR from '../../shared/components/gdpr/GDPR';
 
 import history from '../../shared/utils/browserHistory';
 
+import useScrollToTop from '../../shared/hooks/useScrollToTop';
+
 import {
   allSearchResultLocations,
   Location,
@@ -179,147 +181,151 @@ const reportBugLinkStyles: CSSProperties = {
   zIndex: 99,
 };
 
-const App = () => (
-  <FranklinSite>
-    <Router history={history}>
-      <BaseLayout>
-        <Suspense fallback={<Loader />}>
-          <Switch>
-            {/* Home */}
-            <Route
-              path={LocationToPath[Location.Home]}
-              exact
-              component={HomePage}
-            />
-            {/* Entry pages */}
-            {/* Main namespaces */}
-            <Route
-              path={LocationToPath[Location.UniProtKBEntry]}
-              component={UniProtKBEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.UniRefEntry]}
-              component={UniRefEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.UniParcEntry]}
-              component={UniParcEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.ProteomesEntry]}
-              component={ProteomesEntryPage}
-            />
-            {/* Supporting data */}
-            <Route
-              path={LocationToPath[Location.TaxonomyEntry]}
-              component={TaxonomyEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.KeywordsEntry]}
-              component={KeywordsEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.CitationsEntry]}
-              component={CitationsEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.DiseasesEntry]}
-              component={DiseasesEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.DatabaseEntry]}
-              component={DatabaseEntryPage}
-            />
-            <Route
-              path={LocationToPath[Location.LocationsEntry]}
-              component={LocationsEntryPage}
-            />
-            {/* Result pages */}
-            <Route
-              path={allSearchResultLocations}
-              component={GenericResultsPage}
-            />
-            {/* Tools */}
-            <Route
-              path={LocationToPath[Location.BlastResult]}
-              component={BlastResult}
-            />
-            <Route
-              path={LocationToPath[Location.Blast]}
-              render={() => (
-                <SingleColumnLayout>
-                  <BlastForm />
-                </SingleColumnLayout>
-              )}
-            />
-            <Route
-              path={LocationToPath[Location.AlignResult]}
-              component={AlignResult}
-            />
-            <Route
-              path={LocationToPath[Location.Align]}
-              render={() => (
-                <SingleColumnLayout>
-                  <AlignForm />
-                </SingleColumnLayout>
-              )}
-            />
-            {/* <Route
+const App = () => {
+  useScrollToTop(history);
+
+  return (
+    <FranklinSite>
+      <Router history={history}>
+        <BaseLayout>
+          <Suspense fallback={<Loader />}>
+            <Switch>
+              {/* Home */}
+              <Route
+                path={LocationToPath[Location.Home]}
+                exact
+                component={HomePage}
+              />
+              {/* Entry pages */}
+              {/* Main namespaces */}
+              <Route
+                path={LocationToPath[Location.UniProtKBEntry]}
+                component={UniProtKBEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.UniRefEntry]}
+                component={UniRefEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.UniParcEntry]}
+                component={UniParcEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.ProteomesEntry]}
+                component={ProteomesEntryPage}
+              />
+              {/* Supporting data */}
+              <Route
+                path={LocationToPath[Location.TaxonomyEntry]}
+                component={TaxonomyEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.KeywordsEntry]}
+                component={KeywordsEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.CitationsEntry]}
+                component={CitationsEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.DiseasesEntry]}
+                component={DiseasesEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.DatabaseEntry]}
+                component={DatabaseEntryPage}
+              />
+              <Route
+                path={LocationToPath[Location.LocationsEntry]}
+                component={LocationsEntryPage}
+              />
+              {/* Result pages */}
+              <Route
+                path={allSearchResultLocations}
+                component={GenericResultsPage}
+              />
+              {/* Tools */}
+              <Route
+                path={LocationToPath[Location.BlastResult]}
+                component={BlastResult}
+              />
+              <Route
+                path={LocationToPath[Location.Blast]}
+                render={() => (
+                  <SingleColumnLayout>
+                    <BlastForm />
+                  </SingleColumnLayout>
+                )}
+              />
+              <Route
+                path={LocationToPath[Location.AlignResult]}
+                component={AlignResult}
+              />
+              <Route
+                path={LocationToPath[Location.Align]}
+                render={() => (
+                  <SingleColumnLayout>
+                    <AlignForm />
+                  </SingleColumnLayout>
+                )}
+              />
+              {/* <Route
               path={LocationToPath[Location.PeptideSearchResult]}
               component={PeptideSearchResult}
             /> */}
-            <Route
-              path={LocationToPath[Location.PeptideSearch]}
-              render={() => (
-                <SingleColumnLayout>
-                  <PeptideSearchForm />
-                </SingleColumnLayout>
-              )}
-            />
-            {/* <Route
+              <Route
+                path={LocationToPath[Location.PeptideSearch]}
+                render={() => (
+                  <SingleColumnLayout>
+                    <PeptideSearchForm />
+                  </SingleColumnLayout>
+                )}
+              />
+              {/* <Route
               path={LocationToPath[Location.IDMappingResult]}
               component={IDMappingResult}
             /> */}
-            <Route
-              path={LocationToPath[Location.IDMapping]}
-              render={() => (
-                <SingleColumnLayout>
-                  <IDMappingForm />
-                </SingleColumnLayout>
-              )}
-            />
-            <Route
-              path={LocationToPath[Location.Dashboard]}
-              render={() => (
-                <SingleColumnLayout>
-                  <Dashboard />
-                </SingleColumnLayout>
-              )}
-            />
-            {/* Catch-all handler -> Redirect or not found */}
-            <Route
-              component={() => (
-                <SingleColumnLayout>
-                  <ResourceNotFoundPage />
-                </SingleColumnLayout>
-              )}
-            />
-          </Switch>
-        </Suspense>
-      </BaseLayout>
-      <ErrorBoundary fallback={null}>
-        <GDPR />
-      </ErrorBoundary>
-    </Router>
-    <a
-      style={reportBugLinkStyles}
-      target="_blank"
-      href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
-      rel="noopener noreferrer"
-    >
-      Report bug
-    </a>
-  </FranklinSite>
-);
+              <Route
+                path={LocationToPath[Location.IDMapping]}
+                render={() => (
+                  <SingleColumnLayout>
+                    <IDMappingForm />
+                  </SingleColumnLayout>
+                )}
+              />
+              <Route
+                path={LocationToPath[Location.Dashboard]}
+                render={() => (
+                  <SingleColumnLayout>
+                    <Dashboard />
+                  </SingleColumnLayout>
+                )}
+              />
+              {/* Catch-all handler -> Redirect or not found */}
+              <Route
+                component={() => (
+                  <SingleColumnLayout>
+                    <ResourceNotFoundPage />
+                  </SingleColumnLayout>
+                )}
+              />
+            </Switch>
+          </Suspense>
+        </BaseLayout>
+        <ErrorBoundary fallback={null}>
+          <GDPR />
+        </ErrorBoundary>
+      </Router>
+      <a
+        style={reportBugLinkStyles}
+        target="_blank"
+        href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
+        rel="noopener noreferrer"
+      >
+        Report bug
+      </a>
+    </FranklinSite>
+  );
+};
 
 export default App;
