@@ -1,12 +1,9 @@
-import { ExternalLink, CodeBlock /* , LongNumber */ } from 'franklin-sites';
-
-// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import { ExternalLink, CodeBlock } from 'franklin-sites';
 
 import externalUrls from '../../../shared/config/externalUrls';
 
 import { DatabaseAPIModel } from '../adapters/databaseConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
@@ -26,13 +23,10 @@ export enum DatabaseColumn {
   unreviewedProteinCount = 'unreviewed_protein_count',
 }
 
-// TODO: decide which ones should be default
 export const defaultColumns = [
   DatabaseColumn.id,
   DatabaseColumn.name,
   DatabaseColumn.abbrev,
-  // DatabaseColumn.reviewedProteinCount,
-  // DatabaseColumn.unreviewedProteinCount,
   DatabaseColumn.category,
 ];
 
@@ -95,33 +89,5 @@ DatabaseColumnConfiguration.set(DatabaseColumn.server, {
   label: 'Server',
   render: ({ server }) => server && <ExternalLink url={server} tidyUrl />,
 });
-
-// TODO: might not be needed as a column
-// DatabaseColumnConfiguration.set(DatabaseColumn.reviewedProteinCount, {
-//   label: (
-//     <>
-//       <EntryTypeIcon entryType={EntryType.REVIEWED} />
-//       Mapped reviewed entries
-//     </>
-//   ),
-//   render: ({ reviewedProteinCount }) =>
-//     reviewedProteinCount !== undefined && (
-//       <LongNumber>{reviewedProteinCount}</LongNumber>
-//     ),
-// });
-
-// TODO: might not be needed as a column
-// DatabaseColumnConfiguration.set(DatabaseColumn.unreviewedProteinCount, {
-//   label: (
-//     <>
-//       <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-//       Mapped unreviewed entries
-//     </>
-//   ),
-//   render: ({ unreviewedProteinCount }) =>
-//     unreviewedProteinCount !== undefined && (
-//       <LongNumber>{unreviewedProteinCount}</LongNumber>
-//     ),
-// });
 
 export default DatabaseColumnConfiguration;

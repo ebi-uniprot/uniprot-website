@@ -8,6 +8,7 @@ import { mainNamespaces } from '../../types/namespaces';
 
 import { FacetObject } from '../../../uniprotkb/types/responseTypes';
 
+import helper from '../../styles/helper.module.scss';
 import './styles/results-view.scss';
 
 const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
@@ -23,7 +24,7 @@ const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
   const after = splitIndex === -1 ? facets : facets.slice(splitIndex + 1);
 
   return (
-    <Facets className={isStale ? 'is-stale' : undefined}>
+    <Facets className={isStale ? helper.stale : undefined}>
       {before.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}

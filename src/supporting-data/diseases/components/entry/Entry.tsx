@@ -1,11 +1,10 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
+import { Loader, Card, InfoList } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
@@ -14,6 +13,15 @@ import { DiseasesAPIModel } from '../../adapters/diseasesConverter';
 import DiseasesColumnConfiguration, {
   DiseasesColumn,
 } from '../../config/DiseasesColumnConfiguration';
+
+import helper from '../../../../shared/styles/helper.module.scss';
+
+const columns = [
+  DiseasesColumn.definition,
+  DiseasesColumn.acronym,
+  DiseasesColumn.alternativeNames,
+  DiseasesColumn.crossReferences,
+];
 
 const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
@@ -24,36 +32,34 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     error,
     status,
     progress,
-  } = useDataApi<DiseasesAPIModel>(
+    isStale,
+  } = useDataApiWithStale<DiseasesAPIModel>(
     apiUrls.entry(accession, Namespace.diseases)
   );
 
-  if (error || !accession) {
+  if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
 
-  if (loading || !data) {
+  if (!data) {
     return <Loader progress={progress} />;
   }
+
+  const infoData =
+    data &&
+    columns.map((column) => {
+      const renderer = DiseasesColumnConfiguration.get(column);
+      return {
+        title: renderer?.label,
+        content: renderer?.render(data),
+      };
+    });
 
   return (
     <SingleColumnLayout>
       <h2>Disease - {data.name}</h2>
-      <Card>
-        <RenderColumnsInCard
-          renderers={DiseasesColumnConfiguration.get(DiseasesColumn.definition)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={DiseasesColumnConfiguration.get(DiseasesColumn.acronym)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={DiseasesColumnConfiguration.get(
-            DiseasesColumn.crossReferences
-          )}
-          data={data}
-        />
+      <Card className={isStale ? helper.stale : undefined}>
+        {infoData && <InfoList infoData={infoData} isCompact />}
         <p>
           <h3>Disclaimer</h3>
           Any medical or genetic information present in this entry is provided

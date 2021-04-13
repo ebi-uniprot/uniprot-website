@@ -12,7 +12,7 @@ import {
   UniRefMembersResults,
 } from '../../types/membersEndpoint';
 
-import '../../../shared/components/results/styles/results-view.scss';
+import helper from '../../../shared/styles/helper.module.scss';
 
 const MembersFacet = memo<{ accession: string }>(({ accession }) => {
   const { search } = useLocation();
@@ -40,7 +40,7 @@ const MembersFacet = memo<{ accession: string }>(({ accession }) => {
   }
 
   return (
-    <Facets data={data.facets} className={isStale ? 'is-stale' : undefined} />
+    <Facets data={data.facets} className={isStale ? helper.stale : undefined} />
   );
 });
 

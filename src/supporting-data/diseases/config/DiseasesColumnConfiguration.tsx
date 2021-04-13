@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ExpandableList /* , LongNumber */ } from 'franklin-sites';
-
-// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import { ExpandableList } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
@@ -23,7 +20,6 @@ export enum DiseasesColumn {
   unreviewedProteinCount = 'unreviewed_protein_count',
 }
 
-// TODO: decide which ones should be default
 export const defaultColumns = [
   DiseasesColumn.id,
   DiseasesColumn.name,
@@ -47,32 +43,35 @@ DiseasesColumnConfiguration.set(DiseasesColumn.acronym, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.alternativeNames, {
   label: 'Alternative names',
-  render: ({ alternativeNames }) => (
-    <ExpandableList
-      descriptionString="alternative names"
-      displayNumberOfHiddenItems
-    >
-      {alternativeNames}
-    </ExpandableList>
-  ),
+  render: ({ alternativeNames }) =>
+    alternativeNames?.length && (
+      <ExpandableList
+        descriptionString="alternative names"
+        displayNumberOfHiddenItems
+      >
+        {alternativeNames}
+      </ExpandableList>
+    ),
 });
 
 // NOTE: should probably be links
 DiseasesColumnConfiguration.set(DiseasesColumn.crossReferences, {
   label: 'Cross references',
-  render: ({ crossReferences }) => (
-    <ExpandableList
-      descriptionString="cross references"
-      displayNumberOfHiddenItems
-    >
-      {crossReferences?.map(
-        ({ databaseType, id, properties }) =>
-          `${databaseType}: ${id}${
-            properties?.length ? ` (${properties.join(', ')})` : ''
-          }`
-      )}
-    </ExpandableList>
-  ),
+  // TODO: https://www.ebi.ac.uk/panda/jira/browse/TRM-25838
+  render: ({ crossReferences }) =>
+    crossReferences?.length && (
+      <ExpandableList
+        descriptionString="cross references"
+        displayNumberOfHiddenItems
+      >
+        {crossReferences.map(
+          ({ databaseType, id, properties }) =>
+            `${databaseType}: ${id}${
+              properties?.length ? ` (${properties.join(', ')})` : ''
+            }`
+        )}
+      </ExpandableList>
+    ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.definition, {
@@ -88,48 +87,21 @@ DiseasesColumnConfiguration.set(DiseasesColumn.id, {
 
 DiseasesColumnConfiguration.set(DiseasesColumn.keywords, {
   label: 'Keywords',
-  render: ({ keywords }) => (
-    <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
-      {keywords?.map(({ name, id }) => (
-        <Link key={id} to={getEntryPathForKeyword(id)}>
-          {name}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ keywords }) =>
+    keywords?.length && (
+      <ExpandableList descriptionString="keywords" displayNumberOfHiddenItems>
+        {keywords.map(({ name, id }) => (
+          <Link key={id} to={getEntryPathForKeyword(id)}>
+            {name}
+          </Link>
+        ))}
+      </ExpandableList>
+    ),
 });
 
 DiseasesColumnConfiguration.set(DiseasesColumn.name, {
   label: 'Name',
   render: ({ name }) => name,
 });
-
-// TODO: might not be needed as a column
-// DiseasesColumnConfiguration.set(DiseasesColumn.reviewedProteinCount, {
-//   label: (
-//     <>
-//       <EntryTypeIcon entryType={EntryType.REVIEWED} />
-//       Mapped reviewed entries
-//     </>
-//   ),
-//   render: ({ reviewedProteinCount }) =>
-//     reviewedProteinCount !== undefined && (
-//       <LongNumber>{reviewedProteinCount}</LongNumber>
-//     ),
-// });
-
-// TODO: might not be needed as a column
-// DiseasesColumnConfiguration.set(DiseasesColumn.unreviewedProteinCount, {
-//   label: (
-//     <>
-//       <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-//       Mapped unreviewed entries
-//     </>
-//   ),
-//   render: ({ unreviewedProteinCount }) =>
-//     unreviewedProteinCount !== undefined && (
-//       <LongNumber>{unreviewedProteinCount}</LongNumber>
-//     ),
-// });
 
 export default DiseasesColumnConfiguration;

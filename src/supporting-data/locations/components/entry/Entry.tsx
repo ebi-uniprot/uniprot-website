@@ -1,11 +1,10 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
+import { Loader, Card, InfoList } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
@@ -14,6 +13,22 @@ import { LocationsAPIModel } from '../../adapters/locationsConverter';
 import LocationsColumnConfiguration, {
   LocationsColumn,
 } from '../../config/LocationsColumnConfiguration';
+
+import helper from '../../../../shared/styles/helper.module.scss';
+
+const columns = [
+  LocationsColumn.definition,
+  LocationsColumn.synonyms,
+  LocationsColumn.category,
+  LocationsColumn.geneOntologies,
+  LocationsColumn.content,
+  LocationsColumn.isA,
+  LocationsColumn.partOf,
+  LocationsColumn.keyword,
+  LocationsColumn.links,
+  LocationsColumn.note,
+  LocationsColumn.references,
+];
 
 const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
@@ -24,42 +39,34 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     error,
     status,
     progress,
-  } = useDataApi<LocationsAPIModel>(
+    isStale,
+  } = useDataApiWithStale<LocationsAPIModel>(
     apiUrls.entry(accession, Namespace.locations)
   );
 
-  if (error || !accession) {
+  if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
 
-  if (loading || !data) {
+  if (!data) {
     return <Loader progress={progress} />;
   }
+
+  const infoData =
+    data &&
+    columns.map((column) => {
+      const renderer = LocationsColumnConfiguration.get(column);
+      return {
+        title: renderer?.label,
+        content: renderer?.render(data),
+      };
+    });
 
   return (
     <SingleColumnLayout>
       <h2>Cellular component - {data.name}</h2>
-      <Card>
-        <RenderColumnsInCard
-          renderers={LocationsColumnConfiguration.get(
-            LocationsColumn.definition
-          )}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={LocationsColumnConfiguration.get(LocationsColumn.synonyms)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={LocationsColumnConfiguration.get(LocationsColumn.category)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={LocationsColumnConfiguration.get(
-            LocationsColumn.geneOntologies
-          )}
-          data={data}
-        />
+      <Card className={isStale ? helper.stale : undefined}>
+        {infoData && <InfoList infoData={infoData} isCompact />}
       </Card>
     </SingleColumnLayout>
   );

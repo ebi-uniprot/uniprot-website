@@ -1,11 +1,10 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
+import { Loader, Card, InfoList } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
@@ -14,6 +13,22 @@ import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
+
+import helper from '../../../../shared/styles/helper.module.scss';
+
+const columns = [
+  TaxonomyColumn.mnemonic,
+  TaxonomyColumn.id,
+  TaxonomyColumn.scientificName,
+  TaxonomyColumn.commonName,
+  TaxonomyColumn.otherNames,
+  TaxonomyColumn.synonym,
+  TaxonomyColumn.rank,
+  TaxonomyColumn.parent,
+  TaxonomyColumn.lineage,
+  TaxonomyColumn.host,
+  TaxonomyColumn.strain,
+];
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
@@ -24,17 +39,28 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     error,
     status,
     progress,
-  } = useDataApi<TaxonomyAPIModel>(
+    isStale,
+  } = useDataApiWithStale<TaxonomyAPIModel>(
     apiUrls.entry(accession, Namespace.taxonomy)
   );
 
-  if (error || !accession) {
+  if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
 
-  if (loading || !data) {
+  if (!data) {
     return <Loader progress={progress} />;
   }
+
+  const infoData =
+    data &&
+    columns.map((column) => {
+      const renderer = TaxonomyColumnConfiguration.get(column);
+      return {
+        title: renderer?.label,
+        content: renderer?.render(data),
+      };
+    });
 
   return (
     <SingleColumnLayout>
@@ -42,41 +68,8 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         Taxonomy - {data.scientificName || data.taxonId}{' '}
         <small>({data.rank})</small>
       </h2>
-      <Card>
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.mnemonic)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.id)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(
-            TaxonomyColumn.scientificName
-          )}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.commonName)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.synonym)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.rank)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.lineage)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={TaxonomyColumnConfiguration.get(TaxonomyColumn.parent)}
-          data={data}
-        />
+      <Card className={isStale ? helper.stale : undefined}>
+        {infoData && <InfoList infoData={infoData} isCompact columns />}
       </Card>
     </SingleColumnLayout>
   );
