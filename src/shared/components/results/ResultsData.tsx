@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef, useMemo, FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
 } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
 
 // card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
@@ -31,8 +30,6 @@ import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/dis
 import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
-
 // columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
@@ -45,30 +42,14 @@ import DiseasesColumnConfiguration from '../../../supporting-data/diseases/confi
 import DatabaseColumnConfiguration from '../../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../../supporting-data/locations/config/LocationsColumnConfiguration';
 
-import useDataApi from '../../hooks/useDataApi';
-import useNS from '../../hooks/useNS';
-import usePrefetch from '../../hooks/usePrefetch';
-import useUserPreferences from '../../hooks/useUserPreferences';
-
-import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
-
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
-import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
-import {
-  getParamsFromURL,
-  getLocationObjForParams,
-} from '../../../uniprotkb/utils/resultsUtils';
-import {
-  getEntryPathFor,
-  SearchResultsLocations,
-} from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { SortDirection } from '../../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import { Column, nsToDefaultColumns } from '../../config/columns';
-import { ViewMode } from './ResultsContainer';
+import { Column } from '../../config/columns';
+import { ViewMode } from './Results';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
@@ -265,167 +246,49 @@ const getColumnsToDisplay = (
     };
   }) || [];
 
-type ResultsTableProps = {
+type ResultsDataProps = {
+  namespace: Namespace;
+  viewMode: ViewMode;
+  getIdKey: (data: APIModel) => string;
+  results: APIModel[];
   selectedEntries: string[];
   handleEntrySelection: (rowId: string) => void;
   sortableColumnToSortColumn: Map<Column, string>;
+  handleLoadMoreRows: () => void;
+  hasMoreData: boolean;
+  handleColumnSort: (columnName: string) => void;
+  columns: Column[];
+  sortColumn: SortableColumn;
+  sortDirection: SortDirection;
+  progress?: number;
 };
 
-const ResultsView: FC<ResultsTableProps> = ({
+const ResultsData: FC<ResultsDataProps> = ({
+  namespace,
+  viewMode,
+  getIdKey,
+  results,
+  progress,
   selectedEntries,
   handleEntrySelection,
   sortableColumnToSortColumn,
+  handleLoadMoreRows,
+  hasMoreData,
+  handleColumnSort,
+  columns,
+  sortColumn,
+  sortDirection,
 }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
-  const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
-  const [columns] = useUserPreferences<Column[]>(
-    `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
-  );
-
-  const prevNamespace = useRef<Namespace>(namespace);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevNamespace.current = namespace;
-  });
-  const prevColumns = useRef<Column[] | undefined>(columns);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevColumns.current = columns;
-  });
-
-  const history = useHistory();
-  const location = useLocation();
-
-  const { search: queryParamFromUrl } = location;
-  const {
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    direct,
-  } = getParamsFromURL(queryParamFromUrl);
-
-  let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
-  if (viewMode === ViewMode.CARD) {
-    // TODO: Do similar things for the rest of namespaces
-    if (namespace === Namespace.uniprotkb) {
-      queryColumns = fieldsForUniProtKBCards;
-    }
-  }
-
-  const initialApiUrl = getAPIQueryUrl({
-    namespace,
-    query,
-    // TODO: Do similar things for the rest of namespaces
-    columns: queryColumns,
-    selectedFacets,
-    // Not really interested in the facets here, so try to reduce payload
-    facets: null,
-    sortColumn,
-    sortDirection,
-  });
-  const [url, setUrl] = useState(initialApiUrl);
-  const [metaData, setMetaData] = useState<{
-    total: number;
-    nextUrl?: string;
-  }>(() => ({ total: 0, nextUrl: undefined }));
-  usePrefetch(metaData.nextUrl);
-  const [allResults, setAllResults] = useState<APIModel[]>([]);
-
-  useEffect(() => {
-    setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
-    setUrl(initialApiUrl);
-  }, [initialApiUrl]);
-
-  const { data, loading, progress, headers } = useDataApi<{
-    results: APIModel[];
-  }>(url);
-
-  const prevViewMode = useRef<ViewMode>(viewMode);
-  useEffect(() => {
-    prevViewMode.current = viewMode;
-  });
-
-  const [getIdKey, getEntryPathForEntry] = useMemo(() => {
-    const getIdKey = getIdKeyFor(namespace);
-    const getEntryPath = getEntryPathFor(namespace);
-    return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
-  }, [namespace]);
-
-  // redirect to entry directly when only 1 result and query marked as "direct"
-  useEffect(() => {
-    if (direct && metaData.total === 1 && allResults.length === 1) {
-      const uniqueItem = allResults[0];
-      history.replace(getEntryPathForEntry(uniqueItem));
-    }
-  }, [history, direct, metaData, allResults, getEntryPathForEntry]);
-
-  useEffect(() => {
-    if (!data) {
-      return;
-    }
-    const { results } = data;
-    setAllResults((allRes) => [...allRes, ...results]);
-    setMetaData(() => ({
-      total: +(headers?.['x-totalrecords'] || 0),
-      nextUrl: getNextURLFromHeaders(headers),
-    }));
-  }, [data, headers]);
-
-  if (
-    // if loading the first page of results
-    (loading && url === initialApiUrl) ||
-    // or we just switched namespace (a bit hacky workaround to force unmount)
-    prevNamespace.current !== namespace ||
-    // or we just switched view mode (hacky too)
-    prevViewMode.current !== viewMode ||
-    // or we just changed the displayed columns (hacky too...)
-    prevColumns.current !== columns
-  ) {
-    return <Loader progress={progress} />;
-  }
-
-  const { total, nextUrl } = metaData;
-
-  const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
-
-  const updateColumnSort = (columnName: string) => {
-    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!sortColumn) {
-      return;
-    }
-
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
-
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
-  };
-
-  const hasMoreData = total > allResults.length;
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
   );
-
   return (
     <div className="results-view">
       {viewMode === ViewMode.CARD ? (
         // Card view
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}
-          data={allResults}
+          data={results}
           dataRenderer={cardRenderer(
             namespace,
             selectedEntries,
@@ -446,10 +309,10 @@ const ResultsView: FC<ResultsTableProps> = ({
             sortColumn,
             sortDirection
           )}
-          data={allResults}
+          data={results}
           selected={selectedEntries}
           onSelectRow={handleEntrySelection}
-          onHeaderClick={updateColumnSort}
+          onHeaderClick={handleColumnSort}
           onLoadMoreItems={handleLoadMoreRows}
           hasMoreData={hasMoreData}
           loaderComponent={loadComponent}
@@ -459,4 +322,4 @@ const ResultsView: FC<ResultsTableProps> = ({
   );
 };
 
-export default ResultsView;
+export default ResultsData;

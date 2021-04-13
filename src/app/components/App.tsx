@@ -32,7 +32,7 @@ const HomePage = lazy(
 const GenericResultsPage = lazy(
   () =>
     import(
-      /* webpackChunkName: "generic-results" */ '../../shared/components/results/ResultsContainer'
+      /* webpackChunkName: "generic-results" */ '../../shared/components/results/Results'
     )
 );
 // Main namespaces

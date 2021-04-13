@@ -2,7 +2,7 @@ import { screen, waitFor, fireEvent, act } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import ResultsView from '../ResultsView';
+import ResultsView, { ViewMode } from '../Results';
 
 import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
 
@@ -11,7 +11,6 @@ import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { UserPreferences } from '../../../contexts/UserPreferences';
-import { ViewMode } from '../ResultsContainer';
 
 describe('ResultsView component', () => {
   const props = {
