@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import useNS from './useNS';
+
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
 import { getAPIQueryUrl } from '../config/apiUrls';
 import { Column } from '../config/columns';
-
-import useNS from './useNS';
 
 const useNSQuery = ({
   queryColumns,
