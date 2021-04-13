@@ -53,7 +53,7 @@ const useNSQuery = ({
     size,
   ]);
 
-  return { url, sortColumn, sortDirection, direct };
+  return { url, direct };
 };
 
 export default useNSQuery;
