@@ -4,7 +4,7 @@ import {
   DataListWithLoader,
   Loader,
 } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 // card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
@@ -31,8 +31,6 @@ import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/dis
 import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
-import { getAPIQueryUrl } from '../../config/apiUrls';
-
 // columns for table views
 import UniProtKBColumnConfiguration from '../../../uniprotkb/config/UniProtKBColumnConfiguration';
 import UniRefColumnConfiguration from '../../../uniref/config/UniRefColumnConfiguration';
@@ -47,21 +45,16 @@ import LocationsColumnConfiguration from '../../../supporting-data/locations/con
 
 import useDataApi from '../../hooks/useDataApi';
 import useNS from '../../hooks/useNS';
+import useNSQuery from '../../hooks/useNSQuery';
 import usePrefetch from '../../hooks/usePrefetch';
 import useUserPreferences from '../../hooks/useUserPreferences';
+import useColumnSort from '../../hooks/useColumnSort';
 
 import fieldsForUniProtKBCards from '../../../uniprotkb/config/UniProtKBCardConfiguration';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import getNextURLFromHeaders from '../../utils/getNextURLFromHeaders';
-import {
-  getParamsFromURL,
-  getLocationObjForParams,
-} from '../../../uniprotkb/utils/resultsUtils';
-import {
-  getEntryPathFor,
-  SearchResultsLocations,
-} from '../../../app/config/urls';
+import { getEntryPathFor } from '../../../app/config/urls';
 
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
@@ -268,13 +261,11 @@ const getColumnsToDisplay = (
 type ResultsTableProps = {
   selectedEntries: string[];
   handleEntrySelection: (rowId: string) => void;
-  sortableColumnToSortColumn: Map<Column, string>;
 };
 
 const ResultsView: FC<ResultsTableProps> = ({
   selectedEntries,
   handleEntrySelection,
-  sortableColumnToSortColumn,
 }) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
@@ -295,16 +286,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   });
 
   const history = useHistory();
-  const location = useLocation();
-
-  const { search: queryParamFromUrl } = location;
-  const {
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    direct,
-  } = getParamsFromURL(queryParamFromUrl);
 
   let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
   if (viewMode === ViewMode.CARD) {
@@ -314,17 +295,12 @@ const ResultsView: FC<ResultsTableProps> = ({
     }
   }
 
-  const initialApiUrl = getAPIQueryUrl({
-    namespace,
-    query,
-    // TODO: Do similar things for the rest of namespaces
-    columns: queryColumns,
-    selectedFacets,
-    // Not really interested in the facets here, so try to reduce payload
-    facets: null,
-    sortColumn,
-    sortDirection,
+  const { url: initialApiUrl, sortColumn, sortDirection, direct } = useNSQuery({
+    queryColumns,
   });
+
+  const [sortableColumnToSortColumn, updateColumnSort] = useColumnSort();
+
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total: number;
@@ -390,29 +366,6 @@ const ResultsView: FC<ResultsTableProps> = ({
   const { total, nextUrl } = metaData;
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
-
-  const updateColumnSort = (columnName: string) => {
-    const sortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!sortColumn) {
-      return;
-    }
-
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
-
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
-  };
 
   const hasMoreData = total > allResults.length;
   const loadComponent = (
