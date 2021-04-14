@@ -21,43 +21,40 @@ describe('ResultsData component', () => {
 
   it('should render the table view', async () => {
     const { asFragment } = resultsData(ViewMode.TABLE);
-    await waitFor(() =>
-      expect(screen.queryByText('O00311')).toBeInTheDocument()
-    );
+    await screen.findByText('O00311');
     expect(asFragment()).toMatchSnapshot();
   });
 
-  it('should render the card view', async () => {
+  it('should render the card view with the correct number of cards', async () => {
     const { asFragment } = resultsData(ViewMode.CARD);
-    await waitFor(() =>
-      expect(screen.queryAllByText('Gene:')).toHaveLength(25)
-    );
+    const geneLabels = await screen.findAllByText('Gene:');
+    expect(geneLabels).toHaveLength(25);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should set sorting in table view', async () => {
     const { history } = resultsData(ViewMode.TABLE);
     let columnHeader = await screen.findByText('Entry');
-    act(() => {
-      fireEvent.click(columnHeader);
+    fireEvent.click(columnHeader);
+    await waitFor(() => {
+      expect(history.location.search).toBe(
+        '?query=blah&sort=accession&dir=ascend'
+      );
     });
-    expect(history.location.search).toBe(
-      '?query=blah&sort=accession&dir=ascend'
-    );
     columnHeader = await screen.findByText('Entry');
-    act(() => {
-      fireEvent.click(columnHeader);
+    fireEvent.click(columnHeader);
+    await waitFor(() => {
+      expect(history.location.search).toBe(
+        '?query=blah&sort=accession&dir=descend'
+      );
     });
-    expect(history.location.search).toBe(
-      '?query=blah&sort=accession&dir=descend'
-    );
     columnHeader = await screen.findByText('Entry');
-    act(() => {
+    await waitFor(() => {
       fireEvent.click(columnHeader);
+      expect(history.location.search).toBe(
+        '?query=blah&sort=accession&dir=ascend'
+      );
     });
-    expect(history.location.search).toBe(
-      '?query=blah&sort=accession&dir=ascend'
-    );
   });
 
   // Testing the button, and testing the 2 views, this is probably enough
