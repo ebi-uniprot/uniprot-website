@@ -2,7 +2,7 @@ import { screen, waitFor, fireEvent, act } from '@testing-library/react';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import ResultsView from '../ResultsView';
+import ResultsData, { ViewMode } from '../ResultsData';
 
 import { getSortableColumnToSortColumn } from '../../../../uniprotkb/utils/resultsUtils';
 
@@ -11,9 +11,8 @@ import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
 
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { UserPreferences } from '../../../contexts/UserPreferences';
-import { ViewMode } from '../ResultsContainer';
 
-describe('ResultsView component', () => {
+describe('ResultsData component', () => {
   const props = {
     handleEntrySelection: jest.fn(),
     selectedEntries: [],
@@ -21,7 +20,7 @@ describe('ResultsView component', () => {
   };
 
   it('should render table', async () => {
-    const { asFragment } = customRender(<ResultsView {...props} />, {
+    const { asFragment } = customRender(<ResultsData {...props} />, {
       initialUserPreferences: {
         'view-mode': ViewMode.TABLE,
         'table columns for uniprotkb': [UniProtKBColumn.accession],
@@ -34,7 +33,7 @@ describe('ResultsView component', () => {
   });
 
   test('should set sorting', async () => {
-    const { history } = customRender(<ResultsView {...props} />, {
+    const { history } = customRender(<ResultsData {...props} />, {
       initialUserPreferences: {
         'view-mode': ViewMode.TABLE,
         'table columns for uniprotkb': [UniProtKBColumn.accession],
@@ -65,7 +64,7 @@ describe('ResultsView component', () => {
   });
 
   it('should render cards', async () => {
-    const { asFragment } = customRender(<ResultsView {...props} />, {
+    const { asFragment } = customRender(<ResultsData {...props} />, {
       initialUserPreferences: {
         'view-mode': ViewMode.CARD,
       } as UserPreferences,

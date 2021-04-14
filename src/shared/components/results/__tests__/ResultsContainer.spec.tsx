@@ -1,6 +1,6 @@
 import { screen, fireEvent, act } from '@testing-library/react';
 
-import ResultsContainer from '../ResultsContainer';
+import Results from '../Results';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -11,7 +11,7 @@ import '../../../../uniprotkb/components/__mocks__/mockApi';
 describe('Results component', () => {
   test('should select a facet', async () => {
     await act(async () => {
-      const { history } = customRender(<ResultsContainer />, {
+      const { history } = customRender(<Results />, {
         route: '/uniprotkb?query=blah',
       });
       expect(history.location.search).toEqual('?query=blah');
@@ -27,7 +27,7 @@ describe('Results component', () => {
 
   test.skip('should deselect a facet', async () => {
     await act(async () => {
-      const { history } = customRender(<ResultsContainer />, {
+      const { history } = customRender(<Results />, {
         route: '/uniprotkb?query=blah&facets=reviewed:false',
       });
       const unreviewedButton = await screen.findByText(
@@ -41,7 +41,7 @@ describe('Results component', () => {
   // Testing the button, and testing the 2 views, this is probably enough
   test.skip('should toggle card view to table', async () => {
     await act(async () => {
-      customRender(<ResultsContainer />, { route: '/uniprotkb?query=blah' });
+      customRender(<Results />, { route: '/uniprotkb?query=blah' });
       const toggle = await screen.findByTestId('table-card-toggle');
       fireEvent.click(toggle);
       const table = await screen.findByText('Entry');
@@ -51,7 +51,7 @@ describe('Results component', () => {
 
   test('should display no results page', async () => {
     await act(async () => {
-      customRender(<ResultsContainer />, {
+      customRender(<Results />, {
         route: '/uniprotkb?query=noresult',
       });
 

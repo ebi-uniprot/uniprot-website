@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsView component should render cards 1`] = `
+exports[`ResultsData component should render cards 1`] = `
 <DocumentFragment>
   <div
     class="results-view"
@@ -3286,7 +3286,7 @@ exports[`ResultsView component should render cards 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ResultsView component should render table 1`] = `
+exports[`ResultsData component should render table 1`] = `
 <DocumentFragment>
   <div
     class="results-view"

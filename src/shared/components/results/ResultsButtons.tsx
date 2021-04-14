@@ -25,7 +25,7 @@ import {
   SelectedFacet,
 } from '../../../uniprotkb/types/resultsTypes';
 import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
-import { ViewMode } from './ResultsContainer';
+import { ViewMode } from './ResultsData';
 
 import './styles/results-buttons.scss';
 
