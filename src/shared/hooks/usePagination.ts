@@ -43,7 +43,15 @@ const usePagination = (initialApiUrl?: string) => {
 
   const hasMoreData = total > allResults.length;
 
-  return { allResults, loading, progress, hasMoreData, handleLoadMoreRows };
+  const initialLoading = loading && url === initialApiUrl;
+
+  return {
+    allResults,
+    initialLoading,
+    progress,
+    hasMoreData,
+    handleLoadMoreRows,
+  };
 };
 
 export default usePagination;

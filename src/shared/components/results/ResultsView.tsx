@@ -166,7 +166,7 @@ const ResultsView: FC<ResultsTableProps> = ({
   const { url: initialApiUrl, direct } = useNSQuery();
   const {
     allResults,
-    loading,
+    initialLoading,
     handleLoadMoreRows,
     hasMoreData,
     progress,
@@ -199,7 +199,7 @@ const ResultsView: FC<ResultsTableProps> = ({
 
   if (
     // if loading the first page of results
-    loading ||
+    initialLoading ||
     // or we just switched namespace (a bit hacky workaround to force unmount)
     prevUrl.current !== initialApiUrl ||
     // or we just switched view mode (hacky too)
