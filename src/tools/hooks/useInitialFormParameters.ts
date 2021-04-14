@@ -28,7 +28,6 @@ function useInitialFormParameters<
   FormParameters extends Record<Fields, unknown>
 >(defaultFormValues: Readonly<FormValues<Fields>>) {
   const history = useHistory();
-
   const initialValues = useMemo(() => {
     // NOTE: we should use a similar logic to pre-fill fields based on querystring
     const parametersFromHistoryState = (history.location

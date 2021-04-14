@@ -161,6 +161,7 @@ const BlastForm = () => {
   const [taxIDs, setTaxIDs] = useState(
     initialFormValues[BlastFields.taxons] as BlastFormValues[BlastFields.taxons]
   );
+  // TODO: to eventually incorporate into the form
   const [negativeTaxIDs, setNegativeTaxIDs] = useState(
     initialFormValues[
       BlastFields.excludedtaxons
