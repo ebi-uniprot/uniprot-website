@@ -33,6 +33,7 @@ import useNS from '../../hooks/useNS';
 import useNSQuery from '../../hooks/useNSQuery';
 import useUserPreferences from '../../hooks/useUserPreferences';
 import useColumns from '../../hooks/useColumns';
+import usePagination from '../../hooks/usePagination';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getEntryPathFor } from '../../../app/config/urls';
@@ -43,7 +44,6 @@ import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import usePagination from '../../hooks/usePagination';
 
 const cardRenderer = (
   namespace: Namespace,
