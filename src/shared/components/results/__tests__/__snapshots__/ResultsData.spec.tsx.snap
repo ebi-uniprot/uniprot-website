@@ -1,10 +1,114 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsData component should render cards 1`] = `
+exports[`ResultsData component should render the card view 1`] = `
 <DocumentFragment>
   <div
-    class="results-view"
+    class="results-data"
   >
+    <div
+      class="page-intro"
+    >
+      <h2>
+        <button
+          class="dropdown"
+          type="button"
+        >
+          <test-file-stub
+            height="20"
+            width="20"
+          />
+           UniProtKB
+        </button>
+        <small>
+           25 results
+        </small>
+      </h2>
+      <div
+        class="intro-content"
+      >
+        <p>
+          The UniProt Knowledgebase (UniProtKB) is the central hub for the collection of functional information on proteins, with accurate, consistent and rich annotation. In addition to capturing the core data mandatory for each UniProtKB entry (mainly, the amino acid sequence, protein name or description, taxonomic data and citation information), as much annotation information as possible is added.
+        </p>
+        <p>
+          UniProtKB consists of two sections:
+        </p>
+        <p>
+          Reviewed (Swiss-Prot) - Manually annotated Records with information extracted from literature and curator-evaluated computational analysis.
+        </p>
+        <p>
+          Unreviewed (TrEMBL) - Computationally analyzed Records that await full manual annotation.
+        </p>
+        <div
+          class="intro-links"
+        >
+          <a
+            href="/"
+          >
+            Help
+          </a>
+          <a
+            href="/"
+          >
+            Video
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="button-group results-buttons"
+    >
+      <button
+        class="button tertiary disabled"
+        disabled=""
+        title="Select at least one entry to run a BLAST job"
+        type="button"
+      >
+        BLAST
+      </button>
+      <button
+        class="button tertiary disabled"
+        disabled=""
+        title="Select at least 2 entries to run an Align job"
+        type="button"
+      >
+        Align
+      </button>
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        <test-file-stub />
+        Download
+      </button>
+      <button
+        class="button tertiary disabled"
+        disabled=""
+        title="Select at least one entry to add to the basket"
+        type="button"
+      >
+        <test-file-stub />
+        Add
+      </button>
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        <test-file-stub />
+        Statistics
+      </button>
+      <button
+        class="button tertiary large-icon"
+        data-testid="table-card-toggle"
+        type="button"
+      >
+        <test-file-stub
+          classname="results-buttons__toggle"
+        />
+        <test-file-stub
+          classname="results-buttons__toggle results-buttons__toggle--active"
+        />
+      </button>
+    </div>
     <div>
       <section>
         <section
@@ -3286,11 +3390,122 @@ exports[`ResultsData component should render cards 1`] = `
 </DocumentFragment>
 `;
 
-exports[`ResultsData component should render table 1`] = `
+exports[`ResultsData component should render the table view 1`] = `
 <DocumentFragment>
   <div
-    class="results-view"
+    class="results-data"
   >
+    <div
+      class="page-intro"
+    >
+      <h2>
+        <button
+          class="dropdown"
+          type="button"
+        >
+          <test-file-stub
+            height="20"
+            width="20"
+          />
+           UniProtKB
+        </button>
+        <small>
+           25 results
+        </small>
+      </h2>
+      <div
+        class="intro-content"
+      >
+        <p>
+          The UniProt Knowledgebase (UniProtKB) is the central hub for the collection of functional information on proteins, with accurate, consistent and rich annotation. In addition to capturing the core data mandatory for each UniProtKB entry (mainly, the amino acid sequence, protein name or description, taxonomic data and citation information), as much annotation information as possible is added.
+        </p>
+        <p>
+          UniProtKB consists of two sections:
+        </p>
+        <p>
+          Reviewed (Swiss-Prot) - Manually annotated Records with information extracted from literature and curator-evaluated computational analysis.
+        </p>
+        <p>
+          Unreviewed (TrEMBL) - Computationally analyzed Records that await full manual annotation.
+        </p>
+        <div
+          class="intro-links"
+        >
+          <a
+            href="/"
+          >
+            Help
+          </a>
+          <a
+            href="/"
+          >
+            Video
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="button-group results-buttons"
+    >
+      <button
+        class="button tertiary disabled"
+        disabled=""
+        title="Select at least one entry to run a BLAST job"
+        type="button"
+      >
+        BLAST
+      </button>
+      <button
+        class="button tertiary disabled"
+        disabled=""
+        title="Select at least 2 entries to run an Align job"
+        type="button"
+      >
+        Align
+      </button>
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        <test-file-stub />
+        Download
+      </button>
+      <button
+        class="button tertiary disabled"
+        disabled=""
+        title="Select at least one entry to add to the basket"
+        type="button"
+      >
+        <test-file-stub />
+        Add
+      </button>
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        <test-file-stub />
+        Statistics
+      </button>
+      <button
+        class="button tertiary large-icon"
+        data-testid="table-card-toggle"
+        type="button"
+      >
+        <test-file-stub
+          classname="results-buttons__toggle results-buttons__toggle--active"
+        />
+        <test-file-stub
+          classname="results-buttons__toggle"
+        />
+      </button>
+      <button
+        class="button tertiary"
+        type="button"
+      >
+        <test-file-stub />
+        Customize data
+      </button>
+    </div>
     <table
       class="data-table"
     >
