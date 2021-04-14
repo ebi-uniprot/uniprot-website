@@ -1,6 +1,17 @@
 @import 'franklin-sites/src/styles/colours';
+@import '../../../styles/settings';
 
 .results-buttons {
+  padding-right: $gutter-size;
+  padding-left: calc(2 * #{$gutter-size});
+  margin-left: -$gutter-size;
+  padding-top: 0.5rem;
+  z-index: $z-index-medium;
+  background-color: $colour-sky-white;
+  height: $action-buttons-height;
+  position: sticky;
+  top: $header-height;
+
   &__toggle {
     &--active {
       color: $colour-platinum;

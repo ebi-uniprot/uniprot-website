@@ -28,7 +28,7 @@ import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 
 import './styles/warning.scss';
-import './styles/results-view.scss';
+import './styles/results-data.scss';
 
 export enum ViewMode {
   TABLE,
@@ -103,7 +103,7 @@ const ResultsData: FC = () => {
   const { name, links, info } = infoMappings[namespace];
 
   return (
-    <>
+    <div className="results-data">
       <PageIntro title={name} links={links} resultsCount={total}>
         {info}
       </PageIntro>
@@ -116,37 +116,35 @@ const ResultsData: FC = () => {
         total={total || 0}
       />
 
-      <div className="results-view">
-        {viewMode === ViewMode.CARD ? (
-          // Card view
-          <DataListWithLoader<APIModel>
-            getIdKey={getIdKey}
-            data={allResults}
-            dataRenderer={cardRenderer(
-              namespace,
-              selectedEntries,
-              handleEntrySelection
-            )}
-            onLoadMoreItems={handleLoadMoreRows}
-            hasMoreData={hasMoreData}
-            loaderComponent={loadComponent}
-          />
-        ) : (
-          // Column view
-          <DataTableWithLoader
-            getIdKey={getIdKey}
-            columns={columns}
-            data={allResults}
-            selected={selectedEntries}
-            onSelectRow={handleEntrySelection}
-            onHeaderClick={updateColumnSort}
-            onLoadMoreItems={handleLoadMoreRows}
-            hasMoreData={hasMoreData}
-            loaderComponent={loadComponent}
-          />
-        )}
-      </div>
-    </>
+      {viewMode === ViewMode.CARD ? (
+        // Card view
+        <DataListWithLoader<APIModel>
+          getIdKey={getIdKey}
+          data={allResults}
+          dataRenderer={cardRenderer(
+            namespace,
+            selectedEntries,
+            handleEntrySelection
+          )}
+          onLoadMoreItems={handleLoadMoreRows}
+          hasMoreData={hasMoreData}
+          loaderComponent={loadComponent}
+        />
+      ) : (
+        // Column view
+        <DataTableWithLoader
+          getIdKey={getIdKey}
+          columns={columns}
+          data={allResults}
+          selected={selectedEntries}
+          onSelectRow={handleEntrySelection}
+          onHeaderClick={updateColumnSort}
+          onLoadMoreItems={handleLoadMoreRows}
+          hasMoreData={hasMoreData}
+          loaderComponent={loadComponent}
+        />
+      )}
+    </div>
   );
 };
 

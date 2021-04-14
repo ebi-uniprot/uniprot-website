@@ -9,9 +9,10 @@ import { mainNamespaces, Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
-import './styles/results-view.scss';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNSQuery from '../../hooks/useNSQuery';
+
+import './styles/results-data.scss';
 
 const ResultsFacets: FC = () => {
   const namespace = useNS() || Namespace.uniprotkb;

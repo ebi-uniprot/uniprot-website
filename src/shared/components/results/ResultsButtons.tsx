@@ -85,7 +85,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           </SlidingPanel>
         </Suspense>
       )}
-      <div className="button-group">
+      <div className="button-group results-buttons">
         {isMain && namespace !== Namespace.proteomes && (
           <BlastButton selectedEntries={selectedEntries} />
         )}

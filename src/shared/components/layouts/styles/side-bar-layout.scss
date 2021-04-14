@@ -12,24 +12,6 @@
     padding-right: $gutter-size;
   }
 
-  &__action-buttons {
-    padding-right: $gutter-size;
-    padding-left: calc(2 * #{$gutter-size});
-    margin-left: -$gutter-size;
-    padding-top: 0.5rem;
-    top: 0;
-    position: sticky;
-    z-index: $z-index-medium;
-    background-color: $colour-sky-white;
-    height: $action-buttons-height;
-  }
-
-  // &__title,
-  &__action-buttons {
-    position: sticky;
-    top: $header-height;
-  }
-
   &__sidebar {
     @include scroll-shadow;
     position: sticky;
