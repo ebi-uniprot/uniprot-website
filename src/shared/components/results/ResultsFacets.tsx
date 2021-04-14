@@ -1,16 +1,17 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
 import TaxonomyFacet from './TaxonomyFacet';
 import ErrorHandler from '../error-pages/ErrorHandler';
-import useNS from '../../hooks/useNS';
-import { mainNamespaces, Namespace } from '../../types/namespaces';
 
+import useNS from '../../hooks/useNS';
+import useNSQuery from '../../hooks/useNSQuery';
+import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
-import useDataApiWithStale from '../../hooks/useDataApiWithStale';
-import useNSQuery from '../../hooks/useNSQuery';
 
 import './styles/results-data.scss';
 
