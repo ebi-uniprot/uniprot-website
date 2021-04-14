@@ -1,21 +1,50 @@
-import { FC } from 'react';
-import { Facets, Facet } from 'franklin-sites';
+import React, { FC } from 'react';
+import { Facets, Facet, Loader } from 'franklin-sites';
 
 import TaxonomyFacet from './TaxonomyFacet';
-
+import ErrorHandler from '../error-pages/ErrorHandler';
 import useNS from '../../hooks/useNS';
-import { mainNamespaces } from '../../types/namespaces';
+import { mainNamespaces, Namespace } from '../../types/namespaces';
 
-import { FacetObject } from '../../../uniprotkb/types/responseTypes';
+import Response from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
 import './styles/results-view.scss';
+import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+import useNSQuery from '../../hooks/useNSQuery';
 
-const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
-  facets,
-  isStale,
-}) => {
-  const ns = useNS();
+const ResultsFacets: FC = () => {
+  const namespace = useNS() || Namespace.uniprotkb;
+
+  const { url: initialApiUrl } = useNSQuery({ size: 0, withFacets: true });
+
+  const {
+    data,
+    error,
+    loading,
+    progress,
+    headers,
+    status,
+    isStale,
+  } = useDataApiWithStale<Response['data']>(initialApiUrl);
+
+  if (error || !(loading || data) || !namespace) {
+    return <ErrorHandler status={status} />;
+  }
+
+  const total = headers?.['x-totalrecords']
+    ? +headers['x-totalrecords']
+    : undefined;
+
+  if (loading && !data?.facets) {
+    return <Loader progress={progress} />;
+  }
+
+  if (!total || !data?.facets) {
+    return null;
+  }
+
+  const { facets } = data;
 
   const splitIndex = facets.findIndex(
     (facet) => facet.name === 'model_organism' || facet.name === 'superkingdom'
@@ -28,7 +57,7 @@ const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
       {before.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}
-      {ns && mainNamespaces.has(ns) && <TaxonomyFacet />}
+      {namespace && mainNamespaces.has(namespace) && <TaxonomyFacet />}
       {after.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}

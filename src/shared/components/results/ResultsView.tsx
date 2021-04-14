@@ -3,8 +3,9 @@ import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
+  PageIntro,
 } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // card renderers for card views
 import UniProtKBCard from '../../../uniprotkb/components/results/UniProtKBCard';
@@ -18,6 +19,20 @@ import DiseasesCard from '../../../supporting-data/diseases/components/results/D
 import DatabaseCard from '../../../supporting-data/database/components/results/DatabaseCard';
 import LocationsCard from '../../../supporting-data/locations/components/results/LocationsCard';
 
+import NoResultsPage from '../error-pages/NoResultsPage';
+import ResultsButtons from './ResultsButtons';
+
+import useNS from '../../hooks/useNS';
+import useNSQuery from '../../hooks/useNSQuery';
+import useUserPreferences from '../../hooks/useUserPreferences';
+import useColumns from '../../hooks/useColumns';
+import usePagination from '../../hooks/usePagination';
+
+import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
+
+import { getEntryPathFor } from '../../../app/config/urls';
+import infoMappings from '../../config/InfoMappings';
+
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
@@ -29,21 +44,14 @@ import { DiseasesAPIModel } from '../../../supporting-data/diseases/adapters/dis
 import { DatabaseAPIModel } from '../../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../../supporting-data/locations/adapters/locationsConverter';
 
-import useNS from '../../hooks/useNS';
-import useNSQuery from '../../hooks/useNSQuery';
-import useUserPreferences from '../../hooks/useUserPreferences';
-import useColumns from '../../hooks/useColumns';
-
-import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
-import { getEntryPathFor } from '../../../app/config/urls';
-
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { ViewMode } from './ResultsContainer';
 
 import './styles/warning.scss';
 import './styles/results-view.scss';
-import usePagination from '../../hooks/usePagination';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
+import useItemSelect from '../../hooks/useItemSelect';
 
 const cardRenderer = (
   namespace: Namespace,
@@ -149,20 +157,16 @@ const cardRenderer = (
   }
 };
 
-type ResultsTableProps = {
-  selectedEntries: string[];
-  handleEntrySelection: (rowId: string) => void;
-};
-
-const ResultsView: FC<ResultsTableProps> = ({
-  selectedEntries,
-  handleEntrySelection,
-}) => {
+const ResultsView: FC = () => {
   const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns();
-
+  const [selectedEntries, handleEntrySelection] = useItemSelect();
+  const { search: queryParamFromUrl } = useLocation();
+  const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
+    queryParamFromUrl
+  );
   const { url: initialApiUrl, direct } = useNSQuery();
   const {
     allResults,
@@ -170,6 +174,7 @@ const ResultsView: FC<ResultsTableProps> = ({
     handleLoadMoreRows,
     hasMoreData,
     progress,
+    total,
   } = usePagination(initialApiUrl);
 
   const prevUrl = useRef<string | undefined>(initialApiUrl);
@@ -208,41 +213,62 @@ const ResultsView: FC<ResultsTableProps> = ({
     return <Loader progress={progress} />;
   }
 
+  // no results if total is 0, or if not loading anymore and still no total info
+  if (total === 0 || !(total || initialLoading)) {
+    return <NoResultsPage />;
+  }
+
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
   );
 
+  const { name, links, info } = infoMappings[namespace];
+
   return (
-    <div className="results-view">
-      {viewMode === ViewMode.CARD ? (
-        // Card view
-        <DataListWithLoader<APIModel>
-          getIdKey={getIdKey}
-          data={allResults}
-          dataRenderer={cardRenderer(
-            namespace,
-            selectedEntries,
-            handleEntrySelection
-          )}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-        />
-      ) : (
-        // Column view
-        <DataTableWithLoader
-          getIdKey={getIdKey}
-          columns={columns}
-          data={allResults}
-          selected={selectedEntries}
-          onSelectRow={handleEntrySelection}
-          onHeaderClick={updateColumnSort}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-        />
-      )}
-    </div>
+    <>
+      <PageIntro title={name} links={links} resultsCount={total}>
+        {info}
+      </PageIntro>
+      <ResultsButtons
+        query={query}
+        selectedFacets={selectedFacets}
+        selectedEntries={selectedEntries}
+        sortColumn={sortColumn}
+        sortDirection={sortDirection}
+        total={total || 0}
+      />
+
+      <div className="results-view">
+        {viewMode === ViewMode.CARD ? (
+          // Card view
+          <DataListWithLoader<APIModel>
+            getIdKey={getIdKey}
+            data={allResults}
+            dataRenderer={cardRenderer(
+              namespace,
+              selectedEntries,
+              handleEntrySelection
+            )}
+            onLoadMoreItems={handleLoadMoreRows}
+            hasMoreData={hasMoreData}
+            loaderComponent={loadComponent}
+          />
+        ) : (
+          // Column view
+          <DataTableWithLoader
+            getIdKey={getIdKey}
+            columns={columns}
+            data={allResults}
+            selected={selectedEntries}
+            onSelectRow={handleEntrySelection}
+            onHeaderClick={updateColumnSort}
+            onLoadMoreItems={handleLoadMoreRows}
+            hasMoreData={hasMoreData}
+            loaderComponent={loadComponent}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

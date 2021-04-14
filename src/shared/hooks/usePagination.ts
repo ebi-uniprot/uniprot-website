@@ -51,6 +51,7 @@ const usePagination = (initialApiUrl?: string) => {
     progress,
     hasMoreData,
     handleLoadMoreRows,
+    total,
   };
 };
 
