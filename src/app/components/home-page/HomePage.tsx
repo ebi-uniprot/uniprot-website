@@ -9,20 +9,17 @@ import {
 } from 'react';
 import { HeroHeader, Loader, CitedIcon } from 'franklin-sites';
 
-import SearchContainer from '../../shared/components/search/SearchContainer';
-import ErrorBoundary from '../../shared/components/error-component/ErrorBoundary';
+import SearchContainer from '../../../shared/components/search/SearchContainer';
+import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
-import useReducedMotion from '../../shared/hooks/useReducedMotion';
+import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
-import { Namespace } from '../../shared/types/namespaces';
+import { Namespace } from '../../../shared/types/namespaces';
 
 import './styles/home-page.scss';
 
 const HomePageNonCritical = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "home-page-non-critical" */ './HomePageNonCritical'
-    )
+  () => import(/* webpackChunkName: "home-page-non-critical" */ './NonCritical')
 );
 
 const mission = (

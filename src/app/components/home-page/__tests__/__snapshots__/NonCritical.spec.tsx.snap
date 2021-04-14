@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomePage component (non-critical part) should render 1`] = `
+exports[`non-critical HomePage component should render 1`] = `
 <DocumentFragment>
   <section
     class="uniprot-grid uniprot-grid--centered home-page-section"
@@ -41,7 +41,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
         class="tile__description"
       >
         <span
-          class="proteins-section"
+          class="core-data"
         >
           <a
             href="/uniprotkb?facets=reviewed:true&query=*"
@@ -50,7 +50,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
               width="2.5em"
             />
             <div
-              class="proteins-section__status"
+              class="core-data__status"
             >
               Reviewed
             </div>
@@ -65,7 +65,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
               width="2.5em"
             />
             <div
-              class="proteins-section__status"
+              class="core-data__status"
             >
               Unreviewed
             </div>
@@ -183,7 +183,7 @@ exports[`HomePage component (non-critical part) should render 1`] = `
       class="uniprot-grid-cell--span-3"
     >
       <h3
-        class="supporting-data-section__header"
+        class="supporting-data__header"
       >
         Supporting Data
       </h3>
@@ -323,19 +323,147 @@ exports[`HomePage component (non-critical part) should render 1`] = `
     </div>
   </section>
   <section
-    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section"
+    class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section latest-news"
   >
-    <h2
-      class="uniprot-grid-cell--span-12 hero-container__title medium"
+    <article
+      class="uniprot-grid-cell--span-4"
     >
-      News
-    </h2>
+      Protein spotlight
+    </article>
     <div
-      class="placeholder uniprot-grid-cell--span-12"
+      class="uniprot-grid-cell--span-4"
     >
-      <test-file-stub
-        preserveaspectratio="none"
-      />
+      <article>
+        Search with a sequence to find homologs through pairwise sequence alignment
+      </article>
+      <article>
+        Search with a sequence to find homologs through pairwise sequence alignment
+      </article>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-4 latest-news__news-roll"
+    >
+      <h2
+        class="medium"
+      >
+        <a
+          class="external-link"
+          href="https://www.uniprot.org/news?sort=created"
+          rel="noopener"
+          target="_blank"
+        >
+          Latest News
+        </a>
+      </h2>
+      <ul
+        class="no-bullet"
+      >
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                class="external-link"
+                href="https://www.uniprot.org/changes?sort=published"
+                rel="noopener"
+                target="_blank"
+              >
+                Forthcoming changes
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Planned changes for UniProt
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                class="external-link"
+                href="https://www.uniprot.org/news/2021/04/07/release"
+                rel="noopener"
+                target="_blank"
+              >
+                UniProt release 2021_02
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              With a little help from my friend | SwissBioPics subcellular location visualization | Change of evidence codes for combinatorial evidence
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                class="external-link"
+                href="https://www.uniprot.org/news/2021/02/10/release"
+                rel="noopener"
+                target="_blank"
+              >
+                UniProt release 2021_01
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              (Almost) all about that CBASS | Cross-references to VEuPathDB | Changes to humsavar.txt and related keywords | Reference proteomes downlo...
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                class="external-link"
+                href="https://www.uniprot.org/news/2020/12/02/release"
+                rel="noopener"
+                target="_blank"
+              >
+                UniProt release 2020_06
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              Venoms, gold mines for new antiprotozoal drugs | Removal of cross-references to KO
+            </p>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3
+              class="tiny"
+            >
+              <a
+                class="external-link"
+                href="https://www.uniprot.org/news/2020/10/07/release"
+                rel="noopener"
+                target="_blank"
+              >
+                UniProt release 2020_05
+              </a>
+            </h3>
+            <p
+              class="latest-news__abstract latest-news__abstract--2-lines"
+            >
+              PCK1 vacillating between gluconeogenesis and lipogenesis | Cross-references to CPTC, BMRB, PCDDB and SASBDB
+            </p>
+          </article>
+        </li>
+      </ul>
     </div>
   </section>
   <section

@@ -1,0 +1,90 @@
+@import 'franklin-sites/src/styles/colours';
+@import 'franklin-sites/src/styles/settings';
+@import '../../../../shared/styles/mixins';
+
+.home-page-section {
+  margin-bottom: $global-margin * 2;
+}
+
+.core-data {
+  display: flex;
+  line-height: 1;
+
+  & > * {
+    flex: 1;
+  }
+
+  svg,
+  a {
+    display: inline-block;
+    color: currentColor;
+  }
+
+  svg :global(.swissprot_svg__star) {
+    fill: $colour-reviewed;
+  }
+
+  &__status {
+    font-weight: bold;
+  }
+}
+
+.supporting-data {
+  &__header {
+    margin: 0;
+    line-height: 0.9;
+  }
+}
+
+.latest-news {
+  grid-template-rows: calc(16rem - #{$global-padding});
+  height: 16rem;
+  overflow: hidden;
+
+  & > * {
+    padding-bottom: $global-padding;
+  }
+
+  &__news-roll {
+    padding-bottom: 0;
+    display: flex;
+    flex-direction: column;
+
+    h2,
+    h3 {
+      margin-bottom: 0;
+    }
+
+    & > ul {
+      @include scroll-shadow($colour-platinum);
+      margin-bottom: 0;
+      overflow: auto;
+
+      // TODO: validate with UX if that's a good thing to do
+      // Hides the scrollbar, but keeps functionality
+      // See https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width#accessibility_concerns
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  article {
+    overflow: hidden;
+  }
+
+  &__abstract {
+    line-height: 1.5;
+    margin-bottom: 0.2em;
+    overflow: hidden;
+
+    // https://css-tricks.com/line-clampin/
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+
+    &--2-lines {
+      -webkit-line-clamp: 2;
+    }
+  }
+}
