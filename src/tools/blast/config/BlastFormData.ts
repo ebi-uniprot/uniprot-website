@@ -2,16 +2,9 @@ import { Program } from '../types/blastServerParameters';
 import { FormParameters } from '../types/blastFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
-export enum BlastFieldTypes {
-  textarea,
-  select,
-  autocomplete,
-}
-
 export type BlastFormValue = {
   fieldName: string;
   selected?: string | SelectedTaxon[] | boolean | number;
-  type?: BlastFieldTypes;
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
@@ -52,12 +45,10 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   }),
   [BlastFields.sequence]: Object.freeze({
     fieldName: 'sequence',
-    type: BlastFieldTypes.textarea,
     selected: '',
   }),
   [BlastFields.database]: Object.freeze({
     fieldName: 'database',
-    type: BlastFieldTypes.select,
     selected: 'uniprotkb_refprotswissprot',
     values: Object.freeze([
       {
@@ -79,16 +70,13 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   }),
   [BlastFields.taxons]: Object.freeze({
     fieldName: 'taxIDs',
-    type: BlastFieldTypes.autocomplete,
   }),
   [BlastFields.excludedtaxons]: Object.freeze({
     fieldName: 'negativeTaxIDs',
-    type: BlastFieldTypes.autocomplete,
   }),
   // 'exp' parameter
   [BlastFields.threshold]: Object.freeze({
     fieldName: 'threshold',
-    type: BlastFieldTypes.select,
     selected: '10',
     values: Object.freeze([
       { label: '0.0001', value: '1e-4' },
@@ -103,7 +91,6 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   }),
   [BlastFields.matrix]: Object.freeze({
     fieldName: 'matrix',
-    type: BlastFieldTypes.select,
     selected: 'auto',
     values: Object.freeze([
       // "auto" will be replaced by the correct matrix value on submission
@@ -119,7 +106,6 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   }),
   [BlastFields.filter]: Object.freeze({
     fieldName: 'filter',
-    type: BlastFieldTypes.select,
     selected: 'F',
     values: Object.freeze([
       { value: 'F', label: 'None' },
@@ -129,7 +115,6 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   // 'gapalign'
   [BlastFields.gapped]: Object.freeze({
     fieldName: 'gapped',
-    type: BlastFieldTypes.select,
     selected: true,
     values: Object.freeze([
       { value: true, label: 'yes' },
@@ -139,7 +124,6 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   // Note: this corresponds to BOTH 'alignments' AND 'scores' AT THE SAME TIME!
   [BlastFields.hits]: Object.freeze({
     fieldName: 'hits',
-    type: BlastFieldTypes.select,
     selected: 250,
     values: Object.freeze([
       { value: 50 },
@@ -152,7 +136,6 @@ const formData: Readonly<BlastFormValues> = Object.freeze({
   }),
   [BlastFields.name]: Object.freeze({
     fieldName: 'name',
-    type: BlastFieldTypes.textarea,
     selected: '',
   }),
 });
