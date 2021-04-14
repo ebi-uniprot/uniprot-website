@@ -3,6 +3,13 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/mixins';
 
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    margin-bottom: -1000px;
+  }
+}
+
 .sliding-panel {
   @include box-shadow(0.125rem);
   background-color: $colour-sky-white;
@@ -10,6 +17,15 @@
   padding: 0 $global-padding;
   position: fixed;
   z-index: $z-index-high + 2;
+  opacity: 1;
+  margin-bottom: 0;
+
+  // animation on mount
+  animation-duration: 500ms;
+  animation-name: slide-in;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: backwards;
 
   &__button-row {
     position: sticky;
