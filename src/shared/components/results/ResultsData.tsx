@@ -55,12 +55,18 @@ const ResultsData: FC = () => {
   useEffect(() => {
     // will set it *after* the current render
     prevUrl.current = initialApiUrl;
-  });
+  }, [initialApiUrl]);
+
+  const prevNS = useRef<string | undefined>(namespace);
+  useEffect(() => {
+    // will set it *after* the current render
+    prevNS.current = namespace;
+  }, [namespace]);
 
   const prevViewMode = useRef<ViewMode>(viewMode);
   useEffect(() => {
     prevViewMode.current = viewMode;
-  });
+  }, [viewMode]);
 
   const [getIdKey, getEntryPathForEntry] = useMemo(() => {
     const getIdKey = getIdKeyFor(namespace);
@@ -80,6 +86,8 @@ const ResultsData: FC = () => {
     // if loading the first page of results
     initialLoading ||
     // or we just switched namespace (a bit hacky workaround to force unmount)
+    prevNS.current !== namespace ||
+    // or just a url change (hacky too)
     prevUrl.current !== initialApiUrl ||
     // or we just switched view mode (hacky too)
     prevViewMode.current !== viewMode
@@ -88,9 +96,9 @@ const ResultsData: FC = () => {
   }
 
   // no results if total is 0, not loading at this point (due to if above)
-  if (total === 0) {
-    return <NoResultsPage />;
-  }
+  // if (total === 0) {
+  //   return <NoResultsPage />;
+  // }
 
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
