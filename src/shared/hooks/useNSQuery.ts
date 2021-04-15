@@ -67,6 +67,7 @@ const useNSQuery = ({
     queryColumns,
     selectedFacets,
     withFacets,
+    withColumns,
     sortColumn,
     sortDirection,
     size,
