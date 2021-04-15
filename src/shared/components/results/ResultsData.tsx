@@ -7,7 +7,7 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
-import NoResultsPage from '../error-pages/NoResultsPage';
+// import NoResultsPage from '../error-pages/NoResultsPage';
 import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
