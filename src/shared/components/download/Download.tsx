@@ -1,12 +1,14 @@
 import { useCallback, useState, FC, ChangeEvent } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
+import useUserPreferences from '../../hooks/useUserPreferences';
+
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
-
-import useUserPreferences from '../../hooks/useUserPreferences';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getDownloadUrl } from '../../config/apiUrls';
 import {
@@ -20,12 +22,7 @@ import {
   nsToFileFormatsResultsDownload,
 } from '../../config/resultsDownload';
 
-import {
-  SelectedFacet,
-  SortDirection,
-} from '../../../uniprotkb/types/resultsTypes';
 import { ContentType, FileFormat } from '../../types/resultsDownload';
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { Namespace } from '../../types/namespaces';
 
 import './styles/download.scss';
@@ -35,10 +32,7 @@ export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;
 
 type DownloadProps = {
-  query: string;
-  selectedFacets?: SelectedFacet[];
-  sortColumn?: SortableColumn;
-  sortDirection?: SortDirection;
+  query?: string;
   selectedEntries?: string[];
   selectedQuery?: string;
   totalNumberResults: number;
@@ -50,9 +44,6 @@ type DownloadProps = {
 const Download: FC<DownloadProps> = ({
   query,
   selectedQuery,
-  selectedFacets = [],
-  sortColumn,
-  sortDirection,
   selectedEntries = [],
   totalNumberResults,
   numberSelectedEntries,
@@ -76,11 +67,31 @@ const Download: FC<DownloadProps> = ({
     contentType: '',
     data: '',
   });
+  const { search: queryParamFromUrl } = useLocation();
+  const {
+    query: queryFromUrl,
+    selectedFacets = [],
+    sortColumn,
+    sortDirection,
+  } = getParamsFromURL(queryParamFromUrl);
 
   const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
 
-  const urlQuery = downloadAll || !selectedQuery ? query : selectedQuery;
-  const urlSelected = downloadAll || selectedQuery ? [] : selectedEntries;
+  // This logic is needed specifically for the proteomes components
+  let urlQuery: string;
+  let urlSelected: string[];
+  if (downloadAll) {
+    // If query prop provided use this otherwise fallback to query from URL
+    urlQuery = query || queryFromUrl;
+    urlSelected = [];
+  } else {
+    // Download selected
+    // If selectedQuery prop provided use this otherwise fallback to query from URL
+    urlQuery = selectedQuery || queryFromUrl;
+    // If selectedQuery prop provided assume this already specifies how to select
+    // a subset of entries.
+    urlSelected = selectedQuery ? [] : selectedEntries;
+  }
 
   const downloadUrl = getDownloadUrl({
     query: urlQuery,

@@ -5,7 +5,7 @@ import {
   Loader,
   PageIntro,
 } from 'franklin-sites';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import NoResultsPage from '../error-pages/NoResultsPage';
 import ResultsButtons from './ResultsButtons';
@@ -18,7 +18,6 @@ import usePagination from '../../hooks/usePagination';
 import useItemSelect from '../../hooks/useItemSelect';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
-import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import cardRenderer from '../../config/resultsCardRenderers';
@@ -41,10 +40,7 @@ const ResultsData: FC = () => {
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns();
   const [selectedEntries, handleEntrySelection] = useItemSelect();
-  const { search: queryParamFromUrl } = useLocation();
-  const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
-    queryParamFromUrl
-  );
+
   const { url: initialApiUrl, direct } = useNSQuery();
   const {
     allResults,
@@ -91,8 +87,8 @@ const ResultsData: FC = () => {
     return <Loader progress={progress} />;
   }
 
-  // no results if total is 0, or if not loading anymore and still no total info
-  if (total === 0 || !(total || initialLoading)) {
+  // no results if total is 0, not loading at this point (due to if above)
+  if (total === 0) {
     return <NoResultsPage />;
   }
 
@@ -107,15 +103,7 @@ const ResultsData: FC = () => {
       <PageIntro title={name} links={links} resultsCount={total}>
         {info}
       </PageIntro>
-      <ResultsButtons
-        query={query}
-        selectedFacets={selectedFacets}
-        selectedEntries={selectedEntries}
-        sortColumn={sortColumn}
-        sortDirection={sortDirection}
-        total={total || 0}
-      />
-
+      <ResultsButtons total={total} selectedEntries={selectedEntries} />
       {viewMode === ViewMode.CARD ? (
         // Card view
         <DataListWithLoader<APIModel>

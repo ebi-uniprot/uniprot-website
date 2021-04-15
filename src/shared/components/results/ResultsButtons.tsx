@@ -20,11 +20,6 @@ import useNS from '../../hooks/useNS';
 import lazy from '../../utils/lazy';
 
 import { Namespace, mainNamespaces } from '../../types/namespaces';
-import {
-  SortDirection,
-  SelectedFacet,
-} from '../../../uniprotkb/types/resultsTypes';
-import { SortableColumn } from '../../../uniprotkb/types/columnTypes';
 import { ViewMode } from './ResultsData';
 
 import './styles/results-buttons.scss';
@@ -34,23 +29,16 @@ const DownloadComponent = lazy(
 );
 
 type ResultsButtonsProps = {
-  query: string;
-  selectedFacets: SelectedFacet[];
-  sortColumn: SortableColumn;
-  sortDirection: SortDirection;
   selectedEntries: string[];
   total: number;
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
-  query,
-  selectedFacets,
-  sortColumn,
-  sortDirection,
-  selectedEntries,
   total,
+  selectedEntries,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
+
   const namespace = useNS();
   if (!namespace) {
     throw new Error('No namespace provided');
@@ -73,10 +61,6 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             onClose={() => setDisplayDownloadPanel(false)}
           >
             <DownloadComponent
-              query={query}
-              selectedFacets={selectedFacets}
-              sortColumn={sortColumn}
-              sortDirection={sortDirection}
               selectedEntries={selectedEntries}
               totalNumberResults={total}
               onClose={() => setDisplayDownloadPanel(false)}
