@@ -18,7 +18,11 @@ import './styles/results-data.scss';
 const ResultsFacets: FC = () => {
   const namespace = useNS() || Namespace.uniprotkb;
 
-  const { url: initialApiUrl } = useNSQuery({ size: 0, withFacets: true });
+  const { url: initialApiUrl } = useNSQuery({
+    size: 0,
+    withFacets: true,
+    withColumns: false,
+  });
 
   const {
     data,

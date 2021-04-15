@@ -14,10 +14,12 @@ import { Namespace } from '../types/namespaces';
 
 const useNSQuery = ({
   size,
-  withFacets = true,
+  withFacets = false,
+  withColumns = true,
 }: {
   size?: number;
   withFacets?: boolean;
+  withColumns?: boolean;
 } = {}) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const location = useLocation();
@@ -51,7 +53,7 @@ const useNSQuery = ({
       getAPIQueryUrl({
         namespace,
         query,
-        columns: queryColumns,
+        columns: withColumns ? queryColumns : undefined,
         selectedFacets,
         facets: withFacets ? undefined : null,
         sortColumn,
