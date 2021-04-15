@@ -7,7 +7,7 @@ import {
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
-// import NoResultsPage from '../error-pages/NoResultsPage';
+import NoResultsPage from '../error-pages/NoResultsPage';
 import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
@@ -96,9 +96,9 @@ const ResultsData: FC = () => {
   }
 
   // no results if total is 0, not loading at this point (due to if above)
-  // if (total === 0) {
-  //   return <NoResultsPage />;
-  // }
+  if (total === 0) {
+    return <NoResultsPage />;
+  }
 
   const loadComponent = (
     <Loader progress={progress !== 1 ? progress : undefined} />
