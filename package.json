@@ -107,6 +107,7 @@
     "idb": "6.0.0",
     "interaction-viewer": "3.1.2",
     "lit-html": "1.3.0",
+    "lite-youtube-embed": "^0.2.0",
     "litemol": "2.4.2",
     "lodash-es": "4.17.21",
     "p-map": "4.0.0",

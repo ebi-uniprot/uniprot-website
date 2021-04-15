@@ -1,5 +1,6 @@
 @import 'franklin-sites/src/styles/colours';
 @import 'franklin-sites/src/styles/settings';
+@import 'lite-youtube-embed/src/lite-yt-embed.css';
 @import '../../../../shared/styles/mixins';
 
 .home-page-section {
@@ -36,24 +37,52 @@
   }
 }
 
-.latest-news {
-  grid-template-rows: calc(16rem - #{$global-padding});
-  height: 16rem;
-  overflow: hidden;
+$latest-news-height: 18rem;
 
+.latest-news {
+  grid-template-rows: calc(#{$latest-news-height} - #{$global-padding});
+  height: $latest-news-height;
+
+  // Because of Z-pattern:
+  // Mess up with the order of cells in order to have the title in the last
+  // "visible" cell cover semantically all 3 cells
   & > * {
-    padding-bottom: $global-padding;
+    grid-row-start: 1;
+    margin-bottom: $global-padding;
   }
 
-  &__news-roll {
-    padding-bottom: 0;
-    display: flex;
-    flex-direction: column;
+  &__spotlight {
+    grid-column-start: 1 !important;
 
-    h2,
+    padding: 0 $global-padding;
+    background: $colour-sky-white;
+  }
+
+  &__inside-uniprot {
+    grid-column-start: 5 !important;
+
+    & > * {
+      height: 48%;
+
+      &:first-child {
+        margin-bottom: 4%;
+      }
+    }
+
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+
     h3 {
       margin-bottom: 0;
     }
+  }
+
+  &__news-roll {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
 
     & > ul {
       @include scroll-shadow($colour-platinum);
@@ -68,23 +97,132 @@
         display: none;
       }
     }
+
+    article {
+      margin-bottom: 0.5em;
+    }
+
+    h3 {
+      margin-bottom: 0;
+    }
+  }
+
+  time {
+    font-size: 1rem;
+    color: $colour-weldon-blue;
+
+    & > svg {
+      margin: 0 0.5ch 0 1ch;
+    }
   }
 
   article {
-    overflow: hidden;
+    overflow-y: hidden;
+
+    img {
+      float: left;
+      margin-right: 1ch;
+      max-width: 40%;
+    }
+  }
+
+  h3 {
+    line-height: 1.5;
   }
 
   &__abstract {
-    line-height: 1.5;
+    display: inline;
     margin-bottom: 0.2em;
     overflow: hidden;
 
-    // https://css-tricks.com/line-clampin/
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-
     &--2-lines {
+      // https://css-tricks.com/line-clampin/
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+
       -webkit-line-clamp: 2;
     }
+  }
+}
+
+.need-help {
+  // Because of Z-pattern:
+  // Mess up with the order of cells in order to have the title in the last
+  // "visible" cell cover semantically all 3 cells
+  & > * {
+    grid-row-start: 1;
+    margin-bottom: $global-padding;
+  }
+
+  &__next-up {
+    grid-column-start: 1 !important;
+    background: $colour-sky-white;
+    display: flex;
+
+    .training-loaded-container {
+      width: 100%;
+      margin: $global-margin;
+      border-left: 4px solid $colour-warning;
+      padding-left: 1ch;
+    }
+
+    .details-container > * {
+      white-space: nowrap;
+
+      &:not(:last-child) {
+        border-right: 1px solid currentColor;
+        padding-right: 0.5ch;
+        margin-right: 0.5ch;
+      }
+
+      svg {
+        padding-right: 0.5ch;
+      }
+    }
+  }
+
+  &__tutorial-videos {
+    grid-column-start: 4 !important;
+
+    a {
+      display: block;
+      line-height: 2;
+    }
+  }
+
+  &__attend-training {
+    grid-column-start: 7 !important;
+
+    a {
+      display: block;
+      font-size: 0.8em;
+      line-height: 2;
+    }
+
+    svg {
+      margin-right: 0.5ch;
+    }
+  }
+
+  &__need-help {
+    grid-column-start: 10 !important;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    a {
+      display: inline-block;
+      margin: 0 1em 1em 0;
+
+      svg {
+        fill: $colour-weldon-blue;
+      }
+    }
+  }
+
+  lite-youtube,
+  img {
+    margin-bottom: 1ch;
   }
 }

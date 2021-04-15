@@ -263,35 +263,35 @@ const FooterContactAndElixir = () => (
         url="https://twitter.com/uniprot"
         title="UniProt posts on Twitter"
       >
-        <TwitterLogo />
+        <TwitterLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://www.facebook.com/uniprot.org"
         title="UniProt posts on Facebook"
       >
-        <FacebookLogo />
+        <FacebookLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://www.youtube.com/user/uniprotvideos"
         title="UniProt videos on YouTube"
       >
-        <YouTubeLogo />
+        <YouTubeLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://insideuniprot.blogspot.com/"
         title="UniProt blog"
       >
-        <BloggerLogo />
+        <BloggerLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
         title="UniProt Google Group"
       >
-        <GGroupsLogo />
+        <GGroupsLogo width="3ch" />
       </ExternalLink>
     </p>
     <p>
