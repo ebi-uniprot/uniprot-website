@@ -1,4 +1,5 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
+import queryString from 'query-string';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -30,7 +31,6 @@ describe('getPreviewFileFormat', () => {
 
 describe('Download component', () => {
   const namespace = Namespace.uniprotkb;
-  const query = 'nod2';
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   let onCloseMock;
 
@@ -39,13 +39,13 @@ describe('Download component', () => {
 
     customRender(
       <Download
-        query={query}
         selectedEntries={selectedEntries}
         totalNumberResults={10}
         onClose={onCloseMock}
         namespace={namespace}
       />,
       {
+        route: '/uniprotkb?query=nod2',
         initialUserPreferences: {
           'table columns for uniprotkb': initialColumns,
         },
@@ -133,5 +133,44 @@ describe('Download component', () => {
       screen.getByLabelText(`Download selected (${selectedEntries.length})`)
     );
     expect(screen.getByText(`Preview ${selectedEntries.length}`)).toBeTruthy();
+  });
+});
+
+describe('Download with passed query and selectedQuery props', () => {
+  it('should use query and selectedQuery if provided as props rather than using the query from the url', async () => {
+    const namespace = Namespace.uniprotkb;
+    const onCloseMock = jest.fn();
+    const query = '(proteome:UP000002494)';
+    const selectedQuery =
+      '(proteome:UP000002494) AND (proteomecomponent:"Chromosome 1" OR proteomecomponent:"Chromosome 2")';
+    const numberSelectedEntries = 123;
+    const totalNumberResults = 456;
+    customRender(
+      <Download
+        query={query}
+        selectedQuery={selectedQuery}
+        numberSelectedEntries={numberSelectedEntries}
+        totalNumberResults={totalNumberResults}
+        onClose={onCloseMock}
+        namespace={namespace}
+      />,
+      {
+        route: '/proteomes/UP000002494',
+        initialUserPreferences: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
+    );
+    let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(queryString.stringify({ query }))
+    );
+    fireEvent.click(
+      screen.getByLabelText(`Download selected (${numberSelectedEntries})`)
+    );
+    downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
+    expect(downloadLink.href).toEqual(
+      expect.stringContaining(queryString.stringify({ query: selectedQuery }))
+    );
   });
 });

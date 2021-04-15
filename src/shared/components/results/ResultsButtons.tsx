@@ -25,6 +25,7 @@ import { ViewMode } from './ResultsData';
 import './styles/results-buttons.scss';
 
 const DownloadComponent = lazy(
+  /* istanbul ignore next */
   () => import(/* webpackChunkName: "download" */ '../download/Download')
 );
 
