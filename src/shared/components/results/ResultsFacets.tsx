@@ -38,7 +38,7 @@ const ResultsFacets: FC = () => {
     ? +headers['x-totalrecords']
     : undefined;
 
-  if (loading && !data?.facets) {
+  if (loading) {
     return <Loader progress={progress} />;
   }
 
