@@ -40,7 +40,6 @@ const ResultsData: FC = () => {
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns();
   const [selectedEntries, handleEntrySelection] = useItemSelect();
-
   const { url: initialApiUrl, direct } = useNSQuery();
   const {
     allResults,
@@ -82,6 +81,11 @@ const ResultsData: FC = () => {
     }
   }, [history, direct, hasMoreData, allResults, getEntryPathForEntry]);
 
+  const loadComponent = (
+    <Loader progress={progress !== 1 ? progress : undefined} />
+  );
+
+  let mainView;
   if (
     // if loading the first page of results
     initialLoading ||
@@ -92,17 +96,40 @@ const ResultsData: FC = () => {
     // or we just switched view mode (hacky too)
     prevViewMode.current !== viewMode
   ) {
-    return <Loader progress={progress} />;
+    mainView = <Loader progress={progress} />;
+  } else if (total === 0) {
+    mainView = <NoResultsPage />;
+  } else if (viewMode === ViewMode.CARD) {
+    mainView = (
+      <DataListWithLoader<APIModel>
+        getIdKey={getIdKey}
+        data={allResults}
+        dataRenderer={cardRenderer(
+          namespace,
+          selectedEntries,
+          handleEntrySelection
+        )}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={loadComponent}
+      />
+    );
+  } else {
+    // viewMode === ViewMode.TABLE
+    mainView = (
+      <DataTableWithLoader
+        getIdKey={getIdKey}
+        columns={columns}
+        data={allResults}
+        selected={selectedEntries}
+        onSelectRow={handleEntrySelection}
+        onHeaderClick={updateColumnSort}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={loadComponent}
+      />
+    );
   }
-
-  // no results if total is 0, not loading at this point (due to if above)
-  if (total === 0) {
-    return <NoResultsPage />;
-  }
-
-  const loadComponent = (
-    <Loader progress={progress !== 1 ? progress : undefined} />
-  );
 
   const { name, links, info } = infoMappings[namespace];
 
@@ -112,34 +139,7 @@ const ResultsData: FC = () => {
         {info}
       </PageIntro>
       <ResultsButtons total={total} selectedEntries={selectedEntries} />
-      {viewMode === ViewMode.CARD ? (
-        // Card view
-        <DataListWithLoader<APIModel>
-          getIdKey={getIdKey}
-          data={allResults}
-          dataRenderer={cardRenderer(
-            namespace,
-            selectedEntries,
-            handleEntrySelection
-          )}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-        />
-      ) : (
-        // Column view
-        <DataTableWithLoader
-          getIdKey={getIdKey}
-          columns={columns}
-          data={allResults}
-          selected={selectedEntries}
-          onSelectRow={handleEntrySelection}
-          onHeaderClick={updateColumnSort}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-        />
-      )}
+      {mainView}
     </div>
   );
 };
