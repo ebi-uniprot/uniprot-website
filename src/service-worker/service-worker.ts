@@ -28,11 +28,12 @@ cleanupOutdatedCaches();
 
 self.addEventListener('message', (event) => {
   if (event.data?.type === 'SKIP_WAITING') {
-    // https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
-    clientsClaim();
     self.skipWaiting();
   }
 });
+// Whenever we skip waiting, we want to claim all the open tabs
+// https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-core#.clientsClaim
+clientsClaim();
 
 // eslint-disable-next-line no-underscore-dangle
 precacheAndRoute(self.__WB_MANIFEST);
