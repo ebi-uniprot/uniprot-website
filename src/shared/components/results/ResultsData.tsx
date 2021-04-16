@@ -3,12 +3,10 @@ import {
   DataTableWithLoader,
   DataListWithLoader,
   Loader,
-  PageIntro,
 } from 'franklin-sites';
 import { useHistory } from 'react-router-dom';
 
 import NoResultsPage from '../error-pages/NoResultsPage';
-import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
 import useNSQuery from '../../hooks/useNSQuery';
@@ -21,13 +19,13 @@ import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 import cardRenderer from '../../config/resultsCardRenderers';
-import infoMappings from '../../config/InfoMappings';
 
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
+import ResultsDataHeader from './ResultsDataHeader';
 
 export enum ViewMode {
   TABLE,
@@ -97,7 +95,8 @@ const ResultsData: FC = () => {
     prevViewMode.current !== viewMode
   ) {
     mainView = <Loader progress={progress} />;
-  } else if (total === 0) {
+  } else if (total === undefined) {
+    // TODO: actually we want to display ONLY this (not ResultsDataHeader) when there's no results
     mainView = <NoResultsPage />;
   } else if (viewMode === ViewMode.CARD) {
     mainView = (
@@ -131,14 +130,9 @@ const ResultsData: FC = () => {
     );
   }
 
-  const { name, links, info } = infoMappings[namespace];
-
   return (
     <div className="results-data">
-      <PageIntro title={name} links={links} resultsCount={total}>
-        {info}
-      </PageIntro>
-      <ResultsButtons total={total} selectedEntries={selectedEntries} />
+      <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
       {mainView}
     </div>
   );
