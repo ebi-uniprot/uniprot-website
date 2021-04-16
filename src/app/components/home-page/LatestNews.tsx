@@ -168,13 +168,18 @@ const LatestNews = () => {
           />
           <h3 className="micro">
             <ExternalLink
-              url="https://www.proteinspotlight.org/spotlight/back_issues/234/"
+              url="https://insideuniprot.blogspot.com/2021/02/drosophila-dating.html"
               noIcon
             >
               Drosophila Dating
             </ExternalLink>
           </h3>
-          <p className={cn(styles['latest-news__abstract'])}>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
             In February, the month of love, we’ll take a brief look at the weird
             and wonderful courtship behaviour of one of the model organisms we
             annotate at UniProt, the amorous arthropod Drosophila melanogaster,
@@ -203,7 +208,12 @@ const LatestNews = () => {
               Introducing the UniProt Alzheimer’s disease portal
             </ExternalLink>
           </h3>
-          <p className={cn(styles['latest-news__abstract'])}>
+          <p
+            className={cn(
+              styles['latest-news__abstract'],
+              styles['latest-news__abstract--4-lines']
+            )}
+          >
             Alzheimer&apos;s disease (AD), the most common subtype of dementia,
             is the most prevalent neurodegenerative disorder with an estimated
             30-35 million living with the disease worldwide. It is characterized

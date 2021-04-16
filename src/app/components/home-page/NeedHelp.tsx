@@ -199,12 +199,14 @@ const NeedHelp = () => {
                     }
                     noIcon
                   >
-                    {nextTraining?.fields.title}
+                    {nextTraining?.fields.title[0]}
                   </ExternalLink>
                 </h4>
-                {/* <p className={styles.description}>
-                  {nextTraining?.fields.description[0]}
-                </p> */}
+                {nextTraining?.fields.title[0].length <= 100 && (
+                  <p className={styles.description}>
+                    {nextTraining?.fields.description[0]}
+                  </p>
+                )}
               </>
             ) : (
               <p>No upcoming seminar or webinar</p>

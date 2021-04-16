@@ -466,7 +466,7 @@ exports[`non-critical HomePage component should render 1`] = `
         >
           <a
             class="external-link"
-            href="https://www.proteinspotlight.org/spotlight/back_issues/234/"
+            href="https://insideuniprot.blogspot.com/2021/02/drosophila-dating.html"
             rel="noopener"
             target="_blank"
           >
@@ -474,7 +474,7 @@ exports[`non-critical HomePage component should render 1`] = `
           </a>
         </h3>
         <p
-          class="latest-news__abstract"
+          class="latest-news__abstract latest-news__abstract--4-lines"
         >
           In February, the month of love, we’ll take a brief look at the weird and wonderful courtship behaviour of one of the model organisms we annotate at UniProt, the amorous arthropod Drosophila melanogaster, and explore how studying their courtship song helps researchers understand the genetic and neural underpinnings of behaviour. The study of proteins from well characterised model organisms such as the fruit fly D.melanogaster (Drosophila protein annotation project) helps in understanding insect biology, allowing us to control their populations by manipulating processes such as reproduction, and also enables scientists to model human physiology and disease.
         </p>
@@ -500,7 +500,7 @@ exports[`non-critical HomePage component should render 1`] = `
           </a>
         </h3>
         <p
-          class="latest-news__abstract"
+          class="latest-news__abstract latest-news__abstract--4-lines"
         >
           Alzheimer's disease (AD), the most common subtype of dementia, is the most prevalent neurodegenerative disorder with an estimated 30-35 million living with the disease worldwide. It is characterized by progressive memory loss, cognitive decline, and eventually leads to the loss of bodily functions and ultimately death.
         </p>

@@ -43,6 +43,13 @@ $latest-news-height: 18rem;
   grid-template-rows: calc(#{$latest-news-height} - #{$global-padding});
   height: $latest-news-height;
 
+  h3,
+  h4 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
   // Because of Z-pattern:
   // Mess up with the order of cells in order to have the title in the last
   // "visible" cell cover semantically all 3 cells
@@ -73,16 +80,13 @@ $latest-news-height: 18rem;
       height: 100%;
       object-fit: cover;
     }
-
-    h3 {
-      margin-bottom: 0;
-    }
   }
 
   &__news-roll {
     margin-bottom: 0;
     display: flex;
     flex-direction: column;
+    max-height: calc(#{$latest-news-height} - #{$global-padding});
 
     & > ul {
       @include scroll-shadow($colour-platinum);
@@ -144,6 +148,14 @@ $latest-news-height: 18rem;
 
       -webkit-line-clamp: 2;
     }
+
+    &--4-lines {
+      // https://css-tricks.com/line-clampin/
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+
+      -webkit-line-clamp: 4;
+    }
   }
 }
 
@@ -158,6 +170,7 @@ $latest-news-height: 18rem;
   &__next-up {
     grid-column-start: 1 !important;
     background: $colour-sky-white;
+    display: flex;
 
     h3 {
       margin-bottom: 0;
@@ -165,6 +178,7 @@ $latest-news-height: 18rem;
 
     h4 {
       margin-top: $global-margin;
+      line-height: 1.3;
     }
 
     .training-loaded-container {
@@ -188,10 +202,14 @@ $latest-news-height: 18rem;
       }
     }
 
-    // .description {
-    //   font-size: 0.8rem;
-    //   margin-bottom: 0;
-    // }
+    .description {
+      margin-bottom: 0;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+
+      -webkit-line-clamp: 4;
+    }
   }
 
   &__tutorial-videos {
