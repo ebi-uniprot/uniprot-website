@@ -129,7 +129,7 @@ $latest-news-height: 18rem;
   }
 
   h3 {
-    line-height: 1.5;
+    line-height: 1.2;
   }
 
   &__abstract {
@@ -158,10 +158,12 @@ $latest-news-height: 18rem;
   &__next-up {
     grid-column-start: 1 !important;
     background: $colour-sky-white;
-    display: flex;
+
+    h3 {
+      margin-bottom: 0;
+    }
 
     .training-loaded-container {
-      width: 100%;
       margin: $global-margin;
       border-left: 4px solid $colour-warning;
       padding-left: 1ch;
@@ -169,6 +171,7 @@ $latest-news-height: 18rem;
 
     .details-container > * {
       white-space: nowrap;
+      font-size: 0.8rem;
 
       &:not(:last-child) {
         border-right: 1px solid currentColor;
@@ -181,9 +184,10 @@ $latest-news-height: 18rem;
       }
     }
 
-    .description {
-      margin-bottom: 0;
-    }
+    // .description {
+    //   font-size: 0.8rem;
+    //   margin-bottom: 0;
+    // }
   }
 
   &__tutorial-videos {
@@ -200,7 +204,7 @@ $latest-news-height: 18rem;
 
     a {
       display: block;
-      font-size: 0.8em;
+      font-size: 0.9rem;
       line-height: 2;
     }
 

@@ -116,19 +116,19 @@ const NeedHelp = () => {
           <CalendarIcon height="1em" /> Attend training
         </h2>
         <ExternalLink url="https://www.ebi.ac.uk/training/" noIcon>
-          European Bioinformatics Institute (EBI) 🇬🇧
+          European Bioinformatics Institute (EBI)
         </ExternalLink>
         <ExternalLink
           url="https://proteininformationresource.org/training/"
           noIcon
         >
-          Protein Information Resource (PIR) 🇺🇸
+          Protein Information Resource (PIR)
         </ExternalLink>
         <ExternalLink
           url="https://www.sib.swiss/training/upcoming-training-courses"
           noIcon
         >
-          Swiss Institute of Bioinformatics (SIB) 🇨🇭
+          Swiss Institute of Bioinformatics (SIB)
         </ExternalLink>
       </div>
       <div
@@ -202,9 +202,9 @@ const NeedHelp = () => {
                     {nextTraining?.fields.title}
                   </ExternalLink>
                 </h4>
-                <p className={styles.description}>
+                {/* <p className={styles.description}>
                   {nextTraining?.fields.description[0]}
-                </p>
+                </p> */}
               </>
             ) : (
               <p>No upcoming seminar or webinar</p>
