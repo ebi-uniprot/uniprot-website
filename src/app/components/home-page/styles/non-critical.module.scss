@@ -163,6 +163,10 @@ $latest-news-height: 18rem;
       margin-bottom: 0;
     }
 
+    h4 {
+      margin-top: $global-margin;
+    }
+
     .training-loaded-container {
       margin: $global-margin;
       border-left: 4px solid $colour-warning;
@@ -201,6 +205,10 @@ $latest-news-height: 18rem;
 
   &__attend-training {
     grid-column-start: 7 !important;
+
+    h2 > svg {
+      color: $colour-sapphire-blue;
+    }
 
     a {
       display: block;
