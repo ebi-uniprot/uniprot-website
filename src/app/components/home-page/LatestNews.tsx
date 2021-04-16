@@ -1,11 +1,11 @@
-import { HeroContainer, ExternalLink, CalendarIcon } from 'franklin-sites';
+import { HeroContainer, ExternalLink } from 'franklin-sites';
 import cn from 'classnames';
 
 // import useDataApi from '../../../shared/hooks/useDataApi';
 
 import styles from './styles/non-critical.module.scss';
 
-// TODO: Dynamically load content
+// TODO: Dynamically load content (TRM-25618 & TRM-25619)
 
 // eslint-disable-next-line arrow-body-style
 const LatestNews = () => {
@@ -225,10 +225,11 @@ const LatestNews = () => {
           >
             Wrong place
           </ExternalLink>
-          <time dateTime="2021-03-25T10:58:57Z" className="no-wrap">
+          {/* TODO: hiding it for now, might not be needed */}
+          {/* <time dateTime="2021-03-25T10:58:57Z" className="no-wrap">
             <CalendarIcon width="1em" />
             Mar 2021
-          </time>
+          </time> */}
         </h3>
         <img
           loading="lazy"

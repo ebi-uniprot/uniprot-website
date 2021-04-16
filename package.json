@@ -39,7 +39,7 @@
         "lines": 83.19,
         "statements": 83.13,
         "functions": 83.38,
-        "branches": 74.05
+        "branches": 73.9
       }
     },
     "transform": {
@@ -102,7 +102,7 @@
     "classnames": "2.3.1",
     "core-js": "3.10.1",
     "d3": "5.16.0",
-    "franklin-sites": "0.0.125",
+    "franklin-sites": "0.0.126",
     "history": "4.10.1",
     "idb": "6.0.0",
     "interaction-viewer": "3.1.2",

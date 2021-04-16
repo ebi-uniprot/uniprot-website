@@ -57,8 +57,6 @@ const NeedHelp = () => {
 
   const nextTraining = data?.entries[0];
 
-  console.log(nextTraining);
-
   return (
     <HeroContainer
       className={cn(
@@ -169,34 +167,48 @@ const NeedHelp = () => {
           <Loader />
         ) : (
           <div className={styles['training-loaded-container']}>
-            <h3>Live webinar</h3>
-            <div className={styles['details-container']}>
-              <span>{nextTraining?.fields.status[0]}</span>
-              <time
-                dateTime={parseDate(
-                  nextTraining?.fields.date_time_clean[0]
-                )?.toISOString()}
-              >
-                <CalendarIcon height="1em" />{' '}
-                {nextTraining?.fields.date_time_clean[0]}
-              </time>
-              <span>
-                <LocationPinIcon height="1em" />
-                {nextTraining?.fields.location[0]}
-              </span>
-            </div>
-            <h4 className="micro">
-              <ExternalLink
-                url={
-                  nextTraining?.fieldURLs.find(({ name }) => name === 'main')
-                    ?.value || ''
-                }
-                noIcon
-              >
-                {nextTraining?.fields.title}
-              </ExternalLink>
-            </h4>
-            <p>{nextTraining?.fields.description[0]}</p>
+            {nextTraining ? (
+              <>
+                <h3>
+                  Live{' '}
+                  {nextTraining?.fields.status[0] === 'online'
+                    ? 'webinar'
+                    : 'seminar'}
+                </h3>
+                <div className={styles['details-container']}>
+                  <span>{nextTraining?.fields.status[0]}</span>
+                  <time
+                    dateTime={parseDate(
+                      nextTraining?.fields.date_time_clean[0]
+                    )?.toISOString()}
+                  >
+                    <CalendarIcon height="1em" />{' '}
+                    {nextTraining?.fields.date_time_clean[0]}
+                  </time>
+                  <span>
+                    <LocationPinIcon height="1em" />
+                    {nextTraining?.fields.location[0]}
+                  </span>
+                </div>
+                <h4 className="micro">
+                  <ExternalLink
+                    url={
+                      nextTraining?.fieldURLs.find(
+                        ({ name }) => name === 'main'
+                      )?.value || ''
+                    }
+                    noIcon
+                  >
+                    {nextTraining?.fields.title}
+                  </ExternalLink>
+                </h4>
+                <p className={styles.description}>
+                  {nextTraining?.fields.description[0]}
+                </p>
+              </>
+            ) : (
+              <p>No upcoming seminar or webinar</p>
+            )}
           </div>
         )}
       </div>

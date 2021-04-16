@@ -107,14 +107,16 @@ $latest-news-height: 18rem;
     }
   }
 
-  time {
-    font-size: 1rem;
-    color: $colour-weldon-blue;
+  // TODO: remove if the time is not needed in the spotlight
+  // time {
+  //   font-size: 1rem;
+  // NOTE: contrast too low anyway, so not good
+  //   color: $colour-weldon-blue;
 
-    & > svg {
-      margin: 0 0.5ch 0 1ch;
-    }
-  }
+  //   & > svg {
+  //     margin: 0 0.5ch 0 1ch;
+  //   }
+  // }
 
   article {
     overflow-y: hidden;
@@ -151,7 +153,6 @@ $latest-news-height: 18rem;
   // "visible" cell cover semantically all 3 cells
   & > * {
     grid-row-start: 1;
-    margin-bottom: $global-padding;
   }
 
   &__next-up {
@@ -178,6 +179,10 @@ $latest-news-height: 18rem;
       svg {
         padding-right: 0.5ch;
       }
+    }
+
+    .description {
+      margin-bottom: 0;
     }
   }
 
