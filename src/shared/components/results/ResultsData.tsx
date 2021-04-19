@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo, FC } from 'react';
+import { useEffect, useMemo, FC } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
@@ -48,23 +48,6 @@ const ResultsData: FC = () => {
     total,
   } = usePagination(initialApiUrl);
 
-  const prevUrl = useRef<string | undefined>(initialApiUrl);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevUrl.current = initialApiUrl;
-  }, [initialApiUrl]);
-
-  const prevNS = useRef<string | undefined>(namespace);
-  useEffect(() => {
-    // will set it *after* the current render
-    prevNS.current = namespace;
-  }, [namespace]);
-
-  const prevViewMode = useRef<ViewMode>(viewMode);
-  useEffect(() => {
-    prevViewMode.current = viewMode;
-  }, [viewMode]);
-
   const [getIdKey, getEntryPathForEntry] = useMemo(() => {
     const getIdKey = getIdKeyFor(namespace);
     const getEntryPath = getEntryPathFor(namespace);
@@ -86,13 +69,7 @@ const ResultsData: FC = () => {
   let mainView;
   if (
     // if loading the first page of results
-    initialLoading ||
-    // or we just switched namespace (a bit hacky workaround to force unmount)
-    prevNS.current !== namespace ||
-    // or just a url change (hacky too)
-    prevUrl.current !== initialApiUrl ||
-    // or we just switched view mode (hacky too)
-    prevViewMode.current !== viewMode
+    initialLoading
   ) {
     mainView = <Loader progress={progress} />;
   } else if (total === undefined) {
@@ -103,6 +80,7 @@ const ResultsData: FC = () => {
       <DataListWithLoader<APIModel>
         getIdKey={getIdKey}
         data={allResults}
+        loading={initialLoading}
         dataRenderer={cardRenderer(
           namespace,
           selectedEntries,
@@ -120,6 +98,7 @@ const ResultsData: FC = () => {
         getIdKey={getIdKey}
         columns={columns}
         data={allResults}
+        loading={initialLoading}
         selected={selectedEntries}
         onSelectRow={handleEntrySelection}
         onHeaderClick={updateColumnSort}
