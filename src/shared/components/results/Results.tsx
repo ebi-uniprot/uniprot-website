@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { Loader } from 'franklin-sites';
 
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNSQuery from '../../hooks/useNSQuery';
@@ -31,9 +32,13 @@ const Results: FC = () => {
   // Query for results data
   const { url: initialApiUrl, direct } = useNSQuery();
   const resultsDataObject = usePagination(initialApiUrl);
-  const resultsDataTotal = resultsDataObject.total;
+  const { initialLoading, total: resultsDataTotal } = resultsDataObject;
 
   useEffect(() => {
+    // Reset total when loading new results
+    if (resultsDataObject.initialLoading) {
+      setTotal(undefined);
+    }
     // Set the total to the first one to bring results back
     if (facetTotal || resultsDataTotal) {
       setTotal((total) => {
@@ -46,9 +51,13 @@ const Results: FC = () => {
         return total;
       });
     }
-  }, [facetTotal, resultsDataTotal]);
+  }, [facetTotal, resultsDataTotal, resultsDataObject]);
 
-  if (total === 0) {
+  if (initialLoading) {
+    return <Loader />;
+  }
+
+  if (!total || total === 0) {
     return <NoResultsPage />;
   }
 
