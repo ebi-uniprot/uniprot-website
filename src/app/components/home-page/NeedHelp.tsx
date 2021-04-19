@@ -137,6 +137,8 @@ const NeedHelp = () => {
           styles['need-help__tutorial-videos']
         )}
       >
+        {/* NOTE: privacy issue? When clicking, we embed YouTube in the website,
+        with all the related tracking, might need to link to YouTube instead */}
         <lite-youtube videoid="9IYI4QDVPa0" playlabel="UniProt intro" />
         <ExternalLink
           url="https://www.youtube.com/c/uniprotvideos/featured"

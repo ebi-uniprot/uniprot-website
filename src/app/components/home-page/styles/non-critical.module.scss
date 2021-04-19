@@ -63,6 +63,21 @@ $latest-news-height: 18rem;
 
     padding: 0 $global-padding;
     background: $colour-sky-white;
+
+    // Note, we clan either display the floating image
+    img {
+      // display: none;
+    }
+
+    // Or nicely clamp the text, but not both
+    .latest-news__abstract {
+      margin-bottom: 0;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+
+      -webkit-line-clamp: 9;
+    }
   }
 
   &__inside-uniprot {
