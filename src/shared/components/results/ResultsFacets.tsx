@@ -2,12 +2,12 @@ import { FC } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';
-import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 
 import TaxonomyFacet from './TaxonomyFacet';
 
 import { mainNamespaces } from '../../types/namespaces';
 
+import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import Response from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
