@@ -7,6 +7,23 @@ import styles from './styles/non-critical.module.scss';
 
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 
+const spotlightAbstract =
+  'When you reach a certain age, one question arises on a painfully regular basis. It begins with a "Where are my...?" or a "Where is my..." Reading glasses are a constant. Frequently, they are not where they ought to be. Having relocated them, you may well remark that they are not where you put them. But they are. The thing is, in a moment of distraction, you left them where you would not normally: on the garden wall, in your coat pocket, on the clothes washing machine, perhaps even in the fridge. All in all, they were inadvertently mislocated. On a far smaller scale, the same kind of thing can happen to proteins. There are times when proteins end up where they should not be - which is a source of stress both for their unusual environment and the one they have not reached. Over time, cells have developed various quality control systems to correct all sorts of mistakes - one of them being mislocation. As an illustration, lodged in the endoplasmic reticulum membrane, the enzyme P5A-ATPase is able to spot mislocated transmembrane mitochondrial proteins, grab hold of them and fling them back into the cellular cytosol.';
+
+const getWordsUpTo = (text: string, max: number) => {
+  let output = '';
+
+  for (const word of text.split(' ')) {
+    if (output.length + word.length + 1 > max) {
+      output += '…';
+      break;
+    }
+    output += `  ${word}`;
+  }
+
+  return output;
+};
+
 // eslint-disable-next-line arrow-body-style
 const LatestNews = () => {
   // CORS issues if using those directly
@@ -270,23 +287,7 @@ const LatestNews = () => {
           />
         </ExternalLink>
         <p className={cn(styles['latest-news__abstract'])}>
-          When you reach a certain age, one question arises on a painfully
-          regular basis. It begins with a &quot;Where are my...&#34;&quot; or a
-          &quot;Where is my...&quot; Reading glasses are a constant. Frequently,
-          they are not where they ought to be. Having relocated them, you may
-          well remark that they are not where you put them. But they are. The
-          thing is, in a moment of distraction, you left them where you would
-          not normally: on the garden wall, in your coat pocket, on the clothes
-          washing machine, perhaps even in the fridge. All in all, they were
-          inadvertently mislocated. On a far smaller scale, the same kind of
-          thing can happen to proteins. There are times when proteins end up
-          where they should not be - which is a source of stress both for their
-          unusual environment and the one they have not reached. Over time,
-          cells have developed various quality control systems to correct all
-          sorts of mistakes - one of them being mislocation. As an illustration,
-          lodged in the endoplasmic reticulum membrane, the enzyme P5A-ATPase is
-          able to spot mislocated transmembrane mitochondrial proteins, grab
-          hold of them and fling them back into the cellular cytosol.
+          {getWordsUpTo(spotlightAbstract, 300)}
         </p>
       </article>
     </HeroContainer>
