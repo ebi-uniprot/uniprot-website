@@ -1,46 +1,24 @@
 import { FC } from 'react';
 import { Facets, Facet, Loader } from 'franklin-sites';
 
-import TaxonomyFacet from './TaxonomyFacet';
-import ErrorHandler from '../error-pages/ErrorHandler';
-
 import useNS from '../../hooks/useNS';
-import useNSQuery from '../../hooks/useNSQuery';
-import useDataApiWithStale from '../../hooks/useDataApiWithStale';
+import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 
-import { mainNamespaces, Namespace } from '../../types/namespaces';
+import TaxonomyFacet from './TaxonomyFacet';
+
+import { mainNamespaces } from '../../types/namespaces';
+
 import Response from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
-
 import './styles/results-data.scss';
 
-const ResultsFacets: FC = () => {
-  const namespace = useNS() || Namespace.uniprotkb;
-
-  const { url: initialApiUrl } = useNSQuery({
-    size: 0,
-    withFacets: true,
-    withColumns: false,
-  });
-
-  const {
-    data,
-    error,
-    loading,
-    progress,
-    headers,
-    status,
-    isStale,
-  } = useDataApiWithStale<Response['data']>(initialApiUrl);
-
-  if (error || !(loading || data) || !namespace) {
-    return <ErrorHandler status={status} />;
-  }
-
-  const total = headers?.['x-totalrecords']
-    ? +headers['x-totalrecords']
-    : undefined;
+const ResultsFacets: FC<{
+  dataApiObject: UseDataAPIWithStaleState<Response['data']>;
+  total?: number;
+}> = ({ dataApiObject, total }) => {
+  const namespace = useNS();
+  const { data, isStale, loading, progress } = dataApiObject;
 
   if (loading) {
     return <Loader progress={progress} />;
