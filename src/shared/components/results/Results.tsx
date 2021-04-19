@@ -1,4 +1,5 @@
 import { FC, useEffect, useState } from 'react';
+import { Loader } from 'franklin-sites';
 
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNSQuery from '../../hooks/useNSQuery';
@@ -23,15 +24,25 @@ const Results: FC = () => {
     withFacets: true,
     withColumns: false,
   });
-  const dataApiObject = useDataApiWithStale<Response['data']>(
+  const facetApiObject = useDataApiWithStale<Response['data']>(
     initialApiFacetUrl
   );
-  const facetTotal = dataApiObject.headers?.['x-totalrecords'];
+
+  const {
+    loading: facetInititialLoading,
+    headers: facetHeaders,
+    data: facetData,
+  } = facetApiObject;
+  const facetTotal = facetHeaders?.['x-totalrecords'];
 
   // Query for results data
   const { url: initialApiUrl, direct } = useNSQuery();
   const resultsDataObject = usePagination(initialApiUrl);
-  const { initialLoading, total: resultsDataTotal } = resultsDataObject;
+  const {
+    initialLoading: resultsDataInitialLoading,
+    total: resultsDataTotal,
+    progress: resultsDataProgress,
+  } = resultsDataObject;
 
   useEffect(() => {
     // Reset total when loading new results
@@ -52,13 +63,21 @@ const Results: FC = () => {
     }
   }, [facetTotal, resultsDataTotal, resultsDataObject]);
 
-  if ((!initialLoading && !total) || total === 0) {
+  if (
+    facetInititialLoading &&
+    resultsDataInitialLoading &&
+    !facetData?.facets
+  ) {
+    return <Loader progress={resultsDataProgress} />;
+  }
+
+  if ((!resultsDataInitialLoading && !total) || total === 0) {
     return <NoResultsPage />;
   }
 
   return (
     <SideBarLayout
-      sidebar={<ResultsFacets dataApiObject={dataApiObject} total={total} />}
+      sidebar={<ResultsFacets dataApiObject={facetApiObject} total={total} />}
     >
       <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
       <ResultsData
