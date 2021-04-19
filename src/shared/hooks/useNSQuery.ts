@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useUserPreferences from './useUserPreferences';
@@ -9,8 +9,9 @@ import { getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { Column, nsToDefaultColumns } from '../config/columns';
 
-import { ViewMode } from '../components/results/ResultsData';
+// import { ViewMode } from '../components/results/ResultsData';
 import { Namespace } from '../types/namespaces';
+import { ViewMode } from '../components/results/ResultsData';
 
 const useNSQuery = ({
   size,
@@ -29,8 +30,6 @@ const useNSQuery = ({
     nsToDefaultColumns[namespace]
   );
 
-  const [url, setUrl] = useState<string>();
-
   let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
   if (viewMode === ViewMode.CARD) {
     // TODO: Do similar things for the rest of namespaces
@@ -48,8 +47,8 @@ const useNSQuery = ({
     direct,
   } = getParamsFromURL(queryParamFromUrl);
 
-  useEffect(() => {
-    setUrl(
+  const url = useMemo(
+    () =>
       getAPIQueryUrl({
         namespace,
         query,
@@ -59,19 +58,19 @@ const useNSQuery = ({
         sortColumn,
         sortDirection,
         size,
-      })
-    );
-  }, [
-    namespace,
-    query,
-    queryColumns,
-    selectedFacets,
-    withFacets,
-    withColumns,
-    sortColumn,
-    sortDirection,
-    size,
-  ]);
+      }),
+    [
+      namespace,
+      query,
+      queryColumns,
+      selectedFacets,
+      withFacets,
+      withColumns,
+      sortColumn,
+      sortDirection,
+      size,
+    ]
+  );
 
   return { url, direct };
 };

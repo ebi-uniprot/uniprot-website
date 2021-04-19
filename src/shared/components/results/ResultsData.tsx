@@ -1,4 +1,4 @@
-import { useEffect, useMemo, FC } from 'react';
+import { useEffect, useMemo, FC, useRef } from 'react';
 import {
   DataTableWithLoader,
   DataListWithLoader,
@@ -66,21 +66,27 @@ const ResultsData: FC = () => {
     <Loader progress={progress !== 1 ? progress : undefined} />
   );
 
+  const prevViewMode = useRef(viewMode);
+  useEffect(() => {
+    prevViewMode.current = viewMode;
+  });
+
+  const loading = initialLoading || prevViewMode.current !== viewMode;
+
   let mainView;
   if (
     // if loading the first page of results
-    initialLoading
+    loading
   ) {
     mainView = <Loader progress={progress} />;
-  } else if (total === undefined) {
-    // TODO: actually we want to display ONLY this (not ResultsDataHeader) when there's no results
+  } else if (total === 0) {
     mainView = <NoResultsPage />;
   } else if (viewMode === ViewMode.CARD) {
     mainView = (
       <DataListWithLoader<APIModel>
         getIdKey={getIdKey}
         data={allResults}
-        loading={initialLoading}
+        loading={loading}
         dataRenderer={cardRenderer(
           namespace,
           selectedEntries,
@@ -98,7 +104,7 @@ const ResultsData: FC = () => {
         getIdKey={getIdKey}
         columns={columns}
         data={allResults}
-        loading={initialLoading}
+        loading={loading}
         selected={selectedEntries}
         onSelectRow={handleEntrySelection}
         onHeaderClick={updateColumnSort}

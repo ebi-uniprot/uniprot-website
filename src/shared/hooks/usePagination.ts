@@ -12,6 +12,7 @@ const usePagination = (initialApiUrl?: string) => {
     total?: number;
     nextUrl?: string;
   }>(() => ({ total: undefined, nextUrl: undefined }));
+
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<APIModel[]>([]);
 
@@ -30,10 +31,10 @@ const usePagination = (initialApiUrl?: string) => {
       return;
     }
     const { results } = data;
-    const total = headers?.['x-totalrecords'];
+    const total: string | undefined = headers?.['x-totalrecords'];
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: total ? parseInt(total, 10) : undefined,
+      total: total ? parseInt(total, 10) : 0,
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
