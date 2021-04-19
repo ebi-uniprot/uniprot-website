@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { Loader } from 'franklin-sites';
 
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNSQuery from '../../hooks/useNSQuery';
@@ -53,11 +52,7 @@ const Results: FC = () => {
     }
   }, [facetTotal, resultsDataTotal, resultsDataObject]);
 
-  if (initialLoading) {
-    return <Loader />;
-  }
-
-  if (!total || total === 0) {
+  if ((!initialLoading && !total) || total === 0) {
     return <NoResultsPage />;
   }
 
