@@ -1,5 +1,6 @@
 import { DiseasesAPIModel } from '../adapters/diseasesConverter';
 
+// Data from /api/diseases/search?query=cancer&size=2
 const mock: DiseasesAPIModel[] = [
   {
     name: 'Hereditary non-polyposis colorectal cancer 1',
@@ -25,7 +26,7 @@ const mock: DiseasesAPIModel[] = [
     keywords: [
       { name: 'Hereditary nonpolyposis colorectal cancer', id: 'KW-0362' },
     ],
-    reviewedProteinCount: 1,
+    statistics: { reviewedProteinCount: 1, unreviewedProteinCount: 0 },
   },
   {
     name: 'Hereditary non-polyposis colorectal cancer 2',
@@ -41,7 +42,7 @@ const mock: DiseasesAPIModel[] = [
     keywords: [
       { name: 'Hereditary nonpolyposis colorectal cancer', id: 'KW-0362' },
     ],
-    reviewedProteinCount: 1,
+    statistics: { reviewedProteinCount: 1, unreviewedProteinCount: 0 },
   },
 ];
 

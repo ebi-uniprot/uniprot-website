@@ -1,9 +1,9 @@
-export type CitationsStatistics = {
+import { Statistics } from '../../../shared/types/apiModel';
+
+export type CitationsStatistics = Statistics & {
   computationallyMappedProteinCount: number;
   largeScale?: boolean;
   communityMappedProteinCount: number;
-  reviewedProteinCount: number;
-  unreviewedProteinCount: number;
 };
 
 export enum CitationXRefDB {
@@ -16,15 +16,11 @@ export type CitationXRefDBType = `${CitationXRefDB}`;
 export type CitationXRef = {
   database?: CitationXRefDBType | string;
   id?: string;
-  // Not sure about all the ones below, copied from somewhere else,
-  // but are they still here?
-  properties?: { [key: string]: string };
-  additionalIds?: string[];
-  isoformId?: string;
-  implicit?: true;
 };
 
 export type Citation = {
+  // Either a pubmed ID, or a CI-<hash> internal hash if pubmed unavailable
+  id: `${number}` | `CI-${string}`;
   citationType?: string;
   authors?: string[];
   citationCrossReferences?: CitationXRef[];
@@ -42,7 +38,7 @@ export type Citation = {
 };
 
 export type Reference = {
-  citation?: Citation;
+  citationId?: Citation['id'];
   referencePositions?: string[];
   referenceComments?: {
     value: string;

@@ -17,11 +17,11 @@ import KeywordsColumnConfiguration, {
 import helper from '../../../../shared/styles/helper.module.scss';
 
 const columns = [
-  KeywordsColumn.description,
+  KeywordsColumn.definition,
   KeywordsColumn.synonym,
   KeywordsColumn.category,
-  KeywordsColumn.geneOntology,
-  KeywordsColumn.parent,
+  KeywordsColumn.geneOntologies,
+  KeywordsColumn.parents,
   KeywordsColumn.children,
   KeywordsColumn.sites,
 ];

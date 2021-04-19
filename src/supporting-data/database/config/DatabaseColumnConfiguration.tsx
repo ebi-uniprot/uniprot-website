@@ -24,10 +24,9 @@ export enum DatabaseColumn {
   linkType = 'link_type',
   name = 'name',
   pubmedId = 'pubmed_id',
-  reviewedProteinCount = 'reviewed_protein_count',
   // URL of the home page of the database
   server = 'server',
-  unreviewedProteinCount = 'unreviewed_protein_count',
+  statistics = 'statistics',
 }
 
 export const defaultColumns = [

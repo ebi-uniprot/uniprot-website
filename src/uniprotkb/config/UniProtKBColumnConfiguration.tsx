@@ -1005,32 +1005,22 @@ UniProtKBColumnConfiguration.set(
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   label: 'PubMed ID',
-  render: (data) => {
-    let ids: Xref[] = [];
-    if (data.references) {
-      ids = data.references.reduce<Xref[]>((acc, citation) => {
-        const xrefs = citation.citation?.citationCrossReferences;
-        return xrefs
-          ? acc.concat(xrefs.filter((xref) => xref.database === 'PubMed'))
-          : acc;
-      }, []);
-    }
-    return (
+  render: (data) =>
+    data.references && (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-        {ids.map(
-          (xref) =>
-            xref.id && (
+        {data.references.map(
+          (reference) =>
+            reference.citationId && (
               <Link
-                key={xref.id}
-                to={getEntryPath(Namespace.citations, xref.id)}
+                key={reference.citationId}
+                to={getEntryPath(Namespace.citations, reference.citationId)}
               >
-                {xref.id}
+                {reference.citationId}
               </Link>
             )
         )}
       </ExpandableList>
-    );
-  },
+    ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {

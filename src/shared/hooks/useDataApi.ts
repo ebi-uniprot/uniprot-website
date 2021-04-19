@@ -13,7 +13,7 @@ import {
 import { Namespace } from '../types/namespaces';
 import { UserPreferenceKey } from './useUserPreferences';
 
-const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']+)'/;
+const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']*)'/;
 const namespacedURL = new RegExp(
   `api/(?<namespace>${Object.values(Namespace).join('|')})/search`
 );
@@ -202,7 +202,7 @@ function useDataApi<T>(
         for (const message of state.error?.response?.data?.messages || []) {
           const messageMatch = message.match(invalidFieldMessage);
           const invalidField = messageMatch?.groups?.field;
-          if (!invalidField) {
+          if (!messageMatch) {
             continue; // eslint-disable-line no-continue
           }
           const nsMatch = state.url?.match(namespacedURL);
@@ -213,19 +213,19 @@ function useDataApi<T>(
           const faultyArray: string[] = JSON.parse(
             localStorage.getItem(key) as string
           );
-          localStorage.setItem(
-            key,
-            JSON.stringify(
-              faultyArray.filter((column) => column !== invalidField)
+          const correctArray = JSON.stringify(
+            faultyArray.filter(
+              (column) =>
+                // Clean up any wrong type of value, and the faulty value too
+                column && typeof column === 'string' && column !== invalidField
             )
           );
+          localStorage.setItem(key, correctArray);
           // Signals to all useUserPreferences hooks in use to rerender
           window.dispatchEvent(
             new StorageEvent('storage', {
               key,
-              newValue: JSON.stringify(
-                faultyArray.filter((column) => column !== invalidField)
-              ),
+              newValue: correctArray,
               storageArea: window.localStorage,
             })
           );
@@ -244,7 +244,7 @@ function useDataApi<T>(
         })
       );
     }
-  }, [reduxDispatch, state.status, state.error]);
+  }, [reduxDispatch, state.status, state.error, state.url]);
 
   // when changing the URL, the state is set asynchronously, this is to set it
   // to loading synchronously to avoid using previous data

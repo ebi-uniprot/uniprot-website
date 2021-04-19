@@ -22,12 +22,12 @@ const columns = [
   TaxonomyColumn.scientificName,
   TaxonomyColumn.commonName,
   TaxonomyColumn.otherNames,
-  TaxonomyColumn.synonym,
+  TaxonomyColumn.synonyms,
   TaxonomyColumn.rank,
   TaxonomyColumn.parent,
   TaxonomyColumn.lineage,
-  TaxonomyColumn.host,
-  TaxonomyColumn.strain,
+  TaxonomyColumn.hosts,
+  TaxonomyColumn.strains,
 ];
 
 const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {

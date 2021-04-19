@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import { ExpandableList } from 'franklin-sites';
 
 import { JournalInfo } from '../components/LiteratureCitation';
-import AccessionView from '../../../shared/components/results/AccessionView';
 
 import parseDate from '../../../shared/utils/parseDate';
+import { getEntryPathFor } from '../../../app/config/urls';
 
 import {
   CitationsAPIModel,
@@ -12,16 +13,18 @@ import {
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
 
+import helper from '../../../shared/styles/helper.module.scss';
+
 export enum CitationsColumn {
-  // Authoring group is not the author list
+  authors = 'authors',
   authoringGroup = 'authoring_group',
   doi = 'doi',
   firstPage = 'first_page',
-  id = 'id', // Pubmed ID
+  id = 'id',
   journal = 'journal',
   lastPage = 'last_page',
   litAbstract = 'lit_abstract',
-  publicationDate = 'publication', // ⚠️ field doesn't contain the string "date"
+  publicationDate = 'publication_date',
   // This map to a combination of all the fields to make a citation reference
   reference = 'reference',
   statistics = 'statistics',
@@ -29,11 +32,10 @@ export enum CitationsColumn {
   volume = 'volume',
 }
 
-// TODO: decide which ones should be default
 export const defaultColumns = [
   CitationsColumn.id,
   CitationsColumn.title,
-  CitationsColumn.authoringGroup,
+  CitationsColumn.authors,
   CitationsColumn.publicationDate,
   CitationsColumn.journal,
   CitationsColumn.firstPage,
@@ -41,6 +43,8 @@ export const defaultColumns = [
 ];
 
 export const primaryKeyColumn = CitationsColumn.id;
+
+const getEntryPath = getEntryPathFor(Namespace.citations);
 
 export const CitationsColumnConfiguration: ColumnConfiguration<
   CitationsColumn,
@@ -54,6 +58,15 @@ CitationsColumnConfiguration.set(CitationsColumn.authoringGroup, {
     citation?.authoringGroup && (
       <ExpandableList descriptionString="groups" displayNumberOfHiddenItems>
         {citation.authoringGroup}
+      </ExpandableList>
+    ),
+});
+CitationsColumnConfiguration.set(CitationsColumn.authors, {
+  label: 'Authors',
+  render: ({ citation }) =>
+    citation?.authors && (
+      <ExpandableList descriptionString="authors" displayNumberOfHiddenItems>
+        {citation.authors}
       </ExpandableList>
     ),
 });
@@ -72,13 +85,13 @@ CitationsColumnConfiguration.set(CitationsColumn.firstPage, {
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.id, {
-  label: 'PubMed ID',
-  render: ({ citation }) => {
-    const id = citation?.citationCrossReferences?.find(
-      (xref) => xref.database === CitationXRefDB.PubMed
-    )?.id;
-    return id && <AccessionView id={id} namespace={Namespace.citations} />;
-  },
+  label: 'ID',
+  render: ({ citation }) =>
+    citation?.id && (
+      <Link to={getEntryPath(citation.id)} className={helper['no-wrap']}>
+        {citation.id}
+      </Link>
+    ),
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.journal, {
@@ -97,7 +110,7 @@ CitationsColumnConfiguration.set(CitationsColumn.litAbstract, {
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.publicationDate, {
-  label: 'Publication year',
+  label: 'Publication date',
   render: ({ citation }) =>
     citation?.publicationDate && (
       <time dateTime={parseDate(citation.publicationDate)?.toISOString()}>
@@ -110,12 +123,6 @@ CitationsColumnConfiguration.set(CitationsColumn.reference, {
   label: 'Full reference',
   render: ({ citation }) => citation && <JournalInfo journalInfo={citation} />,
 });
-
-// TODO: might not be needed as a column
-// CitationsColumnConfiguration.set(CitationsColumn.statistics, {
-//   label: 'Statistics',
-//   render: ({ statistics }) => JSON.stringify(statistics),
-// });
 
 CitationsColumnConfiguration.set(CitationsColumn.title, {
   label: 'Title',

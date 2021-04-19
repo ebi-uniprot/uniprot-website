@@ -7,7 +7,6 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
@@ -17,7 +16,6 @@ export enum TaxonomyColumn {
   links = 'links',
   mnemonic = 'mnemonic',
   otherNames = 'other_names',
-  // Maps to "parentId" field, no full parent object
   parent = 'parent',
   rank = 'rank',
   // This is triggering the same filters than "statistics", so probably no need
@@ -29,7 +27,6 @@ export enum TaxonomyColumn {
   synonyms = 'synonyms',
 }
 
-// TODO: decide which ones should be default
 export const defaultColumns = [
   TaxonomyColumn.id,
   TaxonomyColumn.commonName,
@@ -69,7 +66,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.hosts, {
 TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
   label: 'Taxon ID',
   render: ({ taxonId }) =>
-    taxonId && <AccessionView id={taxonId} namespace={Namespace.taxonomy} />,
+    taxonId && <Link to={getEntryPath(taxonId)}>{taxonId}</Link>,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
@@ -118,8 +115,12 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
   label: 'Parent',
-  render: ({ parentId }) =>
-    parentId ? <Link to={getEntryPath(parentId)}>{parentId}</Link> : undefined,
+  render: ({ parent }) =>
+    parent?.taxonId ? (
+      <Link to={getEntryPath(parent.taxonId)}>
+        {parent.commonName || parent.scientificName || parent.taxonId}
+      </Link>
+    ) : undefined,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.rank, {
