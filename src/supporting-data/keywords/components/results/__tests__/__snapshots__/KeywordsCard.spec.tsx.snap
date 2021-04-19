@@ -36,7 +36,11 @@ exports[`KeywordsCard tests should render the card component 1`] = `
                 <strong>
                   Category: 
                 </strong>
-                Molecular function
+                <a
+                  href="/keywords/KW-9992"
+                >
+                  Molecular function
+                </a>
               </span>
             </div>
           </div>

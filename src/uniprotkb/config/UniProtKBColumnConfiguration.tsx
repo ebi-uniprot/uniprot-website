@@ -75,7 +75,6 @@ import EntryTypeIcon, {
 import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { Xref } from '../../shared/types/apiModel';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
 
@@ -1004,18 +1003,18 @@ UniProtKBColumnConfiguration.set(
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
-  label: 'PubMed ID',
+  label: 'Citation ID',
   render: (data) =>
     data.references && (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
         {data.references.map(
           (reference) =>
-            reference.citationId && (
+            reference.citation && (
               <Link
-                key={reference.citationId}
-                to={getEntryPath(Namespace.citations, reference.citationId)}
+                key={reference.citation.id}
+                to={getEntryPath(Namespace.citations, reference.citation.id)}
               >
-                {reference.citationId}
+                {reference.citation.id}
               </Link>
             )
         )}

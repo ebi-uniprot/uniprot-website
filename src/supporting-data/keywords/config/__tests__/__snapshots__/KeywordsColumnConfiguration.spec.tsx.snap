@@ -2,7 +2,11 @@
 
 exports[`KeywordsColumnConfiguration component should render column "category": category 1`] = `
 <DocumentFragment>
-  Molecular function
+  <a
+    href="/keywords/KW-9992"
+  >
+    Molecular function
+  </a>
 </DocumentFragment>
 `;
 
@@ -22,13 +26,13 @@ exports[`KeywordsColumnConfiguration component should render column "children": 
 </DocumentFragment>
 `;
 
-exports[`KeywordsColumnConfiguration component should render column "description": description 1`] = `
+exports[`KeywordsColumnConfiguration component should render column "definition": definition 1`] = `
 <DocumentFragment>
   Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.
 </DocumentFragment>
 `;
 
-exports[`KeywordsColumnConfiguration component should render column "gene_ontology": gene_ontology 1`] = `
+exports[`KeywordsColumnConfiguration component should render column "gene_ontologies": gene_ontologies 1`] = `
 <DocumentFragment>
   <ul
     class="expandable-list no-bullet"
@@ -67,15 +71,11 @@ exports[`KeywordsColumnConfiguration component should render column "gene_ontolo
 
 exports[`KeywordsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
-    class="accession-view"
+  <a
+    href="/keywords/KW-0021"
   >
-    <a
-      href="/keywords/KW-0021"
-    >
-      KW-0021
-    </a>
-  </div>
+    Allosteric enzyme
+  </a>
 </DocumentFragment>
 `;
 
@@ -85,7 +85,7 @@ exports[`KeywordsColumnConfiguration component should render column "name": name
 </DocumentFragment>
 `;
 
-exports[`KeywordsColumnConfiguration component should render column "parent": parent 1`] = `<DocumentFragment />`;
+exports[`KeywordsColumnConfiguration component should render column "parents": parents 1`] = `<DocumentFragment />`;
 
 exports[`KeywordsColumnConfiguration component should render column "sites": sites 1`] = `<DocumentFragment />`;
 

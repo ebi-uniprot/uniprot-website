@@ -16,6 +16,7 @@ import ProteomesColumnConfiguration, {
 import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
+import parseDate from '../../../shared/utils/parseDate';
 
 type InfoData = {
   title: string;
@@ -80,7 +81,11 @@ export const Overview: FC<{
             },
             {
               title: 'Last modified',
-              content: <time>{data.modified}</time>,
+              content: (
+                <time dateTime={parseDate(data.modified)?.toISOString()}>
+                  {data.modified}
+                </time>
+              ),
             },
             data.genomeAssembly?.assemblyId && {
               title: 'Genome assembly and annotation',

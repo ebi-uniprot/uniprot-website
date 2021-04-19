@@ -61,6 +61,7 @@ CitationsColumnConfiguration.set(CitationsColumn.authoringGroup, {
       </ExpandableList>
     ),
 });
+
 CitationsColumnConfiguration.set(CitationsColumn.authors, {
   label: 'Authors',
   render: ({ citation }) =>
