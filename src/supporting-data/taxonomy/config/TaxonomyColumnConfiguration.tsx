@@ -11,8 +11,7 @@ import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
-  // This is a list of hosts, regardless of the singular in the name
-  host = 'host',
+  hosts = 'hosts',
   id = 'id',
   lineage = 'lineage',
   links = 'links',
@@ -26,10 +25,8 @@ export enum TaxonomyColumn {
   reviewed = 'reviewed',
   scientificName = 'scientific_name',
   statistics = 'statistics',
-  // This is a list of strains, regardless of the singular in the name
-  strain = 'strain',
-  // This is a list of synonyms, regardless of the singular in the name
-  synonym = 'synonym',
+  strains = 'strains',
+  synonyms = 'synonyms',
 }
 
 // TODO: decide which ones should be default
@@ -55,7 +52,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.commonName, {
   render: ({ commonName }) => commonName,
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.host, {
+TaxonomyColumnConfiguration.set(TaxonomyColumn.hosts, {
   label: 'Hosts',
   render: ({ hosts }) =>
     hosts?.length && (
@@ -113,10 +110,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
   label: 'Other names',
   render: ({ otherNames }) =>
     otherNames?.length && (
-      <ExpandableList
-        descriptionString="names"
-        displayNumberOfHiddenItems
-      >
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
         {otherNames}
       </ExpandableList>
     ),
@@ -138,7 +132,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
   render: ({ scientificName }) => scientificName,
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
+TaxonomyColumnConfiguration.set(TaxonomyColumn.strains, {
   label: 'Strains',
   render: ({ strains }) =>
     strains?.length && (
@@ -153,8 +147,8 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
     ),
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.synonym, {
-  label: 'Synonym',
+TaxonomyColumnConfiguration.set(TaxonomyColumn.synonyms, {
+  label: 'Synonyms',
   render: ({ synonyms }) =>
     synonyms?.length && (
       <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>

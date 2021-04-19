@@ -50,24 +50,23 @@ export const Overview: FC<{
               title: 'Gene Count',
               content: (
                 <>
-                  {`${data.geneCount}`}
-                  {
-                    // data?.geneCount > 0 && // TODO: API always returns zero (Leo investigating) so removing the condition until this fixed to at least show the link for UX purposes
-                    data.superkingdom && data.taxonomy.taxonId && (
-                      <>
-                        {' '}
-                        <a
-                          href={ftpUrls.referenceProteomes(
-                            data.id,
-                            data.superkingdom,
-                            data.taxonomy.taxonId
-                          )}
-                        >
-                          Download one protein sequence per gene (FASTA)
-                        </a>
-                      </>
-                    )
-                  }
+                  {data.geneCount}
+                  {data.geneCount &&
+                  data.superkingdom &&
+                  data.taxonomy.taxonId ? (
+                    <>
+                      {' '}
+                      <a
+                        href={ftpUrls.referenceProteomes(
+                          data.id,
+                          data.superkingdom,
+                          data.taxonomy.taxonId
+                        )}
+                      >
+                        Download one protein sequence per gene (FASTA)
+                      </a>
+                    </>
+                  ) : null}
                 </>
               ),
             },
