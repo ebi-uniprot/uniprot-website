@@ -6,7 +6,16 @@ import { APIModel } from '../types/apiModel';
 import useDataApi from './useDataApi';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
-const usePagination = (initialApiUrl?: string) => {
+export type UsePagination = {
+  allResults: APIModel[];
+  initialLoading: boolean;
+  progress?: number;
+  hasMoreData: boolean;
+  handleLoadMoreRows: () => void;
+  total?: number;
+};
+
+const usePagination = (initialApiUrl?: string): UsePagination => {
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total?: number;

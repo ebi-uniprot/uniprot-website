@@ -7,10 +7,8 @@ import {
 import { useHistory } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
-import useNSQuery from '../../hooks/useNSQuery';
 import useUserPreferences from '../../hooks/useUserPreferences';
 import useColumns from '../../hooks/useColumns';
-import usePagination from '../../hooks/usePagination';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 
@@ -19,6 +17,7 @@ import cardRenderer from '../../config/resultsCardRenderers';
 
 import { Namespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
+import { UsePagination } from '../../hooks/usePagination';
 
 import './styles/warning.scss';
 import './styles/results-data.scss';
@@ -29,22 +28,22 @@ export enum ViewMode {
 }
 
 const ResultsData: FC<{
+  resultsDataObject: UsePagination;
+  direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-}> = ({ selectedEntries, handleEntrySelection }) => {
+}> = ({ resultsDataObject, direct, selectedEntries, handleEntrySelection }) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns();
-  const { url: initialApiUrl, direct } = useNSQuery();
   const {
     allResults,
     initialLoading,
     handleLoadMoreRows,
     hasMoreData,
     progress,
-    total,
-  } = usePagination(initialApiUrl);
+  } = resultsDataObject;
 
   const [getIdKey, getEntryPathForEntry] = useMemo(() => {
     const getIdKey = getIdKeyFor(namespace);
