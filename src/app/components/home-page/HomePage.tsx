@@ -16,7 +16,7 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
 import { Namespace } from '../../../shared/types/namespaces';
 
-import helper from '../../shared/styles/helper.module.scss';
+import helper from '../../../shared/styles/helper.module.scss';
 import './styles/home-page.scss';
 
 const HomePageNonCritical = lazy(
