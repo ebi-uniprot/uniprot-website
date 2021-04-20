@@ -10,7 +10,7 @@ const mock: KeywordsAPIModel[] = [
       { goId: 'GO:0003824', name: 'catalytic activity' },
       { goId: 'GO:0008152', name: 'metabolic process' },
     ],
-    category: 'Molecular function',
+    category: { name: 'Molecular function', id: 'KW-9992' },
     children: [
       {
         keyword: { name: 'Molecular function', id: 'KW-9992' },
@@ -18,10 +18,7 @@ const mock: KeywordsAPIModel[] = [
           'Keywords assigned to proteins due to their particular molecular function.',
       },
     ],
-    statistics: {
-      reviewedProteinCount: 2480,
-      unreviewedProteinCount: 120510,
-    },
+    statistics: { reviewedProteinCount: 2480, unreviewedProteinCount: 136191 },
   },
   {
     keyword: { name: 'Calcium/phospholipid-binding', id: 'KW-0111' },
@@ -31,15 +28,15 @@ const mock: KeywordsAPIModel[] = [
     geneOntologies: [
       { goId: 'GO:0005544', name: 'calcium-dependent phospholipid binding' },
     ],
-    category: 'Ligand',
+    category: { name: 'Ligand', id: 'KW-9993' },
     children: [
       {
         keyword: { name: 'Calcium', id: 'KW-0106' },
         definition:
           'Protein which binds at least one calcium atom, or protein whose function is calcium-dependent. Calcium is a metal, chemical symbol Ca. Calcium is essential for a variety of bodily functions, such as neurotransmission, muscle contraction and proper heart function.',
         synonyms: ['Ca', 'Calcium ion'],
-        sites: ['https://www.webelements.com/calcium/'],
-        category: 'Ligand',
+        links: ['https://www.webelements.com/calcium/'],
+        category: { name: 'Ligand', id: 'KW-9993' },
         children: [
           {
             keyword: { name: 'Ligand', id: 'KW-9993' },
@@ -49,7 +46,7 @@ const mock: KeywordsAPIModel[] = [
         ],
       },
     ],
-    statistics: { reviewedProteinCount: 102, unreviewedProteinCount: 11506 },
+    statistics: { reviewedProteinCount: 102, unreviewedProteinCount: 11537 },
   },
 ];
 

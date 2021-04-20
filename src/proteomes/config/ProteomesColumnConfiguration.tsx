@@ -73,11 +73,12 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
   label: 'Components',
-  render: ({ components }) => (
-    <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
-      {components?.map(({ name }) => name)}
-    </ExpandableList>
-  ),
+  render: ({ components }) =>
+    components && (
+      <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
+        {components?.map(({ name }) => name)}
+      </ExpandableList>
+    ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
@@ -125,24 +126,24 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
   label: 'Genome representation',
-  render: ({ genomeAssembly }) => capitalize(genomeAssembly?.level),
+  render: ({ genomeAssembly }) =>
+    genomeAssembly && capitalize(genomeAssembly.level),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
   label: 'Protein Count',
   render: ({ id, proteinCount }) =>
-    proteinCount > 0 ? (
+    proteinCount ? (
       <Link
         to={{
           pathname: LocationToPath[Location.UniProtKBResults],
           search: `query=${UniProtKBColumn.proteome}:${id}`,
         }}
       >
-        {/* TODO: to eventually be supported by the backend in 2021_02 - 2021_03 */}
-        {proteinCount ?? 'no data yet'}
+        {proteinCount}
       </Link>
     ) : (
-      proteinCount ?? 'no data yet' // 0
+      0
     ),
 });
 

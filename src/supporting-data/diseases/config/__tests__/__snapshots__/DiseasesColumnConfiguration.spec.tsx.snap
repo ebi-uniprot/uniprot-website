@@ -65,15 +65,12 @@ exports[`DiseasesColumnConfiguration component should render column "definition"
 
 exports[`DiseasesColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
-    class="accession-view"
+  <a
+    class="no-wrap"
+    href="/diseases/DI-00550"
   >
-    <a
-      href="/diseases/DI-00550"
-    >
-      DI-00550
-    </a>
-  </div>
+    DI-00550
+  </a>
 </DocumentFragment>
 `;
 

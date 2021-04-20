@@ -16,6 +16,7 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 
 import { Namespace } from '../../../shared/types/namespaces';
 
+import helper from '../../shared/styles/helper.module.scss';
 import './styles/home-page.scss';
 
 const HomePageNonCritical = lazy(
@@ -29,7 +30,7 @@ const mission = (
     {/* TODO: update link */}
     <a href="https://www.uniprot.org/help/publications" className="cite-us">
       Cite{' '}
-      <span className="no-wrap">
+      <span className={helper['no-wrap']}>
         UniProt&nbsp;
         <sup>
           <CitedIcon width="1.5ch" />

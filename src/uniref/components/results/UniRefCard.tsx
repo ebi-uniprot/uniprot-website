@@ -17,8 +17,6 @@ import { UniRefLiteAPIModel } from '../../adapters/uniRefConverter';
 
 import '../../../shared/components/results/styles/result-card.scss';
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const getIdKey = getIdKeyFor(Namespace.uniref);
 
 type Props = {
@@ -41,7 +39,7 @@ const UniRefCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
 
   const handleCardClick = useCallback(
     (event) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.uniref, id));

@@ -4,6 +4,7 @@ import { CitationsAPIModel } from '../adapters/citationsConverter';
 const mock: CitationsAPIModel[] = [
   {
     citation: {
+      id: '10196735',
       citationType: 'UniProt indexed literatures',
       authors: ['Itoh M.', 'Kanamori Y.', 'Takao M.', 'Eguchi M.'],
       citationCrossReferences: [
@@ -30,6 +31,7 @@ const mock: CitationsAPIModel[] = [
   },
   {
     citation: {
+      id: '10438823',
       citationType: 'UniProt indexed literatures',
       authors: ['McCullers J.A.', 'Wang G.C.', 'He S.', 'Webster R.G.'],
       citationCrossReferences: [

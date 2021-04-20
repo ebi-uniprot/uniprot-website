@@ -24,10 +24,9 @@ export enum DatabaseColumn {
   linkType = 'link_type',
   name = 'name',
   pubmedId = 'pubmed_id',
-  reviewedProteinCount = 'reviewed_protein_count',
   // URL of the home page of the database
   server = 'server',
-  unreviewedProteinCount = 'unreviewed_protein_count',
+  statistics = 'statistics',
 }
 
 export const defaultColumns = [
@@ -62,9 +61,9 @@ DatabaseColumnConfiguration.set(DatabaseColumn.category, {
             ...parsed,
             selectedFacets: [
               ...parsed.selectedFacets.filter(
-                ({ name }) => name !== 'category_facet'
+                ({ name }) => name !== 'category_exact'
               ),
-              { name: 'category_facet', value: category },
+              { name: 'category_exact', value: category },
             ],
           });
         }}

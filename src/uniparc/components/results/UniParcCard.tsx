@@ -43,8 +43,6 @@ const uniProtKBCounter = (data: UniParcAPIModel) => {
   return { reviewed, unreviewed };
 };
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const getIdKey = getIdKeyFor(Namespace.uniparc);
 
 const UniParcCard: FC<{
@@ -58,7 +56,7 @@ const UniParcCard: FC<{
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.uniparc, id));

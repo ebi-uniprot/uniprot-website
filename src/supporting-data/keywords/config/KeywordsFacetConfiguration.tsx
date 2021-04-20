@@ -1,6 +1,7 @@
-// No known facet (for now at least?)
-export enum FacetsEnum {}
+export enum FacetsEnum {
+  Category = 'category',
+}
 
 export type Facets = `${FacetsEnum}`;
 
-export const defaultFacets = [];
+export const defaultFacets = [FacetsEnum.Category];
