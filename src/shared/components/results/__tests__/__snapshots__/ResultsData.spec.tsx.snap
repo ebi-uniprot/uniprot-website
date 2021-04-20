@@ -61,7 +61,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     CDC7 (CDC7L1) · 574 amino-acids · 1: Evidence at protein level · 
+                     CDC7 (CDC7L1) · 574 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -141,58 +141,6 @@ exports[`ResultsData component should render the card view with the correct numb
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#ptm-processing"
-            >
-              2 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#disease-and-drugs"
-            >
-              9 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#sequence"
-            >
-              1 isoform
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#interaction"
-            >
-              28 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311#structure"
-            >
-              9 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O00311/publications"
-            >
-              16 reviewed publications
-            </a>
           </div>
         </section>
       </section>
@@ -251,7 +199,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     Cdc7 (Cdc7l1) · 564 amino-acids · 1: Evidence at protein level · 
+                     Cdc7 (Cdc7l1) · 564 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -332,40 +280,6 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9Z0H0#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9Z0H0#ptm-processing"
-            >
-              1 PTM
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9Z0H0#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9Z0H0#sequence"
-            >
-              2 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9Z0H0/publications"
-            >
-              6 reviewed publications
-            </a>
-          </div>
         </section>
       </section>
       <section>
@@ -423,7 +337,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     CDC7 (OAF2) · 507 amino-acids · 1: Evidence at protein level · 
+                     CDC7 (OAF2) · 507 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -518,40 +432,6 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P06243#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P06243#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P06243#interaction"
-            >
-              4 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P06243#structure"
-            >
-              1 3D structure
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P06243/publications"
-            >
-              8 reviewed publications
-            </a>
-          </div>
         </section>
       </section>
       <section>
@@ -609,7 +489,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     cdc7 · 1062 amino-acids · 1: Evidence at protein level · 
+                     cdc7 · 1062 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -690,28 +570,6 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P41892#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P41892#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P41892/publications"
-            >
-              3 reviewed publications
-            </a>
-          </div>
         </section>
       </section>
       <section>
@@ -769,7 +627,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     cdc7 · 1061 amino-acids · 3: Inferred from homology · 
+                     cdc7 · 1061 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -781,7 +639,7 @@ exports[`ResultsData component should render the card view with the correct numb
                         >
                           <span
                             class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(108deg);"
+                            style="transform: rotate(36deg);"
                           />
                         </span>
                         <span
@@ -795,7 +653,7 @@ exports[`ResultsData component should render the card view with the correct numb
                         <span
                           class="doughnut-chart--small__inner-circle"
                         >
-                          4/5
+                          3/5
                         </span>
                       </span>
                     </span>
@@ -831,27 +689,143 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
           <div
-            class="card__actions"
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
           >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q54DK3#function"
+            <div
+              class="card__content"
             >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q54DK3#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q54DK3/publications"
-            >
-              1 reviewed publication
-            </a>
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      P50582 · HSK1_SCHPO
+                    </span>
+                  </h5>
+                  <section>
+                    Cell cycle serine/threonine-protein kinase hsk1 · 
+                    <a
+                      href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
+                    >
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
+                    </a>
+                     · 
+                    <strong>
+                      EC number:
+                    </strong>
+                     2.7.11.1 · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     hsk1 · 507 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -906,7 +880,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     PPHLN1 · 458 amino-acids · 1: Evidence at protein level · 
+                     PPHLN1 · 458 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -980,218 +954,6 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NEY8#ptm-processing"
-            >
-              12 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NEY8#disease-and-drugs"
-            >
-              1 reviewed variant
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NEY8#sequence"
-            >
-              8 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NEY8#interaction"
-            >
-              4 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NEY8#structure"
-            >
-              1 3D structure
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NEY8/publications"
-            >
-              26 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      P50582 · HSK1_SCHPO
-                    </span>
-                  </h5>
-                  <section>
-                    Cell cycle serine/threonine-protein kinase hsk1 · 
-                    <a
-                      href="/taxonomy/284812"
-                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
-                    >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     2.7.11.1 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     hsk1 · 507 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0418"
-                        >
-                           #Kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0723"
-                        >
-                           #Serine/threonine-protein kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0808"
-                        >
-                           #Transferase
-                        </a>
-                      </li>
-                    </ul>
-                     · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0132"
-                        >
-                           #Cell division
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P50582#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P50582#ptm-processing"
-            >
-              3 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P50582#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P50582#interaction"
-            >
-              3 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P50582/publications"
-            >
-              8 reviewed publications
-            </a>
-          </div>
         </section>
       </section>
       <section>
@@ -1244,7 +1006,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     Cdc7 (anon-WO03040301.250, cdc7, cdc7-related, CG8655, CG8656, CT25076, Dmel\\CG32742, L(1)G0148, l(1)G0148, l(1)G0149, l(1)G0461) · 699 amino-acids · 4: Predicted · 
+                     Cdc7 (anon-WO03040301.250, cdc7, cdc7-related, CG8655, CG8656, CT25076, Dmel\\CG32742, L(1)G0148, l(1)G0148, l(1)G0149, l(1)G0461) · 699 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -1298,22 +1060,6 @@ exports[`ResultsData component should render the card view with the correct numb
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/X2JCT3#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/X2JCT3/publications"
-            >
-              8 publications
-            </a>
           </div>
         </section>
       </section>
@@ -1367,7 +1113,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     Cdc7 (anon-WO03040301.250, cdc7, cdc7-related, CG8655, CG8656, CT25076, Dmel\\CG32742, L(1)G0148, l(1)G0148, l(1)G0149, l(1)G0461) · 700 amino-acids · 4: Predicted · 
+                     Cdc7 (anon-WO03040301.250, cdc7, cdc7-related, CG8655, CG8656, CT25076, Dmel\\CG32742, L(1)G0148, l(1)G0148, l(1)G0149, l(1)G0461) · 700 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -1421,360 +1167,6 @@ exports[`ResultsData component should render the card view with the correct numb
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9W3Y1#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9W3Y1/publications"
-            >
-              8 publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      Q9UBU7 · DBF4A_HUMAN
-                    </span>
-                  </h5>
-                  <section>
-                    Protein DBF4 homolog A · 
-                    <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
-                    >
-                      Homo sapiens (Human)
-                    </a>
-                     · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     DBF4 (ASK, DBF4A, ZDBF1) · 674 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0235"
-                        >
-                           #DNA replication
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7#function"
-            >
-              2 domains
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7#ptm-processing"
-            >
-              12 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7#disease-and-drugs"
-            >
-              2 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7#sequence"
-            >
-              2 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7#interaction"
-            >
-              8 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7#structure"
-            >
-              7 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UBU7/publications"
-            >
-              21 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      P49736 · MCM2_HUMAN
-                    </span>
-                  </h5>
-                  <section>
-                    DNA replication licensing factor MCM2 · 
-                    <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
-                    >
-                      Homo sapiens (Human)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.6.4.12 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     MCM2 (BM28, CCNL1, CDCL1, KIAA0030) · 904 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0238"
-                        >
-                           #DNA-binding
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0347"
-                        >
-                           #Helicase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
-                     · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0235"
-                        >
-                           #DNA replication
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736#ptm-processing"
-            >
-              18 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736#disease-and-drugs"
-            >
-              8 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736#interaction"
-            >
-              16 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736#disease-and-drugs"
-            >
-              1 disease
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736#structure"
-            >
-              9 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P49736/publications"
-            >
-              35 reviewed publications
-            </a>
           </div>
         </section>
       </section>
@@ -1829,7 +1221,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     DBF4B (ASKL1, DRF1) · 615 amino-acids · 1: Evidence at protein level · 
+                     DBF4B (ASKL1, DRF1) · 615 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -1876,34 +1268,6 @@ exports[`ResultsData component should render the card view with the correct numb
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NFT6#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NFT6#sequence"
-            >
-              4 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NFT6#interaction"
-            >
-              11 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8NFT6/publications"
-            >
-              7 reviewed publications
-            </a>
           </div>
         </section>
       </section>
@@ -1958,7 +1322,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     DBF4 (DNA52) · 704 amino-acids · 1: Evidence at protein level · 
+                     DBF4 (DNA52) · 704 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -2053,33 +1417,113 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
           <div
-            class="card__actions"
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
           >
-            <a
-              class="card__link"
-              href="/uniprotkb/P32325#ptm-processing"
+            <div
+              class="card__content"
             >
-              4 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P32325#interaction"
-            >
-              1 interaction
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P32325#structure"
-            >
-              6 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P32325/publications"
-            >
-              23 reviewed publications
-            </a>
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      Q9UBU7 · DBF4A_HUMAN
+                    </span>
+                  </h5>
+                  <section>
+                    Protein DBF4 homolog A · 
+                    <a
+                      href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
+                    >
+                      Homo sapiens (Human)
+                    </a>
+                     · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     DBF4 (ASK, DBF4A, ZDBF1) · 674 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -2119,11 +1563,11 @@ exports[`ResultsData component should render the card view with the correct numb
                       >
                         <test-file-stub />
                       </span>
-                      P33991 · MCM4_HUMAN
+                      P49736 · MCM2_HUMAN
                     </span>
                   </h5>
                   <section>
-                    DNA replication licensing factor MCM4 · 
+                    DNA replication licensing factor MCM2 · 
                     <a
                       href="/taxonomy/9606"
                       title="Homo sapiens (Human), taxon ID 9606"
@@ -2138,7 +1582,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     MCM4 (CDC21) · 863 amino-acids · 1: Evidence at protein level · 
+                     MCM2 (BM28, CCNL1, CDCL1, KIAA0030) · 904 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -2214,187 +1658,29 @@ exports[`ResultsData component should render the card view with the correct numb
                         </a>
                       </li>
                     </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991#ptm-processing"
-            >
-              16 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991#disease-and-drugs"
-            >
-              2 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991#interaction"
-            >
-              5 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991#disease-and-drugs"
-            >
-              1 disease
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991#structure"
-            >
-              2 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33991/publications"
-            >
-              24 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      Q14566 · MCM6_HUMAN
-                    </span>
-                  </h5>
-                  <section>
-                    DNA replication licensing factor MCM6 · 
-                    <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
-                    >
-                      Homo sapiens (Human)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.6.4.12 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     MCM6 · 821 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0238"
-                        >
-                           #DNA-binding
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0347"
-                        >
-                           #Helicase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
                      · 
                     <ul
                       class="keyword-view--inline expandable-list no-bullet"
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0131"
+                          href="/keywords/KW-0209"
                         >
-                           #Cell cycle
+                           #Deafness
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0235"
+                          href="/keywords/KW-0225"
                         >
-                           #DNA replication
+                           #Disease mutation
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-1010"
+                        >
+                           #Non-syndromic deafness
                         </a>
                       </li>
                     </ul>
@@ -2402,46 +1688,6 @@ exports[`ResultsData component should render the card view with the correct numb
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q14566#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q14566#ptm-processing"
-            >
-              9 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q14566#disease-and-drugs"
-            >
-              2 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q14566#interaction"
-            >
-              17 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q14566#structure"
-            >
-              4 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q14566/publications"
-            >
-              28 reviewed publications
-            </a>
           </div>
         </section>
       </section>
@@ -2496,7 +1742,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     CINP · 212 amino-acids · 1: Evidence at protein level · 
+                     CINP · 212 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -2572,592 +1818,6 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9BW66#ptm-processing"
-            >
-              3 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9BW66#disease-and-drugs"
-            >
-              2 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9BW66#sequence"
-            >
-              3 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9BW66#interaction"
-            >
-              40 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9BW66/publications"
-            >
-              14 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      P25205 · MCM3_HUMAN
-                    </span>
-                  </h5>
-                  <section>
-                    DNA replication licensing factor MCM3 · 
-                    <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
-                    >
-                      Homo sapiens (Human)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.6.4.12 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     MCM3 · 808 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0238"
-                        >
-                           #DNA-binding
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0347"
-                        >
-                           #Helicase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
-                     · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0235"
-                        >
-                           #DNA replication
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205#ptm-processing"
-            >
-              18 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205#disease-and-drugs"
-            >
-              6 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205#sequence"
-            >
-              2 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205#interaction"
-            >
-              6 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205#structure"
-            >
-              2 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P25205/publications"
-            >
-              32 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      P33992 · MCM5_HUMAN
-                    </span>
-                  </h5>
-                  <section>
-                    DNA replication licensing factor MCM5 · 
-                    <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
-                    >
-                      Homo sapiens (Human)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.6.4.12 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     MCM5 (CDC46) · 734 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0238"
-                        >
-                           #DNA-binding
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0347"
-                        >
-                           #Helicase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
-                     · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0235"
-                        >
-                           #DNA replication
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992#ptm-processing"
-            >
-              6 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992#disease-and-drugs"
-            >
-              4 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992#interaction"
-            >
-              6 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992#disease-and-drugs"
-            >
-              1 disease
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992#structure"
-            >
-              2 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33992/publications"
-            >
-              18 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      P33993 · MCM7_HUMAN
-                    </span>
-                  </h5>
-                  <section>
-                    DNA replication licensing factor MCM7 · 
-                    <a
-                      href="/taxonomy/9606"
-                      title="Homo sapiens (Human), taxon ID 9606"
-                    >
-                      Homo sapiens (Human)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     3.6.4.12 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     MCM7 (CDC47, MCM2) · 719 amino-acids · 1: Evidence at protein level · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          5/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0238"
-                        >
-                           #DNA-binding
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0347"
-                        >
-                           #Helicase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0378"
-                        >
-                           #Hydrolase
-                        </a>
-                      </li>
-                    </ul>
-                     · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0235"
-                        >
-                           #DNA replication
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993#ptm-processing"
-            >
-              6 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993#disease-and-drugs"
-            >
-              3 reviewed variants
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993#sequence"
-            >
-              3 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993#interaction"
-            >
-              35 interactions
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993#structure"
-            >
-              2 3D structures
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P33993/publications"
-            >
-              27 reviewed publications
-            </a>
-          </div>
         </section>
       </section>
       <section>
@@ -3211,7 +1871,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     Dbf4 (Dbf4a) · 663 amino-acids · 1: Evidence at protein level · 
+                     Dbf4 (Dbf4a) · 663 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -3265,208 +1925,6 @@ exports[`ResultsData component should render the card view with the correct numb
                 </div>
               </div>
             </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9QZ41#function"
-            >
-              2 domains
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9QZ41#ptm-processing"
-            >
-              8 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9QZ41#sequence"
-            >
-              3 isoforms
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9QZ41/publications"
-            >
-              4 reviewed publications
-            </a>
-          </div>
-        </section>
-      </section>
-      <section>
-        <section
-          class="card"
-        >
-          <div
-            class="card--has-hover"
-            role="button"
-            tabindex="0"
-          >
-            <div
-              class="card__content"
-            >
-              <div
-                class="result-card"
-              >
-                <div
-                  class="result-card__left"
-                >
-                  <input
-                    data-testid="up-card-checkbox"
-                    type="checkbox"
-                  />
-                </div>
-                <div
-                  class="result-card__right"
-                >
-                  <h5>
-                    <span
-                      class="entry-title"
-                    >
-                      <span
-                        class="entry-title__status icon--reviewed"
-                        title="This marks a reviewed UniProtKB entry"
-                      >
-                        <test-file-stub />
-                      </span>
-                      Q8SR85 · CDC71_ENCCU
-                    </span>
-                  </h5>
-                  <section>
-                    Probable cell division control protein 7 homolog 1 · 
-                    <a
-                      href="/taxonomy/284813"
-                      title="Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite), taxon ID 284813"
-                    >
-                      Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite)
-                    </a>
-                     · 
-                    <strong>
-                      EC number:
-                    </strong>
-                     2.7.11.1 · 
-                    <strong>
-                      Gene:
-                    </strong>
-                     CDC7-1 · 351 amino-acids · 3: Inferred from homology · 
-                    <span
-                      title="Annotation Score"
-                    >
-                      <span
-                        class="doughnut-chart--small colour-platinum"
-                      >
-                        <span
-                          class="doughnut-chart--small__left-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                            style="transform: rotate(36deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__right-wrap"
-                        >
-                          <span
-                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                            style="transform: rotate(180deg);"
-                          />
-                        </span>
-                        <span
-                          class="doughnut-chart--small__inner-circle"
-                        >
-                          3/5
-                        </span>
-                      </span>
-                    </span>
-                  </section>
-                  <small>
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0418"
-                        >
-                           #Kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0723"
-                        >
-                           #Serine/threonine-protein kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0808"
-                        >
-                           #Transferase
-                        </a>
-                      </li>
-                    </ul>
-                     · 
-                    <ul
-                      class="keyword-view--inline expandable-list no-bullet"
-                    >
-                      <li>
-                        <a
-                          href="/keywords/KW-0131"
-                        >
-                           #Cell cycle
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0132"
-                        >
-                           #Cell division
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0469"
-                        >
-                           #Meiosis
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0498"
-                        >
-                           #Mitosis
-                        </a>
-                      </li>
-                    </ul>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="card__actions"
-          >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8SR85#function"
-            >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8SR85#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8SR85/publications"
-            >
-              2 reviewed publications
-            </a>
           </div>
         </section>
       </section>
@@ -3525,7 +1983,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     CDC7-2 · 351 amino-acids · 3: Inferred from homology · 
+                     CDC7-2 · 351 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -3620,27 +2078,143 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
           <div
-            class="card__actions"
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
           >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8SR83#function"
+            <div
+              class="card__content"
             >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8SR83#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q8SR83/publications"
-            >
-              2 reviewed publications
-            </a>
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      P97310 · MCM2_MOUSE
+                    </span>
+                  </h5>
+                  <section>
+                    DNA replication licensing factor MCM2 · 
+                    <a
+                      href="/taxonomy/10090"
+                      title="Mus musculus (Mouse), taxon ID 10090"
+                    >
+                      Mus musculus (Mouse)
+                    </a>
+                     · 
+                    <strong>
+                      EC number:
+                    </strong>
+                     3.6.4.12 · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     Mcm2 (Bm28, Cdcl1, Kiaa0030, Mcmd2) · 904 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -3680,22 +2254,178 @@ exports[`ResultsData component should render the card view with the correct numb
                       >
                         <test-file-stub />
                       </span>
-                      O74473 · CDC11_SCHPO
+                      Q8SR85 · CDC71_ENCCU
                     </span>
                   </h5>
                   <section>
-                    Septation initiation network scaffold protein cdc11 · 
+                    Probable cell division control protein 7 homolog 1 · 
                     <a
-                      href="/taxonomy/284812"
-                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
+                      href="/taxonomy/284813"
+                      title="Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite), taxon ID 284813"
                     >
-                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
+                      Encephalitozoon cuniculi (strain GB-M1) (Microsporidian parasite)
                     </a>
                      · 
                     <strong>
+                      EC number:
+                    </strong>
+                     2.7.11.1 · 
+                    <strong>
                       Gene:
                     </strong>
-                     cdc11 · 1045 amino-acids · 1: Evidence at protein level · 
+                     CDC7-1 · 351 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(36deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          3/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0418"
+                        >
+                           #Kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0723"
+                        >
+                           #Serine/threonine-protein kinase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0808"
+                        >
+                           #Transferase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0469"
+                        >
+                           #Meiosis
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
+          <div
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="card__content"
+            >
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      P55861 · MCM2_XENLA
+                    </span>
+                  </h5>
+                  <section>
+                    DNA replication licensing factor mcm2 · 
+                    <a
+                      href="/taxonomy/8355"
+                      title="Xenopus laevis (African clawed frog), taxon ID 8355"
+                    >
+                      Xenopus laevis (African clawed frog)
+                    </a>
+                     · 
+                    <strong>
+                      EC number:
+                    </strong>
+                     3.6.4.12 · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     mcm2 · 886 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -3726,32 +2456,308 @@ exports[`ResultsData component should render the card view with the correct numb
                       </span>
                     </span>
                   </section>
-                  <small />
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
                 </div>
               </div>
             </div>
           </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
           <div
-            class="card__actions"
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
           >
-            <a
-              class="card__link"
-              href="/uniprotkb/O74473#function"
+            <div
+              class="card__content"
             >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O74473#ptm-processing"
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      P87027 · SPG1_SCHPO
+                    </span>
+                  </h5>
+                  <section>
+                    Septum-promoting GTP-binding protein 1 · 
+                    <a
+                      href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
+                    >
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
+                    </a>
+                     · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     spg1 (sid3) · 198 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0132"
+                        >
+                           #Cell division
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0498"
+                        >
+                           #Mitosis
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
+          <div
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="card__content"
             >
-              2 PTMs
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/O74473/publications"
-            >
-              6 reviewed publications
-            </a>
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      Q5XK83 · MCM4A_XENLA
+                    </span>
+                  </h5>
+                  <section>
+                    DNA replication licensing factor mcm4-A · 
+                    <a
+                      href="/taxonomy/8355"
+                      title="Xenopus laevis (African clawed frog), taxon ID 8355"
+                    >
+                      Xenopus laevis (African clawed frog)
+                    </a>
+                     · 
+                    <strong>
+                      EC number:
+                    </strong>
+                     3.6.4.12 · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     mcm4-a · 858 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -3810,7 +2816,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     spo4 · 429 amino-acids · 1: Evidence at protein level · 
+                     spo4 · 429 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -3905,33 +2911,94 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
           <div
-            class="card__actions"
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
           >
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UQY9#function"
+            <div
+              class="card__content"
             >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UQY9#ptm-processing"
-            >
-              1 PTM
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UQY9#function"
-            >
-              1 active site
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/Q9UQY9/publications"
-            >
-              2 reviewed publications
-            </a>
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      O74473 · CDC11_SCHPO
+                    </span>
+                  </h5>
+                  <section>
+                    Septation initiation network scaffold protein cdc11 · 
+                    <a
+                      href="/taxonomy/284812"
+                      title="Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast), taxon ID 284812"
+                    >
+                      Schizosaccharomyces pombe (strain 972 / ATCC 24843) (Fission yeast)
+                    </a>
+                     · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     cdc11 · 1045 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -3990,7 +3057,7 @@ exports[`ResultsData component should render the card view with the correct numb
                     <strong>
                       Gene:
                     </strong>
-                     mcm4-b · 863 amino-acids · 1: Evidence at protein level · 
+                     mcm4-b · 863 amino-acids · 
                     <span
                       title="Annotation Score"
                     >
@@ -4071,21 +3138,143 @@ exports[`ResultsData component should render the card view with the correct numb
               </div>
             </div>
           </div>
+        </section>
+      </section>
+      <section>
+        <section
+          class="card"
+        >
           <div
-            class="card__actions"
+            class="card--has-hover"
+            role="button"
+            tabindex="0"
           >
-            <a
-              class="card__link"
-              href="/uniprotkb/P30664#function"
+            <div
+              class="card__content"
             >
-              1 domain
-            </a>
-            <a
-              class="card__link"
-              href="/uniprotkb/P30664/publications"
-            >
-              11 reviewed publications
-            </a>
+              <div
+                class="result-card"
+              >
+                <div
+                  class="result-card__left"
+                >
+                  <input
+                    data-testid="up-card-checkbox"
+                    type="checkbox"
+                  />
+                </div>
+                <div
+                  class="result-card__right"
+                >
+                  <h5>
+                    <span
+                      class="entry-title"
+                    >
+                      <span
+                        class="entry-title__status icon--reviewed"
+                        title="This marks a reviewed UniProtKB entry"
+                      >
+                        <test-file-stub />
+                      </span>
+                      P33991 · MCM4_HUMAN
+                    </span>
+                  </h5>
+                  <section>
+                    DNA replication licensing factor MCM4 · 
+                    <a
+                      href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
+                    >
+                      Homo sapiens (Human)
+                    </a>
+                     · 
+                    <strong>
+                      EC number:
+                    </strong>
+                     3.6.4.12 · 
+                    <strong>
+                      Gene:
+                    </strong>
+                     MCM4 (CDC21) · 863 amino-acids · 
+                    <span
+                      title="Annotation Score"
+                    >
+                      <span
+                        class="doughnut-chart--small colour-platinum"
+                      >
+                        <span
+                          class="doughnut-chart--small__left-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__right-wrap"
+                        >
+                          <span
+                            class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                            style="transform: rotate(180deg);"
+                          />
+                        </span>
+                        <span
+                          class="doughnut-chart--small__inner-circle"
+                        >
+                          5/5
+                        </span>
+                      </span>
+                    </span>
+                  </section>
+                  <small>
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0238"
+                        >
+                           #DNA-binding
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0347"
+                        >
+                           #Helicase
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0378"
+                        >
+                           #Hydrolase
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0131"
+                        >
+                           #Cell cycle
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="/keywords/KW-0235"
+                        >
+                           #DNA replication
+                        </a>
+                      </li>
+                    </ul>
+                  </small>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </section>
@@ -4231,26 +3420,6 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
-              aria-label="Q8NEY8"
-              data-id="Q8NEY8"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/Q8NEY8"
-              >
-                Q8NEY8
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
               aria-label="P50582"
               data-id="P50582"
               type="checkbox"
@@ -4264,6 +3433,26 @@ exports[`ResultsData component should render the table view 1`] = `
                 href="/uniprotkb/P50582"
               >
                 P50582
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              aria-label="Q8NEY8"
+              data-id="Q8NEY8"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/Q8NEY8"
+              >
+                Q8NEY8
               </a>
             </div>
           </td>
@@ -4311,46 +3500,6 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
-              aria-label="Q9UBU7"
-              data-id="Q9UBU7"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/Q9UBU7"
-              >
-                Q9UBU7
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
-              aria-label="P49736"
-              data-id="P49736"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/P49736"
-              >
-                P49736
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
               aria-label="Q8NFT6"
               data-id="Q8NFT6"
               type="checkbox"
@@ -4391,8 +3540,8 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
-              aria-label="P33991"
-              data-id="P33991"
+              aria-label="Q9UBU7"
+              data-id="Q9UBU7"
               type="checkbox"
             />
           </td>
@@ -4401,9 +3550,9 @@ exports[`ResultsData component should render the table view 1`] = `
               class="accession-view"
             >
               <a
-                href="/uniprotkb/P33991"
+                href="/uniprotkb/Q9UBU7"
               >
-                P33991
+                Q9UBU7
               </a>
             </div>
           </td>
@@ -4411,8 +3560,8 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
-              aria-label="Q14566"
-              data-id="Q14566"
+              aria-label="P49736"
+              data-id="P49736"
               type="checkbox"
             />
           </td>
@@ -4421,9 +3570,9 @@ exports[`ResultsData component should render the table view 1`] = `
               class="accession-view"
             >
               <a
-                href="/uniprotkb/Q14566"
+                href="/uniprotkb/P49736"
               >
-                Q14566
+                P49736
               </a>
             </div>
           </td>
@@ -4451,66 +3600,6 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
-              aria-label="P25205"
-              data-id="P25205"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/P25205"
-              >
-                P25205
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
-              aria-label="P33992"
-              data-id="P33992"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/P33992"
-              >
-                P33992
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
-              aria-label="P33993"
-              data-id="P33993"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/P33993"
-              >
-                P33993
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
               aria-label="Q9QZ41"
               data-id="Q9QZ41"
               type="checkbox"
@@ -4524,26 +3613,6 @@ exports[`ResultsData component should render the table view 1`] = `
                 href="/uniprotkb/Q9QZ41"
               >
                 Q9QZ41
-              </a>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <input
-              aria-label="Q8SR85"
-              data-id="Q8SR85"
-              type="checkbox"
-            />
-          </td>
-          <td>
-            <div
-              class="accession-view"
-            >
-              <a
-                href="/uniprotkb/Q8SR85"
-              >
-                Q8SR85
               </a>
             </div>
           </td>
@@ -4571,8 +3640,8 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
-              aria-label="O74473"
-              data-id="O74473"
+              aria-label="P97310"
+              data-id="P97310"
               type="checkbox"
             />
           </td>
@@ -4581,9 +3650,89 @@ exports[`ResultsData component should render the table view 1`] = `
               class="accession-view"
             >
               <a
-                href="/uniprotkb/O74473"
+                href="/uniprotkb/P97310"
               >
-                O74473
+                P97310
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              aria-label="Q8SR85"
+              data-id="Q8SR85"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/Q8SR85"
+              >
+                Q8SR85
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              aria-label="P55861"
+              data-id="P55861"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/P55861"
+              >
+                P55861
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              aria-label="P87027"
+              data-id="P87027"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/P87027"
+              >
+                P87027
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              aria-label="Q5XK83"
+              data-id="Q5XK83"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/Q5XK83"
+              >
+                Q5XK83
               </a>
             </div>
           </td>
@@ -4611,6 +3760,26 @@ exports[`ResultsData component should render the table view 1`] = `
         <tr>
           <td>
             <input
+              aria-label="O74473"
+              data-id="O74473"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/O74473"
+              >
+                O74473
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
               aria-label="P30664"
               data-id="P30664"
               type="checkbox"
@@ -4624,6 +3793,26 @@ exports[`ResultsData component should render the table view 1`] = `
                 href="/uniprotkb/P30664"
               >
                 P30664
+              </a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input
+              aria-label="P33991"
+              data-id="P33991"
+              type="checkbox"
+            />
+          </td>
+          <td>
+            <div
+              class="accession-view"
+            >
+              <a
+                href="/uniprotkb/P33991"
+              >
+                P33991
               </a>
             </div>
           </td>

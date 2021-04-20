@@ -2,12 +2,11 @@ import { screen } from '@testing-library/react';
 
 import ResultsData, { ViewMode } from '../ResultsData';
 
+import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
+
 import customRender from '../../../__test-helpers__/customRender';
 
-import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
-import { UserPreferences } from '../../../contexts/UserPreferences';
-
-import response from '../../../../uniprotkb/components/__mocks__/response';
+import results from '../../../../uniprotkb/components/__mocks__/results.json';
 
 describe('ResultsData component', () => {
   const resultsData = (viewMode: ViewMode) =>
@@ -16,12 +15,12 @@ describe('ResultsData component', () => {
         handleEntrySelection={jest.fn()}
         selectedEntries={[]}
         resultsDataObject={{
-          allResults: response.data.results,
+          allResults: results.results, // TODO: fix ts error
           initialLoading: false,
           progress: 1,
           hasMoreData: true,
           handleLoadMoreRows: jest.fn(),
-          total: +response.headers['x-totalrecords'],
+          total: 1000,
         }}
       />,
       {
@@ -29,7 +28,7 @@ describe('ResultsData component', () => {
         initialUserPreferences: {
           'view-mode': viewMode,
           'table columns for uniprotkb': [UniProtKBColumn.accession],
-        } as UserPreferences,
+        },
       }
     );
 
