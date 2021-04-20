@@ -58,18 +58,21 @@ export const Components: FC<
           )),
     },
     {
-      label: 'Proteins',
+      label: 'Protein count',
       name: 'proteins',
-      render: ({ proteinCount, name }) => (
-        <Link
-          to={{
-            pathname: LocationToPath[Location.UniProtKBResults],
-            search: `query=(proteome:${id}) AND (proteomecomponent:"${name}")`,
-          }}
-        >
-          {proteinCount || 'no data yet'}
-        </Link>
-      ),
+      render: ({ proteinCount, name }) =>
+        proteinCount ? (
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              search: `query=(proteome:${id}) AND (proteomecomponent:"${name}")`,
+            }}
+          >
+            {proteinCount}
+          </Link>
+        ) : (
+          0
+        ),
     },
   ];
 

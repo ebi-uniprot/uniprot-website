@@ -1,7 +1,7 @@
 export enum FacetsEnum {
-  CategoryFacet = 'category_facet',
+  CategoryExact = 'category_exact',
 }
 
 export type Facets = `${FacetsEnum}`;
 
-export const defaultFacets = [FacetsEnum.CategoryFacet];
+export const defaultFacets = [FacetsEnum.CategoryExact];

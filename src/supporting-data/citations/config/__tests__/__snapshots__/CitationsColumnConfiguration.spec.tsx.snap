@@ -2,6 +2,27 @@
 
 exports[`CitationsColumnConfiguration component should render column "authoring_group": authoring_group 1`] = `<DocumentFragment />`;
 
+exports[`CitationsColumnConfiguration component should render column "authors": authors 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      Itoh M.
+    </li>
+    <li>
+      Kanamori Y.
+    </li>
+    <li>
+      Takao M.
+    </li>
+    <li>
+      Eguchi M.
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`CitationsColumnConfiguration component should render column "doi": doi 1`] = `
 <DocumentFragment>
   10.1016/s0965-1748(98)00115-5
@@ -16,15 +37,12 @@ exports[`CitationsColumnConfiguration component should render column "first_page
 
 exports[`CitationsColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
-  <div
-    class="accession-view"
+  <a
+    class="no-wrap"
+    href="/citations/10196735"
   >
-    <a
-      href="/citations/10196735"
-    >
-      10196735
-    </a>
-  </div>
+    10196735
+  </a>
 </DocumentFragment>
 `;
 
@@ -46,7 +64,7 @@ exports[`CitationsColumnConfiguration component should render column "lit_abstra
 </DocumentFragment>
 `;
 
-exports[`CitationsColumnConfiguration component should render column "publication": publication 1`] = `
+exports[`CitationsColumnConfiguration component should render column "publication_date": publication_date 1`] = `
 <DocumentFragment>
   <time
     datetime="1999-01-01T00:00:00.000Z"

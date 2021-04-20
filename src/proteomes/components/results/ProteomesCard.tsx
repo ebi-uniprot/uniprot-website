@@ -29,8 +29,6 @@ const buscoColumnRenderer = ProteomesColumnConfiguration.get(
   ProteomesColumn.busco
 );
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const getIdKey = getIdKeyFor(Namespace.proteomes);
 
 const ProteomesCard: FC<{
@@ -44,7 +42,7 @@ const ProteomesCard: FC<{
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.proteomes, id));
