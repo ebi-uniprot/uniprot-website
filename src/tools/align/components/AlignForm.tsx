@@ -3,7 +3,6 @@ import {
   useCallback,
   FormEvent,
   MouseEvent,
-  useMemo,
   useRef,
   FC,
   Dispatch,
@@ -28,6 +27,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { createJob } from '../../state/toolsActions';
 
@@ -86,10 +86,6 @@ const FormSelect: FC<{
   );
 };
 
-interface CustomLocationState {
-  parameters?: Partial<FormParameters>;
-}
-
 const AlignForm = () => {
   // refs
   const sslRef = useRef<{ reset: () => void }>(null);
@@ -101,34 +97,7 @@ const AlignForm = () => {
   const reducedMotion = useReducedMotion();
 
   // state
-  const initialFormValues = useMemo(() => {
-    // NOTE: we should use a similar logic to pre-fill fields based on querystring
-    const parametersFromHistoryState = (history.location
-      ?.state as CustomLocationState)?.parameters;
-    if (parametersFromHistoryState) {
-      // if we get here, we got parameters passed with the location update to
-      // use as pre-filled fields
-      const formValues: Partial<AlignFormValues> = {};
-      const defaultValuesEntries = Object.entries(defaultFormValues) as [
-        AlignFields,
-        AlignFormValue
-      ][];
-      // for every field of the form, get its value from the history state if
-      // present, otherwise go for the default one
-      for (const [key, field] of defaultValuesEntries) {
-        formValues[key] = Object.freeze({
-          ...field,
-          selected:
-            parametersFromHistoryState[
-              field.fieldName as keyof FormParameters
-            ] || field.selected,
-        }) as Readonly<AlignFormValue>;
-      }
-      return Object.freeze(formValues) as Readonly<AlignFormValues>;
-    }
-    // otherwise, pass the default values
-    return defaultFormValues;
-  }, [history]);
+  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -142,15 +111,19 @@ const AlignForm = () => {
   );
 
   // actual form fields
-  const [sequence, setSequence] = useState<
-    AlignFormValues[AlignFields.sequence]
-  >(initialFormValues[AlignFields.sequence]);
-  const [order, setOrder] = useState<AlignFormValues[AlignFields.order]>(
-    initialFormValues[AlignFields.order]
+  const [sequence, setSequence] = useState(
+    initialFormValues[
+      AlignFields.sequence
+    ] as AlignFormValues[AlignFields.sequence]
   );
-  const [iterations, setIterations] = useState<
-    AlignFormValues[AlignFields.iterations]
-  >(initialFormValues[AlignFields.iterations]);
+  const [order, setOrder] = useState(
+    initialFormValues[AlignFields.order] as AlignFormValues[AlignFields.order]
+  );
+  const [iterations, setIterations] = useState(
+    initialFormValues[
+      AlignFields.iterations
+    ] as AlignFormValues[AlignFields.iterations]
+  );
 
   // extra job-related fields
   const [jobName, setJobName] = useState(initialFormValues[AlignFields.name]);

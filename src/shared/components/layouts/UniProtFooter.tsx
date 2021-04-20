@@ -5,6 +5,7 @@ import { CitedIcon, EnvelopeIcon, ExternalLink } from 'franklin-sites';
 
 import { Location, LocationToPath } from '../../../app/config/urls';
 
+import helper from '../../styles/helper.module.scss';
 import './styles/footer.scss';
 
 import UniProtLogo from '../../../images/uniprot-logo.svg';
@@ -222,7 +223,7 @@ const FooterShortcuts = () => (
         <li>
           <Link to="/">
             Cite{' '}
-            <span className="no-wrap">
+            <span className={helper['no-wrap']}>
               UniProt&nbsp;
               <sup>
                 <CitedIcon width="1.5ch" />

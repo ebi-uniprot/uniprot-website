@@ -8,7 +8,6 @@ export enum AlignFieldTypes {
 export type AlignFormValue = {
   fieldName: string;
   selected?: string | boolean | number;
-  type?: AlignFieldTypes;
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
@@ -26,17 +25,14 @@ export type AlignFormValues = Record<AlignFields, Readonly<AlignFormValue>>;
 const formData: Readonly<AlignFormValues> = Object.freeze({
   [AlignFields.sequence]: Object.freeze({
     fieldName: 'sequence',
-    type: AlignFieldTypes.textarea,
     selected: '',
   }),
   [AlignFields.name]: Object.freeze({
     fieldName: 'name',
-    type: AlignFieldTypes.textarea,
     selected: '',
   }),
   [AlignFields.order]: Object.freeze({
     fieldName: 'order',
-    type: AlignFieldTypes.select,
     values: Object.freeze([
       { value: 'aligned', label: 'from alignment' },
       { value: 'input', label: 'same as input' },
@@ -45,7 +41,6 @@ const formData: Readonly<AlignFormValues> = Object.freeze({
   }),
   [AlignFields.iterations]: Object.freeze({
     fieldName: 'iterations',
-    type: AlignFieldTypes.select,
     values: Object.freeze([
       { value: 0 },
       { value: 1 },
