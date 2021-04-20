@@ -6,31 +6,33 @@ import SingleColumnLayout from '../../../../shared/components/layouts/SingleColu
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import LiteratureCitation from '../LiteratureCitation';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
+import entryPageStyles from '../../../styles/entry-page.module.scss';
+
 const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const { data, loading, error, status, progress } = useDataApi<
+  const { data, loading, error, status, progress } = useDataApiWithStale<
     SetOptional<CitationsAPIModel, 'statistics'>
   >(apiUrls.entry(accession, Namespace.citations));
 
-  if (error || !accession) {
+  if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
 
-  if (loading || !data) {
+  if (!data) {
     return <Loader progress={progress} />;
   }
 
   return (
     <SingleColumnLayout>
-      <Card>
+      <Card className={entryPageStyles.card}>
         <LiteratureCitation data={data} displayAll />
       </Card>
     </SingleColumnLayout>

@@ -18,8 +18,6 @@ import KeywordCategory from '../../types/keywordCategory';
 
 import '../../../shared/components/results/styles/result-card.scss';
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
 type Props = {
@@ -35,7 +33,7 @@ const UniProtKBCard: FC<Props> = ({ data, selected, handleEntrySelection }) => {
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.uniprotkb, id));
