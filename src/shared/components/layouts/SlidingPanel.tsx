@@ -1,8 +1,6 @@
 import { FC, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { useSpring, animated } from '@react-spring/web';
 import cn from 'classnames';
-import { upperFirst } from 'lodash-es';
 
 import ErrorBoundary from '../error-component/ErrorBoundary';
 
@@ -22,12 +20,6 @@ const SlidingPanel: FC<{
   onClose: (arg: void) => void;
 }> = ({ children, position, className, onClose, yScrollable = false }) => {
   const node = useRef<HTMLDivElement>(null);
-  const margin = `margin${upperFirst(position)}`;
-  const [props] = useSpring(() => ({
-    opacity: 1,
-    [margin]: 0,
-    from: { opacity: 0, [margin]: -1000 },
-  }));
 
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
@@ -48,16 +40,16 @@ const SlidingPanel: FC<{
   }, []);
 
   return createPortal(
-    <animated.div
+    <div
       data-testid="sliding-panel"
       className={cn(`sliding-panel sliding-panel--${position}`, className)}
-      style={{ ...props, overflowY: yScrollable ? 'auto' : 'initial' }}
+      style={{ overflowY: yScrollable ? 'auto' : 'initial' }}
       ref={node}
     >
       <ErrorBoundary>
         <div>{children}</div>
       </ErrorBoundary>
-    </animated.div>,
+    </div>,
     document.body
   );
 };

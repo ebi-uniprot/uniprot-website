@@ -1,11 +1,10 @@
 import { RouteChildrenProps } from 'react-router-dom';
-import { Loader, Card } from 'franklin-sites';
+import { Loader, Card, InfoList } from 'franklin-sites';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
-import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
-import useDataApi from '../../../../shared/hooks/useDataApi';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import apiUrls from '../../../../shared/config/apiUrls';
 
@@ -14,6 +13,18 @@ import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import KeywordsColumnConfiguration, {
   KeywordsColumn,
 } from '../../config/KeywordsColumnConfiguration';
+
+import helper from '../../../../shared/styles/helper.module.scss';
+
+const columns = [
+  KeywordsColumn.description,
+  KeywordsColumn.synonym,
+  KeywordsColumn.category,
+  KeywordsColumn.geneOntology,
+  KeywordsColumn.parent,
+  KeywordsColumn.children,
+  KeywordsColumn.sites,
+];
 
 const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
@@ -24,42 +35,34 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     error,
     status,
     progress,
-  } = useDataApi<KeywordsAPIModel>(
+    isStale,
+  } = useDataApiWithStale<KeywordsAPIModel>(
     apiUrls.entry(accession, Namespace.keywords)
   );
 
-  if (error || !accession) {
+  if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
 
-  if (loading || !data) {
+  if (!data) {
     return <Loader progress={progress} />;
   }
+
+  const infoData =
+    data &&
+    columns.map((column) => {
+      const renderer = KeywordsColumnConfiguration.get(column);
+      return {
+        title: renderer?.label,
+        content: renderer?.render(data),
+      };
+    });
 
   return (
     <SingleColumnLayout>
       <h2>Keyword - {data.keyword.name}</h2>
-      <Card>
-        <RenderColumnsInCard
-          renderers={KeywordsColumnConfiguration.get(
-            KeywordsColumn.description
-          )}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={KeywordsColumnConfiguration.get(KeywordsColumn.synonym)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={KeywordsColumnConfiguration.get(KeywordsColumn.category)}
-          data={data}
-        />
-        <RenderColumnsInCard
-          renderers={KeywordsColumnConfiguration.get(
-            KeywordsColumn.geneOntology
-          )}
-          data={data}
-        />
+      <Card className={isStale ? helper.stale : undefined}>
+        {infoData && <InfoList infoData={infoData} isCompact />}
       </Card>
     </SingleColumnLayout>
   );

@@ -1,16 +1,9 @@
 import { FormParameters } from '../types/peptideSearchFormParameters';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
-export enum PeptideSearchFieldTypes {
-  textarea,
-  select,
-  autocomplete,
-}
-
 export type PeptideSearchFormValue = {
   fieldName: string;
   selected?: string | SelectedTaxon[] | boolean | number;
-  type?: PeptideSearchFieldTypes;
   values?: Readonly<
     Array<{ label?: string; value?: string | boolean | number }>
   >;
@@ -32,7 +25,7 @@ export type PeptideSearchFormValues = Record<
 const formData: Readonly<PeptideSearchFormValues> = Object.freeze({
   [PeptideSearchFields.peps]: Object.freeze({
     fieldName: 'peps',
-    selected: '' as string,
+    selected: '',
   }),
   [PeptideSearchFields.taxIds]: Object.freeze({
     fieldName: 'taxIds',

@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 import { PageIntro, Loader } from 'franklin-sites';
 
@@ -11,23 +11,18 @@ import SideBarLayout from '../layouts/SideBarLayout';
 
 import useItemSelect from '../../hooks/useItemSelect';
 
-import {
-  getParamsFromURL,
-  getSortableColumnToSortColumn,
-} from '../../../uniprotkb/utils/resultsUtils';
+import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 
-import useDataApi from '../../hooks/useDataApi';
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNS from '../../hooks/useNS';
 
-import apiUrls, { getAPIQueryUrl } from '../../config/apiUrls';
 import infoMappings from '../../config/InfoMappings';
 
-import { mainNamespaces, Namespace } from '../../types/namespaces';
+import { Namespace } from '../../types/namespaces';
 import Response from '../../../uniprotkb/types/responseTypes';
-import { ReceivedFieldData } from '../../../uniprotkb/types/resultsTypes';
 
 import './styles/results-table.scss';
+import useNSQuery from '../../hooks/useNSQuery';
 
 export enum ViewMode {
   TABLE,
@@ -42,25 +37,7 @@ const Results: FC = () => {
   );
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
-  const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
-    // No configure endpoint for supporting data
-    mainNamespaces.has(namespace) ? apiUrls.resultsFields(namespace) : null
-  );
-
-  const sortableColumnToSortColumn = useMemo(
-    () => getSortableColumnToSortColumn(dataResultFields),
-    [dataResultFields]
-  );
-
-  const initialApiUrl = getAPIQueryUrl({
-    namespace,
-    query,
-    selectedFacets,
-    sortColumn,
-    sortDirection,
-    // Not really interested in the list of results here, try to reduce payload
-    size: 0,
-  });
+  const { url: initialApiUrl } = useNSQuery({ size: 0, withFacets: true });
 
   const {
     data,
@@ -115,7 +92,6 @@ const Results: FC = () => {
       <ResultsView
         handleEntrySelection={handleEntrySelection}
         selectedEntries={selectedEntries}
-        sortableColumnToSortColumn={sortableColumnToSortColumn}
       />
     </SideBarLayout>
   );

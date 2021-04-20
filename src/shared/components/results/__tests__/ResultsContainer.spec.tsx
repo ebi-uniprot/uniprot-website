@@ -25,7 +25,7 @@ describe('Results component', () => {
     });
   });
 
-  test('should deselect a facet', async () => {
+  test.skip('should deselect a facet', async () => {
     await act(async () => {
       const { history } = customRender(<ResultsContainer />, {
         route: '/uniprotkb?query=blah&facets=reviewed:false',
