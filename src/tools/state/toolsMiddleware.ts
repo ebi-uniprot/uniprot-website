@@ -39,16 +39,25 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   // main loop to poll job statuses
   const pollJobs = async () => {
-    const toolsState = getState().tools;
+    let jobsToCheck = Object.values(getState().tools).filter(
+      (job) => job.status === Status.CREATED || job.status === Status.RUNNING
+    );
 
-    await pMap(Object.values(toolsState), pollJobMapper, { concurrency: 4 });
+    await pMap(jobsToCheck, pollJobMapper, { concurrency: 4 });
 
     // reset flag
     pollJobs.scheduled = false;
 
     await sleep(POLLING_INTERVAL);
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    pollJobs.schedule();
+
+    jobsToCheck = Object.values(getState().tools).filter(
+      (job) => job.status === Status.CREATED || job.status === Status.RUNNING
+    );
+    // Make sure to only schedule a new loop when there are jobs to checks
+    if (jobsToCheck.length) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      pollJobs.schedule();
+    }
   };
   // flag to avoid multiple pollJobs loop being scheduled
   pollJobs.scheduled = false;
