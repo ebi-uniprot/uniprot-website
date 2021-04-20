@@ -18,7 +18,7 @@ export enum KeywordsColumn {
   name = 'name',
   parents = 'parents',
   // Those are links, not biological sites
-  sites = 'sites',
+  links = 'links',
   statistics = 'statistics',
   // This is a list of synonyms, regardless of the singular in the name
   synonym = 'synonym',
@@ -105,13 +105,13 @@ KeywordsColumnConfiguration.set(KeywordsColumn.parents, {
     ),
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.sites, {
-  label: 'Sites',
-  render: ({ sites }) =>
-    sites?.length && (
-      <ExpandableList descriptionString="sites" displayNumberOfHiddenItems>
-        {sites.map((site) => (
-          <ExternalLink key={site} url={site} tidyUrl />
+KeywordsColumnConfiguration.set(KeywordsColumn.links, {
+  label: 'Links',
+  render: ({ links }) =>
+    links?.length && (
+      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+        {links.map((link) => (
+          <ExternalLink key={link} url={link} tidyUrl />
         ))}
       </ExpandableList>
     ),

@@ -15,13 +15,12 @@ export type KeywordNameID = {
 
 export type KeywordsLite = {
   keyword: KeywordNameID;
-  sites?: string[];
+  links?: string[];
   definition: string;
   synonyms?: string[];
   geneOntologies?: GO[];
   category?: KeywordNameID;
   children?: KeywordsLite[];
-  links?: string[];
 };
 
 export type KeywordsAPIModel = KeywordsLite & {

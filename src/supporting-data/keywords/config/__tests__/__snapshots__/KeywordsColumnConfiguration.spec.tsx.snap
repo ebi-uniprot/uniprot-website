@@ -79,6 +79,8 @@ exports[`KeywordsColumnConfiguration component should render column "id": id 1`]
 </DocumentFragment>
 `;
 
+exports[`KeywordsColumnConfiguration component should render column "links": links 1`] = `<DocumentFragment />`;
+
 exports[`KeywordsColumnConfiguration component should render column "name": name 1`] = `
 <DocumentFragment>
   Allosteric enzyme
@@ -86,7 +88,5 @@ exports[`KeywordsColumnConfiguration component should render column "name": name
 `;
 
 exports[`KeywordsColumnConfiguration component should render column "parents": parents 1`] = `<DocumentFragment />`;
-
-exports[`KeywordsColumnConfiguration component should render column "sites": sites 1`] = `<DocumentFragment />`;
 
 exports[`KeywordsColumnConfiguration component should render column "synonym": synonym 1`] = `<DocumentFragment />`;
