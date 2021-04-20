@@ -61,9 +61,9 @@ DatabaseColumnConfiguration.set(DatabaseColumn.category, {
             ...parsed,
             selectedFacets: [
               ...parsed.selectedFacets.filter(
-                ({ name }) => name !== 'category_facet'
+                ({ name }) => name !== 'category_exact'
               ),
-              { name: 'category_facet', value: category },
+              { name: 'category_exact', value: category },
             ],
           });
         }}
