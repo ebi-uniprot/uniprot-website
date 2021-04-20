@@ -104,7 +104,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
   label: <abbr title={abbreviationToTitle.CPD}>CPD</abbr>,
   render: ({ proteomeCompletenessReport }) =>
-    proteomeCompletenessReport.cpdReport?.status,
+    proteomeCompletenessReport?.cpdReport?.status,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
@@ -155,8 +155,10 @@ ProteomesColumnConfiguration.set(ProteomesColumn.busco, {
       <BuscoLegend />
     </>
   ),
-  render: ({ proteomeCompletenessReport: { buscoReport } }) =>
-    buscoReport && <BuscoView report={buscoReport} />,
+  render: ({ proteomeCompletenessReport }) =>
+    proteomeCompletenessReport?.buscoReport && (
+      <BuscoView report={proteomeCompletenessReport.buscoReport} />
+    ),
 });
 
 export default ProteomesColumnConfiguration;
