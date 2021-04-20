@@ -19,8 +19,9 @@ export type CitationXRef = {
 };
 
 export type Citation = {
-  // Either a pubmed ID, or a CI-<hash> internal hash if pubmed unavailable
-  id: `${number}` | `CI-${string}`;
+  // Either a pubmed ID, or a CI-<hash> internal hash if pubmed unavailable, or
+  // IND<...> also available in the data
+  id: `${number}` | `CI-${string}` | `IND${string}`;
   citationType?: string;
   authors?: string[];
   citationCrossReferences?: CitationXRef[];
