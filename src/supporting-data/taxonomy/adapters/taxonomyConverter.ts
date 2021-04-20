@@ -15,7 +15,7 @@ type InactiveReason = {
 };
 
 type Strain = {
-  synonyms: string[];
+  synonyms?: string[];
   name: string;
 };
 

@@ -12,7 +12,7 @@ import { getParamsFromURL } from '../../utils/resultsUtils';
 
 import { FacetObject } from '../../types/responseTypes';
 
-import './styles/entry-publications-facets.scss';
+import helper from '../../../shared/styles/helper.module.scss';
 
 const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
@@ -41,7 +41,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   }
 
   return (
-    <Facets data={data.facets} className={isStale ? 'is-stale' : undefined} />
+    <Facets data={data.facets} className={isStale ? helper.stale : undefined} />
   );
 };
 

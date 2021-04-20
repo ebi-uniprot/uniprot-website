@@ -32,8 +32,9 @@ import EntrySection, {
 import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
+import helper from '../../../shared/styles/helper.module.scss';
+import '../../../shared/components/results/styles/results-data.scss';
 import './styles/XRefsSection.scss';
-import '../../../shared/components/results/styles/results-view.scss';
 
 const getColumns = (
   templateMap: Map<string, string>
@@ -229,7 +230,7 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
   return (
     <Card
       title={getEntrySectionNameAndId(EntrySection.XRefs).name}
-      className={xrefData.isStale ? 'is-stale' : undefined}
+      className={xrefData.isStale ? helper.stale : undefined}
     >
       {/* Stalled for now */}
       {/* <div className="button-group">

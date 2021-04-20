@@ -14,7 +14,7 @@ import Response, {
   FacetObject,
 } from '../../../../uniprotkb/types/responseTypes';
 
-import '../../../../shared/components/results/styles/results-view.scss';
+import helper from '../../../../shared/styles/helper.module.scss';
 
 const facets = [
   'reviewed',
@@ -50,7 +50,7 @@ const BlastResultSidebar = memo<BlastResultSidebarProps>(
           <Facet
             key={facet.name}
             data={facet}
-            className={isStale ? 'is-stale' : undefined}
+            className={isStale ? helper.stale : undefined}
           />
         ))}
       </Facets>

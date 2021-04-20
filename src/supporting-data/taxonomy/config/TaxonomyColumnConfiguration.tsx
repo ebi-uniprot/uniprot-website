@@ -1,17 +1,11 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ExpandableList,
-  ExternalLink /* , LongNumber */,
-} from 'franklin-sites';
-
-// import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import { ExpandableList, ExternalLink } from 'franklin-sites';
 
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-// import { EntryType } from '../../../uniprotkb/adapters/uniProtkbConverter';
 import { Namespace } from '../../../shared/types/namespaces';
 import AccessionView from '../../../shared/components/results/AccessionView';
 
@@ -63,15 +57,16 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.commonName, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.host, {
   label: 'Hosts',
-  render: ({ hosts }) => (
-    <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-      {hosts?.map(({ taxonId, scientificName, commonName }) => (
-        <Link key={taxonId} to={getEntryPath(taxonId)}>
-          {commonName || scientificName || taxonId}
-        </Link>
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ hosts }) =>
+    hosts?.length && (
+      <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
+        {hosts.map(({ taxonId, scientificName, commonName }) => (
+          <Link key={taxonId} to={getEntryPath(taxonId)}>
+            {commonName || scientificName || taxonId}
+          </Link>
+        ))}
+      </ExpandableList>
+    ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
@@ -99,13 +94,14 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.links, {
   label: 'Links',
-  render: ({ links }) => (
-    <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-      {links?.map((link) => (
-        <ExternalLink key={link} url={link} tidyUrl />
-      ))}
-    </ExpandableList>
-  ),
+  render: ({ links }) =>
+    links?.length && (
+      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+        {links.map((link) => (
+          <ExternalLink key={link} url={link} tidyUrl />
+        ))}
+      </ExpandableList>
+    ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {
@@ -115,17 +111,18 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.mnemonic, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
   label: 'Other names',
-  render: ({ otherNames }) => (
-    <ExpandableList descriptionString="other names" displayNumberOfHiddenItems>
-      {otherNames}
-    </ExpandableList>
-  ),
+  render: ({ otherNames }) =>
+    otherNames?.length && (
+      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
+        {otherNames}
+      </ExpandableList>
+    ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
   label: 'Parent',
   render: ({ parentId }) =>
-    parentId && <Link to={getEntryPath(parentId)}>{parentId}</Link>,
+    parentId ? <Link to={getEntryPath(parentId)}>{parentId}</Link> : undefined,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.rank, {
@@ -138,59 +135,29 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
   render: ({ scientificName }) => scientificName,
 });
 
-// TODO: might not be needed as a column
-// TaxonomyColumnConfiguration.set(TaxonomyColumn.statistics, {
-//   label: 'Mapping to',
-//   render: ({ statistics }) => (
-//     <>
-//       {statistics?.reviewedProteinCount ? (
-//         <div>
-//           <EntryTypeIcon entryType={EntryType.REVIEWED} />
-//           <LongNumber>{statistics.reviewedProteinCount}</LongNumber> reviewed
-//           entr{statistics.reviewedProteinCount === 1 ? 'y' : 'ies'}
-//         </div>
-//       ) : undefined}
-//       {statistics?.unreviewedProteinCount ? (
-//         <div>
-//           <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
-//           <LongNumber>{statistics.unreviewedProteinCount}</LongNumber>{' '}
-//           unreviewed entr{statistics.unreviewedProteinCount === 1 ? 'y' : 'ies'}
-//         </div>
-//       ) : undefined}
-//       {statistics?.proteomeCount ? (
-//         <div>
-//           <LongNumber>{statistics.proteomeCount}</LongNumber> proteome
-//           {statistics.proteomeCount === 1 ? '' : 's'}
-//         </div>
-//       ) : undefined}
-//       {statistics?.referenceProteomeCount ? (
-//         <div>
-//           <EntryTypeIcon entryType={EntryType.REFERENCE_PROTEOME} />
-//           <LongNumber>{statistics.referenceProteomeCount}</LongNumber>{' '}
-//           references proteome
-//           {statistics.unreviewedProteinCount === 1 ? '' : 's'}
-//         </div>
-//       ) : undefined}
-//     </>
-//   ),
-// });
-
 TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
   label: 'Strains',
-  render: ({ strains }) => (
-    <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
-      {strains?.map((strain) => strain.name)}
-    </ExpandableList>
-  ),
+  render: ({ strains }) =>
+    strains?.length && (
+      <ExpandableList descriptionString="strains" displayNumberOfHiddenItems>
+        {strains.map((strain) => (
+          <>
+            {strain.name}
+            {strain.synonyms?.length && ` (${strain.synonyms.join(', ')})`}
+          </>
+        ))}
+      </ExpandableList>
+    ),
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.synonym, {
   label: 'Synonym',
-  render: ({ synonyms }) => (
-    <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
-      {synonyms}
-    </ExpandableList>
-  ),
+  render: ({ synonyms }) =>
+    synonyms?.length && (
+      <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
+        {synonyms}
+      </ExpandableList>
+    ),
 });
 
 export default TaxonomyColumnConfiguration;

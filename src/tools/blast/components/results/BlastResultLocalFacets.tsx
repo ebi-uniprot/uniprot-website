@@ -23,6 +23,7 @@ import { BlastFacet, BlastHit } from '../../types/blastResults';
 import { SelectedFacet } from '../../../../uniprotkb/types/resultsTypes';
 import Response from '../../../../uniprotkb/types/responseTypes';
 
+import helper from '../../../../shared/styles/helper.module.scss';
 import './styles/results-view.scss';
 
 type LocalFacetProps = {
@@ -162,7 +163,7 @@ const BlastResultLocalFacets: FC<{
   }
 
   return (
-    <div className={isStale ? 'is-stale' : undefined}>
+    <div className={isStale ? helper.stale : undefined}>
       <span className="facet-name">Blast parameters</span>
       <ul className="expandable-list no-bullet blast-parameters-facet">
         {localFacets.map((facet) => (

@@ -8,7 +8,11 @@ exports[`DatabaseColumnConfiguration component should render column "abbrev": ab
 
 exports[`DatabaseColumnConfiguration component should render column "category": category 1`] = `
 <DocumentFragment>
-  Sequence databases
+  <a
+    href="/database?facets=category_facet:Sequence databases"
+  >
+    Sequence databases
+  </a>
 </DocumentFragment>
 `;
 

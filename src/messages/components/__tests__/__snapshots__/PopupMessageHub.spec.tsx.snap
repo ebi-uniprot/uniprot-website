@@ -6,36 +6,32 @@ exports[`PopupMessageHub tests it should render and call dismiss 1`] = `
     class="popup-message-container"
   >
     <div
-      style="opacity: 0; margin-right: -100px; margin-left: 100px;"
+      class="message message--info"
+      role="status"
     >
       <div
-        class="message message--info"
-        role="status"
+        class="message__side-border"
+      />
+      <test-file-stub
+        height="1.125em"
+        width="1.125em"
+      />
+      <section
+        class="message__content"
       >
-        <div
-          class="message__side-border"
-        />
+        <small>
+          lorem
+        </small>
+      </section>
+      <button
+        class="message__dismiss"
+        type="button"
+      >
         <test-file-stub
-          height="1.125em"
-          width="1.125em"
+          height="10"
+          width="10"
         />
-        <section
-          class="message__content"
-        >
-          <small>
-            lorem
-          </small>
-        </section>
-        <button
-          class="message__dismiss"
-          type="button"
-        >
-          <test-file-stub
-            height="10"
-            width="10"
-          />
-        </button>
-      </div>
+      </button>
     </div>
   </div>
 </DocumentFragment>
