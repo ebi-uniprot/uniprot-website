@@ -46,7 +46,7 @@ const Results: FC = () => {
 
   useEffect(() => {
     // Reset total when loading new results
-    if (resultsDataObject.initialLoading) {
+    if (resultsDataInitialLoading) {
       setTotal(undefined);
     }
     // Set the total to the first one to bring results back
@@ -61,7 +61,7 @@ const Results: FC = () => {
         return total;
       });
     }
-  }, [facetTotal, resultsDataTotal, resultsDataObject]);
+  }, [facetTotal, resultsDataTotal, resultsDataInitialLoading]);
 
   if (
     facetInititialLoading &&
