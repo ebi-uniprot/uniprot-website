@@ -6,10 +6,7 @@ import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
 import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
-import {
-  CitationsAPIModel,
-  CitationXRefDB,
-} from '../../supporting-data/citations/adapters/citationsConverter';
+import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
 import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databaseConverter';
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
@@ -35,11 +32,7 @@ export const getIdKeyFor = (
     case Namespace.keywords:
       return (data) => (data as KeywordsAPIModel).keyword.id;
     case Namespace.citations:
-      // TODO: find what are the citations' unique keys
-      return (data) =>
-        (data as CitationsAPIModel).citation.citationCrossReferences?.find(
-          (xref) => xref.database === CitationXRefDB.PubMed
-        )?.id || 'key <string to be removed eventually>';
+      return (data) => (data as CitationsAPIModel).citation.id;
     case Namespace.diseases:
       return (data) => (data as DiseasesAPIModel).id;
     case Namespace.database:
