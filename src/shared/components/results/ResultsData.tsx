@@ -83,7 +83,6 @@ const ResultsData: FC<{
   ) {
     return <Loader progress={progress} />;
   }
-
   return (
     <div className="results-data">
       {viewMode === ViewMode.CARD ? (

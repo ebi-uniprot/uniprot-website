@@ -31,7 +31,6 @@ const Results: FC = () => {
   const {
     loading: facetInititialLoading,
     headers: facetHeaders,
-    data: facetData,
   } = facetApiObject;
   const facetTotal = facetHeaders?.['x-totalrecords'];
 
