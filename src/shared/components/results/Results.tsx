@@ -63,11 +63,7 @@ const Results: FC = () => {
     }
   }, [facetTotal, resultsDataTotal, resultsDataInitialLoading]);
 
-  if (
-    facetInititialLoading &&
-    resultsDataInitialLoading &&
-    !facetData?.facets
-  ) {
+  if (facetInititialLoading && resultsDataInitialLoading) {
     return <Loader progress={resultsDataProgress} />;
   }
 
