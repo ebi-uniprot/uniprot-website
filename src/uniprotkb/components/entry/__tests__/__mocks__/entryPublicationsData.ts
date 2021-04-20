@@ -53,14 +53,14 @@ const mock: Payload = {
           'Cooper B.J.',
           'Clark G.J.',
           'Hart D.N.',
-          'Kato M.;',
+          'Kato M.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '11904675' },
           { database: 'DOI', id: '10.1007/s00251-001-0402-z' },
         ],
         title:
-          'Identification of an S-adenosylhomocysteine hydrolase-like transcript\r induced during dendritic cell differentiation."',
+          'Identification of an S-adenosylhomocysteine hydrolase-like transcript induced during dendritic cell differentiation.',
         publicationDate: '2002',
         journal: 'Immunogenetics',
         firstPage: '993',
@@ -68,7 +68,7 @@ const mock: Payload = {
         volume: '53',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Dendritic cells (DC) are the professional antigen-presenting cells that initiate\r immune responses. While DC take up antigen, migrate to lymph nodes and present\r processed antigen to T lymphocytes, little is known of the intracellular\r biochemical pathways controlling these events. Using the differential display\r technique, employing the activated blood DC-like cell line L428, we isolated a\r cDNA induced during DC differentiation likely to have a regulatory function.\r This cDNA encoded a putative 530-amino-acid (aa) protein consisting of a unique\r hydrophilic domain (106 aa) and a domain (424 aa) similar to the methylation\r pathway enzyme S-adenosylhomocysteine hydrolase (AHCY). Therefore, this molecule\r was termed DC-expressed AHCY-like molecule (DCAL). DCAL mRNA was expressed\r moderately in fresh blood DC, but was not detectable in other peripheral blood\r mononuclear cells. DCAL mRNA increased markedly during activation of blood and\r skin DC (Langerhans cells), but was diminished in terminally differentiated\r tonsil DC. Cultured monocytes expressed little DCAL mRNA, but levels increased\r markedly when differentiated into DC by cytokines GM-CSF and IL-4. The DCAL gene\r [Chromosome (Chr) 1] and another previously identified DCAL-like molecule\r KIAA0828 (Chr 7) differed from the AHCY gene (Chr 20) in gene organization.\r Thus, DCAL may have a role in controlling critical events in DC differentiation\r and belong to a novel family of AHCY-like molecules.\r',
+          'Dendritic cells (DC) are the professional antigen-presenting cells that initiate immune responses. While DC take up antigen, migrate to lymph nodes and present processed antigen to T lymphocytes, little is known of the intracellular biochemical pathways controlling these events. Using the differential display technique, employing the activated blood DC-like cell line L428, we isolated a cDNA induced during DC differentiation likely to have a regulatory function. This cDNA encoded a putative 530-amino-acid (aa) protein consisting of a unique hydrophilic domain (106 aa) and a domain (424 aa) similar to the methylation pathway enzyme S-adenosylhomocysteine hydrolase (AHCY). Therefore, this molecule was termed DC-expressed AHCY-like molecule (DCAL). DCAL mRNA was expressed moderately in fresh blood DC, but was not detectable in other peripheral blood mononuclear cells. DCAL mRNA increased markedly during activation of blood and skin DC (Langerhans cells), but was diminished in terminally differentiated tonsil DC. Cultured monocytes expressed little DCAL mRNA, but levels increased markedly when differentiated into DC by cytokines GM-CSF and IL-4. The DCAL gene [Chromosome (Chr) 1] and another previously identified DCAL-like molecule KIAA0828 (Chr 7) differed from the AHCY gene (Chr 20) in gene organization. Thus, DCAL may have a role in controlling critical events in DC differentiation and belong to a novel family of AHCY-like molecules.',
       },
       references: [
         {
@@ -251,14 +251,14 @@ const mock: Payload = {
           'Nakamura Y.',
           'Ohara O.',
           'Isogai T.',
-          'Sugano S.;',
+          'Sugano S.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '14702039' },
           { database: 'DOI', id: '10.1038/ng1285' },
         ],
         title:
-          'Complete sequencing and characterization of 21,243 full-length human\r cDNAs."',
+          'Complete sequencing and characterization of 21,243 full-length human cDNAs.',
         publicationDate: '2004',
         journal: 'Nat. Genet.',
         firstPage: '40',
@@ -266,7 +266,7 @@ const mock: Payload = {
         volume: '36',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r As a base for human transcriptome and functional genomics, we created the "full-\r length long Japan" (FLJ) collection of sequenced human cDNAs. We determined the\r entire sequence of 21,243 selected clones and found that 14,490 cDNAs (10,897\r clusters) were unique to the FLJ collection. About half of them (5,416) seemed\r to be protein-coding. Of those, 1,999 clusters had not been predicted by\r computational methods. The distribution of GC content of nonpredicted cDNAs had\r a peak at approximately 58% compared with a peak at approximately 42%for\r predicted cDNAs. Thus, there seems to be a slight bias against GC-rich\r transcripts in current gene prediction procedures. The rest of the cDNAs unique\r to the FLJ collection (5,481) contained no obvious open reading frames (ORFs)\r and thus are candidate noncoding RNAs. About one-fourth of them (1,378) showed a\r clear pattern of splicing. The distribution of GC content of noncoding cDNAs was\r narrow and had a peak at approximately 42%, relatively low compared with that of\r protein-coding cDNAs.\r',
+          'As a base for human transcriptome and functional genomics, we created the "full- length long Japan" (FLJ) collection of sequenced human cDNAs. We determined the entire sequence of 21,243 selected clones and found that 14,490 cDNAs (10,897 clusters) were unique to the FLJ collection. About half of them (5,416) seemed to be protein-coding. Of those, 1,999 clusters had not been predicted by computational methods. The distribution of GC content of nonpredicted cDNAs had a peak at approximately 58% compared with a peak at approximately 42%for predicted cDNAs. Thus, there seems to be a slight bias against GC-rich transcripts in current gene prediction procedures. The rest of the cDNAs unique to the FLJ collection (5,481) contained no obvious open reading frames (ORFs) and thus are candidate noncoding RNAs. About one-fourth of them (1,378) showed a clear pattern of splicing. The distribution of GC content of noncoding cDNAs was narrow and had a peak at approximately 42%, relatively low compared with that of protein-coding cDNAs.',
       },
       references: [
         {
@@ -313,13 +313,13 @@ const mock: Payload = {
           'Ottenwaelder B.',
           'Poustka A.',
           'Wiemann S.',
-          'Schupp I.;',
+          'Schupp I.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '17974005' },
           { database: 'DOI', id: '10.1186/1471-2164-8-399' },
         ],
-        title: 'The full-ORF clone resource of the German cDNA consortium."',
+        title: 'The full-ORF clone resource of the German cDNA consortium.',
         publicationDate: '2007',
         journal: 'BMC Genomics',
         firstPage: '399',
@@ -327,7 +327,7 @@ const mock: Payload = {
         volume: '8',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r <h4>Background</h4>With the completion of the human genome sequence the\r functional analysis and characterization of the encoded proteins has become the\r next urging challenge in the post-genome era. The lack of comprehensive ORFeome\r resources has thus far hampered systematic applications by protein gain-of-\r function analysis. Gene and ORF coverage with full-length ORF clones thus needs\r to be extended. In combination with a unique and versatile cloning system, these\r will provide the tools for genome-wide systematic functional analyses, to\r achieve a deeper insight into complex biological processes.<h4>Results</h4>Here\r we describe the generation of a full-ORF clone resource of human genes applying\r the Gateway cloning technology (Invitrogen). A pipeline for efficient cloning\r and sequencing was developed and a sample tracking database was implemented to\r streamline the clone production process targeting more than 2,200 different\r ORFs. In addition, a robust cloning strategy was established, permitting the\r simultaneous generation of two clone variants that contain a particular ORF with\r as well as without a stop codon by the implementation of only one additional\r working step into the cloning procedure. Up to 92 % of the targeted ORFs were\r successfully amplified by PCR and more than 93 % of the amplicons successfully\r cloned.<h4>Conclusion</h4>The German cDNA Consortium ORFeome resource currently\r consists of more than 3,800 sequence-verified entry clones representing ORFs,\r cloned with and without stop codon, for about 1,700 different gene loci. 177\r splice variants were cloned representing 121 of these genes. The entry clones\r have been used to generate over 5,000 different expression constructs, providing\r the basis for functional profiling applications. As a member of the recently\r formed international ORFeome collaboration we substantially contribute to\r generating and providing a whole genome human ORFeome collection in a unique\r cloning system that is made freely available in the community.\r',
+          '<h4>Background</h4>With the completion of the human genome sequence the functional analysis and characterization of the encoded proteins has become the next urging challenge in the post-genome era. The lack of comprehensive ORFeome resources has thus far hampered systematic applications by protein gain-of- function analysis. Gene and ORF coverage with full-length ORF clones thus needs to be extended. In combination with a unique and versatile cloning system, these will provide the tools for genome-wide systematic functional analyses, to achieve a deeper insight into complex biological processes.<h4>Results</h4>Here we describe the generation of a full-ORF clone resource of human genes applying the Gateway cloning technology (Invitrogen). A pipeline for efficient cloning and sequencing was developed and a sample tracking database was implemented to streamline the clone production process targeting more than 2,200 different ORFs. In addition, a robust cloning strategy was established, permitting the simultaneous generation of two clone variants that contain a particular ORF with as well as without a stop codon by the implementation of only one additional working step into the cloning procedure. Up to 92 % of the targeted ORFs were successfully amplified by PCR and more than 93 % of the amplicons successfully cloned.<h4>Conclusion</h4>The German cDNA Consortium ORFeome resource currently consists of more than 3,800 sequence-verified entry clones representing ORFs, cloned with and without stop codon, for about 1,700 different gene loci. 177 splice variants were cloned representing 121 of these genes. The entry clones have been used to generate over 5,000 different expression constructs, providing the basis for functional profiling applications. As a member of the recently formed international ORFeome collaboration we substantially contribute to generating and providing a whole genome human ORFeome collection in a unique cloning system that is made freely available in the community.',
       },
       references: [
         {
@@ -518,14 +518,14 @@ const mock: Payload = {
           'Olson M.V.',
           'Beck S.',
           'Rogers J.',
-          'Bentley D.R.;',
+          'Bentley D.R.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '16710414' },
           { database: 'DOI', id: '10.1038/nature04727' },
         ],
         title:
-          'The DNA sequence and biological annotation of human chromosome 1."',
+          'The DNA sequence and biological annotation of human chromosome 1.',
         publicationDate: '2006',
         journal: 'Nature',
         firstPage: '315',
@@ -533,7 +533,7 @@ const mock: Payload = {
         volume: '441',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r The reference sequence for each human chromosome provides the framework for\r understanding genome function, variation and evolution. Here we report the\r finished sequence and biological annotation of human chromosome 1. Chromosome 1\r is gene-dense, with 3,141 genes and 991 pseudogenes, and many coding sequences\r overlap. Rearrangements and mutations of chromosome 1 are prevalent in cancer\r and many other diseases. Patterns of sequence variation reveal signals of recent\r selection in specific genes that may contribute to human fitness, and also in\r regions where no function is evident. Fine-scale recombination occurs in\r hotspots of varying intensity along the sequence, and is enriched near genes.\r These and other studies of human biology and disease encoded within chromosome 1\r are made possible with the highly accurate annotated sequence, as part of the\r completed set of chromosome sequences that comprise the reference human genome.\r',
+          'The reference sequence for each human chromosome provides the framework for understanding genome function, variation and evolution. Here we report the finished sequence and biological annotation of human chromosome 1. Chromosome 1 is gene-dense, with 3,141 genes and 991 pseudogenes, and many coding sequences overlap. Rearrangements and mutations of chromosome 1 are prevalent in cancer and many other diseases. Patterns of sequence variation reveal signals of recent selection in specific genes that may contribute to human fitness, and also in regions where no function is evident. Fine-scale recombination occurs in hotspots of varying intensity along the sequence, and is enriched near genes. These and other studies of human biology and disease encoded within chromosome 1 are made possible with the highly accurate annotated sequence, as part of the completed set of chromosome sequences that comprise the reference human genome.',
       },
       references: [
         {
@@ -623,7 +623,7 @@ const mock: Payload = {
           { database: 'DOI', id: '10.1101/gr.2596504' },
         ],
         title:
-          'The status, quality, and expansion of the NIH full-length cDNA project:\r the Mammalian Gene Collection (MGC)."',
+          'The status, quality, and expansion of the NIH full-length cDNA project: the Mammalian Gene Collection (MGC).',
         publicationDate: '2004',
         journal: 'Genome Res.',
         firstPage: '2121',
@@ -631,7 +631,7 @@ const mock: Payload = {
         volume: '14',
         completeAuthorList: true,
         literatureAbstract:
-          "\r \r \r The National Institutes of Health's Mammalian Gene Collection (MGC) project was\r designed to generate and sequence a publicly accessible cDNA resource containing\r a complete open reading frame (ORF) for every human and mouse gene. The project\r initially used a random strategy to select clones from a large number of cDNA\r libraries from diverse tissues. Candidate clones were chosen based on 5'-EST\r sequences, and then fully sequenced to high accuracy and analyzed by algorithms\r developed for this project. Currently, more than 11,000 human and 10,000 mouse\r genes are represented in MGC by at least one clone with a full ORF. The random\r selection approach is now reaching a saturation point, and a transition to\r protocols targeted at the missing transcripts is now required to complete the\r mouse and human collections. Comparison of the sequence of the MGC clones to\r reference genome sequences reveals that most cDNA clones are of very high\r sequence quality, although it is likely that some cDNAs may carry missense\r variants as a consequence of experimental artifact, such as PCR, cloning, or\r reverse transcriptase errors. Recently, a rat cDNA component was added to the\r project, and ongoing frog (Xenopus) and zebrafish (Danio) cDNA projects were\r expanded to take advantage of the high-throughput MGC pipeline.\r",
+          "The National Institutes of Health's Mammalian Gene Collection (MGC) project was designed to generate and sequence a publicly accessible cDNA resource containing a complete open reading frame (ORF) for every human and mouse gene. The project initially used a random strategy to select clones from a large number of cDNA libraries from diverse tissues. Candidate clones were chosen based on 5'-EST sequences, and then fully sequenced to high accuracy and analyzed by algorithms developed for this project. Currently, more than 11,000 human and 10,000 mouse genes are represented in MGC by at least one clone with a full ORF. The random selection approach is now reaching a saturation point, and a transition to protocols targeted at the missing transcripts is now required to complete the mouse and human collections. Comparison of the sequence of the MGC clones to reference genome sequences reveals that most cDNA clones are of very high sequence quality, although it is likely that some cDNAs may carry missense variants as a consequence of experimental artifact, such as PCR, cloning, or reverse transcriptase errors. Recently, a rat cDNA component was added to the project, and ongoing frog (Xenopus) and zebrafish (Danio) cDNA projects were expanded to take advantage of the high-throughput MGC pipeline.",
       },
       references: [
         {
@@ -712,14 +712,14 @@ const mock: Payload = {
           'Isogai T.',
           'Hata J.',
           'Toyama Y.',
-          'Umezawa A.;',
+          'Umezawa A.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '12878157' },
           { database: 'DOI', id: '10.1016/s0014-4827(03)00130-7' },
         ],
         title:
-          'Redifferentiation of dedifferentiated chondrocytes and chondrogenesis of\r human bone marrow stromal cells via chondrosphere formation with expression\r profiling by large-scale cDNA analysis."',
+          'Redifferentiation of dedifferentiated chondrocytes and chondrogenesis of human bone marrow stromal cells via chondrosphere formation with expression profiling by large-scale cDNA analysis.',
         publicationDate: '2003',
         journal: 'Exp. Cell Res.',
         firstPage: '35',
@@ -727,7 +727,7 @@ const mock: Payload = {
         volume: '288',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Characterization of dedifferentiated chondrocytes (DECs) and mesenchymal stem\r cells capable of differentiating into chondrocytes is of biological and clinical\r interest. We isolated DECs and bone marrow stromal cells (BMSCs), H4-1 and H3-4,\r and demonstrated that the cells started to produce extracellular matrices, such\r as type II collagen and aggrecan, at an early stage of chondrosphere formation.\r Furthermore, cDNA sequencing of cDNA libraries constricted by the oligocapping\r method was performed to analyze difference in mRNA expression profiling between\r DECs and marrow stromal cells. Upon redifferentiation of DECs, cartilage-related\r extracellular matrix genes, such as those encoding leucine-rich small\r proteoglycans, cartilage oligomeric matrix protein, and chitinase 3-like 1\r (cartilage glycoprotein-39), were highly expressed. Growth factors such as FGF7\r and CTGF were detected at a high frequency in the growth stage of monolayer\r stromal cultures. By combining the expression profile and flow cytometry, we\r demonstrated that isolated stromal cells, defined by CD34(-), c-kit(-), and\r CD140alpha(-\r or low), have chondrogenic potential. The newly established human mesenchymal\r cells with expression profiling provide a powerful model for a study of\r chondrogenic differentiation and further understanding of cartilage regeneration\r in the means of redifferentiated DECs and BMSCs.\r',
+          'Characterization of dedifferentiated chondrocytes (DECs) and mesenchymal stem cells capable of differentiating into chondrocytes is of biological and clinical interest. We isolated DECs and bone marrow stromal cells (BMSCs), H4-1 and H3-4, and demonstrated that the cells started to produce extracellular matrices, such as type II collagen and aggrecan, at an early stage of chondrosphere formation. Furthermore, cDNA sequencing of cDNA libraries constricted by the oligocapping method was performed to analyze difference in mRNA expression profiling between DECs and marrow stromal cells. Upon redifferentiation of DECs, cartilage-related extracellular matrix genes, such as those encoding leucine-rich small proteoglycans, cartilage oligomeric matrix protein, and chitinase 3-like 1 (cartilage glycoprotein-39), were highly expressed. Growth factors such as FGF7 and CTGF were detected at a high frequency in the growth stage of monolayer stromal cultures. By combining the expression profile and flow cytometry, we demonstrated that isolated stromal cells, defined by CD34(-), c-kit(-), and CD140alpha(- or low), have chondrogenic potential. The newly established human mesenchymal cells with expression profiling provide a powerful model for a study of chondrogenic differentiation and further understanding of cartilage regeneration in the means of redifferentiated DECs and BMSCs.',
       },
       references: [
         {
@@ -759,14 +759,14 @@ const mock: Payload = {
           'Bulle F.',
           'Poyard M.',
           'Barouki R.',
-          'Guellaen G.;',
+          'Guellaen G.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '7782076' },
           { database: 'DOI', id: '10.1016/0888-7543(95)80096-5' },
         ],
         title:
-          'Characterization of a large population of mRNAs from human testis."',
+          'Characterization of a large population of mRNAs from human testis.',
         publicationDate: '1995',
         journal: 'Genomics',
         firstPage: '151',
@@ -774,7 +774,7 @@ const mock: Payload = {
         volume: '26',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r We present the results of single-pass sequencing of 779 expressed sequence tags\r from normal human testis cDNA clones. Of the sequences generated, 319 (41%)\r appeared to be completely unknown and are likely to represent new genes, and 289\r (37%) were identified based on exact or nonexact matches to sequences in public\r databases. In analyses of hybridization of four tissues, testis, brain, liver,\r and kidney, 6 of 12 cDNAs clones revealed testis-specific expression. This\r argues for the value of the combination of random sequencing and analysis of\r cellular expression for large-scale characterization of gene expression in the\r testis.\r',
+          'We present the results of single-pass sequencing of 779 expressed sequence tags from normal human testis cDNA clones. Of the sequences generated, 319 (41%) appeared to be completely unknown and are likely to represent new genes, and 289 (37%) were identified based on exact or nonexact matches to sequences in public databases. In analyses of hybridization of four tissues, testis, brain, liver, and kidney, 6 of 12 cDNAs clones revealed testis-specific expression. This argues for the value of the combination of random sequencing and analysis of cellular expression for large-scale characterization of gene expression in the testis.',
       },
       references: [
         {
@@ -805,14 +805,14 @@ const mock: Payload = {
           'Carter A.',
           'Angel N.Z.',
           'Hart D.N.J.',
-          'Kato M.;',
+          'Kato M.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '16754674' },
           { database: 'DOI', id: '10.1074/jbc.m602520200' },
         ],
         title:
-          'Suppression and overexpression of adenosylhomocysteine hydrolase-like\r protein 1 (AHCYL1) influences zebrafish embryo development: a possible role\r for AHCYL1 in inositol phospholipid signaling."',
+          'Suppression and overexpression of adenosylhomocysteine hydrolase-like protein 1 (AHCYL1) influences zebrafish embryo development: a possible role for AHCYL1 in inositol phospholipid signaling.',
         publicationDate: '2006',
         journal: 'J. Biol. Chem.',
         firstPage: '22471',
@@ -820,7 +820,7 @@ const mock: Payload = {
         volume: '281',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Adenosylhomocysteine hydrolase-like protein 1 (AHCYL1) is a novel intracellular\r protein with approximately 50% protein identity to adenosylhomocysteine\r hydrolase (AHCY), an important enzyme for metabolizing S-adenosyl-l-\r homocysteine, the by-product of S-adenosyl-l-homomethionine-dependent\r methylation. AHCYL1 binds to the inositol 1,4,5-trisphosphate receptor,\r suggesting that AHCYL1 is involved in intracellular calcium release. We\r identified two zebrafish AHCYL1 orthologs (zAHCYL1A and -B) by bioinformatics\r and reverse transcription-PCR. Unlike the ubiquitously present AHCY genes,\r AHCYL1 genes were only detected in segmented animals, and AHCYL1 proteins were\r highly conserved among species. Phylogenic analysis suggested that the AHCYL1\r gene diverged early from AHCY and evolved independently. Quantitative reverse\r transcription-PCR showed that zAHCYL1A and -B mRNA expression was regulated\r differently from the other AHCY-like protein zAHCYL2 and zAHCY during zebrafish\r embryogenesis. Injection of morpholino antisense oligonucleotides against\r zAHCYL1A and -B into zebrafish embryos inhibited zAHCYL1A and -B mRNA\r translation specifically and induced ventralized morphologies. Conversely, human\r and zebrafish AHCYL1A mRNA injection into zebrafish embryos induced dorsalized\r morphologies that were similar to those obtained by depleting intracellular\r calcium with thapsigargin. Human AHCY mRNA injection showed little effect on the\r embryos. These data suggest that AHCYL1 has a different function from AHCY and\r plays an important role in embryogenesis by modulating inositol 1,4,5-\r trisphosphate receptor function for the intracellular calcium release.\r',
+          'Adenosylhomocysteine hydrolase-like protein 1 (AHCYL1) is a novel intracellular protein with approximately 50% protein identity to adenosylhomocysteine hydrolase (AHCY), an important enzyme for metabolizing S-adenosyl-l- homocysteine, the by-product of S-adenosyl-l-homomethionine-dependent methylation. AHCYL1 binds to the inositol 1,4,5-trisphosphate receptor, suggesting that AHCYL1 is involved in intracellular calcium release. We identified two zebrafish AHCYL1 orthologs (zAHCYL1A and -B) by bioinformatics and reverse transcription-PCR. Unlike the ubiquitously present AHCY genes, AHCYL1 genes were only detected in segmented animals, and AHCYL1 proteins were highly conserved among species. Phylogenic analysis suggested that the AHCYL1 gene diverged early from AHCY and evolved independently. Quantitative reverse transcription-PCR showed that zAHCYL1A and -B mRNA expression was regulated differently from the other AHCY-like protein zAHCYL2 and zAHCY during zebrafish embryogenesis. Injection of morpholino antisense oligonucleotides against zAHCYL1A and -B into zebrafish embryos inhibited zAHCYL1A and -B mRNA translation specifically and induced ventralized morphologies. Conversely, human and zebrafish AHCYL1A mRNA injection into zebrafish embryos induced dorsalized morphologies that were similar to those obtained by depleting intracellular calcium with thapsigargin. Human AHCY mRNA injection showed little effect on the embryos. These data suggest that AHCYL1 has a different function from AHCY and plays an important role in embryogenesis by modulating inositol 1,4,5- trisphosphate receptor function for the intracellular calcium release.',
       },
       references: [
         {
@@ -847,14 +847,14 @@ const mock: Payload = {
           'Kiefer H.',
           'Tsuzurugi D.',
           'Michikawa T.',
-          'Mikoshiba K.;',
+          'Mikoshiba K.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '16793548' },
           { database: 'DOI', id: '10.1016/j.molcel.2006.05.017' },
         ],
         title:
-          'IRBIT suppresses IP3 receptor activity by competing with IP3 for the\r common binding site on the IP3 receptor."',
+          'IRBIT suppresses IP3 receptor activity by competing with IP3 for the common binding site on the IP3 receptor.',
         publicationDate: '2006',
         journal: 'Mol.',
         firstPage: '795',
@@ -862,7 +862,7 @@ const mock: Payload = {
         volume: 'Cell 22',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r The inositol 1,4,5-trisphosphate (IP3) receptors (IP3Rs) are IP3-gated\r intracellular Ca2+ channels. We previously identified an IP3R binding protein,\r IRBIT, which binds to the IP3 binding domain of IP3R and is dissociated from\r IP3R in the presence of IP3. In the present study, we showed that IRBIT\r suppresses the activation of IP3R by competing with IP3 by [3H]IP3 binding\r assays, in vitro Ca2+ release assays, and Ca2+ imaging of intact cells.\r Multiserine phosphorylation of IRBIT was essential for the binding, and 10 of\r the 12 key amino acids in IP3R for IP3 recognition participated in binding to\r IRBIT. We propose a unique mode of IP3R regulation in which IP3 sensitivity is\r regulated by IRBIT acting as an endogenous "pseudoligand" whose inhibitory\r activity can be modulated by its phosphorylation status.\r',
+          'The inositol 1,4,5-trisphosphate (IP3) receptors (IP3Rs) are IP3-gated intracellular Ca2+ channels. We previously identified an IP3R binding protein, IRBIT, which binds to the IP3 binding domain of IP3R and is dissociated from IP3R in the presence of IP3. In the present study, we showed that IRBIT suppresses the activation of IP3R by competing with IP3 by [3H]IP3 binding assays, in vitro Ca2+ release assays, and Ca2+ imaging of intact cells. Multiserine phosphorylation of IRBIT was essential for the binding, and 10 of the 12 key amino acids in IP3R for IP3 recognition participated in binding to IRBIT. We propose a unique mode of IP3R regulation in which IP3 sensitivity is regulated by IRBIT acting as an endogenous "pseudoligand" whose inhibitory activity can be modulated by its phosphorylation status.',
       },
       references: [
         {
@@ -900,14 +900,14 @@ const mock: Payload = {
           'Fujimoto I.',
           'Mizutani A.',
           'Seki G.',
-          'Mikoshiba K.;',
+          'Mikoshiba K.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '16769890' },
           { database: 'DOI', id: '10.1073/pnas.0602250103' },
         ],
         title:
-          'IRBIT, an inositol 1,4,5-trisphosphate receptor-binding protein,\r specifically binds to and activates pancreas-type Na+/HCO3-cotransporter 1\r (pNBC1)."',
+          'IRBIT, an inositol 1,4,5-trisphosphate receptor-binding protein, specifically binds to and activates pancreas-type Na+/HCO3-cotransporter 1 (pNBC1).',
         publicationDate: '2006',
         journal: 'Proc. Natl. Acad. Sci. U.S.A.',
         firstPage: '9542',
@@ -915,7 +915,7 @@ const mock: Payload = {
         volume: '103',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Inositol 1,4,5-trisphosphate (IP(3)) receptors (IP(3)Rs) are IP(3)-gated Ca(2+)\r channels that are located on intracellular Ca(2+) stores. We previously\r identified an IP(3)R binding protein, termed IP(3)R binding protein released\r with IP(3) (IRBIT). Because IRBIT is released from IP(3)R by physiological\r concentrations of IP(3), we hypothesized that IRBIT is a signaling molecule that\r is released from IP(3)R and regulates downstream target molecules in response to\r the production of IP(3). Therefore, in this study, we attempted to identify the\r target molecules of IRBIT, and we succeeded in identifying Na(+)/HCO(3)(-)\r cotransporter 1 (NBC1) as an IRBIT binding protein. Of the two major splicing\r variants of NBC1, pancreas-type NBC1 (pNBC1) and kidney-type NBC1 (kNBC1), IRBIT\r was found to bind specifically to pNBC1 and not to bind to kNBC1. IRBIT binds to\r the N-terminal pNBC1-specific domain, and its binding depends on the\r phosphorylation of multiple serine residues of IRBIT. Also, an\r electrophysiological analysis in Xenopus oocytes revealed that pNBC1 requires\r coexpression of IRBIT to manifest substantial activity comparable with that of\r kNBC1, which displays substantial activity independently of IRBIT. These results\r strongly suggest that pNBC1 is the target molecule of IRBIT and that IRBIT has\r an important role in pH regulation through pNBC1. Also, our findings raise the\r possibility that the regulation through IRBIT enables NBC1 variants to have\r different physiological roles.\r',
+          'Inositol 1,4,5-trisphosphate (IP(3)) receptors (IP(3)Rs) are IP(3)-gated Ca(2+) channels that are located on intracellular Ca(2+) stores. We previously identified an IP(3)R binding protein, termed IP(3)R binding protein released with IP(3) (IRBIT). Because IRBIT is released from IP(3)R by physiological concentrations of IP(3), we hypothesized that IRBIT is a signaling molecule that is released from IP(3)R and regulates downstream target molecules in response to the production of IP(3). Therefore, in this study, we attempted to identify the target molecules of IRBIT, and we succeeded in identifying Na(+)/HCO(3)(-) cotransporter 1 (NBC1) as an IRBIT binding protein. Of the two major splicing variants of NBC1, pancreas-type NBC1 (pNBC1) and kidney-type NBC1 (kNBC1), IRBIT was found to bind specifically to pNBC1 and not to bind to kNBC1. IRBIT binds to the N-terminal pNBC1-specific domain, and its binding depends on the phosphorylation of multiple serine residues of IRBIT. Also, an electrophysiological analysis in Xenopus oocytes revealed that pNBC1 requires coexpression of IRBIT to manifest substantial activity comparable with that of kNBC1, which displays substantial activity independently of IRBIT. These results strongly suggest that pNBC1 is the target molecule of IRBIT and that IRBIT has an important role in pH regulation through pNBC1. Also, our findings raise the possibility that the regulation through IRBIT enables NBC1 variants to have different physiological roles.',
       },
       references: [
         {
@@ -941,13 +941,13 @@ const mock: Payload = {
       citation: {
         id: '18829453',
         citationType: 'UniProt indexed literatures',
-        authors: ['He P.', 'Zhang H.', 'Yun C.C.;'],
+        authors: ['He P.', 'Zhang H.', 'Yun C.C.'],
         citationCrossReferences: [
           { database: 'PubMed', id: '18829453' },
           { database: 'DOI', id: '10.1074/jbc.m805534200' },
         ],
         title:
-          'IRBIT, inositol 1,4,5-triphosphate (IP3) receptor-binding protein released\r with IP3, binds Na+/H+ exchanger NHE3 and activates NHE3 activity in\r response to calcium."',
+          'IRBIT, inositol 1,4,5-triphosphate (IP3) receptor-binding protein released with IP3, binds Na+/H+ exchanger NHE3 and activates NHE3 activity in response to calcium.',
         publicationDate: '2008',
         journal: 'J. Biol. Chem.',
         firstPage: '33544',
@@ -955,7 +955,7 @@ const mock: Payload = {
         volume: '283',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Calcium (Ca2+) is a highly versatile second messenger that regulates various\r cellular processes. Previous studies showed that elevation of intracellular Ca2+\r regulates the activity of Na+/H+ exchanger 3 (NHE3). However, the effect of\r Ca2+-dependent signaling on NHE3 activity varies depending on cell types. In\r this study, we report the identification of IP3 receptor-binding protein\r released with IP3 (IRBIT) as a NHE3 interacting protein and its role in\r regulation of NHE3 activity. IRBIT bound to the carboxyl-terminal domain of\r NHE3, which is necessary for acute regulation of NHE3. Ectopic expression of\r IRBIT resulted in Ca2+-dependent activation of NHE3 activity, whereas silencing\r of endogenous IRBIT resulted in inhibition of NHE3 activity. Ca2+-dependent\r stimulation of NHE3 activity was dependent on the binding of IRBIT to NHE3.\r Previously Ca2+-dependent inhibition of NHE3 was demonstrated in the presence of\r NHERF2. Co-expression of IRBIT was able to reverse the NHERF2-dependent\r inhibition of NHE3. We also showed that IRBIT-dependent activation of NHE3\r involves exocytic trafficking of NHE3 to the plasma membrane and this activation\r was blocked by inhibition of calmodulin (CaM) or CaM-dependent kinase II. These\r results suggest that the overall effect of Ca2+ on NHE3 activity is balanced by\r IRBIT-dependent activation and NHERF2-dependent inhibition.\r',
+          'Calcium (Ca2+) is a highly versatile second messenger that regulates various cellular processes. Previous studies showed that elevation of intracellular Ca2+ regulates the activity of Na+/H+ exchanger 3 (NHE3). However, the effect of Ca2+-dependent signaling on NHE3 activity varies depending on cell types. In this study, we report the identification of IP3 receptor-binding protein released with IP3 (IRBIT) as a NHE3 interacting protein and its role in regulation of NHE3 activity. IRBIT bound to the carboxyl-terminal domain of NHE3, which is necessary for acute regulation of NHE3. Ectopic expression of IRBIT resulted in Ca2+-dependent activation of NHE3 activity, whereas silencing of endogenous IRBIT resulted in inhibition of NHE3 activity. Ca2+-dependent stimulation of NHE3 activity was dependent on the binding of IRBIT to NHE3. Previously Ca2+-dependent inhibition of NHE3 was demonstrated in the presence of NHERF2. Co-expression of IRBIT was able to reverse the NHERF2-dependent inhibition of NHE3. We also showed that IRBIT-dependent activation of NHE3 involves exocytic trafficking of NHE3 to the plasma membrane and this activation was blocked by inhibition of calmodulin (CaM) or CaM-dependent kinase II. These results suggest that the overall effect of Ca2+ on NHE3 activity is balanced by IRBIT-dependent activation and NHERF2-dependent inhibition.',
       },
       references: [
         {
@@ -984,13 +984,13 @@ const mock: Payload = {
           'Beausoleil S.A.',
           'Bakalarski C.E.',
           'Elledge S.J.',
-          'Gygi S.P.;',
+          'Gygi S.P.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '18669648' },
           { database: 'DOI', id: '10.1073/pnas.0805139105' },
         ],
-        title: 'A quantitative atlas of mitotic phosphorylation."',
+        title: 'A quantitative atlas of mitotic phosphorylation.',
         publicationDate: '2008',
         journal: 'Proc. Natl. Acad. Sci. U.S.A.',
         firstPage: '10762',
@@ -998,7 +998,7 @@ const mock: Payload = {
         volume: '105',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r The eukaryotic cell division cycle is characterized by a sequence of orderly and\r highly regulated events resulting in the duplication and separation of all\r cellular material into two newly formed daughter cells. Protein phosphorylation\r by cyclin-dependent kinases (CDKs) drives this cycle. To gain further insight\r into how phosphorylation regulates the cell cycle, we sought to identify\r proteins whose phosphorylation is cell cycle regulated. Using stable isotope\r labeling along with a two-step strategy for phosphopeptide enrichment and high\r mass accuracy mass spectrometry, we examined protein phosphorylation in a human\r cell line arrested in the G(1) and mitotic phases of the cell cycle. We report\r the identification of >14,000 different phosphorylation events, more than half\r of which, to our knowledge, have not been described in the literature, along\r with relative quantitative data for the majority of these sites. We observed\r >1,000 proteins with increased phosphorylation in mitosis including many known\r cell cycle regulators. The majority of sites on regulated phosphopeptides lie in\r [S/T]P motifs, the minimum required sequence for CDKs, suggesting that many of\r the proteins may be CDK substrates. Analysis of non-proline site-containing\r phosphopeptides identified two unique motifs that suggest there are at least two\r undiscovered mitotic kinases.\r',
+          'The eukaryotic cell division cycle is characterized by a sequence of orderly and highly regulated events resulting in the duplication and separation of all cellular material into two newly formed daughter cells. Protein phosphorylation by cyclin-dependent kinases (CDKs) drives this cycle. To gain further insight into how phosphorylation regulates the cell cycle, we sought to identify proteins whose phosphorylation is cell cycle regulated. Using stable isotope labeling along with a two-step strategy for phosphopeptide enrichment and high mass accuracy mass spectrometry, we examined protein phosphorylation in a human cell line arrested in the G(1) and mitotic phases of the cell cycle. We report the identification of >14,000 different phosphorylation events, more than half of which, to our knowledge, have not been described in the literature, along with relative quantitative data for the majority of these sites. We observed >1,000 proteins with increased phosphorylation in mitosis including many known cell cycle regulators. The majority of sites on regulated phosphopeptides lie in [S/T]P motifs, the minimum required sequence for CDKs, suggesting that many of the proteins may be CDK substrates. Analysis of non-proline site-containing phosphopeptides identified two unique motifs that suggest there are at least two undiscovered mitotic kinases.',
       },
       references: [
         {
@@ -1031,14 +1031,14 @@ const mock: Payload = {
           'Natsume T.',
           'Ando H.',
           'Kuroda Y.',
-          'Mikoshiba K.;',
+          'Mikoshiba K.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '19224921' },
           { database: 'DOI', id: '10.1074/jbc.m807136200' },
         ],
         title:
-          'Inositol 1,4,5-triphosphate receptor-binding protein released with\r inositol 1,4,5-triphosphate (IRBIT) associates with components of the mRNA\r 3\' processing machinery in a phosphorylation-dependent manner and inhibits\r polyadenylation."',
+          "Inositol 1,4,5-triphosphate receptor-binding protein released with inositol 1,4,5-triphosphate (IRBIT) associates with components of the mRNA 3' processing machinery in a phosphorylation-dependent manner and inhibits polyadenylation.",
         publicationDate: '2009',
         journal: 'J. Biol. Chem.',
         firstPage: '10694',
@@ -1046,7 +1046,7 @@ const mock: Payload = {
         volume: '284',
         completeAuthorList: true,
         literatureAbstract:
-          "\r \r \r IRBIT is a recently identified protein that modulates the activities of both\r inositol 1,4,5-triphosphate receptor and pancreas-type Na(+)/HCO(3)(-)\r cotransporter 1, and the multisite phosphorylation of IRBIT is required for\r achieving this modulatory action. Here, we report the identification of the\r cleavage and polyadenylation specificity factor (CPSF), which is a multi-protein\r complex involved in 3' processing of mRNA precursors, as an additional binding\r partner for IRBIT. We found that IRBIT interacted with CPSF and was recruited to\r an exogenous polyadenylation signal-containing RNA. The main target for IRBIT in\r CPSF was Fip1 subunit, and the phosphorylation of the serine-rich region of\r IRBIT was required both for direct association with Fip1 in vitro and for\r redistribution of Fip1 into the cytoplasm of intact cells. Furthermore, tert-\r butylhydroquinone (tBHQ), an agent that induces oxidative stress, increased the\r phosphorylation level of IRBIT in vivo and in parallel enhanced the interaction\r between IRBIT and CPSF and promoted the cytoplasmic distribution of endogenous\r Fip1. In addition to CPSF, IRBIT interacted in vitro with poly(A) polymerase\r (PAP), which is the enzyme recruited by CPSF to elongate the poly(A) tail, and\r inhibited PAP activity in a phosphorylation-dependent manner. These findings\r raise the possibility that IRBIT modulates the polyadenylation state of specific\r mRNAs, both by controlling the cytoplasmic/nuclear partitioning of Fip1 and by\r inhibiting PAP activity, in response to a stimulus that alters its\r phosphorylation state.\r",
+          "IRBIT is a recently identified protein that modulates the activities of both inositol 1,4,5-triphosphate receptor and pancreas-type Na(+)/HCO(3)(-) cotransporter 1, and the multisite phosphorylation of IRBIT is required for achieving this modulatory action. Here, we report the identification of the cleavage and polyadenylation specificity factor (CPSF), which is a multi-protein complex involved in 3' processing of mRNA precursors, as an additional binding partner for IRBIT. We found that IRBIT interacted with CPSF and was recruited to an exogenous polyadenylation signal-containing RNA. The main target for IRBIT in CPSF was Fip1 subunit, and the phosphorylation of the serine-rich region of IRBIT was required both for direct association with Fip1 in vitro and for redistribution of Fip1 into the cytoplasm of intact cells. Furthermore, tert- butylhydroquinone (tBHQ), an agent that induces oxidative stress, increased the phosphorylation level of IRBIT in vivo and in parallel enhanced the interaction between IRBIT and CPSF and promoted the cytoplasmic distribution of endogenous Fip1. In addition to CPSF, IRBIT interacted in vitro with poly(A) polymerase (PAP), which is the enzyme recruited by CPSF to elongate the poly(A) tail, and inhibited PAP activity in a phosphorylation-dependent manner. These findings raise the possibility that IRBIT modulates the polyadenylation state of specific mRNAs, both by controlling the cytoplasmic/nuclear partitioning of Fip1 and by inhibiting PAP activity, in response to a stimulus that alters its phosphorylation state.",
       },
       references: [
         {
@@ -1073,13 +1073,13 @@ const mock: Payload = {
       citation: {
         id: '19220705',
         citationType: 'UniProt indexed literatures',
-        authors: ['Ando H.', 'Mizutani A.', 'Mikoshiba K.;'],
+        authors: ['Ando H.', 'Mizutani A.', 'Mikoshiba K.'],
         citationCrossReferences: [
           { database: 'PubMed', id: '19220705' },
           { database: 'DOI', id: '10.1111/j.1471-4159.2009.05979.x' },
         ],
         title:
-          'An IRBIT homologue lacks binding activity to inositol 1,4,5-trisphosphate\r receptor due to the unique N-terminal appendage."',
+          'An IRBIT homologue lacks binding activity to inositol 1,4,5-trisphosphate receptor due to the unique N-terminal appendage.',
         publicationDate: '2009',
         journal: 'J. Neurochem.',
         firstPage: '539',
@@ -1087,7 +1087,7 @@ const mock: Payload = {
         volume: '109',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r IRBIT is an inositol 1,4,5-trisphosphate (IP(3)) receptor (IP(3)R)-binding\r protein that inhibits the activation of IP(3)R by competing with IP(3) for the\r common binding site on IP(3)R. In this study, we characterize an IRBIT\r homologue, termed Long-IRBIT. Long-IRBIT is highly homologous to IRBIT (\r approximately 88%) and heteromerizes with IRBIT. In spite of complete\r conservation of critical amino acids required for the interaction with IP(3)R\r and comparable phosphorylations on critical four Ser residues for IP(3)R-\r binding, Long-IRBIT retains little ability to interact with IP(3)R. Deletion\r mutagenesis analysis revealed that this low affinity to IP(3)R is attributable\r to an inhibitory effect of the Long-IRBIT specific N-terminal appendage (LISN\r domain). Immunohistochemical analysis revealed the distinct distribution of\r Long-IRBIT and IRBIT in mouse cerebellar cortex, that is, Long-IRBIT is mainly\r expressed in interneurons such as basket cells, while IRBIT is mainly expressed\r in glial cells. Furthermore, Long-IRBIT, but not IRBIT, underwent\r phosphorylation during neuronal differentiation in neuroblastoma cells and this\r phosphorylation was dependent on the LISN domain. These results suggest that\r Long-IRBIT has a different function from IRBIT.\r',
+          'IRBIT is an inositol 1,4,5-trisphosphate (IP(3)) receptor (IP(3)R)-binding protein that inhibits the activation of IP(3)R by competing with IP(3) for the common binding site on IP(3)R. In this study, we characterize an IRBIT homologue, termed Long-IRBIT. Long-IRBIT is highly homologous to IRBIT ( approximately 88%) and heteromerizes with IRBIT. In spite of complete conservation of critical amino acids required for the interaction with IP(3)R and comparable phosphorylations on critical four Ser residues for IP(3)R- binding, Long-IRBIT retains little ability to interact with IP(3)R. Deletion mutagenesis analysis revealed that this low affinity to IP(3)R is attributable to an inhibitory effect of the Long-IRBIT specific N-terminal appendage (LISN domain). Immunohistochemical analysis revealed the distinct distribution of Long-IRBIT and IRBIT in mouse cerebellar cortex, that is, Long-IRBIT is mainly expressed in interneurons such as basket cells, while IRBIT is mainly expressed in glial cells. Furthermore, Long-IRBIT, but not IRBIT, underwent phosphorylation during neuronal differentiation in neuroblastoma cells and this phosphorylation was dependent on the LISN domain. These results suggest that Long-IRBIT has a different function from IRBIT.',
       },
       references: [
         {
@@ -1112,13 +1112,13 @@ const mock: Payload = {
       citation: {
         id: '20584908',
         citationType: 'UniProt indexed literatures',
-        authors: ['He P.', 'Klein J.', 'Yun C.C.;'],
+        authors: ['He P.', 'Klein J.', 'Yun C.C.'],
         citationCrossReferences: [
           { database: 'PubMed', id: '20584908' },
           { database: 'DOI', id: '10.1074/jbc.m110.133066' },
         ],
         title:
-          'Activation of Na+/H+ exchanger NHE3 by angiotensin II is mediated by\r inositol 1,4,5-triphosphate (IP3) receptor-binding protein released with\r IP3 (IRBIT) and Ca2+/calmodulin-dependent protein kinase II."',
+          'Activation of Na+/H+ exchanger NHE3 by angiotensin II is mediated by inositol 1,4,5-triphosphate (IP3) receptor-binding protein released with IP3 (IRBIT) and Ca2+/calmodulin-dependent protein kinase II.',
         publicationDate: '2010',
         journal: 'J. Biol. Chem.',
         firstPage: '27869',
@@ -1126,7 +1126,7 @@ const mock: Payload = {
         volume: '285',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Angiotensin II (ANG II) stimulates renal tubular reabsorption of NaCl by\r targeting Na(+)/H(+) exchanger NHE3. We have shown previously that inositol\r 1,4,5-triphosphate receptor-binding protein released with inositol 1,4,5-\r triphosphate (IRBIT) plays a critical role in stimulation of NHE3 in response to\r elevated intracellular Ca(2+) concentration ([Ca(2+)](i)). In this study, we\r investigated the role of IRBIT in mediating NHE3 activation by ANG II. IRBIT is\r abundantly expressed in the proximal tubules where NHE3 is located. ANG II at\r physiological concentrations stimulates NHE3 transport activity in a model\r proximal tubule cell line. ANG II-induced activation of NHE3 was abrogated by\r knockdown of IRBIT, whereas overexpression of IRBIT enhanced the effect of ANG\r II on NHE3. ANG II transiently increased binding of IRBIT to NHE3 at 5 min but\r became dissociated by 45 min. In comparison, it took at least 15 min of ANG II\r treatment for an increase in NHE3 activity and NHE3 surface expression. The\r stimulation of NHE3 by ANG II was dependent on changes in [Ca(2+)](i) and\r Ca(2+)/calmodulin-dependent protein kinases II. Inhibition of CaMKII completely\r blocked the ANG II-induced binding of IRBIT to NHE3 and the increase in NHE3\r surface abundance. Several serine residues of IRBIT are thought to be important\r for IRBIT binding. Mutations of Ser-68, Ser-71, and Ser-74 of IRBIT decreased\r binding of IRBIT to NHE3 and its effect on NHE3 activity. In conclusion, our\r current findings demonstrate that IRBIT is critically involved in mediating\r activation of NHE3 by ANG II via a Ca(2+)/calmodulin-dependent protein kinases\r II-dependent pathway.\r',
+          'Angiotensin II (ANG II) stimulates renal tubular reabsorption of NaCl by targeting Na(+)/H(+) exchanger NHE3. We have shown previously that inositol 1,4,5-triphosphate receptor-binding protein released with inositol 1,4,5- triphosphate (IRBIT) plays a critical role in stimulation of NHE3 in response to elevated intracellular Ca(2+) concentration ([Ca(2+)](i)). In this study, we investigated the role of IRBIT in mediating NHE3 activation by ANG II. IRBIT is abundantly expressed in the proximal tubules where NHE3 is located. ANG II at physiological concentrations stimulates NHE3 transport activity in a model proximal tubule cell line. ANG II-induced activation of NHE3 was abrogated by knockdown of IRBIT, whereas overexpression of IRBIT enhanced the effect of ANG II on NHE3. ANG II transiently increased binding of IRBIT to NHE3 at 5 min but became dissociated by 45 min. In comparison, it took at least 15 min of ANG II treatment for an increase in NHE3 activity and NHE3 surface expression. The stimulation of NHE3 by ANG II was dependent on changes in [Ca(2+)](i) and Ca(2+)/calmodulin-dependent protein kinases II. Inhibition of CaMKII completely blocked the ANG II-induced binding of IRBIT to NHE3 and the increase in NHE3 surface abundance. Several serine residues of IRBIT are thought to be important for IRBIT binding. Mutations of Ser-68, Ser-71, and Ser-74 of IRBIT decreased binding of IRBIT to NHE3 and its effect on NHE3 activity. In conclusion, our current findings demonstrate that IRBIT is critically involved in mediating activation of NHE3 by ANG II via a Ca(2+)/calmodulin-dependent protein kinases II-dependent pathway.',
       },
       references: [
         {
@@ -1160,13 +1160,13 @@ const mock: Payload = {
           'Buerckstuemmer T.',
           'Bennett K.L.',
           'Superti-Furga G.',
-          'Colinge J.;',
+          'Colinge J.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '21269460' },
           { database: 'DOI', id: '10.1186/1752-0509-5-17' },
         ],
-        title: 'Initial characterization of the human central proteome."',
+        title: 'Initial characterization of the human central proteome.',
         publicationDate: '2011',
         journal: 'BMC Syst. Biol.',
         firstPage: '17',
@@ -1174,7 +1174,7 @@ const mock: Payload = {
         volume: '5',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r <h4>Background</h4>On the basis of large proteomics datasets measured from seven\r human cell lines we consider their intersection as an approximation of the human\r central proteome, which is the set of proteins ubiquitously expressed in all\r human cells. Composition and properties of the central proteome are investigated\r through bioinformatics analyses.<h4>Results</h4>We experimentally identify a\r central proteome comprising 1,124 proteins that are ubiquitously and abundantly\r expressed in human cells using state of the art mass spectrometry and protein\r identification bioinformatics. The main represented functions are proteostasis,\r primary metabolism and proliferation. We further characterize the central\r proteome considering gene structures, conservation, interaction networks,\r pathways, drug targets, and coordination of biological processes. Among other\r new findings, we show that the central proteome is encoded by exon-rich genes,\r indicating an increased regulatory flexibility through alternative splicing to\r adapt to multiple environments, and that the protein interaction network linking\r the central proteome is very efficient for synchronizing translation with other\r biological processes. Surprisingly, at least 10% of the central proteome has no\r or very limited functional annotation.<h4>Conclusions</h4>Our data and analysis\r provide a new and deeper description of the human central proteome compared to\r previous results thereby extending and complementing our knowledge of commonly\r expressed human proteins. All the data are made publicly available to help other\r researchers who, for instance, need to compare or link focused datasets to a\r common background.\r',
+          '<h4>Background</h4>On the basis of large proteomics datasets measured from seven human cell lines we consider their intersection as an approximation of the human central proteome, which is the set of proteins ubiquitously expressed in all human cells. Composition and properties of the central proteome are investigated through bioinformatics analyses.<h4>Results</h4>We experimentally identify a central proteome comprising 1,124 proteins that are ubiquitously and abundantly expressed in human cells using state of the art mass spectrometry and protein identification bioinformatics. The main represented functions are proteostasis, primary metabolism and proliferation. We further characterize the central proteome considering gene structures, conservation, interaction networks, pathways, drug targets, and coordination of biological processes. Among other new findings, we show that the central proteome is encoded by exon-rich genes, indicating an increased regulatory flexibility through alternative splicing to adapt to multiple environments, and that the protein interaction network linking the central proteome is very efficient for synchronizing translation with other biological processes. Surprisingly, at least 10% of the central proteome has no or very limited functional annotation.<h4>Conclusions</h4>Our data and analysis provide a new and deeper description of the human central proteome compared to previous results thereby extending and complementing our knowledge of commonly expressed human proteins. All the data are made publicly available to help other researchers who, for instance, need to compare or link focused datasets to a common background.',
       },
       references: [
         {
@@ -1208,14 +1208,14 @@ const mock: Payload = {
           'Kassem M.',
           'Mann M.',
           'Olsen J.V.',
-          'Blagoev B.;',
+          'Blagoev B.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '21406692' },
           { database: 'DOI', id: '10.1126/scisignal.2001570' },
         ],
         title:
-          'System-wide temporal characterization of the proteome and phosphoproteome\r of human embryonic stem cell differentiation."',
+          'System-wide temporal characterization of the proteome and phosphoproteome of human embryonic stem cell differentiation.',
         publicationDate: '2011',
         journal: 'Sci. Signal.',
         firstPage: 'RS3',
@@ -1223,7 +1223,7 @@ const mock: Payload = {
         volume: '4',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r To elucidate cellular events underlying the pluripotency of human embryonic stem\r cells (hESCs), we performed parallel quantitative proteomic and phosphoproteomic\r analyses of hESCs during differentiation initiated by a diacylglycerol analog or\r transfer to media that had not been conditioned by feeder cells. We profiled\r 6521 proteins and 23,522 phosphorylation sites, of which almost 50% displayed\r dynamic changes in phosphorylation status during 24 hours of differentiation.\r These data are a resource for studies of the events associated with the\r maintenance of hESC pluripotency and those accompanying their differentiation.\r From these data, we identified a core hESC phosphoproteome of sites with similar\r robust changes in response to the two distinct treatments. These sites exhibited\r distinct dynamic phosphorylation patterns, which were linked to known or\r predicted kinases on the basis of the matching sequence motif. In addition to\r identifying previously unknown phosphorylation sites on factors associated with\r differentiation, such as kinases and transcription factors, we observed dynamic\r phosphorylation of DNA methyltransferases (DNMTs). We found a specific\r interaction of DNMTs during early differentiation with the PAF1 (polymerase-\r associated factor 1) transcriptional elongation complex, which binds to\r promoters of the pluripotency and known DNMT target genes encoding OCT4 and\r NANOG, thereby providing a possible molecular link for the silencing of these\r genes during differentiation.\r',
+          'To elucidate cellular events underlying the pluripotency of human embryonic stem cells (hESCs), we performed parallel quantitative proteomic and phosphoproteomic analyses of hESCs during differentiation initiated by a diacylglycerol analog or transfer to media that had not been conditioned by feeder cells. We profiled 6521 proteins and 23,522 phosphorylation sites, of which almost 50% displayed dynamic changes in phosphorylation status during 24 hours of differentiation. These data are a resource for studies of the events associated with the maintenance of hESC pluripotency and those accompanying their differentiation. From these data, we identified a core hESC phosphoproteome of sites with similar robust changes in response to the two distinct treatments. These sites exhibited distinct dynamic phosphorylation patterns, which were linked to known or predicted kinases on the basis of the matching sequence motif. In addition to identifying previously unknown phosphorylation sites on factors associated with differentiation, such as kinases and transcription factors, we observed dynamic phosphorylation of DNA methyltransferases (DNMTs). We found a specific interaction of DNMTs during early differentiation with the PAF1 (polymerase- associated factor 1) transcriptional elongation complex, which binds to promoters of the pluripotency and known DNMT target genes encoding OCT4 and NANOG, thereby providing a possible molecular link for the silencing of these genes during differentiation.',
       },
       references: [
         {
@@ -1266,14 +1266,14 @@ const mock: Payload = {
           'Arnesen T.',
           'Sherman F.',
           'Gevaert K.',
-          'Aldabe R.;',
+          'Aldabe R.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '22814378' },
           { database: 'DOI', id: '10.1073/pnas.1210303109' },
         ],
         title:
-          'N-terminal acetylome analyses and functional insights of the N-terminal\r acetyltransferase NatB."',
+          'N-terminal acetylome analyses and functional insights of the N-terminal acetyltransferase NatB.',
         publicationDate: '2012',
         journal: 'Proc. Natl. Acad. Sci. U.S.A.',
         firstPage: '12449',
@@ -1281,7 +1281,7 @@ const mock: Payload = {
         volume: '109',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Protein N-terminal acetylation (Nt-acetylation) is an important mediator of\r protein function, stability, sorting, and localization. Although the responsible\r enzymes are thought to be fairly well characterized, the lack of identified in\r vivo substrates, the occurrence of Nt-acetylation substrates displaying yet\r uncharacterized N-terminal acetyltransferase (NAT) specificities, and emerging\r evidence of posttranslational Nt-acetylation, necessitate the use of genetic\r models and quantitative proteomics. NatB, which targets Met-Glu-, Met-Asp-, and\r Met-Asn-starting protein N termini, is presumed to Nt-acetylate 15% of all yeast\r and 18% of all human proteins. We here report on the evolutionary traits of NatB\r from yeast to human and demonstrate that ectopically expressed hNatB in a\r yNatB-Δ yeast strain partially complements the natB-Δ phenotypes and partially\r restores the yNatB Nt-acetylome. Overall, combining quantitative N-terminomics\r with yeast studies and knockdown of hNatB in human cell lines, led to the\r unambiguous identification of 180 human and 110 yeast NatB substrates.\r Interestingly, these substrates included Met-Gln-\r N-termini, which are thus now classified as in vivo NatB substrates. We also\r demonstrate the requirement of hNatB activity for maintaining the structure and\r function of actomyosin fibers and for proper cellular migration. In addition,\r expression of tropomyosin-1 restored the altered focal adhesions and cellular\r migration defects observed in hNatB-depleted HeLa cells, indicative for the\r conserved link between NatB, tropomyosin, and actin cable function from yeast to\r human.\r',
+          'Protein N-terminal acetylation (Nt-acetylation) is an important mediator of protein function, stability, sorting, and localization. Although the responsible enzymes are thought to be fairly well characterized, the lack of identified in vivo substrates, the occurrence of Nt-acetylation substrates displaying yet uncharacterized N-terminal acetyltransferase (NAT) specificities, and emerging evidence of posttranslational Nt-acetylation, necessitate the use of genetic models and quantitative proteomics. NatB, which targets Met-Glu-, Met-Asp-, and Met-Asn-starting protein N termini, is presumed to Nt-acetylate 15% of all yeast and 18% of all human proteins. We here report on the evolutionary traits of NatB from yeast to human and demonstrate that ectopically expressed hNatB in a yNatB-Δ yeast strain partially complements the natB-Δ phenotypes and partially restores the yNatB Nt-acetylome. Overall, combining quantitative N-terminomics with yeast studies and knockdown of hNatB in human cell lines, led to the unambiguous identification of 180 human and 110 yeast NatB substrates. Interestingly, these substrates included Met-Gln- N-termini, which are thus now classified as in vivo NatB substrates. We also demonstrate the requirement of hNatB activity for maintaining the structure and function of actomyosin fibers and for proper cellular migration. In addition, expression of tropomyosin-1 restored the altered focal adhesions and cellular migration defects observed in hNatB-depleted HeLa cells, indicative for the conserved link between NatB, tropomyosin, and actin cable function from yeast to human.',
       },
       references: [
         {
@@ -1313,14 +1313,14 @@ const mock: Payload = {
           'Peng M.',
           'Polat A.N.',
           'Heck A.J.',
-          'Mohammed S.;',
+          'Mohammed S.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '23186163' },
           { database: 'DOI', id: '10.1021/pr300630k' },
         ],
         title:
-          'Toward a comprehensive characterization of a human cancer cell\r phosphoproteome."',
+          'Toward a comprehensive characterization of a human cancer cell phosphoproteome.',
         publicationDate: '2013',
         journal: 'J. Proteome Res.',
         firstPage: '260',
@@ -1328,7 +1328,7 @@ const mock: Payload = {
         volume: '12',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Mass spectrometry (MS)-based phosphoproteomics has achieved extraordinary\r success in qualitative and quantitative analysis of cellular protein\r phosphorylation. Considering that an estimated level of phosphorylation in a\r cell is placed at well above 100,000 sites, there is still much room for\r improvement. Here, we attempt to extend the depth of phosphoproteome coverage\r while maintaining realistic aspirations in terms of available material,\r robustness, and instrument running time. We developed three strategies, where\r each provided a different balance between these three key parameters. The first\r strategy simply used enrichment by Ti(4+)-IMAC followed by reversed\r chromatography LC-MS (termed 1D). The second strategy incorporated an additional\r fractionation step through the use of HILIC (2D). Finally, a third strategy was\r designed employing first an SCX fractionation, followed by Ti(4+)-IMAC\r enrichment and additional fractionation by HILIC (3D). A preliminary evaluation\r was performed on the HeLa cell line. Detecting 3700 phosphopeptides in about 2\r h, the 1D strategy was found to be the most sensitive but limited in\r comprehensivity, mainly due to issues with complexity and dynamic range.\r Overall, the best balance was achieved using the 2D based strategy, identifying\r close to 17,000 phosphopeptides with less than 1 mg of material in about 48 h.\r Subsequently, we confirmed the findings with the K562 cell sample. When\r sufficient material was available, the 3D strategy increased phosphoproteome\r allowing over 22,000 unique phosphopeptides to be identified. Unfortunately, the\r 3D strategy required more time and over 1 mg of material before it started to\r outperform 2D. Ultimately, combining all strategies, we were able to identify\r over 16,000 and nearly 24,000 unique phosphorylation sites from the cancer cell\r lines HeLa and K562, respectively. In summary, we demonstrate the need to carry\r out extensive fractionation for deep mining of the phosphoproteome and provide a\r guide for appropriate strategies depending on sample amount and/or analysis\r time.\r',
+          'Mass spectrometry (MS)-based phosphoproteomics has achieved extraordinary success in qualitative and quantitative analysis of cellular protein phosphorylation. Considering that an estimated level of phosphorylation in a cell is placed at well above 100,000 sites, there is still much room for improvement. Here, we attempt to extend the depth of phosphoproteome coverage while maintaining realistic aspirations in terms of available material, robustness, and instrument running time. We developed three strategies, where each provided a different balance between these three key parameters. The first strategy simply used enrichment by Ti(4+)-IMAC followed by reversed chromatography LC-MS (termed 1D). The second strategy incorporated an additional fractionation step through the use of HILIC (2D). Finally, a third strategy was designed employing first an SCX fractionation, followed by Ti(4+)-IMAC enrichment and additional fractionation by HILIC (3D). A preliminary evaluation was performed on the HeLa cell line. Detecting 3700 phosphopeptides in about 2 h, the 1D strategy was found to be the most sensitive but limited in comprehensivity, mainly due to issues with complexity and dynamic range. Overall, the best balance was achieved using the 2D based strategy, identifying close to 17,000 phosphopeptides with less than 1 mg of material in about 48 h. Subsequently, we confirmed the findings with the K562 cell sample. When sufficient material was available, the 3D strategy increased phosphoproteome allowing over 22,000 unique phosphopeptides to be identified. Unfortunately, the 3D strategy required more time and over 1 mg of material before it started to outperform 2D. Ultimately, combining all strategies, we were able to identify over 16,000 and nearly 24,000 unique phosphorylation sites from the cancer cell lines HeLa and K562, respectively. In summary, we demonstrate the need to carry out extensive fractionation for deep mining of the phosphoproteome and provide a guide for appropriate strategies depending on sample amount and/or analysis time.',
       },
       references: [
         {
@@ -1360,14 +1360,14 @@ const mock: Payload = {
           'Kawaai K.',
           'Hirose M.',
           'Takahashi-Iwanaga H.',
-          'Mikoshiba K.;',
+          'Mikoshiba K.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '27995898' },
           { database: 'DOI', id: '10.7554/elife.19896' },
         ],
         title:
-          'IRBIT controls apoptosis by interacting with the Bcl-2 homolog, Bcl2l10,\r and by promoting ER-mitochondria contact."',
+          'IRBIT controls apoptosis by interacting with the Bcl-2 homolog, Bcl2l10, and by promoting ER-mitochondria contact.',
         publicationDate: '2016',
         journal: 'Elife',
         firstPage: 'e19896',
@@ -1375,7 +1375,7 @@ const mock: Payload = {
         volume: '5',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r IRBIT is a molecule that interacts with the inositol 1,4,5-trisphosphate\r (IP<sub>3</sub>)-binding pocket of the IP<sub>3</sub> receptor\r (IP<sub>3</sub>R), whereas the antiapoptotic protein, Bcl2l10, binds to another\r part of the IP<sub>3</sub>-binding domain. Here we show that Bcl2l10 and IRBIT\r interact and exert an additive inhibition of IP<sub>3</sub>R in the\r physiological state. Moreover, we found that these proteins associate in a\r complex in mitochondria-associated membranes (MAMs) and that their interplay is\r involved in apoptosis regulation. MAMs are a hotspot for Ca<sup>2+</sup>\r transfer between endoplasmic reticulum (ER) and mitochondria, and massive\r Ca<sup>2+</sup> release through IP<sub>3</sub>R in mitochondria induces cell\r death. We found that upon apoptotic stress, IRBIT is dephosphorylated, becoming\r an inhibitor of Bcl2l10. Moreover, IRBIT promotes ER mitochondria contact. Our\r results suggest that by inhibiting Bcl2l10 activity and promoting contact\r between ER and mitochondria, IRBIT facilitates massive Ca<sup>2+</sup> transfer\r to mitochondria and promotes apoptosis. This work then describes IRBIT as a new\r regulator of cell death.\r',
+          'IRBIT is a molecule that interacts with the inositol 1,4,5-trisphosphate (IP<sub>3</sub>)-binding pocket of the IP<sub>3</sub> receptor (IP<sub>3</sub>R), whereas the antiapoptotic protein, Bcl2l10, binds to another part of the IP<sub>3</sub>-binding domain. Here we show that Bcl2l10 and IRBIT interact and exert an additive inhibition of IP<sub>3</sub>R in the physiological state. Moreover, we found that these proteins associate in a complex in mitochondria-associated membranes (MAMs) and that their interplay is involved in apoptosis regulation. MAMs are a hotspot for Ca<sup>2+</sup> transfer between endoplasmic reticulum (ER) and mitochondria, and massive Ca<sup>2+</sup> release through IP<sub>3</sub>R in mitochondria induces cell death. We found that upon apoptotic stress, IRBIT is dephosphorylated, becoming an inhibitor of Bcl2l10. Moreover, IRBIT promotes ER mitochondria contact. Our results suggest that by inhibiting Bcl2l10 activity and promoting contact between ER and mitochondria, IRBIT facilitates massive Ca<sup>2+</sup> transfer to mitochondria and promotes apoptosis. This work then describes IRBIT as a new regulator of cell death.',
       },
       references: [
         {
@@ -1436,14 +1436,14 @@ const mock: Payload = {
           'Vermeulen M.',
           'Leidel S.A.',
           'Slupphaug G.',
-          'Falnes P.O.;',
+          'Falnes P.O.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '31799605' },
           { database: 'DOI', id: '10.1093/nar/gkz1147' },
         ],
         title:
-          'The human methyltransferase ZCCHC4 catalyses N6-methyladenosine\r modification of 28S ribosomal RNA."',
+          'The human methyltransferase ZCCHC4 catalyses N6-methyladenosine modification of 28S ribosomal RNA.',
         publicationDate: '2020',
         journal: 'Nucleic Acids Res.',
         firstPage: '830',
@@ -1451,7 +1451,7 @@ const mock: Payload = {
         volume: '48',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r RNA methylations are essential both for RNA structure and function, and are\r introduced by a number of distinct methyltransferases (MTases). In recent years,\r N6-methyladenosine (m6A) modification of eukaryotic mRNA has been subject to\r intense studies, and it has been demonstrated that m6A is a reversible\r modification that regulates several aspects of mRNA function. However, m6A is\r also found in other RNAs, such as mammalian 18S and 28S ribosomal RNAs (rRNAs),\r but the responsible MTases have remained elusive. 28S rRNA carries a single m6A\r modification, found at position A4220 (alternatively referred to as A4190)\r within a stem-loop structure, and here we show that the MTase ZCCHC4 is the\r enzyme responsible for introducing this modification. Accordingly, we found that\r ZCCHC4 localises to nucleoli, the site of ribosome assembly, and that proteins\r involved in RNA metabolism are overrepresented in the ZCCHC4 interactome.\r Interestingly, the absence of m6A4220 perturbs codon-specific translation\r dynamics and shifts gene expression at the translational level. In summary, we\r establish ZCCHC4 as the enzyme responsible for m6A modification of human 28S\r rRNA, and demonstrate its functional significance in mRNA translation.\r',
+          'RNA methylations are essential both for RNA structure and function, and are introduced by a number of distinct methyltransferases (MTases). In recent years, N6-methyladenosine (m6A) modification of eukaryotic mRNA has been subject to intense studies, and it has been demonstrated that m6A is a reversible modification that regulates several aspects of mRNA function. However, m6A is also found in other RNAs, such as mammalian 18S and 28S ribosomal RNAs (rRNAs), but the responsible MTases have remained elusive. 28S rRNA carries a single m6A modification, found at position A4220 (alternatively referred to as A4190) within a stem-loop structure, and here we show that the MTase ZCCHC4 is the enzyme responsible for introducing this modification. Accordingly, we found that ZCCHC4 localises to nucleoli, the site of ribosome assembly, and that proteins involved in RNA metabolism are overrepresented in the ZCCHC4 interactome. Interestingly, the absence of m6A4220 perturbs codon-specific translation dynamics and shifts gene expression at the translational level. In summary, we establish ZCCHC4 as the enzyme responsible for m6A modification of human 28S rRNA, and demonstrate its functional significance in mRNA translation.',
       },
       references: [
         {
@@ -1473,13 +1473,13 @@ const mock: Payload = {
       citation: {
         id: '25237103',
         citationType: 'UniProt indexed literatures',
-        authors: ['Arnaoutov A.', 'Dasso M.;'],
+        authors: ['Arnaoutov A.', 'Dasso M.'],
         citationCrossReferences: [
           { database: 'PubMed', id: '25237103' },
           { database: 'DOI', id: '10.1126/science.1251550' },
         ],
         title:
-          'Enzyme regulation. IRBIT is a novel regulator of ribonucleotide reductase\r in higher eukaryotes."',
+          'Enzyme regulation. IRBIT is a novel regulator of ribonucleotide reductase in higher eukaryotes.',
         publicationDate: '2014',
         journal: 'Science',
         firstPage: '1512',
@@ -1487,7 +1487,7 @@ const mock: Payload = {
         volume: '345',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r Ribonucleotide reductase (RNR) supplies the balanced pools of deoxynucleotide\r triphosphates (dNTPs) necessary for DNA replication and maintenance of genomic\r integrity. RNR is subject to allosteric regulatory mechanisms in all eukaryotes,\r as well as to control by small protein inhibitors Sml1p and Spd1p in budding and\r fission yeast, respectively. Here, we show that the metazoan protein IRBIT forms\r a deoxyadenosine triphosphate (dATP)-dependent complex with RNR, which\r stabilizes dATP in the activity site of RNR and thus inhibits the enzyme.\r Formation of the RNR-IRBIT complex is regulated through phosphorylation of\r IRBIT, and ablation of IRBIT expression in HeLa cells causes imbalanced dNTP\r pools and altered cell cycle progression. We demonstrate a mechanism for RNR\r regulation in higher eukaryotes that acts by enhancing allosteric RNR inhibition\r by dATP.\r',
+          'Ribonucleotide reductase (RNR) supplies the balanced pools of deoxynucleotide triphosphates (dNTPs) necessary for DNA replication and maintenance of genomic integrity. RNR is subject to allosteric regulatory mechanisms in all eukaryotes, as well as to control by small protein inhibitors Sml1p and Spd1p in budding and fission yeast, respectively. Here, we show that the metazoan protein IRBIT forms a deoxyadenosine triphosphate (dATP)-dependent complex with RNR, which stabilizes dATP in the activity site of RNR and thus inhibits the enzyme. Formation of the RNR-IRBIT complex is regulated through phosphorylation of IRBIT, and ablation of IRBIT expression in HeLa cells causes imbalanced dNTP pools and altered cell cycle progression. We demonstrate a mechanism for RNR regulation in higher eukaryotes that acts by enhancing allosteric RNR inhibition by dATP.',
       },
       references: [
         {
@@ -1536,14 +1536,14 @@ const mock: Payload = {
           'Sohda M.',
           'Kuwano H.',
           'Saeki H.',
-          'Shirabe K.;',
+          'Shirabe K.',
         ],
         citationCrossReferences: [
           { database: 'PubMed', id: '31366495' },
           { database: 'DOI', id: '10.21873/anticanres.13569' },
         ],
         title:
-          'Low IRBIT Levels Are Associated With Chemo-resistance in Gastric Cancer\r Patients."',
+          'Low IRBIT Levels Are Associated With Chemo-resistance in Gastric Cancer Patients.',
         publicationDate: '2019',
         journal: 'Anticancer Res',
         firstPage: '4111',
@@ -1551,7 +1551,7 @@ const mock: Payload = {
         volume: '39',
         completeAuthorList: true,
         literatureAbstract:
-          '\r \r \r <h4>Background/aim</h4>We investigated whether the expression of inositol 1, 4,\r 5-trisphosphate receptor-binding protein released with inositol 1, 4, 5-\r trisphosphate (IRBIT) in clinical gastric cancer (GC) patients could predict the\r therapeutic response to postoperative adjuvant chemotherapy.<h4>Materials and\r methods</h4>Immunohistochemistry was used to investigate IRBIT expression in 115\r GC patients. To clarify whether IRBIT had a relationship with the therapeutic\r effects of chemotherapy, we compared two groups -\r 62 patients treated with postoperative adjuvant chemotherapy and 53 patients\r treated with postoperative adjuvant chemotherapy.<h4>Results</h4>Regarding the\r postoperative adjuvant chemotherapy-free group, we did not find any\r statistically significant correlation between clinicopathological features and\r recurrence regardless of the expression of IRBIT. In contrast, in the group\r receiving postoperative adjuvant chemotherapy, a significant association was\r found between IRBIT expression and both overall and disease-free\r survival.<h4>Conclusion</h4>IRBIT may be used as a useful predictive marker for\r chemotherapy.\r',
+          '<h4>Background/aim</h4>We investigated whether the expression of inositol 1, 4, 5-trisphosphate receptor-binding protein released with inositol 1, 4, 5- trisphosphate (IRBIT) in clinical gastric cancer (GC) patients could predict the therapeutic response to postoperative adjuvant chemotherapy.<h4>Materials and methods</h4>Immunohistochemistry was used to investigate IRBIT expression in 115 GC patients. To clarify whether IRBIT had a relationship with the therapeutic effects of chemotherapy, we compared two groups - 62 patients treated with postoperative adjuvant chemotherapy and 53 patients treated with postoperative adjuvant chemotherapy.<h4>Results</h4>Regarding the postoperative adjuvant chemotherapy-free group, we did not find any statistically significant correlation between clinicopathological features and recurrence regardless of the expression of IRBIT. In contrast, in the group receiving postoperative adjuvant chemotherapy, a significant association was found between IRBIT expression and both overall and disease-free survival.<h4>Conclusion</h4>IRBIT may be used as a useful predictive marker for chemotherapy.',
       },
       references: [
         {

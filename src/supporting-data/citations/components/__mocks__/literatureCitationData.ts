@@ -162,14 +162,14 @@ const mock: CitationsAPIModel = {
       'Nakamura Y.',
       'Ohara O.',
       'Isogai T.',
-      'Sugano S.;',
+      'Sugano S.',
     ],
     citationCrossReferences: [
       { database: 'PubMed', id: '14702039' },
       { database: 'DOI', id: '10.1038/ng1285' },
     ],
     title:
-      'Complete sequencing and characterization of 21,243 full-length human\r cDNAs."',
+      'Complete sequencing and characterization of 21,243 full-length human cDNAs.',
     publicationDate: '2004',
     journal: 'Nat. Genet.',
     firstPage: '40',
@@ -177,7 +177,7 @@ const mock: CitationsAPIModel = {
     volume: '36',
     completeAuthorList: true,
     literatureAbstract:
-      '\r \r \r As a base for human transcriptome and functional genomics, we created the "full-\r length long Japan" (FLJ) collection of sequenced human cDNAs. We determined the\r entire sequence of 21,243 selected clones and found that 14,490 cDNAs (10,897\r clusters) were unique to the FLJ collection. About half of them (5,416) seemed\r to be protein-coding. Of those, 1,999 clusters had not been predicted by\r computational methods. The distribution of GC content of nonpredicted cDNAs had\r a peak at approximately 58% compared with a peak at approximately 42%for\r predicted cDNAs. Thus, there seems to be a slight bias against GC-rich\r transcripts in current gene prediction procedures. The rest of the cDNAs unique\r to the FLJ collection (5,481) contained no obvious open reading frames (ORFs)\r and thus are candidate noncoding RNAs. About one-fourth of them (1,378) showed a\r clear pattern of splicing. The distribution of GC content of noncoding cDNAs was\r narrow and had a peak at approximately 42%, relatively low compared with that of\r protein-coding cDNAs.\r',
+      'As a base for human transcriptome and functional genomics, we created the "full- length long Japan" (FLJ) collection of sequenced human cDNAs. We determined the entire sequence of 21,243 selected clones and found that 14,490 cDNAs (10,897 clusters) were unique to the FLJ collection. About half of them (5,416) seemed to be protein-coding. Of those, 1,999 clusters had not been predicted by computational methods. The distribution of GC content of nonpredicted cDNAs had a peak at approximately 58% compared with a peak at approximately 42%for predicted cDNAs. Thus, there seems to be a slight bias against GC-rich transcripts in current gene prediction procedures. The rest of the cDNAs unique to the FLJ collection (5,481) contained no obvious open reading frames (ORFs) and thus are candidate noncoding RNAs. About one-fourth of them (1,378) showed a clear pattern of splicing. The distribution of GC content of noncoding cDNAs was narrow and had a peak at approximately 42%, relatively low compared with that of protein-coding cDNAs.',
   },
   statistics: {
     reviewedProteinCount: 32172,

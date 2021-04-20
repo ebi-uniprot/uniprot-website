@@ -29,8 +29,7 @@ exports[`CitationCard tests should render the card component 1`] = `
                   class="publication__columns__main"
                 >
                   <h5>
-                    Complete sequencing and characterization of 21,243 full-length human
- cDNAs."
+                    Complete sequencing and characterization of 21,243 full-length human cDNAs.
                   </h5>
                   <div
                     class="publication__authors"
@@ -96,9 +95,9 @@ exports[`CitationCard tests should render the card component 1`] = `
                     </button>
                     , 
                     <a
-                      href="/uniprotkb?query=lit_author:\\"Sugano S.;\\""
+                      href="/uniprotkb?query=lit_author:\\"Sugano S.\\""
                     >
-                      Sugano S.;
+                      Sugano S.
                     </a>
                   </div>
                   <div
