@@ -1,12 +1,12 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import customRender from '../../../shared/__test-helpers__/customRender';
+import customRender from '../../../../shared/__test-helpers__/customRender';
 
 import HomePage from '../HomePage';
 
-import useReducedMotion from '../../../shared/hooks/useReducedMotion';
+import useReducedMotion from '../../../../shared/hooks/useReducedMotion';
 
-jest.mock('../../../shared/hooks/useReducedMotion');
+jest.mock('../../../../shared/hooks/useReducedMotion');
 
 (useReducedMotion as jest.Mock).mockReturnValue(true);
 

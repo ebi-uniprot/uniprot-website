@@ -64,13 +64,18 @@ const FooterConsortium = () => (
 const FooterCopyrightAndMisc = () => (
   <div className="copyright-misc">
     <p>
-      <Link to="/help/about">
+      <ExternalLink noIcon url="https://www.uniprot.org/help/about">
         © 2002 – {new Date().getFullYear()} UniProt consortium
-      </Link>
+      </ExternalLink>
     </p>
     <p>
-      <Link to="/help/license">License &amp; Disclaimer</Link> |{' '}
-      <Link to="/help/privacy">Privacy Notice</Link>
+      <ExternalLink noIcon url="https://www.uniprot.org/help/license">
+        License &amp; Disclaimer
+      </ExternalLink>{' '}
+      |{' '}
+      <ExternalLink noIcon url="https://www.uniprot.org/help/privacy">
+        Privacy Notice
+      </ExternalLink>
     </p>
   </div>
 );
@@ -221,7 +226,7 @@ const FooterShortcuts = () => (
       <span className="shortcuts__title">Information</span>
       <ul className="no-bullet">
         <li>
-          <Link to="/">
+          <ExternalLink noIcon url="https://www.uniprot.org/help/publications">
             Cite{' '}
             <span className={helper['no-wrap']}>
               UniProt&nbsp;
@@ -229,22 +234,42 @@ const FooterShortcuts = () => (
                 <CitedIcon width="1.5ch" />
               </sup>
             </span>
-          </Link>
+          </ExternalLink>
         </li>
         <li>
-          <Link to="/">About</Link> &amp; <Link to="/">Help</Link>
+          <ExternalLink noIcon url="https://www.uniprot.org/help/about">
+            About
+          </ExternalLink>{' '}
+          &amp;{' '}
+          <ExternalLink noIcon url="https://www.uniprot.org/help">
+            Help
+          </ExternalLink>
         </li>
         <li>
-          <Link to="/">UniProtKB manual</Link>
+          <ExternalLink
+            noIcon
+            url="https://www.uniprot.org/help/?fil=section:manual"
+          >
+            UniProtKB manual
+          </ExternalLink>
         </li>
         <li>
-          <Link to="/">Technical corner</Link>
+          <ExternalLink noIcon url="https://www.uniprot.org/help/technical">
+            Technical corner
+          </ExternalLink>
         </li>
         <li>
-          <Link to="/">Expert biocuration</Link>
+          <ExternalLink
+            noIcon
+            url="https://www.uniprot.org/help/?query=*&fil=section:biocuration"
+          >
+            Expert biocuration
+          </ExternalLink>
         </li>
         <li>
-          <Link to="/">Statistics</Link>
+          <ExternalLink noIcon url="https://www.uniprot.org/statistics/">
+            Statistics
+          </ExternalLink>
         </li>
       </ul>
     </li>
@@ -254,9 +279,9 @@ const FooterShortcuts = () => (
 const FooterContactAndElixir = () => (
   <div className="contact-elixir">
     <p>
-      <Link to="/contact">
+      <ExternalLink noIcon url="https://www.uniprot.org/contact">
         Get in touch <EnvelopeIcon width="2ch" />
-      </Link>
+      </ExternalLink>
     </p>
     <p className="social">
       <ExternalLink
@@ -264,35 +289,35 @@ const FooterContactAndElixir = () => (
         url="https://twitter.com/uniprot"
         title="UniProt posts on Twitter"
       >
-        <TwitterLogo />
+        <TwitterLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://www.facebook.com/uniprot.org"
         title="UniProt posts on Facebook"
       >
-        <FacebookLogo />
+        <FacebookLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://www.youtube.com/user/uniprotvideos"
         title="UniProt videos on YouTube"
       >
-        <YouTubeLogo />
+        <YouTubeLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://insideuniprot.blogspot.com/"
         title="UniProt blog"
       >
-        <BloggerLogo />
+        <BloggerLogo width="3ch" />
       </ExternalLink>
       <ExternalLink
         noIcon
         url="https://groups.google.com/forum/#!forum/ebi-proteins-api"
         title="UniProt Google Group"
       >
-        <GGroupsLogo />
+        <GGroupsLogo width="3ch" />
       </ExternalLink>
     </p>
     <p>
@@ -323,7 +348,11 @@ const FooterContactAndElixir = () => (
 const FooterFunding = () => (
   <div className="funding">
     <span>
-      Main <Link to="/help/about">funding</Link> by:
+      Main{' '}
+      <ExternalLink noIcon url="https://www.uniprot.org/help/about">
+        funding
+      </ExternalLink>{' '}
+      by:
     </span>
     <ExternalLink noIcon url="https://www.nih.gov/">
       National Institutes of Health

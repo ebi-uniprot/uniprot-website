@@ -29,7 +29,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 // Async loading of page components
 const HomePage = lazy(
-  () => import(/* webpackChunkName: "home-page" */ './HomePage')
+  () => import(/* webpackChunkName: "home-page" */ './home-page/HomePage')
 );
 const GenericResultsPage = lazy(
   () =>
