@@ -1,13 +1,13 @@
 import { FC, ReactNode } from 'react';
-import { Card, InfoList } from 'franklin-sites';
+import { Card, InfoList, ExternalLink } from 'franklin-sites';
 
-import SimpleView from '../../../shared/components/views/SimpleView';
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
 import BuscoView from '../BuscoView';
 import BuscoLegend from '../BuscoLegend';
 import BuscoAbbr from '../BuscoAbbr';
 
+import parseDate from '../../../shared/utils/parseDate';
 import ftpUrls from '../../../shared/config/ftpUrls';
 import ProteomesColumnConfiguration, {
   ProteomesColumn,
@@ -16,7 +16,6 @@ import ProteomesColumnConfiguration, {
 import { ProteomesUIModel } from '../../adapters/proteomesConverter';
 
 import '../styles/overview.scss';
-import parseDate from '../../../shared/utils/parseDate';
 
 type InfoData = {
   title: string;
@@ -87,25 +86,25 @@ export const Overview: FC<{
                 </time>
               ),
             },
-            data.genomeAssembly?.assemblyId && {
+            {
               title: 'Genome assembly and annotation',
-              content: (
-                <SimpleView
-                  termValue={`${data.genomeAssembly.assemblyId}${
+              content: data.genomeAssembly?.assemblyId &&
+                data.genomeAssembly.genomeAssemblyUrl && (
+                  <ExternalLink url={data.genomeAssembly.genomeAssemblyUrl}>{`${
+                    data.genomeAssembly.assemblyId
+                  }${
                     data.genomeAssembly.source
                       ? ` from ${data.genomeAssembly.source}`
                       : ''
-                  }`}
-                  linkTo={data.genomeAssembly.genomeAssemblyUrl}
-                />
-              ),
+                  }`}</ExternalLink>
+                ),
             },
             data.genomeAssembly?.level &&
               renderColumnAsInfoListItem(ProteomesColumn.genomeRepresentation),
             renderColumnAsInfoListItem(ProteomesColumn.cpd),
-            data.proteomeCompletenessReport?.buscoReport && {
+            {
               title: <BuscoAbbr />,
-              content: (
+              content: data.proteomeCompletenessReport?.buscoReport && (
                 <div className="busco">
                   <div className="busco__legend">
                     <BuscoLegend />

@@ -182,9 +182,16 @@ exports[`EntryMain view should render 1`] = `
                 class="decorated-list-item__content"
               >
                 <a
-                  href="/http://www.ensembl.org/Homo_sapiens/Info/Annotation"
+                  class="external-link"
+                  href="http://www.ensembl.org/Homo_sapiens/Info/Annotation"
+                  rel="noopener"
+                  target="_blank"
                 >
                   GCA_000001405.27 from Ensembl
+                  <test-file-stub
+                    data-testid="external-link-icon"
+                    width="12.5"
+                  />
                 </a>
               </div>
             </div>
