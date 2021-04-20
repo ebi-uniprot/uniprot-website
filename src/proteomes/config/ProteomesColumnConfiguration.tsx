@@ -73,11 +73,12 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
   label: 'Components',
-  render: ({ components }) => (
-    <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
-      {components?.map(({ name }) => name)}
-    </ExpandableList>
-  ),
+  render: ({ components }) =>
+    components && (
+      <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
+        {components?.map(({ name }) => name)}
+      </ExpandableList>
+    ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {
@@ -125,7 +126,8 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
   label: 'Genome representation',
-  render: ({ genomeAssembly }) => capitalize(genomeAssembly?.level),
+  render: ({ genomeAssembly }) =>
+    genomeAssembly && capitalize(genomeAssembly.level),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
