@@ -8,20 +8,18 @@ import response, {
   url,
 } from '../../../../uniprotkb/components/__mocks__/response';
 
-const dataApiObject = {
-  ...response,
-  loading: false,
-  progress: 1,
-  status: 200,
-  statusText: '',
-  url,
-};
-
 describe('ResultsFacets', () => {
   const resultsFacets = (route: string) =>
     customRender(
       <ResultsFacets
-        dataApiObject={dataApiObject}
+        dataApiObject={{
+          ...response,
+          loading: false,
+          progress: 1,
+          status: 200,
+          statusText: '',
+          url,
+        }}
         total={+response.headers['x-totalrecords']}
       />,
       {
