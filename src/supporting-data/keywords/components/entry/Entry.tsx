@@ -23,7 +23,7 @@ const columns = [
   KeywordsColumn.geneOntologies,
   KeywordsColumn.parents,
   KeywordsColumn.children,
-  KeywordsColumn.sites,
+  KeywordsColumn.links,
 ];
 
 const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
