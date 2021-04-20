@@ -104,7 +104,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.lineage, {
 ProteomesColumnConfiguration.set(ProteomesColumn.cpd, {
   label: <abbr title={abbreviationToTitle.CPD}>CPD</abbr>,
   render: ({ proteomeCompletenessReport }) =>
-    proteomeCompletenessReport.cpdReport.status,
+    proteomeCompletenessReport.cpdReport?.status,
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.genomeAssembly, {

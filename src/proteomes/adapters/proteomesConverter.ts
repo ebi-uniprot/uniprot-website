@@ -41,7 +41,7 @@ export type BuscoReport = {
 };
 
 export type ProteomeCompletenessReport = {
-  cpdReport: CpdReport;
+  cpdReport?: CpdReport;
   buscoReport?: BuscoReport;
 };
 
