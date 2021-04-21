@@ -29,10 +29,11 @@ import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import { getBEMClassName as bem } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 
-import { Job } from '../../types/toolsJob';
+import { DataForDashboard, Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
 
 import './styles/Dashboard.scss';
+import { JobTypes } from '../../types/toolsJobTypes';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>
@@ -264,7 +265,15 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+    if (job.type === JobTypes.ID_MAPPING) {
+      const targetNS =
+        `/${
+          (job.data as DataForDashboard[JobTypes.ID_MAPPING]).idMappingTarget
+        }` || '';
+      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}${targetNS}`;
+    } else {
+      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+    }
   }
 
   const handleClick = () => {

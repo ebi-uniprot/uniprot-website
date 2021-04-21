@@ -124,12 +124,12 @@ const AlignForm = lazy(
     )
 );
 
-// const IDMappingResult = lazy(
-//   () =>
-//     import(
-//       /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
-//     )
-// );
+const IDMappingResult = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
+    )
+);
 
 const IDMappingForm = lazy(
   () =>
@@ -137,13 +137,6 @@ const IDMappingForm = lazy(
       /* webpackChunkName: "id-mapping-form" */ '../../tools/id-mapping/components/IDMappingForm'
     )
 );
-const IDMappingResult = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "id-mapping-result" */ '../../tools/id-mapping/components/results/IDMappingResult'
-    )
-);
-// const IDMappingForm = lazy(
 
 // const PeptideSearchResult = lazy(
 //   () =>
@@ -288,10 +281,10 @@ const App = () => {
                   </SingleColumnLayout>
                 )}
               />
-              {/* <Route
-              path={LocationToPath[Location.IDMappingResult]}
-              component={IDMappingResult}
-            /> */}
+              <Route
+                path={LocationToPath[Location.IDMappingResult]}
+                component={IDMappingResult}
+              />
               <Route
                 path={LocationToPath[Location.IDMapping]}
                 render={() => (
