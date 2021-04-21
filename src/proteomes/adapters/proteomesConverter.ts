@@ -41,7 +41,7 @@ export type BuscoReport = {
 };
 
 export type ProteomeCompletenessReport = {
-  cpdReport: CpdReport;
+  cpdReport?: CpdReport;
   buscoReport?: BuscoReport;
 };
 
@@ -74,7 +74,7 @@ export type ProteomesAPIModel = {
   citations: Citation[];
   annotationScore: number;
   superkingdom: string;
-  proteomeCompletenessReport: ProteomeCompletenessReport;
+  proteomeCompletenessReport?: ProteomeCompletenessReport;
   genomeAssembly?: GenomeAssembly;
   geneCount: number;
   genomeAnnotation: GenomeAnnotation;

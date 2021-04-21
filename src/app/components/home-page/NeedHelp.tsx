@@ -30,17 +30,9 @@ type Payload = {
       title: string[];
       subtitle: string[];
       description: string[];
-      training_type: string[]; // eslint-disable-line camelcase
-      type: string[];
-      venue: string[];
-      country: string[];
       location: string[];
-      year: string[];
-      date_time_clean: string[]; // eslint-disable-line camelcase
-      course_image: string[]; // eslint-disable-line camelcase
+      date_time_clean?: string[]; // eslint-disable-line camelcase
       status: string[];
-      materials: string[];
-      timeframe: string[];
     };
     fieldURLs: Array<{
       name: string;
@@ -49,13 +41,40 @@ type Payload = {
   }>;
 };
 
+// Copy from https://www.ebi.ac.uk/training/search-results?query=uniprot&domain=ebiweb_training_online&page=1&facets=type:Online%20tutorial,type:Recorded%20webinar
+const fallback: Payload['entries'][0] = {
+  id: '102',
+  source: 'ebiweb_training_online',
+  fields: {
+    title: ['UniProt'],
+    subtitle: ['Quick tour'],
+    description: [
+      'This quick tour provides a brief introduction to the Universal Protein Resource, UniProt.',
+    ],
+    location: ['Online'],
+    status: [],
+  },
+  fieldURLs: [
+    {
+      name: 'main',
+      value: 'https://www.ebi.ac.uk/training/online/courses/uniprot-quick-tour',
+    },
+  ],
+};
+
 // eslint-disable-next-line arrow-body-style
 const NeedHelp = () => {
   const { data, loading } = useDataApi<Payload>(
-    'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=uniprot&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,training_type,type,venue,country,location,year,date_time_clean,course_image,status,materials,timeframe'
+    'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,date_time_clean,status&size=1'
   );
 
-  const nextTraining = data?.entries[0];
+  const seminar = data?.entries[0] || fallback;
+  let seminarHeading = 'Live webinar';
+  if (seminar?.source === 'ebiweb_training_online') {
+    seminarHeading = 'Online training';
+  } else if (seminar?.fields.location[0] !== 'Online') {
+    seminarHeading = 'Live seminar';
+  }
 
   return (
     <HeroContainer
@@ -169,44 +188,45 @@ const NeedHelp = () => {
           <Loader />
         ) : (
           <div className={styles['training-loaded-container']}>
-            {nextTraining ? (
+            {seminar ? (
               <>
-                <h3>
-                  Live{' '}
-                  {nextTraining?.fields.status[0] === 'online'
-                    ? 'webinar'
-                    : 'seminar'}
-                </h3>
-                <div className={styles['details-container']}>
-                  <span>{nextTraining?.fields.status[0]}</span>
-                  <time
-                    dateTime={parseDate(
-                      nextTraining?.fields.date_time_clean[0]
-                    )?.toISOString()}
-                  >
-                    <CalendarIcon height="1em" />{' '}
-                    {nextTraining?.fields.date_time_clean[0]}
-                  </time>
-                  <span>
-                    <LocationPinIcon height="1em" />
-                    {nextTraining?.fields.location[0]}
-                  </span>
-                </div>
+                <h3>{seminarHeading}</h3>
+                {seminar.source === 'ebiweb_training_events' && (
+                  <div className={styles['details-container']}>
+                    <span>{seminar?.fields.status[0]}</span>
+                    {seminar?.fields.date_time_clean && (
+                      <time
+                        dateTime={parseDate(
+                          seminar.fields.date_time_clean[0]
+                        )?.toISOString()}
+                      >
+                        <CalendarIcon height="1em" />{' '}
+                        {seminar.fields.date_time_clean[0]}
+                      </time>
+                    )}
+                    <span>
+                      <LocationPinIcon height="1em" />
+                      {seminar?.fields.location[0]}
+                    </span>
+                  </div>
+                )}
+
                 <h4 className="micro">
                   <ExternalLink
                     url={
-                      nextTraining?.fieldURLs.find(
-                        ({ name }) => name === 'main'
-                      )?.value || ''
+                      seminar?.fieldURLs.find(({ name }) => name === 'main')
+                        ?.value || ''
                     }
                     noIcon
                   >
-                    {nextTraining?.fields.title[0]}
+                    {seminar?.fields.title[0]}
+                    {seminar?.fields.subtitle[0] &&
+                      `: ${seminar?.fields.subtitle[0]}`}
                   </ExternalLink>
                 </h4>
-                {nextTraining?.fields.title[0].length <= 100 && (
+                {seminar?.fields.title[0].length <= 100 && (
                   <p className={styles.description}>
-                    {nextTraining?.fields.description[0]}
+                    {seminar?.fields.description[0]}
                   </p>
                 )}
               </>
