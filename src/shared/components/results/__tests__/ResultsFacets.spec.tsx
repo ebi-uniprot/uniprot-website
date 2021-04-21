@@ -4,25 +4,25 @@ import ResultsFacets from '../ResultsFacets';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import response, {
-  url,
-} from '../../../../uniprotkb/components/__mocks__/response';
-
-const dataApiObject = {
-  ...response,
-  loading: false,
-  progress: 1,
-  status: 200,
-  statusText: '',
-  url,
-};
+import results from '../../../../uniprotkb/components/__mocks__/results.json';
 
 describe('ResultsFacets', () => {
   const resultsFacets = (route: string) =>
     customRender(
       <ResultsFacets
-        dataApiObject={dataApiObject}
-        total={+response.headers['x-totalrecords']}
+        dataApiObject={{
+          data: results, // TODO: fix ts error
+          headers: {
+            'x-totalrecords': results.results.length.toString(),
+            link: '<https://link/to/next/results>; rel="next"',
+          },
+          loading: false,
+          progress: 1,
+          status: 200,
+          statusText: '',
+          url: 'https://link/to/results',
+        }}
+        total={1000}
       />,
       {
         route,

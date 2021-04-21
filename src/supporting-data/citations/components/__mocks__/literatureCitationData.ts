@@ -3,6 +3,7 @@ import { CitationsAPIModel } from '../../adapters/citationsConverter';
 // uniprot/api/citations/14702039
 const mock: CitationsAPIModel = {
   citation: {
+    id: '14702039',
     citationType: 'UniProt indexed literatures',
     authors: [
       'Ota T.',
@@ -164,14 +165,8 @@ const mock: CitationsAPIModel = {
       'Sugano S.',
     ],
     citationCrossReferences: [
-      {
-        database: 'PubMed',
-        id: '14702039',
-      },
-      {
-        database: 'DOI',
-        id: '10.1038/ng1285',
-      },
+      { database: 'PubMed', id: '14702039' },
+      { database: 'DOI', id: '10.1038/ng1285' },
     ],
     title:
       'Complete sequencing and characterization of 21,243 full-length human cDNAs.',
@@ -184,31 +179,8 @@ const mock: CitationsAPIModel = {
     literatureAbstract:
       'As a base for human transcriptome and functional genomics, we created the "full- length long Japan" (FLJ) collection of sequenced human cDNAs. We determined the entire sequence of 21,243 selected clones and found that 14,490 cDNAs (10,897 clusters) were unique to the FLJ collection. About half of them (5,416) seemed to be protein-coding. Of those, 1,999 clusters had not been predicted by computational methods. The distribution of GC content of nonpredicted cDNAs had a peak at approximately 58% compared with a peak at approximately 42%for predicted cDNAs. Thus, there seems to be a slight bias against GC-rich transcripts in current gene prediction procedures. The rest of the cDNAs unique to the FLJ collection (5,481) contained no obvious open reading frames (ORFs) and thus are candidate noncoding RNAs. About one-fourth of them (1,378) showed a clear pattern of splicing. The distribution of GC content of noncoding cDNAs was narrow and had a peak at approximately 42%, relatively low compared with that of protein-coding cDNAs.',
   },
-  references: [
-    {
-      source: {
-        name: 'UniProtKB reviewed (Swiss-Prot)',
-      },
-      pubMedId: '14702039',
-      sourceCategories: ['Sequence'],
-      referenceComments: [
-        {
-          value: 'Kidney',
-          type: 'TISSUE',
-        },
-        {
-          value: 'Thalamus',
-          type: 'TISSUE',
-        },
-      ],
-      referencePositions: [
-        'NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 2)',
-      ],
-      referenceNumber: 1,
-    },
-  ],
   statistics: {
-    reviewedProteinCount: 10309,
+    reviewedProteinCount: 32172,
     unreviewedProteinCount: 2615,
     computationallyMappedProteinCount: 0,
     communityMappedProteinCount: 0,

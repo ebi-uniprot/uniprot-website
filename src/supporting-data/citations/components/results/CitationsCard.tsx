@@ -11,8 +11,6 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const getIdKey = getIdKeyFor(Namespace.citations);
 
 const CitationCard: FC<{
@@ -26,7 +24,7 @@ const CitationCard: FC<{
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.citations, id));

@@ -1,7 +1,5 @@
-type Keyword = {
-  name: string;
-  id: string;
-};
+import { Statistics } from '../../../shared/types/apiModel';
+import { KeywordNameID } from '../../keywords/adapters/keywordsConverter';
 
 type XRef = {
   databaseType: string;
@@ -10,16 +8,14 @@ type XRef = {
 };
 
 export type DiseasesAPIModel = {
-  keywords: Keyword[];
-  // If we have this as a disease, we could assume we have at least one reviewed
-  reviewedProteinCount?: number;
-  unreviewedProteinCount?: number;
+  keywords: KeywordNameID[];
   alternativeNames?: string[];
   acronym: string;
   crossReferences: XRef[];
   name: string;
   id: string;
   definition: string;
+  statistics?: Statistics;
 };
 
 export type DiseasesUIModel = DiseasesAPIModel & {

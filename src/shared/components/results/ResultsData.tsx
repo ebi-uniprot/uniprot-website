@@ -67,8 +67,15 @@ const ResultsData: FC<{
   useEffect(() => {
     prevViewMode.current = viewMode;
   });
+  const prevNamespace = useRef(namespace);
+  useEffect(() => {
+    prevNamespace.current = namespace;
+  });
 
-  const loading = initialLoading || prevViewMode.current !== viewMode;
+  const loading =
+    initialLoading ||
+    prevViewMode.current !== viewMode ||
+    prevNamespace.current !== namespace;
 
   if (
     // if loading the first page of results
@@ -76,7 +83,6 @@ const ResultsData: FC<{
   ) {
     return <Loader progress={progress} />;
   }
-
   return (
     <div className="results-data">
       {viewMode === ViewMode.CARD ? (

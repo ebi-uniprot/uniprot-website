@@ -12,8 +12,10 @@ const mock: DatabaseAPIModel[] = [
     server: 'https://www.ebi.ac.uk/ena',
     dbUrl: 'https://www.ebi.ac.uk/ena/browser/view/%s',
     category: 'Sequence databases',
-    reviewedProteinCount: 552048,
-    unreviewedProteinCount: 198116519,
+    statistics: {
+      reviewedProteinCount: 552391,
+      unreviewedProteinCount: 204546785,
+    },
   },
   {
     name: 'ChEMBL database of bioactive drug-like small molecules',
@@ -25,8 +27,7 @@ const mock: DatabaseAPIModel[] = [
     server: 'https://www.ebi.ac.uk/chembldb',
     dbUrl: 'https://www.ebi.ac.uk/chembldb/target/inspect/%s',
     category: 'Chemistry databases',
-    reviewedProteinCount: 7663,
-    unreviewedProteinCount: 1075,
+    statistics: { reviewedProteinCount: 7667, unreviewedProteinCount: 1071 },
   },
 ];
 

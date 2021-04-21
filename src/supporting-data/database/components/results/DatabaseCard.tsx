@@ -15,8 +15,6 @@ import DatabaseColumnConfiguration, {
 
 import renderColumnsInCardStyles from '../../../../shared/components/results/styles/render-columns-in-card.module.scss';
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const category = DatabaseColumnConfiguration.get(DatabaseColumn.category);
 
 const getIdKey = getIdKeyFor(Namespace.database);
@@ -32,7 +30,7 @@ const DatabaseCard: FC<{
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.database, id));

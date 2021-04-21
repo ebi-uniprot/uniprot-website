@@ -75,7 +75,6 @@ import EntryTypeIcon, {
 import { getEntryPath } from '../../app/config/urls';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { Xref } from '../../shared/types/apiModel';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
 
@@ -1004,33 +1003,23 @@ UniProtKBColumnConfiguration.set(
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
-  label: 'PubMed ID',
-  render: (data) => {
-    let ids: Xref[] = [];
-    if (data.references) {
-      ids = data.references.reduce<Xref[]>((acc, citation) => {
-        const xrefs = citation.citation?.citationCrossReferences;
-        return xrefs
-          ? acc.concat(xrefs.filter((xref) => xref.database === 'PubMed'))
-          : acc;
-      }, []);
-    }
-    return (
+  label: 'Citation ID',
+  render: (data) =>
+    data.references && (
       <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-        {ids.map(
-          (xref) =>
-            xref.id && (
+        {data.references.map(
+          (reference) =>
+            reference.citation && (
               <Link
-                key={xref.id}
-                to={getEntryPath(Namespace.citations, xref.id)}
+                key={reference.citation.id}
+                to={getEntryPath(Namespace.citations, reference.citation.id)}
               >
-                {xref.id}
+                {reference.citation.id}
               </Link>
             )
         )}
       </ExpandableList>
-    );
-  },
+    ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
