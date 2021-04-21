@@ -55,7 +55,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       break;
     case JobTypes.ID_MAPPING:
       // TODO: change to non VPN URL
-      baseURL = 'http://wp-np2-be.ebi.ac.uk:8096/uniprot/api/idmapping';
+      baseURL = 'https://www.ebi.ac.uk/uniprot/api/idmapping';
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
