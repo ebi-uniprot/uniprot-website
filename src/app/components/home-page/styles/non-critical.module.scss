@@ -58,7 +58,7 @@ $latest-news-height: 18rem;
     margin-bottom: $global-padding;
   }
 
-  &__spotlight {
+  &__left {
     grid-column-start: 1 !important;
 
     padding: 0 $global-padding;
@@ -69,7 +69,7 @@ $latest-news-height: 18rem;
     }
   }
 
-  &__inside-uniprot {
+  &__middle {
     grid-column-start: 5 !important;
 
     & > * {
@@ -115,24 +115,13 @@ $latest-news-height: 18rem;
     }
   }
 
-  // TODO: remove if the time is not needed in the spotlight
-  // time {
-  //   font-size: 1rem;
-  // NOTE: contrast too low anyway, so not good
-  //   color: $colour-weldon-blue;
-
-  //   & > svg {
-  //     margin: 0 0.5ch 0 1ch;
-  //   }
-  // }
-
   article {
     overflow-y: hidden;
 
     img {
       float: left;
       margin-right: 1ch;
-      max-width: 40%;
+      max-width: calc(50% - 1ch);
     }
   }
 
