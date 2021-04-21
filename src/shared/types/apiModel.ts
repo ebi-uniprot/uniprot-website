@@ -2,7 +2,10 @@ import { UniProtkbAPIModel } from '../../uniprotkb/adapters/uniProtkbConverter';
 import { UniRefLiteAPIModel } from '../../uniref/adapters/uniRefConverter';
 import { UniParcAPIModel } from '../../uniparc/adapters/uniParcConverter';
 import { ProteomesAPIModel } from '../../proteomes/adapters/proteomesConverter';
-import { TaxonomyAPIModel } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
+import {
+  TaxonomyAPIModel,
+  Rank,
+} from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { KeywordsAPIModel } from '../../supporting-data/keywords/adapters/keywordsConverter';
 import { CitationsAPIModel } from '../../supporting-data/citations/adapters/citationsConverter';
 import { DiseasesAPIModel } from '../../supporting-data/diseases/adapters/diseasesConverter';
@@ -23,24 +26,12 @@ export type APIModel =
   | LocationsAPIModel
   | MappingAPIModel;
 
-// TODO: remove all below and replace with types from corresponding namespaces
-export type Rank =
-  | 'class'
-  | 'family'
-  | 'genus'
-  | 'kingdom'
-  | 'no rank'
-  | 'order'
-  | 'phylum'
-  | 'species'
-  | 'subclass'
-  | 'subfamily'
-  | 'subgenus'
-  | 'subkingdom'
-  | 'subphylum'
-  | 'subspecies'
-  | 'superkingdom';
+export type Statistics = {
+  reviewedProteinCount: number;
+  unreviewedProteinCount: number;
+};
 
+// TODO: remove all below and replace with types from corresponding namespaces
 export type Lineage = {
   scientificName?: string;
   commonName?: string;

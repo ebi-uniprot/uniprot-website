@@ -41,7 +41,7 @@ export type BuscoReport = {
 };
 
 export type ProteomeCompletenessReport = {
-  cpdReport: CpdReport;
+  cpdReport?: CpdReport;
   buscoReport?: BuscoReport;
 };
 
@@ -74,17 +74,17 @@ export type ProteomesAPIModel = {
   citations: Citation[];
   annotationScore: number;
   superkingdom: string;
-  proteomeCompletenessReport: ProteomeCompletenessReport;
+  proteomeCompletenessReport?: ProteomeCompletenessReport;
   genomeAssembly?: GenomeAssembly;
   geneCount: number;
   genomeAnnotation: GenomeAnnotation;
   taxonLineage: Lineage[];
-  strain: string;
+  strain?: string;
   isolate?: string;
-  panproteome: string;
+  panproteome?: string;
   description: string;
-  redundantProteomes: RedundantProteome[];
-  redundantTo: string;
+  redundantProteomes?: RedundantProteome[];
+  redundantTo?: string;
   proteinCount: number; // use this in the results table - calculated sum of the components proteinCount: components.reduce((total, { proteinCount }) => proteinCount + total, 0)  TODO: eventually will be supported by backend in in 2021_02 - 2021_03
 };
 

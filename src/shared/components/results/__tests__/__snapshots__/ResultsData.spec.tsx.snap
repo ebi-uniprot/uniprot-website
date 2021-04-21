@@ -3385,7 +3385,15 @@ exports[`ResultsData component should render the card view with the correct numb
     </div>
     <div
       class="data-loader__loading"
-    />
+    >
+      <button
+        class="button secondary"
+        data-testid="click-to-load-more"
+        type="button"
+      >
+        Load more data
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
@@ -3517,7 +3525,7 @@ exports[`ResultsData component should render the table view 1`] = `
              
           </th>
           <th
-            class="data-table__header-cell--sortable"
+            class=""
           >
             Entry
           </th>
@@ -4028,7 +4036,15 @@ exports[`ResultsData component should render the table view 1`] = `
     </table>
     <div
       class="data-loader__loading"
-    />
+    >
+      <button
+        class="button secondary"
+        data-testid="click-to-load-more"
+        type="button"
+      >
+        Load more data
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

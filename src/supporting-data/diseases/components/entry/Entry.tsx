@@ -1,5 +1,6 @@
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
+import cn from 'classnames';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -16,6 +17,7 @@ import DiseasesColumnConfiguration, {
 } from '../../config/DiseasesColumnConfiguration';
 
 import helper from '../../../../shared/styles/helper.module.scss';
+import entryPageStyles from '../../../styles/entry-page.module.scss';
 
 const columns = [
   DiseasesColumn.definition,
@@ -59,7 +61,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <h2>Disease - {data.name}</h2>
-      <Card className={isStale ? helper.stale : undefined}>
+      <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         {infoData && <InfoList infoData={infoData} isCompact />}
 
         <MedicalDisclaimer />

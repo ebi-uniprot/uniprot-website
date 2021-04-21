@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
+import { Loader } from 'franklin-sites';
 
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
 import useNSQuery from '../../hooks/useNSQuery';
@@ -14,7 +15,6 @@ import ResultsDataHeader from './ResultsDataHeader';
 import Response from '../../../uniprotkb/types/responseTypes';
 
 const Results: FC = () => {
-  const [total, setTotal] = useState<number>();
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   // Query for facets
@@ -23,43 +23,51 @@ const Results: FC = () => {
     withFacets: true,
     withColumns: false,
   });
-  const dataApiObject = useDataApiWithStale<Response['data']>(
+  const facetApiObject = useDataApiWithStale<Response['data']>(
     initialApiFacetUrl
   );
-  const facetTotal = dataApiObject.headers?.['x-totalrecords'];
+
+  const {
+    loading: facetInititialLoading,
+    headers: facetHeaders,
+    isStale: facetHasStaleData,
+  } = facetApiObject;
+  const facetTotal = facetHeaders?.['x-totalrecords'];
 
   // Query for results data
   const { url: initialApiUrl, direct } = useNSQuery();
   const resultsDataObject = usePagination(initialApiUrl);
-  const { initialLoading, total: resultsDataTotal } = resultsDataObject;
+  const {
+    initialLoading: resultsDataInitialLoading,
+    total: resultsDataTotal,
+    progress: resultsDataProgress,
+  } = resultsDataObject;
 
-  useEffect(() => {
-    // Reset total when loading new results
-    if (resultsDataObject.initialLoading) {
-      setTotal(undefined);
-    }
-    // Set the total to the first one to bring results back
-    if (facetTotal || resultsDataTotal) {
-      setTotal((total) => {
-        if (facetTotal && total !== +facetTotal) {
-          return +facetTotal;
-        }
-        if (resultsDataTotal && total !== +resultsDataTotal) {
-          return +resultsDataTotal;
-        }
-        return total;
-      });
-    }
-  }, [facetTotal, resultsDataTotal, resultsDataObject]);
+  let total: undefined | number;
+  if (facetTotal !== undefined) {
+    total = +facetTotal;
+  }
+  if (resultsDataTotal !== undefined) {
+    total = +resultsDataTotal;
+  }
 
-  if ((!initialLoading && !total) || total === 0) {
+  if (
+    facetInititialLoading &&
+    resultsDataInitialLoading &&
+    !facetHasStaleData
+  ) {
+    return <Loader progress={resultsDataProgress} />;
+  }
+
+  if (
+    (!resultsDataInitialLoading && !facetInititialLoading && !total) ||
+    total === 0
+  ) {
     return <NoResultsPage />;
   }
 
   return (
-    <SideBarLayout
-      sidebar={<ResultsFacets dataApiObject={dataApiObject} total={total} />}
-    >
+    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
       <ResultsData
         resultsDataObject={resultsDataObject}

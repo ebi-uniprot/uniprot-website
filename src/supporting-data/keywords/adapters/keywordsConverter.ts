@@ -1,3 +1,5 @@
+import { Statistics } from '../../../shared/types/apiModel';
+
 type GO = {
   name: string;
   // Swagger says "id"
@@ -6,24 +8,18 @@ type GO = {
   goId: `GO:${string}`;
 };
 
-type Statistics = {
-  reviewedProteinCount: number;
-  unreviewedProteinCount: number;
-};
-
-type KeywordNameID = {
+export type KeywordNameID = {
   name: string;
   id: `KW-${string}`;
 };
 
 export type KeywordsLite = {
   keyword: KeywordNameID;
-  sites?: string[];
+  links?: string[];
   definition: string;
   synonyms?: string[];
   geneOntologies?: GO[];
-  // TODO: change to enum of possible values? example: 'BIOLOGICAL_PROCESS'
-  category?: string;
+  category?: KeywordNameID;
   children?: KeywordsLite[];
 };
 

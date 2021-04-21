@@ -22,9 +22,7 @@ const ProteomesEntryConfig: {
   },
   {
     id: EntrySection.Publications,
-    sectionContent: ({ citations, taxonomy }) => (
-      <Publications citations={citations} taxonomy={taxonomy} />
-    ),
+    sectionContent: ({ citations }) => <Publications citations={citations} />,
   },
 ];
 

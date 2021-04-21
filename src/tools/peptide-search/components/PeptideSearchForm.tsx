@@ -21,6 +21,7 @@ import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
+import useInitialFormParameters from '../../hooks/useInitialFormParameters';
 
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
@@ -87,10 +88,6 @@ const FormSelect: FC<{
   );
 };
 
-interface CustomLocationState {
-  parameters?: Partial<FormParameters>;
-}
-
 const PeptideSearchForm = () => {
   // refs
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -100,35 +97,7 @@ const PeptideSearchForm = () => {
   const history = useHistory();
   const reducedMotion = useReducedMotion();
 
-  // state
-  const initialFormValues = useMemo(() => {
-    // NOTE: we should use a similar logic to pre-fill fields based on querystring
-    const parametersFromHistoryState = (history.location
-      ?.state as CustomLocationState)?.parameters;
-    if (parametersFromHistoryState) {
-      // if we get here, we got parameters passed with the location update to
-      // use as pre-filled fields
-      const formValues: Partial<PeptideSearchFormValues> = {};
-      const defaultValuesEntries = Object.entries(defaultFormValues) as [
-        PeptideSearchFields,
-        PeptideSearchFormValue
-      ][];
-      // for every field of the form, get its value from the history state if
-      // present, otherwise go for the default one
-      for (const [key, field] of defaultValuesEntries) {
-        formValues[key] = Object.freeze({
-          ...field,
-          selected:
-            parametersFromHistoryState[
-              field.fieldName as keyof FormParameters
-            ] || field.selected,
-        }) as Readonly<PeptideSearchFormValue>;
-      }
-      return Object.freeze(formValues) as Readonly<PeptideSearchFormValues>;
-    }
-    // otherwise, pass the default values
-    return defaultFormValues;
-  }, [history]);
+  const initialFormValues = useInitialFormParameters(defaultFormValues);
 
   // used when the form submission needs to be disabled
   const [submitDisabled, setSubmitDisabled] = useState(false);
@@ -140,20 +109,32 @@ const PeptideSearchForm = () => {
   // actual form fields
   const [peps, setPeps] = useState<
     PeptideSearchFormValues[PeptideSearchFields.peps]
-  >(initialFormValues[PeptideSearchFields.peps]);
-  const [taxIDs, setTaxIDs] = useState<
-    PeptideSearchFormValues[PeptideSearchFields.taxIds]
-  >(initialFormValues[PeptideSearchFields.taxIds]);
-  const [lEQi, setLEQi] = useState<
-    PeptideSearchFormValues[PeptideSearchFields.lEQi]
-  >(initialFormValues[PeptideSearchFields.lEQi]);
-  const [spOnly, setSpOnly] = useState<
-    PeptideSearchFormValues[PeptideSearchFields.spOnly]
-  >(initialFormValues[PeptideSearchFields.spOnly]);
+  >(
+    initialFormValues[
+      PeptideSearchFields.peps
+    ] as PeptideSearchFormValues[PeptideSearchFields.peps]
+  );
+  const [taxIDs, setTaxIDs] = useState(
+    initialFormValues[
+      PeptideSearchFields.taxIds
+    ] as PeptideSearchFormValues[PeptideSearchFields.taxIds]
+  );
+  const [lEQi, setLEQi] = useState(
+    initialFormValues[
+      PeptideSearchFields.lEQi
+    ] as PeptideSearchFormValues[PeptideSearchFields.lEQi]
+  );
+  const [spOnly, setSpOnly] = useState(
+    initialFormValues[
+      PeptideSearchFields.spOnly
+    ] as PeptideSearchFormValues[PeptideSearchFields.spOnly]
+  );
 
   // extra job-related fields
   const [jobName, setJobName] = useState(
-    initialFormValues[PeptideSearchFields.name]
+    initialFormValues[
+      PeptideSearchFields.name
+    ] as PeptideSearchFormValues[PeptideSearchFields.name]
   );
 
   // taxon field handlers

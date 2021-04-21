@@ -7,18 +7,15 @@ import { getEntryPathFor } from '../../../app/config/urls';
 import { Lineage, TaxonomyAPIModel } from '../adapters/taxonomyConverter';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
 import { Namespace } from '../../../shared/types/namespaces';
-import AccessionView from '../../../shared/components/results/AccessionView';
 
 export enum TaxonomyColumn {
   commonName = 'common_name',
-  // This is a list of hosts, regardless of the singular in the name
-  host = 'host',
+  hosts = 'hosts',
   id = 'id',
   lineage = 'lineage',
   links = 'links',
   mnemonic = 'mnemonic',
   otherNames = 'other_names',
-  // Maps to "parentId" field, no full parent object
   parent = 'parent',
   rank = 'rank',
   // This is triggering the same filters than "statistics", so probably no need
@@ -26,13 +23,10 @@ export enum TaxonomyColumn {
   reviewed = 'reviewed',
   scientificName = 'scientific_name',
   statistics = 'statistics',
-  // This is a list of strains, regardless of the singular in the name
-  strain = 'strain',
-  // This is a list of synonyms, regardless of the singular in the name
-  synonym = 'synonym',
+  strains = 'strains',
+  synonyms = 'synonyms',
 }
 
-// TODO: decide which ones should be default
 export const defaultColumns = [
   TaxonomyColumn.id,
   TaxonomyColumn.commonName,
@@ -55,7 +49,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.commonName, {
   render: ({ commonName }) => commonName,
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.host, {
+TaxonomyColumnConfiguration.set(TaxonomyColumn.hosts, {
   label: 'Hosts',
   render: ({ hosts }) =>
     hosts?.length && (
@@ -72,7 +66,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.host, {
 TaxonomyColumnConfiguration.set(TaxonomyColumn.id, {
   label: 'Taxon ID',
   render: ({ taxonId }) =>
-    taxonId && <AccessionView id={taxonId} namespace={Namespace.taxonomy} />,
+    taxonId && <Link to={getEntryPath(taxonId)}>{taxonId}</Link>,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
@@ -80,13 +74,12 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
   // TODO: modify when we have a common approach to represent lineages
   render: ({ lineage }) =>
     (lineage as Lineage)
-      ?.filter(({ hidden }) => !hidden)
-      .reverse()
+      ?.reverse()
       .map(({ taxonId, scientificName, commonName }, index) => (
         <Fragment key={taxonId}>
           {index ? ' > ' : undefined}
           <Link to={getEntryPath(taxonId)}>
-            {commonName || scientificName || taxonId}
+            {scientificName || commonName || taxonId}
           </Link>
         </Fragment>
       )),
@@ -121,8 +114,12 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.otherNames, {
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.parent, {
   label: 'Parent',
-  render: ({ parentId }) =>
-    parentId ? <Link to={getEntryPath(parentId)}>{parentId}</Link> : undefined,
+  render: ({ parent }) =>
+    parent?.taxonId ? (
+      <Link to={getEntryPath(parent.taxonId)}>
+        {parent.commonName || parent.scientificName || parent.taxonId}
+      </Link>
+    ) : undefined,
 });
 
 TaxonomyColumnConfiguration.set(TaxonomyColumn.rank, {
@@ -135,7 +132,7 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.scientificName, {
   render: ({ scientificName }) => scientificName,
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
+TaxonomyColumnConfiguration.set(TaxonomyColumn.strains, {
   label: 'Strains',
   render: ({ strains }) =>
     strains?.length && (
@@ -150,8 +147,8 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.strain, {
     ),
 });
 
-TaxonomyColumnConfiguration.set(TaxonomyColumn.synonym, {
-  label: 'Synonym',
+TaxonomyColumnConfiguration.set(TaxonomyColumn.synonyms, {
+  label: 'Synonyms',
   render: ({ synonyms }) =>
     synonyms?.length && (
       <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>

@@ -15,16 +15,17 @@ import './styles/results-data.scss';
 
 const ResultsFacets: FC<{
   dataApiObject: UseDataAPIWithStaleState<Response['data']>;
-  total?: number;
-}> = ({ dataApiObject, total }) => {
+}> = ({ dataApiObject }) => {
   const namespace = useNS();
   const { data, isStale, loading, progress } = dataApiObject;
 
-  if (loading) {
+  // TODO: show loading when a brand new search query (and not just a facet modification) is being fetched
+
+  if (loading && !isStale) {
     return <Loader progress={progress} />;
   }
 
-  if (!total || !data?.facets) {
+  if (!data?.facets) {
     return null;
   }
 

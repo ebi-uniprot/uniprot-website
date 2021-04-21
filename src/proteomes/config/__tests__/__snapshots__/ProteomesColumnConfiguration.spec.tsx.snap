@@ -12,10 +12,10 @@ exports[`ProteomesColumnConfiguration component should render column "busco": bu
     <div
       class="busco-view__report"
     >
-      n:103 · lineageDb value
+      n:13780 · primates_odb10
     </div>
     <div>
-      C:77.7% (S:7.8% D:11.7%) F:17.5% M:19.4%
+      C:99.5% (S:39.2% D:60.3%) F:0% M:0.4%
     </div>
   </div>
 </DocumentFragment>
@@ -27,7 +27,28 @@ exports[`ProteomesColumnConfiguration component should render column "components
     class="expandable-list no-bullet"
   >
     <li>
-      name
+      Chromosome 1
+    </li>
+    <li>
+      Chromosome 2
+    </li>
+    <li>
+      Chromosome 3
+    </li>
+    <li>
+      Chromosome 4
+    </li>
+    <li>
+      Chromosome 5
+    </li>
+    <li>
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        21 more components
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -35,7 +56,7 @@ exports[`ProteomesColumnConfiguration component should render column "components
 
 exports[`ProteomesColumnConfiguration component should render column "cpd": cpd 1`] = `
 <DocumentFragment>
-  Standard
+  Unknown
 </DocumentFragment>
 `;
 
@@ -43,11 +64,11 @@ exports[`ProteomesColumnConfiguration component should render column "genome_ass
 <DocumentFragment>
   <a
     class="external-link"
-    href="url value"
+    href="http://www.ensembl.org/Homo_sapiens/Info/Annotation"
     rel="noopener"
     target="_blank"
   >
-    id value
+    GCA_000001405.27
     <test-file-stub
       data-testid="external-link-icon"
       width="12.5"
@@ -65,9 +86,177 @@ exports[`ProteomesColumnConfiguration component should render column "genome_rep
 exports[`ProteomesColumnConfiguration component should render column "lineage": lineage 1`] = `
 <DocumentFragment>
   <a
-    href="/taxonomy/9606"
+    href="/taxonomy/2759"
   >
-    Homo sapiens (family)
+    Eukaryota (superkingdom)
+  </a>
+  , 
+  <a
+    href="/taxonomy/33154"
+  >
+    Opisthokonta
+  </a>
+  , 
+  <a
+    href="/taxonomy/33208"
+  >
+    Metazoa (kingdom)
+  </a>
+  , 
+  <a
+    href="/taxonomy/6072"
+  >
+    Eumetazoa
+  </a>
+  , 
+  <a
+    href="/taxonomy/33213"
+  >
+    Bilateria
+  </a>
+  , 
+  <a
+    href="/taxonomy/33511"
+  >
+    Deuterostomia
+  </a>
+  , 
+  <a
+    href="/taxonomy/7711"
+  >
+    Chordata (phylum)
+  </a>
+  , 
+  <a
+    href="/taxonomy/89593"
+  >
+    Craniata (subphylum)
+  </a>
+  , 
+  <a
+    href="/taxonomy/7742"
+  >
+    Vertebrata
+  </a>
+  , 
+  <a
+    href="/taxonomy/7776"
+  >
+    Gnathostomata
+  </a>
+  , 
+  <a
+    href="/taxonomy/117570"
+  >
+    Teleostomi
+  </a>
+  , 
+  <a
+    href="/taxonomy/117571"
+  >
+    Euteleostomi
+  </a>
+  , 
+  <a
+    href="/taxonomy/8287"
+  >
+    Sarcopterygii (superclass)
+  </a>
+  , 
+  <a
+    href="/taxonomy/1338369"
+  >
+    Dipnotetrapodomorpha
+  </a>
+  , 
+  <a
+    href="/taxonomy/32523"
+  >
+    Tetrapoda
+  </a>
+  , 
+  <a
+    href="/taxonomy/32524"
+  >
+    Amniota
+  </a>
+  , 
+  <a
+    href="/taxonomy/40674"
+  >
+    Mammalia (class)
+  </a>
+  , 
+  <a
+    href="/taxonomy/32525"
+  >
+    Theria
+  </a>
+  , 
+  <a
+    href="/taxonomy/9347"
+  >
+    Eutheria
+  </a>
+  , 
+  <a
+    href="/taxonomy/1437010"
+  >
+    Boreoeutheria
+  </a>
+  , 
+  <a
+    href="/taxonomy/314146"
+  >
+    Euarchontoglires (superorder)
+  </a>
+  , 
+  <a
+    href="/taxonomy/9443"
+  >
+    Primates (order)
+  </a>
+  , 
+  <a
+    href="/taxonomy/376913"
+  >
+    Haplorrhini (suborder)
+  </a>
+  , 
+  <a
+    href="/taxonomy/314293"
+  >
+    Simiiformes (infraorder)
+  </a>
+  , 
+  <a
+    href="/taxonomy/9526"
+  >
+    Catarrhini (parvorder)
+  </a>
+  , 
+  <a
+    href="/taxonomy/314295"
+  >
+    Hominoidea (superfamily)
+  </a>
+  , 
+  <a
+    href="/taxonomy/9604"
+  >
+    Hominidae (family)
+  </a>
+  , 
+  <a
+    href="/taxonomy/207598"
+  >
+    Homininae (subfamily)
+  </a>
+  , 
+  <a
+    href="/taxonomy/9605"
+  >
+    Homo (genus)
   </a>
 </DocumentFragment>
 `;
@@ -82,9 +271,9 @@ exports[`ProteomesColumnConfiguration component should render column "organism":
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
-    title="Homo sapiens (Human) (synonym), taxon ID 9606"
+    title="Homo sapiens (Human), taxon ID 9606"
   >
-    Homo sapiens (Human) (synonym)
+    Homo sapiens (Human)
   </a>
 </DocumentFragment>
 `;
@@ -93,7 +282,7 @@ exports[`ProteomesColumnConfiguration component should render column "organism_i
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
-    title="Homo sapiens (Human) (synonym), taxon ID 9606"
+    title="Homo sapiens (Human), taxon ID 9606"
   >
     9606
   </a>
@@ -105,7 +294,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    18
+    77036
   </a>
 </DocumentFragment>
 `;
@@ -115,6 +304,12 @@ exports[`ProteomesColumnConfiguration component should render column "upid": upi
   <div
     class="accession-view"
   >
+    <span
+      class="entry-title__status icon--reference-proteome"
+      title="This marks a reference Proteome entry"
+    >
+      <test-file-stub />
+    </span>
     <a
       href="/proteomes/UP000005640"
     >

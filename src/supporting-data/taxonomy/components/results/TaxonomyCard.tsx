@@ -14,8 +14,6 @@ import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
 
-const BLOCK_CLICK_ON_CARD = new Set(['A', 'INPUT', 'BUTTON']);
-
 const lineage = TaxonomyColumnConfiguration.get(TaxonomyColumn.lineage);
 
 const getIdKey = getIdKeyFor(Namespace.taxonomy);
@@ -31,7 +29,7 @@ const TaxonomyCard: FC<{
 
   const handleCardClick = useCallback(
     (event: MouseEvent) => {
-      if (BLOCK_CLICK_ON_CARD.has((event.target as HTMLElement).tagName)) {
+      if ((event.target as HTMLElement).closest(`a, input, button`)) {
         return;
       }
       history.push(getEntryPath(Namespace.taxonomy, id));

@@ -8,9 +8,11 @@ import { Namespace } from '../../types/namespaces';
 
 // Regular expression magic incantations 🪄
 const redirectMap = new Map<RegExp, string>([
+  // main data
   [/^\/uniprot(?<rest>\/.*)?$/i, `/${Namespace.uniprotkb}$<rest>`],
   [/^\/unipark(?<rest>\/.*)?$/i, `/${Namespace.uniparc}$<rest>`],
   [/^\/proteome(?<rest>\/.*)?$/i, `/${Namespace.proteomes}$<rest>`],
+  // supporting data
   [/^\/keyword(?<rest>\/.*)?$/i, `/${Namespace.keywords}$<rest>`],
   [
     /^\/(citation|literatures?|publications?|papers?)(?<rest>\/.*)?$/i,
@@ -26,6 +28,11 @@ const redirectMap = new Map<RegExp, string>([
     /^\/((sub[-_ ]?)?cellular[-_ ]?)?location(?<rest>\/.*)?$/i,
     `/${Namespace.locations}$<rest>`,
   ],
+  // tools
+  [/^\/(tools-?)?dashboard(?<rest>\/.*)?$/i, `/tool-dashboard$<rest>`],
+  [/^\/peptidesearch(?<rest>\/.*)?$/i, `/peptide-search$<rest>`],
+  // TODO: check final URL for those
+  [/^\/upload-?lists?(?<rest>\/.*)?$/i, `/id-mapping$<rest>`],
 ]);
 
 // eslint-disable-next-line consistent-return

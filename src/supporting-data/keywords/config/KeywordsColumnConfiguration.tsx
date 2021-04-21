@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ExpandableList, ExternalLink } from 'franklin-sites';
 
-import AccessionView from '../../../shared/components/results/AccessionView';
-
 import { getEntryPathFor } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
@@ -13,15 +11,14 @@ import { Namespace } from '../../../shared/types/namespaces';
 export enum KeywordsColumn {
   category = 'category',
   children = 'children',
-  // Called "description", but maps to a field called "definition"...
-  description = 'description',
+  definition = 'definition',
   // Called "gene_ontologies" in the locations schema...
-  geneOntology = 'gene_ontology',
+  geneOntologies = 'gene_ontologies',
   id = 'id',
   name = 'name',
-  parent = 'parent',
+  parents = 'parents',
   // Those are links, not biological sites
-  sites = 'sites',
+  links = 'links',
   statistics = 'statistics',
   // This is a list of synonyms, regardless of the singular in the name
   synonym = 'synonym',
@@ -31,7 +28,7 @@ export const defaultColumns = [
   KeywordsColumn.id,
   KeywordsColumn.name,
   KeywordsColumn.category,
-  KeywordsColumn.geneOntology,
+  KeywordsColumn.geneOntologies,
 ];
 
 export const primaryKeyColumn = KeywordsColumn.id;
@@ -46,7 +43,8 @@ export const KeywordsColumnConfiguration: ColumnConfiguration<
 // COLUMN RENDERERS BELOW
 KeywordsColumnConfiguration.set(KeywordsColumn.category, {
   label: 'Category',
-  render: ({ category }) => category,
+  render: ({ category }) =>
+    category && <Link to={getEntryPath(category.id)}>{category.name}</Link>,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.children, {
@@ -63,12 +61,12 @@ KeywordsColumnConfiguration.set(KeywordsColumn.children, {
     ),
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.description, {
+KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
   label: 'Definition',
   render: ({ definition }) => definition,
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.geneOntology, {
+KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
   label: 'Gene Ontologies',
   render: ({ geneOntologies }) =>
     geneOntologies?.length && (
@@ -85,7 +83,7 @@ KeywordsColumnConfiguration.set(KeywordsColumn.geneOntology, {
 KeywordsColumnConfiguration.set(KeywordsColumn.id, {
   label: 'ID',
   render: ({ keyword }) =>
-    keyword && <AccessionView namespace={Namespace.keywords} id={keyword.id} />,
+    keyword && <Link to={getEntryPath(keyword.id)}>{keyword.name}</Link>,
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.name, {
@@ -93,8 +91,8 @@ KeywordsColumnConfiguration.set(KeywordsColumn.name, {
   render: ({ keyword }) => keyword?.name,
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.parent, {
-  label: 'Parent',
+KeywordsColumnConfiguration.set(KeywordsColumn.parents, {
+  label: 'Parents',
   render: ({ parents }) =>
     parents?.length && (
       <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
@@ -107,13 +105,13 @@ KeywordsColumnConfiguration.set(KeywordsColumn.parent, {
     ),
 });
 
-KeywordsColumnConfiguration.set(KeywordsColumn.sites, {
-  label: 'Sites',
-  render: ({ sites }) =>
-    sites?.length && (
-      <ExpandableList descriptionString="sites" displayNumberOfHiddenItems>
-        {sites.map((site) => (
-          <ExternalLink key={site} url={site} tidyUrl />
+KeywordsColumnConfiguration.set(KeywordsColumn.links, {
+  label: 'Links',
+  render: ({ links }) =>
+    links?.length && (
+      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+        {links.map((link) => (
+          <ExternalLink key={link} url={link} tidyUrl />
         ))}
       </ExpandableList>
     ),

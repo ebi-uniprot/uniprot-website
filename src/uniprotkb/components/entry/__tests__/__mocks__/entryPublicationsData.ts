@@ -14,21 +14,9 @@ const mock: Payload = {
       name: 'types',
       allowMultipleSelection: true,
       values: [
-        {
-          label: 'UniProtKB reviewed (Swiss-Prot)',
-          value: '2',
-          count: 24,
-        },
-        {
-          label: 'Computationally mapped',
-          value: '1',
-          count: 23,
-        },
-        {
-          label: 'Community mapped',
-          value: '0',
-          count: 1,
-        },
+        { label: 'UniProtKB reviewed (Swiss-Prot)', value: '2', count: 24 },
+        { label: 'Computationally mapped', value: '1', count: 23 },
+        { label: 'Community mapped', value: '0', count: 1 },
       ],
     },
     {
@@ -36,26 +24,11 @@ const mock: Payload = {
       name: 'categories',
       allowMultipleSelection: true,
       values: [
-        {
-          value: 'Interaction',
-          count: 23,
-        },
-        {
-          value: 'Sequence',
-          count: 14,
-        },
-        {
-          value: 'Function',
-          count: 13,
-        },
-        {
-          value: 'PTM',
-          count: 8,
-        },
-        {
-          value: 'Pathol',
-          count: 6,
-        },
+        { value: 'Interaction', count: 23 },
+        { value: 'Sequence', count: 14 },
+        { value: 'Function', count: 13 },
+        { value: 'PTM', count: 8 },
+        { value: 'Pathol', count: 6 },
       ],
     },
     {
@@ -63,22 +36,15 @@ const mock: Payload = {
       name: 'is_large_scale',
       allowMultipleSelection: false,
       values: [
-        {
-          label: 'Small scale',
-          value: 'false',
-          count: 28,
-        },
-        {
-          label: 'Large scale',
-          value: 'true',
-          count: 19,
-        },
+        { label: 'Small scale', value: 'false', count: 27 },
+        { label: 'Large scale', value: 'true', count: 20 },
       ],
     },
   ],
   results: [
     {
       citation: {
+        id: '11904675',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Dekker J.W.',
@@ -90,14 +56,8 @@ const mock: Payload = {
           'Kato M.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '11904675',
-          },
-          {
-            database: 'DOI',
-            id: '10.1007/s00251-001-0402-z',
-          },
+          { database: 'PubMed', id: '11904675' },
+          { database: 'DOI', id: '10.1007/s00251-001-0402-z' },
         ],
         title:
           'Identification of an S-adenosylhomocysteine hydrolase-like transcript induced during dendritic cell differentiation.',
@@ -112,10 +72,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '11904675',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '11904675',
           sourceCategories: ['Expression', 'Sequence'],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [MRNA] (ISOFORM 1)',
@@ -126,7 +84,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2,
+        reviewedProteinCount: 4,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 5,
         communityMappedProteinCount: 0,
@@ -134,6 +92,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '14702039',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Ota T.',
@@ -295,14 +254,8 @@ const mock: Payload = {
           'Sugano S.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '14702039',
-          },
-          {
-            database: 'DOI',
-            id: '10.1038/ng1285',
-          },
+          { database: 'PubMed', id: '14702039' },
+          { database: 'DOI', id: '10.1038/ng1285' },
         ],
         title:
           'Complete sequencing and characterization of 21,243 full-length human cDNAs.',
@@ -317,20 +270,12 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '14702039',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '14702039',
           sourceCategories: ['Sequence'],
           referenceComments: [
-            {
-              value: 'Kidney',
-              type: 'TISSUE',
-            },
-            {
-              value: 'Thalamus',
-              type: 'TISSUE',
-            },
+            { value: 'Kidney', type: 'TISSUE' },
+            { value: 'Thalamus', type: 'TISSUE' },
           ],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 2)',
@@ -339,7 +284,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 10309,
+        reviewedProteinCount: 32172,
         unreviewedProteinCount: 2615,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -347,6 +292,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '17974005',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Bechtel S.',
@@ -370,14 +316,8 @@ const mock: Payload = {
           'Schupp I.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '17974005',
-          },
-          {
-            database: 'DOI',
-            id: '10.1186/1471-2164-8-399',
-          },
+          { database: 'PubMed', id: '17974005' },
+          { database: 'DOI', id: '10.1186/1471-2164-8-399' },
         ],
         title: 'The full-ORF clone resource of the German cDNA consortium.',
         publicationDate: '2007',
@@ -391,17 +331,10 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '17974005',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '17974005',
           sourceCategories: ['Sequence'],
-          referenceComments: [
-            {
-              value: 'Brain',
-              type: 'TISSUE',
-            },
-          ],
+          referenceComments: [{ value: 'Brain', type: 'TISSUE' }],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 2)',
           ],
@@ -409,7 +342,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2472,
+        reviewedProteinCount: 8890,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -417,6 +350,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '16710414',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Gregory S.G.',
@@ -587,14 +521,8 @@ const mock: Payload = {
           'Bentley D.R.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '16710414',
-          },
-          {
-            database: 'DOI',
-            id: '10.1038/nature04727',
-          },
+          { database: 'PubMed', id: '16710414' },
+          { database: 'DOI', id: '10.1038/nature04727' },
         ],
         title:
           'The DNA sequence and biological annotation of human chromosome 1.',
@@ -609,24 +537,23 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '16710414',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '16710414',
           sourceCategories: ['Sequence'],
           referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
           referenceNumber: 3,
         },
       ],
       statistics: {
-        reviewedProteinCount: 1870,
-        unreviewedProteinCount: 4170,
+        reviewedProteinCount: 5279,
+        unreviewedProteinCount: 4267,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: 'CI-56FT96O07V0QG',
         citationType: 'submission',
         authors: [
           'Mural R.J.',
@@ -672,72 +599,28 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: 'CI-56FT96O07V0QG',
           sourceCategories: ['Sequence'],
           referencePositions: ['NUCLEOTIDE SEQUENCE [LARGE SCALE GENOMIC DNA]'],
           referenceNumber: 4,
-          citation: {
-            citationType: 'submission',
-            authors: [
-              'Mural R.J.',
-              'Istrail S.',
-              'Sutton G.',
-              'Florea L.',
-              'Halpern A.L.',
-              'Mobarry C.M.',
-              'Lippert R.',
-              'Walenz B.',
-              'Shatkay H.',
-              'Dew I.',
-              'Miller J.R.',
-              'Flanigan M.J.',
-              'Edwards N.J.',
-              'Bolanos R.',
-              'Fasulo D.',
-              'Halldorsson B.V.',
-              'Hannenhalli S.',
-              'Turner R.',
-              'Yooseph S.',
-              'Lu F.',
-              'Nusskern D.R.',
-              'Shue B.C.',
-              'Zheng X.H.',
-              'Zhong F.',
-              'Delcher A.L.',
-              'Huson D.H.',
-              'Kravitz S.A.',
-              'Mouchard L.',
-              'Reinert K.',
-              'Remington K.A.',
-              'Clark A.G.',
-              'Waterman M.S.',
-              'Eichler E.E.',
-              'Adams M.D.',
-              'Hunkapiller M.W.',
-              'Myers E.W.',
-              'Venter J.C.',
-            ],
-            publicationDate: 'JUL-2005',
-            submissionDatabase: 'EMBL/GenBank/DDBJ databases',
-          },
         },
       ],
+      statistics: {
+        reviewedProteinCount: 1796,
+        unreviewedProteinCount: 5670,
+        computationallyMappedProteinCount: 0,
+        communityMappedProteinCount: 0,
+      },
     },
     {
       citation: {
+        id: '15489334',
         citationType: 'UniProt indexed literatures',
-        authoringGroup: ['The MGC Project Team'],
+        authoringGroup: ['The MGC Project Team;'],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '15489334',
-          },
-          {
-            database: 'DOI',
-            id: '10.1101/gr.2596504',
-          },
+          { database: 'PubMed', id: '15489334' },
+          { database: 'DOI', id: '10.1101/gr.2596504' },
         ],
         title:
           'The status, quality, and expansion of the NIH full-length cDNA project: the Mammalian Gene Collection (MGC).',
@@ -752,36 +635,16 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '15489334',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '15489334',
           sourceCategories: ['Sequence'],
           referenceComments: [
-            {
-              value: 'Brain',
-              type: 'TISSUE',
-            },
-            {
-              value: 'Colon',
-              type: 'TISSUE',
-            },
-            {
-              value: 'Eye',
-              type: 'TISSUE',
-            },
-            {
-              value: 'Placenta',
-              type: 'TISSUE',
-            },
-            {
-              value: 'PNS',
-              type: 'TISSUE',
-            },
-            {
-              value: 'Testis',
-              type: 'TISSUE',
-            },
+            { value: 'Brain', type: 'TISSUE' },
+            { value: 'Colon', type: 'TISSUE' },
+            { value: 'Eye', type: 'TISSUE' },
+            { value: 'Placenta', type: 'TISSUE' },
+            { value: 'PNS', type: 'TISSUE' },
+            { value: 'Testis', type: 'TISSUE' },
           ],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [LARGE SCALE MRNA] (ISOFORM 1)',
@@ -791,14 +654,15 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 32523,
-        unreviewedProteinCount: 17916,
+        reviewedProteinCount: 72986,
+        unreviewedProteinCount: 17905,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: 'CI-BIPJ46MU9NM9P',
         citationType: 'submission',
         authors: [
           'Volpe J.P.G.',
@@ -817,42 +681,26 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: 'CI-BIPJ46MU9NM9P',
           sourceCategories: ['Sequence'],
-          referenceComments: [
-            {
-              value: 'Skin',
-              type: 'TISSUE',
-            },
-          ],
+          referenceComments: [{ value: 'Skin', type: 'TISSUE' }],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [MRNA] OF 16-530 (ISOFORM 1)',
           ],
           referenceNumber: 6,
-          citation: {
-            citationType: 'submission',
-            authors: [
-              'Volpe J.P.G.',
-              'McDowell M.',
-              'Jostes R.F.',
-              'Afzal V.',
-              'Sadinski W.',
-              'Trask B.J.',
-              'Legerski R.',
-              'Cleaver J.E.',
-            ],
-            title:
-              'Complementation of chromosomal instability in the xeroderma pigmentosum variant by a gene on human chromosome 1 with homology to S-adenosyl homocysteine hydrolase.',
-            publicationDate: 'DEC-1996',
-            submissionDatabase: 'EMBL/GenBank/DDBJ databases',
-          },
         },
       ],
+      statistics: {
+        reviewedProteinCount: 3,
+        unreviewedProteinCount: 0,
+        computationallyMappedProteinCount: 0,
+        communityMappedProteinCount: 0,
+      },
     },
     {
       citation: {
+        id: '12878157',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Imabayashi H.',
@@ -867,14 +715,8 @@ const mock: Payload = {
           'Umezawa A.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '12878157',
-          },
-          {
-            database: 'DOI',
-            id: '10.1016/s0014-4827(03)00130-7',
-          },
+          { database: 'PubMed', id: '12878157' },
+          { database: 'DOI', id: '10.1016/s0014-4827(03)00130-7' },
         ],
         title:
           'Redifferentiation of dedifferentiated chondrocytes and chondrogenesis of human bone marrow stromal cells via chondrosphere formation with expression profiling by large-scale cDNA analysis.',
@@ -889,17 +731,10 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '12878157',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '12878157',
           sourceCategories: ['Sequence'],
-          referenceComments: [
-            {
-              value: 'Chondrocyte',
-              type: 'TISSUE',
-            },
-          ],
+          referenceComments: [{ value: 'Chondrocyte', type: 'TISSUE' }],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [MRNA] OF 48-164 (ISOFORM 2)',
           ],
@@ -907,7 +742,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 1,
+        reviewedProteinCount: 3,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -915,6 +750,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '7782076',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Pawlak A.',
@@ -926,14 +762,8 @@ const mock: Payload = {
           'Guellaen G.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '7782076',
-          },
-          {
-            database: 'DOI',
-            id: '10.1016/0888-7543(95)80096-5',
-          },
+          { database: 'PubMed', id: '7782076' },
+          { database: 'DOI', id: '10.1016/0888-7543(95)80096-5' },
         ],
         title:
           'Characterization of a large population of mRNAs from human testis.',
@@ -948,17 +778,10 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '7782076',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '7782076',
           sourceCategories: ['Sequence'],
-          referenceComments: [
-            {
-              value: 'Testis',
-              type: 'TISSUE',
-            },
-          ],
+          referenceComments: [{ value: 'Testis', type: 'TISSUE' }],
           referencePositions: [
             'NUCLEOTIDE SEQUENCE [MRNA] OF 48-105 (ISOFORM 2)',
           ],
@@ -966,7 +789,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 1,
+        reviewedProteinCount: 3,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -974,6 +797,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '16754674',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Cooper B.J.',
@@ -984,14 +808,8 @@ const mock: Payload = {
           'Kato M.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '16754674',
-          },
-          {
-            database: 'DOI',
-            id: '10.1074/jbc.m602520200',
-          },
+          { database: 'PubMed', id: '16754674' },
+          { database: 'DOI', id: '10.1074/jbc.m602520200' },
         ],
         title:
           'Suppression and overexpression of adenosylhomocysteine hydrolase-like protein 1 (AHCYL1) influences zebrafish embryo development: a possible role for AHCYL1 in inositol phospholipid signaling.',
@@ -1006,16 +824,14 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '16754674',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '16754674',
           referencePositions: ['IDENTIFICATION (ISOFORM 2)'],
           referenceNumber: 9,
         },
       ],
       statistics: {
-        reviewedProteinCount: 1,
+        reviewedProteinCount: 3,
         unreviewedProteinCount: 3,
         computationallyMappedProteinCount: 13,
         communityMappedProteinCount: 0,
@@ -1023,6 +839,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '16793548',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Ando H.',
@@ -1033,14 +850,8 @@ const mock: Payload = {
           'Mikoshiba K.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '16793548',
-          },
-          {
-            database: 'DOI',
-            id: '10.1016/j.molcel.2006.05.017',
-          },
+          { database: 'PubMed', id: '16793548' },
+          { database: 'DOI', id: '10.1016/j.molcel.2006.05.017' },
         ],
         title:
           'IRBIT suppresses IP3 receptor activity by competing with IP3 for the common binding site on the IP3 receptor.',
@@ -1055,10 +866,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '16793548',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '16793548',
           sourceCategories: ['Function', 'Pathol', 'Interaction', 'PTM'],
           referencePositions: [
             'FUNCTION',
@@ -1071,7 +880,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2,
+        reviewedProteinCount: 12,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 11,
         communityMappedProteinCount: 0,
@@ -1079,6 +888,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '16769890',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Shirakabe K.',
@@ -1093,14 +903,8 @@ const mock: Payload = {
           'Mikoshiba K.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '16769890',
-          },
-          {
-            database: 'DOI',
-            id: '10.1073/pnas.0602250103',
-          },
+          { database: 'PubMed', id: '16769890' },
+          { database: 'DOI', id: '10.1073/pnas.0602250103' },
         ],
         title:
           'IRBIT, an inositol 1,4,5-trisphosphate receptor-binding protein, specifically binds to and activates pancreas-type Na+/HCO3-cotransporter 1 (pNBC1).',
@@ -1115,10 +919,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '16769890',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '16769890',
           sourceCategories: ['Function', 'Pathol', 'Interaction'],
           referencePositions: [
             'FUNCTION',
@@ -1129,7 +931,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 4,
+        reviewedProteinCount: 14,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 22,
         communityMappedProteinCount: 0,
@@ -1137,17 +939,12 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '18829453',
         citationType: 'UniProt indexed literatures',
         authors: ['He P.', 'Zhang H.', 'Yun C.C.'],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '18829453',
-          },
-          {
-            database: 'DOI',
-            id: '10.1074/jbc.m805534200',
-          },
+          { database: 'PubMed', id: '18829453' },
+          { database: 'DOI', id: '10.1074/jbc.m805534200' },
         ],
         title:
           'IRBIT, inositol 1,4,5-triphosphate (IP3) receptor-binding protein released with IP3, binds Na+/H+ exchanger NHE3 and activates NHE3 activity in response to calcium.',
@@ -1162,17 +959,15 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '18829453',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '18829453',
           sourceCategories: ['Function', 'Interaction'],
           referencePositions: ['FUNCTION', 'INTERACTION WITH SLC9A3'],
           referenceNumber: 12,
         },
       ],
       statistics: {
-        reviewedProteinCount: 4,
+        reviewedProteinCount: 11,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
@@ -1180,6 +975,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '18669648',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Dephoure N.',
@@ -1191,14 +987,8 @@ const mock: Payload = {
           'Gygi S.P.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '18669648',
-          },
-          {
-            database: 'DOI',
-            id: '10.1073/pnas.0805139105',
-          },
+          { database: 'PubMed', id: '18669648' },
+          { database: 'DOI', id: '10.1073/pnas.0805139105' },
         ],
         title: 'A quantitative atlas of mitotic phosphorylation.',
         publicationDate: '2008',
@@ -1212,17 +1002,10 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '18669648',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '18669648',
           sourceCategories: ['PTM', 'Sequence'],
-          referenceComments: [
-            {
-              value: 'Cervix carcinoma',
-              type: 'TISSUE',
-            },
-          ],
+          referenceComments: [{ value: 'Cervix carcinoma', type: 'TISSUE' }],
           referencePositions: [
             'PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-391',
             'IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]',
@@ -1231,14 +1014,15 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 3421,
-        unreviewedProteinCount: 5316,
+        reviewedProteinCount: 11285,
+        unreviewedProteinCount: 5305,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: '19224921',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Kiefer H.',
@@ -1250,14 +1034,8 @@ const mock: Payload = {
           'Mikoshiba K.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '19224921',
-          },
-          {
-            database: 'DOI',
-            id: '10.1074/jbc.m807136200',
-          },
+          { database: 'PubMed', id: '19224921' },
+          { database: 'DOI', id: '10.1074/jbc.m807136200' },
         ],
         title:
           "Inositol 1,4,5-triphosphate receptor-binding protein released with inositol 1,4,5-triphosphate (IRBIT) associates with components of the mRNA 3' processing machinery in a phosphorylation-dependent manner and inhibits polyadenylation.",
@@ -1272,10 +1050,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '19224921',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '19224921',
           sourceCategories: ['Function', 'Pathol', 'Interaction'],
           referencePositions: [
             'FUNCTION',
@@ -1287,7 +1063,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 6,
+        reviewedProteinCount: 22,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 3,
         communityMappedProteinCount: 0,
@@ -1295,17 +1071,12 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '19220705',
         citationType: 'UniProt indexed literatures',
         authors: ['Ando H.', 'Mizutani A.', 'Mikoshiba K.'],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '19220705',
-          },
-          {
-            database: 'DOI',
-            id: '10.1111/j.1471-4159.2009.05979.x',
-          },
+          { database: 'PubMed', id: '19220705' },
+          { database: 'DOI', id: '10.1111/j.1471-4159.2009.05979.x' },
         ],
         title:
           'An IRBIT homologue lacks binding activity to inositol 1,4,5-trisphosphate receptor due to the unique N-terminal appendage.',
@@ -1320,10 +1091,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '19220705',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '19220705',
           sourceCategories: ['Interaction', 'PTM'],
           referencePositions: [
             'INTERACTION WITH AHCYL2 AND ITPR1',
@@ -1333,7 +1102,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 5,
+        reviewedProteinCount: 21,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 26,
         communityMappedProteinCount: 0,
@@ -1341,17 +1110,12 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '20584908',
         citationType: 'UniProt indexed literatures',
         authors: ['He P.', 'Klein J.', 'Yun C.C.'],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '20584908',
-          },
-          {
-            database: 'DOI',
-            id: '10.1074/jbc.m110.133066',
-          },
+          { database: 'PubMed', id: '20584908' },
+          { database: 'DOI', id: '10.1074/jbc.m110.133066' },
         ],
         title:
           'Activation of Na+/H+ exchanger NHE3 by angiotensin II is mediated by inositol 1,4,5-triphosphate (IP3) receptor-binding protein released with IP3 (IRBIT) and Ca2+/calmodulin-dependent protein kinase II.',
@@ -1366,10 +1130,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '20584908',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '20584908',
           sourceCategories: ['Function', 'Pathol', 'Interaction'],
           referencePositions: [
             'FUNCTION',
@@ -1380,7 +1142,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 5,
+        reviewedProteinCount: 9,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 8,
         communityMappedProteinCount: 0,
@@ -1388,6 +1150,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '21269460',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Burkard T.R.',
@@ -1400,14 +1163,8 @@ const mock: Payload = {
           'Colinge J.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '21269460',
-          },
-          {
-            database: 'DOI',
-            id: '10.1186/1752-0509-5-17',
-          },
+          { database: 'PubMed', id: '21269460' },
+          { database: 'DOI', id: '10.1186/1752-0509-5-17' },
         ],
         title: 'Initial characterization of the human central proteome.',
         publicationDate: '2011',
@@ -1421,10 +1178,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '21269460',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '21269460',
           sourceCategories: ['Sequence'],
           referencePositions: [
             'IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]',
@@ -1433,14 +1188,15 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 4962,
-        unreviewedProteinCount: 13099,
+        reviewedProteinCount: 14209,
+        unreviewedProteinCount: 13041,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: '21406692',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Rigbolt K.T.',
@@ -1455,14 +1211,8 @@ const mock: Payload = {
           'Blagoev B.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '21406692',
-          },
-          {
-            database: 'DOI',
-            id: '10.1126/scisignal.2001570',
-          },
+          { database: 'PubMed', id: '21406692' },
+          { database: 'DOI', id: '10.1126/scisignal.2001570' },
         ],
         title:
           'System-wide temporal characterization of the proteome and phosphoproteome of human embryonic stem cell differentiation.',
@@ -1477,10 +1227,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '21406692',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '21406692',
           sourceCategories: ['PTM', 'Sequence'],
           referencePositions: [
             'ACETYLATION [LARGE SCALE ANALYSIS] AT SER-2',
@@ -1492,14 +1240,15 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2151,
-        unreviewedProteinCount: 3407,
+        reviewedProteinCount: 7241,
+        unreviewedProteinCount: 3401,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: '22814378',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Van Damme P.',
@@ -1520,14 +1269,8 @@ const mock: Payload = {
           'Aldabe R.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '22814378',
-          },
-          {
-            database: 'DOI',
-            id: '10.1073/pnas.1210303109',
-          },
+          { database: 'PubMed', id: '22814378' },
+          { database: 'DOI', id: '10.1073/pnas.1210303109' },
         ],
         title:
           'N-terminal acetylome analyses and functional insights of the N-terminal acetyltransferase NatB.',
@@ -1542,10 +1285,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '22814378',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '22814378',
           sourceCategories: ['PTM', 'Sequence'],
           referencePositions: [
             'ACETYLATION [LARGE SCALE ANALYSIS] AT MET-1 (ISOFORM 2)',
@@ -1555,14 +1296,15 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2291,
-        unreviewedProteinCount: 3162,
+        reviewedProteinCount: 5130,
+        unreviewedProteinCount: 3153,
         computationallyMappedProteinCount: 4,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: '23186163',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Zhou H.',
@@ -1574,14 +1316,8 @@ const mock: Payload = {
           'Mohammed S.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '23186163',
-          },
-          {
-            database: 'DOI',
-            id: '10.1021/pr300630k',
-          },
+          { database: 'PubMed', id: '23186163' },
+          { database: 'DOI', id: '10.1021/pr300630k' },
         ],
         title:
           'Toward a comprehensive characterization of a human cancer cell phosphoproteome.',
@@ -1596,17 +1332,10 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '23186163',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '23186163',
           sourceCategories: ['PTM', 'Sequence'],
-          referenceComments: [
-            {
-              value: 'Erythroleukemia',
-              type: 'TISSUE',
-            },
-          ],
+          referenceComments: [{ value: 'Erythroleukemia', type: 'TISSUE' }],
           referencePositions: [
             'PHOSPHORYLATION [LARGE SCALE ANALYSIS] AT SER-2',
             'IDENTIFICATION BY MASS SPECTROMETRY [LARGE SCALE ANALYSIS]',
@@ -1615,14 +1344,15 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 4866,
-        unreviewedProteinCount: 8498,
+        reviewedProteinCount: 15807,
+        unreviewedProteinCount: 8473,
         computationallyMappedProteinCount: 0,
         communityMappedProteinCount: 0,
       },
     },
     {
       citation: {
+        id: '27995898',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Bonneau B.',
@@ -1633,14 +1363,8 @@ const mock: Payload = {
           'Mikoshiba K.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '27995898',
-          },
-          {
-            database: 'DOI',
-            id: '10.7554/elife.19896',
-          },
+          { database: 'PubMed', id: '27995898' },
+          { database: 'DOI', id: '10.7554/elife.19896' },
         ],
         title:
           'IRBIT controls apoptosis by interacting with the Bcl-2 homolog, Bcl2l10, and by promoting ER-mitochondria contact.',
@@ -1655,10 +1379,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '27995898',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '27995898',
           sourceCategories: [
             'Function',
             'Pathol',
@@ -1677,11 +1399,8 @@ const mock: Payload = {
           referenceNumber: 21,
         },
         {
-          source: {
-            name: 'ORCID',
-            id: '0000-0003-2302-5369',
-          },
-          pubMedId: '27995898',
+          source: { name: 'ORCID', id: '0000-0003-2302-5369' },
+          citationId: '27995898',
           sourceCategories: ['Function', 'Interaction'],
           communityAnnotation: {
             proteinOrGene: 'IRBIT',
@@ -1691,7 +1410,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 5,
+        reviewedProteinCount: 17,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 7,
         communityMappedProteinCount: 1,
@@ -1699,6 +1418,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '31799605',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Pinto R.',
@@ -1719,14 +1439,8 @@ const mock: Payload = {
           'Falnes P.O.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '31799605',
-          },
-          {
-            database: 'DOI',
-            id: '10.1093/nar/gkz1147',
-          },
+          { database: 'PubMed', id: '31799605' },
+          { database: 'DOI', id: '10.1093/nar/gkz1147' },
         ],
         title:
           'The human methyltransferase ZCCHC4 catalyses N6-methyladenosine modification of 28S ribosomal RNA.',
@@ -1741,17 +1455,15 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '31799605',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '31799605',
           sourceCategories: ['Interaction'],
           referencePositions: ['INTERACTION WITH ZCCHC4'],
           referenceNumber: 22,
         },
       ],
       statistics: {
-        reviewedProteinCount: 8,
+        reviewedProteinCount: 25,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 1,
         communityMappedProteinCount: 0,
@@ -1759,17 +1471,12 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '25237103',
         citationType: 'UniProt indexed literatures',
         authors: ['Arnaoutov A.', 'Dasso M.'],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '25237103',
-          },
-          {
-            database: 'DOI',
-            id: '10.1126/science.1251550',
-          },
+          { database: 'PubMed', id: '25237103' },
+          { database: 'DOI', id: '10.1126/science.1251550' },
         ],
         title:
           'Enzyme regulation. IRBIT is a novel regulator of ribonucleotide reductase in higher eukaryotes.',
@@ -1784,10 +1491,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'UniProtKB reviewed (Swiss-Prot)',
-          },
-          pubMedId: '25237103',
+          source: { name: 'UniProtKB reviewed (Swiss-Prot)' },
+          citationId: '25237103',
           sourceCategories: [
             'Function',
             'Pathol',
@@ -1809,7 +1514,7 @@ const mock: Payload = {
         },
       ],
       statistics: {
-        reviewedProteinCount: 2,
+        reviewedProteinCount: 4,
         unreviewedProteinCount: 0,
         computationallyMappedProteinCount: 6,
         communityMappedProteinCount: 0,
@@ -1817,6 +1522,7 @@ const mock: Payload = {
     },
     {
       citation: {
+        id: '31366495',
         citationType: 'UniProt indexed literatures',
         authors: [
           'Nakazawa N.',
@@ -1833,14 +1539,8 @@ const mock: Payload = {
           'Shirabe K.',
         ],
         citationCrossReferences: [
-          {
-            database: 'PubMed',
-            id: '31366495',
-          },
-          {
-            database: 'DOI',
-            id: '10.21873/anticanres.13569',
-          },
+          { database: 'PubMed', id: '31366495' },
+          { database: 'DOI', id: '10.21873/anticanres.13569' },
         ],
         title:
           'Low IRBIT Levels Are Associated With Chemo-resistance in Gastric Cancer Patients.',
@@ -1855,11 +1555,8 @@ const mock: Payload = {
       },
       references: [
         {
-          source: {
-            name: 'GeneRif',
-            id: '10768',
-          },
-          pubMedId: '31366495',
+          source: { name: 'GeneRif', id: '10768' },
+          citationId: '31366495',
           sourceCategories: ['Expression'],
           annotation:
             'in the group receiving postoperative adjuvant chemotherapy a significant association was found between IRBIT expression and both overall and disease-free survival. IRBIT may be used as a useful predictive marker for chemotherapy.',
