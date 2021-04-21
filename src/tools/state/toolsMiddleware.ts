@@ -17,6 +17,11 @@ const POLLING_INTERVAL = 1000 * 3; // 3 seconds
 const EXPIRED_INTERVAL = 1000 * 60 * 15; // 15 minutes
 const AUTO_DELETE_TIME = 1000 * 60 * 60 * 24 * 14; // 2 weeks
 
+const getJobsToCheck = (state: RootState) =>
+  Object.values(state.tools).filter(
+    (job) => job.status === Status.CREATED || job.status === Status.RUNNING
+  );
+
 const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
   const { dispatch, getState } = store;
 
@@ -39,9 +44,7 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
   // main loop to poll job statuses
   const pollJobs = async () => {
-    let jobsToCheck = Object.values(getState().tools).filter(
-      (job) => job.status === Status.CREATED || job.status === Status.RUNNING
-    );
+    let jobsToCheck = getJobsToCheck(getState());
 
     await pMap(jobsToCheck, pollJobMapper, { concurrency: 4 });
 
@@ -50,9 +53,7 @@ const toolsMiddleware: Middleware<Dispatch<AnyAction>, RootState> = (store) => {
 
     await sleep(POLLING_INTERVAL);
 
-    jobsToCheck = Object.values(getState().tools).filter(
-      (job) => job.status === Status.CREATED || job.status === Status.RUNNING
-    );
+    jobsToCheck = getJobsToCheck(getState());
     // Make sure to only schedule a new loop when there are jobs to checks
     if (jobsToCheck.length) {
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
