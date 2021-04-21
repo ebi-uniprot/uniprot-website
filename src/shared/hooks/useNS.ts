@@ -2,17 +2,22 @@ import { useRouteMatch } from 'react-router-dom';
 import { allSearchResultLocations } from '../../app/config/urls';
 
 import { Namespace } from '../types/namespaces';
+import { IDMappingNamespace } from '../../tools/id-mapping/types/idMappingServerParameters';
 
 const useNS = (): Namespace | undefined => {
-  const match = useRouteMatch<{ namespace: Namespace }>(
-    allSearchResultLocations
-  );
+  const match = useRouteMatch<{
+    namespace: Namespace;
+    targetNS?: IDMappingNamespace;
+  }>(allSearchResultLocations);
 
   if (!match) {
     return undefined;
   }
 
-  const potentialNS = match.params.namespace.toLowerCase();
+  const potentialNS =
+    match.params.targetNS?.toLowerCase() ||
+    match.params.namespace.toLowerCase();
+
   // eslint-disable-next-line consistent-return
   return Object.values(Namespace).find((ns) => ns === potentialNS);
 };

@@ -43,6 +43,11 @@ import CitationsColumnConfiguration from '../../supporting-data/citations/config
 import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
+import { IDMappingColumn } from '../../tools/id-mapping/types/columns';
+import {
+  MappingFlat,
+  MappingTo,
+} from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export type ColumnDescriptor = {
   name: string;
@@ -123,6 +128,21 @@ const getColumnsToDisplay = (
         };
       }
       return columnDescriptor;
+    }
+    // Note this could live in ../config/IDMappingColumnConfiguration
+    if (columnName === IDMappingColumn.from) {
+      return {
+        name: columnName,
+        label: 'from',
+        render: (row: MappingFlat) => row.from,
+      };
+    }
+    if (columnName === IDMappingColumn.to) {
+      return {
+        name: columnName,
+        label: 'to',
+        render: (row: MappingFlat) => (row as MappingTo).to,
+      };
     }
     return {
       label: columnName,
