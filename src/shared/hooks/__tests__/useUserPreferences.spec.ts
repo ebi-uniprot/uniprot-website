@@ -1,27 +1,7 @@
-import { createElement, FC } from 'react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { JsonValue } from 'type-fest';
 
 import useUserPreferences from '../useUserPreferences';
-
-import UserPreferencesContext, {
-  UserPreferences,
-} from '../../contexts/UserPreferences';
-
-import useSafeState from '../useSafeState';
-
-const Wrapper: FC<{ initialState: UserPreferences }> = ({
-  children,
-  initialState,
-}) => {
-  const [state, setState] = useSafeState(initialState);
-
-  return createElement(
-    UserPreferencesContext.Provider,
-    { value: [state, setState] },
-    children
-  );
-};
 
 describe('useUserPreferences hook', () => {
   afterEach(() => {
@@ -29,41 +9,20 @@ describe('useUserPreferences hook', () => {
   });
 
   test('get value, basic, first time', async () => {
-    const { result, waitFor } = renderHook(
-      () => useUserPreferences('gdpr', 'default value'),
-      { wrapper: Wrapper, initialProps: { initialState: {} } }
+    const { result } = renderHook(() =>
+      useUserPreferences('gdpr', 'default value')
     );
 
-    expect(window.localStorage.getItem('gdpr')).toBeNull();
     expect(result.current[0]).toEqual('default value');
-
-    await waitFor(() =>
-      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
-        'default value'
-      )
+    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
+      'default value'
     );
-  });
-
-  test('get value, basic, second time', () => {
-    const { result } = renderHook(
-      () => useUserPreferences('gdpr', 'default value'),
-      {
-        wrapper: Wrapper,
-        initialProps: { initialState: { gdpr: 'previous value' } },
-      }
-    );
-
-    expect(result.current[0]).toEqual('previous value');
   });
 
   test('get value, basic, first time, already saved', () => {
     window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
-    const { result } = renderHook(
-      () => useUserPreferences('gdpr', 'default value'),
-      {
-        wrapper: Wrapper,
-        initialProps: { initialState: {} },
-      }
+    const { result } = renderHook(() =>
+      useUserPreferences('gdpr', 'default value')
     );
 
     expect(result.current[0]).toEqual('previous value');
@@ -71,31 +30,20 @@ describe('useUserPreferences hook', () => {
 
   test('set value, basic, already saved', async () => {
     window.localStorage.setItem('gdpr', JSON.stringify('previous value'));
-    const { result, waitFor } = renderHook(
-      () => useUserPreferences<string>('gdpr', 'default value'),
-      {
-        wrapper: Wrapper,
-        initialProps: { initialState: { gdpr: 'default value' } },
-      }
+    const { result } = renderHook(() =>
+      useUserPreferences<string>('gdpr', 'default value')
     );
 
     act(() => result.current[1]('other value'));
 
     expect(result.current[0]).toEqual('other value');
-    await waitFor(() =>
-      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
-        'other value'
-      )
-    );
+    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe('other value');
   });
 
   test('set value, through function of current value', async () => {
-    const { result, waitFor } = renderHook(
-      () => useUserPreferences<string>('gdpr', 'default value'),
-      {
-        wrapper: Wrapper,
-        initialProps: { initialState: { gdpr: 'other value' } },
-      }
+    window.localStorage.setItem('gdpr', JSON.stringify('other value'));
+    const { result } = renderHook(() =>
+      useUserPreferences<string>('gdpr', 'default value')
     );
 
     act(() =>
@@ -103,21 +51,14 @@ describe('useUserPreferences hook', () => {
     );
 
     expect(result.current[0]).toEqual('(OTHER VALUE!)');
-
-    await waitFor(() =>
-      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
-        '(OTHER VALUE!)'
-      )
+    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
+      '(OTHER VALUE!)'
     );
   });
 
   test('set value, types', async () => {
-    const { result, waitFor } = renderHook(
-      () => useUserPreferences<JsonValue>('gdpr', 'default value'),
-      {
-        wrapper: Wrapper,
-        initialProps: { initialState: { gdpr: 'default value' } },
-      }
+    const { result } = renderHook(() =>
+      useUserPreferences<JsonValue>('gdpr', 'default value')
     );
 
     act(() => result.current[1](0));
@@ -132,18 +73,15 @@ describe('useUserPreferences hook', () => {
 
     expect(result.current[0]).toEqual({ complex: 'object', ok: true });
 
-    await waitFor(() =>
-      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toEqual({
-        complex: 'object',
-        ok: true,
-      })
-    );
+    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toEqual({
+      complex: 'object',
+      ok: true,
+    });
   });
 
   test('sync value from storage event', async () => {
-    const { result, waitFor } = renderHook(
-      () => useUserPreferences('gdpr', 'default value'),
-      { wrapper: Wrapper, initialProps: { initialState: {} } }
+    const { result } = renderHook(() =>
+      useUserPreferences('gdpr', 'default value')
     );
 
     expect(result.current[0]).toEqual('default value');
@@ -188,10 +126,8 @@ describe('useUserPreferences hook', () => {
 
     expect(result.current[0]).toEqual('default value');
 
-    await waitFor(() =>
-      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
-        'default value'
-      )
+    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
+      'default value'
     );
   });
 });

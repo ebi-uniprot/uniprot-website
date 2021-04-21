@@ -9,13 +9,18 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { ViewMode } from '../ResultsData';
 
 describe('Results component', () => {
+  beforeEach(() => {
+    window.localStorage.setItem('view-mode', JSON.stringify(ViewMode.CARD));
+  });
+
+  afterEach(() => {
+    window.localStorage.clear();
+  });
+
   // Testing the button, and testing the 2 views, this is probably enough
   it('should toggle card view to table', async () => {
     customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialUserPreferences: {
-        'view-mode': ViewMode.CARD,
-      },
     });
     await screen.findAllByText('Gene:');
     const toggle = await screen.findByTestId('table-card-toggle');
@@ -33,12 +38,13 @@ describe('Results component', () => {
   });
 
   it('should set sorting in table view', async () => {
+    window.localStorage.setItem('view-mode', JSON.stringify(ViewMode.TABLE));
+    window.localStorage.setItem(
+      'table columns for uniprotkb',
+      JSON.stringify([UniProtKBColumn.accession])
+    );
     const { history } = customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialUserPreferences: {
-        'view-mode': ViewMode.TABLE,
-        'table columns for uniprotkb': [UniProtKBColumn.accession],
-      },
     });
     let columnHeader = await screen.findByText('Entry');
     fireEvent.click(columnHeader);

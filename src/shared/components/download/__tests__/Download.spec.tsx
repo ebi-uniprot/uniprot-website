@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import queryString from 'query-string';
 
 import customRender from '../../../__test-helpers__/customRender';
@@ -35,6 +35,10 @@ describe('Download component', () => {
   let onCloseMock;
 
   beforeEach(() => {
+    window.localStorage.setItem(
+      'table columns for uniprotkb',
+      JSON.stringify(initialColumns)
+    );
     onCloseMock = jest.fn();
 
     customRender(
@@ -44,13 +48,12 @@ describe('Download component', () => {
         onClose={onCloseMock}
         namespace={namespace}
       />,
-      {
-        route: '/uniprotkb?query=nod2',
-        initialUserPreferences: {
-          'table columns for uniprotkb': initialColumns,
-        },
-      }
+      { route: '/uniprotkb?query=nod2' }
     );
+  });
+
+  afterEach(() => {
+    window.localStorage.clear();
   });
 
   it('should call onClose when cancel button is clicked', () => {
@@ -100,9 +103,7 @@ describe('Download component', () => {
       fireEvent.change(formatSelect, { target: { value } });
       const customise = screen.queryByText('Customize data');
       if (columnSelect) {
-        await waitFor(() => {
-          expect(customise).toBeInTheDocument();
-        });
+        expect(customise).toBeInTheDocument();
       } else {
         expect(customise).not.toBeInTheDocument();
       }
@@ -143,6 +144,11 @@ describe('Download with passed query and selectedQuery props', () => {
       '(proteome:UP000002494) AND (proteomecomponent:"Chromosome 1" OR proteomecomponent:"Chromosome 2")';
     const numberSelectedEntries = 123;
     const totalNumberResults = 456;
+    window.localStorage.setItem(
+      'table columns for uniprotkb',
+      JSON.stringify(initialColumns)
+    );
+
     customRender(
       <Download
         query={query}
@@ -154,9 +160,6 @@ describe('Download with passed query and selectedQuery props', () => {
       />,
       {
         route: '/proteomes/UP000002494',
-        initialUserPreferences: {
-          'table columns for uniprotkb': initialColumns,
-        },
       }
     );
     let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
@@ -170,5 +173,7 @@ describe('Download with passed query and selectedQuery props', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(queryString.stringify({ query: selectedQuery }))
     );
+
+    window.localStorage.clear();
   });
 });

@@ -22,12 +22,11 @@ describe('CustomiseTable component', () => {
   ];
 
   beforeEach(async () => {
-    rendered = customRender(<CustomiseTable onSave={onSave} />, {
-      route,
-      initialUserPreferences: {
-        'table columns for uniprotkb': selectedColumns,
-      },
-    });
+    window.localStorage.setItem(
+      'table columns for uniprotkb',
+      JSON.stringify(selectedColumns)
+    );
+    rendered = customRender(<CustomiseTable onSave={onSave} />, { route });
     await waitFor(() => screen.getAllByTestId('accordion-search-list-item'));
   });
 
