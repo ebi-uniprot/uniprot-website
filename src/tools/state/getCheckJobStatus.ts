@@ -32,14 +32,19 @@ const getCheckJobStatus = ({
       redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
     });
 
-    if (!response.ok) {
-      throw new Error(`${response.status}: ${response.statusText}`);
-    }
-
     const [status, idMappingTarget] = await getStatusFromResponse(
       job.type,
       response
     );
+
+    if (
+      !response.ok &&
+      status !== Status.FAILURE &&
+      status !== Status.ERRORED
+    ) {
+      throw new Error(`${response.status}: ${response.statusText}`);
+    }
+
     // get a new reference to the job
     let currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
