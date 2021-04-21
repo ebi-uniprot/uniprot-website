@@ -1,5 +1,10 @@
 import { SelectedTaxon } from '../../types/toolsFormData';
 
+export type IDMappingFormValue = {
+  fieldName: string;
+  selected?: string | string[] | number | SelectedTaxon;
+};
+
 export enum IDMappingFields {
   ids = 'IDs',
   fromDb = 'From Database',
@@ -7,11 +12,6 @@ export enum IDMappingFields {
   name = 'Name',
   taxons = 'Taxons',
 }
-
-export type IDMappingFormValue = {
-  fieldName: string;
-  selected?: string | string[] | number | SelectedTaxon;
-};
 
 export type IDMappingFormValues = Record<
   IDMappingFields,

@@ -1,12 +1,11 @@
 import { SetRequired } from 'type-fest';
+
+import { Statistics } from '../../../shared/types/apiModel';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 
-// TODO: Eventually use a shared Statistics type
-type Statistics = {
+type TaxonomyStatistics = Statistics & {
   referenceProteomeCount: number;
   proteomeCount: number;
-  reviewedProteinCount: number;
-  unreviewedProteinCount: number;
 };
 
 type InactiveReason = {
@@ -54,7 +53,7 @@ export type TaxonomyDatum =
       lineage?: string[];
     });
 
-type Rank =
+export type Rank =
   | 'forma'
   | 'varietas'
   | 'subspecies'
@@ -88,19 +87,19 @@ type Rank =
   | 'no rank';
 
 export type TaxonomyAPIModel = SetRequired<
-  TaxonomyDatum & {
-    parentId: number;
-    otherNames?: string[];
-    strains?: Strain[];
-    // Probably, only on "organisms", higher level taxons don't appear to have
-    statistics?: Statistics;
-    hosts?: SetRequired<TaxonomyDatum, 'mnemonic'>[];
-    inactiveReason?: InactiveReason;
-    active: boolean;
-    links?: string[];
-  },
+  TaxonomyDatum,
   'mnemonic' | 'hidden' | 'rank' | 'lineage'
->;
+> & {
+  parent: TaxonomyDatum;
+  otherNames?: string[];
+  strains?: Strain[];
+  // Probably, only on "organisms", higher level taxons don't appear to have
+  statistics?: TaxonomyStatistics;
+  hosts?: SetRequired<TaxonomyDatum, 'mnemonic'>[];
+  inactiveReason?: InactiveReason;
+  active: boolean;
+  links?: string[];
+};
 
 export type TaxonomyUIModel = TaxonomyAPIModel & {
   // any addition/change by the converter

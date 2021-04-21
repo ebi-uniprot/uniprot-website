@@ -37,7 +37,15 @@ import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
 import { XrefUIModel } from '../utils/xrefUtils';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
-import { Reference } from '../../supporting-data/citations/adapters/citationsConverter';
+import {
+  Citation,
+  Reference,
+} from '../../supporting-data/citations/adapters/citationsConverter';
+
+// 🤷🏽
+type UniProtKBReference = Omit<Reference, 'citationId'> & {
+  citation: Citation;
+};
 
 export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
@@ -57,7 +65,7 @@ export type UniProtkbAPIModel = {
   sequence: SequenceData;
   annotationScore: number;
   entryAudit?: EntryAudit;
-  references?: Reference[];
+  references?: UniProtKBReference[];
   lineages?: Lineage[];
   extraAttributes?: {
     countByCommentType?: {
@@ -93,7 +101,7 @@ export type UniProtkbUIModel = {
     isoforms: string[];
     xrefData?: XrefUIModel[]; // Dummy, not used
   };
-  references?: Reference[];
+  references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
 };
 

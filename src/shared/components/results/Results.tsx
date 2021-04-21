@@ -31,7 +31,7 @@ const Results: FC = () => {
   const {
     loading: facetInititialLoading,
     headers: facetHeaders,
-    data: facetData,
+    isStale: facetHasStaleData,
   } = facetApiObject;
   const facetTotal = facetHeaders?.['x-totalrecords'];
 
@@ -46,7 +46,7 @@ const Results: FC = () => {
 
   useEffect(() => {
     // Reset total when loading new results
-    if (resultsDataObject.initialLoading) {
+    if (resultsDataInitialLoading) {
       setTotal(undefined);
     }
     // Set the total to the first one to bring results back
@@ -61,17 +61,20 @@ const Results: FC = () => {
         return total;
       });
     }
-  }, [facetTotal, resultsDataTotal, resultsDataObject]);
+  }, [facetTotal, resultsDataTotal, resultsDataInitialLoading]);
 
   if (
     facetInititialLoading &&
     resultsDataInitialLoading &&
-    !facetData?.facets
+    !facetHasStaleData
   ) {
     return <Loader progress={resultsDataProgress} />;
   }
 
-  if ((!resultsDataInitialLoading && !total) || total === 0) {
+  if (
+    (!resultsDataInitialLoading && !facetInititialLoading && !total) ||
+    total === 0
+  ) {
     return <NoResultsPage />;
   }
 

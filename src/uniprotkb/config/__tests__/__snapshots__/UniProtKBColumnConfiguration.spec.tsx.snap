@@ -1447,38 +1447,28 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
   >
     <li>
       <a
-        href="/citations/12345"
-      >
-        12345
-      </a>
+        href="/citations/undefined"
+      />
     </li>
     <li>
       <a
-        href="/citations/6789"
-      >
-        6789
-      </a>
+        href="/citations/undefined"
+      />
     </li>
     <li>
       <a
-        href="/citations/12348"
-      >
-        12348
-      </a>
+        href="/citations/undefined"
+      />
     </li>
     <li>
       <a
-        href="/citations/12346"
-      >
-        12346
-      </a>
+        href="/citations/undefined"
+      />
     </li>
     <li>
       <a
-        href="/citations/123415"
-      >
-        123415
-      </a>
+        href="/citations/undefined"
+      />
     </li>
     <li>
       <button

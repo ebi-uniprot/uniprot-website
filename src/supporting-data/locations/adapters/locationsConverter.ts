@@ -1,14 +1,11 @@
+import { Statistics } from '../../../shared/types/apiModel';
+
 type GO = {
   name: string;
   // Swagger says "id"
   // id: string;
   // But endpoint gives
   goId: `GO:${string}`;
-};
-
-type Statistics = {
-  reviewedProteinCount: number;
-  unreviewedProteinCount: number;
 };
 
 type Keyword = {
@@ -20,10 +17,10 @@ export type LocationsLite = {
   id: `SL-${string}`;
   name: string;
   definition: string;
+  // NOTE: should that be a keyword returned by backend?
   content: string;
   keyword?: Keyword;
-  // TODO: change to enum of possible values, example: 'LOCATION'
-  // TODO: review, maybe it's always 'LOCATION'...
+  // NOTE: should that be a keyword returned by backend?
   category: string;
   geneOntologies: GO[];
   note?: string;
