@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsView component should render cards 1`] = `
+exports[`ResultsData component should render the card view with the correct number of cards 1`] = `
 <DocumentFragment>
   <div
-    class="results-view"
+    class="results-data"
   >
     <div>
       <section>
@@ -3281,15 +3281,23 @@ exports[`ResultsView component should render cards 1`] = `
     </div>
     <div
       class="data-loader__loading"
-    />
+    >
+      <button
+        class="button secondary"
+        data-testid="click-to-load-more"
+        type="button"
+      >
+        Load more data
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`ResultsView component should render table 1`] = `
+exports[`ResultsData component should render the table view 1`] = `
 <DocumentFragment>
   <div
-    class="results-view"
+    class="results-data"
   >
     <table
       class="data-table"
@@ -3302,7 +3310,7 @@ exports[`ResultsView component should render table 1`] = `
              
           </th>
           <th
-            class="data-table__header-cell--sortable"
+            class=""
           >
             Entry
           </th>
@@ -3813,7 +3821,15 @@ exports[`ResultsView component should render table 1`] = `
     </table>
     <div
       class="data-loader__loading"
-    />
+    >
+      <button
+        class="button secondary"
+        data-testid="click-to-load-more"
+        type="button"
+      >
+        Load more data
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

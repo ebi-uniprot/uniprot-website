@@ -1,6 +1,6 @@
 @import '../../../styles/settings';
 
-.results-view {
+.results-data {
   width: 100%;
 
   .data-table th {
@@ -9,5 +9,10 @@
 
   .data-table td > .info-list {
     margin: 0;
+  }
+
+  .break-anywhere {
+    // WARNING: doesn't work in Safari
+    overflow-wrap: anywhere;
   }
 }

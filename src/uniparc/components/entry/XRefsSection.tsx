@@ -33,7 +33,7 @@ import { UniParcColumn } from '../../config/UniParcColumnConfiguration';
 import { UseDataAPIWithStaleState } from '../../../shared/hooks/useDataApiWithStale';
 
 import helper from '../../../shared/styles/helper.module.scss';
-import '../../../shared/components/results/styles/results-view.scss';
+import '../../../shared/components/results/styles/results-data.scss';
 import './styles/XRefsSection.scss';
 
 const getColumns = (

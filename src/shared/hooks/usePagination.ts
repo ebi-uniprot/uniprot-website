@@ -6,18 +6,28 @@ import { APIModel } from '../types/apiModel';
 import useDataApi from './useDataApi';
 import getNextURLFromHeaders from '../utils/getNextURLFromHeaders';
 
-const usePagination = (initialApiUrl?: string) => {
+export type UsePagination = {
+  allResults: APIModel[];
+  initialLoading: boolean;
+  progress?: number;
+  hasMoreData: boolean;
+  handleLoadMoreRows: () => void;
+  total?: number;
+};
+
+const usePagination = (initialApiUrl?: string): UsePagination => {
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
-    total: number;
+    total?: number;
     nextUrl?: string;
-  }>(() => ({ total: 0, nextUrl: undefined }));
+  }>(() => ({ total: undefined, nextUrl: undefined }));
+
   usePrefetch(metaData.nextUrl);
   const [allResults, setAllResults] = useState<APIModel[]>([]);
 
   useEffect(() => {
     setAllResults([]);
-    setMetaData({ total: 0, nextUrl: undefined });
+    setMetaData({ total: undefined, nextUrl: undefined });
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
@@ -30,9 +40,10 @@ const usePagination = (initialApiUrl?: string) => {
       return;
     }
     const { results } = data;
+    const total: string | undefined = headers?.['x-totalrecords'];
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: +(headers?.['x-totalrecords'] || 0),
+      total: total ? parseInt(total, 10) : 0,
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
@@ -41,7 +52,7 @@ const usePagination = (initialApiUrl?: string) => {
 
   const handleLoadMoreRows = () => nextUrl && setUrl(nextUrl);
 
-  const hasMoreData = total > allResults.length;
+  const hasMoreData = total ? total > allResults.length : false;
 
   const initialLoading = loading && url === initialApiUrl;
 
@@ -51,6 +62,7 @@ const usePagination = (initialApiUrl?: string) => {
     progress,
     hasMoreData,
     handleLoadMoreRows,
+    total,
   };
 };
 

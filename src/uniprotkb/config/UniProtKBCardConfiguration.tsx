@@ -11,6 +11,7 @@ const fieldsForCards: UniProtKBColumn[] = [
   UniProtKBColumn.accession,
   UniProtKBColumn.organismName,
   UniProtKBColumn.proteinName,
+  UniProtKBColumn.geneNames,
   UniProtKBColumn.reviewed,
   UniProtKBColumn.keyword,
   UniProtKBColumn.id,

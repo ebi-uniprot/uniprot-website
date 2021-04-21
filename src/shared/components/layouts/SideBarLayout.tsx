@@ -8,7 +8,6 @@ import './styles/side-bar-layout.scss';
 type SideBarLayoutProps = {
   title?: ReactNode;
   sidebar: ReactNode;
-  actionButtons?: ReactNode;
   invert?: boolean;
   className?: string;
 };
@@ -16,7 +15,6 @@ type SideBarLayoutProps = {
 const SideBarLayout: FC<SideBarLayoutProps> = ({
   title,
   sidebar,
-  actionButtons,
   children,
   className,
 }) => (
@@ -28,13 +26,6 @@ const SideBarLayout: FC<SideBarLayoutProps> = ({
       <ErrorBoundary>
         <section className="sidebar-layout__title">{title}</section>
       </ErrorBoundary>
-      {actionButtons && (
-        <ErrorBoundary>
-          <section className="sidebar-layout__action-buttons">
-            {actionButtons}
-          </section>
-        </ErrorBoundary>
-      )}
       <ErrorBoundary>{children}</ErrorBoundary>
     </section>
   </div>

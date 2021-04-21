@@ -1,21 +1,35 @@
 import { FC } from 'react';
-import { Facets, Facet } from 'franklin-sites';
+import { Facets, Facet, Loader } from 'franklin-sites';
+
+import useNS from '../../hooks/useNS';
 
 import TaxonomyFacet from './TaxonomyFacet';
 
-import useNS from '../../hooks/useNS';
 import { mainNamespaces } from '../../types/namespaces';
 
-import { FacetObject } from '../../../uniprotkb/types/responseTypes';
+import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
+import Response from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
-import './styles/results-view.scss';
+import './styles/results-data.scss';
 
-const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
-  facets,
-  isStale,
-}) => {
-  const ns = useNS();
+const ResultsFacets: FC<{
+  dataApiObject: UseDataAPIWithStaleState<Response['data']>;
+}> = ({ dataApiObject }) => {
+  const namespace = useNS();
+  const { data, isStale, loading, progress } = dataApiObject;
+
+  // TODO: show loading when a brand new search query (and not just a facet modification) is being fetched
+
+  if (loading && !isStale) {
+    return <Loader progress={progress} />;
+  }
+
+  if (!data?.facets) {
+    return null;
+  }
+
+  const { facets } = data;
 
   const splitIndex = facets.findIndex(
     (facet) => facet.name === 'model_organism' || facet.name === 'superkingdom'
@@ -28,7 +42,7 @@ const ResultsFacets: FC<{ facets: FacetObject[]; isStale?: boolean }> = ({
       {before.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}
-      {ns && mainNamespaces.has(ns) && <TaxonomyFacet />}
+      {namespace && mainNamespaces.has(namespace) && <TaxonomyFacet />}
       {after.map((facet) => (
         <Facet key={facet.name} data={facet} />
       ))}

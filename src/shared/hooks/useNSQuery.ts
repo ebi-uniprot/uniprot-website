@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import useUserPreferences from './useUserPreferences';
@@ -9,15 +9,17 @@ import { getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { Column, nsToDefaultColumns } from '../config/columns';
 
-import { ViewMode } from '../components/results/ResultsContainer';
+import { ViewMode } from '../components/results/ResultsData';
 import { Namespace } from '../types/namespaces';
 
 const useNSQuery = ({
   size,
-  withFacets = true,
+  withFacets = false,
+  withColumns = true,
 }: {
   size?: number;
   withFacets?: boolean;
+  withColumns?: boolean;
 } = {}) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const location = useLocation();
@@ -26,8 +28,6 @@ const useNSQuery = ({
     `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
   );
-
-  const [url, setUrl] = useState<string>();
 
   let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;
   if (viewMode === ViewMode.CARD) {
@@ -46,29 +46,30 @@ const useNSQuery = ({
     direct,
   } = getParamsFromURL(queryParamFromUrl);
 
-  useEffect(() => {
-    setUrl(
+  const url = useMemo(
+    () =>
       getAPIQueryUrl({
         namespace,
         query,
-        columns: queryColumns,
+        columns: withColumns ? queryColumns : undefined,
         selectedFacets,
         facets: withFacets ? undefined : null,
         sortColumn,
         sortDirection,
         size,
-      })
-    );
-  }, [
-    namespace,
-    query,
-    queryColumns,
-    selectedFacets,
-    withFacets,
-    sortColumn,
-    sortDirection,
-    size,
-  ]);
+      }),
+    [
+      namespace,
+      query,
+      queryColumns,
+      selectedFacets,
+      withFacets,
+      withColumns,
+      sortColumn,
+      sortDirection,
+      size,
+    ]
+  );
 
   return { url, direct };
 };
