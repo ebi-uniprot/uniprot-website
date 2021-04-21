@@ -27,5 +27,4 @@ const ResultsDataHeader: FC<{
   );
 };
 
-// TODO: this memo is currently useless as total changes when changing viewmode
 export default memo(ResultsDataHeader);
