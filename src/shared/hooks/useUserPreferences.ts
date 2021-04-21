@@ -22,7 +22,7 @@ export type UserPreferenceKey =
 
 // Custom hook to be used whenever a persistent user preference is needed
 function useUserPreferences<T extends JsonValue>(
-  key: UserPreferenceKey | undefined,
+  key: UserPreferenceKey,
   defaultValue: T
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
   const [contextState, setContextState] = useContext(UserPreferencesContext);
@@ -31,19 +31,17 @@ function useUserPreferences<T extends JsonValue>(
   // localStorage up to date with the user preferences
   const setStateAndPersist = useCallback<Dispatch<SetStateAction<T>>>(
     (value) => {
-      if (key) {
-        setContextState((state) => {
-          const valueToStore =
-            typeof value === 'function' ? value(state[key] as T) : value;
-          // No need to cancel or anything on unmount or change of key.
-          schedule(1000).then(() => {
-            // "scheduled" in order to not block any instant UI update
-            window.localStorage.setItem(key, JSON.stringify(valueToStore));
-          });
-          // Set slice of global state with this specific user setting
-          return { ...state, [key]: valueToStore };
+      setContextState((state) => {
+        const valueToStore =
+          typeof value === 'function' ? value(state[key] as T) : value;
+        // No need to cancel or anything on unmount or change of key.
+        schedule(1000).then(() => {
+          // "scheduled" in order to not block any instant UI update
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
         });
-      }
+        // Set slice of global state with this specific user setting
+        return { ...state, [key]: valueToStore };
+      });
     },
     [key, setContextState]
   );
@@ -76,11 +74,6 @@ function useUserPreferences<T extends JsonValue>(
     };
   }, [key, setContextState]);
 
-  // if we don't have a key, there's no point to keep going
-  if (!key) {
-    return [defaultValue, () => null];
-  }
-
   if (key in contextState) {
     // already used in this session, early exit with value and setter
     return [contextState[key] as T, setStateAndPersist];
@@ -99,7 +92,6 @@ function useUserPreferences<T extends JsonValue>(
     });
     return [parsed, setStateAndPersist];
   }
-
   // Otherwise, it's the first time it's used, no persisted state yet
   // Return default value, set it in the global state, and persist
   frame().then(() => {
