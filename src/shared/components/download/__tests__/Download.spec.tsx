@@ -104,9 +104,7 @@ describe('Download component', () => {
           expect(customise).toBeInTheDocument();
         });
       } else {
-        await waitFor(() => {
-          expect(customise).not.toBeInTheDocument();
-        });
+        expect(customise).not.toBeInTheDocument();
       }
     }
   );

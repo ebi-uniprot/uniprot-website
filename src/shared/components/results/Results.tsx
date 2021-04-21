@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { Loader } from 'franklin-sites';
 
 import useDataApiWithStale from '../../hooks/useDataApiWithStale';
@@ -15,7 +15,6 @@ import ResultsDataHeader from './ResultsDataHeader';
 import Response from '../../../uniprotkb/types/responseTypes';
 
 const Results: FC = () => {
-  const [total, setTotal] = useState<number>();
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   // Query for facets
@@ -44,24 +43,13 @@ const Results: FC = () => {
     progress: resultsDataProgress,
   } = resultsDataObject;
 
-  useEffect(() => {
-    // Reset total when loading new results
-    if (resultsDataInitialLoading) {
-      setTotal(undefined);
-    }
-    // Set the total to the first one to bring results back
-    if (facetTotal || resultsDataTotal) {
-      setTotal((total) => {
-        if (facetTotal && total !== +facetTotal) {
-          return +facetTotal;
-        }
-        if (resultsDataTotal && total !== +resultsDataTotal) {
-          return +resultsDataTotal;
-        }
-        return total;
-      });
-    }
-  }, [facetTotal, resultsDataTotal, resultsDataInitialLoading]);
+  let total: undefined | number;
+  if (facetTotal !== undefined) {
+    total = +facetTotal;
+  }
+  if (resultsDataTotal !== undefined) {
+    total = +resultsDataTotal;
+  }
 
   if (
     facetInititialLoading &&
@@ -79,9 +67,7 @@ const Results: FC = () => {
   }
 
   return (
-    <SideBarLayout
-      sidebar={<ResultsFacets dataApiObject={facetApiObject} total={total} />}
-    >
+    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
       <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
       <ResultsData
         resultsDataObject={resultsDataObject}

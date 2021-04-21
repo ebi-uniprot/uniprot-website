@@ -9,9 +9,8 @@ import { getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { Column, nsToDefaultColumns } from '../config/columns';
 
-// import { ViewMode } from '../components/results/ResultsData';
-import { Namespace } from '../types/namespaces';
 import { ViewMode } from '../components/results/ResultsData';
+import { Namespace } from '../types/namespaces';
 
 const useNSQuery = ({
   size,

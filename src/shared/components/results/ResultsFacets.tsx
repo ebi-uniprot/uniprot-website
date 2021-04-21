@@ -15,8 +15,7 @@ import './styles/results-data.scss';
 
 const ResultsFacets: FC<{
   dataApiObject: UseDataAPIWithStaleState<Response['data']>;
-  total?: number;
-}> = ({ dataApiObject, total }) => {
+}> = ({ dataApiObject }) => {
   const namespace = useNS();
   const { data, isStale, loading, progress } = dataApiObject;
 
@@ -26,7 +25,7 @@ const ResultsFacets: FC<{
     return <Loader progress={progress} />;
   }
 
-  if (total === 0 || !data?.facets) {
+  if (!data?.facets) {
     return null;
   }
 
