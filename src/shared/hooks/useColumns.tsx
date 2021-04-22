@@ -177,6 +177,10 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
   );
 
   useEffect(() => {
+    // // If ID Mapping add corresponding columns
+    // usersColumns.push(IDMappingColumn.from);
+    // // also add to if not matching namespace
+    // usersColumns.push(IDMappingColumn.to);
     setColumns(
       getColumnsToDisplay(
         namespace,

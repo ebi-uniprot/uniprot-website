@@ -1,3 +1,4 @@
+import { Namespace } from '../../shared/types/namespaces';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type CommonResultFormats =
@@ -41,7 +42,13 @@ export type ResultFormat = {
 type Return<T extends JobTypes> = Readonly<{
   runUrl: string;
   statusUrl: (jobId: string) => string;
-  resultUrl: (jobId: string, extra: { format?: ResultFormat[T] }) => string;
+  resultUrl: (
+    jobId: string,
+    extra: {
+      format?: ResultFormat[T];
+      namespace?: Namespace;
+    }
+  ) => string;
 }>;
 
 function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
@@ -59,7 +66,8 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-        resultUrl: (jobId) => `${baseURL}/results/${jobId}`,
+        resultUrl: (jobId, { namespace }) =>
+          `${baseURL}${namespace ? `/${namespace}` : ''}/results/${jobId}`,
       });
       break;
     case JobTypes.PEPTIDE_SEARCH:
