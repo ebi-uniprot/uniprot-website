@@ -9,13 +9,8 @@ import customRender from '../../../__test-helpers__/customRender';
 import results from '../../../../uniprotkb/components/__mocks__/results.json';
 
 describe('ResultsData component', () => {
-  const resultsData = (viewMode: ViewMode) => {
-    window.localStorage.setItem('view-mode', JSON.stringify(viewMode));
-    window.localStorage.setItem(
-      'table columns for uniprotkb',
-      JSON.stringify([UniProtKBColumn.accession])
-    );
-    return customRender(
+  const resultsData = (viewMode: ViewMode) =>
+    customRender(
       <ResultsData
         handleEntrySelection={jest.fn()}
         selectedEntries={[]}
@@ -30,13 +25,12 @@ describe('ResultsData component', () => {
       />,
       {
         route: '/uniprotkb?query=blah',
+        initialUserPreferences: {
+          'view-mode': viewMode,
+          'table columns for uniprotkb': [UniProtKBColumn.accession],
+        },
       }
     );
-  };
-
-  afterEach(() => {
-    localStorage.clear();
-  });
 
   it('should render the table view', async () => {
     const { asFragment } = resultsData(ViewMode.TABLE);

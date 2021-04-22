@@ -2,13 +2,13 @@
  * This tries to follow what is detailed here:
  * https://testing-library.com/docs/react-testing-library/setup#custom-render
  */
-import { FC, ReactElement } from 'react';
+import { ReactElement, Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 import { Provider as ReduxProvider } from 'react-redux';
 import { createStore } from 'redux';
 import { render, RenderOptions } from '@testing-library/react';
-import { SetRequired } from 'type-fest';
+import { SetRequired, JsonValue } from 'type-fest';
 
 import rootReducer from '../../app/state/rootReducer';
 
@@ -16,20 +16,44 @@ type ExtraRenderOptions = {
   // For react-router
   history?: MemoryHistory<LocationState>;
   path?: string;
+  /**
+   * For custom user preferences context
+   */
+  initialUserPreferences?: Record<string, JsonValue>;
   // For redux
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   store?: any;
 };
 
-const Wrapper: FC<
-  RenderOptions & SetRequired<ExtraRenderOptions, 'history' | 'store'>
-> = ({ children, path, history, store }) => (
-  <ReduxProvider store={store}>
-    <Router history={history}>
-      {path ? <Route path={path} render={() => children} /> : children}
-    </Router>
-  </ReduxProvider>
-);
+type WrapperProps = RenderOptions &
+  SetRequired<
+    ExtraRenderOptions,
+    'history' | 'initialUserPreferences' | 'store'
+  >;
+
+class Wrapper extends Component<WrapperProps> {
+  constructor(props: WrapperProps) {
+    super(props);
+    for (const [key, value] of Object.entries(props.initialUserPreferences)) {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
+  }
+
+  componentWillUnmount() {
+    window.localStorage.clear();
+  }
+
+  render() {
+    const { children, path, history, store } = this.props;
+    return (
+      <ReduxProvider store={store}>
+        <Router history={history}>
+          {path ? <Route path={path} render={() => children} /> : children}
+        </Router>
+      </ReduxProvider>
+    );
+  }
+}
 
 const customRender = (
   ui: ReactElement,
@@ -37,6 +61,7 @@ const customRender = (
     route = '',
     path,
     history = createMemoryHistory({ initialEntries: [route] }),
+    initialUserPreferences = {},
     initialState,
     store = createStore(rootReducer, initialState),
     ...options
@@ -49,7 +74,13 @@ const customRender = (
 ) => ({
   ...render(ui, {
     wrapper: (props) => (
-      <Wrapper path={path} history={history} store={store} {...props} />
+      <Wrapper
+        path={path}
+        history={history}
+        initialUserPreferences={initialUserPreferences}
+        store={store}
+        {...props}
+      />
     ),
     ...options,
   }),

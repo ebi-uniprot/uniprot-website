@@ -35,10 +35,6 @@ describe('Download component', () => {
   let onCloseMock;
 
   beforeEach(() => {
-    window.localStorage.setItem(
-      'table columns for uniprotkb',
-      JSON.stringify(initialColumns)
-    );
     onCloseMock = jest.fn();
 
     customRender(
@@ -48,12 +44,13 @@ describe('Download component', () => {
         onClose={onCloseMock}
         namespace={namespace}
       />,
-      { route: '/uniprotkb?query=nod2' }
+      {
+        route: '/uniprotkb?query=nod2',
+        initialUserPreferences: {
+          'table columns for uniprotkb': initialColumns,
+        },
+      }
     );
-  });
-
-  afterEach(() => {
-    window.localStorage.clear();
   });
 
   it('should call onClose when cancel button is clicked', () => {
@@ -144,10 +141,6 @@ describe('Download with passed query and selectedQuery props', () => {
       '(proteome:UP000002494) AND (proteomecomponent:"Chromosome 1" OR proteomecomponent:"Chromosome 2")';
     const numberSelectedEntries = 123;
     const totalNumberResults = 456;
-    window.localStorage.setItem(
-      'table columns for uniprotkb',
-      JSON.stringify(initialColumns)
-    );
 
     customRender(
       <Download
@@ -160,6 +153,9 @@ describe('Download with passed query and selectedQuery props', () => {
       />,
       {
         route: '/proteomes/UP000002494',
+        initialUserPreferences: {
+          'table columns for uniprotkb': initialColumns,
+        },
       }
     );
     let downloadLink = screen.getAllByText('Download')[1] as HTMLAnchorElement;
