@@ -169,7 +169,5 @@ describe('Download with passed query and selectedQuery props', () => {
     expect(downloadLink.href).toEqual(
       expect.stringContaining(queryString.stringify({ query: selectedQuery }))
     );
-
-    window.localStorage.clear();
   });
 });
