@@ -2,7 +2,10 @@ import { invert } from 'lodash-es';
 import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { Namespace } from '../../shared/types/namespaces';
+import {
+  Namespace,
+  supportingDataNamespaces,
+} from '../../shared/types/namespaces';
 
 export enum Location {
   Home = 'Home',
@@ -92,10 +95,15 @@ export const SearchResultsLocations: Record<Namespace, string> = {
   [Namespace.locations]: LocationToPath[Location.LocationsResults],
 };
 
-// "/:namespace(uniprotkb|uniparc|........)/""
+// "/:namespace(uniprotkb|uniparc|........)/"
 export const allSearchResultLocations = `/:namespace(${Object.values(
   Namespace
 ).join('|')})/`;
+
+// same as above, but only with supporting data namespaces, and with accession
+export const allSupportingDataEntryLocations = `/:namespace(${Array.from(
+  supportingDataNamespaces
+).join('|')})/:accession`;
 
 // All "entry" locations need to have a "accession" param in the pattern
 export const EntryLocations: Record<Namespace, string> = {

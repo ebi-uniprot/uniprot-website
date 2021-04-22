@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownload from '../../../shared/components/EntryDownload';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -16,7 +17,7 @@ import TaxonomyColumnConfiguration, {
 } from '../../config/TaxonomyColumnConfiguration';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../styles/entry-page.module.scss';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   TaxonomyColumn.mnemonic,
@@ -71,6 +72,9 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
         <small>({data.rank})</small>
       </h2>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+        <div className="button-group">
+          <EntryDownload />
+        </div>
         {infoData && <InfoList infoData={infoData} isCompact columns />}
       </Card>
     </SingleColumnLayout>
