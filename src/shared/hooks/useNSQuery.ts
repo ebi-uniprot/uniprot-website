@@ -5,7 +5,7 @@ import useUserPreferences from './useUserPreferences';
 import useNS from './useNS';
 
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
-import { getAPIQueryUrl } from '../config/apiUrls';
+import { getAccessionsURL, getAPIQueryUrl } from '../config/apiUrls';
 import fieldsForUniProtKBCards from '../../uniprotkb/config/UniProtKBCardConfiguration';
 import { Column, nsToDefaultColumns } from '../config/columns';
 
@@ -16,10 +16,12 @@ const useNSQuery = ({
   size,
   withFacets = false,
   withColumns = true,
+  accessions = [],
 }: {
   size?: number;
   withFacets?: boolean;
   withColumns?: boolean;
+  accessions?: string[];
 } = {}) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const location = useLocation();
@@ -46,30 +48,35 @@ const useNSQuery = ({
     direct,
   } = getParamsFromURL(queryParamFromUrl);
 
-  const url = useMemo(
-    () =>
-      getAPIQueryUrl({
-        namespace,
-        query,
-        columns: withColumns ? queryColumns : undefined,
-        selectedFacets,
-        facets: withFacets ? undefined : null,
-        sortColumn,
-        sortDirection,
-        size,
-      }),
-    [
+  const url = useMemo(() => {
+    if (!query && !accessions.length) {
+      return undefined;
+    }
+    const options = {
       namespace,
       query,
-      queryColumns,
+      columns: withColumns ? queryColumns : undefined,
       selectedFacets,
-      withFacets,
-      withColumns,
+      facets: withFacets ? undefined : undefined,
       sortColumn,
       sortDirection,
       size,
-    ]
-  );
+    };
+    return accessions.length
+      ? getAccessionsURL(accessions, options)
+      : getAPIQueryUrl(options);
+  }, [
+    namespace,
+    query,
+    withColumns,
+    queryColumns,
+    selectedFacets,
+    withFacets,
+    sortColumn,
+    sortDirection,
+    size,
+    accessions,
+  ]);
 
   return { url, direct };
 };

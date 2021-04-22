@@ -255,15 +255,6 @@ const localBlastFacets = Object.values(BlastFacet) as string[];
 const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
   !localBlastFacets.includes(name);
 
-type GetOptions = {
-  columns?: string[];
-  selectedFacets?: SelectedFacet[];
-  sortColumn?: SortableColumn;
-  sortDirection?: SortDirection;
-  facets?: string[];
-  size?: number;
-};
-
 export const getFeaturesURL = (accessions?: string[]) => {
   if (!(accessions && accessions.length)) {
     return null;
@@ -272,6 +263,15 @@ export const getFeaturesURL = (accessions?: string[]) => {
     // sort to improve possible cache hit
     accession: Array.from(accessions).sort().join(','),
   })}`;
+};
+
+type GetOptions = {
+  columns?: string[];
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  facets?: Facets[];
+  size?: number;
 };
 
 export const getAccessionsURL = (
@@ -286,7 +286,7 @@ export const getAccessionsURL = (
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
-    return null;
+    return undefined;
   }
   return `${apiUrls.accessions}?${queryString.stringify({
     size,
