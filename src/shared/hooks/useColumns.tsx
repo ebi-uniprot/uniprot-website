@@ -44,10 +44,7 @@ import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/D
 import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
 import { IDMappingColumn } from '../../tools/id-mapping/types/columns';
-import {
-  MappingFlat,
-  MappingTo,
-} from '../../tools/id-mapping/types/idMappingSearchResults';
+import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export type ColumnDescriptor = {
   name: string;
@@ -134,14 +131,14 @@ const getColumnsToDisplay = (
       return {
         name: columnName,
         label: 'from',
-        render: (row: MappingFlat) => row.from,
+        render: (row: APIModel) => (row as MappingAPIModel).from,
       };
     }
     if (columnName === IDMappingColumn.to) {
       return {
         name: columnName,
         label: 'to',
-        render: (row: MappingFlat) => (row as MappingTo).to,
+        render: (row: APIModel) => (row as MappingAPIModel).to,
       };
     }
     return {
