@@ -303,7 +303,8 @@ const App = () => {
               />
               {/* Catch-all handler -> Redirect or not found */}
               <Route
-                component={() => (
+                path="*"
+                render={() => (
                   <SingleColumnLayout>
                     <ResourceNotFoundPage />
                   </SingleColumnLayout>
