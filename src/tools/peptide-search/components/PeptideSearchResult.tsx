@@ -40,7 +40,7 @@ const PeptideSearchResult: FC = () => {
   } = useDataApi<PeptideSearchResults>(
     urls.resultUrl(match?.params.id || '', {})
   );
-  const accessions = jobData?.split(',');
+  const accessions = jobData?.split(',').filter(Boolean);
 
   // Query for facets
   const { url: initialApiFacetUrl } = useNSQuery({
@@ -52,7 +52,6 @@ const PeptideSearchResult: FC = () => {
   const facetApiObject = useDataApiWithStale<Response['data']>(
     initialApiFacetUrl
   );
-
   const {
     loading: facetInititialLoading,
     headers: facetHeaders,
