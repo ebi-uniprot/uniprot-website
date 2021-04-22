@@ -32,7 +32,7 @@ const IDMappingResult = () => {
   // Query for results data from the idmapping endpoint
   // NOTE: needs to be moved to useQueryNS to support filtering
   const initialApiUrl = urls.resultUrl(match?.params.id || '', {});
-  const resultsDataObject = usePagination<MappingFlat>(
+  const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
     initialApiUrl,
     idMappingConverter
   );

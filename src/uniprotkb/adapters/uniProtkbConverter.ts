@@ -76,6 +76,7 @@ export type UniProtkbAPIModel = {
     };
     uniParcId?: string;
   };
+  from?: string; // ID Mapping results
 };
 
 export type UniProtkbUIModel = {

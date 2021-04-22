@@ -1,12 +1,11 @@
 /* Results as given by the server */
-import { APIModel } from '../../../shared/types/apiModel';
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
 export type MappingAPIModel = {
   from: string;
-  to: string | UniProtkbAPIModel | UniRefAPIModel | UniParcAPIModel;
+  to: string | UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
 };
 
 export type IDMappingSearchResults = {
@@ -22,4 +21,10 @@ export type MappingFrom = {
 };
 
 // Should this be a subset of APIMode, and if so how do we handle it in usePagination?
-export type MappingFlat = (APIModel | MappingTo) & MappingFrom;
+export type MappingFlat = (
+  | UniProtkbAPIModel
+  | UniRefLiteAPIModel
+  | UniParcAPIModel
+  | MappingTo
+) &
+  MappingFrom;

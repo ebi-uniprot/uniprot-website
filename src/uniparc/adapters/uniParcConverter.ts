@@ -58,6 +58,7 @@ export type UniParcAPIModel = {
   uniParcCrossReferences?: UniParcXRef[];
   sequenceFeatures?: SequenceFeature[];
   sequence: Sequence;
+  from?: string; // ID Mapping results
 };
 
 export type UniParcUIModel = UniParcAPIModel & {

@@ -15,9 +15,9 @@ export type UsePagination = {
   total?: number;
 };
 
-const usePagination = <R extends APIModel>(
+const usePagination = <T extends APIModel, R extends APIModel>(
   initialApiUrl?: string,
-  converter?: (data: APIModel[]) => R[]
+  converter?: (data: T[]) => R[]
 ): UsePagination => {
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
@@ -43,9 +43,7 @@ const usePagination = <R extends APIModel>(
       return;
     }
     const { results } = data;
-    const transformedResults = converter
-      ? converter(results as R[])
-      : (results as APIModel[]);
+    const transformedResults = converter ? converter(results as T[]) : results;
     const total: string | undefined = headers?.['x-totalrecords'];
     setAllResults((allRes) => [...allRes, ...transformedResults]);
     setMetaData(() => ({
