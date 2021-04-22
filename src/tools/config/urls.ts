@@ -68,7 +68,6 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
             idMappingTarget ? `/${idMappingTarget}` : ''
           }/results/${jobId}`,
       });
-      break;
     case JobTypes.PEPTIDE_SEARCH:
       baseURL =
         'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';

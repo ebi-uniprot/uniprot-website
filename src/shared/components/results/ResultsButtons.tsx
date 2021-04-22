@@ -39,9 +39,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   selectedEntries,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const namespace = useNS();
-
+  const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
     'view-mode',
     ViewMode.CARD
