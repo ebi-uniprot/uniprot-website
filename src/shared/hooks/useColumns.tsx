@@ -130,14 +130,14 @@ const getColumnsToDisplay = (
     if (columnName === IDMappingColumn.from) {
       return {
         name: columnName,
-        label: 'from',
+        label: 'From',
         render: (row: APIModel) => (row as MappingAPIModel).from,
       };
     }
     if (columnName === IDMappingColumn.to) {
       return {
         name: columnName,
-        label: 'to',
+        label: 'To',
         render: (row: APIModel) => (row as MappingAPIModel).to,
       };
     }
@@ -150,7 +150,9 @@ const getColumnsToDisplay = (
     };
   }) || [];
 
-const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
+const useColumns = (
+  isIDMapping = false
+): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
   const namespace = useNS() || Namespace.uniprotkb;
   const location = useLocation();
@@ -177,14 +179,10 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
   );
 
   useEffect(() => {
-    // // If ID Mapping add corresponding columns
-    // usersColumns.push(IDMappingColumn.from);
-    // // also add to if not matching namespace
-    // usersColumns.push(IDMappingColumn.to);
     setColumns(
       getColumnsToDisplay(
         namespace,
-        usersColumns,
+        isIDMapping ? [IDMappingColumn.from, ...usersColumns] : usersColumns,
         sortableColumnToSortColumn,
         sortColumn,
         sortDirection
@@ -196,6 +194,7 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
     sortColumn,
     sortDirection,
     sortableColumnToSortColumn,
+    isIDMapping,
   ]);
 
   const updateColumnSort = (columnName: string) => {

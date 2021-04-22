@@ -32,11 +32,18 @@ const ResultsData: FC<{
   direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-}> = ({ resultsDataObject, direct, selectedEntries, handleEntrySelection }) => {
+  isIDMapping?: boolean;
+}> = ({
+  resultsDataObject,
+  direct,
+  selectedEntries,
+  handleEntrySelection,
+  isIDMapping = false,
+}) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
-  const [columns, updateColumnSort] = useColumns();
+  const [columns, updateColumnSort] = useColumns(isIDMapping);
   const {
     allResults,
     initialLoading,

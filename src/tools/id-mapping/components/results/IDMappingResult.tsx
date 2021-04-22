@@ -28,8 +28,6 @@ const IDMappingResult = () => {
 
   const namespace = useNS();
 
-  // console.log(match?.params.targetNS);
-
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
   // Query for results data from the idmapping endpoint
@@ -59,6 +57,7 @@ const IDMappingResult = () => {
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
+        isIDMapping
       />
     </SideBarLayout>
   );
