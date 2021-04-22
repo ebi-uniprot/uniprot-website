@@ -6,8 +6,6 @@ import App from './app/components/App';
 
 import store from './app/state/store';
 
-import { UserPreferencesProvider } from './shared/contexts/UserPreferences';
-
 import { addMessage } from './messages/state/messagesActions';
 
 import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
@@ -17,9 +15,7 @@ import { SWConfig } from './service-worker/client';
 
 ReactDOM.render(
   <ReduxProvider store={store}>
-    <UserPreferencesProvider>
-      <App />
-    </UserPreferencesProvider>
+    <App />
   </ReduxProvider>,
   document.getElementById('root')
 );

@@ -6,10 +6,6 @@ import customRender from '../../../__test-helpers__/customRender';
 import GDPR from '../GDPR';
 
 describe('GDPR', () => {
-  afterEach(() => {
-    window.localStorage.clear();
-  });
-
   test('should render', () => {
     const { asFragment } = customRender(<GDPR />);
     expect(asFragment()).toMatchSnapshot();

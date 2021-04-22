@@ -31,10 +31,6 @@ describe('CustomiseTable component', () => {
     await waitFor(() => screen.getAllByTestId('accordion-search-list-item'));
   });
 
-  afterEach(() => {
-    window.localStorage.clear();
-  });
-
   test('should render', () => {
     const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
