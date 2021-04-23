@@ -28,7 +28,6 @@ import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import {
-  Namespace,
   NamespaceLabels,
   SearchableNamespace,
 } from '../../shared/types/namespaces';

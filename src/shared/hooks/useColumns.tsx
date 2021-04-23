@@ -43,7 +43,10 @@ import CitationsColumnConfiguration from '../../supporting-data/citations/config
 import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
-import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import {
+  IDMappingColumn,
+  IdMappingColumnConfiguration,
+} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export type ColumnDescriptor = {
@@ -101,6 +104,7 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.diseases]: DiseasesColumnConfiguration,
   [Namespace.database]: DatabaseColumnConfiguration,
   [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.idmapping]: IdMappingColumnConfiguration,
 };
 
 const getColumnsToDisplay = (
@@ -111,9 +115,7 @@ const getColumnsToDisplay = (
   sortDirection: SortDirection
 ): ColumnDescriptor[] =>
   columns?.map((columnName) => {
-    const columnConfig =
-      namespace !== 'id-mapping' &&
-      ColumnConfigurations[namespace]?.get(columnName);
+    const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
     if (columnConfig) {
       const columnDescriptor = {
         label: columnConfig.label,
@@ -140,16 +142,14 @@ const getColumnsToDisplay = (
   }) || [];
 
 const useColumns = (
-  isIDMapping = false
+  isIDMapping = false // TODO: we should be able to remove this now that useNS has a flag
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const [namespace, subNamespace] = useNS();
+  const [namespace] = useNS();
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
-    namespace === 'id-mapping'
-      ? [IDMappingColumn.to] // from is added in useEffect
-      : nsToDefaultColumns[namespace]
+    nsToDefaultColumns[namespace]
   );
 
   const [columns, setColumns] = useState<ColumnDescriptor[]>([]);
@@ -191,7 +191,8 @@ const useColumns = (
   ]);
 
   const updateColumnSort = (columnName: string) => {
-    if (namespace !== 'id-mapping') {
+    // TODO check if we can remove this condition...
+    if (namespace !== Namespace.idmapping) {
       const newSortColumn = sortableColumnToSortColumn.get(
         columnName as Column
       );

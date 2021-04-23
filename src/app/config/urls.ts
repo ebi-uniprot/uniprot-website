@@ -2,7 +2,11 @@ import { invert } from 'lodash-es';
 import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+  SearchableNamespace,
+} from '../../shared/types/namespaces';
 
 export enum Location {
   Home = 'Home',
@@ -98,8 +102,8 @@ export const IDMappingNamespaces = [
 ];
 
 // "/:namespace(uniprotkb|uniparc|........)/""
-export const allSearchResultLocations = `/:namespace(${Object.values(
-  Namespace
+export const allSearchResultLocations = `/:namespace(${Object.keys(
+  NamespaceLabels
 ).join('|')})`;
 
 export const allIDMappingTargetLocations = `/:namespace(${Object.values(

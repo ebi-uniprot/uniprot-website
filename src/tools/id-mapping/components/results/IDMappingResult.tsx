@@ -15,6 +15,7 @@ import {
   MappingFlat,
 } from '../../types/idMappingSearchResults';
 import useNS from '../../../../shared/hooks/useNS';
+import { Namespace } from '../../../../shared/types/namespaces';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -33,7 +34,7 @@ const IDMappingResult = () => {
   // Query for results data from the idmapping endpoint
   // NOTE: needs to be moved to useQueryNS to support filtering
   const initialApiUrl = urls.resultUrl(match?.params.id || '', {
-    namespace,
+    namespace: namespace === Namespace.idmapping ? undefined : namespace,
   });
 
   const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
