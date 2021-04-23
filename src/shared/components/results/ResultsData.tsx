@@ -15,7 +15,7 @@ import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getEntryPathFor } from '../../../app/config/urls';
 import cardRenderer from '../../config/resultsCardRenderers';
 
-import { Namespace } from '../../types/namespaces';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { UsePagination } from '../../hooks/usePagination';
 
@@ -54,7 +54,7 @@ const ResultsData: FC<{
 
   const [getIdKey, getEntryPathForEntry] = useMemo(() => {
     const getIdKey = getIdKeyFor(namespace);
-    const getEntryPath = getEntryPathFor(namespace);
+    const getEntryPath = getEntryPathFor(namespace as SearchableNamespace);
     return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
   }, [namespace]);
 

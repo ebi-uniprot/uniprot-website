@@ -2,7 +2,7 @@ import { invert } from 'lodash-es';
 import { generatePath } from 'react-router-dom';
 
 import { JobTypes } from '../../tools/types/toolsJobTypes';
-import { Namespace } from '../../shared/types/namespaces';
+import { Namespace, SearchableNamespace } from '../../shared/types/namespaces';
 
 export enum Location {
   Home = 'Home',
@@ -76,7 +76,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.IDMapping]: '/id-mapping',
 };
 
-export const SearchResultsLocations: Record<Namespace, string> = {
+export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
@@ -107,7 +107,7 @@ export const allIDMappingTargetLocations = `/:namespace(${Object.values(
 ).join('|')}|id-mapping)/:targetNS(${IDMappingNamespaces.join('|')})?`;
 
 // All "entry" locations need to have a "accession" param in the pattern
-export const EntryLocations: Record<Namespace, string> = {
+export const EntryLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
   [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
@@ -123,12 +123,12 @@ export const EntryLocations: Record<Namespace, string> = {
 };
 
 export const getEntryPath = (
-  namespace: Namespace,
+  namespace: SearchableNamespace,
   accession: string | number
 ) => generatePath(EntryLocations[namespace], { accession: `${accession}` });
 
 // Same than above, but curried version
-export const getEntryPathFor = (namespace: Namespace) => {
+export const getEntryPathFor = (namespace: SearchableNamespace) => {
   const entryLocation = EntryLocations[namespace];
   return (accession: string | number) =>
     generatePath(entryLocation, { accession: `${accession}` });

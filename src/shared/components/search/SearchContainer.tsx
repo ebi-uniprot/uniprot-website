@@ -8,11 +8,15 @@ import {
   LocationToPath,
   SearchResultsLocations,
 } from '../../../app/config/urls';
-import { Namespace, NamespaceLabels } from '../../types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+  SearchableNamespace,
+} from '../../types/namespaces';
 
 import './styles/search-container.scss';
 
-const examples: Record<Namespace, string[]> = {
+const examples: Record<SearchableNamespace, string[]> = {
   // Main data
   [Namespace.uniprotkb]: ['p53', 'Human EGFR', 'Albumin'],
   [Namespace.uniref]: [
@@ -50,8 +54,8 @@ const examples: Record<Namespace, string[]> = {
 
 type Props = {
   includeFooter?: boolean;
-  namespace: Namespace;
-  onNamespaceChange: (namespace: Namespace) => void;
+  namespace: SearchableNamespace;
+  onNamespaceChange: (namespace: SearchableNamespace) => void;
 };
 
 const SearchContainer: FC<
@@ -83,7 +87,7 @@ const SearchContainer: FC<
     });
   };
 
-  const setNamespace = (namespace: Namespace) => {
+  const setNamespace = (namespace: SearchableNamespace) => {
     onNamespaceChange(namespace);
   };
 

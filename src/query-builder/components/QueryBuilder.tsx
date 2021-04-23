@@ -27,7 +27,11 @@ import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
-import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
+import {
+  Namespace,
+  NamespaceLabels,
+  SearchableNamespace,
+} from '../../shared/types/namespaces';
 import { SearchResultsLocations } from '../../app/config/urls';
 
 import {
@@ -64,7 +68,9 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
 
   const urlNamespace = useNS() || Namespace.uniprotkb;
 
-  const [namespace, setNamespace] = useState(urlNamespace);
+  const [namespace, setNamespace] = useState<SearchableNamespace>(
+    urlNamespace as SearchableNamespace
+  );
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
@@ -208,7 +214,9 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
             Searching in
             <select
               id="namespace-select"
-              onChange={(e) => setNamespace(e.target.value as Namespace)}
+              onChange={(e) =>
+                setNamespace(e.target.value as SearchableNamespace)
+              }
               value={namespace}
             >
               {Object.keys(NamespaceLabels).map((key) => (

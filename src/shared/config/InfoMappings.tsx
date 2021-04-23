@@ -48,6 +48,11 @@ const infoMappings: Record<
       { title: 'Video', destination: '' },
     ],
   },
+  [Namespace.idmapping]: {
+    name: 'Taxonomy',
+    info: null,
+    links: [],
+  },
   // Supporting data
   [Namespace.taxonomy]: {
     name: 'Taxonomy',

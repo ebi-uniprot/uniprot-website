@@ -43,7 +43,7 @@ import CitationsColumnConfiguration from '../../supporting-data/citations/config
 import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
-import { IDMappingColumn } from '../../tools/id-mapping/types/columns';
+import { IDMappingColumn } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export type ColumnDescriptor = {
@@ -129,21 +129,6 @@ const getColumnsToDisplay = (
         };
       }
       return columnDescriptor;
-    }
-    // Note this could live in ../config/IDMappingColumnConfiguration
-    if (columnName === IDMappingColumn.from) {
-      return {
-        name: columnName,
-        label: 'From',
-        render: (row: APIModel) => (row as MappingAPIModel).from,
-      };
-    }
-    if (columnName === IDMappingColumn.to) {
-      return {
-        name: columnName,
-        label: 'To',
-        render: (row: APIModel) => (row as MappingAPIModel).to,
-      };
     }
     return {
       label: columnName,

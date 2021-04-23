@@ -59,7 +59,12 @@ import {
   primaryKeyColumn as primaryKeyColumnLocations,
   LocationsColumnConfiguration,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
-import { IDMappingColumn } from '../../tools/id-mapping/types/columns';
+import {
+  IDMappingColumn,
+  defaultColumns as defaultIdMappingColumns,
+  primaryKeyColumn as primaryKeyIdMapping,
+  IdMappingColumnConfiguration,
+} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { ColumnConfiguration } from '../types/columnConfiguration';
 
 export type Column =
@@ -86,6 +91,7 @@ export const nsToDefaultColumns: Record<Namespace, Column[]> = {
   [Namespace.diseases]: defaultDiseasesColumns,
   [Namespace.database]: defaultDatabaseColumns,
   [Namespace.locations]: defaultLocationsColumns,
+  [Namespace.idmapping]: defaultIdMappingColumns,
 };
 
 export const nsToPrimaryKeyColumn: Record<Namespace, Column> = {
@@ -99,6 +105,7 @@ export const nsToPrimaryKeyColumn: Record<Namespace, Column> = {
   [Namespace.diseases]: primaryKeyColumnDiseases,
   [Namespace.database]: primaryKeyColumnDatabase,
   [Namespace.locations]: primaryKeyColumnLocations,
+  [Namespace.idmapping]: primaryKeyIdMapping,
 };
 
 export const nsToColumnConfig: Record<
@@ -115,4 +122,5 @@ export const nsToColumnConfig: Record<
   [Namespace.diseases]: DiseasesColumnConfiguration,
   [Namespace.database]: DatabaseColumnConfiguration,
   [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.idmapping]: IdMappingColumnConfiguration,
 };

@@ -5,13 +5,13 @@ import EntryTypeIcon, { EntryType } from '../entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../../app/config/urls';
 
-import { Namespace } from '../../types/namespaces';
+import { SearchableNamespace } from '../../types/namespaces';
 
 import './styles/accession-view.scss';
 
 const AccessionView: FC<{
   id: string | number;
-  namespace: Namespace;
+  namespace: SearchableNamespace;
   entryType?: string | EntryType;
 }> = ({ id, namespace, entryType }) => {
   const link = <Link to={getEntryPath(namespace, id)}>{id}</Link>;
