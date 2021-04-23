@@ -3,11 +3,10 @@ kind: Service # A service is used to expose your Deployment to the external acce
 metadata:
   name: uniprot-website-client-http
 spec:
-  ports:
-    - port: 31240
+  ports: # Don't set nodePort (external facing) in case it's conflict with another services
+    - port: 31240 # Internally exposes the service on this port within the k8s cluster. Other pods within the cluster can communicate with this server on this port
       protocol: TCP
-      nodePort: 31240 # The port which will be externally exposed. Must be in the range [30000, 32767].
-      targetPort: 80 # The port on your Deployment which it will expose
+      targetPort: 80 # The port on which the service will forward requests to, that your pod will be listening on. NGINX in the container will need to be listening on this port also.
   selector:
     app: uniprot-website-client # Selects the disease-portal-client Deployment to attach the Service to
   type: NodePort # Tell K8s this wants to expose an external port
