@@ -1,10 +1,6 @@
-import { Statistics } from '../../../shared/types/apiModel';
+import { SetRequired } from 'type-fest';
 
-export type CitationsStatistics = Statistics & {
-  computationallyMappedProteinCount: number;
-  largeScale?: boolean;
-  communityMappedProteinCount: number;
-};
+import { Statistics } from '../../../shared/types/apiModel';
 
 export enum CitationXRefDB {
   PubMed = 'PubMed',
@@ -61,7 +57,12 @@ export interface CommunityAnnotation {
 }
 
 export type CitationsAPIModel = {
-  statistics: CitationsStatistics;
+  statistics: SetRequired<
+    Statistics,
+    'computationallyMappedProteinCount' | 'communityMappedProteinCount'
+  > & {
+    largeScale?: boolean;
+  };
   citation: Citation;
   references?: Reference[];
 };

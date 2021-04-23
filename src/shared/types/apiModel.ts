@@ -27,6 +27,12 @@ export type APIModel =
 export type Statistics = {
   reviewedProteinCount: number;
   unreviewedProteinCount: number;
+  // in citations
+  computationallyMappedProteinCount?: number;
+  communityMappedProteinCount?: number;
+  // in taxonomy
+  referenceProteomeCount?: number;
+  proteomeCount?: number;
 };
 
 // TODO: remove all below and replace with types from corresponding namespaces

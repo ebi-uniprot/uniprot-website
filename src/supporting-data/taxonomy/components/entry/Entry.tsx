@@ -5,6 +5,7 @@ import cn from 'classnames';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
+import MapToDropdown from '../../../shared/components/MapToDropdown';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -74,6 +75,7 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />
+          <MapToDropdown statistics={data.statistics} />
         </div>
         {infoData && <InfoList infoData={infoData} isCompact columns />}
       </Card>
