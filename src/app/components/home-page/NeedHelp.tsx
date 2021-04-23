@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   HeroContainer,
   ExternalLink,
@@ -8,9 +9,11 @@ import {
   LocationPinIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
+import { Course } from 'schema-dts';
 import 'lite-youtube-embed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import parseDate from '../../../shared/utils/parseDate';
 
@@ -69,6 +72,27 @@ const NeedHelp = () => {
   );
 
   const seminar = data?.entries[0] || fallback;
+
+  useStructuredData<Course>(
+    useMemo(
+      () => ({
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: `${seminar.fields.title}${
+          seminar.fields.subtitle && `: ${seminar.fields.subtitle}`
+        }`,
+        description: seminar.fields.description,
+        url:
+          seminar?.fieldURLs.find(({ name }) => name === 'main')?.value || '',
+        provider: {
+          '@type': 'Organization',
+          name: 'UniProt consortium',
+        },
+      }),
+      [seminar]
+    )
+  );
+
   let seminarHeading = 'Live webinar';
   if (seminar?.source === 'ebiweb_training_online') {
     seminarHeading = 'Online training';
