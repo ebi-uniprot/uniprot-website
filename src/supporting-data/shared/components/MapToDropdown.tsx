@@ -2,7 +2,11 @@ import { ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
 import { DropdownButton, LongNumber } from 'franklin-sites';
 
-import { allSupportingDataEntryLocations } from '../../../app/config/urls';
+import {
+  allSupportingDataEntryLocations,
+  LocationToPath,
+  Location,
+} from '../../../app/config/urls';
 
 import { Namespace } from '../../../shared/types/namespaces';
 import { Statistics } from '../../../shared/types/apiModel';
@@ -11,48 +15,107 @@ const configMap = new Map<
   keyof Statistics | 'proteinCount',
   {
     label: ReactNode;
-    urlGetter?: (accession: string) => LinkProps['to'];
+    to: (fieldName: string, accession: string) => LinkProps['to'];
   }
 >([
   // Add this first one, will be just the sum of the following 2
-  ['proteinCount', { label: 'UniProtKB' }],
+  [
+    'proteinCount',
+    {
+      label: 'UniProtKB',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.UniProtKBResults],
+        search: `query=(${fieldName}:${accession})`,
+      }),
+    },
+  ],
   [
     'reviewedProteinCount',
     {
       label: 'UniProtKB reviewed (Swiss-Prot)',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.UniProtKBResults],
+        search: `facets=reviewed:true&query=(${fieldName}:${accession})`,
+      }),
     },
   ],
   [
     'unreviewedProteinCount',
     {
       label: 'UniProtKB unreviewed (TrEMBL)',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.UniProtKBResults],
+        search: `facets=reviewed:false&query=(${fieldName}:${accession})`,
+      }),
     },
   ],
   // in citations
   [
     'computationallyMappedProteinCount',
-    { label: 'Computationally mapped protein count' },
+    {
+      label: 'Computationally mapped proteins',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.UniProtKBResults],
+        // TODO:
+        search: `query=(${fieldName}:${accession})`,
+      }),
+    },
   ],
-  ['communityMappedProteinCount', { label: 'Community mapped protein count' }],
+  [
+    'communityMappedProteinCount',
+    {
+      label: 'Community mapped proteins',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.UniProtKBResults],
+        // TODO:
+        search: `query=(${fieldName}:${accession})`,
+      }),
+    },
+  ],
   // in taxonomy
-  ['proteomeCount', { label: 'Proteome count' }],
+  [
+    'proteomeCount',
+    {
+      label: 'Proteomes',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.ProteomesResults],
+        search: `query=(${fieldName}:${accession})`,
+      }),
+    },
+  ],
   [
     'referenceProteomeCount',
     {
-      label: 'Reference proteome count',
+      label: 'Reference proteomes',
+      to: (fieldName, accession) => ({
+        pathname: LocationToPath[Location.ProteomesResults],
+        search: `facets=proteome_type:1&query=(${fieldName}:${accession})`,
+      }),
     },
   ],
 ]);
 
-const MapToDropdown = ({
-  statistics,
-}: {
+export const supportingDataUniProtKBFieldMap = new Map([
+  [Namespace.citations, 'lit_citation_id'],
+  // NOTE: This field doesn't use the ID but the Abbrev...
+  [Namespace.database, 'database'],
+  [Namespace.diseases, 'cc_disease'],
+  [Namespace.keywords, 'keyword'],
+  [Namespace.locations, 'cc_scl_term'],
+  [Namespace.taxonomy, 'taxonomy_id'],
+]);
+
+type Props = {
   statistics: Statistics | undefined;
-}) => {
+  accession?: string; // eslint-disable-line react/require-default-props
+};
+
+const MapToDropdown = ({ statistics, accession }: Props) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allSupportingDataEntryLocations
   );
-  const { namespace, accession } = match?.params || {};
+  const { namespace, accession: accessionFromPath } = match?.params || {};
+  const fieldName = namespace && supportingDataUniProtKBFieldMap.get(namespace);
 
   const entries = statistics && Object.entries(statistics);
   if (statistics?.reviewedProteinCount || statistics?.unreviewedProteinCount) {
@@ -63,7 +126,7 @@ const MapToDropdown = ({
     ]);
   }
 
-  if (!(namespace && accession && entries?.length)) {
+  if (!(namespace && accessionFromPath && fieldName && entries?.length)) {
     return null;
   }
 
@@ -80,7 +143,7 @@ const MapToDropdown = ({
             }
             return (
               <li key={key}>
-                <Link to="/">
+                <Link to={config.to(fieldName, accession || accessionFromPath)}>
                   {config.label} (<LongNumber>{count}</LongNumber>)
                 </Link>
               </li>

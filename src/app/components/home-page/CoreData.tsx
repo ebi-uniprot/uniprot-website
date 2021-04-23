@@ -15,7 +15,7 @@ import ArchiveIllustration from '../../../images/archive_illustration.svg';
 
 const getNamespaceTo = (location: Location) => ({
   pathname: LocationToPath[location],
-  search: `query=*`,
+  search: 'query=*',
 });
 
 const CoreData = () => (
@@ -40,7 +40,7 @@ const CoreData = () => (
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: `facets=reviewed:true&query=*`,
+            search: 'facets=reviewed:true&query=*',
           }}
         >
           <SwissProtIcon width="2.5em" />
@@ -50,7 +50,7 @@ const CoreData = () => (
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: `facets=reviewed:false&query=*`,
+            search: 'facets=reviewed:false&query=*',
           }}
         >
           <TremblIcon width="2.5em" />
