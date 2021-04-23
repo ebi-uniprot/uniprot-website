@@ -54,7 +54,7 @@ export type ColumnDescriptor = {
   sorted?: SortDirection;
 };
 
-const convertRow = (row: APIModel, namespace: Namespace) => {
+const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
@@ -78,6 +78,8 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       return row as DatabaseAPIModel;
     case Namespace.locations:
       return row as LocationsAPIModel;
+    case 'id-mapping':
+      return row as MappingAPIModel;
     default:
       // eslint-disable-next-line no-console
       console.warn(`Unrecognised namespace: "${namespace}"`);
@@ -102,14 +104,16 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
 };
 
 const getColumnsToDisplay = (
-  namespace: Namespace,
+  namespace: Namespace | 'id-mapping',
   columns: Column[] | undefined,
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,
   sortDirection: SortDirection
 ): ColumnDescriptor[] =>
   columns?.map((columnName) => {
-    const columnConfig = ColumnConfigurations[namespace]?.get(columnName);
+    const columnConfig =
+      namespace !== 'id-mapping' &&
+      ColumnConfigurations[namespace]?.get(columnName);
     if (columnConfig) {
       const columnDescriptor = {
         label: columnConfig.label,
@@ -154,11 +158,14 @@ const useColumns = (
   isIDMapping = false
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const namespace = useNS() || Namespace.uniprotkb;
+  const namespace =
+    useNS() || (isIDMapping ? 'id-mapping' : Namespace.uniprotkb);
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    namespace === 'id-mapping'
+      ? [IDMappingColumn.to] // from is added in useEffect
+      : nsToDefaultColumns[namespace]
   );
 
   const [columns, setColumns] = useState<ColumnDescriptor[]>([]);
@@ -170,7 +177,9 @@ const useColumns = (
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data
-    mainNamespaces.has(namespace) ? apiUrls.resultsFields(namespace) : null
+    namespace !== 'id-mapping' && mainNamespaces.has(namespace)
+      ? apiUrls.resultsFields(namespace)
+      : null
   );
 
   const sortableColumnToSortColumn = useMemo(
@@ -198,26 +207,30 @@ const useColumns = (
   ]);
 
   const updateColumnSort = (columnName: string) => {
-    const newSortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!newSortColumn) {
-      return;
+    if (namespace !== 'id-mapping') {
+      const newSortColumn = sortableColumnToSortColumn.get(
+        columnName as Column
+      );
+      if (!newSortColumn) {
+        return;
+      }
+
+      // Change sort direction
+      const updatedSortDirection =
+        !sortDirection || sortDirection === SortDirection.descend
+          ? SortDirection.ascend
+          : SortDirection.descend;
+
+      history.push(
+        getLocationObjForParams({
+          pathname: SearchResultsLocations[namespace],
+          query,
+          selectedFacets,
+          sortColumn: newSortColumn,
+          sortDirection: updatedSortDirection,
+        })
+      );
     }
-
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
-
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn: newSortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
   };
   return [columns, updateColumnSort];
 };

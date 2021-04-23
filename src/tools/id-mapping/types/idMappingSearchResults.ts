@@ -6,6 +6,7 @@ import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 export type MappingAPIModel = {
   from: string;
   to: string | UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+  failedIds?: string[]; // TODO handle this
 };
 
 export type IDMappingSearchResults = {
