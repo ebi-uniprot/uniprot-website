@@ -1,4 +1,4 @@
-import { Loader } from 'franklin-sites';
+import { HeroContainer, Loader, PageIntro } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 
 import toolsURLs from '../../../config/urls';
@@ -41,7 +41,7 @@ const IDMappingResult = () => {
     idMappingConverter
   );
 
-  const { initialLoading } = resultsDataObject;
+  const { initialLoading, failedIds, total } = resultsDataObject;
 
   if (initialLoading) {
     return <Loader />;
@@ -52,7 +52,17 @@ const IDMappingResult = () => {
       sidebar={<></>}
       // sidebar={<ResultsFacets dataApiObject={dataApiObject} total={total} />}
     >
-      {/* <ResultsDataHeader total={total} selectedEntries={selectedEntries} /> */}
+      {/* resultsCount={total} */}
+      <PageIntro title="ID Mapping Results">{/* {info} */}</PageIntro>
+      {total && (
+        <HeroContainer>
+          {total} out of {total + (failedIds ? failedIds.length : 0)}{' '}
+          identifiers from FROM were successfully mapped to TO.
+          <br />
+          {failedIds?.join(', ')}
+        </HeroContainer>
+      )}
+      {/* TODO only display buttons when namespace exists, otherwise download only */}
       <ResultsData
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}

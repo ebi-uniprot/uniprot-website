@@ -13,6 +13,7 @@ export type UsePagination = {
   hasMoreData: boolean;
   handleLoadMoreRows: () => void;
   total?: number;
+  failedIds?: string[];
 };
 
 const usePagination = <T extends APIModel, R extends APIModel>(
@@ -36,6 +37,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
 
   const { data, loading, progress, headers } = useDataApi<{
     results: APIModel[];
+    failedIds?: string[];
   }>(url);
 
   useEffect(() => {
@@ -67,6 +69,7 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     hasMoreData,
     handleLoadMoreRows,
     total,
+    failedIds: data?.failedIds,
   };
 };
 
