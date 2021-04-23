@@ -91,7 +91,7 @@ const QueryBuilder = lazy(
 );
 
 const SearchContainerWithNamespace = () => {
-  const namespace = useNS();
+  const [namespace] = useNS();
 
   const [selectedNamespace, setSelectedNamespace] = useState(
     namespace || Namespace.uniprotkb

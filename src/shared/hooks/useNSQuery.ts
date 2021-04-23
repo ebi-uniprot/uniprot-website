@@ -21,7 +21,7 @@ const useNSQuery = ({
   withFacets?: boolean;
   withColumns?: boolean;
 } = {}) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  const [namespace] = useNS();
   const location = useLocation();
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const [columns] = useUserPreferences<Column[]>(

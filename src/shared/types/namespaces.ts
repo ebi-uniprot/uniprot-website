@@ -32,7 +32,7 @@ export const supportingDataNamespaces = new Set<Namespace>([
 
 export type SearchableNamespace = Exclude<Namespace, Namespace.idmapping>;
 
-export const NamespaceLabels: Record<Namespace, string> = {
+export const NamespaceLabels: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
   [Namespace.uniref]: 'UniRef',
@@ -45,5 +45,4 @@ export const NamespaceLabels: Record<Namespace, string> = {
   [Namespace.diseases]: 'Human diseases',
   [Namespace.database]: 'Cross-referenced databases',
   [Namespace.locations]: 'Subcellular locations',
-  [Namespace.idmapping]: 'ID Mapping',
 };

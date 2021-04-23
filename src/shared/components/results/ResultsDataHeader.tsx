@@ -6,13 +6,12 @@ import ResultsButtons from './ResultsButtons';
 import useNS from '../../hooks/useNS';
 
 import infoMappings from '../../config/InfoMappings';
-import { Namespace } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
   total?: number;
   selectedEntries: string[];
 }> = ({ total = 0, selectedEntries }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  const [namespace] = useNS();
   const { name, links, info } = useMemo(() => infoMappings[namespace], [
     namespace,
   ]);

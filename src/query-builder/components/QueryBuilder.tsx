@@ -66,7 +66,7 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
 
   const [clauses, setClauses] = useState<Clause[]>([]);
 
-  const urlNamespace = useNS() || Namespace.uniprotkb;
+  const [urlNamespace] = useNS();
 
   const [namespace, setNamespace] = useState<SearchableNamespace>(
     urlNamespace as SearchableNamespace
@@ -221,7 +221,7 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
             >
               {Object.keys(NamespaceLabels).map((key) => (
                 <option value={key} key={key}>
-                  {NamespaceLabels[key as Namespace]}
+                  {NamespaceLabels[key as SearchableNamespace]}
                 </option>
               ))}
             </select>

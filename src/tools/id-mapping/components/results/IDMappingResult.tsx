@@ -26,7 +26,7 @@ const IDMappingResult = () => {
     LocationToPath[Location.IDMappingResult]
   );
 
-  const namespace = useNS();
+  const [namespace] = useNS();
 
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 

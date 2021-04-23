@@ -143,8 +143,7 @@ const useColumns = (
   isIDMapping = false
 ): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const namespace =
-    useNS() || (isIDMapping ? 'id-mapping' : Namespace.uniprotkb);
+  const [namespace, subNamespace] = useNS();
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,

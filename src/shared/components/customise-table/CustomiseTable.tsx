@@ -8,8 +8,6 @@ import useUserPreferences from '../../hooks/useUserPreferences';
 
 import { nsToDefaultColumns } from '../../config/columns';
 
-import { Namespace } from '../../types/namespaces';
-
 import './styles/customise-table.scss';
 import '../../styles/sticky.scss';
 
@@ -18,7 +16,7 @@ type CustomiseTableProps = {
 };
 
 const CustomiseTable: FC<CustomiseTableProps> = ({ onSave }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  const [namespace] = useNS();
   const [columns, setColumns] = useUserPreferences(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns[namespace]
