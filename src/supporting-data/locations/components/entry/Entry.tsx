@@ -5,7 +5,7 @@ import cn from 'classnames';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
-import MapToDropdown from '../../../shared/components/MapToDropdown';
+import { MapToDropdown } from '../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 

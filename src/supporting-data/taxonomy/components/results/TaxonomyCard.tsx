@@ -1,4 +1,4 @@
-import { FC, useCallback, MouseEvent } from 'react';
+import { FC, useCallback, MouseEvent, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card } from 'franklin-sites';
 
@@ -7,6 +7,7 @@ import RenderColumnsInCard from '../../../../shared/components/results/RenderCol
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
@@ -37,8 +38,13 @@ const TaxonomyCard: FC<{
     [history, id]
   );
 
+  const links = useMemo(
+    () => mapToLinks(Namespace.taxonomy, id, data.statistics),
+    [data.statistics, id]
+  );
+
   return (
-    <Card onClick={handleCardClick}>
+    <Card onClick={handleCardClick} links={links}>
       <div className="result-card">
         {handleEntrySelection && (
           <div className="result-card__left">

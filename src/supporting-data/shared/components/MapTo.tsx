@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
 import { DropdownButton, LongNumber } from 'franklin-sites';
+import { SetOptional } from 'type-fest';
 
 import {
   allSupportingDataEntryLocations,
@@ -102,22 +103,29 @@ export const supportingDataUniProtKBFieldMap = new Map([
   [Namespace.diseases, 'cc_disease'],
   [Namespace.keywords, 'keyword'],
   [Namespace.locations, 'cc_scl_term'],
+  // NOTE: to get high-level nodes, currently only `tax_id` works...
   [Namespace.taxonomy, 'taxonomy_id'],
 ]);
 
-type Props = {
-  statistics: Statistics | undefined;
-  accession?: string; // eslint-disable-line react/require-default-props
+type EnrichedStatistics = {
+  key: keyof Statistics | 'proteinCount';
+  count: number;
+  label: ReactNode;
+  to: LinkProps['to'];
 };
 
-const MapToDropdown = ({ statistics, accession }: Props) => {
-  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
-    allSupportingDataEntryLocations
-  );
-  const { namespace, accession: accessionFromPath } = match?.params || {};
-  const fieldName = namespace && supportingDataUniProtKBFieldMap.get(namespace);
+const statFilter = (
+  s: SetOptional<EnrichedStatistics, 'count'> | undefined
+): s is EnrichedStatistics => Boolean(s?.count);
 
+const enrichStatistics = (
+  statistics: Statistics,
+  fieldName: string,
+  accession: string
+): EnrichedStatistics[] => {
   const entries = statistics && Object.entries(statistics);
+
+  // Prepend a compond value for UniProtKB reviewed + unreviewed
   if (statistics?.reviewedProteinCount || statistics?.unreviewedProteinCount) {
     entries?.unshift([
       'proteinCount',
@@ -126,33 +134,78 @@ const MapToDropdown = ({ statistics, accession }: Props) => {
     ]);
   }
 
-  if (!(namespace && accessionFromPath && fieldName && entries?.length)) {
+  const mapped: Array<
+    SetOptional<EnrichedStatistics, 'count'> | undefined
+  > = entries.map(([key, value]) => {
+    const config = configMap.get(key as keyof Statistics | 'proteinCount');
+    if (!config) {
+      return;
+    }
+    // eslint-disable-next-line consistent-return
+    return {
+      key: key as keyof Statistics | 'proteinCount',
+      count: value,
+      label: config.label,
+      to: config.to(fieldName, accession),
+    };
+  });
+  // filter out undefined and zero counts
+  return mapped.filter(statFilter);
+};
+
+type Props = {
+  statistics: Statistics | undefined;
+  accession?: string; // eslint-disable-line react/require-default-props
+};
+
+export const MapToDropdown = ({ statistics, accession }: Props) => {
+  const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
+    allSupportingDataEntryLocations
+  );
+  const { namespace, accession: accessionFromPath } = match?.params || {};
+  const fieldName = namespace && supportingDataUniProtKBFieldMap.get(namespace);
+
+  if (!(statistics && namespace && accessionFromPath && fieldName)) {
     return null;
   }
+
+  const enrichedStatistics = enrichStatistics(
+    statistics,
+    fieldName,
+    accession || accessionFromPath
+  );
 
   return (
     <DropdownButton variant="tertiary" label="Map to">
       <div className="dropdown-menu__content">
         <ul>
-          {entries.map(([key, count]) => {
-            const config = configMap.get(
-              key as keyof Statistics | 'proteinCount'
-            );
-            if (!(count && config)) {
-              return null;
-            }
-            return (
-              <li key={key}>
-                <Link to={config.to(fieldName, accession || accessionFromPath)}>
-                  {config.label} (<LongNumber>{count}</LongNumber>)
-                </Link>
-              </li>
-            );
-          })}
+          {enrichedStatistics.map(({ key, count, label, to }) => (
+            <li key={key}>
+              {/* eslint-disable-next-line uniprot-website/use-config-location */}
+              <Link to={to}>
+                {label} (<LongNumber>{count}</LongNumber>)
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </DropdownButton>
   );
 };
 
-export default MapToDropdown;
+export const mapToLinks = (
+  namespace: Namespace,
+  accession: string,
+  statistics: Statistics | undefined
+): Array<{ name: string; link: LinkProps['to'] }> | undefined => {
+  const fieldName = supportingDataUniProtKBFieldMap.get(namespace);
+  if (!(statistics && fieldName)) {
+    return;
+  }
+  const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
+  // eslint-disable-next-line consistent-return
+  return enrichedStatistics.map(({ count, label, to }) => ({
+    name: `${label}: ${count}`,
+    link: to,
+  }));
+};
