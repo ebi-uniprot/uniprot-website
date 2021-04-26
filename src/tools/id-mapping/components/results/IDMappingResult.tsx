@@ -1,27 +1,28 @@
 import { HeroContainer, Loader, PageIntro } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 
+import useNS from '../../../../shared/hooks/useNS';
+import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import usePagination from '../../../../shared/hooks/usePagination';
+
 import toolsURLs from '../../../config/urls';
+import idMappingConverter from '../../adapters/idMappingConverter';
+
+import ResultsData from '../../../../shared/components/results/ResultsData';
 
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Location, LocationToPath } from '../../../../app/config/urls';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
-import useItemSelect from '../../../../shared/hooks/useItemSelect';
-import ResultsData from '../../../../shared/components/results/ResultsData';
-import usePagination from '../../../../shared/hooks/usePagination';
-import idMappingConverter from '../../adapters/idMappingConverter';
 import {
   MappingAPIModel,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
-import useNS from '../../../../shared/hooks/useNS';
 import { Namespace } from '../../../../shared/types/namespaces';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
 
 const IDMappingResult = () => {
-  //   const history = useHistory();
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const match = useRouteMatch<{ id: string; targetNS?: string }>(
     LocationToPath[Location.IDMappingResult]
