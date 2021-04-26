@@ -1,6 +1,7 @@
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
+import { pick } from 'lodash-es';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
@@ -19,6 +20,7 @@ import TaxonomyColumnConfiguration, {
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
+import { Statistics } from '../../../../shared/types/apiModel';
 
 const columns = [
   TaxonomyColumn.mnemonic,
@@ -56,6 +58,15 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={progress} />;
   }
 
+  const proteinStatistics = pick<Partial<Statistics>>(data.statistics || {}, [
+    'reviewedProteinCount',
+    'unreviewedProteinCount',
+  ]);
+  const proteomeStatistics = pick<Partial<Statistics>>(data.statistics || {}, [
+    'proteomeCount',
+    'referenceProteomeCount',
+  ]);
+
   const infoData =
     data &&
     columns.map((column) => {
@@ -75,7 +86,10 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />
-          <MapToDropdown statistics={data.statistics} />
+          <MapToDropdown statistics={proteinStatistics} />
+          <MapToDropdown statistics={proteomeStatistics}>
+            View proteomes
+          </MapToDropdown>
         </div>
         {infoData && <InfoList infoData={infoData} isCompact columns />}
       </Card>

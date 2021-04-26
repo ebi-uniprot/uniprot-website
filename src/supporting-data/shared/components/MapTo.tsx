@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link, LinkProps, useRouteMatch } from 'react-router-dom';
 import { DropdownButton, LongNumber } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
@@ -119,7 +119,7 @@ const statFilter = (
 ): s is EnrichedStatistics => Boolean(s?.count);
 
 const enrichStatistics = (
-  statistics: Statistics,
+  statistics: Partial<Statistics>,
   fieldName: string,
   accession: string
 ): EnrichedStatistics[] => {
@@ -154,11 +154,15 @@ const enrichStatistics = (
 };
 
 type Props = {
-  statistics: Statistics | undefined;
+  statistics: Partial<Statistics> | undefined;
   accession?: string; // eslint-disable-line react/require-default-props
 };
 
-export const MapToDropdown = ({ statistics, accession }: Props) => {
+export const MapToDropdown: FC<Props> = ({
+  statistics,
+  accession,
+  children = 'View proteins',
+}) => {
   const match = useRouteMatch<{ namespace: Namespace; accession: string }>(
     allSupportingDataEntryLocations
   );
@@ -175,8 +179,12 @@ export const MapToDropdown = ({ statistics, accession }: Props) => {
     accession || accessionFromPath
   );
 
+  if (!enrichedStatistics.length) {
+    return null;
+  }
+
   return (
-    <DropdownButton variant="tertiary" label="Map to">
+    <DropdownButton variant="tertiary" label={children}>
       <div className="dropdown-menu__content">
         <ul>
           {enrichedStatistics.map(({ key, count, label, to }) => (
