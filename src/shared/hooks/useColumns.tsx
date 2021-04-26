@@ -141,11 +141,9 @@ const getColumnsToDisplay = (
     };
   }) || [];
 
-const useColumns = (
-  isIDMapping = false // TODO: we should be able to remove this now that useNS has a flag
-): [ColumnDescriptor[], (columnName: string) => void] => {
+const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const [namespace] = useNS();
+  const [namespace, isIDMapping] = useNS();
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,

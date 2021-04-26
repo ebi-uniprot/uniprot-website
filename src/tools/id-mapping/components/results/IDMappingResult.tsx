@@ -68,7 +68,6 @@ const IDMappingResult = () => {
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
-        isIDMapping
       />
     </SideBarLayout>
   );
