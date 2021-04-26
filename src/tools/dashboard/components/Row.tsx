@@ -31,9 +31,9 @@ import parseDate from '../../../shared/utils/parseDate';
 
 import { DataForDashboard, Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
+import { JobTypes } from '../../types/toolsJobTypes';
 
 import './styles/Dashboard.scss';
-import { JobTypes } from '../../types/toolsJobTypes';
 
 const stopPropagation = (
   event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>

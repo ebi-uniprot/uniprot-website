@@ -19,7 +19,6 @@ const useNS = (): [Namespace, boolean] => {
     match.params.namespace.toLowerCase();
   const isSubNS = !!match.params.targetNS;
 
-  // eslint-disable-next-line consistent-return
   return [
     Object.values(Namespace).find((ns) => ns === potentialNS) ||
       Namespace.uniprotkb,

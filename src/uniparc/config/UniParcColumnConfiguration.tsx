@@ -14,10 +14,10 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import parseDate from '../../shared/utils/parseDate';
 import xrefGetter from '../utils/xrefGetter';
-import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
