@@ -124,14 +124,18 @@ const apiUrls = {
     ),
   sequenceFasta: (accession: string) =>
     `${apiUrls.entry(accession, Namespace.uniprotkb)}.fasta`,
-  entryDownload: (accession: string, format: FileFormat) =>
+  entryDownload: (
+    accession: string,
+    format: FileFormat,
+    namespace: Namespace = Namespace.uniprotkb
+  ) =>
     format === FileFormat.fastaCanonicalIsoform
-      ? `${apiUrls.search()}?${queryString.stringify({
+      ? `${apiUrls.search(namespace)}?${queryString.stringify({
           query: `accession:${accession}`,
           includeIsoform: true,
           format: fileFormatToUrlParameter[FileFormat.fastaCanonicalIsoform],
         })}`
-      : `${apiUrls.entry(accession, Namespace.uniprotkb)}.${
+      : `${apiUrls.entry(accession, namespace)}.${
           fileFormatToUrlParameter[format]
         }`,
   entryPublications: (accession: string) =>

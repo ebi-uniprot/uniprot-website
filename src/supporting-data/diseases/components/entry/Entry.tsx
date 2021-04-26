@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownload from '../../../shared/components/EntryDownload';
 import MedicalDisclaimer from '../../../../shared/components/MedicalDisclaimer';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -17,7 +18,7 @@ import DiseasesColumnConfiguration, {
 } from '../../config/DiseasesColumnConfiguration';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../styles/entry-page.module.scss';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   DiseasesColumn.definition,
@@ -62,8 +63,10 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     <SingleColumnLayout>
       <h2>Disease - {data.name}</h2>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+        <div className="button-group">
+          <EntryDownload />
+        </div>
         {infoData && <InfoList infoData={infoData} isCompact />}
-
         <MedicalDisclaimer />
       </Card>
     </SingleColumnLayout>
