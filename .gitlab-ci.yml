@@ -83,3 +83,4 @@ deploy:
     - kubectl apply -f k8s_deploy.yml
     - kubectl rollout restart statefulset.apps/uniprot-website-client
     - kubectl get all
+    - kubectl get nodes
