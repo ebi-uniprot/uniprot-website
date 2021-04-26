@@ -108,7 +108,7 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
 };
 
 const getColumnsToDisplay = (
-  namespace: Namespace | 'id-mapping',
+  namespace: Namespace,
   columns: Column[] | undefined,
   sortableColumnToSortColumn: Map<Column, string>,
   sortColumn: SortableColumn,

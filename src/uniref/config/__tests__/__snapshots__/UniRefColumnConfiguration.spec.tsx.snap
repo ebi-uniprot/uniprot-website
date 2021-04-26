@@ -38,6 +38,8 @@ exports[`UniRefColumnConfiguration component should render column "created": cre
 </DocumentFragment>
 `;
 
+exports[`UniRefColumnConfiguration component should render column "from": from 1`] = `<DocumentFragment />`;
+
 exports[`UniRefColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <div

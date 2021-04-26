@@ -15,10 +15,12 @@ export const IdMappingColumnConfiguration: ColumnConfiguration<
   Partial<MappingAPIModel>
 > = new Map();
 
-IdMappingColumnConfiguration.set(IDMappingColumn.from, {
+export const fromColumnConfig = {
   label: 'From',
-  render: ({ from }) => from,
-});
+  render: ({ from }: Partial<MappingAPIModel>) => from,
+};
+
+IdMappingColumnConfiguration.set(IDMappingColumn.from, fromColumnConfig);
 
 IdMappingColumnConfiguration.set(IDMappingColumn.to, {
   label: 'To',

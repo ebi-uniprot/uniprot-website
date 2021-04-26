@@ -303,6 +303,7 @@ export enum UniProtKBColumn {
   xrefWormbase = 'xref_wormbase',
   xrefXenbase = 'xref_xenbase',
   xrefZfin = 'xref_zfin',
+  from = 'from', // id mapping
 }
 
 export type SortableColumn =

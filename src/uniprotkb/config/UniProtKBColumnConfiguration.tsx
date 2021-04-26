@@ -77,6 +77,7 @@ import { getEntryPath } from '../../app/config/urls';
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 import AccessionView from '../../shared/components/results/AccessionView';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 export const defaultColumns = [
   UniProtKBColumn.accession,
@@ -1152,5 +1153,7 @@ Object.values(UniProtKBColumn)
     }
     UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));
   });
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
 
 export default UniProtKBColumnConfiguration;
