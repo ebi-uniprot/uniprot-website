@@ -12,7 +12,7 @@ K8S_URL=${DC}_K8S_URL
 K8S_USER_TOKEN=${DC}_K8S_USER_TOKEN
 
 mkdir -p ~/.kube
-sed "s~__K8S_CERTIFICATE__~${K8S_CERTIFICATE}~; s~__K8S_URL__~${K8S_URL}~; s~__K8S_USER_TOKEN__~${K8S_USER_TOKEN}~" wp-config-template.yml ~/.kube/config
+sed "s~__K8S_CERTIFICATE__~${K8S_CERTIFICATE}~; s~__K8S_URL__~${K8S_URL}~; s~__K8S_USER_TOKEN__~${K8S_USER_TOKEN}~" wp-config-template.yml > ~/.kube/config
 chmod 700 ~/.kube/config
 kubectl config use-context team-admin-wp-webadmin-02
 kubectl config set-context --current --namespace=uniprot-front-end
