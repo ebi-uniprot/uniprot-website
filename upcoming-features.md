@@ -14,19 +14,20 @@ This is a non exhaustive list of features which will be added to the website in 
 - Some of the links currently link to the current UniProt website. These links will be updated as sections are added.
 
 ## Query builder
-- Search with genome location
-- [BUG] AND/OR shouldn't be displayed for the first option TRM-21994
-- [BUG] GO term search syntax is wrong TRM-23247 / TRM-25581
-- [BUG] Change namespace when on other namespace results page causes it to search in that namespace instead TRM-25557
-- [BUG] Searching for " * " in database xref generates the wrong query string TRM-25580
-- [BUG] Double quotes get added to some search fields TRM-25888
-- [BUG] Proteomes Taxonomy suggester not working TRM-25889
 
+- Search with genome location
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-21994) AND/OR shouldn't be displayed for the first option.
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-23247) / [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25581) GO term search syntax is wrong
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25557) Change namespace when on other namespace results page causes it to search in that namespace instead.
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25580) Searching for " \* " in database xref generates the wrong query string.
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25888) Double quotes get added to some search fields.
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working.
 
 ## UniProtKB Results
+
 - Proteome filter
 - Nicer lineage component
-- [BUG] Interacts with column stays empty TRM-24893
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-24893) Interacts with column stays empty.
 
 ## UniProtKB Entry
 
@@ -35,7 +36,7 @@ This is a non exhaustive list of features which will be added to the website in 
 - Inline PubMed IDs to be turned into links.
 - "Search for EC number" link
 - Suggested terms - TRM-20293
-- [BUG] Scroll to hash not always working (impact on protein highlights from results card). TRM-25578
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25578) Scroll to hash not always working (impact on protein highlights from results card).
 
 ## UniRef Results
 
@@ -46,11 +47,13 @@ This is a non exhaustive list of features which will be added to the website in 
 - Timeline column
 
 ## UniParc Entry
+
 - Download functionality
 
 ## Proteomes Results
 
 ## Proteomes Entry
+
 - Add annotation program information
 
 ## Supporting Data
