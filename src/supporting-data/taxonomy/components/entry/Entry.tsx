@@ -9,18 +9,20 @@ import EntryDownload from '../../../shared/components/EntryDownload';
 import { MapToDropdown } from '../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
+import { Statistics } from '../../../../shared/types/apiModel';
+import { FacetObject } from '../../../../uniprotkb/types/responseTypes';
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
-import { Statistics } from '../../../../shared/types/apiModel';
 
 const columns = [
   TaxonomyColumn.mnemonic,
@@ -50,6 +52,33 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     apiUrls.entry(accession, Namespace.taxonomy)
   );
 
+  /* Temporary workaround to get "View proteins" at least */
+  /* istanbul ignore next */
+  const { data: facetData } = useDataApi<{ facets: FacetObject[] }>(
+    data && !data.statistics
+      ? getAPIQueryUrl({
+          namespace: Namespace.uniprotkb,
+          query: `(taxonomy_id:${accession})`,
+          facets: ['reviewed'],
+          size: 0,
+        })
+      : undefined
+  );
+  const fallbackStats: Partial<Statistics> = {};
+  /* istanbul ignore next */
+  if (facetData) {
+    const reviewedFacet = facetData.facets.find(
+      ({ name }) => name === 'reviewed'
+    );
+    fallbackStats.reviewedProteinCount = reviewedFacet?.values.find(
+      ({ value }) => value === 'true'
+    )?.count;
+    fallbackStats.unreviewedProteinCount = reviewedFacet?.values.find(
+      ({ value }) => value === 'false'
+    )?.count;
+  }
+  /* End of temporary workaround */
+
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
@@ -58,14 +87,14 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     return <Loader progress={progress} />;
   }
 
-  const proteinStatistics = pick<Partial<Statistics>>(data.statistics || {}, [
-    'reviewedProteinCount',
-    'unreviewedProteinCount',
-  ]);
-  const proteomeStatistics = pick<Partial<Statistics>>(data.statistics || {}, [
-    'proteomeCount',
-    'referenceProteomeCount',
-  ]);
+  const proteinStatistics = pick<Partial<Statistics>>(
+    data.statistics || fallbackStats,
+    ['reviewedProteinCount', 'unreviewedProteinCount']
+  );
+  const proteomeStatistics = pick<Partial<Statistics>>(
+    data.statistics || fallbackStats,
+    ['proteomeCount', 'referenceProteomeCount']
+  );
 
   const infoData =
     data &&
