@@ -14,15 +14,24 @@ This is a non exhaustive list of features which will be added to the website in 
 - Some of the links currently link to the current UniProt website. These links will be updated as sections are added.
 
 ## Query builder
+- Search with genome location
+- [BUG] AND/OR shouldn't be displayed for the first option TRM-21994
+- [BUG] GO term search syntax is wrong TRM-23247
+- [BUG] Change namespace when on other namespace results page causes it to search in that namespace instead TRM-25557
 
 ## UniProtKB Results
+- Proteome filter
+- Nicer lineage component
+- [BUG] Interacts with column stays empty TRM-24893
 
 ## UniProtKB Entry
 
 - GO terms is currently using the GO Ribbons widget and displaying data from AGR. We will update this and display UniProt data instead.
 - Entry history.
 - Inline PubMed IDs to be turned into links.
-- [BUG] Scroll to hash not always working (impact on protein highlights from results card).
+- "Search for EC number" link
+- Suggested terms - TRM-20293
+- [BUG] Scroll to hash not always working (impact on protein highlights from results card). TRM-25578
 
 ## UniRef Results
 
@@ -37,6 +46,7 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Proteomes Results
 
 ## Proteomes Entry
+- Add annotation program information
 
 ## Supporting Data
 
