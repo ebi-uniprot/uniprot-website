@@ -21,7 +21,7 @@ This is a non exhaustive list of features which will be added to the website in 
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25557) Change namespace when on other namespace results page causes it to search in that namespace instead.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25580) Searching for " \* " in database xref generates the wrong query string.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25888) Double quotes get added to some search fields.
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working.
+- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working for non-UniProtKB searches.
 
 ## UniProtKB Results
 
