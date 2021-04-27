@@ -5,7 +5,7 @@ This is a non exhaustive list of features which will be added to the website in 
 ## General
 
 - The website is not responsive yet, and best viewed on laptop/desktops with a resolution above 1024x768px until then.
-- Only "modern" browsers such as Chrome, Firefox, Safari, etc... are supported. Internet Explorer is not supported.
+- Only "modern" browsers such as Chrome, Firefox, Safari, Edge, etc... are supported. Internet Explorer is not supported.
 
 ## Homepage
 
