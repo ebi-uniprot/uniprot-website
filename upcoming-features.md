@@ -20,7 +20,9 @@ This is a non exhaustive list of features which will be added to the website in 
 ## UniProtKB Entry
 
 - GO terms is currently using the GO Ribbons widget and displaying data from AGR. We will update this and display UniProt data instead.
-- Entry history not yet implemented
+- Entry history.
+- Inline PubMed IDs to be turned into links.
+- [BUG] Scroll to hash not always working (impact on protein highlights from results card).
 
 ## UniRef Results
 
@@ -38,11 +40,16 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Supporting Data
 
-- UniRule and ARBA not yet implemented
+- UniRule and ARBA
+- Keywords graphical representation
+- Nicer lineage component
+- Disease cross-reference links
 
 ## BLAST
 
-- Currently missing BLAST against UniRef/UniParc
+- Currently missing BLAST against UniRef/UniParc.
+- "Filter by Taxonomy" to be able to add any taxonomy node as a filter, not only suggested ones.
+- Sort (TBD)
 
 ## Align
 
