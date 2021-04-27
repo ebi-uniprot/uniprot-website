@@ -16,8 +16,12 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Query builder
 - Search with genome location
 - [BUG] AND/OR shouldn't be displayed for the first option TRM-21994
-- [BUG] GO term search syntax is wrong TRM-23247
+- [BUG] GO term search syntax is wrong TRM-23247 / TRM-25581
 - [BUG] Change namespace when on other namespace results page causes it to search in that namespace instead TRM-25557
+- [BUG] Searching for " * " in database xref generates the wrong query string TRM-25580
+- [BUG] Double quotes get added to some search fields TRM-25888
+- [BUG] Proteomes Taxonomy suggester not working TRM-25889
+
 
 ## UniProtKB Results
 - Proteome filter
@@ -42,6 +46,7 @@ This is a non exhaustive list of features which will be added to the website in 
 - Timeline column
 
 ## UniParc Entry
+- Download functionality
 
 ## Proteomes Results
 
@@ -65,9 +70,11 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Peptide Search
 
+- Results
+
 ## Upload Lists / ID Mapping
 
--
+-Results
 
 ## Tools Results (Dashboard)
 
@@ -83,7 +90,9 @@ This is a non exhaustive list of features which will be added to the website in 
 
 We are working on an overhaul of the Help center.
 
-## Programmatic Access
+## Programmatic Access documnentation
+
+- Not yet implemented
 
 ## Release Statistics
 
