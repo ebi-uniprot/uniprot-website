@@ -8,6 +8,7 @@ export const fileFormatsResultsDownload = [
 ];
 
 export const fileFormatEntryDownload = [
+  FileFormat.rdfXml,
   FileFormat.tsv,
   FileFormat.excel,
   FileFormat.json,
