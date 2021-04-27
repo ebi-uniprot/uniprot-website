@@ -1,4 +1,4 @@
-import { useMemo, useState, Suspense, useCallback } from 'react';
+import { useMemo, useState, Suspense, useCallback, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Header, HelpIcon, EnvelopeIcon, BasketIcon } from 'franklin-sites';
 
@@ -96,6 +96,12 @@ const SearchContainerWithNamespace = () => {
   const [selectedNamespace, setSelectedNamespace] = useState(
     namespace || Namespace.uniprotkb
   );
+
+  useEffect(() => {
+    if (namespace) {
+      setSelectedNamespace(namespace);
+    }
+  }, [namespace]);
 
   return (
     <SearchContainer
