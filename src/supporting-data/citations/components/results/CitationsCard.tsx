@@ -1,6 +1,6 @@
-import { Card } from 'franklin-sites';
 import { FC, useCallback, MouseEvent } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Card } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
 import LiteratureCitation from '../LiteratureCitation';
@@ -45,9 +45,11 @@ const CitationCard: FC<{
             />
           </div>
         )}
-        <div className="result-card__right">
-          <LiteratureCitation data={data} />
-        </div>
+        <LiteratureCitation
+          className="result-card__right"
+          data={data}
+          headingLevel="h2"
+        />
       </div>
     </Card>
   );

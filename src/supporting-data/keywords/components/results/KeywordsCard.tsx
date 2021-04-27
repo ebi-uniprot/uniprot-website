@@ -1,11 +1,12 @@
-import { Card } from 'franklin-sites';
-import { FC, useCallback, MouseEvent } from 'react';
+import { FC, useCallback, MouseEvent, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Card } from 'franklin-sites';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { KeywordsAPIModel } from '../../adapters/keywordsConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -38,8 +39,13 @@ const KeywordsCard: FC<{
     [history, id]
   );
 
+  const links = useMemo(
+    () => mapToLinks(Namespace.keywords, id, data.statistics),
+    [data.statistics, id]
+  );
+
   return (
-    <Card onClick={handleCardClick}>
+    <Card onClick={handleCardClick} links={links}>
       <div className="result-card">
         {handleEntrySelection && (
           <div className="result-card__left">

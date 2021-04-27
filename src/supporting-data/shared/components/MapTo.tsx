@@ -80,10 +80,10 @@ const configMap = new Map<
           {count === 1 ? '' : 's'}
         </>
       ),
-      to: (fieldName, accession) => ({
+      to: (_, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
-        // TODO:
-        search: `query=(${fieldName}:${accession})`,
+        // NOTE: only works for PubMed IDs
+        search: `query=(computational_pubmed_id:${accession})`,
       }),
     },
   ],
@@ -97,10 +97,10 @@ const configMap = new Map<
           {count === 1 ? '' : 's'}
         </>
       ),
-      to: (fieldName, accession) => ({
+      to: (_, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
-        // TODO:
-        search: `query=(${fieldName}:${accession})`,
+        // NOTE: only works for PubMed IDs
+        search: `query=(community_pubmed_id:${accession})`,
       }),
     },
   ],
@@ -256,7 +256,7 @@ export const mapToLinks = (
   }
   const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
   // eslint-disable-next-line consistent-return
-  return enrichedStatistics.map(({ count, text, to }) => ({
+  return enrichedStatistics.map(({ text, to }) => ({
     name: text,
     link: to,
   }));

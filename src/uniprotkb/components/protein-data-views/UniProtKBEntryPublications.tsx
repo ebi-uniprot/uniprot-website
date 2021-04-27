@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Loader, Message } from 'franklin-sites';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -12,9 +11,7 @@ import { Namespace } from '../../../shared/types/namespaces';
 
 import './styles/inline-publication.scss';
 
-const UniProtKBEntryPublications: FC<{
-  pubmedIds: string[];
-}> = ({ pubmedIds }) => {
+const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
   const url = getAPIQueryUrl({
     namespace: Namespace.citations,
     query: pubmedIds.join(' OR '),
@@ -36,18 +33,14 @@ const UniProtKBEntryPublications: FC<{
   }
 
   const { results } = data;
-  return (
-    <>
-      {results?.map((citationData) => (
-        <div
-          className="inline-publication"
-          key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
-        >
-          <LiteratureCitation data={citationData} />
-        </div>
-      ))}
-    </>
-  );
+  return results?.map((citationData) => (
+    <LiteratureCitation
+      key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
+      data={citationData}
+      className="inline-publication"
+      headingLevel="h5"
+    />
+  ));
 };
 
 export default UniProtKBEntryPublications;

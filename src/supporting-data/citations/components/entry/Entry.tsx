@@ -39,7 +39,7 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
           <EntryDownload />
           <MapToDropdown statistics={data.statistics} />
         </div>
-        <LiteratureCitation data={data} displayAll />
+        <LiteratureCitation data={data} displayAll headingLevel="h1" />
       </Card>
     </SingleColumnLayout>
   );
