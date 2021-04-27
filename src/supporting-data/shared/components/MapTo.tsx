@@ -16,6 +16,7 @@ const configMap = new Map<
   keyof Statistics | 'proteinCount',
   {
     label: ReactNode;
+    text: (count: number) => ReactNode;
     to: (fieldName: string, accession: string) => LinkProps['to'];
   }
 >([
@@ -24,6 +25,12 @@ const configMap = new Map<
     'proteinCount',
     {
       label: 'UniProtKB',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> UniProtKB entr
+          {count === 1 ? 'y' : 'ies'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         search: `query=(${fieldName}:${accession})`,
@@ -34,6 +41,12 @@ const configMap = new Map<
     'reviewedProteinCount',
     {
       label: 'UniProtKB reviewed (Swiss-Prot)',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> reviewed UniProtKB entr
+          {count === 1 ? 'y' : 'ies'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         search: `facets=reviewed:true&query=(${fieldName}:${accession})`,
@@ -44,6 +57,12 @@ const configMap = new Map<
     'unreviewedProteinCount',
     {
       label: 'UniProtKB unreviewed (TrEMBL)',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> unreviewed UniProtKB entr
+          {count === 1 ? 'y' : 'ies'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         search: `facets=reviewed:false&query=(${fieldName}:${accession})`,
@@ -55,6 +74,12 @@ const configMap = new Map<
     'computationallyMappedProteinCount',
     {
       label: 'Computationally mapped proteins',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> computationally mapped protein
+          {count === 1 ? '' : 's'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         // TODO:
@@ -66,6 +91,12 @@ const configMap = new Map<
     'communityMappedProteinCount',
     {
       label: 'Community mapped proteins',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> community mapped protein
+          {count === 1 ? '' : 's'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.UniProtKBResults],
         // TODO:
@@ -78,6 +109,11 @@ const configMap = new Map<
     'proteomeCount',
     {
       label: 'Proteomes',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> proteome{count === 1 ? '' : 's'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.ProteomesResults],
         search: `query=(${fieldName}:${accession})`,
@@ -88,6 +124,12 @@ const configMap = new Map<
     'referenceProteomeCount',
     {
       label: 'Reference proteomes',
+      text: (count) => (
+        <>
+          <LongNumber>{count}</LongNumber> reference proteome
+          {count === 1 ? '' : 's'}
+        </>
+      ),
       to: (fieldName, accession) => ({
         pathname: LocationToPath[Location.ProteomesResults],
         search: `facets=proteome_type:1&query=(${fieldName}:${accession})`,
@@ -111,6 +153,7 @@ type EnrichedStatistics = {
   key: keyof Statistics | 'proteinCount';
   count: number;
   label: ReactNode;
+  text: ReactNode;
   to: LinkProps['to'];
 };
 
@@ -146,6 +189,7 @@ const enrichStatistics = (
       key: key as keyof Statistics | 'proteinCount',
       count: value,
       label: config.label,
+      text: config.text(value || 0),
       to: config.to(fieldName, accession),
     };
   });
@@ -205,15 +249,15 @@ export const mapToLinks = (
   namespace: Namespace,
   accession: string,
   statistics: Statistics | undefined
-): Array<{ name: string; link: LinkProps['to'] }> | undefined => {
+): Array<{ name: ReactNode; link: LinkProps['to'] }> | undefined => {
   const fieldName = supportingDataUniProtKBFieldMap.get(namespace);
   if (!(statistics && fieldName)) {
     return;
   }
   const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
   // eslint-disable-next-line consistent-return
-  return enrichedStatistics.map(({ count, label, to }) => ({
-    name: `${label}: ${count}`,
+  return enrichedStatistics.map(({ count, text, to }) => ({
+    name: text,
     link: to,
   }));
 };
