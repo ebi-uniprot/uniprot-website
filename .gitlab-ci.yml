@@ -1,66 +1,66 @@
 stages:
-  - deploy
   # - test
   # - build_static_assets
   # - build_docker_image
+  - deploy
 
 variables:
   CONTAINER_IMAGE: ${CI_REGISTRY_IMAGE}:latest
 
-.js:
-  image: node
-  before_script:
-    - git --version
-    - node --version
-    - npm --version
-    - yarn --version
-    - yarn
+# .js:
+#   image: node
+#   before_script:
+#     - git --version
+#     - node --version
+#     - npm --version
+#     - yarn --version
+#     - yarn
 
-test:
-  image: buildkite/puppeteer
-  stage: test
-  before_script:
-    - apt-get update && apt-get install -y git
-    - git --version
-    - node --version
-    - npm --version
-    - yarn --version
-    - yarn
-  script:
-    - yarn test
+# test:
+#   image: buildkite/puppeteer
+#   stage: test
+#   before_script:
+#     - apt-get update && apt-get install -y git
+#     - git --version
+#     - node --version
+#     - npm --version
+#     - yarn --version
+#     - yarn
+#   script:
+#     - yarn test
 
-build_static_assets:
-  only:
-    refs:
-      - main
-  extends: .js
-  stage: build_static_assets
-  script:
-    - yarn build:prod
-  artifacts:
-    paths:
-      - build/
+# build_static_assets:
+#   only:
+#     refs:
+#       - main
+#   extends: .js
+#   stage: build_static_assets
+#   script:
+#     - yarn build:prod
+#   artifacts:
+#     paths:
+#       - build/
 
-build_docker_image:
-  only:
-    refs:
-      - main
-  stage: build_docker_image
-  image: docker:latest
-  tags:
-    - dind
-  services:
-    - docker:dind
-  before_script:
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
-    - docker --version
-    - echo ${CONTAINER_IMAGE}
-  script:
-    - docker build -t ${CONTAINER_IMAGE} --no-cache .
-    - docker image ls
-    - docker push ${CONTAINER_IMAGE}
-    - docker rmi ${CONTAINER_IMAGE}
-    - docker logout "$CI_REGISTRY"
+# build_docker_image:
+#   only:
+#     refs:
+#       - main
+#   stage: build_docker_image
+#   image: docker:latest
+#   tags:
+#     - dind
+#   services:
+#     - docker:dind
+#   before_script:
+#     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
+#     - docker --version
+#     - echo ${CONTAINER_IMAGE}
+#   script:
+#     - docker build -t ${CONTAINER_IMAGE} --no-cache .
+#     - docker image ls
+#     - docker push ${CONTAINER_IMAGE}
+#     - docker rmi ${CONTAINER_IMAGE}
+#     - docker logout "$CI_REGISTRY"
 
 deploy:
   only:
