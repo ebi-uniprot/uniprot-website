@@ -4,7 +4,9 @@ import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../UniParcColumnConfiguration';
 
-import uniParcConverter from '../../adapters/uniParcConverter';
+import uniParcConverter, {
+  UniParcUIModel,
+} from '../../adapters/uniParcConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
 import data from '../../__mocks__/entryModelData';
@@ -12,7 +14,7 @@ import data from '../../__mocks__/entryModelData';
 jest.mock('../../../tools/utils/storage');
 
 describe('UniParcColumnConfiguration component', () => {
-  let transformedData;
+  let transformedData: UniParcUIModel;
 
   beforeAll(() => {
     transformedData = uniParcConverter(data);
@@ -32,7 +34,7 @@ describe('UniParcColumnConfiguration component', () => {
     test('should render empty "first seen" column when no xref', () => {
       const { container } = customRender(
         <MemoryRouter>
-          {UniParcColumnConfiguration.get(UniParcColumn.firstSeen).render({
+          {UniParcColumnConfiguration.get(UniParcColumn.firstSeen)?.render({
             ...transformedData,
             uniParcCrossReferences: undefined,
           })}
@@ -45,7 +47,7 @@ describe('UniParcColumnConfiguration component', () => {
   test('should render empty "last seen" column when no xref', () => {
     const { container } = customRender(
       <MemoryRouter>
-        {UniParcColumnConfiguration.get(UniParcColumn.lastSeen).render({
+        {UniParcColumnConfiguration.get(UniParcColumn.lastSeen)?.render({
           ...transformedData,
           uniParcCrossReferences: undefined,
         })}

@@ -62,7 +62,7 @@ const DiseasesEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h2>Disease - {data.name}</h2>
+      <h1 className="big">Disease - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

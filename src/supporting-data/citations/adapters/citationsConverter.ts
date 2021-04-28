@@ -57,7 +57,7 @@ export interface CommunityAnnotation {
 }
 
 export type CitationsAPIModel = {
-  statistics: SetRequired<
+  statistics?: SetRequired<
     Statistics,
     'computationallyMappedProteinCount' | 'communityMappedProteinCount'
   > & {

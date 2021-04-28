@@ -11,7 +11,9 @@ exports[`Publication component should render 1`] = `
       <div
         class="publication__columns__main"
       >
-        <h5>
+        <h5
+          class="publication__heading tiny"
+        >
           Complete sequencing and characterization of 21,243 full-length human cDNAs.
         </h5>
         <div
@@ -154,35 +156,40 @@ exports[`Publication component should render 1`] = `
         <div
           class="publication__columns__side__item"
         >
+          <small>
+            Mapped to
+          </small>
           <div
             class="publication__statistics"
           >
-            <div
-              class="publication__statistics__item"
+            <a
+              href="/uniprotkb?facets=reviewed:true&query=(lit_pubmed:14702039)"
+              title="UniProtKB reviewed entries: 32172"
             >
-              <a
-                href="/uniprotkb?query=(lit_pubmed:14702039)"
+              <span
+                class="bubble--small colour-pastel-blue"
               >
-                <div>
-                  <small>
-                    Cited in
-                  </small>
-                </div>
-                <div
-                  class="publication__statistics__bubble"
-                >
-                  <span
-                    class="bubble--small colour-pastel-blue"
-                  >
-                    99+
-                  </span>
-                  <test-file-stub
-                    height="15"
-                    width="15"
-                  />
-                </div>
-              </a>
-            </div>
+                99+
+              </span>
+              <test-file-stub
+                classname="publication__statistics--reviewed"
+                height="1em"
+              />
+            </a>
+            <a
+              href="/uniprotkb?facets=reviewed:false&query=(lit_pubmed:14702039)"
+              title="UniProtKB unreviewed entries: 2615"
+            >
+              <span
+                class="bubble--small colour-pastel-blue"
+              >
+                99+
+              </span>
+              <test-file-stub
+                classname="publication__statistics--unreviewed"
+                height="1em"
+              />
+            </a>
           </div>
         </div>
       </div>

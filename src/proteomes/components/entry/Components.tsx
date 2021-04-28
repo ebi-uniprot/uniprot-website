@@ -77,7 +77,7 @@ export const Components: FC<
   ];
 
   return (
-    <Card title="Components">
+    <Card header={<h2>Components</h2>}>
       <ComponentsButtons
         components={components}
         selectedEntries={selectedEntries}

@@ -33,14 +33,18 @@ const UniProtKBEntryPublications = ({ pubmedIds }: { pubmedIds: string[] }) => {
   }
 
   const { results } = data;
-  return results?.map((citationData) => (
-    <LiteratureCitation
-      key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
-      data={citationData}
-      className="inline-publication"
-      headingLevel="h5"
-    />
-  ));
+  return (
+    <>
+      {results?.map((citationData) => (
+        <LiteratureCitation
+          key={`${citationData.citation.title}-${citationData.citation.citationType}-${citationData.citation.journal}`}
+          data={citationData}
+          className="inline-publication"
+          headingLevel="h5"
+        />
+      ))}
+    </>
+  );
 };
 
 export default UniProtKBEntryPublications;

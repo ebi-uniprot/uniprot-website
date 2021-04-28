@@ -1,5 +1,5 @@
 import { Loader, Message, Tabs, Tab, Card, Button } from 'franklin-sites';
-import { FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import { groupBy } from 'lodash-es';
 import { Link } from 'react-router-dom';
 
@@ -24,10 +24,12 @@ import {
   UniRefLiteAPIModel,
 } from '../../../../uniref/adapters/uniRefConverter';
 
-const SimilarProteins: FC<{
+type Props = {
   isoforms: { isoforms: string[] };
   primaryAccession: string;
-}> = ({ isoforms, primaryAccession }) => {
+};
+
+const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
   const allAccessions = useMemo(
     () => [primaryAccession, ...isoforms.isoforms],
     [primaryAccession, isoforms]
@@ -88,75 +90,76 @@ const SimilarProteins: FC<{
   }
 
   return (
-    <div id={EntrySection.SimilarProteins}>
-      <Card title={nameAndId.name}>
-        {clusterData ? (
-          <Tabs>
-            {Object.entries(uniRefEntryTypeToPercent).map(
-              ([clusterType, percentValue]) =>
-                clusterType in clusterData &&
-                clusterData[clusterType as UniRefEntryType] && (
-                  <Tab
-                    id={clusterType}
-                    title={`${percentValue} identity`}
-                    key={clusterType}
+    <Card
+      header={<h2>{nameAndId.name}</h2>}
+      id={EntrySection.SimilarProteins}
+      data-entry-section
+    >
+      {clusterData ? (
+        <Tabs>
+          {Object.entries(uniRefEntryTypeToPercent).map(
+            ([clusterType, percentValue]) =>
+              clusterType in clusterData &&
+              clusterData[clusterType as UniRefEntryType] && (
+                <Tab
+                  id={clusterType}
+                  title={`${percentValue} identity`}
+                  key={clusterType}
+                >
+                  {Object.entries(
+                    clusterData[clusterType as UniRefEntryType] || {}
+                  ).map(([representativeId, clusters]) => (
+                    <section key={representativeId} className="text-block">
+                      <h4>{representativeId}</h4>
+                      {clusters.map((row) => {
+                        const unirefEntryUrl = getEntryPath(
+                          Namespace.uniref,
+                          row.id
+                        );
+                        return (
+                          <section key={row.id}>
+                            <h5>
+                              <Link to={unirefEntryUrl}>{row.id}</Link>
+                            </h5>
+                            <SimilarProteinsTable members={row.members} />
+                            {row.memberCount - row.members.length - 1 > 0 && (
+                              <Link to={unirefEntryUrl}>
+                                {row.memberCount - row.members.length - 1} more
+                              </Link>
+                            )}
+                          </section>
+                        );
+                      })}
+                      <hr />
+                    </section>
+                  ))}
+                  {/* TODO: This query doesn't seem to work currently */}
+                  <Button
+                    element={Link}
+                    to={{
+                      pathname: LocationToPath[Location.UniProtKBResults],
+                      search: `query=(${data?.results
+                        .filter(({ entryType }) => entryType === clusterType)
+                        .map(
+                          ({ id }) =>
+                            `uniref_cluster_${clusterType.replace(
+                              'UniRef',
+                              ''
+                            )}:${id}`
+                        )
+                        .join(' OR ')})`,
+                    }}
                   >
-                    {Object.entries(
-                      clusterData[clusterType as UniRefEntryType] || {}
-                    ).map(([representativeId, clusters]) => (
-                      <section key={representativeId} className="text-block">
-                        <h4>{representativeId}</h4>
-                        {clusters.map((row) => {
-                          const unirefEntryUrl = getEntryPath(
-                            Namespace.uniref,
-                            row.id
-                          );
-                          return (
-                            <section key={row.id}>
-                              <h5>
-                                <Link to={unirefEntryUrl}>{row.id}</Link>
-                              </h5>
-                              <SimilarProteinsTable members={row.members} />
-                              {row.memberCount - row.members.length - 1 > 0 && (
-                                <Link to={unirefEntryUrl}>
-                                  {row.memberCount - row.members.length - 1}{' '}
-                                  more
-                                </Link>
-                              )}
-                            </section>
-                          );
-                        })}
-                        <hr />
-                      </section>
-                    ))}
-                    {/* TODO: This query doesn't seem to work currently */}
-                    <Button
-                      element={Link}
-                      to={{
-                        pathname: LocationToPath[Location.UniProtKBResults],
-                        search: `query=(${data?.results
-                          .filter(({ entryType }) => entryType === clusterType)
-                          .map(
-                            ({ id }) =>
-                              `uniref_cluster_${clusterType.replace(
-                                'UniRef',
-                                ''
-                              )}:${id}`
-                          )
-                          .join(' OR ')})`,
-                      }}
-                    >
-                      View all
-                    </Button>
-                  </Tab>
-                )
-            )}
-          </Tabs>
-        ) : (
-          <em>No similar UniProtKB entry found.</em>
-        )}
-      </Card>
-    </div>
+                    View all
+                  </Button>
+                </Tab>
+              )
+          )}
+        </Tabs>
+      ) : (
+        <em>No similar UniProtKB entry found.</em>
+      )}
+    </Card>
   );
 };
 

@@ -64,7 +64,7 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h2>Database - {data.abbrev}</h2>
+      <h1 className="big">Database - {data.abbrev}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

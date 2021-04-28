@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { DataList } from 'franklin-sites';
 
-import CitationCard from '../../../supporting-data/citations/components/results/CitationsCard';
+import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
 
 import { getCitationItemId } from '../../../supporting-data/citations/utils';
 
@@ -22,7 +22,7 @@ const Publications: FC<Pick<ProteomesAPIModel, 'citations'>> = ({
         getIdKey={getCitationItemId}
         data={citations}
         dataRenderer={(citation: Citation) => (
-          <CitationCard data={{ citation }} />
+          <CitationsCard data={{ citation }} headingLevel="h3" />
         )}
       />
     </section>

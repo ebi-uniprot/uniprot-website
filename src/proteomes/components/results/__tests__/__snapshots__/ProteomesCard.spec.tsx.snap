@@ -3,178 +3,177 @@
 exports[`ProteomesCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/proteomes/UP000005640"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <input
+          data-testid="up-card-checkbox"
+          type="checkbox"
+        />
+        <h2
+          class="tiny"
+        >
+          <span
+            class="entry-title"
+          >
+            <span
+              class="entry-title__status icon--reference-proteome"
+              title="This marks a reference Proteome entry"
+            >
+              <test-file-stub />
+            </span>
+            UP000005640
+          </span>
+        </h2>
+      </div>
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="result-card__info-container"
         >
-          <div
-            class="result-card__left"
+          <span
+            class="result-card__info-bit"
           >
-            <input
-              data-testid="up-card-checkbox"
-              type="checkbox"
-            />
-          </div>
-          <div
-            class="result-card__right"
+            <strong>
+              Organism: 
+            </strong>
+            <a
+              href="/taxonomy/9606"
+              title="Homo sapiens (Human), taxon ID 9606"
+            >
+              Homo sapiens (Human)
+            </a>
+          </span>
+          <span
+            class="result-card__info-bit"
           >
-            <h5>
+            <strong>
+              Protein Count: 
+            </strong>
+            <a
+              href="/uniprotkb?query=proteome:UP000005640"
+            >
+              77036
+            </a>
+          </span>
+          <span
+            class="result-card__info-bit"
+          >
+            <strong>
+              Genome representation: 
+            </strong>
+            Full
+          </span>
+          <span
+            class="result-card__info-bit"
+          >
+            <strong>
+              <abbr
+                title="Complete Proteome Detector"
+              >
+                CPD
+              </abbr>
+              : 
+            </strong>
+            Unknown
+          </span>
+        </div>
+        <div
+          class="result-card__info-container"
+        >
+          <span
+            class="result-card__info-bit busco__info-bit"
+          >
+            <strong>
+              <abbr
+                title="Benchmarking Universal Single-Copy Orthologs"
+              >
+                BUSCO
+              </abbr>
+              <br />
               <span
-                class="entry-title"
+                class="busco-legend-item"
               >
                 <span
-                  class="entry-title__status icon--reference-proteome"
-                  title="This marks a reference Proteome entry"
+                  class="busco-legend-item__swatch"
+                  style="background-color: rgb(188, 232, 117);"
+                />
+                <span
+                  class="busco-legend-item__label"
                 >
-                  <test-file-stub />
+                  Single
                 </span>
-                UP000005640
               </span>
-            </h5>
+              <span
+                class="busco-legend-item"
+              >
+                <span
+                  class="busco-legend-item__swatch"
+                  style="background-color: rgb(11, 165, 166);"
+                />
+                <span
+                  class="busco-legend-item__label"
+                >
+                  Duplicated
+                </span>
+              </span>
+              <span
+                class="busco-legend-item"
+              >
+                <span
+                  class="busco-legend-item__swatch"
+                  style="background-color: rgb(238, 203, 164);"
+                />
+                <span
+                  class="busco-legend-item__label"
+                >
+                  Fragmented
+                </span>
+              </span>
+              <span
+                class="busco-legend-item"
+              >
+                <span
+                  class="busco-legend-item__swatch"
+                  style="background-color: rgb(49, 75, 180);"
+                />
+                <span
+                  class="busco-legend-item__label"
+                >
+                  Missing
+                </span>
+              </span>
+            </strong>
             <div
-              class="result-card__info-container"
+              class="busco-view"
             >
-              <span
-                class="result-card__info-bit"
+              <protvista-track
+                height="10"
+                length="100"
+              />
+              <div
+                class="busco-view__report"
               >
-                <strong>
-                  Organism: 
-                </strong>
-                <a
-                  href="/taxonomy/9606"
-                  title="Homo sapiens (Human), taxon ID 9606"
-                >
-                  Homo sapiens (Human)
-                </a>
-              </span>
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Protein Count: 
-                </strong>
-                <a
-                  href="/uniprotkb?query=proteome:UP000005640"
-                >
-                  77036
-                </a>
-              </span>
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Genome representation: 
-                </strong>
-                Full
-              </span>
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  <abbr
-                    title="Complete Proteome Detector"
-                  >
-                    CPD
-                  </abbr>
-                  : 
-                </strong>
-                Unknown
-              </span>
+                n:13780 · primates_odb10
+              </div>
+              <div>
+                C:99.5% (S:39.2% D:60.3%) F:0% M:0.4%
+              </div>
             </div>
-            <div
-              class="result-card__info-container"
-            >
-              <span
-                class="result-card__info-bit busco__info-bit"
-              >
-                <strong>
-                  <abbr
-                    title="Benchmarking Universal Single-Copy Orthologs"
-                  >
-                    BUSCO
-                  </abbr>
-                  <br />
-                  <span
-                    class="busco-legend-item"
-                  >
-                    <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(188, 232, 117);"
-                    />
-                    <span
-                      class="busco-legend-item__label"
-                    >
-                      Single
-                    </span>
-                  </span>
-                  <span
-                    class="busco-legend-item"
-                  >
-                    <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(11, 165, 166);"
-                    />
-                    <span
-                      class="busco-legend-item__label"
-                    >
-                      Duplicated
-                    </span>
-                  </span>
-                  <span
-                    class="busco-legend-item"
-                  >
-                    <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(238, 203, 164);"
-                    />
-                    <span
-                      class="busco-legend-item__label"
-                    >
-                      Fragmented
-                    </span>
-                  </span>
-                  <span
-                    class="busco-legend-item"
-                  >
-                    <span
-                      class="busco-legend-item__swatch"
-                      style="background-color: rgb(49, 75, 180);"
-                    />
-                    <span
-                      class="busco-legend-item__label"
-                    >
-                      Missing
-                    </span>
-                  </span>
-                </strong>
-                <div
-                  class="busco-view"
-                >
-                  <protvista-track
-                    height="10"
-                    length="100"
-                  />
-                  <div
-                    class="busco-view__report"
-                  >
-                    n:13780 · primates_odb10
-                  </div>
-                  <div>
-                    C:99.5% (S:39.2% D:60.3%) F:0% M:0.4%
-                  </div>
-                </div>
-              </span>
-            </div>
-          </div>
+          </span>
         </div>
       </div>
     </div>

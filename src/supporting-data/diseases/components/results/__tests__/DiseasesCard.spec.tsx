@@ -21,7 +21,8 @@ describe('DiseasesCard tests', () => {
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
-    fireEvent.click(screen.getAllByRole('button')[0]);
+    expect(history.location.pathname).not.toMatch('/diseases/DI-00550');
+    fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/diseases/DI-00550');
   });
 });

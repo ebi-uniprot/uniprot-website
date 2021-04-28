@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import EntrySection, {
@@ -14,29 +13,37 @@ import { hasContent } from '../../../shared/utils/utils';
 import { CommentType, FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 
-const ProteinProcessingSection: FC<{
+type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence: string;
-}> = ({ data, sequence, primaryAccession }): JSX.Element | null => {
+};
+
+const ProteinProcessingSection = ({
+  data,
+  sequence,
+  primaryAccession,
+}: Props) => {
   if (!hasContent(data)) {
     return null;
   }
   const { featuresData, keywordData, xrefData, commentsData } = data;
   return (
-    <div id={EntrySection.ProteinProcessing} data-entry-section>
-      <Card
-        title={getEntrySectionNameAndId(EntrySection.ProteinProcessing).name}
-      >
-        <FeaturesView features={featuresData} sequence={sequence} />
-        <FreeTextView
-          comments={commentsData.get(CommentType.PTM) as FreeTextComment[]}
-          title={CommentType.PTM}
-        />
-        <KeywordView keywords={keywordData} />
-        <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />
-      </Card>
-    </div>
+    <Card
+      header={
+        <h2>{getEntrySectionNameAndId(EntrySection.ProteinProcessing).name}</h2>
+      }
+      id={EntrySection.ProteinProcessing}
+      data-entry-section
+    >
+      <FeaturesView features={featuresData} sequence={sequence} />
+      <FreeTextView
+        comments={commentsData.get(CommentType.PTM) as FreeTextComment[]}
+        title={CommentType.PTM}
+      />
+      <KeywordView keywords={keywordData} />
+      <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />
+    </Card>
   );
 };
 

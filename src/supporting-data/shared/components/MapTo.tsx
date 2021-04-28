@@ -199,7 +199,7 @@ const enrichStatistics = (
 
 type Props = {
   statistics: Partial<Statistics> | undefined;
-  accession?: string; // eslint-disable-line react/require-default-props
+  accession?: string;
 };
 
 export const MapToDropdown: FC<Props> = ({
@@ -249,15 +249,18 @@ export const mapToLinks = (
   namespace: Namespace,
   accession: string,
   statistics: Statistics | undefined
-): Array<{ name: ReactNode; link: LinkProps['to'] }> | undefined => {
+):
+  | Array<{ name: ReactNode; link: LinkProps['to']; key: string }>
+  | undefined => {
   const fieldName = supportingDataUniProtKBFieldMap.get(namespace);
   if (!(statistics && fieldName)) {
     return;
   }
   const enrichedStatistics = enrichStatistics(statistics, fieldName, accession);
   // eslint-disable-next-line consistent-return
-  return enrichedStatistics.map(({ text, to }) => ({
+  return enrichedStatistics.map(({ text, to, key }) => ({
     name: text,
     link: to,
+    key,
   }));
 };

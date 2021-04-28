@@ -5,13 +5,13 @@ exports[`Components view should render 1`] = `
   <section
     class="card"
   >
-    <div>
+    <div
+      class="card__container"
+    >
       <div
-        class="card__header"
+        class="card__header card__header--with-separator"
       >
-        <h2
-          class="card__title"
-        >
+        <h2>
           Components
         </h2>
       </div>

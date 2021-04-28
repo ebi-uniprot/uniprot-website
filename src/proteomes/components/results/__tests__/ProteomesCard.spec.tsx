@@ -21,7 +21,8 @@ describe('ProteomesCard tests', () => {
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button'));
+    expect(history.location.pathname).not.toMatch('/proteomes/UP000005640');
+    fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/proteomes/UP000005640');
   });
 });

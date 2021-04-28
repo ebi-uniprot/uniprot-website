@@ -19,7 +19,8 @@ describe('Taxonomy Card tests', () => {
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
-    fireEvent.click(screen.getAllByRole('button')[0]);
+    expect(history.location.pathname).not.toMatch('/taxonomy/11652');
+    fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/taxonomy/11652');
   });
 });

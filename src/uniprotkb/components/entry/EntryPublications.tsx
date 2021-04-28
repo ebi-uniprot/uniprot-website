@@ -26,7 +26,7 @@ import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
-import CitationCard from '../../../supporting-data/citations/components/results/CitationsCard';
+import CitationsCard from '../../../supporting-data/citations/components/results/CitationsCard';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -147,17 +147,19 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
           return (
             references &&
             references.length > 0 && (
-              <CitationCard data={data}>
-                {references.map((reference, index) => (
-                  // No obvious key as there can be more than 1 for the same source
-                  <PublicationReference
-                    reference={reference}
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    accession={accession}
-                  />
-                ))}
-              </CitationCard>
+              <>
+                <CitationsCard data={data} headingLevel="h3">
+                  {references.map((reference, index) => (
+                    // No obvious key as there can be more than 1 for the same source
+                    <PublicationReference
+                      reference={reference}
+                      // eslint-disable-next-line react/no-array-index-key
+                      key={index}
+                      accession={accession}
+                    />
+                  ))}
+                </CitationsCard>
+              </>
             )
           );
         }}

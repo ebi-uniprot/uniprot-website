@@ -111,7 +111,7 @@ export const Overview: FC<{
   }, [data]);
 
   return (
-    <Card title="Overview">
+    <Card header={<h2>Overview</h2>}>
       <InfoList columns isCompact infoData={infoData} />
       {data.description && (
         <div className="description">

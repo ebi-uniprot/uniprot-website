@@ -5,13 +5,13 @@ exports[`SequenceSection component should render the SequenceSection properly an
   <section
     class="card"
   >
-    <div>
+    <div
+      class="card__container"
+    >
       <div
-        class="card__header"
+        class="card__header card__header--with-separator"
       >
-        <h2
-          class="card__title"
-        >
+        <h2>
           Cross references
         </h2>
       </div>

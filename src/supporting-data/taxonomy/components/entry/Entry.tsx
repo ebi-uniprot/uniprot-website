@@ -70,10 +70,10 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     const reviewedFacet = facetData.facets.find(
       ({ name }) => name === 'reviewed'
     );
-    fallbackStats.reviewedProteinCount = reviewedFacet?.values.find(
+    fallbackStats.reviewedProteinCount = reviewedFacet?.values?.find(
       ({ value }) => value === 'true'
     )?.count;
-    fallbackStats.unreviewedProteinCount = reviewedFacet?.values.find(
+    fallbackStats.unreviewedProteinCount = reviewedFacet?.values?.find(
       ({ value }) => value === 'false'
     )?.count;
   }
@@ -108,10 +108,10 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h2>
+      <h1 className="big">
         Taxonomy - {data.scientificName || data.taxonId}{' '}
         <small>({data.rank})</small>
-      </h2>
+      </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

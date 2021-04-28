@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import ProteinNamesView from '../protein-data-views/ProteinNamesView';
@@ -16,35 +15,39 @@ import EntrySection, {
 } from '../../types/entrySection';
 import AccessionsView from '../protein-data-views/AccessionsView';
 
-const NamesAndTaxonomySection: FC<{
+type Props = {
   data: NamesAndTaxonomyUIModel;
   primaryAccession: string;
-}> = ({ data, primaryAccession }): JSX.Element | null => {
+};
+
+const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
   return (
-    <div id={EntrySection.NamesAndTaxonomy} data-entry-section>
-      <Card
-        title={getEntrySectionNameAndId(EntrySection.NamesAndTaxonomy).name}
-      >
-        <h3>Protein names</h3>
-        <ProteinNamesView proteinNames={data.proteinNamesData} />
-        {data.geneNamesData && (
-          <>
-            <h3>Gene names</h3>
-            <GeneNamesView geneNamesData={data.geneNamesData} />
-          </>
-        )}
-        <h3>Organism names</h3>
-        <TaxonomyListView data={data.organismData} hosts={data.virusHosts} />
-        <h3>Accessions</h3>
-        <AccessionsView data={data} />
-        <h3>Proteome</h3>
-        <ProteomesListView data={data.proteomesData} />
-        <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      </Card>
-    </div>
+    <Card
+      header={
+        <h2>{getEntrySectionNameAndId(EntrySection.NamesAndTaxonomy).name}</h2>
+      }
+      id={EntrySection.NamesAndTaxonomy}
+      data-entry-section
+    >
+      <h3>Protein names</h3>
+      <ProteinNamesView proteinNames={data.proteinNamesData} />
+      {data.geneNamesData && (
+        <>
+          <h3>Gene names</h3>
+          <GeneNamesView geneNamesData={data.geneNamesData} />
+        </>
+      )}
+      <h3>Organism names</h3>
+      <TaxonomyListView data={data.organismData} hosts={data.virusHosts} />
+      <h3>Accessions</h3>
+      <AccessionsView data={data} />
+      <h3>Proteome</h3>
+      <ProteomesListView data={data.proteomesData} />
+      <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+    </Card>
   );
 };
 

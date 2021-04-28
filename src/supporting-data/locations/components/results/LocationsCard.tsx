@@ -1,5 +1,4 @@
-import { FC, useCallback, MouseEvent, useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
@@ -20,24 +19,14 @@ const category = LocationsColumnConfiguration.get(LocationsColumn.category);
 
 const getIdKey = getIdKeyFor(Namespace.locations);
 
-const CitationCard: FC<{
+type Props = {
   data: LocationsAPIModel;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }) => {
-  const history = useHistory();
+};
 
+const CitationCard = ({ data, selected, handleEntrySelection }: Props) => {
   const id = getIdKey(data);
-
-  const handleCardClick = useCallback(
-    (event: MouseEvent) => {
-      if ((event.target as HTMLElement).closest(`a, input, button`)) {
-        return;
-      }
-      history.push(getEntryPath(Namespace.locations, id));
-    },
-    [history, id]
-  );
 
   const links = useMemo(
     () => mapToLinks(Namespace.locations, id, data.statistics),
@@ -45,28 +34,28 @@ const CitationCard: FC<{
   );
 
   return (
-    <Card onClick={handleCardClick} links={links}>
-      <div className="result-card">
-        {handleEntrySelection && (
-          <div className="result-card__left">
+    <Card
+      header={
+        <>
+          {handleEntrySelection && (
             <input
               type="checkbox"
               checked={selected}
               onChange={() => handleEntrySelection(id)}
               data-testid="up-card-checkbox"
             />
-          </div>
-        )}
-        <div className="result-card__right">
-          <h5>{data.name}</h5>
-          <div
-            className={renderColumnsInCardStyles['result-card__info-container']}
-          >
-            {data.definition}
-          </div>
-          <RenderColumnsInCard renderers={category} data={data} />
-        </div>
+          )}
+          <h2 className="tiny">{data.name}</h2>
+        </>
+      }
+      headerSeparator={false}
+      to={getEntryPath(Namespace.locations, id)}
+      links={links}
+    >
+      <div className={renderColumnsInCardStyles['result-card__info-container']}>
+        {data.definition}
       </div>
+      <RenderColumnsInCard renderers={category} data={data} />
     </Card>
   );
 };

@@ -40,11 +40,6 @@
       &__item {
         border-left: 0.125rem solid $colour-vivid-cerulean;
         padding-left: 0.7rem;
-
-        svg {
-          stroke: $colour-sapphire-blue;
-          fill: $colour-sapphire-blue;
-        }
       }
     }
   }
@@ -56,9 +51,12 @@
       margin-right: $global-margin;
     }
 
-    // From Franklin
-    .swissprot_svg__star {
-      fill: $colour-reviewed;
+    &--reviewed {
+      color: $colour-reviewed;
+    }
+
+    &--unreviewed {
+      color: $colour-unreviewed;
     }
   }
 }

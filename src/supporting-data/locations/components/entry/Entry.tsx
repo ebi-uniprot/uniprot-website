@@ -68,7 +68,7 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h2>Cellular component - {data.name}</h2>
+      <h1 className="big">Cellular component - {data.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />

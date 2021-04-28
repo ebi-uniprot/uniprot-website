@@ -1,3 +1,5 @@
+@import 'franklin-sites/src/styles/settings';
+
 // Used to replace <p> when using EvidenceTag
 .text-block {
   margin-bottom: 1rem;
@@ -15,3 +17,24 @@
 .loader-container + .loader-container {
   display: none;
 }
+
+.card__header {
+  padding-top: $global-padding;
+}
+
+// Debug utility to show heading levels
+// @for $i from 1 through 6 {
+//   h#{$i} {
+//     border: #{7 - $i}px solid green;
+//     position: relative;
+
+//     &:after {
+//       content: 'h#{$i}';
+//       background: rgba(0, 0, 0, 0.5);
+//       color: lightgreen;
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//     }
+//   }
+// }

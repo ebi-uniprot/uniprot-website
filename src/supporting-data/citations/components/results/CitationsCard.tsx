@@ -1,7 +1,5 @@
-import { FC, useCallback, MouseEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { FC } from 'react';
 import { Card } from 'franklin-sites';
-import { SetOptional } from 'type-fest';
 
 import LiteratureCitation from '../LiteratureCitation';
 
@@ -11,48 +9,42 @@ import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
+import styles from './styles/citations-card.module.scss';
+
 const getIdKey = getIdKeyFor(Namespace.citations);
 
-const CitationCard: FC<{
-  data: SetOptional<CitationsAPIModel, 'statistics'>;
+type Props = {
+  data: CitationsAPIModel;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }) => {
-  const history = useHistory();
+  headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
+};
 
-  const id = getIdKey(data as CitationsAPIModel);
-
-  const handleCardClick = useCallback(
-    (event: MouseEvent) => {
-      if ((event.target as HTMLElement).closest(`a, input, button`)) {
-        return;
-      }
-      history.push(getEntryPath(Namespace.citations, id));
-    },
-    [history, id]
-  );
+const CitationsCard: FC<Props> = ({
+  data,
+  selected,
+  handleEntrySelection,
+  headingLevel = 'h2',
+  children,
+}) => {
+  const id = getIdKey(data);
 
   return (
-    <Card onClick={handleCardClick}>
-      <div className="result-card">
+    <Card to={getEntryPath(Namespace.citations, id)}>
+      <div className={styles['card-content']}>
         {handleEntrySelection && (
-          <div className="result-card__left">
-            <input
-              type="checkbox"
-              checked={selected}
-              onChange={() => handleEntrySelection(id)}
-              data-testid="up-card-checkbox"
-            />
-          </div>
+          <input
+            type="checkbox"
+            checked={selected}
+            onChange={() => handleEntrySelection(id)}
+            data-testid="up-card-checkbox"
+          />
         )}
-        <LiteratureCitation
-          className="result-card__right"
-          data={data}
-          headingLevel="h2"
-        />
+        <LiteratureCitation data={data} headingLevel={headingLevel} />
+        {children}
       </div>
     </Card>
   );
 };
 
-export default CitationCard;
+export default CitationsCard;

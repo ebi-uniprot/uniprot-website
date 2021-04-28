@@ -31,7 +31,9 @@ const SequenceSection: FC<{
   ];
 
   return (
-    <Card title={getEntrySectionNameAndId(EntrySection.Sequence).name}>
+    <Card
+      header={<h2>{getEntrySectionNameAndId(EntrySection.Sequence).name}</h2>}
+    >
       <Sequence sequence={data.value} infoData={infoData} isCollapsible />
     </Card>
   );
