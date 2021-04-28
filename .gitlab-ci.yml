@@ -74,4 +74,4 @@ deploy:
     - chmod +x ./kubectl
     - mv ./kubectl /usr/local/bin/kubectl
     - deploy/deploy.sh HX # fallback
-    - deploy/deploy.sh HH # main
+    # - deploy/deploy.sh HH # main
