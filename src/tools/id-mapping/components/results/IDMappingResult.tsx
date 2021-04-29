@@ -57,19 +57,19 @@ const IDMappingResult = () => {
     return <Loader />;
   }
 
-  let namespaceOverride;
+  let namespaceFallback;
   switch (detailsData?.to.toLowerCase()) {
     case Namespace.uniprotkb:
-      namespaceOverride = Namespace.uniprotkb;
+      namespaceFallback = Namespace.uniprotkb;
       break;
     case Namespace.uniref:
-      namespaceOverride = Namespace.uniref;
+      namespaceFallback = Namespace.uniref;
       break;
     case Namespace.uniparc:
-      namespaceOverride = Namespace.uniparc;
+      namespaceFallback = Namespace.uniparc;
       break;
     default:
-      namespaceOverride = Namespace.idmapping;
+      namespaceFallback = Namespace.idmapping;
   }
 
   return (
@@ -93,7 +93,7 @@ const IDMappingResult = () => {
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
-        namespaceOverride={namespaceOverride}
+        namespaceFallback={namespaceFallback}
         displayIdMappingColumns
       />
     </SideBarLayout>

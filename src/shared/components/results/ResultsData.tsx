@@ -32,21 +32,21 @@ const ResultsData: FC<{
   direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-  namespaceOverride?: Namespace;
+  namespaceFallback?: Namespace;
   displayIdMappingColumns?: boolean;
 }> = ({
   resultsDataObject,
   direct,
   selectedEntries,
   handleEntrySelection,
-  namespaceOverride,
+  namespaceFallback,
   displayIdMappingColumns,
 }) => {
-  const namespace = useNS() || namespaceOverride || Namespace.uniprotkb;
+  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns(
-    namespaceOverride,
+    namespaceFallback,
     displayIdMappingColumns
   );
   const {
