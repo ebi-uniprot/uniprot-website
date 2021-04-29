@@ -13,6 +13,17 @@ import { MessageFormat, MessageLevel } from './messages/types/messagesTypes';
 // Import this just for types, conditional import lower
 import { SWConfig } from './service-worker/client';
 
+if (!LIVE_RELOAD) {
+  // eslint-disable-next-line no-console
+  console.debug(
+    `Built with git commit ${GIT_COMMIT_HASH.trim()} ${
+      GIT_COMMIT_STATE
+        ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`
+        : '(clean)'
+    }`
+  );
+}
+
 ReactDOM.render(
   <ReduxProvider store={store}>
     <App />

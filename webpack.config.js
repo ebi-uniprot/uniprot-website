@@ -5,12 +5,19 @@ const { DefinePlugin } = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const jsonImporter = require('node-sass-json-importer');
+const childProcess = require('child_process');
 // some plugins are conditionally-loaded as they are also conditionally used.
 
 module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
   const isLiveReload = !!argv.liveReload;
   const isTest = env.TEST;
+  const gitCommitHash = childProcess
+    .execSync('git rev-parse --short HEAD')
+    .toString();
+  const gitCommitState = childProcess
+    .execSync('git status --porcelain')
+    .toString();
 
   let publicPath = '/';
   if (env.PUBLIC_PATH) {
@@ -242,6 +249,8 @@ module.exports = (env, argv) => {
       new DefinePlugin({
         BASE_URL: JSON.stringify(publicPath),
         LIVE_RELOAD: JSON.stringify(isLiveReload),
+        GIT_COMMIT_HASH: JSON.stringify(gitCommitHash),
+        GIT_COMMIT_STATE: JSON.stringify(gitCommitState),
       }),
       !isLiveReload &&
         new (require('workbox-webpack-plugin').InjectManifest)({
