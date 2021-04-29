@@ -13,9 +13,7 @@ describe('Results component', () => {
   it('should toggle card view to table', async () => {
     customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialUserPreferences: {
-        'view-mode': ViewMode.CARD,
-      },
+      initialUserPreferences: { 'view-mode': ViewMode.CARD },
     });
     await screen.findAllByText('Gene:');
     const toggle = await screen.findByTestId('table-card-toggle');

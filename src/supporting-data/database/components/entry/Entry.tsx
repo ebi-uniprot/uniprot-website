@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownload from '../../../shared/components/EntryDownload';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -16,7 +17,7 @@ import DatabaseColumnConfiguration, {
 } from '../../config/DatabaseColumnConfiguration';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../styles/entry-page.module.scss';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   DatabaseColumn.name,
@@ -64,6 +65,9 @@ const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     <SingleColumnLayout>
       <h2>Database - {data.abbrev}</h2>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+        <div className="button-group">
+          <EntryDownload />
+        </div>
         {infoData && <InfoList infoData={infoData} isCompact />}
       </Card>
     </SingleColumnLayout>

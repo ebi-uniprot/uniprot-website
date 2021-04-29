@@ -1,14 +1,12 @@
 import {
-  useContext,
   useCallback,
   useEffect,
+  useState,
   Dispatch,
   SetStateAction,
 } from 'react';
-import { frame, schedule } from 'timing-functions';
+import { frame } from 'timing-functions';
 import { JsonValue } from 'type-fest';
-
-import UserPreferencesContext from '../contexts/UserPreferences';
 
 import { Namespace } from '../types/namespaces';
 
@@ -25,30 +23,47 @@ function useUserPreferences<T extends JsonValue>(
   key: UserPreferenceKey,
   defaultValue: T
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
-  const [contextState, setContextState] = useContext(UserPreferencesContext);
+  const [state, setState] = useState<T>(() => {
+    // Initialisation
+    const inStore = window.localStorage.getItem(key);
+    if (typeof inStore !== 'string') {
+      window.localStorage.setItem(key, JSON.stringify(defaultValue));
+      return defaultValue;
+    }
+    return JSON.parse(inStore);
+  });
 
-  // Setter exposed to the user of the hook, in charge of asynchronously keeping
-  // localStorage up to date with the user preferences
+  // Setter exposed to the user of the hook, in charge of keeping localStorage
+  // up to date with the user preferences
   const setStateAndPersist = useCallback<Dispatch<SetStateAction<T>>>(
-    (value) => {
-      setContextState((state) => {
+    (valueOrSetter) => {
+      setState((currentState) => {
         const valueToStore =
-          typeof value === 'function' ? value(state[key] as T) : value;
-        // No need to cancel or anything on unmount or change of key.
-        schedule(1000).then(() => {
-          // "scheduled" in order to not block any instant UI update
-          window.localStorage.setItem(key, JSON.stringify(valueToStore));
-        });
-        // Set slice of global state with this specific user setting
-        return { ...state, [key]: valueToStore };
+          typeof valueOrSetter === 'function'
+            ? valueOrSetter(currentState)
+            : valueOrSetter;
+        const stringified = JSON.stringify(valueToStore);
+        window.localStorage.setItem(key, stringified);
+        // Dispatch asyncronously because otherwise the react logic wouldn't let
+        // us setState in the event listener
+        frame().then(() =>
+          window.dispatchEvent(
+            new StorageEvent('storage', {
+              key,
+              newValue: stringified,
+              storageArea: window.localStorage,
+            })
+          )
+        );
+        return valueToStore;
       });
     },
-    [key, setContextState]
+    [key]
   );
 
-  // Handles case when another tab or window changes user settings
-  // This keeps the current tab in sync automatically and pushes the new state
-  // to the components using it
+  // Handles case when another tab, window, or instance of the hook, changes
+  // user settings. This keeps the current tab in sync automatically and pushes
+  // the new state to the components using it
   useEffect(() => {
     const handleStorageEvent = (event: StorageEvent) => {
       if (event.storageArea !== window.localStorage || event.key !== key) {
@@ -58,47 +73,22 @@ function useUserPreferences<T extends JsonValue>(
       const { newValue } = event;
       if (newValue === null) {
         // value was removed
-        // remove from context state, but will trigger usage of default value
-        setContextState(({ [key]: _, ...state }) => state);
+        // reset state with default value, but trigger usage of default value
+        setState(defaultValue);
+        window.localStorage.setItem(key, JSON.stringify(defaultValue));
       } else {
-        // update context state accordingly
-        setContextState((state) => ({
-          ...state,
-          [key]: JSON.parse(newValue),
-        }));
+        const parsed = JSON.parse(newValue);
+        // update state accordingly
+        setState(parsed);
       }
     };
     window.addEventListener('storage', handleStorageEvent);
     return () => {
       window.removeEventListener('storage', handleStorageEvent);
     };
-  }, [key, setContextState]);
+  }, [key, defaultValue]);
 
-  if (key in contextState) {
-    // already used in this session, early exit with value and setter
-    return [contextState[key] as T, setStateAndPersist];
-  }
-  // Above this comment should be the most often use case.
-  // Below this comment should happen at most once per section.
-  // Not used in this session yet, retrieve synchronously from localStorage.
-  const stringified = window.localStorage.getItem(key);
-  if (typeof stringified === 'string') {
-    // Some value was set before, parse it
-    const parsed = JSON.parse(stringified);
-    // Return value, set it in the global state, without persisting
-    frame().then(() => {
-      // Needs to be asynchronous because can't set state in render
-      setContextState((state) => ({ ...state, [key]: parsed }));
-    });
-    return [parsed, setStateAndPersist];
-  }
-  // Otherwise, it's the first time it's used, no persisted state yet
-  // Return default value, set it in the global state, and persist
-  frame().then(() => {
-    // Needs to be asynchronous because can't set state in render
-    setStateAndPersist(defaultValue);
-  });
-  return [defaultValue, setStateAndPersist];
+  return [state, setStateAndPersist];
 }
 
 export default useUserPreferences;

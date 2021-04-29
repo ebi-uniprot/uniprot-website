@@ -6,6 +6,7 @@ import {
   Namespace,
   NamespaceLabels,
   SearchableNamespace,
+  supportingDataNamespaces,
 } from '../../shared/types/namespaces';
 
 export enum Location {
@@ -103,9 +104,14 @@ export const IDMappingNamespaces = [
 ];
 
 // "/:namespace(uniprotkb|uniparc|........)/""
-export const allSearchResultLocations = `/:namespace(${Object.keys(
+export const allSearchResultLocations = `/:namespace(${Object.values(
   NamespaceLabels
 ).join('|')})`;
+
+// same as above, but only with supporting data namespaces, and with accession
+export const allSupportingDataEntryLocations = `/:namespace(${Array.from(
+  supportingDataNamespaces
+).join('|')})/:accession`;
 
 // All "entry" locations need to have a "accession" param in the pattern
 export const EntryLocations: Record<SearchableNamespace, string> = {
