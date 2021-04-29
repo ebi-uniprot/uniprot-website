@@ -33,11 +33,12 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
+      <h1 className="big">Literature citation</h1>
       <Card className={entryPageStyles.card}>
         <div className="button-group">
           <EntryDownload />
         </div>
-        <LiteratureCitation data={data} displayAll headingLevel="h1" />
+        <LiteratureCitation data={data} displayAll headingLevel="h2" />
       </Card>
     </SingleColumnLayout>
   );
