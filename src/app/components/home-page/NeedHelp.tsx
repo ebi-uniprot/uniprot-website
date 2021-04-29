@@ -13,6 +13,7 @@ import 'lite-youtube-embed';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 import parseDate from '../../../shared/utils/parseDate';
+import cleanText from '../../../shared/utils/cleanText';
 
 import styles from './styles/non-critical.module.scss';
 
@@ -225,9 +226,13 @@ const NeedHelp = () => {
                   </ExternalLink>
                 </h4>
                 {seminar?.fields.title[0].length <= 100 && (
-                  <p className={styles.description}>
-                    {seminar?.fields.description[0]}
-                  </p>
+                  <p
+                    className={styles.description}
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: cleanText(seminar?.fields.description[0]),
+                    }}
+                  />
                 )}
               </>
             ) : (
