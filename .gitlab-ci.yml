@@ -19,14 +19,13 @@ variables:
 test:
   image: buildkite/puppeteer
   stage: test
-  before_script:
+  script:
     - apt-get update && apt-get install -y git
     - git --version
     - node --version
     - npm --version
     - yarn --version
     - yarn
-  script:
     - yarn test
 
 build_static_assets:
@@ -51,11 +50,10 @@ build_docker_image:
     - dind
   services:
     - docker:dind
-  before_script:
+  script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker --version
     - echo ${CONTAINER_IMAGE}
-  script:
     - docker build -t ${CONTAINER_IMAGE} --no-cache .
     - docker image ls
     - docker push ${CONTAINER_IMAGE}
