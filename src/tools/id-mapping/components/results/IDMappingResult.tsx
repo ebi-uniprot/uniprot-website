@@ -20,6 +20,7 @@ import {
   MappingDetails,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
+import { Namespace } from '../../../../shared/types/namespaces';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -77,6 +78,8 @@ const IDMappingResult = () => {
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
+        namespaceOverride={detailsData?.to as Namespace}
+        displayIdMappingColumns
       />
     </SideBarLayout>
   );

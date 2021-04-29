@@ -16,7 +16,7 @@ import './styles/results-data.scss';
 const ResultsFacets: FC<{
   dataApiObject: UseDataAPIWithStaleState<Response['data']>;
 }> = ({ dataApiObject }) => {
-  const [namespace] = useNS();
+  const namespace = useNS();
   const { data, isStale, loading, progress } = dataApiObject;
 
   // TODO: show loading when a brand new search query (and not just a facet modification) is being fetched

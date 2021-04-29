@@ -28,6 +28,7 @@ import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
 import {
+  Namespace,
   NamespaceLabels,
   SearchableNamespace,
 } from '../../shared/types/namespaces';
@@ -65,7 +66,7 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
 
   const [clauses, setClauses] = useState<Clause[]>([]);
 
-  const [urlNamespace] = useNS();
+  const urlNamespace = useNS() || Namespace.uniprotkb;
 
   const [namespace, setNamespace] = useState<SearchableNamespace>(
     urlNamespace as SearchableNamespace

@@ -141,9 +141,12 @@ const getColumnsToDisplay = (
     };
   }) || [];
 
-const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
+const useColumns = (
+  namespaceOverride?: Namespace,
+  displayIdMappingColumns = false
+): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const [namespace, isIDMapping] = useNS();
+  const namespace = useNS() || namespaceOverride || Namespace.uniprotkb;
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
@@ -173,7 +176,9 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
     setColumns(
       getColumnsToDisplay(
         namespace,
-        isIDMapping ? [IDMappingColumn.from, ...usersColumns] : usersColumns,
+        displayIdMappingColumns
+          ? [IDMappingColumn.from, ...usersColumns]
+          : usersColumns,
         sortableColumnToSortColumn,
         sortColumn,
         sortDirection
@@ -185,7 +190,7 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
     sortColumn,
     sortDirection,
     sortableColumnToSortColumn,
-    isIDMapping,
+    displayIdMappingColumns,
   ]);
 
   const updateColumnSort = (columnName: string) => {

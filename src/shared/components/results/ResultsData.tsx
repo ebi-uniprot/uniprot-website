@@ -15,7 +15,7 @@ import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getEntryPathFor } from '../../../app/config/urls';
 import cardRenderer from '../../config/resultsCardRenderers';
 
-import { SearchableNamespace } from '../../types/namespaces';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { UsePagination } from '../../hooks/usePagination';
 
@@ -32,11 +32,23 @@ const ResultsData: FC<{
   direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-}> = ({ resultsDataObject, direct, selectedEntries, handleEntrySelection }) => {
-  const [namespace] = useNS();
+  namespaceOverride?: Namespace;
+  displayIdMappingColumns?: boolean;
+}> = ({
+  resultsDataObject,
+  direct,
+  selectedEntries,
+  handleEntrySelection,
+  namespaceOverride,
+  displayIdMappingColumns,
+}) => {
+  const namespace = useNS() || namespaceOverride || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
-  const [columns, updateColumnSort] = useColumns();
+  const [columns, updateColumnSort] = useColumns(
+    namespaceOverride,
+    displayIdMappingColumns
+  );
   const {
     allResults,
     initialLoading,

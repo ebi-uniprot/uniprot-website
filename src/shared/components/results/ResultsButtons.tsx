@@ -40,7 +40,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
-  const [namespace] = useNS();
+  const namespace = useNS();
   if (!namespace) {
     throw new Error('No namespace provided');
   }

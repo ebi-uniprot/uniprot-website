@@ -4,26 +4,19 @@ import { allIDMappingTargetLocations } from '../../app/config/urls';
 import { Namespace } from '../types/namespaces';
 import { IDMappingNamespace } from '../../tools/id-mapping/types/idMappingServerParameters';
 
-const useNS = (): [Namespace, boolean] => {
+const useNS = (): Namespace | undefined => {
   const match = useRouteMatch<{
     namespace: Namespace;
     targetNS?: IDMappingNamespace;
   }>(allIDMappingTargetLocations);
 
   if (!match) {
-    return [Namespace.uniprotkb, false];
+    return undefined;
   }
 
-  const potentialNS =
-    match.params.targetNS?.toLowerCase() ||
-    match.params.namespace.toLowerCase();
-  const isSubNS = !!match.params.targetNS;
+  const potentialNS = match.params.namespace.toLowerCase();
 
-  return [
-    Object.values(Namespace).find((ns) => ns === potentialNS) ||
-      Namespace.uniprotkb,
-    isSubNS,
-  ];
+  return Object.values(Namespace).find((ns) => ns === potentialNS);
 };
 
 export default useNS;
