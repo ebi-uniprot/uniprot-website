@@ -19,6 +19,7 @@
     "test:unit": "jest --coverage",
     "test:functional": "jest --config tests/jest.config.json tests/functional",
     "test:visual": "jest --config tests/jest.config.json tests/visual",
+    "test:lighthouse": "lhci autorun",
     "clear-test-cache": "jest --clearCache",
     "prepare": "husky install"
   },
@@ -155,6 +156,7 @@
     "@babel/preset-env": "7.13.15",
     "@babel/preset-react": "7.13.13",
     "@babel/preset-typescript": "7.13.0",
+    "@lhci/cli": "0.7.1",
     "@svgr/webpack": "5.5.0",
     "@testing-library/jest-dom": "5.11.10",
     "@testing-library/react": "11.2.6",

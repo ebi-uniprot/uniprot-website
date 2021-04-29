@@ -78,11 +78,18 @@ deploy:
     - ./deploy/deploy.sh HH # main
 
 lightouse:
+  image: cypress/browsers:node14.15.0-chrome86-ff82
   only:
     refs:
       - main
   stage: lighthouse
-  image: cypress/browsers:node14.15.0-chrome86-ff82
-  lhci:
-    script:
-      - npx -p @lhci/cli@0.7.x lhci autorun || echo "LHCI failed!"
+  before_script:
+    - git --version
+    - node --version
+    - npm --version
+    - yarn --version
+    - yarn
+  script:
+    # Could we use the artifacts from before instead of rebuilding?
+    - yarn build:prod
+    - yarn test:lighthouse --collect.numberOfRuns=5 --collect.settings.chromeFlags="--no-sandbox" || echo "LHCI failed!"
