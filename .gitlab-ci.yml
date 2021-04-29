@@ -3,6 +3,7 @@ stages:
   - build_static_assets
   - build_docker_image
   - deploy
+  - lighthouse
 
 variables:
   CONTAINER_IMAGE: ${CI_REGISTRY_IMAGE}:latest
@@ -75,3 +76,13 @@ deploy:
     - mv ./kubectl /usr/local/bin/kubectl
     - ./deploy/deploy.sh HX # fallback
     - ./deploy/deploy.sh HH # main
+
+lightouse:
+  only:
+    refs:
+      - main
+  stage: lighthouse
+  image: cypress/browsers:node14.15.0-chrome86-ff82
+  lhci:
+    script:
+      - npx -p @lhci/cli@0.7.x lhci autorun || echo "LHCI failed!"

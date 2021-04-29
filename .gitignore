@@ -7,6 +7,9 @@
 
 # Test coverage
 /coverage
+# Lighthouse audits
+/.lighthouseci
+/.lhci
 
 # misc
 .DS_Store
