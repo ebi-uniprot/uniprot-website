@@ -11,7 +11,7 @@ import sanitizeHtml, {
 import styles from './styles/clean-text.module.scss';
 
 // List of tags to remove from the library default accepted set
-const blacklist = new Set(['a']);
+const excludedTags = new Set(['a']);
 
 export const cleanTextDefaultOptions: IOptions = {
   // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
