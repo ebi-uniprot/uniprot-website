@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 DC=$1
 if [ "$DC" != "HH" ] && [ "$DC" != "HX" ]; then
   echo "DC variable not being defined as HH or HX."
@@ -7,13 +9,15 @@ fi
 
 echo "--- Deploying ${DC} ---"
 pwd
-env
+ls
 
 K8S_CERTIFICATE=${DC}_K8S_CERTIFICATE
 K8S_URL=${DC}_K8S_URL
 K8S_USER_TOKEN=${DC}_K8S_USER_TOKEN
 
 mkdir -p ~/.kube
+ls ~/.kube
+cat deploy/wp-config-template.yml
 sed "s~__K8S_CERTIFICATE__~${!K8S_CERTIFICATE}~; s~__K8S_URL__~${!K8S_URL}~; s~__K8S_USER_TOKEN__~${!K8S_USER_TOKEN}~" deploy/wp-config-template.yml > ~/.kube/config
 chmod 700 ~/.kube/config
 cat ~/.kube/config
