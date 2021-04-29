@@ -1,5 +1,7 @@
 .card-content {
-  * > input[type='checkbox'] {
+  display: flex;
+
+  & > input[type='checkbox'] {
     margin: 0.7em;
   }
 }

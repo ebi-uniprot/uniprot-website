@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import LiteratureCitation from '../LiteratureCitation';
@@ -20,13 +19,12 @@ type Props = {
   headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
 };
 
-const CitationsCard: FC<Props> = ({
+const CitationsCard = ({
   data,
   selected,
   handleEntrySelection,
   headingLevel = 'h2',
-  children,
-}) => {
+}: Props) => {
   const id = getIdKey(data);
 
   return (
@@ -41,7 +39,6 @@ const CitationsCard: FC<Props> = ({
           />
         )}
         <LiteratureCitation data={data} headingLevel={headingLevel} />
-        {children}
       </div>
     </Card>
   );

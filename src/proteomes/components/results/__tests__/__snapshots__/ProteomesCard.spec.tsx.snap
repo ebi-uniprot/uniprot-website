@@ -61,12 +61,12 @@ exports[`ProteomesCard tests should render the card component 1`] = `
             class="result-card__info-bit"
           >
             <strong>
-              Protein Count: 
+              Protein count: 
             </strong>
             <a
               href="/uniprotkb?query=proteome:UP000005640"
             >
-              77036
+              77,036
             </a>
           </span>
           <span
