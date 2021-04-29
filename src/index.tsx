@@ -15,7 +15,7 @@ import { SWConfig } from './service-worker/client';
 
 if (!LIVE_RELOAD) {
   // eslint-disable-next-line no-console
-  console.log(
+  console.debug(
     `Built with git commit ${GIT_COMMIT_HASH.trim()} ${
       GIT_COMMIT_STATE
         ? `with uncommitted changes:\n${GIT_COMMIT_STATE}`
