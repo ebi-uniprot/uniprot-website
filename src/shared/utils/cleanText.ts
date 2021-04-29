@@ -15,7 +15,7 @@ const excludedTags = new Set(['a']);
 
 export const cleanTextDefaultOptions: IOptions = {
   // https://github.com/apostrophecms/sanitize-html/blob/main/index.js#L691-L710
-  allowedTags: defaults.allowedTags.filter((tag) => !blacklist.has(tag)),
+  allowedTags: defaults.allowedTags.filter((tag) => !excludedTags.has(tag)),
   allowedClasses: {
     // Allow only the class names that we add here from the CSS module imported
     '*': Object.values(styles),
