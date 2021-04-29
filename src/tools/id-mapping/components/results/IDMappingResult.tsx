@@ -1,12 +1,14 @@
+import { useMemo } from 'react';
 import { HeroContainer, Loader, PageIntro } from 'franklin-sites';
 import { useRouteMatch } from 'react-router-dom';
 
-import useNS from '../../../../shared/hooks/useNS';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
+import { databaseToDatabaseInfo } from '../../../../uniprotkb/config/database';
 
 import ResultsData from '../../../../shared/components/results/ResultsData';
 
@@ -15,32 +17,37 @@ import { Location, LocationToPath } from '../../../../app/config/urls';
 import SideBarLayout from '../../../../shared/components/layouts/SideBarLayout';
 import {
   MappingAPIModel,
+  MappingDetails,
   MappingFlat,
 } from '../../types/idMappingSearchResults';
-import { Namespace } from '../../../../shared/types/namespaces';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
 
 const IDMappingResult = () => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const match = useRouteMatch<{ id: string; targetNS?: string }>(
+  const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.IDMappingResult]
   );
 
-  const [namespace] = useNS();
-
   const [selectedEntries, handleEntrySelection] = useItemSelect();
+
+  const detailApiUrl =
+    urls.detailsUrl && urls.detailsUrl(match?.params.id || '');
+  const { data: detailsData } = useDataApi<MappingDetails>(detailApiUrl);
+
+  const toDBInfo = detailsData && databaseToDatabaseInfo[detailsData.to];
 
   // Query for results data from the idmapping endpoint
   // NOTE: needs to be moved to useQueryNS to support filtering
-  const initialApiUrl = urls.resultUrl(match?.params.id || '', {
-    namespace: namespace === Namespace.idmapping ? undefined : namespace,
-  });
+  const initialApiUrl =
+    detailsData?.redirectURL && urls.resultUrl(detailsData.redirectURL, {});
+
+  const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
 
   const resultsDataObject = usePagination<MappingAPIModel, MappingFlat>(
     initialApiUrl,
-    idMappingConverter
+    converter
   );
 
   const { initialLoading, failedIds, total } = resultsDataObject;
@@ -59,7 +66,8 @@ const IDMappingResult = () => {
       {total && (
         <HeroContainer>
           {total} out of {total + (failedIds ? failedIds.length : 0)}{' '}
-          identifiers from FROM were successfully mapped to TO.
+          identifiers from {detailsData?.from} were successfully mapped to{' '}
+          {detailsData?.to}.
           <br />
           {failedIds?.join(', ')}
         </HeroContainer>

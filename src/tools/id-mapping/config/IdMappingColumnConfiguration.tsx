@@ -1,5 +1,10 @@
+import { ExternalLink } from 'franklin-sites';
 import { ColumnConfiguration } from '../../../shared/types/columnConfiguration';
-import { MappingAPIModel } from '../types/idMappingSearchResults';
+import {
+  MappingFlat,
+  MappingTo,
+  MappingFrom,
+} from '../types/idMappingSearchResults';
 
 export enum IDMappingColumn {
   from = 'from',
@@ -12,17 +17,20 @@ export const primaryKeyColumn = IDMappingColumn.from;
 
 export const IdMappingColumnConfiguration: ColumnConfiguration<
   IDMappingColumn,
-  Partial<MappingAPIModel>
+  Partial<MappingFlat>
 > = new Map();
 
 export const fromColumnConfig = {
   label: 'From',
-  render: ({ from }: Partial<MappingAPIModel>) => from,
+  render: ({ from }: Partial<MappingFlat>) => from,
 };
 
 IdMappingColumnConfiguration.set(IDMappingColumn.from, fromColumnConfig);
 
 IdMappingColumnConfiguration.set(IDMappingColumn.to, {
   label: 'To',
-  render: (row) => row.to as string, // Add Links when new details endpoint exists
+  render: (row) => {
+    const { url, to } = row as MappingTo & MappingFrom;
+    return url ? <ExternalLink url={url}>{to}</ExternalLink> : to;
+  },
 });

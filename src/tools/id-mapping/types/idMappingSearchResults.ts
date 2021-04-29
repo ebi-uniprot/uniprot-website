@@ -9,12 +9,21 @@ export type MappingAPIModel = {
   failedIds?: string[]; // TODO handle this
 };
 
+export type MappingDetails = {
+  from: string;
+  to: string;
+  ids: string;
+  redirectURL?: string;
+  taxId?: string;
+};
+
 export type IDMappingSearchResults = {
   results: MappingAPIModel[];
 };
 
 export type MappingTo = {
   to: string;
+  url?: string;
 };
 
 export type MappingFrom = {

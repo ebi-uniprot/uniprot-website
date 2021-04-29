@@ -1,9 +1,20 @@
+import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
+
+import { DatabaseInfoPoint } from '../../../uniprotkb/types/databaseRefs';
 import { MappingAPIModel, MappingFlat } from '../types/idMappingSearchResults';
 
-const idMappingConverter = (data: MappingAPIModel[]): MappingFlat[] =>
+const idMappingConverter = (dbInfo?: DatabaseInfoPoint) => (
+  data: MappingAPIModel[]
+): MappingFlat[] =>
   data.map((row) => {
     if (typeof row.to === 'string') {
-      return row;
+      const url = dbInfo
+        ? processUrlTemplate(dbInfo.uriLink, { id: row.to })
+        : undefined;
+      return {
+        ...row,
+        url,
+      };
     }
     return {
       from: row.from,
