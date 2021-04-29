@@ -1,14 +1,12 @@
 import { useRouteMatch } from 'react-router-dom';
-import { allIDMappingTargetLocations } from '../../app/config/urls';
+import { allSearchResultLocations } from '../../app/config/urls';
 
 import { Namespace } from '../types/namespaces';
-import { IDMappingNamespace } from '../../tools/id-mapping/types/idMappingServerParameters';
 
 const useNS = (): Namespace | undefined => {
   const match = useRouteMatch<{
     namespace: Namespace;
-    targetNS?: IDMappingNamespace;
-  }>(allIDMappingTargetLocations);
+  }>(allSearchResultLocations);
 
   if (!match) {
     return undefined;

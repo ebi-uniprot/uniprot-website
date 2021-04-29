@@ -76,7 +76,7 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  [Location.IDMappingResult]: '/id-mapping/:targetNS?/:id',
+  [Location.IDMappingResult]: '/id-mapping/:id',
   [Location.IDMapping]: '/id-mapping',
 };
 
@@ -99,16 +99,13 @@ export const IDMappingNamespaces = [
   Namespace.uniprotkb,
   Namespace.uniref,
   Namespace.uniparc,
+  Namespace.idmapping,
 ];
 
 // "/:namespace(uniprotkb|uniparc|........)/""
 export const allSearchResultLocations = `/:namespace(${Object.keys(
   NamespaceLabels
 ).join('|')})`;
-
-export const allIDMappingTargetLocations = `/:namespace(${Object.values(
-  Namespace
-).join('|')}|id-mapping)/:targetNS(${IDMappingNamespaces.join('|')})?`;
 
 // All "entry" locations need to have a "accession" param in the pattern
 export const EntryLocations: Record<SearchableNamespace, string> = {

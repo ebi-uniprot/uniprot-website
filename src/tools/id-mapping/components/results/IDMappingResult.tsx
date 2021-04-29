@@ -57,6 +57,21 @@ const IDMappingResult = () => {
     return <Loader />;
   }
 
+  let namespaceOverride;
+  switch (detailsData?.to.toLowerCase()) {
+    case Namespace.uniprotkb:
+      namespaceOverride = Namespace.uniprotkb;
+      break;
+    case Namespace.uniref:
+      namespaceOverride = Namespace.uniref;
+      break;
+    case Namespace.uniparc:
+      namespaceOverride = Namespace.uniparc;
+      break;
+    default:
+      namespaceOverride = Namespace.idmapping;
+  }
+
   return (
     <SideBarLayout
       sidebar={<></>}
@@ -78,7 +93,7 @@ const IDMappingResult = () => {
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}
         handleEntrySelection={handleEntrySelection}
-        namespaceOverride={detailsData?.to as Namespace}
+        namespaceOverride={namespaceOverride}
         displayIdMappingColumns
       />
     </SideBarLayout>

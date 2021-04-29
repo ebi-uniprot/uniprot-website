@@ -45,6 +45,6 @@ describe('IDMappingResult tests', () => {
         'view-mode': ViewMode.TABLE, // This should eventually be removed
       },
     });
-    expect(await screen.findByText('Q9Z0H0')).toBeTruthy();
+    expect(await (await screen.findAllByText('Q9Z0H0')).length).toBe(2);
   });
 });

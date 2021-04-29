@@ -81,7 +81,7 @@ const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
       return row as DatabaseAPIModel;
     case Namespace.locations:
       return row as LocationsAPIModel;
-    case 'id-mapping':
+    case Namespace.idmapping:
       return row as MappingAPIModel;
     default:
       // eslint-disable-next-line no-console
@@ -176,7 +176,7 @@ const useColumns = (
     setColumns(
       getColumnsToDisplay(
         namespace,
-        displayIdMappingColumns
+        displayIdMappingColumns && namespace !== Namespace.idmapping
           ? [IDMappingColumn.from, ...usersColumns]
           : usersColumns,
         sortableColumnToSortColumn,
@@ -194,7 +194,7 @@ const useColumns = (
   ]);
 
   const updateColumnSort = (columnName: string) => {
-    // TODO check if we can remove this condition...
+    // No sorting for id mapping
     if (namespace !== Namespace.idmapping) {
       const newSortColumn = sortableColumnToSortColumn.get(
         columnName as Column
