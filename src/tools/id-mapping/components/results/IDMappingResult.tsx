@@ -26,7 +26,6 @@ const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
 
 const IDMappingResult = () => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.IDMappingResult]
   );
