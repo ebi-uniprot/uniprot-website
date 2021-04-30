@@ -1,9 +1,12 @@
-export const testData = [
+import { Clause } from '../../../types/searchTypes';
+
+const testData = [
   {
     description: 'should parse simple query with quotes',
     queryString: '(id:"blah blah")',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'id_field',
           label: 'Entry Name [ID]',
@@ -24,6 +27,7 @@ export const testData = [
     queryString: 'NOT (id:blah)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'id_field',
           label: 'Entry Name [ID]',
@@ -45,6 +49,7 @@ export const testData = [
     queryString: '(organism_name:"Homo sap")',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'organism_name_field',
           label: 'Organism [OS]',
@@ -67,6 +72,7 @@ export const testData = [
     queryString: '(organism_id:9606)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'organism_name_field',
           label: 'Organism [OS]',
@@ -89,6 +95,7 @@ export const testData = [
     queryString: '(ftlen_sites:[10 TO 100])',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'ftlen_sites',
           itemType: 'single',
@@ -108,6 +115,7 @@ export const testData = [
     queryString: '(ftlen_sites:[10 TO *])',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'ftlen_sites',
           itemType: 'single',
@@ -127,6 +135,7 @@ export const testData = [
     queryString: '(date_created:[2018-03-04 TO 2018-03-08])',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'date_created',
           label: 'Date Of Creation',
@@ -147,6 +156,7 @@ export const testData = [
     queryString: '(existence:predicted)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'existence',
           label: 'Protein Existence [PE]',
@@ -189,6 +199,7 @@ export const testData = [
     queryString: '(xref:pdb-Something)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'xref_pdb',
           label: 'PDB',
@@ -209,6 +220,7 @@ export const testData = [
     queryString: '(xref:Something)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'id_xref_any',
           label: 'Any cross-reference',
@@ -229,6 +241,7 @@ export const testData = [
     queryString: 'blah',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'id_all',
           label: 'All',
@@ -249,6 +262,7 @@ export const testData = [
     queryString: '(database:embl)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'id_xref_embl',
           label: 'EMBL',
@@ -268,6 +282,7 @@ export const testData = [
     queryString: '(id:blah) OR (protein_name:"My protein")',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'id_field',
           label: 'Entry Name [ID]',
@@ -282,6 +297,7 @@ export const testData = [
         },
       },
       {
+        id: 1,
         searchTerm: {
           id: 'protein_name_field',
           label: 'Protein Name [DE]',
@@ -304,6 +320,7 @@ export const testData = [
       '((cc_cofactor_chebi:"CHEBI:12345") AND (ccev_cofactor_chebi:manual))',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'chebi_term',
           label: 'ChEBI term',
@@ -365,6 +382,7 @@ export const testData = [
       '((ft_sites:my_site) AND (ftlen_sites:[10 TO 20]) AND (ftev_sites:automatic)) AND (gene:my_gene)',
     clauses: [
       {
+        id: 0,
         searchTerm: {
           id: 'sites',
           label: 'Sites',
@@ -433,6 +451,7 @@ export const testData = [
         },
       },
       {
+        id: 1,
         searchTerm: {
           id: 'gene_field',
           label: 'Gene Name [GN]',
@@ -449,4 +468,6 @@ export const testData = [
       },
     ],
   },
-];
+] as Array<{ description: string; queryString: string; clauses: Clause[] }>;
+
+export default testData;

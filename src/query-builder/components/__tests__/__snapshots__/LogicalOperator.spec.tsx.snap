@@ -5,7 +5,6 @@ exports[`LogicalOperator component should render 1`] = `
   <select
     aria-label="logical operator"
     class="query-builder__logic"
-    data-testid="query-builder-logic-select"
   >
     <option
       value="AND"
@@ -23,5 +22,13 @@ exports[`LogicalOperator component should render 1`] = `
       NOT
     </option>
   </select>
+</DocumentFragment>
+`;
+
+exports[`LogicalOperator component should render empty placeholder when it is the first one 1`] = `
+<DocumentFragment>
+  <span
+    class="query-builder__logic"
+  />
 </DocumentFragment>
 `;

@@ -1,23 +1,28 @@
 import { createMemoryHistory } from 'history';
-import { fireEvent, screen, getByText } from '@testing-library/react';
+import {
+  fireEvent,
+  screen,
+  getByText,
+  RenderResult,
+} from '@testing-library/react';
 
 import QueryBuilder from '../QueryBuilder';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
-import searchTermData from './__mocks__/configure_search-term.json';
+import searchTermData from './__mocks__/configure_search-term';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
-let rendered;
+let rendered: RenderResult;
 
 const history = createMemoryHistory();
-let onCancel;
+const onCancel = jest.fn();
 
 describe('QueryBuilder', () => {
   beforeEach(async () => {
-    onCancel = jest.fn();
+    onCancel.mockClear();
     (useDataApi as jest.Mock).mockReturnValue({ data: searchTermData });
 
     rendered = customRender(<QueryBuilder onCancel={onCancel} />, {
@@ -40,9 +45,8 @@ describe('QueryBuilder', () => {
   });
 
   test('should add a clause', () => {
-    const { getAllByTestId, getByTestId } = rendered;
-    fireEvent.click(getByTestId('query-builder-add-field'));
-    const clauses = getAllByTestId('search__clause');
+    fireEvent.click(screen.getByTestId('query-builder-add-field'));
+    const clauses = screen.getAllByTestId('search__clause');
     expect(clauses.length).toBe(5);
   });
 
@@ -86,7 +90,7 @@ describe('QueryBuilder', () => {
     fireEvent.change(input, { target: { value: 'zen' } });
     const all = screen.getByPlaceholderText(/a4_human/);
     fireEvent.change(all, { target: { value: 'eve' } });
-    const reviewedLogic = screen.getAllByTestId('query-builder-logic-select');
+    const reviewedLogic = screen.getAllByRole('combobox');
     // Note this should be 1 as the first line shouldn't have one
     fireEvent.change(reviewedLogic[3], { target: { value: 'OR' } });
     const search = screen.getByRole('button', { name: 'Search' });
