@@ -4,6 +4,7 @@ import { ExpandableList } from 'franklin-sites';
 import { JournalInfo } from '../components/LiteratureCitation';
 
 import parseDate from '../../../shared/utils/parseDate';
+import cleanText from '../../../shared/utils/cleanText';
 import { getEntryPathFor } from '../../../app/config/urls';
 
 import {
@@ -107,7 +108,15 @@ CitationsColumnConfiguration.set(CitationsColumn.lastPage, {
 
 CitationsColumnConfiguration.set(CitationsColumn.litAbstract, {
   label: 'Abstract',
-  render: ({ citation }) => citation?.literatureAbstract,
+  render: ({ citation }) =>
+    citation?.literatureAbstract && (
+      <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: cleanText(citation.literatureAbstract),
+        }}
+      />
+    ),
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.publicationDate, {

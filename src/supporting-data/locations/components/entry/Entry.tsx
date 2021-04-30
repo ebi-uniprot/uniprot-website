@@ -4,6 +4,7 @@ import cn from 'classnames';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownload from '../../../shared/components/EntryDownload';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -16,7 +17,7 @@ import LocationsColumnConfiguration, {
 } from '../../config/LocationsColumnConfiguration';
 
 import helper from '../../../../shared/styles/helper.module.scss';
-import entryPageStyles from '../../../styles/entry-page.module.scss';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const columns = [
   LocationsColumn.definition,
@@ -68,6 +69,9 @@ const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     <SingleColumnLayout>
       <h2>Cellular component - {data.name}</h2>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
+        <div className="button-group">
+          <EntryDownload />
+        </div>
         {infoData && <InfoList infoData={infoData} isCompact />}
       </Card>
     </SingleColumnLayout>

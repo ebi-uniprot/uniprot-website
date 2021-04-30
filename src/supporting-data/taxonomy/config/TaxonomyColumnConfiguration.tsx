@@ -73,7 +73,8 @@ TaxonomyColumnConfiguration.set(TaxonomyColumn.lineage, {
   label: 'Lineage',
   // TODO: modify when we have a common approach to represent lineages
   render: ({ lineage }) =>
-    (lineage as Lineage)
+    lineage?.length &&
+    Array.from(lineage as Lineage)
       ?.reverse()
       .map(({ taxonId, scientificName, commonName }, index) => (
         <Fragment key={taxonId}>
