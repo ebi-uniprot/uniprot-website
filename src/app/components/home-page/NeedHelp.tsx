@@ -82,7 +82,7 @@ const NeedHelp = () => {
 
   const seminar = data?.entries[0] || fallback;
   const title = `${seminar.fields.title}${
-    seminar.fields.subtitle && `: ${seminar.fields.subtitle}`
+    seminar.fields.subtitle[0] ? ` - ${seminar.fields.subtitle[0]}` : ''
   }`;
   const url =
     seminar?.fieldURLs.find(({ name }) => name === 'main')?.value || '';
@@ -100,14 +100,16 @@ const NeedHelp = () => {
 
       let event: Event | undefined;
       if (seminar.source === 'ebiweb_training_events') {
+        const startDate = parseDate(seminar.fields.date_time_clean[0]);
         event = {
           '@type': 'Event',
           '@id': `training-event-${seminar.id}`,
           name: title,
           startDate:
-            parseDate(seminar.fields.date_time_clean[0])
-              ?.toISOString()
-              .substr(0, 10) || '2021-06-12',
+            startDate &&
+            `${startDate.getFullYear()}-${
+              startDate.getMonth() + 1
+            }-${startDate.getDate()}`,
           description: seminar.fields.description,
           eventAttendanceMode: `https://schema.org/${
             venue === 'Online' ? 'On' : 'Off'
