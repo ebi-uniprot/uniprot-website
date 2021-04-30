@@ -132,6 +132,7 @@
     "react-redux": "7.2.3",
     "react-router-dom": "5.2.0",
     "redux": "4.0.5",
+    "schema-dts": "0.8.2",
     "sanitize-html": "2.3.3",
     "timing-functions": "2.0.1",
     "tippy.js": "6.3.1",

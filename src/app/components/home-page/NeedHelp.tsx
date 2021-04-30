@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import {
   HeroContainer,
   ExternalLink,
@@ -8,9 +9,11 @@ import {
   LocationPinIcon,
 } from 'franklin-sites';
 import cn from 'classnames';
+import { Consortium, Course, Event } from 'schema-dts';
 import 'lite-youtube-embed';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import useStructuredData from '../../../shared/hooks/useStructuredData';
 
 import parseDate from '../../../shared/utils/parseDate';
 import cleanText from '../../../shared/utils/cleanText';
@@ -31,8 +34,13 @@ type Payload = {
       title: string[];
       subtitle: string[];
       description: string[];
+      city: string[];
+      country: string[];
+      // Only country?
       location: string[];
-      date_time_clean?: string[]; // eslint-disable-line camelcase
+      // More precise venue
+      venue: string[];
+      date_time_clean: string[]; // eslint-disable-line camelcase
       status: string[];
     };
     fieldURLs: Array<{
@@ -53,7 +61,11 @@ const fallback: Payload['entries'][0] = {
       'This quick tour provides a brief introduction to the Universal Protein Resource, UniProt.',
     ],
     location: ['Online'],
+    venue: ['Online'],
     status: [],
+    date_time_clean: [],
+    city: [],
+    country: [],
   },
   fieldURLs: [
     {
@@ -66,14 +78,90 @@ const fallback: Payload['entries'][0] = {
 // eslint-disable-next-line arrow-body-style
 const NeedHelp = () => {
   const { data, loading } = useDataApi<Payload>(
-    'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,date_time_clean,status&size=1'
+    'https://www.ebi.ac.uk/ebisearch/ws/rest/ebiweb_training_events?query=timeframe:upcoming AND resources:UniProt The Universal Protein Resource 5544&facets=status:Open&format=json&fieldurl=true&viewurl=true&fields=title,subtitle,description,location,city,country,venue,date_time_clean,status&size=1'
   );
 
   const seminar = data?.entries[0] || fallback;
+  const title = `${seminar.fields.title}${
+    seminar.fields.subtitle[0] ? ` - ${seminar.fields.subtitle[0]}` : ''
+  }`;
+  const url =
+    seminar?.fieldURLs.find(({ name }) => name === 'main')?.value || '';
+  const venue = seminar?.fields.venue[0];
+  const location = seminar?.fields.location[0];
+
+  useStructuredData<Course | Event>(
+    useMemo(() => {
+      const organiser: Consortium = {
+        // TODO: reference to the consortium markup from the footer
+        '@type': 'Consortium',
+        name: 'UniProt consortium',
+        url: 'https://www.uniprot.org',
+      };
+
+      let event: Event | undefined;
+      if (seminar.source === 'ebiweb_training_events') {
+        const startDate = parseDate(seminar.fields.date_time_clean[0]);
+        event = {
+          '@type': 'Event',
+          '@id': `training-event-${seminar.id}`,
+          name: title,
+          startDate:
+            startDate &&
+            `${startDate.getFullYear()}-${
+              startDate.getMonth() + 1
+            }-${startDate.getDate()}`,
+          description: seminar.fields.description,
+          eventAttendanceMode: `https://schema.org/${
+            venue === 'Online' ? 'On' : 'Off'
+          }lineEventAttendanceMode` as const,
+          organizer: organiser,
+          location:
+            venue === 'Online'
+              ? {
+                  '@type': 'VirtualLocation',
+                  name: title,
+                  url,
+                }
+              : {
+                  '@type': 'Place',
+                  name: venue,
+                  address: {
+                    '@type': 'PostalAddress',
+                    addressCountry: seminar.fields.country[0],
+                    addressLocality: seminar.fields.city[0],
+                  },
+                },
+        };
+      }
+
+      const course: Course = {
+        '@type': 'Course',
+        name: title,
+        description: seminar.fields.description,
+        url,
+        hasCourseInstance: event?.['@id'] ? { '@id': event['@id'] } : undefined,
+        provider: organiser,
+      };
+
+      if (event) {
+        return {
+          '@context': 'https://schema.org',
+          '@graph': [course, event],
+        };
+      }
+
+      return {
+        '@context': 'https://schema.org',
+        ...course,
+      };
+    }, [seminar, title, url, venue])
+  );
+
   let seminarHeading = 'Live webinar';
   if (seminar?.source === 'ebiweb_training_online') {
     seminarHeading = 'Online training';
-  } else if (seminar?.fields.location[0] !== 'Online') {
+  } else if (venue !== 'Online') {
     seminarHeading = 'Live seminar';
   }
 
@@ -207,22 +295,15 @@ const NeedHelp = () => {
                     )}
                     <span>
                       <LocationPinIcon height="1em" />
-                      {seminar?.fields.location[0]}
+                      {venue}
+                      {location && location !== 'Online' && `, ${location}`}
                     </span>
                   </div>
                 )}
 
                 <h4 className="micro">
-                  <ExternalLink
-                    url={
-                      seminar?.fieldURLs.find(({ name }) => name === 'main')
-                        ?.value || ''
-                    }
-                    noIcon
-                  >
-                    {seminar?.fields.title[0]}
-                    {seminar?.fields.subtitle[0] &&
-                      `: ${seminar?.fields.subtitle[0]}`}
+                  <ExternalLink url={url} noIcon>
+                    {title}
                   </ExternalLink>
                 </h4>
                 {seminar?.fields.title[0].length <= 100 && (
