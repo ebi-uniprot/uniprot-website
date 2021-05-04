@@ -157,7 +157,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
-              search: `facets=reviewed:true&query=(lit_pubmed:${id})`,
+              search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
             }}
             title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
           >
@@ -176,7 +176,7 @@ const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
-              search: `facets=reviewed:false&query=(lit_pubmed:${id})`,
+              search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
             }}
             title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
           >
@@ -267,7 +267,6 @@ const LiteratureCitation: FC<
           {literatureAbstract && (
             <Abstract abstract={literatureAbstract} open={displayAll} />
           )}
-          {children}
         </div>
         <div className="publication__columns__side">
           <div className="publication__columns__side__item">
@@ -301,6 +300,7 @@ const LiteratureCitation: FC<
               <Statistics statistics={statistics} id={citation.id} />
             </div>
           )}
+          {children}
         </div>
       </div>
     </article>

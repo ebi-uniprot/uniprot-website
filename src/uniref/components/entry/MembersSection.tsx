@@ -302,8 +302,8 @@ export const MembersSection = ({
   return (
     <Card
       header={
-        <h2>{`${total} ${
-          getEntrySectionNameAndId(EntrySection.Members).name
+        <h2>{`${total} ${getEntrySectionNameAndId(EntrySection.Members).name}${
+          total === 1 ? '' : 's'
         }`}</h2>
       }
       id={EntrySection.Members}

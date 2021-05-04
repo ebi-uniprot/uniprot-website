@@ -159,16 +159,17 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
         data={resultsWithReferences}
         dataRenderer={(data) => (
           <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
-            <LiteratureCitation data={data} headingLevel="h3" />
-            {data.references.map((reference, index) => (
-              <PublicationReference
-                reference={reference}
-                // No obvious key as there can be more than 1 for the same source
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                accession={accession}
-              />
-            ))}
+            <LiteratureCitation data={data} headingLevel="h3">
+              {data.references.map((reference, index) => (
+                <PublicationReference
+                  reference={reference}
+                  // No obvious key as there can be more than 1 for the same source
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  accession={accession}
+                />
+              ))}
+            </LiteratureCitation>
           </Card>
         )}
         onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}

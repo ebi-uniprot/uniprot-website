@@ -182,7 +182,7 @@ exports[`CitationsCard tests should render the card component 1`] = `
                     class="publication__statistics"
                   >
                     <a
-                      href="/uniprotkb?facets=reviewed:true&query=(lit_pubmed:14702039)"
+                      href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
                       title="UniProtKB reviewed entries: 32172"
                     >
                       <span
@@ -196,7 +196,7 @@ exports[`CitationsCard tests should render the card component 1`] = `
                       />
                     </a>
                     <a
-                      href="/uniprotkb?facets=reviewed:false&query=(lit_pubmed:14702039)"
+                      href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
                       title="UniProtKB unreviewed entries: 2615"
                     >
                       <span

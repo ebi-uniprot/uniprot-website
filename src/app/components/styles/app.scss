@@ -1,5 +1,3 @@
-@import 'franklin-sites/src/styles/settings';
-
 // Used to replace <p> when using EvidenceTag
 .text-block {
   margin-bottom: 1rem;
@@ -19,7 +17,11 @@
 }
 
 .card__header {
-  padding-top: $global-padding;
+  .tiny,
+  .micro {
+    // Add a bit more of padding to the top of smaller headers only
+    padding-top: 0.5em;
+  }
 }
 
 // Debug utility to show heading levels

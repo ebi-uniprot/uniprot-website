@@ -15,6 +15,8 @@ const Publications: FC<Pick<ProteomesAPIModel, 'citations'>> = ({
   citations,
 }) => {
   const data = useMemo<CitationsAPIModel[]>(
+    // Transform basic citation object to full citations as returned by the
+    // citations endpoint (containing as "citation" field)
     () => citations?.map((citation) => ({ citation })),
     [citations]
   );
