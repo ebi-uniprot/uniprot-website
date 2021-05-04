@@ -27,9 +27,10 @@ describe('LogicalOperator component', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  test('should render empty placeholder when it is the first one', () => {
+  test('should render not render "AND" or "OR" when it is the first one', () => {
     const { asFragment } = render(<LogicalOperator {...props} isFirst />);
-    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+    expect(screen.getAllByRole('option')).toHaveLength(2);
+    expect(screen.queryByText('AND')).not.toBeInTheDocument();
     expect(asFragment()).toMatchSnapshot();
   });
 });

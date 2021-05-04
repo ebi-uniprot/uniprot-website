@@ -7,9 +7,19 @@ exports[`ClauseList component should render 1`] = `
     data-field="All"
     data-testid="search__clause"
   >
-    <span
-      class="query-builder__logic"
-    />
+    <select
+      aria-label="logical operator"
+      class="query-builder__logic query-builder__logic--diluted"
+    >
+      <option
+        value="AND"
+      />
+      <option
+        value="NOT"
+      >
+        NOT
+      </option>
+    </select>
     <div
       class="dropdown-container"
     >

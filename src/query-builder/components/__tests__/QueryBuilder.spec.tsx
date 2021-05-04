@@ -90,7 +90,9 @@ describe('QueryBuilder', () => {
     fireEvent.change(input, { target: { value: 'zen' } });
     const all = screen.getByPlaceholderText(/a4_human/);
     fireEvent.change(all, { target: { value: 'eve' } });
-    const reviewedLogic = screen.getAllByRole('combobox');
+    const reviewedLogic = screen.getAllByRole('combobox', {
+      name: 'logical operator',
+    });
     // Note this should be 1 as the first line shouldn't have one
     fireEvent.change(reviewedLogic[3], { target: { value: 'OR' } });
     const search = screen.getByRole('button', { name: 'Search' });

@@ -25,10 +25,20 @@ exports[`LogicalOperator component should render 1`] = `
 </DocumentFragment>
 `;
 
-exports[`LogicalOperator component should render empty placeholder when it is the first one 1`] = `
+exports[`LogicalOperator component should render not render "AND" or "OR" when it is the first one 1`] = `
 <DocumentFragment>
-  <span
-    class="query-builder__logic"
-  />
+  <select
+    aria-label="logical operator"
+    class="query-builder__logic query-builder__logic--diluted"
+  >
+    <option
+      value="AND"
+    />
+    <option
+      value="NOT"
+    >
+      NOT
+    </option>
+  </select>
 </DocumentFragment>
 `;
