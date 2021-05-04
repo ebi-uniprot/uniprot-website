@@ -321,6 +321,7 @@ module.exports = (env, argv) => {
             test: /[\\/]node_modules[\\/]/,
             name: 'default-vendors',
             priority: -10,
+            maxSize: 255 * 1024,
           },
           default: {
             minChunks: 2,
