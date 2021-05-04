@@ -5,9 +5,6 @@ stages:
   - deploy
   - lighthouse
 
-variables:
-  CONTAINER_IMAGE: ${CI_REGISTRY_IMAGE}:latest
-
 .js:
   image: node
   before_script:
@@ -20,14 +17,13 @@ variables:
 test:
   image: buildkite/puppeteer
   stage: test
-  before_script:
+  script:
     - apt-get update && apt-get install -y git
     - git --version
     - node --version
     - npm --version
     - yarn --version
     - yarn
-  script:
     - yarn test
 
 build_static_assets:
@@ -52,11 +48,11 @@ build_docker_image:
     - dind
   services:
     - docker:dind
-  before_script:
+  script:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER $CI_REGISTRY --password-stdin
     - docker --version
+    - CONTAINER_IMAGE=${CI_REGISTRY_IMAGE}:latest
     - echo ${CONTAINER_IMAGE}
-  script:
     - docker build -t ${CONTAINER_IMAGE} --no-cache .
     - docker image ls
     - docker push ${CONTAINER_IMAGE}
@@ -96,13 +92,6 @@ lightouse:
     refs:
       - main
   stage: lighthouse
-  before_script:
-    - git --version
-    - node --version
-    - npm --version
-    - yarn --version
-    - yarn
+  extends: .js
   script:
-    # Could we use the artifacts from before instead of rebuilding?
-    - yarn build:prod
     - yarn test:lighthouse --collect.numberOfRuns=5 --collect.settings.chromeFlags="--no-sandbox" || echo "LHCI failed!"
