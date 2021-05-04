@@ -15,7 +15,7 @@ import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
 import { getEntryPathFor } from '../../../app/config/urls';
 import cardRenderer from '../../config/resultsCardRenderers';
 
-import { Namespace } from '../../types/namespaces';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
 import { APIModel } from '../../types/apiModel';
 import { UsePagination } from '../../hooks/usePagination';
 
@@ -32,11 +32,23 @@ const ResultsData: FC<{
   direct?: boolean;
   selectedEntries: string[];
   handleEntrySelection: (id: string) => void;
-}> = ({ resultsDataObject, direct, selectedEntries, handleEntrySelection }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
+  namespaceFallback?: Namespace;
+  displayIdMappingColumns?: boolean;
+}> = ({
+  resultsDataObject,
+  direct,
+  selectedEntries,
+  handleEntrySelection,
+  namespaceFallback,
+  displayIdMappingColumns,
+}) => {
+  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
-  const [columns, updateColumnSort] = useColumns();
+  const [columns, updateColumnSort] = useColumns(
+    namespaceFallback,
+    displayIdMappingColumns
+  );
   const {
     allResults,
     initialLoading,
@@ -47,7 +59,7 @@ const ResultsData: FC<{
 
   const [getIdKey, getEntryPathForEntry] = useMemo(() => {
     const getIdKey = getIdKeyFor(namespace);
-    const getEntryPath = getEntryPathFor(namespace);
+    const getEntryPath = getEntryPathFor(namespace as SearchableNamespace);
     return [getIdKey, (entry: APIModel) => getEntryPath(getIdKey(entry))];
   }, [namespace]);
 
@@ -83,6 +95,7 @@ const ResultsData: FC<{
   ) {
     return <Loader progress={progress} />;
   }
+
   return (
     <div className="results-data">
       {viewMode === ViewMode.CARD ? (

@@ -13,9 +13,13 @@ export type UsePagination = {
   hasMoreData: boolean;
   handleLoadMoreRows: () => void;
   total?: number;
+  failedIds?: string[];
 };
 
-const usePagination = (initialApiUrl?: string): UsePagination => {
+const usePagination = <T extends APIModel, R extends APIModel>(
+  initialApiUrl?: string,
+  converter?: (data: T[]) => R[]
+): UsePagination => {
   const [url, setUrl] = useState(initialApiUrl);
   const [metaData, setMetaData] = useState<{
     total?: number;
@@ -33,6 +37,7 @@ const usePagination = (initialApiUrl?: string): UsePagination => {
 
   const { data, loading, progress, headers } = useDataApi<{
     results: APIModel[];
+    failedIds?: string[];
   }>(url);
 
   useEffect(() => {
@@ -40,13 +45,14 @@ const usePagination = (initialApiUrl?: string): UsePagination => {
       return;
     }
     const { results } = data;
+    const transformedResults = converter ? converter(results as T[]) : results;
     const total: string | undefined = headers?.['x-totalrecords'];
-    setAllResults((allRes) => [...allRes, ...results]);
+    setAllResults((allRes) => [...allRes, ...transformedResults]);
     setMetaData(() => ({
       total: total ? parseInt(total, 10) : 0,
       nextUrl: getNextURLFromHeaders(headers),
     }));
-  }, [data, headers]);
+  }, [data, headers, converter]);
 
   const { total, nextUrl } = metaData;
 
@@ -63,6 +69,7 @@ const usePagination = (initialApiUrl?: string): UsePagination => {
     hasMoreData,
     handleLoadMoreRows,
     total,
+    failedIds: data?.failedIds,
   };
 };
 

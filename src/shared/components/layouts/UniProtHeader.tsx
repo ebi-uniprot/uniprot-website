@@ -11,7 +11,7 @@ import useNS from '../../hooks/useNS';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
-import { Namespace } from '../../types/namespaces';
+import { Namespace, SearchableNamespace } from '../../types/namespaces';
 
 import Logo from '../../../images/uniprot-logo.svg';
 import ReleaseInfo from './ReleaseInfo';
@@ -91,15 +91,13 @@ const QueryBuilder = lazy(
 );
 
 const SearchContainerWithNamespace = () => {
-  const namespace = useNS();
+  const namespace = useNS() || Namespace.uniprotkb;
 
-  const [selectedNamespace, setSelectedNamespace] = useState(
-    namespace || Namespace.uniprotkb
-  );
+  const [selectedNamespace, setSelectedNamespace] = useState(namespace);
 
   return (
     <SearchContainer
-      namespace={selectedNamespace}
+      namespace={selectedNamespace as SearchableNamespace}
       onNamespaceChange={(namespace: Namespace) =>
         setSelectedNamespace(namespace)
       }

@@ -887,6 +887,8 @@ exports[`UniProtKBColumnConfiguration component should render column "fragment":
 </DocumentFragment>
 `;
 
+exports[`UniProtKBColumnConfiguration component should render column "from": from 1`] = `<DocumentFragment />`;
+
 exports[`UniProtKBColumnConfiguration component should render column "ft_act_site": ft_act_site 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "ft_binding": ft_binding 1`] = `<DocumentFragment />`;

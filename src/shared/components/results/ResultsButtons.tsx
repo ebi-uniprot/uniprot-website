@@ -41,14 +41,15 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
 
   const namespace = useNS();
-  if (!namespace) {
-    throw new Error('No namespace provided');
-  }
 
   const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );
+
+  if (!namespace) {
+    throw new Error('No namespace provided');
+  }
 
   const isMain = mainNamespaces.has(namespace);
 

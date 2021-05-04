@@ -6,6 +6,7 @@ import ResultsButtons from './ResultsButtons';
 import useNS from '../../hooks/useNS';
 
 import infoMappings from '../../config/InfoMappings';
+
 import { Namespace } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{

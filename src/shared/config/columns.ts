@@ -59,6 +59,12 @@ import {
   primaryKeyColumn as primaryKeyColumnLocations,
   LocationsColumnConfiguration,
 } from '../../supporting-data/locations/config/LocationsColumnConfiguration';
+import {
+  IDMappingColumn,
+  defaultColumns as defaultIdMappingColumns,
+  primaryKeyColumn as primaryKeyIdMapping,
+  IdMappingColumnConfiguration,
+} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { ColumnConfiguration } from '../types/columnConfiguration';
 
 export type Column =
@@ -71,7 +77,8 @@ export type Column =
   | CitationsColumn
   | DiseasesColumn
   | DatabaseColumn
-  | LocationsColumn;
+  | LocationsColumn
+  | IDMappingColumn;
 
 export const nsToDefaultColumns: Record<Namespace, Column[]> = {
   [Namespace.uniprotkb]: defaultUniProtKBColumns,
@@ -84,6 +91,7 @@ export const nsToDefaultColumns: Record<Namespace, Column[]> = {
   [Namespace.diseases]: defaultDiseasesColumns,
   [Namespace.database]: defaultDatabaseColumns,
   [Namespace.locations]: defaultLocationsColumns,
+  [Namespace.idmapping]: defaultIdMappingColumns,
 };
 
 export const nsToPrimaryKeyColumn: Record<Namespace, Column> = {
@@ -97,6 +105,7 @@ export const nsToPrimaryKeyColumn: Record<Namespace, Column> = {
   [Namespace.diseases]: primaryKeyColumnDiseases,
   [Namespace.database]: primaryKeyColumnDatabase,
   [Namespace.locations]: primaryKeyColumnLocations,
+  [Namespace.idmapping]: primaryKeyIdMapping,
 };
 
 export const nsToColumnConfig: Record<
@@ -113,4 +122,5 @@ export const nsToColumnConfig: Record<
   [Namespace.diseases]: DiseasesColumnConfiguration,
   [Namespace.database]: DatabaseColumnConfiguration,
   [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.idmapping]: IdMappingColumnConfiguration,
 };

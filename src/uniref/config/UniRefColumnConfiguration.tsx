@@ -7,6 +7,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath } from '../../app/config/urls';
 import parseDate from '../../shared/utils/parseDate';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
@@ -26,6 +27,7 @@ export enum UniRefColumn {
   members = 'members',
   count = 'count',
   created = 'created',
+  from = 'from',
 }
 
 export const defaultColumns = [
@@ -206,5 +208,7 @@ UniRefColumnConfiguration.set(UniRefColumn.created, {
       <time dateTime={parseDate(updated)?.toISOString()}>{updated}</time>
     ),
 });
+
+UniRefColumnConfiguration.set(UniRefColumn.from, fromColumnConfig);
 
 export default UniRefColumnConfiguration;

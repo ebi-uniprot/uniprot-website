@@ -4,6 +4,7 @@ import { SetOptional } from 'type-fest';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
+import EntryDownload from '../../../shared/components/EntryDownload';
 import LiteratureCitation from '../LiteratureCitation';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
@@ -13,7 +14,7 @@ import apiUrls from '../../../../shared/config/apiUrls';
 import { Namespace } from '../../../../shared/types/namespaces';
 import { CitationsAPIModel } from '../../adapters/citationsConverter';
 
-import entryPageStyles from '../../../styles/entry-page.module.scss';
+import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
 
 const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
@@ -33,6 +34,9 @@ const CitationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   return (
     <SingleColumnLayout>
       <Card className={entryPageStyles.card}>
+        <div className="button-group">
+          <EntryDownload />
+        </div>
         <LiteratureCitation data={data} displayAll />
       </Card>
     </SingleColumnLayout>

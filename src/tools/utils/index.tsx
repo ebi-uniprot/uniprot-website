@@ -71,7 +71,9 @@ export const getStatusFromResponse = async (
       status = (await response.text()) as Status;
       break;
     case JobTypes.ID_MAPPING:
-      if (response.redirected && response.url) {
+      if (response.status >= 400) {
+        status = Status.FAILURE;
+      } else if (response.redirected && response.url) {
         const match = response.url.match(idMappingStatusPattern);
         if (match) {
           status = Status.FINISHED;

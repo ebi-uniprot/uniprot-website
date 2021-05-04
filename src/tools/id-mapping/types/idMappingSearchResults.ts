@@ -1,13 +1,40 @@
 /* Results as given by the server */
 import { UniParcAPIModel } from '../../../uniparc/adapters/uniParcConverter';
 import { UniProtkbAPIModel } from '../../../uniprotkb/adapters/uniProtkbConverter';
-import { UniRefAPIModel } from '../../../uniref/adapters/uniRefConverter';
+import { UniRefLiteAPIModel } from '../../../uniref/adapters/uniRefConverter';
 
-export type Mapping = {
+export type MappingAPIModel = {
   from: string;
-  to: string | UniProtkbAPIModel | UniRefAPIModel | UniParcAPIModel;
+  to: string | UniProtkbAPIModel | UniRefLiteAPIModel | UniParcAPIModel;
+  failedIds?: string[]; // TODO handle this
+};
+
+export type MappingDetails = {
+  from: string;
+  to: string;
+  ids: string;
+  redirectURL?: string;
+  taxId?: string;
 };
 
 export type IDMappingSearchResults = {
-  results: Mapping[];
+  results: MappingAPIModel[];
 };
+
+export type MappingTo = {
+  to: string;
+  url?: string;
+};
+
+export type MappingFrom = {
+  from: string;
+};
+
+// Should this be a subset of APIMode, and if so how do we handle it in usePagination?
+export type MappingFlat = (
+  | UniProtkbAPIModel
+  | UniRefLiteAPIModel
+  | UniParcAPIModel
+  | MappingTo
+) &
+  MappingFrom;

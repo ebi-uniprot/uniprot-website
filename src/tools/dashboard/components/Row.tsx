@@ -31,6 +31,7 @@ import parseDate from '../../../shared/utils/parseDate';
 
 import { Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
+import { JobTypes } from '../../types/toolsJobTypes';
 
 import './styles/Dashboard.scss';
 
@@ -264,7 +265,11 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+    if (job.type === JobTypes.ID_MAPPING) {
+      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}`;
+    } else {
+      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+    }
   }
 
   const handleClick = () => {

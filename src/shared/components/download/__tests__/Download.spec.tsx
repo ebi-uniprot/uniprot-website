@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import queryString from 'query-string';
 
 import customRender from '../../../__test-helpers__/customRender';
@@ -100,9 +100,7 @@ describe('Download component', () => {
       fireEvent.change(formatSelect, { target: { value } });
       const customise = screen.queryByText('Customize data');
       if (columnSelect) {
-        await waitFor(() => {
-          expect(customise).toBeInTheDocument();
-        });
+        expect(customise).toBeInTheDocument();
       } else {
         expect(customise).not.toBeInTheDocument();
       }
@@ -143,6 +141,7 @@ describe('Download with passed query and selectedQuery props', () => {
       '(proteome:UP000002494) AND (proteomecomponent:"Chromosome 1" OR proteomecomponent:"Chromosome 2")';
     const numberSelectedEntries = 123;
     const totalNumberResults = 456;
+
     customRender(
       <Download
         query={query}

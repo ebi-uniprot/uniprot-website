@@ -1,4 +1,3 @@
-import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 import { JobTypes } from '../types/toolsJobTypes';
 
 type CommonResultFormats =
@@ -43,9 +42,12 @@ type Return<T extends JobTypes> = Readonly<{
   runUrl: string;
   statusUrl: (jobId: string) => string;
   resultUrl: (
-    jobId: string,
-    extra: { idMappingTarget?: IDMappingNamespace; format?: ResultFormat[T] }
+    redirectUrl: string,
+    extra: {
+      format?: ResultFormat[T];
+    }
   ) => string;
+  detailsUrl?: (jobId: string) => string;
 }>;
 
 function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
@@ -58,15 +60,12 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.ID_MAPPING:
-      // TODO: change to non VPN URL
-      baseURL = 'http://wp-np2-be.ebi.ac.uk:8096/uniprot/api/idmapping';
+      baseURL = 'https://wwwdev.ebi.ac.uk/uniprot/api/idmapping';
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-        resultUrl: (jobId, { idMappingTarget }) =>
-          `${baseURL}${
-            idMappingTarget ? `/${idMappingTarget}` : ''
-          }/results/${jobId}`,
+        resultUrl: (redirectUrl) => `https://wwwdev.ebi.ac.uk${redirectUrl}`,
+        detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
       break;
     case JobTypes.PEPTIDE_SEARCH:
