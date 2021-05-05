@@ -33,7 +33,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="0"
             aria-expanded="false"
-            class="evidence-tag svg-colour-unreviewed"
+            class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -43,7 +43,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -63,7 +62,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="1"
             aria-expanded="false"
-            class="evidence-tag svg-colour-unreviewed"
+            class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -73,7 +72,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               Imported
             </span>
@@ -95,7 +93,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="2"
               aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
+              class="svg-colour-unreviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -105,7 +103,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -123,7 +120,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="3"
               aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
+              class="svg-colour-unreviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -133,7 +130,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -163,7 +159,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="4"
               aria-expanded="false"
-              class="evidence-tag svg-colour-reviewed"
+              class="svg-colour-reviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -173,7 +169,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -187,7 +182,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="5"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -197,7 +192,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -226,7 +220,7 @@ exports[`Entry view should render 1`] = `
               <button
                 aria-controls="6"
                 aria-expanded="false"
-                class="evidence-tag svg-colour-reviewed"
+                class="svg-colour-reviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
@@ -236,7 +230,6 @@ exports[`Entry view should render 1`] = `
                 />
                 <span
                   class="evidence-tag__label"
-                  title=""
                 >
                   1 automatic annotation
                 </span>
@@ -259,7 +252,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="7"
               aria-expanded="false"
-              class="evidence-tag svg-colour-reviewed"
+              class="svg-colour-reviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -269,7 +262,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -291,7 +283,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="8"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -301,7 +293,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -322,7 +313,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="9"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -332,7 +323,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -353,7 +343,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="10"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -363,7 +353,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -475,7 +464,7 @@ exports[`Entry view should render 1`] = `
                 <button
                   aria-controls="11"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
+                  class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -485,7 +474,6 @@ exports[`Entry view should render 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 automatic annotation
                   </span>
@@ -518,7 +506,7 @@ exports[`Entry view should render 1`] = `
                 <button
                   aria-controls="12"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
+                  class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -528,7 +516,6 @@ exports[`Entry view should render 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 automatic annotation
                   </span>
@@ -561,7 +548,7 @@ exports[`Entry view should render 1`] = `
                 <button
                   aria-controls="13"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
+                  class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -571,7 +558,6 @@ exports[`Entry view should render 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 automatic annotation
                   </span>
@@ -608,7 +594,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="14"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
+                      class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -618,7 +604,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 automatic annotation
                       </span>
@@ -632,7 +617,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="15"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
+                      class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -642,7 +627,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 automatic annotation
                       </span>
@@ -712,7 +696,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="16"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
+                      class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -722,7 +706,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 automatic annotation
                       </span>
@@ -757,7 +740,7 @@ exports[`Entry view should render 1`] = `
                 <button
                   aria-controls="17"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
+                  class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -767,7 +750,6 @@ exports[`Entry view should render 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 automatic annotation
                   </span>
@@ -847,7 +829,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="18"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-unreviewed"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -857,7 +839,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 automatic annotation
                       </span>
@@ -890,7 +871,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="19"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-unreviewed"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -900,7 +881,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 automatic annotation
                       </span>
@@ -933,7 +913,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="20"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
+                      class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -943,7 +923,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 publication
                       </span>
@@ -976,7 +955,7 @@ exports[`Entry view should render 1`] = `
                     <button
                       aria-controls="21"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-unreviewed"
+                      class="svg-colour-unreviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -986,7 +965,6 @@ exports[`Entry view should render 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 automatic annotation
                       </span>
@@ -1033,7 +1011,7 @@ exports[`Entry view should render 1`] = `
                 <button
                   aria-controls="22"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-unreviewed"
+                  class="svg-colour-unreviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -1043,7 +1021,6 @@ exports[`Entry view should render 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 automatic annotation
                   </span>
@@ -1236,7 +1213,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="23"
               aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
+              class="svg-colour-unreviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -1246,7 +1223,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -1260,7 +1236,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="24"
               aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
+              class="svg-colour-unreviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -1270,7 +1246,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -1288,7 +1263,7 @@ exports[`Entry view should render 1`] = `
             <button
               aria-controls="25"
               aria-expanded="false"
-              class="evidence-tag svg-colour-unreviewed"
+              class="svg-colour-unreviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -1298,7 +1273,6 @@ exports[`Entry view should render 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 automatic annotation
               </span>
@@ -1343,7 +1317,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="26"
             aria-expanded="false"
-            class="evidence-tag svg-colour-unreviewed"
+            class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -1353,7 +1327,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -1461,7 +1434,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="27"
             aria-expanded="false"
-            class="evidence-tag svg-colour-unreviewed"
+            class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -1471,7 +1444,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -2017,7 +1989,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="28"
             aria-expanded="false"
-            class="evidence-tag svg-colour-unreviewed"
+            class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2027,7 +1999,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -2051,7 +2022,7 @@ exports[`Entry view should render 1`] = `
           <button
             aria-controls="29"
             aria-expanded="false"
-            class="evidence-tag svg-colour-unreviewed"
+            class="svg-colour-unreviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2061,7 +2032,6 @@ exports[`Entry view should render 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 automatic annotation
             </span>
@@ -2085,7 +2055,7 @@ exports[`Entry view should render 1`] = `
               <button
                 aria-controls="30"
                 aria-expanded="false"
-                class="evidence-tag svg-colour-unreviewed"
+                class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
@@ -2095,7 +2065,6 @@ exports[`Entry view should render 1`] = `
                 />
                 <span
                   class="evidence-tag__label"
-                  title=""
                 >
                   1 automatic annotation
                 </span>
@@ -2113,7 +2082,7 @@ exports[`Entry view should render 1`] = `
               <button
                 aria-controls="31"
                 aria-expanded="false"
-                class="evidence-tag svg-colour-unreviewed"
+                class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
@@ -2123,7 +2092,6 @@ exports[`Entry view should render 1`] = `
                 />
                 <span
                   class="evidence-tag__label"
-                  title=""
                 >
                   1 automatic annotation
                 </span>
@@ -2252,7 +2220,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="35"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2262,7 +2230,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
@@ -2284,7 +2251,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="36"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2294,7 +2261,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
@@ -2316,7 +2282,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <button
               aria-controls="37"
               aria-expanded="false"
-              class="evidence-tag svg-colour-reviewed"
+              class="svg-colour-reviewed evidence-tag"
               data-testid="evidence-tag-trigger"
               type="button"
             >
@@ -2326,7 +2292,6 @@ exports[`Entry view should render for non-human entry 1`] = `
               />
               <span
                 class="evidence-tag__label"
-                title=""
               >
                 1 publication
               </span>
@@ -2350,7 +2315,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="38"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2360,7 +2325,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
@@ -2383,7 +2347,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="39"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2393,7 +2357,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
@@ -2422,7 +2385,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <button
                 aria-controls="40"
                 aria-expanded="false"
-                class="evidence-tag svg-colour-reviewed"
+                class="svg-colour-reviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
                 type="button"
               >
@@ -2432,7 +2395,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                 />
                 <span
                   class="evidence-tag__label"
-                  title=""
                 >
                   1 publication
                 </span>
@@ -2458,7 +2420,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="41"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2468,7 +2430,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
@@ -2491,7 +2452,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="42"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -2501,7 +2462,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
@@ -2741,7 +2701,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <button
                   aria-controls="52"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
+                  class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -2751,7 +2711,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 publication
                   </span>
@@ -2784,7 +2743,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <button
                   aria-controls="53"
                   aria-expanded="false"
-                  class="evidence-tag svg-colour-reviewed"
+                  class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
                   type="button"
                 >
@@ -2794,7 +2753,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                   />
                   <span
                     class="evidence-tag__label"
-                    title=""
                   >
                     1 publication
                   </span>
@@ -2831,7 +2789,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       aria-controls="54"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
+                      class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -2841,7 +2799,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 publication
                       </span>
@@ -2857,7 +2814,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <button
                       aria-controls="55"
                       aria-expanded="false"
-                      class="evidence-tag svg-colour-reviewed"
+                      class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
                       type="button"
                     >
@@ -2867,7 +2824,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                       />
                       <span
                         class="evidence-tag__label"
-                        title=""
                       >
                         1 publication
                       </span>
@@ -3347,7 +3303,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <button
             aria-controls="61"
             aria-expanded="false"
-            class="evidence-tag svg-colour-reviewed"
+            class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
             type="button"
           >
@@ -3357,7 +3313,6 @@ exports[`Entry view should render for non-human entry 1`] = `
             />
             <span
               class="evidence-tag__label"
-              title=""
             >
               1 publication
             </span>
