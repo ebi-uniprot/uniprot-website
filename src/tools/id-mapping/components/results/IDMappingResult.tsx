@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { HeroContainer, Loader, PageIntro } from 'franklin-sites';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useDataApi from '../../../../shared/hooks/useDataApi';
@@ -9,6 +9,7 @@ import usePagination from '../../../../shared/hooks/usePagination';
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
 import { databaseToDatabaseInfo } from '../../../../uniprotkb/config/database';
+import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 
 import ResultsData from '../../../../shared/components/results/ResultsData';
 
@@ -32,6 +33,9 @@ const IDMappingResult = () => {
   const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.IDMappingResult]
   );
+  const location = useLocation();
+  const { search: queryParamFromUrl } = location;
+  const { selectedFacets } = getParamsFromURL(queryParamFromUrl);
 
   const [selectedEntries, handleEntrySelection] = useItemSelect();
 
@@ -43,7 +47,8 @@ const IDMappingResult = () => {
 
   // Query for results data from the idmapping endpoint
   const initialApiUrl =
-    detailsData?.redirectURL && urls.resultUrl(detailsData.redirectURL, {});
+    detailsData?.redirectURL &&
+    urls.resultUrl(detailsData.redirectURL, { selectedFacets });
 
   const converter = useMemo(() => idMappingConverter(toDBInfo), [toDBInfo]);
 
@@ -60,6 +65,9 @@ const IDMappingResult = () => {
       namespaceFallback = Namespace.uniprotkb;
       break;
     case Namespace.uniref:
+    case 'uniref50':
+    case 'uniref90':
+    case 'uniref100':
       namespaceFallback = Namespace.uniref;
       break;
     case Namespace.uniparc:
@@ -69,11 +77,15 @@ const IDMappingResult = () => {
       namespaceFallback = Namespace.idmapping;
   }
 
-  // Get facets if relevant namespace
+  // Run facet query
   const facets = defaultFacets.get(namespaceFallback);
   const facetsUrl =
     detailsData?.redirectURL &&
-    urls.resultUrl(detailsData.redirectURL, { facets });
+    urls.resultUrl(detailsData.redirectURL, {
+      facets,
+      size: 0,
+      selectedFacets,
+    });
   const facetsData = useDataApi<Response['data']>(facetsUrl);
 
   if (initialLoading) {
