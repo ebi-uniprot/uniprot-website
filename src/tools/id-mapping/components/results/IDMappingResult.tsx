@@ -95,8 +95,7 @@ const IDMappingResult = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
-      {/* resultsCount={total} */}
-      <PageIntro title="ID Mapping Results">{/* {info} */}</PageIntro>
+      <PageIntro title="ID Mapping Results" />
       {total && (
         <HeroContainer>
           {total} out of {total + (failedIds ? failedIds.length : 0)}{' '}
