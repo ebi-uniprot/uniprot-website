@@ -267,6 +267,7 @@ const LiteratureCitation: FC<
           {literatureAbstract && (
             <Abstract abstract={literatureAbstract} open={displayAll} />
           )}
+          {children}
         </div>
         <div className="publication__columns__side">
           <div className="publication__columns__side__item">
@@ -300,7 +301,6 @@ const LiteratureCitation: FC<
               <Statistics statistics={statistics} id={citation.id} />
             </div>
           )}
-          {children}
         </div>
       </div>
     </article>
