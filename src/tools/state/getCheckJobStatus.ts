@@ -32,7 +32,7 @@ const getCheckJobStatus = ({
       redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
     });
 
-    const [status, idMappingTarget] = await getStatusFromResponse(
+    const [status, idMappingResultsUrl] = await getStatusFromResponse(
       job.type,
       response
     );
@@ -127,10 +127,10 @@ const getCheckJobStatus = ({
           getJobMessage({ job: currentStateOfJob, nHits: results.hits.length })
         )
       );
-    } else if (job.type === JobTypes.ID_MAPPING) {
+    } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
       // only ID Mapping jobs
       const response = await fetchData(
-        urlConfig.resultUrl(job.remoteID, {}),
+        idMappingResultsUrl,
         undefined,
         undefined,
         { method: 'HEAD' }
@@ -162,7 +162,7 @@ const getCheckJobStatus = ({
           timeLastUpdate: now,
           timeFinished: now,
           status,
-          data: { hits: +hits, idMappingTarget },
+          data: { hits: +hits },
         })
       );
       dispatch(
