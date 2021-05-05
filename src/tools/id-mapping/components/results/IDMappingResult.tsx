@@ -21,6 +21,9 @@ import {
   MappingFlat,
 } from '../../types/idMappingSearchResults';
 import { Namespace } from '../../../../shared/types/namespaces';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
+import { defaultFacets } from '../../../../shared/config/apiUrls';
+import Response from '../../../../uniprotkb/types/responseTypes';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -39,7 +42,6 @@ const IDMappingResult = () => {
   const toDBInfo = detailsData && databaseToDatabaseInfo[detailsData.to];
 
   // Query for results data from the idmapping endpoint
-  // NOTE: needs to be moved to useQueryNS to support filtering
   const initialApiUrl =
     detailsData?.redirectURL && urls.resultUrl(detailsData.redirectURL, {});
 
@@ -51,10 +53,6 @@ const IDMappingResult = () => {
   );
 
   const { initialLoading, failedIds, total } = resultsDataObject;
-
-  if (initialLoading) {
-    return <Loader />;
-  }
 
   let namespaceFallback;
   switch (detailsData?.to.toLowerCase()) {
@@ -71,11 +69,19 @@ const IDMappingResult = () => {
       namespaceFallback = Namespace.idmapping;
   }
 
+  // Get facets if relevant namespace
+  const facets = defaultFacets.get(namespaceFallback);
+  const facetsUrl =
+    detailsData?.redirectURL &&
+    urls.resultUrl(detailsData.redirectURL, { facets });
+  const facetsData = useDataApi<Response['data']>(facetsUrl);
+
+  if (initialLoading) {
+    return <Loader />;
+  }
+
   return (
-    <SideBarLayout
-      sidebar={<></>}
-      // sidebar={<ResultsFacets dataApiObject={dataApiObject} total={total} />}
-    >
+    <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
       {/* resultsCount={total} */}
       <PageIntro title="ID Mapping Results">{/* {info} */}</PageIntro>
       {total && (

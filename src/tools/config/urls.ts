@@ -45,6 +45,7 @@ type Return<T extends JobTypes> = Readonly<{
     redirectUrl: string,
     extra: {
       format?: ResultFormat[T];
+      facets?: string[];
     }
   ) => string;
   detailsUrl?: (jobId: string) => string;
@@ -64,7 +65,10 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
-        resultUrl: (redirectUrl) => `https://wwwdev.ebi.ac.uk${redirectUrl}`,
+        resultUrl: (redirectUrl, { facets }) =>
+          `https://wwwdev.ebi.ac.uk${redirectUrl}${
+            facets ? `?facets=${facets.join(',')}` : ''
+          }`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
       break;
