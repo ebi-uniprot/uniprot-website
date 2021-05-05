@@ -3,45 +3,70 @@
 exports[`CitationCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/locations/SL-0099"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          Endoplasmic reticulum-Golgi intermediate compartment membrane
+        </h2>
+      </div>
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="result-card__info-container"
         >
-          <div
-            class="result-card__right"
+          The membrane surrounding the ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of ER exit sites.
+        </div>
+        <div
+          class="result-card__info-container"
+        >
+          <span
+            class="result-card__info-bit"
           >
-            <h5>
-              Endoplasmic reticulum-Golgi intermediate compartment membrane
-            </h5>
-            <div
-              class="result-card__info-container"
-            >
-              The membrane surrounding the ER-Golgi intermediate compartment, which is a collection of tubulovesicular membrane clusters in the vicinity of ER exit sites.
-            </div>
-            <div
-              class="result-card__info-container"
-            >
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Category: 
-                </strong>
-                Cellular component
-              </span>
-            </div>
-          </div>
+            <strong>
+              Category: 
+            </strong>
+            Cellular component
+          </span>
         </div>
       </div>
+    </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(cc_scl_term:SL-0099)"
+      >
+        8,751 UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:true&query=(cc_scl_term:SL-0099)"
+      >
+        235 reviewed UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:false&query=(cc_scl_term:SL-0099)"
+      >
+        8,516 unreviewed UniProtKB entries
+      </a>
     </div>
   </section>
 </DocumentFragment>

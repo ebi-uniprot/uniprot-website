@@ -5,6 +5,7 @@ import cn from 'classnames';
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
+import { MapToDropdown } from '../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
@@ -63,10 +64,11 @@ const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h2>Keyword - {data.keyword.name}</h2>
+      <h1 className="big">Keyword - {data.keyword.name}</h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />
+          <MapToDropdown statistics={data.statistics} />
         </div>
         {infoData && <InfoList infoData={infoData} isCompact />}
       </Card>

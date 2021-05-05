@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { groupBy } from 'lodash-es';
 import { Card } from 'franklin-sites';
 
@@ -19,12 +18,19 @@ import {
 } from '../../utils/xrefUtils';
 import { DatabaseCategory } from '../../types/databaseRefs';
 
-const StructureSection: FC<{
+type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence: string;
   crc64?: string;
-}> = ({ data, primaryAccession, sequence, crc64 }): JSX.Element | null => {
+};
+
+const StructureSection = ({
+  data,
+  primaryAccession,
+  sequence,
+  crc64,
+}: Props) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -86,13 +92,15 @@ const StructureSection: FC<{
   }
 
   return (
-    <div id={EntrySection.Structure} data-entry-section>
-      <Card title={getEntrySectionNameAndId(EntrySection.Structure).name}>
-        {PDBViewNode}
-        <FeaturesView features={data.featuresData} sequence={sequence} />
-        {XrefViewNode}
-      </Card>
-    </div>
+    <Card
+      header={<h2>{getEntrySectionNameAndId(EntrySection.Structure).name}</h2>}
+      id={EntrySection.Structure}
+      data-entry-section
+    >
+      {PDBViewNode}
+      <FeaturesView features={data.featuresData} sequence={sequence} />
+      {XrefViewNode}
+    </Card>
   );
 };
 

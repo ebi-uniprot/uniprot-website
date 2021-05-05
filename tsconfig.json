@@ -42,8 +42,6 @@
     "src/tools/blast/**/*.spec.ts*",
     "src/tools/components/**/*.spec.ts*",
     "src/tools/utils/**/*.spec.ts*",
-    "src/uniparc/**/*.spec.ts*",
-    "src/uniprotkb/**/*.spec.ts*",
-    "src/uniref/**/*.spec.ts*"
+    "src/uniprotkb/**/*.spec.ts*"
   ]
 }

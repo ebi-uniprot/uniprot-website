@@ -1,6 +1,7 @@
 @import 'franklin-sites/src/styles/colours';
 
 .dashboard {
+  // ".card__content" comes from Franklin
   &__header .card__content {
     font-weight: bold;
     display: grid;
@@ -37,6 +38,7 @@
         opacity: 0.5;
       }
 
+      // ".card__content" comes from Franklin
       & .card__content {
         cursor: not-allowed;
       }
@@ -50,7 +52,8 @@
       background: #e4e8eb;
     }
 
-    & .card--has-hover {
+    // ".card--has-link" comes from Franklin
+    & .card--has-link {
       &:hover,
       &:focus,
       &:focus-within {
@@ -68,6 +71,7 @@
       }
     }
 
+    // ".card__content" comes from Franklin
     & .card__content {
       user-select: none;
       display: grid;
@@ -197,6 +201,7 @@
     }
 
     &__body {
+      // ".card__content" comes from Franklin
       & .card__content {
         grid-template-areas:
           'type name   time'

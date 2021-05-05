@@ -1,4 +1,4 @@
-import { FC, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Card, Loader } from 'franklin-sites';
 import { html, TemplateResult } from 'lit-html';
 
@@ -89,10 +89,12 @@ interface HTMLInteractionDatatable extends HTMLElement {
   };
 }
 
-const InteractionSection: FC<{
+type Props = {
   data: UIModel;
   primaryAccession: string;
-}> = ({ data, primaryAccession }): JSX.Element | null => {
+};
+
+const InteractionSection = ({ data, primaryAccession }: Props) => {
   const datatableContainer = useRef<HTMLInteractionDatatable>(null);
   const datatableDefined = useCustomElement(
     /* istanbul ignore next */
@@ -139,19 +141,23 @@ const InteractionSection: FC<{
   }
 
   return (
-    <div id={EntrySection.Interaction} data-entry-section>
-      <Card title={getEntrySectionNameAndId(EntrySection.Interaction).name}>
-        {comments && (
-          <FreeTextView
-            comments={comments}
-            title={CommentType.SUBUNIT.toLowerCase()}
-          />
-        )}
-        <interaction-viewer accession={primaryAccession} />
-        <protvista-datatable ref={datatableContainer} filter-scroll />
-        <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      </Card>
-    </div>
+    <Card
+      header={
+        <h2>{getEntrySectionNameAndId(EntrySection.Interaction).name}</h2>
+      }
+      id={EntrySection.Interaction}
+      data-entry-section
+    >
+      {comments && (
+        <FreeTextView
+          comments={comments}
+          title={CommentType.SUBUNIT.toLowerCase()}
+        />
+      )}
+      <interaction-viewer accession={primaryAccession} />
+      <protvista-datatable ref={datatableContainer} filter-scroll />
+      <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+    </Card>
   );
 };
 

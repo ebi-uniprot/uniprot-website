@@ -29,7 +29,8 @@ describe('UniRefCard tests', () => {
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
-    fireEvent.click(screen.getAllByRole('button')[0]);
+    expect(history.location.pathname).not.toMatch('/uniparc/UPI0000000001');
+    fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/uniparc/UPI0000000001');
   });
 });

@@ -3,142 +3,141 @@
 exports[`UniProtKBCard component should render 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/uniprotkb/P21802"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <input
+          data-testid="up-card-checkbox"
+          type="checkbox"
+        />
+        <h2
+          class="tiny"
+        >
+          <span
+            class="entry-title"
+          >
+            <span
+              class="entry-title__status icon--reviewed"
+              title="This marks a reviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            P21802 · uniprot_id
+          </span>
+        </h2>
+      </div>
       <div
         class="card__content"
       >
-        <div
-          class="result-card"
-        >
-          <div
-            class="result-card__left"
+        <section>
+          rec full Name · 
+          <a
+            href="/taxonomy/9606"
+            title="scientific name (common name) (synonyms 1), taxon ID 9606"
           >
-            <input
-              data-testid="up-card-checkbox"
-              type="checkbox"
-            />
-          </div>
-          <div
-            class="result-card__right"
+            scientific name (common name) (synonyms 1)
+          </a>
+           · 
+          <strong>
+            EC number:
+          </strong>
+           1.2.3.4 · 
+          <strong>
+            Gene:
+          </strong>
+           some Gene (some Syn) · 10 amino-acids · 1: Evidence at protein level · 
+          <span
+            title="Annotation Score"
           >
-            <h5>
+            <span
+              class="doughnut-chart--small colour-platinum"
+            >
               <span
-                class="entry-title"
+                class="doughnut-chart--small__left-wrap"
               >
                 <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-                P21802 · uniprot_id
+                  class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
+                  style="transform: rotate(0deg);"
+                />
               </span>
-            </h5>
-            <section>
-              rec full Name · 
-              <a
-                href="/taxonomy/9606"
-                title="scientific name (common name) (synonyms 1), taxon ID 9606"
-              >
-                scientific name (common name) (synonyms 1)
-              </a>
-               · 
-              <strong>
-                EC number:
-              </strong>
-               1.2.3.4 · 
-              <strong>
-                Gene:
-              </strong>
-               some Gene (some Syn) · 10 amino-acids · 1: Evidence at protein level · 
               <span
-                title="Annotation Score"
+                class="doughnut-chart--small__right-wrap"
               >
                 <span
-                  class="doughnut-chart--small colour-platinum"
-                >
-                  <span
-                    class="doughnut-chart--small__left-wrap"
-                  >
-                    <span
-                      class="doughnut-chart--small__left-wrap__loader colour-sea-blue"
-                      style="transform: rotate(0deg);"
-                    />
-                  </span>
-                  <span
-                    class="doughnut-chart--small__right-wrap"
-                  >
-                    <span
-                      class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
-                      style="transform: rotate(72deg);"
-                    />
-                  </span>
-                  <span
-                    class="doughnut-chart--small__inner-circle"
-                  >
-                    1/5
-                  </span>
-                </span>
+                  class="doughnut-chart--small__right-wrap__loader colour-sea-blue"
+                  style="transform: rotate(72deg);"
+                />
               </span>
-            </section>
-            <small />
-          </div>
-        </div>
+              <span
+                class="doughnut-chart--small__inner-circle"
+              >
+                1/5
+              </span>
+            </span>
+          </span>
+        </section>
+        <small />
       </div>
     </div>
     <div
       class="card__actions"
     >
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#function"
       >
         4 domains
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#ptm-processing"
       >
         7 PTMs
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#disease-and-drugs"
       >
         74 reviewed variants
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#function"
       >
         1 active site
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#sequence"
       >
         1 isoform
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#interaction"
       >
         1 interaction
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802#disease-and-drugs"
       >
         10 diseases
       </a>
       <a
-        class="card__link"
+        class="card-action"
         href="/uniprotkb/P21802/publications"
       >
         7 reviewed publications

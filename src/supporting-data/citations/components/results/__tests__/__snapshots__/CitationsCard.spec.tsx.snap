@@ -1,211 +1,219 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CitationCard tests should render the card component 1`] = `
+exports[`CitationsCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/citations/14702039"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="card-content"
         >
-          <div
-            class="result-card__right"
+          <article
+            class="publication"
           >
-            <article
-              class="publication"
+            <div
+              class="publication__columns"
             >
               <div
-                class="publication__columns"
+                class="publication__columns__main"
               >
-                <div
-                  class="publication__columns__main"
+                <h2
+                  class="publication__heading tiny"
                 >
-                  <h5>
-                    Complete sequencing and characterization of 21,243 full-length human cDNAs.
-                  </h5>
-                  <div
-                    class="publication__authors"
+                  Complete sequencing and characterization of 21,243 full-length human cDNAs.
+                </h2>
+                <div
+                  class="publication__authors"
+                >
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Ota T.\\""
                   >
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Ota T.\\""
-                    >
-                      Ota T.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Suzuki Y.\\""
-                    >
-                      Suzuki Y.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Nishikawa T.\\""
-                    >
-                      Nishikawa T.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Otsuki T.\\""
-                    >
-                      Otsuki T.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Sugiyama T.\\""
-                    >
-                      Sugiyama T.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Irie R.\\""
-                    >
-                      Irie R.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Wakamatsu A.\\""
-                    >
-                      Wakamatsu A.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Hayashi K.\\""
-                    >
-                      Hayashi K.
-                    </a>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Sato H.\\""
-                    >
-                      Sato H.
-                    </a>
-                    <button
-                      class="button tertiary"
-                      type="button"
-                    >
-                      [...]
-                    </button>
-                    , 
-                    <a
-                      href="/uniprotkb?query=lit_author:\\"Sugano S.\\""
-                    >
-                      Sugano S.
-                    </a>
-                  </div>
-                  <div
-                    class="publication__abstract"
+                    Ota T.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Suzuki Y.\\""
                   >
-                    <button
-                      class="button tertiary"
-                      type="button"
-                    >
-                      View abstract [...]
-                    </button>
-                  </div>
+                    Suzuki Y.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Nishikawa T.\\""
+                  >
+                    Nishikawa T.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Otsuki T.\\""
+                  >
+                    Otsuki T.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Sugiyama T.\\""
+                  >
+                    Sugiyama T.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Irie R.\\""
+                  >
+                    Irie R.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Wakamatsu A.\\""
+                  >
+                    Wakamatsu A.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Hayashi K.\\""
+                  >
+                    Hayashi K.
+                  </a>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Sato H.\\""
+                  >
+                    Sato H.
+                  </a>
+                  <button
+                    class="button tertiary"
+                    type="button"
+                  >
+                    [...]
+                  </button>
+                  , 
+                  <a
+                    href="/uniprotkb?query=lit_author:\\"Sugano S.\\""
+                  >
+                    Sugano S.
+                  </a>
                 </div>
                 <div
-                  class="publication__columns__side"
+                  class="publication__abstract"
                 >
-                  <div
-                    class="publication__columns__side__item"
+                  <button
+                    class="button tertiary"
+                    type="button"
                   >
-                    <test-file-stub
-                      height="2em"
-                      width="1.875em"
-                    />
-                    <ul
-                      class="no-bullet"
-                    >
-                      <li>
-                        <a
-                          class="external-link"
-                          href="https://pubmed.ncbi.nlm.nih.gov/14702039"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          PubMed
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          class="external-link"
-                          href="//europepmc.org/article/MED/14702039"
-                          rel="noopener"
-                          target="_blank"
-                        >
-                          Europe PMC
-                        </a>
-                      </li>
-                      <li>
-                        <small>
-                          <a
-                            class="external-link"
-                            href="https://dx.doi.org/10.1038/ng1285"
-                            rel="noopener"
-                            target="_blank"
-                          >
-                            Nat. Genet. 36:40-45(
-                            <time
-                              datetime="2004-01-01T00:00:00.000Z"
-                            >
-                              2004
-                            </time>
-                            )
-                            <test-file-stub
-                              data-testid="external-link-icon"
-                              width="12.5"
-                            />
-                          </a>
-                        </small>
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    class="publication__columns__side__item"
+                    View abstract [...]
+                  </button>
+                </div>
+              </div>
+              <div
+                class="publication__columns__side"
+              >
+                <div
+                  class="publication__columns__side__item"
+                >
+                  <test-file-stub
+                    height="2em"
+                    width="1.875em"
+                  />
+                  <ul
+                    class="no-bullet"
                   >
-                    <div
-                      class="publication__statistics"
-                    >
-                      <div
-                        class="publication__statistics__item"
+                    <li>
+                      <a
+                        class="external-link"
+                        href="https://pubmed.ncbi.nlm.nih.gov/14702039"
+                        rel="noopener"
+                        target="_blank"
                       >
+                        PubMed
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        class="external-link"
+                        href="//europepmc.org/article/MED/14702039"
+                        rel="noopener"
+                        target="_blank"
+                      >
+                        Europe PMC
+                      </a>
+                    </li>
+                    <li>
+                      <small>
                         <a
-                          href="/uniprotkb?query=(lit_pubmed:14702039)"
+                          class="external-link"
+                          href="https://dx.doi.org/10.1038/ng1285"
+                          rel="noopener"
+                          target="_blank"
                         >
-                          <div>
-                            <small>
-                              Cited in
-                            </small>
-                          </div>
-                          <div
-                            class="publication__statistics__bubble"
+                          Nat. Genet. 36:40-45(
+                          <time
+                            datetime="2004-01-01T00:00:00.000Z"
                           >
-                            <span
-                              class="bubble--small colour-pastel-blue"
-                            >
-                              99+
-                            </span>
-                            <test-file-stub
-                              height="15"
-                              width="15"
-                            />
-                          </div>
+                            2004
+                          </time>
+                          )
+                          <test-file-stub
+                            data-testid="external-link-icon"
+                            width="12.5"
+                          />
                         </a>
-                      </div>
-                    </div>
+                      </small>
+                    </li>
+                  </ul>
+                </div>
+                <div
+                  class="publication__columns__side__item"
+                >
+                  <small>
+                    Mapped to
+                  </small>
+                  <div
+                    class="publication__statistics"
+                  >
+                    <a
+                      href="/uniprotkb?facets=reviewed:true&query=(lit_citation_id:14702039)"
+                      title="UniProtKB reviewed entries: 32172"
+                    >
+                      <span
+                        class="bubble--small colour-pastel-blue"
+                      >
+                        99+
+                      </span>
+                      <test-file-stub
+                        classname="publication__statistics--reviewed"
+                        height="1em"
+                      />
+                    </a>
+                    <a
+                      href="/uniprotkb?facets=reviewed:false&query=(lit_citation_id:14702039)"
+                      title="UniProtKB unreviewed entries: 2615"
+                    >
+                      <span
+                        class="bubble--small colour-pastel-blue"
+                      >
+                        99+
+                      </span>
+                      <test-file-stub
+                        classname="publication__statistics--unreviewed"
+                        height="1em"
+                      />
+                    </a>
                   </div>
                 </div>
               </div>
-            </article>
-          </div>
+            </div>
+          </article>
         </div>
       </div>
     </div>
