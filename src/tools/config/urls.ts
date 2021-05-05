@@ -1,3 +1,5 @@
+import queryString from 'query-string';
+
 import { createFacetsQueryString } from '../../shared/config/apiUrls';
 import { SelectedFacet } from '../../uniprotkb/types/resultsTypes';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -70,13 +72,11 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
         resultUrl: (redirectUrl, { facets, size, selectedFacets = [] }) =>
-          `https://wwwdev.ebi.ac.uk${redirectUrl}?${
-            facets ? `facets=${facets.join(',')}` : ''
-          }${size ? `&size=${size}` : ''}${
-            selectedFacets.length > 0
-              ? `&query=${createFacetsQueryString(selectedFacets)}`
-              : ''
-          }`,
+          `https://wwwdev.ebi.ac.uk${redirectUrl}?${queryString.stringify({
+            size,
+            facets: facets?.join(','),
+            query: createFacetsQueryString(selectedFacets),
+          })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
       break;

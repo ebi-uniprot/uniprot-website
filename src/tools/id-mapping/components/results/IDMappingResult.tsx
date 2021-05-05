@@ -5,6 +5,7 @@ import { useLocation, useRouteMatch } from 'react-router-dom';
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
 import useDataApi from '../../../../shared/hooks/useDataApi';
 import usePagination from '../../../../shared/hooks/usePagination';
+import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
 
 import toolsURLs from '../../../config/urls';
 import idMappingConverter from '../../adapters/idMappingConverter';
@@ -86,7 +87,7 @@ const IDMappingResult = () => {
       size: 0,
       selectedFacets,
     });
-  const facetsData = useDataApi<Response['data']>(facetsUrl);
+  const facetsData = useDataApiWithStale<Response['data']>(facetsUrl);
 
   if (initialLoading) {
     return <Loader />;
