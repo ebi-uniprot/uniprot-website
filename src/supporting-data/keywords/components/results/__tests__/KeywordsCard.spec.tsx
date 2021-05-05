@@ -21,7 +21,8 @@ describe('KeywordsCard tests', () => {
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
-    fireEvent.click(screen.getAllByRole('button')[0]);
+    expect(history.location.pathname).not.toMatch('/keywords/KW-0021');
+    fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/keywords/KW-0021');
   });
 });

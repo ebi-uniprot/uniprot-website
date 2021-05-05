@@ -15,7 +15,7 @@ export type FacetObject = {
   label?: string;
   name: string;
   allowMultipleSelection: boolean;
-  values: FacetValue[];
+  values?: FacetValue[];
 };
 
 type Response = {

@@ -1,20 +1,25 @@
 import { RouteChildrenProps } from 'react-router-dom';
 import { Loader, Card, InfoList } from 'franklin-sites';
 import cn from 'classnames';
+import { pick } from 'lodash-es';
 
 import SingleColumnLayout from '../../../../shared/components/layouts/SingleColumnLayout';
 import ErrorHandler from '../../../../shared/components/error-pages/ErrorHandler';
 import EntryDownload from '../../../shared/components/EntryDownload';
+import { MapToDropdown } from '../../../shared/components/MapTo';
 
 import useDataApiWithStale from '../../../../shared/hooks/useDataApiWithStale';
+import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import apiUrls from '../../../../shared/config/apiUrls';
+import apiUrls, { getAPIQueryUrl } from '../../../../shared/config/apiUrls';
 
 import { Namespace } from '../../../../shared/types/namespaces';
 import { TaxonomyAPIModel } from '../../adapters/taxonomyConverter';
 import TaxonomyColumnConfiguration, {
   TaxonomyColumn,
 } from '../../config/TaxonomyColumnConfiguration';
+import { Statistics } from '../../../../shared/types/apiModel';
+import { FacetObject } from '../../../../uniprotkb/types/responseTypes';
 
 import helper from '../../../../shared/styles/helper.module.scss';
 import entryPageStyles from '../../../shared/styles/entry-page.module.scss';
@@ -47,6 +52,33 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
     apiUrls.entry(accession, Namespace.taxonomy)
   );
 
+  /* Temporary workaround to get "View proteins" at least */
+  /* istanbul ignore next */
+  const { data: facetData } = useDataApi<{ facets: FacetObject[] }>(
+    data && !data.statistics
+      ? getAPIQueryUrl({
+          namespace: Namespace.uniprotkb,
+          query: `(taxonomy_id:${accession})`,
+          facets: ['reviewed'],
+          size: 0,
+        })
+      : undefined
+  );
+  const fallbackStats: Partial<Statistics> = {};
+  /* istanbul ignore next */
+  if (facetData) {
+    const reviewedFacet = facetData.facets.find(
+      ({ name }) => name === 'reviewed'
+    );
+    fallbackStats.reviewedProteinCount = reviewedFacet?.values?.find(
+      ({ value }) => value === 'true'
+    )?.count;
+    fallbackStats.unreviewedProteinCount = reviewedFacet?.values?.find(
+      ({ value }) => value === 'false'
+    )?.count;
+  }
+  /* End of temporary workaround */
+
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;
   }
@@ -54,6 +86,15 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   if (!data) {
     return <Loader progress={progress} />;
   }
+
+  const proteinStatistics = pick<Partial<Statistics>>(
+    data.statistics || fallbackStats,
+    ['reviewedProteinCount', 'unreviewedProteinCount']
+  );
+  const proteomeStatistics = pick<Partial<Statistics>>(
+    data.statistics || fallbackStats,
+    ['proteomeCount', 'referenceProteomeCount']
+  );
 
   const infoData =
     data &&
@@ -67,13 +108,17 @@ const TaxonomyEntry = (props: RouteChildrenProps<{ accession: string }>) => {
 
   return (
     <SingleColumnLayout>
-      <h2>
+      <h1 className="big">
         Taxonomy - {data.scientificName || data.taxonId}{' '}
         <small>({data.rank})</small>
-      </h2>
+      </h1>
       <Card className={cn(entryPageStyles.card, { [helper.stale]: isStale })}>
         <div className="button-group">
           <EntryDownload />
+          <MapToDropdown statistics={proteinStatistics} />
+          <MapToDropdown statistics={proteomeStatistics}>
+            View proteomes
+          </MapToDropdown>
         </div>
         {infoData && <InfoList infoData={infoData} isCompact columns />}
       </Card>

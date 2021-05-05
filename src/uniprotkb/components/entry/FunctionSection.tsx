@@ -1,4 +1,4 @@
-import { FC, lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Card, Loader, Message } from 'franklin-sites';
 
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
@@ -32,7 +32,7 @@ const GoRibbon = lazy(
   () => import(/* webpackChunkName: "go-ribbon" */ './GoRibbon')
 );
 
-export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => (
+export const AbsorptionView = ({ data }: { data: Absorption }) => (
   <>
     <section className="text-block">
       {`Abs(max) = ${data.approximate && '~'}${data.max}nm`}
@@ -44,7 +44,7 @@ export const AbsorptionView: FC<{ data: Absorption }> = ({ data }) => (
   </>
 );
 
-export const KineticsView: FC<{ data: KineticParameters }> = ({ data }) => (
+export const KineticsView = ({ data }: { data: KineticParameters }) => (
   <>
     <section className="text-block">
       {data.michaelisConstants && (
@@ -65,9 +65,11 @@ export const KineticsView: FC<{ data: KineticParameters }> = ({ data }) => (
   </>
 );
 
-const BioPhysicoChemicalPropertiesView: FC<{
+const BioPhysicoChemicalPropertiesView = ({
+  data,
+}: {
   data: BioPhysicoChemicalProperties;
-}> = ({ data }) => {
+}) => {
   if (!data) {
     return null;
   }
@@ -107,10 +109,12 @@ const BioPhysicoChemicalPropertiesView: FC<{
   );
 };
 
-export const CofactorView: FC<{
+type CofactorViewProps = {
   cofactors?: CofactorComment[];
   title?: string;
-}> = ({ cofactors, title }) => {
+};
+
+export const CofactorView = ({ cofactors, title }: CofactorViewProps) => {
   if (!cofactors || !cofactors.length) {
     return null;
   }
@@ -138,96 +142,96 @@ export const CofactorView: FC<{
   );
 };
 
-const FunctionSection: FC<{
+type Props = {
   data: FunctionUIModel;
   sequence: string;
   primaryAccession: string;
-}> = ({ data, sequence, primaryAccession }): JSX.Element | null => {
+};
+
+const FunctionSection = ({ data, sequence, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
   return (
-    <div id={EntrySection.Function} data-entry-section>
-      <Card title={getEntrySectionNameAndId(EntrySection.Function).name}>
-        {data.commentsData.get(CommentType.CAUTION)?.length ? (
-          <Message level="warning">
-            <h4>Caution</h4>
-            <FreeTextView
-              comments={
-                data.commentsData.get(CommentType.CAUTION) as FreeTextComment[]
-              }
-            />
-          </Message>
-        ) : undefined}
-        <FreeTextView
-          comments={
-            data.commentsData.get(CommentType.FUNCTION) as FreeTextComment[]
-          }
-        />
-        <CatalyticActivityView
-          comments={
-            data.commentsData.get(
-              CommentType.CATALYTIC_ACTIVITY
-            ) as CatalyticActivityComment[]
-          }
-          title={CommentType.CATALYTIC_ACTIVITY.toLocaleLowerCase()}
-        />
-        <CofactorView
-          cofactors={
-            data.commentsData.get(CommentType.COFACTOR) as CofactorComment[]
-          }
-          title={CommentType.COFACTOR.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(CommentType.PATHWAY) as FreeTextComment[]
-          }
-          title={CommentType.PATHWAY.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(
-              CommentType.MISCELLANEOUS
-            ) as FreeTextComment[]
-          }
-          title={CommentType.MISCELLANEOUS.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(
-              CommentType.BIOTECHNOLOGY
-            ) as FreeTextComment[]
-          }
-          title={CommentType.BIOTECHNOLOGY.toLowerCase()}
-        />
-        <BioPhysicoChemicalPropertiesView
-          data={data.bioPhysicoChemicalProperties}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(CommentType.PATHWAY) as FreeTextComment[]
-          }
-          title={CommentType.PATHWAY.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(
-              CommentType.ACTIVITY_REGULATION
-            ) as FreeTextComment[]
-          }
-          title={CommentType.ACTIVITY_REGULATION.toLowerCase()}
-        />
-        <FeaturesView features={data.featuresData} sequence={sequence} />
-        <ErrorBoundary>
-          <Suspense fallback={<Loader />}>
-            <GoRibbon primaryAccession={primaryAccession} />
-          </Suspense>
-        </ErrorBoundary>
-        {/* {data.goTerms && <GOView data={data.goTerms} />} removed for now */}
-        <KeywordView keywords={data.keywordData} />
-        <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      </Card>
-    </div>
+    <Card
+      header={<h2>{getEntrySectionNameAndId(EntrySection.Function).name}</h2>}
+      id={EntrySection.Function}
+      data-entry-section
+    >
+      {data.commentsData.get(CommentType.CAUTION)?.length ? (
+        <Message level="warning">
+          <h4>Caution</h4>
+          <FreeTextView
+            comments={
+              data.commentsData.get(CommentType.CAUTION) as FreeTextComment[]
+            }
+          />
+        </Message>
+      ) : undefined}
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.FUNCTION) as FreeTextComment[]
+        }
+      />
+      <CatalyticActivityView
+        comments={
+          data.commentsData.get(
+            CommentType.CATALYTIC_ACTIVITY
+          ) as CatalyticActivityComment[]
+        }
+        title={CommentType.CATALYTIC_ACTIVITY.toLocaleLowerCase()}
+      />
+      <CofactorView
+        cofactors={
+          data.commentsData.get(CommentType.COFACTOR) as CofactorComment[]
+        }
+        title={CommentType.COFACTOR.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.PATHWAY) as FreeTextComment[]
+        }
+        title={CommentType.PATHWAY.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.MISCELLANEOUS) as FreeTextComment[]
+        }
+        title={CommentType.MISCELLANEOUS.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.BIOTECHNOLOGY) as FreeTextComment[]
+        }
+        title={CommentType.BIOTECHNOLOGY.toLowerCase()}
+      />
+      <BioPhysicoChemicalPropertiesView
+        data={data.bioPhysicoChemicalProperties}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.PATHWAY) as FreeTextComment[]
+        }
+        title={CommentType.PATHWAY.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(
+            CommentType.ACTIVITY_REGULATION
+          ) as FreeTextComment[]
+        }
+        title={CommentType.ACTIVITY_REGULATION.toLowerCase()}
+      />
+      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <ErrorBoundary>
+        <Suspense fallback={<Loader />}>
+          <GoRibbon primaryAccession={primaryAccession} />
+        </Suspense>
+      </ErrorBoundary>
+      {/* {data.goTerms && <GOView data={data.goTerms} />} removed for now */}
+      <KeywordView keywords={data.keywordData} />
+      <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+    </Card>
   );
 };
 

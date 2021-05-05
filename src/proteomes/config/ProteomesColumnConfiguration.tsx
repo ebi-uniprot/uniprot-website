@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, ExpandableList } from 'franklin-sites';
+import { ExternalLink, ExpandableList, LongNumber } from 'franklin-sites';
 import { capitalize } from 'lodash-es';
 
 import BuscoView from '../components/BuscoView';
@@ -131,7 +131,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.genomeRepresentation, {
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
-  label: 'Protein Count',
+  label: 'Protein count',
   render: ({ id, proteinCount }) =>
     proteinCount ? (
       <Link
@@ -140,7 +140,7 @@ ProteomesColumnConfiguration.set(ProteomesColumn.proteinCount, {
           search: `query=${UniProtKBColumn.proteome}:${id}`,
         }}
       >
-        {proteinCount}
+        <LongNumber>{proteinCount}</LongNumber>
       </Link>
     ) : (
       0

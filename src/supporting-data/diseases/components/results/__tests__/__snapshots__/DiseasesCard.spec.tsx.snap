@@ -3,33 +3,52 @@
 exports[`DiseasesCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/diseases/DI-00550"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          Hereditary non-polyposis colorectal cancer 1
+        </h2>
+      </div>
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="result-card__info-container"
         >
-          <div
-            class="result-card__right"
-          >
-            <h5>
-              Hereditary non-polyposis colorectal cancer 1
-            </h5>
-            <div
-              class="result-card__info-container"
-            >
-              An autosomal dominant disease associated with marked increase in cancer susceptibility. It is characterized by a familial predisposition to early-onset colorectal carcinoma (CRC) and extra- colonic tumors of the gastrointestinal, urological and female reproductive tracts. HNPCC is reported to be the most common form of inherited colorectal cancer in the Western world. Clinically, HNPCC is often divided into two subgroups. Type I is characterized by hereditary predisposition to colorectal cancer, a young age of onset, and carcinoma observed in the proximal colon. Type II is characterized by increased risk for cancers in certain tissues such as the uterus, ovary, breast, stomach, small intestine, skin, and larynx in addition to the colon. Diagnosis of classical HNPCC is based on the Amsterdam criteria: 3 or more relatives affected by colorectal cancer, one a first degree relative of the other two; 2 or more generation affected; 1 or more colorectal cancers presenting before 50 years of age; exclusion of hereditary polyposis syndromes. The term 'suspected HNPCC' or 'incomplete HNPCC' can be used to describe families who do not or only partially fulfill the Amsterdam criteria, but in whom a genetic basis for colon cancer is strongly suspected.
-            </div>
-          </div>
+          An autosomal dominant disease associated with marked increase in cancer susceptibility. It is characterized by a familial predisposition to early-onset colorectal carcinoma (CRC) and extra- colonic tumors of the gastrointestinal, urological and female reproductive tracts. HNPCC is reported to be the most common form of inherited colorectal cancer in the Western world. Clinically, HNPCC is often divided into two subgroups. Type I is characterized by hereditary predisposition to colorectal cancer, a young age of onset, and carcinoma observed in the proximal colon. Type II is characterized by increased risk for cancers in certain tissues such as the uterus, ovary, breast, stomach, small intestine, skin, and larynx in addition to the colon. Diagnosis of classical HNPCC is based on the Amsterdam criteria: 3 or more relatives affected by colorectal cancer, one a first degree relative of the other two; 2 or more generation affected; 1 or more colorectal cancers presenting before 50 years of age; exclusion of hereditary polyposis syndromes. The term 'suspected HNPCC' or 'incomplete HNPCC' can be used to describe families who do not or only partially fulfill the Amsterdam criteria, but in whom a genetic basis for colon cancer is strongly suspected.
         </div>
       </div>
+    </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(cc_disease:DI-00550)"
+      >
+        1 UniProtKB entry
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:true&query=(cc_disease:DI-00550)"
+      >
+        1 reviewed UniProtKB entry
+      </a>
     </div>
   </section>
 </DocumentFragment>

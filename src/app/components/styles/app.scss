@@ -15,3 +15,28 @@
 .loader-container + .loader-container {
   display: none;
 }
+
+.card__header {
+  .tiny,
+  .micro {
+    // Add a bit more of padding to the top of smaller headers only
+    padding-top: 0.5em;
+  }
+}
+
+// Debug utility to show heading levels
+// @for $i from 1 through 6 {
+//   h#{$i} {
+//     border: #{7 - $i}px solid green;
+//     position: relative;
+
+//     &:after {
+//       content: 'h#{$i}';
+//       background: rgba(0, 0, 0, 0.5);
+//       color: lightgreen;
+//       position: absolute;
+//       top: 0;
+//       right: 0;
+//     }
+//   }
+// }

@@ -21,7 +21,8 @@ describe('DatabaseCard tests', () => {
     );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(handleClick).toHaveBeenCalled();
-    fireEvent.click(screen.getAllByRole('button')[0]);
+    expect(history.location.pathname).not.toMatch('/database/DB-0022');
+    fireEvent.click(screen.getByTestId('background-link'));
     expect(history.location.pathname).toMatch('/database/DB-0022');
   });
 });

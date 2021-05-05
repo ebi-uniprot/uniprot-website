@@ -64,7 +64,7 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
   )?.count;
   const uniParcCount = data?.facets
     .find((f) => f?.name === 'member_id_type')
-    ?.values.find((fv) => fv.value === MemberTypes.UniParc)?.count;
+    ?.values?.find((fv) => fv.value === MemberTypes.UniParc)?.count;
 
   const pathname = getEntryPath(Namespace.uniref, id);
 

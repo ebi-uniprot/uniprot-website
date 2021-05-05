@@ -3,80 +3,79 @@
 exports[`UniRefCard tests should render and match snapshot 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/uniref/UniRef100_A0A0B7GQ86"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <input
+          data-testid="up-card-checkbox"
+          type="checkbox"
+        />
+        <h2
+          class="tiny"
+        >
+          <span
+            class="entry-title"
+          >
+            <span
+              class="entry-title__status icon--unreviewed"
+              title="This marks an unreviewed UniProtKB entry"
+            >
+              <test-file-stub />
+            </span>
+            UniRef100_A0A0B7GQ86
+          </span>
+        </h2>
+      </div>
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="result-card__info-container"
         >
-          <div
-            class="result-card__left"
+          <span
+            class="result-card__info-bit"
           >
-            <input
-              data-testid="up-card-checkbox"
-              type="checkbox"
-            />
-          </div>
-          <div
-            class="result-card__right"
+            <strong>
+              Cluster name: 
+            </strong>
+            Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
+          </span>
+          <span
+            class="result-card__info-bit"
           >
-            <h5>
-              <span
-                class="entry-title"
-              >
-                <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-                UniRef100_A0A0B7GQ86
-              </span>
-            </h5>
-            <div
-              class="result-card__info-container"
-            >
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Cluster name: 
-                </strong>
-                Cluster: PTS system glucose-specific EIICBA component [includes: glucose permease IIC component glucose-specific phosphotransferase enzyme IIB component glucose-specific phosphotransferase enzyme IIA compon...
-              </span>
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Size: 
-                </strong>
-                1 member
-              </span>
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Length: 
-                </strong>
-                730
-              </span>
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Identity: 
-                </strong>
-                UniRef100
-              </span>
-            </div>
-          </div>
+            <strong>
+              Size: 
+            </strong>
+            1 member
+          </span>
+          <span
+            class="result-card__info-bit"
+          >
+            <strong>
+              Length: 
+            </strong>
+            730
+          </span>
+          <span
+            class="result-card__info-bit"
+          >
+            <strong>
+              Identity: 
+            </strong>
+            UniRef100
+          </span>
         </div>
       </div>
     </div>

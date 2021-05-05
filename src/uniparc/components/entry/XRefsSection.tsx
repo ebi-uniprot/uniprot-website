@@ -229,7 +229,7 @@ const XRefsSection: FC<Props> = ({ xrefData }) => {
 
   return (
     <Card
-      title={getEntrySectionNameAndId(EntrySection.XRefs).name}
+      header={<h2>{getEntrySectionNameAndId(EntrySection.XRefs).name}</h2>}
       className={xrefData.isStale ? helper.stale : undefined}
     >
       {/* Stalled for now */}

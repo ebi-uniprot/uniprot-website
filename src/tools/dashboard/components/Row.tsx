@@ -7,7 +7,6 @@ import {
   MouseEvent,
   KeyboardEvent,
   ChangeEvent,
-  FC,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -43,7 +42,7 @@ interface NameProps {
   children: Job['title'];
 }
 
-const Name: FC<NameProps> = ({ children, id }: NameProps) => {
+const Name = ({ children, id }: NameProps) => {
   const dispatch = useDispatch();
   const [text, setText] = useState(children || '');
 
@@ -105,7 +104,7 @@ interface NiceStatusProps {
   jobLink?: string;
 }
 
-const NiceStatus: FC<NiceStatusProps> = ({ job, jobLink }) => {
+const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
   switch (job.status) {
     case Status.CREATED:
     case Status.RUNNING:
@@ -176,7 +175,7 @@ interface ActionsProps {
   onDelete(): void;
 }
 
-const Actions: FC<ActionsProps> = ({ job, onDelete }) => {
+const Actions = ({ job, onDelete }: ActionsProps) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -254,7 +253,7 @@ interface CustomLocationState {
   parameters?: Job['parameters'][];
 }
 
-const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
+const Row = memo(({ job, hasExpired }: RowProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const firstTime = useRef<boolean>(true);
 
@@ -266,13 +265,6 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
     jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
   }
-
-  const handleClick = () => {
-    if (!jobLink) {
-      return;
-    }
-    history.push(jobLink);
-  };
 
   const handleDelete = () => {
     if (reducedMotion || !(ref.current && 'animate' in ref.current)) {
@@ -323,7 +315,7 @@ const Row: FC<RowProps> = memo(({ job, hasExpired }) => {
 
   return (
     <Card
-      onClick={handleClick}
+      to={jobLink}
       ref={ref}
       className={bem({
         b: 'card',

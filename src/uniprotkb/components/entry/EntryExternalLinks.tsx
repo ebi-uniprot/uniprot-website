@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Card, ExpandableList, ExternalLink } from 'franklin-sites';
 import { groupBy } from 'lodash-es';
 
@@ -25,7 +24,7 @@ type WebResourceLinkProps = {
   comment: WebResourceComment;
 };
 
-const WebResourceLink: FC<WebResourceLinkProps> = ({ comment }) => {
+const WebResourceLink = ({ comment }: WebResourceLinkProps) => {
   const { note, resourceName, resourceUrl } = comment;
   const noteNode = note && ` (${note})`;
   return (
@@ -36,9 +35,7 @@ const WebResourceLink: FC<WebResourceLinkProps> = ({ comment }) => {
   );
 };
 
-const EntryExternalLinks: FC<EntryExternalLinksProps> = ({
-  transformedData,
-}) => {
+const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
   const {
     [EntrySection.ExternalLinks]: data,
     primaryAccession,
@@ -79,28 +76,30 @@ const EntryExternalLinks: FC<EntryExternalLinksProps> = ({
   }));
 
   return (
-    <div id={EntrySection.ExternalLinks} data-entry-section>
-      <Card title={getEntrySectionNameAndId(EntrySection.ExternalLinks).name}>
-        {webResourceComments && (
-          <>
-            <h3>Web resources</h3>
-            <ExpandableList descriptionString="alternative names">
-              {webResourceComments.map((comment, index) => (
-                <WebResourceLink
-                  key={index} // eslint-disable-line react/no-array-index-key
-                  comment={comment as WebResourceComment}
-                />
-              ))}
-            </ExpandableList>
-          </>
-        )}
-        <XRefView
-          xrefs={xrefData}
-          primaryAccession={primaryAccession}
-          crc64={crc64}
-        />
-      </Card>
-    </div>
+    <Card
+      header={
+        <h2>{getEntrySectionNameAndId(EntrySection.ExternalLinks).name}</h2>
+      }
+    >
+      {webResourceComments?.length ? (
+        <>
+          <h3>Web resources</h3>
+          <ExpandableList descriptionString="alternative names">
+            {webResourceComments.map((comment, index) => (
+              <WebResourceLink
+                key={index} // eslint-disable-line react/no-array-index-key
+                comment={comment as WebResourceComment}
+              />
+            ))}
+          </ExpandableList>
+        </>
+      ) : undefined}
+      <XRefView
+        xrefs={xrefData}
+        primaryAccession={primaryAccession}
+        crc64={crc64}
+      />
+    </Card>
   );
 };
 

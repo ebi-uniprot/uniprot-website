@@ -39,13 +39,13 @@ const ResultsFacets: FC<{
 
   return (
     <Facets className={isStale ? helper.stale : undefined}>
-      {before.map((facet) => (
-        <Facet key={facet.name} data={facet} />
-      ))}
+      {before.map(
+        (facet) => facet.values && <Facet key={facet.name} data={facet} />
+      )}
       {namespace && mainNamespaces.has(namespace) && <TaxonomyFacet />}
-      {after.map((facet) => (
-        <Facet key={facet.name} data={facet} />
-      ))}
+      {after.map(
+        (facet) => facet.values && <Facet key={facet.name} data={facet} />
+      )}
     </Facets>
   );
 };

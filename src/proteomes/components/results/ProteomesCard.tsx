@@ -1,6 +1,4 @@
-import { FC, useCallback, MouseEvent } from 'react';
 import { Card } from 'franklin-sites';
-import { useHistory } from 'react-router-dom';
 import cn from 'classnames';
 
 import EntryTitle from '../../../shared/components/entry/EntryTitle';
@@ -17,7 +15,6 @@ import { ProteomesAPIModel } from '../../adapters/proteomesConverter';
 
 import renderColumnsInCardStyles from '../../../shared/components/results/styles/render-columns-in-card.module.scss';
 import styles from './styles/proteomes-card.module.scss';
-import '../../../shared/components/results/styles/result-card.scss';
 
 const mainInfoColumns = [
   ProteomesColumn.organism,
@@ -31,63 +28,51 @@ const buscoColumnRenderer = ProteomesColumnConfiguration.get(
 
 const getIdKey = getIdKeyFor(Namespace.proteomes);
 
-const ProteomesCard: FC<{
+type Props = {
   data: ProteomesAPIModel;
   selected?: boolean;
   handleEntrySelection: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }): JSX.Element => {
-  const history = useHistory();
+};
 
+const ProteomesCard = ({ data, selected, handleEntrySelection }: Props) => {
   const id = getIdKey(data);
-
-  const handleCardClick = useCallback(
-    (event: MouseEvent) => {
-      if ((event.target as HTMLElement).closest(`a, input, button`)) {
-        return;
-      }
-      history.push(getEntryPath(Namespace.proteomes, id));
-    },
-    [history, id]
-  );
 
   const buscoRendered = buscoColumnRenderer?.render(data);
 
   return (
-    <Card onClick={handleCardClick}>
-      <div className="result-card">
-        <div className="result-card__left">
+    <Card
+      header={
+        <>
           <input
             type="checkbox"
             checked={selected}
-            onClick={(e) => e.stopPropagation()}
             onChange={() => handleEntrySelection(id)}
             data-testid="up-card-checkbox"
           />
-        </div>
-        <div className="result-card__right">
-          <h5>
+          <h2 className="tiny">
             <EntryTitle mainTitle={id} entryType={data.proteomeType} />
-          </h5>
-          <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
-          {buscoColumnRenderer && buscoRendered && (
-            <div
-              className={
-                renderColumnsInCardStyles['result-card__info-container']
-              }
-            >
-              <span
-                className={cn(
-                  renderColumnsInCardStyles['result-card__info-bit'],
-                  styles['busco__info-bit']
-                )}
-              >
-                <strong>{buscoColumnRenderer.label}</strong>
-                {buscoRendered}
-              </span>
-            </div>
-          )}
+          </h2>
+        </>
+      }
+      headerSeparator={false}
+      to={getEntryPath(Namespace.proteomes, id)}
+    >
+      <RenderColumnsInCard data={data} renderers={mainInfoColumns} />
+      {buscoColumnRenderer && buscoRendered && (
+        <div
+          className={renderColumnsInCardStyles['result-card__info-container']}
+        >
+          <span
+            className={cn(
+              renderColumnsInCardStyles['result-card__info-bit'],
+              styles['busco__info-bit']
+            )}
+          >
+            <strong>{buscoColumnRenderer.label}</strong>
+            {buscoRendered}
+          </span>
         </div>
-      </div>
+      )}
     </Card>
   );
 };
