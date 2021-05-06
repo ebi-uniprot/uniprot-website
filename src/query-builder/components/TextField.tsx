@@ -17,10 +17,9 @@ const TextField: FC<{
     const trimmed = value.trim();
     if (trimmed.length) {
       if (field.valuePrefix && field.term === 'xref' && trimmed === '*') {
-        // Query is faster with this hack
-        // NOTE: Is this even working?..
+        // Query is faster with this hack: using 'database' instead
         // Remove last '-' from the the prefix, and don't include '*'
-        handleChange({ xref: `${field.valuePrefix.replace(/-$/, '')}` });
+        handleChange({ database: `${field.valuePrefix.replace(/-$/, '')}` });
       } else {
         handleChange({
           [field.term]: `${field.valuePrefix || ''}${trimmed}`,
