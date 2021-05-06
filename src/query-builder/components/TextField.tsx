@@ -4,11 +4,6 @@ import initializer from '../utils/fieldInitializer';
 
 import { DataType, QueryBit, SearchTermType } from '../types/searchTypes';
 
-const getStringValue = (value: string, prefix?: string) =>
-  value.includes(' ')
-    ? `"${prefix || ''}${value?.trim()}"`
-    : `${prefix || ''}${value?.trim()}`;
-
 const TextField: FC<{
   field: SearchTermType;
   handleChange: (queryBit: QueryBit) => void;
@@ -23,10 +18,12 @@ const TextField: FC<{
     if (trimmed.length) {
       if (field.valuePrefix && field.term === 'xref' && trimmed === '*') {
         // Query is faster with this hack
-        handleChange({ xref: `${field.valuePrefix}` });
+        // NOTE: Is this even working?..
+        // Remove last '-' from the the prefix, and don't include '*'
+        handleChange({ xref: `${field.valuePrefix.replace(/-$/, '')}` });
       } else {
         handleChange({
-          [field.term]: getStringValue(value, field.valuePrefix),
+          [field.term]: `${field.valuePrefix || ''}${trimmed}`,
         });
       }
     }
