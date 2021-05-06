@@ -227,7 +227,7 @@ const testData = [
           itemType: 'database',
           term: 'xref',
           dataType: 'string',
-          valuePrefix: 'any',
+          valuePrefix: 'any-',
         },
         queryBits: {
           xref: 'Something',
@@ -269,7 +269,7 @@ const testData = [
           itemType: 'database',
           term: 'xref',
           dataType: 'string',
-          valuePrefix: 'embl',
+          valuePrefix: 'embl-',
         },
         queryBits: {
           database: 'embl',

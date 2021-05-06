@@ -38,16 +38,6 @@ describe('TextField', () => {
     });
   });
 
-  test('should trim add double quotes if a space is present', () => {
-    render(<TextField {...props} />);
-    const updatedValue = 'Some term ';
-    const inputElt = screen.getByRole('textbox');
-    fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(props.handleChange).toBeCalledWith({
-      [props.field.term]: `"${updatedValue.trim()}"`,
-    });
-  });
-
   test("should generate correct query for 'All'", () => {
     const propsAll = {
       field: {
@@ -69,7 +59,7 @@ describe('TextField', () => {
     });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsAll.handleChange).toBeCalledWith({
-      [propsAll.field.term]: `"${updatedValue}"`,
+      [propsAll.field.term]: `${updatedValue}`,
     });
   });
 
@@ -82,7 +72,7 @@ describe('TextField', () => {
         term: 'prefixed_q',
         description: 'Search by UniProtKB Accession',
         example: 'Prefix',
-        valuePrefix: 'value_',
+        valuePrefix: 'value-',
       },
       type: 'text',
       handleChange: jest.fn(),
@@ -96,7 +86,7 @@ describe('TextField', () => {
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsPrefix.handleChange).toBeCalledWith({
       [propsPrefix.field
-        .term]: `"${propsPrefix.field.valuePrefix}${updatedValue}"`,
+        .term]: `${propsPrefix.field.valuePrefix}${updatedValue}`,
     });
   });
 
@@ -109,7 +99,7 @@ describe('TextField', () => {
         term: 'xref',
         description: 'Search by UniProtKB Accession',
         example: 'Prefix',
-        valuePrefix: 'embl',
+        valuePrefix: 'embl-',
       },
       type: 'text',
       handleChange: jest.fn(),
@@ -121,7 +111,7 @@ describe('TextField', () => {
     });
     fireEvent.change(inputElt, { target: { value: '*' } });
     expect(propsPrefix.handleChange).toBeCalledWith({
-      [propsPrefix.field.term]: propsPrefix.field.valuePrefix,
+      [propsPrefix.field.term]: 'embl',
     });
   });
 
