@@ -37,7 +37,6 @@
     "node_modules",
     // Blacklisting the parts of the codebase we haven't covered yet
     // TODO: slowly include these in order to enforce tests type check and lint
-    "src/query-builder/**/*.spec.ts*",
     "src/shared/**/*.spec.ts*",
     "src/tools/align/**/*.spec.ts*",
     "src/tools/blast/**/*.spec.ts*",

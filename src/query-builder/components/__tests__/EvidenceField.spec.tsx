@@ -2,44 +2,45 @@ import { render, fireEvent, screen } from '@testing-library/react';
 
 import EvidenceField from '../EvidenceField';
 
-let rendered;
-let props;
+import { DataType, FieldType, ItemType } from '../../types/searchTypes';
 
-describe('EvidenceField component', () => {
-  beforeEach(() => {
-    props = {
-      handleChange: jest.fn(),
-      field: {
-        id: 'ccev_webresource',
-        itemType: 'single',
-        term: 'ccev_webresource',
-        dataType: 'string',
-        fieldType: 'evidence',
-        example: 'manual',
-        evidenceGroups: [
+const props = {
+  handleChange: jest.fn(),
+  field: {
+    id: 'ccev_webresource',
+    label: 'CCEV web resource',
+    itemType: ItemType.single,
+    term: 'ccev_webresource',
+    dataType: DataType.string,
+    fieldType: FieldType.evidence,
+    example: 'manual',
+    evidenceGroups: [
+      {
+        groupName: 'foo',
+        items: [
           {
-            groupName: 'foo',
-            items: [
-              {
-                code: 'bar_code',
-                name: 'bar',
-              },
-              {
-                code: 'baz_code',
-                name: 'baz',
-              },
-            ],
+            code: 'bar_code',
+            name: 'bar',
+          },
+          {
+            code: 'baz_code',
+            name: 'baz',
           },
         ],
       },
-      initialValue: { ccev_webresource: 'baz_code' },
-    };
+    ],
+  },
+  initialValue: { ccev_webresource: 'baz_code' },
+};
 
-    rendered = render(<EvidenceField {...props} />);
+describe('EvidenceField component', () => {
+  beforeEach(() => {
+    props.handleChange.mockClear();
   });
 
   test('should change evidence', () => {
-    const evidenceSelect = screen.getByTestId('evidence-select');
+    render(<EvidenceField {...props} />);
+    const evidenceSelect = screen.getByRole('combobox');
     fireEvent.change(evidenceSelect, {
       target: { value: 0 },
     });
@@ -49,11 +50,13 @@ describe('EvidenceField component', () => {
   });
 
   test('should render', () => {
-    const { asFragment } = rendered;
+    const { asFragment } = render(<EvidenceField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should initialise', () => {
-    expect(screen.getByTestId('evidence-select').value).toBe('baz_code');
+    render(<EvidenceField {...props} />);
+    const select = screen.getByRole('combobox') as HTMLSelectElement;
+    expect(select.value).toBe('baz_code');
   });
 });

@@ -58,8 +58,4 @@ const Field: FC<FieldProps> = ({
   );
 };
 
-Field.defaultProps = {
-  initialValue: undefined,
-};
-
 export default Field;

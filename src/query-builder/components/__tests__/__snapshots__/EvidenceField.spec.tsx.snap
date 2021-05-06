@@ -4,9 +4,7 @@ exports[`EvidenceField component should render 1`] = `
 <DocumentFragment>
   <label>
     Evidence
-    <select
-      data-testid="evidence-select"
-    >
+    <select>
       <optgroup
         label="foo"
       >
