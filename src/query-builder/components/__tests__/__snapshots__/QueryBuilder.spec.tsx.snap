@@ -393,6 +393,9 @@ exports[`QueryBuilder should render 1`] = `
         Search
       </button>
     </div>
+    <small>
+      Type * in the search box to search for all values for the selected field.
+    </small>
   </form>
 </DocumentFragment>
 `;
