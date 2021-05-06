@@ -156,12 +156,16 @@ $latest-news-height: 18rem;
   // Because of Z-pattern:
   // Mess up with the order of cells in order to have the title in the last
   // "visible" cell cover semantically all 3 cells
+  align-items: flex-end;
+
   & > * {
     grid-row-start: 1;
   }
 
   &__next-up {
-    grid-column-start: 1 !important;
+    grid-column-start: 1 span 2 !important;
+    grid-row: 1 / span 2;
+    align-self: stretch;
     background: $colour-sky-white;
     display: flex;
 
@@ -205,8 +209,13 @@ $latest-news-height: 18rem;
     }
   }
 
-  &__tutorial-videos {
+  &__tutorial-videos-top,
+  &__tutorial-videos-bottom {
     grid-column-start: 4 !important;
+  }
+
+  &__tutorial-videos-bottom {
+    grid-row-start: 2;
 
     a {
       display: block;
@@ -214,7 +223,8 @@ $latest-news-height: 18rem;
     }
   }
 
-  &__attend-training {
+  &__attend-training-top,
+  &__attend-training-bottom {
     grid-column-start: 7 !important;
 
     h2 > svg {
@@ -232,25 +242,36 @@ $latest-news-height: 18rem;
     }
   }
 
-  &__need-help {
-    grid-column-start: 10 !important;
+  &__attend-training-bottom {
+    grid-row-start: 2;
+  }
 
+  &__need-help-top,
+  &__need-help-bottom {
+    grid-column-start: 10 !important;
+  }
+
+  &__need-help-top {
+    align-self: stretch;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  &__need-help-bottom {
+    grid-row-start: 2;
+
     a {
       display: inline-block;
-      margin: 0 1em 1em 0;
+      margin: 1.5em 1em 0 0;
 
       svg {
         fill: $colour-weldon-blue;
       }
     }
-  }
-
-  lite-youtube,
-  img {
-    margin-bottom: 1ch;
   }
 }

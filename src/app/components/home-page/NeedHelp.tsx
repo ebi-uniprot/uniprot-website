@@ -180,46 +180,58 @@ const NeedHelp = () => {
       <div
         className={cn(
           'uniprot-grid-cell--span-3',
-          styles['need-help__need-help']
+          styles['need-help__need-help-top']
         )}
       >
         <h2 className="medium">Need help?</h2>
         <p>Find answers through our help center or get in touch</p>
-        <div>
-          <ExternalLink
-            url="https://www.uniprot.org/help/"
-            noIcon
-            className={cn(styles['help-center-link'])}
-          >
-            Help center
-          </ExternalLink>{' '}
-          <ExternalLink url="https://www.uniprot.org/contact" noIcon>
-            Contact us
-          </ExternalLink>
-          <br />
-          <ExternalLink
-            url="https://twitter.com/uniprot"
-            title="UniProt posts on Twitter"
-            noIcon
-          >
-            <TwitterLogo width="3ch" />
-          </ExternalLink>
-          <ExternalLink
-            url="https://www.facebook.com/uniprot.org"
-            title="UniProt posts on Facebook"
-            noIcon
-          >
-            <FacebookLogo width="3ch" />
-          </ExternalLink>
-        </div>
       </div>
       <div
         className={cn(
           'uniprot-grid-cell--span-3',
-          styles['need-help__attend-training']
+          styles['need-help__need-help-bottom']
+        )}
+      >
+        <ExternalLink
+          url="https://www.uniprot.org/help/"
+          noIcon
+          className={cn(styles['help-center-link'])}
+        >
+          Help center
+        </ExternalLink>{' '}
+        <ExternalLink url="https://www.uniprot.org/contact" noIcon>
+          Contact us
+        </ExternalLink>
+        <br />
+        <ExternalLink
+          url="https://twitter.com/uniprot"
+          title="UniProt posts on Twitter"
+          noIcon
+        >
+          <TwitterLogo width="3ch" />
+        </ExternalLink>
+        <ExternalLink
+          url="https://www.facebook.com/uniprot.org"
+          title="UniProt posts on Facebook"
+          noIcon
+        >
+          <FacebookLogo width="3ch" />
+        </ExternalLink>
+      </div>
+      <div
+        className={cn(
+          'uniprot-grid-cell--span-3',
+          styles['need-help__attend-training-top']
         )}
       >
         <img loading="lazy" src={traingImg} alt="" width="256" height="144" />
+      </div>
+      <div
+        className={cn(
+          'uniprot-grid-cell--span-3',
+          styles['need-help__attend-training-bottom']
+        )}
+      >
         <h2 className="tiny">
           <CalendarIcon height="1em" /> Attend training
         </h2>
@@ -242,12 +254,19 @@ const NeedHelp = () => {
       <div
         className={cn(
           'uniprot-grid-cell--span-3',
-          styles['need-help__tutorial-videos']
+          styles['need-help__tutorial-videos-top']
         )}
       >
         {/* NOTE: privacy issue? When clicking, we embed YouTube in the website,
         with all the related tracking, might need to link to YouTube instead */}
         <lite-youtube videoid="9IYI4QDVPa0" playlabel="UniProt intro" />
+      </div>
+      <div
+        className={cn(
+          'uniprot-grid-cell--span-3',
+          styles['need-help__tutorial-videos-bottom']
+        )}
+      >
         <ExternalLink
           url="https://www.youtube.com/c/uniprotvideos/featured"
           noIcon
