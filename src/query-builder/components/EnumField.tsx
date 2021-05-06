@@ -24,11 +24,7 @@ const EnumField: FC<{
   return (
     <label>
       {field.label}
-      <select
-        onChange={(e) => setValue(e.target.value)}
-        data-testid="enum-field-select"
-        value={value}
-      >
+      <select onChange={(e) => setValue(e.target.value)} value={value}>
         {field.values &&
           field.values.map((item) => (
             <option value={item.value} key={`select_${item.value}`}>
