@@ -92,6 +92,12 @@ $latest-news-height: 18rem;
     flex-direction: column;
     max-height: calc(#{$latest-news-height} - #{$global-padding});
 
+    &-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
     & > ul {
       @include scroll-shadow($colour-platinum);
       margin-bottom: 0;

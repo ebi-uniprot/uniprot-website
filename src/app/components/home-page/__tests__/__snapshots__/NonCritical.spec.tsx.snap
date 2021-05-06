@@ -328,18 +328,23 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--span-4 latest-news__news-roll"
     >
-      <h2
-        class="medium"
+      <div
+        class="latest-news__news-roll-heading"
       >
+        <h2
+          class="medium"
+        >
+          Latest News
+        </h2>
         <a
           class="external-link"
           href="https://www.uniprot.org/news?sort=created"
           rel="noopener"
           target="_blank"
         >
-          Latest News
+          View archive
         </a>
-      </h2>
+      </div>
       <ul
         class="no-bullet"
       >
