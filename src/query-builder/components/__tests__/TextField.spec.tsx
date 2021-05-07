@@ -111,7 +111,7 @@ describe('TextField', () => {
     });
     fireEvent.change(inputElt, { target: { value: '*' } });
     expect(propsPrefix.handleChange).toBeCalledWith({
-      [propsPrefix.field.term]: 'embl',
+      database: 'embl',
     });
   });
 
