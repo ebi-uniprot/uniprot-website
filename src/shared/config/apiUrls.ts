@@ -334,6 +334,7 @@ type GetDownloadUrlProps = {
   selected: string[];
   selectedIdField: Column;
   namespace: Namespace;
+  accessions?: string[];
 };
 
 export const getDownloadUrl = ({
@@ -348,14 +349,21 @@ export const getDownloadUrl = ({
   selected = [],
   selectedIdField,
   namespace,
+  accessions,
 }: GetDownloadUrlProps) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
-  const endpoint = size
-    ? apiUrls.search(namespace)
-    : apiUrls.download(namespace);
+  let endpoint;
+  if (accessions) {
+    endpoint = apiUrls.accessions;
+  } else if (size) {
+    endpoint = apiUrls.search(namespace);
+  } else {
+    endpoint = apiUrls.download(namespace);
+  }
   type Parameters = {
-    query: string;
+    query?: string;
+    accessions?: string;
     format: string;
     // TODO: change to set of possible fields (if possible, depending on namespace)
     fields?: string;
@@ -366,13 +374,19 @@ export const getDownloadUrl = ({
     download: true;
   };
   const parameters: Parameters = {
-    query: selected.length
-      ? createSelectedQueryString(selected, selectedIdField)
-      : `${query}${createFacetsQueryString(selectedFacets)}`,
-    // fallback to json if something goes wrong
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,
   };
+  if (accessions) {
+    parameters.accessions = Array.from(selected.length ? selected : accessions)
+      .sort()
+      .join(',');
+  } else {
+    parameters.query = selected.length
+      ? createSelectedQueryString(selected, selectedIdField)
+      : `${query}${createFacetsQueryString(selectedFacets)}`;
+  }
+  // fallback to json if something goes wrong
   const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
   if (isColumnFileFormat && sortColumn) {
     parameters.sort = `${sortColumn} ${getApiSortDirection(
