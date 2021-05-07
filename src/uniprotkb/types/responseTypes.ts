@@ -24,7 +24,7 @@ type Response = {
     facets?: FacetObject[];
   };
   headers: {
-    ['x-totalrecords']: string;
+    ['x-total-records']: string;
     link: string;
   };
 };

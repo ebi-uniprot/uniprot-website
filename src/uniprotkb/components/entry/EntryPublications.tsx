@@ -136,7 +136,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: +(headers?.['x-totalrecords'] || 0),
+      total: +(headers?.['x-total-records'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);

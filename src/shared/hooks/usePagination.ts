@@ -40,7 +40,7 @@ const usePagination = (initialApiUrl?: string): UsePagination => {
       return;
     }
     const { results } = data;
-    const total: string | undefined = headers?.['x-totalrecords'];
+    const total: string | undefined = headers?.['x-total-records'];
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
       total: total ? parseInt(total, 10) : 0,
