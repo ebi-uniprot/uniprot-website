@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import { Loader } from 'franklin-sites';
-
+import { useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
+import { truncate } from 'lodash-es';
+
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
 import useNSQuery from '../../../shared/hooks/useNSQuery';
@@ -21,6 +23,9 @@ import { LocationToPath, Location } from '../../../app/config/urls';
 import Response from '../../../uniprotkb/types/responseTypes';
 import { PeptideSearchResults } from '../types/peptideSearchResults';
 import { JobTypes } from '../../types/toolsJobTypes';
+import { RootState } from '../../../app/state/rootInitialState';
+import { Job } from '../../types/toolsJob';
+import { Status } from '../../types/toolsStatuses';
 
 const jobType = JobTypes.PEPTIDE_SEARCH;
 const urls = toolsURLs(jobType);
@@ -32,14 +37,20 @@ const PeptideSearchResult: FC = () => {
   const match = useRouteMatch<{ id: string }>(
     LocationToPath[Location.PeptideSearchResult]
   );
+  const jobID = match?.params.id || '';
   const {
     data: jobData,
     loading: jobLoading,
     error: jobError,
     status: jobStatus,
-  } = useDataApi<PeptideSearchResults>(
-    urls.resultUrl(match?.params.id || '', {})
+  } = useDataApi<PeptideSearchResults>(urls.resultUrl(jobID, {}));
+
+  const job = useSelector<RootState, Job | undefined>((state) =>
+    Object.values(state.tools).find(
+      (job) => job.status === Status.FINISHED && job?.remoteID === jobID
+    )
   );
+
   const accessions = jobData?.split(',').filter(Boolean);
 
   // Query for facets
@@ -100,7 +111,18 @@ const PeptideSearchResult: FC = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetApiObject} />}>
-      <ResultsDataHeader total={total} selectedEntries={selectedEntries} />
+      <ResultsDataHeader
+        total={total}
+        selectedEntries={selectedEntries}
+        titlePostfix={
+          <small>
+            {` found in peptide search ${
+              truncate(job?.title, { length: 10 }) || ''
+            }`}
+          </small>
+        }
+        accessions={accessions}
+      />
       <ResultsData
         resultsDataObject={resultsDataObject}
         direct={direct}
