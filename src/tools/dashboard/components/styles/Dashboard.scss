@@ -30,6 +30,16 @@
       }
     }
 
+    & .card {
+      &:hover,
+      &:focus,
+      &:focus-within {
+        svg {
+          opacity: 0.5;
+        }
+      }
+    }
+
     & .card--expired {
       & .dashboard__body__name,
       & .dashboard__body__type,

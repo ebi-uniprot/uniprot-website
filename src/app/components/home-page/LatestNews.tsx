@@ -58,11 +58,12 @@ const LatestNews = () => {
           styles['latest-news__news-roll']
         )}
       >
-        <h2 className="medium">
+        <div className={styles['latest-news__news-roll-heading']}>
+          <h2 className="medium">Latest News</h2>
           <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
-            Latest News
+            View archive
           </ExternalLink>
-        </h2>
+        </div>
         <ul className="no-bullet">
           <li>
             <article>

@@ -1,4 +1,5 @@
 const edgeCase1 = /\w{3}-\d{4}/;
+const edgeCase2 = /\d{6}/;
 
 const months = [
   'jan',
@@ -25,6 +26,15 @@ export const parseEdgeCases = (input: string) => {
     const monthIndex = months.indexOf(month.toLowerCase());
     output = new Date(+year, monthIndex);
     if (monthIndex >= 0 && !Number.isNaN(output.getTime())) {
+      return output;
+    }
+  }
+  if (edgeCase2.test(input)) {
+    const year = +input.substr(0, 4);
+    const month = +input.substr(4, 2) - 1;
+    const day = +input.substr(6, 4);
+    output = new Date(year, month, day);
+    if (!Number.isNaN(output.getTime())) {
       return output;
     }
   }

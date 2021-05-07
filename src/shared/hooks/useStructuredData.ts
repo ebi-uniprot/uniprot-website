@@ -1,6 +1,6 @@
 import { throttle } from 'lodash-es';
 import { useEffect, useRef } from 'react';
-import { Thing, WithContext } from 'schema-dts';
+import { Graph, Thing, WithContext } from 'schema-dts';
 
 /**
  * NOTE: you can test the rendered script tag by pasting it in

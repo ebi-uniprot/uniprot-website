@@ -1,13 +1,16 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+
 import EnumField from '../EnumField';
+
+import { DataType, ItemType } from '../../types/searchTypes';
 
 const props = {
   field: {
     id: 'protein_existence',
     label: 'Protein Existence [PE]',
-    itemType: 'single',
+    itemType: ItemType.single,
     term: 'existence',
-    dataType: 'enum',
+    dataType: DataType.enum,
     values: [
       {
         name: 'Evidence at protein level',
@@ -25,21 +28,19 @@ const props = {
   queryInput: { stringValue: '1' },
 };
 
-let rendered;
-
 describe('Enum field', () => {
   beforeEach(() => {
-    rendered = render(<EnumField {...props} />);
+    props.handleChange.mockReset();
   });
 
   test('should render an enum field', () => {
-    const { asFragment } = rendered;
+    const { asFragment } = render(<EnumField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should select value and generate query bit', () => {
-    const { getByTestId } = rendered;
-    const select = getByTestId('enum-field-select');
+    render(<EnumField {...props} />);
+    const select = screen.getByRole('combobox') as HTMLSelectElement;
     expect(select.value).toBe('1');
     fireEvent.change(select, { target: { value: '2' } });
     expect(select.value).toBe('2');

@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import AutocompleteWrapper from '../AutocompleteWrapper';
 
@@ -30,26 +30,24 @@ const props = {
 const mock = new MockAdapter(axios);
 mock.onGet(mockSuggesterApi.request).reply(200, mockSuggesterApi.response);
 
-let rendered;
 describe('Autocomplete Wrapper', () => {
   beforeEach(() => {
     resetUuidV1();
-    rendered = render(<AutocompleteWrapper {...props} />);
   });
 
   test('should render', () => {
-    const { asFragment } = rendered;
+    const { asFragment } = render(<AutocompleteWrapper {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should render the correct number of AutocompleteItems when input is human', async () => {
-    const { queryByTestId, getAllByTestId } = rendered;
-    const searchInput = queryByTestId('search-input');
+    render(<AutocompleteWrapper {...props} />);
+    const searchInput = screen.getByRole('textbox');
     fireEvent.change(searchInput, {
       target: { value: mockSuggesterApi.query },
     });
     const autocompleteItems = await waitFor(() =>
-      getAllByTestId('autocomplete-item')
+      screen.getAllByTestId('autocomplete-item')
     );
     expect(autocompleteItems.length).toEqual(
       mockSuggesterApi.response.suggestions.length
@@ -57,12 +55,12 @@ describe('Autocomplete Wrapper', () => {
   });
 
   test('should not render AutocompleteItems when input is less than minCharsToShowDropdown (=3)', async () => {
-    const { queryByTestId, queryAllByTestId } = rendered;
-    const searchInput = queryByTestId('search-input');
+    render(<AutocompleteWrapper {...props} />);
+    const searchInput = screen.getByRole('textbox');
     const value = 'hu';
     fireEvent.change(searchInput, { target: { value } });
     const autocompleteItems = await waitFor(() =>
-      queryAllByTestId('autocomplete-item')
+      screen.queryAllByTestId('autocomplete-item')
     );
     expect(autocompleteItems.length).toEqual(0);
   });

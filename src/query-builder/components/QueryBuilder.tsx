@@ -241,6 +241,10 @@ const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
           </Button>
           <Button type="submit">Search</Button>
         </div>
+        <small>
+          Type * in the search box to search for all values for the selected
+          field.
+        </small>
       </form>
     </>
   );

@@ -2,15 +2,17 @@ import { render } from '@testing-library/react';
 
 import Field from '../Field';
 
+import { DataType, ItemType } from '../../types/searchTypes';
+
 const handleChange = jest.fn();
 
 describe('Clause component', () => {
   test('should render a `text` field', () => {
     const field = {
       label: 'UniProtKB AC',
-      itemType: 'single',
+      itemType: ItemType.single,
       term: 'accession',
-      dataType: 'string',
+      dataType: DataType.string,
       description: 'Search by UniProtKB Accession',
       example: 'P12345',
       id: 'id',
@@ -24,9 +26,9 @@ describe('Clause component', () => {
   test('should render a `text` field with initial value', () => {
     const field = {
       label: 'UniProtKB AC',
-      itemType: 'single',
+      itemType: ItemType.single,
       term: 'accession',
-      dataType: 'string',
+      dataType: DataType.string,
       description: 'Search by UniProtKB Accession',
       example: 'P12345',
       id: 'id',
@@ -44,9 +46,9 @@ describe('Clause component', () => {
   test('should render a `string` field with range', () => {
     const field = {
       label: 'UniProtKB AC',
-      itemType: 'single',
+      itemType: ItemType.single,
       term: 'accession',
-      dataType: 'string',
+      dataType: DataType.string,
       hasRange: true,
       description: 'Search by UniProtKB Accession',
       example: 'P12345',
@@ -60,7 +62,11 @@ describe('Clause component', () => {
 
   test('should render an `enum` field', () => {
     const field = {
-      dataType: 'enum',
+      dataType: DataType.enum,
+      id: 'protein_existence',
+      label: 'Protein Existence [PE]',
+      itemType: ItemType.single,
+      term: 'existence',
     };
     const { asFragment } = render(
       <Field field={field} handleChange={handleChange} />
@@ -71,9 +77,9 @@ describe('Clause component', () => {
   test('should render an `integer` field', () => {
     const field = {
       label: 'Any',
-      itemType: 'feature',
+      itemType: ItemType.group,
       term: 'sites',
-      dataType: 'integer',
+      dataType: DataType.integer,
       description: 'Search by feature sites',
       example: 'translocation',
       id: 'id',
@@ -87,9 +93,9 @@ describe('Clause component', () => {
   test('should render an `integer` `range` field', () => {
     const field = {
       label: 'Any',
-      itemType: 'feature',
+      itemType: ItemType.group,
       term: 'sites',
-      dataType: 'integer',
+      dataType: DataType.integer,
       hasRange: true,
       description: 'Search by feature sites',
       example: 'translocation',
@@ -104,9 +110,9 @@ describe('Clause component', () => {
   test('should render `date` field', () => {
     const field = {
       label: 'Date Of Creation',
-      itemType: 'single',
+      itemType: ItemType.single,
       term: 'date_created',
-      dataType: 'date',
+      dataType: DataType.date,
       hasRange: true,
       description: 'Search by Date of creation',
       example: '[2018-03-04 TO 2018-03-08]',
@@ -121,7 +127,11 @@ describe('Clause component', () => {
   test('should not return anything', () => {
     const field = {
       label: 'I dont exist',
-      dataType: 'whatever',
+      // We know that cast is not correct, but it's for the test
+      dataType: 'whatever' as DataType,
+      id: 'some_id',
+      itemType: ItemType.single,
+      term: 'not a term',
     };
     const { asFragment } = render(
       <Field field={field} handleChange={handleChange} />
