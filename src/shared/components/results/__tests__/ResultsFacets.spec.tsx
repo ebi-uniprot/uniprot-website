@@ -13,7 +13,7 @@ describe('ResultsFacets', () => {
         dataApiObject={{
           data: results, // TODO: fix ts error
           headers: {
-            'x-totalrecords': results.results.length.toString(),
+            'x-total-records': results.results.length.toString(),
             link: '<https://link/to/next/results>; rel="next"',
           },
           loading: false,

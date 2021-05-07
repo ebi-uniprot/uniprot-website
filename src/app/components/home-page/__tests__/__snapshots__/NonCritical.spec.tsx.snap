@@ -328,18 +328,23 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--span-4 latest-news__news-roll"
     >
-      <h2
-        class="medium"
+      <div
+        class="latest-news__news-roll-heading"
       >
+        <h2
+          class="medium"
+        >
+          Latest News
+        </h2>
         <a
           class="external-link"
           href="https://www.uniprot.org/news?sort=created"
           rel="noopener"
           target="_blank"
         >
-          Latest News
+          View archive
         </a>
-      </h2>
+      </div>
       <ul
         class="no-bullet"
       >
@@ -685,7 +690,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section need-help"
   >
     <div
-      class="uniprot-grid-cell--span-3 need-help__need-help"
+      class="uniprot-grid-cell--span-3 need-help__need-help-top"
     >
       <h2
         class="medium"
@@ -695,51 +700,53 @@ exports[`non-critical HomePage component should render 1`] = `
       <p>
         Find answers through our help center or get in touch
       </p>
-      <div>
-        <a
-          class="external-link help-center-link"
-          href="https://www.uniprot.org/help/"
-          rel="noopener"
-          target="_blank"
-        >
-          Help center
-        </a>
-         
-        <a
-          class="external-link"
-          href="https://www.uniprot.org/contact"
-          rel="noopener"
-          target="_blank"
-        >
-          Contact us
-        </a>
-        <br />
-        <a
-          class="external-link"
-          href="https://twitter.com/uniprot"
-          rel="noopener"
-          target="_blank"
-          title="UniProt posts on Twitter"
-        >
-          <test-file-stub
-            width="3ch"
-          />
-        </a>
-        <a
-          class="external-link"
-          href="https://www.facebook.com/uniprot.org"
-          rel="noopener"
-          target="_blank"
-          title="UniProt posts on Facebook"
-        >
-          <test-file-stub
-            width="3ch"
-          />
-        </a>
-      </div>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__attend-training"
+      class="uniprot-grid-cell--span-3 need-help__need-help-bottom"
+    >
+      <a
+        class="external-link help-center-link"
+        href="https://www.uniprot.org/help/"
+        rel="noopener"
+        target="_blank"
+      >
+        Help center
+      </a>
+       
+      <a
+        class="external-link"
+        href="https://www.uniprot.org/contact"
+        rel="noopener"
+        target="_blank"
+      >
+        Contact us
+      </a>
+      <br />
+      <a
+        class="external-link"
+        href="https://twitter.com/uniprot"
+        rel="noopener"
+        target="_blank"
+        title="UniProt posts on Twitter"
+      >
+        <test-file-stub
+          width="3ch"
+        />
+      </a>
+      <a
+        class="external-link"
+        href="https://www.facebook.com/uniprot.org"
+        rel="noopener"
+        target="_blank"
+        title="UniProt posts on Facebook"
+      >
+        <test-file-stub
+          width="3ch"
+        />
+      </a>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 need-help__attend-training-top"
     >
       <img
         alt=""
@@ -748,6 +755,10 @@ exports[`non-critical HomePage component should render 1`] = `
         src="test-file-stub"
         width="256"
       />
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 need-help__attend-training-bottom"
+    >
       <h2
         class="tiny"
       >
@@ -782,7 +793,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__tutorial-videos"
+      class="uniprot-grid-cell--span-3 need-help__tutorial-videos-top"
     >
       <lite-youtube
         playlabel="UniProt intro"
@@ -800,6 +811,10 @@ exports[`non-critical HomePage component should render 1`] = `
           </span>
         </button>
       </lite-youtube>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 need-help__tutorial-videos-bottom"
+    >
       <a
         class="external-link"
         href="https://www.youtube.com/c/uniprotvideos/featured"
