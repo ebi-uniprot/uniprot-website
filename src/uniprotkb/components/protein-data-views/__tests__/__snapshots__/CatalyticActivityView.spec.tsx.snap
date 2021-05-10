@@ -20,7 +20,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     <button
       aria-controls="0"
       aria-expanded="false"
-      class="evidence-tag svg-colour-reviewed"
+      class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -30,7 +30,6 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       />
       <span
         class="evidence-tag__label"
-        title=""
       >
         1 publication
       </span>
@@ -49,7 +48,7 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
     <button
       aria-controls="1"
       aria-expanded="false"
-      class="evidence-tag svg-colour-reviewed"
+      class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -59,7 +58,6 @@ exports[`CatalyticActivityView component should render catalytic activity 1`] = 
       />
       <span
         class="evidence-tag__label"
-        title=""
       >
         1 publication
       </span>
@@ -91,7 +89,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <button
       aria-controls="2"
       aria-expanded="false"
-      class="evidence-tag svg-colour-reviewed"
+      class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -101,7 +99,6 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       />
       <span
         class="evidence-tag__label"
-        title=""
       >
         1 publication
       </span>
@@ -120,7 +117,7 @@ exports[`CatalyticActivityView component should render catalytic activity when c
     <button
       aria-controls="3"
       aria-expanded="false"
-      class="evidence-tag svg-colour-reviewed"
+      class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
       type="button"
     >
@@ -130,7 +127,6 @@ exports[`CatalyticActivityView component should render catalytic activity when c
       />
       <span
         class="evidence-tag__label"
-        title=""
       >
         1 publication
       </span>
@@ -157,7 +153,7 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
   <button
     aria-controls="4"
     aria-expanded="false"
-    class="evidence-tag svg-colour-reviewed"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -167,7 +163,6 @@ exports[`ReactionDirection component should render ReactionDirection when one ph
     />
     <span
       class="evidence-tag__label"
-      title=""
     >
       1 publication
     </span>
@@ -191,7 +186,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
   <button
     aria-controls="5"
     aria-expanded="false"
-    class="evidence-tag svg-colour-reviewed"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -201,7 +196,6 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     />
     <span
       class="evidence-tag__label"
-      title=""
     >
       1 publication
     </span>
@@ -220,7 +214,7 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
   <button
     aria-controls="6"
     aria-expanded="false"
-    class="evidence-tag svg-colour-reviewed"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -230,7 +224,6 @@ exports[`ReactionDirection component should render ReactionDirection when two ph
     />
     <span
       class="evidence-tag__label"
-      title=""
     >
       1 publication
     </span>

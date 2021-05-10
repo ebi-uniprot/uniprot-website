@@ -22,6 +22,10 @@
     .query-builder__logic {
       flex: 0 0 8ch;
       margin-bottom: 0;
+
+      &--diluted {
+        opacity: 0.5;
+      }
     }
 
     .dropdown-container {

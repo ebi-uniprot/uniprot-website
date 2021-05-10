@@ -1,0 +1,7 @@
+.heading {
+  display: block;
+
+  &::after {
+    content: ':';
+  }
+}

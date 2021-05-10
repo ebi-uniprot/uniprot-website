@@ -1,6 +1,6 @@
 import { Fragment, FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, DataTable, ExternalLink } from 'franklin-sites';
+import { Card, DataTable, ExternalLink, LongNumber } from 'franklin-sites';
 
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 
@@ -68,7 +68,7 @@ export const Components: FC<
               search: `query=(proteome:${id}) AND (proteomecomponent:"${name}")`,
             }}
           >
-            {proteinCount}
+            <LongNumber>{proteinCount}</LongNumber>
           </Link>
         ) : (
           0
@@ -77,7 +77,7 @@ export const Components: FC<
   ];
 
   return (
-    <Card title="Components">
+    <Card header={<h2>Components</h2>}>
       <ComponentsButtons
         components={components}
         selectedEntries={selectedEntries}

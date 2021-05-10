@@ -305,6 +305,11 @@ const AlignForm = () => {
                   }}
                   placeholder="my job title"
                   value={jobName.selected as string}
+                  onFocus={(event) => {
+                    if (!jobNameEdited) {
+                      event.target.select();
+                    }
+                  }}
                   onChange={(event) => {
                     setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });

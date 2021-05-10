@@ -45,10 +45,10 @@ const Entry: FC = () => {
 
   return (
     <SingleColumnLayout className="entry-page">
-      <h2>
+      <h1 className="big">
         {'Proteomes · '}
         <TaxonomyView data={data.taxonomy} noLink />
-      </h2>
+      </h1>
       <EntryMain transformedData={transformedData} />
     </SingleColumnLayout>
   );

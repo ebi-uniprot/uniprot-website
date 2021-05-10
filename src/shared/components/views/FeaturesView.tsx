@@ -50,9 +50,7 @@ export type ColumnConfig<FeatureType> = (
 type FeatureProps<T> = {
   features: T[];
   columnConfig: ColumnConfig<T>;
-  // eslint-disable-next-line react/require-default-props
   trackHeight?: number;
-  // eslint-disable-next-line react/require-default-props
   sequence?: string;
 };
 

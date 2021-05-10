@@ -1,11 +1,13 @@
 import { FC, useState, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
+  Card,
   Loader,
   DataListWithLoader,
   InfoList,
   ExternalLink,
 } from 'franklin-sites';
+import { SetRequired } from 'type-fest';
 
 import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 
@@ -13,12 +15,14 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import usePrefetch from '../../../shared/hooks/usePrefetch';
 
 import EntryTypeIcon from '../../../shared/components/entry/EntryTypeIcon';
+import LiteratureCitation from '../../../supporting-data/citations/components/LiteratureCitation';
 
 import getNextURLFromHeaders from '../../../shared/utils/getNextURLFromHeaders';
+import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { getParamsFromURL } from '../../utils/resultsUtils';
-import { getCitationItemId } from '../../../supporting-data/citations/utils';
 import { processUrlTemplate } from '../protein-data-views/XRefView';
 
+import { getEntryPath } from '../../../app/config/urls';
 import { getUniProtPublicationsQueryUrl } from '../../../shared/config/apiUrls';
 import { getDatabaseInfoByName } from '../../config/database';
 
@@ -26,7 +30,7 @@ import {
   CitationsAPIModel,
   Reference,
 } from '../../../supporting-data/citations/adapters/citationsConverter';
-import CitationCard from '../../../supporting-data/citations/components/results/CitationsCard';
+import { Namespace } from '../../../shared/types/namespaces';
 
 const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
@@ -88,6 +92,13 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   return <InfoList infoData={infoListData} isCompact className="text-block" />;
 };
 
+const getIdKey = getIdKeyFor(Namespace.citations);
+
+const hasReference = (
+  data: CitationsAPIModel
+): data is SetRequired<CitationsAPIModel, 'references'> =>
+  Boolean(data.references?.length);
+
 const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   const { search } = useLocation();
   const { selectedFacets } = getParamsFromURL(search);
@@ -108,6 +119,10 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     results: CitationsAPIModel[];
   }>(url);
 
+  const resultsWithReferences = useMemo(() => allResults.filter(hasReference), [
+    allResults,
+  ]);
+
   useEffect(() => {
     setAllResults([]);
     setMetaData({ total: 0, nextUrl: undefined });
@@ -121,7 +136,7 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetaData(() => ({
-      total: +(headers?.['x-totalrecords'] || 0),
+      total: +(headers?.['x-total-records'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
@@ -140,27 +155,23 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
     <section>
       <h2>Publications for {accession}</h2>
       <DataListWithLoader
-        getIdKey={({ citation }, index) => getCitationItemId(citation, index)}
-        data={allResults}
-        dataRenderer={(data) => {
-          const { references } = data;
-          return (
-            references &&
-            references.length > 0 && (
-              <CitationCard data={data}>
-                {references.map((reference, index) => (
+        getIdKey={getIdKey}
+        data={resultsWithReferences}
+        dataRenderer={(data) => (
+          <Card to={getEntryPath(Namespace.citations, getIdKey(data))}>
+            <LiteratureCitation data={data} headingLevel="h3">
+              {data.references.map((reference, index) => (
+                <PublicationReference
+                  reference={reference}
                   // No obvious key as there can be more than 1 for the same source
-                  <PublicationReference
-                    reference={reference}
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    accession={accession}
-                  />
-                ))}
-              </CitationCard>
-            )
-          );
-        }}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  accession={accession}
+                />
+              ))}
+            </LiteratureCitation>
+          </Card>
+        )}
         onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
         loaderComponent={<Loader />}
         hasMoreData={total > allResults.length}

@@ -1,4 +1,4 @@
-import { useMemo, useState, Suspense, useCallback } from 'react';
+import { useMemo, useState, Suspense, useCallback, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Header, HelpIcon, EnvelopeIcon, BasketIcon } from 'franklin-sites';
 
@@ -42,11 +42,27 @@ const tools = [
 // NOTE: all of those paths should eventually come from the Location config object
 const restOfItems = [
   {
-    label: 'API',
+    label: 'Data',
     items: [
       {
+        label: 'SPARQL',
+        href: 'https://sparql.uniprot.org/',
+      },
+      {
         label: 'Programmatic access',
-        path: '/',
+        href: 'https://www.uniprot.org/help/programmatic_access',
+      },
+      {
+        label: 'FTP',
+        href: 'https://ftp.uniprot.org/pub/databases/uniprot/',
+      },
+      {
+        label: 'Technical documentation',
+        href: 'https://www.uniprot.org/help/technical',
+      },
+      {
+        label: 'Submit data',
+        href: 'https://www.uniprot.org/help/submissions',
       },
     ],
   },
@@ -55,19 +71,19 @@ const restOfItems = [
     items: [
       {
         label: 'Help',
-        path: '/',
+        href: 'https://www.uniprot.org/help',
       },
       {
         label: 'Contact',
-        path: '/',
+        href: 'https://www.uniprot.org/contact',
       },
       {
         label: 'About UniProt',
-        path: '/',
+        href: 'https://www.uniprot.org/help/about',
       },
       {
         label: 'Cite us',
-        path: '/',
+        href: 'https://www.uniprot.org/help/publications',
       },
     ],
   },
@@ -94,6 +110,12 @@ const SearchContainerWithNamespace = () => {
   const namespace = useNS() || Namespace.uniprotkb;
 
   const [selectedNamespace, setSelectedNamespace] = useState(namespace);
+
+  useEffect(() => {
+    if (namespace) {
+      setSelectedNamespace(namespace);
+    }
+  }, [namespace]);
 
   return (
     <SearchContainer

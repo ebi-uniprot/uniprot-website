@@ -15,7 +15,7 @@ export type FacetObject = {
   label?: string;
   name: string;
   allowMultipleSelection: boolean;
-  values: FacetValue[];
+  values?: FacetValue[];
 };
 
 type Response = {
@@ -24,7 +24,7 @@ type Response = {
     facets?: FacetObject[];
   };
   headers: {
-    ['x-totalrecords']: string;
+    ['x-total-records']: string;
     link: string;
   };
 };

@@ -69,9 +69,8 @@ exports[`Clause component should render a \`text\` field with initial value 1`] 
 exports[`Clause component should render an \`enum\` field 1`] = `
 <DocumentFragment>
   <label>
-    <select
-      data-testid="enum-field-select"
-    />
+    Protein Existence [PE]
+    <select />
   </label>
 </DocumentFragment>
 `;

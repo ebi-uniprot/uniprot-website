@@ -3,49 +3,74 @@
 exports[`DatabaseCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/database/DB-0022"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          EMBL
+        </h2>
+      </div>
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="result-card__info-container"
         >
-          <div
-            class="result-card__right"
+          EMBL nucleotide sequence database
+        </div>
+        <div
+          class="result-card__info-container"
+        >
+          <span
+            class="result-card__info-bit"
           >
-            <h5>
-              EMBL
-            </h5>
-            <div
-              class="result-card__info-container"
+            <strong>
+              Category: 
+            </strong>
+            <a
+              href="/database?facets=category_exact:Sequence databases"
             >
-              EMBL nucleotide sequence database
-            </div>
-            <div
-              class="result-card__info-container"
-            >
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Category: 
-                </strong>
-                <a
-                  href="/database?facets=category_exact:Sequence databases"
-                >
-                  Sequence databases
-                </a>
-              </span>
-            </div>
-          </div>
+              Sequence databases
+            </a>
+          </span>
         </div>
       </div>
+    </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(database:EMBL)"
+      >
+        205,099,176 UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:true&query=(database:EMBL)"
+      >
+        552,391 reviewed UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:false&query=(database:EMBL)"
+      >
+        204,546,785 unreviewed UniProtKB entries
+      </a>
     </div>
   </section>
 </DocumentFragment>

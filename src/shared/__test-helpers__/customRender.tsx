@@ -17,7 +17,7 @@ type ExtraRenderOptions = {
   history?: MemoryHistory<LocationState>;
   path?: string;
   /**
-   * For custom user preferences context
+   * For custom user preferences (used by useUserPreferences)
    */
   initialUserPreferences?: Record<string, JsonValue>;
   // For redux

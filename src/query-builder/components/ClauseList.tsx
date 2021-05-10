@@ -1,4 +1,11 @@
-import { useCallback, memo, FC, Dispatch, SetStateAction } from 'react';
+import {
+  useCallback,
+  memo,
+  FC,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react';
 import { TreeSelect } from 'franklin-sites';
 
 import LogicalOperator from './LogicalOperator';
@@ -27,6 +34,7 @@ type ClauseItemProps = {
   handleFieldSelect: HandleFieldSelect;
   handleQueryChange: HandleQueryChange;
   removeClause: RemoveClause;
+  isFirst: boolean;
 };
 
 const ClauseItem = memo<ClauseItemProps>(
@@ -37,6 +45,7 @@ const ClauseItem = memo<ClauseItemProps>(
     handleFieldSelect,
     handleQueryChange,
     removeClause,
+    isFirst,
   }) => {
     const handleChange = useCallback(
       (queryBit: QueryBit, reset?: boolean) => {
@@ -44,6 +53,13 @@ const ClauseItem = memo<ClauseItemProps>(
       },
       [clause.id, handleQueryChange]
     );
+
+    useEffect(() => {
+      // Set to "AND" if it's now the first clause and was a "OR"
+      if (isFirst && clause.logicOperator === Operator.OR) {
+        handleLogicChange(clause.id, Operator.AND);
+      }
+    }, [clause.id, clause.logicOperator, handleLogicChange, isFirst]);
 
     if (!clause.searchTerm) {
       return null;
@@ -63,6 +79,7 @@ const ClauseItem = memo<ClauseItemProps>(
           handleChange={(value: Operator) =>
             handleLogicChange(clause.id, value)
           }
+          isFirst={isFirst}
         />
         <TreeSelect
           data={searchTerms}
@@ -170,7 +187,7 @@ const ClauseList: FC<ClauseListProps> = ({
 
   return (
     <>
-      {clauses.map((clause) => (
+      {clauses.map((clause, index) => (
         <ClauseItem
           key={clause.id}
           clause={clause}
@@ -179,6 +196,7 @@ const ClauseList: FC<ClauseListProps> = ({
           handleFieldSelect={handleFieldSelect}
           handleQueryChange={handleQueryChange}
           removeClause={removeClause}
+          isFirst={index === 0}
         />
       ))}
     </>

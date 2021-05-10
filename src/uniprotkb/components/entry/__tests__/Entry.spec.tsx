@@ -51,7 +51,7 @@ mock
       selectedFacets: [],
     })
   )
-  .reply(200, entryPublicationsData, { 'x-totalrecords': 25 });
+  .reply(200, entryPublicationsData, { 'x-total-records': 25 });
 mock.onGet(filteredUrl).reply(
   200,
   {
@@ -69,7 +69,7 @@ mock.onGet(filteredUrl).reply(
     ],
     results: entryPublicationsData.results,
   },
-  { 'x-totalrecords': 25 }
+  { 'x-total-records': 25 }
 );
 // Need to mock this request too as the whole Entry gets rendered.
 // TODO: it would be nice to not render the whole entry...

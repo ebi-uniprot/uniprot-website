@@ -1,11 +1,11 @@
+import { useMemo } from 'react';
 import { Card } from 'franklin-sites';
-import { FC, useCallback, MouseEvent } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import RenderColumnsInCard from '../../../../shared/components/results/RenderColumnsInCard';
 
 import { getEntryPath } from '../../../../app/config/urls';
 import { getIdKeyFor } from '../../../../shared/utils/getIdKeyForNamespace';
+import { mapToLinks } from '../../../shared/components/MapTo';
 
 import { DatabaseAPIModel } from '../../adapters/databaseConverter';
 import { Namespace } from '../../../../shared/types/namespaces';
@@ -19,48 +19,43 @@ const category = DatabaseColumnConfiguration.get(DatabaseColumn.category);
 
 const getIdKey = getIdKeyFor(Namespace.database);
 
-const DatabaseCard: FC<{
+type Props = {
   data: DatabaseAPIModel;
   selected?: boolean;
   handleEntrySelection?: (rowId: string) => void;
-}> = ({ data, selected, handleEntrySelection }) => {
-  const history = useHistory();
+};
 
+const DatabaseCard = ({ data, selected, handleEntrySelection }: Props) => {
   const id = getIdKey(data);
 
-  const handleCardClick = useCallback(
-    (event: MouseEvent) => {
-      if ((event.target as HTMLElement).closest(`a, input, button`)) {
-        return;
-      }
-      history.push(getEntryPath(Namespace.database, id));
-    },
-    [history, id]
+  const links = useMemo(
+    () => mapToLinks(Namespace.database, data.abbrev, data.statistics),
+    [data.statistics, data.abbrev]
   );
 
   return (
-    <Card onClick={handleCardClick}>
-      <div className="result-card">
-        {handleEntrySelection && (
-          <div className="result-card__left">
+    <Card
+      header={
+        <>
+          {handleEntrySelection && (
             <input
               type="checkbox"
               checked={selected}
               onChange={() => handleEntrySelection(id)}
               data-testid="up-card-checkbox"
             />
-          </div>
-        )}
-        <div className="result-card__right">
-          <h5>{data.abbrev}</h5>
-          <div
-            className={renderColumnsInCardStyles['result-card__info-container']}
-          >
-            {data.name}
-          </div>
-          <RenderColumnsInCard renderers={category} data={data} />
-        </div>
+          )}
+          <h2 className="tiny">{data.abbrev}</h2>
+        </>
+      }
+      headerSeparator={false}
+      to={getEntryPath(Namespace.database, id)}
+      links={links}
+    >
+      <div className={renderColumnsInCardStyles['result-card__info-container']}>
+        {data.name}
       </div>
+      <RenderColumnsInCard renderers={category} data={data} />
     </Card>
   );
 };

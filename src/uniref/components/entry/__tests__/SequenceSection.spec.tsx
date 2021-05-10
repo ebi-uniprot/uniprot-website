@@ -13,11 +13,4 @@ describe('SequenceSection component', () => {
     );
     expect(asFragment()).toMatchSnapshot();
   });
-
-  test('should return null when the provided object values are empty', () => {
-    const { asFragment } = render(
-      <SequenceSection data={{ value: undefined } as SequenceType} />
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
 });
