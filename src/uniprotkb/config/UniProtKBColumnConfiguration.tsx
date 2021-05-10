@@ -9,7 +9,6 @@ import ProteinNamesView, {
 } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
   TaxonomyLineage,
-  TaxonomyId,
 } from '../../shared/components/entry/TaxonomyView';
 import GeneNamesView, {
   geneAlternativeNamesView,
@@ -255,10 +254,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.organismId, {
-  label: 'Organism',
+  label: 'Organism ID',
   render: (data) => {
     const { organismData } = data[EntrySection.NamesAndTaxonomy];
-    return organismData && <TaxonomyId taxonId={organismData.taxonId} />;
+    return organismData && <TaxonomyView data={organismData} displayOnlyID />;
   },
 });
 
