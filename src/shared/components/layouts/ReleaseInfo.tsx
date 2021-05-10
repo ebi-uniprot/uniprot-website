@@ -16,7 +16,7 @@ const today = new Date();
 const ReleaseInfo = () => {
   // TODO: replace with statistics endpoint
   const { headers } = useDataApi(
-    `${apiUrls.search(Namespace.uniprotkb)}?query=*&size=0`,
+    `${apiUrls.queryBuilderTerms(Namespace.uniprotkb)}`,
     fetchOptions
   );
   // NOTE: don't use release number as date, might be different
