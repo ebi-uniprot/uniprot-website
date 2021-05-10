@@ -50,7 +50,6 @@ const PeptideSearchResult: FC = () => {
       (job) => job.status === Status.FINISHED && job?.remoteID === jobID
     )
   );
-
   const accessions = jobData?.split(',').filter(Boolean);
 
   // Query for facets
@@ -68,7 +67,7 @@ const PeptideSearchResult: FC = () => {
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-totalrecords'];
+  const facetTotal = facetHeaders?.['x-total-records'];
 
   // Query for results data
   const { url: initialApiUrl, direct } = useNSQuery({ accessions });
@@ -114,7 +113,7 @@ const PeptideSearchResult: FC = () => {
       <ResultsDataHeader
         total={total}
         selectedEntries={selectedEntries}
-        titlePostfix={
+        titlePostscript={
           <small>
             {` found in peptide search ${
               truncate(job?.title, { length: 10 }) || ''

@@ -11,9 +11,9 @@ import { Namespace } from '../../types/namespaces';
 const ResultsDataHeader: FC<{
   total?: number;
   selectedEntries: string[];
-  titlePostfix: ReactNode;
+  titlePostscript?: ReactNode;
   accessions?: string[];
-}> = ({ total = 0, selectedEntries, titlePostfix, accessions }) => {
+}> = ({ total = 0, selectedEntries, titlePostscript, accessions }) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const { name, links, info } = useMemo(() => infoMappings[namespace], [
     namespace,
@@ -23,7 +23,7 @@ const ResultsDataHeader: FC<{
     <>
       <PageIntro
         title={`${name}`}
-        titlePostfix={titlePostfix}
+        titlePostscript={titlePostscript}
         links={links}
         resultsCount={total}
       >
