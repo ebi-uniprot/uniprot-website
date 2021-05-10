@@ -273,7 +273,7 @@ exports[`HomePage component should render 1`] = `
                 <span
                   class="no-wrap"
                 >
-                  UniProt 
+                  UniProt
                   <sup>
                     <test-file-stub
                       width="1.5ch"
