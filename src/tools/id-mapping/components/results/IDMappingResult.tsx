@@ -58,7 +58,11 @@ const IDMappingResult = () => {
     converter
   );
 
-  const { initialLoading, failedIds, total } = resultsDataObject;
+  const {
+    initialLoading: resultsDataInitialLoading,
+    failedIds,
+    total,
+  } = resultsDataObject;
 
   let namespaceFallback;
   switch (detailsData?.to.toLowerCase()) {
@@ -89,7 +93,16 @@ const IDMappingResult = () => {
     });
   const facetsData = useDataApiWithStale<Response['data']>(facetsUrl);
 
-  if (initialLoading) {
+  const {
+    loading: facetInititialLoading,
+    isStale: facetHasStaleData,
+  } = facetsData;
+
+  if (
+    facetInititialLoading &&
+    resultsDataInitialLoading &&
+    !facetHasStaleData
+  ) {
     return <Loader />;
   }
 
