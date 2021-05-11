@@ -45,7 +45,7 @@ describe('IDMappingResult tests', () => {
       },
     });
     expect((await screen.findAllByText('Q9Z0H0')).length).toBe(2);
-    const facetLink = screen.getByText(/Reviewed \(Swiss-Prot\)/);
+    const facetLink = screen.getByRole('link', { name: /Reviewed/ });
     fireEvent.click(facetLink);
     expect(history.location.search).toEqual('?facets=reviewed%3Atrue');
   });
