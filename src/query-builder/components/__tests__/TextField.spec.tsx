@@ -1,20 +1,15 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import TextField from '../TextField';
 
-let rendered;
+import { DataType, FieldType, ItemType } from '../../types/searchTypes';
 
 describe('TextField', () => {
-  // field: SearchTermType;
-  // type: string;
-  // initialValue?: string;
-  // handleChange: (queryBit: QueryBit) => void;
-
   const props = {
     field: {
       id: 'uniprot_ac',
       label: 'UniProtKB AC',
-      itemType: 'single',
+      itemType: ItemType.single,
       term: 'accession',
       description: 'Search by UniProtKB Accession',
       example: 'P12345',
@@ -24,32 +19,22 @@ describe('TextField', () => {
   };
 
   beforeEach(() => {
-    rendered = render(<TextField {...props} />);
+    props.handleChange.mockReset();
   });
 
   test('should render', () => {
-    const { asFragment } = rendered;
+    const { asFragment } = render(<TextField {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 
   test('should update the input value', () => {
+    render(<TextField {...props} />);
     const updatedValue = 'my_term';
-    const { getByPlaceholderText } = rendered;
-    const inputElt = getByPlaceholderText('P12345');
+    const inputElt = screen.getByRole('textbox') as HTMLInputElement;
     expect(inputElt.value).toBe('');
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(props.handleChange).toBeCalledWith({
       [props.field.term]: updatedValue.trim(),
-    });
-  });
-
-  test('should trim add double quotes if a space is present', () => {
-    const updatedValue = 'Some term ';
-    const { getByPlaceholderText } = rendered;
-    const inputElt = getByPlaceholderText('P12345');
-    fireEvent.change(inputElt, { target: { value: updatedValue } });
-    expect(props.handleChange).toBeCalledWith({
-      [props.field.term]: `"${updatedValue.trim()}"`,
     });
   });
 
@@ -58,7 +43,7 @@ describe('TextField', () => {
       field: {
         id: 'all',
         label: 'All',
-        itemType: 'single',
+        itemType: ItemType.single,
         term: 'All',
         description: 'Search by UniProtKB Accession',
         example: 'All',
@@ -66,13 +51,15 @@ describe('TextField', () => {
       type: 'text',
       handleChange: jest.fn(),
     };
+    render(<TextField {...propsAll} />);
 
     const updatedValue = 'some value';
-    const { getByPlaceholderText } = render(<TextField {...propsAll} />);
-    const inputElt = getByPlaceholderText('All');
+    const inputElt = screen.getByRole('textbox', {
+      name: propsAll.field.label,
+    });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsAll.handleChange).toBeCalledWith({
-      [propsAll.field.term]: `"${updatedValue}"`,
+      [propsAll.field.term]: `${updatedValue}`,
     });
   });
 
@@ -81,23 +68,25 @@ describe('TextField', () => {
       field: {
         id: 'prefix',
         label: 'prefixed',
-        itemType: 'single',
+        itemType: ItemType.single,
         term: 'prefixed_q',
         description: 'Search by UniProtKB Accession',
         example: 'Prefix',
-        valuePrefix: 'value_',
+        valuePrefix: 'value-',
       },
       type: 'text',
       handleChange: jest.fn(),
     };
+    render(<TextField {...propsPrefix} />);
 
     const updatedValue = 'some value';
-    const { getByPlaceholderText } = render(<TextField {...propsPrefix} />);
-    const inputElt = getByPlaceholderText('Prefix');
+    const inputElt = screen.getByRole('textbox', {
+      name: propsPrefix.field.label,
+    });
     fireEvent.change(inputElt, { target: { value: updatedValue } });
     expect(propsPrefix.handleChange).toBeCalledWith({
       [propsPrefix.field
-        .term]: `"${propsPrefix.field.valuePrefix}${updatedValue}"`,
+        .term]: `${propsPrefix.field.valuePrefix}${updatedValue}`,
     });
   });
 
@@ -106,20 +95,23 @@ describe('TextField', () => {
       field: {
         id: 'prefix',
         label: 'prefixed',
-        itemType: 'single',
+        itemType: ItemType.single,
         term: 'xref',
         description: 'Search by UniProtKB Accession',
         example: 'Prefix',
-        valuePrefix: 'embl',
+        valuePrefix: 'embl-',
       },
       type: 'text',
       handleChange: jest.fn(),
     };
-    const { getByPlaceholderText } = render(<TextField {...propsPrefix} />);
-    const inputElt = getByPlaceholderText('Prefix');
+    render(<TextField {...propsPrefix} />);
+
+    const inputElt = screen.getByRole('textbox', {
+      name: propsPrefix.field.label,
+    });
     fireEvent.change(inputElt, { target: { value: '*' } });
     expect(propsPrefix.handleChange).toBeCalledWith({
-      [propsPrefix.field.term]: propsPrefix.field.valuePrefix,
+      database: 'embl',
     });
   });
 
@@ -128,18 +120,19 @@ describe('TextField', () => {
       field: {
         id: 'proteome',
         label: 'Proteome ID',
-        itemType: 'single',
+        itemType: ItemType.single,
         term: 'proteome',
-        dataType: 'string',
-        fieldType: 'general',
+        dataType: DataType.string,
+        fieldType: FieldType.general,
         example: 'UP000005640',
         regex: '(?i)^UP[0-9]{9}$',
       },
       handleChange: jest.fn(),
       initialValue: { proteome: 'UP000000000' },
     };
-    const { getByDisplayValue } = render(<TextField {...propsPrefix} />);
-    const inputElt = getByDisplayValue('UP000000000');
+    render(<TextField {...propsPrefix} />);
+
+    const inputElt = screen.getByDisplayValue('UP000000000');
     expect(inputElt).toBeTruthy();
   });
 });

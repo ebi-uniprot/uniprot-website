@@ -79,6 +79,21 @@ const parseAndMatchQuery = (
         invalid.push(clause);
       }
       // else, didn't find any match
+    } else if (clause.searchTerm.term === 'database') {
+      // TODO: this is a temporary solution until 'database' is added
+      // see https://www.ebi.ac.uk/panda/jira/browse/TRM-25963
+      const matchingXref = flattened.find(
+        ({ valuePrefix }) => valuePrefix === `${clause.queryBits.database}-`
+      );
+      if (matchingXref) {
+        validatedQuery.push({
+          ...clause,
+          searchTerm: matchingXref,
+          queryBits: { xref: `${clause.queryBits.database}-*` },
+        });
+      } else {
+        invalid.push(clause);
+      }
     } else {
       // try to find a search term matching through the autoComplete field
       const matchingAutoComplete = flattened.find(

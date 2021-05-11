@@ -8,7 +8,7 @@ import styles from './styles/non-critical.module.scss';
 // TODO: Dynamically load content (TRM-25618 & TRM-25619)
 
 const spotlightAbstract =
-  'When you reach a certain age, one question arises on a painfully regular basis. It begins with a "Where are my...?" or a "Where is my..." Reading glasses are a constant. Frequently, they are not where they ought to be. Having relocated them, you may well remark that they are not where you put them. But they are. The thing is, in a moment of distraction, you left them where you would not normally: on the garden wall, in your coat pocket, on the clothes washing machine, perhaps even in the fridge. All in all, they were inadvertently mislocated. On a far smaller scale, the same kind of thing can happen to proteins. There are times when proteins end up where they should not be - which is a source of stress both for their unusual environment and the one they have not reached. Over time, cells have developed various quality control systems to correct all sorts of mistakes - one of them being mislocation. As an illustration, lodged in the endoplasmic reticulum membrane, the enzyme P5A-ATPase is able to spot mislocated transmembrane mitochondrial proteins, grab hold of them and fling them back into the cellular cytosol.';
+  "Sometimes, it takes very little to change the course of things. Though frequently it may require the presence of another. Take two people who become lovers and whose destinies change after having met by chance at a friend's house. Or two artists who recognise in each other a similar understanding of things and whose meeting causes something very different to emerge - Georges Braque and Pablo Picasso, Lee Krasner and Jackson Pollock, or Elaine and Willem de Kooning for instance. Or two scientists, for that matter. James Watson and Francis Crick will have no doubt fed on each other's enthusiasm to elucidate the structure of DNA. The same occurs in the world of proteins. It is no secret that proteins frequently work in twos - or indeed threes or more - by binding to one another to perform an overall function. Each individual protein, however, usually has a very distinctive part to play. On more rare occasions, bonding can influence a protein to act differently. This is what happens when two proteins, known as HPF1 and PARP1 (or 2), meet. PARP1/2 is known to act in one way, but when HPF1 binds to it, like two pieces of a jigsaw puzzle that lock to become a different shape, their active sites add up to create a novel one and, in so doing, PARP1/2 behaves differently";
 
 const drosophilaAbstract =
   'In February, the month of love, we’ll take a brief look at the weird and wonderful courtship behaviour of one of the model organisms we annotate at UniProt, the amorous arthropod Drosophila melanogaster, and explore how studying their courtship song helps researchers understand the genetic and neural underpinnings of behaviour. The study of proteins from well characterised model organisms such as the fruit fly D.melanogaster (Drosophila protein annotation project) helps in understanding insect biology, allowing us to control their populations by manipulating processes such as reproduction, and also enables scientists to model human physiology and disease.';
@@ -58,11 +58,12 @@ const LatestNews = () => {
           styles['latest-news__news-roll']
         )}
       >
-        <h2 className="medium">
+        <div className={styles['latest-news__news-roll-heading']}>
+          <h2 className="medium">Latest News</h2>
           <ExternalLink url="https://www.uniprot.org/news?sort=created" noIcon>
-            Latest News
+            View archive
           </ExternalLink>
-        </h2>
+        </div>
         <ul className="no-bullet">
           <li>
             <article>
@@ -180,14 +181,14 @@ const LatestNews = () => {
       >
         <article>
           <ExternalLink
-            url="https://www.proteinspotlight.org/spotlight/back_issues/234/"
+            url="https://www.proteinspotlight.org/back_issues/235/"
             noIcon
             aria-hidden="true"
             tabIndex={-1}
           >
             <img
               loading="lazy"
-              src="https://www.proteinspotlight.org/images/sptlt234.jpg"
+              src="https://www.proteinspotlight.org/images/sptlt235.jpg"
               alt=""
               width="184.305"
               height="127.29"
@@ -195,10 +196,10 @@ const LatestNews = () => {
           </ExternalLink>
           <h3 className="micro">
             <ExternalLink
-              url="https://www.proteinspotlight.org/spotlight/back_issues/234/"
+              url="https://www.proteinspotlight.org/back_issues/235/"
               noIcon
             >
-              Wrong place
+              Catalysis
             </ExternalLink>
           </h3>
           <p

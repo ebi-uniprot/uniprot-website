@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -25,7 +25,6 @@ mock
 mock
   .onGet(/\/uniprot\/api\/idmapping\/details\/id2/)
   .reply(200, UniProtkbMappingDetails);
-// Mock details endpoint
 
 describe('IDMappingResult tests', () => {
   it('should render simple from/to mapping', async () => {
@@ -38,13 +37,16 @@ describe('IDMappingResult tests', () => {
     expect(await screen.findByText('ENSMUSG00000029283')).toBeTruthy();
   });
 
-  it('should render mapping to UniProtKB', async () => {
-    customRender(<IDMappingResult />, {
+  it('should render mapping to UniProtKB and apply filter', async () => {
+    const { history } = customRender(<IDMappingResult />, {
       route: '/id-mapping/id2',
       initialUserPreferences: {
         'view-mode': ViewMode.TABLE, // This should eventually be removed
       },
     });
-    expect(await (await screen.findAllByText('Q9Z0H0')).length).toBe(2);
+    expect((await screen.findAllByText('Q9Z0H0')).length).toBe(2);
+    const facetLink = screen.getByRole('link', { name: /Reviewed/ });
+    fireEvent.click(facetLink);
+    expect(history.location.search).toEqual('?facets=reviewed%3Atrue');
   });
 });

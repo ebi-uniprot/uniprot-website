@@ -1,4 +1,190 @@
-export default {
+// https://wwwdev.ebi.ac.uk/uniprot/api/idmapping/uniprotkb/results/ab5431b5409eb60e734faa13614e80e51acc3ea9?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=&size=0
+const mappingResults = {
+  facets: [
+    {
+      label: 'Status',
+      name: 'reviewed',
+      allowMultipleSelection: false,
+      values: [
+        {
+          label: 'Reviewed (Swiss-Prot)',
+          value: 'true',
+          count: 4,
+        },
+      ],
+    },
+    {
+      label: 'Model organisms',
+      name: 'model_organism',
+      allowMultipleSelection: true,
+      values: [
+        {
+          value: 'Human',
+          count: 1,
+        },
+        {
+          value: 'Mouse',
+          count: 1,
+        },
+        {
+          value: 'S. cerevisiae',
+          count: 1,
+        },
+      ],
+    },
+    {
+      label: 'Proteins with',
+      name: 'proteins_with',
+      allowMultipleSelection: true,
+      values: [
+        {
+          label: 'Active site',
+          value: 'act_site',
+          count: 4,
+        },
+        {
+          label: 'Binding site',
+          value: 'binding',
+          count: 4,
+        },
+        {
+          label: 'Catalytic activity',
+          value: 'catalytic_activity',
+          count: 4,
+        },
+        {
+          label: 'Chain',
+          value: 'chain',
+          count: 4,
+        },
+        {
+          label: 'Cofactors',
+          value: 'cofactor',
+          count: 4,
+        },
+        {
+          label: 'Domain',
+          value: 'domain',
+          count: 4,
+        },
+        {
+          label: 'Function',
+          value: 'function',
+          count: 4,
+        },
+        {
+          label: 'Nucleotide binding',
+          value: 'np_bind',
+          count: 4,
+        },
+        {
+          label: 'Subunit structure',
+          value: 'subunit',
+          count: 4,
+        },
+        {
+          label: '3D structure',
+          value: '3dstructure',
+          count: 2,
+        },
+        {
+          label: 'Alternative products(isoforms)',
+          value: 'alternative_products',
+          count: 2,
+        },
+        {
+          label: 'Cross-link',
+          value: 'crosslnk',
+          count: 2,
+        },
+        {
+          label: 'Binary interaction',
+          value: 'interaction',
+          count: 2,
+        },
+        {
+          label: 'Modified residue',
+          value: 'mod_res',
+          count: 2,
+        },
+        {
+          label: 'Subcellular location',
+          value: 'subcellular_location',
+          count: 2,
+        },
+        {
+          label: 'Compositional bias',
+          value: 'compbias',
+          count: 1,
+        },
+        {
+          label: 'Helix',
+          value: 'helix',
+          count: 1,
+        },
+        {
+          label: 'Beta strand',
+          value: 'strand',
+          count: 1,
+        },
+        {
+          label: 'Turn',
+          value: 'turn',
+          count: 1,
+        },
+        {
+          label: 'Alternative splicing',
+          value: 'var_seq',
+          count: 1,
+        },
+        {
+          label: 'Natural variant',
+          value: 'variant',
+          count: 1,
+        },
+      ],
+    },
+    {
+      label: 'Protein Existence',
+      name: 'existence',
+      allowMultipleSelection: true,
+      values: [
+        {
+          label: 'Protein level',
+          value: 'PROTEIN_LEVEL',
+          count: 4,
+        },
+      ],
+    },
+    {
+      label: 'Annotation Score',
+      name: 'annotation_score',
+      allowMultipleSelection: true,
+      values: [
+        {
+          value: '5',
+          count: 4,
+        },
+      ],
+    },
+    {
+      label: 'Sequence length',
+      name: 'length',
+      allowMultipleSelection: true,
+      values: [
+        {
+          label: '401 - 600',
+          value: '[401 TO 600]',
+          count: 3,
+        },
+        {
+          label: '>= 801',
+          value: '[801 TO *]',
+          count: 1,
+        },
+      ],
+    },
+  ],
   results: [
     {
       from: 'Q9Z0H0',
@@ -9747,3 +9933,5 @@ export default {
     },
   ],
 };
+
+export default mappingResults;

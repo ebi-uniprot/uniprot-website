@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, FC } from 'react';
+import { memo, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 
@@ -243,11 +243,11 @@ type Props = {
   representativeMember: RepresentativeMember;
 };
 
-export const MembersSection: FC<Props> = ({
+export const MembersSection = ({
   id,
   identity,
   representativeMember,
-}) => {
+}: Props) => {
   const { search } = useLocation();
   const { selectedFacets } = getParamsFromURL(search);
 
@@ -286,7 +286,7 @@ export const MembersSection: FC<Props> = ({
     const { results } = data;
     setAllResults((allRes) => [...allRes, ...results]);
     setMetadata(() => ({
-      total: +(headers?.['x-totalrecords'] || 0),
+      total: +(headers?.['x-total-records'] || 0),
       nextUrl: getNextURLFromHeaders(headers),
     }));
   }, [data, headers]);
@@ -300,32 +300,33 @@ export const MembersSection: FC<Props> = ({
   }
 
   return (
-    <div id={EntrySection.Members}>
-      <Card
-        title={`${total} ${
-          getEntrySectionNameAndId(EntrySection.Members).name
-        }`}
-      >
-        <div>
-          <RelatedClusters identity={identity} id={id} />
-        </div>
-        <div className="button-group">
-          <BlastButton selectedEntries={selectedEntries} />
-          <AlignButton selectedEntries={selectedEntries} />
-          <AddToBasket selectedEntries={selectedEntries} />
-        </div>
-        <DataTableWithLoader
-          hasMoreData={total > allResults.length + 1}
-          onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
-          columns={columns}
-          data={allResults}
-          getIdKey={getKey}
-          density="compact"
-          selected={selectedEntries}
-          onSelectRow={handleEntrySelection}
-        />
-      </Card>
-    </div>
+    <Card
+      header={
+        <h2>{`${total} ${getEntrySectionNameAndId(EntrySection.Members).name}${
+          total === 1 ? '' : 's'
+        }`}</h2>
+      }
+      id={EntrySection.Members}
+    >
+      <div>
+        <RelatedClusters identity={identity} id={id} />
+      </div>
+      <div className="button-group">
+        <BlastButton selectedEntries={selectedEntries} />
+        <AlignButton selectedEntries={selectedEntries} />
+        <AddToBasket selectedEntries={selectedEntries} />
+      </div>
+      <DataTableWithLoader
+        hasMoreData={total > allResults.length + 1}
+        onLoadMoreItems={() => nextUrl && setUrl(nextUrl)}
+        columns={columns}
+        data={allResults}
+        getIdKey={getKey}
+        density="compact"
+        selected={selectedEntries}
+        onSelectRow={handleEntrySelection}
+      />
+    </Card>
   );
 };
 

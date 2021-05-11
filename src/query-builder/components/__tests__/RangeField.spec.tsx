@@ -1,23 +1,32 @@
-import { render, fireEvent } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  RenderResult,
+} from '@testing-library/react';
+
 import RangeField from '../RangeField';
 
-let props;
-let rendered;
+import { DataType, FieldType, ItemType } from '../../types/searchTypes';
+
+const props = {
+  field: {
+    id: 'ftlen_sites',
+    label: 'Sites',
+    itemType: ItemType.single,
+    term: 'ftlen_sites',
+    dataType: DataType.integer,
+    fieldType: FieldType.range,
+    example: '[0 TO 100]',
+  },
+  handleChange: jest.fn().mockClear(),
+  initialValue: { ftlen_sites: '[11 TO 45]' },
+};
+let rendered: RenderResult;
 
 describe('Range field', () => {
   beforeEach(() => {
-    props = {
-      field: {
-        id: 'ftlen_sites',
-        itemType: 'single',
-        term: 'ftlen_sites',
-        dataType: 'integer',
-        fieldType: 'range',
-        example: '[0 TO 100]',
-      },
-      handleChange: jest.fn(),
-      initialValue: { ftlen_sites: '[11 TO 45]' },
-    };
+    props.handleChange.mockClear();
     rendered = render(<RangeField {...props} />);
   });
 
@@ -27,9 +36,8 @@ describe('Range field', () => {
   });
 
   test('should handle from/to change', () => {
-    const { queryByTestId } = rendered;
-    const fromNode = queryByTestId('range-field-from-input');
-    const toNode = queryByTestId('range-field-to-input');
+    const fromNode = screen.getByTestId('range-field-from-input');
+    const toNode = screen.getByTestId('range-field-to-input');
     fireEvent.change(fromNode, { target: { value: '5' } });
     fireEvent.change(toNode, { target: { value: '50' } });
     expect(props.handleChange).toHaveBeenCalledWith({
@@ -38,9 +46,8 @@ describe('Range field', () => {
   });
 
   test('should handle from/to change with one missing bound', () => {
-    const { queryByTestId } = rendered;
-    const fromNode = queryByTestId('range-field-from-input');
-    const toNode = queryByTestId('range-field-to-input');
+    const fromNode = screen.getByTestId('range-field-from-input');
+    const toNode = screen.getByTestId('range-field-to-input');
     fireEvent.change(fromNode, { target: { value: '5' } });
     fireEvent.change(toNode, { target: { value: '' } });
     expect(props.handleChange).toHaveBeenCalledWith({

@@ -1,11 +1,14 @@
-import { useState, FC, Fragment } from 'react';
+import { createElement, useState, FC, Fragment, HTMLAttributes } from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import {
   Bubble,
   Button,
   PublicationIcon,
   ComputerMappedIcon,
-  CitedIcon,
+  CommunityAnnotationIcon,
+  SwissProtIcon,
+  TremblIcon,
   ExternalLink,
 } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
@@ -14,6 +17,7 @@ import { Location, LocationToPath } from '../../../app/config/urls';
 import externalUrls from '../../../shared/config/externalUrls';
 
 import parseDate from '../../../shared/utils/parseDate';
+import cleanText from '../../../shared/utils/cleanText';
 
 import {
   CitationsAPIModel,
@@ -72,7 +76,12 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
   return (
     <div className="publication__abstract">
       {display ? (
-        <p>{abstract}</p>
+        <p
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: cleanText(abstract),
+          }}
+        />
       ) : (
         <Button variant="tertiary" onClick={() => setDisplay(true)}>
           View abstract [...]
@@ -135,85 +144,129 @@ export const JournalInfo: FC<JournalInfoProps> = ({
 };
 
 type StatisticsProps = {
-  statistics: {
-    reviewedProteinCount?: number;
-    unreviewedProteinCount?: number;
-    computationallyMappedProteinCount?: number;
-    communityMappedProteinCount?: number;
-  };
-  pubmedId: number | string;
+  statistics: CitationsAPIModel['statistics'];
+  id: number | string;
 };
 
-const Statistics: FC<StatisticsProps> = ({ statistics, pubmedId }) => {
+const Statistics: FC<StatisticsProps> = ({ statistics, id }) => {
   const {
-    reviewedProteinCount = 0,
-    unreviewedProteinCount = 0,
-    computationallyMappedProteinCount = 0,
-  } = statistics;
-  const citedCount = reviewedProteinCount + unreviewedProteinCount;
+    reviewedProteinCount,
+    unreviewedProteinCount,
+    computationallyMappedProteinCount,
+    communityMappedProteinCount,
+  } = statistics || {};
   return (
-    <div className="publication__statistics">
-      {computationallyMappedProteinCount > 0 && (
-        <div className="publication__statistics__item">
+    <>
+      <small>Mapped to</small>
+      <div className="publication__statistics">
+        {reviewedProteinCount ? (
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
-              search: `query=(computational_pubmed_id:${pubmedId})`,
+              search: `facets=reviewed:true&query=(lit_citation_id:${id})`,
             }}
+            title={`UniProtKB reviewed entries: ${reviewedProteinCount}`}
           >
-            <div>
-              <small>Mapped to</small>
-            </div>
-            <div className="publication__statistics__bubble">
-              <Bubble
-                colourClass="colour-pastel-blue"
-                size="small"
-                value={computationallyMappedProteinCount}
-              />
-              <ComputerMappedIcon width={15} height={15} />
-            </div>
+            <Bubble
+              colourClass="colour-pastel-blue"
+              size="small"
+              value={reviewedProteinCount}
+            />
+            <SwissProtIcon
+              className="publication__statistics--reviewed"
+              height="1em"
+            />
           </Link>
-        </div>
-      )}
-      {citedCount > 0 && (
-        <div className="publication__statistics__item">
+        ) : undefined}
+        {unreviewedProteinCount ? (
           <Link
             to={{
               pathname: LocationToPath[Location.UniProtKBResults],
-              search: `query=(lit_pubmed:${pubmedId})`,
+              search: `facets=reviewed:false&query=(lit_citation_id:${id})`,
             }}
+            title={`UniProtKB unreviewed entries: ${unreviewedProteinCount}`}
           >
-            <div>
-              <small>Cited in</small>
-            </div>
-            <div className="publication__statistics__bubble">
-              <Bubble
-                colourClass="colour-pastel-blue"
-                size="small"
-                value={citedCount}
-              />
-              <CitedIcon width={15} height={15} />
-            </div>
+            <Bubble
+              colourClass="colour-pastel-blue"
+              size="small"
+              value={unreviewedProteinCount}
+            />
+            <TremblIcon
+              className="publication__statistics--unreviewed"
+              height="1em"
+            />
           </Link>
-        </div>
-      )}
-    </div>
+        ) : undefined}
+        {computationallyMappedProteinCount ? (
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              // NOTE: only works for PubMed IDs
+              search: `query=(computational_pubmed_id:${id})`,
+            }}
+            title={`Computationally mapped entries: ${computationallyMappedProteinCount}`}
+          >
+            <Bubble
+              colourClass="colour-pastel-blue"
+              size="small"
+              value={computationallyMappedProteinCount}
+            />
+            <ComputerMappedIcon height="1em" />
+          </Link>
+        ) : undefined}
+        {communityMappedProteinCount ? (
+          <Link
+            to={{
+              pathname: LocationToPath[Location.UniProtKBResults],
+              // NOTE: only works for PubMed IDs
+              search: `query=(community_pubmed_id:${id})`,
+            }}
+            title={`Community mapped entries: ${communityMappedProteinCount}`}
+          >
+            <Bubble
+              colourClass="colour-pastel-blue"
+              size="small"
+              value={communityMappedProteinCount}
+            />
+            <CommunityAnnotationIcon height="1em" />
+          </Link>
+        ) : undefined}
+      </div>
+    </>
   );
 };
 
-const LiteratureCitation: FC<{
-  data: SetOptional<CitationsAPIModel, 'statistics'>;
-  displayAll?: boolean;
-}> = ({ data, displayAll, children }) => {
+const LiteratureCitation: FC<
+  {
+    data: SetOptional<CitationsAPIModel, 'statistics'>;
+    displayAll?: boolean;
+    headingLevel?: `h${1 | 2 | 3 | 4 | 5 | 6}`;
+  } & HTMLAttributes<HTMLElement>
+> = ({
+  data,
+  displayAll,
+  headingLevel = 'h5',
+  children,
+  className,
+  ...props
+}) => {
   const { citation, statistics } = data;
   const { title, authors, literatureAbstract } = citation;
   const { pubmedId, journalInfo } = formatCitationData(citation);
 
   return (
-    <article className="publication">
+    <article className={cn(className, 'publication')} {...props}>
       <div className="publication__columns">
         <div className="publication__columns__main">
-          <h5>{title || 'No title available.'}</h5>
+          {createElement(
+            headingLevel,
+            {
+              className: cn('publication__heading', 'tiny', {
+                'publication__heading--no-title': !title,
+              }),
+            },
+            title || <em>No title available.</em>
+          )}
           {authors?.length && (
             <Authors authors={authors} limit={displayAll ? +Infinity : 10} />
           )}
@@ -249,11 +302,11 @@ const LiteratureCitation: FC<{
               )}
             </ul>
           </div>
-          <div className="publication__columns__side__item">
-            {statistics && pubmedId && (
-              <Statistics statistics={statistics} pubmedId={pubmedId} />
-            )}
-          </div>
+          {statistics && (
+            <div className="publication__columns__side__item">
+              <Statistics statistics={statistics} id={citation.id} />
+            </div>
+          )}
         </div>
       </div>
     </article>

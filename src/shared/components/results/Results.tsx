@@ -32,7 +32,7 @@ const Results: FC = () => {
     headers: facetHeaders,
     isStale: facetHasStaleData,
   } = facetApiObject;
-  const facetTotal = facetHeaders?.['x-totalrecords'];
+  const facetTotal = facetHeaders?.['x-total-records'];
 
   // Query for results data
   const { url: initialApiUrl, direct } = useNSQuery();

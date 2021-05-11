@@ -23,11 +23,7 @@ const EvidenceField: FC<{
   return (
     <label>
       Evidence
-      <select
-        data-testid="evidence-select"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      >
+      <select value={value} onChange={(e) => setValue(e.target.value)}>
         {field.evidenceGroups?.map((group) => (
           <optgroup label={group.groupName} key={group.groupName}>
             {group.items.map((item: { code: string; name: string }) => (

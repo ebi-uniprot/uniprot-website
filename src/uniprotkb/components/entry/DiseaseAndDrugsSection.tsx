@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import XRefView from '../protein-data-views/XRefView';
@@ -20,12 +19,19 @@ import {
   FreeTextComment,
 } from '../../types/commentTypes';
 
-const DiseaseAndDrugsSection: FC<{
+type Props = {
   data: UIModel;
   primaryAccession: string;
   sequence: string;
   taxId: number | undefined;
-}> = ({ data, primaryAccession, sequence, taxId }): JSX.Element | null => {
+};
+
+const DiseaseAndDrugsSection = ({
+  data,
+  primaryAccession,
+  sequence,
+  taxId,
+}: Props) => {
   if (!hasContent(data)) {
     return null;
   }
@@ -34,49 +40,49 @@ const DiseaseAndDrugsSection: FC<{
     taxId
   );
   return (
-    <div id={nameAndId.id} data-entry-section>
-      <Card title={nameAndId.name}>
-        <DiseaseInvolvementView
-          comments={
-            data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
-          }
-          primaryAccession={primaryAccession}
-          includeTitle
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(CommentType.ALLERGEN) as FreeTextComment[]
-          }
-          title={CommentType.ALLERGEN.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(
-              CommentType.DISRUPTION_PHENOTYPE
-            ) as FreeTextComment[]
-          }
-          title={CommentType.DISRUPTION_PHENOTYPE.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(
-              CommentType.PHARMACEUTICAL
-            ) as FreeTextComment[]
-          }
-          title={CommentType.PHARMACEUTICAL.toLowerCase()}
-        />
-        <FreeTextView
-          comments={
-            data.commentsData.get(CommentType.TOXIC_DOSE) as FreeTextComment[]
-          }
-          title={CommentType.TOXIC_DOSE.toLowerCase()}
-        />
-        <FeaturesView features={data.featuresData} sequence={sequence} />
-        <VariationView primaryAccession={primaryAccession} title="Variants" />
-        <KeywordView keywords={data.keywordData} />
-        <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
-      </Card>
-    </div>
+    <Card
+      header={<h2>{nameAndId.name}</h2>}
+      id={nameAndId.id}
+      data-entry-section
+    >
+      <DiseaseInvolvementView
+        comments={
+          data.commentsData.get(CommentType.DISEASE) as DiseaseComment[]
+        }
+        primaryAccession={primaryAccession}
+        includeTitle
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.ALLERGEN) as FreeTextComment[]
+        }
+        title={CommentType.ALLERGEN.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(
+            CommentType.DISRUPTION_PHENOTYPE
+          ) as FreeTextComment[]
+        }
+        title={CommentType.DISRUPTION_PHENOTYPE.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.PHARMACEUTICAL) as FreeTextComment[]
+        }
+        title={CommentType.PHARMACEUTICAL.toLowerCase()}
+      />
+      <FreeTextView
+        comments={
+          data.commentsData.get(CommentType.TOXIC_DOSE) as FreeTextComment[]
+        }
+        title={CommentType.TOXIC_DOSE.toLowerCase()}
+      />
+      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <VariationView primaryAccession={primaryAccession} title="Variants" />
+      <KeywordView keywords={data.keywordData} />
+      <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
+    </Card>
   );
 };
 

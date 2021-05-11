@@ -13,7 +13,7 @@ import { fileFormatEntryDownload as taxonomyFFED } from '../../taxonomy/config/d
 
 import { Namespace } from '../../../shared/types/namespaces';
 
-const lut = new Map([
+const formatMap = new Map([
   [Namespace.citations, citationsFFED],
   [Namespace.database, databaseFFED],
   [Namespace.diseases, diseasesFFED],
@@ -28,7 +28,7 @@ const EntryDownload = () => {
   );
   const { namespace, accession } = match?.params || {};
 
-  const fileFormatEntryDownload = namespace && lut.get(namespace);
+  const fileFormatEntryDownload = namespace && formatMap.get(namespace);
 
   if (!(namespace && accession && fileFormatEntryDownload)) {
     return null;

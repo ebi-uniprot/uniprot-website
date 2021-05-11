@@ -35,7 +35,7 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
   <button
     aria-controls="2"
     aria-expanded="false"
-    class="evidence-tag svg-colour-unreviewed"
+    class="svg-colour-unreviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -45,7 +45,6 @@ exports[`UniProtKBEvidenceTag components should render automatic  1`] = `
     />
     <span
       class="evidence-tag__label"
-      title=""
     >
       Imported
     </span>
@@ -63,7 +62,7 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
   <button
     aria-controls="0"
     aria-expanded="false"
-    class="evidence-tag svg-colour-reviewed"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -73,7 +72,6 @@ exports[`UniProtKBEvidenceTag components should render automatic annotation 1`] 
     />
     <span
       class="evidence-tag__label"
-      title=""
     >
       1 automatic annotation
     </span>
@@ -91,7 +89,7 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
   <button
     aria-controls="1"
     aria-expanded="false"
-    class="evidence-tag svg-colour-reviewed"
+    class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
     type="button"
   >
@@ -101,7 +99,6 @@ exports[`UniProtKBEvidenceTag components should render publications count 1`] = 
     />
     <span
       class="evidence-tag__label"
-      title=""
     >
       2 publications
     </span>

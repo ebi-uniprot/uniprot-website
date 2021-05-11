@@ -300,7 +300,7 @@ const PeptideSearchForm = () => {
             </legend>
             <textarea
               name={defaultFormValues[PeptideSearchFields.peps].fieldName}
-              autoComplete="false"
+              autoComplete="off"
               spellCheck="false"
               placeholder="Protein sequence(s) of at least 2 aminoacids"
               className="tools-form-raw-text-input"
@@ -349,6 +349,11 @@ const PeptideSearchForm = () => {
                   }}
                   placeholder={'"my job title"'}
                   value={jobName.selected as string}
+                  onFocus={(event) => {
+                    if (!jobNameEdited) {
+                      event.target.select();
+                    }
+                  }}
                   onChange={(event) => {
                     setJobNameEdited(Boolean(event.target.value));
                     setJobName({ ...jobName, selected: event.target.value });

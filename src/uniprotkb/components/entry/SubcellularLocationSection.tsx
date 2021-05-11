@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { Card } from 'franklin-sites';
 
 import EntrySection, {
@@ -15,32 +14,38 @@ import {
 } from '../../types/commentTypes';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
 
-const SubcellularLocationSection: FC<{
+type Props = {
   data: SubcellularLocationUIModel;
   sequence: string;
-}> = ({ data, sequence }): JSX.Element | null => {
+};
+
+const SubcellularLocationSection = ({ data, sequence }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
 
   return (
-    <div id={EntrySection.SubCellularLocation} data-entry-section>
-      <Card
-        title={getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}
-      >
-        <SubcellularLocationWithVizView
-          comments={
-            data.commentsData.get(
-              CommentType.SUBCELLULAR_LOCATION
-            ) as SubcellularLocationComment[]
-          }
-          taxonId={data.organismData?.taxonId}
-          lineage={data.organismData?.lineage}
-        />
-        <FeaturesView features={data.featuresData} sequence={sequence} />
-        <KeywordView keywords={data.keywordData} />
-      </Card>
-    </div>
+    <Card
+      header={
+        <h2>
+          {getEntrySectionNameAndId(EntrySection.SubCellularLocation).name}
+        </h2>
+      }
+      id={EntrySection.SubCellularLocation}
+      data-entry-section
+    >
+      <SubcellularLocationWithVizView
+        comments={
+          data.commentsData.get(
+            CommentType.SUBCELLULAR_LOCATION
+          ) as SubcellularLocationComment[]
+        }
+        taxonId={data.organismData?.taxonId}
+        lineage={data.organismData?.lineage}
+      />
+      <FeaturesView features={data.featuresData} sequence={sequence} />
+      <KeywordView keywords={data.keywordData} />
+    </Card>
   );
 };
 

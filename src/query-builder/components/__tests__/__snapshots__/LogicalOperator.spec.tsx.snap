@@ -5,7 +5,6 @@ exports[`LogicalOperator component should render 1`] = `
   <select
     aria-label="logical operator"
     class="query-builder__logic"
-    data-testid="query-builder-logic-select"
   >
     <option
       value="AND"
@@ -17,6 +16,24 @@ exports[`LogicalOperator component should render 1`] = `
     >
       OR
     </option>
+    <option
+      value="NOT"
+    >
+      NOT
+    </option>
+  </select>
+</DocumentFragment>
+`;
+
+exports[`LogicalOperator component should render not render "AND" or "OR" when it is the first one 1`] = `
+<DocumentFragment>
+  <select
+    aria-label="logical operator"
+    class="query-builder__logic query-builder__logic--diluted"
+  >
+    <option
+      value="AND"
+    />
     <option
       value="NOT"
     >

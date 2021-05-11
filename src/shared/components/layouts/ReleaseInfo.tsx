@@ -5,8 +5,6 @@ import useDataApi from '../../hooks/useDataApi';
 
 import apiUrls from '../../config/apiUrls';
 
-import parseDate from '../../utils/parseDate';
-
 import { Namespace } from '../../types/namespaces';
 
 import './styles/release-info.scss';
@@ -21,22 +19,21 @@ const ReleaseInfo = () => {
     `${apiUrls.search(Namespace.uniprotkb)}?query=*&size=0`,
     fetchOptions
   );
-  const releaseDate = parseDate(headers?.['x-release']);
+  // NOTE: don't use release number as date, might be different
+  const releaseNumber = headers?.['x-release-number'];
 
   return (
     <>
       <span
         className={cn(
-          { 'release-info__placeholder': !releaseDate },
+          { 'release-info__placeholder': !releaseNumber },
           'release-info__release_number'
         )}
       >
-        {releaseDate ? (
+        {releaseNumber ? (
           <a href="//www.uniprot.org/downloads">
             {/* TODO: update link */}
-            {/* TODO: don't use release number as date, might be different */}
-            Release {releaseDate.getFullYear()}_
-            {`${releaseDate.getMonth() + 1}`.padStart(2, '0')}
+            Release {releaseNumber}
           </a>
         ) : (
           `Release ${today.getFullYear()}_00`

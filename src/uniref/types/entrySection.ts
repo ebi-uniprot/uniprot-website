@@ -21,7 +21,7 @@ export const getEntrySectionNameAndId = (
       };
     case EntrySection.Members:
       return {
-        name: 'Members',
+        name: 'member',
         id: EntrySection.Members,
       };
   }

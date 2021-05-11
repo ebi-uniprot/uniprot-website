@@ -197,7 +197,8 @@ type Facets =
   | DiseasesFacets
   | DatabaseFacets
   | LocationsFacets;
-const defaultFacets = new Map<Namespace, Facets[]>([
+
+export const defaultFacets = new Map<Namespace, Facets[]>([
   // Main data
   [Namespace.uniprotkb, uniProtKBDefaultFacets],
   [Namespace.uniref, uniRefDefaultFacets],

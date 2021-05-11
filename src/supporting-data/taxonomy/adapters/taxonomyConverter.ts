@@ -3,11 +3,6 @@ import { SetRequired } from 'type-fest';
 import { Statistics } from '../../../shared/types/apiModel';
 import { Evidence } from '../../../uniprotkb/types/modelTypes';
 
-type TaxonomyStatistics = Statistics & {
-  referenceProteomeCount: number;
-  proteomeCount: number;
-};
-
 type InactiveReason = {
   inactiveReasonType: 'MERGED' | 'DELETED';
   mergedTo: number;
@@ -94,7 +89,11 @@ export type TaxonomyAPIModel = SetRequired<
   otherNames?: string[];
   strains?: Strain[];
   // Probably, only on "organisms", higher level taxons don't appear to have
-  statistics?: TaxonomyStatistics;
+  // Note: backend will add, remove optional when it's done
+  statistics?: SetRequired<
+    Statistics,
+    'referenceProteomeCount' | 'proteomeCount'
+  >;
   hosts?: SetRequired<TaxonomyDatum, 'mnemonic'>[];
   inactiveReason?: InactiveReason;
   active: boolean;

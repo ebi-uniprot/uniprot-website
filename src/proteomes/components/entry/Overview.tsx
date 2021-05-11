@@ -1,5 +1,5 @@
 import { FC, useMemo } from 'react';
-import { Card, InfoList, ExternalLink } from 'franklin-sites';
+import { Card, InfoList, ExternalLink, LongNumber } from 'franklin-sites';
 
 import TaxonomyView from '../../../shared/components/entry/TaxonomyView';
 import { EntryTypeIcon } from '../../../shared/components/entry/EntryTypeIcon';
@@ -42,10 +42,10 @@ export const Overview: FC<{
       },
       renderColumnAsInfoListItem(ProteomesColumn.proteinCount),
       {
-        title: 'Gene Count',
+        title: 'Gene count',
         content: (
           <>
-            {data.geneCount}
+            <LongNumber>{data.geneCount}</LongNumber>
             {data.geneCount && data.superkingdom && data.taxonomy.taxonId ? (
               <>
                 {' '}
@@ -111,7 +111,7 @@ export const Overview: FC<{
   }, [data]);
 
   return (
-    <Card title="Overview">
+    <Card header={<h2>Overview</h2>}>
       <InfoList columns isCompact infoData={infoData} />
       {data.description && (
         <div className="description">

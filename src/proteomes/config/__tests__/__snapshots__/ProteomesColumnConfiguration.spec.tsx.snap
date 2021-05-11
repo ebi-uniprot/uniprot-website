@@ -294,7 +294,7 @@ exports[`ProteomesColumnConfiguration component should render column "protein_co
   <a
     href="/uniprotkb?query=proteome:UP000005640"
   >
-    77036
+    77,036
   </a>
 </DocumentFragment>
 `;

@@ -294,7 +294,7 @@ const IDMappingForm = () => {
             </legend>
             <textarea
               name={defaultFormValues[IDMappingFields.ids].fieldName}
-              autoComplete="false"
+              autoComplete="off"
               spellCheck="false"
               placeholder="P31946 P62258 ALBU_HUMAN EFTU_ECOLI"
               className="tools-form-raw-text-input"
@@ -394,6 +394,11 @@ const IDMappingForm = () => {
                     }}
                     placeholder={'"my job title"'}
                     value={jobName.selected as string}
+                    onFocus={(event) => {
+                      if (!jobNameEdited) {
+                        event.target.select();
+                      }
+                    }}
                     onChange={(event) => {
                       setJobNameEdited(Boolean(event.target.value));
                       setJobName({ ...jobName, selected: event.target.value });

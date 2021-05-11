@@ -145,7 +145,7 @@ const getCheckJobStatus = ({
 
       const now = Date.now();
 
-      const hits: string = response.headers['x-totalrecords'];
+      const hits: string = response.headers['x-total-records'];
 
       if (!hits) {
         dispatch(

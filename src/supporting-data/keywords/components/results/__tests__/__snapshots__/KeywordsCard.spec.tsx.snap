@@ -3,49 +3,74 @@
 exports[`KeywordsCard tests should render the card component 1`] = `
 <DocumentFragment>
   <section
-    class="card"
+    class="card card--has-link"
   >
+    <a
+      aria-hidden="true"
+      class="card__link"
+      data-testid="background-link"
+      href="/keywords/KW-0021"
+      tabindex="-1"
+    />
     <div
-      class="card--has-hover"
-      role="button"
-      tabindex="0"
+      class="card__container"
     >
+      <div
+        class="card__header"
+      >
+        <h2
+          class="tiny"
+        >
+          Allosteric enzyme
+        </h2>
+      </div>
       <div
         class="card__content"
       >
         <div
-          class="result-card"
+          class="result-card__info-container"
         >
-          <div
-            class="result-card__right"
+          Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.
+        </div>
+        <div
+          class="result-card__info-container"
+        >
+          <span
+            class="result-card__info-bit"
           >
-            <h5>
-              Allosteric enzyme
-            </h5>
-            <div
-              class="result-card__info-container"
+            <strong>
+              Category: 
+            </strong>
+            <a
+              href="/keywords/KW-9992"
             >
-              Enzyme whose activity is modified by the noncovalent binding of an allosteric effector at a site other than the active site. This binding mediates conformational changes, altering its catalytic or binding properties.
-            </div>
-            <div
-              class="result-card__info-container"
-            >
-              <span
-                class="result-card__info-bit"
-              >
-                <strong>
-                  Category: 
-                </strong>
-                <a
-                  href="/keywords/KW-9992"
-                >
-                  Molecular function
-                </a>
-              </span>
-            </div>
-          </div>
+              Molecular function
+            </a>
+          </span>
         </div>
       </div>
+    </div>
+    <div
+      class="card__actions"
+    >
+      <a
+        class="card-action"
+        href="/uniprotkb?query=(keyword:KW-0021)"
+      >
+        138,671 UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:true&query=(keyword:KW-0021)"
+      >
+        2,480 reviewed UniProtKB entries
+      </a>
+      <a
+        class="card-action"
+        href="/uniprotkb?facets=reviewed:false&query=(keyword:KW-0021)"
+      >
+        136,191 unreviewed UniProtKB entries
+      </a>
     </div>
   </section>
 </DocumentFragment>

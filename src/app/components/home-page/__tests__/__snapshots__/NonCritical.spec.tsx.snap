@@ -328,18 +328,23 @@ exports[`non-critical HomePage component should render 1`] = `
     <div
       class="uniprot-grid-cell--span-4 latest-news__news-roll"
     >
-      <h2
-        class="medium"
+      <div
+        class="latest-news__news-roll-heading"
       >
+        <h2
+          class="medium"
+        >
+          Latest News
+        </h2>
         <a
           class="external-link"
           href="https://www.uniprot.org/news?sort=created"
           rel="noopener"
           target="_blank"
         >
-          Latest News
+          View archive
         </a>
-      </h2>
+      </div>
       <ul
         class="no-bullet"
       >
@@ -457,7 +462,7 @@ exports[`non-critical HomePage component should render 1`] = `
         <a
           aria-hidden="true"
           class="external-link"
-          href="https://www.proteinspotlight.org/spotlight/back_issues/234/"
+          href="https://www.proteinspotlight.org/back_issues/235/"
           rel="noopener"
           tabindex="-1"
           target="_blank"
@@ -466,7 +471,7 @@ exports[`non-critical HomePage component should render 1`] = `
             alt=""
             height="127.29"
             loading="lazy"
-            src="https://www.proteinspotlight.org/images/sptlt234.jpg"
+            src="https://www.proteinspotlight.org/images/sptlt235.jpg"
             width="184.305"
           />
         </a>
@@ -475,17 +480,17 @@ exports[`non-critical HomePage component should render 1`] = `
         >
           <a
             class="external-link"
-            href="https://www.proteinspotlight.org/spotlight/back_issues/234/"
+            href="https://www.proteinspotlight.org/back_issues/235/"
             rel="noopener"
             target="_blank"
           >
-            Wrong place
+            Catalysis
           </a>
         </h3>
         <p
           class="latest-news__abstract latest-news__abstract--4-lines"
         >
-          When you reach a certain age, one question arises on a painfully regular basis. It begins with a "Where are my...?" or a "Where is my..." Reading glasses are a constant. Frequently, they are not where they ought to be. Having relocated them, you may well remark that they are not where you put them. But they are. The thing is, in a moment of distraction, you left them where you would not normally: on the garden wall, in your coat pocket, on the clothes washing machine, perhaps even in the fridge. All in all, they were inadvertently mislocated. On a far smaller scale, the same kind of thing can happen to proteins. There are times when proteins end up where they should not be - which is a source of stress both for their unusual environment and the one they have not reached. Over time, cells have developed various quality control systems to correct all sorts of mistakes - one of them being mislocation. As an illustration, lodged in the endoplasmic reticulum membrane, the enzyme P5A-ATPase is able to spot mislocated transmembrane mitochondrial proteins, grab hold of them and fling them back into the cellular cytosol.
+          Sometimes, it takes very little to change the course of things. Though frequently it may require the presence of another. Take two people who become lovers and whose destinies change after having met by chance at a friend's house. Or two artists who recognise in each other a similar understanding of things and whose meeting causes something very different to emerge - Georges Braque and Pablo Picasso, Lee Krasner and Jackson Pollock, or Elaine and Willem de Kooning for instance. Or two scientists, for that matter. James Watson and Francis Crick will have no doubt fed on each other's enthusiasm to elucidate the structure of DNA. The same occurs in the world of proteins. It is no secret that proteins frequently work in twos - or indeed threes or more - by binding to one another to perform an overall function. Each individual protein, however, usually has a very distinctive part to play. On more rare occasions, bonding can influence a protein to act differently. This is what happens when two proteins, known as HPF1 and PARP1 (or 2), meet. PARP1/2 is known to act in one way, but when HPF1 binds to it, like two pieces of a jigsaw puzzle that lock to become a different shape, their active sites add up to create a novel one and, in so doing, PARP1/2 behaves differently
         </p>
       </article>
       <article>
@@ -685,7 +690,7 @@ exports[`non-critical HomePage component should render 1`] = `
     class="hero-container uniprot-grid uniprot-grid--centered uniprot-grid--with-bleed home-page-section need-help"
   >
     <div
-      class="uniprot-grid-cell--span-3 need-help__need-help"
+      class="uniprot-grid-cell--span-3 need-help__need-help-top"
     >
       <h2
         class="medium"
@@ -695,51 +700,53 @@ exports[`non-critical HomePage component should render 1`] = `
       <p>
         Find answers through our help center or get in touch
       </p>
-      <div>
-        <a
-          class="external-link help-center-link"
-          href="https://www.uniprot.org/help/"
-          rel="noopener"
-          target="_blank"
-        >
-          Help center
-        </a>
-         
-        <a
-          class="external-link"
-          href="https://www.uniprot.org/contact"
-          rel="noopener"
-          target="_blank"
-        >
-          Contact us
-        </a>
-        <br />
-        <a
-          class="external-link"
-          href="https://twitter.com/uniprot"
-          rel="noopener"
-          target="_blank"
-          title="UniProt posts on Twitter"
-        >
-          <test-file-stub
-            width="3ch"
-          />
-        </a>
-        <a
-          class="external-link"
-          href="https://www.facebook.com/uniprot.org"
-          rel="noopener"
-          target="_blank"
-          title="UniProt posts on Facebook"
-        >
-          <test-file-stub
-            width="3ch"
-          />
-        </a>
-      </div>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__attend-training"
+      class="uniprot-grid-cell--span-3 need-help__need-help-bottom"
+    >
+      <a
+        class="external-link help-center-link"
+        href="https://www.uniprot.org/help/"
+        rel="noopener"
+        target="_blank"
+      >
+        Help center
+      </a>
+       
+      <a
+        class="external-link"
+        href="https://www.uniprot.org/contact"
+        rel="noopener"
+        target="_blank"
+      >
+        Contact us
+      </a>
+      <br />
+      <a
+        class="external-link"
+        href="https://twitter.com/uniprot"
+        rel="noopener"
+        target="_blank"
+        title="UniProt posts on Twitter"
+      >
+        <test-file-stub
+          width="3ch"
+        />
+      </a>
+      <a
+        class="external-link"
+        href="https://www.facebook.com/uniprot.org"
+        rel="noopener"
+        target="_blank"
+        title="UniProt posts on Facebook"
+      >
+        <test-file-stub
+          width="3ch"
+        />
+      </a>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 need-help__attend-training-top"
     >
       <img
         alt=""
@@ -748,6 +755,10 @@ exports[`non-critical HomePage component should render 1`] = `
         src="test-file-stub"
         width="256"
       />
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 need-help__attend-training-bottom"
+    >
       <h2
         class="tiny"
       >
@@ -782,7 +793,7 @@ exports[`non-critical HomePage component should render 1`] = `
       </a>
     </div>
     <div
-      class="uniprot-grid-cell--span-3 need-help__tutorial-videos"
+      class="uniprot-grid-cell--span-3 need-help__tutorial-videos-top"
     >
       <lite-youtube
         playlabel="UniProt intro"
@@ -800,6 +811,10 @@ exports[`non-critical HomePage component should render 1`] = `
           </span>
         </button>
       </lite-youtube>
+    </div>
+    <div
+      class="uniprot-grid-cell--span-3 need-help__tutorial-videos-bottom"
+    >
       <a
         class="external-link"
         href="https://www.youtube.com/c/uniprotvideos/featured"

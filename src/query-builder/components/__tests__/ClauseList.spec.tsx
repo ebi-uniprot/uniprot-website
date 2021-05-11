@@ -4,31 +4,33 @@ import { createEmptyClause } from '../../utils/clause';
 
 import ClauseList from '../ClauseList';
 
-let rendered;
-let props;
+const props = {
+  clauses: [createEmptyClause(0), createEmptyClause(1)],
+  searchTerms: [],
+  evidences: {
+    go: {
+      data: [],
+      isFetching: false,
+    },
+    annotation: {
+      data: [],
+      isFetching: false,
+    },
+  },
+  handleRemoveClause: jest.fn(),
+  setClauses: jest.fn(),
+  removeClause: jest.fn(),
+};
 
 describe('ClauseList component', () => {
   beforeEach(() => {
-    props = {
-      clauses: [createEmptyClause(0)],
-      searchTerms: [],
-      evidences: {
-        go: {
-          data: [],
-          isFetching: false,
-        },
-        annotation: {
-          data: [],
-          isFetching: false,
-        },
-      },
-      handleRemoveClause: jest.fn(),
-    };
-    rendered = render(<ClauseList {...props} />);
+    props.handleRemoveClause.mockClear();
+    props.setClauses.mockClear();
+    props.removeClause.mockClear();
   });
 
   test('should render', () => {
-    const { asFragment } = rendered;
+    const { asFragment } = render(<ClauseList {...props} />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
