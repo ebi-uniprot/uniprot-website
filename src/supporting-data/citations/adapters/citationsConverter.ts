@@ -41,7 +41,7 @@ export type Reference = {
     value: string;
     type: string;
   }[];
-  source: { name: string; id?: string };
+  source?: { name: string; id?: string };
   pubMedId?: string;
   sourceCategories?: string[];
   referenceNumber?: number; // Only for UniProtKB (trembl and swissprot)

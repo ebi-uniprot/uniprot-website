@@ -18,7 +18,6 @@ import {
 } from '../../../shared/config/externalUrls';
 
 import {
-  CommentType,
   FreeTextComment,
   InteractionComment,
   Interaction,
@@ -79,14 +78,15 @@ const getInteractionColumns = (primaryAccession: string) => ({
 
 interface HTMLInteractionDatatable extends HTMLElement {
   data?: Interaction[];
-  columns?: {
-    [name: string]: {
+  columns?: Record<
+    string,
+    {
       label: string;
       resolver: (
         d: Interaction
-      ) => string | number | TemplateResult | TemplateResult[];
-    };
-  };
+      ) => undefined | string | number | TemplateResult | TemplateResult[];
+    }
+  >;
 }
 
 type Props = {
@@ -105,7 +105,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
 
   useEffect(() => {
     const interactionComment = data.commentsData.get(
-      CommentType.INTERACTION
+      'INTERACTION'
     ) as InteractionComment[];
     if (
       datatableContainer.current &&
@@ -132,9 +132,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
   if (!hasContent(data)) {
     return null;
   }
-  const comments = data.commentsData.get(
-    CommentType.SUBUNIT
-  ) as FreeTextComment[];
+  const comments = data.commentsData.get('SUBUNIT') as FreeTextComment[];
 
   if (!(datatableDefined && interactionViewerDefined)) {
     return <Loader />;
@@ -148,12 +146,7 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       id={EntrySection.Interaction}
       data-entry-section
     >
-      {comments && (
-        <FreeTextView
-          comments={comments}
-          title={CommentType.SUBUNIT.toLowerCase()}
-        />
-      )}
+      {comments && <FreeTextView comments={comments} title="subunit" />}
       <interaction-viewer accession={primaryAccession} />
       <protvista-datatable ref={datatableContainer} filter-scroll />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

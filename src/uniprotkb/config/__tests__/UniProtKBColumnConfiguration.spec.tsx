@@ -5,7 +5,7 @@ import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-import data from '../../__mocks__/entryModelData.json';
+import data from '../../__mocks__/entryModelData';
 
 jest.mock('../../../tools/utils/storage');
 

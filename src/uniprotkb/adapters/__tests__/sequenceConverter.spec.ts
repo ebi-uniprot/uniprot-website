@@ -1,16 +1,14 @@
 import { convertSequence } from '../sequenceConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/entryModelData';
 
 describe('Sequence data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = convertSequence(modelData);
+    const convertedData = convertSequence(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       alternativeProducts: {
         commentType: 'ALTERNATIVE PRODUCTS',

@@ -1,11 +1,14 @@
 import { enableFetchMocks } from 'jest-fetch-mock';
 import { MemoryRouter as Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
+
 import EntryMain from '../EntryMain';
 import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
-import mockData from '../../../__mocks__/entryModelData.json';
-import interactionData from '../../../__mocks__/interaction.json';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
+
+import mockData from '../../../__mocks__/entryModelData';
+import interactionData from '../../../__mocks__/interaction.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 
 enableFetchMocks();

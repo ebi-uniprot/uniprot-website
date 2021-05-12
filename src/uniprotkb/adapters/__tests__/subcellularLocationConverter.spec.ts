@@ -1,16 +1,14 @@
 import convertSubcellularLocation from '../subcellularLocationConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/entryModelData';
 
 describe('Subcellular data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = convertSubcellularLocation(modelData);
+    const convertedData = convertSubcellularLocation(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       commentsData: new Map([
         [

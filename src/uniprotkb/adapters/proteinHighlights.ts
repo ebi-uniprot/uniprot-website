@@ -99,41 +99,35 @@ const getProteinHighlights = ({
   > = [
     // FEATURES
     // domains
-    [
-      highlightSection.domains,
-      extraAttributes?.countByFeatureType?.[FeatureType.DOMAIN],
-    ],
+    [highlightSection.domains, extraAttributes?.countByFeatureType?.Domain],
     // PTMs
     [
       highlightSection.PTM,
-      extraAttributes?.countByFeatureType?.[FeatureType.MOD_RES],
+      extraAttributes?.countByFeatureType?.['Modified residue'],
     ],
     // variants
     [
       highlightSection.variants,
-      extraAttributes?.countByFeatureType?.[FeatureType.VARIANT],
+      extraAttributes?.countByFeatureType?.['Natural variant'],
     ],
     // active sites
     [
       highlightSection.activeSites,
-      extraAttributes?.countByFeatureType?.[FeatureType.ACT_SITE],
+      extraAttributes?.countByFeatureType?.['Active site'],
     ],
     // COMMENTS
     // isoforms
     [
       highlightSection.isoforms,
-      extraAttributes?.countByCommentType?.[CommentType.ALTERNATIVE_PRODUCTS],
+      extraAttributes?.countByCommentType?.['ALTERNATIVE PRODUCTS'],
     ],
     // interactions
     [
       highlightSection.interactions,
-      extraAttributes?.countByCommentType?.[CommentType.INTERACTION],
+      extraAttributes?.countByCommentType?.INTERACTION,
     ],
     // diseases
-    [
-      highlightSection.disease,
-      extraAttributes?.countByCommentType?.[CommentType.DISEASE],
-    ],
+    [highlightSection.disease, extraAttributes?.countByCommentType?.DISEASE],
     // XREFS
     // 3D structures
     [

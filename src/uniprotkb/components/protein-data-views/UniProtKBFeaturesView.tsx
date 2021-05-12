@@ -20,7 +20,7 @@ type FeatureLocation = {
 export type FeatureData = {
   type: FeatureType;
   featureId?: string;
-  description?: string;
+  description?: string; // Sometimes you do have an empty string though
   location: {
     start: FeatureLocation;
     end: FeatureLocation;
@@ -28,7 +28,7 @@ export type FeatureData = {
   };
   alternativeSequence?: {
     originalSequence?: string;
-    alternativeSequences: string[];
+    alternativeSequences?: string[];
   };
   evidences?: Evidence[];
   featureCrossReference?: Xref;
@@ -92,8 +92,8 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
     positions: {
       label: 'Positions',
       resolver: (d: ProcessedFeature): string =>
-        `${d.startModifier === LocationModifier.UNKNOWN ? '?' : d.start}-${
-          d.endModifier === LocationModifier.UNKNOWN ? '?' : d.end
+        `${d.startModifier === 'UNKNOWN' ? '?' : d.start}-${
+          d.endModifier === 'UNKNOWN' ? '?' : d.end
         }`,
     },
     description: {

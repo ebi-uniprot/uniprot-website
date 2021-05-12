@@ -15,7 +15,7 @@ import apiUrls, {
 
 import { Namespace } from '../../../../shared/types/namespaces';
 
-import entryData from '../../../__mocks__/entryModelData.json';
+import entryData from '../../../__mocks__/entryModelData';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 import deletedEntryData from '../../../../shared/__mocks__/deletedEntryModelData.json';
 import demergedEntryData from '../../../../shared/__mocks__/demergedEntryModelData.json';

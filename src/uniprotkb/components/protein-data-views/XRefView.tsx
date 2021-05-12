@@ -183,7 +183,7 @@ export const XRef: FC<XRefProps> = ({
     );
   }
 
-  const params: { [key: string]: string } = {
+  const params: Record<string, string> = {
     primaryAccession,
     ...properties,
   };

@@ -4,7 +4,7 @@ import SequenceSearchLoader from '../SequenceSearchLoader';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-import entryModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
+import entryModelData from '../../../uniprotkb/__mocks__/entryModelData';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 jest.mock('../../../shared/hooks/useDataApi', () => jest.fn());

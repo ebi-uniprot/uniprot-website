@@ -228,10 +228,20 @@ const ProteinNamesView: FC<{
   if (proteinNames.cdAntigenNames) {
     infoData.push({
       title: 'CD Antigen Name',
-      content: isCompact ? (
-        <>{proteinNames.cdAntigenNames.value}</>
-      ) : (
-        <NameWithEvidence data={proteinNames.cdAntigenNames} />
+      content: (
+        <ExpandableList descriptionString="CD antigen names">
+          {proteinNames.cdAntigenNames.map((cdAntigenName, index) => (
+            <Fragment
+              key={index} // eslint-disable-line react/no-array-index-key
+            >
+              {isCompact ? (
+                cdAntigenName.value
+              ) : (
+                <NameWithEvidence data={cdAntigenName} />
+              )}
+            </Fragment>
+          ))}
+        </ExpandableList>
       ),
     });
   }

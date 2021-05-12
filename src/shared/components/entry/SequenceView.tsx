@@ -42,6 +42,7 @@ export type SequenceData = {
   length: number;
   molWeight: number;
   crc64: string;
+  md5: string;
 };
 
 type SequenceViewProps = {

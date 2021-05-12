@@ -18,7 +18,7 @@ export type ProteinDescription = {
   alternativeNames?: ProteinNames[];
   allergenName?: ValueWithEvidence;
   biotechName?: ValueWithEvidence;
-  cdAntigenNames?: ValueWithEvidence;
+  cdAntigenNames?: ValueWithEvidence[];
   innNames?: ValueWithEvidence;
   flag?: Flag;
 };
@@ -45,13 +45,17 @@ export type NamesAndTaxonomyUIModel = {
   virusHosts?: TaxonomyDatum[];
 } & UIModel;
 
-export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
+export const convertNamesAndTaxonomy = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const namesAndTaxonomyData: NamesAndTaxonomyUIModel = convertSection(
     data,
     undefined,
     undefined,
     undefined,
-    EntrySection.NamesAndTaxonomy
+    EntrySection.NamesAndTaxonomy,
+    uniProtKBCrossReferences
   );
 
   namesAndTaxonomyData.primaryAccession = data.primaryAccession;
@@ -69,8 +73,8 @@ export const convertNamesAndTaxonomy = (data: UniProtkbAPIModel) => {
   if (data.virusHosts) {
     namesAndTaxonomyData.virusHosts = data.virusHosts;
   }
-  if (data.uniProtKBCrossReferences) {
-    namesAndTaxonomyData.proteomesData = data.uniProtKBCrossReferences.filter(
+  if (uniProtKBCrossReferences) {
+    namesAndTaxonomyData.proteomesData = uniProtKBCrossReferences.filter(
       (db) => db.database === 'Proteomes'
     );
   }

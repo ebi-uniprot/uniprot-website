@@ -1,24 +1,25 @@
 import { UIModel } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { CommentType } from '../types/commentTypes';
 import { getXrefsForSection } from '../utils/xrefUtils';
 import EntrySection from '../types/entrySection';
+import { Xref } from '../../shared/types/apiModel';
 
-const convertExternalLinks = (data: UniProtkbAPIModel) => {
+const convertExternalLinks = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const convertedData: UIModel = {
     commentsData: new Map(),
     keywordData: [],
     featuresData: [],
     xrefData: [],
   };
-  const { comments, uniProtKBCrossReferences, genes, organism } = data;
+  const { comments, genes, organism } = data;
 
   if (comments) {
     convertedData.commentsData.set(
-      CommentType.WEB_RESOURCE,
-      comments.filter(
-        (comment) => comment.commentType === CommentType.WEB_RESOURCE
-      )
+      'WEB RESOURCE',
+      comments.filter((comment) => comment.commentType === 'WEB RESOURCE')
     );
   }
   if (uniProtKBCrossReferences) {

@@ -38,18 +38,6 @@ export type KineticParameters = {
   };
 };
 
-export type CofactorComment = {
-  commentType: CommentType.COFACTOR;
-  cofactors?: {
-    name: string;
-    evidences?: Evidence[];
-    cofactorCrossReference?: Xref;
-  }[];
-  note: {
-    texts: TextWithEvidence[];
-  };
-};
-
 export type BioPhysicoChemicalProperties = {
   absorption?: Absorption;
   kinetics?: KineticParameters;
@@ -77,50 +65,54 @@ export type FunctionUIModel = {
   goTerms?: GroupedGoTerms;
 } & UIModel;
 
-const keywordsCategories = [
-  KeywordCategory.MOLECULAR_FUNCTION,
-  KeywordCategory.BIOLOGICAL_PROCESS,
-  KeywordCategory.LIGAND,
+const keywordsCategories: KeywordCategory[] = [
+  'Molecular function',
+  'Biological process',
+  'Ligand',
 ];
 
-const featuresCategories = [
-  FeatureType.DOMAIN,
-  FeatureType.REPEAT,
-  FeatureType.CA_BIND,
-  FeatureType.ZN_FING,
-  FeatureType.DNA_BIND,
-  FeatureType.NP_BINDL,
-  FeatureType.REGION,
-  FeatureType.COILED,
-  FeatureType.MOTIF,
-  FeatureType.ACT_SITE,
-  FeatureType.METAL,
-  FeatureType.BINDING,
-  FeatureType.SITE,
+const featuresCategories: FeatureType[] = [
+  'Domain',
+  'Repeat',
+  'Calcium binding',
+  'Zinc finger',
+  'DNA binding',
+  'Nucleotide binding',
+  'Region',
+  'Coiled coil',
+  'Motif',
+  'Active site',
+  'Metal binding',
+  'Binding site',
+  'Site',
 ];
 
-const commentsCategories = [
-  CommentType.FUNCTION,
-  CommentType.CATALYTIC_ACTIVITY,
-  CommentType.COFACTOR,
-  CommentType.ACTIVITY_REGULATION,
-  CommentType.BIOPHYSICOCHEMICAL_PROPERTIES,
-  CommentType.PATHWAY,
-  CommentType.CAUTION,
-  CommentType.MISCELLANEOUS,
-  CommentType.BIOTECHNOLOGY,
+const commentsCategories: CommentType[] = [
+  'FUNCTION',
+  'CATALYTIC ACTIVITY',
+  'COFACTOR',
+  'ACTIVITY REGULATION',
+  'BIOPHYSICOCHEMICAL PROPERTIES',
+  'PATHWAY',
+  'CAUTION',
+  'MISCELLANEOUS',
+  'BIOTECHNOLOGY',
 ];
 
-const convertFunction = (data: UniProtkbAPIModel) => {
+const convertFunction = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) => {
   const convertedSection = convertSection(
     data,
     commentsCategories,
     keywordsCategories,
     featuresCategories,
-    EntrySection.Function
+    EntrySection.Function,
+    uniProtKBCrossReferences
   ) as FunctionUIModel;
   const bpcProperties = convertedSection.commentsData.get(
-    CommentType.BIOPHYSICOCHEMICAL_PROPERTIES
+    'BIOPHYSICOCHEMICAL PROPERTIES'
   );
   convertedSection.bioPhysicoChemicalProperties = {};
   if (bpcProperties) {
@@ -142,22 +134,20 @@ const convertFunction = (data: UniProtkbAPIModel) => {
       }
     });
   }
-  convertedSection.commentsData.delete(
-    CommentType.BIOPHYSICOCHEMICAL_PROPERTIES
-  );
+  convertedSection.commentsData.delete('BIOPHYSICOCHEMICAL PROPERTIES');
 
   // Remove isoform MISCELLANEOUS comments as they go in the Sequence section
   const miscellaneousComments = convertedSection.commentsData
-    ?.get(CommentType.MISCELLANEOUS)
+    ?.get('MISCELLANEOUS')
     ?.filter((comment) => !(comment as FreeTextComment).molecule);
 
   convertedSection.commentsData.set(
-    CommentType.MISCELLANEOUS,
+    'MISCELLANEOUS',
     miscellaneousComments || []
   );
 
-  if (data.uniProtKBCrossReferences) {
-    const goTerms = (data.uniProtKBCrossReferences.filter(
+  if (uniProtKBCrossReferences) {
+    const goTerms = (uniProtKBCrossReferences.filter(
       (xref) => xref.database === 'GO' && xref.properties
     ) as GoTerm[]).map((term) => {
       const goTermProperty = term.properties && term.properties.GoTerm;

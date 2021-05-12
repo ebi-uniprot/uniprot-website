@@ -5,7 +5,7 @@ import HSPDetailPanel from '../HSPDetailPanel';
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
-import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
+import modelData from '../../../../../uniprotkb/__mocks__/entryModelData';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useSize from '../../../../../shared/hooks/useSize';
 

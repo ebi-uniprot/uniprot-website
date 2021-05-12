@@ -10,7 +10,7 @@ import FreeTextView from '../protein-data-views/FreeTextView';
 
 import { hasContent } from '../../../shared/utils/utils';
 
-import { CommentType, FreeTextComment } from '../../types/commentTypes';
+import { FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 
 type Props = {
@@ -38,8 +38,8 @@ const ProteinProcessingSection = ({
     >
       <FeaturesView features={featuresData} sequence={sequence} />
       <FreeTextView
-        comments={commentsData.get(CommentType.PTM) as FreeTextComment[]}
-        title={CommentType.PTM}
+        comments={commentsData.get('PTM') as FreeTextComment[]}
+        title="PTM"
       />
       <KeywordView keywords={keywordData} />
       <XRefView xrefs={xrefData} primaryAccession={primaryAccession} />

@@ -1,14 +1,15 @@
-export enum KeywordCategory {
-  BIOLOGICAL_PROCESS = 'Biological process',
-  CELLULAR_COMPONENT = 'Cellular component',
-  CODING_SEQUENCE_DIVERSITY = 'Coding sequence diversity',
-  DEVELOPMENTAL_STAGE = 'Developmental stage',
-  DISEASE = 'Disease',
-  DOMAIN = 'Domain',
-  LIGAND = 'Ligand',
-  MOLECULAR_FUNCTION = 'Molecular function',
-  PTM = 'PTM',
-  TECHNICAL_TERM = 'Technical term',
-}
+// Should probably  live somewhere in `supporting-data/keywords`
+
+export type KeywordCategory =
+  | 'Biological process'
+  | 'Cellular component'
+  | 'Coding sequence diversity'
+  | 'Developmental stage'
+  | 'Disease'
+  | 'Domain'
+  | 'Ligand'
+  | 'Molecular function'
+  | 'PTM'
+  | 'Technical term';
 
 export default KeywordCategory;

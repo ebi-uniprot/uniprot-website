@@ -4,9 +4,7 @@ import UniProtKBCard from '../UniProtKBCard';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import { UniProtkbAPIModel } from '../../../adapters/uniProtkbConverter';
-
-import data from '../../../__mocks__/entryModelData.json';
+import data from '../../../__mocks__/entryModelData';
 
 const handleEntrySelection = jest.fn();
 
@@ -15,11 +13,7 @@ let rendered;
 describe('UniProtKBCard component', () => {
   beforeEach(() => {
     rendered = customRender(
-      <UniProtKBCard
-        // TODO: check mock data to see if it fits model, something's off...
-        data={data as UniProtkbAPIModel}
-        handleEntrySelection={handleEntrySelection}
-      />
+      <UniProtKBCard data={data} handleEntrySelection={handleEntrySelection} />
     );
   });
 

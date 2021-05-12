@@ -130,8 +130,8 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
 
   const sls = comments
     ?.flatMap(({ subcellularLocations }) =>
-      subcellularLocations?.map(({ location }) =>
-        getSubcellularLocationId(location.id)
+      subcellularLocations?.map(
+        ({ location }) => location.id && getSubcellularLocationId(location.id)
       )
     )
     .filter(Boolean)

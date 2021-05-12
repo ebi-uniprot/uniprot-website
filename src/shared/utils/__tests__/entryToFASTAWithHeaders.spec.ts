@@ -1,6 +1,6 @@
 import entryToFASTAWithHeaders from '../entryToFASTAWithHeaders';
 
-import uniProtKBModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
+import uniProtKBModelData from '../../../uniprotkb/__mocks__/entryModelData';
 import uniParcModelData from '../../../uniparc/__mocks__/entryModelData';
 
 describe('entryToFASTAWithHeaders', () => {

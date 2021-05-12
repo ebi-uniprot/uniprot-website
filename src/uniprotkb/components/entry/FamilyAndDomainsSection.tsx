@@ -8,7 +8,7 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import EntrySection, {
   getEntrySectionNameAndId,
 } from '../../types/entrySection';
-import { CommentType, FreeTextComment } from '../../types/commentTypes';
+import { FreeTextComment } from '../../types/commentTypes';
 import { UIModel } from '../../adapters/sectionConverter';
 import { hasContent } from '../../../shared/utils/utils';
 
@@ -36,16 +36,12 @@ const FamilyAndDomainsSection = ({
     >
       <FeaturesView features={data.featuresData} sequence={sequence} />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.DOMAIN) as FreeTextComment[]
-        }
-        title={CommentType.DOMAIN.toLowerCase()}
+        comments={data.commentsData.get('DOMAIN') as FreeTextComment[]}
+        title="domain"
       />
       <FreeTextView
-        comments={
-          data.commentsData.get(CommentType.SIMILARITY) as FreeTextComment[]
-        }
-        title={CommentType.SIMILARITY.toLowerCase()}
+        comments={data.commentsData.get('SIMILARITY') as FreeTextComment[]}
+        title="similarity"
       />
       <KeywordView keywords={data.keywordData} />
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />

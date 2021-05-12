@@ -1,5 +1,6 @@
-import modelData from '../../__mocks__/entryModelData.json';
 import extractIsoforms from '../extractIsoformsConverter';
+
+import modelData from '../../__mocks__/entryModelData';
 
 describe('Accessions data converter', () => {
   test('should extract all accessions', () => {
