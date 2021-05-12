@@ -1,5 +1,10 @@
 import { useMemo } from 'react';
-import { HeroContainer, Loader, PageIntro } from 'franklin-sites';
+import {
+  ExpandableList,
+  HeroContainer,
+  Loader,
+  PageIntro,
+} from 'franklin-sites';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
@@ -111,11 +116,18 @@ const IDMappingResult = () => {
       <PageIntro title="ID Mapping Results" />
       {total && (
         <HeroContainer>
-          {total} out of {total + (failedIds ? failedIds.length : 0)}{' '}
-          identifiers from {detailsData?.from} were successfully mapped to{' '}
+          <strong>{total}</strong> out of{' '}
+          <strong>{total + (failedIds ? failedIds.length : 0)}</strong>{' '}
+          {detailsData?.from} identifiers were successfully mapped to{' '}
           {detailsData?.to}.
-          <br />
-          {failedIds?.join(', ')}
+          {failedIds && (
+            <p>
+              The following ids were not mapped:
+              <ExpandableList descriptionString="ids" numberCollapsedItems={5}>
+                {failedIds.map((id) => id)}
+              </ExpandableList>
+            </p>
+          )}
         </HeroContainer>
       )}
       {/* TODO only display buttons when namespace exists, otherwise download only */}
