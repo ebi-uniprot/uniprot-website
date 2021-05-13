@@ -1,5 +1,11 @@
-import { FC } from 'react';
-import { Facets, Facet, Loader } from 'franklin-sites';
+import { FC, useMemo } from 'react';
+import {
+  Facets,
+  Facet,
+  Loader,
+  SwissProtIcon,
+  TremblIcon,
+} from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';
 
@@ -8,10 +14,28 @@ import TaxonomyFacet from './TaxonomyFacet';
 import { mainNamespaces } from '../../types/namespaces';
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
-import Response from '../../../uniprotkb/types/responseTypes';
+import Response, { FacetValue } from '../../../uniprotkb/types/responseTypes';
 
 import helper from '../../styles/helper.module.scss';
 import './styles/results-data.scss';
+
+const ICON_HEIGHT = '1em';
+
+const getDecoratedFacetValue = (facetValue: FacetValue) => ({
+  ...facetValue,
+  label:
+    facetValue.value === 'true' ? (
+      <>
+        <SwissProtIcon height={ICON_HEIGHT} className="icon--reviewed" />
+        {facetValue.label}
+      </>
+    ) : (
+      <>
+        <TremblIcon height={ICON_HEIGHT} className="icon--unreviewed" />
+        {facetValue.label}
+      </>
+    ),
+});
 
 const ResultsFacets: FC<{
   dataApiObject: UseDataAPIWithStaleState<Response['data']>;
@@ -31,11 +55,29 @@ const ResultsFacets: FC<{
 
   const { facets } = data;
 
-  const splitIndex = facets.findIndex(
+  // Add relevant icons
+  const facetsWithIcons = useMemo(
+    () =>
+      facets.map((facet) =>
+        facet.name === 'reviewed'
+          ? {
+              ...facet,
+              values: facet.values?.map((facetValue) =>
+                getDecoratedFacetValue(facetValue)
+              ),
+            }
+          : facet
+      ),
+    [facets]
+  );
+
+  const splitIndex = facetsWithIcons.findIndex(
     (facet) => facet.name === 'model_organism' || facet.name === 'superkingdom'
   );
-  const before = splitIndex === -1 ? [] : facets.slice(0, splitIndex + 1);
-  const after = splitIndex === -1 ? facets : facets.slice(splitIndex + 1);
+  const before =
+    splitIndex === -1 ? [] : facetsWithIcons.slice(0, splitIndex + 1);
+  const after =
+    splitIndex === -1 ? facetsWithIcons : facetsWithIcons.slice(splitIndex + 1);
 
   return (
     <Facets className={isStale ? helper.stale : undefined}>
