@@ -23,7 +23,7 @@ const ReleaseInfo = () => {
   const releaseNumber = headers?.['x-release-number'];
 
   return (
-    <>
+    <span className="release-info">
       <span
         className={cn(
           { 'release-info__placeholder': !releaseNumber },
@@ -43,7 +43,7 @@ const ReleaseInfo = () => {
       <a href="//www.uniprot.org/statistics/?sort=published">
         {/* TODO: update link */}Statistics
       </a>
-    </>
+    </span>
   );
 };
 
