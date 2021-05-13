@@ -1,4 +1,4 @@
-import { useState, Suspense, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import {
   Header,
@@ -8,10 +8,7 @@ import {
   ToolboxIcon,
 } from 'franklin-sites';
 
-import SlidingPanel, { Position } from './SlidingPanel';
 import SearchContainer from '../search/SearchContainer';
-
-import lazy from '../../utils/lazy';
 
 import useNS from '../../hooks/useNS';
 
@@ -59,13 +56,6 @@ const secondaryItems = [
   { label: <BasketIcon aria-label="Basket" />, path: '/' },
 ];
 
-const QueryBuilder = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "query-builder" */ '../../../query-builder/components/QueryBuilder'
-    )
-);
-
 const SearchContainerWithNamespace = () => {
   const namespace = useNS();
 
@@ -91,34 +81,18 @@ const SearchContainerWithNamespace = () => {
 
 const UniProtHeader = () => {
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
-  const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
-  const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
-
   return (
-    <>
-      <Header
-        items={headerItems}
-        isNegative={isHomePage}
-        search={!isHomePage && <SearchContainerWithNamespace />}
-        logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
-        secondaryItems={secondaryItems}
-        subtext={isHomePage && <ReleaseInfo />}
-      />
-      {displayQueryBuilder && (
-        <Suspense fallback={null}>
-          <SlidingPanel
-            position={Position.left}
-            yScrollable
-            onClose={handleClose}
-          >
-            <QueryBuilder onCancel={handleClose} />
-          </SlidingPanel>
-        </Suspense>
-      )}
-    </>
+    <Header
+      items={headerItems}
+      isNegative={isHomePage}
+      search={!isHomePage && <SearchContainerWithNamespace />}
+      logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
+      secondaryItems={secondaryItems}
+      subtext={isHomePage && <ReleaseInfo />}
+    />
   );
 };
 export default UniProtHeader;

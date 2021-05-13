@@ -1,7 +1,18 @@
-import { useState, useEffect, FC, Fragment, HTMLAttributes } from 'react';
+import {
+  useState,
+  useEffect,
+  FC,
+  Fragment,
+  HTMLAttributes,
+  useCallback,
+  Suspense,
+  lazy,
+} from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button } from 'franklin-sites';
+
+import SlidingPanel, { Position } from '../layouts/SlidingPanel';
 
 import {
   Location,
@@ -11,6 +22,13 @@ import {
 import { Namespace, NamespaceLabels } from '../../types/namespaces';
 
 import './styles/search-container.scss';
+
+const QueryBuilder = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "query-builder" */ '../../../query-builder/components/QueryBuilder'
+    )
+);
 
 const examples: Record<Namespace, string[]> = {
   // Main data
@@ -59,6 +77,9 @@ const SearchContainer: FC<
 > = ({ includeFooter, namespace, onNamespaceChange, ...props }) => {
   const history = useHistory();
   const location = useLocation();
+  const [displayQueryBuilder, setDisplayQueryBuilder] = useState(false);
+
+  const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   // local state to hold the search value without modifying URL
   const [searchTerm, setSearchTerm] = useState(
@@ -91,6 +112,23 @@ const SearchContainer: FC<
     setSearchTerm(example);
   };
 
+  const secondaryButtons = [
+    {
+      label: 'Advanced',
+      action: () => {
+        setDisplayQueryBuilder(true);
+      },
+    },
+    {
+      label: 'List',
+      action: () => {
+        history.push({
+          pathname: LocationToPath[Location.IDMapping],
+        });
+      },
+    },
+  ];
+
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
@@ -98,47 +136,61 @@ const SearchContainer: FC<
   }, [location]);
 
   return (
-    <section role="search" {...props}>
-      <MainSearch
-        namespaces={NamespaceLabels}
-        searchTerm={searchTerm}
-        onChange={setSearchTerm}
-        onSubmit={handleSubmit}
-        onNamespaceChange={setNamespace}
-        selectedNamespace={namespace}
-      />
-      {includeFooter && (
-        <div className="search-container-footer">
-          <div>
-            {examples[namespace] && (
-              <>
-                Examples:{' '}
-                {examples[namespace]?.map((example, index) => (
-                  <Fragment key={example}>
-                    {index === 0 ? null : ', '}
-                    <Button
-                      variant="tertiary"
-                      onClick={() => loadExample(example)}
-                    >
-                      {example}
-                    </Button>
-                  </Fragment>
-                ))}
-              </>
-            )}
+    <>
+      <section role="search" {...props}>
+        <MainSearch
+          namespaces={NamespaceLabels}
+          searchTerm={searchTerm}
+          onTextChange={setSearchTerm}
+          onSubmit={handleSubmit}
+          onNamespaceChange={setNamespace}
+          selectedNamespace={namespace}
+          secondaryButtons={secondaryButtons}
+        />
+        {includeFooter && (
+          <div className="search-container-footer">
+            <div>
+              {examples[namespace] && (
+                <>
+                  Examples:{' '}
+                  {examples[namespace]?.map((example, index) => (
+                    <Fragment key={example}>
+                      {index === 0 ? null : ', '}
+                      <Button
+                        variant="tertiary"
+                        onClick={() => loadExample(example)}
+                      >
+                        {example}
+                      </Button>
+                    </Fragment>
+                  ))}
+                </>
+              )}
+            </div>
+            <div>
+              <Button
+                variant="tertiary"
+                element={Link}
+                to={LocationToPath[Location.IDMapping]}
+              >
+                Search with a list of IDs
+              </Button>
+            </div>
           </div>
-          <div>
-            <Button
-              variant="tertiary"
-              element={Link}
-              to={LocationToPath[Location.IDMapping]}
-            >
-              Search with a list of IDs
-            </Button>
-          </div>
-        </div>
+        )}
+      </section>
+      {displayQueryBuilder && (
+        <Suspense fallback={null}>
+          <SlidingPanel
+            position={Position.left}
+            yScrollable
+            onClose={handleClose}
+          >
+            <QueryBuilder onCancel={handleClose} />
+          </SlidingPanel>
+        </Suspense>
       )}
-    </section>
+    </>
   );
 };
 
