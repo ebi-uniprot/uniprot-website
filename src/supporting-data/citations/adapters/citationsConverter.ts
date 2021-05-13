@@ -1,6 +1,7 @@
 import { SetRequired } from 'type-fest';
 
 import { Statistics } from '../../../shared/types/apiModel';
+import { Evidence } from '../../../uniprotkb/types/modelTypes';
 
 export enum CitationXRefDB {
   PubMed = 'PubMed',
@@ -24,10 +25,17 @@ export type Citation = {
   title?: string;
   // Will always be a string, could be like '2000', or 'DEC-2000'.
   publicationDate?: string;
+  institute?: string;
+  patentNumber?: string;
+  bookName?: string;
+  editors?: string[];
   journal?: string;
+  locator?: string;
   firstPage?: string;
   lastPage?: string;
   volume?: string;
+  publisher?: string;
+  address?: string;
   completeAuthorList?: boolean;
   literatureAbstract?: string;
   authoringGroup?: string[];
@@ -40,7 +48,9 @@ export type Reference = {
   referenceComments?: {
     value: string;
     type: string;
+    evidences?: Evidence[];
   }[];
+  evidences?: Evidence[];
   source?: { name: string; id?: string };
   pubMedId?: string;
   sourceCategories?: string[];

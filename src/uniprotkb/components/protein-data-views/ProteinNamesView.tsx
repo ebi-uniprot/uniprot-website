@@ -249,10 +249,16 @@ const ProteinNamesView: FC<{
   if (proteinNames.innNames) {
     infoData.push({
       title: 'INN Name',
-      content: isCompact ? (
-        <>{proteinNames.innNames.value}</>
-      ) : (
-        <NameWithEvidence data={proteinNames.innNames} />
+      content: (
+        <ExpandableList descriptionString="INN names">
+          {proteinNames.innNames.map((innName, index) => (
+            <Fragment
+              key={index} // eslint-disable-line react/no-array-index-key
+            >
+              {isCompact ? innName.value : <NameWithEvidence data={innName} />}
+            </Fragment>
+          ))}
+        </ExpandableList>
       ),
     });
   }

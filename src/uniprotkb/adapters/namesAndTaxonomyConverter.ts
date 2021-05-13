@@ -19,7 +19,7 @@ export type ProteinDescription = {
   allergenName?: ValueWithEvidence;
   biotechName?: ValueWithEvidence;
   cdAntigenNames?: ValueWithEvidence[];
-  innNames?: ValueWithEvidence;
+  innNames?: ValueWithEvidence[];
   flag?: Flag;
 };
 

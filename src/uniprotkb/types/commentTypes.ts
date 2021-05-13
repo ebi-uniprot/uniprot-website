@@ -47,11 +47,11 @@ export type TextWithEvidence = {
 
 export interface GenericComment<T extends CommentType = CommentType> {
   commentType: T;
+  molecule?: string;
 }
 
 export interface FreeTextComment extends GenericComment<FreeTextType> {
   texts?: TextWithEvidence[];
-  molecule?: string;
 }
 
 export interface AbsorptionComment
@@ -85,10 +85,7 @@ export interface TemperatureDependenceComment
   };
 }
 
-export enum PhysiologicalReactionDirection {
-  LeftToRight = 'left-to-right',
-  RightToLeft = 'right-to-left',
-}
+export type PhysiologicalReactionDirection = 'left-to-right' | 'right-to-left';
 
 export type PhysiologicalReaction = {
   directionType: PhysiologicalReactionDirection;
@@ -118,7 +115,7 @@ export type DiseaseType = {
 
 export interface DiseaseComment extends GenericComment<'DISEASE'> {
   disease?: DiseaseType;
-  note?: { texts?: { value?: string }[] };
+  note?: { texts?: TextWithEvidence[] };
 }
 
 export enum InteractionType {
@@ -141,10 +138,10 @@ export interface InteractionComment extends GenericComment<'INTERACTION'> {
 }
 
 export type Isoform = {
-  name: { value: string };
+  name: TextWithEvidence;
   isoformSequenceStatus: string;
   isoformIds: string[];
-  synonyms?: { value: string }[];
+  synonyms?: TextWithEvidence[];
   note?: { texts: TextWithEvidence[] };
   sequenceIds?: string[];
   varSeqs?: FeatureData;
@@ -167,7 +164,6 @@ export interface SequenceCautionComment
 
 export interface MassSpectrometryComment
   extends GenericComment<'MASS SPECTROMETRY'> {
-  molecule?: string;
   method?: string;
   note?: string;
   molWeight: number;
@@ -183,7 +179,6 @@ export interface RNAEditingComment extends GenericComment<'RNA EDITING'> {
 
 export interface SubcellularLocationComment
   extends GenericComment<'SUBCELLULAR LOCATION'> {
-  molecule?: string;
   note?: { texts: TextWithEvidence[] };
   subcellularLocations?: {
     location: TextWithEvidence;

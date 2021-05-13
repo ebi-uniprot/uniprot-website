@@ -138,12 +138,12 @@ export const RheaReactionVisualizer: FC<RheaReactionVisualizerProps> = ({
   );
 };
 
-export const physiologicalReactionDirectionToString = new Map<
+const physiologicalReactionDirectionToString = new Map<
   PhysiologicalReactionDirection,
   string
 >([
-  [PhysiologicalReactionDirection.LeftToRight, 'forward'],
-  [PhysiologicalReactionDirection.RightToLeft, 'backward'],
+  ['left-to-right', 'forward'],
+  ['right-to-left', 'backward'],
 ]);
 
 export type ReactionDirectionProps = {
