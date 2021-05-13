@@ -7,6 +7,7 @@ import {
   useCallback,
   Suspense,
   lazy,
+  SyntheticEvent,
 } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
@@ -82,12 +83,20 @@ const SearchContainer: FC<
   const handleClose = useCallback(() => setDisplayQueryBuilder(false), []);
 
   // local state to hold the search value without modifying URL
-  const [searchTerm, setSearchTerm] = useState(
+  const [searchTerm, setSearchTerm] = useState<string>(
     // initialise with whatever is already in the URL
-    queryString.parse(history.location.search, { decode: true }).query
+    () => {
+      const { query } = queryString.parse(history.location.search, {
+        decode: true,
+      });
+      if (Array.isArray(query)) {
+        return query[0];
+      }
+      return query || '';
+    }
   );
 
-  const handleSubmit = (event: Event) => {
+  const handleSubmit = (event: SyntheticEvent) => {
     // prevent normal browser submission
     event.preventDefault();
 
@@ -104,8 +113,8 @@ const SearchContainer: FC<
     });
   };
 
-  const setNamespace = (namespace: Namespace) => {
-    onNamespaceChange(namespace);
+  const setNamespace = (namespace: string) => {
+    onNamespaceChange(namespace as Namespace);
   };
 
   const loadExample = (example: string) => {
@@ -132,7 +141,12 @@ const SearchContainer: FC<
   // reset the text content when there is a navigation to reflect what is in the
   // URL. That includes removing the text when browsing to a non-search page.
   useEffect(() => {
-    setSearchTerm(queryString.parse(location.search, { decode: true }).query);
+    const { query } = queryString.parse(location.search, { decode: true });
+    if (Array.isArray(query)) {
+      setSearchTerm(query[0]);
+      return;
+    }
+    setSearchTerm(query || '');
   }, [location]);
 
   return (
@@ -167,6 +181,9 @@ const SearchContainer: FC<
                 </>
               )}
             </div>
+            {/* 
+            Note: if user testing validates the "list" link in the input
+            remove this
             <div>
               <Button
                 variant="tertiary"
@@ -175,7 +192,7 @@ const SearchContainer: FC<
               >
                 Search with a list of IDs
               </Button>
-            </div>
+            </div> */}
           </div>
         )}
       </section>

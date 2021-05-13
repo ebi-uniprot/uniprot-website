@@ -44,16 +44,38 @@ const headerItems = [
 
 const secondaryItems = [
   // TODO: update link
-  { label: <HelpIcon aria-label="Help" />, href: '//www.uniprot.org/help' },
   {
-    label: <EnvelopeIcon aria-label="Contact" />,
+    label: (
+      <span title="Help">
+        <HelpIcon />
+      </span>
+    ),
+    href: '//www.uniprot.org/help',
+  },
+  {
+    label: (
+      <span title="Contact">
+        <EnvelopeIcon />
+      </span>
+    ),
     href: '//www.uniprot.org/contact',
   },
   {
-    label: <ToolboxIcon aria-label="Tools dashboard" />,
+    label: (
+      <span title="Tools dashboard">
+        <ToolboxIcon />
+      </span>
+    ),
     path: LocationToPath[Location.Dashboard],
   },
-  { label: <BasketIcon aria-label="Basket" />, path: '/' },
+  {
+    label: (
+      <span title="Basket">
+        <BasketIcon />
+      </span>
+    ),
+    path: '/',
+  },
 ];
 
 const SearchContainerWithNamespace = () => {

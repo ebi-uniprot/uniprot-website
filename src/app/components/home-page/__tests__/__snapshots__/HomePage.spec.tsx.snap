@@ -30,8 +30,8 @@ exports[`HomePage component should render 1`] = `
             role="search"
           >
             <form
+              aria-label="Main search"
               class="main-search"
-              data-testid="main-search-form"
               style="--main-button-color: #00639a;"
             >
               <div
@@ -47,13 +47,39 @@ exports[`HomePage component should render 1`] = `
                   class="dropdown-menu"
                 />
               </div>
-              <input
-                aria-label="Text query in uniprotkb"
-                class="main-search__input"
-                data-testid="main-search-input"
-                type="text"
-                value=""
-              />
+              <div
+                class="main-search__input-container"
+              >
+                <input
+                  aria-label="Text query in uniprotkb"
+                  style="padding-right: 12ch;"
+                  type="text"
+                  value=""
+                />
+                <div
+                  class="main-search__secondary-container"
+                >
+                  <button
+                    class="main-search--secondary"
+                    type="button"
+                  >
+                    <small>
+                      Advanced
+                    </small>
+                  </button>
+                  <small>
+                     | 
+                  </small>
+                  <button
+                    class="main-search--secondary"
+                    type="button"
+                  >
+                    <small>
+                      List
+                    </small>
+                  </button>
+                </div>
+              </div>
               <button
                 class="button primary"
                 type="submit"
