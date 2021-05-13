@@ -15,7 +15,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
     >
       value1
       <button
-        aria-controls="18"
+        aria-controls="0"
         aria-expanded="false"
         class="svg-colour-reviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -34,11 +34,11 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="18"
+        id="0"
       />
     </section>
     <button
-      aria-controls="19"
+      aria-controls="1"
       aria-expanded="false"
       class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -57,7 +57,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="19"
+      id="1"
     />
   </section>
 </DocumentFragment>
@@ -216,7 +216,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     </strong>
      some reaction
     <button
-      aria-controls="20"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -235,7 +235,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="20"
+      id="0"
     />
     This reaction proceeds in the 
     <span
@@ -245,7 +245,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     </span>
      direction 
     <button
-      aria-controls="21"
+      aria-controls="1"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -264,7 +264,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_catalyt
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="21"
+      id="1"
     />
   </span>
 </DocumentFragment>
@@ -278,7 +278,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
     <span>
       Cofactor Name 
       <button
-        aria-controls="22"
+        aria-controls="0"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -297,7 +297,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="22"
+        id="0"
       />
     </span>
     <section
@@ -305,7 +305,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
     >
       value2
       <button
-        aria-controls="23"
+        aria-controls="1"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -324,7 +324,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="23"
+        id="1"
       />
     </section>
   </section>
@@ -342,7 +342,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
     class="text-block"
   >
     <button
-      aria-controls="35"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -361,7 +361,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="35"
+      id="0"
     />
   </span>
   <ul
@@ -459,7 +459,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   >
     value
     <button
-      aria-controls="34"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -478,7 +478,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="34"
+      id="0"
     />
   </section>
 </DocumentFragment>
@@ -527,7 +527,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_mass_sp
     </h3>
     Molecular mass is 2.1 Da. Determined by LSI. note value
     <button
-      aria-controls="14"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -546,7 +546,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_mass_sp
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="14"
+      id="0"
     />
   </section>
 </DocumentFragment>
@@ -572,7 +572,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
       <span>
         rna position 
         <button
-          aria-controls="15"
+          aria-controls="0"
           aria-expanded="false"
           class="svg-colour-unreviewed evidence-tag"
           data-testid="evidence-tag-trigger"
@@ -591,7 +591,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="15"
+          id="0"
         />
       </span>
     </div>
@@ -599,7 +599,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
       <span>
         value 
         <button
-          aria-controls="16"
+          aria-controls="1"
           aria-expanded="false"
           class="svg-colour-unreviewed evidence-tag"
           data-testid="evidence-tag-trigger"
@@ -618,7 +618,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="16"
+          id="1"
         />
       </span>
     </div>
@@ -646,7 +646,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
     </a>
      differs from that shown. Reason: Erroneous initiation Text note
     <button
-      aria-controls="30"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -665,7 +665,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="30"
+      id="0"
     />
   </section>
 </DocumentFragment>
@@ -689,7 +689,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       </strong>
        
       <button
-        aria-controls="31"
+        aria-controls="0"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -708,11 +708,11 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="31"
+        id="0"
       />
       : topology value 
       <button
-        aria-controls="32"
+        aria-controls="1"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -731,7 +731,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="32"
+        id="1"
       />
     </div>
     <section
@@ -739,7 +739,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
     >
       value
       <button
-        aria-controls="33"
+        aria-controls="2"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -758,7 +758,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="33"
+        id="2"
       />
     </section>
   </section>
@@ -793,7 +793,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`
 <DocumentFragment>
   1.2.3.4 
   <button
-    aria-controls="24"
+    aria-controls="0"
     aria-expanded="false"
     class="svg-colour-reviewed evidence-tag"
     data-testid="evidence-tag-trigger"
@@ -812,7 +812,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`
   <div
     class="evidence-tag-content "
     data-testid="evidence-tag-content"
-    id="24"
+    id="0"
   />
 </DocumentFragment>
 `;
@@ -837,7 +837,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
     </a>
      differs from that shown. Reason: Erroneous initiation Text note
     <button
-      aria-controls="17"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-unreviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -856,7 +856,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="17"
+      id="0"
     />
   </section>
 </DocumentFragment>
@@ -987,7 +987,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
             >
               some Gene 
               <button
-                aria-controls="7"
+                aria-controls="0"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -1006,7 +1006,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="7"
+                id="0"
               />
             </div>
           </div>
@@ -1029,7 +1029,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
             >
               some Syn 
               <button
-                aria-controls="8"
+                aria-controls="1"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -1048,7 +1048,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="8"
+                id="1"
               />
             </div>
           </div>
@@ -1071,7 +1071,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
             >
               some orf 
               <button
-                aria-controls="9"
+                aria-controls="2"
                 aria-expanded="false"
                 class="svg-colour-reviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -1090,7 +1090,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="9"
+                id="2"
               />
             </div>
           </div>
@@ -1113,7 +1113,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
             >
               some locus 
               <button
-                aria-controls="10"
+                aria-controls="3"
                 aria-expanded="false"
                 class="svg-colour-unreviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -1132,7 +1132,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="10"
+                id="3"
               />
             </div>
           </div>
@@ -1151,7 +1151,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_oln":
     <li>
       some locus 
       <button
-        aria-controls="11"
+        aria-controls="0"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -1170,7 +1170,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_oln":
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="11"
+        id="0"
       />
     </li>
   </ul>
@@ -1185,7 +1185,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_orf":
     <li>
       some orf 
       <button
-        aria-controls="12"
+        aria-controls="0"
         aria-expanded="false"
         class="svg-colour-reviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -1204,7 +1204,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_orf":
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="12"
+        id="0"
       />
     </li>
   </ul>
@@ -1233,7 +1233,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
     <li>
       some Syn 
       <button
-        aria-controls="13"
+        aria-controls="0"
         aria-expanded="false"
         class="svg-colour-unreviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -1252,7 +1252,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="13"
+        id="0"
       />
     </li>
   </ul>
@@ -1344,7 +1344,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         </sub>
         =2.0999999046325684uM for sub1 
         <button
-          aria-controls="25"
+          aria-controls="0"
           aria-expanded="false"
           class="svg-colour-reviewed evidence-tag"
           data-testid="evidence-tag-trigger"
@@ -1363,7 +1363,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         <div
           class="evidence-tag-content "
           data-testid="evidence-tag-content"
-          id="25"
+          id="0"
         />
       </li>
     </ul>
@@ -1376,7 +1376,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
     >
       value1
       <button
-        aria-controls="26"
+        aria-controls="1"
         aria-expanded="false"
         class="svg-colour-reviewed evidence-tag"
         data-testid="evidence-tag-trigger"
@@ -1395,7 +1395,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
       <div
         class="evidence-tag-content "
         data-testid="evidence-tag-content"
-        id="26"
+        id="1"
       />
     </section>
   </section>
@@ -1494,7 +1494,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
   >
     value1
     <button
-      aria-controls="27"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -1513,7 +1513,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="27"
+      id="0"
     />
   </section>
 </DocumentFragment>
@@ -1528,361 +1528,19 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_ex
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
   <ul
-    class="info-list"
+    class="expandable-list no-bullet"
   >
     <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            Recommended name
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          rec full Name 
-          <button
-            aria-controls="0"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="0"
-          />
-        </div>
-      </div>
+      rec full Name
     </li>
     <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
       >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            EC number
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          1.2.3.4 
-          <button
-            aria-controls="1"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="1"
-          />
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            Short names
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          recommended short name 
-          <button
-            aria-controls="2"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="2"
-          />
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            Alternative names
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          <ul
-            class="expandable-list no-bullet"
-          >
-            <li>
-              a full alt Name 
-              <button
-                aria-controls="3"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="3"
-              />
-               (short alt name1 
-              <button
-                aria-controls="4"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="4"
-              />
-              ) 
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            Cleaved into 1 chains
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          <ul
-            class="expandable-list no-bullet"
-          >
-            <li>
-              containsrec full Name (containsrecommended short name)  
-              <strong>
-                Alternative names: 
-              </strong>
-              containsa full alt Name (containsshort alt name1) 
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            Submission names
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          <ul
-            class="expandable-list no-bullet"
-          >
-            <li>
-              sub full Name 
-              <button
-                aria-controls="5"
-                aria-expanded="false"
-                class="svg-colour-reviewed evidence-tag"
-                data-testid="evidence-tag-trigger"
-                type="button"
-              >
-                <test-file-stub
-                  height="12"
-                  width="12"
-                />
-                <span
-                  class="evidence-tag__label"
-                >
-                  1 automatic annotation
-                </span>
-              </button>
-              <div
-                class="evidence-tag-content "
-                data-testid="evidence-tag-content"
-                id="5"
-              />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            Biotech name
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        >
-          biotech 
-          <button
-            aria-controls="6"
-            aria-expanded="false"
-            class="svg-colour-reviewed evidence-tag"
-            data-testid="evidence-tag-trigger"
-            type="button"
-          >
-            <test-file-stub
-              height="12"
-              width="12"
-            />
-            <span
-              class="evidence-tag__label"
-            >
-              1 automatic annotation
-            </span>
-          </button>
-          <div
-            class="evidence-tag-content "
-            data-testid="evidence-tag-content"
-            id="6"
-          />
-        </div>
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            CD Antigen Name
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        />
-      </div>
-    </li>
-    <li>
-      <div
-        class="decorated-list-item decorated-list-item--no-title"
-      >
-        <div
-          class="decorated-list-item__title"
-        >
-          <h5
-            class="bold"
-          >
-            INN Name
-          </h5>
-        </div>
-        <div
-          class="decorated-list-item__content"
-        />
-      </div>
+        More names
+      </button>
     </li>
   </ul>
 </DocumentFragment>
@@ -1895,7 +1553,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
   >
     value1
     <button
-      aria-controls="28"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -1914,7 +1572,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="28"
+      id="0"
     />
   </section>
 </DocumentFragment>
@@ -1988,7 +1646,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
   >
     value1
     <button
-      aria-controls="29"
+      aria-controls="0"
       aria-expanded="false"
       class="svg-colour-reviewed evidence-tag"
       data-testid="evidence-tag-trigger"
@@ -2007,7 +1665,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
     <div
       class="evidence-tag-content "
       data-testid="evidence-tag-content"
-      id="29"
+      id="0"
     />
   </section>
 </DocumentFragment>

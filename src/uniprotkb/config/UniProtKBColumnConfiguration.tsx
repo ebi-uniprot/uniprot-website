@@ -4,9 +4,7 @@ import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import SimpleView from '../../shared/components/views/SimpleView';
-import ProteinNamesView, {
-  ECNumbersView,
-} from '../components/protein-data-views/ProteinNamesView';
+import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
   TaxonomyLineage,
 } from '../../shared/components/entry/TaxonomyView';
@@ -132,11 +130,24 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   label: 'Protein names',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      proteinNamesData && (
-        <ProteinNamesView proteinNames={proteinNamesData} noTitles />
+
+    const uniqueNames = Array.from(
+      new Set(
+        [
+          proteinNamesData?.recommendedName,
+          ...(proteinNamesData?.submissionNames || []),
+          ...(proteinNamesData?.alternativeNames || []),
+        ]
+          .map((name) => name?.fullName.value)
+          .filter((x: string | undefined): x is string => Boolean(x))
       )
     );
+
+    return uniqueNames.length ? (
+      <ExpandableList descriptionString="names" numberCollapsedItems={1}>
+        {uniqueNames}
+      </ExpandableList>
+    ) : null;
   },
 });
 
