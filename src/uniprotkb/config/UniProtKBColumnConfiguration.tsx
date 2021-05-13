@@ -8,9 +8,7 @@ import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView
 import TaxonomyView, {
   TaxonomyLineage,
 } from '../../shared/components/entry/TaxonomyView';
-import GeneNamesView, {
-  geneAlternativeNamesView,
-} from '../components/protein-data-views/GeneNamesView';
+import { geneAlternativeNamesView } from '../components/protein-data-views/GeneNamesView';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
@@ -137,14 +135,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
           proteinNamesData?.recommendedName,
           ...(proteinNamesData?.submissionNames || []),
           ...(proteinNamesData?.alternativeNames || []),
-        ]
-          .map((name) => name?.fullName.value)
-          .filter((x: string | undefined): x is string => Boolean(x))
+        ].map((name) => name?.fullName.value)
       )
     );
 
     return uniqueNames.length ? (
-      <ExpandableList descriptionString="names" numberCollapsedItems={1}>
+      <ExpandableList
+        descriptionString="protein names"
+        numberCollapsedItems={1}
+      >
         {uniqueNames}
       </ExpandableList>
     ) : null;
@@ -155,9 +154,21 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   label: 'Gene Names',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      geneNamesData && <GeneNamesView geneNamesData={geneNamesData} noTitles />
+
+    const uniqueNames = Array.from(
+      new Set(
+        geneNamesData?.flatMap((geneNames) => [
+          geneNames.geneName?.value,
+          ...(geneNames.synonyms?.map((synonym) => synonym.value) || []),
+        ])
+      )
     );
+
+    return uniqueNames.length ? (
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {uniqueNames}
+      </ExpandableList>
+    ) : null;
   },
 });
 
