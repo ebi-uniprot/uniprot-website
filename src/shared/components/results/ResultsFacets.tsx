@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import {
   Facets,
   Facet,
@@ -56,19 +56,15 @@ const ResultsFacets: FC<{
   const { facets } = data;
 
   // Add relevant icons
-  const facetsWithIcons = useMemo(
-    () =>
-      facets.map((facet) =>
-        facet.name === 'reviewed'
-          ? {
-              ...facet,
-              values: facet.values?.map((facetValue) =>
-                getDecoratedFacetValue(facetValue)
-              ),
-            }
-          : facet
-      ),
-    [facets]
+  const facetsWithIcons = facets.map((facet) =>
+    facet.name === 'reviewed'
+      ? {
+          ...facet,
+          values: facet.values?.map((facetValue) =>
+            getDecoratedFacetValue(facetValue)
+          ),
+        }
+      : facet
   );
 
   const splitIndex = facetsWithIcons.findIndex(

@@ -6,8 +6,6 @@ import customRender from '../../../__test-helpers__/customRender';
 
 import results from '../../../../uniprotkb/components/__mocks__/results.json';
 
-let rendered;
-
 describe('ResultsFacets', () => {
   const resultsFacets = (route: string) =>
     customRender(
