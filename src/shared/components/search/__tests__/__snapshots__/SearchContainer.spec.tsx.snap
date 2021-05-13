@@ -89,14 +89,6 @@ exports[`Search shallow components should render 1`] = `
           Albumin
         </button>
       </div>
-      <div>
-        <a
-          class="button tertiary"
-          href="/id-mapping"
-        >
-          Search with a list of IDs
-        </a>
-      </div>
     </div>
   </section>
 </DocumentFragment>

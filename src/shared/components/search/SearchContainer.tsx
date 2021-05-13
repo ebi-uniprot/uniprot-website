@@ -6,14 +6,15 @@ import {
   HTMLAttributes,
   useCallback,
   Suspense,
-  lazy,
   SyntheticEvent,
 } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import { MainSearch, Button } from 'franklin-sites';
 
 import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+
+import lazy from '../../utils/lazy';
 
 import {
   Location,
@@ -123,7 +124,15 @@ const SearchContainer: FC<
 
   const secondaryButtons = [
     {
-      label: 'Advanced',
+      label:
+        // TODO:
+        // <span
+        //   onPointerOver={QueryBuilder.preload}
+        //   onFocus={QueryBuilder.preload}
+        // >
+        //   Advanced
+        // </span>
+        'Advanced',
       action: () => {
         setDisplayQueryBuilder(true);
       },

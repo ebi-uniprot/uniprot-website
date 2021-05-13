@@ -19,6 +19,10 @@ import { Namespace } from '../../types/namespaces';
 import Logo from '../../../images/uniprot-logo.svg';
 import ReleaseInfo from './ReleaseInfo';
 
+import './styles/uniprot-header.scss';
+
+const secondaryItemIconSize = '1.4em';
+
 const headerItems = [
   {
     label: 'BLAST',
@@ -47,7 +51,7 @@ const secondaryItems = [
   {
     label: (
       <span title="Help">
-        <HelpIcon />
+        <HelpIcon width={secondaryItemIconSize} />
       </span>
     ),
     href: '//www.uniprot.org/help',
@@ -55,7 +59,7 @@ const secondaryItems = [
   {
     label: (
       <span title="Contact">
-        <EnvelopeIcon />
+        <EnvelopeIcon width={secondaryItemIconSize} />
       </span>
     ),
     href: '//www.uniprot.org/contact',
@@ -63,7 +67,7 @@ const secondaryItems = [
   {
     label: (
       <span title="Tools dashboard">
-        <ToolboxIcon />
+        <ToolboxIcon width={secondaryItemIconSize} />
       </span>
     ),
     path: LocationToPath[Location.Dashboard],
@@ -71,7 +75,7 @@ const secondaryItems = [
   {
     label: (
       <span title="Basket">
-        <BasketIcon />
+        <BasketIcon width={secondaryItemIconSize} />
       </span>
     ),
     path: '/',
@@ -110,10 +114,9 @@ const UniProtHeader = () => {
     <Header
       items={headerItems}
       isNegative={isHomePage}
-      search={!isHomePage && <SearchContainerWithNamespace />}
+      search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
       logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
       secondaryItems={secondaryItems}
-      subtext={isHomePage && <ReleaseInfo />}
     />
   );
 };
