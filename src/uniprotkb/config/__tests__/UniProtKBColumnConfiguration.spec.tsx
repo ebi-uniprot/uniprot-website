@@ -5,6 +5,8 @@ import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
+import { resetUuidV1 } from '../../../../__mocks__/uuid';
+
 import data from '../../__mocks__/entryModelData';
 
 jest.mock('../../../tools/utils/storage');
@@ -18,6 +20,10 @@ describe('UniProtKBColumnConfiguration component', () => {
       width: 10,
       height: 10,
     });
+  });
+
+  beforeEach(() => {
+    resetUuidV1();
   });
 
   // TODO: find mock data to generate non-null snapshot for:

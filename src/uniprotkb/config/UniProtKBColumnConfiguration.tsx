@@ -4,15 +4,11 @@ import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import SimpleView from '../../shared/components/views/SimpleView';
-import ProteinNamesView, {
-  ECNumbersView,
-} from '../components/protein-data-views/ProteinNamesView';
+import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
   TaxonomyLineage,
 } from '../../shared/components/entry/TaxonomyView';
-import GeneNamesView, {
-  geneAlternativeNamesView,
-} from '../components/protein-data-views/GeneNamesView';
+import { geneAlternativeNamesView } from '../components/protein-data-views/GeneNamesView';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
@@ -131,11 +127,29 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   label: 'Protein names',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      proteinNamesData && (
-        <ProteinNamesView proteinNames={proteinNamesData} noTitles />
+
+    const uniqueNames = Array.from(
+      new Set(
+        [
+          proteinNamesData?.recommendedName,
+          ...(proteinNamesData?.submissionNames || []),
+          ...(proteinNamesData?.alternativeNames || []),
+        ].flatMap((name) => [
+          name?.fullName.value,
+          ...(name?.shortNames?.map((name) => name.value) || []),
+          ...(name?.ecNumbers?.map((name) => name.value) || []),
+        ])
       )
     );
+
+    return uniqueNames.length ? (
+      <ExpandableList
+        descriptionString="protein names"
+        numberCollapsedItems={1}
+      >
+        {uniqueNames}
+      </ExpandableList>
+    ) : null;
   },
 });
 
@@ -143,9 +157,24 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   label: 'Gene Names',
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      geneNamesData && <GeneNamesView geneNamesData={geneNamesData} noTitles />
+
+    const uniqueNames = Array.from(
+      new Set(
+        geneNamesData?.flatMap((geneNames) => [
+          geneNames.geneName?.value,
+          ...(geneNames.synonyms?.map((synonym) => synonym.value) || []),
+          ...(geneNames.orderedLocusNames?.map((synonym) => synonym.value) ||
+            []),
+          ...(geneNames.orfNames?.map((synonym) => synonym.value) || []),
+        ])
+      )
     );
+
+    return uniqueNames.length ? (
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {uniqueNames}
+      </ExpandableList>
+    ) : null;
   },
 });
 
