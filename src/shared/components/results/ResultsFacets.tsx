@@ -42,7 +42,9 @@ const ResultsFacets: FC<{
       {before.map(
         (facet) => facet.values && <Facet key={facet.name} data={facet} />
       )}
-      {namespace && mainNamespaces.has(namespace) && <TaxonomyFacet />}
+      {namespace && mainNamespaces.has(namespace) && (
+        <TaxonomyFacet namespace={namespace} />
+      )}
       {after.map(
         (facet) => facet.values && <Facet key={facet.name} data={facet} />
       )}

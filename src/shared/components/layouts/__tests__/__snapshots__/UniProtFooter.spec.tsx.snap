@@ -66,16 +66,20 @@ exports[`HomePage component should render 1`] = `
         class="stats-release"
       >
         <span
-          class="release-info__placeholder release-info__release_number"
+          class="release-info"
         >
-          Release 2021_00
+          <span
+            class="release-info__placeholder release-info__release_number"
+          >
+            Release 2021_00
+          </span>
+           | 
+          <a
+            href="//www.uniprot.org/statistics/?sort=published"
+          >
+            Statistics
+          </a>
         </span>
-         | 
-        <a
-          href="//www.uniprot.org/statistics/?sort=published"
-        >
-          Statistics
-        </a>
       </div>
       <div
         class="copyright-misc"

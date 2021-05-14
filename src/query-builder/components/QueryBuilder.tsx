@@ -18,7 +18,6 @@ import colors from '../../../node_modules/franklin-sites/src/styles/colours.json
 import ClauseList from './ClauseList';
 
 import useDataApi from '../../shared/hooks/useDataApi';
-import useNS from '../../shared/hooks/useNS';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
 import { stringify } from '../utils/queryStringProcessor';
@@ -48,6 +47,10 @@ type Props = {
    * Add the wanted field into the form when rendering
    */
   fieldToAdd?: string;
+  /**
+   * The namespace to initialise the dropdown with
+   */
+  initialNamespace: Namespace;
 };
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
@@ -55,16 +58,18 @@ interface Style extends CSSProperties {
   '--main-button-color': string;
 }
 
-const QueryBuilder: FC<Props> = ({ onCancel, fieldToAdd }) => {
+const QueryBuilder: FC<Props> = ({
+  onCancel,
+  fieldToAdd,
+  initialNamespace,
+}) => {
   const history = useHistory();
   const location = useLocation();
   const dispatch = useDispatch();
 
   const [clauses, setClauses] = useState<Clause[]>([]);
 
-  const urlNamespace = useNS() || Namespace.uniprotkb;
-
-  const [namespace, setNamespace] = useState(urlNamespace);
+  const [namespace, setNamespace] = useState(initialNamespace);
   const style = useMemo<Style>(
     () => ({
       // change color of all buttons within this element to match the namespace
