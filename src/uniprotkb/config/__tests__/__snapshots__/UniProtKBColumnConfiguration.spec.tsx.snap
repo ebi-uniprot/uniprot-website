@@ -1469,20 +1469,9 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_i
 <DocumentFragment>
   <a
     href="/taxonomy/9606"
+    title="scientific name (common name) (synonyms 1), taxon ID 9606"
   >
-    9606 
-  </a>
-  <a
-    class="external-link"
-    href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?lvl=0&id=9606"
-    rel="noopener"
-    target="_blank"
-  >
-    NCBI
-    <test-file-stub
-      data-testid="external-link-icon"
-      width="12.5"
-    />
+    9606
   </a>
 </DocumentFragment>
 `;
