@@ -43,10 +43,12 @@ exports[`ResultsFacets should render 1`] = `
               <a
                 href="/uniprotkb?facets=reviewed%3Afalse&query=blah"
               >
-                <test-file-stub
-                  classname="icon--unreviewed"
-                  height="1em"
-                />
+                <span
+                  class="entry-title__status icon--unreviewed"
+                  title="This marks an unreviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
                 Unreviewed (TrEMBL) (455)
               </a>
             </li>
@@ -54,10 +56,12 @@ exports[`ResultsFacets should render 1`] = `
               <a
                 href="/uniprotkb?facets=reviewed%3Atrue&query=blah"
               >
-                <test-file-stub
-                  classname="icon--reviewed"
-                  height="1em"
-                />
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
                 Reviewed (Swiss-Prot) (52)
               </a>
             </li>

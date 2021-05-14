@@ -1,16 +1,10 @@
 import { FC } from 'react';
-import {
-  Facets,
-  Facet,
-  Loader,
-  SwissProtIcon,
-  TremblIcon,
-  ReferenceProteomeIcon,
-} from 'franklin-sites';
+import { Facets, Facet, Loader } from 'franklin-sites';
 
 import useNS from '../../hooks/useNS';
 
 import TaxonomyFacet from './TaxonomyFacet';
+import EntryTypeIcon from '../entry/EntryTypeIcon';
 
 import { mainNamespaces } from '../../types/namespaces';
 
@@ -20,37 +14,19 @@ import Response, { FacetValue } from '../../../uniprotkb/types/responseTypes';
 import helper from '../../styles/helper.module.scss';
 import './styles/results-data.scss';
 
-const ICON_HEIGHT = '1em';
+// const ICON_HEIGHT = '1em';
 
 const getDecoratedFacetLabel = (facetValue: FacetValue) => {
-  switch (facetValue.value) {
-    case 'true':
-      return (
-        <>
-          <SwissProtIcon height={ICON_HEIGHT} className="icon--reviewed" />
-          {facetValue.label}
-        </>
-      );
-    case 'false':
-      return (
-        <>
-          <TremblIcon height={ICON_HEIGHT} className="icon--unreviewed" />
-          {facetValue.label}
-        </>
-      );
-    case '1':
-      return (
-        <>
-          <ReferenceProteomeIcon
-            height={ICON_HEIGHT}
-            className="icon--reference-proteome"
-          />
-          {facetValue.label}
-        </>
-      );
-    default:
-      return facetValue.label;
+  const { label } = facetValue;
+  if (typeof label === 'string') {
+    return (
+      <>
+        <EntryTypeIcon entryType={label} />
+        {facetValue.label}
+      </>
+    );
   }
+  return facetValue.label;
 };
 
 const ResultsFacets: FC<{
