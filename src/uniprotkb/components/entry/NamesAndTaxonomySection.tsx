@@ -41,7 +41,7 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
         </>
       )}
       <h3>Organism names</h3>
-      <TaxonomyListView data={data.organismData} hosts={data.virusHosts} />
+      <TaxonomyListView data={data.organismData} hosts={data.organismHosts} />
       <h3>Accessions</h3>
       <AccessionsView data={data} />
       <h3>Proteome</h3>

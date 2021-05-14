@@ -280,14 +280,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
+UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
   label: 'Virus hosts',
   render: (data) => {
-    const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
+    const { organismHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
-      virusHosts && (
+      organismHosts && (
         <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-          {virusHosts.map((host) => (
+          {organismHosts.map((host) => (
             <p key={host.taxonId}>
               <TaxonomyView key={host.taxonId} data={host} />
             </p>

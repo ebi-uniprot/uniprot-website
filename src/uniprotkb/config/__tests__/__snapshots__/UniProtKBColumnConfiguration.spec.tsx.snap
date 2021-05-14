@@ -598,9 +598,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
     class="text-block"
   >
     <div>
-      Edited at positions 
+      Edited at position 
       <span>
-        rna position 
+        1 
         <button
           aria-controls="17"
           aria-expanded="false"
@@ -2121,7 +2121,24 @@ exports[`UniProtKBColumnConfiguration component should render column "version": 
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "virus_hosts": virus_hosts 1`] = `<DocumentFragment />`;
+exports[`UniProtKBColumnConfiguration component should render column "virus_hosts": virus_hosts 1`] = `
+<DocumentFragment>
+  <ul
+    class="expandable-list no-bullet"
+  >
+    <li>
+      <p>
+        <a
+          href="/taxonomy/9606"
+          title="scientific name (common name) (synonyms 1), taxon ID 9606"
+        >
+          scientific name (common name) (synonyms 1)
+        </a>
+      </p>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
 
 exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `
 <DocumentFragment>

@@ -35,6 +35,8 @@ import { Keyword } from '../utils/KeywordsUtil';
 import { UIModel } from './sectionConverter';
 import { transfromProperties } from '../utils';
 import { Property } from '../types/modelTypes';
+import { GeneLocation } from '../types/geneLocationType';
+import { InternalSectionType } from '../types/internalSectionType';
 import { XrefUIModel } from '../utils/xrefUtils';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import {
@@ -47,7 +49,7 @@ type UniProtKBReference = Omit<Reference, 'citationId'> & {
   citation: Citation;
 };
 
-// 🤷🏽
+// Specific to the API, will be transformed by the adaptor into something usable
 type UniProtKBXref = Omit<Xref, 'properties'> & {
   properties?: Array<{ key: string; value: string }>;
 };
@@ -56,7 +58,7 @@ export type UniProtkbAPIModel = {
   proteinDescription?: ProteinNamesData;
   genes?: GeneNamesData;
   organism?: TaxonomyDatum;
-  virusHosts?: TaxonomyDatum[];
+  organismHosts?: TaxonomyDatum[];
   primaryAccession: string;
   secondaryAccessions?: string[];
   uniProtkbId: string;
@@ -65,9 +67,11 @@ export type UniProtkbAPIModel = {
   inactiveReason?: InactiveEntryReason;
   comments?: Comment[];
   keywords?: Keyword[];
+  geneLocations?: GeneLocation[];
   features?: FeatureData;
   uniProtKBCrossReferences?: UniProtKBXref[];
   sequence: SequenceData;
+  internalSection?: InternalSectionType;
   annotationScore: number;
   entryAudit?: EntryAudit;
   references?: UniProtKBReference[];

@@ -262,7 +262,7 @@ export const RNAEditingView: FC<{ data: RNAEditingComment[] }> = ({ data }) => (
       >
         {item.positions && (
           <div>
-            {'Edited at positions '}
+            {`Edited at position${item.positions.length === 1 ? '' : 's'} `}
             {item.positions.map((position) => (
               <span key={position.position}>
                 {position.position}{' '}

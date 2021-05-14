@@ -850,7 +850,9 @@ const mock: UniProtkbAPIModel = {
       locationType: 'Known',
       positions: [
         {
-          position: 'rna position',
+          // NOTE: from backend mock, overriding to make it a number
+          // position: 'rna position',
+          position: 1,
           evidences: [
             {
               evidenceCode: 'ECO:0000256',

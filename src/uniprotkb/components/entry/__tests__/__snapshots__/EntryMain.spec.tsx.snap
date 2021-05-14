@@ -1149,6 +1149,33 @@ exports[`Entry view should render 1`] = `
               </div>
             </div>
           </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Virus hosts
+                </h5>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <p>
+                  <a
+                    href="/taxonomy/9606"
+                    title="scientific name (common name) (synonyms 1), taxon ID 9606"
+                  >
+                    scientific name (common name) (synonyms 1)
+                  </a>
+                </p>
+              </div>
+            </div>
+          </li>
         </ul>
         <h3>
           Accessions
@@ -2112,9 +2139,9 @@ exports[`Entry view should render 1`] = `
           class="text-block"
         >
           <div>
-            Edited at positions 
+            Edited at position 
             <span>
-              rna position 
+              1 
               <button
                 aria-controls="33"
                 aria-expanded="false"

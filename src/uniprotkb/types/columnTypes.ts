@@ -146,7 +146,7 @@ export enum UniProtKBColumn {
   tools = 'tools',
   uniparcId = 'uniparc_id',
   version = 'version',
-  virusHosts = 'virus_hosts',
+  organismHosts = 'virus_hosts',
   xrefAbcd = 'xref_abcd',
   xrefAllergome = 'xref_allergome',
   xrefArachnoserver = 'xref_arachnoserver',
