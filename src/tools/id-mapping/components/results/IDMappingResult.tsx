@@ -121,12 +121,13 @@ const IDMappingResult = () => {
           {detailsData?.from} identifiers were successfully mapped to{' '}
           {detailsData?.to}.
           {failedIds && (
-            <p>
-              The following ids were not mapped:
-              <ExpandableList descriptionString="ids" numberCollapsedItems={5}>
+            <div>
+              The following id{failedIds.length === 1 ? '' : 's'}{' '}
+              {failedIds.length === 1 ? 'is' : 'were'} not mapped:
+              <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
                 {failedIds.map((id) => id)}
               </ExpandableList>
-            </p>
+            </div>
           )}
         </HeroContainer>
       )}
