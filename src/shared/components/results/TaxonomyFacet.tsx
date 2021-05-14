@@ -12,6 +12,8 @@ import {
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
 
+import { SearchableNamespace } from '../../types/namespaces';
+
 const QueryBuilder = lazy(
   () =>
     import(
@@ -21,7 +23,9 @@ const QueryBuilder = lazy(
 
 const interestingTerms = /taxonomy|organism/;
 
-const TaxonomyFacet: FC = () => {
+const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
+  namespace,
+}) => {
   const { search } = useLocation();
 
   const parsedSearch = qsParse(search);
@@ -81,7 +85,11 @@ const TaxonomyFacet: FC = () => {
             yScrollable
             onClose={handleClose}
           >
-            <QueryBuilder onCancel={handleClose} fieldToAdd="taxonomy_name" />
+            <QueryBuilder
+              onCancel={handleClose}
+              fieldToAdd="taxonomy_name"
+              initialNamespace={namespace}
+            />
           </SlidingPanel>
         </Suspense>
       )}

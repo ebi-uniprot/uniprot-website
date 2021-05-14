@@ -229,7 +229,7 @@ const FooterShortcuts = () => (
           <ExternalLink noIcon url="https://www.uniprot.org/help/publications">
             Cite{' '}
             <span className={helper['no-wrap']}>
-              UniProt&nbsp;
+              UniProt
               <sup>
                 <CitedIcon width="1.5ch" />
               </sup>

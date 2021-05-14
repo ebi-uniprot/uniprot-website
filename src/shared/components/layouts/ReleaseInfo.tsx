@@ -16,14 +16,14 @@ const today = new Date();
 const ReleaseInfo = () => {
   // TODO: replace with statistics endpoint
   const { headers } = useDataApi(
-    `${apiUrls.search(Namespace.uniprotkb)}?query=*&size=0`,
+    `${apiUrls.queryBuilderTerms(Namespace.uniprotkb)}`,
     fetchOptions
   );
   // NOTE: don't use release number as date, might be different
   const releaseNumber = headers?.['x-release-number'];
 
   return (
-    <>
+    <span className="release-info">
       <span
         className={cn(
           { 'release-info__placeholder': !releaseNumber },
@@ -43,7 +43,7 @@ const ReleaseInfo = () => {
       <a href="//www.uniprot.org/statistics/?sort=published">
         {/* TODO: update link */}Statistics
       </a>
-    </>
+    </span>
   );
 };
 

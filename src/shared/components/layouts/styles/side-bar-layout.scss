@@ -21,7 +21,6 @@
     width: 30ch;
     padding: $gutter-size;
     overflow-y: auto;
-
     // TODO: validate with UX if that's a good thing to do
     // Hides the scrollbar, but keeps functionality
     // See https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-width#accessibility_concerns
@@ -29,6 +28,8 @@
     &::-webkit-scrollbar {
       display: none;
     }
+    // makes sure that the scrollbar isn't hidden by the action button group
+    z-index: 1;
   }
 
   &__sidebar-content {
