@@ -255,7 +255,7 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
+  const { name } = infoMappings[JobTypes.ID_MAPPING];
 
   const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
   const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
@@ -274,9 +274,7 @@ const IDMappingForm = () => {
 
   return (
     <>
-      <PageIntro title={name} links={links}>
-        {info}
-      </PageIntro>
+      <PageIntro title={name} />
       <form
         onSubmit={submitIDMappingJob}
         onReset={handleReset}

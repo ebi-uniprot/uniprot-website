@@ -15,20 +15,15 @@ const ResultsDataHeader: FC<{
   accessions?: string[];
 }> = ({ total = 0, selectedEntries, titlePostscript, accessions }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const { name, links, info } = useMemo(() => infoMappings[namespace], [
-    namespace,
-  ]);
+  const { name } = useMemo(() => infoMappings[namespace], [namespace]);
 
   return (
     <>
       <PageIntro
         title={`${name}`}
         titlePostscript={titlePostscript}
-        links={links}
         resultsCount={total}
-      >
-        {info}
-      </PageIntro>
+      />
       <ResultsButtons
         total={total}
         selectedEntries={selectedEntries}

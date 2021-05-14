@@ -396,13 +396,11 @@ const BlastForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name, links, info } = infoMappings[JobTypes.BLAST];
+  const { name } = infoMappings[JobTypes.BLAST];
 
   return (
     <>
-      <PageIntro title={name} links={links}>
-        {info}
-      </PageIntro>
+      <PageIntro title={name} />
       <form
         onSubmit={submitBlastJob}
         onReset={handleReset}

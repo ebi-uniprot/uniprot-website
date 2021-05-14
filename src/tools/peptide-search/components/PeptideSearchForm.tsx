@@ -274,13 +274,11 @@ const PeptideSearchForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name, links, info } = infoMappings[JobTypes.PEPTIDE_SEARCH];
+  const { name } = infoMappings[JobTypes.PEPTIDE_SEARCH];
 
   return (
     <>
-      <PageIntro title={name} links={links}>
-        {info}
-      </PageIntro>
+      <PageIntro title={name} />
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
