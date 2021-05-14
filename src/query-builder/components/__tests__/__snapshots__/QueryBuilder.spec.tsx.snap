@@ -5,25 +5,11 @@ exports[`QueryBuilder should render 1`] = `
   <div
     class="page-intro"
   >
-    <h2>
-      <button
-        class="dropdown"
-        type="button"
-      >
-        <test-file-stub
-          height="20"
-          width="20"
-        />
-         Query builder
-      </button>
-    </h2>
-    <div
-      class="intro-content"
+    <h1
+      class="big"
     >
-      <div
-        class="intro-links"
-      />
-    </div>
+      Query builder
+    </h1>
   </div>
   <form
     aria-label="Query builder form"
@@ -405,25 +391,11 @@ exports[`QueryBuilder should render loading 1`] = `
   <div
     class="page-intro"
   >
-    <h2>
-      <button
-        class="dropdown"
-        type="button"
-      >
-        <test-file-stub
-          height="20"
-          width="20"
-        />
-         Query builder
-      </button>
-    </h2>
-    <div
-      class="intro-content"
+    <h1
+      class="big"
     >
-      <div
-        class="intro-links"
-      />
-    </div>
+      Query builder
+    </h1>
   </div>
   <div
     class="loader-container"
