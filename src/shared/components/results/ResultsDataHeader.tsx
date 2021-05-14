@@ -5,7 +5,7 @@ import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
 
-import infoMappings from '../../config/InfoMappings';
+import namespaceToolTitles from '../../config/namespaceToolTitles';
 import { Namespace } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
@@ -15,12 +15,12 @@ const ResultsDataHeader: FC<{
   accessions?: string[];
 }> = ({ total = 0, selectedEntries, titlePostscript, accessions }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const { name } = useMemo(() => infoMappings[namespace], [namespace]);
+  const title = useMemo(() => namespaceToolTitles[namespace], [namespace]);
 
   return (
     <>
       <PageIntro
-        title={`${name}`}
+        title={title}
         titlePostscript={titlePostscript}
         resultsCount={total}
       />

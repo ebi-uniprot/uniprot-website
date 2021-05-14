@@ -39,7 +39,7 @@ import defaultFormValues, {
 } from '../config/PeptideSearchFormData';
 import { SelectedTaxon } from '../../types/toolsFormData';
 import uniProtKBApiUrls from '../../../shared/config/apiUrls';
-import infoMappings from '../../../shared/config/InfoMappings';
+import namespaceToolTitles from '../../../shared/config/namespaceToolTitles';
 import {
   MessageFormat,
   MessageLevel,
@@ -274,11 +274,11 @@ const PeptideSearchForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name } = infoMappings[JobTypes.PEPTIDE_SEARCH];
+  const title = namespaceToolTitles[JobTypes.PEPTIDE_SEARCH];
 
   return (
     <>
-      <PageIntro title={name} />
+      <PageIntro title={title} />
       <form
         onSubmit={submitPeptideSearchJob}
         onReset={handleReset}
