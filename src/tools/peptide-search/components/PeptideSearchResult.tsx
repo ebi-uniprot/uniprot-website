@@ -116,7 +116,7 @@ const PeptideSearchResult: FC = () => {
         titlePostscript={
           <small>
             {` found in peptide search ${
-              truncate(job?.title, { length: 10 }) || ''
+              truncate(job?.title, { length: 15 }) || ''
             }`}
           </small>
         }
