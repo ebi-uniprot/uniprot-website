@@ -4,7 +4,7 @@ import XRefsSection from '../XRefsSection';
 
 import useDataApi from '../../../../shared/hooks/useDataApi';
 
-import uniParcData from '../../../__mocks__/entryModelData';
+import uniParcData from '../../../__mocks__/uniParcEntryModelData';
 
 jest.mock('../../../../shared/hooks/useDataApi');
 

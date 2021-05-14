@@ -1,7 +1,7 @@
 import convertExpression from '../expressionConverter';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
-import modelData from '../../__mocks__/entryModelData';
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Expression data converter', () => {
   test('should convert the data', () => {

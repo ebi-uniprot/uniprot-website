@@ -4,7 +4,7 @@ import UniProtKBCard from '../UniProtKBCard';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import data from '../../../__mocks__/entryModelData';
+import data from '../../../__mocks__/uniProtKBEntryModelData';
 
 const handleEntrySelection = jest.fn();
 

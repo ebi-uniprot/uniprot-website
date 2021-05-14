@@ -1,7 +1,7 @@
 import convertProteinProcessing from '../proteinProcessingConverter';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
-import modelData from '../../__mocks__/entryModelData';
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Protein processing data converter', () => {
   test('should convert the data', () => {

@@ -7,7 +7,7 @@ import customRender from '../../../shared/__test-helpers__/customRender';
 
 import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
-import data from '../../__mocks__/entryModelData';
+import data from '../../__mocks__/uniProtKBEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
 

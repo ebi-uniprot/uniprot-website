@@ -1,6 +1,6 @@
 import extractIsoforms from '../extractIsoformsConverter';
 
-import modelData from '../../__mocks__/entryModelData';
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Accessions data converter', () => {
   test('should extract all accessions', () => {

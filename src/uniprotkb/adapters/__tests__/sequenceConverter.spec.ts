@@ -1,7 +1,7 @@
 import { convertSequence } from '../sequenceConverter';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
-import modelData from '../../__mocks__/entryModelData';
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Sequence data converter', () => {
   test('should convert the data', () => {

@@ -9,7 +9,7 @@ import uniParcConverter, {
 } from '../../adapters/uniParcConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-import data from '../../__mocks__/entryModelData';
+import data from '../../__mocks__/uniParcEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
 

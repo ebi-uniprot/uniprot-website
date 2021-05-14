@@ -2,7 +2,7 @@ import convertFunction, { FunctionUIModel } from '../functionConverter';
 
 import { convertXrefProperties } from '../uniProtkbConverter';
 
-import modelData from '../../__mocks__/entryModelData';
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 let data: FunctionUIModel;
 

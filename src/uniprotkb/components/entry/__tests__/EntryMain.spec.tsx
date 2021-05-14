@@ -7,7 +7,7 @@ import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
 
-import mockData from '../../../__mocks__/entryModelData';
+import mockData from '../../../__mocks__/uniProtKBEntryModelData';
 import interactionData from '../../../__mocks__/interaction.json';
 import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
 
