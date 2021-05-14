@@ -68,6 +68,22 @@ describe('Disease and Drugs data converter', () => {
                 },
               ],
             },
+            {
+              commentType: 'DISRUPTION PHENOTYPE',
+              molecule: 'Isoform 4 dfs',
+              texts: [
+                {
+                  evidences: [
+                    {
+                      evidenceCode: 'ECO:0000256',
+                      source: 'PIRNR',
+                      id: 'PIRNR001365',
+                    },
+                  ],
+                  value: 'value',
+                },
+              ],
+            },
           ],
         ],
         ['TOXIC DOSE', []],

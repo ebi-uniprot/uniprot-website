@@ -17,11 +17,11 @@ describe('Protein processing data converter', () => {
             originalSequence: 'original value',
           },
           featureCrossReference: { database: 'dbSNP', id: 'db id' },
-          description: 'description value',
+          description: 'description value 123',
           evidences: [
             { evidenceCode: 'ECO:0000269', id: '11389730', source: 'PubMed' },
           ],
-          featureId: 'id value',
+          featureId: 'id value CHAIN',
           location: {
             end: { modifier: 'EXACT', value: 8 },
             start: { modifier: 'EXACT', value: 2 },
