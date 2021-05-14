@@ -1,4 +1,7 @@
-const UniProtKBInfo = () => (
+// TODO: This was formerly the page info but is now to serve as a starting point
+// for implementing the landing page
+
+const UniProtKBLandingPage = () => (
   <>
     <p>
       The UniProt Knowledgebase (UniProtKB) is the central hub for the
@@ -20,4 +23,4 @@ const UniProtKBInfo = () => (
   </>
 );
 
-export default UniProtKBInfo;
+export default UniProtKBLandingPage;

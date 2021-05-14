@@ -1,4 +1,7 @@
-const BlastFormInfo = () => (
+// TODO: This was formerly the page info but is now to serve as a starting point
+// for implementing the landing page
+
+const BlastLandingPage = () => (
   <>
     <p>
       The Basic Local Alignment Search Tool (BLAST) finds regions of local
@@ -33,4 +36,4 @@ const BlastFormInfo = () => (
   </>
 );
 
-export default BlastFormInfo;
+export default BlastLandingPage;

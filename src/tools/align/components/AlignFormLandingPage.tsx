@@ -1,4 +1,7 @@
-const AlignFormInfo = () => (
+// TODO: This was formerly the page info but is now to serve as a starting point
+// for implementing the landing page
+
+const AlignFormLandingPage = () => (
   <>
     <p>
       Align two or more protein sequences with the{' '}
@@ -29,4 +32,4 @@ const AlignFormInfo = () => (
   </>
 );
 
-export default AlignFormInfo;
+export default AlignFormLandingPage;
