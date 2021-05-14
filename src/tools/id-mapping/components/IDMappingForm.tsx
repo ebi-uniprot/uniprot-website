@@ -132,7 +132,10 @@ const IDMappingForm = () => {
     return [dbNameToDbInfo, ruleIdToRuleInfo];
   }, [data]);
 
-  const parsedIDs = useMemo(() => splitAndTidyText(textIDs), [textIDs]);
+  const parsedIDs = useMemo(
+    () => Array.from(new Set(splitAndTidyText(textIDs))),
+    [textIDs]
+  );
 
   const submitIDMappingJob = useCallback(
     (event: FormEvent | MouseEvent) => {

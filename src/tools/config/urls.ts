@@ -70,7 +70,9 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = 'https://wwwdev.ebi.ac.uk/uniprot/api/idmapping';
       return Object.freeze({
         runUrl: `${baseURL}/run`,
-        statusUrl: (jobId) => `${baseURL}/status/${jobId}`,
+        statusUrl: (jobId) =>
+          // The cachebust extra query is just here to avoid using cached value
+          `${baseURL}/status/${jobId}?cachebust=${new Date().getTime()}`,
         resultUrl: (redirectUrl, { facets, size, selectedFacets = [] }) =>
           `https://wwwdev.ebi.ac.uk${redirectUrl}?${queryString.stringify({
             size,

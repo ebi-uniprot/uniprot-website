@@ -98,7 +98,7 @@ const ResultsData: FC<{
 
   return (
     <div className="results-data">
-      {viewMode === ViewMode.CARD ? (
+      {viewMode === ViewMode.CARD && !displayIdMappingColumns ? (
         <DataListWithLoader<APIModel>
           getIdKey={getIdKey}
           data={allResults}

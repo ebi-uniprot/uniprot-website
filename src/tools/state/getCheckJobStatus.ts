@@ -26,7 +26,9 @@ const getCheckJobStatus = ({
   try {
     // we use plain fetch as through Axios we cannot block redirects
     const response = await window.fetch(urlConfig.statusUrl(job.remoteID), {
-      headers: { Accept: 'text/plain,application/json' },
+      headers: {
+        Accept: 'text/plain,application/json',
+      },
       method: 'GET',
       // 'manual' to block redirect is the bit we cannot do with Axios
       redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
