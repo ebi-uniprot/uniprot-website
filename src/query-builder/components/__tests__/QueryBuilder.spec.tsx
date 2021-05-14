@@ -41,7 +41,12 @@ describe('QueryBuilder', () => {
   test('should render loading', async () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
 
-    rendered = customRender(<QueryBuilder onCancel={onCancel} />);
+    rendered = customRender(
+      <QueryBuilder
+        onCancel={onCancel}
+        initialNamespace={Namespace.uniprotkb}
+      />
+    );
 
     expect(rendered.asFragment()).toMatchSnapshot();
   });
