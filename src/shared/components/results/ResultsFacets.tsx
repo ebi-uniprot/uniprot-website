@@ -14,8 +14,6 @@ import Response, { FacetValue } from '../../../uniprotkb/types/responseTypes';
 import helper from '../../styles/helper.module.scss';
 import './styles/results-data.scss';
 
-// const ICON_HEIGHT = '1em';
-
 const getDecoratedFacetLabel = (facetValue: FacetValue) => {
   const { label } = facetValue;
   if (typeof label === 'string') {
