@@ -135,7 +135,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
           proteinNamesData?.recommendedName,
           ...(proteinNamesData?.submissionNames || []),
           ...(proteinNamesData?.alternativeNames || []),
-        ].map((name) => name?.fullName.value)
+        ].flatMap((name) => [
+          name?.fullName.value,
+          ...(name?.shortNames?.map((name) => name.value) || []),
+          ...(name?.ecNumbers?.map((name) => name.value) || []),
+        ])
       )
     );
 
@@ -160,6 +164,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
         geneNamesData?.flatMap((geneNames) => [
           geneNames.geneName?.value,
           ...(geneNames.synonyms?.map((synonym) => synonym.value) || []),
+          ...(geneNames.orderedLocusNames?.map((synonym) => synonym.value) ||
+            []),
+          ...(geneNames.orfNames?.map((synonym) => synonym.value) || []),
         ])
       )
     );

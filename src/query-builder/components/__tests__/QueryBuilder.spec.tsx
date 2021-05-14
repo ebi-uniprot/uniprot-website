@@ -12,6 +12,7 @@ import customRender from '../../../shared/__test-helpers__/customRender';
 import searchTermData from './__mocks__/configure_search-term';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
+import { Namespace } from '../../../shared/types/namespaces';
 
 jest.mock('../../../shared/hooks/useDataApi');
 
@@ -25,16 +26,27 @@ describe('QueryBuilder', () => {
     onCancel.mockClear();
     (useDataApi as jest.Mock).mockReturnValue({ data: searchTermData });
 
-    rendered = customRender(<QueryBuilder onCancel={onCancel} />, {
-      history,
-    });
+    rendered = customRender(
+      <QueryBuilder
+        onCancel={onCancel}
+        initialNamespace={Namespace.uniprotkb}
+      />,
+      {
+        history,
+      }
+    );
   });
 
   // only exception where we want different payload
   test('should render loading', async () => {
     (useDataApi as jest.Mock).mockReturnValue({ loading: true });
 
-    rendered = customRender(<QueryBuilder onCancel={onCancel} />);
+    rendered = customRender(
+      <QueryBuilder
+        onCancel={onCancel}
+        initialNamespace={Namespace.uniprotkb}
+      />
+    );
 
     expect(rendered.asFragment()).toMatchSnapshot();
   });

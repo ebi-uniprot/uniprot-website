@@ -969,7 +969,13 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_names
       some Gene
     </li>
     <li>
-      some Syn
+      <button
+        class="button tertiary expandable-list__action"
+        data-testid="expandable-message"
+        type="button"
+      >
+        More gene names
+      </button>
     </li>
   </ul>
 </DocumentFragment>
