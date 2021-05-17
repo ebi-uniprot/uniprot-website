@@ -46,7 +46,7 @@ export interface FinishedJob<T extends JobTypes> extends BaseJob<T> {
   timeSubmitted: number;
   timeFinished: number;
   // just data needed for the dashboard, not more than this
-  data: DataForDashboard[T];
+  data?: DataForDashboard[T];
 }
 
 export type Job = CreatedJob | FailedJob | RunningJob | FinishedJob<JobTypes>;

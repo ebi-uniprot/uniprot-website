@@ -1,21 +1,17 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { act } from 'react-dom/test-utils';
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import { Job } from '../../../types/toolsJob';
+import { FinishedJob } from '../../../types/toolsJob';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
-import JobStore from '../../../utils/storage';
-import { Stores } from '../../../utils/stores';
 
 import uniprotkbResults from '../../../../uniprotkb/components/__mocks__/results.json';
 
 import PeptideSearchResult from '../PeptideSearchResult';
 
-const mockJob: Job = {
-  data: { hits: 2 },
+const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',
   parameters: {
     peps: 'MLPGLALLLLA',
@@ -48,17 +44,23 @@ mockRequests
   );
 
 describe('PeptideSearchResult', () => {
-  it('should render with the correct number of results in the title', async () => {
-    const storeName = Stores.METADATA;
-    const jobStore = new JobStore(storeName);
-    await jobStore.set(mockJob.internalID, mockJob);
-
-    await act(async () => {
-      const { asFragment } = customRender(<PeptideSearchResult />, {
-        route: `/peptide-search/${mockJob.remoteID}`,
-      });
-      await screen.findByText('2 results');
-      expect(asFragment()).toMatchSnapshot();
+  it('should render with the correct number of results in the title, not own job', async () => {
+    const { asFragment } = customRender(<PeptideSearchResult />, {
+      route: `/peptide-search/${mockJob.remoteID}`,
     });
+    await screen.findByText('2 results');
+    expect(asFragment()).toMatchSnapshot();
+  });
+
+  it('should render with the correct number of results in the title, own user job', async () => {
+    const { asFragment } = customRender(<PeptideSearchResult />, {
+      route: `/peptide-search/${mockJob.remoteID}`,
+      initialState: {
+        tools: { [mockJob.internalID]: mockJob },
+      },
+    });
+    await screen.findByText('2 results');
+    await screen.findByText(`found in peptide search ${mockJob.title}`);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
