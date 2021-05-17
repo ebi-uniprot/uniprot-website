@@ -114,11 +114,13 @@ const PeptideSearchResult: FC = () => {
         total={total}
         selectedEntries={selectedEntries}
         titlePostscript={
-          <small>
-            {` found in peptide search ${
-              truncate(job?.title, { length: 15 }) || ''
-            }`}
-          </small>
+          total && (
+            <small>
+              {` found in peptide search ${
+                truncate(job?.title, { length: 15 }) || ''
+              }`}
+            </small>
+          )
         }
         accessions={accessions}
       />
