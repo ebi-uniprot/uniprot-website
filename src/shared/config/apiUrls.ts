@@ -340,7 +340,7 @@ type GetDownloadUrlProps = {
 export const getDownloadUrl = ({
   query,
   columns,
-  selectedFacets,
+  selectedFacets = [],
   sortColumn,
   sortDirection = SortDirection.ascend,
   fileFormat,
@@ -372,6 +372,7 @@ export const getDownloadUrl = ({
     size?: number;
     compressed?: boolean;
     download: true;
+    facetFilter?: string;
   };
   const parameters: Parameters = {
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
@@ -381,10 +382,15 @@ export const getDownloadUrl = ({
     parameters.accessions = Array.from(selected.length ? selected : accessions)
       .sort()
       .join(',');
+    if (selectedFacets.length) {
+      parameters.facetFilter = createFacetsQueryString(selectedFacets);
+    }
   } else {
     parameters.query = selected.length
       ? createSelectedQueryString(selected, selectedIdField)
-      : `${query}${createFacetsQueryString(selectedFacets)}`;
+      : [query, createFacetsQueryString(selectedFacets)]
+          .filter(Boolean)
+          .join(' AND ');
   }
   // fallback to json if something goes wrong
   const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
