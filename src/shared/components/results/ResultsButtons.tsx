@@ -92,7 +92,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           <AddToBasketButton selectedEntries={selectedEntries} />
         )}
         {isMain && (
-          <Button variant="tertiary">
+          <Button variant="tertiary" disabled>
             <StatisticsIcon />
             Statistics
           </Button>
@@ -106,6 +106,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             )
           }
           data-testid="table-card-toggle"
+          title={`Switch to "${
+            viewMode === ViewMode.CARD ? 'table' : 'card'
+          }" view`}
         >
           <TableIcon
             className={cn('results-buttons__toggle', {
