@@ -65,7 +65,8 @@ exports[`PeptideSearchResult should render with the correct number of results in
           Add
         </button>
         <button
-          class="button tertiary"
+          class="button tertiary disabled"
+          disabled=""
           type="button"
         >
           <test-file-stub />
@@ -74,6 +75,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
         <button
           class="button tertiary large-icon"
           data-testid="table-card-toggle"
+          title="Switch to \\"table\\" view"
           type="button"
         >
           <test-file-stub
