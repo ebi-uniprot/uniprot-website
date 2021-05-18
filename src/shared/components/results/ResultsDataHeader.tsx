@@ -6,19 +6,23 @@ import ResultsButtons from './ResultsButtons';
 import useNS from '../../hooks/useNS';
 
 import namespaceToolTitles from '../../config/namespaceToolTitles';
-import { Namespace, SearchableNamespace } from '../../types/namespaces';
+import { Namespace } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
   total?: number;
   selectedEntries: string[];
+  namespaceFallback?: Namespace;
   titlePostscript?: ReactNode;
   accessions?: string[];
-}> = ({ total = 0, selectedEntries, titlePostscript, accessions }) => {
-  const namespace = useNS() || Namespace.uniprotkb;
-  const title = useMemo(
-    () => namespaceToolTitles[namespace as SearchableNamespace],
-    [namespace]
-  );
+}> = ({
+  total = 0,
+  selectedEntries,
+  namespaceFallback,
+  titlePostscript,
+  accessions,
+}) => {
+  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
+  const title = useMemo(() => namespaceToolTitles[namespace], [namespace]);
 
   return (
     <>
