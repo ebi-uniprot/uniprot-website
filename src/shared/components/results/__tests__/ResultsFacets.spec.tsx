@@ -29,6 +29,11 @@ describe('ResultsFacets', () => {
       }
     );
 
+  test('should render', () => {
+    const { asFragment } = resultsFacets('/uniprotkb?query=blah');
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   const regexUnreviewed = /Unreviewed \(TrEMBL\) \(\d+\)/;
 
   test('should select a facet', async () => {
@@ -43,7 +48,7 @@ describe('ResultsFacets', () => {
     });
   });
 
-  it('should deselect a facet', async () => {
+  test('should deselect a facet', async () => {
     const { history } = resultsFacets(
       '/uniprotkb?query=blah&facets=reviewed:false'
     );

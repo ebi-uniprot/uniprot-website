@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsFacets should render 1`] = `
+<DocumentFragment>
+  <div
+    class="facets"
+  >
+    <ul
+      class="no-bullet"
+    >
+      <li>
+        <div>
+          <span
+            class="facet-name"
+          >
+            Taxonomy
+          </span>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <button
+                class="button tertiary expandable-list__action"
+                type="button"
+              >
+                Filter by taxonomy
+              </button>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Status
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?facets=reviewed%3Afalse&query=blah"
+              >
+                <span
+                  class="entry-title__status icon--unreviewed"
+                  title="This marks an unreviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+                Unreviewed (TrEMBL) (455)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=reviewed%3Atrue&query=blah"
+              >
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+                Reviewed (Swiss-Prot) (52)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Popular organisms
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?facets=popular_organism%3AHuman&query=blah"
+              >
+                Human (18)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=popular_organism%3AMouse&query=blah"
+              >
+                Mouse (11)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=popular_organism%3AS.%20cerevisiae&query=blah"
+              >
+                S. cerevisiae (6)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=popular_organism%3AZebrafish&query=blah"
+              >
+                Zebrafish (4)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=popular_organism%3ABovine&query=blah"
+              >
+                Bovine (3)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Other organisms
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?facets=other_organism%3AInfluenza%20A%20virus%20%28A%2FIndonesia%2FCDC7%2F2005%28H5N1%29%29&query=blah"
+              >
+                Influenza A virus (A/Indonesia/CDC7/2005(H5N1)) (11)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=other_organism%3AXENLA&query=blah"
+              >
+                XENLA (9)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=other_organism%3ACHLTH&query=blah"
+              >
+                CHLTH (6)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=other_organism%3ASCHPO&query=blah"
+              >
+                SCHPO (6)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=other_organism%3AXENTR&query=blah"
+              >
+                XENTR (6)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
