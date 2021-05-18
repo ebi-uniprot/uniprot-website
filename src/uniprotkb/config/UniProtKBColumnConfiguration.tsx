@@ -1,14 +1,11 @@
 /* eslint-disable camelcase */
-import { Fragment } from 'react';
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import SimpleView from '../../shared/components/views/SimpleView';
-import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView';
 import TaxonomyView, {
   TaxonomyLineage,
 } from '../../shared/components/entry/TaxonomyView';
-import { geneAlternativeNamesView } from '../components/protein-data-views/GeneNamesView';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
@@ -126,7 +123,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
-  label: 'Protein names',
+  label: 'Protein Names',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -204,82 +201,68 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
-  label: 'Gene names (Primary)',
+  label: 'Gene Names (Primary)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.geneName && (
-                <div key={geneData.geneName.value}>
-                  {geneData.geneName.value}
-                </div>
-              )
-          )}
+
+    const names = geneNamesData?.map((geneNames) => geneNames.geneName?.value);
+
+    return names?.length ? (
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
       </ExpandableList>
-    );
+    ) : null;
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
-  label: 'Gene names (Ordered locus)',
+  label: 'Gene Names (Ordered locus)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.orderedLocusNames && (
-                <Fragment key={geneData.orderedLocusNames.join('')}>
-                  {geneAlternativeNamesView(geneData.orderedLocusNames)}
-                </Fragment>
-              )
-          )}
-      </ExpandableList>
+
+    const names = geneNamesData?.flatMap((geneNames) =>
+      geneNames.orderedLocusNames?.map((synonym) => synonym.value)
     );
+
+    return names?.length ? (
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
+      </ExpandableList>
+    ) : null;
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
-  label: 'Gene names (ORF)',
+  label: 'Gene Names (ORF)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.orfNames && (
-                <Fragment key={geneData.orfNames.join('')}>
-                  {geneAlternativeNamesView(geneData.orfNames)}
-                </Fragment>
-              )
-          )}
-      </ExpandableList>
+
+    const names = geneNamesData?.flatMap((geneNames) =>
+      geneNames.orfNames?.map((synonym) => synonym.value)
     );
+
+    return names?.length ? (
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
+      </ExpandableList>
+    ) : null;
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
-  label: 'Gene names (Synonyms)',
+  label: 'Gene Names (Synonyms)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
-    return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.synonyms && (
-                <Fragment key={geneData.synonyms.join('')}>
-                  {geneAlternativeNamesView(geneData.synonyms)}
-                </Fragment>
-              )
-          )}
+
+    const names = geneNamesData?.flatMap((geneNames) => [
+      geneNames.synonyms?.map((synonym) => synonym.value),
+    ]);
+
+    return names?.length ? (
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
       </ExpandableList>
-    );
+    ) : null;
   },
 });
 
@@ -530,32 +513,47 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   label: 'EC Number',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    const ecNumbers = proteinNamesData?.recommendedName?.ecNumbers;
-    return ecNumbers && <ECNumbersView ecNumbers={ecNumbers} />;
+    const ecNumbers = proteinNamesData?.recommendedName?.ecNumbers?.map(
+      (ecNumber) => ecNumber.value
+    );
+    return ecNumbers?.length ? (
+      <ExpandableList descriptionString="EC numbers" numberCollapsedItems={1}>
+        {ecNumbers}
+      </ExpandableList>
+    ) : null;
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
   label: 'Activity Regulation',
   render: (data) => {
-    const activityRegulationComments = data[
+    const activityRegulationComments = ((data[
       EntrySection.Function
-    ].commentsData.get(CommentType.ACTIVITY_REGULATION) as FreeTextComment[];
-    return (
-      activityRegulationComments && (
-        <FreeTextView comments={activityRegulationComments} />
-      )
+    ].commentsData.get(CommentType.ACTIVITY_REGULATION) ||
+      []) as FreeTextComment[]).flatMap(
+      (comment) => comment.texts?.map((text) => text.value) || []
     );
+    return activityRegulationComments?.length ? (
+      <ExpandableList numberCollapsedItems={1}>
+        {activityRegulationComments}
+      </ExpandableList>
+    ) : null;
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
   label: 'Function',
   render: (data) => {
-    const functionComments = data[EntrySection.Function].commentsData.get(
+    const functionComments = ((data[EntrySection.Function].commentsData.get(
       CommentType.FUNCTION
-    ) as FreeTextComment[];
-    return functionComments && <FreeTextView comments={functionComments} />;
+    ) || []) as FreeTextComment[]).flatMap(
+      (comment) => comment.texts?.map((text) => text.value) || []
+    );
+    return functionComments?.length ? (
+      <ExpandableList descriptionString="functions" numberCollapsedItems={1}>
+        {functionComments}
+      </ExpandableList>
+    ) : null;
   },
 });
 
@@ -585,10 +583,16 @@ UniProtKBColumnConfiguration.set(
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
   render: (data) => {
-    const pathwayComments = data[EntrySection.Function].commentsData.get(
+    const pathwayComments = ((data[EntrySection.Function].commentsData.get(
       CommentType.PATHWAY
-    ) as FreeTextComment[];
-    return pathwayComments && <FreeTextView comments={pathwayComments} />;
+    ) || []) as FreeTextComment[]).flatMap(
+      (pathwayComment) => pathwayComment.texts?.map((text) => text.value) || []
+    );
+    return pathwayComments?.length ? (
+      <ExpandableList descriptionString="pathways" numberCollapsedItems={1}>
+        {pathwayComments}
+      </ExpandableList>
+    ) : null;
   },
 });
 
@@ -1168,6 +1172,7 @@ const getXrefColumn = (databaseName: string) => ({
 // cc_caution
 // feature: do we need? UX
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
+// ft_non_cons
 
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)
