@@ -20,11 +20,11 @@ const getDecoratedFacetLabel = (facetValue: FacetValue) => {
     return (
       <>
         <EntryTypeIcon entryType={label} />
-        {facetValue.label}
+        {label}
       </>
     );
   }
-  return facetValue.label;
+  return label;
 };
 
 const ResultsFacets: FC<{
