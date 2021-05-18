@@ -1,7 +1,7 @@
-import { Namespace } from '../types/namespaces';
+import { Namespace, SearchableNamespace } from '../types/namespaces';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
-const titles: Record<Namespace | JobTypes, string> = {
+const titles: Record<SearchableNamespace | JobTypes, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
   [Namespace.uniref]: 'UniRef',
