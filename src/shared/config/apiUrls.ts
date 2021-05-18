@@ -255,15 +255,6 @@ const localBlastFacets = Object.values(BlastFacet) as string[];
 const excludeLocalBlastFacets = ({ name }: SelectedFacet) =>
   !localBlastFacets.includes(name);
 
-type GetOptions = {
-  columns?: string[];
-  selectedFacets?: SelectedFacet[];
-  sortColumn?: SortableColumn;
-  sortDirection?: SortDirection;
-  facets?: string[];
-  size?: number;
-};
-
 export const getFeaturesURL = (accessions?: string[]) => {
   if (!(accessions && accessions.length)) {
     return null;
@@ -272,6 +263,15 @@ export const getFeaturesURL = (accessions?: string[]) => {
     // sort to improve possible cache hit
     accession: Array.from(accessions).sort().join(','),
   })}`;
+};
+
+type GetOptions = {
+  columns?: string[];
+  selectedFacets?: SelectedFacet[];
+  sortColumn?: SortableColumn;
+  sortDirection?: SortDirection;
+  facets?: Facets[];
+  size?: number;
 };
 
 export const getAccessionsURL = (
@@ -286,7 +286,7 @@ export const getAccessionsURL = (
   }: GetOptions = {}
 ) => {
   if (!(accessions && accessions.length)) {
-    return null;
+    return undefined;
   }
   return `${apiUrls.accessions}?${queryString.stringify({
     size,
@@ -334,12 +334,13 @@ type GetDownloadUrlProps = {
   selected: string[];
   selectedIdField: Column;
   namespace: Namespace;
+  accessions?: string[];
 };
 
 export const getDownloadUrl = ({
   query,
   columns,
-  selectedFacets,
+  selectedFacets = [],
   sortColumn,
   sortDirection = SortDirection.ascend,
   fileFormat,
@@ -348,14 +349,21 @@ export const getDownloadUrl = ({
   selected = [],
   selectedIdField,
   namespace,
+  accessions,
 }: GetDownloadUrlProps) => {
   // If the consumer of this fn has passed specified a size we have to use the search endpoint
   // otherwise use download/stream which is much quicker but doesn't allow specification of size
-  const endpoint = size
-    ? apiUrls.search(namespace)
-    : apiUrls.download(namespace);
+  let endpoint;
+  if (accessions) {
+    endpoint = apiUrls.accessions;
+  } else if (size) {
+    endpoint = apiUrls.search(namespace);
+  } else {
+    endpoint = apiUrls.download(namespace);
+  }
   type Parameters = {
-    query: string;
+    query?: string;
+    accessions?: string;
     format: string;
     // TODO: change to set of possible fields (if possible, depending on namespace)
     fields?: string;
@@ -364,15 +372,27 @@ export const getDownloadUrl = ({
     size?: number;
     compressed?: boolean;
     download: true;
+    facetFilter?: string;
   };
   const parameters: Parameters = {
-    query: selected.length
-      ? createSelectedQueryString(selected, selectedIdField)
-      : `${query}${createFacetsQueryString(selectedFacets)}`,
-    // fallback to json if something goes wrong
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,
   };
+  if (accessions) {
+    parameters.accessions = Array.from(selected.length ? selected : accessions)
+      .sort()
+      .join(',');
+    if (selectedFacets.length) {
+      parameters.facetFilter = createFacetsQueryString(selectedFacets);
+    }
+  } else {
+    parameters.query = selected.length
+      ? createSelectedQueryString(selected, selectedIdField)
+      : [query, createFacetsQueryString(selectedFacets)]
+          .filter(Boolean)
+          .join(' AND ');
+  }
+  // fallback to json if something goes wrong
   const isColumnFileFormat = fileFormatsWithColumns.includes(fileFormat);
   if (isColumnFileFormat && sortColumn) {
     parameters.sort = `${sortColumn} ${getApiSortDirection(

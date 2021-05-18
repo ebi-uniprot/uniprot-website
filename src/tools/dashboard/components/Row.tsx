@@ -30,6 +30,7 @@ import parseDate from '../../../shared/utils/parseDate';
 
 import { Job } from '../../types/toolsJob';
 import { Status } from '../../types/toolsStatuses';
+import { JobTypes } from '../../types/toolsJobTypes';
 
 import './styles/Dashboard.scss';
 
@@ -138,7 +139,7 @@ const NiceStatus = ({ job, jobLink }: NiceStatusProps) => {
       // eslint-disable-next-line uniprot-website/use-config-location
       const link = jobLink ? <Link to={jobLink}>Successful</Link> : null;
       // either a BLAST or ID Mapping job could have those
-      if ('data' in job && 'hits' in job.data) {
+      if ('data' in job && job.data && 'hits' in job.data) {
         const actualHits = job.data.hits;
         let expectedHits: number | undefined;
         if ('hits' in job.parameters) {
@@ -263,7 +264,11 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+    if (job.type === JobTypes.PEPTIDE_SEARCH) {
+      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}`;
+    } else {
+      jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;
+    }
   }
 
   const handleDelete = () => {
