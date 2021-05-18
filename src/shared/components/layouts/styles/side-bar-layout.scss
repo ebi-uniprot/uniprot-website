@@ -41,9 +41,6 @@
   }
 
   &__content {
-    flex: 1;
-    top: $header-height;
-    right: 0;
     width: calc(100vw - 30ch);
   }
 }
