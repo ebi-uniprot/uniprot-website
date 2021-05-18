@@ -3,6 +3,8 @@ import { generatePath } from 'react-router-dom';
 
 import { getEntryPath, Location, LocationToPath } from '../../app/config/urls';
 
+import { pluralise } from '../../shared/utils/utils';
+
 import { Namespace } from '../../shared/types/namespaces';
 import { TabLocation } from '../components/entry/Entry';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
@@ -11,8 +13,6 @@ import {
   getEntryTypeFromString,
 } from '../../shared/components/entry/EntryTypeIcon';
 import EntrySection, { getEntrySectionNameAndId } from '../types/entrySection';
-import FeatureType from '../types/featureType';
-import { CommentType } from '../types/commentTypes';
 
 enum highlightSection {
   domains = 'domain',
@@ -160,9 +160,10 @@ const getProteinHighlights = ({
           pathname: entryPathname,
           ...locationObject,
         },
-        name: `${count} ${
-          prefixResolver?.(entryType) ?? ''
-        }${entryHighlightSection}${count && count > 1 ? 's' : ''}`,
+        name: `${count} ${prefixResolver?.(entryType) ?? ''}${pluralise(
+          entryHighlightSection,
+          count || 0
+        )}`,
       };
     });
 };

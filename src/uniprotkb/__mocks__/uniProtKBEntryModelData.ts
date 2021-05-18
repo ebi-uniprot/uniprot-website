@@ -2,11 +2,12 @@ import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
 // NOTE: citation IDs are identical in the original backend mock, since they
 // would trigger react key warning I've manually changed them here
+// NOTE: modified the UniProtKB ID to be "more" valid (no whitespace)
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P21802',
   secondaryAccessions: ['P21802'],
-  uniProtkbId: 'uniprot id',
+  uniProtkbId: 'uniprot_id',
   entryAudit: {
     firstPublicDate: '2015-08-02',
     lastAnnotationUpdateDate: '2016-04-24',

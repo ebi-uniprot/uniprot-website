@@ -5,6 +5,16 @@ export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
     maximumFractionDigits,
   })}%`;
 
+export const pluralise = (singular: string, count: number, plural?: string) => {
+  if (count === 1) {
+    return singular;
+  }
+  if (plural) {
+    return plural;
+  }
+  return `${singular}s`;
+};
+
 export function moveItemInList<T>(
   list: T[],
   srcIndex: number,

@@ -7,6 +7,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import { getEntryPath } from '../../app/config/urls';
 import parseDate from '../../shared/utils/parseDate';
+import { pluralise } from '../../shared/utils/utils';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { UniRefLiteAPIModel } from '../adapters/uniRefConverter';
@@ -181,8 +182,8 @@ UniRefColumnConfiguration.set(UniRefColumn.members, {
             variant="tertiary"
             to={getEntryPath(Namespace.uniref, id)}
           >
-            {memberCount - CUT_OFF} more member
-            {memberCount - CUT_OFF === 1 ? '' : 's'}
+            {memberCount - CUT_OFF} more{' '}
+            {pluralise('member', memberCount - CUT_OFF)}
           </Button>
         )}
       </ul>
@@ -194,7 +195,7 @@ UniRefColumnConfiguration.set(UniRefColumn.count, {
   render: ({ memberCount }) =>
     memberCount && (
       <>
-        {memberCount} member{memberCount > 1 && 's'}
+        {memberCount} {pluralise('member', memberCount)}
       </>
     ),
 });

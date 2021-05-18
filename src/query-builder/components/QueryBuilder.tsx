@@ -20,6 +20,7 @@ import ClauseList from './ClauseList';
 import useDataApi from '../../shared/hooks/useDataApi';
 
 import { createEmptyClause, defaultQueryFor, getNextId } from '../utils/clause';
+import { pluralise } from '../../shared/utils/utils';
 import { stringify } from '../utils/queryStringProcessor';
 import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 
@@ -114,9 +115,12 @@ const QueryBuilder: FC<Props> = ({
           dispatch(
             addMessage({
               id: Array.isArray(query) ? query[0] : query ?? v1(),
-              content: `Found ${invalidClauses.length} invalid query term${
-                invalidClauses.length === 1 ? '' : 's'
-              } for ${namespace}: ${invalidClauses
+              content: `Found ${
+                invalidClauses.length
+              } invalid query ${pluralise(
+                'term',
+                invalidClauses.length
+              )} for ${namespace}: ${invalidClauses
                 .map((invalid) => `"${invalid.searchTerm.term}"`)
                 .join(', ')}`,
               format: MessageFormat.POP_UP,

@@ -3,6 +3,7 @@
  */
 import {
   hasContent,
+  pluralise,
   getBEMClassName,
   formatPercentage,
   isSameEntry,
@@ -35,6 +36,20 @@ describe('Model Utils', () => {
 
   it('should check whether a nested Map has no content', () => {
     expect(hasContent({ key: new Map() })).toBeFalsy();
+  });
+});
+
+describe('pluralise', () => {
+  it("shouldn't pluralise if count is one", () => {
+    expect(pluralise('cat', 1)).toBe('cat');
+    expect(pluralise('mouse', 1, 'mice')).toBe('mouse');
+  });
+
+  it('should pluralise if count is not one', () => {
+    expect(pluralise('cat', 0)).toBe('cats');
+    expect(pluralise('mouse', 0, 'mice')).toBe('mice');
+    expect(pluralise('cat', 2)).toBe('cats');
+    expect(pluralise('mouse', 2, 'mice')).toBe('mice');
   });
 });
 

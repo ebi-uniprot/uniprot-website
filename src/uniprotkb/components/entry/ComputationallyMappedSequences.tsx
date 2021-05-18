@@ -13,6 +13,8 @@ import useDataApi from '../../../shared/hooks/useDataApi';
 import apiUrls from '../../../shared/config/apiUrls';
 import useItemSelect from '../../../shared/hooks/useItemSelect';
 
+import { pluralise } from '../../../shared/utils/utils';
+
 import {
   getEntryPath,
   Location,
@@ -132,9 +134,9 @@ const ComputationalyMappedSequences: FC<{ primaryAccession: string }> = ({
       ) : (
         <>
           <p>
-            There {filteredData.length === 1 ? 'is' : 'are'}{' '}
-            {filteredData.length} potential isoform
-            {filteredData.length === 1 ? '' : 's'} mapped to this entry
+            There {pluralise('is', filteredData.length, 'are')}{' '}
+            {filteredData.length} potential{' '}
+            {pluralise('isoform', filteredData.length)} mapped to this entry
           </p>
           {filteredData.length ? (
             <>

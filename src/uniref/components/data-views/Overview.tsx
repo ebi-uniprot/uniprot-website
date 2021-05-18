@@ -11,7 +11,7 @@ import MemberLink from '../entry/MemberLink';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
 
-import { getBEMClassName } from '../../../shared/utils/utils';
+import { getBEMClassName, pluralise } from '../../../shared/utils/utils';
 import parseDate from '../../../shared/utils/parseDate';
 import { getEntryPath } from '../../../app/config/urls';
 import apiUrls from '../../config/apiUrls';
@@ -80,9 +80,10 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
             b: 'member-icons',
             m: 'uniprotkb-reviewed',
           })}
-          title={`${uniProtReviewedCount} UniProtKB reviewed member${
-            uniProtReviewedCount === 1 ? '' : 's'
-          }`}
+          title={`${uniProtReviewedCount} UniProtKB reviewed ${pluralise(
+            'member',
+            uniProtReviewedCount
+          )}`}
         >
           <SwissProtIcon />
         </Link>
@@ -97,9 +98,10 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
             b: 'member-icons',
             m: 'uniprotkb-unreviewed',
           })}
-          title={`${uniProtUnreviewedCount} UniProtKB unreviewed member${
-            uniProtUnreviewedCount === 1 ? '' : 's'
-          }`}
+          title={`${uniProtUnreviewedCount} UniProtKB unreviewed ${pluralise(
+            'member',
+            uniProtUnreviewedCount
+          )}`}
         >
           <TremblIcon />
         </Link>
@@ -111,9 +113,7 @@ export const MemberIcons: FC<{ id: string }> = ({ id }) => {
             search: `facets=member_id_type:${MemberTypes.UniParc}`,
           }}
           className={getBEMClassName({ b: 'member-icons', m: 'uniparc' })}
-          title={`${uniParcCount} UniParc member${
-            uniParcCount === 1 ? '' : 's'
-          }`}
+          title={`${uniParcCount} UniParc ${pluralise('member', uniParcCount)}`}
         >
           <UniParcIcon />
         </Link>

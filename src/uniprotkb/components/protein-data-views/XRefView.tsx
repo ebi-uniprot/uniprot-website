@@ -2,6 +2,8 @@ import { Fragment, FC } from 'react';
 import { sortBy } from 'lodash-es';
 import { InfoList, ExternalLink, ExpandableList } from 'franklin-sites';
 
+import { pluralise } from '../../../shared/utils/utils';
+
 import {
   databaseCategoryToString,
   databaseToDatabaseInfo,
@@ -44,7 +46,7 @@ const formatSuffixWithCount = (prefix: string, number: string) => {
   if (count <= 0) {
     return '';
   }
-  return ` ${count} ${prefix}${count > 1 ? 's' : ''}`;
+  return ` ${count} ${pluralise(prefix, count)}`;
 };
 
 export const getPropertyString = (key?: string, value?: string) => {

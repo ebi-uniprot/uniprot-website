@@ -1,13 +1,15 @@
 import { Link, generatePath } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
 
+import { pluralise } from '../../shared/utils/utils';
+
+import { Location, jobTypeToPath } from '../../app/config/urls';
+
 import {
   MessageFormat,
   MessageLevel,
   MessageTag,
 } from '../../messages/types/messagesTypes';
-
-import { Location, jobTypeToPath } from '../../app/config/urls';
 
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
@@ -167,7 +169,7 @@ export const getJobMessage = ({
   }
   let hitsMessage = '';
   if (typeof nHits !== 'undefined') {
-    hitsMessage = `, found ${nHits} hit${nHits === 1 ? '' : 's'}`;
+    hitsMessage = `, found ${nHits} ${pluralise('hit', nHits)}`;
   }
 
   return {

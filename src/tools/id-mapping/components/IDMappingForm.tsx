@@ -18,12 +18,14 @@ import {
 import { sleep } from 'timing-functions';
 import { useHistory } from 'react-router-dom';
 
+import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
+
+import { pluralise } from '../../../shared/utils/utils';
+
 import useDataApi from '../../../shared/hooks/useDataApi';
 import useTextFileInput from '../../../shared/hooks/useTextFileInput';
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
 import useInitialFormParameters from '../../hooks/useInitialFormParameters';
-
-import AutocompleteWrapper from '../../../query-builder/components/AutocompleteWrapper';
 
 import { createJob } from '../../state/toolsActions';
 import { getTreeData } from '../utils';
@@ -301,8 +303,8 @@ const IDMappingForm = () => {
             />
             {parsedIDs.length > 0 && (
               <Message level="info">
-                Your input contains {parsedIDs.length} ID
-                {parsedIDs.length === 1 ? '' : 's'}
+                Your input contains {parsedIDs.length}{' '}
+                {pluralise('ID', parsedIDs.length)}
               </Message>
             )}
           </section>
@@ -420,9 +422,9 @@ const IDMappingForm = () => {
                   disabled={submitDisabled}
                   onClick={submitIDMappingJob}
                 >
-                  {`Map ${parsedIDs.length ? `${parsedIDs.length} ` : ''} ID${
-                    parsedIDs.length !== 1 ? 's' : ''
-                  }`}
+                  {`Map ${
+                    parsedIDs.length ? `${parsedIDs.length} ` : ''
+                  } ${pluralise('ID', parsedIDs.length)}`}
                 </button>
               </section>
             </section>

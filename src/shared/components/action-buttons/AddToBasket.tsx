@@ -2,6 +2,8 @@ import { FC } from 'react';
 // import { useDispatch } from 'react-redux';
 import { BasketIcon, Button } from 'franklin-sites';
 
+import { pluralise } from '../../utils/utils';
+
 type AddToBasketButtonProps = {
   selectedEntries: string[];
 };
@@ -14,7 +16,7 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
   const disabled = !n;
 
   const title = n
-    ? `Add ${n} entr${n === 1 ? 'y' : 'ies'} to the basket`
+    ? `Add ${n} ${pluralise('entry', n, 'entries')} to the basket`
     : 'Select at least one entry to add to the basket';
 
   const handleClick = () => {

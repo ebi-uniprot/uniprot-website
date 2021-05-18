@@ -1160,7 +1160,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go_p": go_
 exports[`UniProtKBColumnConfiguration component should render column "id": id 1`] = `
 <DocumentFragment>
   <span>
-    uniprot id
+    uniprot_id
   </span>
 </DocumentFragment>
 `;
