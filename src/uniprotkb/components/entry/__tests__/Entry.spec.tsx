@@ -99,7 +99,7 @@ describe('Entry', () => {
       const smallFacetButton2 = await waitFor(() =>
         screen.getByText(/Another facet/)
       );
-      expect(smallFacetButton2).toBeTruthy();
+      expect(smallFacetButton2).toBeInTheDocument();
     });
   });
 

@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import SequenceSearchLoader from '../SequenceSearchLoader';
 
@@ -19,11 +19,10 @@ describe('SequenceSearchLoader tests', () => {
     }));
 
     const onLoadMock = jest.fn();
-    const component = customRender(
-      <SequenceSearchLoader onLoad={onLoadMock} />
-    );
-    const { getByPlaceholderText } = component;
-    const input = getByPlaceholderText('UniProt IDs');
+    customRender(<SequenceSearchLoader onLoad={onLoadMock} />);
+    const input = screen.getByPlaceholderText(
+      'UniProt IDs'
+    ) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([
@@ -49,11 +48,10 @@ describe('SequenceSearchLoader tests', () => {
     }));
 
     const onLoadMock = jest.fn();
-    const component = customRender(
-      <SequenceSearchLoader onLoad={onLoadMock} />
-    );
-    const { getByPlaceholderText } = component;
-    const input = getByPlaceholderText('UniProt IDs');
+    customRender(<SequenceSearchLoader onLoad={onLoadMock} />);
+    const input = screen.getByPlaceholderText(
+      'UniProt IDs'
+    ) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([

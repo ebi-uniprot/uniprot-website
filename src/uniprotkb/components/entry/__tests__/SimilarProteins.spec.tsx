@@ -31,13 +31,13 @@ describe('SimilarProteins tests', () => {
   });
 
   it('should call useDataApi and render', async () => {
-    expect(await screen.findAllByText(/0FGN2/)).toBeTruthy();
+    expect(await screen.findAllByText(/0FGN2/)).toHaveLength(4);
   });
 
   // Skip for now, just to get going
   it.skip('should change tabs', async () => {
     fireEvent.click(await screen.findByRole('tab', { name: /50% identity/ }));
-    expect(await screen.findByText(/P12023/)).toBeTruthy();
+    expect(await screen.findByText(/P12023/)).toBeInTheDocument();
   });
 
   it('should navigate to correct search page when clicking "view all"', async () => {

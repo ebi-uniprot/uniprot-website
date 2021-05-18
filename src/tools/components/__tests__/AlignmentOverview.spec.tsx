@@ -6,7 +6,7 @@ import { BLAST as mockData } from '../__mocks__/featureShapesMocks.json';
 
 describe('AlignmentOverview', () => {
   describe('BLAST', () => {
-    let rendered;
+    let rendered: ReturnType<typeof customRender>;
     beforeEach(() => {
       rendered = customRender(
         <AlignmentOverview

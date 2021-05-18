@@ -127,7 +127,9 @@ describe.only('Download component', () => {
     fireEvent.click(
       screen.getByLabelText(`Download selected (${selectedEntries.length})`)
     );
-    expect(screen.getByText(`Preview ${selectedEntries.length}`)).toBeTruthy();
+    expect(
+      screen.getByText(`Preview ${selectedEntries.length}`)
+    ).toBeInTheDocument();
   });
 });
 
