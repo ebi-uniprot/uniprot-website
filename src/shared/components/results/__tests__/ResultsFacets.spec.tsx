@@ -31,7 +31,7 @@ describe('ResultsFacets', () => {
   test('should select a facet', async () => {
     const { history } = resultsFacets('/uniprotkb?query=blah');
     expect(history.location.search).toEqual('?query=blah');
-    const unreviewedButton = await await screen.findByRole('link', {
+    const unreviewedButton = await screen.findByRole('link', {
       name: /Unreviewed/i,
     });
     fireEvent.click(unreviewedButton);
