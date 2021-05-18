@@ -39,7 +39,6 @@
     // TODO: slowly include these in order to enforce tests type check and lint
     "src/tools/align/**/*.spec.ts*",
     "src/tools/blast/**/*.spec.ts*",
-    "src/tools/components/**/*.spec.ts*",
-    "src/tools/utils/**/*.spec.ts*"
+    "src/tools/components/**/*.spec.ts*"
   ]
 }

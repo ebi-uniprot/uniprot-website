@@ -1,14 +1,19 @@
 import {
   findSequenceSegments,
-  getFullAlignmentSegments,
+  // getFullAlignmentSegments,
   getNumberOfInsertions,
   getEndCoordinate,
   createGappedFeature,
   removeFeaturesWithUnknownModifier,
   findSequenceFeature,
 } from '../sequences';
-import featuresMock from '../__mocks__/features.json';
-import sequenceChunkPairsMock from '../__mocks__/sequences.json';
+
+import { ProcessedFeature } from '../../../shared/components/views/FeaturesView';
+import { FeatureData } from '../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
+import { MSAInput } from '../../components/AlignmentView';
+
+// import featuresMock from '../__mocks__/features.json';
+// import sequenceChunkPairsMock from '../__mocks__/sequences.json';
 import { Align as alignment } from '../../components/__mocks__/msaMocks.json';
 
 describe('Tool sequences utils', () => {
@@ -70,7 +75,9 @@ describe('Tool sequences utils', () => {
         end: 10,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 1,
         end: 10,
       });
@@ -83,7 +90,9 @@ describe('Tool sequences utils', () => {
         end: 7,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 2,
         end: 8,
       });
@@ -96,7 +105,9 @@ describe('Tool sequences utils', () => {
         end: 9,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 1,
         end: 10,
         locations: [
@@ -118,7 +129,9 @@ describe('Tool sequences utils', () => {
         end: 5,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 4,
         end: 6,
       });
@@ -131,7 +144,9 @@ describe('Tool sequences utils', () => {
         end: 5,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 3,
         end: 9,
         locations: [
@@ -153,7 +168,9 @@ describe('Tool sequences utils', () => {
         end: 8,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 4,
         end: 13,
         locations: [
@@ -176,7 +193,9 @@ describe('Tool sequences utils', () => {
         end: 9,
       };
 
-      expect(createGappedFeature(feature, sequence, 1)).toEqual({
+      expect(
+        createGappedFeature(feature as ProcessedFeature, sequence, 1)
+      ).toEqual({
         start: 1,
         end: 18,
         locations: [
@@ -214,7 +233,7 @@ describe('Tool sequences utils', () => {
               },
             },
           },
-        ])
+        ] as FeatureData)
       ).toHaveLength(0);
     });
     it('should return feature with EXACT locations', () => {
@@ -232,7 +251,7 @@ describe('Tool sequences utils', () => {
               },
             },
           },
-        ])
+        ] as FeatureData)
       ).toHaveLength(1);
     });
     it('should return empty array if no features provided', () => {
@@ -241,18 +260,18 @@ describe('Tool sequences utils', () => {
   });
   describe('findSequenceFeature', () => {
     it('should find sequence feature', () => {
-      expect(findSequenceFeature('id1', alignment)).toEqual(
+      expect(findSequenceFeature('id1', alignment as MSAInput[])).toEqual(
         alignment[0].features[0]
       );
     });
 
     it('should return null when it cannot find sequence feature', () => {
-      expect(findSequenceFeature('id100', alignment)).toBeNull();
+      expect(findSequenceFeature('id100', alignment as MSAInput[])).toBeNull();
     });
 
     it('should continue when an alignment does not contain features', () => {
-      alignment[1] = { ...alignment[1], features: null };
-      expect(findSequenceFeature('id1', alignment)).toEqual(
+      alignment[1] = { ...alignment[1], features: [] };
+      expect(findSequenceFeature('id1', alignment as MSAInput[])).toEqual(
         alignment[0].features[0]
       );
     });

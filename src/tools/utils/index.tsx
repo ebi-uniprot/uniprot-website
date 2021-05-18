@@ -104,7 +104,9 @@ export const getStatusFromResponse = async (
 const parseXML = (xml: string) =>
   new window.DOMParser().parseFromString(xml, 'text/xml');
 
-type ServerError = { response: AxiosResponse<string | { messages: string[] }> };
+export type ServerError = {
+  response: AxiosResponse<string | { messages: string[] }>;
+};
 
 export const getServerErrorDescription = (error: ServerError) => {
   const data = error?.response?.data;
