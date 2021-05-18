@@ -26,20 +26,27 @@ const getCheckJobStatus = ({
   try {
     // we use plain fetch as through Axios we cannot block redirects
     const response = await window.fetch(urlConfig.statusUrl(job.remoteID), {
-      headers: { Accept: 'text/plain,application/json' },
+      headers: {
+        Accept: 'text/plain,application/json',
+      },
       method: 'GET',
       // 'manual' to block redirect is the bit we cannot do with Axios
       redirect: job.type === JobTypes.ID_MAPPING ? 'follow' : 'manual',
     });
 
-    if (!response.ok) {
-      throw new Error(`${response.status}: ${response.statusText}`);
-    }
-
-    const [status, idMappingTarget] = await getStatusFromResponse(
+    const [status, idMappingResultsUrl] = await getStatusFromResponse(
       job.type,
       response
     );
+
+    if (
+      !response.ok &&
+      status !== Status.FAILURE &&
+      status !== Status.ERRORED
+    ) {
+      throw new Error(`${response.status}: ${response.statusText}`);
+    }
+
     // get a new reference to the job
     let currentStateOfJob = getState().tools[job.internalID];
     // check that the job is still in the state (it might have been removed)
@@ -122,10 +129,10 @@ const getCheckJobStatus = ({
           getJobMessage({ job: currentStateOfJob, nHits: results.hits.length })
         )
       );
-    } else if (job.type === JobTypes.ID_MAPPING) {
+    } else if (job.type === JobTypes.ID_MAPPING && idMappingResultsUrl) {
       // only ID Mapping jobs
       const response = await fetchData(
-        urlConfig.resultUrl(job.remoteID, { idMappingTarget }),
+        idMappingResultsUrl,
         undefined,
         undefined,
         { method: 'HEAD' }
@@ -157,7 +164,7 @@ const getCheckJobStatus = ({
           timeLastUpdate: now,
           timeFinished: now,
           status,
-          data: { hits: +hits, idMappingTarget },
+          data: { hits: +hits },
         })
       );
       dispatch(

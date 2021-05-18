@@ -33,7 +33,7 @@ export interface RunningJob extends BaseJob<JobTypes> {
   timeSubmitted: number;
 }
 
-type DataForDashboard = {
+export type DataForDashboard = {
   [JobTypes.ALIGN]: never;
   [JobTypes.BLAST]: { hits: number };
   [JobTypes.ID_MAPPING]: { hits: number; idMappingTarget: IDMappingNamespace };

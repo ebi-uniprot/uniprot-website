@@ -68,6 +68,7 @@ import EntryTypeIcon, {
 } from '../../shared/components/entry/EntryTypeIcon';
 
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import { Namespace } from '../../shared/types/namespaces';
 import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
@@ -1180,5 +1181,7 @@ Object.values(UniProtKBColumn)
     }
     UniProtKBColumnConfiguration.set(colName, getXrefColumn(databaseInfo.name));
   });
+
+UniProtKBColumnConfiguration.set(UniProtKBColumn.from, fromColumnConfig);
 
 export default UniProtKBColumnConfiguration;

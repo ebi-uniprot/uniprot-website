@@ -14,6 +14,7 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 
 import externalUrls from '../../shared/config/externalUrls';
 import { getEntryPath } from '../../app/config/urls';
+import { fromColumnConfig } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 
 import parseDate from '../../shared/utils/parseDate';
 import xrefGetter from '../utils/xrefGetter';
@@ -57,6 +58,7 @@ export enum UniParcColumn {
   smart = 'SMART',
   supfam = 'SUPFAM',
   tigrfams = 'TIGRFAMs',
+  from = 'from',
 }
 
 export const defaultColumns = [
@@ -309,5 +311,7 @@ UniParcColumnConfiguration.set(UniParcColumn.tigrfams, {
   label: 'TIGRFAMs',
   render: familyAndDomainRenderer('TIGRFAMs', 'TIGRFAMsEntry'),
 });
+
+UniParcColumnConfiguration.set(UniParcColumn.from, fromColumnConfig);
 
 export default UniParcColumnConfiguration;

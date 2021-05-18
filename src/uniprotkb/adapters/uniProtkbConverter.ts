@@ -76,6 +76,7 @@ export type UniProtkbAPIModel = {
     };
     uniParcId?: string;
   };
+  from?: string; // ID Mapping results
 };
 
 export type UniProtkbUIModel = {
@@ -103,6 +104,7 @@ export type UniProtkbUIModel = {
   };
   references?: UniProtKBReference[];
   extraAttributes: UniProtkbAPIModel['extraAttributes'];
+  from?: string; // ID Mapping
 };
 
 export enum InactiveReasonType {
@@ -154,6 +156,7 @@ const uniProtKbConverter = (data: UniProtkbAPIModel): UniProtkbUIModel => {
     [EntrySection.SimilarProteins]: extractIsoforms(dataCopy),
     references: dataCopy.references || [],
     extraAttributes: data.extraAttributes,
+    from: dataCopy.from,
   };
 };
 

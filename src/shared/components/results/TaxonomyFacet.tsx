@@ -12,7 +12,7 @@ import {
   stringify,
 } from '../../../query-builder/utils/queryStringProcessor';
 
-import { Namespace } from '../../types/namespaces';
+import { SearchableNamespace } from '../../types/namespaces';
 
 const QueryBuilder = lazy(
   () =>
@@ -23,7 +23,9 @@ const QueryBuilder = lazy(
 
 const interestingTerms = /taxonomy|organism/;
 
-const TaxonomyFacet: FC<{ namespace: Namespace }> = ({ namespace }) => {
+const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
+  namespace,
+}) => {
   const { search } = useLocation();
 
   const parsedSearch = qsParse(search);

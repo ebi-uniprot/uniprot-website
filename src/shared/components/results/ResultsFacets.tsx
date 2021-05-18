@@ -6,7 +6,7 @@ import useNS from '../../hooks/useNS';
 import TaxonomyFacet from './TaxonomyFacet';
 import EntryTypeIcon from '../entry/EntryTypeIcon';
 
-import { mainNamespaces } from '../../types/namespaces';
+import { mainNamespaces, SearchableNamespace } from '../../types/namespaces';
 
 import { UseDataAPIWithStaleState } from '../../hooks/useDataApiWithStale';
 import Response, { FacetValue } from '../../../uniprotkb/types/responseTypes';
@@ -72,7 +72,7 @@ const ResultsFacets: FC<{
         (facet) => facet.values && <Facet key={facet.name} data={facet} />
       )}
       {namespace && mainNamespaces.has(namespace) && (
-        <TaxonomyFacet namespace={namespace} />
+        <TaxonomyFacet namespace={namespace as SearchableNamespace} />
       )}
       {after.map(
         (facet) => facet.values && <Facet key={facet.name} data={facet} />
