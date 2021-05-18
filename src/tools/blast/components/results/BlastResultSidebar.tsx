@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Loader, Facets, Facet } from 'franklin-sites';
+import { Loader, Facets } from 'franklin-sites';
 
 import BlastResultLocalFacets from './BlastResultLocalFacets';
 
@@ -10,11 +10,9 @@ import { getAccessionsURL } from '../../../../shared/config/apiUrls';
 import { getParamsFromURL } from '../../../../uniprotkb/utils/resultsUtils';
 
 import { BlastHit } from '../../types/blastResults';
-import Response, {
-  FacetObject,
-} from '../../../../uniprotkb/types/responseTypes';
+import Response from '../../../../uniprotkb/types/responseTypes';
 
-import helper from '../../../../shared/styles/helper.module.scss';
+import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 
 const facets = [
   'reviewed',
@@ -35,10 +33,11 @@ const BlastResultSidebar = memo<BlastResultSidebarProps>(
   ({ accessions, allHits }) => {
     const { search } = useLocation();
     const { selectedFacets } = getParamsFromURL(search);
-    const { data, loading, isStale } = useDataApiWithStale<Response['data']>(
+    const dataApiObject = useDataApiWithStale<Response['data']>(
       getAccessionsURL(accessions, { size: 0, facets, selectedFacets })
     );
 
+    const { loading, isStale } = dataApiObject;
     if (loading && !isStale) {
       return <Loader />;
     }
@@ -46,13 +45,7 @@ const BlastResultSidebar = memo<BlastResultSidebarProps>(
     return (
       <Facets>
         <BlastResultLocalFacets allHits={allHits} />
-        {data?.facets?.map((facet: FacetObject) => (
-          <Facet
-            key={facet.name}
-            data={facet}
-            className={isStale ? helper.stale : undefined}
-          />
-        ))}
+        <ResultsFacets dataApiObject={dataApiObject} />
       </Facets>
     );
   }
