@@ -43,6 +43,11 @@ import CitationsColumnConfiguration from '../../supporting-data/citations/config
 import DiseasesColumnConfiguration from '../../supporting-data/diseases/config/DiseasesColumnConfiguration';
 import DatabaseColumnConfiguration from '../../supporting-data/database/config/DatabaseColumnConfiguration';
 import LocationsColumnConfiguration from '../../supporting-data/locations/config/LocationsColumnConfiguration';
+import {
+  IDMappingColumn,
+  IdMappingColumnConfiguration,
+} from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
+import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export type ColumnDescriptor = {
   name: string;
@@ -52,7 +57,7 @@ export type ColumnDescriptor = {
   sorted?: SortDirection;
 };
 
-const convertRow = (row: APIModel, namespace: Namespace) => {
+const convertRow = (row: APIModel, namespace: Namespace | 'id-mapping') => {
   switch (namespace) {
     // Main namespaces
     case Namespace.uniprotkb:
@@ -76,6 +81,8 @@ const convertRow = (row: APIModel, namespace: Namespace) => {
       return row as DatabaseAPIModel;
     case Namespace.locations:
       return row as LocationsAPIModel;
+    case Namespace.idmapping:
+      return row as MappingAPIModel;
     default:
       // eslint-disable-next-line no-console
       console.warn(`Unrecognised namespace: "${namespace}"`);
@@ -97,6 +104,7 @@ const ColumnConfigurations: Partial<Record<Namespace, Map<any, any>>> = {
   [Namespace.diseases]: DiseasesColumnConfiguration,
   [Namespace.database]: DatabaseColumnConfiguration,
   [Namespace.locations]: LocationsColumnConfiguration,
+  [Namespace.idmapping]: IdMappingColumnConfiguration,
 };
 
 const getColumnsToDisplay = (
@@ -133,9 +141,12 @@ const getColumnsToDisplay = (
     };
   }) || [];
 
-const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
+const useColumns = (
+  namespaceFallback?: Namespace,
+  displayIdMappingColumns = false
+): [ColumnDescriptor[], (columnName: string) => void] => {
   const history = useHistory();
-  const namespace = useNS() || Namespace.uniprotkb;
+  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
@@ -151,7 +162,9 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data
-    mainNamespaces.has(namespace) ? apiUrls.resultsFields(namespace) : null
+    namespace !== 'id-mapping' && mainNamespaces.has(namespace)
+      ? apiUrls.resultsFields(namespace)
+      : null
   );
 
   const sortableColumnToSortColumn = useMemo(
@@ -163,7 +176,9 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
     setColumns(
       getColumnsToDisplay(
         namespace,
-        usersColumns,
+        displayIdMappingColumns && namespace !== Namespace.idmapping
+          ? [IDMappingColumn.from, ...usersColumns]
+          : usersColumns,
         sortableColumnToSortColumn,
         sortColumn,
         sortDirection
@@ -175,29 +190,35 @@ const useColumns = (): [ColumnDescriptor[], (columnName: string) => void] => {
     sortColumn,
     sortDirection,
     sortableColumnToSortColumn,
+    displayIdMappingColumns,
   ]);
 
   const updateColumnSort = (columnName: string) => {
-    const newSortColumn = sortableColumnToSortColumn.get(columnName as Column);
-    if (!newSortColumn) {
-      return;
+    // No sorting for id mapping
+    if (namespace !== Namespace.idmapping) {
+      const newSortColumn = sortableColumnToSortColumn.get(
+        columnName as Column
+      );
+      if (!newSortColumn) {
+        return;
+      }
+
+      // Change sort direction
+      const updatedSortDirection =
+        !sortDirection || sortDirection === SortDirection.descend
+          ? SortDirection.ascend
+          : SortDirection.descend;
+
+      history.push(
+        getLocationObjForParams({
+          pathname: SearchResultsLocations[namespace],
+          query,
+          selectedFacets,
+          sortColumn: newSortColumn,
+          sortDirection: updatedSortDirection,
+        })
+      );
     }
-
-    // Change sort direction
-    const updatedSortDirection =
-      !sortDirection || sortDirection === SortDirection.descend
-        ? SortDirection.ascend
-        : SortDirection.descend;
-
-    history.push(
-      getLocationObjForParams({
-        pathname: SearchResultsLocations[namespace],
-        query,
-        selectedFacets,
-        sortColumn: newSortColumn,
-        sortDirection: updatedSortDirection,
-      })
-    );
   };
   return [columns, updateColumnSort];
 };

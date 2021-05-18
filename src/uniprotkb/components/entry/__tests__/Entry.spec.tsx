@@ -24,13 +24,13 @@ const { primaryAccession } = entryData;
 const { primaryAccession: deleteEntryAccession } = deletedEntryData;
 const { primaryAccession: demergedEntryAccession } = demergedEntryData;
 const { primaryAccession: nonHumanEntryAccession } = nonHumanEntryData;
-const mock = new MockAdapter(axios);
 
 const filteredUrl = getUniProtPublicationsQueryUrl({
   accession: primaryAccession,
   selectedFacets: [{ name: 'study_type', value: 'small_scale' }],
 });
 
+const mock = new MockAdapter(axios);
 mock
   .onGet(apiUrls.entry(deleteEntryAccession, Namespace.uniprotkb))
   .reply(200, deletedEntryData)

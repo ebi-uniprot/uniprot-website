@@ -14,7 +14,6 @@ import {
 import { Job } from '../types/toolsJob';
 import { JobTypes } from '../types/toolsJobTypes';
 import { Status } from '../types/toolsStatuses';
-import { IDMappingNamespace } from '../id-mapping/types/idMappingServerParameters';
 
 const validServerID: Record<JobTypes, RegExp> = {
   [JobTypes.ALIGN]: /^clustalo-R\d{8}(-\w+){4}$/,
@@ -58,27 +57,25 @@ export const getRemoteIDFromResponse = async (
   return remoteID;
 };
 
-const idMappingStatusPattern = /\/idmapping(\/(?<idMappingTarget>\w+))?\/results\/[a-f\d]/;
 const statuses = Object.values(Status);
 
 export const getStatusFromResponse = async (
   jobType: JobTypes,
   response: Response
-): Promise<[status: Status, idMappingTarget?: IDMappingNamespace]> => {
+): Promise<[status: Status, idMappingResultsUrl?: string]> => {
   let status: Status | undefined;
-  let idMappingTarget: IDMappingNamespace | undefined;
+  let idMappingResultsUrl: string | undefined;
   switch (jobType) {
     case JobTypes.ALIGN:
     case JobTypes.BLAST:
       status = (await response.text()) as Status;
       break;
     case JobTypes.ID_MAPPING:
-      if (response.redirected && response.url) {
-        const match = response.url.match(idMappingStatusPattern);
-        if (match) {
-          status = Status.FINISHED;
-          idMappingTarget = match.groups?.idMappingTarget as IDMappingNamespace;
-        }
+      if (response.status >= 400) {
+        status = Status.FAILURE;
+      } else if (response.redirected && response.url) {
+        status = Status.FINISHED;
+        idMappingResultsUrl = response.url;
       } else {
         status = Status.RUNNING;
       }
@@ -101,7 +98,7 @@ export const getStatusFromResponse = async (
     throw new Error(`The server didn't return a valid status`);
   }
 
-  return [status, idMappingTarget];
+  return [status, idMappingResultsUrl];
 };
 
 const parseXML = (xml: string) =>

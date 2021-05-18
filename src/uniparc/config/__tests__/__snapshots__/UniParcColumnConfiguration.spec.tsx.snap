@@ -228,6 +228,8 @@ exports[`UniParcColumnConfiguration component should render column "first_seen":
 </DocumentFragment>
 `;
 
+exports[`UniParcColumnConfiguration component should render column "from": from 1`] = `<DocumentFragment />`;
+
 exports[`UniParcColumnConfiguration component should render column "gene": gene 1`] = `
 <DocumentFragment>
   <ul

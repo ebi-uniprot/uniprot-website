@@ -12,6 +12,10 @@ import { DatabaseAPIModel } from '../../supporting-data/database/adapters/databa
 import { LocationsAPIModel } from '../../supporting-data/locations/adapters/locationsConverter';
 
 import { Namespace } from '../types/namespaces';
+import {
+  MappingFlat,
+  MappingTo,
+} from '../../tools/id-mapping/types/idMappingSearchResults';
 
 export const getIdKeyFor = (
   namespace: Namespace
@@ -39,6 +43,8 @@ export const getIdKeyFor = (
       return (data) => (data as DatabaseAPIModel).id;
     case Namespace.locations:
       return (data) => (data as LocationsAPIModel).id;
+    case Namespace.idmapping:
+      return (data) => `${(data as MappingFlat).from}${(data as MappingTo).to}`;
     default:
       // eslint-disable-next-line no-console
       console.warn(`getIdKey method not implemented for ${namespace} yet`);

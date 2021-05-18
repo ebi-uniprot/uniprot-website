@@ -1,7 +1,7 @@
-import { Namespace } from '../types/namespaces';
+import { Namespace, SearchableNamespace } from '../types/namespaces';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 
-const titles: Record<Namespace | JobTypes, string> = {
+const titles: Record<SearchableNamespace | JobTypes, string> = {
   // Main data
   [Namespace.uniprotkb]: 'UniProtKB',
   [Namespace.uniref]: 'UniRef',
@@ -15,9 +15,9 @@ const titles: Record<Namespace | JobTypes, string> = {
   [Namespace.database]: 'Cross-referenced databases',
   [Namespace.locations]: 'Subcellular locations',
   // Tools
+  [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.ALIGN]: 'Align',
   [JobTypes.BLAST]: 'BLAST',
-  [JobTypes.ID_MAPPING]: 'Retrieve/ID mapping',
   [JobTypes.PEPTIDE_SEARCH]: 'Peptide search',
 };
 

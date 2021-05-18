@@ -264,7 +264,10 @@ const Row = memo(({ job, hasExpired }: RowProps) => {
 
   let jobLink: string | undefined;
   if ('remoteID' in job && job.status === Status.FINISHED && !hasExpired) {
-    if (job.type === JobTypes.PEPTIDE_SEARCH) {
+    if (
+      job.type === JobTypes.ID_MAPPING ||
+      job.type === JobTypes.PEPTIDE_SEARCH
+    ) {
       jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}`;
     } else {
       jobLink = `${jobTypeToPath(job.type)}/${job.remoteID}/overview`;

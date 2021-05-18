@@ -4,6 +4,8 @@ import { generatePath } from 'react-router-dom';
 import { JobTypes } from '../../tools/types/toolsJobTypes';
 import {
   Namespace,
+  NamespaceLabels,
+  SearchableNamespace,
   supportingDataNamespaces,
 } from '../../shared/types/namespaces';
 
@@ -75,12 +77,11 @@ export const LocationToPath: Record<Location, string> = {
   [Location.Blast]: '/blast',
   [Location.PeptideSearchResult]: '/peptide-search/:id/:subPage?',
   [Location.PeptideSearch]: '/peptide-search',
-  // TODO: check final URL for those
-  [Location.IDMappingResult]: '/id-mapping/:id/:subPage?',
+  [Location.IDMappingResult]: '/id-mapping/:id',
   [Location.IDMapping]: '/id-mapping',
 };
 
-export const SearchResultsLocations: Record<Namespace, string> = {
+export const SearchResultsLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBResults],
   [Namespace.uniref]: LocationToPath[Location.UniRefResults],
@@ -95,10 +96,17 @@ export const SearchResultsLocations: Record<Namespace, string> = {
   [Namespace.locations]: LocationToPath[Location.LocationsResults],
 };
 
-// "/:namespace(uniprotkb|uniparc|........)/"
+export const IDMappingNamespaces = [
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+  Namespace.idmapping,
+];
+
+// "/:namespace(uniprotkb|uniparc|........)/""
 export const allSearchResultLocations = `/:namespace(${Object.values(
-  Namespace
-).join('|')})/`;
+  NamespaceLabels
+).join('|')})`;
 
 // same as above, but only with supporting data namespaces, and with accession
 export const allSupportingDataEntryLocations = `/:namespace(${Array.from(
@@ -106,7 +114,7 @@ export const allSupportingDataEntryLocations = `/:namespace(${Array.from(
 ).join('|')})/:accession`;
 
 // All "entry" locations need to have a "accession" param in the pattern
-export const EntryLocations: Record<Namespace, string> = {
+export const EntryLocations: Record<SearchableNamespace, string> = {
   // Main data
   [Namespace.uniprotkb]: LocationToPath[Location.UniProtKBEntry],
   [Namespace.uniref]: LocationToPath[Location.UniRefEntry],
@@ -122,12 +130,12 @@ export const EntryLocations: Record<Namespace, string> = {
 };
 
 export const getEntryPath = (
-  namespace: Namespace,
+  namespace: SearchableNamespace,
   accession: string | number
 ) => generatePath(EntryLocations[namespace], { accession: `${accession}` });
 
 // Same than above, but curried version
-export const getEntryPathFor = (namespace: Namespace) => {
+export const getEntryPathFor = (namespace: SearchableNamespace) => {
   const entryLocation = EntryLocations[namespace];
   return (accession: string | number) =>
     generatePath(entryLocation, { accession: `${accession}` });

@@ -27,7 +27,10 @@ import parseAndMatchQuery from '../utils/parseAndMatchQuery';
 import { addMessage } from '../../messages/state/messagesActions';
 
 import apiUrls from '../../shared/config/apiUrls';
-import { Namespace, NamespaceLabels } from '../../shared/types/namespaces';
+import {
+  NamespaceLabels,
+  SearchableNamespace,
+} from '../../shared/types/namespaces';
 import { SearchResultsLocations } from '../../app/config/urls';
 
 import {
@@ -51,7 +54,7 @@ type Props = {
   /**
    * The namespace to initialise the dropdown with
    */
-  initialNamespace: Namespace;
+  initialNamespace: SearchableNamespace;
 };
 interface Style extends CSSProperties {
   // TODO: define and extend the supported custom properties in franklin
@@ -217,12 +220,14 @@ const QueryBuilder: FC<Props> = ({
             Searching in
             <select
               id="namespace-select"
-              onChange={(e) => setNamespace(e.target.value as Namespace)}
+              onChange={(e) =>
+                setNamespace(e.target.value as SearchableNamespace)
+              }
               value={namespace}
             >
               {Object.keys(NamespaceLabels).map((key) => (
                 <option value={key} key={key}>
-                  {NamespaceLabels[key as Namespace]}
+                  {NamespaceLabels[key as SearchableNamespace]}
                 </option>
               ))}
             </select>

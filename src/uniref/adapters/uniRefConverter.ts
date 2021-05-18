@@ -62,6 +62,7 @@ export type UniRefLiteAPIModel = {
   memberIdTypes: MemberIdType[];
   members: string[];
   organisms: TaxonomyDatum[];
+  from?: string; // ID Mapping results
 };
 
 export type UniRefAPIModel = {
