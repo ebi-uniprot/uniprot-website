@@ -114,6 +114,7 @@ const IDMappingResult = () => {
         selectedEntries={selectedEntries}
         total={total}
         namespaceFallback={namespaceFallback}
+        disableCardToggle
         titlePostscript={
           total && (
             <small>
