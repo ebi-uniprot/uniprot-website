@@ -1296,30 +1296,30 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
     </li>
     <li>
       <a
-        href="/citations/12345"
+        href="/citations/12346"
       >
-        12345
+        12346
       </a>
     </li>
     <li>
       <a
-        href="/citations/12345"
+        href="/citations/12347"
       >
-        12345
+        12347
       </a>
     </li>
     <li>
       <a
-        href="/citations/12345"
+        href="/citations/12348"
       >
-        12345
+        12348
       </a>
     </li>
     <li>
       <a
-        href="/citations/12345"
+        href="/citations/12349"
       >
-        12345
+        12349
       </a>
     </li>
     <li>

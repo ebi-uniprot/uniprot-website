@@ -1,5 +1,7 @@
 import { UniProtkbAPIModel } from '../adapters/uniProtkbConverter';
 
+// NOTE: citation IDs are identical in the original backend mock, since they
+// would trigger react key warning I've manually changed them here
 const mock: UniProtkbAPIModel = {
   entryType: 'UniProtKB reviewed (Swiss-Prot)',
   primaryAccession: 'P21802',
@@ -1066,14 +1068,14 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12346',
         citationType: 'online journal article',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '12345',
+            id: '12346',
           },
           {
             database: 'DOI',
@@ -1109,14 +1111,14 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12347',
         citationType: 'journal article',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '12345',
+            id: '12347',
           },
           {
             database: 'DOI',
@@ -1154,14 +1156,14 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12348',
         citationType: 'patent',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '12345',
+            id: '12348',
           },
           {
             database: 'DOI',
@@ -1196,14 +1198,14 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12349',
         citationType: 'submission',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '12345',
+            id: '12349',
           },
           {
             database: 'DOI',
@@ -1238,14 +1240,14 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12340',
         citationType: 'thesis',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '12345',
+            id: '12340',
           },
           {
             database: 'DOI',
@@ -1281,14 +1283,14 @@ const mock: UniProtkbAPIModel = {
     },
     {
       citation: {
-        id: '12345',
+        id: '12341',
         citationType: 'unpublished observations',
         authoringGroup: ['auth group'],
         authors: ['author Leo'],
         citationCrossReferences: [
           {
             database: 'PubMed',
-            id: '12345',
+            id: '12341',
           },
           {
             database: 'DOI',

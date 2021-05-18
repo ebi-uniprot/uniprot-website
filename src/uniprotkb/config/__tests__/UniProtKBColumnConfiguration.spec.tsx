@@ -3,7 +3,6 @@ import UniProtKBColumnConfiguration from '../UniProtKBColumnConfiguration';
 import uniProtKbConverter from '../../adapters/uniProtkbConverter';
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-// NOTE: citation IDs are identical, so will trigger react key warning!
 import data from '../../__mocks__/uniProtKBEntryModelData';
 
 jest.mock('../../../tools/utils/storage');
