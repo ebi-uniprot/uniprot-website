@@ -72,6 +72,7 @@ const IDMappingResult = () => {
   let namespaceFallback;
   switch (detailsData?.to.toLowerCase()) {
     case Namespace.uniprotkb:
+    case 'uniprotkb-swiss-prot':
       namespaceFallback = Namespace.uniprotkb;
       break;
     case Namespace.uniref:
