@@ -32,16 +32,16 @@ const DownloadComponent = lazy(
 type ResultsButtonsProps = {
   selectedEntries: string[];
   total: number;
+  accessions?: string[];
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
   total,
   selectedEntries,
+  accessions,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-
-  const namespace = useNS();
-
+  const namespace = useNS() || Namespace.uniprotkb;
   const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
     'view-mode',
     ViewMode.CARD
@@ -64,6 +64,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           >
             <DownloadComponent
               selectedEntries={selectedEntries}
+              accessions={accessions}
               totalNumberResults={total}
               onClose={() => setDisplayDownloadPanel(false)}
               namespace={namespace}

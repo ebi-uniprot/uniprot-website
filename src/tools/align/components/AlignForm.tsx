@@ -41,7 +41,7 @@ import defaultFormValues, {
   AlignFormValue,
   AlignFields,
 } from '../config/AlignFormData';
-import infoMappings from '../../../shared/config/InfoMappings';
+import namespaceToolTitles from '../../../shared/config/namespaceToolTitles';
 import {
   MessageFormat,
   MessageLevel,
@@ -246,13 +246,11 @@ const AlignForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name, links, info } = infoMappings[JobTypes.ALIGN];
+  const title = namespaceToolTitles[JobTypes.ALIGN];
 
   return (
     <>
-      <PageIntro title={name} links={links}>
-        {info}
-      </PageIntro>
+      <PageIntro title={title} />
       <form
         onSubmit={submitAlignJob}
         onReset={handleReset}
