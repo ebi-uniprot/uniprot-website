@@ -81,7 +81,6 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
           })}`,
         detailsUrl: (jobId) => `${baseURL}/details/${jobId}`,
       });
-      break;
     case JobTypes.PEPTIDE_SEARCH:
       baseURL =
         'https://research.bioinformatics.udel.edu/peptidematchws/asyncrest';

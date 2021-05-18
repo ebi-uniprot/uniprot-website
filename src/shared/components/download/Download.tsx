@@ -39,6 +39,7 @@ type DownloadProps = {
   numberSelectedEntries?: number;
   namespace: Namespace;
   onClose: () => void;
+  accessions?: string[];
 };
 
 const Download: FC<DownloadProps> = ({
@@ -49,6 +50,7 @@ const Download: FC<DownloadProps> = ({
   numberSelectedEntries,
   onClose,
   namespace,
+  accessions,
 }) => {
   const [columns] = useUserPreferences(
     `table columns for ${namespace}` as const,
@@ -104,6 +106,7 @@ const Download: FC<DownloadProps> = ({
     selected: urlSelected,
     selectedIdField,
     namespace,
+    accessions,
   });
 
   const handleDownloadAllChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -130,6 +133,7 @@ const Download: FC<DownloadProps> = ({
     selected: urlSelected,
     selectedIdField,
     namespace,
+    accessions,
   });
   // TODO: this should useDataApi but this hook requires modification to
   // change the headers so whenever this is done replace fetchData with

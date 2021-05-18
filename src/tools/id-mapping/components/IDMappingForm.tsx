@@ -30,7 +30,7 @@ import { getTreeData } from '../utils';
 import { truncateTaxonLabel } from '../../utils';
 import splitAndTidyText from '../../../shared/utils/splitAndTidyText';
 
-import infoMappings from '../../../shared/config/InfoMappings';
+import namespaceToolTitles from '../../../shared/config/namespaceToolTitles';
 import apiUrls from '../../../shared/config/apiUrls';
 import defaultFormValues, {
   IDMappingFields,
@@ -258,7 +258,7 @@ const IDMappingForm = () => {
     dndOverlay: <span>Drop your input file anywhere on this page</span>,
   });
 
-  const { name, links, info } = infoMappings[JobTypes.ID_MAPPING];
+  const title = namespaceToolTitles[JobTypes.ID_MAPPING];
 
   const fromDbInfo = dbNameToDbInfo?.[fromDb.selected as string];
   const toDbInfo = dbNameToDbInfo?.[toDb.selected as string];
@@ -277,9 +277,7 @@ const IDMappingForm = () => {
 
   return (
     <>
-      <PageIntro title={name} links={links}>
-        {info}
-      </PageIntro>
+      <PageIntro title={title} />
       <form
         onSubmit={submitIDMappingJob}
         onReset={handleReset}

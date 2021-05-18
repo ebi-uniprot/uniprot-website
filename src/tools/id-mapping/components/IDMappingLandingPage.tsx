@@ -1,6 +1,9 @@
 import { CodeBlock } from 'franklin-sites';
 
-const IDMappingFormInfo = () => (
+// TODO: This was formerly the page info but is now to serve as a starting point
+// for implementing the landing page
+
+const IDMappingLandingPage = () => (
   <>
     <div style={{ breakAfter: 'column' }}>
       <h4>About</h4>
@@ -40,4 +43,4 @@ EFTU_ECOLI`}
   </>
 );
 
-export default IDMappingFormInfo;
+export default IDMappingLandingPage;

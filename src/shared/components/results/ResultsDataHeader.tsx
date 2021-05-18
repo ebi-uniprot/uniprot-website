@@ -1,29 +1,34 @@
 import { PageIntro } from 'franklin-sites';
-import { FC, memo, useMemo } from 'react';
+import { FC, memo, useMemo, ReactNode } from 'react';
 
 import ResultsButtons from './ResultsButtons';
 
 import useNS from '../../hooks/useNS';
 
-import infoMappings from '../../config/InfoMappings';
-
+import namespaceToolTitles from '../../config/namespaceToolTitles';
 import { Namespace } from '../../types/namespaces';
 
 const ResultsDataHeader: FC<{
   total?: number;
   selectedEntries: string[];
-}> = ({ total = 0, selectedEntries }) => {
+  titlePostscript?: ReactNode;
+  accessions?: string[];
+}> = ({ total = 0, selectedEntries, titlePostscript, accessions }) => {
   const namespace = useNS() || Namespace.uniprotkb;
-  const { name, links, info } = useMemo(() => infoMappings[namespace], [
-    namespace,
-  ]);
+  const title = useMemo(() => namespaceToolTitles[namespace], [namespace]);
 
   return (
     <>
-      <PageIntro title={name} links={links} resultsCount={total}>
-        {info}
-      </PageIntro>
-      <ResultsButtons total={total} selectedEntries={selectedEntries} />
+      <PageIntro
+        title={title}
+        titlePostscript={titlePostscript}
+        resultsCount={total}
+      />
+      <ResultsButtons
+        total={total}
+        selectedEntries={selectedEntries}
+        accessions={accessions}
+      />
     </>
   );
 };
