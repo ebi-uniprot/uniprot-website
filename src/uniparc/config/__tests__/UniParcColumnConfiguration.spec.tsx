@@ -1,5 +1,3 @@
-import { MemoryRouter } from 'react-router-dom';
-
 import UniParcColumnConfiguration, {
   UniParcColumn,
 } from '../UniParcColumnConfiguration';
@@ -24,7 +22,7 @@ describe('UniParcColumnConfiguration component', () => {
     `should render column "%s"`,
     (key, column) => {
       const { asFragment } = customRender(
-        <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
+        <>{column.render(transformedData)}</>
       );
       expect(asFragment()).toMatchSnapshot(key);
     }
@@ -33,12 +31,12 @@ describe('UniParcColumnConfiguration component', () => {
   describe('edge cases', () => {
     test('should render empty "first seen" column when no xref', () => {
       const { container } = customRender(
-        <MemoryRouter>
+        <>
           {UniParcColumnConfiguration.get(UniParcColumn.firstSeen)?.render({
             ...transformedData,
             uniParcCrossReferences: undefined,
           })}
-        </MemoryRouter>
+        </>
       );
       expect(container.children).toHaveLength(0);
     });
@@ -46,12 +44,12 @@ describe('UniParcColumnConfiguration component', () => {
 
   test('should render empty "last seen" column when no xref', () => {
     const { container } = customRender(
-      <MemoryRouter>
+      <>
         {UniParcColumnConfiguration.get(UniParcColumn.lastSeen)?.render({
           ...transformedData,
           uniParcCrossReferences: undefined,
         })}
-      </MemoryRouter>
+      </>
     );
     expect(container.children).toHaveLength(0);
   });

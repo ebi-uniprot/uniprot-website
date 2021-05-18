@@ -16,14 +16,16 @@ export type FreeTextType =
   | 'SUBUNIT'
   | 'TISSUE SPECIFICITY'
   | 'POLYMORPHISM'
-  | 'ACTIVITY REGULATION';
+  | 'ACTIVITY REGULATION'
+  | 'BIOTECHNOLOGY'
+  | 'CAUTION'
+  | 'DEVELOPMENTAL STAGE';
 
 export type CommentType =
   | FreeTextType
   | 'ALLERGEN'
   | 'ALTERNATIVE PRODUCTS'
   | 'BIOPHYSICOCHEMICAL PROPERTIES'
-  | 'BIOTECHNOLOGY'
   | 'CATALYTIC ACTIVITY'
   | 'CAUTION'
   | 'COFACTOR'
@@ -64,8 +66,7 @@ export interface KineticsComment
   kineticParameters?: KineticParameters;
 }
 
-export interface pHDependenceComment
-  extends GenericComment<'BIOPHYSICOCHEMICAL PROPERTIES'> {
+export interface pHDependenceComment extends KineticsComment {
   phDependence: {
     texts: TextWithEvidence[];
   };
@@ -98,7 +99,7 @@ export interface CatalyticActivityComment
   reaction?: {
     name: string;
     reactionCrossReferences?: { database: string; id: string }[];
-    ecNumber: string;
+    ecNumber?: string;
     evidences?: Evidence[];
   };
   physiologicalReactions?: PhysiologicalReaction[];
@@ -200,7 +201,7 @@ export interface CofactorComment extends GenericComment<'COFACTOR'> {
     evidences?: Evidence[];
     cofactorCrossReference?: Xref;
   }[];
-  note: {
+  note?: {
     texts: TextWithEvidence[];
   };
 }

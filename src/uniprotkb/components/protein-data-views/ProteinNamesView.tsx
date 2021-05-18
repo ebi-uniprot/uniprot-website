@@ -153,15 +153,17 @@ const getInfoListForNames = (
   return infoData;
 };
 
-const ProteinNamesView: FC<{
+type ProteinNamesViewProps = {
   proteinNames?: ProteinNamesData;
   isCompact?: boolean;
   noTitles?: boolean;
-}> = ({
+};
+
+const ProteinNamesView = ({
   proteinNames,
   isCompact = false,
   noTitles = false,
-}): JSX.Element | null => {
+}: ProteinNamesViewProps) => {
   if (!proteinNames) {
     return null;
   }

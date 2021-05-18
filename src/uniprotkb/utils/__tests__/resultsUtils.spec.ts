@@ -1,10 +1,13 @@
 import { getSortableColumnToSortColumn } from '../resultsUtils';
-import resultFields from '../../__mocks__/resultFields.json';
+
+import { ReceivedFieldData } from '../../types/resultsTypes';
+
+import resultFields from '../../__mocks__/resultFields';
 
 describe('getSortableColumnToSortColumn', () => {
   it('should return columns with the sortField property', () => {
     const sortableColumnToSortColumn = getSortableColumnToSortColumn(
-      resultFields
+      resultFields as ReceivedFieldData
     );
     expect(Array.from(sortableColumnToSortColumn)).toEqual([
       ['accession', 'accession'],

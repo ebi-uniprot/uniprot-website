@@ -6,11 +6,11 @@ import SearchContainer from '../SearchContainer';
 
 import { Namespace } from '../../../types/namespaces';
 
-let component;
+let rendered: ReturnType<typeof customRender>;
 
 describe('Search shallow components', () => {
   beforeEach(() => {
-    component = customRender(
+    rendered = customRender(
       <SearchContainer
         includeFooter
         namespace={Namespace.uniprotkb}
@@ -20,13 +20,13 @@ describe('Search shallow components', () => {
   });
 
   it('should render', () => {
-    const { asFragment } = component;
+    const { asFragment } = rendered;
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('should change the search text when clicking on a suggestion', () => {
     expect(screen.queryByDisplayValue('Albumin')).not.toBeInTheDocument();
-    fireEvent.click(screen.queryByRole('button', { name: 'Albumin' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Albumin' }));
     expect(screen.getByDisplayValue('Albumin')).toBeInTheDocument();
   });
 });

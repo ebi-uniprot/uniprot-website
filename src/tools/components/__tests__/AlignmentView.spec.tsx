@@ -5,14 +5,12 @@ import customRender from '../../../shared/__test-helpers__/customRender';
 import AlignmentView, { Tool, View } from '../AlignmentView';
 
 import mockData from '../__mocks__/msaMocks.json';
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
 
 describe('AlignmentView', () => {
   describe('BLAST', () => {
     let rendered;
     let alignment;
     beforeEach(() => {
-      resetUuidV1();
       alignment = mockData.BLAST;
       rendered = customRender(
         <div className="main-content-and-footer">
@@ -51,7 +49,6 @@ describe('AlignmentView', () => {
     let alignment;
     const handleEntrySelection = jest.fn();
     beforeEach(() => {
-      resetUuidV1();
       alignment = mockData.Align;
       rendered = customRender(
         <div className="main-content-and-footer">

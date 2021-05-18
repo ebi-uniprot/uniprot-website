@@ -3,7 +3,6 @@
  */
 import {
   hasContent,
-  removeProperty,
   getBEMClassName,
   formatPercentage,
   isSameEntry,
@@ -37,13 +36,6 @@ describe('Model Utils', () => {
   it('should check whether a nested Map has no content', () => {
     expect(hasContent({ key: new Map() })).toBeFalsy();
   });
-});
-
-test('removeProperty removes only specified property and returns a deep copy of object ', () => {
-  const obj = { foo: { bar: [1] }, baz: -1 };
-  const objWithoutProprety = removeProperty(obj, 'baz');
-  expect(objWithoutProprety).toEqual({ foo: { bar: [1] } });
-  expect(objWithoutProprety).not.toBe(obj);
 });
 
 describe('getBEMClassName', () => {

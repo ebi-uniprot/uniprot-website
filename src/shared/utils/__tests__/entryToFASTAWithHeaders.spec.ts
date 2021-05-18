@@ -28,6 +28,10 @@ describe('entryToFASTAWithHeaders', () => {
   describe('fallback gracefully when lacking metadata', () => {
     it('should handle only sequence data', () => {
       expect(
+        // Ignoring because we know we don't pass the full object for the pupose
+        // of this specific test, it should fallback gracefully
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         entryToFASTAWithHeaders({ sequence: uniProtKBEntryModelData.sequence })
       ).toMatchSnapshot();
     });

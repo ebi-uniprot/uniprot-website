@@ -21,7 +21,8 @@ describe('GDPR', () => {
     expect(screen.queryByText('Privacy Notice')).not.toBeInTheDocument();
     await waitFor(() => {
       // console.error(window.localStorage.getItem('gdpr'));
-      expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(true);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(true);
     });
   });
 

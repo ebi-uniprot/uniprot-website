@@ -1,5 +1,7 @@
 import '@testing-library/jest-dom';
 
+import { resetUuidV1 } from './__mocks__/uuid';
+
 const nodeCrypto = require('crypto');
 
 global.crypto = {
@@ -14,3 +16,7 @@ jest.mock('/shared/hooks/useCustomElement', () => ({
   __esModule: true,
   default: () => true,
 }));
+
+global.beforeEach(() => {
+  resetUuidV1();
+});

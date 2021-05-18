@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Entry should render main 1`] = `
+exports[`Entry basic should render main 1`] = `
 <DocumentFragment>
   <div
     class="sidebar-layout entry-page sticky-tabs-container"
@@ -2573,7 +2573,7 @@ exports[`Entry should render main 1`] = `
               class="message__content"
             >
               <small>
-                Request failed with status code 404
+                Request failed with status code 500
               </small>
             </section>
           </div>

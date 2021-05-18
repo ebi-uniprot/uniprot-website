@@ -31,7 +31,7 @@ export type KineticParameters = {
     constant: number;
     unit: string;
     substrate: string;
-    evidences: Evidence[];
+    evidences?: Evidence[];
   }[];
   maximumVelocities?: {
     velocity: number;
@@ -39,7 +39,7 @@ export type KineticParameters = {
     enzyme: string;
     evidences: Evidence[];
   }[];
-  note: {
+  note?: {
     texts: TextWithEvidence[];
   };
 };

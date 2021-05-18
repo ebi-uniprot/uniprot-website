@@ -29,6 +29,6 @@ describe('SequenceSection component', () => {
         }}
       />
     );
-    expect(container.firstChild).toBeNull();
+    expect(container).toBeEmptyDOMElement();
   });
 });

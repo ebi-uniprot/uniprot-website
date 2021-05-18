@@ -1,9 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import results from './results.json';
+
+import results from './results';
 import noResults from './noResults.json';
-import entry from './swissprotEntry.json';
-import resultFields from '../../__mocks__/resultFields.json';
+import entry from './swissprotEntry';
+import resultFields from '../../__mocks__/resultFields';
 import mockFasta from './fasta.json';
 
 const mock = new MockAdapter(axios);

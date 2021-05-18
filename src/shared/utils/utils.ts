@@ -1,15 +1,4 @@
-// Keeping this util because _.omit is marked to be deprecated:
-
 import { RequireAtLeastOne } from 'type-fest';
-
-// https://github.com/lodash/lodash/wiki/Roadmap
-export function removeProperty<
-  O extends Record<string | number, unknown>,
-  P extends string | number
->(obj: O, property: P): Omit<O, P> {
-  const { [property]: unwantedProperty, ...objWithoutProperty } = obj;
-  return objWithoutProperty;
-}
 
 export const formatPercentage = (n: number, maximumFractionDigits = 1) =>
   `${n.toLocaleString('en-US', {

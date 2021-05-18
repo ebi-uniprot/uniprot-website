@@ -1,19 +1,10 @@
-import convertFunction, { FunctionUIModel } from '../functionConverter';
-
-import { convertXrefProperties } from '../uniProtkbConverter';
+import convertFunction from '../functionConverter';
 
 import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
-let data: FunctionUIModel;
+const data = convertFunction(modelData);
 
 describe('Function data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-    data = convertFunction(modelData);
-  });
-
   test('should convert cofactors', () => {
     const { commentsData } = data;
     expect(commentsData.get('COFACTOR')).toEqual([

@@ -1,5 +1,3 @@
-import { MemoryRouter } from 'react-router-dom';
-
 import ProteomesColumnConfiguration from '../ProteomesColumnConfiguration';
 
 import proteomesConverter, {
@@ -23,7 +21,7 @@ describe('ProteomesColumnConfiguration component', () => {
     `should render column "%s"`,
     (key, column) => {
       const { asFragment } = customRender(
-        <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
+        <>{column.render(transformedData)}</>
       );
       expect(asFragment()).toMatchSnapshot(key);
     }

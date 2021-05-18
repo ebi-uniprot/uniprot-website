@@ -3,15 +3,11 @@ import MockAdapter from 'axios-mock-adapter';
 
 import getFASTAFromAccession from '../getFASTAFromAccession';
 
-import mockUniProtKB from '../../../uniprotkb/components/__mocks__/swissprotEntry.json';
+import mockUniProtKB from '../../../uniprotkb/components/__mocks__/swissprotEntry';
 import mockUniParc from '../../../uniparc/__mocks__/uniParcEntryModelData';
 // import mockUniRef from ...
 
-let mock;
-
-beforeAll(() => {
-  mock = new MockAdapter(axios);
-});
+const mock = new MockAdapter(axios);
 
 afterEach(() => {
   mock.reset();

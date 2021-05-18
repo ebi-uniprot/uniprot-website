@@ -2308,7 +2308,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
           <button
-            aria-controls="38"
+            aria-controls="0"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2327,7 +2327,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="38"
+            id="0"
           />
         </section>
         <h3>
@@ -2339,7 +2339,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <strong />
            an N-acetyl-alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1-&gt;3)-[alpha-L-fucosyl-(1-&gt;2)]-beta-D-galactosyl derivative
           <button
-            aria-controls="39"
+            aria-controls="1"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2358,8 +2358,24 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="39"
+            id="1"
           />
+          <button
+            class="button tertiary rhea-reaction-visualizer__button"
+            type="button"
+          >
+            Hide Rhea reaction
+          </button>
+          <div
+            class="rhea-reaction-visualizer__component"
+          >
+            <rhea-reaction
+              rheaid="14869"
+              showids="true"
+              usehost="https://api.rhea-db.org"
+              zoom="true"
+            />
+          </div>
         </span>
         <h3>
           cofactor
@@ -2370,7 +2386,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <span>
             a divalent metal cation 
             <button
-              aria-controls="40"
+              aria-controls="2"
               aria-expanded="false"
               class="svg-colour-reviewed evidence-tag"
               data-testid="evidence-tag-trigger"
@@ -2389,7 +2405,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             <div
               class="evidence-tag-content "
               data-testid="evidence-tag-content"
-              id="40"
+              id="2"
             />
           </span>
         </section>
@@ -2403,7 +2419,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
           <button
-            aria-controls="41"
+            aria-controls="3"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2422,7 +2438,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="41"
+            id="3"
           />
         </section>
         <h3
@@ -2435,7 +2451,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
           <button
-            aria-controls="42"
+            aria-controls="4"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2454,7 +2470,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="42"
+            id="4"
           />
         </section>
         <h3>
@@ -2473,7 +2489,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               </sub>
               =340uM for A antigen type 1 penta-MU 
               <button
-                aria-controls="43"
+                aria-controls="5"
                 aria-expanded="false"
                 class="svg-colour-reviewed evidence-tag"
                 data-testid="evidence-tag-trigger"
@@ -2492,7 +2508,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               <div
                 class="evidence-tag-content "
                 data-testid="evidence-tag-content"
-                id="43"
+                id="5"
               />
             </li>
           </ul>
@@ -2508,7 +2524,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           Optimum pH is 8.0.
           <button
-            aria-controls="44"
+            aria-controls="6"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2527,7 +2543,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="44"
+            id="6"
           />
         </section>
         <h3
@@ -2540,7 +2556,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           Inhibited by EDTA
           <button
-            aria-controls="45"
+            aria-controls="7"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -2559,7 +2575,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="45"
+            id="7"
           />
         </section>
         <h3>
@@ -2789,7 +2805,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 A type blood N-acetyl-alpha-D-galactosamine deacetylase 
                 <button
-                  aria-controls="55"
+                  aria-controls="17"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -2808,7 +2824,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="55"
+                  id="17"
                 />
               </div>
             </div>
@@ -2831,7 +2847,7 @@ exports[`Entry view should render for non-human entry 1`] = `
               >
                 3.5.1.- 
                 <button
-                  aria-controls="56"
+                  aria-controls="18"
                   aria-expanded="false"
                   class="svg-colour-reviewed evidence-tag"
                   data-testid="evidence-tag-trigger"
@@ -2850,7 +2866,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <div
                   class="evidence-tag-content "
                   data-testid="evidence-tag-content"
-                  id="56"
+                  id="18"
                 />
               </div>
             </div>
@@ -2877,7 +2893,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                   <li>
                     CBM32 
                     <button
-                      aria-controls="57"
+                      aria-controls="19"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2896,13 +2912,13 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="57"
+                      id="19"
                     />
                   </li>
                   <li>
                     FpGalNAc deacetylase (FpGalNAcDeAc 
                     <button
-                      aria-controls="58"
+                      aria-controls="20"
                       aria-expanded="false"
                       class="svg-colour-reviewed evidence-tag"
                       data-testid="evidence-tag-trigger"
@@ -2921,7 +2937,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                     <div
                       class="evidence-tag-content "
                       data-testid="evidence-tag-content"
-                      id="58"
+                      id="20"
                     />
                     ) 
                   </li>
@@ -3077,6 +3093,92 @@ exports[`Entry view should render for non-human entry 1`] = `
   <section
     class="card"
     data-entry-section="true"
+    id="phenotypes"
+  >
+    <div
+      class="card__container"
+    >
+      <div
+        class="card__header card__header--with-separator"
+      >
+        <h2>
+          Phenotypes
+        </h2>
+      </div>
+      <div
+        class="card__content"
+      >
+        <h3>
+          Features
+        </h3>
+        <p>
+          Showing features for mutagenesis.
+        </p>
+        <protvista-manager
+          attributes="highlight displaystart displayend selectedid"
+        >
+          <protvista-zoom-tool
+            length="772"
+          >
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-out"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+            <span
+              class="nightingale-button-content"
+              slot="zoom-in-seq"
+            >
+              <test-file-stub
+                height="19"
+              />
+            </span>
+          </protvista-zoom-tool>
+          <protvista-navigation
+            length="772"
+          />
+          <protvista-track
+            layout="non-overlapping"
+            length="772"
+          />
+          <protvista-sequence
+            height="20"
+            length="772"
+            sequence="MRNRRKAVSLLTGLLVTAQLFPTAALAADSSESALNKAPGYQDFPAYYSDSAHADDQVTHPDVVVLEEPWNGYRYWAVYTPNVMRISIYENPSIVASSDGVHWVEPEGLSNPIEPQPPSTRYHNCDADMVYNAEYDAMMAYWNWADDQGGGVGAEVRLRISYDGVHWGVPVTYDEMTRVWSKPTSDAERQVADGEDDFITAIASPDRYDMLSPTIVYDDFRDVFILWANNTGDVGYQNGQANFVEMRYSDDGITWGEPVRVNGFLGLDENGQQLAPWHQDVQYVPDLKEFVCISQCFAGRNPDGSVLHLTTSKDGVNWEQVGTKPLLSPGPDGSWDDFQIYRSSFYYEPGSSAGDGTMRVWYSALQKDTNNKMVADSSGNLTIQAKSEDDRIWRIGYAENSFVEMMRVLLDDPGYTTPALVSGNSLMLSAETTSLPTGDVMKLETSFAPVDTSDQVVKYTSSDPDVATVDEFGTITGVSVGSARIMAETREGLSDDLEIAVVENPYTLIPQSNMTATATSVYGGTTEGPASNVLDGNVRTIWHTNYAPKDELPQSITVSFDQPYTVGRFVYTPRQNGTNGIISEYELYAIHQDGSKDLVASGSDWALDAKDKTVSFAPVEAVGLELKAIAGAGGFGTAAELNVYAYGPIEPAPVYVPVDDRDASLVFTGAWNSDSNGSFYEGTARYTNEIGASVEFTFVGTAIRWYGQNDVNFGAAEVYVDGVLAGEVNVYGPAAAQQLLFEADGLAYGKHTIRIVCVSPVVDFDYFSYVGE"
+          />
+          <protvista-datatable
+            filter-scroll="true"
+          />
+          <div
+            class="evidence-tag-content false"
+          />
+        </protvista-manager>
+        <div
+          class="loader-container"
+        >
+          <test-file-stub
+            classname="loader"
+            height="100"
+            width="100"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    class="card"
+    data-entry-section="true"
     id="ptm-processing"
   >
     <div
@@ -3199,6 +3301,44 @@ exports[`Entry view should render for non-human entry 1`] = `
                 <h5
                   class="bold"
                 >
+                  SMR
+                </h5>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              >
+                <ul
+                  class="expandable-list no-bullet"
+                >
+                  <li>
+                    <a
+                      class="external-link"
+                      href="https://swissmodel.expasy.org/repository/uniprot/P0DTR4?csm=55C1AD3F8018D0D7"
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      P0DTR4
+                      <test-file-stub
+                        data-testid="external-link-icon"
+                        width="12.5"
+                      />
+                    </a>
+                      
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title"
+              >
+                <h5
+                  class="bold"
+                >
                   ModBase
                 </h5>
               </div>
@@ -3254,44 +3394,6 @@ exports[`Entry view should render for non-human entry 1`] = `
                       target="_blank"
                     >
                       Search...
-                      <test-file-stub
-                        data-testid="external-link-icon"
-                        width="12.5"
-                      />
-                    </a>
-                      
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div
-              class="decorated-list-item"
-            >
-              <div
-                class="decorated-list-item__title"
-              >
-                <h5
-                  class="bold"
-                >
-                  SWISS-MODEL-Workspace
-                </h5>
-              </div>
-              <div
-                class="decorated-list-item__content"
-              >
-                <ul
-                  class="expandable-list no-bullet"
-                >
-                  <li>
-                    <a
-                      class="external-link"
-                      href="https://swissmodel.expasy.org/interactive/?ac=P0DTR4"
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      Submit a new modelling project...
                       <test-file-stub
                         data-testid="external-link-icon"
                         width="12.5"
@@ -3391,7 +3493,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
           <button
-            aria-controls="64"
+            aria-controls="31"
             aria-expanded="false"
             class="svg-colour-reviewed evidence-tag"
             data-testid="evidence-tag-trigger"
@@ -3410,7 +3512,7 @@ exports[`Entry view should render for non-human entry 1`] = `
           <div
             class="evidence-tag-content "
             data-testid="evidence-tag-content"
-            id="64"
+            id="31"
           />
         </section>
         <h3>
@@ -4187,7 +4289,7 @@ exports[`Entry view should render for non-human entry 1`] = `
                         width="12.5"
                       />
                     </a>
-                     NZ_WKPQ01000044.1 
+                     NZ_WKPS01000046.1 
                   </li>
                 </ul>
               </div>

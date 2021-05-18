@@ -8,7 +8,7 @@ import data from '../../../__mocks__/uniProtKBEntryModelData';
 
 const handleEntrySelection = jest.fn();
 
-let rendered;
+let rendered: ReturnType<typeof customRender>;
 
 describe('UniProtKBCard component', () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('UniProtKBCard component', () => {
   });
 
   test('should select a row', () => {
-    const checkbox = screen.getByTestId('up-card-checkbox');
+    const checkbox = screen.getByRole('checkbox');
     fireEvent.click(checkbox);
     expect(handleEntrySelection).toHaveBeenCalled();
   });

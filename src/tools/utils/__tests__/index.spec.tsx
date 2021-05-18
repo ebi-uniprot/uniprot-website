@@ -1,5 +1,4 @@
-import { MemoryRouter as Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import customRender from '../../../shared/__test-helpers__/customRender';
 
 import {
   getServerErrorDescription,
@@ -71,9 +70,7 @@ describe('getJobMessage', () => {
       job: runningJob,
       nHits: 100,
     });
-    const { asFragment } = render(
-      <Router>{jobMessage.content as JSX.Element}</Router>
-    );
+    const { asFragment } = customRender(<>{jobMessage.content}</>);
     expect(asFragment()).toMatchSnapshot();
     delete jobMessage.content;
     expect(jobMessage).toEqual({

@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import queryString from 'query-string';
 
 import customRender from '../../../__test-helpers__/customRender';
@@ -29,10 +29,10 @@ describe('getPreviewFileFormat', () => {
   });
 });
 
-describe('Download component', () => {
+describe.only('Download component', () => {
   const namespace = Namespace.uniprotkb;
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
-  let onCloseMock;
+  let onCloseMock: jest.Mock;
 
   beforeEach(() => {
     onCloseMock = jest.fn();
@@ -98,11 +98,10 @@ describe('Download component', () => {
     async (value, columnSelect) => {
       const formatSelect = screen.getByTestId('file-format-select');
       fireEvent.change(formatSelect, { target: { value } });
-      const customise = screen.queryByText('Customize data');
       if (columnSelect) {
-        expect(customise).toBeInTheDocument();
+        await waitFor(() => screen.getByText('Customize data'));
       } else {
-        expect(customise).not.toBeInTheDocument();
+        expect(screen.queryByText('Customize data')).not.toBeInTheDocument();
       }
     }
   );

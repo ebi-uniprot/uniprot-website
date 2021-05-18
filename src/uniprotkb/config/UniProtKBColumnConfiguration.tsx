@@ -715,18 +715,18 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                     : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
                 }
               >
-                {interaction.type === InteractionType.SELF ? (
-                  'Itself'
-                ) : (
-                  <Link
-                    to={getEntryPath(
-                      Namespace.uniprotkb,
-                      interaction.interactantOne.uniProtkbAccession
+                {interaction.type === InteractionType.SELF
+                  ? 'Itself'
+                  : interaction.interactantOne.uniProtkbAccession && (
+                      <Link
+                        to={getEntryPath(
+                          Namespace.uniprotkb,
+                          interaction.interactantOne.uniProtkbAccession
+                        )}
+                      >
+                        {interaction.interactantOne.uniProtkbAccession}
+                      </Link>
                     )}
-                  >
-                    {interaction.interactantOne.uniProtkbAccession}
-                  </Link>
-                )}
               </div>
             ))
           )}

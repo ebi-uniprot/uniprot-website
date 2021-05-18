@@ -12,18 +12,18 @@ describe('usePrefetch hook', () => {
   test('no URL', async () => {
     renderHook(() => usePrefetch());
 
-    const link = queryByTestId(document, 'prefetch');
+    const link = queryByTestId(document.head, 'prefetch');
     expect(link).not.toBeNull();
-    expect(link.getAttribute('href')).toBeFalsy();
+    expect(link?.getAttribute('href')).toBeFalsy();
   });
 
   test('basic case', async () => {
     renderHook(() => usePrefetch(url));
 
-    const link = queryByTestId(document, 'prefetch');
+    const link = queryByTestId(document.head, 'prefetch');
     expect(link).not.toBeNull();
-    expect(link.getAttribute('rel')).toBe('prefetch');
-    expect(link.getAttribute('href')).toBe(url);
+    expect(link?.getAttribute('rel')).toBe('prefetch');
+    expect(link?.getAttribute('href')).toBe(url);
   });
 
   test('change of URL', async () => {
@@ -31,15 +31,15 @@ describe('usePrefetch hook', () => {
       initialProps: { url },
     });
 
-    const link = queryByTestId(document, 'prefetch');
+    const link = queryByTestId(document.head, 'prefetch');
     expect(link).not.toBeNull();
-    expect(link.getAttribute('rel')).toBe('prefetch');
-    expect(link.getAttribute('href')).toBe(url);
+    expect(link?.getAttribute('rel')).toBe('prefetch');
+    expect(link?.getAttribute('href')).toBe(url);
 
     rerender({ url: url2 });
 
-    const link2 = queryByTestId(document, 'prefetch');
+    const link2 = queryByTestId(document.head, 'prefetch');
     expect(link2).toBe(link);
-    expect(link.getAttribute('href')).toBe(url2);
+    expect(link?.getAttribute('href')).toBe(url2);
   });
 });

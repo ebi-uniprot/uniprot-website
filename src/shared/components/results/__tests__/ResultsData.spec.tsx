@@ -6,7 +6,7 @@ import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import results from '../../../../uniprotkb/components/__mocks__/results.json';
+import results from '../../../../uniprotkb/components/__mocks__/results';
 
 describe('ResultsData component', () => {
   const resultsData = (viewMode: ViewMode) =>
@@ -15,7 +15,7 @@ describe('ResultsData component', () => {
         handleEntrySelection={jest.fn()}
         selectedEntries={[]}
         resultsDataObject={{
-          allResults: results.results, // TODO: fix ts error
+          allResults: results.results,
           initialLoading: false,
           progress: 1,
           hasMoreData: true,
@@ -34,7 +34,7 @@ describe('ResultsData component', () => {
 
   it('should render the table view', async () => {
     const { asFragment } = resultsData(ViewMode.TABLE);
-    await screen.findByText('O00311');
+    await screen.findByText('P35575');
     expect(asFragment()).toMatchSnapshot();
   });
 

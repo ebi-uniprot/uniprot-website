@@ -14,7 +14,8 @@ describe('useUserPreferences hook', () => {
     );
 
     expect(result.current[0]).toEqual('default value');
-    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
       'default value'
     );
   });
@@ -37,7 +38,10 @@ describe('useUserPreferences hook', () => {
     act(() => result.current[1]('other value'));
 
     expect(result.current[0]).toEqual('other value');
-    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe('other value');
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
+      'other value'
+    );
   });
 
   test('set value, through function of current value', async () => {
@@ -51,7 +55,8 @@ describe('useUserPreferences hook', () => {
     );
 
     expect(result.current[0]).toEqual('(OTHER VALUE!)');
-    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
       '(OTHER VALUE!)'
     );
   });
@@ -73,7 +78,8 @@ describe('useUserPreferences hook', () => {
 
     expect(result.current[0]).toEqual({ complex: 'object', ok: true });
 
-    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toEqual({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toEqual({
       complex: 'object',
       ok: true,
     });
@@ -126,7 +132,8 @@ describe('useUserPreferences hook', () => {
 
     expect(result.current[0]).toEqual('default value');
 
-    expect(JSON.parse(window.localStorage.getItem('gdpr'))).toBe(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    expect(JSON.parse(window.localStorage.getItem('gdpr')!)).toBe(
       'default value'
     );
   });

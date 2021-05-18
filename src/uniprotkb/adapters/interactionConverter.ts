@@ -7,7 +7,7 @@ import { UniProtkbAPIModel } from './uniProtkbConverter';
 const commentsCategories: CommentType[] = ['INTERACTION', 'SUBUNIT'];
 
 export type Interactant = {
-  uniProtkbAccession: string;
+  uniProtkbAccession?: string;
   geneName?: string;
   chainId?: string;
   intActId: string;
