@@ -55,22 +55,20 @@ export const CitationsColumnConfiguration: ColumnConfiguration<
 // COLUMN RENDERERS BELOW
 CitationsColumnConfiguration.set(CitationsColumn.authoringGroup, {
   label: 'Authoring group',
-  render: ({ citation }) =>
-    citation?.authoringGroup && (
-      <ExpandableList descriptionString="groups" displayNumberOfHiddenItems>
-        {citation.authoringGroup}
-      </ExpandableList>
-    ),
+  render: ({ citation }) => (
+    <ExpandableList descriptionString="groups" displayNumberOfHiddenItems>
+      {citation?.authoringGroup}
+    </ExpandableList>
+  ),
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.authors, {
   label: 'Authors',
-  render: ({ citation }) =>
-    citation?.authors && (
-      <ExpandableList descriptionString="authors" displayNumberOfHiddenItems>
-        {citation.authors}
-      </ExpandableList>
-    ),
+  render: ({ citation }) => (
+    <ExpandableList descriptionString="authors" displayNumberOfHiddenItems>
+      {citation?.authors}
+    </ExpandableList>
+  ),
 });
 
 CitationsColumnConfiguration.set(CitationsColumn.doi, {

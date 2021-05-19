@@ -141,14 +141,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
       )
     );
 
-    return uniqueNames.length ? (
+    return (
       <ExpandableList
         descriptionString="protein names"
         numberCollapsedItems={1}
       >
         {uniqueNames}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -169,11 +169,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
       )
     );
 
-    return uniqueNames.length ? (
+    return (
       <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
         {uniqueNames}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -207,11 +207,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
 
     const names = geneNamesData?.map((geneNames) => geneNames.geneName?.value);
 
-    return names?.length ? (
+    return (
       <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
         {names}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -224,11 +224,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
       geneNames.orderedLocusNames?.map((synonym) => synonym.value)
     );
 
-    return names?.length ? (
+    return (
       <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
         {names}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -241,11 +241,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
       geneNames.orfNames?.map((synonym) => synonym.value)
     );
 
-    return names?.length ? (
+    return (
       <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
         {names}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -258,11 +258,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
       geneNames.synonyms?.map((synonym) => synonym.value),
     ]);
 
-    return names?.length ? (
+    return (
       <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
         {names}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -299,15 +299,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
   render: (data) => {
     const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
-      virusHosts && (
-        <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-          {virusHosts.map((host) => (
-            <p key={host.taxonId}>
-              <TaxonomyView key={host.taxonId} data={host} />
-            </p>
-          ))}
-        </ExpandableList>
-      )
+      <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
+        {virusHosts?.map((host) => (
+          <p key={host.taxonId}>
+            <TaxonomyView key={host.taxonId} data={host} />
+          </p>
+        ))}
+      </ExpandableList>
     );
   },
 });
@@ -516,11 +514,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
     const ecNumbers = proteinNamesData?.recommendedName?.ecNumbers?.map(
       (ecNumber) => ecNumber.value
     );
-    return ecNumbers?.length ? (
+    return (
       <ExpandableList descriptionString="EC numbers" numberCollapsedItems={1}>
         {ecNumbers}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -533,11 +531,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
       []) as FreeTextComment[]).flatMap(
       (comment) => comment.texts?.map((text) => text.value) || []
     );
-    return activityRegulationComments?.length ? (
+    return (
       <ExpandableList numberCollapsedItems={1}>
         {activityRegulationComments}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -549,11 +547,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
     ) || []) as FreeTextComment[]).flatMap(
       (comment) => comment.texts?.map((text) => text.value) || []
     );
-    return functionComments?.length ? (
+    return (
       <ExpandableList descriptionString="functions" numberCollapsedItems={1}>
         {functionComments}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -588,11 +586,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
     ) || []) as FreeTextComment[]).flatMap(
       (pathwayComment) => pathwayComment.texts?.map((text) => text.value) || []
     );
-    return pathwayComments?.length ? (
+    return (
       <ExpandableList descriptionString="pathways" numberCollapsedItems={1}>
         {pathwayComments}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -719,34 +717,32 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
       CommentType.INTERACTION
     ) as InteractionComment[];
     return (
-      interactionComments && (
-        <ExpandableList displayNumberOfHiddenItems>
-          {interactionComments.map((interactionCC) =>
-            interactionCC.interactions.map((interaction) => (
-              <div
-                key={
-                  interaction.type === InteractionType.SELF
-                    ? 'self'
-                    : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
-                }
-              >
-                {interaction.type === InteractionType.SELF ? (
-                  'Itself'
-                ) : (
-                  <Link
-                    to={getEntryPath(
-                      Namespace.uniprotkb,
-                      interaction.interactantOne.uniProtkbAccession
-                    )}
-                  >
-                    {interaction.interactantOne.uniProtkbAccession}
-                  </Link>
-                )}
-              </div>
-            ))
-          )}
-        </ExpandableList>
-      )
+      <ExpandableList displayNumberOfHiddenItems>
+        {interactionComments?.map((interactionCC) =>
+          interactionCC.interactions.map((interaction) => (
+            <div
+              key={
+                interaction.type === InteractionType.SELF
+                  ? 'self'
+                  : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
+              }
+            >
+              {interaction.type === InteractionType.SELF ? (
+                'Itself'
+              ) : (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interaction.interactantOne.uniProtkbAccession
+                  )}
+                >
+                  {interaction.interactantOne.uniProtkbAccession}
+                </Link>
+              )}
+            </div>
+          ))
+        )}
+      </ExpandableList>
     );
   },
 });
@@ -1037,22 +1033,21 @@ UniProtKBColumnConfiguration.set(
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   label: 'Citation ID',
-  render: (data) =>
-    data.references && (
-      <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-        {data.references.map(
-          (reference) =>
-            reference.citation && (
-              <Link
-                key={reference.citation.id}
-                to={getEntryPath(Namespace.citations, reference.citation.id)}
-              >
-                {reference.citation.id}
-              </Link>
-            )
-        )}
-      </ExpandableList>
-    ),
+  render: (data) => (
+    <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
+      {data.references?.map(
+        (reference) =>
+          reference.citation && (
+            <Link
+              key={reference.citation.id}
+              to={getEntryPath(Namespace.citations, reference.citation.id)}
+            >
+              {reference.citation.id}
+            </Link>
+          )
+      )}
+    </ExpandableList>
+  ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {

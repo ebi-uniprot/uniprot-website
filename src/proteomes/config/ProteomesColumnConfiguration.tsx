@@ -73,12 +73,11 @@ ProteomesColumnConfiguration.set(ProteomesColumn.organism, {
 
 ProteomesColumnConfiguration.set(ProteomesColumn.components, {
   label: 'Components',
-  render: ({ components }) =>
-    components && (
-      <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
-        {components?.map(({ name }) => name)}
-      </ExpandableList>
-    ),
+  render: ({ components }) => (
+    <ExpandableList descriptionString="components" displayNumberOfHiddenItems>
+      {components?.map(({ name }) => name)}
+    </ExpandableList>
+  ),
 });
 
 ProteomesColumnConfiguration.set(ProteomesColumn.mnemonic, {

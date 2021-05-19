@@ -49,16 +49,15 @@ KeywordsColumnConfiguration.set(KeywordsColumn.category, {
 
 KeywordsColumnConfiguration.set(KeywordsColumn.children, {
   label: 'Children',
-  render: ({ children }) =>
-    children?.length && (
-      <ExpandableList descriptionString="children" displayNumberOfHiddenItems>
-        {children.map((child) => (
-          <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
-            {child.keyword.name}
-          </Link>
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ children }) => (
+    <ExpandableList descriptionString="children" displayNumberOfHiddenItems>
+      {children?.map((child) => (
+        <Link key={child.keyword.id} to={getEntryPath(child.keyword.id)}>
+          {child.keyword.name}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
@@ -68,16 +67,15 @@ KeywordsColumnConfiguration.set(KeywordsColumn.definition, {
 
 KeywordsColumnConfiguration.set(KeywordsColumn.geneOntologies, {
   label: 'Gene Ontologies',
-  render: ({ geneOntologies }) =>
-    geneOntologies?.length && (
-      <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
-        {geneOntologies.map(({ name, goId }) => (
-          <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
-            {name} ({goId})
-          </ExternalLink>
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ geneOntologies }) => (
+    <ExpandableList descriptionString="GO terms" displayNumberOfHiddenItems>
+      {geneOntologies?.map(({ name, goId }) => (
+        <ExternalLink key={goId} url={externalUrls.QuickGO(goId)}>
+          {name} ({goId})
+        </ExternalLink>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.id, {
@@ -93,38 +91,35 @@ KeywordsColumnConfiguration.set(KeywordsColumn.name, {
 
 KeywordsColumnConfiguration.set(KeywordsColumn.parents, {
   label: 'Parents',
-  render: ({ parents }) =>
-    parents?.length && (
-      <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
-        {parents.map((parent) => (
-          <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
-            {parent.keyword.name}
-          </Link>
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ parents }) => (
+    <ExpandableList descriptionString="parents" displayNumberOfHiddenItems>
+      {parents?.map((parent) => (
+        <Link key={parent.keyword.id} to={getEntryPath(parent.keyword.id)}>
+          {parent.keyword.name}
+        </Link>
+      ))}
+    </ExpandableList>
+  ),
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.links, {
   label: 'Links',
-  render: ({ links }) =>
-    links?.length && (
-      <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
-        {links.map((link) => (
-          <ExternalLink key={link} url={link} tidyUrl />
-        ))}
-      </ExpandableList>
-    ),
+  render: ({ links }) => (
+    <ExpandableList descriptionString="links" displayNumberOfHiddenItems>
+      {links?.map((link) => (
+        <ExternalLink key={link} url={link} tidyUrl />
+      ))}
+    </ExpandableList>
+  ),
 });
 
 KeywordsColumnConfiguration.set(KeywordsColumn.synonym, {
   label: 'Synonyms',
-  render: ({ synonyms }) =>
-    synonyms?.length && (
-      <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
-        {synonyms}
-      </ExpandableList>
-    ),
+  render: ({ synonyms }) => (
+    <ExpandableList descriptionString="synonyms" displayNumberOfHiddenItems>
+      {synonyms}
+    </ExpandableList>
+  ),
 });
 
 export default KeywordsColumnConfiguration;

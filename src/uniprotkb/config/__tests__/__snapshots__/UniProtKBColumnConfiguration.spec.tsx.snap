@@ -1019,11 +1019,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go": go 1`
 <DocumentFragment>
   <section
     class="text-block"
-  >
-    <ul
-      class="expandable-list no-bullet"
-    />
-  </section>
+  />
 </DocumentFragment>
 `;
 
@@ -1035,11 +1031,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go_id": go
 <DocumentFragment>
   <section
     class="text-block"
-  >
-    <ul
-      class="expandable-list no-bullet"
-    />
-  </section>
+  />
 </DocumentFragment>
 `;
 
@@ -1462,10 +1454,4 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `<DocumentFragment />`;
