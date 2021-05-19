@@ -14,6 +14,7 @@ const ResultsDataHeader: FC<{
   namespaceFallback?: Namespace;
   titlePostscript?: ReactNode;
   accessions?: string[];
+  base?: string;
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
 }> = ({
   total = 0,
@@ -21,6 +22,7 @@ const ResultsDataHeader: FC<{
   namespaceFallback,
   titlePostscript,
   accessions,
+  base,
   disableCardToggle = false,
 }) => {
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
@@ -39,6 +41,7 @@ const ResultsDataHeader: FC<{
         accessions={accessions}
         namespaceFallback={namespace}
         disableCardToggle={disableCardToggle}
+        base={base}
       />
     </>
   );

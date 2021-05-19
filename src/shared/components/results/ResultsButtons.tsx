@@ -34,6 +34,7 @@ type ResultsButtonsProps = {
   total: number;
   accessions?: string[];
   namespaceFallback?: Namespace;
+  base?: string;
   disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
 };
 
@@ -42,6 +43,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
   selectedEntries,
   accessions,
   namespaceFallback,
+  base,
   disableCardToggle = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
@@ -72,6 +74,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
               totalNumberResults={total}
               onClose={() => setDisplayDownloadPanel(false)}
               namespace={namespace}
+              base={base}
             />
           </SlidingPanel>
         </Suspense>

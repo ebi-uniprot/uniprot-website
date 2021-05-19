@@ -122,6 +122,7 @@ const IDMappingResult = () => {
             </small>
           )
         }
+        base={detailsData?.redirectURL}
       />
       {failedIds && (
         <HeroContainer>
