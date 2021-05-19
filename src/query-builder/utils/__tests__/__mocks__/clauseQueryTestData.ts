@@ -468,6 +468,163 @@ const testData = [
       },
     ],
   },
+
+  {
+    description: 'should handle go term with experimental evidence level',
+    queryString: '(go_exp:0002381)',
+    clauses: [
+      {
+        id: 0,
+        searchTerm: {
+          id: 'gene_ontology',
+          label: 'Gene Ontology [GO]',
+          itemType: 'sibling_group',
+          siblings: [
+            {
+              id: 'go_field',
+              itemType: 'single',
+              term: 'go',
+              dataType: 'string',
+              fieldType: 'general',
+              example: '0009986',
+              autoComplete: '/uniprot/api/suggester?dict=go&query=?',
+              autoCompleteQueryTerm: 'go',
+            },
+            {
+              id: 'go_evidence',
+              itemType: 'single',
+              term: 'go',
+              dataType: 'string',
+              fieldType: 'evidence',
+              example: 'manual',
+              evidenceGroups: [
+                {
+                  groupName: 'Any',
+                  items: [
+                    {
+                      name: 'Any assertion method',
+                      code: 'any',
+                    },
+                    {
+                      name: 'Any manual assertion',
+                      code: 'manual',
+                    },
+                    {
+                      name: 'Any automatic assertion',
+                      code: 'automatic',
+                    },
+                  ],
+                },
+                {
+                  groupName: 'Manual assertions',
+                  items: [
+                    {
+                      name: 'Inferred from experiment [EXP]',
+                      code: 'EXP',
+                    },
+                    {
+                      name: 'Inferred from biological aspect of ancestor [IBA]',
+                      code: 'IBA',
+                    },
+                    {
+                      name: 'Inferred by curator [IC]',
+                      code: 'IC',
+                    },
+                    {
+                      name: 'Inferred from direct assay [IDA]',
+                      code: 'IDA',
+                    },
+                    {
+                      name: 'Inferred from expression pattern [IEP]',
+                      code: 'IEP',
+                    },
+                    {
+                      name: 'Inferred from genomic context [IGC]',
+                      code: 'IGC',
+                    },
+                    {
+                      name: 'Inferred from genetic interaction [IGI]',
+                      code: 'IGI',
+                    },
+                    {
+                      name: 'Inferred from mutant phenotype [IMP]',
+                      code: 'IMP',
+                    },
+                    {
+                      name: 'Inferred from physical interaction [IPI]',
+                      code: 'IPI',
+                    },
+                    {
+                      name: 'Inferred from sequence alignment [ISA]',
+                      code: 'ISA',
+                    },
+                    {
+                      name: 'Inferred from sequence mode [ISM]',
+                      code: 'ISM',
+                    },
+                    {
+                      name: 'Inferred from sequence orthology [ISO]',
+                      code: 'ISO',
+                    },
+                    {
+                      name:
+                        'Inferred from sequence or structural similarity [ISS]',
+                      code: 'ISS',
+                    },
+                    {
+                      name: 'Non-traceable author statement [NAS]',
+                      code: 'NAS',
+                    },
+                    {
+                      name: 'Traceable author statement [TAS]',
+                      code: 'TAS',
+                    },
+                    {
+                      name: 'Inferred from high throughput direct assay [HDA]',
+                      code: 'HDA',
+                    },
+                    {
+                      name:
+                        'Inferred from high throughput mutant phenotype [HMP]',
+                      code: 'HMP',
+                    },
+                    {
+                      name:
+                        'Inferred from high throughput genetic interaction [HGI]',
+                      code: 'HGI',
+                    },
+                    {
+                      name:
+                        'Interred from high throughput expression pattern [HEP]',
+                      code: 'HEP',
+                    },
+                    {
+                      name: 'Inferred from high throughput experiment [HTP]',
+                      code: 'HTP',
+                    },
+                  ],
+                },
+                {
+                  groupName: 'Automatic assertions',
+                  items: [
+                    {
+                      name: 'Inferred from electronic annotation [IEA]',
+                      code: 'IEA',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        queryBits: {
+          go: '0002381',
+          go_evidence: 'exp',
+        },
+        logicOperator: 'AND',
+      },
+    ],
+  },
 ] as Array<{ description: string; queryString: string; clauses: Clause[] }>;
 
 export default testData;

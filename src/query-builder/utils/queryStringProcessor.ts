@@ -22,7 +22,7 @@ export const stringify = (clauses: Clause[] = []): string => {
 
     let queryJoined: string;
 
-    if (clause.searchTerm.id === 'gene_ontology') {
+    if ('go' in clause.queryBits) {
       const goEvidence = clause.queryBits?.go_evidence;
       const goKey = `go${
         goEvidence && goEvidence !== 'any' ? `_${goEvidence}` : ''

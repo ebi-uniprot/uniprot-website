@@ -14,7 +14,7 @@ const EvidenceField: FC<{
   );
 
   useEffect(() => {
-    const trimmed = value.trim();
+    const trimmed = value?.trim();
     if (trimmed) {
       if (field.id === 'go_evidence') {
         handleChange({ go_evidence: trimmed.toLowerCase() });

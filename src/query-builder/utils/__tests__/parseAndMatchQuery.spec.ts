@@ -48,4 +48,15 @@ describe('query parser and validator', () => {
     expect(valid).toMatchSnapshot();
     expect(invalid).toHaveLength(0);
   });
+
+  test('with GO field', () => {
+    const [valid, invalid] = parseAndMatchQuery(
+      '(go_exp:0002381)',
+      searchTermsData
+    );
+    expect(valid).toHaveLength(1);
+    expect(valid[0].searchTerm.siblings).toHaveLength(2);
+    expect(valid).toMatchSnapshot();
+    expect(invalid).toHaveLength(0);
+  });
 });
