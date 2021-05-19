@@ -78,6 +78,7 @@ const splitClause = (
   return [match[1], match[2]];
 };
 const evidenceOrLengthKey = /^(\w\w)(ev|len)_/;
+const goKey = /^go(_(?<evidence>\w+))?/;
 
 const getEmptyClause = (id: number): Clause => ({
   id,
@@ -123,7 +124,7 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
       const [key, value] = splitClause(chunk);
 
       // evidence or length
-      const evidenceOrLengthMatch = key && key.match(evidenceOrLengthKey);
+      const evidenceOrLengthMatch = key?.match(evidenceOrLengthKey);
       if (key && evidenceOrLengthMatch) {
         const correspondingClause = clauses.find(({ searchTerm }) =>
           searchTerm.term.startsWith(evidenceOrLengthMatch[1])
@@ -136,22 +137,30 @@ export const parse = (queryString = '', startId = 0): Clause[] => {
         }
       }
 
-      // term
-      currentClause.searchTerm.term = key || 'All';
-
-      // "default"
-      if (key) {
-        currentClause.queryBits[key] = value;
+      // GO search terms are of the format go(_{evidence})?:id so must be handled differently
+      const goKeyMatch = key?.match(goKey);
+      if (goKeyMatch) {
+        currentClause.searchTerm.term = 'go';
+        currentClause.queryBits = {
+          go: value,
+          go_evidence: goKeyMatch?.groups?.evidence || '',
+        };
       } else {
-        // specific free-text search
-        currentClause.queryBits.All = value;
-        currentClause.searchTerm = getAllTerm();
+        // term
+        currentClause.searchTerm.term = key || 'All';
+        // "default"
+        if (key) {
+          currentClause.queryBits[key] = value;
+        } else {
+          // specific free-text search
+          currentClause.queryBits.All = value;
+          currentClause.searchTerm = getAllTerm();
+        }
       }
 
       clauses.push(currentClause);
       id += 1;
     }
   }
-
   return clauses;
 };
