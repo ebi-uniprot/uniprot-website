@@ -20,22 +20,33 @@ export const stringify = (clauses: Clause[] = []): string => {
       continue; // eslint-disable-line no-continue
     }
 
-    let queryJoined = query
-      .map(([key, value]) => {
-        const needsQuotes =
-          // contains ' ' or ':'
-          /[ :]/.test(value) &&
-          // but isn't of the form '[... TO ...]';
-          !(value.startsWith('[') && value.endsWith(']'));
-        const quote = needsQuotes ? '"' : '';
+    let queryJoined: string;
 
-        // free-text search
-        if (key === 'All') {
-          return `${quote}${value}${quote}`;
-        }
-        return `(${key}:${quote}${value}${quote})`;
-      })
-      .join(` ${Operator.AND} `);
+    if (clause.searchTerm.id === 'gene_ontology') {
+      const goEvidence = clause.queryBits?.go_evidence;
+      const goKey = `go${
+        goEvidence && goEvidence !== 'any' ? `_${goEvidence}` : ''
+      }`;
+      const goValue = clause.queryBits?.go;
+      queryJoined = `${goKey}:${goValue}`;
+    } else {
+      queryJoined = query
+        .map(([key, value]) => {
+          const needsQuotes =
+            // contains ' ' or ':'
+            /[ :]/.test(value) &&
+            // but isn't of the form '[... TO ...]';
+            !(value.startsWith('[') && value.endsWith(']'));
+          const quote = needsQuotes ? '"' : '';
+
+          // free-text search
+          if (key === 'All') {
+            return `${quote}${value}${quote}`;
+          }
+          return `(${key}:${quote}${value}${quote})`;
+        })
+        .join(` ${Operator.AND} `);
+    }
     if (query.length > 1) {
       queryJoined = `(${queryJoined})`;
     }
