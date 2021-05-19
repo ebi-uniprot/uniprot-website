@@ -458,28 +458,6 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
     class="text-block"
   >
     value
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-unreviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
   </section>
 </DocumentFragment>
 `;
@@ -791,13 +769,7 @@ exports[`UniProtKBColumnConfiguration component should render column "date_seque
 
 exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  >
-    <li>
-      1.2.3.4
-    </li>
-  </ul>
+  1.2.3.4
 </DocumentFragment>
 `;
 
