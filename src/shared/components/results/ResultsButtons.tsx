@@ -33,15 +33,21 @@ type ResultsButtonsProps = {
   selectedEntries: string[];
   total: number;
   accessions?: string[];
+  namespaceFallback?: Namespace;
+  base?: string;
+  disableCardToggle?: boolean; // Note: remove if we have card view for id mapping
 };
 
 const ResultsButtons: FC<ResultsButtonsProps> = ({
   total,
   selectedEntries,
   accessions,
+  namespaceFallback,
+  base,
+  disableCardToggle = false,
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
-  const namespace = useNS() || Namespace.uniprotkb;
+  const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
     'view-mode',
     ViewMode.CARD
@@ -68,6 +74,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
               totalNumberResults={total}
               onClose={() => setDisplayDownloadPanel(false)}
               namespace={namespace}
+              base={base}
             />
           </SlidingPanel>
         </Suspense>
@@ -109,6 +116,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
           title={`Switch to "${
             viewMode === ViewMode.CARD ? 'table' : 'card'
           }" view`}
+          disabled={namespace === Namespace.idmapping || disableCardToggle}
         >
           <TableIcon
             className={cn('results-buttons__toggle', {
@@ -121,7 +129,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {viewMode === ViewMode.TABLE && <CustomiseButton />}
+        {viewMode === ViewMode.TABLE && namespace !== Namespace.idmapping && (
+          <CustomiseButton />
+        )}
       </div>
     </>
   );

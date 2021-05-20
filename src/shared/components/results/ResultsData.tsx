@@ -96,6 +96,33 @@ const ResultsData: FC<{
     return <Loader progress={progress} />;
   }
 
+  const dataTableWithLoader =
+    namespace !== Namespace.idmapping ? (
+      <DataTableWithLoader
+        getIdKey={getIdKey}
+        columns={columns}
+        data={allResults}
+        loading={loading}
+        selected={selectedEntries}
+        onSelectRow={handleEntrySelection}
+        onHeaderClick={updateColumnSort}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={loadComponent}
+      />
+    ) : (
+      <DataTableWithLoader
+        getIdKey={getIdKey}
+        columns={columns}
+        data={allResults}
+        loading={loading}
+        onHeaderClick={updateColumnSort}
+        onLoadMoreItems={handleLoadMoreRows}
+        hasMoreData={hasMoreData}
+        loaderComponent={loadComponent}
+      />
+    );
+
   return (
     <div className="results-data">
       {viewMode === ViewMode.CARD && !displayIdMappingColumns ? (
@@ -113,18 +140,7 @@ const ResultsData: FC<{
           loaderComponent={loadComponent}
         />
       ) : (
-        <DataTableWithLoader
-          getIdKey={getIdKey}
-          columns={columns}
-          data={allResults}
-          loading={loading}
-          selected={selectedEntries}
-          onSelectRow={handleEntrySelection}
-          onHeaderClick={updateColumnSort}
-          onLoadMoreItems={handleLoadMoreRows}
-          hasMoreData={hasMoreData}
-          loaderComponent={loadComponent}
-        />
+        dataTableWithLoader
       )}
     </div>
   );
