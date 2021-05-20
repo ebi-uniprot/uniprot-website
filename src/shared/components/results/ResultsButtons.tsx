@@ -129,8 +129,9 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
             })}
           />
         </Button>
-        {(viewMode === ViewMode.TABLE || disableCardToggle) &&
-          namespace !== Namespace.idmapping && <CustomiseButton />}
+        {viewMode === ViewMode.TABLE && namespace !== Namespace.idmapping && (
+          <CustomiseButton />
+        )}
       </div>
     </>
   );
