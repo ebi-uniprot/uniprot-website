@@ -21,13 +21,12 @@ export const stringify = (clauses: Clause[] = []): string => {
     }
 
     let queryJoined: string;
-
-    if ('go' in clause.queryBits) {
+    if ('go' in clause.queryBits || 'go_evidence' in clause.queryBits) {
       const goEvidence = clause.queryBits?.go_evidence;
       const goKey = `go${
         goEvidence && goEvidence !== 'any' ? `_${goEvidence}` : ''
       }`;
-      const goValue = clause.queryBits?.go;
+      const goValue = clause.queryBits?.go || '*';
       queryJoined = `${goKey}:${goValue}`;
     } else {
       queryJoined = query
