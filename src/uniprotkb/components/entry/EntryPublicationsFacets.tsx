@@ -20,6 +20,7 @@ const EntryPublicationsFacets: FC<{ accession: string }> = ({ accession }) => {
   const { selectedFacets } = getParamsFromURL(search);
   const url = getUniProtPublicationsQueryUrl({
     accession,
+    facets: ['types', 'categories', 'is_large_scale'],
     selectedFacets,
     size: 0,
   });

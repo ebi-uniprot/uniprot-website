@@ -11,34 +11,29 @@ type Props = {
   data?: Xref[];
   isCompact?: boolean;
 };
-const ProteomesView = ({ data, isCompact = false }: Props) => {
-  if (!data) {
-    return null;
-  }
-  return (
-    <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
-      {data.map((proteome) => (
-        <InfoList
-          key={`${proteome.id}-${proteome.properties?.Component}`}
-          isCompact={isCompact}
-          infoData={[
-            {
-              title: 'Identifier',
-              content: proteome.id && (
-                <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
-                  {proteome.id}
-                </Link>
-              ),
-            },
-            {
-              title: 'Component',
-              content: proteome.properties?.Component,
-            },
-          ]}
-        />
-      ))}
-    </ExpandableList>
-  );
-};
+const ProteomesView = ({ data, isCompact = false }: Props) => (
+  <ExpandableList descriptionString="proteomes" displayNumberOfHiddenItems>
+    {data?.map((proteome) => (
+      <InfoList
+        key={`${proteome.id}-${proteome.properties?.Component}`}
+        isCompact={isCompact}
+        infoData={[
+          {
+            title: 'Identifier',
+            content: proteome.id && (
+              <Link to={getEntryPath(Namespace.proteomes, proteome.id)}>
+                {proteome.id}
+              </Link>
+            ),
+          },
+          {
+            title: 'Component',
+            content: proteome.properties?.Component,
+          },
+        ]}
+      />
+    ))}
+  </ExpandableList>
+);
 
 export default ProteomesView;

@@ -1233,9 +1233,6 @@ exports[`Entry view should render 1`] = `
         <h3>
           Proteome
         </h3>
-        <ul
-          class="expandable-list no-bullet"
-        />
       </div>
     </div>
   </section>
@@ -3060,13 +3057,28 @@ exports[`Entry view should render for non-human entry 1`] = `
               </div>
             </div>
           </li>
+          <li>
+            <div
+              class="decorated-list-item"
+            >
+              <div
+                class="decorated-list-item__title"
+              >
+                <h5
+                  class="bold"
+                >
+                  Secondary accessions
+                </h5>
+              </div>
+              <div
+                class="decorated-list-item__content"
+              />
+            </div>
+          </li>
         </ul>
         <h3>
           Proteome
         </h3>
-        <ul
-          class="expandable-list no-bullet"
-        />
       </div>
     </div>
   </section>

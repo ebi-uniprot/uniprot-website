@@ -306,16 +306,18 @@ export const getAccessionsURL = (
 
 type GetUniProtPublicationsQueryUrl = {
   accession: string;
+  facets?: string[];
   selectedFacets: SelectedFacet[];
   size?: number;
 };
 export const getUniProtPublicationsQueryUrl = ({
   accession,
+  facets,
   selectedFacets,
   size,
 }: GetUniProtPublicationsQueryUrl) =>
   `${apiUrls.entryPublications(accession)}?${queryString.stringify({
-    facets: 'types,categories,is_large_scale',
+    facets: facets?.join(','),
     facetFilter:
       selectedFacets
         .map((facet) => `(${facet.name}:"${facet.value}")`)

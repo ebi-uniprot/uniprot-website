@@ -58,7 +58,6 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
-      progress: 0,
       url,
       error: new Error('Network Error'),
     });
@@ -74,7 +73,6 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
-      progress: 0,
       url,
       error: new Error('timeout of 0ms exceeded'),
     });
@@ -102,7 +100,6 @@ describe('useDataApi hook', () => {
     expect(result.current).toEqual({
       error: new Error('Request failed with status code 400'),
       loading: false,
-      progress: 0,
       url,
       status: 400,
     });
@@ -118,7 +115,6 @@ describe('useDataApi hook', () => {
 
     expect(result.current).toEqual({
       loading: false,
-      progress: 0,
       url,
       status: 404,
       error: new Error('Request failed with status code 404'),
