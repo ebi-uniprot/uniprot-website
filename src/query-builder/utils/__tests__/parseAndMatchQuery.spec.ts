@@ -4,7 +4,7 @@
 
 import parseAndMatchQuery from '../parseAndMatchQuery';
 
-import searchTermsData from '../../components/__tests__/__mocks__/configure_search-term';
+import searchTermsData from '../../components/__tests__/__mocks__/configureSearchTerms';
 
 describe('query parser and validator', () => {
   test('with one xref', () => {

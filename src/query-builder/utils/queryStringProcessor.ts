@@ -27,7 +27,7 @@ export const stringify = (clauses: Clause[] = []): string => {
         goEvidence && goEvidence !== 'any' ? `_${goEvidence}` : ''
       }`;
       const goValue = clause.queryBits?.go || '*';
-      queryJoined = `${goKey}:${goValue}`;
+      queryJoined = `(${goKey}:${goValue})`;
     } else {
       queryJoined = query
         .map(([key, value]) => {
@@ -45,9 +45,9 @@ export const stringify = (clauses: Clause[] = []): string => {
           return `(${key}:${quote}${value}${quote})`;
         })
         .join(` ${Operator.AND} `);
-    }
-    if (query.length > 1) {
-      queryJoined = `(${queryJoined})`;
+      if (query.length > 1) {
+        queryJoined = `(${queryJoined})`;
+      }
     }
 
     let logicOperator = '';
