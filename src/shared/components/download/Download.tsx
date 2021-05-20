@@ -253,16 +253,17 @@ const Download: FC<DownloadProps> = ({
           No
         </label>
       </fieldset>
-      {fileFormatsWithColumns.includes(fileFormat) && (
-        <>
-          <legend>Customize data</legend>
-          <ColumnSelect
-            onChange={setSelectedColumns}
-            selectedColumns={selectedColumns}
-            namespace={namespace}
-          />
-        </>
-      )}
+      {fileFormatsWithColumns.includes(fileFormat) &&
+        namespace !== Namespace.idmapping && (
+          <>
+            <legend>Customize data</legend>
+            <ColumnSelect
+              onChange={setSelectedColumns}
+              selectedColumns={selectedColumns}
+              namespace={namespace}
+            />
+          </>
+        )}
       <section className="button-group sliding-panel__button-row sticky-bottom-right">
         <Button variant="secondary" onClick={onClose}>
           Cancel
