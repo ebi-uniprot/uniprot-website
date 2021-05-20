@@ -1467,9 +1467,6 @@ exports[`Entry should render main 1`] = `
                 <h3>
                   Proteome
                 </h3>
-                <ul
-                  class="expandable-list no-bullet"
-                />
               </div>
             </div>
           </section>

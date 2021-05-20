@@ -458,28 +458,6 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
     class="text-block"
   >
     value
-    <button
-      aria-controls="0"
-      aria-expanded="false"
-      class="svg-colour-unreviewed evidence-tag"
-      data-testid="evidence-tag-trigger"
-      type="button"
-    >
-      <test-file-stub
-        height="12"
-        width="12"
-      />
-      <span
-        class="evidence-tag__label"
-      >
-        1 automatic annotation
-      </span>
-    </button>
-    <div
-      class="evidence-tag-content "
-      data-testid="evidence-tag-content"
-      id="0"
-    />
   </section>
 </DocumentFragment>
 `;
@@ -791,29 +769,7 @@ exports[`UniProtKBColumnConfiguration component should render column "date_seque
 
 exports[`UniProtKBColumnConfiguration component should render column "ec": ec 1`] = `
 <DocumentFragment>
-  1.2.3.4 
-  <button
-    aria-controls="0"
-    aria-expanded="false"
-    class="svg-colour-reviewed evidence-tag"
-    data-testid="evidence-tag-trigger"
-    type="button"
-  >
-    <test-file-stub
-      height="12"
-      width="12"
-    />
-    <span
-      class="evidence-tag__label"
-    >
-      1 automatic annotation
-    </span>
-  </button>
-  <div
-    class="evidence-tag-content "
-    data-testid="evidence-tag-content"
-    id="0"
-  />
+  1.2.3.4
 </DocumentFragment>
 `;
 
@@ -989,29 +945,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_oln":
     class="expandable-list no-bullet"
   >
     <li>
-      some locus 
-      <button
-        aria-controls="0"
-        aria-expanded="false"
-        class="svg-colour-unreviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 automatic annotation
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="0"
-      />
+      some locus
     </li>
   </ul>
 </DocumentFragment>
@@ -1023,29 +957,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_orf":
     class="expandable-list no-bullet"
   >
     <li>
-      some orf 
-      <button
-        aria-controls="0"
-        aria-expanded="false"
-        class="svg-colour-reviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 publication
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="0"
-      />
+      some orf
     </li>
   </ul>
 </DocumentFragment>
@@ -1057,9 +969,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_prima
     class="expandable-list no-bullet"
   >
     <li>
-      <div>
-        some Gene
-      </div>
+      some Gene
     </li>
   </ul>
 </DocumentFragment>
@@ -1071,29 +981,7 @@ exports[`UniProtKBColumnConfiguration component should render column "gene_synon
     class="expandable-list no-bullet"
   >
     <li>
-      some Syn 
-      <button
-        aria-controls="0"
-        aria-expanded="false"
-        class="svg-colour-unreviewed evidence-tag"
-        data-testid="evidence-tag-trigger"
-        type="button"
-      >
-        <test-file-stub
-          height="12"
-          width="12"
-        />
-        <span
-          class="evidence-tag__label"
-        >
-          1 automatic annotation
-        </span>
-      </button>
-      <div
-        class="evidence-tag-content "
-        data-testid="evidence-tag-content"
-        id="0"
-      />
+      some Syn
     </li>
   </ul>
 </DocumentFragment>
@@ -1103,11 +991,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go": go 1`
 <DocumentFragment>
   <section
     class="text-block"
-  >
-    <ul
-      class="expandable-list no-bullet"
-    />
-  </section>
+  />
 </DocumentFragment>
 `;
 
@@ -1119,11 +1003,7 @@ exports[`UniProtKBColumnConfiguration component should render column "go_id": go
 <DocumentFragment>
   <section
     class="text-block"
-  >
-    <ul
-      class="expandable-list no-bullet"
-    />
-  </section>
+  />
 </DocumentFragment>
 `;
 
@@ -1546,10 +1426,4 @@ exports[`UniProtKBColumnConfiguration component should render column "virus_host
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "xref_proteomes": xref_proteomes 1`] = `<DocumentFragment />`;

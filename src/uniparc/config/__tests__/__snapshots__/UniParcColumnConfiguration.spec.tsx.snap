@@ -1,60 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "CDD": CDD 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "Gene3D": Gene3D 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "Gene3D": Gene3D 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "HAMAP": HAMAP 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "HAMAP": HAMAP 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PANTHER": PANTHER 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PANTHER": PANTHER 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRSF 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PIRSF": PIRSF 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PRINTS": PRINTS 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PRINTS": PRINTS 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "PROSITE": PROSITE 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "PROSITE": PROSITE 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 1`] = `
 <DocumentFragment>
@@ -97,37 +55,13 @@ exports[`UniParcColumnConfiguration component should render column "Pfam": Pfam 
 </DocumentFragment>
 `;
 
-exports[`UniParcColumnConfiguration component should render column "SFLD": SFLD 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "SFLD": SFLD 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "SMART": SMART 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "SMART": SMART 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "SUPFAM": SUPFAM 1`] = `<DocumentFragment />`;
 
-exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `
-<DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
-  />
-</DocumentFragment>
-`;
+exports[`UniParcColumnConfiguration component should render column "TIGRFAMs": TIGRFAMs 1`] = `<DocumentFragment />`;
 
 exports[`UniParcColumnConfiguration component should render column "accession": accession 1`] = `
 <DocumentFragment>

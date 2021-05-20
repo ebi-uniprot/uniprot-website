@@ -87,20 +87,16 @@ const ProteinDescriptionView: FC<{
 };
 
 export const ECNumbersView: FC<{
-  ecNumbers: ValueWithEvidence[];
+  ecNumbers?: ValueWithEvidence[];
   isCompact?: boolean;
 }> = ({ ecNumbers, isCompact = false }) => (
   <>
-    {ecNumbers.map(
-      (ecNumber, index): JSX.Element =>
-        isCompact ? (
-          // eslint-disable-next-line react/no-array-index-key
-          <Fragment key={index}>{ecNumber.value}</Fragment>
-        ) : (
-          // eslint-disable-next-line react/no-array-index-key
-          <NameWithEvidence data={ecNumber} key={index} />
-        )
-    )}
+    {ecNumbers?.map((ecNumber, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <Fragment key={index}>
+        {isCompact ? ecNumber.value : <NameWithEvidence data={ecNumber} />}
+      </Fragment>
+    ))}
   </>
 );
 

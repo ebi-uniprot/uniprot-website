@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { Fragment } from 'react';
 import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +7,6 @@ import { ECNumbersView } from '../components/protein-data-views/ProteinNamesView
 import TaxonomyView, {
   TaxonomyLineage,
 } from '../../shared/components/entry/TaxonomyView';
-import { geneAlternativeNamesView } from '../components/protein-data-views/GeneNamesView';
 import { UniProtkbUIModel } from '../adapters/uniProtkbConverter';
 import ProteomesView from '../components/protein-data-views/ProteomesView';
 import FeaturesView from '../components/protein-data-views/UniProtKBFeaturesView';
@@ -126,7 +124,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.id, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
-  label: 'Protein names',
+  label: 'Protein Names',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
 
@@ -144,14 +142,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
       )
     );
 
-    return uniqueNames.length ? (
+    return (
       <ExpandableList
         descriptionString="protein names"
         numberCollapsedItems={1}
       >
         {uniqueNames}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -172,11 +170,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
       )
     );
 
-    return uniqueNames.length ? (
+    return (
       <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
         {uniqueNames}
       </ExpandableList>
-    ) : null;
+    );
   },
 });
 
@@ -204,80 +202,66 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.length, {
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.genePrimary, {
-  label: 'Gene names (Primary)',
+  label: 'Gene Names (Primary)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
+
+    const names = geneNamesData?.map((geneNames) => geneNames.geneName?.value);
+
     return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.geneName && (
-                <div key={geneData.geneName.value}>
-                  {geneData.geneName.value}
-                </div>
-              )
-          )}
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
       </ExpandableList>
     );
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOln, {
-  label: 'Gene names (Ordered locus)',
+  label: 'Gene Names (Ordered locus)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
+
+    const names = geneNamesData?.flatMap((geneNames) =>
+      geneNames.orderedLocusNames?.map((synonym) => synonym.value)
+    );
+
     return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.orderedLocusNames && (
-                <Fragment key={geneData.orderedLocusNames.join('')}>
-                  {geneAlternativeNamesView(geneData.orderedLocusNames)}
-                </Fragment>
-              )
-          )}
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
       </ExpandableList>
     );
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneOrf, {
-  label: 'Gene names (ORF)',
+  label: 'Gene Names (ORF)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
+
+    const names = geneNamesData?.flatMap((geneNames) =>
+      geneNames.orfNames?.map((synonym) => synonym.value)
+    );
+
     return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.orfNames && (
-                <Fragment key={geneData.orfNames.join('')}>
-                  {geneAlternativeNamesView(geneData.orfNames)}
-                </Fragment>
-              )
-          )}
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
       </ExpandableList>
     );
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.geneSynonym, {
-  label: 'Gene names (Synonyms)',
+  label: 'Gene Names (Synonyms)',
   render(data) {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
+
+    const names = geneNamesData?.flatMap((geneNames) => [
+      geneNames.synonyms?.map((synonym) => synonym.value),
+    ]);
+
     return (
-      <ExpandableList descriptionString="names" displayNumberOfHiddenItems>
-        {geneNamesData &&
-          geneNamesData.map(
-            (geneData) =>
-              geneData.synonyms && (
-                <Fragment key={geneData.synonyms.join('')}>
-                  {geneAlternativeNamesView(geneData.synonyms)}
-                </Fragment>
-              )
-          )}
+      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
+        {names}
       </ExpandableList>
     );
   },
@@ -316,15 +300,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
   render: (data) => {
     const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
-      virusHosts && (
-        <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-          {virusHosts.map((host) => (
-            <p key={host.taxonId}>
-              <TaxonomyView key={host.taxonId} data={host} />
-            </p>
-          ))}
-        </ExpandableList>
-      )
+      <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
+        {virusHosts?.map((host) => (
+          <p key={host.taxonId}>
+            <TaxonomyView key={host.taxonId} data={host} />
+          </p>
+        ))}
+      </ExpandableList>
     );
   },
 });
@@ -431,7 +413,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
   label: 'Polymorphysm',
   render: (data) => {
     const { polymorphysm } = data[EntrySection.Sequence];
-    return polymorphysm && <FreeTextView comments={polymorphysm} />;
+    return <FreeTextView comments={polymorphysm} noEvidence />;
   },
 });
 
@@ -530,21 +512,28 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
   label: 'EC Number',
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
-    const ecNumbers = proteinNamesData?.recommendedName?.ecNumbers;
-    return ecNumbers && <ECNumbersView ecNumbers={ecNumbers} />;
+    return (
+      <ECNumbersView
+        ecNumbers={proteinNamesData?.recommendedName?.ecNumbers}
+        isCompact
+      />
+    );
   },
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
   label: 'Activity Regulation',
   render: (data) => {
-    const activityRegulationComments = data[
+    const activityRegulationComments = ((data[
       EntrySection.Function
-    ].commentsData.get(CommentType.ACTIVITY_REGULATION) as FreeTextComment[];
+    ].commentsData.get(CommentType.ACTIVITY_REGULATION) ||
+      []) as FreeTextComment[]).flatMap(
+      (comment) => comment.texts?.map((text) => text.value) || []
+    );
     return (
-      activityRegulationComments && (
-        <FreeTextView comments={activityRegulationComments} />
-      )
+      <ExpandableList numberCollapsedItems={1}>
+        {activityRegulationComments}
+      </ExpandableList>
     );
   },
 });
@@ -552,10 +541,10 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
   label: 'Function',
   render: (data) => {
-    const functionComments = data[EntrySection.Function].commentsData.get(
+    const functionComments = (data[EntrySection.Function].commentsData.get(
       CommentType.FUNCTION
-    ) as FreeTextComment[];
-    return functionComments && <FreeTextView comments={functionComments} />;
+    ) || []) as FreeTextComment[];
+    return <FreeTextView comments={functionComments} noEvidence />;
   },
 });
 
@@ -585,10 +574,16 @@ UniProtKBColumnConfiguration.set(
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
   render: (data) => {
-    const pathwayComments = data[EntrySection.Function].commentsData.get(
+    const pathwayComments = ((data[EntrySection.Function].commentsData.get(
       CommentType.PATHWAY
-    ) as FreeTextComment[];
-    return pathwayComments && <FreeTextView comments={pathwayComments} />;
+    ) || []) as FreeTextComment[]).flatMap(
+      (pathwayComment) => pathwayComment.texts?.map((text) => text.value) || []
+    );
+    return (
+      <ExpandableList descriptionString="pathways" numberCollapsedItems={1}>
+        {pathwayComments}
+      </ExpandableList>
+    );
   },
 });
 
@@ -675,9 +670,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
     const miscellaneousComments = data[EntrySection.Function].commentsData.get(
       CommentType.MISCELLANEOUS
     ) as FreeTextComment[];
-    return (
-      miscellaneousComments && <FreeTextView comments={miscellaneousComments} />
-    );
+    return <FreeTextView comments={miscellaneousComments} noEvidence />;
   },
 });
 
@@ -715,34 +708,32 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
       CommentType.INTERACTION
     ) as InteractionComment[];
     return (
-      interactionComments && (
-        <ExpandableList displayNumberOfHiddenItems>
-          {interactionComments.map((interactionCC) =>
-            interactionCC.interactions.map((interaction) => (
-              <div
-                key={
-                  interaction.type === InteractionType.SELF
-                    ? 'self'
-                    : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
-                }
-              >
-                {interaction.type === InteractionType.SELF ? (
-                  'Itself'
-                ) : (
-                  <Link
-                    to={getEntryPath(
-                      Namespace.uniprotkb,
-                      interaction.interactantOne.uniProtkbAccession
-                    )}
-                  >
-                    {interaction.interactantOne.uniProtkbAccession}
-                  </Link>
-                )}
-              </div>
-            ))
-          )}
-        </ExpandableList>
-      )
+      <ExpandableList displayNumberOfHiddenItems>
+        {interactionComments?.map((interactionCC) =>
+          interactionCC.interactions.map((interaction) => (
+            <div
+              key={
+                interaction.type === InteractionType.SELF
+                  ? 'self'
+                  : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
+              }
+            >
+              {interaction.type === InteractionType.SELF ? (
+                'Itself'
+              ) : (
+                <Link
+                  to={getEntryPath(
+                    Namespace.uniprotkb,
+                    interaction.interactantOne.uniProtkbAccession
+                  )}
+                >
+                  {interaction.interactantOne.uniProtkbAccession}
+                </Link>
+              )}
+            </div>
+          ))
+        )}
+      </ExpandableList>
     );
   },
 });
@@ -753,7 +744,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
     const subunitComments = data[EntrySection.Interaction].commentsData.get(
       CommentType.SUBUNIT
     ) as FreeTextComment[];
-    return subunitComments && <FreeTextView comments={subunitComments} />;
+    return <FreeTextView comments={subunitComments} noEvidence />;
   },
 });
 
@@ -763,9 +754,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
     const developmentComments = data[EntrySection.Expression].commentsData.get(
       CommentType.DEVELOPMENTAL_STAGE
     ) as FreeTextComment[];
-    return (
-      developmentComments && <FreeTextView comments={developmentComments} />
-    );
+    return <FreeTextView comments={developmentComments} noEvidence />;
   },
 });
 
@@ -775,7 +764,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
     const inductionComments = data[EntrySection.Expression].commentsData.get(
       CommentType.INDUCTION
     ) as FreeTextComment[];
-    return inductionComments && <FreeTextView comments={inductionComments} />;
+    return <FreeTextView comments={inductionComments} noEvidence />;
   },
 });
 
@@ -785,7 +774,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
     const tissueComment = data[EntrySection.Expression].commentsData.get(
       CommentType.TISSUE_SPECIFICITY
     ) as FreeTextComment[];
-    return tissueComment && <FreeTextView comments={tissueComment} />;
+    return <FreeTextView comments={tissueComment} noEvidence />;
   },
 });
 
@@ -876,7 +865,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
     const domainData = data[EntrySection.FamilyAndDomains].commentsData.get(
       CommentType.DOMAIN
     ) as FreeTextComment[];
-    return domainData && <FreeTextView comments={domainData} />;
+    return <FreeTextView comments={domainData} noEvidence />;
   },
 });
 
@@ -886,7 +875,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
     const ptmData = data[EntrySection.ProteinProcessing].commentsData.get(
       CommentType.PTM
     ) as FreeTextComment[];
-    return ptmData && <FreeTextView comments={ptmData} />;
+    return <FreeTextView comments={ptmData} noEvidence />;
   },
 });
 
@@ -896,7 +885,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
     const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.ALLERGEN
     ) as FreeTextComment[];
-    return allergenData && <FreeTextView comments={allergenData} />;
+    return <FreeTextView comments={allergenData} noEvidence />;
   },
 });
 
@@ -906,7 +895,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
     const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.BIOTECHNOLOGY
     ) as FreeTextComment[];
-    return biotechData && <FreeTextView comments={biotechData} />;
+    return <FreeTextView comments={biotechData} noEvidence />;
   },
 });
 
@@ -916,7 +905,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
     const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.DISRUPTION_PHENOTYPE
     ) as FreeTextComment[];
-    return disruptionData && <FreeTextView comments={disruptionData} />;
+    return <FreeTextView comments={disruptionData} noEvidence />;
   },
 });
 
@@ -948,7 +937,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
     const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.PHARMACEUTICAL
     ) as FreeTextComment[];
-    return pharmaData && <FreeTextView comments={pharmaData} />;
+    return <FreeTextView comments={pharmaData} noEvidence />;
   },
 });
 
@@ -958,7 +947,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
     const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
       CommentType.TOXIC_DOSE
     ) as FreeTextComment[];
-    return toxicData && <FreeTextView comments={toxicData} />;
+    return <FreeTextView comments={toxicData} noEvidence />;
   },
 });
 
@@ -1033,22 +1022,21 @@ UniProtKBColumnConfiguration.set(
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
   label: 'Citation ID',
-  render: (data) =>
-    data.references && (
-      <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
-        {data.references.map(
-          (reference) =>
-            reference.citation && (
-              <Link
-                key={reference.citation.id}
-                to={getEntryPath(Namespace.citations, reference.citation.id)}
-              >
-                {reference.citation.id}
-              </Link>
-            )
-        )}
-      </ExpandableList>
-    ),
+  render: (data) => (
+    <ExpandableList descriptionString="IDs" displayNumberOfHiddenItems>
+      {data.references?.map(
+        (reference) =>
+          reference.citation && (
+            <Link
+              key={reference.citation.id}
+              to={getEntryPath(Namespace.citations, reference.citation.id)}
+            >
+              {reference.citation.id}
+            </Link>
+          )
+      )}
+    </ExpandableList>
+  ),
 });
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.mappedPubmedId, {
@@ -1102,7 +1090,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
       CommentType.SIMILARITY
     ) as FreeTextComment[];
-    return familiesData && <FreeTextView comments={familiesData} />;
+    return <FreeTextView comments={familiesData} noEvidence />;
   },
 });
 
@@ -1121,7 +1109,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
       CommentType.SIMILARITY
     ) as FreeTextComment[];
-    return familiesData && <FreeTextView comments={familiesData} />;
+    return <FreeTextView comments={familiesData} noEvidence />;
   },
 });
 
@@ -1168,6 +1156,7 @@ const getXrefColumn = (databaseName: string) => ({
 // cc_caution
 // feature: do we need? UX
 // similarity: this field is wrongly named in the API json (should be cc_similarity). Jira.
+// ft_non_cons
 
 // Add all database cross-reference columns
 Object.values(UniProtKBColumn)
