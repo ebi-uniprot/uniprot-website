@@ -105,7 +105,7 @@ const createReducer = <T>() => (
       return {
         ...state,
         loading: false,
-        progress: 0,
+        progress: undefined,
         status: action.error.response && action.error.response.status,
         statusText: action.error.response && action.error.response.statusText,
         headers: action.error.response && action.error.response.headers,
