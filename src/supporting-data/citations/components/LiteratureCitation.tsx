@@ -10,6 +10,7 @@ import {
   SwissProtIcon,
   TremblIcon,
   ExternalLink,
+  EllipsisReveal,
 } from 'franklin-sites';
 import { SetOptional } from 'type-fest';
 
@@ -37,12 +38,11 @@ const getLinkToAuthor = (author: string) => ({
 });
 
 const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
-  const tooMany = authors.length > limit;
+  const cutoff = authors.length > limit ? authors.length : limit;
 
-  const [collapsed, setCollapsed] = useState(tooMany);
-
-  const lastAuthor = authors[authors.length - 1];
-  const displayedAuthors = collapsed ? authors.slice(0, limit - 1) : authors;
+  const displayedAuthors = authors.slice(0, limit - 1);
+  const hiddenAuthors = authors.slice(limit - 1, cutoff - 1);
+  const lastAuthor = authors.slice(cutoff - 1);
 
   return (
     <div className="publication__authors">
@@ -53,15 +53,24 @@ const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
           <Link to={getLinkToAuthor(author)}>{author}</Link>
         </Fragment>
       ))}
-      {collapsed ? (
-        <>
-          <Button variant="tertiary" onClick={() => setCollapsed(false)}>
-            [...]
-          </Button>
+      {hiddenAuthors.length > 0 && (
+        <EllipsisReveal>
           {', '}
-          <Link to={getLinkToAuthor(lastAuthor)}>{lastAuthor}</Link>
+          {hiddenAuthors.map((author, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={index}>
+              {index !== 0 && ', '}
+              <Link to={getLinkToAuthor(author)}>{author}</Link>
+            </Fragment>
+          ))}
+        </EllipsisReveal>
+      )}
+      {lastAuthor.length === 1 && (
+        <>
+          {', '}
+          <Link to={getLinkToAuthor(lastAuthor[0])}>{lastAuthor[0]}</Link>
         </>
-      ) : null}
+      )}
     </div>
   );
 };
@@ -83,6 +92,8 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
           }}
         />
       ) : (
+        // Note: this could be eventually changed to an EllipsisReveal
+        // showing a bit of the abstract
         <Button variant="tertiary" onClick={() => setDisplay(true)}>
           View abstract [...]
         </Button>

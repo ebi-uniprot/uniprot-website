@@ -1,6 +1,7 @@
 import { screen, fireEvent } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
+import { CitationsAPIModel } from '../../adapters/citationsConverter';
 import LiteratureCitation from '../LiteratureCitation';
 import literatureCitationData from '../__mocks__/literatureCitationData';
 
@@ -22,6 +23,18 @@ describe('Publication component', () => {
     expect(screen.queryByText('Ohara O.')).toBeNull();
     fireEvent.click(screen.getByText('[...]'));
     const author = await screen.findByText('Ohara O.');
+    expect(author).toBeTruthy();
+  });
+
+  test('should display 1 author', async () => {
+    const mockData: CitationsAPIModel = {
+      citation: {
+        id: '14702039',
+        authors: ['Ota T.'],
+      },
+    };
+    rendered = customRender(<LiteratureCitation data={mockData} />);
+    const author = await screen.findByText('Ota T.');
     expect(author).toBeTruthy();
   });
 
