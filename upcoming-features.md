@@ -70,6 +70,8 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Peptide Search
 
+- Missing sequence matching column
+
 ## Upload Lists / ID Mapping
 
 - Column selection for UniParc and UniRef results 
