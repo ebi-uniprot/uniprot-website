@@ -71,7 +71,7 @@ function urlObjectCreator<T extends JobTypes>(type: T): Return<T> {
       baseURL = 'https://www.ebi.ac.uk/Tools/services/rest/ncbiblast';
       break;
     case JobTypes.ID_MAPPING:
-      baseURL = joinUrl(devPrefix, '/uniprot/api/idmapping');
+      baseURL = joinUrl(devPrefix, '/idmapping');
       return Object.freeze({
         runUrl: `${baseURL}/run`,
         statusUrl: (jobId) =>

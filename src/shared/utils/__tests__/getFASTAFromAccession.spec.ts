@@ -28,7 +28,7 @@ describe('getFASTAFromAccession', () => {
 
   it('should throw if protein not existing', async () => {
     mock.onGet(/api\/uniprotkb\/accession\/O00000$/).reply(404, {
-      url: 'http://www.ebi.ac.uk/uniprot/api/uniprotkb/accession/O00000',
+      url: 'http://www.ebi.ac.uk/uniprot/beta/api/uniprotkb/accession/O00000',
       messages: ['Resource not found'],
     });
     await expect(getFASTAFromAccession('O00000')).rejects.toThrow();

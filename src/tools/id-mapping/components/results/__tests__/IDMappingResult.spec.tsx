@@ -13,17 +13,13 @@ import UniProtkbMappingDetails from '../__mocks__/UniProtkbMappingDetails';
 import { ViewMode } from '../../../../../shared/components/results/ResultsData';
 
 const mock = new MockAdapter(axios);
+mock.onGet(/\/api\/idmapping\/results\/id1/).reply(200, SimpleMappingData);
+mock.onGet(/\/api\/idmapping\/details\/id1/).reply(200, SimpleMappingDetails);
 mock
-  .onGet(/\/uniprot\/api\/idmapping\/results\/id1/)
-  .reply(200, SimpleMappingData);
-mock
-  .onGet(/\/uniprot\/api\/idmapping\/details\/id1/)
-  .reply(200, SimpleMappingDetails);
-mock
-  .onGet(/\/uniprot\/api\/idmapping\/results\/uniprotkb\/id2/)
+  .onGet(/\/api\/idmapping\/results\/uniprotkb\/id2/)
   .reply(200, UniProtkbMapping);
 mock
-  .onGet(/\/uniprot\/api\/idmapping\/details\/id2/)
+  .onGet(/\/api\/idmapping\/details\/id2/)
   .reply(200, UniProtkbMappingDetails);
 
 describe('IDMappingResult tests', () => {

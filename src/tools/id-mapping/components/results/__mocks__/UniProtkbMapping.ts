@@ -1,4 +1,4 @@
-// https://wwwdev.ebi.ac.uk/uniprot/api/idmapping/uniprotkb/results/ab5431b5409eb60e734faa13614e80e51acc3ea9?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=&size=0
+// https://wwwdev.ebi.ac.uk/uniprot/beta/api/idmapping/uniprotkb/results/ab5431b5409eb60e734faa13614e80e51acc3ea9?facets=reviewed%2Cmodel_organism%2Cproteins_with%2Cexistence%2Cannotation_score%2Clength&query=&size=0
 const mappingResults = {
   facets: [
     {

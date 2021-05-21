@@ -59,57 +59,46 @@ import {
   defaultFacets as locationsDefaultFacets,
 } from '../../supporting-data/locations/config/LocationsFacetConfiguration';
 
-export const devPrefix = 'https://wwwdev.ebi.ac.uk';
+// Production
 export const prodPrefix = 'https://www.ebi.ac.uk';
+
+// Development
+const devDomain = 'https://www.ebi.ac.uk';
+export const devPath = '/uniprot/beta/api';
+export const devPrefix = joinUrl(devDomain, devPath);
 
 const apiUrls = {
   // uniprotkb query builder terms
   queryBuilderTerms: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/search-fields`),
+    joinUrl(devPrefix, `/configure/${namespace}/search-fields`),
   // Annotation evidence used by query builder
   evidences: {
-    annotation: joinUrl(
-      devPrefix,
-      '/uniprot/api/configure/uniprotkb/annotation_evidences'
-    ),
+    annotation: joinUrl(devPrefix, '/configure/uniprotkb/annotation_evidences'),
     // Go evidences used by advanced go search
     // "itemType": "goterm",
-    go: joinUrl(devPrefix, '/uniprot/api/configure/uniprotkb/go_evidences'),
+    go: joinUrl(devPrefix, '/configure/uniprotkb/go_evidences'),
   },
   // Database cross references used in the UniParc entry page
-  allUniParcDatabases: joinUrl(
-    devPrefix,
-    'uniprot/api/configure/uniparc/allDatabases'
-  ),
+  allUniParcDatabases: joinUrl(devPrefix, '/configure/uniparc/allDatabases'),
   // Database cross references used by query builder
-  databaseXrefs: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/databases'
-  ),
+  databaseXrefs: joinUrl(devPrefix, '/configure/uniprotkb/databases'),
   // Database cross reference fields in result column configure
   // "itemType": "database",
-  databaseFields: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/uniprotkb/databasefields'
-  ),
+  databaseFields: joinUrl(devPrefix, '/configure/uniprotkb/databasefields'),
   // All result fields except supporting data reference fields
   resultsFields: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
+    joinUrl(devPrefix, `/configure/${namespace}/result-fields`),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
-    joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
+    joinUrl(devPrefix, `/${namespace}/search`),
   download: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/${namespace}/stream`),
+    joinUrl(devPrefix, `/${namespace}/stream`),
   variation: joinUrl(prodPrefix, '/proteins/api/variation'),
   features: joinUrl(prodPrefix, '/proteins/api/features'),
-  accessions: joinUrl(devPrefix, '/uniprot/api/uniprotkb/accessions'),
+  accessions: joinUrl(devPrefix, '/uniprotkb/accessions'),
   genecentric: (accession: string) =>
-    joinUrl(devPrefix, '/uniprot/api/genecentric/', accession),
-  idMappingFields: joinUrl(
-    devPrefix,
-    '/uniprot/api/configure/idmapping/fields'
-  ),
-
+    joinUrl(devPrefix, '/genecentric/', accession),
+  idMappingFields: joinUrl(devPrefix, '/configure/idmapping/fields'),
   entry: (id: string | undefined, namespace: Namespace) =>
     id &&
     joinUrl(
@@ -117,9 +106,7 @@ const apiUrls = {
       // NOTE: The inclusion of /accession/ subpath for uniprotkb is going to be reviewed by backend
       // and potentially removed to bring it in line with the other namespaces
       // NOTE: uniparc entry isn't working/deployed yet
-      `/uniprot/api/${namespace}/${
-        namespace === Namespace.uniprotkb ? 'accession/' : ''
-      }`,
+      `/${namespace}/${namespace === Namespace.uniprotkb ? 'accession/' : ''}`,
       id
     ),
   sequenceFasta: (accession: string) =>
@@ -139,19 +126,13 @@ const apiUrls = {
           fileFormatToUrlParameter[format]
         }`,
   entryPublications: (accession: string) =>
-    joinUrl(
-      devPrefix,
-      '/uniprot/api/uniprotkb/accession',
-      accession,
-      '/publications'
-    ),
-  taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
-  organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
+    joinUrl(devPrefix, '/uniprotkb/accession', accession, '/publications'),
+  taxonomySuggester: `${devPath}/suggester?dict=taxonomy&query=?`, // NOTE: can't use url-join here as it discards the "?"
+  organismSuggester: `${devPath}/suggester?dict=organism&query=?'`, // 👆
 
   // TODO: move that to UniParc-specific file?
   uniparc: {
-    entry: (id?: string) =>
-      id && joinUrl(devPrefix, '/uniprot/api/uniparc', id),
+    entry: (id?: string) => id && joinUrl(devPrefix, '/uniparc', id),
   },
 };
 
@@ -159,7 +140,7 @@ export default apiUrls;
 
 const RE_QUERY = /\?$/;
 export const getSuggesterUrl = (url: string, value: string) =>
-  joinUrl(devPrefix, url.replace(RE_QUERY, value));
+  joinUrl(devDomain, url.replace(RE_QUERY, value));
 
 export const createFacetsQueryString = (facets: SelectedFacet[]) =>
   /**
@@ -430,7 +411,7 @@ export const getProteinsApiUrl = (accession: string) =>
 export const getClustersForProteins = (accessions: string[]) =>
   joinUrl(
     devPrefix,
-    `/uniprot/api/uniref/search?query=(${accessions
+    `/uniref/search?query=(${accessions
       .map((accession) => `uniprot_id:${accession}`)
       .join(' OR ')})`
   );

@@ -3,5 +3,5 @@ export default {
   to: 'UniProtKB',
   ids: 'Q9Z0H0,O00311,P06243,P41892',
   taxId: null,
-  redirectURL: '/uniprot/api/idmapping/results/uniprotkb/id2',
+  redirectURL: '/uniprot/beta/api/idmapping/results/uniprotkb/id2',
 };

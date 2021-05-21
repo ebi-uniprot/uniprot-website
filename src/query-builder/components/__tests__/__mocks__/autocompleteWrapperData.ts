@@ -1,7 +1,7 @@
-import { getSuggesterUrl } from '../../../../shared/config/apiUrls';
+import { devPath, getSuggesterUrl } from '../../../../shared/config/apiUrls';
 
 const query = 'human';
-const baseUrl = '/uniprot/api/suggester?dict=taxonomy&query=?';
+const baseUrl = `${devPath}/suggester?dict=taxonomy&query=?`;
 
 export const mockSuggesterApi = {
   query,

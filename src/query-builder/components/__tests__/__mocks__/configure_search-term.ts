@@ -1,6 +1,6 @@
 import { SearchTermType } from '../../../types/searchTypes';
 
-// https://wwwdev.ebi.ac.uk/uniprot/api/configure/uniprotkb/search-fields
+// https://wwwdev.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/search-fields
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -48,7 +48,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'saccharomyces',
-    autoComplete: '/uniprot/api/suggester?dict=organism&query=?',
+    autoComplete: '/uniprot/beta/api/suggester?dict=organism&query=?',
     autoCompleteQueryTerm: 'organism_id',
   },
   {
@@ -59,7 +59,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'human',
-    autoComplete: '/uniprot/api/suggester?dict=taxonomy&query=?',
+    autoComplete: '/uniprot/beta/api/suggester?dict=taxonomy&query=?',
     autoCompleteQueryTerm: 'taxonomy_id',
   },
   {
@@ -70,7 +70,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'human',
-    autoComplete: '/uniprot/api/suggester?dict=host&query=?',
+    autoComplete: '/uniprot/beta/api/suggester?dict=host&query=?',
     autoCompleteQueryTerm: 'virus_host_id',
   },
   {
@@ -102,7 +102,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: '1.1.2.3',
-        autoComplete: '/uniprot/api/suggester?dict=ec&query=?',
+        autoComplete: '/uniprot/beta/api/suggester?dict=ec&query=?',
         autoCompleteQueryTerm: 'ec',
       },
       {
@@ -122,7 +122,7 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: '29105',
-                autoComplete: '/uniprot/api/suggester?dict=chebi&query=?',
+                autoComplete: '/uniprot/beta/api/suggester?dict=chebi&query=?',
                 autoCompleteQueryTerm: 'cc_cofactor_chebi',
               },
               {
@@ -646,7 +646,7 @@ const configureSearchTerms = [
             fieldType: 'general',
             example: 'tyrosine',
             autoComplete:
-              '/uniprot/api/suggester?dict=catalytic_activity&query=?',
+              '/uniprot/beta/api/suggester?dict=catalytic_activity&query=?',
             autoCompleteQueryTerm: 'cc_catalytic_activity',
           },
           {
@@ -1600,7 +1600,8 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'membrane',
-                autoComplete: '/uniprot/api/suggester?dict=subcell&query=?',
+                autoComplete:
+                  '/uniprot/beta/api/suggester?dict=subcell&query=?',
                 autoCompleteQueryTerm: 'cc_scl_term',
               },
               {
@@ -7733,7 +7734,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: '0009986',
-        autoComplete: '/uniprot/api/suggester?dict=go&query=?',
+        autoComplete: '/uniprot/beta/api/suggester?dict=go&query=?',
         autoCompleteQueryTerm: 'go',
       },
       {
@@ -7819,7 +7820,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'chromosomal',
-    autoComplete: '/uniprot/api/suggester?dict=keyword&query=?',
+    autoComplete: '/uniprot/beta/api/suggester?dict=keyword&query=?',
     autoCompleteQueryTerm: 'keyword',
   },
   {
