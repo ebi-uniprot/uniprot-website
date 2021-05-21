@@ -16,11 +16,8 @@ This is a non exhaustive list of features which will be added to the website in 
 ## Query builder
 
 - Search with genome location
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-21994) AND/OR shouldn't be displayed for the first option.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-23247) / [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25581) GO term search syntax is wrong
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25557) Change namespace when on other namespace results page causes it to search in that namespace instead.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25580) Searching for " \* " in database xref generates the wrong query string.
-- [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25888) Double quotes get added to some search fields.
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25889) Proteomes Taxonomy suggester not working for non-UniProtKB searches.
 
 ## UniProtKB Results
@@ -73,11 +70,9 @@ This is a non exhaustive list of features which will be added to the website in 
 
 ## Peptide Search
 
-- Results
-
 ## Upload Lists / ID Mapping
 
--Results
+- Column selection for UniParc and UniRef results 
 
 ## Tools Results (Dashboard)
 
