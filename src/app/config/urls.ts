@@ -104,7 +104,7 @@ export const IDMappingNamespaces = [
 ];
 
 // "/:namespace(uniprotkb|uniparc|........)/""
-export const allSearchResultLocations = `/:namespace(${Object.values(
+export const allSearchResultLocations = `/:namespace(${Object.keys(
   NamespaceLabels
 ).join('|')})`;
 
