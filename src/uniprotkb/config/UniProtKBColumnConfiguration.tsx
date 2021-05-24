@@ -177,7 +177,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
           ...(geneNames.orfNames?.map((synonym) => synonym.value) || []),
         ])
       )
-    );
+    ).filter((name) => name);
 
     return (
       <>
