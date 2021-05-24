@@ -30,18 +30,18 @@ describe('Publication component', () => {
     const mockData: CitationsAPIModel = {
       citation: {
         id: '14702039',
-        authors: ['Ota T.'],
+        authors: ['Smith X.'],
       },
     };
     rendered = customRender(<LiteratureCitation data={mockData} />);
-    const author = await screen.findByText('Ota T.');
-    expect(author).toBeTruthy();
+    const author = await screen.findByText('Smith X.');
+    expect(author).toBeInTheDocument();
   });
 
   test('should expand abstract', async () => {
     expect(screen.queryByText(/noncoding cDNAs/)).toBeNull();
-    fireEvent.click(screen.getByText('View abstract [...]'));
+    fireEvent.click(screen.getByText('View abstract'));
     const abstract = await screen.findByText(/noncoding cDNAs/);
-    expect(abstract).toBeTruthy();
+    expect(abstract).toBeInTheDocument();
   });
 });

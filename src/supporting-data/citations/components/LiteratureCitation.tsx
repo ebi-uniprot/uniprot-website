@@ -84,19 +84,16 @@ const Abstract: FC<AbstractProps> = ({ abstract, open = false }) => {
   const [display, setDisplay] = useState(open);
   return (
     <div className="publication__abstract">
-      {display ? (
+      <Button variant="tertiary" onClick={() => setDisplay(!display)}>
+        {display ? 'Hide' : 'View'} abstract
+      </Button>
+      {display && (
         <p
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{
             __html: cleanText(abstract),
           }}
         />
-      ) : (
-        // Note: this could be eventually changed to an EllipsisReveal
-        // showing a bit of the abstract
-        <Button variant="tertiary" onClick={() => setDisplay(true)}>
-          View abstract [...]
-        </Button>
       )}
     </div>
   );
