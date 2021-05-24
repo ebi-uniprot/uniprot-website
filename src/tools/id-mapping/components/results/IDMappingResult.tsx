@@ -1,10 +1,5 @@
 import { useMemo } from 'react';
-import {
-  ExpandableList,
-  HeroContainer,
-  Loader,
-  PageIntro,
-} from 'franklin-sites';
+import { ExpandableList, HeroContainer, Loader } from 'franklin-sites';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
 import useItemSelect from '../../../../shared/hooks/useItemSelect';
@@ -31,6 +26,7 @@ import { Namespace } from '../../../../shared/types/namespaces';
 import ResultsFacets from '../../../../shared/components/results/ResultsFacets';
 import { defaultFacets } from '../../../../shared/config/apiUrls';
 import Response from '../../../../uniprotkb/types/responseTypes';
+import ResultsDataHeader from '../../../../shared/components/results/ResultsDataHeader';
 
 const jobType = JobTypes.ID_MAPPING;
 const urls = toolsURLs(jobType);
@@ -114,25 +110,29 @@ const IDMappingResult = () => {
 
   return (
     <SideBarLayout sidebar={<ResultsFacets dataApiObject={facetsData} />}>
-      <PageIntro title="ID Mapping Results" />
-      {total && (
+      <ResultsDataHeader
+        selectedEntries={selectedEntries}
+        total={total}
+        namespaceFallback={namespaceFallback}
+        disableCardToggle
+        titlePostscript={
+          total && (
+            <small>
+              for {detailsData?.from} → {detailsData?.to}
+            </small>
+          )
+        }
+        base={detailsData?.redirectURL}
+      />
+      {failedIds && (
         <HeroContainer>
-          <strong>{total}</strong> out of{' '}
-          <strong>{total + (failedIds ? failedIds.length : 0)}</strong>{' '}
-          {detailsData?.from} identifiers were successfully mapped to{' '}
-          {detailsData?.to}.
-          {failedIds && (
-            <div>
-              The following id{failedIds.length === 1 ? '' : 's'}{' '}
-              {failedIds.length === 1 ? 'is' : 'were'} not mapped:
-              <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
-                {failedIds.map((id) => id)}
-              </ExpandableList>
-            </div>
-          )}
+          <strong>{failedIds.length}</strong> id
+          {failedIds.length === 1 ? ' is' : 's were'} not mapped:
+          <ExpandableList descriptionString="ids" numberCollapsedItems={0}>
+            {failedIds.map((id) => id)}
+          </ExpandableList>
         </HeroContainer>
       )}
-      {/* TODO only display buttons when namespace exists, otherwise download only */}
       <ResultsData
         resultsDataObject={resultsDataObject}
         selectedEntries={selectedEntries}

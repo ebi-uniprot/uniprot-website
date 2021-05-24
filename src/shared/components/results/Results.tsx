@@ -35,7 +35,7 @@ const Results: FC = () => {
   const facetTotal = facetHeaders?.['x-total-records'];
 
   // Query for results data
-  const { url: initialApiUrl, direct } = useNSQuery();
+  const { url: initialApiUrl, direct } = useNSQuery({ withFacets: false });
   const resultsDataObject = usePagination(initialApiUrl);
   const {
     initialLoading: resultsDataInitialLoading,

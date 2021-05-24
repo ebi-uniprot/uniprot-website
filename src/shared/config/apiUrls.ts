@@ -325,8 +325,23 @@ export const getUniProtPublicationsQueryUrl = ({
     size,
   })}`;
 
+type Parameters = {
+  query?: string;
+  accessions?: string;
+  format: string;
+  // TODO: change to set of possible fields (if possible, depending on namespace)
+  fields?: string;
+  sort?: string;
+  includeIsoform?: boolean;
+  size?: number;
+  compressed?: boolean;
+  download: true;
+  facetFilter?: string;
+};
+
 type GetDownloadUrlProps = {
-  query: string;
+  base?: string;
+  query?: string;
   columns: string[];
   selectedFacets: SelectedFacet[];
   sortColumn?: SortableColumn;
@@ -338,9 +353,11 @@ type GetDownloadUrlProps = {
   selectedIdField: Column;
   namespace: Namespace;
   accessions?: string[];
+  idMappingPrefix?: string;
 };
 
 export const getDownloadUrl = ({
+  base,
   query,
   columns,
   selectedFacets = [],
@@ -359,24 +376,14 @@ export const getDownloadUrl = ({
   let endpoint;
   if (accessions) {
     endpoint = apiUrls.accessions;
+  } else if (base) {
+    endpoint = joinUrl(devPrefix, base);
   } else if (size) {
     endpoint = apiUrls.search(namespace);
   } else {
     endpoint = apiUrls.download(namespace);
   }
-  type Parameters = {
-    query?: string;
-    accessions?: string;
-    format: string;
-    // TODO: change to set of possible fields (if possible, depending on namespace)
-    fields?: string;
-    sort?: string;
-    includeIsoform?: boolean;
-    size?: number;
-    compressed?: boolean;
-    download: true;
-    facetFilter?: string;
-  };
+
   const parameters: Parameters = {
     format: fileFormatToUrlParameter[fileFormat] || FileFormat.json,
     download: true,

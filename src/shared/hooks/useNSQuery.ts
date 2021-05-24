@@ -57,7 +57,7 @@ const useNSQuery = ({
       query,
       columns: withColumns ? queryColumns : undefined,
       selectedFacets,
-      facets: withFacets ? undefined : undefined,
+      facets: withFacets ? undefined : [],
       sortColumn,
       sortDirection,
       size,

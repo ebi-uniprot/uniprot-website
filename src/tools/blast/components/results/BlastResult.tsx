@@ -42,6 +42,7 @@ import { PublicServerParameters } from '../../types/blastServerParameters';
 // what we import are types, even if they are in adapter file
 import { UniProtkbAPIModel } from '../../../../uniprotkb/adapters/uniProtkbConverter';
 
+import helper from '../../../../shared/styles/helper.module.scss';
 import '../../../../shared/styles/sticky.scss';
 
 const jobType = JobTypes.BLAST;
@@ -327,7 +328,10 @@ const BlastResult = () => {
       sidebar={sidebar}
       className="sticky-tabs-container"
     >
-      <Tabs active={match.params.subPage}>
+      <Tabs
+        active={match.params.subPage}
+        className={accessionsLoading ? helper.stale : undefined}
+      >
         <Tab
           id={TabLocation.Overview}
           title={
