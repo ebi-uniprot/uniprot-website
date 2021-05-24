@@ -40,7 +40,7 @@ const CoreData = () => (
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: 'facets=reviewed:true&query=*',
+            search: 'query=reviewed:true',
           }}
         >
           <SwissProtIcon width="2.5em" />
@@ -50,7 +50,7 @@ const CoreData = () => (
         <Link
           to={{
             pathname: LocationToPath[Location.UniProtKBResults],
-            search: 'facets=reviewed:false&query=*',
+            search: 'query=reviewed:false',
           }}
         >
           <TremblIcon width="2.5em" />
