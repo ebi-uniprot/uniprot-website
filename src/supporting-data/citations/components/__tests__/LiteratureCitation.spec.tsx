@@ -34,8 +34,7 @@ describe('Publication component', () => {
       },
     };
     rendered = customRender(<LiteratureCitation data={mockData} />);
-    const author = await screen.findByText('Smith X.');
-    expect(author).toBeInTheDocument();
+    expect(screen.getByText('Smith X.')).toBeInTheDocument();
   });
 
   test('should expand abstract', async () => {
