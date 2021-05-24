@@ -10,8 +10,8 @@ import { nsToDefaultColumns } from '../../config/columns';
 
 import { Namespace } from '../../types/namespaces';
 
-import './styles/customise-table.scss';
 import '../../styles/sticky.scss';
+import './styles/customise-table.scss';
 
 type CustomiseTableProps = {
   onSave: () => void;
