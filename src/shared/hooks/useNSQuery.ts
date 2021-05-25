@@ -40,8 +40,13 @@ const useNSQuery = ({
   }
 
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection, direct } =
-    getParamsFromURL(queryParamFromUrl);
+  const {
+    query,
+    selectedFacets,
+    sortColumn,
+    sortDirection,
+    direct,
+  } = getParamsFromURL(queryParamFromUrl);
 
   const url = useMemo(() => {
     if (!query && !accessions.length) {
