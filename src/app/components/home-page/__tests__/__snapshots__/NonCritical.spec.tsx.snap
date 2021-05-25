@@ -731,7 +731,7 @@ exports[`non-critical HomePage component should render 1`] = `
         title="UniProt posts on Twitter"
       >
         <test-file-stub
-          width="3ch"
+          width="2em"
         />
       </a>
       <a
@@ -742,7 +742,7 @@ exports[`non-critical HomePage component should render 1`] = `
         title="UniProt posts on Facebook"
       >
         <test-file-stub
-          width="3ch"
+          width="2em"
         />
       </a>
     </div>
@@ -823,7 +823,7 @@ exports[`non-critical HomePage component should render 1`] = `
         target="_blank"
       >
         <test-file-stub
-          width="2ch"
+          width="1.5em"
         />
          Tutorial & videos
       </a>
@@ -834,7 +834,7 @@ exports[`non-critical HomePage component should render 1`] = `
         target="_blank"
       >
         <test-file-stub
-          width="2ch"
+          width="1.5em"
         />
          Past webinars
       </a>
@@ -845,7 +845,7 @@ exports[`non-critical HomePage component should render 1`] = `
         target="_blank"
       >
         <test-file-stub
-          width="2ch"
+          width="1.5em"
         />
          Online courses
       </a>
