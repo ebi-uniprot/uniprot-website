@@ -35,7 +35,7 @@ describe('Publication component', () => {
         authors: ['Smith X.'],
       },
     };
-    rendered = customRender(<LiteratureCitation data={mockData} />);
+    rendered.rerender(<LiteratureCitation data={mockData} />);
     expect(screen.getByText('Smith X.')).toBeInTheDocument();
   });
 
