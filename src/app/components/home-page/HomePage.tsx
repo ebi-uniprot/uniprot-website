@@ -36,7 +36,7 @@ const mission = (
       <span className={helper['no-wrap']}>
         UniProt&nbsp;
         <sup>
-          <CitedIcon width="1.5ch" />
+          <CitedIcon width="1em" />
         </sup>
       </span>
     </a>
@@ -61,10 +61,8 @@ const namespaceFindYour: Record<SearchableNamespace, string> = {
 const HomePageHeader = memo(() => {
   const prefersReducedMotion = useReducedMotion();
 
-  const [
-    selectedNamespace,
-    setSelectedNamespace,
-  ] = useState<SearchableNamespace>(Namespace.uniprotkb);
+  const [selectedNamespace, setSelectedNamespace] =
+    useState<SearchableNamespace>(Namespace.uniprotkb);
 
   const text = namespaceFindYour[selectedNamespace];
 

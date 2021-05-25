@@ -71,6 +71,7 @@ $latest-news-height: 18rem;
 
   &__middle {
     grid-column-start: 5 !important;
+    overflow: hidden;
 
     & > * {
       height: 48%;
