@@ -55,12 +55,10 @@ const Authors: FC<AuthorProps> = ({ authors, limit = 10 }) => {
       ))}
       {hiddenAuthors.length > 0 && (
         <EllipsisReveal>
-          {', '}
           {hiddenAuthors.map((author, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={index}>
-              {index !== 0 && ', '}
-              <Link to={getLinkToAuthor(author)}>{author}</Link>
+              , <Link to={getLinkToAuthor(author)}>{author}</Link>
             </Fragment>
           ))}
         </EllipsisReveal>
