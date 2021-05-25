@@ -1514,7 +1514,9 @@ exports[`EntryMain view should render 1`] = `
                           Roe B.A.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -1683,7 +1685,9 @@ exports[`EntryMain view should render 1`] = `
                           Almeida J.P.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -1852,7 +1856,9 @@ exports[`EntryMain view should render 1`] = `
                           Totoki Y.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -2021,7 +2027,9 @@ exports[`EntryMain view should render 1`] = `
                           Babbage A.K.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -2190,7 +2198,9 @@ exports[`EntryMain view should render 1`] = `
                           De Berardinis V.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -2359,7 +2369,9 @@ exports[`EntryMain view should render 1`] = `
                           Ali J.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -2528,7 +2540,9 @@ exports[`EntryMain view should render 1`] = `
                           Jaeger S.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -2697,7 +2711,9 @@ exports[`EntryMain view should render 1`] = `
                           Hunt S.E.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -2866,7 +2882,9 @@ exports[`EntryMain view should render 1`] = `
                           Hunt S.E.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -3035,7 +3053,9 @@ exports[`EntryMain view should render 1`] = `
                           Couronne O.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -3204,7 +3224,9 @@ exports[`EntryMain view should render 1`] = `
                           Hunt S.E.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -3373,7 +3395,9 @@ exports[`EntryMain view should render 1`] = `
                           Searle S.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -3542,7 +3566,9 @@ exports[`EntryMain view should render 1`] = `
                           Xie G.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -3711,7 +3737,9 @@ exports[`EntryMain view should render 1`] = `
                           Chan Y.M.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -3880,7 +3908,9 @@ exports[`EntryMain view should render 1`] = `
                           Burrows C.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -4049,7 +4079,9 @@ exports[`EntryMain view should render 1`] = `
                           Wylie K.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -4218,7 +4250,9 @@ exports[`EntryMain view should render 1`] = `
                           Cuomo C.A.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -4387,7 +4421,9 @@ exports[`EntryMain view should render 1`] = `
                           Shimizu A.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -4556,7 +4592,9 @@ exports[`EntryMain view should render 1`] = `
                           Wilming L.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -4725,7 +4763,9 @@ exports[`EntryMain view should render 1`] = `
                           Cree A.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -4894,7 +4934,9 @@ exports[`EntryMain view should render 1`] = `
                           Gunaratne P.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -5063,7 +5105,9 @@ exports[`EntryMain view should render 1`] = `
                           Takeda T.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -5232,7 +5276,9 @@ exports[`EntryMain view should render 1`] = `
                           Chang J.L.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]
@@ -5401,7 +5447,9 @@ exports[`EntryMain view should render 1`] = `
                           Woodfine K.
                         </a>
                         <button
-                          class="button tertiary"
+                          aria-expanded="false"
+                          class="button tertiary ellipsis-reveal"
+                          title="Show more"
                           type="button"
                         >
                           [...]

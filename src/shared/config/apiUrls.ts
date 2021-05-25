@@ -271,7 +271,7 @@ type GetOptions = {
   selectedFacets?: SelectedFacet[];
   sortColumn?: SortableColumn;
   sortDirection?: SortDirection;
-  facets?: Facets[];
+  facets?: Facets[] | null;
   size?: number;
 };
 
