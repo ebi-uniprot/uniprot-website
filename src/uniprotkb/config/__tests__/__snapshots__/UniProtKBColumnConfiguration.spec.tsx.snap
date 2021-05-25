@@ -928,22 +928,17 @@ exports[`UniProtKBColumnConfiguration component should render column "ft_zn_fing
 
 exports[`UniProtKBColumnConfiguration component should render column "gene_names": gene_names 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
+  <strong>
+    some Gene
+  </strong>
+  <button
+    aria-expanded="false"
+    class="button tertiary ellipsis-reveal"
+    title="Show more"
+    type="button"
   >
-    <li>
-      some Gene
-    </li>
-    <li>
-      <button
-        class="button tertiary expandable-list__action"
-        data-testid="expandable-message"
-        type="button"
-      >
-        More gene names
-      </button>
-    </li>
-  </ul>
+    [...]
+  </button>
 </DocumentFragment>
 `;
 
@@ -1265,22 +1260,17 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_ex
 
 exports[`UniProtKBColumnConfiguration component should render column "protein_name": protein_name 1`] = `
 <DocumentFragment>
-  <ul
-    class="expandable-list no-bullet"
+  <strong>
+    rec full Name
+  </strong>
+  <button
+    aria-expanded="false"
+    class="button tertiary ellipsis-reveal"
+    title="Show more"
+    type="button"
   >
-    <li>
-      rec full Name
-    </li>
-    <li>
-      <button
-        class="button tertiary expandable-list__action"
-        data-testid="expandable-message"
-        type="button"
-      >
-        More protein names
-      </button>
-    </li>
-  </ul>
+    [...]
+  </button>
 </DocumentFragment>
 `;
 

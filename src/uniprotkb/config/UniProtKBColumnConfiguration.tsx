@@ -1,5 +1,10 @@
 /* eslint-disable camelcase */
-import { ExpandableList, LongNumber, Sequence } from 'franklin-sites';
+import {
+  EllipsisReveal,
+  ExpandableList,
+  LongNumber,
+  Sequence,
+} from 'franklin-sites';
 import { Link } from 'react-router-dom';
 
 import SimpleView from '../../shared/components/views/SimpleView';
@@ -127,11 +132,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
   render: (data) => {
     const { proteinNamesData } = data[EntrySection.NamesAndTaxonomy];
 
+    // Note this should be in ProteinNamesView eventually
     const uniqueNames = Array.from(
       new Set(
         [
           proteinNamesData?.recommendedName,
-          ...(proteinNamesData?.submissionNames || []),
           ...(proteinNamesData?.alternativeNames || []),
         ].flatMap((name) => [
           name?.fullName.value,
@@ -142,12 +147,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinName, {
     );
 
     return (
-      <ExpandableList
-        descriptionString="protein names"
-        numberCollapsedItems={1}
-      >
-        {uniqueNames}
-      </ExpandableList>
+      <>
+        <strong>{uniqueNames[0]}</strong>
+        {uniqueNames.length > 1 && (
+          <EllipsisReveal>
+            {', '}
+            {uniqueNames.splice(1).join(', ')}
+          </EllipsisReveal>
+        )}
+      </>
     );
   },
 });
@@ -157,6 +165,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
   render: (data) => {
     const { geneNamesData } = data[EntrySection.NamesAndTaxonomy];
 
+    // Note this should be in GeneNamesView eventually
     const uniqueNames = Array.from(
       new Set(
         geneNamesData?.flatMap((geneNames) => [
@@ -167,12 +176,18 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.geneNames, {
           ...(geneNames.orfNames?.map((synonym) => synonym.value) || []),
         ])
       )
-    );
+    ).filter((name) => name);
 
     return (
-      <ExpandableList descriptionString="gene names" numberCollapsedItems={1}>
-        {uniqueNames}
-      </ExpandableList>
+      <>
+        <strong>{uniqueNames[0]}</strong>
+        {uniqueNames.length > 1 && (
+          <EllipsisReveal>
+            {', '}
+            {uniqueNames.splice(1).join(', ')}
+          </EllipsisReveal>
+        )}
+      </>
     );
   },
 });
@@ -505,7 +520,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
     return (
       <ECNumbersView
         ecNumbers={proteinNamesData?.recommendedName?.ecNumbers}
-        isCompact
+        noEvidence
       />
     );
   },

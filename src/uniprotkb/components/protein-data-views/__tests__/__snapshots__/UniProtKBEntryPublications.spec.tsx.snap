@@ -80,7 +80,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             class="button tertiary"
             type="button"
           >
-            View abstract [...]
+            View abstract
           </button>
         </div>
       </div>
@@ -235,7 +235,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             class="button tertiary"
             type="button"
           >
-            View abstract [...]
+            View abstract
           </button>
         </div>
       </div>
@@ -395,7 +395,9 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             Radzimanowski J.
           </a>
           <button
-            class="button tertiary"
+            aria-expanded="false"
+            class="button tertiary ellipsis-reveal"
+            title="Show more"
             type="button"
           >
             [...]
@@ -414,7 +416,7 @@ exports[`UniProtKBEntryPublications Should make a call with pubmed ids and rende
             class="button tertiary"
             type="button"
           >
-            View abstract [...]
+            View abstract
           </button>
         </div>
       </div>
