@@ -3,13 +3,14 @@ import MockAdapter from 'axios-mock-adapter';
 import { screen } from '@testing-library/react';
 
 import customRender from '../../../../shared/__test-helpers__/customRender';
+
+import PeptideSearchResult from '../PeptideSearchResult';
+
 import { FinishedJob } from '../../../types/toolsJob';
 import { JobTypes } from '../../../types/toolsJobTypes';
 import { Status } from '../../../types/toolsStatuses';
 
-import uniprotkbResults from '../../../../uniprotkb/components/__mocks__/results.json';
-
-import PeptideSearchResult from '../PeptideSearchResult';
+import uniprotkbResults from '../../../../uniprotkb/components/__mocks__/results';
 
 const mockJob: FinishedJob<JobTypes.PEPTIDE_SEARCH> = {
   internalID: 'local-id',

@@ -66,7 +66,7 @@ describe('xrefUtils tests', () => {
               evidences: [{ evidenceCode: 'ECO:0000305' }],
             },
           ],
-          commentType: CommentType.SIMILARITY,
+          commentType: 'SIMILARITY',
         },
       ])
     ).toEqual([

@@ -143,9 +143,10 @@ const BlastResultLocalFacets: FC<{
     return allHits.filter((hit) => filteredAccessions.has(hit.hit_acc));
   }, [data, allHits]);
 
-  const facetBounds = useMemo(() => getFacetBounds(selectedFacets), [
-    selectedFacets,
-  ]);
+  const facetBounds = useMemo(
+    () => getFacetBounds(selectedFacets),
+    [selectedFacets]
+  );
 
   const [unfilteredValues, bounds, optimisedBinNumber] = useMemo(() => {
     const dataPoints = getDataPoints(allHits);

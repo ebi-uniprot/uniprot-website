@@ -77,35 +77,40 @@ export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcAPIModel
 > = new Map();
 
-const familyAndDomainRenderer = (
-  db: SequenceFeature['database'],
-  externalURLAccessor: keyof typeof externalUrls
-) => (data: UniParcAPIModel) => (
-  <ExpandableList displayNumberOfHiddenItems>
-    {data.sequenceFeatures
-      ?.filter((feature): feature is SequenceFeature => feature.database === db)
-      .map((feature) => (
-        <span title={feature.interproGroup?.name} key={feature.databaseId}>
-          <ExternalLink
-            url={externalUrls[externalURLAccessor](feature.databaseId)}
-          >
-            {feature.databaseId}
-          </ExternalLink>
-          {feature.interproGroup && (
-            <>
-              &nbsp;(&nbsp;
+const familyAndDomainRenderer =
+  (
+    db: SequenceFeature['database'],
+    externalURLAccessor: keyof typeof externalUrls
+  ) =>
+  (data: UniParcAPIModel) =>
+    (
+      <ExpandableList displayNumberOfHiddenItems>
+        {data.sequenceFeatures
+          ?.filter(
+            (feature): feature is SequenceFeature => feature.database === db
+          )
+          .map((feature) => (
+            <span title={feature.interproGroup?.name} key={feature.databaseId}>
               <ExternalLink
-                url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                url={externalUrls[externalURLAccessor](feature.databaseId)}
               >
-                {feature.interproGroup.id}
+                {feature.databaseId}
               </ExternalLink>
-              )
-            </>
-          )}
-        </span>
-      ))}
-  </ExpandableList>
-);
+              {feature.interproGroup && (
+                <>
+                  &nbsp;(&nbsp;
+                  <ExternalLink
+                    url={externalUrls.InterProEntry(feature.interproGroup.id)}
+                  >
+                    {feature.interproGroup.id}
+                  </ExternalLink>
+                  )
+                </>
+              )}
+            </span>
+          ))}
+      </ExpandableList>
+    );
 
 // COLUMN RENDERERS BELOW
 UniParcColumnConfiguration.set(UniParcColumn.upi, {

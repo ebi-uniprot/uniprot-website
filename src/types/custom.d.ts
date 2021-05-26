@@ -35,3 +35,6 @@ declare module '*.module.scss' {
   const classes: { [key: string]: string };
   export default classes;
 }
+
+// Just for one test file
+declare module 'react-beautiful-dnd-test-utils';

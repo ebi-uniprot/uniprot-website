@@ -13,7 +13,6 @@ import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import { Namespace } from '../../../shared/types/namespaces';
 
 import { UniProtkbAPIModel } from '../../adapters/uniProtkbConverter';
-import KeywordCategory from '../../types/keywordCategory';
 
 const getIdKey = getIdKeyFor(Namespace.uniprotkb);
 
@@ -34,9 +33,9 @@ const UniProtKBCard = ({ data, selected, handleEntrySelection }: Props) => {
     }
 
     const categorisedKeywords = getKeywordsForCategories(data.keywords, [
-      KeywordCategory.MOLECULAR_FUNCTION,
-      KeywordCategory.BIOLOGICAL_PROCESS,
-      KeywordCategory.DISEASE,
+      'Molecular function',
+      'Biological process',
+      'Disease',
     ]);
 
     return categorisedKeywords.map((keywordCategory, index) => (

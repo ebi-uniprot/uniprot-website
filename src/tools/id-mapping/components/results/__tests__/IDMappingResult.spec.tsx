@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 
@@ -15,14 +15,11 @@ import { ViewMode } from '../../../../../shared/components/results/ResultsData';
 const mock = new MockAdapter(axios);
 mock
   .onGet(/\/uniprot\/api\/idmapping\/results\/id1/)
-  .reply(200, SimpleMappingData);
-mock
+  .reply(200, SimpleMappingData)
   .onGet(/\/uniprot\/api\/idmapping\/details\/id1/)
-  .reply(200, SimpleMappingDetails);
-mock
+  .reply(200, SimpleMappingDetails)
   .onGet(/\/uniprot\/api\/idmapping\/results\/uniprotkb\/id2/)
-  .reply(200, UniProtkbMapping);
-mock
+  .reply(200, UniProtkbMapping)
   .onGet(/\/uniprot\/api\/idmapping\/details\/id2/)
   .reply(200, UniProtkbMappingDetails);
 
@@ -34,7 +31,7 @@ describe('IDMappingResult tests', () => {
         'view-mode': ViewMode.TABLE, // This should eventually be removed
       },
     });
-    expect(await screen.findByText('ENSMUSG00000029283')).toBeTruthy();
+    expect(await screen.findByText('ENSMUSG00000029283')).toBeInTheDocument();
   });
 
   it('should render mapping to UniProtKB and apply filter', async () => {
@@ -47,6 +44,7 @@ describe('IDMappingResult tests', () => {
     expect((await screen.findAllByText('Q9Z0H0')).length).toBe(2);
     const facetLink = screen.getByRole('link', { name: /Reviewed/ });
     fireEvent.click(facetLink);
+    await waitFor(() => screen.getByRole('table'));
     expect(history.location.search).toEqual('?facets=reviewed%3Atrue');
   });
 });

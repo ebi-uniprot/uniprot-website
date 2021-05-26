@@ -110,8 +110,7 @@ export const removeFeaturesWithUnknownModifier = (features: FeatureData = []) =>
   features
     .filter(
       ({ location: { start, end } }) =>
-        start.modifier !== LocationModifier.UNKNOWN &&
-        end.modifier !== LocationModifier.UNKNOWN
+        start.modifier !== 'UNKNOWN' && end.modifier !== 'UNKNOWN'
     )
     .filter(Boolean);
 

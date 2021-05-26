@@ -1,12 +1,14 @@
-import { cleanup } from '@testing-library/react';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+
 import UniProtKBEvidenceTag, {
   UniProtProtvistaEvidenceTag,
 } from '../UniProtKBEvidenceTag';
-import customRender from '../../../../shared/__test-helpers__/customRender';
+
+import { Evidence } from '../../../types/modelTypes';
 
 describe('UniProtKBEvidenceTag components', () => {
   test('should render automatic annotation', () => {
-    const evidences = [
+    const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000255',
         source: 'PROSITE-ProRule',
@@ -20,7 +22,7 @@ describe('UniProtKBEvidenceTag components', () => {
   });
 
   test('should render publications count', () => {
-    const evidences = [
+    const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000269',
         source: 'PubMed',
@@ -39,7 +41,7 @@ describe('UniProtKBEvidenceTag components', () => {
   });
 
   test('should render automatic ', () => {
-    const evidences = [
+    const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000313',
       },
@@ -51,7 +53,7 @@ describe('UniProtKBEvidenceTag components', () => {
   });
 
   test('should render ProtVista evidence tag', () => {
-    const evidences = [
+    const evidences: Evidence[] = [
       {
         evidenceCode: 'ECO:0000313',
       },
@@ -59,6 +61,4 @@ describe('UniProtKBEvidenceTag components', () => {
     const htmlTemplate = UniProtProtvistaEvidenceTag(evidences, jest.fn());
     expect(htmlTemplate).toMatchSnapshot();
   });
-
-  afterEach(() => cleanup());
 });

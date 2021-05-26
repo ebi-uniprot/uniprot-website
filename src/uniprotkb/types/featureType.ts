@@ -1,44 +1,43 @@
-enum FeatureType {
-  INIT_MET = 'Initiator methionine',
-  SIGNAL = 'Signal',
-  PROPEP = 'Propeptide',
-  TRANSIT = 'Transit peptide',
-  CHAIN = 'Chain',
-  PEPTIDE = 'Peptide',
-  TOPO_DOM = 'Topological domain',
-  TRANSMEM = 'Transmembrane',
-  INTRAMEM = 'Intramembrane',
-  DOMAIN = 'Domain',
-  REPEAT = 'Repeat',
-  CA_BIND = 'Calcium binding',
-  ZN_FING = 'Zinc finger',
-  DNA_BIND = 'DNA binding',
-  NP_BINDL = 'Nucleotide binding',
-  REGION = 'Region',
-  COILED = 'Coiled coil',
-  MOTIF = 'Motif',
-  COMPBIAS = 'Compositional bias',
-  ACT_SITE = 'Active site',
-  METAL = 'Metal binding',
-  BINDING = 'Binding site',
-  SITE = 'Site',
-  NON_STD = 'Non-standard residue',
-  MOD_RES = 'Modified residue',
-  LIPID = 'Lipidation',
-  CARBOHYD = 'Glycosylation',
-  DISULFID = 'Disulfide bond',
-  CROSSLNK = 'Cross-link',
-  VAR_SEQ = 'Alternative sequence',
-  VARIANT = 'Natural variant',
-  MUTAGEN = 'Mutagenesis',
-  UNSURE = 'Sequence uncertainty',
-  CONFLICT = 'Sequence conflict',
-  NON_CONS = 'Non-adjacent residues',
-  NON_TER = 'Non-terminal residue',
-  HELIX = 'Helix',
-  TURN = 'Turn',
-  STRAND = 'Beta strand',
-  OTHER = 'Other', // For anything else
-}
+type FeatureType =
+  | 'Initiator methionine'
+  | 'Signal'
+  | 'Propeptide'
+  | 'Transit peptide'
+  | 'Chain'
+  | 'Peptide'
+  | 'Topological domain'
+  | 'Transmembrane'
+  | 'Intramembrane'
+  | 'Domain'
+  | 'Repeat'
+  | 'Calcium binding'
+  | 'Zinc finger'
+  | 'DNA binding'
+  | 'Nucleotide binding'
+  | 'Region'
+  | 'Coiled coil'
+  | 'Motif'
+  | 'Compositional bias'
+  | 'Active site'
+  | 'Metal binding'
+  | 'Binding site'
+  | 'Site'
+  | 'Non-standard residue'
+  | 'Modified residue'
+  | 'Lipidation'
+  | 'Glycosylation'
+  | 'Disulfide bond'
+  | 'Cross-link'
+  | 'Alternative sequence'
+  | 'Natural variant'
+  | 'Mutagenesis'
+  | 'Sequence uncertainty'
+  | 'Sequence conflict'
+  | 'Non-adjacent residues'
+  | 'Non-terminal residue'
+  | 'Helix'
+  | 'Turn'
+  | 'Beta strand'
+  | 'Other'; // For anything else
 
 export default FeatureType;

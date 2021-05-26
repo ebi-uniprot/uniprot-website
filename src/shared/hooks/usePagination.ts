@@ -35,10 +35,11 @@ const usePagination = <T extends APIModel, R extends APIModel>(
     setUrl(initialApiUrl);
   }, [initialApiUrl]);
 
-  const { data, loading, progress, headers } = useDataApi<{
-    results: APIModel[];
-    failedIds?: string[];
-  }>(url);
+  const { data, loading, progress, headers } =
+    useDataApi<{
+      results: APIModel[];
+      failedIds?: string[];
+    }>(url);
 
   useEffect(() => {
     if (!data) {

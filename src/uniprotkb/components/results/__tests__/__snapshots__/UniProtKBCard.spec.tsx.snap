@@ -96,30 +96,6 @@ exports[`UniProtKBCard component should render 1`] = `
     >
       <a
         class="card-action"
-        href="/uniprotkb/P21802#function"
-      >
-        4 domains
-      </a>
-      <a
-        class="card-action"
-        href="/uniprotkb/P21802#ptm-processing"
-      >
-        7 PTMs
-      </a>
-      <a
-        class="card-action"
-        href="/uniprotkb/P21802#disease-and-drugs"
-      >
-        74 reviewed variants
-      </a>
-      <a
-        class="card-action"
-        href="/uniprotkb/P21802#function"
-      >
-        1 active site
-      </a>
-      <a
-        class="card-action"
         href="/uniprotkb/P21802#sequence"
       >
         1 isoform
@@ -128,13 +104,13 @@ exports[`UniProtKBCard component should render 1`] = `
         class="card-action"
         href="/uniprotkb/P21802#interaction"
       >
-        1 interaction
+        2 interactions
       </a>
       <a
         class="card-action"
         href="/uniprotkb/P21802#disease-and-drugs"
       >
-        10 diseases
+        1 disease
       </a>
       <a
         class="card-action"

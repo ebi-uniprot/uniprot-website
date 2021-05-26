@@ -1,16 +1,14 @@
 import convertProteinProcessing from '../proteinProcessingConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Protein processing data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = convertProteinProcessing(modelData);
+    const convertedData = convertProteinProcessing(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       featuresData: [
         {
@@ -19,11 +17,11 @@ describe('Protein processing data converter', () => {
             originalSequence: 'original value',
           },
           featureCrossReference: { database: 'dbSNP', id: 'db id' },
-          description: 'description value',
+          description: 'description value 123',
           evidences: [
             { evidenceCode: 'ECO:0000269', id: '11389730', source: 'PubMed' },
           ],
-          featureId: 'id value',
+          featureId: 'id value CHAIN',
           location: {
             end: { modifier: 'EXACT', value: 8 },
             start: { modifier: 'EXACT', value: 2 },

@@ -46,9 +46,8 @@ type CanonicalDefinitionT = {
 };
 
 const canonicalName = 'sib-swissbiopics-sl';
-const CanonicalDefinition: CanonicalDefinitionT = customElements.get(
-  canonicalName
-);
+const CanonicalDefinition: CanonicalDefinitionT =
+  customElements.get(canonicalName);
 let counter = 0;
 
 const getSubcellularLocationId = (id: string) => {
@@ -74,13 +73,13 @@ const attachTooltips = (
     return;
   }
   const name = locationGroup.querySelector('.subcell_name')?.textContent;
-  let description = locationGroup.querySelector('.subcell_description')
-    ?.textContent;
+  let description = locationGroup.querySelector(
+    '.subcell_description'
+  )?.textContent;
   if (partOfShown) {
     // This location is a child of another location
-    const parentLocationText = locationGroup.parentElement?.querySelector(
-      '.subcell_name'
-    )?.textContent;
+    const parentLocationText =
+      locationGroup.parentElement?.querySelector('.subcell_name')?.textContent;
     if (parentLocationText) {
       description = `A part of the shown ${parentLocationText}. ${description}`;
     }
@@ -89,9 +88,8 @@ const attachTooltips = (
     ...getGoTermClassNames(locationGroup),
     `#${locationGroup.id}term`,
   ].join(',');
-  const locationTextQueryResult = instance?.querySelectorAll(
-    locationTextSelector
-  );
+  const locationTextQueryResult =
+    instance?.querySelectorAll(locationTextSelector);
   if (!locationTextQueryResult) {
     return;
   }
@@ -130,8 +128,8 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
 
   const sls = comments
     ?.flatMap(({ subcellularLocations }) =>
-      subcellularLocations?.map(({ location }) =>
-        getSubcellularLocationId(location.id)
+      subcellularLocations?.map(
+        ({ location }) => location.id && getSubcellularLocationId(location.id)
       )
     )
     .filter(Boolean)
@@ -189,8 +187,8 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
     );
     const shadowRoot = instance?.shadowRoot;
     const onSvgLoaded = () => {
-      const tabsHeaderHeight = document.querySelector('.tabs__header')
-        ?.clientHeight;
+      const tabsHeaderHeight =
+        document.querySelector('.tabs__header')?.clientHeight;
       const pictureTop = tabsHeaderHeight
         ? `${tabsHeaderHeight + 5}px`
         : '4rem';
@@ -259,16 +257,16 @@ const SubCellViz: FC<Props> = memo(({ comments, taxonId, children }) => {
             );
           });
           // Get all of the SVG elements in the picture that should open a tooltip
-          let triggerTargetSvgs:
-            | NodeListOf<SVGElement>
-            | undefined = subcellularPresentSVG.querySelectorAll<SVGElement>(
-            scopedShapesSelector
-          );
-          if (!triggerTargetSvgs.length) {
-            // If nothing found (as with happens with eg Cell surface) try the parentElement
-            triggerTargetSvgs = subcellularPresentSVG.parentElement?.querySelectorAll<SVGElement>(
+          let triggerTargetSvgs: NodeListOf<SVGElement> | undefined =
+            subcellularPresentSVG.querySelectorAll<SVGElement>(
               scopedShapesSelector
             );
+          if (!triggerTargetSvgs.length) {
+            // If nothing found (as with happens with eg Cell surface) try the parentElement
+            triggerTargetSvgs =
+              subcellularPresentSVG.parentElement?.querySelectorAll<SVGElement>(
+                scopedShapesSelector
+              );
           }
           attachTooltips(
             subcellularPresentSVG,

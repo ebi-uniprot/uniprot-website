@@ -1,10 +1,10 @@
-import { fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import SequenceSearchLoader from '../SequenceSearchLoader';
 
 import customRender from '../../../shared/__test-helpers__/customRender';
 
-import entryModelData from '../../../uniprotkb/__mocks__/entryModelData.json';
+import entryModelData from '../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import useDataApi from '../../../shared/hooks/useDataApi';
 
 jest.mock('../../../shared/hooks/useDataApi', () => jest.fn());
@@ -19,11 +19,10 @@ describe('SequenceSearchLoader tests', () => {
     }));
 
     const onLoadMock = jest.fn();
-    const component = customRender(
-      <SequenceSearchLoader onLoad={onLoadMock} />
-    );
-    const { getByPlaceholderText } = component;
-    const input = getByPlaceholderText('UniProt IDs');
+    customRender(<SequenceSearchLoader onLoad={onLoadMock} />);
+    const input = screen.getByPlaceholderText(
+      'UniProt IDs'
+    ) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([
@@ -33,8 +32,7 @@ describe('SequenceSearchLoader tests', () => {
         name: 'sp|P21802|uniprot_id',
         sequence: '',
         header: '',
-        raw:
-          '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF\n',
+        raw: '>sp|P21802|uniprot_id rec full Name OS=scientific name OX=9606 GN=some Gene PE=1 SV=5\nSAPSQDFMRF\n',
         valid: true,
       },
     ]);
@@ -49,11 +47,10 @@ describe('SequenceSearchLoader tests', () => {
     }));
 
     const onLoadMock = jest.fn();
-    const component = customRender(
-      <SequenceSearchLoader onLoad={onLoadMock} />
-    );
-    const { getByPlaceholderText } = component;
-    const input = getByPlaceholderText('UniProt IDs');
+    customRender(<SequenceSearchLoader onLoad={onLoadMock} />);
+    const input = screen.getByPlaceholderText(
+      'UniProt IDs'
+    ) as HTMLInputElement;
     fireEvent.change(input, { target: { value: 'P05' } });
     expect(input.value).toEqual('P05');
     expect(onLoadMock).toBeCalledWith([

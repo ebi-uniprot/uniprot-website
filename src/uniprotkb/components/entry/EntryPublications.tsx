@@ -36,16 +36,12 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
   accession,
 }) => {
-  const {
-    referencePositions,
-    referenceComments,
-    source,
-    sourceCategories,
-  } = reference;
+  const { referencePositions, referenceComments, source, sourceCategories } =
+    reference;
 
   const url = useMemo(() => {
-    const databaseInfo = getDatabaseInfoByName(source.name);
-    if (databaseInfo && source.id) {
+    const databaseInfo = source && getDatabaseInfoByName(source.name);
+    if (databaseInfo && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
     return null;
@@ -54,7 +50,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   const infoListData = [
     {
       title: 'Source',
-      content: (
+      content: source && (
         <>
           <EntryTypeIcon entryType={source.name} />
           {url ? (
@@ -115,13 +111,15 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
-  const { data, loading, status, error, headers } = useDataApi<{
-    results: CitationsAPIModel[];
-  }>(url);
+  const { data, loading, status, error, headers } =
+    useDataApi<{
+      results: CitationsAPIModel[];
+    }>(url);
 
-  const resultsWithReferences = useMemo(() => allResults.filter(hasReference), [
-    allResults,
-  ]);
+  const resultsWithReferences = useMemo(
+    () => allResults.filter(hasReference),
+    [allResults]
+  );
 
   useEffect(() => {
     setAllResults([]);

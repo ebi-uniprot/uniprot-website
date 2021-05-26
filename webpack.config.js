@@ -106,7 +106,8 @@ module.exports = (env, argv) => {
         // JavaScript and Typescript files
         {
           test: /\.(js|jsx|tsx|ts)$/,
-          exclude: /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error).*)/,
+          exclude:
+            /node_modules\/((?!protvista-msa|react-msa-viewer|franklin-sites|protvista-uniprot|p-map|aggregate-error).*)/,
           use: {
             loader: 'babel-loader',
             options: {

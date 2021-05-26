@@ -27,7 +27,7 @@ const inputParamsXMLToObject = (
   out.sequence = sequence;
 
   // 'as unknown as' to stop TypeScript from driving me mad 🙄
-  return (out as unknown) as PublicServerParameters;
+  return out as unknown as PublicServerParameters;
 };
 
 export default inputParamsXMLToObject;

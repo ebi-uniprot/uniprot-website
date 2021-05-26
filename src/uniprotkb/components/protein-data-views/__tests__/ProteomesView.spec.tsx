@@ -1,14 +1,13 @@
-import { MemoryRouter as Router } from 'react-router-dom';
-import { render } from '@testing-library/react';
+import customRender from '../../../../shared/__test-helpers__/customRender';
+
 import ProteomesEntryView from '../ProteomesView';
+
 import ProteomesUIData from './__mocks__/proteomesUIData.json';
 
 describe('ProteomesEntryView component', () => {
   test('should render', () => {
-    const { asFragment } = render(
-      <Router>
-        <ProteomesEntryView data={ProteomesUIData} />
-      </Router>
+    const { asFragment } = customRender(
+      <ProteomesEntryView data={ProteomesUIData} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

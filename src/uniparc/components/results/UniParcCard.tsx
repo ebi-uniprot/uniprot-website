@@ -11,6 +11,7 @@ import {
 import { getEntryPath } from '../../../app/config/urls';
 import { getIdKeyFor } from '../../../shared/utils/getIdKeyForNamespace';
 import xrefGetter from '../../utils/xrefGetter';
+import { pluralise } from '../../../shared/utils/utils';
 
 import UniParcColumnConfiguration, {
   UniParcColumn,
@@ -75,7 +76,7 @@ const UniParcCard = ({ data, selected, handleEntrySelection }: Props) => {
     >
       <div className={renderColumnsInCardStyles['result-card__info-container']}>
         <span className={renderColumnsInCardStyles['result-card__info-bit']}>
-          <strong>Organism{organismCount === 1 ? '' : 's'}: </strong>
+          <strong>{pluralise('Organism', organismCount)}: </strong>
           <LongNumber>{organismCount}</LongNumber>
         </span>
         <span className={renderColumnsInCardStyles['result-card__info-bit']}>

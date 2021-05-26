@@ -39,10 +39,8 @@ const FeaturesTableView = <T extends Record<string, unknown>>({
   columnConfig,
 }: FeaturesTableProps<T>) => {
   const [showEvidenceTagData, setShowEvidenceTagData] = useState(false);
-  const [
-    selectedEvidenceData,
-    setSelectedEvidenceData,
-  ] = useState<EvidenceData>();
+  const [selectedEvidenceData, setSelectedEvidenceData] =
+    useState<EvidenceData>();
   const [selectedReferences, setSelectedReferences] = useState<Evidence[]>();
 
   const evidenceTagCallback: FeaturesTableCallback = (

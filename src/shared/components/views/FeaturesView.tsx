@@ -19,12 +19,7 @@ export type Fragment = {
   shape?: string;
 };
 
-export enum LocationModifier {
-  EXACT = 'EXACT',
-  OUTSIDE = 'OUTSIDE',
-  UNSURE = 'UNSURE',
-  UNKNOWN = 'UNKNOWN',
-}
+export type LocationModifier = 'EXACT' | 'OUTSIDE' | 'UNSURE' | 'UNKNOWN';
 
 export type ProcessedFeature = {
   protvistaFeatureId: string;

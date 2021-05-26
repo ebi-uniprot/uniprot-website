@@ -3,6 +3,7 @@ import { TemplateResult, html } from 'lit-html';
 import { Loader } from 'franklin-sites';
 
 import useCustomElement from '../../../shared/hooks/useCustomElement';
+
 import { PDBMirrorsInfo } from '../../config/database';
 import { processUrlTemplate } from './XRefView';
 import { Xref } from '../../../shared/types/apiModel';

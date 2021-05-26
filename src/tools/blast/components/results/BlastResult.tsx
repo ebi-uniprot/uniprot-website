@@ -173,10 +173,8 @@ const BlastResult = () => {
   const location = useLocation();
 
   const [selectedEntries, handleEntrySelection] = useItemSelect();
-  const [
-    hspDetailPanel,
-    setHspDetailPanel,
-  ] = useState<HSPDetailPanelProps | null>();
+  const [hspDetailPanel, setHspDetailPanel] =
+    useState<HSPDetailPanelProps | null>();
 
   // if URL doesn't finish with "overview" redirect to /overview by default
   useEffect(() => {

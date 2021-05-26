@@ -4,14 +4,14 @@ import ResultsFacets from '../ResultsFacets';
 
 import customRender from '../../../__test-helpers__/customRender';
 
-import results from '../../../../uniprotkb/components/__mocks__/results.json';
+import results from '../../../../uniprotkb/components/__mocks__/results';
 
 describe('ResultsFacets', () => {
   const resultsFacets = (route: string) =>
     customRender(
       <ResultsFacets
         dataApiObject={{
-          data: results, // TODO: fix ts error
+          data: results,
           headers: {
             'x-total-records': results.results.length.toString(),
             link: '<https://link/to/next/results>; rel="next"',
@@ -22,7 +22,6 @@ describe('ResultsFacets', () => {
           statusText: '',
           url: 'https://link/to/results',
         }}
-        total={1000}
       />,
       {
         route,
@@ -34,12 +33,12 @@ describe('ResultsFacets', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
-  const regexUnreviewed = /Unreviewed \(TrEMBL\) \(\d+\)/;
-
   test('should select a facet', async () => {
     const { history } = resultsFacets('/uniprotkb?query=blah');
     expect(history.location.search).toEqual('?query=blah');
-    const unreviewedButton = await screen.findByText(regexUnreviewed);
+    const unreviewedButton = await screen.findByRole('link', {
+      name: /Unreviewed/i,
+    });
     fireEvent.click(unreviewedButton);
     await waitFor(() => {
       expect(history.location.search).toEqual(
@@ -53,7 +52,9 @@ describe('ResultsFacets', () => {
       '/uniprotkb?query=blah&facets=reviewed:false'
     );
 
-    const unreviewedButton = await screen.findByText(regexUnreviewed);
+    const unreviewedButton = await screen.findByRole('link', {
+      name: /Unreviewed/i,
+    });
     fireEvent.click(unreviewedButton);
     await waitFor(() => {
       expect(history.location.search).toEqual('?query=blah');

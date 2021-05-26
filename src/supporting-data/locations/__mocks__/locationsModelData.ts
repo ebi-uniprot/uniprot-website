@@ -85,8 +85,7 @@ const mock: LocationsAPIModel[] = [
     geneOntologies: [
       {
         goId: 'GO:0044173',
-        name:
-          'host cell endoplasmic reticulum-Golgi intermediate compartment membrane',
+        name: 'host cell endoplasmic reticulum-Golgi intermediate compartment membrane',
       },
     ],
     synonyms: [
@@ -120,8 +119,7 @@ const mock: LocationsAPIModel[] = [
         geneOntologies: [
           {
             goId: 'GO:0044172',
-            name:
-              'host cell endoplasmic reticulum-Golgi intermediate compartment',
+            name: 'host cell endoplasmic reticulum-Golgi intermediate compartment',
           },
         ],
         synonyms: [

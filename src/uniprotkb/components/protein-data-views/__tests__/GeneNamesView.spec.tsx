@@ -1,11 +1,13 @@
-import GeneNamesView from '../GeneNamesView';
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import GeneNamesUIDataJson from './__mocks__/geneNamesUIData.json';
+
+import GeneNamesView from '../GeneNamesView';
+
+import GeneNamesUIData from './__mocks__/geneNamesUIData';
 
 describe('GeneNames', () => {
   test('should render gene_names', () => {
     const { asFragment } = customRender(
-      <GeneNamesView geneNamesData={GeneNamesUIDataJson} />
+      <GeneNamesView geneNamesData={GeneNamesUIData} />
     );
     expect(asFragment()).toMatchSnapshot();
   });

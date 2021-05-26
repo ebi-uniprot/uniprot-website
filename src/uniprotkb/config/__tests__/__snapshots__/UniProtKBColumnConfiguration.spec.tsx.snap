@@ -459,6 +459,14 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disrupt
   >
     value
   </section>
+  <h5>
+    Isoform 4 dfs
+  </h5>
+  <section
+    class="text-block"
+  >
+    value
+  </section>
 </DocumentFragment>
 `;
 
@@ -546,9 +554,9 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_rna_edi
     class="text-block"
   >
     <div>
-      Edited at positions 
+      Edited at position 
       <span>
-        rna position 
+        1 
         <button
           aria-controls="0"
           aria-expanded="false"
@@ -622,7 +630,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_sequenc
         width="12.5"
       />
     </a>
-     differs from that shown. Reason: Erroneous initiation Text note
+     differs from that shown. Reason: Erroneous gene model prediction Text note
     <button
       aria-controls="0"
       aria-expanded="false"
@@ -791,7 +799,7 @@ exports[`UniProtKBColumnConfiguration component should render column "error_gmod
         width="12.5"
       />
     </a>
-     differs from that shown. Reason: Erroneous initiation Text note
+     differs from that shown. Reason: Erroneous gene model prediction Text note
     <button
       aria-controls="0"
       aria-expanded="false"
@@ -1136,28 +1144,38 @@ exports[`UniProtKBColumnConfiguration component should render column "lit_pubmed
   >
     <li>
       <a
-        href="/citations/undefined"
-      />
+        href="/citations/12345"
+      >
+        12345
+      </a>
     </li>
     <li>
       <a
-        href="/citations/undefined"
-      />
+        href="/citations/12346"
+      >
+        12346
+      </a>
     </li>
     <li>
       <a
-        href="/citations/undefined"
-      />
+        href="/citations/12347"
+      >
+        12347
+      </a>
     </li>
     <li>
       <a
-        href="/citations/undefined"
-      />
+        href="/citations/12348"
+      >
+        12348
+      </a>
     </li>
     <li>
       <a
-        href="/citations/undefined"
-      />
+        href="/citations/12349"
+      >
+        12349
+      </a>
     </li>
     <li>
       <button
@@ -1381,15 +1399,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
 </DocumentFragment>
 `;
 
-exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `
-<DocumentFragment>
-  <a
-    href="/uniparc/UPI000012A72A"
-  >
-    UPI000012A72A
-  </a>
-</DocumentFragment>
-`;
+exports[`UniProtKBColumnConfiguration component should render column "uniparc_id": uniparc_id 1`] = `<DocumentFragment />`;
 
 exports[`UniProtKBColumnConfiguration component should render column "version": version 1`] = `
 <DocumentFragment>

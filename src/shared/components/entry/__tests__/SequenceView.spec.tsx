@@ -1,16 +1,20 @@
 import { createMemoryHistory } from 'history';
+import { screen, fireEvent } from '@testing-library/react';
 
-import { fireEvent } from '@testing-library/react';
 import customRender from '../../../__test-helpers__/customRender';
 
 import SequenceView from '../SequenceView';
 
-import SequenceUIDataJson from './__mocks__/sequenceUIData.json';
 import useDataApi from '../../../hooks/useDataApi';
+
+import { FormParameters } from '../../../../tools/types/toolsFormParameters';
+import { JobTypes } from '../../../../tools/types/toolsJobTypes';
+
+import SequenceUIDataJson from './__mocks__/sequenceUIData';
 
 jest.mock('../../../hooks/useDataApi.ts');
 
-useDataApi.mockImplementation((url) =>
+(useDataApi as jest.Mock).mockImplementation((url) =>
   url
     ? {
         data: {
@@ -19,17 +23,20 @@ useDataApi.mockImplementation((url) =>
             molWeight: 100000,
             crc64: 'ABCSSDDD',
             value: 'MNOPQRSTUVWXYZ',
+            md5: 'C899F597B1B5D205357C9FAEDA9FF554',
           },
         },
       }
     : {}
 );
 
-let rendered;
-const history = createMemoryHistory();
+let rendered: ReturnType<typeof customRender>;
+const history = createMemoryHistory<{ parameters: FormParameters[JobTypes] }>();
 
 describe('SequenceView component', () => {
   beforeEach(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     window.SVGElement.prototype.getBBox = () => ({
       width: 10,
       height: 10,
@@ -41,6 +48,8 @@ describe('SequenceView component', () => {
   });
 
   afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     delete window.SVGElement.prototype.getBBox;
   });
 
@@ -50,23 +59,23 @@ describe('SequenceView component', () => {
   });
 
   test('should trigger Isoform sequence load', async () => {
-    const { getByText, queryByText, findByText } = rendered;
-    const viewSequenceButton = getByText(/Show sequence/i);
-    expect(queryByText(/ABCSSDDD/)).toBeNull();
+    const viewSequenceButton = screen.getByRole('button', {
+      name: /Show sequence/i,
+    });
+    expect(screen.queryByText(/ABCSSDDD/)).not.toBeInTheDocument();
     fireEvent.click(viewSequenceButton);
-    const sequence = await findByText(/ABCSSDDD/);
-    expect(sequence).toBeTruthy();
+    const sequence = await screen.findByText(/ABCSSDDD/);
+    expect(sequence).toBeInTheDocument();
   });
 
   test('should submit Blast', async () => {
-    const { getByText, findByText } = rendered;
-    const toolsButton = getByText(/Tools/i);
-    fireEvent.click(toolsButton);
-    const blastButton = await findByText('BLAST');
+    const toolsButtons = screen.getAllByRole('button', { name: /Tools/i });
+    fireEvent.click(toolsButtons[0]);
+    const blastButton = await screen.findByRole('button', { name: 'BLAST' });
     fireEvent.click(blastButton);
     expect(history.location.pathname).toBe('/blast');
     expect(history.location.state.parameters).toStrictEqual({
-      sequence: 'ATGHASOADSDKDSAJALDSAMCMnDSKMDSKNCSAKN',
+      sequence: 'ATGHASOADSDKDSAJALDSAMCMNDSKMDSKNCSAKN',
     });
   });
 });

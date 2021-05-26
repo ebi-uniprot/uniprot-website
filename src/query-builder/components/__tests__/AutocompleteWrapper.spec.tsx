@@ -5,7 +5,6 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 import AutocompleteWrapper from '../AutocompleteWrapper';
 
-import { resetUuidV1 } from '../../../../__mocks__/uuid';
 import {
   mockSuggesterApi,
   preparedSuggestions,
@@ -13,7 +12,6 @@ import {
 
 describe('Autocomplete Wrapper static methods', () => {
   test('should prepare API data for Autocomplete', () => {
-    resetUuidV1();
     expect(
       AutocompleteWrapper.prepareData(mockSuggesterApi.response.suggestions)
     ).toEqual(preparedSuggestions);
@@ -31,10 +29,6 @@ const mock = new MockAdapter(axios);
 mock.onGet(mockSuggesterApi.request).reply(200, mockSuggesterApi.response);
 
 describe('Autocomplete Wrapper', () => {
-  beforeEach(() => {
-    resetUuidV1();
-  });
-
   test('should render', () => {
     const { asFragment } = render(<AutocompleteWrapper {...props} />);
     expect(asFragment()).toMatchSnapshot();
