@@ -34,6 +34,6 @@ describe('AutocompleteField', () => {
       initialValue: { organism_name: 'Homo' },
     };
     render(<AutocompleteField {...propsPrefix} />);
-    expect(screen.getByDisplayValue('Homo')).toBeTruthy();
+    expect(screen.getByDisplayValue('Homo')).toBeInTheDocument();
   });
 });

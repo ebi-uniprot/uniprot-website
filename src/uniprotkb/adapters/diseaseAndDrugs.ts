@@ -4,26 +4,31 @@ import FeatureType from '../types/featureType';
 import { convertSection } from './sectionConverter';
 import EntrySection from '../types/entrySection';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { Xref } from '../../shared/types/apiModel';
 
-const keywordsCategories = [KeywordCategory.DISEASE];
+const keywordsCategories: KeywordCategory[] = ['Disease'];
 
-const featuresCategories = [FeatureType.MUTAGEN];
+const featuresCategories: FeatureType[] = ['Mutagenesis'];
 
-const commentsCategories = [
-  CommentType.DISEASE,
-  CommentType.ALLERGEN,
-  CommentType.DISRUPTION_PHENOTYPE,
-  CommentType.TOXIC_DOSE,
-  CommentType.PHARMACEUTICAL,
+const commentsCategories: CommentType[] = [
+  'DISEASE',
+  'ALLERGEN',
+  'DISRUPTION PHENOTYPE',
+  'TOXIC DOSE',
+  'PHARMACEUTICAL',
 ];
 
-const convertDiseaseAndDrugs = (data: UniProtkbAPIModel) =>
+const convertDiseaseAndDrugs = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) =>
   convertSection(
     data,
     commentsCategories,
     keywordsCategories,
     featuresCategories,
-    EntrySection.DiseaseAndDrugs
+    EntrySection.DiseaseAndDrugs,
+    uniProtKBCrossReferences
   );
 
 export default convertDiseaseAndDrugs;

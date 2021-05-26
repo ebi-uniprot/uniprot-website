@@ -10,7 +10,6 @@ import externalUrls from '../../../shared/config/externalUrls';
 import { stringToColour } from '../../../shared/utils/color';
 import { processUrlTemplate } from '../../../uniprotkb/components/protein-data-views/XRefView';
 import { databaseToDatabaseInfo } from '../../../uniprotkb/config/database';
-import FeatureType from '../../../uniprotkb/types/featureType';
 
 import { SequenceFeature } from '../../adapters/uniParcConverter';
 
@@ -26,7 +25,7 @@ const convertData = (data: SequenceFeature[]): UniParcProcessedFeature[] =>
   sortBy(
     data.flatMap((feature) =>
       feature.locations.map((locationFeature) => ({
-        type: FeatureType.OTHER,
+        type: 'Other',
         protvistaFeatureId: feature.databaseId,
         start: locationFeature.start,
         end: locationFeature.end,

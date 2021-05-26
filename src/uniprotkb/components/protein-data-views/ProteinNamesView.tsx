@@ -149,15 +149,17 @@ const getInfoListForNames = (
   return infoData;
 };
 
-const ProteinNamesView: FC<{
+type ProteinNamesViewProps = {
   proteinNames?: ProteinNamesData;
   noEvidence?: boolean;
   noTitles?: boolean;
-}> = ({
+};
+
+const ProteinNamesView = ({
   proteinNames,
   noEvidence = false,
   noTitles = false,
-}): JSX.Element | null => {
+}: ProteinNamesViewProps) => {
   if (!proteinNames) {
     return null;
   }
@@ -224,10 +226,20 @@ const ProteinNamesView: FC<{
   if (proteinNames.cdAntigenNames) {
     infoData.push({
       title: 'CD Antigen Name',
-      content: noEvidence ? (
-        <>{proteinNames.cdAntigenNames.value}</>
-      ) : (
-        <NameWithEvidence data={proteinNames.cdAntigenNames} />
+      content: (
+        <ExpandableList descriptionString="CD antigen names">
+          {proteinNames.cdAntigenNames.map((cdAntigenName, index) => (
+            <Fragment
+              key={index} // eslint-disable-line react/no-array-index-key
+            >
+              {noEvidence ? (
+                cdAntigenName.value
+              ) : (
+                <NameWithEvidence data={cdAntigenName} />
+              )}
+            </Fragment>
+          ))}
+        </ExpandableList>
       ),
     });
   }
@@ -235,10 +247,16 @@ const ProteinNamesView: FC<{
   if (proteinNames.innNames) {
     infoData.push({
       title: 'INN Name',
-      content: noEvidence ? (
-        <>{proteinNames.innNames.value}</>
-      ) : (
-        <NameWithEvidence data={proteinNames.innNames} />
+      content: (
+        <ExpandableList descriptionString="INN names">
+          {proteinNames.innNames.map((innName, index) => (
+            <Fragment
+              key={index} // eslint-disable-line react/no-array-index-key
+            >
+              {noEvidence ? innName.value : <NameWithEvidence data={innName} />}
+            </Fragment>
+          ))}
+        </ExpandableList>
       ),
     });
   }

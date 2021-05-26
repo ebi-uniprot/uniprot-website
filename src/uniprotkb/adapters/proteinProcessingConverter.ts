@@ -4,32 +4,37 @@ import EntrySection from '../types/entrySection';
 import { CommentType } from '../types/commentTypes';
 import { convertSection } from './sectionConverter';
 import { UniProtkbAPIModel } from './uniProtkbConverter';
+import { Xref } from '../../shared/types/apiModel';
 
-const keywordsCategories = [KeywordCategory.PTM];
+const keywordsCategories: KeywordCategory[] = ['PTM'];
 
-const featuresCategories = [
-  FeatureType.INIT_MET,
-  FeatureType.SIGNAL,
-  FeatureType.TRANSIT,
-  FeatureType.PROPEP,
-  FeatureType.CHAIN,
-  FeatureType.PEPTIDE,
-  FeatureType.MOD_RES,
-  FeatureType.LIPID,
-  FeatureType.CARBOHYD,
-  FeatureType.DISULFID,
-  FeatureType.CROSSLNK,
+const featuresCategories: FeatureType[] = [
+  'Initiator methionine',
+  'Signal',
+  'Transit peptide',
+  'Propeptide',
+  'Chain',
+  'Peptide',
+  'Modified residue',
+  'Lipidation',
+  'Glycosylation',
+  'Disulfide bond',
+  'Cross-link',
 ];
 
-const proteinProcessingComments = [CommentType.PTM];
+const proteinProcessingComments: CommentType[] = ['PTM'];
 
-const convertProteinProcessing = (data: UniProtkbAPIModel) =>
+const convertProteinProcessing = (
+  data: UniProtkbAPIModel,
+  uniProtKBCrossReferences?: Xref[]
+) =>
   convertSection(
     data,
     proteinProcessingComments,
     keywordsCategories,
     featuresCategories,
-    EntrySection.ProteinProcessing
+    EntrySection.ProteinProcessing,
+    uniProtKBCrossReferences
   );
 
 export default convertProteinProcessing;

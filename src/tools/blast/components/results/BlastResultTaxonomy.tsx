@@ -7,6 +7,8 @@ import arrayOfLineagesToTree, {
   TaxNode,
 } from '../../adapters/arrayOfLineagesToTree';
 
+import { pluralise } from '../../../../shared/utils/utils';
+
 import './styles/blast-result-taxonomy.scss';
 
 type TaxItemProps = {
@@ -30,7 +32,7 @@ const TaxItem: FC<TaxItemProps> = ({ taxNode, ratio }) => {
     <>
       <button type="button" onClick={handleClick}>
         {<DoughnutChart size="small" percent={Math.round(ratio * 100)} />}{' '}
-        {taxNode.name} ({taxNode.count} result{taxNode.count === 1 ? '' : 's'}){' '}
+        {taxNode.name} ({taxNode.count} {pluralise('result', taxNode.count)}){' '}
         {chevronMaybe}
       </button>
       <ul>

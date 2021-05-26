@@ -1,5 +1,3 @@
-import { MemoryRouter } from 'react-router-dom';
-
 import DiseasesColumnConfiguration from '../DiseasesColumnConfiguration';
 
 import diseasesConverter, {
@@ -24,7 +22,7 @@ describe('DiseasesColumnConfiguration component', () => {
     `should render column "%s"`,
     (key, column) => {
       const { asFragment } = customRender(
-        <MemoryRouter>{column.render(transformedData)}</MemoryRouter>
+        <>{column.render(transformedData)}</>
       );
       expect(asFragment()).toMatchSnapshot(key);
     }

@@ -1,16 +1,14 @@
 import convertFamilyAndDomains from '../familyAndDomainsConverter';
-import modelData from '../../__mocks__/entryModelData.json';
 import { convertXrefProperties } from '../uniProtkbConverter';
 
-describe('Family and Domains data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
+describe('Family and Domains data converter', () => {
   test('should convert the data', () => {
-    const convertedData = convertFamilyAndDomains(modelData);
+    const convertedData = convertFamilyAndDomains(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       commentsData: new Map([
         ['DOMAIN', []],

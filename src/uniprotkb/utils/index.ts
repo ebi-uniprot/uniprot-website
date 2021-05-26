@@ -40,7 +40,7 @@ export const getListOfIsoformAccessions = (data?: UniProtkbAPIModel) => {
   }
   for (const comment of data.comments) {
     // filter out all the non-"Alternative Products" comments
-    if (comment.commentType !== CommentType.ALTERNATIVE_PRODUCTS) {
+    if (comment.commentType !== 'ALTERNATIVE PRODUCTS') {
       continue; // eslint-disable-line no-continue
     }
     for (const isoform of comment.isoforms) {

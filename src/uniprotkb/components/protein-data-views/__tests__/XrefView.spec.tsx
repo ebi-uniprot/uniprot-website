@@ -9,6 +9,7 @@ import XRefView, {
 
 import { XrefUIModel } from '../../../utils/xrefUtils';
 import { PropertyKey } from '../../../types/modelTypes';
+import { DatabaseInfoPoint } from '../../../types/databaseRefs';
 
 import xrefUIData from './__mocks__/xrefUIData.json';
 
@@ -35,7 +36,8 @@ describe('processUrlTemplate', () => {
 
 describe('getPropertyLink', () => {
   test('should create snapshot', () => {
-    const databaseInfoPoint = {
+    const databaseInfoPoint: DatabaseInfoPoint = {
+      name: 'Ensembl eukaryotic genome annotation project',
       displayName: 'Ensembl',
       category: 'GMA',
       uriLink: 'https://www.ensembl.org/id/%id',
@@ -63,7 +65,7 @@ describe('getPropertyLink', () => {
       isoformId: 'P05067-11',
     };
     const { asFragment } = render(
-      getPropertyLink(databaseInfoPoint, property, xref)
+      <>{getPropertyLink(databaseInfoPoint, property, xref)}</>
     );
     expect(asFragment()).toMatchSnapshot();
   });

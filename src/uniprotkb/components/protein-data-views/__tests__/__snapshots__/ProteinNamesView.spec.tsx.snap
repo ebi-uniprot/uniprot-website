@@ -1,3 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProteinNames should render protein_name 1`] = `<DocumentFragment />`;
+exports[`ProteinNames should render protein_name 1`] = `
+<DocumentFragment>
+  <ul
+    class="info-list"
+  >
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Recommended name
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          My protein
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Short names
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          some shorter names
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        class="decorated-list-item"
+      >
+        <div
+          class="decorated-list-item__title"
+        >
+          <h5
+            class="bold"
+          >
+            Alternative names
+          </h5>
+        </div>
+        <div
+          class="decorated-list-item__content"
+        >
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              alt1
+            </li>
+            <li>
+              alt2
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;

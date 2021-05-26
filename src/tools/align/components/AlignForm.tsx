@@ -23,6 +23,8 @@ import SequenceSearchLoader, {
   ParsedSequence,
 } from '../../components/SequenceSearchLoader';
 
+import { pluralise } from '../../../shared/utils/utils';
+
 import { addMessage } from '../../../messages/state/messagesActions';
 
 import useReducedMotion from '../../../shared/hooks/useReducedMotion';
@@ -193,9 +195,10 @@ const AlignForm = () => {
             potentialJobName += ` +${parsedSequences.length - 1}`;
           }
         } else if (parsedSequences.length) {
-          potentialJobName = `${parsedSequences.length} sequence${
-            parsedSequences.length === 1 ? '' : 's'
-          }`;
+          potentialJobName = `${parsedSequences.length} ${pluralise(
+            'sequence',
+            parsedSequences.length
+          )}`;
         }
         setJobName((jobName) => {
           if (jobName.selected === potentialJobName) {

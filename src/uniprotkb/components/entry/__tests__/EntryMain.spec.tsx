@@ -1,37 +1,32 @@
-import { enableFetchMocks } from 'jest-fetch-mock';
-import { MemoryRouter as Router } from 'react-router-dom';
-import { act } from 'react-dom/test-utils';
+import { enableFetchMocks, FetchMock } from 'jest-fetch-mock';
+
 import EntryMain from '../EntryMain';
 import uniProtKbConverter from '../../../adapters/uniProtkbConverter';
-import mockData from '../../../__mocks__/entryModelData.json';
-import interactionData from '../../../__mocks__/interaction.json';
+
 import customRender from '../../../../shared/__test-helpers__/customRender';
-import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData.json';
+
+import mockData from '../../../__mocks__/uniProtKBEntryModelData';
+import interactionData from '../../../__mocks__/interaction.json';
+import nonHumanEntryData from '../../../__mocks__/nonHumanEntryModelData';
 
 enableFetchMocks();
 
 describe('Entry view', () => {
   it('should render', async () => {
-    fetch.mockResponse(JSON.stringify(interactionData));
-    await act(async () => {
-      const { asFragment } = customRender(
-        <Router>
-          <EntryMain transformedData={uniProtKbConverter(mockData)} />
-        </Router>
-      );
-      expect(asFragment()).toMatchSnapshot();
-    });
+    (fetch as FetchMock).mockResponse(JSON.stringify(interactionData));
+
+    const { asFragment } = customRender(
+      <EntryMain transformedData={uniProtKbConverter(mockData)} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 
   it('should render for non-human entry', async () => {
-    fetch.mockResponse(JSON.stringify(interactionData));
-    await act(async () => {
-      const { asFragment } = customRender(
-        <Router>
-          <EntryMain transformedData={uniProtKbConverter(nonHumanEntryData)} />
-        </Router>
-      );
-      expect(asFragment()).toMatchSnapshot();
-    });
+    (fetch as FetchMock).mockResponse(JSON.stringify(interactionData));
+
+    const { asFragment } = customRender(
+      <EntryMain transformedData={uniProtKbConverter(nonHumanEntryData)} />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
 });

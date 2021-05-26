@@ -11,11 +11,11 @@ describe('Evidence codes', () => {
 
   test('should return null', () => {
     const data = getEvidenceCodeData('ECO:000000');
-    expect(data).toBeNull;
+    expect(data).toBeNull();
   });
 
   test('should also be null', () => {
     const data = getEvidenceCodeData('ABCD');
-    expect(data).toBeNull;
+    expect(data).toBeNull();
   });
 });

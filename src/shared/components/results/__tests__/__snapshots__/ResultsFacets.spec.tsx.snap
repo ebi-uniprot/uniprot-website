@@ -10,6 +10,93 @@ exports[`ResultsFacets should render 1`] = `
     >
       <li>
         <div>
+          <div
+            class="facet-name"
+          >
+            Status
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?facets=reviewed%3Afalse&query=blah"
+              >
+                <span
+                  class="entry-title__status icon--unreviewed"
+                  title="This marks an unreviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+                Unreviewed (TrEMBL) (1,299,657)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=reviewed%3Atrue&query=blah"
+              >
+                <span
+                  class="entry-title__status icon--reviewed"
+                  title="This marks a reviewed UniProtKB entry"
+                >
+                  <test-file-stub />
+                </span>
+                Reviewed (Swiss-Prot) (11,750)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Model organisms
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?facets=model_organism%3AHuman&query=blah"
+              >
+                Human (1,459)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=model_organism%3AA.%20thaliana&query=blah"
+              >
+                A. thaliana (1,347)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=model_organism%3AMouse&query=blah"
+              >
+                Mouse (1,273)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=model_organism%3ARat&query=blah"
+              >
+                Rat (1,030)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=model_organism%3ARice&query=blah"
+              >
+                Rice (646)
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
           <span
             class="facet-name"
           >
@@ -34,35 +121,101 @@ exports[`ResultsFacets should render 1`] = `
           <div
             class="facet-name"
           >
-            Status
+            Proteins with
           </div>
           <ul
             class="expandable-list no-bullet"
           >
             <li>
               <a
-                href="/uniprotkb?facets=reviewed%3Afalse&query=blah"
+                href="/uniprotkb?facets=proteins_with%3A3dstructure&query=blah"
               >
-                <span
-                  class="entry-title__status icon--unreviewed"
-                  title="This marks an unreviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-                Unreviewed (TrEMBL) (455)
+                3D structure (1,875)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=reviewed%3Atrue&query=blah"
+                href="/uniprotkb?facets=proteins_with%3Aact_site&query=blah"
               >
-                <span
-                  class="entry-title__status icon--reviewed"
-                  title="This marks a reviewed UniProtKB entry"
-                >
-                  <test-file-stub />
-                </span>
-                Reviewed (Swiss-Prot) (52)
+                Active site (399,011)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=proteins_with%3Aactivity_regulation&query=blah"
+              >
+                Activity regulation (32,368)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=proteins_with%3Aallergen&query=blah"
+              >
+                Allergen (22)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=proteins_with%3Aalternative_products&query=blah"
+              >
+                Alternative products(isoforms) (1,059)
+              </a>
+            </li>
+            <li>
+              <button
+                class="button tertiary expandable-list__action"
+                data-testid="expandable-message"
+                type="button"
+              >
+                More items
+              </button>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div>
+          <div
+            class="facet-name"
+          >
+            Protein Existence
+          </div>
+          <ul
+            class="expandable-list no-bullet"
+          >
+            <li>
+              <a
+                href="/uniprotkb?facets=existence%3AHOMOLOGY&query=blah"
+              >
+                Homology (1,034,890)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=existence%3APREDICTED&query=blah"
+              >
+                Predicted (254,676)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=existence%3ATRANSCRIPT_LEVEL&query=blah"
+              >
+                Transcript level (15,096)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=existence%3APROTEIN_LEVEL&query=blah"
+              >
+                Protein level (6,726)
+              </a>
+            </li>
+            <li>
+              <a
+                href="/uniprotkb?facets=existence%3AUNCERTAIN&query=blah"
+              >
+                Uncertain (19)
               </a>
             </li>
           </ul>
@@ -73,44 +226,44 @@ exports[`ResultsFacets should render 1`] = `
           <div
             class="facet-name"
           >
-            Popular organisms
+            Annotation Score
           </div>
           <ul
             class="expandable-list no-bullet"
           >
             <li>
               <a
-                href="/uniprotkb?facets=popular_organism%3AHuman&query=blah"
+                href="/uniprotkb?facets=annotation_score%3A5&query=blah"
               >
-                Human (18)
+                5 (7,374)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=popular_organism%3AMouse&query=blah"
+                href="/uniprotkb?facets=annotation_score%3A4&query=blah"
               >
-                Mouse (11)
+                4 (42,374)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=popular_organism%3AS.%20cerevisiae&query=blah"
+                href="/uniprotkb?facets=annotation_score%3A3&query=blah"
               >
-                S. cerevisiae (6)
+                3 (182,911)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=popular_organism%3AZebrafish&query=blah"
+                href="/uniprotkb?facets=annotation_score%3A2&query=blah"
               >
-                Zebrafish (4)
+                2 (710,731)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=popular_organism%3ABovine&query=blah"
+                href="/uniprotkb?facets=annotation_score%3A1&query=blah"
               >
-                Bovine (3)
+                1 (368,017)
               </a>
             </li>
           </ul>
@@ -121,44 +274,44 @@ exports[`ResultsFacets should render 1`] = `
           <div
             class="facet-name"
           >
-            Other organisms
+            Sequence length
           </div>
           <ul
             class="expandable-list no-bullet"
           >
             <li>
               <a
-                href="/uniprotkb?facets=other_organism%3AInfluenza%20A%20virus%20%28A%2FIndonesia%2FCDC7%2F2005%28H5N1%29%29&query=blah"
+                href="/uniprotkb?facets=length%3A%5B1%20TO%20200%5D&query=blah"
               >
-                Influenza A virus (A/Indonesia/CDC7/2005(H5N1)) (11)
+                1 - 200 (103,664)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=other_organism%3AXENLA&query=blah"
+                href="/uniprotkb?facets=length%3A%5B201%20TO%20400%5D&query=blah"
               >
-                XENLA (9)
+                201 - 400 (564,693)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=other_organism%3ACHLTH&query=blah"
+                href="/uniprotkb?facets=length%3A%5B401%20TO%20600%5D&query=blah"
               >
-                CHLTH (6)
+                401 - 600 (431,094)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=other_organism%3ASCHPO&query=blah"
+                href="/uniprotkb?facets=length%3A%5B601%20TO%20800%5D&query=blah"
               >
-                SCHPO (6)
+                601 - 800 (123,584)
               </a>
             </li>
             <li>
               <a
-                href="/uniprotkb?facets=other_organism%3AXENTR&query=blah"
+                href="/uniprotkb?facets=length%3A%5B801%20TO%20%2A%5D&query=blah"
               >
-                XENTR (6)
+                &gt;= 801 (88,372)
               </a>
             </li>
           </ul>

@@ -1,19 +1,23 @@
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, RenderResult } from '@testing-library/react';
 import {
   makeDnd,
   DND_DRAGGABLE_DATA_ATTR,
   DND_DIRECTION_LEFT,
 } from 'react-beautiful-dnd-test-utils';
-import ColumnSelectDragDrop from '../ColumnSelectDragDrop';
+
+import ColumnSelectDragDrop, {
+  ColumnSelectDragDropProps,
+} from '../ColumnSelectDragDrop';
+
 import { UniProtKBColumn } from '../../../../uniprotkb/types/columnTypes';
 import { ColumnSelectTab } from '../../../../uniprotkb/types/resultsTypes';
 
 // TODO: test that some other way, the testing library for react-beautiful-dnd
 // TODO: seems to be outdated (or will soon be) because it's firing warnings
 describe('ColumnSelectDragDrop component', () => {
-  let props;
-  let rendered;
-  let dragEl;
+  let props: ColumnSelectDragDropProps;
+  let rendered: RenderResult;
+  let dragEl: HTMLElement;
   beforeEach(async () => {
     props = {
       columns: [

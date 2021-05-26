@@ -1,3 +1,5 @@
+import { pluralise } from '../../shared/utils/utils';
+
 import { Evidence } from '../types/modelTypes';
 
 export enum ECO {
@@ -57,7 +59,7 @@ export type EvidenceData = {
 const publicationCountRenderer = (evidences: Evidence[]) => {
   const { length } = evidences;
   return length > 0
-    ? `${length} ${labels.PUBLICATION}${length > 1 ? 's' : ''}`
+    ? `${length} ${pluralise(labels.PUBLICATION, length)}`
     : labels.CURATED;
 };
 
@@ -72,7 +74,7 @@ const rulesCountRenderer = (evidences: Evidence[]) => {
   if (isSAMPhobius) {
     return labels.SEQ_ANA;
   }
-  return `${length} ${labels.AA}${length > 1 ? 's' : ''}`;
+  return `${length} ${pluralise(labels.AA, length)}`;
 };
 
 export const getEvidenceCodeData = (eco: string): EvidenceData | null => {

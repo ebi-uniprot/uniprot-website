@@ -8,10 +8,7 @@ import FeaturesView from '../protein-data-views/UniProtKBFeaturesView';
 import SubcellularLocationWithVizView from '../protein-data-views/SubcellularLocationWithVizView';
 import { hasContent } from '../../../shared/utils/utils';
 
-import {
-  SubcellularLocationComment,
-  CommentType,
-} from '../../types/commentTypes';
+import { SubcellularLocationComment } from '../../types/commentTypes';
 import { SubcellularLocationUIModel } from '../../adapters/subcellularLocationConverter';
 
 type Props = {
@@ -37,7 +34,7 @@ const SubcellularLocationSection = ({ data, sequence }: Props) => {
       <SubcellularLocationWithVizView
         comments={
           data.commentsData.get(
-            CommentType.SUBCELLULAR_LOCATION
+            'SUBCELLULAR LOCATION'
           ) as SubcellularLocationComment[]
         }
         taxonId={data.organismData?.taxonId}

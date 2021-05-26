@@ -5,7 +5,7 @@ import HSPDetailPanel from '../HSPDetailPanel';
 import customRender from '../../../../../shared/__test-helpers__/customRender';
 
 import blastResultsMockData from '../../../../__mocks__/server-jobs/example-truncated.json';
-import modelData from '../../../../../uniprotkb/__mocks__/entryModelData.json';
+import modelData from '../../../../../uniprotkb/__mocks__/uniProtKBEntryModelData';
 import useDataApi from '../../../../../shared/hooks/useDataApi';
 import useSize from '../../../../../shared/hooks/useSize';
 
@@ -37,7 +37,7 @@ describe('HSPDetailPanel', () => {
   });
 
   it('should initially render overview', async () => {
-    expect(screen.getByTestId('alignment-view')).toBeTruthy();
+    expect(screen.getByTestId('alignment-view')).toBeInTheDocument();
     const slidingPanel = await screen.findByTestId('sliding-panel');
     expect(slidingPanel).toMatchSnapshot();
   });
@@ -55,10 +55,14 @@ describe('HSPDetailPanel', () => {
   it('should change to wrapped and render when wrapped view is clicked', async () => {
     const wrappedButton = screen.getByText('Wrapped');
     fireEvent.click(wrappedButton);
-    expect(await screen.findByTestId('alignment-wrapped-view')).toBeTruthy();
+    expect(
+      await screen.findByTestId('alignment-wrapped-view')
+    ).toBeInTheDocument();
     // skip the top level div, as it contains the dynamically injected style
     // that might be different across different runs ("sliding" effect)
-    expect(await screen.findByTestId('alignment-wrapped-view')).toBeTruthy();
+    expect(
+      await screen.findByTestId('alignment-wrapped-view')
+    ).toBeInTheDocument();
     const slidingPanel = await screen.findByTestId('sliding-panel');
     expect(slidingPanel.firstElementChild).toMatchSnapshot();
   });

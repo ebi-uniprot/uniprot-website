@@ -40,11 +40,11 @@ describe('parseDate', () => {
     if (year === undefined) {
       expect(parsed).toBeUndefined();
     } else {
-      expect(parsed.getFullYear()).toBe(year);
+      expect(parsed?.getFullYear()).toBe(year);
       if (month !== undefined) {
-        expect(parsed.getMonth()).toBe(month);
+        expect(parsed?.getMonth()).toBe(month);
         if (day !== undefined) {
-          expect(parsed.getDate()).toBe(day);
+          expect(parsed?.getDate()).toBe(day);
         }
       }
     }
@@ -56,7 +56,7 @@ describe('parseDate', () => {
 describe('parseEdgeCases', () => {
   it('should parse date "DEC-2021"', () => {
     const parsed = parseEdgeCases('DEC-2021');
-    expect(parsed.getFullYear()).toBe(2021);
-    expect(parsed.getMonth()).toBe(11);
+    expect(parsed?.getFullYear()).toBe(2021);
+    expect(parsed?.getMonth()).toBe(11);
   });
 });

@@ -15,13 +15,14 @@ import { nsToDefaultColumns } from '../../../config/columns';
 
 import { SearchResultsLocations } from '../../../../app/config/urls';
 
-import resultFields from '../../../../uniprotkb/__mocks__/resultFields.json';
+import resultFields from '../../../../uniprotkb/__mocks__/resultFields';
+
 import '../../../../uniprotkb/components/__mocks__/mockApi';
 
 describe('ColumnSelect component', () => {
   // testing implementation?
-  let rendered;
-  let onChange;
+  let rendered: ReturnType<typeof customRender>;
+  let onChange: jest.Mock;
   const selectedColumns = [
     UniProtKBColumn.accession,
     UniProtKBColumn.proteinName,
@@ -55,14 +56,16 @@ describe('ColumnSelect component', () => {
 
   test('should call to get field data and have the correct number of "data" list items', () => {
     const items = screen.getAllByTestId('accordion-search-list-item');
-    // Only "data" (ie not DB links) are visible so only count these and subtract one for the
-    // accession column which shouldn't be listed as the user can't deslect this
-    const nDataListItems = resultFields.reduce(
-      (accum, { fields, isDatabaseGroup }) =>
-        accum + (!isDatabaseGroup && fields.length),
-      -1
-    );
-    expect(items.length).toBe(nDataListItems);
+    // Only "data" (ie not DB links) are visible so only count these and
+    // subtract one for the accession column which shouldn't be listed as the
+    // user can't deselect this
+    let nDataListItems = 0;
+    for (const { fields, isDatabaseGroup } of resultFields) {
+      if (!isDatabaseGroup) {
+        nDataListItems += fields.length;
+      }
+    }
+    expect(items.length).toBe(nDataListItems - 1);
   });
 
   test('should call onChange when unselected item is clicked and do so with selected columns and new item', () => {

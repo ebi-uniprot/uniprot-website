@@ -23,9 +23,8 @@ const Results: FC = () => {
     withFacets: true,
     withColumns: false,
   });
-  const facetApiObject = useDataApiWithStale<Response['data']>(
-    initialApiFacetUrl
-  );
+  const facetApiObject =
+    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
 
   const {
     loading: facetInititialLoading,

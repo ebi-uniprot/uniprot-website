@@ -22,7 +22,7 @@ import {
   RNAEditingView,
   IsoformView,
 } from '../../shared/components/entry/SequenceView';
-import { Flag } from '../adapters/sequenceConverter';
+import { fragmentFlags } from '../adapters/sequenceConverter';
 import FeatureType from '../types/featureType';
 import FreeTextView, {
   TextView,
@@ -34,13 +34,12 @@ import {
 } from '../components/entry/FunctionSection';
 import {
   FunctionUIModel,
-  CofactorComment,
   GoAspect,
   GoTerm,
 } from '../adapters/functionConverter';
 import { UniProtKBColumn } from '../types/columnTypes';
 import {
-  CommentType,
+  CofactorComment,
   FreeTextComment,
   InteractionComment,
   InteractionType,
@@ -310,13 +309,13 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.lineage, {
   },
 });
 
-UniProtKBColumnConfiguration.set(UniProtKBColumn.virusHosts, {
+UniProtKBColumnConfiguration.set(UniProtKBColumn.organismHosts, {
   label: 'Virus hosts',
   render: (data) => {
-    const { virusHosts } = data[EntrySection.NamesAndTaxonomy];
+    const { organismHosts } = data[EntrySection.NamesAndTaxonomy];
     return (
       <ExpandableList descriptionString="hosts" displayNumberOfHiddenItems>
-        {virusHosts?.map((host) => (
+        {organismHosts?.map((host) => (
           <p key={host.taxonId}>
             <TaxonomyView key={host.taxonId} data={host} />
           </p>
@@ -368,14 +367,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.fragment, {
   label: 'Fragment',
   render: (data) => {
     const { flag } = data[EntrySection.Sequence];
-    const isFragment =
-      flag &&
-      [
-        Flag.FRAGMENT,
-        Flag.FRAGMENTS,
-        Flag.FRAGMENTS_PRECURSOR,
-        Flag.FRAGMENT_PRECURSOR,
-      ].includes(flag);
+    const isFragment = flag && fragmentFlags.has(flag);
     return flag && (isFragment ? flag : 'N');
   },
 });
@@ -413,15 +405,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ftVariant, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonCon,
-  getFeatureColumn(FeatureType.NON_CONS)
+  getFeatureColumn('Non-adjacent residues')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonStd,
-  getFeatureColumn(FeatureType.NON_STD)
+  getFeatureColumn('Non-standard residue')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNonTer,
-  getFeatureColumn(FeatureType.NON_TER)
+  getFeatureColumn('Non-terminal residue')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPolymorphism, {
@@ -450,11 +442,11 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.errorGmodelPred, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftConflict,
-  getFeatureColumn(FeatureType.CONFLICT)
+  getFeatureColumn('Sequence conflict')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftUnsure,
-  getFeatureColumn(FeatureType.UNSURE)
+  getFeatureColumn('Sequence uncertainty')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.sequenceVersion, {
@@ -481,15 +473,15 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.absorption, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftActSite,
-  getFeatureColumn(FeatureType.ACT_SITE)
+  getFeatureColumn('Active site')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftBinding,
-  getFeatureColumn(FeatureType.BINDING)
+  getFeatureColumn('Binding site')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCaBind,
-  getFeatureColumn(FeatureType.CA_BIND)
+  getFeatureColumn('Calcium binding')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
@@ -497,9 +489,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCatalyticActivity, {
   render: (data) => {
     const catalyticActivityComments = data[
       EntrySection.Function
-    ].commentsData.get(
-      CommentType.CATALYTIC_ACTIVITY
-    ) as CatalyticActivityComment[];
+    ].commentsData.get('CATALYTIC ACTIVITY') as CatalyticActivityComment[];
     return (
       catalyticActivityComments && (
         <CatalyticActivityView comments={catalyticActivityComments} />
@@ -512,7 +502,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
   label: 'Cofactor',
   render: (data) => {
     const cofactorComments = data[EntrySection.Function].commentsData.get(
-      CommentType.COFACTOR
+      'COFACTOR'
     ) as CofactorComment[];
     return cofactorComments && <CofactorView cofactors={cofactorComments} />;
   },
@@ -520,7 +510,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccCofactor, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDnaBind,
-  getFeatureColumn(FeatureType.DNA_BIND)
+  getFeatureColumn('DNA binding')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
@@ -539,12 +529,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ec, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
   label: 'Activity Regulation',
   render: (data) => {
-    const activityRegulationComments = ((data[
+    const activityRegulationComments = data[
       EntrySection.Function
-    ].commentsData.get(CommentType.ACTIVITY_REGULATION) ||
-      []) as FreeTextComment[]).flatMap(
-      (comment) => comment.texts?.map((text) => text.value) || []
-    );
+    ].commentsData.get('ACTIVITY REGULATION') as FreeTextComment[];
     return (
       <ExpandableList numberCollapsedItems={1}>
         {activityRegulationComments}
@@ -556,9 +543,9 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccActivityRegulation, {
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccFunction, {
   label: 'Function',
   render: (data) => {
-    const functionComments = (data[EntrySection.Function].commentsData.get(
-      CommentType.FUNCTION
-    ) || []) as FreeTextComment[];
+    const functionComments = data[EntrySection.Function].commentsData.get(
+      'FUNCTION'
+    ) as FreeTextComment[];
     return <FreeTextView comments={functionComments} noEvidence />;
   },
 });
@@ -579,26 +566,20 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.kinetics, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMetal,
-  getFeatureColumn(FeatureType.METAL)
+  getFeatureColumn('Metal binding')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftNpBind,
-  getFeatureColumn(FeatureType.NP_BINDL)
+  getFeatureColumn('Nucleotide binding')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPathway, {
   label: 'Pathway',
   render: (data) => {
-    const pathwayComments = ((data[EntrySection.Function].commentsData.get(
-      CommentType.PATHWAY
-    ) || []) as FreeTextComment[]).flatMap(
-      (pathwayComment) => pathwayComment.texts?.map((text) => text.value) || []
-    );
-    return (
-      <ExpandableList descriptionString="pathways" numberCollapsedItems={1}>
-        {pathwayComments}
-      </ExpandableList>
-    );
+    const pathwayComments = data[EntrySection.Function].commentsData.get(
+      'PATHWAY'
+    ) as FreeTextComment[];
+    return <FreeTextView comments={pathwayComments} noEvidence />;
   },
 });
 
@@ -632,7 +613,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.redoxPotential, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftSite,
-  getFeatureColumn(FeatureType.SITE)
+  getFeatureColumn('Site')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.tempDependence, {
@@ -683,7 +664,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccMiscellaneous, {
   label: 'Miscellaneous [CC]',
   render: (data) => {
     const miscellaneousComments = data[EntrySection.Function].commentsData.get(
-      CommentType.MISCELLANEOUS
+      'MISCELLANEOUS'
     ) as FreeTextComment[];
     return <FreeTextView comments={miscellaneousComments} noEvidence />;
   },
@@ -720,7 +701,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
   label: 'Interacts with',
   render: (data) => {
     const interactionComments = data[EntrySection.Interaction].commentsData.get(
-      CommentType.INTERACTION
+      'INTERACTION'
     ) as InteractionComment[];
     return (
       <ExpandableList displayNumberOfHiddenItems>
@@ -733,18 +714,18 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInteraction, {
                   : `${interaction.interactantOne.uniProtkbAccession}-${interaction.interactantTwo.uniProtkbAccession}`
               }
             >
-              {interaction.type === InteractionType.SELF ? (
-                'Itself'
-              ) : (
-                <Link
-                  to={getEntryPath(
-                    Namespace.uniprotkb,
-                    interaction.interactantOne.uniProtkbAccession
+              {interaction.type === InteractionType.SELF
+                ? 'Itself'
+                : interaction.interactantOne.uniProtkbAccession && (
+                    <Link
+                      to={getEntryPath(
+                        Namespace.uniprotkb,
+                        interaction.interactantOne.uniProtkbAccession
+                      )}
+                    >
+                      {interaction.interactantOne.uniProtkbAccession}
+                    </Link>
                   )}
-                >
-                  {interaction.interactantOne.uniProtkbAccession}
-                </Link>
-              )}
             </div>
           ))
         )}
@@ -757,7 +738,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubunit, {
   label: 'Subunit structure',
   render: (data) => {
     const subunitComments = data[EntrySection.Interaction].commentsData.get(
-      CommentType.SUBUNIT
+      'SUBUNIT'
     ) as FreeTextComment[];
     return <FreeTextView comments={subunitComments} noEvidence />;
   },
@@ -767,7 +748,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDevelopmentalStage, {
   label: 'Developmental stage',
   render: (data) => {
     const developmentComments = data[EntrySection.Expression].commentsData.get(
-      CommentType.DEVELOPMENTAL_STAGE
+      'DEVELOPMENTAL STAGE'
     ) as FreeTextComment[];
     return <FreeTextView comments={developmentComments} noEvidence />;
   },
@@ -777,7 +758,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccInduction, {
   label: 'Induction',
   render: (data) => {
     const inductionComments = data[EntrySection.Expression].commentsData.get(
-      CommentType.INDUCTION
+      'INDUCTION'
     ) as FreeTextComment[];
     return <FreeTextView comments={inductionComments} noEvidence />;
   },
@@ -787,7 +768,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccTissueSpecificity, {
   label: 'Tissue Specificity',
   render: (data) => {
     const tissueComment = data[EntrySection.Expression].commentsData.get(
-      CommentType.TISSUE_SPECIFICITY
+      'TISSUE SPECIFICITY'
     ) as FreeTextComment[];
     return <FreeTextView comments={tissueComment} noEvidence />;
   },
@@ -868,7 +849,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSubcellularLocation, {
   label: 'Subcellular Location',
   render: (data) => {
     const subcellData = data[EntrySection.SubCellularLocation].commentsData.get(
-      CommentType.SUBCELLULAR_LOCATION
+      'SUBCELLULAR LOCATION'
     ) as SubcellularLocationComment[];
     return subcellData && <SubcellularLocationView comments={subcellData} />;
   },
@@ -878,7 +859,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDomain, {
   label: 'Domain',
   render: (data) => {
     const domainData = data[EntrySection.FamilyAndDomains].commentsData.get(
-      CommentType.DOMAIN
+      'DOMAIN'
     ) as FreeTextComment[];
     return <FreeTextView comments={domainData} noEvidence />;
   },
@@ -888,7 +869,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPtm, {
   label: 'Post-Translational Modification',
   render: (data) => {
     const ptmData = data[EntrySection.ProteinProcessing].commentsData.get(
-      CommentType.PTM
+      'PTM'
     ) as FreeTextComment[];
     return <FreeTextView comments={ptmData} noEvidence />;
   },
@@ -898,7 +879,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccAllergen, {
   label: 'Allergenic Properties',
   render: (data) => {
     const allergenData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
-      CommentType.ALLERGEN
+      'ALLERGEN'
     ) as FreeTextComment[];
     return <FreeTextView comments={allergenData} noEvidence />;
   },
@@ -908,7 +889,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccBiotechnology, {
   label: 'Biotechnological Use',
   render: (data) => {
     const biotechData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
-      CommentType.BIOTECHNOLOGY
+      'BIOTECHNOLOGY'
     ) as FreeTextComment[];
     return <FreeTextView comments={biotechData} noEvidence />;
   },
@@ -918,7 +899,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisruptionPhenotype, {
   label: 'Disruption Phenotype',
   render: (data) => {
     const disruptionData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
-      CommentType.DISRUPTION_PHENOTYPE
+      'DISRUPTION PHENOTYPE'
     ) as FreeTextComment[];
     return <FreeTextView comments={disruptionData} noEvidence />;
   },
@@ -928,7 +909,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
   label: 'Disease Involvement',
   render: (data) => {
     const diseaseComments = data[EntrySection.DiseaseAndDrugs].commentsData.get(
-      CommentType.DISEASE
+      'DISEASE'
     ) as DiseaseComment[];
     return (
       diseaseComments && (
@@ -943,14 +924,14 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccDisease, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMutagen,
-  getFeatureColumn(FeatureType.MUTAGEN)
+  getFeatureColumn('Mutagenesis')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccPharmaceutical, {
   label: 'Pharmaceutical Use',
   render: (data) => {
     const pharmaData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
-      CommentType.PHARMACEUTICAL
+      'PHARMACEUTICAL'
     ) as FreeTextComment[];
     return <FreeTextView comments={pharmaData} noEvidence />;
   },
@@ -960,7 +941,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
   label: 'Toxic Dose',
   render: (data) => {
     const toxicData = data[EntrySection.DiseaseAndDrugs].commentsData.get(
-      CommentType.TOXIC_DOSE
+      'TOXIC DOSE'
     ) as FreeTextComment[];
     return <FreeTextView comments={toxicData} noEvidence />;
   },
@@ -968,71 +949,71 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccToxicDose, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftIntramem,
-  getFeatureColumn(FeatureType.INTRAMEM)
+  getFeatureColumn('Intramembrane')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTopDom,
-  getFeatureColumn(FeatureType.TOPO_DOM)
+  getFeatureColumn('Topological domain')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTransmem,
-  getFeatureColumn(FeatureType.TRANSMEM)
+  getFeatureColumn('Transmembrane')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftChain,
-  getFeatureColumn(FeatureType.CHAIN)
+  getFeatureColumn('Chain')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCrosslnk,
-  getFeatureColumn(FeatureType.CROSSLNK)
+  getFeatureColumn('Cross-link')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDisulfide,
-  getFeatureColumn(FeatureType.DISULFID)
+  getFeatureColumn('Disulfide bond')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCarbohyd,
-  getFeatureColumn(FeatureType.CARBOHYD)
+  getFeatureColumn('Glycosylation')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftInitMet,
-  getFeatureColumn(FeatureType.INIT_MET)
+  getFeatureColumn('Initiator methionine')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftLipid,
-  getFeatureColumn(FeatureType.LIPID)
+  getFeatureColumn('Lipidation')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftModRes,
-  getFeatureColumn(FeatureType.MOD_RES)
+  getFeatureColumn('Modified residue')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftPeptide,
-  getFeatureColumn(FeatureType.PEPTIDE)
+  getFeatureColumn('Peptide')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftPropep,
-  getFeatureColumn(FeatureType.PROPEP)
+  getFeatureColumn('Propeptide')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftSignal,
-  getFeatureColumn(FeatureType.SIGNAL)
+  getFeatureColumn('Signal')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTransit,
-  getFeatureColumn(FeatureType.TRANSIT)
+  getFeatureColumn('Transit peptide')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftStrand,
-  getFeatureColumn(FeatureType.STRAND)
+  getFeatureColumn('Beta strand')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftHelix,
-  getFeatureColumn(FeatureType.HELIX)
+  getFeatureColumn('Helix')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftTurn,
-  getFeatureColumn(FeatureType.TURN)
+  getFeatureColumn('Turn')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.litPubmedId, {
@@ -1082,19 +1063,19 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.version, {
 });
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCoiled,
-  getFeatureColumn(FeatureType.COILED)
+  getFeatureColumn('Coiled coil')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftCompbias,
-  getFeatureColumn(FeatureType.COMPBIAS)
+  getFeatureColumn('Compositional bias')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftDomain,
-  getFeatureColumn(FeatureType.DOMAIN)
+  getFeatureColumn('Domain')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftMotif,
-  getFeatureColumn(FeatureType.MOTIF)
+  getFeatureColumn('Motif')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
@@ -1103,7 +1084,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
     // TODO this actually seems to be a subset of this with a query on link?
     // Could maybe be removed
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
-      CommentType.SIMILARITY
+      'SIMILARITY'
     ) as FreeTextComment[];
     return <FreeTextView comments={familiesData} noEvidence />;
   },
@@ -1111,18 +1092,18 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.proteinFamilies, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftRegion,
-  getFeatureColumn(FeatureType.REGION)
+  getFeatureColumn('Region')
 );
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftRepeat,
-  getFeatureColumn(FeatureType.REPEAT)
+  getFeatureColumn('Repeat')
 );
 
 UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
   label: 'Sequence Similarities',
   render: (data) => {
     const familiesData = data[EntrySection.FamilyAndDomains].commentsData.get(
-      CommentType.SIMILARITY
+      'SIMILARITY'
     ) as FreeTextComment[];
     return <FreeTextView comments={familiesData} noEvidence />;
   },
@@ -1130,7 +1111,7 @@ UniProtKBColumnConfiguration.set(UniProtKBColumn.ccSimilarity, {
 
 UniProtKBColumnConfiguration.set(
   UniProtKBColumn.ftZnFing,
-  getFeatureColumn(FeatureType.ZN_FING)
+  getFeatureColumn('Zinc finger')
 );
 
 const getXrefColumn = (databaseName: string) => ({

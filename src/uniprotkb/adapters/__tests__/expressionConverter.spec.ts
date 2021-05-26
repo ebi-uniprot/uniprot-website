@@ -1,16 +1,14 @@
 import convertExpression from '../expressionConverter';
-import modelData from '../../__mocks__/entryModelData.json';
-import { convertXrefProperties } from '../../adapters/uniProtkbConverter';
+import { convertXrefProperties } from '../uniProtkbConverter';
+
+import modelData from '../../__mocks__/uniProtKBEntryModelData';
 
 describe('Expression data converter', () => {
-  beforeAll(() => {
-    modelData.uniProtKBCrossReferences = convertXrefProperties(
-      modelData.uniProtKBCrossReferences
-    );
-  });
-
   test('should convert the data', () => {
-    const convertedData = convertExpression(modelData);
+    const convertedData = convertExpression(
+      modelData,
+      convertXrefProperties(modelData.uniProtKBCrossReferences)
+    );
     expect(convertedData).toEqual({
       commentsData: new Map([
         ['TISSUE SPECIFICITY', []],

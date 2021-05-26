@@ -98,7 +98,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 aria-hidden="true"
                 class="card__link"
                 data-testid="background-link"
-                href="/uniprotkb/O00311"
+                href="/uniprotkb/P35575"
                 tabindex="-1"
               />
               <div
@@ -123,7 +123,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <test-file-stub />
                       </span>
-                      O00311 · CDC7_HUMAN
+                      P35575 · G6PC1_HUMAN
                     </span>
                   </h2>
                 </div>
@@ -131,7 +131,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="card__content"
                 >
                   <section>
-                    Cell division cycle 7-related protein kinase · 
+                    Glucose-6-phosphatase catalytic subunit 1 · 
                     <a
                       href="/taxonomy/9606"
                       title="Homo sapiens (Human), taxon ID 9606"
@@ -142,11 +142,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     <strong>
                       EC number:
                     </strong>
-                     2.7.11.1 · 
+                     3.1.3.9 · 
                     <strong>
                       Gene:
                     </strong>
-                     CDC7 (CDC7L1) · 574 amino-acids · 
+                     G6PC1 (G6PC, G6PT) · 357 amino-acids · 1: Evidence at protein level · 
                     <span
                       title="Annotation Score"
                     >
@@ -183,23 +183,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0418"
+                          href="/keywords/KW-0378"
                         >
-                           #Kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0723"
-                        >
-                           #Serine/threonine-protein kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0808"
-                        >
-                           #Transferase
+                           #Hydrolase
                         </a>
                       </li>
                     </ul>
@@ -209,21 +195,73 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0131"
+                          href="/keywords/KW-0312"
                         >
-                           #Cell cycle
+                           #Gluconeogenesis
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0225"
+                        >
+                           #Disease variant
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0132"
+                          href="/keywords/KW-0322"
                         >
-                           #Cell division
+                           #Glycogen storage disease
                         </a>
                       </li>
                     </ul>
                   </small>
                 </div>
+              </div>
+              <div
+                class="card__actions"
+              >
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#disease-and-drugs"
+                >
+                  56 reviewed variants
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#function"
+                >
+                  2 active sites
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#sequence"
+                >
+                  2 isoforms
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#interaction"
+                >
+                  2 interactions
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#disease-and-drugs"
+                >
+                  1 disease
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575/publications"
+                >
+                  33 reviewed publications
+                </a>
               </div>
             </section>
           </section>
@@ -235,7 +273,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 aria-hidden="true"
                 class="card__link"
                 data-testid="background-link"
-                href="/uniprotkb/Q9Z0H0"
+                href="/uniprotkb/O43826"
                 tabindex="-1"
               />
               <div
@@ -260,7 +298,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <test-file-stub />
                       </span>
-                      Q9Z0H0 · CDC7_MOUSE
+                      O43826 · G6PT1_HUMAN
                     </span>
                   </h2>
                 </div>
@@ -268,22 +306,18 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="card__content"
                 >
                   <section>
-                    Cell division cycle 7-related protein kinase · 
+                    Glucose-6-phosphate exchanger SLC37A4 · 
                     <a
-                      href="/taxonomy/10090"
-                      title="Mus musculus (Mouse), taxon ID 10090"
+                      href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
-                      Mus musculus (Mouse)
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
-                      EC number:
-                    </strong>
-                     2.7.11.1 · 
-                    <strong>
                       Gene:
                     </strong>
-                     Cdc7 (Cdc7l1) · 564 amino-acids · 
+                     SLC37A4 (G6PT, G6PT1) · 429 amino-acids · 1: Evidence at protein level · 
                     <span
                       title="Annotation Score"
                     >
@@ -320,23 +354,23 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0418"
+                          href="/keywords/KW-0050"
                         >
-                           #Kinase
+                           #Antiport
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0723"
+                          href="/keywords/KW-0762"
                         >
-                           #Serine/threonine-protein kinase
+                           #Sugar transport
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0808"
+                          href="/keywords/KW-0813"
                         >
-                           #Transferase
+                           #Transport
                         </a>
                       </li>
                     </ul>
@@ -346,21 +380,55 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0131"
+                          href="/keywords/KW-0225"
                         >
-                           #Cell cycle
+                           #Disease variant
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0132"
+                          href="/keywords/KW-0322"
                         >
-                           #Cell division
+                           #Glycogen storage disease
                         </a>
                       </li>
                     </ul>
                   </small>
                 </div>
+              </div>
+              <div
+                class="card__actions"
+              >
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#disease-and-drugs"
+                >
+                  34 reviewed variants
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#sequence"
+                >
+                  2 isoforms
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#interaction"
+                >
+                  1 interaction
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#disease-and-drugs"
+                >
+                  3 diseases
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826/publications"
+                >
+                  30 reviewed publications
+                </a>
               </div>
             </section>
           </section>
@@ -472,7 +540,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 aria-hidden="true"
                 class="card__link"
                 data-testid="background-link"
-                href="/uniprotkb/O00311"
+                href="/uniprotkb/P35575"
                 tabindex="-1"
               />
               <div
@@ -497,7 +565,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <test-file-stub />
                       </span>
-                      O00311 · CDC7_HUMAN
+                      P35575 · G6PC1_HUMAN
                     </span>
                   </h2>
                 </div>
@@ -505,7 +573,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="card__content"
                 >
                   <section>
-                    Cell division cycle 7-related protein kinase · 
+                    Glucose-6-phosphatase catalytic subunit 1 · 
                     <a
                       href="/taxonomy/9606"
                       title="Homo sapiens (Human), taxon ID 9606"
@@ -516,11 +584,11 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     <strong>
                       EC number:
                     </strong>
-                     2.7.11.1 · 
+                     3.1.3.9 · 
                     <strong>
                       Gene:
                     </strong>
-                     CDC7 (CDC7L1) · 574 amino-acids · 
+                     G6PC1 (G6PC, G6PT) · 357 amino-acids · 1: Evidence at protein level · 
                     <span
                       title="Annotation Score"
                     >
@@ -557,23 +625,9 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0418"
+                          href="/keywords/KW-0378"
                         >
-                           #Kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0723"
-                        >
-                           #Serine/threonine-protein kinase
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="/keywords/KW-0808"
-                        >
-                           #Transferase
+                           #Hydrolase
                         </a>
                       </li>
                     </ul>
@@ -583,21 +637,73 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0131"
+                          href="/keywords/KW-0312"
                         >
-                           #Cell cycle
+                           #Gluconeogenesis
+                        </a>
+                      </li>
+                    </ul>
+                     · 
+                    <ul
+                      class="keyword-view--inline expandable-list no-bullet"
+                    >
+                      <li>
+                        <a
+                          href="/keywords/KW-0225"
+                        >
+                           #Disease variant
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0132"
+                          href="/keywords/KW-0322"
                         >
-                           #Cell division
+                           #Glycogen storage disease
                         </a>
                       </li>
                     </ul>
                   </small>
                 </div>
+              </div>
+              <div
+                class="card__actions"
+              >
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#disease-and-drugs"
+                >
+                  56 reviewed variants
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#function"
+                >
+                  2 active sites
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#sequence"
+                >
+                  2 isoforms
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#interaction"
+                >
+                  2 interactions
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575#disease-and-drugs"
+                >
+                  1 disease
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/P35575/publications"
+                >
+                  33 reviewed publications
+                </a>
               </div>
             </section>
           </section>
@@ -609,7 +715,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                 aria-hidden="true"
                 class="card__link"
                 data-testid="background-link"
-                href="/uniprotkb/Q9Z0H0"
+                href="/uniprotkb/O43826"
                 tabindex="-1"
               />
               <div
@@ -634,7 +740,7 @@ exports[`PeptideSearchResult should render with the correct number of results in
                       >
                         <test-file-stub />
                       </span>
-                      Q9Z0H0 · CDC7_MOUSE
+                      O43826 · G6PT1_HUMAN
                     </span>
                   </h2>
                 </div>
@@ -642,22 +748,18 @@ exports[`PeptideSearchResult should render with the correct number of results in
                   class="card__content"
                 >
                   <section>
-                    Cell division cycle 7-related protein kinase · 
+                    Glucose-6-phosphate exchanger SLC37A4 · 
                     <a
-                      href="/taxonomy/10090"
-                      title="Mus musculus (Mouse), taxon ID 10090"
+                      href="/taxonomy/9606"
+                      title="Homo sapiens (Human), taxon ID 9606"
                     >
-                      Mus musculus (Mouse)
+                      Homo sapiens (Human)
                     </a>
                      · 
                     <strong>
-                      EC number:
-                    </strong>
-                     2.7.11.1 · 
-                    <strong>
                       Gene:
                     </strong>
-                     Cdc7 (Cdc7l1) · 564 amino-acids · 
+                     SLC37A4 (G6PT, G6PT1) · 429 amino-acids · 1: Evidence at protein level · 
                     <span
                       title="Annotation Score"
                     >
@@ -694,23 +796,23 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0418"
+                          href="/keywords/KW-0050"
                         >
-                           #Kinase
+                           #Antiport
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0723"
+                          href="/keywords/KW-0762"
                         >
-                           #Serine/threonine-protein kinase
+                           #Sugar transport
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0808"
+                          href="/keywords/KW-0813"
                         >
-                           #Transferase
+                           #Transport
                         </a>
                       </li>
                     </ul>
@@ -720,21 +822,55 @@ exports[`PeptideSearchResult should render with the correct number of results in
                     >
                       <li>
                         <a
-                          href="/keywords/KW-0131"
+                          href="/keywords/KW-0225"
                         >
-                           #Cell cycle
+                           #Disease variant
                         </a>
                       </li>
                       <li>
                         <a
-                          href="/keywords/KW-0132"
+                          href="/keywords/KW-0322"
                         >
-                           #Cell division
+                           #Glycogen storage disease
                         </a>
                       </li>
                     </ul>
                   </small>
                 </div>
+              </div>
+              <div
+                class="card__actions"
+              >
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#disease-and-drugs"
+                >
+                  34 reviewed variants
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#sequence"
+                >
+                  2 isoforms
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#interaction"
+                >
+                  1 interaction
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826#disease-and-drugs"
+                >
+                  3 diseases
+                </a>
+                <a
+                  class="card-action"
+                  href="/uniprotkb/O43826/publications"
+                >
+                  30 reviewed publications
+                </a>
               </div>
             </section>
           </section>

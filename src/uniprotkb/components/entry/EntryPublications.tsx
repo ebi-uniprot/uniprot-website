@@ -44,8 +44,8 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   } = reference;
 
   const url = useMemo(() => {
-    const databaseInfo = getDatabaseInfoByName(source.name);
-    if (databaseInfo && source.id) {
+    const databaseInfo = source && getDatabaseInfoByName(source.name);
+    if (databaseInfo && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
     return null;
@@ -54,7 +54,7 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   const infoListData = [
     {
       title: 'Source',
-      content: (
+      content: source && (
         <>
           <EntryTypeIcon entryType={source.name} />
           {url ? (

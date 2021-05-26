@@ -133,6 +133,6 @@ describe('TextField', () => {
     render(<TextField {...propsPrefix} />);
 
     const inputElt = screen.getByDisplayValue('UP000000000');
-    expect(inputElt).toBeTruthy();
+    expect(inputElt).toBeInTheDocument();
   });
 });
