@@ -95,10 +95,8 @@ const IDMappingResult = () => {
     });
   const facetsData = useDataApiWithStale<Response['data']>(facetsUrl);
 
-  const {
-    loading: facetInititialLoading,
-    isStale: facetHasStaleData,
-  } = facetsData;
+  const { loading: facetInititialLoading, isStale: facetHasStaleData } =
+    facetsData;
 
   if (
     facetInititialLoading &&

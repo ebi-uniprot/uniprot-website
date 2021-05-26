@@ -108,19 +108,17 @@ export const nsToPrimaryKeyColumn: Record<Namespace, Column> = {
   [Namespace.idmapping]: primaryKeyIdMapping,
 };
 
-export const nsToColumnConfig: Record<
-  Namespace,
-  ColumnConfiguration<Column>
-> = {
-  [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
-  [Namespace.uniref]: UniRefColumnConfiguration,
-  [Namespace.uniparc]: UniParcColumnConfiguration,
-  [Namespace.proteomes]: ProteomesColumnConfiguration,
-  [Namespace.taxonomy]: TaxonomyColumnConfiguration,
-  [Namespace.keywords]: KeywordsColumnConfiguration,
-  [Namespace.citations]: CitationsColumnConfiguration,
-  [Namespace.diseases]: DiseasesColumnConfiguration,
-  [Namespace.database]: DatabaseColumnConfiguration,
-  [Namespace.locations]: LocationsColumnConfiguration,
-  [Namespace.idmapping]: IdMappingColumnConfiguration,
-};
+export const nsToColumnConfig: Record<Namespace, ColumnConfiguration<Column>> =
+  {
+    [Namespace.uniprotkb]: UniProtKBColumnConfiguration,
+    [Namespace.uniref]: UniRefColumnConfiguration,
+    [Namespace.uniparc]: UniParcColumnConfiguration,
+    [Namespace.proteomes]: ProteomesColumnConfiguration,
+    [Namespace.taxonomy]: TaxonomyColumnConfiguration,
+    [Namespace.keywords]: KeywordsColumnConfiguration,
+    [Namespace.citations]: CitationsColumnConfiguration,
+    [Namespace.diseases]: DiseasesColumnConfiguration,
+    [Namespace.database]: DatabaseColumnConfiguration,
+    [Namespace.locations]: LocationsColumnConfiguration,
+    [Namespace.idmapping]: IdMappingColumnConfiguration,
+  };

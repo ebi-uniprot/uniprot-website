@@ -179,22 +179,21 @@ const enrichStatistics = (
     ]);
   }
 
-  const mapped: Array<
-    SetOptional<EnrichedStatistics, 'count'> | undefined
-  > = entries.map(([key, value]) => {
-    const config = configMap.get(key as keyof Statistics | 'proteinCount');
-    if (!config) {
-      return;
-    }
-    // eslint-disable-next-line consistent-return
-    return {
-      key: key as keyof Statistics | 'proteinCount',
-      count: value,
-      label: config.label,
-      text: config.text(value || 0),
-      to: config.to(fieldName, accession),
-    };
-  });
+  const mapped: Array<SetOptional<EnrichedStatistics, 'count'> | undefined> =
+    entries.map(([key, value]) => {
+      const config = configMap.get(key as keyof Statistics | 'proteinCount');
+      if (!config) {
+        return;
+      }
+      // eslint-disable-next-line consistent-return
+      return {
+        key: key as keyof Statistics | 'proteinCount',
+        count: value,
+        label: config.label,
+        text: config.text(value || 0),
+        to: config.to(fieldName, accession),
+      };
+    });
   // filter out undefined and zero counts
   return mapped.filter(statFilter);
 };

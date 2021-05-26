@@ -36,12 +36,8 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
   accession,
 }) => {
-  const {
-    referencePositions,
-    referenceComments,
-    source,
-    sourceCategories,
-  } = reference;
+  const { referencePositions, referenceComments, source, sourceCategories } =
+    reference;
 
   const url = useMemo(() => {
     const databaseInfo = source && getDatabaseInfoByName(source.name);
@@ -115,13 +111,15 @@ const EntryPublications: FC<{ accession: string }> = ({ accession }) => {
   }>(() => ({ total: 0, nextUrl: undefined }));
   usePrefetch(metaData.nextUrl);
 
-  const { data, loading, status, error, headers } = useDataApi<{
-    results: CitationsAPIModel[];
-  }>(url);
+  const { data, loading, status, error, headers } =
+    useDataApi<{
+      results: CitationsAPIModel[];
+    }>(url);
 
-  const resultsWithReferences = useMemo(() => allResults.filter(hasReference), [
-    allResults,
-  ]);
+  const resultsWithReferences = useMemo(
+    () => allResults.filter(hasReference),
+    [allResults]
+  );
 
   useEffect(() => {
     setAllResults([]);

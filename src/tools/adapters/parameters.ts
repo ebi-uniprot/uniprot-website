@@ -59,11 +59,8 @@ export function formParametersToServerParameters<T extends JobTypes>(
   switch (type) {
     case JobTypes.ALIGN:
       {
-        const {
-          sequence,
-          order,
-          iterations,
-        } = formParameters as FormParameters[JobTypes.ALIGN];
+        const { sequence, order, iterations } =
+          formParameters as FormParameters[JobTypes.ALIGN];
         serverParameters = {
           email: DEFAULT_EMAIL,
           outfmt: 'clustal_num',
@@ -110,11 +107,8 @@ export function formParametersToServerParameters<T extends JobTypes>(
       break;
     case JobTypes.ID_MAPPING:
       {
-        const {
-          from,
-          to,
-          ids,
-        } = formParameters as FormParameters[JobTypes.ID_MAPPING];
+        const { from, to, ids } =
+          formParameters as FormParameters[JobTypes.ID_MAPPING];
         serverParameters = {
           from,
           to,
@@ -166,11 +160,8 @@ export function serverParametersToFormParameters<T extends JobTypes>(
   switch (type) {
     case JobTypes.ALIGN:
       {
-        const {
-          sequence,
-          order,
-          iterations,
-        } = serverParameters as PublicServerParameters[JobTypes.ALIGN];
+        const { sequence, order, iterations } =
+          serverParameters as PublicServerParameters[JobTypes.ALIGN];
 
         formParameters = {
           sequence,

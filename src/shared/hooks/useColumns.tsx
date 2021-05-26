@@ -156,9 +156,8 @@ const useColumns = (
   const [columns, setColumns] = useState<ColumnDescriptor[]>([]);
 
   const { search: queryParamFromUrl } = location;
-  const { query, selectedFacets, sortColumn, sortDirection } = getParamsFromURL(
-    queryParamFromUrl
-  );
+  const { query, selectedFacets, sortColumn, sortDirection } =
+    getParamsFromURL(queryParamFromUrl);
 
   const { data: dataResultFields } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data

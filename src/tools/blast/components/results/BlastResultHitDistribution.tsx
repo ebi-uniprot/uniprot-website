@@ -21,13 +21,13 @@ const BlastResultHitDistribution: FC<BlastResultHitDistributionProps> = ({
   allHits,
   filteredHits,
 }) => {
-  const [nBinsValue, setNBinsValue] = useState<typeof nBinOptions[number]>(
-    'auto'
-  );
+  const [nBinsValue, setNBinsValue] =
+    useState<typeof nBinOptions[number]>('auto');
 
-  const values = useMemo(() => getDataPoints(filteredHits || []), [
-    filteredHits,
-  ]);
+  const values = useMemo(
+    () => getDataPoints(filteredHits || []),
+    [filteredHits]
+  );
   // logic to keep stale data available
   const valuesRef = useRef(values);
   if (values[BlastFacet.SCORE].length || !loading) {

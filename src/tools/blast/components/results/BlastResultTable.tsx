@@ -255,9 +255,8 @@ const BlastResultTable: FC<{
   // logic to keep stale data available
   const hitsRef = useRef<BlastHit[]>([]);
 
-  const [selectedScoring, setSelectedScoring] = useState<keyof BlastHsp>(
-    'hsp_identity'
-  );
+  const [selectedScoring, setSelectedScoring] =
+    useState<keyof BlastHsp>('hsp_identity');
 
   if (data?.hits.length) {
     hitsRef.current = data?.hits || [];

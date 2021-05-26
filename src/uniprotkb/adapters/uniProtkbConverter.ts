@@ -130,7 +130,7 @@ export const convertXrefProperties = (
   xrefs?.map((xref) => ({
     ...xref,
     properties: xref.properties
-      ? transfromProperties((xref.properties as unknown) as Property[])
+      ? transfromProperties(xref.properties as unknown as Property[])
       : {},
   }));
 

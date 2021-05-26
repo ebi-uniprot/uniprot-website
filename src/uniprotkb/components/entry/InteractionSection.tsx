@@ -116,9 +116,8 @@ const InteractionSection = ({ data, primaryAccession }: Props) => {
       // eslint-disable-next-line no-param-reassign
       datatableContainer.current.data = interactionComment[0].interactions;
       // eslint-disable-next-line no-param-reassign
-      datatableContainer.current.columns = getInteractionColumns(
-        primaryAccession
-      );
+      datatableContainer.current.columns =
+        getInteractionColumns(primaryAccession);
     }
   }, [datatableDefined, data.commentsData, primaryAccession]);
 

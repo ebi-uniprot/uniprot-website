@@ -93,9 +93,11 @@ const useDragNDropFile = ({
     overlayRef.current.style.zIndex = '999';
     overlayRef.current.style.background = 'rgba(255, 255, 255, 0.75)';
     if ('backdropFilter' in overlayRef.current.style) {
-      (overlayRef.current.style as CSSStyleDeclaration & {
-        backdropFilter?: string;
-      }).backdropFilter = 'blur(5px)';
+      (
+        overlayRef.current.style as CSSStyleDeclaration & {
+          backdropFilter?: string;
+        }
+      ).backdropFilter = 'blur(5px)';
     }
 
     document.body.appendChild(overlayRef.current);

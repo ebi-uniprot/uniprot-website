@@ -23,16 +23,14 @@ const MessageManager: FC = () => {
   const activeMessages = useSelector(
     (state: RootState) => state.messages.active
   );
-  const {
-    true: omitAndDeleteMessages = [],
-    false: restActiveMessages = [],
-  } = groupBy(
-    activeMessages,
-    ({ omitAndDeleteAtLocations = [] }) =>
-      !!omitAndDeleteAtLocations &&
-      omitAndDeleteAtLocations.length > 0 &&
-      omitAndDeleteAtLocations.includes(currentLocation)
-  );
+  const { true: omitAndDeleteMessages = [], false: restActiveMessages = [] } =
+    groupBy(
+      activeMessages,
+      ({ omitAndDeleteAtLocations = [] }) =>
+        !!omitAndDeleteAtLocations &&
+        omitAndDeleteAtLocations.length > 0 &&
+        omitAndDeleteAtLocations.includes(currentLocation)
+    );
 
   const deleteMessage = useCallback(
     (id: string) => dispatch(actions.deleteMessage(id)),

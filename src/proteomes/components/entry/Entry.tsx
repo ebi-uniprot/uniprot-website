@@ -29,9 +29,8 @@ const Entry: FC = () => {
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.entry(accession, Namespace.proteomes);
-  const { loading, data, status, error } = useDataApi<ProteomesAPIModel>(
-    baseURL
-  );
+  const { loading, data, status, error } =
+    useDataApi<ProteomesAPIModel>(baseURL);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;

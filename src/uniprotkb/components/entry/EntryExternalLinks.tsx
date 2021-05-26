@@ -53,9 +53,8 @@ const EntryExternalLinks = ({ transformedData }: EntryExternalLinksProps) => {
   Object.values(EntrySection).forEach((entrySection) => {
     transformedData[entrySection as EntrySection].xrefData?.forEach(
       ({ category, databases }) => {
-        const currentDatabases = databaseCategoryToXrefsGoupedByDatabase.get(
-          category
-        );
+        const currentDatabases =
+          databaseCategoryToXrefsGoupedByDatabase.get(category);
         const newDatabases = currentDatabases
           ? [...currentDatabases, ...databases]
           : databases;

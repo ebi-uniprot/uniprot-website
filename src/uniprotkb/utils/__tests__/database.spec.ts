@@ -27,17 +27,18 @@ test('getDatabaseInfoMaps', () => {
   expect([...databaseNameToCategory]).toEqual(expectedDatabaseNameToCategory);
   expect([...databaseCategoryToNames]).toEqual(expectedDatabaseCategoryToNames);
   const databaseNames = databaseInfo
-    .map(databaseInfoPoint => databaseInfoPoint.name)
+    .map((databaseInfoPoint) => databaseInfoPoint.name)
     .sort();
   const keys = Object.keys(databaseToDatabaseInfo).sort();
   expect(keys).toEqual(databaseNames);
 });
 
 test('getEntrySectionToDatabaseCategoryOrder', () => {
-  const entrySectionToDatabaseCategoryOrder = getEntrySectionToDatabaseCategoryOrder(
-    entrySectionToDatabaseNames,
-    databaseNameToCategory
-  );
+  const entrySectionToDatabaseCategoryOrder =
+    getEntrySectionToDatabaseCategoryOrder(
+      entrySectionToDatabaseNames,
+      databaseNameToCategory
+    );
   expect([...entrySectionToDatabaseCategoryOrder]).toEqual(
     expectedEntrySectionToDatabaseCategoryOrder
   );

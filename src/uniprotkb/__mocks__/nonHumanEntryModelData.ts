@@ -82,8 +82,7 @@ const mock: UniProtkbAPIModel = {
     {
       commentType: 'CATALYTIC ACTIVITY',
       reaction: {
-        name:
-          'an N-acetyl-alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative',
+        name: 'an N-acetyl-alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative + H2O = acetate + an alpha-D-galactosaminyl-(1->3)-[alpha-L-fucosyl-(1->2)]-beta-D-galactosyl derivative',
         reactionCrossReferences: [
           { database: 'Rhea', id: 'RHEA:14869' },
           { database: 'ChEBI', id: 'CHEBI:15377' },

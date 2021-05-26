@@ -125,7 +125,8 @@ export const convertSequence = (
     const alternativeProducts = data.comments.find(
       (comment) => comment.commentType === 'ALTERNATIVE PRODUCTS'
     );
-    sequenceData.alternativeProducts = alternativeProducts as AlternativeProductsComment;
+    sequenceData.alternativeProducts =
+      alternativeProducts as AlternativeProductsComment;
     const sequenceCaution = data.comments.filter(
       (comment) => comment.commentType === 'SEQUENCE CAUTION'
     );
@@ -171,8 +172,8 @@ export const convertSequence = (
       const varSeqs = features.filter(
         (feature) => feature.type === 'Alternative sequence'
       );
-      sequenceData.alternativeProducts.isoforms = sequenceData.alternativeProducts.isoforms.map(
-        (isoform) => {
+      sequenceData.alternativeProducts.isoforms =
+        sequenceData.alternativeProducts.isoforms.map((isoform) => {
           const varSeqsToAdd: FeatureData = [];
           if (isoform.sequenceIds && varSeqs.length !== 0) {
             isoform.sequenceIds.forEach((sequenceId) => {
@@ -185,8 +186,7 @@ export const convertSequence = (
             });
           }
           return { ...isoform, varSeqs: varSeqsToAdd };
-        }
-      );
+        });
     }
   }
   if (uniProtKBCrossReferences) {

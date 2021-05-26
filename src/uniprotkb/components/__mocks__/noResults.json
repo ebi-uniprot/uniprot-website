@@ -1,50 +1,63 @@
 {
-  "facets": [{
-    "label": "Status",
-    "name": "reviewed",
-    "allowMultipleSelection": false
-  }, {
-    "label": "Popular organisms",
-    "name": "popular_organism",
-    "allowMultipleSelection": true
-  }, {
-    "label": "Proteins with",
-    "name": "proteins_with",
-    "allowMultipleSelection": true
-  }, {
-    "label": "Protein Existence",
-    "name": "existence",
-    "allowMultipleSelection": true
-  }, {
-    "label": "Annotation Score",
-    "name": "annotation_score",
-    "allowMultipleSelection": true
-  }, {
-    "label": "Sequence length",
-    "name": "length",
-    "allowMultipleSelection": true,
-    "values": [{
-      "label": "1 - 200",
-      "value": "[1 TO 200]",
-      "count": 0
-    }, {
-      "label": "201 - 400",
-      "value": "[201 TO 400]",
-      "count": 0
-    }, {
-      "label": "401 - 600",
-      "value": "[401 TO 600]",
-      "count": 0
-    }, {
-      "label": "601 - 800",
-      "value": "[601 TO 800]",
-      "count": 0
-    }, {
-      "label": ">= 801",
-      "value": "[801 TO *]",
-      "count": 0
-    }]
-  }],
+  "facets": [
+    {
+      "label": "Status",
+      "name": "reviewed",
+      "allowMultipleSelection": false
+    },
+    {
+      "label": "Popular organisms",
+      "name": "popular_organism",
+      "allowMultipleSelection": true
+    },
+    {
+      "label": "Proteins with",
+      "name": "proteins_with",
+      "allowMultipleSelection": true
+    },
+    {
+      "label": "Protein Existence",
+      "name": "existence",
+      "allowMultipleSelection": true
+    },
+    {
+      "label": "Annotation Score",
+      "name": "annotation_score",
+      "allowMultipleSelection": true
+    },
+    {
+      "label": "Sequence length",
+      "name": "length",
+      "allowMultipleSelection": true,
+      "values": [
+        {
+          "label": "1 - 200",
+          "value": "[1 TO 200]",
+          "count": 0
+        },
+        {
+          "label": "201 - 400",
+          "value": "[201 TO 400]",
+          "count": 0
+        },
+        {
+          "label": "401 - 600",
+          "value": "[401 TO 600]",
+          "count": 0
+        },
+        {
+          "label": "601 - 800",
+          "value": "[601 TO 800]",
+          "count": 0
+        },
+        {
+          "label": ">= 801",
+          "value": "[801 TO *]",
+          "count": 0
+        }
+      ]
+    }
+  ],
   "matchedFields": [],
   "results": []
 }

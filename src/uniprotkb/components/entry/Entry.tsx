@@ -89,19 +89,15 @@ const Entry: FC = () => {
     }
   }, [match, history]);
 
-  const {
-    loading,
-    data,
-    status,
-    error,
-    redirectedTo,
-  } = useDataApi<UniProtkbAPIModel>(
-    apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
-  );
+  const { loading, data, status, error, redirectedTo } =
+    useDataApi<UniProtkbAPIModel>(
+      apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
+    );
 
-  const transformedData = useMemo(() => data && uniProtKbConverter(data), [
-    data,
-  ]);
+  const transformedData = useMemo(
+    () => data && uniProtKbConverter(data),
+    [data]
+  );
 
   const sections = useMemo(() => {
     if (transformedData) {

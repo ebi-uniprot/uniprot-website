@@ -39,26 +39,26 @@ export const getDatabaseInfoMaps = (databaseInfo: DatabaseInfo) => {
   };
 };
 
-export const selectDatabases = (
-  databaseCategoryToNames: Map<DatabaseCategory, string[]>
-) => ({
-  categories = [],
-  whitelist = [],
-  blacklist = [],
-}: {
-  categories?: string[];
-  whitelist?: string[];
-  blacklist?: string[];
-}) =>
-  [
-    ...flatten(
-      categories.map(
-        (category) =>
-          databaseCategoryToNames.get(category as DatabaseCategory) || []
-      )
-    ),
-    ...whitelist,
-  ].filter((db) => !blacklist.includes(db));
+export const selectDatabases =
+  (databaseCategoryToNames: Map<DatabaseCategory, string[]>) =>
+  ({
+    categories = [],
+    whitelist = [],
+    blacklist = [],
+  }: {
+    categories?: string[];
+    whitelist?: string[];
+    blacklist?: string[];
+  }) =>
+    [
+      ...flatten(
+        categories.map(
+          (category) =>
+            databaseCategoryToNames.get(category as DatabaseCategory) || []
+        )
+      ),
+      ...whitelist,
+    ].filter((db) => !blacklist.includes(db));
 
 export const getEntrySectionToDatabaseCategoryOrder = (
   entrySectionToDatabaseNames: Map<EntrySection, string[]>,
