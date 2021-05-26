@@ -8,6 +8,7 @@ $black: #000;
   bottom: 0;
   background-color: lighten($black, 0.2);
   color: #fff;
+  z-index: 1;
 
   a {
     color: #fff;
