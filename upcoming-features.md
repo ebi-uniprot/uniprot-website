@@ -69,8 +69,10 @@ This is a non exhaustive list of features which will be added to the website in 
 - Currently missing BLAST against UniRef/UniParc.
 - "Filter by Taxonomy" to be able to add any taxonomy node as a filter, not only suggested ones.
 - Sort (TBD)
+- Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Align
+- Alignment visualisation sometimes jumps by a few pixels when interacting
 
 ## Peptide Search
 
