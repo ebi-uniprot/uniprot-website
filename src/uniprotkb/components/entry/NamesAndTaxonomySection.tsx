@@ -44,8 +44,12 @@ const NamesAndTaxonomySection = ({ data, primaryAccession }: Props) => {
       <TaxonomyListView data={data.organismData} hosts={data.organismHosts} />
       <h3>Accessions</h3>
       <AccessionsView data={data} />
-      <h3>Proteome</h3>
-      <ProteomesListView data={data.proteomesData} />
+      {!!data.proteomesData?.length && (
+        <>
+          <h3>Proteome</h3>
+          <ProteomesListView data={data.proteomesData} />
+        </>
+      )}
       <XRefView xrefs={data.xrefData} primaryAccession={primaryAccession} />
     </Card>
   );

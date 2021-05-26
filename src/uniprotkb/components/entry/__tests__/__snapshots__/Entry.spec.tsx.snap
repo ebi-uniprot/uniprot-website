@@ -661,11 +661,7 @@ exports[`Entry basic should render main 1`] = `
                 </section>
                 <div
                   class="GoRibbon"
-                >
-                  <h3>
-                    GO Annotations
-                  </h3>
-                </div>
+                />
                 <h3>
                   Enzyme and pathway databases
                 </h3>
@@ -1616,9 +1612,6 @@ exports[`Entry basic should render main 1`] = `
                     </div>
                   </li>
                 </ul>
-                <h3>
-                  Proteome
-                </h3>
               </div>
             </div>
           </section>

@@ -23,7 +23,7 @@ enum COLOR_BY {
 }
 
 type RibbonData = {
-  entities: unknown;
+  entities: unknown[];
   config: unknown;
   dataError: unknown;
   dataReceived: unknown;
@@ -60,9 +60,15 @@ const RibbonContainer: FC<RibbonData> = ({
 
 const GoRibbon: FC<{ primaryAccession: string }> = ({ primaryAccession }) => (
   <div className="GoRibbon">
-    <h3>GO Annotations</h3>
     <RibbonDataProvider subject={`UniProtKB:${primaryAccession}`}>
-      {(data: RibbonData) => <RibbonContainer {...data} />}
+      {(data: RibbonData) => (
+        <>
+          {(!!data.entities?.length || !data.dataReceived) && (
+            <h3>GO Annotations</h3>
+          )}
+          <RibbonContainer {...data} />
+        </>
+      )}
     </RibbonDataProvider>
   </div>
 );
