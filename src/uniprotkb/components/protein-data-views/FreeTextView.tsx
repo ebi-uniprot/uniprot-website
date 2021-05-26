@@ -1,22 +1,59 @@
 import { Fragment, FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import UniProtKBEvidenceTag from './UniProtKBEvidenceTag';
+
+import { getEntryPathFor } from '../../../app/config/urls';
+
+import { Namespace } from '../../../shared/types/namespaces';
 import { FreeTextComment, TextWithEvidence } from '../../types/commentTypes';
+
+const pubMedIDRE = /\d{7,8}/;
+// Capturing group will allow split to conserve that bit in the split parts
+const pubMedRE = /(?<=pubmed:)(\d{7,8})/i;
+const needsNewLineRE = /^\).\s+/;
+
+const getEntryPathForCitation = getEntryPathFor(Namespace.citations);
 
 type TextViewProps = { comments: TextWithEvidence[]; noEvidence?: boolean };
 
 export const TextView = ({ comments, noEvidence }: TextViewProps) => (
-  <section className="text-block">
+  <div className="text-block">
     {comments.map((comment, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <Fragment key={index}>
-        {comment.value}
+        {comment.value.split(pubMedRE).map((part, index) => {
+          /** We should get odds plain text, and evens pubmed ID, but we are
+           *  still double-checking just in case */
+          if (pubMedIDRE.test(part)) {
+            // PubMed ID, insert a link
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Link key={index} to={getEntryPathForCitation(part)}>
+                {part}
+              </Link>
+            );
+          }
+          if (needsNewLineRE.test(part)) {
+            // add new line before adding the rest of the plain text
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={index}>
+                ).
+                <br />
+                {part.replace(needsNewLineRE, '')}
+              </Fragment>
+            );
+          }
+          // use plain text as such
+          return part;
+        })}
         {!noEvidence && comment.evidences && (
           <UniProtKBEvidenceTag evidences={comment.evidences} />
         )}
       </Fragment>
     ))}
-  </section>
+  </div>
 );
 
 type FreeTextProps = {
@@ -40,7 +77,9 @@ const FreeTextView: FC<FreeTextProps> = ({
       item.texts && (
         // eslint-disable-next-line react/no-array-index-key
         <Fragment key={index}>
-          {showMolecule && item.molecule && <h5>{item.molecule}</h5>}
+          {showMolecule && item.molecule && (
+            <h3 className="tiny">{item.molecule}</h3>
+          )}
           <TextView comments={item.texts} noEvidence={noEvidence} />
         </Fragment>
       )

@@ -89,19 +89,15 @@ const Entry: FC = () => {
     }
   }, [match, history]);
 
-  const {
-    loading,
-    data,
-    status,
-    error,
-    redirectedTo,
-  } = useDataApi<UniProtkbAPIModel>(
-    apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
-  );
+  const { loading, data, status, error, redirectedTo } =
+    useDataApi<UniProtkbAPIModel>(
+      apiUrls.entry(match?.params.accession, Namespace.uniprotkb)
+    );
 
-  const transformedData = useMemo(() => data && uniProtKbConverter(data), [
-    data,
-  ]);
+  const transformedData = useMemo(
+    () => data && uniProtKbConverter(data),
+    [data]
+  );
 
   const sections = useMemo(() => {
     if (transformedData) {
@@ -216,13 +212,13 @@ const Entry: FC = () => {
       className="entry-page sticky-tabs-container"
       title={
         <ErrorBoundary>
-          <h2>
+          <h1 className="big">
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
-          </h2>
+          </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       }

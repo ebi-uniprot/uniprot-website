@@ -42,13 +42,8 @@ const Entry: FC = () => {
   const accession = match?.params.accession;
 
   const baseURL = apiUrls.entry(accession, Namespace.uniref);
-  const {
-    loading,
-    data,
-    status,
-    error,
-    redirectedTo,
-  } = useDataApi<UniRefAPIModel>(baseURL);
+  const { loading, data, status, error, redirectedTo } =
+    useDataApi<UniRefAPIModel>(baseURL);
 
   if (error || !accession) {
     return <ErrorHandler status={status} />;
@@ -80,12 +75,12 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
-          <h2>
+          <h1 className="big">
             <EntryTitle
               mainTitle="UniRef"
               optionalTitle={`${transformedData.id} (${transformedData.identity}%)`}
             />
-          </h2>
+          </h1>
           <Overview transformedData={transformedData} />
         </ErrorBoundary>
       }

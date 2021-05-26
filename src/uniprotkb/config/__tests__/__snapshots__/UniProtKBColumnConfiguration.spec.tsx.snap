@@ -10,7 +10,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
   <section
     class="text-block"
   >
-    <section
+    <div
       class="text-block"
     >
       value1
@@ -36,7 +36,7 @@ exports[`UniProtKBColumnConfiguration component should render column "absorption
         data-testid="evidence-tag-content"
         id="0"
       />
-    </section>
+    </div>
     <button
       aria-controls="1"
       aria-expanded="false"
@@ -300,7 +300,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
         id="0"
       />
     </span>
-    <section
+    <div
       class="text-block"
     >
       value2
@@ -326,7 +326,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_cofacto
         data-testid="evidence-tag-content"
         id="1"
       />
-    </section>
+    </div>
   </section>
 </DocumentFragment>
 `;
@@ -451,22 +451,26 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_disease
 
 exports[`UniProtKBColumnConfiguration component should render column "cc_disruption_phenotype": cc_disruption_phenotype 1`] = `
 <DocumentFragment>
-  <h5>
+  <h3
+    class="tiny"
+  >
     Isoform 4
-  </h5>
-  <section
+  </h3>
+  <div
     class="text-block"
   >
     value
-  </section>
-  <h5>
+  </div>
+  <h3
+    class="tiny"
+  >
     Isoform 4 dfs
-  </h5>
-  <section
+  </h3>
+  <div
     class="text-block"
   >
     value
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
@@ -720,7 +724,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
         id="1"
       />
     </div>
-    <section
+    <div
       class="text-block"
     >
       value
@@ -746,7 +750,7 @@ exports[`UniProtKBColumnConfiguration component should render column "cc_subcell
         data-testid="evidence-tag-content"
         id="2"
       />
-    </section>
+    </div>
   </section>
 </DocumentFragment>
 `;
@@ -1094,7 +1098,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
   <section
     class="text-block"
   >
-    <section
+    <div
       class="text-block"
     >
       value1
@@ -1120,7 +1124,7 @@ exports[`UniProtKBColumnConfiguration component should render column "kinetics":
         data-testid="evidence-tag-content"
         id="1"
       />
-    </section>
+    </div>
   </section>
 </DocumentFragment>
 `;
@@ -1222,7 +1226,7 @@ exports[`UniProtKBColumnConfiguration component should render column "organism_n
 
 exports[`UniProtKBColumnConfiguration component should render column "ph_dependence": ph_dependence 1`] = `
 <DocumentFragment>
-  <section
+  <div
     class="text-block"
   >
     value1
@@ -1248,7 +1252,7 @@ exports[`UniProtKBColumnConfiguration component should render column "ph_depende
       data-testid="evidence-tag-content"
       id="0"
     />
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
@@ -1276,7 +1280,7 @@ exports[`UniProtKBColumnConfiguration component should render column "protein_na
 
 exports[`UniProtKBColumnConfiguration component should render column "redox_potential": redox_potential 1`] = `
 <DocumentFragment>
-  <section
+  <div
     class="text-block"
   >
     value1
@@ -1302,7 +1306,7 @@ exports[`UniProtKBColumnConfiguration component should render column "redox_pote
       data-testid="evidence-tag-content"
       id="0"
     />
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
@@ -1369,7 +1373,7 @@ exports[`UniProtKBColumnConfiguration component should render column "structure_
 
 exports[`UniProtKBColumnConfiguration component should render column "temp_dependence": temp_dependence 1`] = `
 <DocumentFragment>
-  <section
+  <div
     class="text-block"
   >
     value1
@@ -1395,7 +1399,7 @@ exports[`UniProtKBColumnConfiguration component should render column "temp_depen
       data-testid="evidence-tag-content"
       id="0"
     />
-  </section>
+  </div>
 </DocumentFragment>
 `;
 
