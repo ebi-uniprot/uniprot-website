@@ -37,6 +37,7 @@ This is a non exhaustive list of features which will be added to the website in 
 - Inline PubMed IDs to be turned into links.
 - "Search for EC number" link
 - Suggested terms - TRM-20293
+- Some sections with no data might sometimes show a title and empty section
 - [BUG](https://www.ebi.ac.uk/panda/jira/browse/TRM-25578) Scroll to hash not always working (impact on protein highlights from results card).
 
 ## UniRef Results
