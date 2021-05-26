@@ -1,10 +1,12 @@
-import KeywordCategory from '../types/keywordCategory';
-import FeatureType from '../types/featureType';
 import { convertSection, UIModel } from './sectionConverter';
+import { hasContent } from '../../shared/utils/utils';
+
 import { UniProtkbAPIModel } from './uniProtkbConverter';
-import { CommentType } from '../types/commentTypes';
 import { TaxonomyDatum } from '../../supporting-data/taxonomy/adapters/taxonomyConverter';
 import { Xref } from '../../shared/types/apiModel';
+import KeywordCategory from '../types/keywordCategory';
+import FeatureType from '../types/featureType';
+import { CommentType } from '../types/commentTypes';
 
 const commentCategories: CommentType[] = ['SUBCELLULAR LOCATION'];
 
@@ -31,7 +33,10 @@ const convertSubcellularLocation = (
     undefined,
     uniProtKBCrossReferences
   );
-  if (data.organism) {
+
+  // If there is no subcellular data, don't add organism data which will cause
+  // the section render to falsely believe the section should be rendered
+  if (hasContent(subcellularLocationData) && data.organism) {
     subcellularLocationData.organismData = data.organism;
   }
   return subcellularLocationData;
