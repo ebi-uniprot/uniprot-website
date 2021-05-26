@@ -29,7 +29,7 @@ describe('getPreviewFileFormat', () => {
   });
 });
 
-describe.only('Download component', () => {
+describe('Download component', () => {
   const namespace = Namespace.uniprotkb;
   const selectedEntries = ['Q9HC29', 'O43353', 'Q3KP66'];
   let onCloseMock: jest.Mock;
