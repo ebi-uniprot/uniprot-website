@@ -75,10 +75,10 @@ const UniProtKBFeaturesView: FC<FeatureProps> = ({
   sequence,
   features,
 }): JSX.Element | null => {
-  const processedData = useMemo(() => processFeaturesData(features, sequence), [
-    features,
-    sequence,
-  ]);
+  const processedData = useMemo(
+    () => processFeaturesData(features, sequence),
+    [features, sequence]
+  );
 
   const getColumnConfig = (evidenceTagCallback?: FeaturesTableCallback) => ({
     type: {

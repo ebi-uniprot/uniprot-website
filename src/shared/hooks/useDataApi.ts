@@ -58,61 +58,63 @@ type Action<T> =
   | { type: ActionType.ERROR; error: AxiosError };
 
 // eslint-disable-next-line consistent-return
-const createReducer = <T>() => (
-  state: UseDataAPIState<T>,
-  action: Action<T>
-  // eslint-disable-next-line consistent-return
-): UseDataAPIState<T> => {
-  // eslint-disable-next-line default-case
-  switch (action.type) {
-    case ActionType.INIT:
-      return {
-        loading: true,
-        url: action.url,
-      };
-    case ActionType.PROGRESS:
-      return {
-        ...state,
-        progress: action.progress,
-      };
-    case ActionType.SUCCESS:
-      // eslint-disable-next-line no-case-declarations
-      const newState: UseDataAPIState<T> = {
-        ...state,
-        loading: false,
-        progress: action.progress,
-        data: action.response && action.response.data,
-        status: action.response && action.response.status,
-        statusText: action.response && action.response.statusText,
-        headers: action.response && action.response.headers,
-      };
-      if (
-        action.response &&
-        action.response.request.responseURL &&
-        action.response.request.responseURL !== action.originalURL
-      ) {
-        newState.redirectedTo = action.response.request.responseURL;
-      } else if (
-        // Issue with casing in axios-mock-adapter?
-        action.response &&
-        action.response.request.responseUrl &&
-        action.response.request.responseUrl !== action.originalURL
-      ) {
-        newState.redirectedTo = action.response.request.responseUrl;
-      }
-      return newState;
-    case ActionType.ERROR:
-      return {
-        ...state,
-        loading: false,
-        progress: undefined,
-        status: action.error.response && action.error.response.status,
-        statusText: action.error.response && action.error.response.statusText,
-        headers: action.error.response && action.error.response.headers,
-        error: action.error,
-      };
-  }
-};
+const createReducer =
+  <T>() =>
+  (
+    state: UseDataAPIState<T>,
+    action: Action<T>
+    // eslint-disable-next-line consistent-return
+  ): UseDataAPIState<T> => {
+    // eslint-disable-next-line default-case
+    switch (action.type) {
+      case ActionType.INIT:
+        return {
+          loading: true,
+          url: action.url,
+        };
+      case ActionType.PROGRESS:
+        return {
+          ...state,
+          progress: action.progress,
+        };
+      case ActionType.SUCCESS:
+        // eslint-disable-next-line no-case-declarations
+        const newState: UseDataAPIState<T> = {
+          ...state,
+          loading: false,
+          progress: action.progress,
+          data: action.response && action.response.data,
+          status: action.response && action.response.status,
+          statusText: action.response && action.response.statusText,
+          headers: action.response && action.response.headers,
+        };
+        if (
+          action.response &&
+          action.response.request.responseURL &&
+          action.response.request.responseURL !== action.originalURL
+        ) {
+          newState.redirectedTo = action.response.request.responseURL;
+        } else if (
+          // Issue with casing in axios-mock-adapter?
+          action.response &&
+          action.response.request.responseUrl &&
+          action.response.request.responseUrl !== action.originalURL
+        ) {
+          newState.redirectedTo = action.response.request.responseUrl;
+        }
+        return newState;
+      case ActionType.ERROR:
+        return {
+          ...state,
+          loading: false,
+          progress: undefined,
+          status: action.error.response && action.error.response.status,
+          statusText: action.error.response && action.error.response.statusText,
+          headers: action.error.response && action.error.response.headers,
+          error: action.error,
+        };
+    }
+  };
 
 function useDataApi<T>(
   url?: string | null,
@@ -209,7 +211,8 @@ function useDataApi<T>(
           if (!nsMatch?.groups?.namespace) {
             continue; // eslint-disable-line no-continue
           }
-          const key = `table columns for ${nsMatch?.groups?.namespace}` as UserPreferenceKey;
+          const key =
+            `table columns for ${nsMatch?.groups?.namespace}` as UserPreferenceKey;
           const faultyArray: string[] = JSON.parse(
             localStorage.getItem(key) as string
           );

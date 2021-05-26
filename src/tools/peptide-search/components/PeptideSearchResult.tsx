@@ -59,9 +59,8 @@ const PeptideSearchResult: FC = () => {
     withColumns: false,
     accessions,
   });
-  const facetApiObject = useDataApiWithStale<Response['data']>(
-    initialApiFacetUrl
-  );
+  const facetApiObject =
+    useDataApiWithStale<Response['data']>(initialApiFacetUrl);
   const {
     loading: facetInititialLoading,
     headers: facetHeaders,

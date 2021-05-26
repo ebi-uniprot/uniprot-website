@@ -148,9 +148,8 @@ const getProteinHighlights = ({
   return highlightTuples
     .filter(([, count]) => count)
     .map(([entryHighlightSection, count]) => {
-      const { link, prefixResolver } = highlightToEntrySection[
-        entryHighlightSection
-      ];
+      const { link, prefixResolver } =
+        highlightToEntrySection[entryHighlightSection];
       const locationObject =
         typeof link === 'function'
           ? link(primaryAccession, organism?.taxonId)

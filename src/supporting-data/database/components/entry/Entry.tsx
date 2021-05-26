@@ -33,16 +33,10 @@ const columns = [
 const DatabaseEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const {
-    data,
-    loading,
-    error,
-    status,
-    progress,
-    isStale,
-  } = useDataApiWithStale<DatabaseAPIModel>(
-    apiUrls.entry(accession, Namespace.database)
-  );
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<DatabaseAPIModel>(
+      apiUrls.entry(accession, Namespace.database)
+    );
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;

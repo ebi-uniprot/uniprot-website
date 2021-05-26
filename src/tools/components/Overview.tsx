@@ -48,9 +48,8 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
 }) => {
   const containerRef = useRef(null);
   const [highlightPosition, setHighlighPosition] = useState('');
-  const [initialDisplayEnd, setInitialDisplayEnd] = useState<
-    number | undefined
-  >();
+  const [initialDisplayEnd, setInitialDisplayEnd] =
+    useState<number | undefined>();
   const [displayEnd, setDisplayEnd] = useState<number>();
   const tracksOffset = Math.max(...alignment.map(({ from }) => from));
   const findHighlightPositions = useCallback(
@@ -167,9 +166,8 @@ const AlignOverview: FC<AlignmentComponentProps> = ({
     [activeAlignment?.sequence, activeAnnotation, ceDefined]
   );
 
-  const overviewHeight = (alignment && alignment.length > 10
-    ? alignment.length * 3
-    : 30
+  const overviewHeight = (
+    alignment && alignment.length > 10 ? alignment.length * 3 : 30
   ).toString();
 
   const alignmentOverviewData = useMemo(

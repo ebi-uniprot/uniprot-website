@@ -143,7 +143,7 @@ const AlignForm = () => {
 
     // imperatively reset SequenceSearchLoader... 😷
     // eslint-disable-next-line no-unused-expressions
-    ((sslRef.current as unknown) as { reset: () => void }).reset();
+    (sslRef.current as unknown as { reset: () => void }).reset();
   };
 
   // the only thing to do here would be to check the values and prevent

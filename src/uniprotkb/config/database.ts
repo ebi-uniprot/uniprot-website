@@ -175,10 +175,11 @@ export const getDatabaseNameToEntrySection = (
   return entrySection;
 };
 
-export const entrySectionToDatabaseCategoryOrder = getEntrySectionToDatabaseCategoryOrder(
-  entrySectionToDatabaseNames,
-  databaseNameToCategory
-);
+export const entrySectionToDatabaseCategoryOrder =
+  getEntrySectionToDatabaseCategoryOrder(
+    entrySectionToDatabaseNames,
+    databaseNameToCategory
+  );
 
 export const getDatabaseInfoByName = (dbName: string) =>
   databaseInfo.find(

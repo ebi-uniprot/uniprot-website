@@ -2492,8 +2492,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '9332655' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1096-8628(19971031)72:3<286::aid-ajmg6>3.0.co;2-p',
+                id: '10.1002/(sici)1096-8628(19971031)72:3<286::aid-ajmg6>3.0.co;2-p',
               },
             ],
             title:
@@ -2606,8 +2605,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10094563' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1098-1004(1999)13:2<173::aid-humu19>3.0.co;2-e',
+                id: '10.1002/(sici)1098-1004(1999)13:2<173::aid-humu19>3.0.co;2-e',
               },
             ],
             title:
@@ -2636,8 +2634,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10447271' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1098-1004(1999)14:1<91::aid-humu21>3.0.co;2-b',
+                id: '10.1002/(sici)1098-1004(1999)14:1<91::aid-humu21>3.0.co;2-b',
               },
             ],
             title:
@@ -2702,8 +2699,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10748407' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1096-8628(20000313)91:2<107::aid-ajmg5>3.0.co;2-y',
+                id: '10.1002/(sici)1096-8628(20000313)91:2<107::aid-ajmg5>3.0.co;2-y',
               },
             ],
             title:
@@ -2727,8 +2723,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10612834' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1098-1004(200001)15:1<115::aid-humu23>3.0.co;2-w',
+                id: '10.1002/(sici)1098-1004(200001)15:1<115::aid-humu23>3.0.co;2-w',
               },
             ],
             title:
@@ -2758,8 +2753,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10738005' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1098-1004(200004)15:4<390::aid-humu32>3.0.co;2-n',
+                id: '10.1002/(sici)1098-1004(200004)15:4<390::aid-humu32>3.0.co;2-n',
               },
             ],
             title:
@@ -5402,8 +5396,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10482875' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1096-8628(19990917)86:3<253::aid-ajmg11>3.0.co;2-7',
+                id: '10.1002/(sici)1096-8628(19990917)86:3<253::aid-ajmg11>3.0.co;2-7',
               },
             ],
             title:
@@ -29141,8 +29134,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'N(4)-(alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] (N-glucan mannose isomer 9A1,2,3B1,2,3) + UDP-alpha-D-glucose = H(+) + N(4)-(alpha-D-Glc-(1->3)-alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] + UDP',
+            name: 'N(4)-(alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] (N-glucan mannose isomer 9A1,2,3B1,2,3) + UDP-alpha-D-glucose = H(+) + N(4)-(alpha-D-Glc-(1->3)-alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] + UDP',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:61304' },
               { database: 'Rhea', id: 'RHEA-COMP:14356' },
@@ -35547,8 +35539,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'alpha-D-glucose 1-phosphate + H(+) + UTP = diphosphate + UDP-alpha-D-glucose',
+            name: 'alpha-D-glucose 1-phosphate + H(+) + UTP = diphosphate + UDP-alpha-D-glucose',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:19889' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -42711,8 +42702,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'N(4)-(alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] (N-glucan mannose isomer 9A1,2,3B1,2,3) + UDP-alpha-D-glucose = H(+) + N(4)-(alpha-D-Glc-(1->3)-alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] + UDP',
+            name: 'N(4)-(alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] (N-glucan mannose isomer 9A1,2,3B1,2,3) + UDP-alpha-D-glucose = H(+) + N(4)-(alpha-D-Glc-(1->3)-alpha-D-Man-(1->2)-alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->3)-[alpha-D-Man-(1->2)-alpha-D-Man-(1->6)]-alpha-D-Man-(1->6)]-beta-D-Man-(1->4)-beta-D-GlcNAc-(1->4)-alpha-D-GlcNAc)-L-asparaginyl-[protein] + UDP',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:61304' },
               { database: 'Rhea', id: 'RHEA-COMP:14356' },
@@ -45939,8 +45929,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-glucose 6-phosphate + NADP(+) = 6-phospho-D-glucono-1,5-lactone + H(+) + NADPH',
+            name: 'D-glucose 6-phosphate + NADP(+) = 6-phospho-D-glucono-1,5-lactone + H(+) + NADPH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:15841' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -50094,8 +50083,7 @@ const mock: Response['data'] = {
               { database: 'PubMed', id: '10627140' },
               {
                 database: 'DOI',
-                id:
-                  '10.1002/(sici)1098-1004(1998)12:1<72::aid-humu19>3.0.co;2-t',
+                id: '10.1002/(sici)1098-1004(1998)12:1<72::aid-humu19>3.0.co;2-t',
               },
             ],
             title:
@@ -52372,8 +52360,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-glucose(out) + N(pros)-phospho-L-histidyl-[protein] = D-glucose 6-phosphate(in) + L-histidyl-[protein]',
+            name: 'D-glucose(out) + N(pros)-phospho-L-histidyl-[protein] = D-glucose 6-phosphate(in) + L-histidyl-[protein]',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:33367' },
               { database: 'Rhea', id: 'RHEA-COMP:9745' },
@@ -54445,8 +54432,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'alpha-D-glucose 1-phosphate + ATP + H(+) = ADP-alpha-D-glucose + diphosphate',
+            name: 'alpha-D-glucose 1-phosphate + ATP + H(+) = ADP-alpha-D-glucose + diphosphate',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:12120' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -58862,8 +58848,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-glucose 6-phosphate + NADP(+) = 6-phospho-D-glucono-1,5-lactone + H(+) + NADPH',
+            name: 'D-glucose 6-phosphate + NADP(+) = 6-phospho-D-glucono-1,5-lactone + H(+) + NADPH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:15841' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -58895,8 +58880,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-glucose 6-phosphate + NAD(+) = 6-phospho-D-glucono-1,5-lactone + H(+) + NADH',
+            name: 'D-glucose 6-phosphate + NAD(+) = 6-phospho-D-glucono-1,5-lactone + H(+) + NADH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:38215' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -58931,8 +58915,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              '6-phospho-D-glucono-1,5-lactone + H2O = 6-phospho-D-gluconate + H(+)',
+            name: '6-phospho-D-glucono-1,5-lactone + H2O = 6-phospho-D-gluconate + H(+)',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:12556' },
               { database: 'ChEBI', id: 'CHEBI:15377' },
@@ -58966,8 +58949,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              '2-deoxy-D-glucose 6-phosphate + NAD(+) = 2-deoxy-6-phospho-D-glucono-1,5-lactone + H(+) + NADH',
+            name: '2-deoxy-D-glucose 6-phosphate + NAD(+) = 2-deoxy-6-phospho-D-glucono-1,5-lactone + H(+) + NADH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:62064' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -59001,8 +58983,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              '2-deoxy-D-glucose 6-phosphate + NADP(+) = 2-deoxy-6-phospho-D-glucono-1,5-lactone + H(+) + NADPH',
+            name: '2-deoxy-D-glucose 6-phosphate + NADP(+) = 2-deoxy-6-phospho-D-glucono-1,5-lactone + H(+) + NADPH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:62068' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -59036,8 +59017,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-galactose 6-phosphate + NADP(+) = 6-phospho-D-galactono-1,5-lactone + H(+) + NADPH',
+            name: 'D-galactose 6-phosphate + NADP(+) = 6-phospho-D-galactono-1,5-lactone + H(+) + NADPH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:62072' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -59067,8 +59047,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-galactose 6-phosphate + NAD(+) = 6-phospho-D-galactono-1,5-lactone + H(+) + NADH',
+            name: 'D-galactose 6-phosphate + NAD(+) = 6-phospho-D-galactono-1,5-lactone + H(+) + NADH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:62076' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -59102,8 +59081,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-glucosamine 6-phosphate + NADP(+) = 2-amino-2-deoxy-6-phospho-D-glucono-1,5-lactone + 2 H(+) + NADPH',
+            name: 'D-glucosamine 6-phosphate + NADP(+) = 2-amino-2-deoxy-6-phospho-D-glucono-1,5-lactone + 2 H(+) + NADPH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:62088' },
               { database: 'ChEBI', id: 'CHEBI:15378' },
@@ -59207,8 +59185,7 @@ const mock: Response['data'] = {
         {
           commentType: 'CATALYTIC ACTIVITY',
           reaction: {
-            name:
-              'D-glucose 6-sulfate + NADP(+) = 6-sulfo-D-glucono-1,5-lactone + H(+) + NADPH',
+            name: 'D-glucose 6-sulfate + NADP(+) = 6-sulfo-D-glucono-1,5-lactone + H(+) + NADPH',
             reactionCrossReferences: [
               { database: 'Rhea', id: 'RHEA:62080' },
               { database: 'ChEBI', id: 'CHEBI:15378' },

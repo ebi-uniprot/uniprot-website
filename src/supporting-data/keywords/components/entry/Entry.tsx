@@ -33,16 +33,10 @@ const columns = [
 const KeywordsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const {
-    data,
-    loading,
-    error,
-    status,
-    progress,
-    isStale,
-  } = useDataApiWithStale<KeywordsAPIModel>(
-    apiUrls.entry(accession, Namespace.keywords)
-  );
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<KeywordsAPIModel>(
+      apiUrls.entry(accession, Namespace.keywords)
+    );
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;

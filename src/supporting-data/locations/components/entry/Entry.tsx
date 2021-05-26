@@ -37,16 +37,10 @@ const columns = [
 const LocationsEntry = (props: RouteChildrenProps<{ accession: string }>) => {
   const accession = props.match?.params.accession;
 
-  const {
-    data,
-    loading,
-    error,
-    status,
-    progress,
-    isStale,
-  } = useDataApiWithStale<LocationsAPIModel>(
-    apiUrls.entry(accession, Namespace.locations)
-  );
+  const { data, loading, error, status, progress, isStale } =
+    useDataApiWithStale<LocationsAPIModel>(
+      apiUrls.entry(accession, Namespace.locations)
+    );
 
   if (error || !accession || (!loading && !data)) {
     return <ErrorHandler status={status} />;

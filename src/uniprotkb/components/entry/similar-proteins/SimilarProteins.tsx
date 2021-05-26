@@ -38,9 +38,10 @@ const SimilarProteins = ({ isoforms, primaryAccession }: Props) => {
   const searchUrl = getClustersForProteins(allAccessions);
 
   // Get the clusters in which the canonical and isoforms are found
-  const { loading, data, error } = useDataApi<{
-    results: UniRefLiteAPIModel[];
-  }>(searchUrl);
+  const { loading, data, error } =
+    useDataApi<{
+      results: UniRefLiteAPIModel[];
+    }>(searchUrl);
 
   const clusterData = useMemo(() => {
     if (data) {

@@ -124,19 +124,29 @@ const convertFunction = (
   if (bpcProperties) {
     bpcProperties.forEach((bpcProperty) => {
       if ((bpcProperty as AbsorptionComment).absorption) {
-        convertedSection.bioPhysicoChemicalProperties.absorption = (bpcProperty as AbsorptionComment).absorption;
+        convertedSection.bioPhysicoChemicalProperties.absorption = (
+          bpcProperty as AbsorptionComment
+        ).absorption;
       }
       if ((bpcProperty as KineticsComment).kineticParameters) {
-        convertedSection.bioPhysicoChemicalProperties.kinetics = (bpcProperty as KineticsComment).kineticParameters;
+        convertedSection.bioPhysicoChemicalProperties.kinetics = (
+          bpcProperty as KineticsComment
+        ).kineticParameters;
       }
       if ((bpcProperty as pHDependenceComment).phDependence) {
-        convertedSection.bioPhysicoChemicalProperties.pHDependence = (bpcProperty as pHDependenceComment).phDependence.texts;
+        convertedSection.bioPhysicoChemicalProperties.pHDependence = (
+          bpcProperty as pHDependenceComment
+        ).phDependence.texts;
       }
       if ((bpcProperty as RedoxPotentialComment).redoxPotential) {
-        convertedSection.bioPhysicoChemicalProperties.redoxPotential = (bpcProperty as RedoxPotentialComment).redoxPotential.texts;
+        convertedSection.bioPhysicoChemicalProperties.redoxPotential = (
+          bpcProperty as RedoxPotentialComment
+        ).redoxPotential.texts;
       }
       if ((bpcProperty as TemperatureDependenceComment).temperatureDependence) {
-        convertedSection.bioPhysicoChemicalProperties.temperatureDependence = (bpcProperty as TemperatureDependenceComment).temperatureDependence.texts;
+        convertedSection.bioPhysicoChemicalProperties.temperatureDependence = (
+          bpcProperty as TemperatureDependenceComment
+        ).temperatureDependence.texts;
       }
     });
   }
@@ -153,9 +163,11 @@ const convertFunction = (
   );
 
   if (uniProtKBCrossReferences) {
-    const goTerms = (uniProtKBCrossReferences.filter(
-      (xref) => xref.database === 'GO' && xref.properties
-    ) as GoTerm[]).map((term) => {
+    const goTerms = (
+      uniProtKBCrossReferences.filter(
+        (xref) => xref.database === 'GO' && xref.properties
+      ) as GoTerm[]
+    ).map((term) => {
       const goTermProperty = term.properties && term.properties.GoTerm;
       const aspect = goTermProperty && goTermProperty.substring(0, 1);
       const termDescription = goTermProperty && goTermProperty.substring(2);

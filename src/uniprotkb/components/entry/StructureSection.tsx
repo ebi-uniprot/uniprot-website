@@ -51,10 +51,8 @@ const StructureSection = ({
     arrayStructureDatabases.length === 1 &&
     arrayStructureDatabases[0];
   if (structureDatabases) {
-    const {
-      PDBDatabase,
-      otherStructureDatabases,
-    } = partitionStructureDatabases(structureDatabases.databases);
+    const { PDBDatabase, otherStructureDatabases } =
+      partitionStructureDatabases(structureDatabases.databases);
     if (PDBDatabase && PDBDatabase.xrefs.length) {
       PDBViewNode = (
         <PDBView
