@@ -29,7 +29,7 @@
       display: none;
     }
     // makes sure that the scrollbar isn't hidden by the action button group
-    z-index: 1;
+    z-index: $z-index-medium + 1;
   }
 
   &__sidebar-content {
