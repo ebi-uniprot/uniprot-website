@@ -121,7 +121,9 @@ module.exports = (env, argv) => {
          * */
         {
           test: /\.worker\.js$/,
-          use: { loader: 'worker-loader' },
+          use: {
+            loader: 'worker-loader',
+          },
         },
         // Stylesheets
         {
@@ -239,7 +241,6 @@ module.exports = (env, argv) => {
     stats: {
       children: false,
       assetsSort: '!size',
-      // groupAssetsByChunk: true,
     },
     // PLUGINS
     plugins: [
@@ -340,14 +341,13 @@ module.exports = (env, argv) => {
 
   if (isLiveReload) {
     config.devServer = {
-      contentBase: path.join(__dirname, 'build'),
       compress: true,
       host: 'localhost',
-      port: 0,
       historyApiFallback: true,
-      stats: 'minimal',
-      // use a browser specified in the user's environment, otherwise use default
-      open: process.env.BROWSER || true,
+      open: {
+        // use a browser specified in the user's environment, otherwise use default
+        app: process.env.BROWSER,
+      },
     };
   }
 
