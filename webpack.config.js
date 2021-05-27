@@ -290,7 +290,9 @@ module.exports = (env, argv) => {
       // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
       splitChunks: {
         chunks: 'async',
+        // 30k, default min size of chunks anyway
         minSize: 30 * 1024,
+        // 255k, order of magnitude of recommendation for max size of chunks
         maxSize: 255 * 1024,
         minChunks: 1,
         maxAsyncRequests: 6,
