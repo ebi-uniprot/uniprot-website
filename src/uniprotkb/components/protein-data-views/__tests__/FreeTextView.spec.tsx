@@ -6,46 +6,49 @@ import FreeTextView from '../FreeTextView';
 import freeTextUIData from './__mocks__/freeTextUIData';
 
 describe('FreeText component', () => {
-  it('should render free text CC', () => {
-    const { asFragment } = customRender(
-      <FreeTextView comments={[freeTextUIData[0]]} />
-    );
-    expect(asFragment()).toMatchSnapshot();
+  describe('Free text CC', () => {
+    beforeEach(() => {
+      customRender(<FreeTextView comments={[freeTextUIData[0]]} />);
+    });
 
-    // PubMed links
-    expect(screen.queryAllByRole('link')).toHaveLength(0);
+    it('should not render pubmed links', () => {
+      expect(screen.queryAllByRole('link')).toHaveLength(0);
+    });
 
-    // Publication button / evidence tag
-    expect(
-      screen.getByRole('button', { name: '1 publication' })
-    ).toBeInTheDocument();
+    it('should render evidence tags', () => {
+      expect(
+        screen.getByRole('button', { name: '1 publication' })
+      ).toBeInTheDocument();
+    });
   });
 
-  it('should render free text CC with inlined pubmeds', () => {
-    const { asFragment } = customRender(
-      <FreeTextView comments={[freeTextUIData[1]]} />
-    );
-    expect(asFragment()).toMatchSnapshot();
+  describe('Free text CC with inlined PubMeds', () => {
+    beforeEach(() => {
+      customRender(<FreeTextView comments={[freeTextUIData[1]]} />);
+    });
 
-    // PubMed links
-    expect(screen.getAllByRole('link')).toHaveLength(2);
+    it('should not render pubmed links', () => {
+      expect(screen.getAllByRole('link')).toHaveLength(2);
+    });
 
-    // Publication button / evidence tag
-    expect(
-      screen.getByRole('button', { name: '1 publication' })
-    ).toBeInTheDocument();
+    it('should render evidence tags', () => {
+      expect(
+        screen.getByRole('button', { name: '1 publication' })
+      ).toBeInTheDocument();
+    });
   });
 
-  it('should render free text CC, without evidences nor inlined pubmeds', () => {
-    const { asFragment } = customRender(
-      <FreeTextView comments={[freeTextUIData[0]]} noEvidence />
-    );
-    expect(asFragment()).toMatchSnapshot();
+  describe('Free text CC, no inlined PubMeds, no evidence tag', () => {
+    beforeEach(() => {
+      customRender(<FreeTextView comments={[freeTextUIData[0]]} noEvidence />);
+    });
 
-    // PubMed links
-    expect(screen.queryAllByRole('link')).toHaveLength(0);
+    it('should not render pubmed links', () => {
+      expect(screen.queryAllByRole('link')).toHaveLength(0);
+    });
 
-    // Publication button / evidence tag
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    it('should not render evidence tags', () => {
+      expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
   });
 });
