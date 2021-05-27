@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
+import { PIM } from '../../types/alignResults';
 
 import pim from '../pim';
 
@@ -8,7 +9,7 @@ const readFile = promisify(fs.readFile);
 
 describe('pim', () => {
   describe('file with accession', () => {
-    let file;
+    let file: string;
 
     beforeAll(async () => {
       file = await readFile(
@@ -54,7 +55,7 @@ describe('pim', () => {
   });
 
   describe('file without accession', () => {
-    let file;
+    let file: string;
 
     beforeAll(async () => {
       file = await readFile(
@@ -82,7 +83,7 @@ describe('pim', () => {
   });
 
   describe('file with NaNs', () => {
-    let file;
+    let file: string;
 
     beforeAll(async () => {
       file = await readFile(
@@ -92,10 +93,7 @@ describe('pim', () => {
     });
 
     it('should parse correctly', () => {
-      let parsed;
-      expect(() => {
-        parsed = pim(file);
-      }).not.toThrow();
+      const parsed = pim(file);
 
       expect(parsed[0].values[0]).not.toBeNaN();
       expect(parsed[16].values[9]).toBeNaN();

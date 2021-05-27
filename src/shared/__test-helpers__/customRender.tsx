@@ -6,11 +6,13 @@ import { ReactElement, Component } from 'react';
 import { Router, Route } from 'react-router-dom';
 import { createMemoryHistory, MemoryHistory, LocationState } from 'history';
 import { Provider as ReduxProvider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, Store } from 'redux';
 import { render, RenderOptions } from '@testing-library/react';
 import { SetRequired, JsonValue } from 'type-fest';
 
 import rootReducer from '../../app/state/rootReducer';
+
+import { RootState } from '../../app/state/rootInitialState';
 
 type ExtraRenderOptions = {
   // For react-router
@@ -22,7 +24,7 @@ type ExtraRenderOptions = {
   initialUserPreferences?: Record<string, JsonValue>;
   // For redux
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  store?: any;
+  store?: Store<RootState>;
 };
 
 type WrapperProps = RenderOptions &

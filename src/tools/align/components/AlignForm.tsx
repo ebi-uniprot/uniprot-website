@@ -64,7 +64,7 @@ const FormSelect: FC<{
   const label = AlignFields[formValue.fieldName as keyof typeof AlignFields];
   return (
     <section className="tools-form-section__item">
-      <label htmlFor={label}>
+      <label>
         {label}
         <select
           value={formValue.selected as string}

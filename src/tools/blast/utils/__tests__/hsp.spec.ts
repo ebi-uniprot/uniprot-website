@@ -3,8 +3,8 @@ import {
   getFullAlignmentLength,
   getOffset,
 } from '../../../utils/sequences';
+
 import mockData from '../__mocks__/hspMocks.json';
-import { FeatureData } from '../../../../uniprotkb/components/protein-data-views/UniProtKBFeaturesView';
 
 describe.skip('HSP util tests', () => {
   it('should work with longer query than hit', () => {

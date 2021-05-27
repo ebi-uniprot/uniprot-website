@@ -64,7 +64,7 @@ const FormSelect: FC<{
     ];
   return (
     <section className="tools-form-section__item">
-      <label htmlFor={label}>
+      <label>
         {label}
         <select
           value={formValue.selected as string}
