@@ -102,12 +102,12 @@ const Entry: FC = () => {
       className="entry-page"
       title={
         <ErrorBoundary>
-          <h2>
+          <h1 className="big">
             <EntryTitle
               mainTitle="UniParc"
               optionalTitle={transformedData.uniParcId}
             />
-          </h2>
+          </h1>
         </ErrorBoundary>
       }
     >

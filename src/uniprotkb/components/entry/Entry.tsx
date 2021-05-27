@@ -212,13 +212,13 @@ const Entry: FC = () => {
       className="entry-page sticky-tabs-container"
       title={
         <ErrorBoundary>
-          <h2>
+          <h1 className="big">
             <EntryTitle
               mainTitle={data.primaryAccession}
               optionalTitle={data.uniProtkbId}
               entryType={data.entryType}
             />
-          </h2>
+          </h1>
           <ProteinOverview data={data} />
         </ErrorBoundary>
       }
