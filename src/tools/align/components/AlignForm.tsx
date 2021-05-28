@@ -49,8 +49,8 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
+import '../../styles/ToolsForm.scss';
 
 const ALIGN_LIMIT = 100;
 

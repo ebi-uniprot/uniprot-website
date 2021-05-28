@@ -113,7 +113,7 @@ exports[`Entry view should render 1`] = `
               id="2"
             />
           </span>
-          <section
+          <div
             class="text-block"
           >
             value2
@@ -139,7 +139,7 @@ exports[`Entry view should render 1`] = `
               data-testid="evidence-tag-content"
               id="3"
             />
-          </section>
+          </div>
         </section>
         <h3>
           Absorption
@@ -152,7 +152,7 @@ exports[`Entry view should render 1`] = `
         <section
           class="text-block"
         >
-          <section
+          <div
             class="text-block"
           >
             value1
@@ -178,7 +178,7 @@ exports[`Entry view should render 1`] = `
               data-testid="evidence-tag-content"
               id="4"
             />
-          </section>
+          </div>
           <button
             aria-controls="5"
             aria-expanded="false"
@@ -245,7 +245,7 @@ exports[`Entry view should render 1`] = `
         <section
           class="text-block"
         >
-          <section
+          <div
             class="text-block"
           >
             value1
@@ -271,12 +271,12 @@ exports[`Entry view should render 1`] = `
               data-testid="evidence-tag-content"
               id="7"
             />
-          </section>
+          </div>
         </section>
         <h3>
           pH Dependence
         </h3>
-        <section
+        <div
           class="text-block"
         >
           value1
@@ -302,11 +302,11 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="8"
           />
-        </section>
+        </div>
         <h3>
           Redox Potential
         </h3>
-        <section
+        <div
           class="text-block"
         >
           value1
@@ -332,11 +332,11 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="9"
           />
-        </section>
+        </div>
         <h3>
           Temperature Dependence
         </h3>
-        <section
+        <div
           class="text-block"
         >
           value1
@@ -362,7 +362,7 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="10"
           />
-        </section>
+        </div>
         <div
           class="loader-container"
         >
@@ -1402,7 +1402,7 @@ exports[`Entry view should render 1`] = `
               id="30"
             />
           </div>
-          <section
+          <div
             class="text-block"
           >
             value
@@ -1428,7 +1428,7 @@ exports[`Entry view should render 1`] = `
               data-testid="evidence-tag-content"
               id="31"
             />
-          </section>
+          </div>
         </section>
       </div>
     </div>
@@ -1570,10 +1570,12 @@ exports[`Entry view should render 1`] = `
         >
           disruption phenotype
         </h3>
-        <h5>
+        <h3
+          class="tiny"
+        >
           Isoform 4
-        </h5>
-        <section
+        </h3>
+        <div
           class="text-block"
         >
           value
@@ -1599,11 +1601,13 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="33"
           />
-        </section>
-        <h5>
+        </div>
+        <h3
+          class="tiny"
+        >
           Isoform 4 dfs
-        </h5>
-        <section
+        </h3>
+        <div
           class="text-block"
         >
           value
@@ -1629,7 +1633,7 @@ exports[`Entry view should render 1`] = `
             data-testid="evidence-tag-content"
             id="34"
           />
-        </section>
+        </div>
         <div
           class="loader-container"
         >
@@ -2389,7 +2393,7 @@ exports[`Entry view should render for non-human entry 1`] = `
       <div
         class="card__content"
       >
-        <section
+        <div
           class="text-block"
         >
           One of an enzyme pair that work together to convert the A antigen to the H antigen of the O blood type, which together release galactosamine. Catalyzes the first step in the conversion, generating the substrate for the subsequent enzyme (FpGalNase, AC P0DTR5). Works on many different A antigen subtypes. Glu-90 probably activates a nucleophilic water molecule to start the deacetylation reaction
@@ -2415,7 +2419,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="0"
           />
-        </section>
+        </div>
         <h3>
           catalytic activity
         </h3>
@@ -2500,7 +2504,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           miscellaneous
         </h3>
-        <section
+        <div
           class="text-block"
         >
           DNA was isolated from a male human fecal sample of AB+ blood type, the sequence was given to UniProtKB by the submitters
@@ -2526,13 +2530,13 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="3"
           />
-        </section>
+        </div>
         <h3
           style="text-transform: capitalize;"
         >
           biotechnology
         </h3>
-        <section
+        <div
           class="text-block"
         >
           5 ug/ml of this enzyme pair converts A blood type to O blood type in an hour, and can be removed by centrifugation, showing the pair can be used for production of universal type donor blood
@@ -2558,7 +2562,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="4"
           />
-        </section>
+        </div>
         <h3>
           Kinetics
         </h3>
@@ -2605,7 +2609,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         <h3>
           pH Dependence
         </h3>
-        <section
+        <div
           class="text-block"
         >
           Optimum pH is 8.0.
@@ -2631,13 +2635,13 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="6"
           />
-        </section>
+        </div>
         <h3
           style="text-transform: capitalize;"
         >
           activity regulation
         </h3>
-        <section
+        <div
           class="text-block"
         >
           Inhibited by EDTA
@@ -2663,7 +2667,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="7"
           />
-        </section>
+        </div>
         <h3>
           Features
         </h3>
@@ -3562,7 +3566,7 @@ exports[`Entry view should render for non-human entry 1`] = `
         >
           domain
         </h3>
-        <section
+        <div
           class="text-block"
         >
           The deacetylase domain is in the N-terminus, while the C-terminus has a CBM32-type carbohydrate-binding domain that is not required for activity on soluble substrates. The CBM32 domain binds preferentially to repeating N-acetyl lactosamine structures
@@ -3588,7 +3592,7 @@ exports[`Entry view should render for non-human entry 1`] = `
             data-testid="evidence-tag-content"
             id="31"
           />
-        </section>
+        </div>
         <h3>
           Keywords
         </h3>

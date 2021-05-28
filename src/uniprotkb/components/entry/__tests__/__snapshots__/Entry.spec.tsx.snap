@@ -132,7 +132,9 @@ exports[`Entry basic should render main 1`] = `
       <section
         class="sidebar-layout__title"
       >
-        <h2>
+        <h1
+          class="big"
+        >
           <span
             class="entry-title"
           >
@@ -144,7 +146,7 @@ exports[`Entry basic should render main 1`] = `
             </span>
             P21802 · uniprot_id
           </span>
-        </h2>
+        </h1>
         <section>
           rec full Name · 
           <a
@@ -409,7 +411,7 @@ exports[`Entry basic should render main 1`] = `
                       id="3"
                     />
                   </span>
-                  <section
+                  <div
                     class="text-block"
                   >
                     value2
@@ -435,7 +437,7 @@ exports[`Entry basic should render main 1`] = `
                       data-testid="evidence-tag-content"
                       id="4"
                     />
-                  </section>
+                  </div>
                 </section>
                 <h3>
                   Absorption
@@ -448,7 +450,7 @@ exports[`Entry basic should render main 1`] = `
                 <section
                   class="text-block"
                 >
-                  <section
+                  <div
                     class="text-block"
                   >
                     value1
@@ -474,7 +476,7 @@ exports[`Entry basic should render main 1`] = `
                       data-testid="evidence-tag-content"
                       id="5"
                     />
-                  </section>
+                  </div>
                   <button
                     aria-controls="6"
                     aria-expanded="false"
@@ -541,7 +543,7 @@ exports[`Entry basic should render main 1`] = `
                 <section
                   class="text-block"
                 >
-                  <section
+                  <div
                     class="text-block"
                   >
                     value1
@@ -567,12 +569,12 @@ exports[`Entry basic should render main 1`] = `
                       data-testid="evidence-tag-content"
                       id="8"
                     />
-                  </section>
+                  </div>
                 </section>
                 <h3>
                   pH Dependence
                 </h3>
-                <section
+                <div
                   class="text-block"
                 >
                   value1
@@ -598,11 +600,11 @@ exports[`Entry basic should render main 1`] = `
                     data-testid="evidence-tag-content"
                     id="9"
                   />
-                </section>
+                </div>
                 <h3>
                   Redox Potential
                 </h3>
-                <section
+                <div
                   class="text-block"
                 >
                   value1
@@ -628,11 +630,11 @@ exports[`Entry basic should render main 1`] = `
                     data-testid="evidence-tag-content"
                     id="10"
                   />
-                </section>
+                </div>
                 <h3>
                   Temperature Dependence
                 </h3>
-                <section
+                <div
                   class="text-block"
                 >
                   value1
@@ -658,7 +660,7 @@ exports[`Entry basic should render main 1`] = `
                     data-testid="evidence-tag-content"
                     id="11"
                   />
-                </section>
+                </div>
                 <div
                   class="GoRibbon"
                 />
@@ -1703,7 +1705,7 @@ exports[`Entry basic should render main 1`] = `
                         id="41"
                       />
                     </div>
-                    <section
+                    <div
                       class="text-block"
                     >
                       value
@@ -1729,7 +1731,7 @@ exports[`Entry basic should render main 1`] = `
                         data-testid="evidence-tag-content"
                         id="42"
                       />
-                    </section>
+                    </div>
                   </section>
                 </sib-swissbiopics-sl-0>
               </div>
@@ -1872,10 +1874,12 @@ exports[`Entry basic should render main 1`] = `
                 >
                   disruption phenotype
                 </h3>
-                <h5>
+                <h3
+                  class="tiny"
+                >
                   Isoform 4
-                </h5>
-                <section
+                </h3>
+                <div
                   class="text-block"
                 >
                   value
@@ -1901,11 +1905,13 @@ exports[`Entry basic should render main 1`] = `
                     data-testid="evidence-tag-content"
                     id="34"
                   />
-                </section>
-                <h5>
+                </div>
+                <h3
+                  class="tiny"
+                >
                   Isoform 4 dfs
-                </h5>
-                <section
+                </h3>
+                <div
                   class="text-block"
                 >
                   value
@@ -1931,7 +1937,7 @@ exports[`Entry basic should render main 1`] = `
                     data-testid="evidence-tag-content"
                     id="35"
                   />
-                </section>
+                </div>
               </div>
             </div>
           </section>

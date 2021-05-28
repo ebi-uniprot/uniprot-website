@@ -63,8 +63,8 @@ import {
 } from '../../../messages/types/messagesTypes';
 import { SelectedTaxon } from '../../types/toolsFormData';
 
-import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
+import '../../styles/ToolsForm.scss';
 
 const BLAST_LIMIT = 20;
 

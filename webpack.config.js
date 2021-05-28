@@ -10,7 +10,7 @@ const childProcess = require('child_process');
 
 module.exports = (env, argv) => {
   const isDev = argv.mode === 'development';
-  const isLiveReload = !!argv.liveReload;
+  const isLiveReload = !!env.WEBPACK_SERVE;
   const isTest = env.TEST;
   const gitCommitHash = childProcess
     .execSync('git rev-parse --short HEAD')
@@ -37,8 +37,9 @@ module.exports = (env, argv) => {
     output: {
       path: path.resolve(__dirname, 'build'),
       publicPath,
-      filename: 'app.[hash:6].js',
-      chunkFilename: '[name].[chunkhash:6].js',
+      filename: 'app.[contenthash:6].js',
+      chunkFilename: '[name].[contenthash:6].js',
+      clean: true,
     },
     devtool: (() => {
       // no sourcemap for tests
@@ -94,6 +95,10 @@ module.exports = (env, argv) => {
         'lodash.unset': path.resolve('./node_modules/lodash-es/unset'),
       },
       symlinks: false,
+      fallback: {
+        // Needed for 'react-msa-viewer'
+        assert: false,
+      },
     },
     // MODULE
     module: {
@@ -116,7 +121,9 @@ module.exports = (env, argv) => {
          * */
         {
           test: /\.worker\.js$/,
-          use: { loader: 'worker-loader' },
+          use: {
+            loader: 'worker-loader',
+          },
         },
         // Stylesheets
         {
@@ -151,7 +158,9 @@ module.exports = (env, argv) => {
                 modules: {
                   auto: true, // only for files containing ".module." in name
                   // class name to hash, but also keep name in development
-                  localIdentName: `${isDev ? '[local]#' : ''}[hash:base64:5]`,
+                  localIdentName: `${
+                    isDev ? '[local]#' : ''
+                  }[contenthash:base64:5]`,
                 },
               },
             },
@@ -232,12 +241,9 @@ module.exports = (env, argv) => {
     stats: {
       children: false,
       assetsSort: '!size',
-      // groupAssetsByChunk: true,
     },
     // PLUGINS
     plugins: [
-      !isLiveReload &&
-        new (require('clean-webpack-plugin').CleanWebpackPlugin)(),
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
         filename: 'index.html',
@@ -284,8 +290,10 @@ module.exports = (env, argv) => {
       // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
       splitChunks: {
         chunks: 'async',
-        minSize: 30000,
-        maxSize: 0,
+        // 30k, default min size of chunks anyway
+        minSize: 30 * 1024,
+        // 244k, order of magnitude of recommendation for max size of chunks
+        maxSize: 244 * 1024,
         minChunks: 1,
         maxAsyncRequests: 6,
         maxInitialRequests: 4,
@@ -322,7 +330,6 @@ module.exports = (env, argv) => {
             test: /[\\/]node_modules[\\/]/,
             name: 'default-vendors',
             priority: -10,
-            maxSize: 255 * 1024,
           },
           default: {
             minChunks: 2,
@@ -336,14 +343,13 @@ module.exports = (env, argv) => {
 
   if (isLiveReload) {
     config.devServer = {
-      contentBase: path.join(__dirname, 'build'),
       compress: true,
       host: 'localhost',
-      port: 0,
       historyApiFallback: true,
-      stats: 'minimal',
-      // use a browser specified in the user's environment, otherwise use default
-      open: process.env.BROWSER || true,
+      open: {
+        // use a browser specified in the user's environment, otherwise use default
+        app: process.env.BROWSER,
+      },
     };
   }
 
