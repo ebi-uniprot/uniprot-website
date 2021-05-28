@@ -323,7 +323,7 @@ const App = () => {
         href="https://goo.gl/forms/VrAGbqg2XFg6Mpbh1"
         rel="noopener noreferrer"
       >
-        Report bug
+        Submit feedback
       </a>
     </FranklinSite>
   );
