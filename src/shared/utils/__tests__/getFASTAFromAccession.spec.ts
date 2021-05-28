@@ -5,7 +5,7 @@ import getFASTAFromAccession from '../getFASTAFromAccession';
 
 import mockUniProtKB from '../../../uniprotkb/components/__mocks__/swissprotEntry';
 import mockUniParc from '../../../uniparc/__mocks__/uniParcEntryModelData';
-import mockUniRef from '../../../uniref/__mocks__/UniRefResultsData';
+import mockUniRef from '../../../uniref/__mocks__/uniRefModelData';
 
 const mock = new MockAdapter(axios);
 
@@ -42,11 +42,8 @@ describe('getFASTAFromAccession', () => {
     ).resolves.toMatchSnapshot();
   });
 
-  // TODO: uncomment and add a mock json payload once UniRef API has stabilised
-  it.skip('should handle UniRef entry', async () => {
-    mock
-      .onGet(/api\/uniref\/UniRef100_A0A0B7GQ86$/)
-      .reply(200, mockUniRef.results[0]);
+  it('should handle UniRef entry', async () => {
+    mock.onGet(/api\/uniref\/UniRef100_A0A0B7GQ86$/).reply(200, mockUniRef);
     await expect(
       getFASTAFromAccession('UniRef100_A0A0B7GQ86')
     ).resolves.toMatchSnapshot();

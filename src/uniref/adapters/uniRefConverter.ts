@@ -23,7 +23,7 @@ export const uniRefEntryTypeToPercent: Record<UniRefEntryType, string> = {
 type MemberIDType = 'UniParc' | 'UniProtKB ID';
 
 export type UniRefMember = {
-  seed: boolean;
+  seed?: boolean;
   memberIdType: MemberIDType;
   memberId: string;
   organismName: string;
@@ -34,7 +34,8 @@ export type UniRefMember = {
   uniref50Id?: string;
   uniref90Id?: string;
   uniref100Id?: string;
-  uniparcId?: { value: string };
+  // This needs to be unified at some point
+  uniparcId?: string | { value: string };
 };
 
 export type RepresentativeMember = UniRefMember & {
@@ -55,9 +56,7 @@ export type UniRefLiteAPIModel = {
   name: string;
   id: string;
   organismCount: number;
-  representativeMember: Partial<UniRefMember> & {
-    sequence?: Partial<Sequence>;
-  };
+  representativeMember: RepresentativeMember;
   seedId: string;
   memberIdTypes: MemberIdType[];
   members: string[];
@@ -68,7 +67,7 @@ export type UniRefLiteAPIModel = {
 export type UniRefAPIModel = {
   commonTaxonId: number;
   commonTaxon: string;
-  goTerms: GeneOntologyEntry[];
+  goTerms?: GeneOntologyEntry[];
   representativeMember: RepresentativeMember;
   seedId: string;
   memberCount: number;
@@ -76,7 +75,7 @@ export type UniRefAPIModel = {
   updated: string;
   name: string;
   id: string;
-  members: UniRefMember[];
+  members?: UniRefMember[];
 };
 
 export const identityLevels = [50, 90, 100] as const;
