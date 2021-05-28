@@ -25,8 +25,8 @@ import {
 import { ContentType, FileFormat } from '../../types/resultsDownload';
 import { Namespace } from '../../types/namespaces';
 
-import './styles/download.scss';
 import '../../styles/sticky.scss';
+import './styles/download.scss';
 
 export const getPreviewFileFormat = (fileFormat: FileFormat) =>
   fileFormat === FileFormat.excel ? FileFormat.tsv : fileFormat;

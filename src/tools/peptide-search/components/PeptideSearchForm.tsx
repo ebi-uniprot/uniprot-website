@@ -45,8 +45,8 @@ import {
   MessageLevel,
 } from '../../../messages/types/messagesTypes';
 
-import '../../styles/ToolsForm.scss';
 import '../../../shared/styles/sticky.scss';
+import '../../styles/ToolsForm.scss';
 
 // just because, no known actual limit
 const PEPTIDE_SEARCH_LIMIT = 100;
