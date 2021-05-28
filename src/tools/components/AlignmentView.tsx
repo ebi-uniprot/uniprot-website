@@ -31,9 +31,9 @@ import {
 
 import FeatureType from '../../uniprotkb/types/featureType';
 import { ProcessedFeature } from '../../shared/components/views/FeaturesView';
+import { prepareFeatureForTooltip } from '../utils/feature';
 
 import './styles/AlignmentView.scss';
-import { prepareFeatureForTooltip } from '../utils/feature';
 
 export type ConservationOptions = {
   'calculate-conservation'?: true;

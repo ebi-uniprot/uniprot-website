@@ -48,7 +48,6 @@ import { addMessage } from '../../../messages/state/messagesActions';
 import { hasExternalLinks, getListOfIsoformAccessions } from '../../utils';
 import { hasContent } from '../../../shared/utils/utils';
 import apiUrls from '../../../shared/config/apiUrls';
-import { LocationToPath, Location } from '../../../app/config/urls';
 import { fileFormatEntryDownload } from '../../config/download';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
@@ -57,10 +56,12 @@ import uniProtKbConverter, {
   UniProtkbAPIModel,
 } from '../../adapters/uniProtkbConverter';
 
-import '../../../shared/components/entry/styles/entry-page.scss';
-import '../../../shared/styles/sticky.scss';
+import { LocationToPath, Location } from '../../../app/config/urls';
 import { Namespace } from '../../../shared/types/namespaces';
 import { EntryType } from '../../../shared/components/entry/EntryTypeIcon';
+
+import '../../../shared/styles/sticky.scss';
+import '../../../shared/components/entry/styles/entry-page.scss';
 
 export enum TabLocation {
   Entry = 'entry',
