@@ -152,13 +152,11 @@ describe('BlastForm test', () => {
 
     expect(submitButton).toBeDisabled();
 
-    console.log(history.location.pathname);
+    // Below not really working for now, that's why this test is skipped
     await waitFor(() =>
       history.location.pathname.includes(LocationToPath[Location.Dashboard])
     );
-    console.log(history.location.pathname);
 
-    console.log(history.location.state);
     expect(history.location.hash).not.toBe({});
     expect(Object.keys(store.getState().tools)).toHaveLength(1);
   });
