@@ -14,9 +14,9 @@ const mock: Payload = {
       name: 'identity',
       allowMultipleSelection: true,
       values: [
-        { label: '100%', value: '1.0', count: 728513 },
-        { label: '90%', value: '0.9', count: 288809 },
-        { label: '50%', value: '0.5', count: 37152 },
+        { label: '100%', value: '1.0', count: 742581 },
+        { label: '90%', value: '0.9', count: 292322 },
+        { label: '50%', value: '0.5', count: 37529 },
       ],
     },
   ],

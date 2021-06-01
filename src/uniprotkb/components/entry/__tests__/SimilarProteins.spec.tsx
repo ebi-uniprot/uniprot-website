@@ -40,10 +40,10 @@ describe('SimilarProteins tests', () => {
     expect(await screen.findByText(/P12023/)).toBeInTheDocument();
   });
 
-  it('should navigate to correct search page when clicking "view all"', async () => {
+  it('should navigate to correct search page when clicking "View all"', async () => {
     fireEvent.click(await screen.getByText(/View all/));
     expect(rendered.history.location.search).toEqual(
-      '?query=(uniref_cluster_100:UniRef100_P05067-10 OR uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067-2 OR uniref_cluster_100:UniRef100_P05067-3 OR uniref_cluster_100:UniRef100_P05067-11 OR uniref_cluster_100:UniRef100_P05067-5 OR uniref_cluster_100:UniRef100_P05067-7 OR uniref_cluster_100:UniRef100_P05067-8 OR uniref_cluster_100:UniRef100_P05067-9 OR uniref_cluster_100:UniRef100_P05067-6 OR uniref_cluster_100:UniRef100_P05067)'
+      '?query=(uniref_cluster_100:UniRef100_P05067-2 OR uniref_cluster_100:UniRef100_P05067-11 OR uniref_cluster_100:UniRef100_P05067-3 OR uniref_cluster_100:UniRef100_P05067-10 OR uniref_cluster_100:UniRef100_P05067-4 OR uniref_cluster_100:UniRef100_P05067-8 OR uniref_cluster_100:UniRef100_P05067-9 OR uniref_cluster_100:UniRef100_P05067-6 OR uniref_cluster_100:UniRef100_P05067-5 OR uniref_cluster_100:UniRef100_P05067-7 OR uniref_cluster_100:UniRef100_P05067)'
     );
     expect(rendered.history.location.pathname).toEqual('/uniprotkb');
   });

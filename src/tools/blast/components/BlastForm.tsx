@@ -92,7 +92,7 @@ const FormSelect: FC<{
   const label = BlastFields[formValue.fieldName as keyof typeof BlastFields];
   return (
     <section className="tools-form-section__item">
-      <label htmlFor={label}>
+      <label>
         {label}
         <select
           value={formValue.selected as string}

@@ -27,7 +27,7 @@ describe('filterBlastDataForResults', () => {
       },
     ];
     expect(
-      filterBlastDataForResults({ hits: [] } as BlastResults, facet)
+      filterBlastDataForResults({ ...blastResults, hits: [] }, facet)
     ).toEqual({ hits: [] });
   });
 
