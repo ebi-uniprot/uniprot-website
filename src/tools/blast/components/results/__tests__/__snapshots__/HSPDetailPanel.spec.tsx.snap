@@ -103,12 +103,10 @@ exports[`HSPDetailPanel should change to wrapped and render when wrapped view is
           class="track"
         >
           <protvista-msa
-            calculate-conservation="true"
-            colorscheme="conservation"
+            colorscheme="clustal"
             height="40"
             hidelabel="true"
             length="45"
-            overlay-conservation="true"
           />
         </div>
         <span
@@ -300,12 +298,10 @@ exports[`HSPDetailPanel should initially render overview 1`] = `
                 length="28"
               />
               <protvista-msa
-                calculate-conservation="true"
-                colorscheme="conservation"
+                colorscheme="clustal"
                 height="40"
                 hidelabel="true"
                 length="28"
-                overlay-conservation="true"
               />
             </protvista-manager>
           </div>

@@ -193,7 +193,7 @@ const AlignmentView: FC<{
   );
   const annotationChanged = useRef(false);
   const [highlightProperty, setHighlightProperty] = useState<MsaColorScheme>(
-    MsaColorScheme.CONSERVATION
+    MsaColorScheme.CLUSTAL
   );
   const highlightChanged = useRef(false);
   const [activeId, setActiveId] = useState<string | undefined>(
@@ -368,7 +368,7 @@ const AlignmentView: FC<{
 
   const tooltipVisibility = tooltipContent ? { visible: true } : {};
 
-  const defaultActiveNodes = useMemo(() => [MsaColorScheme.CONSERVATION], []);
+  const defaultActiveNodes = useMemo(() => [MsaColorScheme.CLUSTAL], []);
 
   if (!tooltipDefined) {
     return <Loader />;
