@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const { DefinePlugin } = require('webpack');
+const { DefinePlugin, ProvidePlugin } = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const jsonImporter = require('node-sass-json-importer');
@@ -95,10 +95,6 @@ module.exports = (env, argv) => {
         'lodash.unset': path.resolve('./node_modules/lodash-es/unset'),
       },
       symlinks: false,
-      fallback: {
-        // Needed for 'react-msa-viewer'
-        assert: false,
-      },
     },
     // MODULE
     module: {
@@ -244,6 +240,11 @@ module.exports = (env, argv) => {
     },
     // PLUGINS
     plugins: [
+      // Needed for 'react-msa-viewer' as of June 1st 2021
+      new ProvidePlugin({
+        assert: 'assert',
+        process: 'process/browser',
+      }),
       new HtmlWebPackPlugin({
         template: `${__dirname}/index.html`,
         filename: 'index.html',
