@@ -1,7 +1,7 @@
-import { devPath, getSuggesterUrl } from '../../../../shared/config/apiUrls';
+import { getSuggesterUrl, devPrefix } from '../../../../shared/config/apiUrls';
 
 const query = 'human';
-const baseUrl = `${devPath}/suggester?dict=taxonomy&query=?`;
+const baseUrl = `${devPrefix}/suggester?dict=taxonomy&query=?`;
 
 export const mockSuggesterApi = {
   query,

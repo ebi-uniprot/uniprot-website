@@ -63,9 +63,7 @@ import {
 export const prodPrefix = 'https://www.ebi.ac.uk';
 
 // Development
-const devDomain = 'https://www.ebi.ac.uk';
-export const devPath = '/uniprot/beta/api';
-export const devPrefix = joinUrl(devDomain, devPath);
+export const devPrefix = 'https://www.ebi.ac.uk/uniprot/beta/api';
 
 const apiUrls = {
   // uniprotkb query builder terms
@@ -127,8 +125,8 @@ const apiUrls = {
         }`,
   entryPublications: (accession: string) =>
     joinUrl(devPrefix, '/uniprotkb/accession', accession, '/publications'),
-  taxonomySuggester: `${devPath}/suggester?dict=taxonomy&query=?`, // NOTE: can't use url-join here as it discards the "?"
-  organismSuggester: `${devPath}/suggester?dict=organism&query=?'`, // 👆
+  taxonomySuggester: `${devPrefix}/suggester?dict=taxonomy&query=?`, // NOTE: can't use url-join here as it discards the "?"
+  organismSuggester: `${devPrefix}/suggester?dict=organism&query=?'`, // 👆
 
   // TODO: move that to UniParc-specific file?
   uniparc: {
@@ -140,7 +138,7 @@ export default apiUrls;
 
 const RE_QUERY = /\?$/;
 export const getSuggesterUrl = (url: string, value: string) =>
-  joinUrl(devDomain, url.replace(RE_QUERY, value));
+  joinUrl(devPrefix, url.replace(RE_QUERY, value));
 
 export const createFacetsQueryString = (facets: SelectedFacet[]) =>
   /**
