@@ -1,6 +1,6 @@
 import { SearchTermType } from '../../../types/searchTypes';
 
-// https://wwwdev.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/search-fields
+// https://www.ebi.ac.uk/uniprot/beta/api/configure/uniprotkb/search-fields
 const configureSearchTerms = [
   {
     id: 'accession_field',
@@ -48,7 +48,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'saccharomyces',
-    autoComplete: '/uniprot/beta/api/suggester?dict=organism&query=?',
+    autoComplete: '/suggester?dict=organism&query=?',
     autoCompleteQueryTerm: 'organism_id',
   },
   {
@@ -59,7 +59,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'human',
-    autoComplete: '/uniprot/beta/api/suggester?dict=taxonomy&query=?',
+    autoComplete: '/suggester?dict=taxonomy&query=?',
     autoCompleteQueryTerm: 'taxonomy_id',
   },
   {
@@ -70,7 +70,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'human',
-    autoComplete: '/uniprot/beta/api/suggester?dict=host&query=?',
+    autoComplete: '/suggester?dict=host&query=?',
     autoCompleteQueryTerm: 'virus_host_id',
   },
   {
@@ -82,11 +82,26 @@ const configureSearchTerms = [
     fieldType: 'general',
     example: '1',
     values: [
-      { name: 'Evidence at protein level', value: 'protein_level' },
-      { name: 'Evidence at transcript level', value: 'transcript_level' },
-      { name: 'Inferred from homology', value: 'homology' },
-      { name: 'Predicted', value: 'predicted' },
-      { name: 'Uncertain', value: 'uncertain' },
+      {
+        name: 'Evidence at protein level',
+        value: 'protein_level',
+      },
+      {
+        name: 'Evidence at transcript level',
+        value: 'transcript_level',
+      },
+      {
+        name: 'Inferred from homology',
+        value: 'homology',
+      },
+      {
+        name: 'Predicted',
+        value: 'predicted',
+      },
+      {
+        name: 'Uncertain',
+        value: 'uncertain',
+      },
     ],
   },
   {
@@ -102,7 +117,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: '1.1.2.3',
-        autoComplete: '/uniprot/beta/api/suggester?dict=ec&query=?',
+        autoComplete: '/suggester?dict=ec&query=?',
         autoCompleteQueryTerm: 'ec',
       },
       {
@@ -122,7 +137,7 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: '29105',
-                autoComplete: '/uniprot/beta/api/suggester?dict=chebi&query=?',
+                autoComplete: '/suggester?dict=chebi&query=?',
                 autoCompleteQueryTerm: 'cc_cofactor_chebi',
               },
               {
@@ -136,9 +151,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -148,24 +172,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -200,9 +251,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -212,24 +272,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -271,9 +358,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -283,24 +379,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -335,9 +458,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -347,24 +479,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -399,9 +558,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -411,24 +579,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -463,9 +658,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -475,24 +679,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -527,9 +758,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -539,24 +779,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -591,9 +858,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -603,24 +879,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -645,8 +948,7 @@ const configureSearchTerms = [
             dataType: 'string',
             fieldType: 'general',
             example: 'tyrosine',
-            autoComplete:
-              '/uniprot/beta/api/suggester?dict=catalytic_activity&query=?',
+            autoComplete: '/suggester?dict=catalytic_activity&query=?',
             autoCompleteQueryTerm: 'cc_catalytic_activity',
           },
           {
@@ -660,33 +962,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -721,33 +1062,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -782,33 +1162,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -843,33 +1262,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -917,9 +1375,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -929,24 +1396,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -989,9 +1483,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -1001,24 +1504,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -1061,9 +1591,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -1073,24 +1612,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -1133,9 +1699,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -1145,24 +1720,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -1205,9 +1807,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -1217,24 +1828,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -1279,33 +1917,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1348,33 +2025,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1417,33 +2133,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1478,33 +2233,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1539,33 +2333,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1600,8 +2433,7 @@ const configureSearchTerms = [
                 dataType: 'string',
                 fieldType: 'general',
                 example: 'membrane',
-                autoComplete:
-                  '/uniprot/beta/api/suggester?dict=subcell&query=?',
+                autoComplete: '/suggester?dict=subcell&query=?',
                 autoCompleteQueryTerm: 'cc_scl_term',
               },
               {
@@ -1615,9 +2447,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -1627,24 +2468,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -1679,9 +2547,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -1691,24 +2568,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -1753,33 +2657,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1822,33 +2765,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1891,33 +2873,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -1959,33 +2980,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2020,33 +3080,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2081,33 +3180,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2142,33 +3280,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2203,33 +3380,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2264,33 +3480,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2333,33 +3588,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2401,33 +3695,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2470,33 +3803,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2539,33 +3911,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2608,33 +4019,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2677,33 +4127,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2746,33 +4235,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -2820,9 +4348,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -2832,24 +4369,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -2892,9 +4456,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -2904,24 +4477,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -2964,9 +4564,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -2976,24 +4585,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3036,9 +4672,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3048,24 +4693,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3108,9 +4780,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3120,24 +4801,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3180,9 +4888,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3192,24 +4909,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3252,9 +4996,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3264,24 +5017,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3325,33 +5105,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -3386,33 +5205,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -3447,33 +5305,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -3524,33 +5421,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -3578,8 +5514,14 @@ const configureSearchTerms = [
         example: 'true',
         regex: '^true|false$',
         values: [
-          { name: 'Yes', value: 'true' },
-          { name: 'No', value: 'false' },
+          {
+            name: 'Yes',
+            value: 'true',
+          },
+          {
+            name: 'No',
+            value: 'false',
+          },
         ],
       },
       {
@@ -3619,9 +5561,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3631,24 +5582,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3691,9 +5669,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3703,24 +5690,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3763,9 +5777,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3775,24 +5798,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3835,9 +5885,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3847,24 +5906,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3931,9 +6017,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -3943,24 +6038,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -3995,9 +6117,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4007,24 +6138,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4059,9 +6217,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4071,24 +6238,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4123,9 +6317,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4135,24 +6338,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4187,9 +6417,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4199,24 +6438,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4258,9 +6524,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4270,24 +6545,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4367,9 +6669,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4379,24 +6690,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4433,33 +6771,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -4494,33 +6871,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -4555,33 +6971,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -4629,9 +7084,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4641,24 +7105,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4701,9 +7192,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4713,24 +7213,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4773,9 +7300,18 @@ const configureSearchTerms = [
                   {
                     groupName: 'Any',
                     items: [
-                      { name: 'Any assertion method', code: 'any' },
-                      { name: 'Any manual assertion', code: 'manual' },
-                      { name: 'Any automatic assertion', code: 'automatic' },
+                      {
+                        name: 'Any assertion method',
+                        code: 'any',
+                      },
+                      {
+                        name: 'Any manual assertion',
+                        code: 'manual',
+                      },
+                      {
+                        name: 'Any automatic assertion',
+                        code: 'automatic',
+                      },
                       {
                         name: 'Any experimental assertion',
                         code: 'experimental',
@@ -4785,24 +7321,51 @@ const configureSearchTerms = [
                   {
                     groupName: 'Manual assertions',
                     items: [
-                      { name: 'Experimental', code: 'ECO_0000269' },
+                      {
+                        name: 'Experimental',
+                        code: 'ECO_0000269',
+                      },
                       {
                         name: 'Non-traceable author statement',
                         code: 'ECO_0000303',
                       },
-                      { name: 'Curator inference', code: 'ECO_0000305' },
-                      { name: 'Sequence similarity', code: 'ECO_0000250' },
-                      { name: 'Sequence model', code: 'ECO_0000255' },
-                      { name: 'Combinatorial', code: 'ECO_0000244' },
-                      { name: 'Imported information', code: 'ECO_0000312' },
+                      {
+                        name: 'Curator inference',
+                        code: 'ECO_0000305',
+                      },
+                      {
+                        name: 'Sequence similarity',
+                        code: 'ECO_0000250',
+                      },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000255',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000244',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000312',
+                      },
                     ],
                   },
                   {
                     groupName: 'Automatic assertions',
                     items: [
-                      { name: 'Sequence model', code: 'ECO_0000256' },
-                      { name: 'Combinatorial', code: 'ECO_0000213' },
-                      { name: 'Imported information', code: 'ECO_0000313' },
+                      {
+                        name: 'Sequence model',
+                        code: 'ECO_0000256',
+                      },
+                      {
+                        name: 'Combinatorial',
+                        code: 'ECO_0000213',
+                      },
+                      {
+                        name: 'Imported information',
+                        code: 'ECO_0000313',
+                      },
                       {
                         name: 'Sequence motif match (InterPro)',
                         code: 'ECO_0000259',
@@ -4847,33 +7410,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -4916,33 +7518,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -4985,33 +7626,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5054,33 +7734,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5123,33 +7842,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5192,33 +7950,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5238,8 +8035,14 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         values: [
-          { name: 'Yes', value: 'true' },
-          { name: 'No', value: 'false' },
+          {
+            name: 'Yes',
+            value: 'true',
+          },
+          {
+            name: 'No',
+            value: 'false',
+          },
         ],
       },
       {
@@ -5251,11 +8054,26 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'mitochondrion',
         values: [
-          { name: 'Mitochondrion', value: 'mitochondrion' },
-          { name: 'Plastid', value: 'plastid' },
-          { name: 'Chloroplast', value: 'chloroplast' },
-          { name: 'Cyanelle', value: 'cyanelle' },
-          { name: 'Apicoplast', value: 'apicoplast' },
+          {
+            name: 'Mitochondrion',
+            value: 'mitochondrion',
+          },
+          {
+            name: 'Plastid',
+            value: 'plastid',
+          },
+          {
+            name: 'Chloroplast',
+            value: 'chloroplast',
+          },
+          {
+            name: 'Cyanelle',
+            value: 'cyanelle',
+          },
+          {
+            name: 'Apicoplast',
+            value: 'apicoplast',
+          },
           {
             name: 'Organellar chromatophore',
             value: 'organellar chromatophore',
@@ -5264,8 +8082,14 @@ const configureSearchTerms = [
             name: 'Non-photosynthetic plastid',
             value: 'non-photosynthetic plastid',
           },
-          { name: 'Nucleomorph', value: 'nucleomorph' },
-          { name: 'Hydrogenosome', value: 'hydrogenosome' },
+          {
+            name: 'Nucleomorph',
+            value: 'nucleomorph',
+          },
+          {
+            name: 'Hydrogenosome',
+            value: 'hydrogenosome',
+          },
         ],
       },
       {
@@ -5277,8 +8101,14 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'true',
         values: [
-          { name: 'Yes', value: 'true' },
-          { name: 'No', value: 'false' },
+          {
+            name: 'Yes',
+            value: 'true',
+          },
+          {
+            name: 'No',
+            value: 'false',
+          },
         ],
       },
       {
@@ -5363,33 +8193,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5424,33 +8293,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5502,33 +8410,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5571,33 +8518,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5640,33 +8626,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5709,33 +8734,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5778,33 +8842,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5839,33 +8942,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -5908,33 +9050,72 @@ const configureSearchTerms = [
               {
                 groupName: 'Any',
                 items: [
-                  { name: 'Any assertion method', code: 'any' },
-                  { name: 'Any manual assertion', code: 'manual' },
-                  { name: 'Any automatic assertion', code: 'automatic' },
-                  { name: 'Any experimental assertion', code: 'experimental' },
+                  {
+                    name: 'Any assertion method',
+                    code: 'any',
+                  },
+                  {
+                    name: 'Any manual assertion',
+                    code: 'manual',
+                  },
+                  {
+                    name: 'Any automatic assertion',
+                    code: 'automatic',
+                  },
+                  {
+                    name: 'Any experimental assertion',
+                    code: 'experimental',
+                  },
                 ],
               },
               {
                 groupName: 'Manual assertions',
                 items: [
-                  { name: 'Experimental', code: 'ECO_0000269' },
+                  {
+                    name: 'Experimental',
+                    code: 'ECO_0000269',
+                  },
                   {
                     name: 'Non-traceable author statement',
                     code: 'ECO_0000303',
                   },
-                  { name: 'Curator inference', code: 'ECO_0000305' },
-                  { name: 'Sequence similarity', code: 'ECO_0000250' },
-                  { name: 'Sequence model', code: 'ECO_0000255' },
-                  { name: 'Combinatorial', code: 'ECO_0000244' },
-                  { name: 'Imported information', code: 'ECO_0000312' },
+                  {
+                    name: 'Curator inference',
+                    code: 'ECO_0000305',
+                  },
+                  {
+                    name: 'Sequence similarity',
+                    code: 'ECO_0000250',
+                  },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000255',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000244',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000312',
+                  },
                 ],
               },
               {
                 groupName: 'Automatic assertions',
                 items: [
-                  { name: 'Sequence model', code: 'ECO_0000256' },
-                  { name: 'Combinatorial', code: 'ECO_0000213' },
-                  { name: 'Imported information', code: 'ECO_0000313' },
+                  {
+                    name: 'Sequence model',
+                    code: 'ECO_0000256',
+                  },
+                  {
+                    name: 'Combinatorial',
+                    code: 'ECO_0000213',
+                  },
+                  {
+                    name: 'Imported information',
+                    code: 'ECO_0000313',
+                  },
                   {
                     name: 'Sequence motif match (InterPro)',
                     code: 'ECO_0000259',
@@ -7631,6 +10812,14 @@ const configureSearchTerms = [
           },
         ],
       },
+      {
+        id: 'database',
+        itemType: 'single',
+        term: 'database',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'Bgee',
+      },
     ],
   },
   {
@@ -7657,31 +10846,76 @@ const configureSearchTerms = [
           {
             groupName: 'Any',
             items: [
-              { name: 'Any assertion method', code: 'any' },
-              { name: 'Any manual assertion', code: 'manual' },
-              { name: 'Any automatic assertion', code: 'automatic' },
-              { name: 'Any experimental assertion', code: 'experimental' },
+              {
+                name: 'Any assertion method',
+                code: 'any',
+              },
+              {
+                name: 'Any manual assertion',
+                code: 'manual',
+              },
+              {
+                name: 'Any automatic assertion',
+                code: 'automatic',
+              },
+              {
+                name: 'Any experimental assertion',
+                code: 'experimental',
+              },
             ],
           },
           {
             groupName: 'Manual assertions',
             items: [
-              { name: 'Experimental', code: 'ECO_0000269' },
-              { name: 'Non-traceable author statement', code: 'ECO_0000303' },
-              { name: 'Curator inference', code: 'ECO_0000305' },
-              { name: 'Sequence similarity', code: 'ECO_0000250' },
-              { name: 'Sequence model', code: 'ECO_0000255' },
-              { name: 'Combinatorial', code: 'ECO_0000244' },
-              { name: 'Imported information', code: 'ECO_0000312' },
+              {
+                name: 'Experimental',
+                code: 'ECO_0000269',
+              },
+              {
+                name: 'Non-traceable author statement',
+                code: 'ECO_0000303',
+              },
+              {
+                name: 'Curator inference',
+                code: 'ECO_0000305',
+              },
+              {
+                name: 'Sequence similarity',
+                code: 'ECO_0000250',
+              },
+              {
+                name: 'Sequence model',
+                code: 'ECO_0000255',
+              },
+              {
+                name: 'Combinatorial',
+                code: 'ECO_0000244',
+              },
+              {
+                name: 'Imported information',
+                code: 'ECO_0000312',
+              },
             ],
           },
           {
             groupName: 'Automatic assertions',
             items: [
-              { name: 'Sequence model', code: 'ECO_0000256' },
-              { name: 'Combinatorial', code: 'ECO_0000213' },
-              { name: 'Imported information', code: 'ECO_0000313' },
-              { name: 'Sequence motif match (InterPro)', code: 'ECO_0000259' },
+              {
+                name: 'Sequence model',
+                code: 'ECO_0000256',
+              },
+              {
+                name: 'Combinatorial',
+                code: 'ECO_0000213',
+              },
+              {
+                name: 'Imported information',
+                code: 'ECO_0000313',
+              },
+              {
+                name: 'Sequence motif match (InterPro)',
+                code: 'ECO_0000259',
+              },
             ],
           },
         ],
@@ -7734,7 +10968,7 @@ const configureSearchTerms = [
         dataType: 'string',
         fieldType: 'general',
         example: '0009986',
-        autoComplete: '/uniprot/beta/api/suggester?dict=go&query=?',
+        autoComplete: '/suggester?dict=go&query=?',
         autoCompleteQueryTerm: 'go',
       },
       {
@@ -7748,54 +10982,102 @@ const configureSearchTerms = [
           {
             groupName: 'Any',
             items: [
-              { name: 'Any assertion method', code: 'any' },
-              { name: 'Any manual assertion', code: 'manual' },
-              { name: 'Any automatic assertion', code: 'automatic' },
+              {
+                name: 'Any assertion method',
+                code: 'any',
+              },
+              {
+                name: 'Any manual assertion',
+                code: 'manual',
+              },
+              {
+                name: 'Any automatic assertion',
+                code: 'automatic',
+              },
             ],
           },
           {
             groupName: 'Manual assertions',
             items: [
-              { name: 'Inferred from experiment [EXP]', code: 'EXP' },
+              {
+                name: 'Inferred from experiment [EXP]',
+                code: 'exp',
+              },
               {
                 name: 'Inferred from biological aspect of ancestor [IBA]',
-                code: 'IBA',
+                code: 'iba',
               },
-              { name: 'Inferred by curator [IC]', code: 'IC' },
-              { name: 'Inferred from direct assay [IDA]', code: 'IDA' },
-              { name: 'Inferred from expression pattern [IEP]', code: 'IEP' },
-              { name: 'Inferred from genomic context [IGC]', code: 'IGC' },
-              { name: 'Inferred from genetic interaction [IGI]', code: 'IGI' },
-              { name: 'Inferred from mutant phenotype [IMP]', code: 'IMP' },
-              { name: 'Inferred from physical interaction [IPI]', code: 'IPI' },
-              { name: 'Inferred from sequence alignment [ISA]', code: 'ISA' },
-              { name: 'Inferred from sequence mode [ISM]', code: 'ISM' },
-              { name: 'Inferred from sequence orthology [ISO]', code: 'ISO' },
+              {
+                name: 'Inferred by curator [IC]',
+                code: 'ic',
+              },
+              {
+                name: 'Inferred from direct assay [IDA]',
+                code: 'ida',
+              },
+              {
+                name: 'Inferred from expression pattern [IEP]',
+                code: 'iep',
+              },
+              {
+                name: 'Inferred from genomic context [IGC]',
+                code: 'igc',
+              },
+              {
+                name: 'Inferred from genetic interaction [IGI]',
+                code: 'igi',
+              },
+              {
+                name: 'Inferred from mutant phenotype [IMP]',
+                code: 'imp',
+              },
+              {
+                name: 'Inferred from physical interaction [IPI]',
+                code: 'ipi',
+              },
+              {
+                name: 'Inferred from sequence alignment [ISA]',
+                code: 'isa',
+              },
+              {
+                name: 'Inferred from sequence mode [ISM]',
+                code: 'ism',
+              },
+              {
+                name: 'Inferred from sequence orthology [ISO]',
+                code: 'iso',
+              },
               {
                 name: 'Inferred from sequence or structural similarity [ISS]',
-                code: 'ISS',
+                code: 'iss',
               },
-              { name: 'Non-traceable author statement [NAS]', code: 'NAS' },
-              { name: 'Traceable author statement [TAS]', code: 'TAS' },
+              {
+                name: 'Non-traceable author statement [NAS]',
+                code: 'nas',
+              },
+              {
+                name: 'Traceable author statement [TAS]',
+                code: 'tas',
+              },
               {
                 name: 'Inferred from high throughput direct assay [HDA]',
-                code: 'HDA',
+                code: 'hda',
               },
               {
                 name: 'Inferred from high throughput mutant phenotype [HMP]',
-                code: 'HMP',
+                code: 'hmp',
               },
               {
                 name: 'Inferred from high throughput genetic interaction [HGI]',
-                code: 'HGI',
+                code: 'hgi',
               },
               {
                 name: 'Interred from high throughput expression pattern [HEP]',
-                code: 'HEP',
+                code: 'hep',
               },
               {
                 name: 'Inferred from high throughput experiment [HTP]',
-                code: 'HTP',
+                code: 'htp',
               },
             ],
           },
@@ -7804,7 +11086,7 @@ const configureSearchTerms = [
             items: [
               {
                 name: 'Inferred from electronic annotation [IEA]',
-                code: 'IEA',
+                code: 'iea',
               },
             ],
           },
@@ -7820,7 +11102,7 @@ const configureSearchTerms = [
     dataType: 'string',
     fieldType: 'general',
     example: 'chromosomal',
-    autoComplete: '/uniprot/beta/api/suggester?dict=keyword&query=?',
+    autoComplete: '/suggester?dict=keyword&query=?',
     autoCompleteQueryTerm: 'keyword',
   },
   {
@@ -7873,6 +11155,33 @@ const configureSearchTerms = [
         fieldType: 'general',
         example: 'protein',
       },
+      {
+        id: 'lit_citation_id',
+        label: 'Citation ID',
+        itemType: 'single',
+        term: 'lit_citation_id',
+        dataType: 'string',
+        fieldType: 'general',
+        example: 'CI-6EPRJ6MFFS5LC',
+      },
+      {
+        id: 'computational_pubmed_id',
+        label: 'Computational PubMed ID',
+        itemType: 'single',
+        term: 'computational_pubmed_id',
+        dataType: 'string',
+        fieldType: 'general',
+        example: '15165820',
+      },
+      {
+        id: 'community_pubmed_id',
+        label: 'Community PubMed ID',
+        itemType: 'single',
+        term: 'community_pubmed_id',
+        dataType: 'string',
+        fieldType: 'general',
+        example: '15165820',
+      },
     ],
   },
   {
@@ -7920,8 +11229,14 @@ const configureSearchTerms = [
     example: 'true',
     regex: '^true|false$',
     values: [
-      { name: 'Yes', value: 'true' },
-      { name: 'No', value: 'false' },
+      {
+        name: 'Yes',
+        value: 'true',
+      },
+      {
+        name: 'No',
+        value: 'false',
+      },
     ],
   },
   {
@@ -7934,8 +11249,14 @@ const configureSearchTerms = [
     example: 'true',
     regex: '^true|false$',
     values: [
-      { name: 'Yes', value: 'true' },
-      { name: 'No', value: 'false' },
+      {
+        name: 'Yes',
+        value: 'true',
+      },
+      {
+        name: 'No',
+        value: 'false',
+      },
     ],
   },
 ] as SearchTermType[];

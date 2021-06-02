@@ -9,7 +9,7 @@ Array [
       "taxonomy_id": "9606",
     },
     "searchTerm": Object {
-      "autoComplete": "/uniprot/beta/api/suggester?dict=taxonomy&query=?",
+      "autoComplete": "/suggester?dict=taxonomy&query=?",
       "autoCompleteQueryTerm": "taxonomy_id",
       "dataType": "string",
       "example": "human",

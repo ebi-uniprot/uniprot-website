@@ -125,8 +125,8 @@ const apiUrls = {
         }`,
   entryPublications: (accession: string) =>
     joinUrl(devPrefix, '/uniprotkb/accession', accession, '/publications'),
-  taxonomySuggester: `${devPrefix}/suggester?dict=taxonomy&query=?`, // NOTE: can't use url-join here as it discards the "?"
-  organismSuggester: `${devPrefix}/suggester?dict=organism&query=?'`, // 👆
+  taxonomySuggester: 'suggester?dict=taxonomy&query=?',
+  organismSuggester: 'suggester?dict=organism&query=?',
 
   // TODO: move that to UniParc-specific file?
   uniparc: {
