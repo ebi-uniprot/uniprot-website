@@ -88,7 +88,7 @@ const apiUrls = {
     joinUrl(apiPrefix, `/${namespace}/search`),
   download: (namespace: Namespace) =>
     joinUrl(apiPrefix, `/${namespace}/stream`),
-  variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: is this part of the K8 deployment? If, update path.
+  variation: 'https://www.ebi.ac.uk/proteins/api/variation', // TODO: Back end plan to add this endpoint to the k8s deployment (uniprot/beta/api). When this happens update this URL accordingly
   accessions: joinUrl(apiPrefix, '/uniprotkb/accessions'),
   genecentric: (accession: string) =>
     joinUrl(apiPrefix, '/genecentric/', accession),
