@@ -31,6 +31,18 @@ module.exports = (env, argv) => {
     }
   }
 
+  let apiPrefix = 'https://www.ebi.ac.uk/uniprot/beta/api';
+  if (env.API_PREFIX) {
+    // if we have an array, it means we've probably overriden env in the CLI
+    // from a predefined env in a yarn/npm script
+    if (Array.isArray(env.API_PREFIX)) {
+      // so we take the last one
+      apiPrefix = env.API_PREFIX[env.API_PREFIX.length - 1];
+    } else {
+      apiPrefix = env.API_PREFIX;
+    }
+  }
+
   const config = {
     context: __dirname,
     entry: [path.resolve(__dirname, 'src/index.tsx')],
@@ -248,6 +260,7 @@ module.exports = (env, argv) => {
         }),
       new DefinePlugin({
         BASE_URL: JSON.stringify(publicPath),
+        API_PREFIX: JSON.stringify(apiPrefix),
         LIVE_RELOAD: JSON.stringify(isLiveReload),
         GIT_COMMIT_HASH: JSON.stringify(gitCommitHash),
         GIT_COMMIT_STATE: JSON.stringify(gitCommitState),

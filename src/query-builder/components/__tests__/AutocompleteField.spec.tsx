@@ -4,7 +4,7 @@ import urlJoin from 'url-join';
 import AutocompleteField from '../AutocompleteField';
 
 import { DataType, FieldType, ItemType } from '../../types/searchTypes';
-import apiUrls, { devPrefix } from '../../../shared/config/apiUrls';
+import apiUrls, { apiPrefix } from '../../../shared/config/apiUrls';
 
 const field = {
   id: 'organism_name_field',
@@ -14,7 +14,7 @@ const field = {
   dataType: DataType.string,
   fieldType: FieldType.general,
   example: 'saccharomyces',
-  autoComplete: urlJoin(devPrefix, apiUrls.organismSuggester),
+  autoComplete: urlJoin(apiPrefix, apiUrls.organismSuggester),
   autoCompleteQueryTerm: 'organism_id',
 };
 

@@ -1,7 +1,7 @@
 import qs from 'query-string';
 import joinUrl from '../../shared/config/testingApiUrls'; // TODO: revert import to: import joinUrl from 'url-join'
 
-import { devPrefix } from '../../shared/config/apiUrls';
+import { apiPrefix } from '../../shared/config/apiUrls';
 
 const apiUrls = {
   members: (
@@ -18,7 +18,7 @@ const apiUrls = {
       facetFilter: options.selectedFacets?.join(',') || undefined,
     });
     return (
-      joinUrl(devPrefix, 'uniref', id, 'members') +
+      joinUrl(apiPrefix, 'uniref', id, 'members') +
       (querystring ? `?${querystring}` : '')
     );
   },
