@@ -18,7 +18,7 @@ const apiUrls = {
       facetFilter: options.selectedFacets?.join(',') || undefined,
     });
     return (
-      joinUrl(devPrefix, '/uniprot/beta/api/uniref', id, 'members') +
+      joinUrl(devPrefix, 'uniref', id, 'members') +
       (querystring ? `?${querystring}` : '')
     );
   },
