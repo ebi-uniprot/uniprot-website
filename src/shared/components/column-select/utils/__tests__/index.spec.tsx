@@ -37,7 +37,7 @@ describe('prepareFieldData', () => {
   });
 
   test('should exclude column', () => {
-    expect(prepareFieldData(fieldData, UniProtKBColumn.geneNames)).toEqual({
+    expect(prepareFieldData(fieldData, [UniProtKBColumn.geneNames])).toEqual({
       links: [
         {
           id: 'sequence',

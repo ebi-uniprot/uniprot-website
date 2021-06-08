@@ -54,7 +54,6 @@ exports[`ColumnSelect component should render 1`] = `
     <button
       class="button secondary"
       data-testid="column-select-reset-button"
-      tabindex="0"
       type="button"
     >
       Reset to default
@@ -126,7 +125,7 @@ exports[`ColumnSelect component should render 1`] = `
           >
             <input
               data-testid="search-input"
-              placeholder=""
+              placeholder="Search for available columns"
               type="text"
               value=""
             />

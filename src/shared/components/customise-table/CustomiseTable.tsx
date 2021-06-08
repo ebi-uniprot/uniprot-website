@@ -38,7 +38,7 @@ const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
     <form
       onSubmit={handleSubmit}
       className="customise-table"
-      aria-label={`Customise ${namespace} ${
+      aria-label={`Customise ${namespace}${
         isEntryPage ? '' : ' result'
       } table columns form`}
     >

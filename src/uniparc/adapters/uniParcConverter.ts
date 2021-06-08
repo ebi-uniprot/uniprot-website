@@ -27,10 +27,6 @@ export type UniParcXRef = Partial<{
   lastUpdated: string;
   ncbiGi: string;
   organism: TaxonomyDatum;
-  // "properties" only there when database is "EMBL", and not for all of them.
-  // We shouldn't rely on that to display anything in the frontend, and it
-  // wasn't used in the previous website anyway
-  properties: Array<{ key: string; value: string }>;
   proteinName: string;
   proteomeId: string;
   component: string;
