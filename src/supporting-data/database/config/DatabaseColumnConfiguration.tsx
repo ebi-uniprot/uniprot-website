@@ -36,7 +36,7 @@ export const defaultColumns = [
   DatabaseColumn.category,
 ];
 
-export const primaryKeyColumn = DatabaseColumn.id;
+export const primaryKeyColumns = [DatabaseColumn.id];
 
 export const DatabaseColumnConfiguration: ColumnConfiguration<
   DatabaseColumn,

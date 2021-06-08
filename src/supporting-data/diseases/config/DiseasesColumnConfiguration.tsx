@@ -27,7 +27,7 @@ export const defaultColumns = [
   DiseasesColumn.keywords,
 ];
 
-export const primaryKeyColumn = DiseasesColumn.id;
+export const primaryKeyColumns = [DiseasesColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.diseases);
 const getEntryPathForKeyword = getEntryPathFor(Namespace.keywords);

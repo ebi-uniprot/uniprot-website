@@ -89,7 +89,7 @@ describe('ColumnSelect component', () => {
   test('should call onChange with default columns when "Reset to default" button clicked', () => {
     const button = screen.getByText('Reset to default');
     fireEvent.click(button);
-    expect(onChange).toHaveBeenCalledWith(nsToDefaultColumns[namespace]);
+    expect(onChange).toHaveBeenCalledWith(nsToDefaultColumns(namespace));
   });
 
   test('should call onChange with the correct column order when "Protein name" is dragged to the right', async () => {

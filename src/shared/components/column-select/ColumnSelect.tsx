@@ -9,7 +9,7 @@ import useDataApi from '../../hooks/useDataApi';
 import apiUrls from '../../config/apiUrls';
 import {
   Column,
-  nsToPrimaryKeyColumn,
+  nsToPrimaryKeyColumns,
   nsToDefaultColumns,
   nsToColumnConfig,
 } from '../../config/columns';
@@ -38,27 +38,29 @@ type ColumnSelectProps = {
   selectedColumns: Column[];
   onChange: (columndIds: Column[]) => void;
   namespace: Namespace;
+  isEntryPage?: boolean;
 };
 
 const ColumnSelect: FC<ColumnSelectProps> = ({
   selectedColumns,
   onChange,
   namespace,
+  isEntryPage,
 }) => {
-  const primaryKeyColumn = nsToPrimaryKeyColumn[namespace] as Column;
-  const defaultColumns = nsToDefaultColumns[namespace];
+  const primaryKeyColumns = nsToPrimaryKeyColumns(namespace, isEntryPage);
+  const defaultColumns = nsToDefaultColumns(namespace, isEntryPage);
 
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
   const removableSelectedColumns = selectedColumns.filter(
-    (column) => column !== primaryKeyColumn
+    (column) => !primaryKeyColumns.includes(column)
   );
   const handleChange = useCallback(
     (columns: Column[]) => {
-      onChange([primaryKeyColumn, ...columns]);
+      onChange([...primaryKeyColumns, ...columns]);
     },
-    [primaryKeyColumn, onChange]
+    [primaryKeyColumns, onChange]
   );
 
   const handleSelect = useCallback(
@@ -85,7 +87,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   const { loading, data } = useDataApi<ReceivedFieldData>(
     // No configure endpoint for supporting data
     namespace && mainNamespaces.has(namespace)
-      ? apiUrls.resultsFields(namespace)
+      ? apiUrls.resultsFields(namespace, isEntryPage)
       : null
   );
 
@@ -95,10 +97,10 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
       supportingDataNamespaces.has(namespace)
         ? prepareFieldDataFromColumnConfig(
             nsToColumnConfig[namespace],
-            primaryKeyColumn
+            primaryKeyColumns
           )
-        : prepareFieldData(data, primaryKeyColumn),
-    [namespace, data, primaryKeyColumn]
+        : prepareFieldData(data, primaryKeyColumns),
+    [namespace, data, primaryKeyColumns]
   );
 
   if (loading) {
@@ -124,6 +126,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
             handleSelect(itemId)
           }
           selected={selectedColumnsInTab}
+          placeholder="Search for available columns"
           columns
         />
       </Tab>
@@ -139,7 +142,6 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
       />
       <Button
         variant="secondary"
-        tabIndex={0}
         onClick={() => onChange(defaultColumns)}
         data-testid="column-select-reset-button"
       >

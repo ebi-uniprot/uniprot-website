@@ -42,7 +42,7 @@ export const defaultColumns = [
   UniRefColumn.identity,
 ];
 
-export const primaryKeyColumn = UniRefColumn.id;
+export const primaryKeyColumns = [UniRefColumn.id];
 
 export const UniRefColumnConfiguration: ColumnConfiguration<
   UniRefColumn,

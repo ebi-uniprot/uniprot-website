@@ -34,7 +34,7 @@ export const defaultColumns = [
   TaxonomyColumn.lineage,
 ];
 
-export const primaryKeyColumn = TaxonomyColumn.id;
+export const primaryKeyColumns = [TaxonomyColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.taxonomy);
 

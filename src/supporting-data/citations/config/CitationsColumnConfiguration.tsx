@@ -43,7 +43,7 @@ export const defaultColumns = [
   CitationsColumn.lastPage,
 ];
 
-export const primaryKeyColumn = CitationsColumn.id;
+export const primaryKeyColumns = [CitationsColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.citations);
 

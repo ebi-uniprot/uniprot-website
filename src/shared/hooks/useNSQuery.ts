@@ -28,7 +28,7 @@ const useNSQuery = ({
   const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
   const [columns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    nsToDefaultColumns(namespace)
   );
 
   let queryColumns = viewMode === ViewMode.CARD ? undefined : columns;

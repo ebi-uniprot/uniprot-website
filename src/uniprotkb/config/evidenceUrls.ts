@@ -1,4 +1,4 @@
-const evidenceUrls: { [key: string]: string } = {
+const evidenceUrls: Record<string, string> = {
   Araport: 'https://apps.araport.org/thalemine/portal.do?externalids=%value',
   CGD: 'http://www.candidagenome.org/cgi-bin/locus.pl?dbid=%value',
   EMBL: 'https://www.ebi.ac.uk/ena/data/view/%value',
