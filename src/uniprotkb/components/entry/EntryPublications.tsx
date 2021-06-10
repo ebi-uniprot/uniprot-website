@@ -36,8 +36,14 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
   accession,
 }) => {
-  const { referencePositions, referenceComments, source, sourceCategories } =
-    reference;
+  const {
+    referencePositions,
+    referenceComments,
+    source,
+    sourceCategories,
+    communityAnnotation,
+    annotation,
+  } = reference;
 
   const url = useMemo(() => {
     const databaseInfo = source && getDatabaseInfoByName(source.name);
@@ -60,6 +66,10 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
           )}
           {source.name === 'ORCID' && (
             <>
+              {' '}
+              <ExternalLink url={`https://orcid.org/${source.id}`}>
+                {source.id}
+              </ExternalLink>
               {' ('}
               <ExternalLink
                 url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
@@ -79,6 +89,19 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     {
       title: 'Tissue',
       content: referenceComments?.map(({ value }) => value).join(', '),
+    },
+    {
+      title: 'Annotation',
+      // both mutually exclusive
+      content: annotation || communityAnnotation?.comment,
+    },
+    {
+      title: 'Function',
+      content: communityAnnotation?.function,
+    },
+    {
+      title: 'Disease',
+      content: communityAnnotation?.disease,
     },
     {
       title: 'Categories',
