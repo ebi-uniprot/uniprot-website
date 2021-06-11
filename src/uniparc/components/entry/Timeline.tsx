@@ -29,7 +29,7 @@ const Timeline = ({ first, last, start, end }: Props) => {
   return (
     <div
       className={styles.container}
-      title={`UniParc entry life span: from ${first} to ${last}.`}
+      title={`UniParc entry life span: ${first} to ${last}.`}
     >
       <span
         className={styles.xref}
