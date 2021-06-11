@@ -34,7 +34,7 @@ const Timeline = ({ first, last, start, end }: Props) => {
       <span
         className={styles.xref}
         style={{ width, left }}
-        title={`Cross-reference life span within this UniParc entry: from ${start} to ${end}.`}
+        title={`Cross-reference life span within this UniParc entry: ${start} to ${end}.`}
       />
     </div>
   );
