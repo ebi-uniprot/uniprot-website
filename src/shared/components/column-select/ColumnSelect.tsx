@@ -1,5 +1,6 @@
 import { FC, useCallback, useMemo } from 'react';
 import { AccordionSearch, Tabs, Tab, Loader, Button } from 'franklin-sites';
+import { difference } from 'lodash-es';
 
 import { UniProtKBColumn } from '../../../uniprotkb/types/columnTypes';
 import ColumnSelectDragDrop from './ColumnSelectDragDrop';
@@ -53,8 +54,9 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
   // remove the entry field from the choices as this must always be present
   // in the url fields parameter when making the search request ie
   // don't give users the choice to remove it
-  const removableSelectedColumns = selectedColumns.filter(
-    (column) => !primaryKeyColumns.includes(column)
+  const removableSelectedColumns = difference(
+    selectedColumns,
+    primaryKeyColumns
   );
   const handleChange = useCallback(
     (columns: Column[]) => {

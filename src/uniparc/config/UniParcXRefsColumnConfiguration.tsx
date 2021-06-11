@@ -12,18 +12,17 @@ import TaxonomyView from '../../shared/components/entry/TaxonomyView';
 import { getEntryPath } from '../../app/config/urls';
 
 import parseDate from '../../shared/utils/parseDate';
+import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
+import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
 
 import { Namespace } from '../../shared/types/namespaces';
-import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
-
 import {
   databaseToEntryType,
   UniParcXRef,
   XRefsInternalDatabasesEnum,
 } from '../adapters/uniParcConverter';
 import { ColumnDescriptor } from '../../shared/hooks/useColumns';
-import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
-import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
 
 export enum UniParcXRefsColumn {
   // Names & taxonomy
