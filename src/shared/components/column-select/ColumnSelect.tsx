@@ -93,7 +93,7 @@ const ColumnSelect: FC<ColumnSelectProps> = ({
       : null
   );
 
-  // Exclude the primaryKeyColumn in the tabs as users can't toggle selection
+  // Exclude the primaryKeyColumns in the tabs as users can't toggle selection
   const fieldData = useMemo(
     () =>
       supportingDataNamespaces.has(namespace)

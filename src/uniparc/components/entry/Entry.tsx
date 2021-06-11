@@ -23,8 +23,11 @@ import useUserPreferences from '../../../shared/hooks/useUserPreferences';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
+import {
+  defaultColumns,
+  UniParcXRefsColumn,
+} from '../../config/UniParcXRefsColumnConfiguration';
 import { LocationToPath, Location } from '../../../app/config/urls';
-import { defaultColumns } from '../../config/UniParcXRefsColumnConfiguration';
 
 import uniParcConverter, {
   UniParcAPIModel,
@@ -73,7 +76,15 @@ const Entry: FC = () => {
       ...Object.fromEntries(
         selectedFacets.map(({ name, value }) => [name, value])
       ),
-      fields: Array.from(columns)
+      fields: Array.from(
+        new Set([
+          ...columns,
+          // We always need all below to calculate the facets
+          UniParcXRefsColumn.active,
+          UniParcXRefsColumn.organism,
+          UniParcXRefsColumn.database,
+        ])
+      )
         // Sort to have better cache hits
         .sort()
         .join(','),
