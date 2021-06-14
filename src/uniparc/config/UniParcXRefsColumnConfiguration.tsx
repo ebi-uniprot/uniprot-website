@@ -1,0 +1,321 @@
+import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { ExternalLink } from 'franklin-sites';
+
+import Timeline from '../components/entry/Timeline';
+import {
+  EntryType,
+  EntryTypeIcon,
+} from '../../shared/components/entry/EntryTypeIcon';
+import TaxonomyView from '../../shared/components/entry/TaxonomyView';
+
+import { getEntryPath } from '../../app/config/urls';
+
+import parseDate from '../../shared/utils/parseDate';
+import { processUrlTemplate } from '../../uniprotkb/components/protein-data-views/XRefView';
+import evidenceUrls from '../../uniprotkb/config/evidenceUrls';
+
+import { Namespace } from '../../shared/types/namespaces';
+import {
+  databaseToEntryType,
+  UniParcXRef,
+  XRefsInternalDatabasesEnum,
+} from '../adapters/uniParcConverter';
+import { ColumnDescriptor } from '../../shared/hooks/useColumns';
+import { ColumnConfiguration } from '../../shared/types/columnConfiguration';
+
+export enum UniParcXRefsColumn {
+  // Names & taxonomy
+  database = 'database',
+  accession = 'accession',
+  gene = 'gene',
+  ncbiGi = 'ncbiGi',
+  organism = 'organism',
+  organismId = 'organism_id',
+  protein = 'protein',
+  proteome = 'proteome',
+  // Miscellaneous
+  active = 'active',
+  // Date of
+  firstSeen = 'first_seen',
+  lastSeen = 'last_seen',
+  timeline = 'timeline',
+  version = 'version',
+  versionUniParc = 'version_uniparc',
+}
+
+export const defaultColumns = [
+  UniParcXRefsColumn.database,
+  UniParcXRefsColumn.accession,
+  UniParcXRefsColumn.version,
+  UniParcXRefsColumn.organism,
+  UniParcXRefsColumn.firstSeen,
+  UniParcXRefsColumn.lastSeen,
+  UniParcXRefsColumn.active,
+];
+
+export const primaryKeyColumns = [
+  UniParcXRefsColumn.database,
+  UniParcXRefsColumn.accession,
+];
+
+export const UniParcXRefsColumnConfiguration: ColumnConfiguration<
+  UniParcXRefsColumn,
+  UniParcXRef
+> = new Map();
+
+// COLUMN RENDERERS BELOW
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.database, {
+  label: 'Database',
+  render: (xref) => {
+    if (!xref.database) {
+      return null;
+    }
+    let cell: ReactNode = xref.database;
+    const entryType = databaseToEntryType.get(xref.database);
+    if (entryType === EntryType.REVIEWED) {
+      cell = (
+        <>
+          <EntryTypeIcon entryType={EntryType.REVIEWED} />
+          UniProtKB reviewed
+        </>
+      );
+    } else if (entryType === EntryType.UNREVIEWED) {
+      cell = (
+        <>
+          <EntryTypeIcon entryType={EntryType.UNREVIEWED} />
+          UniProtKB unreviewed
+        </>
+      );
+    }
+    return (
+      <span className={xref.active ? undefined : 'xref-inactive'}>{cell}</span>
+    );
+  },
+});
+
+const getAccessionColumn =
+  (templateMap: Map<string, string> = new Map()) =>
+  (xref: UniParcXRef) => {
+    if (!xref.id) {
+      return null;
+    }
+    let cell: ReactNode = xref.id;
+    if (
+      xref.database === XRefsInternalDatabasesEnum.REVIEWED ||
+      xref.database === XRefsInternalDatabasesEnum.UNREVIEWED
+    ) {
+      // internal link
+      cell = (
+        <Link
+          /**
+           * TODO: when we have entry history pages, we need to handle it
+           * differently (current website points to `/<accession>?version=*`)
+           */
+          to={getEntryPath(Namespace.uniprotkb, xref.id)}
+        >
+          {xref.id}
+        </Link>
+      );
+    } else {
+      const template = xref.database && templateMap.get(xref.database);
+      if (template) {
+        cell = (
+          <ExternalLink url={template.replace('%id', xref.id)}>
+            {xref.id}
+            {xref.chain && ` (chain ${xref.chain})`}
+          </ExternalLink>
+        );
+      }
+    }
+    return (
+      <span className={xref.active ? undefined : 'xref-inactive'}>{cell}</span>
+    );
+  };
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.accession, {
+  label: 'Identifier',
+  render: getAccessionColumn(),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.gene, {
+  label: 'Gene name',
+  render: (xref) =>
+    xref.geneName && (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.geneName}
+      </span>
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.ncbiGi, {
+  label: 'NCBI GI',
+  render: (xref) =>
+    xref.ncbiGi && (
+      <ExternalLink
+        url={processUrlTemplate(evidenceUrls.RefSeq, { value: xref.ncbiGi })}
+        className={xref.active ? undefined : 'xref-inactive'}
+      >
+        {xref.ncbiGi}
+      </ExternalLink>
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.organism, {
+  label: 'Organism',
+  render: (xref) =>
+    xref.organism && (
+      <TaxonomyView
+        data={xref.organism}
+        className={xref.active ? undefined : 'xref-inactive'}
+      />
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.organismId, {
+  label: 'Organism ID',
+  render: (xref) =>
+    xref.organism && (
+      <TaxonomyView
+        data={xref.organism}
+        displayOnlyID
+        className={xref.active ? undefined : 'xref-inactive'}
+      />
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.protein, {
+  label: 'Protein name',
+  render: (xref) =>
+    xref.proteinName && (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.proteinName}
+      </span>
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.proteome, {
+  label: 'Proteome',
+  render: (xref) =>
+    xref.proteomeId && (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        <Link to={getEntryPath(Namespace.proteomes, xref.proteomeId)}>
+          {xref.proteomeId}
+        </Link>
+        {xref.component ? ` (${xref.component})` : undefined}
+      </span>
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.active, {
+  label: 'Active',
+  render: (xref) => (
+    <span className={xref.active ? undefined : 'xref-inactive'}>
+      {xref.active ? 'Yes' : 'No'}
+    </span>
+  ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.firstSeen, {
+  label: 'First seen',
+  render: (xref) =>
+    xref.created && (
+      <time
+        className={xref.active ? undefined : 'xref-inactive'}
+        dateTime={parseDate(xref.created)?.toISOString()}
+      >
+        {xref.created}
+      </time>
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.lastSeen, {
+  label: 'Last seen',
+  render: (xref) =>
+    xref.lastUpdated && (
+      <time
+        className={xref.active ? undefined : 'xref-inactive'}
+        dateTime={parseDate(xref.lastUpdated)?.toISOString()}
+      >
+        {xref.lastUpdated}
+      </time>
+    ),
+});
+
+const getTimelineColumn =
+  (firstSeen?: string, lastSeen?: string) => (xref: UniParcXRef) =>
+    (
+      <div className={xref.active ? undefined : 'xref-inactive'}>
+        <Timeline
+          first={firstSeen}
+          last={lastSeen}
+          start={xref.created}
+          end={xref.lastUpdated}
+        />
+      </div>
+    );
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.timeline, {
+  label: 'Timeline',
+  render: getTimelineColumn(),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.version, {
+  label: 'Version',
+  render: (xref) =>
+    xref.version && (
+      <span className={xref.active ? undefined : 'xref-inactive'}>
+        {xref.version}
+      </span>
+    ),
+});
+
+UniParcXRefsColumnConfiguration.set(UniParcXRefsColumn.versionUniParc, {
+  label: 'Version (UniParc)',
+  render: (xref) => (
+    <span className={xref.active ? undefined : 'xref-inactive'}>
+      {xref.versionI}
+    </span>
+  ),
+});
+
+export default UniParcXRefsColumnConfiguration;
+
+export const getUniParcXRefsColumns = (
+  columns: UniParcXRefsColumn[],
+  templateMap: Map<string, string>,
+  firstSeen?: string,
+  lastSeen?: string
+): ColumnDescriptor<UniParcXRef>[] =>
+  columns.map((name) => {
+    const descriptor = UniParcXRefsColumnConfiguration.get(name);
+    if (!descriptor) {
+      return {
+        label: name,
+        name,
+        render: () => (
+          <div className="warning">{`${name} has no config yet`}</div>
+        ),
+      };
+    }
+    // In case of accession column, replace with the current template map
+    if (name === UniParcXRefsColumn.accession) {
+      return {
+        name,
+        label: descriptor?.label,
+        render: getAccessionColumn(templateMap),
+      };
+    }
+    // In case of timeline column, replace with the current template map
+    if (name === UniParcXRefsColumn.timeline) {
+      return {
+        name,
+        label: descriptor?.label,
+        render: getTimelineColumn(firstSeen, lastSeen),
+      };
+    }
+    return {
+      name,
+      ...descriptor,
+    };
+  });

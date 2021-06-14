@@ -36,7 +36,7 @@ export const defaultColumns = [
   LocationsColumn.isA,
 ];
 
-export const primaryKeyColumn = LocationsColumn.id;
+export const primaryKeyColumns = [LocationsColumn.id];
 
 const getEntryPath = getEntryPathFor(Namespace.locations);
 const getEntryPathForKeywords = getEntryPathFor(Namespace.keywords);

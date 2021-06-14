@@ -49,10 +49,10 @@ import {
 } from '../../tools/id-mapping/config/IdMappingColumnConfiguration';
 import { MappingAPIModel } from '../../tools/id-mapping/types/idMappingSearchResults';
 
-export type ColumnDescriptor = {
+export type ColumnDescriptor<Datum = APIModel> = {
   name: string;
   label: ReactNode;
-  render: (row: APIModel) => ReactNode;
+  render: (row: Datum) => ReactNode;
   sortable?: true;
   sorted?: SortDirection;
 };
@@ -150,7 +150,7 @@ const useColumns = (
   const location = useLocation();
   const [usersColumns] = useUserPreferences<Column[]>(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    nsToDefaultColumns(namespace)
   );
 
   const [columns, setColumns] = useState<ColumnDescriptor[]>([]);

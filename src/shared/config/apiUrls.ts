@@ -93,8 +93,13 @@ const apiUrls = {
     '/uniprot/api/configure/uniprotkb/databasefields'
   ),
   // All result fields except supporting data reference fields
-  resultsFields: (namespace: Namespace) =>
-    joinUrl(devPrefix, `/uniprot/api/configure/${namespace}/result-fields`),
+  resultsFields: (namespace: Namespace, isEntry?: boolean) =>
+    joinUrl(
+      devPrefix,
+      `/uniprot/api/configure/${namespace}/${
+        isEntry ? 'entry-' : ''
+      }result-fields`
+    ),
   // Retrieve results
   search: (namespace: Namespace = Namespace.uniprotkb) =>
     joinUrl(devPrefix, `/uniprot/api/${namespace}/search`),
@@ -147,12 +152,6 @@ const apiUrls = {
     ),
   taxonomySuggester: '/uniprot/api/suggester?dict=taxonomy&query=?',
   organismSuggester: '/uniprot/api/suggester?dict=organism&query=?',
-
-  // TODO: move that to UniParc-specific file?
-  uniparc: {
-    entry: (id?: string) =>
-      id && joinUrl(devPrefix, '/uniprot/api/uniparc', id),
-  },
 };
 
 export default apiUrls;

@@ -16,7 +16,9 @@ export type UserPreferenceKey =
   // view mode: card vs table
   | 'view-mode'
   // column selection for the table views for all the namespaces
-  | `table columns for ${Namespace}`;
+  | `table columns for ${Namespace}`
+  // column selection for the xrefs table views for UniParc entries
+  | `table columns for ${Namespace} entry page`;
 
 // Custom hook to be used whenever a persistent user preference is needed
 function useUserPreferences<T extends JsonValue>(

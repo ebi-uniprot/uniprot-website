@@ -42,7 +42,7 @@ export const defaultColumns = [
   ProteomesColumn.cpd,
 ];
 
-export const primaryKeyColumn = ProteomesColumn.upid;
+export const primaryKeyColumns = [ProteomesColumn.upid];
 
 export const ProteomesColumnConfiguration: ColumnConfiguration<
   ProteomesColumn,

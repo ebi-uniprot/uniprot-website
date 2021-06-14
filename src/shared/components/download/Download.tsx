@@ -14,7 +14,7 @@ import { getDownloadUrl } from '../../config/apiUrls';
 import {
   Column,
   nsToDefaultColumns,
-  nsToPrimaryKeyColumn,
+  nsToPrimaryKeyColumns,
 } from '../../config/columns';
 import {
   fileFormatsWithColumns,
@@ -56,7 +56,7 @@ const Download: FC<DownloadProps> = ({
 }) => {
   const [columns] = useUserPreferences(
     `table columns for ${namespace}` as const,
-    nsToDefaultColumns[namespace]
+    nsToDefaultColumns(namespace)
   );
 
   const fileFormats = nsToFileFormatsResultsDownload[namespace] as FileFormat[];
@@ -79,7 +79,7 @@ const Download: FC<DownloadProps> = ({
     sortDirection,
   } = getParamsFromURL(queryParamFromUrl);
 
-  const selectedIdField = nsToPrimaryKeyColumn[namespace] as Column;
+  const [selectedIdField] = nsToPrimaryKeyColumns(namespace);
 
   // This logic is needed specifically for the proteomes components
   let urlQuery: string;

@@ -103,10 +103,15 @@ export const IDMappingNamespaces = [
   Namespace.idmapping,
 ];
 
-// "/:namespace(uniprotkb|uniparc|........)/""
+// "/:namespace(uniprotkb|uniparc|........)"
 export const allSearchResultLocations = `/:namespace(${Object.keys(
   NamespaceLabels
 ).join('|')})`;
+
+// "/:namespace(uniprotkb|uniparc|........)/accession"
+export const allEntryPages = `/:namespace(${Object.keys(NamespaceLabels).join(
+  '|'
+)})/:accession`;
 
 // same as above, but only with supporting data namespaces, and with accession
 export const allSupportingDataEntryLocations = `/:namespace(${Array.from(

@@ -27,14 +27,11 @@ export type UniParcXRef = Partial<{
   lastUpdated: string;
   ncbiGi: string;
   organism: TaxonomyDatum;
-  // "properties" only there when database is "EMBL", and not for all of them.
-  // We shouldn't rely on that to display anything in the frontend, and it
-  // wasn't used in the previous website anyway
-  properties?: Array<{ key: string; value: string }>;
   proteinName: string;
   proteomeId: string;
   component: string;
-  version?: number; // might not always be there (e.g., for PRF xrefs)
+  chain: string;
+  version: number; // might not always be there (e.g., for PRF xrefs)
   versionI: number; // internal UniProt versioning, always present
 }>;
 
@@ -56,6 +53,8 @@ export type SequenceFeature = {
 export type UniParcAPIModel = {
   uniParcId: string;
   uniParcCrossReferences?: UniParcXRef[];
+  mostRecentCrossRefUpdated?: string;
+  oldestCrossRefCreated?: string;
   sequenceFeatures?: SequenceFeature[];
   sequence: Sequence;
   from?: string; // ID Mapping results

@@ -13,7 +13,7 @@ export enum IDMappingColumn {
 
 export const defaultColumns = [IDMappingColumn.from, IDMappingColumn.to];
 
-export const primaryKeyColumn = IDMappingColumn.from;
+export const primaryKeyColumns = [IDMappingColumn.from, IDMappingColumn.to];
 
 export const IdMappingColumnConfiguration: ColumnConfiguration<
   IDMappingColumn,

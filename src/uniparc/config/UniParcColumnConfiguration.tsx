@@ -70,7 +70,7 @@ export const defaultColumns = [
   UniParcColumn.lastSeen,
 ];
 
-export const primaryKeyColumn = UniParcColumn.upi;
+export const primaryKeyColumns = [UniParcColumn.upi];
 
 export const UniParcColumnConfiguration: ColumnConfiguration<
   UniParcColumn,
@@ -232,6 +232,7 @@ UniParcColumnConfiguration.set(UniParcColumn.accession, {
 UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
   label: 'First seen',
   render(data) {
+    // TODO: use `xref.oldestCrossRefCreated` whenever returned by backend
     const created = xrefGetter(data, 'created');
     if (!created?.length) {
       return null;
@@ -246,6 +247,7 @@ UniParcColumnConfiguration.set(UniParcColumn.firstSeen, {
 UniParcColumnConfiguration.set(UniParcColumn.lastSeen, {
   label: 'Last seen',
   render(data) {
+    // TODO: use `xref.mostRecentCrossRefUpdated` whenever returned by backend
     const lastUpdated = xrefGetter(data, 'lastUpdated');
     if (!lastUpdated?.length) {
       return null;

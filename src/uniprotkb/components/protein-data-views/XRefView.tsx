@@ -27,7 +27,7 @@ import externalUrls from '../../../shared/config/externalUrls';
 
 export const processUrlTemplate = (
   urlTemplate: string,
-  params: { [key: string]: string }
+  params: Record<string, string>
 ) => {
   let url = urlTemplate;
   Object.entries(params).forEach(([param, value]) => {
