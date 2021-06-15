@@ -19,7 +19,7 @@ type StringifiableBasket = {
 const deserialise = (stringifiableBasket: StringifiableBasket): Basket => {
   const entries = Object.entries(stringifiableBasket);
   const object = Object.fromEntries(
-    entries.map(([key, value]) => [key, new Set(value)])
+    entries.map(([key, value]) => [key, new Set(value.filter(Boolean))])
   ) as Basket;
   return object;
 };
@@ -27,7 +27,7 @@ const deserialise = (stringifiableBasket: StringifiableBasket): Basket => {
 const serialise = (basket: Basket): StringifiableBasket => {
   const entries = Object.entries(basket);
   const object = Object.fromEntries(
-    entries.map(([key, value]) => [key, Array.from(value)])
+    entries.map(([key, value]) => [key, Array.from(value).filter(Boolean)])
   ) as StringifiableBasket;
   return object;
 };
