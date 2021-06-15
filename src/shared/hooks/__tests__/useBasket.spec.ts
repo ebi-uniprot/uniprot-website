@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { JsonValue } from 'type-fest';
+
 import { Namespace } from '../../types/namespaces';
 
 import useBasket from '../useBasket';
