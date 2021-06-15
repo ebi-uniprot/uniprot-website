@@ -9,6 +9,8 @@ import {
 } from 'franklin-sites';
 
 import SearchContainer from '../search/SearchContainer';
+import SlidingPanel from './SlidingPanel';
+import Basket from '../basket/Basket';
 
 import useNS from '../../hooks/useNS';
 
@@ -20,7 +22,6 @@ import Logo from '../../../images/uniprot-logo.svg';
 import ReleaseInfo from './ReleaseInfo';
 
 import './styles/uniprot-header.scss';
-import SlidingPanel from './SlidingPanel';
 
 const secondaryItemIconSize = '1.4em';
 
@@ -127,7 +128,7 @@ const UniProtHeader = () => {
           onClose={() => setDisplayBasket(!!displayBasket)}
           yScrollable
         >
-          Basket contents go here
+          <Basket onClose={() => setDisplayBasket(!!displayBasket)} />
         </SlidingPanel>
       )}
     </>

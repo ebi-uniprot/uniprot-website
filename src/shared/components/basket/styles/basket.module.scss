@@ -1,0 +1,11 @@
+@import 'franklin-sites/src/styles/colours';
+
+.basket {
+  &__header {
+    background-color: $colour-independence;
+    color: $colour-sky-white;
+    h1 {
+      color: $colour-sky-white;
+    }
+  }
+}
