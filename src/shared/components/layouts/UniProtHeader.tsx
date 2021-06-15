@@ -20,6 +20,7 @@ import Logo from '../../../images/uniprot-logo.svg';
 import ReleaseInfo from './ReleaseInfo';
 
 import './styles/uniprot-header.scss';
+import SlidingPanel from './SlidingPanel';
 
 const secondaryItemIconSize = '1.4em';
 
@@ -46,42 +47,6 @@ const headerItems = [
   },
 ];
 
-const secondaryItems = [
-  // TODO: update link
-  {
-    label: (
-      <span title="Help">
-        <HelpIcon width={secondaryItemIconSize} />
-      </span>
-    ),
-    href: '//www.uniprot.org/help',
-  },
-  {
-    label: (
-      <span title="Contact">
-        <EnvelopeIcon width={secondaryItemIconSize} />
-      </span>
-    ),
-    href: '//www.uniprot.org/contact',
-  },
-  {
-    label: (
-      <span title="Tools dashboard">
-        <ToolboxIcon width={secondaryItemIconSize} />
-      </span>
-    ),
-    path: LocationToPath[Location.Dashboard],
-  },
-  {
-    label: (
-      <span title="Basket">
-        <BasketIcon width={secondaryItemIconSize} />
-      </span>
-    ),
-    path: '/',
-  },
-];
-
 const SearchContainerWithNamespace = () => {
   const namespace = useNS() || Namespace.uniprotkb;
 
@@ -105,17 +70,67 @@ const SearchContainerWithNamespace = () => {
 
 const UniProtHeader = () => {
   const homeMatch = useRouteMatch(LocationToPath[Location.Home]);
+  const [displayBasket, setDisplayBasket] = useState(false);
 
   const isHomePage = Boolean(homeMatch?.isExact);
 
+  const secondaryItems = [
+    // TODO: update link
+    {
+      label: (
+        <span title="Help">
+          <HelpIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      href: '//www.uniprot.org/help',
+    },
+    {
+      label: (
+        <span title="Contact">
+          <EnvelopeIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      href: '//www.uniprot.org/contact',
+    },
+    {
+      label: (
+        <span title="Tools dashboard">
+          <ToolboxIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      path: LocationToPath[Location.Dashboard],
+    },
+    {
+      label: (
+        <span title="Basket">
+          <BasketIcon width={secondaryItemIconSize} />
+        </span>
+      ),
+      onClick: () => {
+        setDisplayBasket(true);
+      },
+    },
+  ];
+
   return (
-    <Header
-      items={headerItems}
-      isNegative={isHomePage}
-      search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
-      logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
-      secondaryItems={secondaryItems}
-    />
+    <>
+      <Header
+        items={headerItems}
+        isNegative={isHomePage}
+        search={isHomePage ? <ReleaseInfo /> : <SearchContainerWithNamespace />}
+        logo={<Logo width={120} height={50} aria-label="UniProt home page" />}
+        secondaryItems={secondaryItems}
+      />
+      {displayBasket && (
+        <SlidingPanel
+          position="right"
+          onClose={() => setDisplayBasket(!!displayBasket)}
+          yScrollable
+        >
+          Basket contents go here
+        </SlidingPanel>
+      )}
+    </>
   );
 };
 export default UniProtHeader;
