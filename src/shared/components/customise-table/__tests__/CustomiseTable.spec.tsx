@@ -29,7 +29,7 @@ describe('CustomiseTable component', () => {
   beforeEach(async () => {
     rendered = customRender(<CustomiseTable onSave={onSave} />, {
       route,
-      initialUserPreferences: {
+      initialLocalStorage: {
         'table columns for uniprotkb': selectedColumns,
       },
     });

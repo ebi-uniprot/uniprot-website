@@ -14,7 +14,7 @@ import AlignButton from '../action-buttons/Align';
 import AddToBasketButton from '../action-buttons/AddToBasket';
 import CustomiseButton from '../action-buttons/CustomiseButton';
 
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import useNS from '../../hooks/useNS';
 
 import lazy from '../../utils/lazy';
@@ -48,7 +48,7 @@ const ResultsButtons: FC<ResultsButtonsProps> = ({
 }) => {
   const [displayDownloadPanel, setDisplayDownloadPanel] = useState(false);
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
-  const [viewMode, setViewMode] = useUserPreferences<ViewMode>(
+  const [viewMode, setViewMode] = useLocalStorage<ViewMode>(
     'view-mode',
     ViewMode.CARD
   );

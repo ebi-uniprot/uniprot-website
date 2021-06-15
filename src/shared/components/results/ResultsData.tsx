@@ -7,7 +7,7 @@ import {
 import { useHistory } from 'react-router-dom';
 
 import useNS from '../../hooks/useNS';
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import useColumns from '../../hooks/useColumns';
 
 import { getIdKeyFor } from '../../utils/getIdKeyForNamespace';
@@ -43,7 +43,7 @@ const ResultsData: FC<{
   displayIdMappingColumns,
 }) => {
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
-  const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
+  const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
   const history = useHistory();
   const [columns, updateColumnSort] = useColumns(
     namespaceFallback,

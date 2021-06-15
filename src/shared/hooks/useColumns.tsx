@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 
 import useDataApi from './useDataApi';
 import useNS from './useNS';
-import useUserPreferences from './useUserPreferences';
+import useLocalStorage from './useLocalStorage';
 
 import {
   getLocationObjForParams,
@@ -148,7 +148,7 @@ const useColumns = (
   const history = useHistory();
   const namespace = useNS() || namespaceFallback || Namespace.uniprotkb;
   const location = useLocation();
-  const [usersColumns] = useUserPreferences<Column[]>(
+  const [usersColumns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );

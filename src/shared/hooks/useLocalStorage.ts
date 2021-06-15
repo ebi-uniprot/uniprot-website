@@ -18,10 +18,12 @@ export type UserPreferenceKey =
   // column selection for the table views for all the namespaces
   | `table columns for ${Namespace}`
   // column selection for the xrefs table views for UniParc entries
-  | `table columns for ${Namespace} entry page`;
+  | `table columns for ${Namespace} entry page`
+  // basket content
+  | 'basket';
 
 // Custom hook to be used whenever a persistent user preference is needed
-function useUserPreferences<T extends JsonValue>(
+function useLocalStorage<T extends JsonValue>(
   key: UserPreferenceKey,
   defaultValue: T
 ): [state: T, setState: Dispatch<SetStateAction<T>>] {
@@ -93,4 +95,4 @@ function useUserPreferences<T extends JsonValue>(
   return [state, setStateAndPersist];
 }
 
-export default useUserPreferences;
+export default useLocalStorage;

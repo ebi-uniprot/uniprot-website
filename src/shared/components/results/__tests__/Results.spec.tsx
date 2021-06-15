@@ -13,7 +13,7 @@ describe('Results component', () => {
   it('should toggle card view to table', async () => {
     customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialUserPreferences: { 'view-mode': ViewMode.CARD },
+      initialLocalStorage: { 'view-mode': ViewMode.CARD },
     });
     await screen.findAllByText('Gene:');
     const toggle = await screen.findByTestId('table-card-toggle');
@@ -33,7 +33,7 @@ describe('Results component', () => {
   it('should set sorting in table view', async () => {
     const { history } = customRender(<Results />, {
       route: '/uniprotkb?query=blah',
-      initialUserPreferences: {
+      initialLocalStorage: {
         'view-mode': ViewMode.TABLE,
         'table columns for uniprotkb': [UniProtKBColumn.accession],
       },

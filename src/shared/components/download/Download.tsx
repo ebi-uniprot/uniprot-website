@@ -4,7 +4,7 @@ import { Loader, CodeBlock, Button, LongNumber } from 'franklin-sites';
 
 import ColumnSelect from '../column-select/ColumnSelect';
 
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { urlsAreEqual } from '../../utils/url';
 import fetchData from '../../utils/fetchData';
@@ -54,7 +54,7 @@ const Download: FC<DownloadProps> = ({
   accessions,
   base,
 }) => {
-  const [columns] = useUserPreferences(
+  const [columns] = useLocalStorage(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );

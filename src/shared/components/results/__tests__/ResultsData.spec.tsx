@@ -25,7 +25,7 @@ describe('ResultsData component', () => {
       />,
       {
         route: '/uniprotkb?query=blah',
-        initialUserPreferences: {
+        initialLocalStorage: {
           'view-mode': viewMode,
           'table columns for uniprotkb': [UniProtKBColumn.accession],
         },
