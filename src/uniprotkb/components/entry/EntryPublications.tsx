@@ -50,6 +50,9 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     if (databaseInfo && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
     }
+    if (source?.name === 'GeneRif') {
+      return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
+    }
     return null;
   }, [source]);
 
