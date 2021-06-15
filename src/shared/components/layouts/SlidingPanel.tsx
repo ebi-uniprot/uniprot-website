@@ -6,15 +6,8 @@ import ErrorBoundary from '../error-component/ErrorBoundary';
 
 import './styles/sliding-panel.scss';
 
-export enum Position {
-  top = 'top',
-  bottom = 'bottom',
-  left = 'left',
-  right = 'right',
-}
-
 const SlidingPanel: FC<{
-  position: Position;
+  position: 'top' | 'bottom' | 'left' | 'right';
   className?: string;
   yScrollable?: boolean;
   onClose: (arg: void) => void;

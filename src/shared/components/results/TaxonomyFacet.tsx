@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { parse as qsParse, stringify as qsStringify } from 'query-string';
 import { Button } from 'franklin-sites';
 
-import SlidingPanel, { Position } from '../layouts/SlidingPanel';
+import SlidingPanel from '../layouts/SlidingPanel';
 
 import lazy from '../../utils/lazy';
 
@@ -80,11 +80,7 @@ const TaxonomyFacet: FC<{ namespace: SearchableNamespace }> = ({
       </ul>
       {displayQueryBuilder && (
         <Suspense fallback={null}>
-          <SlidingPanel
-            position={Position.left}
-            yScrollable
-            onClose={handleClose}
-          >
+          <SlidingPanel position="left" yScrollable onClose={handleClose}>
             <QueryBuilder
               onCancel={handleClose}
               fieldToAdd="taxonomy_name"

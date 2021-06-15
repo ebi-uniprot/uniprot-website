@@ -1,6 +1,6 @@
 import { screen, fireEvent } from '@testing-library/react';
 
-import SlidingPanel, { Position } from '../SlidingPanel';
+import SlidingPanel from '../SlidingPanel';
 
 import customRender from '../../../__test-helpers__/customRender';
 
@@ -11,7 +11,7 @@ describe('SlidingPanel', () => {
     customRender(
       <>
         <div>outside</div>
-        <SlidingPanel position={Position.right} onClose={onClose}>
+        <SlidingPanel position="right" onClose={onClose}>
           inside
         </SlidingPanel>
       </>
