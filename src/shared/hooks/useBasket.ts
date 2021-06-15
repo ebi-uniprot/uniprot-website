@@ -32,6 +32,12 @@ const serialise = (basket: Basket): StringifiableBasket => {
   return object;
 };
 
+export const basketableNS = new Set([
+  Namespace.uniprotkb,
+  Namespace.uniref,
+  Namespace.uniparc,
+]);
+
 const useBasket = (): [
   state: Basket,
   setState: Dispatch<SetStateAction<Basket>>

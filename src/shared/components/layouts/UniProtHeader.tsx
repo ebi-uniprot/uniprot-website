@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import {
   Header,
@@ -11,6 +11,7 @@ import {
 import SearchContainer from '../search/SearchContainer';
 
 import useNS from '../../hooks/useNS';
+import useBasket from '../../hooks/useBasket';
 
 import { LocationToPath, Location } from '../../../app/config/urls';
 
@@ -46,6 +47,27 @@ const headerItems = [
   },
 ];
 
+// Move in the codebase wherever needed
+const Basket = () => {
+  const [basket] = useBasket();
+
+  const count = useMemo(
+    () =>
+      Object.values(basket)
+        .map((ns) => ns.size)
+        .reduce((total, current) => total + current, 0),
+    [basket]
+  );
+
+  console.log('basket count:', count);
+
+  return (
+    <span title="Basket">
+      <BasketIcon width={secondaryItemIconSize} />
+    </span>
+  );
+};
+
 const secondaryItems = [
   // TODO: update link
   {
@@ -73,11 +95,7 @@ const secondaryItems = [
     path: LocationToPath[Location.Dashboard],
   },
   {
-    label: (
-      <span title="Basket">
-        <BasketIcon width={secondaryItemIconSize} />
-      </span>
-    ),
+    label: <Basket />,
     path: '/',
   },
 ];

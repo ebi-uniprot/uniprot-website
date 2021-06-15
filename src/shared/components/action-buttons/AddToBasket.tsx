@@ -1,6 +1,9 @@
 import { FC } from 'react';
-// import { useDispatch } from 'react-redux';
 import { BasketIcon, Button } from 'franklin-sites';
+import { ValueOf } from 'type-fest';
+
+import useNS from '../../hooks/useNS';
+import useBasket, { Basket, basketableNS } from '../../hooks/useBasket';
 
 import { pluralise } from '../../utils/utils';
 
@@ -9,7 +12,8 @@ type AddToBasketButtonProps = {
 };
 
 const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
-  // const dispatch = useDispatch();
+  const ns = useNS();
+  const [, setBasket] = useBasket();
 
   const n = selectedEntries.length;
 
@@ -20,8 +24,21 @@ const AddToBasketButton: FC<AddToBasketButtonProps> = ({ selectedEntries }) => {
     : 'Select at least one entry to add to the basket';
 
   const handleClick = () => {
-    console.log('handle add to basket');
-    // dispatch(/* action to add entries to basket */);
+    if (!(ns && basketableNS.has(ns))) {
+      return;
+    }
+    setBasket((currentBasket) => {
+      const key = ns as keyof Basket;
+      const newSubBasket: ValueOf<Basket> = new Set([
+        ...currentBasket[key],
+        ...selectedEntries,
+      ]);
+      const newBasket = {
+        ...currentBasket,
+        [key]: newSubBasket,
+      };
+      return newBasket;
+    });
   };
 
   return (
