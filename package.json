@@ -54,10 +54,12 @@
       "jsx"
     ],
     "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lit-html|franklin-sites|p-map|aggregate-error|clean-stack).+\\.js"
+      "<rootDir>/node_modules/(?!lit-html|franklin-sites|p-map|aggregate-error|clean-stack).+\\.js",
+      "<rootDir>/.yalc/"
     ],
     "testPathIgnorePatterns": [
-      "/__mocks__/"
+      "/__mocks__/",
+      "/.yalc/"
     ],
     "coveragePathIgnorePatterns": [
       "/__test-helpers__/"
