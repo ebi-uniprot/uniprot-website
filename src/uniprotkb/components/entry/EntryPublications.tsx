@@ -36,13 +36,22 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
   reference,
   accession,
 }) => {
-  const { referencePositions, referenceComments, source, sourceCategories } =
-    reference;
+  const {
+    referencePositions,
+    referenceComments,
+    source,
+    sourceCategories,
+    communityAnnotation,
+    annotation,
+  } = reference;
 
   const url = useMemo(() => {
     const databaseInfo = source && getDatabaseInfoByName(source.name);
     if (databaseInfo && source?.id) {
       return processUrlTemplate(databaseInfo.uriLink, { id: source.id });
+    }
+    if (source?.name === 'GeneRif') {
+      return `https://www.ncbi.nlm.nih.gov/gene?Db=gene&Cmd=DetailsSearch&Term=${source.id}`;
     }
     return null;
   }, [source]);
@@ -60,6 +69,10 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
           )}
           {source.name === 'ORCID' && (
             <>
+              {' '}
+              <ExternalLink url={`https://orcid.org/${source.id}`}>
+                {source.id}
+              </ExternalLink>
               {' ('}
               <ExternalLink
                 url={`//community.uniprot.org/bbsub/bbsubinfo.html?accession=${accession}`}
@@ -79,6 +92,19 @@ const PublicationReference: FC<{ reference: Reference; accession: string }> = ({
     {
       title: 'Tissue',
       content: referenceComments?.map(({ value }) => value).join(', '),
+    },
+    {
+      title: 'Annotation',
+      // both mutually exclusive
+      content: annotation || communityAnnotation?.comment,
+    },
+    {
+      title: 'Function',
+      content: communityAnnotation?.function,
+    },
+    {
+      title: 'Disease',
+      content: communityAnnotation?.disease,
     },
     {
       title: 'Categories',
