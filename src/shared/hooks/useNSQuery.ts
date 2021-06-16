@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import useUserPreferences from './useUserPreferences';
+import useLocalStorage from './useLocalStorage';
 import useNS from './useNS';
 
 import { getParamsFromURL } from '../../uniprotkb/utils/resultsUtils';
@@ -25,8 +25,8 @@ const useNSQuery = ({
 } = {}) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const location = useLocation();
-  const [viewMode] = useUserPreferences<ViewMode>('view-mode', ViewMode.CARD);
-  const [columns] = useUserPreferences<Column[]>(
+  const [viewMode] = useLocalStorage<ViewMode>('view-mode', ViewMode.CARD);
+  const [columns] = useLocalStorage<Column[]>(
     `table columns for ${namespace}` as const,
     nsToDefaultColumns(namespace)
   );

@@ -11,7 +11,7 @@ import {
   MessageLevel,
 } from '../../messages/types/messagesTypes';
 import { Namespace } from '../types/namespaces';
-import { UserPreferenceKey } from './useUserPreferences';
+import { UserPreferenceKey } from './useLocalStorage';
 
 const invalidFieldMessage = /Invalid fields parameter value '(?<field>[^']*)'/;
 const namespacedURL = new RegExp(
@@ -224,7 +224,7 @@ function useDataApi<T>(
             )
           );
           localStorage.setItem(key, correctArray);
-          // Signals to all useUserPreferences hooks in use to rerender
+          // Signals to all useLocalStorage hooks in use to rerender
           window.dispatchEvent(
             new StorageEvent('storage', {
               key,

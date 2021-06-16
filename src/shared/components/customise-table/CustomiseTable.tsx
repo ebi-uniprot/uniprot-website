@@ -5,7 +5,7 @@ import { useRouteMatch } from 'react-router-dom';
 import ColumnSelect from '../column-select/ColumnSelect';
 
 import useNS from '../../hooks/useNS';
-import useUserPreferences from '../../hooks/useUserPreferences';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 import { nsToDefaultColumns } from '../../config/columns';
 import { allEntryPages } from '../../../app/config/urls';
@@ -22,7 +22,7 @@ type CustomiseTableProps = {
 const CustomiseTable = ({ onSave }: CustomiseTableProps) => {
   const namespace = useNS() || Namespace.uniprotkb;
   const isEntryPage = Boolean(useRouteMatch(allEntryPages));
-  const [columns, setColumns] = useUserPreferences(
+  const [columns, setColumns] = useLocalStorage(
     `table columns for ${namespace}${
       isEntryPage ? ' entry page' : ''
     }` as const,

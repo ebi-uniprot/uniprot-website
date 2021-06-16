@@ -4,7 +4,7 @@ import { Card, DataTableWithLoader, Loader } from 'franklin-sites';
 import CustomiseButton from '../../../shared/components/action-buttons/CustomiseButton';
 
 import useDataApi from '../../../shared/hooks/useDataApi';
-import useUserPreferences from '../../../shared/hooks/useUserPreferences';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
 import apiUrls from '../../../shared/config/apiUrls';
 import {
@@ -50,7 +50,7 @@ type Props = {
 
 const XRefsSection: FC<Props> = ({ xrefData }) => {
   const { data: dataDB } = useDataApi<DataDBModel>(apiUrls.allUniParcDatabases);
-  const [columns] = useUserPreferences(
+  const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns
   );

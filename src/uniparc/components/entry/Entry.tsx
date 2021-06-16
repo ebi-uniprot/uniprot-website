@@ -19,7 +19,7 @@ import ErrorHandler from '../../../shared/components/error-pages/ErrorHandler';
 import ErrorBoundary from '../../../shared/components/error-component/ErrorBoundary';
 
 import useDataApiWithStale from '../../../shared/hooks/useDataApiWithStale';
-import useUserPreferences from '../../../shared/hooks/useUserPreferences';
+import useLocalStorage from '../../../shared/hooks/useLocalStorage';
 
 import { getParamsFromURL } from '../../../uniprotkb/utils/resultsUtils';
 import apiUrls from '../../../shared/config/apiUrls';
@@ -48,7 +48,7 @@ const Entry: FC = () => {
   const history = useHistory();
   const { search } = useLocation();
 
-  const [columns] = useUserPreferences(
+  const [columns] = useLocalStorage(
     `table columns for ${Namespace.uniparc} entry page` as const,
     defaultColumns
   );
