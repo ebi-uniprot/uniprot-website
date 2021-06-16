@@ -142,10 +142,9 @@ const AlignmentView: FC<{
   handleEntrySelection,
   containerSelector,
 }) => {
-  const [tooltipContent, setTooltipContent] =
-    useState<{
-      __html: string;
-    } | null>();
+  const [tooltipContent, setTooltipContent] = useState<{
+    __html: string;
+  } | null>();
   const tooltipRef = useRef<JSX.IntrinsicElements['protvista-tooltip']>();
 
   const tooltipDefined = useCustomElement(
@@ -268,14 +267,11 @@ const AlignmentView: FC<{
         }
       : {};
 
-  const handleHighlightSelect = useCallback(
-    ({ id }: { id: MsaColorScheme }) => {
-      // switch the flag when a user manually changes the highlight
-      highlightChanged.current = true;
-      setHighlightProperty(id);
-    },
-    []
-  );
+  const handleHighlightSelect = useCallback(({ id }: { id: string }) => {
+    // switch the flag when a user manually changes the highlight
+    highlightChanged.current = true;
+    setHighlightProperty(id as MsaColorScheme);
+  }, []);
 
   const handleAnnotationSelect = useCallback(({ id }: { id: string }) => {
     // switch the flag when a user manually changes the annotation

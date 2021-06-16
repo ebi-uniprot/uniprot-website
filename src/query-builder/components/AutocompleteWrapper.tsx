@@ -29,7 +29,7 @@ type SelectValue = {
   id: string;
   itemLabel: string;
   pathLabel: string;
-  apiId: string;
+  apiId?: string;
 };
 
 type AutocompleteWrapperState = {
